@@ -1,0 +1,118 @@
+---
+output:
+  html_document:
+    theme: spacelab
+---
+
+Introduction to R
+=============
+
+<a href="http://www.jhsph.edu/"><img alt = "JHSPH" align="right" src="http://johnmuschelli.com/intro_to_r/bloomberg.logo.small.horizontal.blue.png" width=400 height=240/></a>
+
+### Instructors: 
+
+* [Andrew Jaffe](http://www.aejaffe.com/)
+* [John Muschelli](http://johnmuschelli.com)
+
+### Class:
+
+* 6/19-6/23, 1:30PM - 5:00pm in room W5030
+
+### Important links
+
+* [Syllabus](http://johnmuschelli.com/intro_to_r/Syllabus-student.doc)
+
+### Schedule
+
+```{r, echo = FALSE, message = FALSE, results='asis'}
+library(pander)
+library(kableExtra)
+days = list(
+  c("Homework 1"),
+  c("Intro", "RStudio",  "Basic_R", "Data_IO", "Homework 2"),
+  c("Subsetting_Data_in_R", "Data_Summarization"), 
+  c("Data_Classes", "Data_Cleaning", "Homework 3"),
+  c("Manipulating_Data_in_R", "Data_Visualization"),
+  c("Statistics", "Functions", "Knitr")
+)
+mods = mapply(function(day, mod) {
+  cbind(Day = day, mod = mod)
+}, 0:(length(days) - 1), days, SIMPLIFY = FALSE)
+mods = do.call("rbind", mods)
+
+df = data.frame(mods, stringsAsFactors = FALSE)
+df$Slides = paste0("[HTML](", df$mod, "/", df$mod, ".html)")
+df$Code = paste0("[R](", df$mod, "/", df$mod, ".R)")
+
+df$lab = paste0(df$mod, "/", "lab/", df$mod, "_Lab")
+df$lab_key = paste0(df$lab, "_Key.R")
+df$lab = paste0(df$lab, ".R")
+df$have_lab = file.exists(df$lab)
+df$lab = paste0("[Lab](", df$lab, "), [Key](", df$lab_key, ")")
+df$lab[!df$have_lab] = ""
+df$have_lab = df$lab_key = NULL
+df$hw = grepl("homework", tolower(df$mod))
+df$Slides[df$hw] = ""
+df$Code[df$hw] = paste0("[R](HW/", gsub(" ", "", tolower(df$mod[df$hw])), ".R)")
+# df$lab[df$hw] = ""
+df$hw = NULL
+bad = df$mod == ""
+for (icol in 1:ncol(df)) {
+  df[ bad , icol] = " "
+}
+df$mod = gsub("_", " ", df$mod)
+cn = colnames(df)
+cn[ cn == "mod"] = "Module"
+cn[ cn == "lab"] = "Resource"
+colnames(df) = cn
+
+grouped = diff(as.numeric(df$Day))
+grouped = which(grouped > 0)
+df$Day = NULL
+knitr::kable(df, format = "html") %>% 
+   kable_styling() %>% 
+  group_rows("Day 0", 1, grouped[1]) %>% 
+  group_rows("Day 1", grouped[1] + 1, grouped[2]) %>% 
+  group_rows("Day 2", grouped[2] + 1, grouped[3]) %>% 
+  group_rows("Day 3", grouped[3] + 1, grouped[4]) %>% 
+  group_rows("Day 4", grouped[4] + 1, grouped[5]) %>% 
+  group_rows("Day 5", grouped[5] + 1, nrow(df)) 
+```
+
+<!-- | Day  | Date  |  Module  | Resources  |  Description | -->
+<!-- |--------|--------|--------|--------|--------| -->
+<!-- | 0  | 2017-01-09  | Homework 1  | [Try R](http://tryr.codeschool.com/), [Data Camp](https://campus.datacamp.com/courses/free-introduction-to-r)  | Finish all modules  | -->
+<!-- | 1  | 2017-01-09  | Module 1  | [HTML](Intro/lecture/Intro.html), [PDF](Intro/lecture/Intro.pdf)  | Class Introduction  | -->
+<!-- | 1  | 2017-01-09  | Module 2  | [HTML](RStudio/lecture/RStudio.html), [PDF](RStudio/lecture/RStudio.pdf) | R Studio  | -->
+<!-- | 1  | 2017-01-09  | Module 3  | [HTML](Basic_R/lecture/Basic_R.html), [PDF](Basic_R/lecture/Basic_R.pdf), [Code](Basic_R/lecture/Basic_R.R), [Lab](Basic_R/lab/Basic_R_Lab.R),[Key](Basic_R/lab/Basic_R_Lab_Key.R)| Basic R| -->
+<!-- | 1  | 2017-01-09  | Module 4  | [HTML](Data_IO/lecture/Data_IO.html), [PDF](Data_IO/lecture/Data_IO.pdf), [Code](Data_IO/lecture/Data_IO.R), [Lab](Data_IO/lab/Data_IO_Lab.R), [Key](Data_IO/lab/Data_IO_Lab_Key.R)| Data Import/Output  | -->
+<!-- | 1  | 2017-01-09  | Homework 2  | [HW ](HW/homework2.R)  |   | -->
+<!-- | 2  | 2017-01-10  | Module 5  | [HTML](Subsetting_Data_in_R/lecture/Subsetting_Data_in_R.html), [PDF](Subsetting_Data_in_R/lecture/Subsetting_Data_in_R.pdf), [Code](Subsetting_Data_in_R/lecture/Subsetting_Data_in_R.R),  [Lab](Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab.R),[Key](Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab_Key.R)| Subsetting Data | -->
+<!-- | 2  | 2017-01-10 | Module 6 | [HTML](Data_Summarization/lecture/Data_Summarization.html), [PDF](Data_Summarization/lecture/Data_Summarization.pdf), [Code](Data_Summarization/lecture/Data_Summarization.R), [Lab](Data_Summarization/lab/Data_Summarization_Lab.R),[Key](Data_Summarization/lab/Data_Summarization_Lab_Key.R) | Data Summarization | -->
+<!-- | 3  | 2017-01-11 | Module 7  | [HTML](Data_Classes/lecture/Data_Classes.html), [PDF](Data_Classes/lecture/Data_Classes.pdf), [Code](Data_Classes/lecture/Data_Classes.R) | Data Classes -->
+<!-- | 3  | 2017-01-11 | Module 8  | [HTML](Data_Cleaning/lecture/Data_Cleaning.html),[PDF](Data_Cleaning/lecture/Data_Cleaning.pdf),[Code](Data_Cleaning/lecture/Data_Cleaning.R),[Lab](Data_Cleaning/lab/Data_Cleaning_Lab.R),[Scratch](Data_Cleaning/lecture/scratch.R),[Key](Data_Cleaning/lab/Data_Cleaning_Lab_key.R) | Data Cleaning | -->
+<!-- | 3  | 2017-01-11  | Homework 3  | [HW ](HW/homework3.R)  |   | -->
+<!-- | 4  | 2017-01-12 | Module 9  | [HTML](Manipulating_Data_in_R/lecture/Manipulating_Data_in_R.html), [PDF](Manipulating_Data_in_R/lecture/Manipulating_Data_in_R.pdf), [Code](Manipulating_Data_in_R/lecture/Manipulating_Data_in_R.R),[Lab](Manipulating_Data_in_R/lab/Data_Manipulation_Lab.R),[Scratch](Manipulating_Data_in_R/lecture/scratch.R),[Key](Manipulating_Data_in_R/lab/Data_Manipulation_Lab_Key.R)| Data Manipulation | -->
+<!-- | 4  | 2017-01-12 | Module 10  | [HTML](Data_Visualization/lecture/Data_Visualization.html), [PDF](Data_Visualization/lecture/Data_Visualization.pdf), [Code](Data_Visualization/lecture/Data_Visualization.R), [Lab](Data_Visualization/lab/Data_Visualization_Lab.R),[Video](https://youtu.be/KukM8a-QPGk),[Key](Data_Visualization/lab/Data_Visualization_Lab_key.R)| Data Visualization | -->
+<!-- | 5  | 2017-01-13 | Module 11  | [HTML](Statistics/lecture/Statistics.html), [PDF](Statistics/lecture/Statistics.pdf), [Code](Statistics/lecture/Statistics.R) | Statistics | -->
+<!-- | 5  | 2017-01-13 | Module 12  | [HTML](Functions/lecture/Functions.html), [PDF](Functions/lecture/Functions.pdf), [Code](Functions/lecture/Functions.R) | Functions | -->
+<!-- | 5  | 2017-01-13 | Module 13  | [HTML](Knitr/lecture/Knitr.html), [PDF](Knitr/lecture/Knitr.pdf), [Code](Knitr/lecture/Knitr.Rmd) | Reproducible Research | -->
+<!-- | 5  | 2017-01-13 |   | [RMD](ProjectExample/RMarkDown_FinalProject.Rmd), [DOC](ProjectExample/RMarkDown_FinalProject.docx)| Example Projects | -->
+<!-- | | | | | | -->
+
+
+### Example Projects 
+
+Example projects can be found with the source code: [Rmd](ProjectExample/RMarkDown_FinalProject.Rmd), and the output [Docx](ProjectExample/RMarkDown_FinalProject.docx) here.
+
+## Find an Error!?
+
+Feel free to submit typos/errors/etc via the github repository associated with the class: 
+https://github.com/muschellij2/intro_to_r
+
+```{r, eval = FALSE, echo = FALSE}
+## Render this file:
+rmarkdown::render('index.Rmd')
+```
+
+This page was last updated on `r Sys.time()` Eastern Time.

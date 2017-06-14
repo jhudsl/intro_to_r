@@ -1,0 +1,356 @@
+---
+title: "Manipulating Data in R"
+author: "Introduction to R for Public Health Researchers"
+output:
+  beamer_presentation: default
+  ioslides_presentation:
+    css: ../styles.css
+    widescreen: yes
+---
+
+
+```{r, echo = FALSE}
+library(knitr)
+library(readr)
+opts_chunk$set(comment = "")
+```
+
+
+## Reshaping Data 
+
+In this module, we will show you how to:
+
+1. Reshaping data from wide (fat) to long (tall)
+2. Reshaping data from long (tall) to wide (fat)
+3. Merging Data
+4. Perform operations by a grouping variable
+
+## Setup
+
+We will show you how to do each operation in base R then show you how to use the `dplyr` or `tidyr` package to do the same operation (if applicable).  
+
+See the "Data Wrangling Cheat Sheet using `dplyr` and `tidyr`":
+
+* https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf
+
+
+
+## What is wide/long data?
+
+
+```{r, echo = FALSE}
+ex_wide = data.frame(id = 1:2,
+                     visit1 = c(10, 5),
+                     visit2 = c(4, 6),
+                     visit3 = c(3, NA)
+                     )
+ex_long = data.frame(id = c(rep(1, 3), rep(2, 2)),
+                     visit = c(1:3, 1:2),
+                     value = c(10, 4, 3, 5, 6))
+```
+
+See http://www.cookbook-r.com/Manipulating_data/Converting_data_between_wide_and_long_format/
+
+- Wide - multiple columns per observation 
+    - e.g. visit1, visit2, visit3
+```{r, echo = FALSE}
+ex_wide
+```
+
+- Long - multiple rows per observation
+```{r, echo = FALSE}
+ex_long
+```
+
+## What is wide/long data?
+
+<div style="font-size:40pt">
+More accurately, data is wide or long **with respect** to certain variables.
+</div>
+
+## Data used: Charm City Circulator
+
+http://johnmuschelli.com/intro_to_r/data/Charm_City_Circulator_Ridership.csv
+
+```{r, message = FALSE}
+circ = read_csv(
+  paste0("http://johnmuschelli.com/intro_to_r/",
+         "data/Charm_City_Circulator_Ridership.csv")
+)
+head(circ, 2)
+```
+
+## Creating a Date class from a character date
+
+```{r, message = FALSE}
+library(lubridate) # great for dates!
+library(dplyr) # mutate/summarise functions
+```
+
+## Creating a Date class from a character date
+
+```{r, message= FALSE}
+sum(is.na(circ$date))
+sum( circ$date == "")
+circ = mutate(circ, date = mdy(date))
+sum( is.na(circ$date) ) # all converted correctly
+head(circ$date, 3)
+class(circ$date)
+```
+
+## Reshaping data from wide (fat) to long (tall): base R
+
+The `reshape` command exists.  It is a **confusing** function.  Don't use it.
+
+## tidyr package
+
+`tidyr` allows you to "tidy" your data.  We will be talking about:
+
+- `gather` - make multiple columns into variables, (wide to long)
+- `spread` - make a variable into multiple columns, (long to wide)
+- `separate` - string into multiple columns
+- `unite` - multiple columns into one string
+
+
+## Reshaping data from wide (fat) to long (tall): tidyr 
+
+`tidyr::gather` - puts column data into rows.
+
+We want the column names into "`var`" variable in the output dataset and the value in "`number`" variable. We then describe which columns we want to "gather:" 
+```{r}
+library(tidyr)
+long = gather(circ, key = "var", value = "number", 
+              starts_with("orange"), starts_with("purple"),
+              starts_with("green"), starts_with("banner"))
+head(long, 4)
+```
+
+## Reshaping data from wide (fat) to long (tall): tidyr 
+
+```{r}
+table(long$var)
+```
+
+
+
+
+## Making a separator
+
+We will use `str_replace` from `stringr` to put periods in the names: 
+
+```{r}
+library(stringr)
+long = long %>% mutate(
+  var = var %>% str_replace("Board", ".Board") %>% 
+    str_replace("Alight", ".Alight") %>% 
+    str_replace("Average", ".Average") 
+)
+table(long$var)
+```
+
+## Reshaping data from wide (fat) to long (tall): tidyr
+
+Now each `var` is boardings, averages, or alightings.  We want to separate these so we can have these by line. Remember "." is special character:
+
+```{r}
+long = separate(long, var, into = c("line", "type"), 
+                 sep = "[.]")
+head(long, 2)
+unique(long$line)
+unique(long$type)
+```
+
+## Re-uniting all the lines
+
+If we had the opposite problem, we could use the `unite` function:
+
+```{r}
+reunited = long %>% 
+  unite(col = var, line, type, sep = ".")  
+reunited %>% select(day, var) %>% head(3) %>% print
+```
+We could also use `paste`/`paste0`.
+
+
+
+## Making column names a little more separated
+
+Alternative: We could have replaced the column names first **then** reshaped:
+
+```{r, eval = FALSE}
+cn = colnames(circ)
+cn = cn %>% 
+  str_replace("Board", ".Board") %>% 
+  str_replace("Alight", ".Alight") %>% 
+  str_replace("Average", ".Average") 
+colnames(circ) = cn # then reshape using gather!
+```
+
+## Reshaping data from long (tall) to wide (fat): tidyr
+
+In `tidyr`, the `spread` function spreads rows into columns.  Now we have a long data set, but we want to separate the Average, Alightings and Boardings into different columns:
+
+```{r}
+# have to remove missing days
+wide = filter(long, !is.na(date))
+wide = spread(wide, type, number)
+head(wide)
+```
+
+
+## Reshaping data from long (tall) to wide (fat): tidyr
+
+We can use `rowSums` to see if any values in the row is `NA` and keep if the row, which is a combination of date and line type has any non-missing data.
+
+```{r}
+# wide = wide %>%
+#     select(Alightings, Average, Boardings) %>%
+#     mutate(good = rowSums(is.na(.)) > 0)
+not_namat = !is.na(select(wide, Alightings, Average, Boardings))
+head(not_namat, 2)
+wide$good = rowSums(not_namat) > 0
+```
+
+## Reshaping data from long (tall) to wide (fat): tidyr
+
+Now we can filter only the good rows and delete the `good` column.
+```{r}
+wide = filter(wide, good) %>% select(-good)
+head(wide)
+```
+
+
+## Finding the First (or Last) record
+
+
+```{r}
+long = long %>% filter(!is.na(number) & number > 0)
+first_and_last = long %>% arrange(date) %>% # arrange by date
+  filter(type %in% "Boardings") %>% # keep boardings only
+  group_by(line) %>% # group by line
+  slice( c(1, n())) # select ("slice") first and last (n() command) lines
+first_and_last %>%  head(4)
+```
+
+
+## Data Merging/Append in Base R
+
+* Merging - joining data sets together - usually on key variables, usually "id"
+* `merge()` is the most common way to do this with data sets
+* `rbind`/`cbind` - row/column bind, respectively
+    * `rbind` is the equivalent of "appending" in Stata or "setting" in SAS
+    * `cbind` allows you to add columns in addition to the previous ways
+* `t()` is a function that will transpose the data
+
+## Merging 
+
+```{r merging}
+base <- data.frame(id = 1:10, Age= seq(55,60, length=10))
+base[1:2,]
+visits <- data.frame(id = rep(1:8, 3), visit= rep(1:3, 8),
+                    Outcome = seq(10,50, length=24))
+visits[1:2,]
+```
+
+## Merging 
+
+```{r merging2}
+merged.data <- merge(base, visits, by="id")
+merged.data[1:5,]
+dim(merged.data)
+```
+
+
+## Merging 
+
+```{r mergeall}
+all.data <- merge(base, visits, by="id", all=TRUE)
+tail(all.data)
+dim(all.data)
+```
+
+## Joining in `dplyr`
+
+* `?join` - see different types of joining for `dplyr`
+* Let's look at https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf
+
+## Left Join
+
+```{r left_join}
+lj = left_join(base, visits)
+dim(lj)
+tail(lj)
+```
+
+## Right Join
+
+```{r right_join}
+rj = right_join(base, visits)
+dim(rj)
+tail(rj)
+```
+
+## Full Join
+
+```{r full_join}
+fj = full_join(base, visits)
+dim(fj)
+tail(fj)
+```
+
+
+<!-- # Bonus slides - explore after visualization!  -->
+
+<!-- ## Perform Operations By Multiple Groups: dplyr {.smaller} -->
+
+<!-- We can then easily plot each day over time: -->
+
+<!-- ```{r} -->
+<!-- library(ggplot2) -->
+<!-- ggplot(aes(x = date, y = Average, colour = line), data = wide) + geom_line() -->
+<!-- ``` -->
+
+<!-- ## ggplot2 with piping -->
+
+<!-- ```{r} -->
+<!-- wide %>%  -->
+<!--   ggplot(aes(x = date, y = Average, colour = line)) + geom_line() -->
+<!-- ``` -->
+
+<!-- ## Perform Operations By Multiple Groups: dplyr -->
+
+<!-- Let's create the middle of the month (the 15th for example), and name it -->
+<!-- mon. -->
+
+<!-- ```{r} -->
+<!-- mon = wide %>%  -->
+<!--   mutate(month = month(date), year = year(date)) %>%    -->
+<!--   dplyr::group_by(line, month, year) %>% -->
+<!--   dplyr::summarise(mean_avg = mean(Average)) -->
+<!-- mon = mutate(mon, mid_month = dmy(paste0("15-", month, "-", year))) -->
+<!-- head(mon) -->
+<!-- ``` -->
+
+
+<!-- ## Perform Operations By Multiple Groups: dplyr {.smaller} -->
+
+<!-- We can then easily plot the mean of each month to see a smoother output: -->
+
+<!-- ```{r} -->
+<!-- ggplot(aes(x = mid_month, -->
+<!--                y = mean_avg,  -->
+<!--                colour = line), data = mon) + geom_line() -->
+<!-- ``` -->
+
+
+
+<!-- ## Bonus! Points with a smoother! {.smaller} -->
+<!-- ```{r} -->
+<!-- ggplot(aes(x = date, y = Average, colour = line),  -->
+<!--            data = wide) + geom_smooth(se = FALSE) +  -->
+<!--   geom_point(size = .5) -->
+<!-- ``` -->
+
+
+
+

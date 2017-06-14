@@ -1,0 +1,463 @@
+---
+title: "Data Classes"
+author: "Introduction to R for Public Health Researchers"
+output:
+  ioslides_presentation:
+    css: ../styles.css
+    widescreen: yes
+  beamer_presentation: default
+---
+
+```{r, echo = FALSE, message=FALSE}
+# library(dplyr)
+suppressPackageStartupMessages(library(dplyr))
+library(readr)
+```
+
+
+## Data Classes:
+
+* One dimensional classes ('vectors'):
+    * Character: strings or individual characters, quoted
+    * Numeric: any real number(s)
+    * Integer: any integer(s)/whole numbers
+    * Factor: categorical/qualitative variables
+    * Logical: variables composed of TRUE or FALSE
+    * Date/POSIXct: represents calendar dates and times
+
+## Character and numeric
+
+We have already covered `character` and `numeric` classes.
+
+```{r numChar}
+class(c("Andrew", "Jaffe"))
+class(c(1, 4, 7))
+```
+
+## Integer
+
+`Integer` is a special subset of `numeric` that contains only whole numbers
+
+A sequence of numbers is an example of the integer class
+
+```{r seq}
+x = seq(from = 1, to = 5) # seq() is a function
+x
+class(x)
+```
+
+## Integer
+
+The colon `:` is a shortcut for making sequences of numbers
+
+It makes consecutive integer sequence from `[num1]` to `[num2]` by 1
+
+
+```{r seqShort}
+1:5
+```
+
+## Logical
+
+`logical` is a class that only has two possible elements: `TRUE` and `FALSE`
+
+```{r logical1}
+x = c(TRUE, FALSE, TRUE, TRUE, FALSE)
+class(x)
+is.numeric(c("Andrew", "Jaffe"))
+is.character(c("Andrew", "Jaffe"))
+```
+
+## Logical
+
+Note that `logical` elements are NOT in quotes. 
+```{r logical2}
+z = c("TRUE", "FALSE", "TRUE", "FALSE")
+class(z)
+as.logical(z)
+```
+
+Bonus: `sum()` and `mean()` work on `logical` vectors - they return the total and proportion of `TRUE` elements, respectively.
+
+```{r logical_z}
+sum(as.logical(z))
+```
+
+## General Class Information
+
+There are two useful functions associated with practically all R classes, which relate to logically checking the underlying class (`is.CLASS_()`) and coercing between classes (`as.CLASS_()`).
+
+```{r logical_coercion}
+is.numeric(c("Andrew", "Jaffe"))
+is.character(c("Andrew", "Jaffe"))
+```
+
+## General Class Information
+
+There are two useful functions associated with practically all R classes, which relate to logically checking the underlying class (`is.CLASS_()`) and coercing between classes (`as.CLASS_()`).
+
+```{r logical_coercion2}
+as.character(c(1, 4, 7))
+as.numeric(c("Andrew", "Jaffe"))
+```
+
+
+## Factors
+
+A `factor` is a special `character` vector where the elements have pre-defined groups or 'levels'. You can think of these as qualitative or categorical variables:
+
+```{r factor1}
+x = factor(c("boy", "girl", "girl", "boy", "girl"))
+x 
+class(x)
+```
+
+Note that levels are, by default, in alphanumerical order.
+
+## Factors
+
+Factors are used to represent categorical data, and can also be used for ordinal data (ie categories have an intrinsic ordering)
+
+Note that R reads in character strings as factors by default in functions like `read.csv()` (but not `read_csv`)
+
+'The function factor is used to encode a vector as a factor (the terms 'category' and 'enumerated type' are also used for factors). If argument ordered is TRUE, the factor levels are assumed to be ordered.'
+
+```
+factor(x = character(), levels, labels = levels,
+       exclude = NA, ordered = is.ordered(x))
+```
+
+## Factors
+
+Suppose we have a vector of case-control status
+
+```{r factor2}
+cc = factor(c("case","case","case",
+        "control","control","control"))
+cc
+```
+We can reset the levels using the `levels` function, but this is **bad** and can cause problems.  You should do this using the `levels` argument in the `factor()`
+```{r}
+levels(cc) = c("control","case")
+cc
+```
+
+## Factors
+
+Note that the levels are alphabetically ordered by default. We can also specify the levels within the factor call
+
+```{r factor_cc_again}
+casecontrol = c("case","case","case","control",
+          "control","control")
+factor(casecontrol, levels = c("control","case") )
+factor(casecontrol, levels = c("control","case"), 
+       ordered=TRUE)
+```
+
+## Factors
+
+Factors can be converted to `numeric` or `character` very easily
+
+```{r factor3}
+x = factor(casecontrol,
+        levels = c("control","case") )
+as.character(x)
+as.numeric(x)
+```
+
+## Factors
+
+However, you need to be careful modifying the labels of existing factors, as its quite easy to alter the meaning of the underlying data. 
+
+```{r factorCheck}
+xCopy = x
+levels(xCopy) = c("case", "control") # wrong way
+xCopy        
+as.character(xCopy) # labels switched
+as.numeric(xCopy)
+```
+
+## Creating categorical variables
+
+The `rep()` ["repeat"] function is useful for creating new variables 
+
+```{r rep1}
+bg = rep(c("boy","girl"),each=50)
+head(bg)
+bg2 = rep(c("boy","girl"),times=50)
+head(bg2)
+length(bg) == length(bg2)
+```
+
+## Creating categorical variables
+
+One frequently-used tool is creating categorical variables out of continuous variables, like generating quantiles of a specific continuously measured variable. 
+
+A general function for creating new variables based on existing variables is the `ifelse()` function, which "returns a value with the same shape as test which is filled with elements selected from either yes or no depending on whether the element of test is `TRUE` or `FALSE`."
+
+```
+ifelse(test, yes, no)
+
+# test: an object which can be coerced
+    to logical mode.
+# yes: return values for true elements of test.
+# no: return values for false elements of test.
+```
+
+## Charm City Circulator data
+
+Please download the Charm City Circulator data:
+
+http://johnmuschelli.com/intro_to_r/data/Charm_City_Circulator_Ridership.csv
+
+```{r, message = FALSE}
+# paste/paste0 combines strings/character
+circ = read_csv(
+  paste0("http://johnmuschelli.com/intro_to_r/data",
+         "/Charm_City_Circulator_Ridership.csv"))
+```
+
+## Creating categorical variables
+
+For example, we can create a new variable that records whether daily ridership on the Circulator was above 10,000.
+
+```{r ifelse1}
+hi_rider = ifelse(circ$daily > 10000, "high", "low")
+hi_rider = factor(hi_rider, levels = c("low","high"))
+head(hi_rider)
+table(hi_rider)
+```
+
+## Creating categorical variables
+
+You can also nest `ifelse()` within itself to create 3 levels of a variable.
+
+```{r ifelse2}
+riderLevels = ifelse(circ$daily < 10000, "low", 
+                  ifelse(circ$daily > 20000,
+                  "high", "med"))
+riderLevels = factor(riderLevels, 
+              levels = c("low","med","high"))
+head(riderLevels)
+table(riderLevels)
+```
+
+## Creating categorical variables
+
+However, it's much easier to use `cut()` to create categorical variables from continuous variables. 
+
+'cut divides the range of x into intervals and codes the values in x according to which interval they fall. The leftmost interval corresponds to level one, the next leftmost to level two and so on.'
+
+```
+cut(x, breaks, labels = NULL, include.lowest = FALSE, 
+  right = TRUE, dig.lab = 3,
+  ordered_result = FALSE, ...)
+```
+
+## Creating categorical variables
+
+`x`: a numeric vector which is to be converted to a factor by cutting.
+
+`breaks`: either a numeric vector of two or more unique cut points or a single number (greater than or equal to 2) giving the number of intervals into which x is to be cut.
+
+`labels`: labels for the levels of the resulting category. By default, labels are constructed using "(a,b]" interval notation. If `labels = FALSE`, simple integer codes are returned instead of a factor.
+
+
+## Creating categorical variables
+
+
+```{r show_cut}
+riderLevels2 = cut(
+  circ$daily, 
+  breaks = c(min(circ$daily, na.rm = TRUE),
+             10000, 
+             20000,
+             max(circ$daily, na.rm = TRUE)),
+  labels = c("low", "med", "high"), # one less than breaks
+  include.lowest = TRUE)
+head(riderLevels2)
+table(riderLevels2, riderLevels)
+```
+
+## Cut
+
+Now that we know more about factors, `cut()` will make more sense:
+
+```{r cut1}
+x = 1:100
+cx = cut(x, breaks = c(0,10,25,50,100))
+head(cx)  
+table(cx)
+```
+
+## Cut
+
+We can also leave off the labels
+
+```{r cut2}
+cx = cut(x, breaks = c(0,10,25,50,100), labels = FALSE)
+head(cx)  
+table(cx)
+```
+
+## Cut
+
+Note that you have to specify the endpoints of the data, otherwise some of the categories will not be created
+
+```{r cut3}
+cx = cut(x, breaks = c(10,25,50), labels = FALSE)
+head(cx)  
+table(cx)
+table(cx, useNA = "ifany")
+```
+
+## Date
+
+You can convert date-like strings in the `Date` class (http://www.statmethods.net/input/dates.html for more info)
+
+```{r date}
+head(sort(circ$date))
+# creating a date for sorting
+circ$newDate <- as.Date(circ$date, "%m/%d/%Y")
+head(circ$newDate)
+range(circ$newDate)
+```
+
+## Date 
+
+However, the `lubridate` package is much easier for generating explicit dates:
+
+```{r, message=FALSE}
+library(lubridate) # great for dates!
+circ = mutate(circ, newDate2 = mdy(date))
+head(circ$newDate2)
+range(circ$newDate2) # gives you the range of the data
+```
+
+## POSIXct
+
+The `POSIXct` class is like a more general date format (with hours, minutes, seconds).
+
+```{r}
+theTime = Sys.time()
+theTime
+class(theTime)
+theTime + as.period(20, unit = "minutes") # the future
+```
+
+## Date 
+
+However, the `lubridate` package is much easier for generating explicit dates:
+
+```{r, message=FALSE}
+circ = circ %>% 
+  group_by(day) %>% 
+  mutate(first_date = first(newDate2),
+         diff_from_first = difftime( # time1 - time2
+           time1 = newDate2, time2 = first_date)) 
+head(circ$diff_from_first, 10)
+units(circ$diff_from_first) = "days"
+head(circ$diff_from_first, 10)
+```
+
+
+## Data Classes:
+
+* Two dimensional classes:
+    * `data.frame`: traditional 'Excel' spreadsheets
+        * Each column can have a different class, from above
+    * Matrix: two-dimensional data, composed of rows and columns. Unlike data frames, the entire matrix is composed of one R class, e.g. all numeric or all characters.
+    
+## Matrices
+
+```{r matrix}
+n = 1:9 
+n
+mat = matrix(n, nrow = 3)
+mat
+```
+
+## Matrix (and Data frame) Functions
+
+These are in addition to the previous useful vector functions:
+
+* `nrow()` displays the number of rows of a matrix or data frame
+* `ncol()` displays the number of columns 
+* `dim()` displays a vector of length 2: # rows, # columns
+* `colnames()` displays the column names (if any) and `rownames()` displays the row names (if any)
+
+## Data Selection
+
+Matrices have two "slots" you can use to select data, which represent rows and columns, that are separated by a comma, so the syntax is `matrix[row,column]`. Note you cannot use `dplyr` functions on matrices.
+
+```{r subset3}
+mat[1, 1] # individual entry: row 1, column 1
+mat[1, ] # first row
+mat[, 1] # first columns
+```
+
+## Data Selection
+
+Note that the class of the returned object is no longer a matrix
+
+```{r subset4}
+class(mat[1, ])
+class(mat[, 1])
+```
+
+## Data Frames
+
+To review, the `data.frame`/`tbl_df` are the other two dimensional variable classes. 
+
+Again, data frames are like matrices, but each column is a vector that can have its own class. So some columns might be `character` and others might be `numeric`, while others maybe a `factor`.
+
+## Lists
+
+* One other data type that is the most generic are `lists`.
+* Can be created using list()
+* Can hold vectors, strings, matrices, models, list of other list, lists upon lists!
+* Can reference data using $ (if the elements are named), or using [], or [[]]
+
+```{r makeList, comment="", prompt=TRUE}
+mylist <- list(letters=c("A", "b", "c"), 
+        numbers=1:3, matrix(1:25, ncol=5))
+```
+
+## List Structure
+```{r Lists, comment="", prompt=TRUE}
+head(mylist)
+```
+
+## List referencing
+```{r Listsref1, comment="", prompt=TRUE}
+mylist[1] # returns a list
+mylist["letters"] # returns a list
+```
+
+## List referencing
+  
+```{r Listsrefvec, comment="", prompt=TRUE}  
+mylist[[1]] # returns the vector 'letters'
+mylist$letters # returns vector
+mylist[["letters"]] # returns the vector 'letters'
+```
+
+## List referencing
+
+You can also select multiple lists with the single brackets. 
+
+```{r Listsref2, comment="", prompt=TRUE}
+mylist[1:2] # returns a list
+```
+
+## List referencing
+
+You can also select down several levels of a list at once
+
+```{r Listsref3, comment="", prompt=TRUE}
+mylist$letters[1]
+mylist[[2]][1]
+mylist[[3]][1:2,1:2]
+```
+
+

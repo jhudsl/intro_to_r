@@ -1,0 +1,453 @@
+---
+title: "Statistics"
+author: "Introduction to R for Public Health Researchers"
+output:
+  beamer_presentation: default
+  ioslides_presentation:
+    css: ../styles.css
+    widescreen: yes
+---
+
+```{r knit-setup, echo=FALSE}
+library(knitr)
+opts_chunk$set(echo = TRUE, 
+               message = FALSE, 
+               warning = FALSE,
+               fig.height = 4,
+               fig.width = 7, 
+               comment = "")
+```
+
+## Statistics
+
+Now we are going to cover how to perform a variety of basic statistical tests in R. 
+
+* Correlation
+* T-tests/Rank-sum tests
+* Linear Regression
+* Logistic Regression
+* Proportion tests
+* Chi-squared
+* Fisher's Exact Test
+
+Note: We will be glossing over the statistical theory and "formulas" for these tests. There are plenty of resources online for learning more about these tests, as well as dedicated Biostatistics series at the School of Public Health
+
+## Correlation {.smaller}
+
+`cor()` performs correlation in R
+
+```
+cor(x, y = NULL, use = "everything",
+    method = c("pearson", "kendall", "spearman"))
+```
+
+Like other functions, if there are NAs, you get NA as the result.  But if you specify use only the complete observations, then it will give you correlation on the non-missing data. 
+```{r cor1, comment="",prompt=TRUE, message = FALSE}
+library(readr)
+circ = read_csv("http://johnmuschelli.com/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
+cor(circ$orangeAverage, circ$purpleAverage, use="complete.obs")
+```
+
+## Correlation  {.smaller}
+
+You can also get the correlation between matrix columns
+
+```{r cor2, comment="",prompt=TRUE}
+library(dplyr)
+avgs = circ %>% select(ends_with("Average"))
+avgs_cor = cor(avgs, use = "complete.obs")
+signif(avgs_cor,3)
+```
+
+## Correlation  {.smaller}
+
+You can also get the correlation between matrix columns
+
+Or between columns of two matrices/dfs, column by column.
+
+```{r cor3, comment="",prompt=TRUE}
+op = avgs %>% select(orangeAverage, purpleAverage)
+gb = avgs %>% select(greenAverage, bannerAverage)
+signif(cor(op, gb, use = "complete.obs"), 3)
+```
+
+## Correlation  {.smaller}
+
+You can also use `cor.test()` to test for whether correlation is significant (ie non-zero). Note that linear regression may be better, especially if you want to regress out other confounders.  
+
+```{r cor4, comment="",prompt=TRUE}
+ct = cor.test(circ$orangeAverage, circ$purpleAverage, 
+              use = "complete.obs")
+ct
+```
+
+## Correlation
+
+For many of these testing result objects, you can extract specific slots/results as numbers, as the `ct` object is just a list.
+
+```{r cor5, comment="",prompt=TRUE}
+# str(ct)
+names(ct)
+ct$statistic
+ct$p.value
+```
+
+## Broom package
+
+The `broom` package has a `tidy` function that puts most objects into `data.frame`s so that they are easily manipulated:
+
+```{r broom, comment="",prompt=TRUE}
+library(broom)
+tidy_ct = tidy(ct)
+tidy_ct
+```
+
+
+
+## Correlation {.smaller}
+
+Note that you can add the correlation to a plot, via the legend() function. 
+
+```{r cor4a, comment="", prompt=TRUE, fig.height=4,fig.width=4}
+txt = paste0("r=", signif(ct$estimate,3))
+plot(circ$orangeAverage, circ$purpleAverage,
+     xlab="Orange Line", ylab="Purple Line",
+     main="Average Ridership",cex.axis=1.5,
+     cex.lab=1.5,cex.main=2)
+legend("topleft", txt, bty="n",cex=1.5)
+```
+
+## Correlation 
+
+Or with the `annotate` command in `ggplot2 
+
+```{r cor_ggplot, comment="", prompt=TRUE, fig.height=4,fig.width=4}
+library(ggplot2)
+q = qplot(data = circ, x = orangeAverage, y = purpleAverage)
+q + annotate("text", x = 4000, y = 8000, label = txt, size = 5)
+```
+
+
+
+## T-tests
+
+The T-test is performed using the `t.test()` function, which essentially tests for the difference in means of a variable between two groups.
+
+In this syntax, x and y are the column of data for each group.
+
+```{r tt1, comment="",prompt=TRUE}
+tt = t.test(circ$orangeAverage, circ$purpleAverage)
+tt
+```
+
+## T-tests
+`t.test` saves a lot of information: the difference in means `estimate`, confidence interval for the difference `conf.int`, the p-value `p.value`, etc.
+```{r tt1_1, comment="", prompt=TRUE}
+names(tt)
+```
+
+## T-tests
+
+```{r tt1_broom, comment="", prompt=TRUE}
+tidy(tt)
+```
+
+## T-tests
+
+You can also use the 'formula' notation.  In this syntax, it is `y ~ x`, where `x` is a factor with 2 levels or a binary variable and `y` is a vector of the same length.  
+
+```{r long_tt} 
+library(tidyr)
+long = circ %>% 
+  select(date, orangeAverage, purpleAverage) %>% 
+  gather(key = line, value = avg, -date)
+tt = t.test(avg ~ line, data = long)
+tidy(tt)
+```
+
+## Wilcoxon Rank-Sum Tests
+
+Nonparametric analog to t-test (testing medians):
+
+```{r wt, comment="",prompt=TRUE}
+tidy(wilcox.test(avg ~ line, data = long))
+```
+
+
+## Linear Regression
+
+Now we will briefly cover linear regression. I will use a little notation here so some of the commands are easier to put in the proper context.
+$$
+y_i = \alpha + \beta x_i + \varepsilon_i 
+$$
+where:
+
+* $y_i$ is the outcome for person i
+* $\alpha$ is the intercept
+* $\beta$ is the slope
+* $x_i$ is the predictor for person i
+* $\varepsilon_i$ is the residual variation for person i
+
+## Linear Regression
+
+The `R` version of the regression model is:
+
+```
+y ~ x
+```
+
+where: 
+
+* y is your outcome
+* x is/are your predictor(s)
+
+## Linear Regression
+
+For a linear regression, when the predictor is binary this is the same as a t-test:
+
+```{r regress1, comment="",prompt=TRUE}
+fit = lm(avg ~ line, data = long)
+fit
+```
+
+'(Intercept)' is $\alpha$
+
+'linepurpleAverage' is $\beta$
+
+
+
+## Linear Regression
+
+The `summary` command gets all the additional information (p-values, t-statistics, r-square) that you usually want from a regression.
+
+```{r regress2, comment="",prompt=TRUE}
+sfit = summary(fit)
+print(sfit)
+```
+
+## Linear Regression
+
+The coefficients from a `summary` are the coefficients, standard errors, t-statistcs, and p-values for all the estimates.
+
+```{r regress3, comment="",prompt=TRUE}
+names(sfit)
+sfit$coef
+```
+
+## Linear Regression
+
+We can `tidy` linear models as well and it gives us all of this in one::
+
+```{r tidy_lm, comment="",prompt=TRUE}
+tidy(fit)
+```
+
+## Using Cars Data
+
+```{r tt2, comment="",prompt=TRUE, message = FALSE}
+http_data_dir = "http://johnmuschelli.com/intro_to_r/data/"
+cars = read_csv(paste0(http_data_dir, "kaggleCarAuction.csv"))
+```
+
+## Linear Regression
+
+We'll look at vehicle odometer value by vehicle age:
+
+```{r}
+fit = lm(VehOdo~VehicleAge, data = cars)
+print(fit)
+```
+
+## Linear Regression {.smaller}
+
+We can visualize the vehicle age/odometer relationshp using scatter plots or box plots (with regression lines).  The function `abline` will plot the regresion line on the plot.
+
+
+```{r regress4, comment="",prompt=TRUE, fig.height=4,fig.width=8}
+par(mfrow=c(1,2))
+plot(VehOdo ~ jitter(VehicleAge,amount=0.2), data=cars, pch = 19,
+     col = scales::alpha("black",0.05), xlab = "Vehicle Age (Yrs)")
+abline(fit, col = "red",lwd=2)
+legend("topleft", paste("p =",summary(fit)$coef[2,4]))
+boxplot(VehOdo ~ VehicleAge, data=cars, varwidth=TRUE)
+abline(fit, col="red",lwd=2)
+```
+
+
+## Linear Regression: adding line with ggplot2
+
+```{r gg_regress, comment="",prompt=TRUE, fig.height=4,fig.width=8}
+g = ggplot(aes(x = VehicleAge, y = VehOdo), data = cars) + 
+  geom_jitter(alpha = 0.05, height = 0) + 
+  geom_smooth(se = FALSE, method = "lm")
+print(g)
+```
+
+## Linear Regression
+
+Note that you can have more than 1 predictor in regression models.The interpretation for each slope is change in the predictor corresponding to a one-unit change in the outcome, holding all other predictors constant.
+
+```{r regress5, comment="",prompt=TRUE, fig.height=4,fig.width=8}
+fit2 = lm(VehOdo ~ IsBadBuy + VehicleAge, data = cars)
+summary(fit2)  
+```
+
+## Linear Regression
+
+Added-Variable plots can show you the relationship between a variable and outcome after adjusting for other variables.  The function `avPlots` from the `car` package can do this:
+
+```{r avplot, comment="",prompt=TRUE, fig.height=4,fig.width=8}
+library(car)
+avPlots(fit2)
+```
+
+## Linear Regression
+
+Plot on an `lm` object will do diagnostic plots.  Residuals vs. Fitted should have no discernable shape (the red line is the smoother), the qqplot shows how well the residuals fit a normal distribution, and Cook's distance measures the influence of individual points. 
+
+---
+
+```{r plot_lm, comment="",prompt=TRUE, fig.height=4,fig.width=8}
+par(mfrow=c(2,2))
+plot(fit2, ask = FALSE)
+```
+
+## Linear Regression {.smaller}
+
+Factors get special treatment in regression models - lowest level of the factor is the comparison group, and all other factors are relative to its values.
+
+```{r regress6, comment="",prompt=TRUE, fig.height=4,fig.width=8}
+fit3 = lm(VehOdo ~ factor(TopThreeAmericanName), data = cars)
+summary(fit3)  
+```
+
+## Logistic Regression and GLMs {.smaller}
+
+Generalized Linear Models (GLMs) allow for fitting regressions for non-continous/normal outcomes.  The `glm` has similar syntax to the `lm` command. Logistic regression is one example.
+
+```{r regress7, comment="",prompt=TRUE, fig.height=4,fig.width=8}
+glmfit = glm(IsBadBuy ~ VehOdo + VehicleAge, data=cars, family = binomial())
+summary(glmfit)  
+```
+
+## Tidying GLMs
+
+```{r tidy_glm, comment="",prompt=TRUE, fig.height=4,fig.width=8}
+tidy(glmfit)
+```
+
+## Logistic Regression 
+
+Note the coefficients are on the original scale, we must exponentiate them for odds ratios:
+
+```{r regress8, comment="",prompt=TRUE, fig.height=4,fig.width=8}
+exp(coef(glmfit))
+```
+
+## Proportion tests
+
+`prop.test()` can be used for testing the null that the proportions (probabilities of success) in several groups are the same, or that they equal certain given values.
+
+```
+prop.test(x, n, p = NULL,
+          alternative = c("two.sided", "less", "greater"),
+          conf.level = 0.95, correct = TRUE)
+```
+
+```{r prop1, comment="",prompt=TRUE}
+prop.test(x = 15, n =32)
+```
+
+## Chi-squared tests
+
+`chisq.test()` performs chi-squared contingency table tests and goodness-of-fit tests.
+
+```
+chisq.test(x, y = NULL, correct = TRUE,
+           p = rep(1/length(x), length(x)), rescale.p = FALSE,
+           simulate.p.value = FALSE, B = 2000)
+```
+
+```{r chisq1, comment="",prompt=TRUE}
+tab = table(cars$IsBadBuy, cars$IsOnlineSale)
+tab
+```
+
+## Chi-squared tests
+
+You can also pass in a table object (such as `tab` here)
+```{r chisq2, comment="",prompt=TRUE}
+cq = chisq.test(tab)
+cq
+names(cq)
+cq$p.value
+```
+
+## Chi-squared tests
+
+Note that does the same test as `prop.test`, for a 2x2 table (`prop.test` not relevant for greater than 2x2).
+
+```{r chisq3, comment="",prompt=TRUE}
+chisq.test(tab)
+prop.test(tab)
+```
+
+## Fisher's Exact test
+
+`fisher.test()` performs contingency table test using the hypogeometric distribution (used for small sample sizes).
+
+```
+fisher.test(x, y = NULL, workspace = 200000, hybrid = FALSE,
+            control = list(), or = 1, alternative = "two.sided",
+            conf.int = TRUE, conf.level = 0.95,
+            simulate.p.value = FALSE, B = 2000)
+```
+
+```{r fish.test, comment="",prompt=TRUE}
+fisher.test(tab)
+```
+
+## Probability Distributions
+
+Sometimes you want to generate data from a distribution (such as normal), or want to see where a value falls in a known distribution. `R` has these distibutions built in:
+
+* Normal
+* Binomial
+* Beta
+* Exponential
+* Gamma
+* Hypergeometric
+* etc
+
+## Probability Distributions
+
+Each has 4 options:
+
+* `r` for random number generation [e.g. `rnorm()`]
+* `d` for density [e.g. `dnorm()`]
+* `p` for probability [e.g. `pnorm()`]
+* `q` for quantile [e.g. `qnorm()`]
+
+```{r rnorm, comment="",prompt=TRUE}
+rnorm(5)
+```
+
+## Sampling
+
+The `sample()` function is pretty useful for permutations
+
+```{r sample, comment="",prompt=TRUE}
+sample(1:10, 5, replace=FALSE)
+```
+
+## Sampling
+
+Also, if you want to only plot a subset of the data (for speed/time or overplotting)
+
+```{r samp_plot, comment="",prompt=TRUE, fig.height=4,fig.width=4}
+samp.cars <- cars[ sample(nrow(cars), 10000), ]
+samp.cars = dplyr::sample_n(cars, size = 10000)
+samp.cars = dplyr::sample_frac(cars, size = 0.2)
+ggplot(aes(x = VehBCost, y = VehOdo), 
+       data = samp.cars) + geom_point() 
+```

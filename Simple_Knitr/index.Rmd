@@ -1,0 +1,75 @@
+---
+title: "Untitled"
+author: "Introduction to R for Public Health Researchers"
+output:
+  pdf_document: 
+    toc: yes
+  html_document:
+    toc: yes
+  word_document:
+    toc: yes
+---
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+**bold** 
+*italicize* 
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r read}
+library(stringr)
+library(plyr)
+library(pander)
+
+bl = read.csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv", as.is =TRUE)
+bl2 = bl
+bl2$numLanes = factor(bl2$numLanes)
+mod2 = lm(length ~ numLanes, data = bl2)
+
+mod = lm(length ~ factor(numLanes), data = bl)
+smod = summary(mod)
+ci = confint(mod)
+mat = cbind(smod$coefficients[, "Estimate"], ci)
+mat = data.frame(mat)
+colnames(mat) = c("Beta", "Lower", "Upper")
+mat$CI = paste0("(", round(mat$Lower, 2), 
+                ", ", round(mat$Upper, 2), ")")
+mat = mat[, c("Beta", "CI")]
+mat$Variable = rownames(mat)
+rownames(mat) = NULL
+mat$Variable = str_replace(mat$Variable, fixed("factor(numLanes)"), "Number of Lanes: ")
+mat = mat[, c("Variable", "Beta", "CI")]
+mat$Variable = plyr::revalue(mat$Variable, c("(Intercept)" = "B0"))
+```
+
+# I am a section
+
+## I am a subsection
+
+
+```{r, results='asis'}
+pander(mat)
+```
+
+```{r, results='asis'}
+pander(smod)
+```
+
+```{r, results='asis'}
+pander(mod)
+```
+
+You can also embed plots, for example:
+
+```{r, echo=FALSE}
+plot(cars)
+```
+
+My number of cars are `r nrow(cars)`.
+
+```{r}
+pvals =smod$coefficients[, "Pr(>|t|)"]
+pvals = ifelse(pvals < 0.001, "< 0.001", round(pvals, 2))
+```
+The beta coefficient was significant (`r smod$coefficients[1]`, p `r pvals[1]`)
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

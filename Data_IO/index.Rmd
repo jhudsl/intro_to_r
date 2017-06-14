@@ -1,0 +1,289 @@
+---
+title: "Data Input/Output"
+author: "Introduction to R for Public Health Researchers"
+output:
+  ioslides_presentation:
+    css: ../styles.css
+    widescreen: yes
+  beamer_presentation: default
+---
+
+```{r, echo = FALSE}
+library(knitr)
+library(readr)
+opts_chunk$set(comment = "")
+```
+## Common new user mistakes we have seen
+
+1.  **Working directory problems: trying to read files that R "can't find"**
+    - RStudio can help, and so do RStudio Projects
+    - discuss in Data Input/Output lecture
+2.  Typos (R is **case sensitive**, `x` and `X` are different)
+    - RStudio helps with "tab completion"
+    - discussed throughout
+3.  Data type problems (is that a string or a number?)
+4.  Open ended quotes, parentheses, and brackets     
+5.  Different versions of software
+    
+## Working Directories
+
+* R "looks" for files on your computer relative to the "working" directory
+* Many people recommend not setting a directory in the scripts 
+    - assume you're in the directory the script is in
+    - If you open an R file with a new RStudio session, it does this for you.
+* If you do set a working directory, do it at the beginning of your script. 
+* Example of getting and setting the working directory:
+
+```{r workingDirectory,eval=FALSE}
+## get the working directory
+getwd()
+setwd("~/Lectures") 
+```
+
+
+## Setting a Working Directory
+
+* Setting the directory can sometimes be finicky
+    * **Windows**: Default directory structure involves single backslashes ("\"), but R interprets these as "escape" characters. So you must replace the backslash with forward slashes ("/") or two backslashes ("\\")
+    * **Mac/Linux**: Default is forward slashes, so you are okay
+* Typical directory structure syntax applies
+    * ".." - goes up one level
+    * "./" - is the current directory
+    * "~" - is your "home" directory
+
+## Working Directory 
+
+Note that the `dir()` function interfaces with your operating system and can show you which files are in your current working directory. 
+
+You can try some directory navigation: 
+
+```{r directoryNav}
+dir("./") # shows directory contents
+dir("..")
+```
+
+## Relative vs. absolute paths (From Wiki)
+
+*An **absolute or full path** points to the same location in a file system, regardless of the current working directory. To do that, it must include the root directory.*
+
+This means if I try your code, and you use absolute paths, it won't work unless we have the exact same folder structure where R is looking (bad).
+
+*By contrast, a **relative path starts from some given working directory**, avoiding the need to provide the full absolute path. A filename can be considered as a relative path based at the current working directory. *
+
+## Setting the Working Directory
+
+In RStudio, go to `Session --> Set Working Directory --> To Source File Location`
+
+RStudio should put code in the Console, similar to this:
+```{r, eval = FALSE}
+setwd("~/Lectures/Data_IO/lecture")
+```
+    
+## Setting the Working Directory
+    
+Again, if you open an R file with a new RStudio session, it does this for you.  You may need to make this a default.
+
+1. Make sure RStudio is the default application to open .R files
+    * Mac - right click --> Get Info --> Open With: RStudio --> Change All
+    * Windows - Andrew will show
+2. Close RStudio Double click `day1.R`
+
+* Confirm the directory contains "day1.R" using `dir()`:
+    * Type `dir()` in the R Console (`day1.R` should be there)    
+
+## Help
+
+For any function, you can write `?FUNCTION_NAME`, or `help("FUNCTION_NAME")` to look at the help file:
+
+```{r, eval = FALSE}
+?dir
+help("dir")
+```
+
+
+## Data Aside
+
+* Everything we do in class will be using real publicly available data - there are few 'toy' example datasets and 'simulated' data
+* OpenBaltimore and Data.gov will be sources for the first few days
+
+
+## Data Input
+
+* 'Reading in' data is the first step of any real project/analysis
+* R can read almost any file format, especially via add-on packages
+* We are going to focus on simple delimited files first
+    * tab delimited (e.g. '.txt')
+    * comma separated (e.g. '.csv')
+    * Microsoft excel (e.g. '.xlsx')
+
+## Data Input
+
+Youth Tobacco Survey (YTS) Dataset:
+
+"The YTS was developed to provide states with comprehensive data on both middle school and high school students regarding tobacco use, exposure to environmental tobacco smoke, smoking cessation, school curriculum, minors' ability to purchase or otherwise obtain tobacco products, knowledge and attitudes about tobacco, and familiarity with pro-tobacco and anti-tobacco media messages."
+
+* Check out the data at: https://catalog.data.gov/dataset/youth-tobacco-survey-yts-data
+
+## Data Input
+
+* Download data from http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv
+    * Safari - if a file loads in your browser, choose File --> Save As, select, Format "Page Source" and save
+* Save it (or move it) to the same folder as your `day1.R` script
+* Within RStudio: Session --> Set Working Directory --> To Source File Location
+
+## Data Input
+
+R Studio features some nice "drop down" support, where you can run some tasks by selecting them from the toolbar.
+
+For example, you can easily import text datasets using the "File --> Import Dataset --> From CSV" command. Selecting this will bring up a new screen that lets you specify the formatting of your text file. 
+
+After importing a datatset, you get the corresponding R commands that you can enter in the console if you want to re-import data.
+
+## Data Input
+
+So what is going on "behind the scenes"?
+
+`read_delim()`: Read a delimited file into a data frame.
+
+```
+read_delim(file, delim, quote = "\"", escape_backslash = FALSE,
+  escape_double = TRUE, col_names = TRUE, col_types = NULL,
+  locale = default_locale(), na = c("", "NA"), quoted_na = TRUE,
+  comment = "", trim_ws = FALSE, skip = 0, n_max = Inf,
+  guess_max = min(1000, n_max), progress = interactive())
+           
+# for example: `read_delim("file.txt",delim="\t")`
+```
+
+## Data Input
+
+* The filename is the path to your file, in quotes
+* The function will look in your "working directory" if no absolute file path is given
+* Note that the filename can also be a path to a file on a website (e.g. 'www.someurl.com/table1.txt')
+
+
+## Data Input
+
+There is another convenient function for reading in CSV files, where the delimiter is assumed to be a comma: 
+
+```{r readCSV}
+read_csv
+```
+
+## Data Input
+
+* Here would be reading in the data from the command line, specifying the file path:
+
+```{r readCSV2}
+dat = read_csv("../data/Youth_Tobacco_Survey_YTS_Data.csv")
+```
+
+The data is now successfully read into your R workspace, just like from using the dropdown menu.
+
+## Data Input
+
+The `read_delim()` and related functions returns a "tibble" is a `data.frame` with special printing, which is the primary data format for most data cleaning and analyses. 
+
+
+## Data Input with `tbl_df`s {.smaller}
+
+* When using the dropdown menu in RStudio, it uses `read_csv`, which is an improved version of reading in CSVs.  It is popular but `read.csv` is still largely used.  It returns a `tbl` (tibble), that is a `data.frame` with improved printing and subsetting properties: 
+
+```{r readCSV_readr, message=FALSE}
+library(readr)
+head(dat)
+class(dat)
+```
+
+
+## Data Input
+
+```{r, viewTibble}
+dat
+```
+
+## Data Input
+
+There are also data importing functions provided in base R (rather than the `readr` package), like `read.delim` and `read.csv`. 
+
+These functions have slightly different syntax for reading in data, like `header` and `as.is`. 
+
+However, while many online resources use the base R tools, the latest version of RStudio switched to use these new `readr` data import tools, so we will use them in the class for slides. They are also up to two times faster for reading in large datasets, and have a progress bar which is nice. 
+
+But you can use whatever function you feel more comfortable with.
+
+## Data Input
+
+Here is how to read in the same dataset using base R functionality, which returns a `data.frame` directly
+
+```{r, readingCSV}
+dat2 = read.csv("../data/Youth_Tobacco_Survey_YTS_Data.csv", as.is=TRUE)
+head(dat2)
+```
+
+
+## Data Input
+
+Changing variable names in `data.frame`s works using the `names()` function, which is analagous to `colnames()` for data frames (they can be used interchangeably)
+
+```{r names1}
+names(dat)[1] = "year"
+names(dat)
+```
+
+
+## Data Output
+
+While its nice to be able to read in a variety of data formats, it's equally important to be able to output data somewhere.
+
+There are also data exporting functions in the `readr` package, which have the pattern `write_*` like `write_csv` and `write_delim`
+
+```
+write_delim(x, path, delim = " ", na = "NA", append = FALSE,
+  col_names = !append)
+```
+
+## Data Output
+
+`x`: the R `data.frame` or `matrix` you want to write
+
+`path`: the file name where you want to R object written. It can be an absolute path, or a filename (which writes the file to your working directory)
+
+`delim`: what character separates the columns? 
+
+* "," = .csv - Note there is also a `write_csv()` function
+* "\t" = tab delimited
+
+## Data Output
+
+There are similar packages in base R, like `write.table` and `write.csv` which have the general arguments, but are called different things. Note these functions do  write out row names, which you can set to `FALSE`. I do this a lot since I often email these to collaborators who open them in Excel
+
+## Data Output
+
+For example, we can write back out the Youth Tobacco dataset with the new column name:
+
+```{r writecsv,eval=FALSE}
+names(dat)[1] = "Year"
+write_csv(dat, path="YouthTobacco_newNames.csv")
+```
+
+## Data Input - Excel
+
+Many data analysts collaborate with researchers who use Excel to enter and curate their data. Often times, this is the input data for an analysis. You therefore have two options for getting this data into R:
+
+* Saving the Excel sheet as a .csv file, and using `read.csv()`
+* Using an add-on package, like `xlsx`, `readxl`, or `openxlsx`
+
+For single worksheet .xlsx files, I often just save the spreadsheet as a .csv file (because I often have to strip off additional summary data from the columns)
+
+For an .xlsx file with multiple well-formated worksheets, I use the `readxl` package for reading in the data. 
+
+## Data Input - Other Software
+
+* **haven** package (https://cran.r-project.org/web/packages/haven/index.html) reads in SAS, SPSS, Stata formats
+* **readxl** package - the `read_excel` function can read Excel sheets easily
+* **readr** package - Has *read_csv*/*write_csv* and *read_table* functions similar to *read.csv*/*write.csv* and *read.table*.  Has different defaults, but can read **much faster** for very large data sets
+* **sas7bdat** reads .sas7bdat files
+* **foreign** package - can read all the formats as **haven**.  Around longer (aka more testing), but not as maintained (bad for future).
+
+Some of these are now available in the RStudio dropdown list

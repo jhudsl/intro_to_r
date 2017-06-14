@@ -1,0 +1,48 @@
+---
+title: "Youth Smoking Analysis"
+author: "John Muschelli"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r reading}
+library(readr)
+smoke = read_csv("http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
+```
+
+```{r}
+table(smoke$MeasureDesc)
+```
+
+```{r}
+library(dplyr)
+sub_smoke = smoke %>% 
+  filter(MeasureDesc == "Smoking Status",
+         Gender == "Overall", 
+         Response == "Frequent")
+```
+
+```{r}
+nrow(sub_smoke)
+```
+
+There are `r nrow(sub_smoke)` rows in this data set.
+
+```{r}
+hist(sub_smoke$Data_Value)
+boxplot(Data_Value ~ YEAR, data = sub_smoke)
+plot(Data_Value ~ YEAR, data = sub_smoke)
+```
+
+With `ggplot2` we can create a simple line plot for each state in the data, with and without a legend. 
+```{r}
+library(ggplot2)
+g = ggplot(sub_smoke, aes(y = Data_Value, x = YEAR, colour = LocationDesc)) + 
+  geom_line()
+print(g)
+g = g + guides(colour = FALSE)
+print(g)
+```

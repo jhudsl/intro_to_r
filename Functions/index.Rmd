@@ -1,0 +1,134 @@
+---
+title: "Functions"
+author: "Introduction to R for Public Health Researchers"
+output:
+  beamer_presentation: default
+  ioslides_presentation:
+    css: ../styles.css
+    widescreen: yes
+  slidy_presentation: default
+---
+
+## Writing your own functions
+
+This is a brief introduction. The syntax is:
+
+```
+functionName = function(inputs) {
+< function body >
+return(value)
+}
+```
+
+Then you would run the 4 lines of the code, which adds it to your workspace.
+
+## Writing your own functions
+
+Here we will write a function that returns the second element of a vector:
+
+```{r return2, comment="",prompt=TRUE}
+return2 = function(x) {
+  return(x[2])
+}
+return2(c(1,4,5,76))
+```
+
+## Writing your own functions
+
+Note that your function will automatically return the last line of code run:
+
+```{r return2a, comment="",prompt=TRUE}
+return2a = function(x) {
+  x[2]
+}
+return2a(c(1,4,5,76))
+```
+
+And if your function is really one line or evaluation, like here, you do not need the curly brackets, and you can put everything on one line:
+
+```{r return2b, comment="",prompt=TRUE}
+return2b = function(x) x[2]
+return2b(c(1,4,5,76))
+```
+
+## Writing your own functions
+
+Also note that functions can take multiple inputs. Maybe you want users to select which element to extract
+
+```{r return2c, comment="",prompt=TRUE}
+return2c = function(x,n) x[n]
+return2c(c(1,4,5,76), 3)
+```
+
+## Writing a simple function
+
+Let's write a function, `sqdif`, that:
+
+1. takes two numbers `x` and `y` with default values of 2 and 3.
+2. takes the difference
+3. squares this difference
+4. then returns the final value 
+
+## Writing a simple function
+
+```{r sqdif, comment="",prompt=TRUE}
+sqdif <- function(x=2,y=3){
+     (x-y)^2
+}
+
+sqdif()
+sqdif(x=10,y=5)
+sqdif(10,5)
+```
+
+## Writing your own functions
+
+Try to write a function called `top()` that takes a `matrix` or `data.frame`, and returns the first `n` rows and columns, with the default value of `n=5`.
+
+## Writing your own functions
+
+Try to write a function called `top()` that takes a `matrix` or `data.frame`, and returns the first `n` rows and columns
+
+```{r top, comment="",prompt=TRUE}
+top = function(mat,n=5) mat[1:n,1:n]
+my.mat = matrix(1:1000,nr=100) 
+top(my.mat) #note that we are using the default value for n 
+```
+
+## Custom functions in `apply`
+
+You can also designate functions "on the fly"
+```{r top3, comment="",prompt=TRUE}
+matList = list(x = matrix(1:25,nc=5),y=matrix(26:50,nc=5))
+lapply(matList, function(x) x[1:2,1:2])
+```
+
+## Simple apply 
+
+`sapply()` is a user-friendly version and wrapper of `lapply` by default returning a vector, matrix, or array
+
+```{r sapply1, comment="", prompt=TRUE}
+sapply(matList, dim)
+sapply(matList, class)
+```
+
+---
+
+```{r sapply2, comment="", prompt=TRUE}
+myList = list(a=1:10, b=c(2,4,5), c = c("a","b","c"),
+                d = factor(c("boy","girl","girl")))
+tmp = lapply(myList,function(x) x[1])
+tmp
+sapply(tmp, class)
+```
+
+---
+
+`sapply` can also be applied to columns of data frames
+
+```{r sapplyDf, comment="", prompt=TRUE, message=FALSE}
+library(readr)
+circ = read_csv(paste0("http://johnmuschelli.com/intro_to_r/",
+  "data/Charm_City_Circulator_Ridership.csv"))
+sapply(circ,class)
+```

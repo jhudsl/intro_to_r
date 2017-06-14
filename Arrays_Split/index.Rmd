@@ -1,0 +1,82 @@
+---
+title: "Arrays and Useful R functions"
+author: "Introduction to R for Public Health Researchers"
+output:
+  ioslides_presentation: 
+    css: ../styles.css
+    widescreen: yes
+  beamer_presentation: default
+---
+
+```{r, echo = FALSE, message=FALSE}
+library(dplyr)
+# paste/paste0 will be covered later
+circ = read.csv(
+  paste0("http://johnmuschelli.com/intro_to_r/data",
+         "/Charm_City_Circulator_Ridership.csv"), 
+            header = TRUE, as.is = TRUE)
+``` 
+
+## Data Frames versus Matrices
+
+You will likely use data.frame class for a lot of data cleaning and analysis. However, some operations that rely on matrix multiplication (like performing many linear regressions) are (much) faster with matrices. Also, as we will touch on later, some functions for iterating over data will return the matrix class, or will be placed in empty matrices that can then be converted to data.frames 
+
+## Data Frames versus Matrices
+
+There is also additional summarization functions for matrices (and not data.frames) in the `matrixStats` package, like `rowMins()`, `colMaxs()`, etc.
+
+```{r}
+library(matrixStats,quietly = TRUE)
+avgs = select(circ, ends_with("Average"))
+rowMins(as.matrix(avgs),na.rm=TRUE)[500:510]
+```
+
+## Data Classes
+
+Extensions of "normal" data classes:
+  
+  * N-dimensional classes:
+  * Arrays: any extension of matrices with more than 2 dimensions, e.g. 3x3x3 cube
+* Lists: more flexible container for R objects. 
+
+## Arrays
+
+These are just more flexible matrices - you should just be made aware of them as some functions return objects of this class, for example, cross tabulating over more than 2 variables and the `tapply` function.
+
+## Arrays
+
+Selecting from arrays is similar to matrices, just with additional commas for the additional slots.
+
+```{r}
+ar = array(1:27, c(3,3,3))
+ar[,,1]
+ar[,1,]
+```
+
+
+
+## Splitting Data Frames
+
+The `split()` function is useful for splitting `data.frame`s
+
+"`split` divides the data in the vector x into the groups defined by `f`. The replacement forms replace values corresponding to such a division. `unsplit` reverses the effect of split."
+
+```{r split1, comment="", prompt=TRUE}
+dayList = split(circ,circ$day)
+```
+
+## Splitting Data Frames {.smaller}
+
+Here is a good chance to introduce `lapply`, which performs a function within each list element:
+  
+  ```{r lapply1, comment="", prompt=TRUE}
+# head(dayList)
+lapply(dayList, head, n=2)
+```
+
+---
+  
+  ```{r lapply2, comment="", prompt=TRUE}
+# head(dayList)
+lapply(dayList, dim)
+```

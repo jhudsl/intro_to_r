@@ -1,0 +1,241 @@
+---
+title: "Variables: Objects in R"
+author: "Introduction to R for Public Health Researchers"
+output:
+  ioslides_presentation:
+    css: ../styles.css
+    widescreen: yes
+  beamer_presentation: default
+subtitle: Basic R Functionality
+---
+
+```{r, echo = FALSE}
+library(knitr)
+opts_chunk$set(comment = "")
+```
+
+## Common new users frustations
+
+1.  **Different versions of software**
+1.  **Data type problems (is that a string or a number?)**
+2.  Working directory problems: trying to read files that R "can't find"
+    - RStudio can help, and so do RStudio Projects
+    - discuss in Data Input/Output lecture
+3.  Typos (R is **case sensitive**, `x` and `X` are different)
+    - RStudio helps with "tab completion"
+    - discussed throughout
+
+## Getting Started
+
+* You should have the latest version of R installed!
+* Open RStudio
+* Files --> New --> R Script
+* Save the blank R script as "day1.R" in a directory of your choosing
+* Add a comment header
+
+## Commenting in Scripts
+
+Add a comment header to day1.R :`#` is the comment symbol
+
+```{r}
+#################
+# Title: Demo R Script
+# Author: John Muschelli
+# Date: 1/9/2017
+# Purpose: Demonstrate comments in R
+###################
+ 
+# nothing to its right is evaluated
+
+# this # is still a comment
+### you can use many #'s as you want
+
+# sometimes you have a really long comment,
+#    like explaining what you are doing 
+#    for a step in analysis. 
+# Take it to another line
+```
+
+## Explaining output on slides
+
+In slides, a command (we'll also call them code or a code chunk) will look like this
+```{r code}
+print("I'm code")
+```
+
+And then directly after it, will be the output of the code.  
+So `print("I'm code")` is the code chunk and [1] "I'm code" is the output.
+
+## R as a calculator
+
+```{r calcDemo}
+2 + 2
+2 * 4
+2 ^ 3
+```
+
+Note, when you type your command, R inherently thinks you want to print the result. 
+
+## R as a calculator
+
+* The R console is a full calculator
+* Try to play around with it:
+    * +, -, /, * are add, subtract, divide and multiply
+    * ^ or ** is power
+    * parentheses -- ( and ) -- work with order of operations 
+
+## R as a calculator
+
+```{r calcDemo2}
+2 + (2 * 3)^2
+(1 + 3) / 2 + 45
+```
+
+## R as a calculator
+
+Try evaluating the following:
+
+* `2 + 2 * 3 / 4 -3`
+* `2 * 3 / 4 * 2`
+* `2^4 - 1`
+
+---
+
+* You can create variables from within the R environment and from files on your computer
+* R uses "=" or "<-" to assign values to a variable name
+* Variable names are case-sensitive, i.e. X and x are different
+
+```{r assign}
+x = 2 # Same as: x <- 2
+x
+x * 4
+x + 2
+```
+
+## R variables
+
+* The most comfortable and familiar class/data type for many of you will be `data.frame`
+* You can think of these as essentially Excel spreadsheets with rows (usually subjects or observations) and columns (usually variables)
+
+## R variables
+* `data.frame`s are somewhat advanced objects in R; we will start with simpler objects;
+* Here we introduce "1 dimensional" classes; these are often referred to as 'vectors'
+* Vectors can have multiple sets of observations, but each observation has to be the same class.
+
+```{r assignClass}
+class(x)
+y = "hello world!"
+print(y)
+class(y)
+```
+
+## R variables
+
+Try assigning your full name to an R variable called `name`
+
+## R variables
+
+Try assigning your full name to an R variable called `name`
+
+```{r myName}
+name = "John Muschelli"
+name
+```
+
+## The 'combine' function
+
+The function `c()` collects/combines/joins single R objects into a vector of R objects. It is mostly used for creating vectors of numbers, character strings, and other data types. 
+
+```{r assign3a}
+x <- c(1, 4, 6, 8)
+x
+class(x)
+```
+
+## The 'combine' function
+
+Try assigning your first and last name as 2 separate character strings into a single vector called `name2`
+
+## The 'combine' function
+
+Try assigning your first and last name as 2 separate character strings into a length-2 vector called `name2`
+
+```{r myName2}
+name2 = c("John","Muschelli")
+name2
+```
+
+## R variables
+
+`length()`: Get or set the length of vectors (including lists) and factors, and of any other R object for which a method has been defined.
+
+```{r assign3b}
+length(x)
+y
+length(y)
+```
+
+##  R variables
+
+What do you expect for the length of the `name` variable? What about the `name2` variable?
+
+What are the lengths of each?
+
+##  R variables
+
+What do you expect for the length of the `name` variable? What about the `name2` variable?
+
+What are the lengths of each?
+
+```{r myName3}
+length(name)
+length(name2)
+```
+
+## R variables
+
+You can perform functions to entire vectors of numbers very easily.
+
+```{r assign4}
+x + 2
+x * 3
+x + c(1, 2, 3, 4)
+```
+
+## R variables
+
+But things like algebra can only be performed on numbers.
+
+```
+> name2 + 4
+[1] Error in name2 * 4 : non-numeric argument
+ to binary operator
+```
+
+## R variables
+
+And save these modified vectors as a new vector.
+
+```{r assign5}
+y = x + c(1, 2, 3, 4)
+y 
+```
+
+Note that the R object `y` is no longer "Hello  World!" - It has effectively been overwritten by assigning new data to the variable
+
+## R variables
+
+* You can get more attributes than just class.  The function `str` gives you the structure of the object.
+
+```{r assign2}
+str(x)
+str(y)
+```
+This tells you that `x` is a numeric vector and tells you the length.
+
+## Review
+* Creating a new script
+* Using R as a calculator
+* Assigning values to variables
+* Performing algebra on numeric variables
+
