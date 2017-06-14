@@ -1,7 +1,7 @@
 ---
 output:
-  html_document:
-    theme: spacelab
+html_document:
+theme: spacelab
 ---
 
 Introduction to R
@@ -25,6 +25,7 @@ Introduction to R
 ### Schedule
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}
+show_keys = FALSE
 library(pander)
 library(kableExtra)
 days = list(
@@ -50,7 +51,10 @@ df$lab = paste0(df$mod, "/", "lab/", df$mod, "_Lab")
 df$lab_key = paste0(df$lab, "_Key.R")
 df$lab = paste0(df$lab, ".R")
 df$have_lab = file.exists(df$lab)
-df$lab = paste0("[Lab](", df$lab, "), [Key](", df$lab_key, ")")
+df$lab = paste0("[Lab](", df$lab, ")")
+if (show_keys) {
+  df$lab = paste0(df$lab, ", [Key](", df$lab_key, ")")
+}
 df$lab[!df$have_lab] = ""
 df$have_lab = df$lab_key = NULL
 df$hw = grepl("homework", tolower(df$mod))
@@ -77,7 +81,7 @@ grouped = diff(as.numeric(df$Day))
 grouped = which(grouped > 0)
 df$Day = NULL
 knitr::kable(df, format = "html") %>% 
-   kable_styling() %>% 
+  kable_styling() %>% 
   group_rows("Day 0", 1, grouped[1]) %>% 
   group_rows("Day 1", grouped[1] + 1, grouped[2]) %>% 
   group_rows("Day 2", grouped[2] + 1, grouped[3]) %>% 
