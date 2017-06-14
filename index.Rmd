@@ -42,7 +42,9 @@ mods = do.call("rbind", mods)
 
 df = data.frame(mods, stringsAsFactors = FALSE)
 df$Slides = paste0("[HTML](", df$mod, "/", df$mod, ".html)")
+df$Slides = paste0(df$Slides, ", [PDF](", df$mod, "/", df$mod, ".pdf)")
 df$Code = paste0("[R](", df$mod, "/", df$mod, ".R)")
+df$Code = paste0(df$Code, ", [Rmd](", df$mod, "/", df$mod, ".Rmd)")
 
 df$lab = paste0(df$mod, "/", "lab/", df$mod, "_Lab")
 df$lab_key = paste0(df$lab, "_Key.R")
