@@ -54,7 +54,12 @@ df$have_lab = df$lab_key = NULL
 df$hw = grepl("homework", tolower(df$mod))
 df$Slides[df$hw] = ""
 df$Code[df$hw] = paste0("[R](HW/", gsub(" ", "", tolower(df$mod[df$hw])), ".R)")
-# df$lab[df$hw] = ""
+
+# Different for HW 1
+hw1 = gsub(" ", "", tolower(df$mod)) == "homework1"
+df$Code[hw1] = "[Try R](http://tryr.codeschool.com/), [Data Camp](https://campus.datacamp.com/courses/free-introduction-to-r)"
+
+
 df$hw = NULL
 bad = df$mod == ""
 for (icol in 1:ncol(df)) {
