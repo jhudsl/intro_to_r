@@ -11,6 +11,7 @@ sapply(x, function(x) {
 
 x = list.files(pattern = ".R$", recursive = TRUE)
 x = x[grepl("lab", tolower(x))]
+x = x[ !grepl("run_labs", x)]
 r = x[1]
 # all_in_mem = ls()
 sapply(x, function(r) {
