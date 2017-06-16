@@ -30,7 +30,7 @@ opts_chunk$set(comment = "")
 * You should have the latest version of R installed!
 * Open RStudio
 * Files --> New --> R Script
-* Save the blank R script as "day1.R" in a directory of your choosing
+* Save the blank R script in a directory of your choosing
 * Add a comment header
 
 ## Commenting in Scripts
@@ -41,7 +41,6 @@ Add a comment header to day1.R :`#` is the comment symbol
 #################
 # Title: Demo R Script
 # Author: John Muschelli
-# Date: 1/9/2017
 # Purpose: Demonstrate comments in R
 ###################
  
@@ -119,7 +118,7 @@ x + 2
 
 ## R variables
 * `data.frame`s are somewhat advanced objects in R; we will start with simpler objects;
-* Here we introduce "1 dimensional" classes; these are often referred to as 'vectors'
+* Here we introduce "1 dimensional" classes; often referred to as 'vectors'
 * Vectors can have multiple sets of observations, but each observation has to be the same class.
 
 ```{r assignClass}

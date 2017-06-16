@@ -6,7 +6,6 @@ opts_chunk$set(comment = "")
 #################
 # Title: Demo R Script
 # Author: John Muschelli
-# Date: 1/9/2017
 # Purpose: Demonstrate comments in R
 ###################
  

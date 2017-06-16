@@ -44,3 +44,12 @@ strong {
     font-weight: bold;
     color: black;
 }
+
+/*
+slides > slide {
+  padding: 10px 60px;
+}
+*/
+slides > slide > hgroup + article {
+    margin-top: 5px;
+}

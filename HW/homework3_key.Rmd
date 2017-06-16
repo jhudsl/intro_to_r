@@ -7,7 +7,7 @@ output: html_document
 Let's first read in the childhood mortality dataset:
 
 ```{r, dataImport}
-death = read.csv("http://www.aejaffe.com/winterR_2017/data/indicatordeadkids35.csv",
+death = read.csv("http://johnmuschelli.com/intro_to_r/data/indicatordeadkids35.csv",
                  as.is=TRUE,header=TRUE, row.names=1)
 ```
 
@@ -39,7 +39,7 @@ deathT[1:5,1:5]
 Now let's read in the population data:
 
 ```{r, question3}
-pop = read.delim("http://www.aejaffe.com/winterR_2017/data/country_pop.txt",
+pop = read.delim("http://johnmuschelli.com/intro_to_r/data/country_pop.txt",
   as.is=TRUE)
 colnames(pop)[c(2,5)] = c("Country", "percWorldPop")
 pop$Country = pop$Country  %>% 
