@@ -1,10 +1,9 @@
 #################
 # Data Cleaning and Plotting
 ##############
-# 1/12/2017
 
 ## Download the "Real Property Taxes" Data from my website (via OpenBaltimore):
-# www.aejaffe.com/winterR_2017/data/Real_Property_Taxes.csv.gz
+# http://johnmuschelli.com/intro_to_r/data/Real_Property_Taxes.csv.gz
 ## note you don't need to unzip it to read it into R
 rm( list = ls() ) # clear the workspace
 library(stringr)
@@ -12,7 +11,7 @@ library(dplyr)
 library(readr)
 
 # 1. Read the Property Tax data into R and call it the variable `tax`
-tax = read_csv( "~/GitHub/winterR_2017/data/Real_Property_Taxes.csv.gz")
+tax = read_csv( "http://johnmuschelli.com/intro_to_r/data/Real_Property_Taxes.csv.gz")
 
 # 2. How many addresses pay property taxes? 
 nrow(tax)

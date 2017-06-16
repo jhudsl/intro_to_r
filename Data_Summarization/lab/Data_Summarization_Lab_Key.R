@@ -3,14 +3,14 @@
 ####################
 
 # Bike Lanes Dataset: BikeBaltimore is the Department of Transportation's bike program. 
-# https://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms
+# http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms
 # Download as a CSV in your current working directory
 # Note its also available at: 
-#	http://www.aejaffe.com/winterR_2017/data/Bike_Lanes.csv
+#	http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv
 library(readr)
 library(dplyr)
 
-bike = read_csv("http://www.aejaffe.com/winterR_2017/data/Bike_Lanes.csv")
+bike = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
 bike$type[bike$type==" "] = NA # OR do this
 
 # 1. How many bike "lanes" are currently in Baltimore? 

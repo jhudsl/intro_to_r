@@ -1,10 +1,9 @@
 #################
 # Data Cleaning and Plotting
 ##############
-# 1/11/2017
 
 ## Download the "Real Property Taxes" Data from my website (via OpenBaltimore):
-# www.aejaffe.com/winterR_2017/data/Real_Property_Taxes.csv.gz
+# http://johnmuschelli.com/intro_to_r/data/Real_Property_Taxes.csv.gz
 ## note you don't need to unzip it to read it into R
 
 # 1. Read the Property Tax data into R and call it the variable `tax`

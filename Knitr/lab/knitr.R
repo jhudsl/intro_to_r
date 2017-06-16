@@ -3,7 +3,7 @@
 # knitr_lab.Rmd
 
 # 2.  Make a code chunk, name it reading.  Load the readr library and read in the
-# Youth Tobacco survey data http://www.aejaffe.com/winterR_2017/data/Youth_Tobacco_Survey_YTS_Data.csv
+# Youth Tobacco survey data http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv
 # using read_csv, calling it smoke.  Delete all other code chunks other than `setup`.
 
 # 3.  Make the title "YTS Analysis", add your name as the author.

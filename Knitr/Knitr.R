@@ -92,7 +92,7 @@ better %>% filter(term == "SIDEPATH")
 write.csv(better, file = "Best_Model_Coefficients.csv")
 
 ## ------------------------------------------------------------------------
-library(xlsx)
+library(xlsx) # may need to run sudo R CMD javareconf
 write.xlsx(better, file = "Best_Model_Coefficients.xlsx")
 
 ## ------------------------------------------------------------------------

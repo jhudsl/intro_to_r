@@ -3,7 +3,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## ----reading-------------------------------------------------------------
 library(readr)
-smoke = read_csv("http://www.aejaffe.com/winterR_2017/data/Youth_Tobacco_Survey_YTS_Data.csv")
+smoke = read_csv("http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
 
 ## ------------------------------------------------------------------------
 table(smoke$MeasureDesc)

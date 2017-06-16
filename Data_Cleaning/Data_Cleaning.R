@@ -58,7 +58,7 @@ prop.table(tab)
 prop.table(tab,1)
 
 ## ----readSal-------------------------------------------------------------
-Sal = read.csv("https://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv", as.is = TRUE)
+Sal = read.csv("http://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv", as.is = TRUE)
 colnames(Sal)[1] = "Name"
 
 ## ----isna----------------------------------------------------------------

@@ -1,15 +1,14 @@
 ###########
 ## Data Manipulation
 ## Lab 
-## 1/12/2017
 ############
 
 ## Exercise motivated by 
-## https://www.r-bloggers.com/manipulating-data-frames-using-sqldf-a-brief-overview/
+## http://www.r-bloggers.com/manipulating-data-frames-using-sqldf-a-brief-overview/
 
 ## 1. read in the roads and crashes CSVs
-# crashes: http://aejaffe.com/winterR_2017/Manipulating_Data_in_R/lab/crashes.csv
-# roads: http://aejaffe.com/winterR_2017/Manipulating_Data_in_R/lab/roads.csv
+# crashes: http://johnmuschelli.com/intro_to_r/Manipulating_Data_in_R/lab/crashes.csv
+# roads: http://johnmuschelli.com/intro_to_r/Manipulating_Data_in_R/lab/roads.csv
 
 ## 2. How many observations are in each  dataset?
 

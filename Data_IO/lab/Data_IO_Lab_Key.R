@@ -11,7 +11,10 @@ library(readxl)
 
 # 3. Use the `read_excel()` function in the `readxl` package to 
 #		read in the dataset
-mon = read_excel("../../data/Monuments.xlsx")
+destfile = file.path(tempdir(), "Monuments.xlsx")
+download.file("http://johnmuschelli.com/intro_to_r/data/Monuments.xlsx", 
+              destfile = destfile)
+mon = read_excel(destfile)
 
 # 4. Write out the R object as a CSV file 
 write.csv(mon, file = "monuments.csv")

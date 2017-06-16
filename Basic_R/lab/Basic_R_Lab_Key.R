@@ -28,7 +28,8 @@ length(both)
 class(both)
 
 # 7. divide 'both' by 3, what happens?
-both / 3
+# both / 3
+# Error in both/3 : non-numeric argument to binary operator
 
 # 8. create a vector with elements 1 2 3 4 5 6 and call it x
 x = c(1,2,3,4,5,6)

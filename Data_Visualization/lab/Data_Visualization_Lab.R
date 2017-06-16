@@ -2,7 +2,7 @@
 
 ## you will need the charm city circulator dataset:
 library(readr)
-circ = read_csv("http://www.aejaffe.com/winterR_2017/data/Charm_City_Circulator_Ridership.csv")
+circ = read_csv("http://johnmuschelli.com/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
 
 # Using ggplot2:
 

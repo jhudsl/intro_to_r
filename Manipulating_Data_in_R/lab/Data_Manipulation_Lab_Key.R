@@ -10,10 +10,10 @@ library(readr)
 library(dplyr)
 
 ## 1. read in the roads and crashes CSVs
-# crashes: http://aejaffe.com/winterR_2017/Manipulating_Data_in_R/lab/crashes.csv
-# roads: http://aejaffe.com/winterR_2017/Manipulating_Data_in_R/lab/roads.csv
-crash = read_csv("http://aejaffe.com/winterR_2017/Manipulating_Data_in_R/lab/crashes.csv")
-road = read_csv("http://aejaffe.com/winterR_2017/Manipulating_Data_in_R/lab/roads.csv")
+# crashes: http://johnmuschelli.com/intro_to_r/Manipulating_Data_in_R/lab/crashes.csv
+# roads: http://johnmuschelli.com/intro_to_r/Manipulating_Data_in_R/lab/roads.csv
+crash = read_csv("http://johnmuschelli.com/intro_to_r/Manipulating_Data_in_R/lab/crashes.csv")
+road = read_csv("http://johnmuschelli.com/intro_to_r/Manipulating_Data_in_R/lab/roads.csv")
 
 ## 2. How many observations are in each dataset?
 dim(crash)

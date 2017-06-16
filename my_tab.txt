@@ -1,0 +1,32 @@
+	Model Year	Model Type	Model Both
+(Intercept)	3.046***	2.331***	3.046***
+	(0.260)	(0.015)	(0.258)
+factor(dateInstalled): 2007/2006	-0.733**		-0.690**
+	(0.261)		(0.259)
+factor(dateInstalled): 2008/2006	-0.781**		-0.742**
+	(0.261)		(0.260)
+factor(dateInstalled): 2009/2006	-0.639*		-0.619*
+	(0.263)		(0.262)
+factor(dateInstalled): 2010/2006	-0.779**		-0.736**
+	(0.260)		(0.259)
+factor(dateInstalled): 2011/2006	-0.802**		-0.790**
+	(0.263)		(0.261)
+factor(dateInstalled): 2012/2006	-0.715**		-0.700**
+	(0.262)		(0.261)
+factor(dateInstalled): 2013/2006	-0.638*		-0.638*
+	(0.285)		(0.283)
+type: CONTRAFLOW/BIKE LANE		-0.243*	-0.224*
+		(0.103)	(0.103)
+type: SHARED BUS BIKE/BIKE LANE		0.032	-0.037
+		(0.061)	(0.069)
+type: SHARROW/BIKE LANE		-0.074***	-0.064**
+		(0.021)	(0.023)
+type: SIDEPATH/BIKE LANE		0.451**	0.483**
+		(0.151)	(0.150)
+type: SIGNED ROUTE/BIKE LANE		-0.067*	-0.067*
+		(0.027)	(0.029)
+sigma	0.4	0.4	0.4
+R-squared	0.0	0.0	0.0
+F	3.7	6.0	4.3
+p	0.0	0.0	0.0
+N	1505	1505	1505
