@@ -376,10 +376,8 @@ first_and_last = long %&gt;% arrange(date) %&gt;% # arrange by date
   slice( c(1, n())) # select (&quot;slice&quot;) first and last (n() command) lines
 first_and_last %&gt;%  head(4)</pre>
 
-<pre >Source: local data frame [4 x 6]
-Groups: line [2]
-
-# A tibble: 4 x 6
+<pre ># A tibble: 4 x 6
+# Groups:   line [2]
       day       date   daily   line      type number
     &lt;chr&gt;     &lt;date&gt;   &lt;dbl&gt;  &lt;chr&gt;     &lt;chr&gt;  &lt;dbl&gt;
 1  Monday 2012-06-04 13342.5 banner Boardings    520
@@ -588,7 +586,11 @@ tail(all.data)</pre>
 
 <!--   geom_point(size = .5) -->
 
-<!-- ``` --></article></slide>
+<!-- ``` -->
+
+</article></slide><slide class=''><hgroup><h2>Website</h2></hgroup><article  id="website">
+
+<p><a href='../index.html' title=''>Website</a></p></article></slide>
 
 
   <slide class="backdrop"></slide>
