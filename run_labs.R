@@ -1,4 +1,6 @@
 rm(list = ls())
+library(plyr)
+library(dplyr)
 pwd = getwd()
 x = list.files(pattern = ".Rmd$", recursive = TRUE)
 x = x[grepl("lab", tolower(x))]
