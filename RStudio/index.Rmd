@@ -69,7 +69,14 @@ More information
 * Integrated R help and documentation
 * Searchable command history
 
-## RStudio/R Console ![Console](r-rstudio-1-3-console.png)
+<!-- ## RStudio/R Console ![Console](r-rstudio-1-3-console.png) -->
+
+## RStudio/R Console 
+<!-- ![Console](rstudio_console.png) -->
+
+```{r, out.width = "90%", echo = FALSE}
+knitr::include_graphics("rstudio_console.png")
+```
 
 ## RStudio/R Console
 
@@ -88,7 +95,12 @@ knitr::include_graphics("pane_layout.png")
 ```
 
 
-## Source/Editor ![Script](r-rstudio-1-3-script.png)
+<!-- ## Source/Editor ![Script](r-rstudio-1-3-script.png) -->
+## Source/Editor
+
+```{r, out.width = "90%", echo = FALSE}
+knitr::include_graphics("rstudio_script.png")
+```
 
 ## Source
 
@@ -98,7 +110,13 @@ knitr::include_graphics("pane_layout.png")
 
 In a .R file (we call a script), code is saved on your disk
 
-## Workspace/Environment ![Workspace](r-rstudio-1-ggplot-point-2.png)
+<!-- ## Workspace/Environment ![Workspace](r-rstudio-1-ggplot-point-2.png) -->
+## Workspace/Environment 
+<!-- ![Workspace](rstudio_environment.png) -->
+
+```{r, out.width = "90%", echo = FALSE}
+knitr::include_graphics("rstudio_environment.png")
+```
 
 ## Workspace/Environment
 
