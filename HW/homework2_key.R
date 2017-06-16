@@ -1,11 +1,9 @@
 ## 140.886: Intro to R
 ## Homework 2
-## Assigned Date: 6/13/2016
-## Due Date: 8:30am on 6/16/2016
 
 # Instructions: 
-# 1)	Get the dataset: http://www.aejaffe.com/summerR_2016/data/kaggleCarAuction.zip
-# 2)	Read the "dictionary": http://www.aejaffe.com/summerR_2016/data/Carvana_Data_Dictionary.txt
+# 1)	Get the dataset: http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.zip
+# 2)	Read the "dictionary": http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary.txt
 # This is a dataset from the "Kaggle" website, which hosts competitions for prediction and machine learning. 
 # More details on this dataset are here: 
 # http://www.kaggle.com/c/DontGetKicked/details/Background
@@ -18,7 +16,7 @@ cars = read.csv("../data/kaggleCarAuction.csv",header=TRUE,as.is=TRUE)
 
 library(stringr)
 library(dplyr)
-key = read.delim("http://www.aejaffe.com/summerR_2016/data/Carvana_Data_Dictionary.txt",
+key = read.delim("http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary.txt",
 	as.is=TRUE, strip.white=TRUE)
 save(cars,key,file="kaggle.rda")
 

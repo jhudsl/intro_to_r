@@ -1,5 +1,5 @@
 ## ---- dataImport---------------------------------------------------------
-death = read.csv("http://www.aejaffe.com/winterR_2016/data/indicatordeadkids35.csv",
+death = read.csv("http://johnmuschelli.com/intro_to_r/data/indicatordeadkids35.csv",
                  as.is=TRUE,header=TRUE, row.names=1)
 
 ## ---- question1----------------------------------------------------------
@@ -22,8 +22,8 @@ deathT$year= year
 deathT[1:5,1:5]
 
 ## ---- question3----------------------------------------------------------
-pop = read.delim("http://www.aejaffe.com/winterR_2016/data/country_pop.txt",
-  as.is=TRUE)
+pop = read.delim("http://johnmuschelli.com/intro_to_r/data/country_pop.txt",
+  as.is = TRUE)
 colnames(pop)[c(2,5)] = c("Country", "percWorldPop")
 pop$Country = pop$Country  %>% 
                     str_replace_all(" ","_")

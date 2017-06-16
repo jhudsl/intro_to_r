@@ -40,7 +40,7 @@ Now let's read in the population data:
 
 ```{r, question3}
 pop = read.delim("http://johnmuschelli.com/intro_to_r/data/country_pop.txt",
-  as.is=TRUE)
+  as.is = TRUE)
 colnames(pop)[c(2,5)] = c("Country", "percWorldPop")
 pop$Country = pop$Country  %>% 
                     str_replace_all(" ","_")
