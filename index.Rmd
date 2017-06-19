@@ -54,8 +54,8 @@ df$lab = paste0(df$lab, ".R")
 df$have_lab = file.exists(df$lab)
 df$lab = paste0("[Lab](", df$lab, ")")
 if (show_keys) {
-  keep = grepl("Basic_R", df$lab_key)
-  df$lab[keep] = paste0(df$lab, ", [Key](", df$lab_key[keep], ")")
+  keep = grepl("Basic_R|Data_IO", df$lab_key)
+  df$lab[keep] = paste0(df$lab[keep], ", [Key](", df$lab_key[keep], ")")
 }
 df$lab[!df$have_lab] = ""
 df$have_lab = df$lab_key = NULL
