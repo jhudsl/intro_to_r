@@ -288,6 +288,62 @@ For an .xlsx file with multiple well-formated worksheets, I use the `readxl` pac
 
 Some of these are now available in the RStudio dropdown list
 
+
+## More ways to save: save
+
+The `save` command can save a set of R objects into an "R data file", with the extension `.rda` or `.RData`.  
+
+```{r, message = FALSE}
+x = 5;
+yts = readr::read_csv("http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
+save(yts, x, file = "yts_data.rda")
+```
+
+
+## More ways to save: load
+
+The opposite of `save` is `load`.  The `ls()` command lists the items in the workspace/environment and `rm` removes them:
+
+```{r}
+ls() # list things in the workspace
+rm(list = c("x", "yts"))
+z = load("yts_data.rda")
+ls()
+```
+
+## More ways to save: load
+
+```{r}
+print(z)
+```
+
+Note, `z` is a **character vector** of the **names** of the objects loaded, **not** the objects themselves.
+
+
+## More ways to save: saveRDS
+
+If you want to save **one** object, you can use `saveRDS` to save to an `rds` file:
+
+```{r}
+saveRDS(yts, file = "yts_dataset.rds")
+```
+
+
+## More ways to save: readRDS
+
+To read this back in to R, you need to use `readRDS`, but **need to assign it**:
+
+```{r}
+yts2 = readRDS(file = "yts_dataset.rds")
+identical(yts, yts2) # test if they are the same 
+```
+
+
 ## Website
 
 [Website](../index.html)
+
+
+```{r, echo = FALSE, message = FALSE}
+file.remove("yts_data.rda") # removing temporary file
+```

@@ -161,45 +161,52 @@ setwd(&quot;~/Lectures&quot;) </pre>
 
 <pre class = 'prettyprint lang-r'>dir(&quot;./&quot;) # shows directory contents</pre>
 
-<pre >[1] &quot;Data_IO.html&quot; &quot;Data_IO.pdf&quot;  &quot;Data_IO.R&quot;    &quot;index.pdf&quot;   
-[5] &quot;index.R&quot;      &quot;index.Rmd&quot;    &quot;lab&quot;          &quot;lecture.zip&quot; 
-[9] &quot;makefile&quot;    </pre>
+<pre > [1] &quot;Data_IO.html&quot;              &quot;Data_IO.pdf&quot;              
+ [3] &quot;Data_IO.R&quot;                 &quot;index.html&quot;               
+ [5] &quot;index.pdf&quot;                 &quot;index.R&quot;                  
+ [7] &quot;index.Rmd&quot;                 &quot;lab&quot;                      
+ [9] &quot;lecture.zip&quot;               &quot;makefile&quot;                 
+[11] &quot;YouthTobacco_newNames.csv&quot;</pre>
 
 <pre class = 'prettyprint lang-r'>dir(&quot;..&quot;)</pre>
 
 <pre > [1] &quot;Arrays_Split&quot;                            
  [2] &quot;Basic_R&quot;                                 
- [3] &quot;bloomberg.logo.small.horizontal.blue.png&quot;
- [4] &quot;data&quot;                                    
- [5] &quot;Data_Classes&quot;                            
- [6] &quot;Data_Cleaning&quot;                           
- [7] &quot;Data_IO&quot;                                 
- [8] &quot;Data_Summarization&quot;                      
- [9] &quot;Data_Visualization&quot;                      
-[10] &quot;Functions&quot;                               
-[11] &quot;HW&quot;                                      
-[12] &quot;index.Rmd&quot;                               
-[13] &quot;install_all_packages.R&quot;                  
-[14] &quot;Intro&quot;                                   
-[15] &quot;intro_to_r.Rproj&quot;                        
-[16] &quot;Knitr&quot;                                   
-[17] &quot;LICENSE&quot;                                 
-[18] &quot;makefile&quot;                                
-[19] &quot;makefile_old&quot;                            
-[20] &quot;makefile.copy&quot;                           
-[21] &quot;Manipulating_Data_in_R&quot;                  
-[22] &quot;ProjectExample&quot;                          
-[23] &quot;README.md&quot;                               
-[24] &quot;render.R&quot;                                
-[25] &quot;renderFile.R&quot;                            
-[26] &quot;replace_css.R&quot;                           
-[27] &quot;RStudio&quot;                                 
-[28] &quot;run_labs.R&quot;                              
-[29] &quot;Simple_Knitr&quot;                            
-[30] &quot;Statistics&quot;                              
-[31] &quot;styles.css&quot;                              
-[32] &quot;Subsetting_Data_in_R&quot;                    
-[33] &quot;Syllabus-student.doc&quot;                    </pre>
+ [3] &quot;Best_Model_Coefficients.csv&quot;             
+ [4] &quot;Best_Model_Coefficients.xlsx&quot;            
+ [5] &quot;bloomberg.logo.small.horizontal.blue.png&quot;
+ [6] &quot;data&quot;                                    
+ [7] &quot;Data_Classes&quot;                            
+ [8] &quot;Data_Cleaning&quot;                           
+ [9] &quot;Data_IO&quot;                                 
+[10] &quot;Data_Summarization&quot;                      
+[11] &quot;Data_Visualization&quot;                      
+[12] &quot;Functions&quot;                               
+[13] &quot;HW&quot;                                      
+[14] &quot;index.html&quot;                              
+[15] &quot;index.Rmd&quot;                               
+[16] &quot;install_all_packages.R&quot;                  
+[17] &quot;Intro&quot;                                   
+[18] &quot;intro_to_r.Rproj&quot;                        
+[19] &quot;Knitr&quot;                                   
+[20] &quot;LICENSE&quot;                                 
+[21] &quot;makefile&quot;                                
+[22] &quot;makefile_old&quot;                            
+[23] &quot;makefile.copy&quot;                           
+[24] &quot;Manipulating_Data_in_R&quot;                  
+[25] &quot;my_tab.txt&quot;                              
+[26] &quot;ProjectExample&quot;                          
+[27] &quot;README.md&quot;                               
+[28] &quot;render.R&quot;                                
+[29] &quot;renderFile.R&quot;                            
+[30] &quot;replace_css.R&quot;                           
+[31] &quot;RStudio&quot;                                 
+[32] &quot;run_labs.R&quot;                              
+[33] &quot;Simple_Knitr&quot;                            
+[34] &quot;Statistics&quot;                              
+[35] &quot;styles.css&quot;                              
+[36] &quot;Subsetting_Data_in_R&quot;                    
+[37] &quot;Syllabus-student.doc&quot;                    </pre>
 
 </article></slide><slide class=''><hgroup><h2>Relative vs. absolute paths (From Wiki)</h2></hgroup><article  id="relative-vs.-absolute-paths-from-wiki">
 
@@ -606,9 +613,56 @@ write_csv(dat, path=&quot;YouthTobacco_newNames.csv&quot;)</pre>
 
 <p>Some of these are now available in the RStudio dropdown list</p>
 
+</article></slide><slide class=''><hgroup><h2>More ways to save: save</h2></hgroup><article  id="more-ways-to-save-save">
+
+<p>The <code>save</code> command can save a set of R objects into an &quot;R data file&quot;, with the extension <code>.rda</code> or <code>.RData</code>.</p>
+
+<pre class = 'prettyprint lang-r'>x = 5;
+yts = readr::read_csv(&quot;http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv&quot;)
+save(yts, x, file = &quot;yts_data.rda&quot;)</pre>
+
+</article></slide><slide class=''><hgroup><h2>More ways to save: load</h2></hgroup><article  id="more-ways-to-save-load">
+
+<p>The opposite of <code>save</code> is <code>load</code>. The <code>ls()</code> command lists the items in the workspace/environment and <code>rm</code> removes them:</p>
+
+<pre class = 'prettyprint lang-r'>ls() # list things in the workspace</pre>
+
+<pre >[1] &quot;dat&quot;  &quot;dat2&quot; &quot;x&quot;    &quot;yts&quot; </pre>
+
+<pre class = 'prettyprint lang-r'>rm(list = c(&quot;x&quot;, &quot;yts&quot;))
+z = load(&quot;yts_data.rda&quot;)
+ls()</pre>
+
+<pre >[1] &quot;dat&quot;  &quot;dat2&quot; &quot;x&quot;    &quot;yts&quot;  &quot;z&quot;   </pre>
+
+</article></slide><slide class=''><hgroup><h2>More ways to save: load</h2></hgroup><article  id="more-ways-to-save-load-1">
+
+<pre class = 'prettyprint lang-r'>print(z)</pre>
+
+<pre >[1] &quot;yts&quot; &quot;x&quot;  </pre>
+
+<p>Note, <code>z</code> is a <strong>character vector</strong> of the <strong>names</strong> of the objects loaded, <strong>not</strong> the objects themselves.</p>
+
+</article></slide><slide class=''><hgroup><h2>More ways to save: saveRDS</h2></hgroup><article  id="more-ways-to-save-saverds">
+
+<p>If you want to save <strong>one</strong> object, you can use <code>saveRDS</code> to save to an <code>rds</code> file:</p>
+
+<pre class = 'prettyprint lang-r'>saveRDS(yts, file = &quot;yts_dataset.rds&quot;)</pre>
+
+</article></slide><slide class=''><hgroup><h2>More ways to save: readRDS</h2></hgroup><article  id="more-ways-to-save-readrds">
+
+<p>To read this back in to R, you need to use <code>readRDS</code>, but <strong>need to assign it</strong>:</p>
+
+<pre class = 'prettyprint lang-r'>yts2 = readRDS(file = &quot;yts_dataset.rds&quot;)
+identical(yts, yts2) # test if they are the same </pre>
+
+<pre >[1] TRUE</pre>
+
 </article></slide><slide class=''><hgroup><h2>Website</h2></hgroup><article  id="website">
 
-<p><a href='../index.html' title=''>Website</a></p></article></slide>
+<p><a href='../index.html' title=''>Website</a></p>
+
+<pre >[1] TRUE</pre></article></slide>
 
 
   <slide class="backdrop"></slide>
