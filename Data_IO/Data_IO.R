@@ -48,7 +48,9 @@ names(dat)
 ## ---- message = FALSE----------------------------------------------------
 x = 5; # can have semicolons a the end!
 # calling read_csv function and pasting a long string together
-yts = readr::read_csv(paste0("http://johnmuschelli.com/intro_to_r/", "data/Youth_Tobacco_Survey_YTS_Data.csv")) 
+yts = readr::read_csv(
+  paste0("http://johnmuschelli.com/intro_to_r/",
+         "data/Youth_Tobacco_Survey_YTS_Data.csv")) 
 save(yts, x, file = "yts_data.rda")
 
 ## ------------------------------------------------------------------------
