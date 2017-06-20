@@ -10,8 +10,10 @@
 
 
 # Questions 
-# 1)	Read in the dataset itself, naming the R object "cars" into R (as separate objects). 
-### Save them together in an ".rda" file so you can access the data offline. 
+# 1)	Read in the dataset itself, naming the R object "cars" into R (as separate objects).  
+# Read in the dictionary and name it key
+### Save the key and data in an ".rda" file so you can access the data offline. 
+# use the save(cars, key, file = "kaggle.rda")
 cars = read.csv("../data/kaggleCarAuction.csv",header=TRUE,as.is=TRUE)
 
 library(stringr)
