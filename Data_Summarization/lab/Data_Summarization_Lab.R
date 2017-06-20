@@ -10,30 +10,12 @@
 
 # 1. How many bike "lanes" are currently in Baltimore? 
 #		You can assume each observation/row is a different bike "lane"
-library(readr)
-bike = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
-nrow(bike)
+
 
 # 2. How many (a) feet and (b) miles of bike "lanes" are currently in Baltimore?
-sum(bike$length)
-sum(bike$length) / 5280
 
 # 3. How many types of bike lanes are there? Which type has 
 #		(a) the most number of and (b) longest average bike lane length?
-length(unique(bike$type))
-table(bike$type)
-
-table(bike$type, useNA = "ifany")
-table(bike$type, useNA = "always")
-
-length(table(bike$type, useNA = "ifany"))
-sort(table(bike$type, useNA = "ifany"))
-sort(table(bike$type, useNA = "ifany"), decreasing = TRUE)[1]
-library(dplyr)
-bike %>% 
-  group_by(type) %>% 
-  summarize(avg_len = mean(length)) %>% 
-  arrange(desc(avg_len))
 
 
 # 4. How many different projects do the "bike" lanes fall into? 
