@@ -46,13 +46,15 @@ names(dat)
 ## write_csv(dat, path="YouthTobacco_newNames.csv")
 
 ## ---- message = FALSE----------------------------------------------------
-x = 5;
-yts = readr::read_csv("http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
+x = 5; # can have semicolons a the end!
+# calling read_csv function and pasting a long string together
+yts = readr::read_csv(paste0("http://johnmuschelli.com/intro_to_r/", "data/Youth_Tobacco_Survey_YTS_Data.csv")) 
 save(yts, x, file = "yts_data.rda")
 
 ## ------------------------------------------------------------------------
 ls() # list things in the workspace
 rm(list = c("x", "yts"))
+ls()
 z = load("yts_data.rda")
 ls()
 

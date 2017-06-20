@@ -617,8 +617,9 @@ write_csv(dat, path=&quot;YouthTobacco_newNames.csv&quot;)</pre>
 
 <p>The <code>save</code> command can save a set of R objects into an &quot;R data file&quot;, with the extension <code>.rda</code> or <code>.RData</code>.</p>
 
-<pre class = 'prettyprint lang-r'>x = 5;
-yts = readr::read_csv(&quot;http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv&quot;)
+<pre class = 'prettyprint lang-r'>x = 5; # can have semicolons a the end!
+# calling read_csv function and pasting a long string together
+yts = readr::read_csv(paste0(&quot;http://johnmuschelli.com/intro_to_r/&quot;, &quot;data/Youth_Tobacco_Survey_YTS_Data.csv&quot;)) 
 save(yts, x, file = &quot;yts_data.rda&quot;)</pre>
 
 </article></slide><slide class=''><hgroup><h2>More ways to save: load</h2></hgroup><article  id="more-ways-to-save-load">
@@ -630,7 +631,11 @@ save(yts, x, file = &quot;yts_data.rda&quot;)</pre>
 <pre >[1] &quot;dat&quot;  &quot;dat2&quot; &quot;req&quot;  &quot;x&quot;    &quot;yts&quot; </pre>
 
 <pre class = 'prettyprint lang-r'>rm(list = c(&quot;x&quot;, &quot;yts&quot;))
-z = load(&quot;yts_data.rda&quot;)
+ls()</pre>
+
+<pre >[1] &quot;dat&quot;  &quot;dat2&quot; &quot;req&quot; </pre>
+
+<pre class = 'prettyprint lang-r'>z = load(&quot;yts_data.rda&quot;)
 ls()</pre>
 
 <pre >[1] &quot;dat&quot;  &quot;dat2&quot; &quot;req&quot;  &quot;x&quot;    &quot;yts&quot;  &quot;z&quot;   </pre>
