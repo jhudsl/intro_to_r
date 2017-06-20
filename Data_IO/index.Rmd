@@ -344,6 +344,6 @@ identical(yts, yts2) # test if they are the same
 [Website](../index.html)
 
 
-```{r, echo = FALSE, message = FALSE}
+```{r, echo = FALSE, message = FALSE, results='hide'}
 file.remove("yts_data.rda") # removing temporary file
 ```

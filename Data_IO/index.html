@@ -166,7 +166,7 @@ setwd(&quot;~/Lectures&quot;) </pre>
  [5] &quot;index.pdf&quot;                 &quot;index.R&quot;                  
  [7] &quot;index.Rmd&quot;                 &quot;lab&quot;                      
  [9] &quot;lecture.zip&quot;               &quot;makefile&quot;                 
-[11] &quot;YouthTobacco_newNames.csv&quot;</pre>
+[11] &quot;YouthTobacco_newNames.csv&quot; &quot;yts_dataset.rds&quot;          </pre>
 
 <pre class = 'prettyprint lang-r'>dir(&quot;..&quot;)</pre>
 
@@ -627,13 +627,13 @@ save(yts, x, file = &quot;yts_data.rda&quot;)</pre>
 
 <pre class = 'prettyprint lang-r'>ls() # list things in the workspace</pre>
 
-<pre >[1] &quot;dat&quot;  &quot;dat2&quot; &quot;x&quot;    &quot;yts&quot; </pre>
+<pre >[1] &quot;dat&quot;  &quot;dat2&quot; &quot;req&quot;  &quot;x&quot;    &quot;yts&quot; </pre>
 
 <pre class = 'prettyprint lang-r'>rm(list = c(&quot;x&quot;, &quot;yts&quot;))
 z = load(&quot;yts_data.rda&quot;)
 ls()</pre>
 
-<pre >[1] &quot;dat&quot;  &quot;dat2&quot; &quot;x&quot;    &quot;yts&quot;  &quot;z&quot;   </pre>
+<pre >[1] &quot;dat&quot;  &quot;dat2&quot; &quot;req&quot;  &quot;x&quot;    &quot;yts&quot;  &quot;z&quot;   </pre>
 
 </article></slide><slide class=''><hgroup><h2>More ways to save: load</h2></hgroup><article  id="more-ways-to-save-load-1">
 
@@ -660,9 +660,7 @@ identical(yts, yts2) # test if they are the same </pre>
 
 </article></slide><slide class=''><hgroup><h2>Website</h2></hgroup><article  id="website">
 
-<p><a href='../index.html' title=''>Website</a></p>
-
-<pre >[1] TRUE</pre></article></slide>
+<p><a href='../index.html' title=''>Website</a></p></article></slide>
 
 
   <slide class="backdrop"></slide>

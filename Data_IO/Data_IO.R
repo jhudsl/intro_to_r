@@ -66,6 +66,6 @@ saveRDS(yts, file = "yts_dataset.rds")
 yts2 = readRDS(file = "yts_dataset.rds")
 identical(yts, yts2) # test if they are the same 
 
-## ---- echo = FALSE, message = FALSE--------------------------------------
+## ---- echo = FALSE, message = FALSE, results='hide'----------------------
 file.remove("yts_data.rda") # removing temporary file
 
