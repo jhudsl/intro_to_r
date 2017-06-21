@@ -10,8 +10,10 @@
 library(readr)
 library(dplyr)
 
-bike = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
-bike$type[bike$type==" "] = NA # OR do this
+bike = read_csv(
+  "http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
+
+# bike$type[bike$type==" "] = NA # OR do this
 
 # 1. How many bike "lanes" are currently in Baltimore? 
 #		You can assume each observation/row is a different bike "lane"
@@ -25,15 +27,19 @@ sum(bike$length/5280)
 
 # 3. How many types of bike lanes are there? Which type has 
 #		(a) the most number of and (b) longest average bike lane length?
-table(bike$type)
+table(bike$type, useNA = "ifany")
+unique(bike$type)
 length(table(bike$type))
 length(unique(bike$type))
+
+is.na(unique(bike$type))
 
 tapply(bike$length, bike$type, mean, na.rm=TRUE)
 bike %>% 
   group_by(type) %>% 
   summarise(n = n(),
-            mean = mean(length))
+            mean = mean(length)) %>% 
+  arrange(mean)
 
 # 4. How many different projects do the "bike" lanes fall into? 
 #		Which project category has the longest average bike lane? 

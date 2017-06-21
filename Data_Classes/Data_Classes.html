@@ -97,10 +97,10 @@
           </hgroup>
   </slide>
 
-<slide class=''><hgroup><h2>Data Classes:</h2></hgroup><article  id="data-classes">
+<slide class=''><hgroup><h2>Data Types:</h2></hgroup><article  id="data-types">
 
 <ul>
-<li>One dimensional classes (&#39;vectors&#39;):
+<li>One dimensional types (&#39;vectors&#39;):
 
 <ul>
 <li>Character: strings or individual characters, quoted</li>
@@ -114,7 +114,7 @@
 
 </article></slide><slide class=''><hgroup><h2>Character and numeric</h2></hgroup><article  id="character-and-numeric">
 
-<p>We have already covered <code>character</code> and <code>numeric</code> classes.</p>
+<p>We have already covered <code>character</code> and <code>numeric</code> types.</p>
 
 <pre class = 'prettyprint lang-r'>class(c(&quot;Andrew&quot;, &quot;Jaffe&quot;))</pre>
 
@@ -128,7 +128,7 @@
 
 <p><code>Integer</code> is a special subset of <code>numeric</code> that contains only whole numbers</p>
 
-<p>A sequence of numbers is an example of the integer class</p>
+<p>A sequence of numbers is an example of the integer type</p>
 
 <pre class = 'prettyprint lang-r'>x = seq(from = 1, to = 5) # seq() is a function
 x</pre>
@@ -151,7 +151,7 @@ x</pre>
 
 </article></slide><slide class=''><hgroup><h2>Logical</h2></hgroup><article  id="logical">
 
-<p><code>logical</code> is a class that only has two possible elements: <code>TRUE</code> and <code>FALSE</code></p>
+<p><code>logical</code> is a type that only has two possible elements: <code>TRUE</code> and <code>FALSE</code></p>
 
 <pre class = 'prettyprint lang-r'>x = c(TRUE, FALSE, TRUE, TRUE, FALSE)
 class(x)</pre>
@@ -368,6 +368,30 @@ head(hi_rider)</pre>
 
 </article></slide><slide class=''><hgroup><h2>Creating categorical variables</h2></hgroup><article  id="creating-categorical-variables-3">
 
+<p>Using <code>mutate</code></p>
+
+<pre class = 'prettyprint lang-r'>circ %&gt;% 
+  mutate(hi_rider = ifelse(daily &gt; 10000, 
+                           &quot;high&quot;, &quot;low&quot;)) %&gt;% 
+  select(day, date, daily, hi_rider)</pre>
+
+<pre >## # A tibble: 1,146 x 4
+##          day       date  daily hi_rider
+##        &lt;chr&gt;      &lt;chr&gt;  &lt;dbl&gt;    &lt;chr&gt;
+##  1    Monday 01/11/2010  952.0      low
+##  2   Tuesday 01/12/2010  796.0      low
+##  3 Wednesday 01/13/2010 1211.5      low
+##  4  Thursday 01/14/2010 1213.5      low
+##  5    Friday 01/15/2010 1644.0      low
+##  6  Saturday 01/16/2010 1490.5      low
+##  7    Sunday 01/17/2010  888.5      low
+##  8    Monday 01/18/2010  999.5      low
+##  9   Tuesday 01/19/2010 1035.0      low
+## 10 Wednesday 01/20/2010 1395.5      low
+## # ... with 1,136 more rows</pre>
+
+</article></slide><slide class=''><hgroup><h2>Creating categorical variables</h2></hgroup><article  id="creating-categorical-variables-4">
+
 <p>You can also nest <code>ifelse()</code> within itself to create 3 levels of a variable.</p>
 
 <pre class = 'prettyprint lang-r'>riderLevels = ifelse(circ$daily &lt; 10000, &quot;low&quot;, 
@@ -386,7 +410,7 @@ head(riderLevels)</pre>
 ##  low  med high 
 ##  740  280    2</pre>
 
-</article></slide><slide class=''><hgroup><h2>Creating categorical variables</h2></hgroup><article  id="creating-categorical-variables-4">
+</article></slide><slide class=''><hgroup><h2>Creating categorical variables</h2></hgroup><article  id="creating-categorical-variables-5">
 
 <p>However, it&#39;s much easier to use <code>cut()</code> to create categorical variables from continuous variables.</p>
 
@@ -396,7 +420,7 @@ head(riderLevels)</pre>
   right = TRUE, dig.lab = 3,
   ordered_result = FALSE, ...)</pre>
 
-</article></slide><slide class=''><hgroup><h2>Creating categorical variables</h2></hgroup><article  id="creating-categorical-variables-5">
+</article></slide><slide class=''><hgroup><h2>Creating categorical variables</h2></hgroup><article  id="creating-categorical-variables-6">
 
 <p><code>x</code>: a numeric vector which is to be converted to a factor by cutting.</p>
 
@@ -404,7 +428,7 @@ head(riderLevels)</pre>
 
 <p><code>labels</code>: labels for the levels of the resulting category. By default, labels are constructed using &quot;(a,b]&quot; interval notation. If <code>labels = FALSE</code>, simple integer codes are returned instead of a factor.</p>
 
-</article></slide><slide class=''><hgroup><h2>Creating categorical variables</h2></hgroup><article  id="creating-categorical-variables-6">
+</article></slide><slide class=''><hgroup><h2>Creating categorical variables</h2></hgroup><article  id="creating-categorical-variables-7">
 
 <pre class = 'prettyprint lang-r'>riderLevels2 = cut(
   circ$daily, 
@@ -522,7 +546,7 @@ head(circ$newDate2)</pre>
 <pre class = 'prettyprint lang-r'>theTime = Sys.time()
 theTime</pre>
 
-<pre >## [1] &quot;2017-06-16 16:12:29 EDT&quot;</pre>
+<pre >## [1] &quot;2017-06-21 12:19:44 EDT&quot;</pre>
 
 <pre class = 'prettyprint lang-r'>class(theTime)</pre>
 
@@ -530,7 +554,45 @@ theTime</pre>
 
 <pre class = 'prettyprint lang-r'>theTime + as.period(20, unit = &quot;minutes&quot;) # the future</pre>
 
-<pre >## [1] &quot;2017-06-16 16:32:29 EDT&quot;</pre>
+<pre >## [1] &quot;2017-06-21 12:39:44 EDT&quot;</pre>
+
+</article></slide><slide class=''><hgroup><h2>Quick Aside: &quot;slicing&quot; data</h2></hgroup><article  id="quick-aside-slicing-data">
+
+<p>In <code>dplyr</code>, there are <code>first</code>, <code>last</code> and <code>nth</code> operators.</p>
+
+<p>If you first sort a data set using <code>arrange</code>, you can grab the first or last as so:</p>
+
+<pre class = 'prettyprint lang-r'>circ %&gt;% 
+  mutate(first_date = first(newDate2),
+         last_date = last(newDate2),
+         third_date = nth(newDate2, 3)) %&gt;% 
+  select(day, date, first_date, last_date, third_date) %&gt;% head(3)</pre>
+
+<pre >## # A tibble: 3 x 5
+##         day       date first_date  last_date third_date
+##       &lt;chr&gt;      &lt;chr&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;
+## 1    Monday 01/11/2010 2010-01-11 2013-03-01 2010-01-13
+## 2   Tuesday 01/12/2010 2010-01-11 2013-03-01 2010-01-13
+## 3 Wednesday 01/13/2010 2010-01-11 2013-03-01 2010-01-13</pre>
+
+</article></slide><slide class=''><hgroup><h2>Quick Aside: &quot;slicing&quot; data</h2></hgroup><article  id="quick-aside-slicing-data-1">
+
+<p>Many times, you need to group first</p>
+
+<pre class = 'prettyprint lang-r'>circ %&gt;% 
+  group_by(day) %&gt;% 
+  mutate(first_date = first(newDate2),
+         last_date = last(newDate2),
+         third_date = nth(newDate2, 3)) %&gt;% 
+  select(day, date, first_date, last_date, third_date) %&gt;% head(3)</pre>
+
+<pre >## # A tibble: 3 x 5
+## # Groups:   day [3]
+##         day       date first_date  last_date third_date
+##       &lt;chr&gt;      &lt;chr&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;
+## 1    Monday 01/11/2010 2010-01-11 2013-02-25 2010-01-25
+## 2   Tuesday 01/12/2010 2010-01-12 2013-02-26 2010-01-26
+## 3 Wednesday 01/13/2010 2010-01-13 2013-02-27 2010-01-27</pre>
 
 </article></slide><slide class=''><hgroup><h2>Date</h2></hgroup><article  id="date-2">
 
@@ -552,7 +614,7 @@ head(circ$diff_from_first, 10)</pre>
 <pre >## Time differences in days
 ##  [1] 0 0 0 0 0 0 0 7 7 7</pre>
 
-</article></slide><slide class=''><hgroup><h2>Data Classes:</h2></hgroup><article  id="data-classes-1">
+</article></slide><slide class=''><hgroup><h2>Data Classes:</h2></hgroup><article  id="data-classes">
 
 <ul>
 <li>Two dimensional classes:

@@ -15,9 +15,9 @@ library(readr)
 ```
 
 
-## Data Classes:
+## Data Types:
 
-* One dimensional classes ('vectors'):
+* One dimensional types ('vectors'):
     * Character: strings or individual characters, quoted
     * Numeric: any real number(s)
     * Integer: any integer(s)/whole numbers
@@ -27,7 +27,7 @@ library(readr)
 
 ## Character and numeric
 
-We have already covered `character` and `numeric` classes.
+We have already covered `character` and `numeric` types.
 
 ```{r numChar}
 class(c("Andrew", "Jaffe"))
@@ -38,7 +38,7 @@ class(c(1, 4, 7))
 
 `Integer` is a special subset of `numeric` that contains only whole numbers
 
-A sequence of numbers is an example of the integer class
+A sequence of numbers is an example of the integer type
 
 ```{r seq}
 x = seq(from = 1, to = 5) # seq() is a function
@@ -59,7 +59,7 @@ It makes consecutive integer sequence from `[num1]` to `[num2]` by 1
 
 ## Logical
 
-`logical` is a class that only has two possible elements: `TRUE` and `FALSE`
+`logical` is a type that only has two possible elements: `TRUE` and `FALSE`
 
 ```{r logical1}
 x = c(TRUE, FALSE, TRUE, TRUE, FALSE)
@@ -230,6 +230,17 @@ table(hi_rider)
 
 ## Creating categorical variables
 
+Using `mutate`
+
+```{r ifelse_mutate}
+circ %>% 
+  mutate(hi_rider = ifelse(daily > 10000, 
+                           "high", "low")) %>% 
+  select(day, date, daily, hi_rider)
+```
+
+## Creating categorical variables
+
 You can also nest `ifelse()` within itself to create 3 levels of a variable.
 
 ```{r ifelse2}
@@ -344,6 +355,34 @@ theTime
 class(theTime)
 theTime + as.period(20, unit = "minutes") # the future
 ```
+
+## Quick Aside: "slicing" data
+
+In `dplyr`, there are `first`, `last` and `nth` operators.  
+
+If you first sort a data set using `arrange`, you can grab the first or last as so:
+
+```{r, message=FALSE}
+circ %>% 
+  mutate(first_date = first(newDate2),
+         last_date = last(newDate2),
+         third_date = nth(newDate2, 3)) %>% 
+  select(day, date, first_date, last_date, third_date) %>% head(3)
+```
+
+## Quick Aside: "slicing" data
+
+Many times, you need to group first
+
+```{r, message=FALSE}
+circ %>% 
+  group_by(day) %>% 
+  mutate(first_date = first(newDate2),
+         last_date = last(newDate2),
+         third_date = nth(newDate2, 3)) %>% 
+  select(day, date, first_date, last_date, third_date) %>% head(3)
+```
+
 
 ## Date 
 

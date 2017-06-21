@@ -90,6 +90,12 @@ hi_rider = factor(hi_rider, levels = c("low","high"))
 head(hi_rider)
 table(hi_rider)
 
+## ----ifelse_mutate-------------------------------------------------------
+circ %>% 
+  mutate(hi_rider = ifelse(daily > 10000, 
+                           "high", "low")) %>% 
+  select(day, date, daily, hi_rider)
+
 ## ----ifelse2-------------------------------------------------------------
 riderLevels = ifelse(circ$daily < 10000, "low", 
                   ifelse(circ$daily > 20000,
@@ -146,6 +152,21 @@ theTime = Sys.time()
 theTime
 class(theTime)
 theTime + as.period(20, unit = "minutes") # the future
+
+## ---- message=FALSE------------------------------------------------------
+circ %>% 
+  mutate(first_date = first(newDate2),
+         last_date = last(newDate2),
+         third_date = nth(newDate2, 3)) %>% 
+  select(day, date, first_date, last_date, third_date) %>% head(3)
+
+## ---- message=FALSE------------------------------------------------------
+circ %>% 
+  group_by(day) %>% 
+  mutate(first_date = first(newDate2),
+         last_date = last(newDate2),
+         third_date = nth(newDate2, 3)) %>% 
+  select(day, date, first_date, last_date, third_date) %>% head(3)
 
 ## ---- message=FALSE------------------------------------------------------
 circ = circ %>% 
