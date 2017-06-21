@@ -173,3 +173,30 @@ table(is.na(tax$sqft))
 #what remains?
 lot[is.na(tax$sqft)]
 
+
+
+
+################################
+## Read in the Salary FY2015 dataset
+
+# http://johnmuschelli.com/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv
+
+# 10. Make an object called health.sal using the salaries data set, 
+#		with only agencies of those with "fire" (or any forms), if any, in the name
+
+# 11. Make a data set called trans which contains only agencies that contain "TRANS".
+
+# 12. What is/are the profession(s) of people who have "abra" in their name for Baltimore's Salaries?
+
+# 13. What is the distribution of annual salaries look like? What is the IQR?
+
+# 14. Convert HireDate to the `Date` class - plot Annual Salary vs Hire Date
+
+# 15. Plot annual salary versus hire date. 
+#		Hint: first convert to numeric and date respectively
+
+# 16. Create a smaller dataset that only includes the
+# 	Police Department,  Fire Department and Sheriff's Office.
+#  a. How many employees are in this new dataset?
+
+# 17. Replot annual salary versus hire date, color by Agency using base plotting 

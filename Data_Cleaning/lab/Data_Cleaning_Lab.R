@@ -12,14 +12,14 @@
 
 # 3. What is the total city and state tax paid?
 
-# 4. Using `tapply()` and/or `table()`
+# 4. Using `table()`
 #	a. how many observations/properties are in each ward?
 
-#	b. what is the mean state tax per ward?
+#	b. what is the mean state tax per ward? use group_by
 
 #	c. what is the maximum amount still due in each ward?
 
-# 	d. What is the 75th percentile of city and state tax paid by Ward?
+# d. What is the 75th percentile of city and state tax paid by Ward? (quantile)
 
 # 6. Make boxplots using base graphics showing cityTax 
 #	 	by whether the property	is a principal residence or not.
