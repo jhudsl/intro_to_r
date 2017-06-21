@@ -2,8 +2,6 @@
 ## Homework 2
 ## Due Date: Day 3
 
-### Please use `knitr` to write up this homework.
-
 # Instructions: 
 # 1)	Get the dataset: http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv
 # 2)	Read the "dictionary": http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary.txt

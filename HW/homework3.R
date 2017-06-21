@@ -1,50 +1,57 @@
 ####################
 # 140.886: Intro to R
 # Homework 3
-# Assigned Date: Day 2
-# Due Date: Day 4 
+# Assigned Date: Day 4
 
 # Instructions: 
 # A)	Use this dataset on infant mortality for the following questions:
 # http://johnmuschelli.com/intro_to_r/data/indicatordeadkids35.csv
 
-# B) Use Knitr to write up this homework. 
-
+# Read the data in using read_csv
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
 # Questions
-# 1.	Create a integer ‘year’ variable using the column names, 
-#			and print the head() and class() of this new vector
+# 1.	Read the data using read_csv and name it mort
+#    Create a integer ‘year’ variable using the column names (using colnames), 
+#  (as.integer), excluding the first column.   Rename the first column to 
+# "country" using use the rename command in dplyr.
 
-# 2.	Transpose the dataset such that countries are the columns 
-#			and years are the rows. Append the ‘year’ vector from above.
-#			Show [1:5,1:5] of this transposed data frame. 
+
+
+# 2.	Reshape the data so that there is a variable named "year" corresponding to year
+# (key) and a column of the mortalities named mortality (value) .  
+# Use the tidyr package and use the gather command.
+# Remember that -COLUMN_NAME removes that column, gather all the columns but
+# country.  Name the output long. Make `year` a numeric variable. 
+
 
 # 3.	Read in this the tab-delim file:
 #		http://johnmuschelli.com/intro_to_r/data/country_pop.txt
-#		which contains population information on each country
+# call it pop, which contains population information on each country
+# use read_tsv.  Rename the second column country using colnames(pop) functionality.
+# Rename the column "% of world population", to "percent"
 
-library(readr)
-res = read.delimtsv("http://johnmuschelli.com/intro_to_r/data/country_pop.txt")
-no_bad_char = read_tsv("http://johnmuschelli.com/intro_to_r/data/country_pop.txt", 
-                       locale = locale(encoding = "Latin1"))
 
-with_base = read.delim("http://johnmuschelli.com/intro_to_r/data/country_pop.txt",
-                       fileEncoding = "Latin1")
 
-# 4.	Determine the population of each country in our dataset, 
-#			and then sort the columns of our dataset by that
-#			population, from smallest to largest. 
-#			Show [1:5,1:5] of this sorted data frame. 
+# 4.	Determine the population of each country in "pop" using "arrange".
+# Get the order of the countries based on this (first is the highest population), 
+# then make a variable in the long data 
+# set named "sorted" that is the country variable 
+# coded as a factor based on this sorted population level from "pop"
 
-# 5.	Plotting: we talked about lattice::levelplot() but R has 
-#			two similar plots called image() and heatmap(). 
-#			Create the following levelplots using 
-#			lattice::levelplot() and image():
-# 		a.	Years 1840-1900 for countries that start 
-#				with the letter ‘A’
-# 		b.	Years 1950-1975 for the 10 largest countries 
-#				and the 10 smallest countries 
 
-# 6.	Plotting: create “spaghetti”/line plots 
-#		(one line per country) using lattice for 
-#		Years 1975-2010 for countries that have between 
-#		7 and 10 characters (including spaces) in their names.
+# 5.	Subset `long` based on years 1975-2010, including 1975 and 2010
+# call this long_sub.  Subset the following countries using dplyr::filter
+# and the %in% operator on the sorted country factor ("sorted") for long_sub.  # 
+# c("Venezuela", "Bahrain", "Estonia", "Iran", "Thailand", "Chile", 
+#  "Western Sahara", "Azerbaijan", "Argentina", "Haiti")
+# Remove missing rows for mortality
+# using filter and is.na.
+
+
+# 6.  Plotting: create “spaghetti”/line plots for
+# the countries, using different colors for different coutnries.
+# The x-variable should be year, the y-variable should be mortality
+

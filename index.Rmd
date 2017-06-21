@@ -63,6 +63,11 @@ df$hw = grepl("homework", tolower(df$mod))
 df$Slides[df$hw] = ""
 df$Code[df$hw] = paste0("[R](HW/", gsub(" ", "", tolower(df$mod[df$hw])), ".R)")
 
+df$In_Class_Work = file.path(df$mod, "scratch.R")
+fe = !file.exists(df$In_Class_Work )
+df$In_Class_Work = paste0("[Live R file](", df$In_Class_Work, ")")
+df$In_Class_Work[ fe ] = ""
+
 # Different for HW 1
 hw1 = gsub(" ", "", tolower(df$mod)) == "homework1"
 df$Code[hw1] = "[Try R](http://tryr.codeschool.com/), [Data Camp](https://campus.datacamp.com/courses/free-introduction-to-r)"
@@ -75,8 +80,10 @@ for (icol in 1:ncol(df)) {
 }
 df$mod = gsub("_", " ", df$mod)
 cn = colnames(df)
+cn = gsub("_", " ", cn)
 cn[ cn == "mod"] = "Module"
 cn[ cn == "lab"] = "Resource"
+# cn[ cn == "In_Class_Work"] = "Resource"
 colnames(df) = cn
 
 grouped = diff(as.numeric(df$Day))
