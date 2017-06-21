@@ -94,12 +94,14 @@ modelTab2[which.max(modelTab2)] # b
 colorTab2 = tapply(cars$VehBCost, cars$Color, sd)
 colorTab2[which.max(colorTab2)] # c
 
-# 8)	Display the relationship between acquisition cost and mileage, and describe this relationship
+# 8)	Display the relationship between acquisition cost and mileage, and \
+# describe this relationship using `plot`
 plot(VehBCost ~ VehOdo, data = cars)
 plot(log2(VehBCost) ~ VehOdo, data=cars)
 smoothScatter(cars$VehOdo, log2(cars$VehBCost))
 
-# 9)	Which variables of cost, odometer reading, and/or warranty (if any) visually appear to associate with a car being a "lemon"/bad purchase?
+# 9)	Which variables of cost, odometer reading, and/or warranty (if any) visually appear to 
+# associate with a car being a "lemon"/bad purchase?  Use boxplots
 boxplot(VehBCost ~ cars$IsBadBuy, data=cars,ylab="Cost")
 boxplot(VehOdo ~ cars$IsBadBuy, data=cars, ylab= "Odometer")
 boxplot(WarrantyCost ~ cars$IsBadBuy, data=cars, ylab="Warranty")
