@@ -1,6 +1,7 @@
 ## ---- echo = FALSE-------------------------------------------------------
 library(knitr)
 opts_chunk$set(comment = "")
+library(readr)
 
 ## ------------------------------------------------------------------------
 x = c(0, NA, 2, 3, 4)
@@ -57,8 +58,12 @@ margin.table(tab, 2)
 prop.table(tab)
 prop.table(tab,1)
 
-## ----readSal-------------------------------------------------------------
-Sal = read.csv("http://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv", as.is = TRUE)
+## ----readSal, echo = TRUE, eval = FALSE----------------------------------
+## Sal = read_csv("http://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv")
+## colnames(Sal)[1] = "Name"
+
+## ----readSal_csv, echo= FALSE, eval = TRUE-------------------------------
+Sal = read.csv("http://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv")
 colnames(Sal)[1] = "Name"
 
 ## ----isna----------------------------------------------------------------

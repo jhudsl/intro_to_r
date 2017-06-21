@@ -347,7 +347,7 @@ tab</pre>
 
 <p>Read the CSV into R <code>Sal</code>:</p>
 
-<pre class = 'prettyprint lang-r'>Sal = read.csv(&quot;http://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv&quot;, as.is = TRUE)
+<pre class = 'prettyprint lang-r'>Sal = read_csv(&quot;http://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv&quot;)
 colnames(Sal)[1] = &quot;Name&quot;</pre>
 
 </article></slide><slide class=''><hgroup><h2>Checking for logical conditions</h2></hgroup><article  id="checking-for-logical-conditions">
@@ -775,7 +775,7 @@ head(ss)</pre>
 
 <pre class = 'prettyprint lang-r'>class(Sal$AnnualSalary)</pre>
 
-<pre >[1] &quot;character&quot;</pre>
+<pre >[1] &quot;factor&quot;</pre>
 
 <pre class = 'prettyprint lang-r'>sort(c(&quot;1&quot;, &quot;2&quot;, &quot;10&quot;)) #  not sort correctly (order simply ranks the data)</pre>
 
@@ -791,14 +791,12 @@ head(ss)</pre>
 
 <pre class = 'prettyprint lang-r'>head(Sal$AnnualSalary, 4)</pre>
 
-<pre >[1] &quot;$55314.00&quot; &quot;$74000.00&quot; &quot;$64500.00&quot; &quot;$46309.00&quot;</pre>
+<pre >[1] $55314.00 $74000.00 $64500.00 $46309.00
+1654 Levels: $10000.00 $100000.00 $100013.00 $100200.00 ... $99994.00</pre>
 
 <pre class = 'prettyprint lang-r'>head(as.numeric(Sal$AnnualSalary), 4)</pre>
 
-<pre >Warning in head(as.numeric(Sal$AnnualSalary), 4): NAs introduced by
-coercion</pre>
-
-<pre >[1] NA NA NA NA</pre>
+<pre >[1]  908 1302 1094  722</pre>
 
 <p>R didn&#39;t like the <code>$</code> so it thought turned them all to <code>NA</code>.</p>
 
