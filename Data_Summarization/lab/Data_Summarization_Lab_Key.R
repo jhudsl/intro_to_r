@@ -59,6 +59,17 @@ arrange(summarize(group_by(bike, project, type),
 			  
 # 5. What was the average bike lane length per year that they were installed? 
 # Set bike$dateInstalled to NA if it is equal to zero.
+bike$dateInstalled[ bike$dateInstalled == 0 ] = NA
+mean(bike$length[ !is.na(bike$dateInstalled)])
+
+bike$dateInstalled == NA   # is.na(bike$dateInstalled)
+bike$dateInstalled != NA   # !is.na(bike$dateInstalled)
+
+
+
+
+
+
 b2 = bike %>% 
   mutate(dateInstalled = ifelse(dateInstalled == "0", NA, 
                                 dateInstalled))
@@ -68,10 +79,11 @@ b2 = bike %>%
 #                                 dateInstalled))
 bike$dateInstalled[bike$dateInstalled == "0"] = NA
 tapply(bike$length,bike$dateInstalled, mean,na.rm=TRUE)
+
 bike %>% 
   group_by(dateInstalled) %>% 
   summarise(n = n(),
-            mean = mean(length))
+            mean_of_the_bike = mean(length))
 # 6. (a) Numerically [hint: `quantile()`] and 
 #		(b) graphically [hint: `hist()` or `plot(density())`]
 #		 describe the distribution of bike "lane" lengths.
@@ -81,6 +93,7 @@ hist(bike$length)
 hist(bike$length,breaks=100)
 
 hist(log2(bike$length),breaks=100)
+hist(log10(bike$length),breaks=100)
 
 
 # 7. Then describe as above, after stratifying by 
@@ -88,6 +101,15 @@ hist(log2(bike$length),breaks=100)
 boxplot(bike$length~bike$type)
 boxplot(bike$length~bike$type,las=3)
 boxplot(bike$length~bike$numLanes)
+
+bike$length[1] = NA
+
+boxplot(log10(bike$length)~bike$type)
+
+
+bike %>% 
+  group_by(type) %>% 
+  summarise(q0.7 = quantile(length, na.rm = TRUE, probs = 0.7))
 
 tapply(bike$length,bike$type, 
        quantile,na.rm=TRUE)
