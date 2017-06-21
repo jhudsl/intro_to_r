@@ -12,7 +12,7 @@
 
 # 3. What is the total city and state tax paid?
 
-# 4. Using `table()`
+# 4. Using `table()` or group_by and summarize(n())
 #	a. how many observations/properties are in each ward?
 
 #	b. what is the mean state tax per ward? use group_by
