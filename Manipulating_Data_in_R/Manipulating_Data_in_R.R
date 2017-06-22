@@ -41,6 +41,11 @@ class(circ$date)
 ## ------------------------------------------------------------------------
 library(tidyr)
 long = gather(circ, key = "var", value = "number", 
+              -day, -date, -daily)
+head(long, 4)
+
+## ------------------------------------------------------------------------
+long = gather(circ, key = "var", value = "number", 
               starts_with("orange"), starts_with("purple"),
               starts_with("green"), starts_with("banner"))
 head(long, 4)
@@ -110,15 +115,10 @@ visits <- data.frame(id = rep(1:8, 3), visit= rep(1:3, 8),
                     Outcome = seq(10,50, length=24))
 visits[1:2,]
 
-## ----merging2------------------------------------------------------------
-merged.data <- merge(base, visits, by="id")
-merged.data[1:5,]
-dim(merged.data)
-
-## ----mergeall------------------------------------------------------------
-all.data <- merge(base, visits, by="id", all=TRUE)
-tail(all.data)
-dim(all.data)
+## ----inner_join----------------------------------------------------------
+ij = inner_join(base, visits)
+dim(ij)
+tail(ij)
 
 ## ----left_join-----------------------------------------------------------
 lj = left_join(base, visits)
@@ -130,8 +130,24 @@ rj = right_join(base, visits)
 dim(rj)
 tail(rj)
 
+## ----right_join2---------------------------------------------------------
+rj2 = right_join(visits, base)
+dim(rj2)
+tail(rj2)
+identical(rj2, lj)
+
 ## ----full_join-----------------------------------------------------------
 fj = full_join(base, visits)
 dim(fj)
 tail(fj)
+
+## ----merging2------------------------------------------------------------
+merged.data <- merge(base, visits, by = "id")
+merged.data[1:5,]
+dim(merged.data)
+
+## ----mergeall------------------------------------------------------------
+all.data <- merge(base, visits, by = "id", all = TRUE)
+tail(all.data)
+dim(all.data)
 

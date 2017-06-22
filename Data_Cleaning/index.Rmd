@@ -421,6 +421,54 @@ Base R:
 * Argument order is `(string, pattern)` aka `(x, pattern)`
 * Uses function `fixed(pattern)`
 
+## 'Find' functions: finding values, `stringr` and `dplyr` 
+
+```{r ggrep}
+str_subset(Sal$Name, "Rawlings")
+Sal %>% filter(str_detect(Name, "Rawlings"))
+```
+
+## Replacing and subbing: `stringr` 
+
+We can do the same thing (with 2 piping operations!) in dplyr
+
+```{r orderSal_stringr_rework}
+dplyr_sal = Sal
+dplyr_sal = dplyr_sal %>% mutate( 
+  AnnualSalary = AnnualSalary %>%
+    str_replace(fixed("$"), "") %>%
+    as.numeric) %>%
+  arrange(desc(AnnualSalary))
+```
+
+## Showing differnce in `str_extract` and  `str_extract_all`
+
+`str_extract_all` extracts all the matched strings
+- `\\d` searches for DIGITS/numbers
+
+```{r }
+head(str_extract(Sal$AgencyID, "\\d"))
+head(str_extract_all(Sal$AgencyID, "\\d"), 2)
+```
+
+## Sorting characters
+
+- `sort` - reorders the data - characters work, but not 
+- `rank` - gives the rank of the data - ties are split
+- `order` - gives the indices, if subset, would give the data sorted
+    - `x[order(x)]` is the same as sorting
+
+```{r orderrank}
+sort(c("1", "2", "10")) #  not sort correctly (order simply ranks the data)
+order(c("1", "2", "10"))
+x = rnorm(10)
+x[1] = x[2] # create a tie
+rank(x)
+```
+
+## Website
+
+[Website](../index.html)
 
 
 ## 'Find' functions: Finding Indices
@@ -450,12 +498,7 @@ grep("Rawlings",Sal$Name,value=TRUE)
 Sal[grep("Rawlings",Sal$Name),]
 ```
 
-## 'Find' functions: finding values, `stringr` and `dplyr` 
 
-```{r ggrep}
-str_subset(Sal$Name, "Rawlings")
-Sal %>% filter(str_detect(Name, "Rawlings"))
-```
 
 ## Showing differnce in `str_extract`
 

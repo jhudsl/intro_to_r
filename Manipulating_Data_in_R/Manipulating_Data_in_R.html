@@ -221,6 +221,24 @@ sum( is.na(circ$date) ) # all converted correctly</pre>
 
 <pre class = 'prettyprint lang-r'>library(tidyr)
 long = gather(circ, key = &quot;var&quot;, value = &quot;number&quot;, 
+              -day, -date, -daily)
+head(long, 4)</pre>
+
+<pre ># A tibble: 4 x 5
+        day       date  daily             var number
+      &lt;chr&gt;     &lt;date&gt;  &lt;dbl&gt;           &lt;chr&gt;  &lt;dbl&gt;
+1    Monday 2010-01-11  952.0 orangeBoardings    877
+2   Tuesday 2010-01-12  796.0 orangeBoardings    777
+3 Wednesday 2010-01-13 1211.5 orangeBoardings   1203
+4  Thursday 2010-01-14 1213.5 orangeBoardings   1194</pre>
+
+</article></slide><slide class=''><hgroup><h2>Reshaping data from wide (fat) to long (tall): tidyr</h2></hgroup><article  id="reshaping-data-from-wide-fat-to-long-tall-tidyr-1">
+
+<ul>
+<li>Could be explicit on what we want to gather</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>long = gather(circ, key = &quot;var&quot;, value = &quot;number&quot;, 
               starts_with(&quot;orange&quot;), starts_with(&quot;purple&quot;),
               starts_with(&quot;green&quot;), starts_with(&quot;banner&quot;))
 head(long, 4)</pre>
@@ -233,7 +251,7 @@ head(long, 4)</pre>
 3 Wednesday 2010-01-13 1211.5 orangeBoardings   1203
 4  Thursday 2010-01-14 1213.5 orangeBoardings   1194</pre>
 
-</article></slide><slide class=''><hgroup><h2>Reshaping data from wide (fat) to long (tall): tidyr</h2></hgroup><article  id="reshaping-data-from-wide-fat-to-long-tall-tidyr-1">
+</article></slide><slide class=''><hgroup><h2>Reshaping data from wide (fat) to long (tall): tidyr</h2></hgroup><article  id="reshaping-data-from-wide-fat-to-long-tall-tidyr-2">
 
 <pre class = 'prettyprint lang-r'>table(long$var)</pre>
 
@@ -247,7 +265,7 @@ bannerAlightings    bannerAverage  bannerBoardings  greenAlightings
 
 </article></slide><slide class=''><hgroup><h2>Making a separator</h2></hgroup><article  id="making-a-separator">
 
-<p>We will use <code>str_replace</code> from <code>stringr</code> to put periods in the names:</p>
+<p>We will use <code>str_replace</code> from <code>stringr</code> to put periods in the names (periods are <strong>not</strong> special when in a replacement)</p>
 
 <pre class = 'prettyprint lang-r'>library(stringr)
 long = long %&gt;% mutate(
@@ -265,7 +283,7 @@ banner.Alightings    banner.Average  banner.Boardings  green.Alightings
  orange.Boardings purple.Alightings    purple.Average  purple.Boardings 
              1146              1146              1146              1146 </pre>
 
-</article></slide><slide class=''><hgroup><h2>Reshaping data from wide (fat) to long (tall): tidyr</h2></hgroup><article  id="reshaping-data-from-wide-fat-to-long-tall-tidyr-2">
+</article></slide><slide class=''><hgroup><h2>Reshaping data from wide (fat) to long (tall): tidyr</h2></hgroup><article  id="reshaping-data-from-wide-fat-to-long-tall-tidyr-3">
 
 <p>Now each <code>var</code> is boardings, averages, or alightings. We want to separate these so we can have these by line. Remember &quot;.&quot; is special character:</p>
 
@@ -334,6 +352,10 @@ head(wide)</pre>
 5 Friday 2010-01-22 1394.5 banner         NA      NA        NA
 6 Friday 2010-01-22 1394.5  green         NA      NA        NA</pre>
 
+</article></slide><slide class=''><hgroup><h2>Lab Part 1</h2></hgroup><article  id="lab-part-1">
+
+<p><a href='../index.html' title=''>Website</a></p>
+
 </article></slide><slide class=''><hgroup><h2>Reshaping data from long (tall) to wide (fat): tidyr</h2></hgroup><article  id="reshaping-data-from-long-tall-to-wide-fat-tidyr-1">
 
 <p>We can use <code>rowSums</code> to see if any values in the row is <code>NA</code> and keep if the row, which is a combination of date and line type has any non-missing data.</p>
@@ -385,21 +407,11 @@ first_and_last %&gt;%  head(4)</pre>
 3 Tuesday 2011-11-01  8873.0  green Boardings    887
 4  Friday 2013-03-01      NA  green Boardings   2592</pre>
 
-</article></slide><slide class=''><hgroup><h2>Data Merging/Append in Base R</h2></hgroup><article  id="data-mergingappend-in-base-r">
+</article></slide><slide class=''><hgroup><h2>Lab Part 1</h2></hgroup><article  id="lab-part-1-1">
 
-<ul>
-<li>Merging - joining data sets together - usually on key variables, usually &quot;id&quot;</li>
-<li><code>merge()</code> is the most common way to do this with data sets</li>
-<li><code>rbind</code>/<code>cbind</code> - row/column bind, respectively
+<p><a href='../index.html' title=''>Website</a></p>
 
-<ul>
-<li><code>rbind</code> is the equivalent of &quot;appending&quot; in Stata or &quot;setting&quot; in SAS</li>
-<li><code>cbind</code> allows you to add columns in addition to the previous ways</li>
-</ul></li>
-<li><code>t()</code> is a function that will transpose the data</li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Merging</h2></hgroup><article  id="merging">
+</article></slide><slide class=''><hgroup><h2>Merging: Simple Data</h2></hgroup><article  id="merging-simple-data">
 
 <pre class = 'prettyprint lang-r'>base &lt;- data.frame(id = 1:10, Age= seq(55,60, length=10))
 base[1:2,]</pre>
@@ -416,45 +428,37 @@ visits[1:2,]</pre>
 1  1     1 10.00000
 2  2     2 11.73913</pre>
 
-</article></slide><slide class=''><hgroup><h2>Merging</h2></hgroup><article  id="merging-1">
-
-<pre class = 'prettyprint lang-r'>merged.data &lt;- merge(base, visits, by=&quot;id&quot;)
-merged.data[1:5,]</pre>
-
-<pre >  id      Age visit  Outcome
-1  1 55.00000     1 10.00000
-2  1 55.00000     3 23.91304
-3  1 55.00000     2 37.82609
-4  2 55.55556     2 11.73913
-5  2 55.55556     1 25.65217</pre>
-
-<pre class = 'prettyprint lang-r'>dim(merged.data)</pre>
-
-<pre >[1] 24  4</pre>
-
-</article></slide><slide class=''><hgroup><h2>Merging</h2></hgroup><article  id="merging-2">
-
-<pre class = 'prettyprint lang-r'>all.data &lt;- merge(base, visits, by=&quot;id&quot;, all=TRUE)
-tail(all.data)</pre>
-
-<pre >   id      Age visit  Outcome
-21  7 58.33333     2 48.26087
-22  8 58.88889     2 22.17391
-23  8 58.88889     1 36.08696
-24  8 58.88889     3 50.00000
-25  9 59.44444    NA       NA
-26 10 60.00000    NA       NA</pre>
-
-<pre class = 'prettyprint lang-r'>dim(all.data)</pre>
-
-<pre >[1] 26  4</pre>
-
 </article></slide><slide class=''><hgroup><h2>Joining in <code>dplyr</code></h2></hgroup><article  id="joining-in-dplyr">
 
 <ul>
+<li>Merging/joining data sets together - usually on key variables, usually &quot;id&quot;</li>
 <li><code>?join</code> - see different types of joining for <code>dplyr</code></li>
 <li>Let&#39;s look at <a href='https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf' title=''>https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf</a></li>
+<li><code>inner_join(x, y)</code> - only rows that match for <code>x</code> and <code>y</code> are kept</li>
+<li><code>full_join(x, y)</code> - all rows of <code>x</code> and <code>y</code> are kept</li>
+<li><code>left_join(x, y)</code> - all rows of <code>x</code> are kept even if not merged with <code>y</code></li>
+<li><code>right_join(x, y)</code> - all rows of <code>y</code> are kept even if not merged with <code>x</code></li>
 </ul>
+
+</article></slide><slide class=''><hgroup><h2>Inner Join</h2></hgroup><article  id="inner-join">
+
+<pre class = 'prettyprint lang-r'>ij = inner_join(base, visits)</pre>
+
+<pre >Joining, by = &quot;id&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>dim(ij)</pre>
+
+<pre >[1] 24  4</pre>
+
+<pre class = 'prettyprint lang-r'>tail(ij)</pre>
+
+<pre >   id      Age visit  Outcome
+19  7 58.33333     1 20.43478
+20  7 58.33333     3 34.34783
+21  7 58.33333     2 48.26087
+22  8 58.88889     2 22.17391
+23  8 58.88889     1 36.08696
+24  8 58.88889     3 50.00000</pre>
 
 </article></slide><slide class=''><hgroup><h2>Left Join</h2></hgroup><article  id="left-join">
 
@@ -496,6 +500,30 @@ tail(all.data)</pre>
 23  7 58.33333     2 48.26087
 24  8 58.88889     3 50.00000</pre>
 
+</article></slide><slide class=''><hgroup><h2>Right Join: Switching arguments</h2></hgroup><article  id="right-join-switching-arguments">
+
+<pre class = 'prettyprint lang-r'>rj2 = right_join(visits, base)</pre>
+
+<pre >Joining, by = &quot;id&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>dim(rj2)</pre>
+
+<pre >[1] 26  4</pre>
+
+<pre class = 'prettyprint lang-r'>tail(rj2)</pre>
+
+<pre >   id visit  Outcome      Age
+21  7     2 48.26087 58.33333
+22  8     2 22.17391 58.88889
+23  8     1 36.08696 58.88889
+24  8     3 50.00000 58.88889
+25  9    NA       NA 59.44444
+26 10    NA       NA 60.00000</pre>
+
+<pre class = 'prettyprint lang-r'>identical(rj2, lj)</pre>
+
+<pre >[1] FALSE</pre>
+
 </article></slide><slide class=''><hgroup><h2>Full Join</h2></hgroup><article  id="full-join">
 
 <pre class = 'prettyprint lang-r'>fj = full_join(base, visits)</pre>
@@ -515,6 +543,65 @@ tail(all.data)</pre>
 24  8 58.88889     3 50.00000
 25  9 59.44444    NA       NA
 26 10 60.00000    NA       NA</pre>
+
+</article></slide><slide class=''><hgroup><h2>Data Merging/Append in Base R</h2></hgroup><article  id="data-mergingappend-in-base-r">
+
+<ul>
+<li><code>merge()</code> is the most common way to do this with data sets
+
+<ul>
+<li>we will use the &quot;join&quot; functions from <code>dplyr</code></li>
+</ul></li>
+<li><code>rbind</code>/<code>cbind</code> - row/column bind, respectively
+
+<ul>
+<li><code>rbind</code> is the equivalent of &quot;appending&quot; in Stata or &quot;setting&quot; in SAS</li>
+<li><code>cbind</code> allows you to add columns in addition to the previous ways</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Merging</h2></hgroup><article  id="merging">
+
+<pre class = 'prettyprint lang-r'>merged.data &lt;- merge(base, visits, by = &quot;id&quot;)
+merged.data[1:5,]</pre>
+
+<pre >  id      Age visit  Outcome
+1  1 55.00000     1 10.00000
+2  1 55.00000     3 23.91304
+3  1 55.00000     2 37.82609
+4  2 55.55556     2 11.73913
+5  2 55.55556     1 25.65217</pre>
+
+<pre class = 'prettyprint lang-r'>dim(merged.data)</pre>
+
+<pre >[1] 24  4</pre>
+
+</article></slide><slide class=''><hgroup><h2>Merging</h2></hgroup><article  id="merging-1">
+
+<pre class = 'prettyprint lang-r'>all.data &lt;- merge(base, visits, by = &quot;id&quot;, all = TRUE)
+tail(all.data)</pre>
+
+<pre >   id      Age visit  Outcome
+21  7 58.33333     2 48.26087
+22  8 58.88889     2 22.17391
+23  8 58.88889     1 36.08696
+24  8 58.88889     3 50.00000
+25  9 59.44444    NA       NA
+26 10 60.00000    NA       NA</pre>
+
+<pre class = 'prettyprint lang-r'>dim(all.data)</pre>
+
+<pre >[1] 26  4</pre>
+
+</article></slide><slide class=''><hgroup><h2>Reshaping data</h2></hgroup><article  id="reshaping-data-1">
+
+<ul>
+<li><code>t()</code> can transpose data but not</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Website</h2></hgroup><article  id="website">
+
+<p><a href='../index.html' title=''>Website</a></p>
 
 <!-- # Bonus slides - explore after visualization!  -->
 
@@ -586,11 +673,7 @@ tail(all.data)</pre>
 
 <!--   geom_point(size = .5) -->
 
-<!-- ``` -->
-
-</article></slide><slide class=''><hgroup><h2>Website</h2></hgroup><article  id="website">
-
-<p><a href='../index.html' title=''>Website</a></p></article></slide>
+<!-- ``` --></article></slide>
 
 
   <slide class="backdrop"></slide>

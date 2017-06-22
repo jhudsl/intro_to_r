@@ -117,8 +117,20 @@ The `reshape` command exists.  It is a **confusing** function.  Don't use it.
 `tidyr::gather` - puts column data into rows.
 
 We want the column names into "`var`" variable in the output dataset and the value in "`number`" variable. We then describe which columns we want to "gather:" 
+
 ```{r}
 library(tidyr)
+long = gather(circ, key = "var", value = "number", 
+              -day, -date, -daily)
+head(long, 4)
+```
+
+
+## Reshaping data from wide (fat) to long (tall): tidyr 
+
+- Could be explicit on what we want to gather
+
+```{r}
 long = gather(circ, key = "var", value = "number", 
               starts_with("orange"), starts_with("purple"),
               starts_with("green"), starts_with("banner"))
@@ -132,11 +144,14 @@ table(long$var)
 ```
 
 
+## Lab Part 1
+
+[Website](../index.html)
 
 
 ## Making a separator
 
-We will use `str_replace` from `stringr` to put periods in the names: 
+We will use `str_replace` from `stringr` to put periods in the names (periods are **not** special when in a replacement)
 
 ```{r}
 library(stringr)
@@ -172,7 +187,6 @@ reunited %>% select(day, var) %>% head(3) %>% print
 We could also use `paste`/`paste0`.
 
 
-
 ## Making column names a little more separated
 
 Alternative: We could have replaced the column names first **then** reshaped:
@@ -196,6 +210,8 @@ wide = filter(long, !is.na(date))
 wide = spread(wide, type, number)
 head(wide)
 ```
+
+
 
 
 ## Reshaping data from long (tall) to wide (fat): tidyr
@@ -233,16 +249,13 @@ first_and_last %>%  head(4)
 ```
 
 
-## Data Merging/Append in Base R
+## Lab Part 1
 
-* Merging - joining data sets together - usually on key variables, usually "id"
-* `merge()` is the most common way to do this with data sets
-* `rbind`/`cbind` - row/column bind, respectively
-    * `rbind` is the equivalent of "appending" in Stata or "setting" in SAS
-    * `cbind` allows you to add columns in addition to the previous ways
-* `t()` is a function that will transpose the data
+[Website](../index.html)
 
-## Merging 
+
+
+## Merging: Simple Data
 
 ```{r merging}
 base <- data.frame(id = 1:10, Age= seq(55,60, length=10))
@@ -252,27 +265,25 @@ visits <- data.frame(id = rep(1:8, 3), visit= rep(1:3, 8),
 visits[1:2,]
 ```
 
-## Merging 
-
-```{r merging2}
-merged.data <- merge(base, visits, by="id")
-merged.data[1:5,]
-dim(merged.data)
-```
-
-
-## Merging 
-
-```{r mergeall}
-all.data <- merge(base, visits, by="id", all=TRUE)
-tail(all.data)
-dim(all.data)
-```
 
 ## Joining in `dplyr`
 
+* Merging/joining data sets together - usually on key variables, usually "id"
 * `?join` - see different types of joining for `dplyr`
 * Let's look at https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf
+* `inner_join(x, y)` - only rows that match for `x` and `y` are kept
+* `full_join(x, y)` - all rows of `x` and `y` are kept 
+* `left_join(x, y)` - all rows of `x` are kept even if not merged with `y`
+* `right_join(x, y)` - all rows of `y` are kept even if not merged with `x`
+
+## Inner Join
+
+```{r inner_join}
+ij = inner_join(base, visits)
+dim(ij)
+tail(ij)
+```
+
 
 ## Left Join
 
@@ -290,6 +301,15 @@ dim(rj)
 tail(rj)
 ```
 
+## Right Join: Switching arguments
+
+```{r right_join2}
+rj2 = right_join(visits, base)
+dim(rj2)
+tail(rj2)
+identical(rj2, lj)
+```
+
 ## Full Join
 
 ```{r full_join}
@@ -297,6 +317,44 @@ fj = full_join(base, visits)
 dim(fj)
 tail(fj)
 ```
+
+## Data Merging/Append in Base R
+
+* `merge()` is the most common way to do this with data sets
+    - we will use the "join" functions from `dplyr`
+* `rbind`/`cbind` - row/column bind, respectively
+    * `rbind` is the equivalent of "appending" in Stata or "setting" in SAS
+    * `cbind` allows you to add columns in addition to the previous ways
+
+
+## Merging 
+
+```{r merging2}
+merged.data <- merge(base, visits, by = "id")
+merged.data[1:5,]
+dim(merged.data)
+```
+
+
+## Merging 
+
+```{r mergeall}
+all.data <- merge(base, visits, by = "id", all = TRUE)
+tail(all.data)
+dim(all.data)
+```
+
+## Reshaping data
+
+* `t()` can transpose data but not 
+
+
+## Website
+
+[Website](../index.html)
+
+
+
 
 
 <!-- # Bonus slides - explore after visualization!  -->
@@ -350,10 +408,3 @@ tail(fj)
 <!--            data = wide) + geom_smooth(se = FALSE) +  -->
 <!--   geom_point(size = .5) -->
 <!-- ``` -->
-
-
-
-
-## Website
-
-[Website](../index.html)

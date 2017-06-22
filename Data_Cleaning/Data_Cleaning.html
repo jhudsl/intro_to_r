@@ -636,6 +636,81 @@ y[[2]]</pre>
 <li>Uses function <code>fixed(pattern)</code></li>
 </ul>
 
+</article></slide><slide class=''><hgroup><h2>&#39;Find&#39; functions: finding values, <code>stringr</code> and <code>dplyr</code></h2></hgroup><article  id="find-functions-finding-values-stringr-and-dplyr">
+
+<pre class = 'prettyprint lang-r'>str_subset(Sal$Name, &quot;Rawlings&quot;)</pre>
+
+<pre >[1] &quot;Rawlings,Kellye A&quot;          &quot;Rawlings,Paula M&quot;          
+[3] &quot;Rawlings-Blake,Stephanie C&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>Sal %&gt;% filter(str_detect(Name, &quot;Rawlings&quot;))</pre>
+
+<pre >                        Name             JobTitle AgencyID
+1          Rawlings,Kellye A EMERGENCY DISPATCHER   A40302
+2           Rawlings,Paula M       COMMUNITY AIDE   A04015
+3 Rawlings-Blake,Stephanie C                MAYOR   A01001
+                     Agency   HireDate AnnualSalary   GrossPay
+1 M-R Info Technology (302) 01/06/2003    $48940.00  $73356.42
+2      R&amp;P-Recreation (015) 12/10/2007    $19802.00  $10443.70
+3       Mayors Office (001) 12/07/1995   $167449.00 $165249.86</pre>
+
+</article></slide><slide class=''><hgroup><h2>Replacing and subbing: <code>stringr</code></h2></hgroup><article  id="replacing-and-subbing-stringr">
+
+<p>We can do the same thing (with 2 piping operations!) in dplyr</p>
+
+<pre class = 'prettyprint lang-r'>dplyr_sal = Sal
+dplyr_sal = dplyr_sal %&gt;% mutate( 
+  AnnualSalary = AnnualSalary %&gt;%
+    str_replace(fixed(&quot;$&quot;), &quot;&quot;) %&gt;%
+    as.numeric) %&gt;%
+  arrange(desc(AnnualSalary))</pre>
+
+</article></slide><slide class=''><hgroup><h2>Showing differnce in <code>str_extract</code> and <code>str_extract_all</code></h2></hgroup><article  id="showing-differnce-in-str_extract-and-str_extract_all">
+
+<p><code>str_extract_all</code> extracts all the matched strings - <code>\\d</code> searches for DIGITS/numbers</p>
+
+<pre class = 'prettyprint lang-r'>head(str_extract(Sal$AgencyID, &quot;\\d&quot;))</pre>
+
+<pre >[1] &quot;0&quot; &quot;2&quot; &quot;6&quot; &quot;9&quot; &quot;4&quot; &quot;9&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>head(str_extract_all(Sal$AgencyID, &quot;\\d&quot;), 2)</pre>
+
+<pre >[[1]]
+[1] &quot;0&quot; &quot;3&quot; &quot;0&quot; &quot;3&quot; &quot;1&quot;
+
+[[2]]
+[1] &quot;2&quot; &quot;9&quot; &quot;0&quot; &quot;4&quot; &quot;5&quot;</pre>
+
+</article></slide><slide class=''><hgroup><h2>Sorting characters</h2></hgroup><article  id="sorting-characters">
+
+<ul>
+<li><code>sort</code> - reorders the data - characters work, but not</li>
+<li><code>rank</code> - gives the rank of the data - ties are split</li>
+<li><code>order</code> - gives the indices, if subset, would give the data sorted
+
+<ul>
+<li><code>x[order(x)]</code> is the same as sorting</li>
+</ul></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>sort(c(&quot;1&quot;, &quot;2&quot;, &quot;10&quot;)) #  not sort correctly (order simply ranks the data)</pre>
+
+<pre >[1] &quot;1&quot;  &quot;10&quot; &quot;2&quot; </pre>
+
+<pre class = 'prettyprint lang-r'>order(c(&quot;1&quot;, &quot;2&quot;, &quot;10&quot;))</pre>
+
+<pre >[1] 1 3 2</pre>
+
+<pre class = 'prettyprint lang-r'>x = rnorm(10)
+x[1] = x[2] # create a tie
+rank(x)</pre>
+
+<pre > [1]  3.5  3.5  1.0  8.0  5.0  7.0  6.0  9.0  2.0 10.0</pre>
+
+</article></slide><slide class=''><hgroup><h2>Website</h2></hgroup><article  id="website">
+
+<p><a href='../index.html' title=''>Website</a></p>
+
 </article></slide><slide class=''><hgroup><h2>&#39;Find&#39; functions: Finding Indices</h2></hgroup><article  id="find-functions-finding-indices">
 
 <p>These are the indices where the pattern match occurs:</p>
@@ -682,24 +757,6 @@ y[[2]]</pre>
 10257      R&amp;P-Recreation (015) 12/10/2007    $19802.00  $10443.70
 10258       Mayors Office (001) 12/07/1995   $167449.00 $165249.86</pre>
 
-</article></slide><slide class=''><hgroup><h2>&#39;Find&#39; functions: finding values, <code>stringr</code> and <code>dplyr</code></h2></hgroup><article  id="find-functions-finding-values-stringr-and-dplyr">
-
-<pre class = 'prettyprint lang-r'>str_subset(Sal$Name, &quot;Rawlings&quot;)</pre>
-
-<pre >[1] &quot;Rawlings,Kellye A&quot;          &quot;Rawlings,Paula M&quot;          
-[3] &quot;Rawlings-Blake,Stephanie C&quot;</pre>
-
-<pre class = 'prettyprint lang-r'>Sal %&gt;% filter(str_detect(Name, &quot;Rawlings&quot;))</pre>
-
-<pre >                        Name             JobTitle AgencyID
-1          Rawlings,Kellye A EMERGENCY DISPATCHER   A40302
-2           Rawlings,Paula M       COMMUNITY AIDE   A04015
-3 Rawlings-Blake,Stephanie C                MAYOR   A01001
-                     Agency   HireDate AnnualSalary   GrossPay
-1 M-R Info Technology (302) 01/06/2003    $48940.00  $73356.42
-2      R&amp;P-Recreation (015) 12/10/2007    $19802.00  $10443.70
-3       Mayors Office (001) 12/07/1995   $167449.00 $165249.86</pre>
-
 </article></slide><slide class=''><hgroup><h2>Showing differnce in <code>str_extract</code></h2></hgroup><article  id="showing-differnce-in-str_extract">
 
 <p><code>str_extract</code> extracts just the matched string</p>
@@ -713,7 +770,7 @@ head(ss)</pre>
 
 <pre >[1] &quot;Rawling&quot; &quot;Rawling&quot; &quot;Rawling&quot;</pre>
 
-</article></slide><slide class=''><hgroup><h2>Showing differnce in <code>str_extract</code> and <code>str_extract_all</code></h2></hgroup><article  id="showing-differnce-in-str_extract-and-str_extract_all">
+</article></slide><slide class=''><hgroup><h2>Showing differnce in <code>str_extract</code> and <code>str_extract_all</code></h2></hgroup><article  id="showing-differnce-in-str_extract-and-str_extract_all-1">
 
 <p><code>str_extract_all</code> extracts all the matched strings</p>
 
@@ -818,7 +875,7 @@ Sal[1:5, c(&quot;Name&quot;, &quot;AnnualSalary&quot;, &quot;JobTitle&quot;)]</p
 10274 Raymond,Henry J       192500 Executive Director III
 12118   Swift,Michael       187200  CONTRACT SERV SPEC II</pre>
 
-</article></slide><slide class=''><hgroup><h2>Replacing and subbing: <code>stringr</code></h2></hgroup><article  id="replacing-and-subbing-stringr">
+</article></slide><slide class=''><hgroup><h2>Replacing and subbing: <code>stringr</code></h2></hgroup><article  id="replacing-and-subbing-stringr-1">
 
 <p>We can do the same thing (with 2 piping operations!) in dplyr</p>
 
@@ -836,7 +893,7 @@ all.equal(check_Sal, dplyr_sal)</pre>
 
 <pre >[1] TRUE</pre>
 
-</article></slide><slide class=''><hgroup><h2>Website</h2></hgroup><article  id="website">
+</article></slide><slide class=''><hgroup><h2>Website</h2></hgroup><article  id="website-1">
 
 <p><a href='../index.html' title=''>Website</a></p></article></slide>
 

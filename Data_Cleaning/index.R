@@ -113,6 +113,29 @@ sapply(y, dplyr::first) # on the fly
 sapply(y, nth, 2) # on the fly
 sapply(y, last) # on the fly
 
+## ----ggrep---------------------------------------------------------------
+str_subset(Sal$Name, "Rawlings")
+Sal %>% filter(str_detect(Name, "Rawlings"))
+
+## ----orderSal_stringr_rework---------------------------------------------
+dplyr_sal = Sal
+dplyr_sal = dplyr_sal %>% mutate( 
+  AnnualSalary = AnnualSalary %>%
+    str_replace(fixed("$"), "") %>%
+    as.numeric) %>%
+  arrange(desc(AnnualSalary))
+
+## ------------------------------------------------------------------------
+head(str_extract(Sal$AgencyID, "\\d"))
+head(str_extract_all(Sal$AgencyID, "\\d"), 2)
+
+## ----orderrank-----------------------------------------------------------
+sort(c("1", "2", "10")) #  not sort correctly (order simply ranks the data)
+order(c("1", "2", "10"))
+x = rnorm(10)
+x[1] = x[2] # create a tie
+rank(x)
+
 ## ----RawlMatch-----------------------------------------------------------
 grep("Rawlings",Sal$Name)
 which(grepl("Rawlings", Sal$Name))
@@ -125,10 +148,6 @@ head(str_detect(Sal$Name, "Rawlings"))
 ## ----grepl---------------------------------------------------------------
 grep("Rawlings",Sal$Name,value=TRUE)
 Sal[grep("Rawlings",Sal$Name),]
-
-## ----ggrep---------------------------------------------------------------
-str_subset(Sal$Name, "Rawlings")
-Sal %>% filter(str_detect(Name, "Rawlings"))
 
 ## ----ggrep2--------------------------------------------------------------
 ss = str_extract(Sal$Name, "Rawling")
