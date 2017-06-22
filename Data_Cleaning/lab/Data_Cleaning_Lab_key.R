@@ -88,7 +88,8 @@ dim(pres)
 # hist with certain breaks or plot(density(variable))
 hist(log2(pres$CityTax+1))
 hist(pres$CityTax)
-plot(density(pres$CityTax))
+pres$CityTax
+plot(density(pres$CityTax,  na.rm = TRUE))
 
 
 

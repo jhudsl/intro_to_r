@@ -54,7 +54,8 @@ df$lab = paste0(df$lab, ".R")
 df$have_lab = file.exists(df$lab)
 df$lab = paste0("[Lab](", df$lab, ")")
 if (show_keys) {
-  keep = grepl("Basic_R|Data_IO|Subsetting|Summarization", df$lab_key)
+  keep = rep(TRUE, nrow(df))
+  # keep = grepl("Basic_R|Data_IO|Subsetting|Summarization", df$lab_key)
   df$lab[keep] = paste0(df$lab[keep], ", [Key](", df$lab_key[keep], ")")
 }
 df$lab[!df$have_lab] = ""
