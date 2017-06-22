@@ -19,7 +19,6 @@ colnames(circ) =  colnames(circ) %>%
   str_replace("Board", ".Board") %>% 
   str_replace("Alight", ".Alight") %>% 
   str_replace("Average", ".Average") 
-circ$daily = NULL # remove
 
 # make long
 long = gather(circ, "var", "number", 
@@ -33,6 +32,10 @@ long = separate(long, var, into = c("line", "type"),
 ## take just average ridership per day
 avg = filter(long, type == "Average")
 avg = filter(avg, !is.na(number))
+
+# separate
+type_wide = spread(long, type, value = number)
+head(type_wide)
 
 # Using ggplot2:
 

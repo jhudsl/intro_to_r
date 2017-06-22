@@ -22,13 +22,12 @@ colnames(circ) =  colnames(circ) %>%
 
 # make long
 long = gather(circ, "var", "number", 
-              -daily, -day, -date)
-head(long)
-
+              starts_with("orange"),
+              starts_with("purple"), starts_with("green"),
+              starts_with("banner"))
 # separate
 long = separate(long, var, into = c("line", "type"), 
                 sep = "[.]")
-head(long)
 
 ## take just average ridership per day
 avg = filter(long, type == "Average")
