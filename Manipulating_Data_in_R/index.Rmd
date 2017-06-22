@@ -200,6 +200,11 @@ cn = cn %>%
 colnames(circ) = cn # then reshape using gather!
 ```
 
+## Lab Part 2
+
+[Website](../index.html)
+
+
 ## Reshaping data from long (tall) to wide (fat): tidyr
 
 In `tidyr`, the `spread` function spreads rows into columns.  Now we have a long data set, but we want to separate the Average, Alightings and Boardings into different columns:
@@ -212,48 +217,9 @@ head(wide)
 ```
 
 
-
-
-## Reshaping data from long (tall) to wide (fat): tidyr
-
-We can use `rowSums` to see if any values in the row is `NA` and keep if the row, which is a combination of date and line type has any non-missing data.
-
-```{r}
-# wide = wide %>%
-#     select(Alightings, Average, Boardings) %>%
-#     mutate(good = rowSums(is.na(.)) > 0)
-not_namat = !is.na(select(wide, Alightings, Average, Boardings))
-head(not_namat, 2)
-wide$good = rowSums(not_namat) > 0
-```
-
-## Reshaping data from long (tall) to wide (fat): tidyr
-
-Now we can filter only the good rows and delete the `good` column.
-```{r}
-wide = filter(wide, good) %>% select(-good)
-head(wide)
-```
-
-
-## Finding the First (or Last) record
-
-
-```{r}
-long = long %>% filter(!is.na(number) & number > 0)
-first_and_last = long %>% arrange(date) %>% # arrange by date
-  filter(type %in% "Boardings") %>% # keep boardings only
-  group_by(line) %>% # group by line
-  slice( c(1, n())) # select ("slice") first and last (n() command) lines
-first_and_last %>%  head(4)
-```
-
-
-## Lab Part 1
+## Lab Part 3
 
 [Website](../index.html)
-
-
 
 ## Merging: Simple Data
 
@@ -318,6 +284,11 @@ dim(fj)
 tail(fj)
 ```
 
+
+## Lab Part 4
+
+[Website](../index.html)
+
 ## Data Merging/Append in Base R
 
 * `merge()` is the most common way to do this with data sets
@@ -325,7 +296,7 @@ tail(fj)
 * `rbind`/`cbind` - row/column bind, respectively
     * `rbind` is the equivalent of "appending" in Stata or "setting" in SAS
     * `cbind` allows you to add columns in addition to the previous ways
-
+* `t()` can transpose data but not 
 
 ## Merging 
 
@@ -344,9 +315,40 @@ tail(all.data)
 dim(all.data)
 ```
 
-## Reshaping data
+# More Data Manipulation
 
-* `t()` can transpose data but not 
+## Reshaping data from long (tall) to wide (fat): tidyr
+
+We can use `rowSums` to see if any values in the row is `NA` and keep if the row, which is a combination of date and line type has any non-missing data.
+
+```{r}
+head(wide, 3)
+not_namat = !is.na(select(wide, Alightings, Average, Boardings))
+head(not_namat, 2)
+wide$good = rowSums(not_namat) > 0
+```
+
+## Reshaping data from long (tall) to wide (fat): tidyr
+
+Now we can filter only the good rows and delete the `good` column.
+```{r}
+wide = filter(wide, good) %>% select(-good)
+head(wide)
+```
+
+
+## Finding the First (or Last) record
+
+- Slice allows you to select **records** (compared to first/last on a **vector**)
+
+```{r}
+long = long %>% filter(!is.na(number) & number > 0)
+first_and_last = long %>% arrange(date) %>% # arrange by date
+  filter(type %in% "Boardings") %>% # keep boardings only
+  group_by(line) %>% # group by line
+  slice( c(1, n())) # select ("slice") first and last (n() command) lines
+first_and_last %>%  head(4)
+```
 
 
 ## Website

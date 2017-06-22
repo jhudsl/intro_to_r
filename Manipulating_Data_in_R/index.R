@@ -88,26 +88,6 @@ wide = filter(long, !is.na(date))
 wide = spread(wide, type, number)
 head(wide)
 
-## ------------------------------------------------------------------------
-# wide = wide %>%
-#     select(Alightings, Average, Boardings) %>%
-#     mutate(good = rowSums(is.na(.)) > 0)
-not_namat = !is.na(select(wide, Alightings, Average, Boardings))
-head(not_namat, 2)
-wide$good = rowSums(not_namat) > 0
-
-## ------------------------------------------------------------------------
-wide = filter(wide, good) %>% select(-good)
-head(wide)
-
-## ------------------------------------------------------------------------
-long = long %>% filter(!is.na(number) & number > 0)
-first_and_last = long %>% arrange(date) %>% # arrange by date
-  filter(type %in% "Boardings") %>% # keep boardings only
-  group_by(line) %>% # group by line
-  slice( c(1, n())) # select ("slice") first and last (n() command) lines
-first_and_last %>%  head(4)
-
 ## ----merging-------------------------------------------------------------
 base <- data.frame(id = 1:10, Age= seq(55,60, length=10))
 base[1:2,]
@@ -150,4 +130,22 @@ dim(merged.data)
 all.data <- merge(base, visits, by = "id", all = TRUE)
 tail(all.data)
 dim(all.data)
+
+## ------------------------------------------------------------------------
+head(wide, 3)
+not_namat = !is.na(select(wide, Alightings, Average, Boardings))
+head(not_namat, 2)
+wide$good = rowSums(not_namat) > 0
+
+## ------------------------------------------------------------------------
+wide = filter(wide, good) %>% select(-good)
+head(wide)
+
+## ------------------------------------------------------------------------
+long = long %>% filter(!is.na(number) & number > 0)
+first_and_last = long %>% arrange(date) %>% # arrange by date
+  filter(type %in% "Boardings") %>% # keep boardings only
+  group_by(line) %>% # group by line
+  slice( c(1, n())) # select ("slice") first and last (n() command) lines
+first_and_last %>%  head(4)
 

@@ -263,6 +263,10 @@ bannerAlightings    bannerAverage  bannerBoardings  greenAlightings
  orangeBoardings purpleAlightings    purpleAverage  purpleBoardings 
             1146             1146             1146             1146 </pre>
 
+</article></slide><slide class=''><hgroup><h2>Lab Part 1</h2></hgroup><article  id="lab-part-1">
+
+<p><a href='../index.html' title=''>Website</a></p>
+
 </article></slide><slide class=''><hgroup><h2>Making a separator</h2></hgroup><article  id="making-a-separator">
 
 <p>We will use <code>str_replace</code> from <code>stringr</code> to put periods in the names (periods are <strong>not</strong> special when in a replacement)</p>
@@ -333,6 +337,10 @@ cn = cn %&gt;%
   str_replace(&quot;Average&quot;, &quot;.Average&quot;) 
 colnames(circ) = cn # then reshape using gather!</pre>
 
+</article></slide><slide class=''><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
+
+<p><a href='../index.html' title=''>Website</a></p>
+
 </article></slide><slide class=''><hgroup><h2>Reshaping data from long (tall) to wide (fat): tidyr</h2></hgroup><article  id="reshaping-data-from-long-tall-to-wide-fat-tidyr">
 
 <p>In <code>tidyr</code>, the <code>spread</code> function spreads rows into columns. Now we have a long data set, but we want to separate the Average, Alightings and Boardings into different columns:</p>
@@ -352,62 +360,7 @@ head(wide)</pre>
 5 Friday 2010-01-22 1394.5 banner         NA      NA        NA
 6 Friday 2010-01-22 1394.5  green         NA      NA        NA</pre>
 
-</article></slide><slide class=''><hgroup><h2>Lab Part 1</h2></hgroup><article  id="lab-part-1">
-
-<p><a href='../index.html' title=''>Website</a></p>
-
-</article></slide><slide class=''><hgroup><h2>Reshaping data from long (tall) to wide (fat): tidyr</h2></hgroup><article  id="reshaping-data-from-long-tall-to-wide-fat-tidyr-1">
-
-<p>We can use <code>rowSums</code> to see if any values in the row is <code>NA</code> and keep if the row, which is a combination of date and line type has any non-missing data.</p>
-
-<pre class = 'prettyprint lang-r'># wide = wide %&gt;%
-#     select(Alightings, Average, Boardings) %&gt;%
-#     mutate(good = rowSums(is.na(.)) &gt; 0)
-not_namat = !is.na(select(wide, Alightings, Average, Boardings))
-head(not_namat, 2)</pre>
-
-<pre >  Alightings Average Boardings
-1      FALSE   FALSE     FALSE
-2      FALSE   FALSE     FALSE</pre>
-
-<pre class = 'prettyprint lang-r'>wide$good = rowSums(not_namat) &gt; 0</pre>
-
-</article></slide><slide class=''><hgroup><h2>Reshaping data from long (tall) to wide (fat): tidyr</h2></hgroup><article  id="reshaping-data-from-long-tall-to-wide-fat-tidyr-2">
-
-<p>Now we can filter only the good rows and delete the <code>good</code> column.</p>
-
-<pre class = 'prettyprint lang-r'>wide = filter(wide, good) %&gt;% select(-good)
-head(wide)</pre>
-
-<pre ># A tibble: 6 x 7
-     day       date  daily   line Alightings Average Boardings
-   &lt;chr&gt;     &lt;date&gt;  &lt;dbl&gt;  &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
-1 Friday 2010-01-15 1644.0 orange       1643  1644.0      1645
-2 Friday 2010-01-22 1394.5 orange       1388  1394.5      1401
-3 Friday 2010-01-29 1332.0 orange       1322  1332.0      1342
-4 Friday 2010-02-05 1217.5 orange       1204  1217.5      1231
-5 Friday 2010-02-12  671.0 orange        678   671.0       664
-6 Friday 2010-02-19 1642.0 orange       1647  1642.0      1637</pre>
-
-</article></slide><slide class=''><hgroup><h2>Finding the First (or Last) record</h2></hgroup><article  id="finding-the-first-or-last-record">
-
-<pre class = 'prettyprint lang-r'>long = long %&gt;% filter(!is.na(number) &amp; number &gt; 0)
-first_and_last = long %&gt;% arrange(date) %&gt;% # arrange by date
-  filter(type %in% &quot;Boardings&quot;) %&gt;% # keep boardings only
-  group_by(line) %&gt;% # group by line
-  slice( c(1, n())) # select (&quot;slice&quot;) first and last (n() command) lines
-first_and_last %&gt;%  head(4)</pre>
-
-<pre ># A tibble: 4 x 6
-# Groups:   line [2]
-      day       date   daily   line      type number
-    &lt;chr&gt;     &lt;date&gt;   &lt;dbl&gt;  &lt;chr&gt;     &lt;chr&gt;  &lt;dbl&gt;
-1  Monday 2012-06-04 13342.5 banner Boardings    520
-2  Friday 2013-03-01      NA banner Boardings    817
-3 Tuesday 2011-11-01  8873.0  green Boardings    887
-4  Friday 2013-03-01      NA  green Boardings   2592</pre>
-
-</article></slide><slide class=''><hgroup><h2>Lab Part 1</h2></hgroup><article  id="lab-part-1-1">
+</article></slide><slide class=''><hgroup><h2>Lab Part 3</h2></hgroup><article  id="lab-part-3">
 
 <p><a href='../index.html' title=''>Website</a></p>
 
@@ -544,6 +497,10 @@ visits[1:2,]</pre>
 25  9 59.44444    NA       NA
 26 10 60.00000    NA       NA</pre>
 
+</article></slide><slide class=''><hgroup><h2>Lab Part 4</h2></hgroup><article  id="lab-part-4">
+
+<p><a href='../index.html' title=''>Website</a></p>
+
 </article></slide><slide class=''><hgroup><h2>Data Merging/Append in Base R</h2></hgroup><article  id="data-mergingappend-in-base-r">
 
 <ul>
@@ -558,6 +515,7 @@ visits[1:2,]</pre>
 <li><code>rbind</code> is the equivalent of &quot;appending&quot; in Stata or &quot;setting&quot; in SAS</li>
 <li><code>cbind</code> allows you to add columns in addition to the previous ways</li>
 </ul></li>
+<li><code>t()</code> can transpose data but not</li>
 </ul>
 
 </article></slide><slide class=''><hgroup><h2>Merging</h2></hgroup><article  id="merging">
@@ -593,11 +551,68 @@ tail(all.data)</pre>
 
 <pre >[1] 26  4</pre>
 
-</article></slide><slide class=''><hgroup><h2>Reshaping data</h2></hgroup><article  id="reshaping-data-1">
+</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>More Data Manipulation</h2></hgroup><article  id="more-data-manipulation">
+
+</article></slide><slide class=''><hgroup><h2>Reshaping data from long (tall) to wide (fat): tidyr</h2></hgroup><article  id="reshaping-data-from-long-tall-to-wide-fat-tidyr-1">
+
+<p>We can use <code>rowSums</code> to see if any values in the row is <code>NA</code> and keep if the row, which is a combination of date and line type has any non-missing data.</p>
+
+<pre class = 'prettyprint lang-r'>head(wide, 3)</pre>
+
+<pre ># A tibble: 3 x 7
+     day       date daily   line Alightings Average Boardings
+   &lt;chr&gt;     &lt;date&gt; &lt;dbl&gt;  &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
+1 Friday 2010-01-15  1644 banner         NA      NA        NA
+2 Friday 2010-01-15  1644  green         NA      NA        NA
+3 Friday 2010-01-15  1644 orange       1643    1644      1645</pre>
+
+<pre class = 'prettyprint lang-r'>not_namat = !is.na(select(wide, Alightings, Average, Boardings))
+head(not_namat, 2)</pre>
+
+<pre >  Alightings Average Boardings
+1      FALSE   FALSE     FALSE
+2      FALSE   FALSE     FALSE</pre>
+
+<pre class = 'prettyprint lang-r'>wide$good = rowSums(not_namat) &gt; 0</pre>
+
+</article></slide><slide class=''><hgroup><h2>Reshaping data from long (tall) to wide (fat): tidyr</h2></hgroup><article  id="reshaping-data-from-long-tall-to-wide-fat-tidyr-2">
+
+<p>Now we can filter only the good rows and delete the <code>good</code> column.</p>
+
+<pre class = 'prettyprint lang-r'>wide = filter(wide, good) %&gt;% select(-good)
+head(wide)</pre>
+
+<pre ># A tibble: 6 x 7
+     day       date  daily   line Alightings Average Boardings
+   &lt;chr&gt;     &lt;date&gt;  &lt;dbl&gt;  &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
+1 Friday 2010-01-15 1644.0 orange       1643  1644.0      1645
+2 Friday 2010-01-22 1394.5 orange       1388  1394.5      1401
+3 Friday 2010-01-29 1332.0 orange       1322  1332.0      1342
+4 Friday 2010-02-05 1217.5 orange       1204  1217.5      1231
+5 Friday 2010-02-12  671.0 orange        678   671.0       664
+6 Friday 2010-02-19 1642.0 orange       1647  1642.0      1637</pre>
+
+</article></slide><slide class=''><hgroup><h2>Finding the First (or Last) record</h2></hgroup><article  id="finding-the-first-or-last-record">
 
 <ul>
-<li><code>t()</code> can transpose data but not</li>
+<li>Slice allows you to select <strong>records</strong> (compared to first/last on a <strong>vector</strong>)</li>
 </ul>
+
+<pre class = 'prettyprint lang-r'>long = long %&gt;% filter(!is.na(number) &amp; number &gt; 0)
+first_and_last = long %&gt;% arrange(date) %&gt;% # arrange by date
+  filter(type %in% &quot;Boardings&quot;) %&gt;% # keep boardings only
+  group_by(line) %&gt;% # group by line
+  slice( c(1, n())) # select (&quot;slice&quot;) first and last (n() command) lines
+first_and_last %&gt;%  head(4)</pre>
+
+<pre ># A tibble: 4 x 6
+# Groups:   line [2]
+      day       date   daily   line      type number
+    &lt;chr&gt;     &lt;date&gt;   &lt;dbl&gt;  &lt;chr&gt;     &lt;chr&gt;  &lt;dbl&gt;
+1  Monday 2012-06-04 13342.5 banner Boardings    520
+2  Friday 2013-03-01      NA banner Boardings    817
+3 Tuesday 2011-11-01  8873.0  green Boardings    887
+4  Friday 2013-03-01      NA  green Boardings   2592</pre>
 
 </article></slide><slide class=''><hgroup><h2>Website</h2></hgroup><article  id="website">
 
