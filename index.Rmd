@@ -23,12 +23,26 @@ Introduction to R
 
 * [Syllabus](http://johnmuschelli.com/intro_to_r/Syllabus-student.doc)
 
+### Online Videos of Lectures
+
+```{r videos, echo = FALSE, message = FALSE, results='asis'}
+library(pander)
+library(kableExtra)
+mat = matrix(c(
+  "Day 1", "https://youtu.be/Xi-wsACc7p0",
+"Day 2", "https://youtu.be/u1FQt9Hr8iw",
+"Day 3", "https://youtu.be/woc7AGJTzZw",
+"Day 4", "https://youtu.be/RZ7eVIMPIes",
+"Day 5", ""), ncol = 2, byrow = TRUE)
+mat = data.frame(mat, stringsAsFactors = FALSE)
+colnames(mat) = c("Day", "Link to Video")
+knitr::kable(mat, format = "html") %>% 
+  kable_styling() 
+```
 ### Schedule
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}
 show_keys = TRUE
-library(pander)
-library(kableExtra)
 days = list(
   c("Homework 1"),
   c("Intro", "RStudio",  "Basic_R", "Data_IO", "Homework 2"),
