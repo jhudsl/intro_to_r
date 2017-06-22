@@ -64,6 +64,12 @@ df$hw = grepl("homework", tolower(df$mod))
 df$Slides[df$hw] = ""
 df$Code[df$hw] = paste0("[R](HW/", gsub(" ", "", tolower(df$mod[df$hw])), ".R)")
 
+if (show_keys) {
+  # keep = rep(TRUE, nrow(df))
+  keep = grepl("homework2", df$Code[df$hw])
+  df$Code[df$hw][keep] = paste0(df$Code[df$hw][keep], ", [Key](HW/", gsub(" ", "", tolower(df$mod[df$hw][keep])), "_key.R)")
+}
+
 df$In_Class_Work = file.path(df$mod, "scratch.R")
 fe = !file.exists(df$In_Class_Work )
 df$In_Class_Work = paste0("[Live R file](", df$In_Class_Work, ")")
