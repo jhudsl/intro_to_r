@@ -40,18 +40,26 @@ head(type_wide)
 
 # Using ggplot2:
 
+# Part 1 
+
 # 1. plot average ridership (avg) by date. (do not take an average, 
 # use the average column for each route/line)
 # Try `qplot` and ggplot(aes(x, y, color ), data = avg) + geom_line()
 # a. Color the points by route (orange, purple, green, banner)
 #	b. Color the points by day of the week
 # add geom_smooth(se = FALSE) to the plot (+ geom_smooth(se = FALSE))
+# set first_plot equal to the output of plot 1a. Type print(first_plot)
 
 
+print(first_plot)
 # 2. Replot 1a where the colors of the points are the
 #	name of the route (with banner --> blue)
-# use (add + ) scale_colour_manual(values = )
+# pal = c("blue", "darkgreen","orange","purple")
+# use (add + ) 	scale_colour_manual(values = pal)
 
+########################
+# Part 2
+########################
 # 3. plot average ridership  by date with one panel per route
 # use facet_wrap() or facet_grid() or (qplot): facets = ~line
 
@@ -59,7 +67,19 @@ head(type_wide)
 #		by day of the week, colored by route
 # combine facets and color
 
-# 5. plot average ridership on the orange route versus date
+########################
+# Part 3
+########################
+# 5.  plot average ridership (avg) by date, colored by line (same as 1a). 
+# (do not take an average, 
+# use the average column for each route/line)
+# Make the x-label "Year"
+# Make the y-label "Number of People"
+# Use the black and white theme theme_bw()
+# Change the text_size to (text = element_text(size = 20))
+# in theme
+
+# 6. plot average ridership on the orange route versus date
 #		as a solid line, and add dashed "error" lines based 
 #		on the boardings and alightings. 
 #	the line colors should be orange. 

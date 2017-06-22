@@ -105,6 +105,9 @@ sub %>% ggplot(aes(x = year, y = deaths)) +
   geom_line() + 
   facet_wrap(~ country, ncol = 1)
 
+## ------------------------------------------------------------------------
+qplot(x = year, y = deaths, geom = "line", facets = ~ country, data = sub)
+
 ## ---- eval = FALSE-------------------------------------------------------
 ## sub %>% ggplot(aes(x = year, y = deaths)) +
 ##   geom_line() +

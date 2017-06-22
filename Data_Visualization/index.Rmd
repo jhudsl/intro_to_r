@@ -225,6 +225,11 @@ Let's remove the legend using the `guide` command:
 g + geom_line() + guides(colour = FALSE)
 ```
 
+## Lab Part 1
+
+[Website](../index.html)
+
+
 ## ggplot2: boxplot
 
 ```{r geom_box}
@@ -270,12 +275,26 @@ sub %>% ggplot(aes(x = year, y = deaths)) +
 
 ## facets: plotting multiple panels
 
+You can use `facets` in `qplot`
+
+```{r}
+qplot(x = year, y = deaths, geom = "line", facets = ~ country, data = sub)
+```
+
+
+## facets: plotting multiple panels
+
 You can also do multiple factors with `+` on the right hand side
 ```{r, eval = FALSE}
 sub %>% ggplot(aes(x = year, y = deaths)) + 
   geom_line() + 
   facet_wrap(~ country + x2 + ... )
 ```
+
+
+## Lab Part 2
+
+[Website](../index.html)
 
 
 ## Labels and such
@@ -328,6 +347,10 @@ transparent_legend =  theme(legend.background = element_rect(
 q + transparent_legend
 ```
 
+
+## Lab Part 3
+
+[Website](../index.html)
 
 
 ## Histograms again

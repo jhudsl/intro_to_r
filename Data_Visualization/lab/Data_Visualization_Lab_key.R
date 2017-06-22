@@ -39,6 +39,8 @@ avg = filter(avg, !is.na(number))
 # 1. plot average ridership  by date.
 # 	a. Color the points by route (orange, purple, green, banner)
 qplot(x = date, y = number, data = avg, colour = line)
+first_plot = qplot(x = date, y = number, data = avg, colour = line)
+print(first_plot)
 
 #	b. Color the points by day of the week
 qplot(x = date, y = number, data = avg, colour = day)
@@ -62,7 +64,19 @@ qplot(x = date, y = number, data= avg, facets = ~line,
 qplot(x = date, y = number, data= avg, facets = ~day,
 	colour = line) +  scale_colour_manual(values=pal)
 	  
-# 5. plot average ridership on the orange route versus date
+# 5.  plot average ridership (avg) by date, colored by line (same as 1a). 
+# (do not take an average, 
+# use the average column for each route/line)
+# Make the x-label "Year"
+# Make the y-label "Number of People"
+# Use the black and white theme theme_bw()
+# Change the text_size to (text = element_text(size = 20))
+# in theme
+first_plot  +
+  xlab("Year") + ylab("Number of People") + theme_bw() + 
+  theme(text = element_text(size = 20))
+
+# 6. plot average ridership on the orange route versus date
 #		as a solid line, and add dashed "error" lines based 
 #		on the boardings and alightings. 
 #	the line colors should be orange.
