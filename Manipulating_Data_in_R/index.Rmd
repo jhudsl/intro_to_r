@@ -284,7 +284,14 @@ dim(fj)
 tail(fj)
 ```
 
+## Duplicated
 
+- The `duplicated` command can give you indications if there are duplications in a vector:
+
+```{r}
+duplicated(1:5)
+duplicated(c(1:5, 1))
+```
 ## Lab Part 4
 
 [Website](../index.html)
