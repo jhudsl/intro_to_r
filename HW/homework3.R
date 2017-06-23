@@ -14,7 +14,7 @@ library(ggplot2)
 library(tidyr)
 # Questions
 # 1.	Read the data using read_csv and name it mort
-#    Create a integer ‘year’ variable using the column names (using colnames), 
+#    Create a integer 'year' variable using the column names (using colnames), 
 #  (as.integer), excluding the first column.   Rename the first column to 
 # "country" using use the rename command in dplyr.
 
@@ -34,7 +34,6 @@ library(tidyr)
 # Rename the column "% of world population", to "percent"
 
 
-
 # 4.	Determine the population of each country in "pop" using "arrange".
 # Get the order of the countries based on this (first is the highest population), 
 # then make a variable in the long data 
@@ -51,7 +50,7 @@ library(tidyr)
 # using filter and is.na.
 
 
-# 6.  Plotting: create “spaghetti”/line plots for
+# 6.  Plotting: create "spaghetti"/line plots for
 # the countries, using different colors for different coutnries.
 # The x-variable should be year, the y-variable should be mortality
 

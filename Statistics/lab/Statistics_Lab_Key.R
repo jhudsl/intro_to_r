@@ -30,8 +30,11 @@ cor(mort %>% select("1980", "1990", "2000", "2010"), use = "complete.obs")
 # 2. a. Compute the correlation between the Myanmar, China, and United States mortality data.
 #       Store this correlation matrix in an object called country_cor
 #    b. Extract the Myanmar-US correlation from the correlation matrix.
-mort_subs = mort %>% filter(country %in% c("Myanmar", "China", "United States")) %>% select(-country)
-country_cor = cor(t(mort_subs), use = "complete.obs")
+mort_subs = mort %>% 
+  filter(country %in% c("Myanmar", "China", "United States")) %>% 
+  select(-country)
+country_cor = cor(t(mort_subs), 
+                  use = "complete.obs")
 ## Run the following to see that the order is China, Myanmar, US:
 mort %>% filter(country %in% c("Myanmar", "China", "United States"))
 ## Extract the Myanmar-US correlation
@@ -41,6 +44,8 @@ country_cor[1,3]
 #    Run a t-test and a Wilcoxon rank sum test to assess this.
 #    Hint: to extract the column of information for 1990, use mort[["1990"]]
 t.test(mort[["1990"]], mort[["2000"]])
+t.test(mort$`1990`, mort$`2000`)
+t.test(mort$`1990`, mort$`2000`, paired = TRUE)
 
 wilcox.test(mort[["1990"]], mort[["2000"]])
 
@@ -67,6 +72,8 @@ cars = cars %>%
 	mutate(expensive = VehBCost > 10000)
 tab = table(cars$expensive, cars$IsBadBuy)
 chisq.test(tab)
+fisher.test(tab)
+prop.test(tab)
 
 # 6. Fit a logistic regression model where the outcome is "bad buy" status and predictors
 #    are the "expensive" status and vehicle age (VehicleAge).
