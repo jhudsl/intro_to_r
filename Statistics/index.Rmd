@@ -119,7 +119,7 @@ legend("topleft", txt, bty="n",cex=1.5)
 
 ## Correlation 
 
-Or with the `annotate` command in `ggplot2 
+Or with the `annotate` command in `ggplot2`
 
 ```{r cor_ggplot, comment="", prompt=TRUE, fig.height=4,fig.width=4}
 library(ggplot2)
@@ -141,7 +141,9 @@ tt
 ```
 
 ## T-tests
+
 `t.test` saves a lot of information: the difference in means `estimate`, confidence interval for the difference `conf.int`, the p-value `p.value`, etc.
+
 ```{r tt1_1, comment="", prompt=TRUE}
 names(tt)
 ```
@@ -172,6 +174,10 @@ Nonparametric analog to t-test (testing medians):
 ```{r wt, comment="",prompt=TRUE}
 tidy(wilcox.test(avg ~ line, data = long))
 ```
+
+## Lab Part 1
+
+[Website](../index.html)
 
 
 ## Linear Regression
@@ -407,6 +413,10 @@ fisher.test(x, y = NULL, workspace = 200000, hybrid = FALSE,
 fisher.test(tab)
 ```
 
+## Lab Part 2
+
+[Website](../index.html)
+
 ## Probability Distributions
 
 Sometimes you want to generate data from a distribution (such as normal), or want to see where a value falls in a known distribution. `R` has these distibutions built in:
@@ -452,6 +462,6 @@ ggplot(aes(x = VehBCost, y = VehOdo),
        data = samp.cars) + geom_point() 
 ```
 
-## Website
+## Lab Part 3
 
 [Website](../index.html)
