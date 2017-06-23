@@ -472,7 +472,7 @@ Let's try to make it different like base R, a bit.  We use `tile` for the geomet
 
 ```{r geom_tile_cut}
 sub$cat = cut(sub$deaths, breaks = c(0, 1, 2, max(sub$deaths)))
-qplot(x = year, y = country, fill = cat, data = sub, geom = "tile") + 
+q2 = qplot(x = year, y = country, fill = cat, data = sub, geom = "tile") + 
   guides(colour = FALSE)
 ```
 
@@ -490,10 +490,10 @@ You can also get a "sneak peek" of these palettes at: http://colorbrewer2.org/ .
 
 ## ggplot2: changing colors
 
-`scale_color_brewer` will allow us to use these palettes conveniently
+`scale_fill_brewer` will allow us to use these palettes conveniently
 
 ```{r geom_tile_rescale_brewer}
-qtile + scale_fill_brewer( type = "div", palette =  "RdBu" )
+q2 + scale_fill_brewer( type = "div", palette =  "RdBu" )
 ```
 
 

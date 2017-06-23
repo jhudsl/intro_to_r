@@ -190,11 +190,11 @@ qtile + scale_fill_gradient( low = "blue", high = "red")
 
 ## ----geom_tile_cut-------------------------------------------------------
 sub$cat = cut(sub$deaths, breaks = c(0, 1, 2, max(sub$deaths)))
-qplot(x = year, y = country, fill = cat, data = sub, geom = "tile") + 
+q2 = qplot(x = year, y = country, fill = cat, data = sub, geom = "tile") + 
   guides(colour = FALSE)
 
 ## ----geom_tile_rescale_brewer--------------------------------------------
-qtile + scale_colour_brewer( type = "div", palette =  "RdBu" )
+q2 + scale_fill_brewer( type = "div", palette =  "RdBu" )
 
 ## ----barplot2, fig.align='center', cache = FALSE-------------------------
 ## Stacked Bar Charts
