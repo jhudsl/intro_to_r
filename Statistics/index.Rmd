@@ -32,7 +32,7 @@ Now we are going to cover how to perform a variety of basic statistical tests in
 
 Note: We will be glossing over the statistical theory and "formulas" for these tests. There are plenty of resources online for learning more about these tests, as well as dedicated Biostatistics series at the School of Public Health
 
-## Correlation {.smaller}
+## Correlation 
 
 `cor()` performs correlation in R
 
@@ -48,7 +48,7 @@ circ = read_csv("http://johnmuschelli.com/intro_to_r/data/Charm_City_Circulator_
 cor(circ$orangeAverage, circ$purpleAverage, use="complete.obs")
 ```
 
-## Correlation  {.smaller}
+## Correlation  
 
 You can also get the correlation between matrix columns
 
@@ -59,7 +59,7 @@ avgs_cor = cor(avgs, use = "complete.obs")
 signif(avgs_cor,3)
 ```
 
-## Correlation  {.smaller}
+## Correlation 
 
 You can also get the correlation between matrix columns
 
@@ -71,7 +71,7 @@ gb = avgs %>% select(greenAverage, bannerAverage)
 signif(cor(op, gb, use = "complete.obs"), 3)
 ```
 
-## Correlation  {.smaller}
+## Correlation  
 
 You can also use `cor.test()` to test for whether correlation is significant (ie non-zero). Note that linear regression may be better, especially if you want to regress out other confounders.  
 
