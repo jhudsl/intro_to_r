@@ -2,7 +2,6 @@
 title: "Data Visualization"
 author: "Introduction to R for Public Health Researchers"
 output:
-  beamer_presentation: default
   ioslides_presentation:
     css: ../styles.css
     widescreen: yes
@@ -297,6 +296,29 @@ sub %>% ggplot(aes(x = year, y = deaths)) +
 [Website](../index.html)
 
 
+## Devices
+
+By default, R displays plots in a separate panel. From there, you can export the plot to a variety of image file types, or copy it to the clipboard. 
+
+However, sometimes its very nice to save many plots made at one time to one pdf file, say, for flipping through. Or being more precise with the plot size in the saved file.
+
+R has 5 additional graphics devices: `bmp()`, `jpeg()`, `png()`, `tiff()`, and `pdf()`
+
+## Devices
+
+The syntax is very similar for all of them:
+
+```
+pdf("filename.pdf", width=8, height=8) # inches
+plot() # plot 1
+plot() # plot 2
+# etc
+dev.off()
+```
+
+Basically, you are creating a pdf file, and telling R to write any subsequent plots to that file. Once you are done, you turn the device off. Note that failing to turn the device off will create a pdf file that is corrupt, that you cannot open.
+
+
 ## Labels and such
 
 - `xlab`/`ylab` - functions to change the labels; `ggtitle` - change the title 
@@ -310,9 +332,22 @@ q = qplot(x = year, y = deaths, colour = country, data = sub,
 q
 ```
 
+## Saving the output:
+
+```{r labs_save, eval = TRUE}
+png("deaths_over_time.png")
+print(q)
+dev.off()
+file.exists("deaths_over_time.png")
+```
+
+```{r labs_del, echo = FALSE, results="hide"}
+file.remove("deaths_over_time.png")
+```
+
 ## Themes
 
-- see `?theme_bw` - for ggthemes
+- see `?theme_bw` - for ggthemes - black and white
 
 ```{r theme_bw, eval = TRUE}
 q + theme_bw()
@@ -442,6 +477,24 @@ qplot(x = year, y = country, fill = cat, data = sub, geom = "tile") +
 ```
 
 
+## Colors
+
+It's actually pretty hard to make a good color palette. Luckily, smart and artistic people have spent a lot more time thinking about this. The result is the `RColorBrewer` package
+
+`RColorBrewer::display.brewer.all()` will show you all of the palettes available. You can even print it out and keep it next to your monitor for reference.
+
+The help file for `brewer.pal()` gives you an idea how to use the package.
+
+You can also get a "sneak peek" of these palettes at: http://colorbrewer2.org/ . You would provide the number of levels or classes of your data, and then the type of data: sequential, diverging, or qualitative. The names of the `RColorBrewer` palettes are the string after 'pick a color scheme:' 
+
+
+## ggplot2: changing colors
+
+`scale_color_brewer` will allow us to use these palettes conveniently
+
+```{r geom_tile_rescale_brewer}
+qtile + scale_colour_brewer( type = "div", palette =  "RdBu" )
+```
 
 
 ## Bar Plots
@@ -499,6 +552,7 @@ ggplot(aes(fill = factor(IsBadBuy),
            y = perc), 
        data = perc_is_bad) + geom_bar(stat = "identity")
 ```
+
 ## Each Bar adds to 1 for bad buy or not
 
 ```{r norm_bad_buy}
@@ -510,176 +564,6 @@ ggplot(aes(fill = factor(VehicleAge),
        data = perc_yr) + geom_bar(stat = "identity")
 ```
 
-
-## ggplot2 
-
-Useful links:
-
-* http://docs.ggplot2.org/0.9.3/index.html
-* http://www.cookbook-r.com/Graphs/
-
-
-
-# Base Graphics - explore on your own
-
-
-
-## Bar Plots
-
-Using the `beside` argument in `barplot`, you can get side-by-side barplots.
-```{r barplot3, fig.align='center', cache = FALSE}
-# Stacked Bar Plot with Colors and Legend    
-barplot(counts, main="Car Distribution by Age and Bad Buy Status",
-  xlab="Vehicle Age", col=c("darkblue","red"),
-    legend = rownames(counts), beside=TRUE)
-```
-
-## Devices
-
-By default, R displays plots in a separate panel. From there, you can export the plot to a variety of image file types, or copy it to the clipboard. 
-
-However, sometimes its very nice to save many plots made at one time to one pdf file, say, for flipping through. Or being more precise with the plot size in the saved file.
-
-R has 5 additional graphics devices: `bmp()`, `jpeg()`, `png()`, `tiff()`, and `pdf()`
-
-## Devices
-
-The syntax is very similar for all of them:
-
-```
-pdf("filename.pdf", width=8, height=8) # inches
-plot() # plot 1
-plot() # plot 2
-# etc
-dev.off()
-```
-
-Basically, you are creating a pdf file, and telling R to write any subsequent plots to that file. Once you are done, you turn the device off. Note that failing to turn the device off will create a pdf file that is corrupt, that you cannot open.
-
-## Boxplots, revisited
-
-These are one of my favorite plots. They are way more informative than the barchart + antenna...
-
-```{r boxplots, comment="", fig.align='center', cache=FALSE}
-boxplot(weight ~ Diet, data=ChickWeight, outline=FALSE)
-points(ChickWeight$weight ~ jitter(as.numeric(ChickWeight$Diet),0.5))
-```
-
-## Formulas
-
-Formulas have the format of `y ~ x` and functions taking formulas have a `data` argument where you pass the data.frame.  You don't need to use `$` or referencing when using formulas:
-
-```{r box_ex, eval=FALSE}
-boxplot(weight ~ Diet, data=ChickWeight, outline=FALSE)
-```
-
-
-## Colors
-
-R relies on color 'palettes'.
-
-```{r pal, fig.align='center', cache = FALSE}
-palette("default")
-plot(1:8, 1:8, type="n")
-text(1:8, 1:8, lab = palette(), col = 1:8)
-```
-
-
-## Colors
-
-The default color palette is pretty bad, so you can try to make your own. 
-
-```{r pal2, fig.align='center', cache = FALSE}
-palette(c("darkred","orange","blue"))
-plot(1:3,1:3,col=1:3,pch =19,cex=2)
-```
-
-
-## Colors
-
-It's actually pretty hard to make a good color palette. Luckily, smart and artistic people have spent a lot more time thinking about this. The result is the `RColorBrewer` package
-
-`RColorBrewer::display.brewer.all()` will show you all of the palettes available. You can even print it out and keep it next to your monitor for reference.
-
-The help file for `brewer.pal()` gives you an idea how to use the package.
-
-You can also get a "sneak peek" of these palettes at: http://colorbrewer2.org/ . You would provide the number of levels or classes of your data, and then the type of data: sequential, diverging, or qualitative. The names of the `RColorBrewer` palettes are the string after 'pick a color scheme:' 
-
-
-## Colors
-
-
-```{r pal3, fig.align='center', cache=FALSE}
-palette("default")
-plot(weight ~ Time, data= ChickWeight, pch = 19, col = Diet)
-```
-
-## Colors
-
-```{r pal4, fig.align='center', cache=FALSE}
-library(RColorBrewer)
-palette(brewer.pal(5,"Dark2"))
-plot(weight ~ Time, data=ChickWeight, pch = 19,  col = Diet)
-```
-
-
-## Colors
-
-```{r pal5, fig.align='center', cache=FALSE}
-library(RColorBrewer)
-palette(brewer.pal(5,"Dark2"))
-plot(weight ~ jitter(Time,amount=0.2),data=ChickWeight,
-     pch = 19,  col = Diet,xlab="Time")
-```
-
-
-
-## Adding legends
-
-The legend() command adds a legend to your plot. There are tons of arguments to pass it. 
-
-x, y=NULL: this just means you can give (x,y) coordinates, or more commonly just give x, as a character string: "top","bottom","topleft","bottomleft","topright","bottomright".
-
-legend: unique character vector, the levels of a factor
-
-pch, lwd: if you want points in the legend, give a pch value. if you want lines, give a lwd value. 
-
-col: give the color for each legend level
-
-
-## Adding legends
-
-
-```{r leg1, fig.align='center', cache=FALSE}
-palette(brewer.pal(5,"Dark2"))
-plot(weight ~ jitter(Time,amount=0.2),data=ChickWeight,
-                pch = 19,  col = Diet,xlab="Time")
-legend("topleft", paste("Diet",levels(ChickWeight$Diet)), 
-        col = 1:length(levels(ChickWeight$Diet)),
-       lwd = 3, ncol = 2)
-```
-
-
-## Coloring by variable
-
-```{r circ, comment="", fig.align='center', cache=FALSE}
-circ = read_csv("http://johnmuschelli.com/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
-palette(brewer.pal(7,"Dark2"))
-dd = factor(circ$day)
-plot(orangeAverage ~ greenAverage, data=circ, 
-     pch=19, col = as.numeric(dd))
-legend("bottomright", levels(dd), col=1:length(dd), pch = 19)
-```
-
-## Coloring by variable
-
-```{r circ2, comment="", fig.align='center', cache=FALSE}
-dd = factor(circ$day, levels=c("Monday","Tuesday","Wednesday",
-            "Thursday","Friday","Saturday","Sunday"))
-plot(orangeAverage ~ greenAverage, data=circ,
-     pch=19, col = as.numeric(dd))
-legend("bottomright", levels(dd), col=1:length(dd), pch = 19)
-```
 
 ## Histograms again
  
@@ -816,6 +700,130 @@ qplot(x = year, y = state, colour = deaths,
     data = long, geom = "tile") + guides(colour = FALSE)
 ```
 
+## ggplot2 
+
+Useful links:
+
+* http://docs.ggplot2.org/0.9.3/index.html
+* http://www.cookbook-r.com/Graphs/
+
+
 ## Website
 
 [Website](../index.html)
+
+# Base Graphics - explore on your own
+
+
+
+## Bar Plots
+
+Using the `beside` argument in `barplot`, you can get side-by-side barplots.
+```{r barplot3, fig.align='center', cache = FALSE}
+# Stacked Bar Plot with Colors and Legend    
+barplot(counts, main="Car Distribution by Age and Bad Buy Status",
+  xlab="Vehicle Age", col=c("darkblue","red"),
+    legend = rownames(counts), beside=TRUE)
+```
+
+
+## Boxplots, revisited
+
+These are one of my favorite plots. They are way more informative than the barchart + antenna...
+
+```{r boxplots, comment="", fig.align='center', cache=FALSE}
+boxplot(weight ~ Diet, data=ChickWeight, outline=FALSE)
+points(ChickWeight$weight ~ jitter(as.numeric(ChickWeight$Diet),0.5))
+```
+
+## Formulas
+
+Formulas have the format of `y ~ x` and functions taking formulas have a `data` argument where you pass the data.frame.  You don't need to use `$` or referencing when using formulas:
+
+```{r box_ex, eval=FALSE}
+boxplot(weight ~ Diet, data=ChickWeight, outline=FALSE)
+```
+
+
+## Colors
+
+R relies on color 'palettes'.
+
+```{r pal, fig.align='center', cache = FALSE}
+palette("default")
+plot(1:8, 1:8, type="n")
+text(1:8, 1:8, lab = palette(), col = 1:8)
+```
+
+
+## Colors
+
+The default color palette is pretty bad, so you can try to make your own. 
+
+```{r pal2, fig.align='center', cache = FALSE}
+palette(c("darkred","orange","blue"))
+plot(1:3,1:3,col=1:3,pch =19,cex=2)
+```
+
+
+
+
+## Colors
+
+```{r pal5, fig.align='center', cache=FALSE}
+library(RColorBrewer)
+palette(brewer.pal(5,"Dark2"))
+plot(weight ~ jitter(Time,amount=0.2),data=ChickWeight,
+     pch = 19,  col = Diet,xlab="Time")
+```
+
+
+
+## Adding legends
+
+The legend() command adds a legend to your plot. There are tons of arguments to pass it. 
+
+x, y=NULL: this just means you can give (x,y) coordinates, or more commonly just give x, as a character string: "top","bottom","topleft","bottomleft","topright","bottomright".
+
+legend: unique character vector, the levels of a factor
+
+pch, lwd: if you want points in the legend, give a pch value. if you want lines, give a lwd value. 
+
+col: give the color for each legend level
+
+
+## Adding legends
+
+
+```{r leg1, fig.align='center', cache=FALSE}
+palette(brewer.pal(5,"Dark2"))
+plot(weight ~ jitter(Time,amount=0.2),data=ChickWeight,
+                pch = 19,  col = Diet,xlab="Time")
+legend("topleft", paste("Diet",levels(ChickWeight$Diet)), 
+        col = 1:length(levels(ChickWeight$Diet)),
+       lwd = 3, ncol = 2)
+```
+
+
+## Coloring by variable
+
+```{r circ, comment="", fig.align='center', cache=FALSE}
+circ = read_csv("http://johnmuschelli.com/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
+palette(brewer.pal(7,"Dark2"))
+dd = factor(circ$day)
+plot(orangeAverage ~ greenAverage, data=circ, 
+     pch=19, col = as.numeric(dd))
+legend("bottomright", levels(dd), col=1:length(dd), pch = 19)
+```
+
+## Coloring by variable
+
+```{r circ2, comment="", fig.align='center', cache=FALSE}
+dd = factor(circ$day, levels=c("Monday","Tuesday","Wednesday",
+            "Thursday","Friday","Saturday","Sunday"))
+plot(orangeAverage ~ greenAverage, data=circ,
+     pch=19, col = as.numeric(dd))
+legend("bottomright", levels(dd), col=1:length(dd), pch = 19)
+```
+
+

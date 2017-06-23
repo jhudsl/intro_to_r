@@ -121,6 +121,15 @@ q = qplot(x = year, y = deaths, colour = country, data = sub,
           subtitle = "not great") 
 q
 
+## ----labs_save, eval = TRUE----------------------------------------------
+png("deaths_over_time.png")
+print(q)
+dev.off()
+file.exists("deaths_over_time.png")
+
+## ----labs_del, echo = FALSE, results="hide"------------------------------
+file.remove("deaths_over_time.png")
+
 ## ----theme_bw, eval = TRUE-----------------------------------------------
 q + theme_bw()
 
@@ -184,6 +193,9 @@ sub$cat = cut(sub$deaths, breaks = c(0, 1, 2, max(sub$deaths)))
 qplot(x = year, y = country, fill = cat, data = sub, geom = "tile") + 
   guides(colour = FALSE)
 
+## ----geom_tile_rescale_brewer--------------------------------------------
+qtile + scale_colour_brewer( type = "div", palette =  "RdBu" )
+
 ## ----barplot2, fig.align='center', cache = FALSE-------------------------
 ## Stacked Bar Charts
 cars = read_csv(
@@ -225,66 +237,6 @@ ggplot(aes(fill = factor(VehicleAge),
            x = IsBadBuy, 
            y = perc), 
        data = perc_yr) + geom_bar(stat = "identity")
-
-## ----barplot3, fig.align='center', cache = FALSE-------------------------
-# Stacked Bar Plot with Colors and Legend    
-barplot(counts, main="Car Distribution by Age and Bad Buy Status",
-  xlab="Vehicle Age", col=c("darkblue","red"),
-    legend = rownames(counts), beside=TRUE)
-
-## ----boxplots, comment="", fig.align='center', cache=FALSE---------------
-boxplot(weight ~ Diet, data=ChickWeight, outline=FALSE)
-points(ChickWeight$weight ~ jitter(as.numeric(ChickWeight$Diet),0.5))
-
-## ----box_ex, eval=FALSE--------------------------------------------------
-## boxplot(weight ~ Diet, data=ChickWeight, outline=FALSE)
-
-## ----pal, fig.align='center', cache = FALSE------------------------------
-palette("default")
-plot(1:8, 1:8, type="n")
-text(1:8, 1:8, lab = palette(), col = 1:8)
-
-## ----pal2, fig.align='center', cache = FALSE-----------------------------
-palette(c("darkred","orange","blue"))
-plot(1:3,1:3,col=1:3,pch =19,cex=2)
-
-## ----pal3, fig.align='center', cache=FALSE-------------------------------
-palette("default")
-plot(weight ~ Time, data= ChickWeight, pch = 19, col = Diet)
-
-## ----pal4, fig.align='center', cache=FALSE-------------------------------
-library(RColorBrewer)
-palette(brewer.pal(5,"Dark2"))
-plot(weight ~ Time, data=ChickWeight, pch = 19,  col = Diet)
-
-## ----pal5, fig.align='center', cache=FALSE-------------------------------
-library(RColorBrewer)
-palette(brewer.pal(5,"Dark2"))
-plot(weight ~ jitter(Time,amount=0.2),data=ChickWeight,
-     pch = 19,  col = Diet,xlab="Time")
-
-## ----leg1, fig.align='center', cache=FALSE-------------------------------
-palette(brewer.pal(5,"Dark2"))
-plot(weight ~ jitter(Time,amount=0.2),data=ChickWeight,
-                pch = 19,  col = Diet,xlab="Time")
-legend("topleft", paste("Diet",levels(ChickWeight$Diet)), 
-        col = 1:length(levels(ChickWeight$Diet)),
-       lwd = 3, ncol = 2)
-
-## ----circ, comment="", fig.align='center', cache=FALSE-------------------
-circ = read_csv("http://johnmuschelli.com/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
-palette(brewer.pal(7,"Dark2"))
-dd = factor(circ$day)
-plot(orangeAverage ~ greenAverage, data=circ, 
-     pch=19, col = as.numeric(dd))
-legend("bottomright", levels(dd), col=1:length(dd), pch = 19)
-
-## ----circ2, comment="", fig.align='center', cache=FALSE------------------
-dd = factor(circ$day, levels=c("Monday","Tuesday","Wednesday",
-            "Thursday","Friday","Saturday","Sunday"))
-plot(orangeAverage ~ greenAverage, data=circ,
-     pch=19, col = as.numeric(dd))
-legend("bottomright", levels(dd), col=1:length(dd), pch = 19)
 
 ## ----hist, comment="", fig.align='center', cache=FALSE-------------------
 hist(ChickWeight$weight, breaks = 20)
@@ -353,4 +305,55 @@ qplot(x = year, y = deaths, colour = state,
 ## ----geom_tile-----------------------------------------------------------
 qplot(x = year, y = state, colour = deaths, 
     data = long, geom = "tile") + guides(colour = FALSE)
+
+## ----barplot3, fig.align='center', cache = FALSE-------------------------
+# Stacked Bar Plot with Colors and Legend    
+barplot(counts, main="Car Distribution by Age and Bad Buy Status",
+  xlab="Vehicle Age", col=c("darkblue","red"),
+    legend = rownames(counts), beside=TRUE)
+
+## ----boxplots, comment="", fig.align='center', cache=FALSE---------------
+boxplot(weight ~ Diet, data=ChickWeight, outline=FALSE)
+points(ChickWeight$weight ~ jitter(as.numeric(ChickWeight$Diet),0.5))
+
+## ----box_ex, eval=FALSE--------------------------------------------------
+## boxplot(weight ~ Diet, data=ChickWeight, outline=FALSE)
+
+## ----pal, fig.align='center', cache = FALSE------------------------------
+palette("default")
+plot(1:8, 1:8, type="n")
+text(1:8, 1:8, lab = palette(), col = 1:8)
+
+## ----pal2, fig.align='center', cache = FALSE-----------------------------
+palette(c("darkred","orange","blue"))
+plot(1:3,1:3,col=1:3,pch =19,cex=2)
+
+## ----pal5, fig.align='center', cache=FALSE-------------------------------
+library(RColorBrewer)
+palette(brewer.pal(5,"Dark2"))
+plot(weight ~ jitter(Time,amount=0.2),data=ChickWeight,
+     pch = 19,  col = Diet,xlab="Time")
+
+## ----leg1, fig.align='center', cache=FALSE-------------------------------
+palette(brewer.pal(5,"Dark2"))
+plot(weight ~ jitter(Time,amount=0.2),data=ChickWeight,
+                pch = 19,  col = Diet,xlab="Time")
+legend("topleft", paste("Diet",levels(ChickWeight$Diet)), 
+        col = 1:length(levels(ChickWeight$Diet)),
+       lwd = 3, ncol = 2)
+
+## ----circ, comment="", fig.align='center', cache=FALSE-------------------
+circ = read_csv("http://johnmuschelli.com/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
+palette(brewer.pal(7,"Dark2"))
+dd = factor(circ$day)
+plot(orangeAverage ~ greenAverage, data=circ, 
+     pch=19, col = as.numeric(dd))
+legend("bottomright", levels(dd), col=1:length(dd), pch = 19)
+
+## ----circ2, comment="", fig.align='center', cache=FALSE------------------
+dd = factor(circ$day, levels=c("Monday","Tuesday","Wednesday",
+            "Thursday","Friday","Saturday","Sunday"))
+plot(orangeAverage ~ greenAverage, data=circ,
+     pch=19, col = as.numeric(dd))
+legend("bottomright", levels(dd), col=1:length(dd), pch = 19)
 
