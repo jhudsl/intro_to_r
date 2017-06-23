@@ -493,7 +493,7 @@ You can also get a "sneak peek" of these palettes at: http://colorbrewer2.org/ .
 `scale_color_brewer` will allow us to use these palettes conveniently
 
 ```{r geom_tile_rescale_brewer}
-qtile + scale_colour_brewer( type = "div", palette =  "RdBu" )
+qtile + scale_fill_brewer( type = "div", palette =  "RdBu" )
 ```
 
 
