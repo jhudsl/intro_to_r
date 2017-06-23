@@ -66,6 +66,10 @@ qplot(x = date, y = number, data= avg, facets = ~line,
 #		by day of the week, colored by route
 qplot(x = date, y = number, data= avg, facets = ~day,
 	colour = line) +  scale_colour_manual(values=pal)
+
+ggplot(aes(x = date, y = number, colour = line), data= avg) + 
+  geom_point() + 
+  facet_wrap( ~day) +  scale_colour_manual(values=pal)
 	  
 # 5.  plot average ridership (avg) by date, colored by line (same as 1a). 
 # (do not take an average, 
@@ -83,13 +87,27 @@ first_plot  +
 #		as a solid line, and add dashed "error" lines based 
 #		on the boardings and alightings. 
 #	the line colors should be orange.
+# (hint linetype is an aesthetic for lines) - see also scale_linetype and 
+# scale_linetype_manual
+# Alightings = "dashed", Boardings = "dashed", Average = "solid"
+orange = long %>% filter(line == "orange")
+g = ggplot(orange, aes(x = date, y = number)) + 
+  geom_line(linetype = "dashed")
+g
+
 orange = long %>% filter(line == "orange")
 g = ggplot(orange, aes(x = date, y = number)) + 
   geom_line(aes(linetype = type))
 g
+
+
 qplot(data = orange, x = date, y = number,
       linetype = type, geom = "line")
 
+g + scale_linetype_manual(
+  values = c("dashed",
+              "dashed", 
+             "solid"))
 g + scale_linetype_manual(
   values = c(Alightings = "dashed",
              Boardings = "dashed", 
