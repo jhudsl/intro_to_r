@@ -39,7 +39,7 @@ mean(cars$VehYear < 2004)
 # how many vehicles were removed? 
 # The rest of the questions expect answers based on this reduced dataset.
 sum(cars$VehBCost <= 1500 | is.na(cars$VehBCost))
-cars = filter(cars, cars$VehBCost > 1500)
+cars = filter(cars, VehBCost > 1500)
 nrow(cars)
 
 # 5)	How many different vehicle a) manufacturers/makes (Make) 

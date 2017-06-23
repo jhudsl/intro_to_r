@@ -23,12 +23,26 @@ Introduction to R
 
 * [Syllabus](http://johnmuschelli.com/intro_to_r/Syllabus-student.doc)
 
+### Online Videos of Lectures
+
+```{r videos, echo = FALSE, message = FALSE, results='asis'}
+library(pander)
+library(kableExtra)
+mat = matrix(c(
+  "Day 1", "https://youtu.be/Xi-wsACc7p0",
+"Day 2", "https://youtu.be/u1FQt9Hr8iw",
+"Day 3", "https://youtu.be/woc7AGJTzZw",
+"Day 4", "https://youtu.be/RZ7eVIMPIes",
+"Day 5", ""), ncol = 2, byrow = TRUE)
+mat = data.frame(mat, stringsAsFactors = FALSE)
+colnames(mat) = c("Day", "Link to Video")
+knitr::kable(mat, format = "html") %>% 
+  kable_styling() 
+```
 ### Schedule
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}
 show_keys = TRUE
-library(pander)
-library(kableExtra)
 days = list(
   c("Homework 1"),
   c("Intro", "RStudio",  "Basic_R", "Data_IO", "Homework 2"),
@@ -54,7 +68,8 @@ df$lab = paste0(df$lab, ".R")
 df$have_lab = file.exists(df$lab)
 df$lab = paste0("[Lab](", df$lab, ")")
 if (show_keys) {
-  keep = grepl("Basic_R|Data_IO|Subsetting|Summarization", df$lab_key)
+  keep = rep(TRUE, nrow(df))
+  # keep = grepl("Basic_R|Data_IO|Subsetting|Summarization", df$lab_key)
   df$lab[keep] = paste0(df$lab[keep], ", [Key](", df$lab_key[keep], ")")
 }
 df$lab[!df$have_lab] = ""
@@ -62,6 +77,12 @@ df$have_lab = df$lab_key = NULL
 df$hw = grepl("homework", tolower(df$mod))
 df$Slides[df$hw] = ""
 df$Code[df$hw] = paste0("[R](HW/", gsub(" ", "", tolower(df$mod[df$hw])), ".R)")
+
+if (show_keys) {
+  # keep = rep(TRUE, nrow(df))
+  keep = grepl("homework2", df$Code[df$hw])
+  df$Code[df$hw][keep] = paste0(df$Code[df$hw][keep], ", [Key](HW/", gsub(" ", "", tolower(df$mod[df$hw][keep])), "_key.R)")
+}
 
 df$In_Class_Work = file.path(df$mod, "scratch.R")
 fe = !file.exists(df$In_Class_Work )

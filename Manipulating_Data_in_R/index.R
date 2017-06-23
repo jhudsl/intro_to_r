@@ -121,6 +121,10 @@ fj = full_join(base, visits)
 dim(fj)
 tail(fj)
 
+## ------------------------------------------------------------------------
+duplicated(1:5)
+duplicated(c(1:5, 1))
+
 ## ----merging2------------------------------------------------------------
 merged.data <- merge(base, visits, by = "id")
 merged.data[1:5,]
