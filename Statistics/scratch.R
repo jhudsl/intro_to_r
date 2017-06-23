@@ -722,6 +722,7 @@ ggmap
 
 cars$IsBadBuy = factor(cars$IsBadBuy)
 classes = sapply(cars, class)
+tidy(classes) # make it a data.frame!
 facs = sapply(cars, is.factor)
 fac_cols = cars[, facs]
 sapply(fac_cols, levels)
