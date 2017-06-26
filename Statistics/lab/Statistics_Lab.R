@@ -7,6 +7,7 @@ library(dplyr)
 library(ggplot2)
 library(tidyr)
 library(stringr)
+library(psych)
 
 #############################
 # Part 1
@@ -18,8 +19,10 @@ colnames(mort)[1] = "country"
 
 # 1. Compute the correlation between the 1980, 1990, 2000, and 2010 mortality data.
 #    No need to save this in an object. Just display the result to the screen.
+mort[, c("1980", "1990", "2010")]
+mort %>% select(`1980`, `1990`, `2000`, "2010") %>% cor(use = "complete.obs")
 
-
+mort %>% select(`1980`, `1990`, `2000`, "2010") %>% corr.test(adjust = "none")
 
 
 # 2. a. Compute the correlation between the Myanmar, China, and United States mortality data.

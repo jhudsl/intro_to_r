@@ -35,7 +35,7 @@ mat = matrix(c(
 "Day 2", "https://youtu.be/u1FQt9Hr8iw",
 "Day 3", "https://youtu.be/woc7AGJTzZw",
 "Day 4", "https://youtu.be/RZ7eVIMPIes",
-"Day 5", ""), ncol = 2, byrow = TRUE)
+"Day 5", "https://youtu.be/e8cFV8wluC0"), ncol = 2, byrow = TRUE)
 mat = data.frame(mat, stringsAsFactors = FALSE)
 colnames(mat) = c("Day", "Link to Video")
 knitr::kable(mat, format = "html") %>% 
