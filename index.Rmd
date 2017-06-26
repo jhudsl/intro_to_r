@@ -82,7 +82,7 @@ df$Code[df$hw] = paste0("[R](HW/", gsub(" ", "", tolower(df$mod[df$hw])), ".R)")
 
 if (show_keys) {
   # keep = rep(TRUE, nrow(df))
-  keep = grepl("homework2", df$Code[df$hw])
+  keep = grepl("homework(2|3)", df$Code[df$hw])
   df$Code[df$hw][keep] = paste0(df$Code[df$hw][keep], ", [Key](HW/", gsub(" ", "", tolower(df$mod[df$hw][keep])), "_key.R)")
 }
 
