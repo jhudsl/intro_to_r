@@ -27,6 +27,8 @@ Introduction to R
 
 ### Online Videos of Lectures
 
+#### From Summer Institute 1 2017
+
 ```{r videos, echo = FALSE, message = FALSE, results='asis'}
 library(pander)
 library(kableExtra)
@@ -41,6 +43,15 @@ colnames(mat) = c("Day", "Link to Video")
 knitr::kable(mat, format = "html") %>% 
   kable_styling() 
 ```
+
+### All the Packages/Functions Used in this Course
+
+All the packages used (in any way - homework, lecture, lab), are listed in [this text file]("all_the_packages.txt").
+
+All the functions used (in any way - homework, lecture, lab), are listed in [this CSV file]("all_the_functions.csv"), which can start a kind of cheat sheet for you.
+
+
+
 ### Schedule
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}

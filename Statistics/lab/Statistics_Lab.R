@@ -8,6 +8,7 @@ library(ggplot2)
 library(tidyr)
 library(stringr)
 library(psych)
+library(grid)
 
 #############################
 # Part 1
@@ -22,7 +23,7 @@ colnames(mort)[1] = "country"
 mort[, c("1980", "1990", "2010")]
 mort %>% select(`1980`, `1990`, `2000`, "2010") %>% cor(use = "complete.obs")
 
-mort %>% select(`1980`, `1990`, `2000`, "2010") %>% corr.test(adjust = "none")
+mort %>% select(`1980`, `1990`, `2000`, "2010") %>% pysch::corr.test(adjust = "none")
 
 
 # 2. a. Compute the correlation between the Myanmar, China, and United States mortality data.
