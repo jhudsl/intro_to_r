@@ -34,8 +34,14 @@ class(dat)
 dat
 
 ## ---- readingCSV---------------------------------------------------------
-dat2 = read.csv("../data/Youth_Tobacco_Survey_YTS_Data.csv", as.is=TRUE)
+dat2 = read.csv("../data/Youth_Tobacco_Survey_YTS_Data.csv", as.is = TRUE)
 head(dat2)
+
+## ---- dims---------------------------------------------------------------
+dim(dat2)
+nrow(dat2)
+ncol(dat2)
+colnames(dat2)
 
 ## ----names1--------------------------------------------------------------
 names(dat)[1] = "year"

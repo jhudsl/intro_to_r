@@ -1,5 +1,5 @@
 library(haven)
-library(sjlabelled)
+# library(sjlabelled)
 setwd("~/Downloads/ML_2015_MIS_07102017_1141_105112/mlhr70dt/")
 x = read_stata("MLHR70FL.DTA")
 head(x$hv024)

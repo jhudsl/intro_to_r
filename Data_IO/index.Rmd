@@ -216,8 +216,24 @@ But you can use whatever function you feel more comfortable with.
 Here is how to read in the same dataset using base R functionality, which returns a `data.frame` directly
 
 ```{r, readingCSV}
-dat2 = read.csv("../data/Youth_Tobacco_Survey_YTS_Data.csv", as.is=TRUE)
+dat2 = read.csv("../data/Youth_Tobacco_Survey_YTS_Data.csv", as.is = TRUE)
 head(dat2)
+```
+
+We will use the `readr` functionality for certain reasons.
+
+## Data Input
+
+* `nrow()` displays the number of rows of a data frame
+* `ncol()` displays the number of columns 
+* `dim()` displays a vector of length 2: # rows, # columns
+* `colnames()` displays the column names (if any) and `rownames()` displays the row names (if any)
+
+```{r, dims}
+dim(dat2)
+nrow(dat2)
+ncol(dat2)
+colnames(dat2)
 ```
 
 

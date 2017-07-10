@@ -170,43 +170,50 @@ setwd(&quot;~/Lectures&quot;) </pre>
 
 <pre class = 'prettyprint lang-r'>dir(&quot;..&quot;)</pre>
 
-<pre > [1] &quot;Arrays_Split&quot;                            
- [2] &quot;Basic_R&quot;                                 
- [3] &quot;Best_Model_Coefficients.csv&quot;             
- [4] &quot;Best_Model_Coefficients.xlsx&quot;            
- [5] &quot;bloomberg.logo.small.horizontal.blue.png&quot;
- [6] &quot;data&quot;                                    
- [7] &quot;Data_Classes&quot;                            
- [8] &quot;Data_Cleaning&quot;                           
- [9] &quot;Data_IO&quot;                                 
-[10] &quot;Data_Summarization&quot;                      
-[11] &quot;Data_Visualization&quot;                      
-[12] &quot;Functions&quot;                               
-[13] &quot;HW&quot;                                      
-[14] &quot;index.html&quot;                              
-[15] &quot;index.Rmd&quot;                               
-[16] &quot;install_all_packages.R&quot;                  
-[17] &quot;Intro&quot;                                   
-[18] &quot;intro_to_r.Rproj&quot;                        
-[19] &quot;Knitr&quot;                                   
-[20] &quot;LICENSE&quot;                                 
-[21] &quot;makefile&quot;                                
-[22] &quot;makefile_old&quot;                            
-[23] &quot;makefile.copy&quot;                           
-[24] &quot;Manipulating_Data_in_R&quot;                  
-[25] &quot;my_tab.txt&quot;                              
-[26] &quot;ProjectExample&quot;                          
-[27] &quot;README.md&quot;                               
-[28] &quot;render.R&quot;                                
-[29] &quot;renderFile.R&quot;                            
-[30] &quot;replace_css.R&quot;                           
-[31] &quot;RStudio&quot;                                 
-[32] &quot;run_labs.R&quot;                              
-[33] &quot;Simple_Knitr&quot;                            
-[34] &quot;Statistics&quot;                              
-[35] &quot;styles.css&quot;                              
-[36] &quot;Subsetting_Data_in_R&quot;                    
-[37] &quot;Syllabus-student.doc&quot;                    </pre>
+<pre > [1] &quot;~$llabus-student.doc&quot;                    
+ [2] &quot;all_the_functions.csv&quot;                   
+ [3] &quot;all_the_packages.txt&quot;                    
+ [4] &quot;Arrays_Split&quot;                            
+ [5] &quot;Basic_R&quot;                                 
+ [6] &quot;Best_Model_Coefficients.csv&quot;             
+ [7] &quot;Best_Model_Coefficients.xlsx&quot;            
+ [8] &quot;black_and_white_theme.pdf&quot;               
+ [9] &quot;bloomberg.logo.small.horizontal.blue.png&quot;
+[10] &quot;data&quot;                                    
+[11] &quot;Data_Classes&quot;                            
+[12] &quot;Data_Cleaning&quot;                           
+[13] &quot;Data_IO&quot;                                 
+[14] &quot;Data_Summarization&quot;                      
+[15] &quot;Data_Visualization&quot;                      
+[16] &quot;data.zip&quot;                                
+[17] &quot;dhs&quot;                                     
+[18] &quot;Functions&quot;                               
+[19] &quot;HW&quot;                                      
+[20] &quot;index.html&quot;                              
+[21] &quot;index.Rmd&quot;                               
+[22] &quot;install_all_packages.R&quot;                  
+[23] &quot;Intro&quot;                                   
+[24] &quot;intro_to_r.Rproj&quot;                        
+[25] &quot;Knitr&quot;                                   
+[26] &quot;LICENSE&quot;                                 
+[27] &quot;list_all_packages.R&quot;                     
+[28] &quot;makefile&quot;                                
+[29] &quot;makefile_old&quot;                            
+[30] &quot;makefile.copy&quot;                           
+[31] &quot;Manipulating_Data_in_R&quot;                  
+[32] &quot;my_tab.txt&quot;                              
+[33] &quot;ProjectExample&quot;                          
+[34] &quot;README.md&quot;                               
+[35] &quot;render.R&quot;                                
+[36] &quot;renderFile.R&quot;                            
+[37] &quot;replace_css.R&quot;                           
+[38] &quot;RStudio&quot;                                 
+[39] &quot;run_labs.R&quot;                              
+[40] &quot;Simple_Knitr&quot;                            
+[41] &quot;Statistics&quot;                              
+[42] &quot;styles.css&quot;                              
+[43] &quot;Subsetting_Data_in_R&quot;                    
+[44] &quot;Syllabus-student.doc&quot;                    </pre>
 
 </article></slide><slide class=''><hgroup><h2>Relative vs. absolute paths (From Wiki)</h2></hgroup><article  id="relative-vs.-absolute-paths-from-wiki">
 
@@ -450,7 +457,7 @@ head(dat)</pre>
 
 <p>Here is how to read in the same dataset using base R functionality, which returns a <code>data.frame</code> directly</p>
 
-<pre class = 'prettyprint lang-r'>dat2 = read.csv(&quot;../data/Youth_Tobacco_Survey_YTS_Data.csv&quot;, as.is=TRUE)
+<pre class = 'prettyprint lang-r'>dat2 = read.csv(&quot;../data/Youth_Tobacco_Survey_YTS_Data.csv&quot;, as.is = TRUE)
 head(dat2)</pre>
 
 <pre >  YEAR LocationAbbr LocationDesc                 TopicType
@@ -531,7 +538,49 @@ head(dat2)</pre>
 5        YTS05            5
 6        YTS06            6</pre>
 
+<p>We will use the <code>readr</code> functionality for certain reasons.</p>
+
 </article></slide><slide class=''><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-12">
+
+<ul>
+<li><code>nrow()</code> displays the number of rows of a data frame</li>
+<li><code>ncol()</code> displays the number of columns</li>
+<li><code>dim()</code> displays a vector of length 2: # rows, # columns</li>
+<li><code>colnames()</code> displays the column names (if any) and <code>rownames()</code> displays the row names (if any)</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>dim(dat2)</pre>
+
+<pre >[1] 9794   31</pre>
+
+<pre class = 'prettyprint lang-r'>nrow(dat2)</pre>
+
+<pre >[1] 9794</pre>
+
+<pre class = 'prettyprint lang-r'>ncol(dat2)</pre>
+
+<pre >[1] 31</pre>
+
+<pre class = 'prettyprint lang-r'>colnames(dat2)</pre>
+
+<pre > [1] &quot;YEAR&quot;                       &quot;LocationAbbr&quot;              
+ [3] &quot;LocationDesc&quot;               &quot;TopicType&quot;                 
+ [5] &quot;TopicDesc&quot;                  &quot;MeasureDesc&quot;               
+ [7] &quot;DataSource&quot;                 &quot;Response&quot;                  
+ [9] &quot;Data_Value_Unit&quot;            &quot;Data_Value_Type&quot;           
+[11] &quot;Data_Value&quot;                 &quot;Data_Value_Footnote_Symbol&quot;
+[13] &quot;Data_Value_Footnote&quot;        &quot;Data_Value_Std_Err&quot;        
+[15] &quot;Low_Confidence_Limit&quot;       &quot;High_Confidence_Limit&quot;     
+[17] &quot;Sample_Size&quot;                &quot;Gender&quot;                    
+[19] &quot;Race&quot;                       &quot;Age&quot;                       
+[21] &quot;Education&quot;                  &quot;GeoLocation&quot;               
+[23] &quot;TopicTypeId&quot;                &quot;TopicId&quot;                   
+[25] &quot;MeasureId&quot;                  &quot;StratificationID1&quot;         
+[27] &quot;StratificationID2&quot;          &quot;StratificationID3&quot;         
+[29] &quot;StratificationID4&quot;          &quot;SubMeasureID&quot;              
+[31] &quot;DisplayOrder&quot;              </pre>
+
+</article></slide><slide class=''><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-13">
 
 <p>Changing variable names in <code>data.frame</code>s works using the <code>names()</code> function, which is analagous to <code>colnames()</code> for data frames (they can be used interchangeably)</p>
 
