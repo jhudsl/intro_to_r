@@ -166,6 +166,15 @@ knitr::kable(df, format = "html") %>%
 
 Example projects can be found with the source code: [Rmd](ProjectExample/RMarkDown_FinalProject.Rmd), and the output [Docx](ProjectExample/RMarkDown_FinalProject.docx) here.
 
+### DHS Related things 
+
+[Example Script Reading in Stata DHS Data](dhs/example_dhs_reading.R)
+
+DHS package 
+```r
+devtools::install_github("muschellij2/dhs")
+```
+
 ## Find an Error!?
 
 Feel free to submit typos/errors/etc via the github repository associated with the class: 
