@@ -19,6 +19,10 @@ dir("..")
 ## ?dir
 ## help("dir")
 
+## ----read_url, message = FALSE-------------------------------------------
+mydat = read_csv("http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
+head(mydat)
+
 ## ----readCSV-------------------------------------------------------------
 read_csv
 

@@ -242,16 +242,7 @@ setwd(&quot;~/Lectures&quot;) </pre>
 <li>Mac - right click &#8211;&gt; Get Info &#8211;&gt; Open With: RStudio &#8211;&gt; Change All</li>
 <li>Windows - Andrew will show</li>
 </ul></li>
-<li>Close RStudio Double click <code>day1.R</code></li>
 </ol>
-
-<ul>
-<li>Confirm the directory contains &quot;day1.R&quot; using <code>dir()</code>:
-
-<ul>
-<li>Type <code>dir()</code> in the R Console (<code>day1.R</code> should be there)</li>
-</ul></li>
-</ul>
 
 </article></slide><slide class=''><hgroup><h2>Help</h2></hgroup><article  id="help">
 
@@ -299,7 +290,6 @@ help(&quot;dir&quot;)</pre>
 <ul>
 <li>Safari - if a file loads in your browser, choose File &#8211;&gt; Save As, select, Format &quot;Page Source&quot; and save</li>
 </ul></li>
-<li>Save it (or move it) to the same folder as your <code>day1.R</code> script</li>
 <li>Within RStudio: Session &#8211;&gt; Set Working Directory &#8211;&gt; To Source File Location</li>
 </ul>
 
@@ -310,6 +300,32 @@ help(&quot;dir&quot;)</pre>
 <p>For example, you can easily import text datasets using the &quot;File &#8211;&gt; Import Dataset &#8211;&gt; From CSV&quot; command. Selecting this will bring up a new screen that lets you specify the formatting of your text file.</p>
 
 <p>After importing a datatset, you get the corresponding R commands that you can enter in the console if you want to re-import data.</p>
+
+</article></slide><slide class=''><hgroup><h2>Read in Directly</h2></hgroup><article  id="read-in-directly">
+
+<pre class = 'prettyprint lang-r'>mydat = read_csv(&quot;http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv&quot;)
+head(mydat)</pre>
+
+<pre ># A tibble: 6 x 31
+   YEAR LocationAbbr LocationDesc                 TopicType
+  &lt;int&gt;        &lt;chr&gt;        &lt;chr&gt;                     &lt;chr&gt;
+1  2015           AZ      Arizona Tobacco Use – Survey Data
+2  2015           AZ      Arizona Tobacco Use – Survey Data
+3  2015           AZ      Arizona Tobacco Use – Survey Data
+4  2015           AZ      Arizona Tobacco Use – Survey Data
+5  2015           AZ      Arizona Tobacco Use – Survey Data
+6  2015           AZ      Arizona Tobacco Use – Survey Data
+# ... with 27 more variables: TopicDesc &lt;chr&gt;, MeasureDesc &lt;chr&gt;,
+#   DataSource &lt;chr&gt;, Response &lt;chr&gt;, Data_Value_Unit &lt;chr&gt;,
+#   Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;,
+#   Data_Value_Footnote_Symbol &lt;chr&gt;, Data_Value_Footnote &lt;chr&gt;,
+#   Data_Value_Std_Err &lt;dbl&gt;, Low_Confidence_Limit &lt;dbl&gt;,
+#   High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;int&gt;, Gender &lt;chr&gt;,
+#   Race &lt;chr&gt;, Age &lt;chr&gt;, Education &lt;chr&gt;, GeoLocation &lt;chr&gt;,
+#   TopicTypeId &lt;chr&gt;, TopicId &lt;chr&gt;, MeasureId &lt;chr&gt;,
+#   StratificationID1 &lt;chr&gt;, StratificationID2 &lt;chr&gt;,
+#   StratificationID3 &lt;chr&gt;, StratificationID4 &lt;chr&gt;, SubMeasureID &lt;chr&gt;,
+#   DisplayOrder &lt;int&gt;</pre>
 
 </article></slide><slide class=''><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-4">
 
@@ -679,17 +695,17 @@ save(yts, x, file = &quot;yts_data.rda&quot;)</pre>
 
 <pre class = 'prettyprint lang-r'>ls() # list things in the workspace</pre>
 
-<pre >[1] &quot;dat&quot;  &quot;dat2&quot; &quot;req&quot;  &quot;x&quot;    &quot;yts&quot; </pre>
+<pre >[1] &quot;dat&quot;   &quot;dat2&quot;  &quot;mydat&quot; &quot;req&quot;   &quot;x&quot;     &quot;yts&quot;  </pre>
 
 <pre class = 'prettyprint lang-r'>rm(list = c(&quot;x&quot;, &quot;yts&quot;))
 ls()</pre>
 
-<pre >[1] &quot;dat&quot;  &quot;dat2&quot; &quot;req&quot; </pre>
+<pre >[1] &quot;dat&quot;   &quot;dat2&quot;  &quot;mydat&quot; &quot;req&quot;  </pre>
 
 <pre class = 'prettyprint lang-r'>z = load(&quot;yts_data.rda&quot;)
 ls()</pre>
 
-<pre >[1] &quot;dat&quot;  &quot;dat2&quot; &quot;req&quot;  &quot;x&quot;    &quot;yts&quot;  &quot;z&quot;   </pre>
+<pre >[1] &quot;dat&quot;   &quot;dat2&quot;  &quot;mydat&quot; &quot;req&quot;   &quot;x&quot;     &quot;yts&quot;   &quot;z&quot;    </pre>
 
 </article></slide><slide class=''><hgroup><h2>More ways to save: load</h2></hgroup><article  id="more-ways-to-save-load-1">
 

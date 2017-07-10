@@ -85,10 +85,7 @@ Again, if you open an R file with a new RStudio session, it does this for you.  
 1. Make sure RStudio is the default application to open .R files
     * Mac - right click --> Get Info --> Open With: RStudio --> Change All
     * Windows - Andrew will show
-2. Close RStudio Double click `day1.R`
 
-* Confirm the directory contains "day1.R" using `dir()`:
-    * Type `dir()` in the R Console (`day1.R` should be there)    
 
 ## Help
 
@@ -127,7 +124,6 @@ Youth Tobacco Survey (YTS) Dataset:
 
 * Download data from http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv
     * Safari - if a file loads in your browser, choose File --> Save As, select, Format "Page Source" and save
-* Save it (or move it) to the same folder as your `day1.R` script
 * Within RStudio: Session --> Set Working Directory --> To Source File Location
 
 ## Data Input
@@ -137,6 +133,13 @@ R Studio features some nice "drop down" support, where you can run some tasks by
 For example, you can easily import text datasets using the "File --> Import Dataset --> From CSV" command. Selecting this will bring up a new screen that lets you specify the formatting of your text file. 
 
 After importing a datatset, you get the corresponding R commands that you can enter in the console if you want to re-import data.
+
+## Read in Directly
+
+```{r read_url, message = FALSE}
+mydat = read_csv("http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
+head(mydat)
+```
 
 ## Data Input
 
