@@ -12,48 +12,34 @@
 ##########################
 # 1. Check to see if you have the `mtcars` dataset 
 #		(which is included in the `datasets` package)
-mtcars
-df = mtcars
+
 # 2. What class is `mtcars`?
-class(mtcars)
+
 
 # 3. How many observations (rows) and variables (columns) are in the `mtcars` dataset?
-dim(mtcars)
-nrow(mtcars)
-ncol(mtcars)
+
 # 4. Copy mtcars into an object called cars and rename mpg in cars to MPG
 # use rename
-cars = mtcars
-cars = dplyr::rename(
-  cars, 
-  MPG = mpg, 
-  carbs = carb)
+
 
 # 5. Convert the column names of `cars` to all upper case
 # use colnames, and the toupper command
-cn = colnames(cars) # extract column names
-cn = toupper(cn) # make them uppercase
-colnames(cars) = cn # reassign
 
-colnames(cars) = toupper(colnames(cars))
 
 ##########################
 # Part 2
 ##########################
 # 6. Subset the columns from mtcars that end in "p" and call it pvars
 # use ends_with
-pvars = select(mtcars, ends_with("p"))
+
 # 7. Create a subset of the data that only contains the columns:
 #		wt, qsec, and hp for only the cars  
 #		and assign this object to `carsSub` - 
 #		what are the dimensions of this dataset?
 # use select
-carsSub = select(mtcars, wt, qsec, hp)
-dim(carsSub)
 
 # 8. Convert the column names of `carsSub` to all upper case
 # use colnames, and the toupper command
-colnames(carsSub) = toupper(colnames(carsSub))
 
 
 ##########################
@@ -62,14 +48,12 @@ colnames(carsSub) = toupper(colnames(carsSub))
 # 9. Subset the rows of cars that get more than 20 miles
 # 		 per gallon (mpg) of fuel efficiency - how many are there?
 # use filter
-cars = filter(cars, MPG > 20)
-filter(mtcars, mpg > 20)
+
 
 # 10. Subset the rows that get less than 16 miles
 # 		per gallon (mpg) of fuel efficiency and have more than 
 #		100 horsepower (hp) - how many are there?
-mtcars2 =filter(mtcars, mpg < 16 & hp > 100)
-filter(mtcars, mpg < 16, hp > 100)
+
 
 ##########################
 # Part 4
@@ -81,19 +65,12 @@ filter(mtcars, mpg < 16, hp > 100)
 # Convert the column names of `carsSub` to all upper case
 # use colnames, and the toupper command
 # use select and filter
-cars2 = mtcars
-cars2$car = rownames(cars2)
-carsSub = cars2 %>% 
-  filter(cyl == 8) %>% 
-  select(wt, qsec, hp, car)
-colnames(carsSub) = toupper(colnames(carsSub))
+
 
 # 11. Re-order the rows of `carsSub` by weight in increasing order
 # use arrange
-arrange(carsSub, WT)
 
 
 # 12. Create a new variable in `carsSub` called wt2, which 
 # is equal to WT^2, using mutate.  Use piping
-carsSub %>% mutate(wt2 = WT^2)
-mutate(carsSub, wt2 = WT^2)
+

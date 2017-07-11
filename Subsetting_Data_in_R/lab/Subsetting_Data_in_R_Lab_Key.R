@@ -2,67 +2,98 @@
 # Subsetting Data in R - Lab
 ####################
 
-
 ## In this lab you can use the interactive console to explore 
 ## 	  but please record your commands here.  
 ## Remember anything you type here can be "sent" to the console with 
 ##    Cmd-Enter (OS-X) or Cntr-Enter (Windows/Linux).
 
-library(dplyr)
+##########################
+# Part 1
+##########################
 # 1. Check to see if you have the `mtcars` dataset 
 #		(which is included in the `datasets` package)
-head(mtcars)
-
+mtcars
+df = mtcars
 # 2. What class is `mtcars`?
 class(mtcars)
-tbl = as.tbl(mtcars)
-tbl$car = rownames(tbl)
-tbl = select(tbl, car, everything())
 
 # 3. How many observations (rows) and variables (columns) are in the `mtcars` dataset?
 dim(mtcars)
 nrow(mtcars)
 ncol(mtcars)
-str(mtcars)
+# 4. Copy mtcars into an object called cars and rename mpg in cars to MPG
+# use rename
+cars = mtcars
+cars = dplyr::rename(
+  cars, 
+  MPG = mpg, 
+  carbs = carb)
 
-# 4. Select the subset of rows that get more than 20 miles
-# 		 per gallon (mpg) of fuel efficiency - how many are there?
-nrow(filter(mtcars, mpg > 20))
-mtcars %>% filter(mpg > 20) %>% nrow
-nrow(mtcars[ mtcars$mpg > 20, ])
-sum(mtcars$mpg > 20)
-length(which(mtcars$mpg > 20))
+# 5. Convert the column names of `cars` to all upper case
+# use colnames, and the toupper command
+cn = colnames(cars) # extract column names
+cn = toupper(cn) # make them uppercase
+colnames(cars) = cn # reassign
 
-# 5. Select the subset of rows that get less than 16 miles
-# 		per gallon (mpg) of fuel efficiency and have more than 
-#		100 horsepower (hp) - how many are there?
-mtcars %>% filter(mpg < 16 & hp > 100) %>% nrow
-mtcars %>% filter(mpg < 16,  hp > 100) %>% nrow
-sum(mtcars$mpg < 16 & mtcars$hp > 100)
+colnames(cars) = toupper(colnames(cars))
 
-
-# 6. Create a subset of the data that only contains the columns:
-#		wt, qsec, and hp for only the cars that have 8 cylinders 
+##########################
+# Part 2
+##########################
+# 6. Subset the columns from mtcars that end in "p" and call it pvars
+# use ends_with
+pvars = select(mtcars, ends_with("p"))
+# 7. Create a subset of the data that only contains the columns:
+#		wt, qsec, and hp for only the cars  
 #		and assign this object to `carsSub` - 
 #		what are the dimensions of this dataset?
-carsSub = tbl %>% 
-  filter(cyl == 8) %>% 
-  select(car, wt, qsec, hp)
-carsSub = mtcars[mtcars$cyl == 8, c("wt", "qsec", "hp")]
+# use select
+carsSub = select(mtcars, wt, qsec, hp)
+dim(carsSub)
 
-# 7. Convert the column names of `carsSub` to all upper case
-colnames(carsSub) = colnames(carsSub) %>% toupper
+# 8. Convert the column names of `carsSub` to all upper case
+# use colnames, and the toupper command
 colnames(carsSub) = toupper(colnames(carsSub))
 
-# 8. Re-order the rows of `carsSub` by weight in increasing order
+
+##########################
+# Part 3
+##########################
+# 9. Subset the rows of cars that get more than 20 miles
+# 		 per gallon (mpg) of fuel efficiency - how many are there?
+# use filter
+cars = filter(cars, MPG > 20)
+filter(mtcars, mpg > 20)
+
+# 10. Subset the rows that get less than 16 miles
+# 		per gallon (mpg) of fuel efficiency and have more than 
+#		100 horsepower (hp) - how many are there?
+mtcars2 =filter(mtcars, mpg < 16 & hp > 100)
+filter(mtcars, mpg < 16, hp > 100)
+
+##########################
+# Part 4
+##########################
+# 7. Create a subset of the data that only contains the columns:
+#		wt, qsec, and hp for only the cars with 8 cylinders
+#		and reassign this object to `carsSub` - 
+#		what are the dimensions of this dataset?
+# Convert the column names of `carsSub` to all upper case
+# use colnames, and the toupper command
+# use select and filter
+cars2 = mtcars
+cars2$car = rownames(cars2)
+carsSub = cars2 %>% 
+  filter(cyl == 8) %>% 
+  select(wt, qsec, hp, car)
+colnames(carsSub) = toupper(colnames(carsSub))
+
+# 11. Re-order the rows of `carsSub` by weight in increasing order
+# use arrange
 arrange(carsSub, WT)
-carsSub[ order(carsSub$WT),]
 
 
-# 9. Copy mtcars into a variable called cars and rename mpg in cars to MPG
-cars = mtcars
-# cars$MPG = cars$mpg
-cars = rename(cars, MPG = mpg)
-
-# 10. Subset the columns from mtcars that end in "p" and call it pvars
-pvars = select(tbl, car, ends_with("p"))
+# 12. Create a new variable in `carsSub` called wt2, which 
+# is equal to WT^2, using mutate.  Use piping
+carsSub %>% mutate(wt2 = WT^2)
+mutate(carsSub, wt2 = WT^2)

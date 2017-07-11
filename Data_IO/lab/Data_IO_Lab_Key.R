@@ -5,6 +5,7 @@
 # 1. Install and invoke the `readxl` package. 
 # install.packages("readxl") # just run once
 library(readxl)
+library(readr)
 
 # 2. Download an Excel version of the Monuments dataset:
 #		http://johnmuschelli.com/intro_to_r/data/Monuments.xlsx
@@ -19,3 +20,11 @@ mon = read_excel(destfile)
 # 4. Write out the R object as a CSV file 
 write.csv(mon, file = "monuments.csv")
 write_csv(mon, path = "monuments_write_csv.csv")
+
+save(mon, file = "monuments_data.rda")
+load("monuments_data.rda")
+
+
+
+
+
