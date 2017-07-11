@@ -7,6 +7,8 @@
 # 	Download as a CSV in your current working directory
 # Note its also available at: 
 #	http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv
+library(readr)
+library(dplyr)
 
 ##########################
 # Part 1
