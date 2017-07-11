@@ -10,6 +10,7 @@
 library(readr)
 library(dplyr)
 
+bike = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
 ##########################
 # Part 1
 ##########################
