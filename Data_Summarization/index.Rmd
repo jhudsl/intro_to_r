@@ -84,6 +84,10 @@ quantile(x, na.rm = TRUE)
     * `colSums(x)`: takes the sum of each column of x
     * `summary(x)`: for data frames, displays the quantile information
 
+## Lab Part 1
+[Website](../index.html)
+
+
 ## TB Incidence 
 
 Please download the TB incidence data: 
@@ -198,6 +202,9 @@ length(unique(smoke$LocationDesc))
 table(smoke$LocationDesc)[1:5]
 ```
 
+## Lab Part 2
+[Website](../index.html)
+
 
 ## Subsetting to specific columns
 
@@ -214,24 +221,24 @@ head(sub_smoke, 4)
 ```
 
 
-## `tapply()`
+<!-- ## `tapply()` -->
 
-From the help file: "Apply a function to each cell of a ragged array, that is to each (non-empty) group of values given by a unique combination of the levels of certain factors."
+<!-- From the help file: "Apply a function to each cell of a ragged array, that is to each (non-empty) group of values given by a unique combination of the levels of certain factors." -->
 
-```
-tapply(X, INDEX, FUN = NULL, ..., simplify = TRUE)
-```
+<!-- ``` -->
+<!-- tapply(X, INDEX, FUN = NULL, ..., simplify = TRUE) -->
+<!-- ``` -->
 
-Simply put, you can apply function `FUN` to `X` within each categorical level of `INDEX`. It is very useful for assessing properties of continuous data by levels of categorical data.
+<!-- Simply put, you can apply function `FUN` to `X` within each categorical level of `INDEX`. It is very useful for assessing properties of continuous data by levels of categorical data. -->
 
-## `tapply()`
+<!-- ## `tapply()` -->
 
-For example, we can estimate the average current smoking statuses over all states for each year: 
+<!-- For example, we can estimate the average current smoking statuses over all states for each year:  -->
 
-```{r tapply1}
-tapply(sub_smoke$Data_Value, sub_smoke$YEAR, mean, na.rm = TRUE)
-```
-    
+<!-- ```{r tapply1} -->
+<!-- tapply(sub_smoke$Data_Value, sub_smoke$YEAR, mean, na.rm = TRUE) -->
+<!-- ``` -->
+
 ## Perform Operations By Groups: dplyr
 
 `group_by` allows you group the data in a more intuitive way than `tapply`
@@ -268,6 +275,9 @@ sub_smoke %>%
   tally() %>% 
   head
 ```
+
+## Lab Part 3
+[Website](../index.html)
 
 ## Data Summarization/Visualization
 
@@ -334,6 +344,8 @@ boxplot(Data_Value ~ LocationDesc, data = sub_smoke)
 pairs(avgs)
 ```
 
+## Lab Part 4
+[Website](../index.html)
 
 ## Conclusion
 

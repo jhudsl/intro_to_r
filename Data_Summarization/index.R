@@ -75,9 +75,6 @@ sub_smoke = filter(smoke,
 sub_smoke = select(sub_smoke, YEAR, LocationDesc, Data_Value)
 head(sub_smoke, 4)
 
-## ----tapply1-------------------------------------------------------------
-tapply(sub_smoke$Data_Value, sub_smoke$YEAR, mean, na.rm = TRUE)
-
 ## ------------------------------------------------------------------------
 summarize(group_by(sub_smoke, YEAR), year_avg = mean(Data_Value, na.rm = TRUE))
 

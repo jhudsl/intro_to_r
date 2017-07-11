@@ -183,6 +183,11 @@ df = dplyr::rename(df, mpg = MPG) # reset
 ```
 
 
+## Lab Part 1
+
+[Website](../index.html)
+
+
 # Subsetting Columns
 
 ## Subset columns of a `data.frame`: 
@@ -239,6 +244,11 @@ select(df, mpg, cyl)
 select(df, starts_with("c"))
 ```
 
+## Lab Part 2
+
+[Website](../index.html)
+
+
 # Subsetting Rows
 
 ## Subset rows of a `data.frame` with indices: 
@@ -284,6 +294,10 @@ filter(df, mpg > 20 & cyl == 4)
 filter(df, mpg > 20, cyl == 4)
 ```
 
+
+## Lab Part 3
+
+[Website](../index.html)
 
 ## Combining `filter` and `select`
 
@@ -436,6 +450,6 @@ The `transmute` function in `dplyr` combines both the `mutate` and `select` func
 transmute(df, newcol2 = wt/2.2, mpg, hp)
 ```
 
-## Website
+## Lab Part 4
 
 [Website](../index.html)
