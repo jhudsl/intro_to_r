@@ -1,7 +1,7 @@
 ## ---- echo = FALSE, message=FALSE, error = FALSE-------------------------
 library(knitr)
 opts_chunk$set(comment = "", message = FALSE)
-library(dplyr)
+suppressWarnings({library(dplyr)})
 library(readr)
 
 ## ------------------------------------------------------------------------
