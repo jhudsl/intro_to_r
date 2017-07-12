@@ -135,6 +135,39 @@ knitr::kable(df, format = "html") %>%
 <!-- | | | | | | -->
 
 
+
+### All the Requirements in this Course
+
+#### Packages 
+All the packages used (in any way - homework, lecture, lab), are listed in [this text file](all_the_packages.txt).  If you would like to install all the packages from this file, please download that text file and run [this R script](install_all_packages.R)
+
+#### Functions
+
+All the functions used (in any way - homework, lecture, lab), are listed in [this CSV file](all_the_functions.csv), which can start a kind of cheat sheet for you.
+
+#### Data
+All the data used that are not **specifically** to be downloaded from the web are located in [this zip file](data.zip), but we will show you how to read data from the internet as well.
+
+
+
+### Example Projects 
+
+Example projects can be found with the source code: [Rmd](ProjectExample/RMarkDown_FinalProject.Rmd), and the output [Docx](ProjectExample/RMarkDown_FinalProject.docx) here.
+
+### Live Code Examples
+
+```{r, echo = FALSE, message = FALSE, results='asis'}
+df = matrix(
+  c("Replacing with ifelse in dplyr", "replace_if.R")
+, ncol = 2)
+df = data.frame(df, stringsAsFactors = FALSE)
+colnames(df) = c("Code Example", "Script")
+df$Script = paste0("[", df$Script, "](live_code/", df$Script, ")")
+knitr::kable(df, format = "html") %>% 
+  kable_styling() 
+```
+
+
 ### Online Videos of Lectures
 
 #### From Summer Institute 1 2017
@@ -169,35 +202,7 @@ knitr::kable(mat, format = "html") %>%
   kable_styling() 
 ```
 
-### All the Requirements in this Course
 
-#### Packages 
-All the packages used (in any way - homework, lecture, lab), are listed in [this text file](all_the_packages.txt).  If you would like to install all the packages from this file, please download that text file and run [this R script](install_all_packages.R)
-
-#### Functions
-
-All the functions used (in any way - homework, lecture, lab), are listed in [this CSV file](all_the_functions.csv), which can start a kind of cheat sheet for you.
-
-#### Data
-All the data used that are not **specifically** to be downloaded from the web are located in [this zip file](data.zip), but we will show you how to read data from the internet as well.
-
-
-### Live Code Examples
-
-```{r, echo = FALSE, message = FALSE, results='asis'}
-df = matrix(
-  c("Replacing with ifelse in dplyr", "replace_if.R")
-, ncol = 2)
-df = data.frame(df, stringsAsFactors = FALSE)
-colnames(df) = c("Code Example", "Script")
-df$Script = paste0("[", df$Script, "](live_code/", df$Script, ")")
-knitr::kable(df, format = "html") %>% 
-  kable_styling() 
-```
-
-### Example Projects 
-
-Example projects can be found with the source code: [Rmd](ProjectExample/RMarkDown_FinalProject.Rmd), and the output [Docx](ProjectExample/RMarkDown_FinalProject.docx) here.
 
 ### DHS Related things 
 
