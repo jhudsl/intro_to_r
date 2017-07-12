@@ -55,7 +55,7 @@ margin.table(tab, 2)
 
 ## ----table2--------------------------------------------------------------
 prop.table(tab)
-prop.table(tab,1)
+prop.table(tab,1) * 100
 
 ## ----readSal, echo = TRUE, eval = FALSE----------------------------------
 ## Sal = read_csv("http://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv")

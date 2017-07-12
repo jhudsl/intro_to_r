@@ -106,7 +106,11 @@ Similarly with logicals, operations/arithmetic with `NA` will result in `NA`s:
 x + 2
 x * 2
 ```
- 
+
+## Lab Part 1
+
+[Website](../index.html)
+
 # Tables and Tabulations
 
 ## Useful checking functions
@@ -181,8 +185,13 @@ margin.table(tab, 2)
 
 ```{r table2}
 prop.table(tab)
-prop.table(tab,1)
+prop.table(tab,1) * 100
 ```
+
+
+## Lab Part 2
+
+[Website](../index.html)
 
 ## Download Salary FY2014 Data
 
@@ -335,7 +344,7 @@ y
 
 ## Splitting String: `stringr`
 
-`stringr::str_split` do the same thing:
+`stringr::str_split` does the same thing:
 
 ```{r str_split}
 library(stringr)
@@ -430,6 +439,10 @@ x = rnorm(10)
 x[1] = x[2] # create a tie
 rank(x)
 ```
+
+## Lab Part 3
+
+[Website](../index.html)
 
 ## Website
 

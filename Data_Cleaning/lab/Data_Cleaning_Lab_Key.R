@@ -1,12 +1,12 @@
 #################
 # Data Cleaning and Plotting
 ##############
-
 rm( list = ls() ) # clear the workspace
 library(stringr)
 library(dplyr)
 library(readr)
 library(lubridate)
+library(broom)
 
 ####################
 # Part 1
@@ -58,12 +58,23 @@ side_bike = bike %>% filter(type %in% c("SIDEPATH", "BIKE LANE"))
 side_bike2 = bike %>% filter(type == "SIDEPATH" | type == "BIKE LANE")
 identical(side_bike, side_bike2)
 
+####################
+# Part 2
+####################
+# 5.  Do a cross tab of the bike type and the number of lanes.
+# Call it tab.  Do a prop.table on the rows and columns margins. 
+# Try as.data.frame(tab) or broom::tidy(tab)
+tab = table(bike$type, bike$numLanes)
+prop.table(tab, 1)
+prop.table(tab, 2)
+as.data.frame(tab)
+tidy(tab)
 
 ####################################################
 # New Data set
 ####################################################
 ####################
-# Part 2
+# Part 3
 ####################
 
 ## Download the "Real Property Taxes" Data from my website (via OpenBaltimore):

@@ -6,6 +6,7 @@ library(stringr)
 library(dplyr)
 library(readr)
 library(lubridate)
+library(broom)
 
 ####################
 # Part 1
@@ -19,9 +20,6 @@ library(lubridate)
 bike = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
 
 
-####################
-# Part 1
-####################
 # 1.  Count the number of rows of the bike data and 
 # count the number of complete cases of the bike data.  
 # Use sum and complete.cases.
@@ -46,12 +44,19 @@ bike = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
 # ==.
 
 
+####################
+# Part 2
+####################
+# 5.  Do a cross tab of the bike type and the number of lanes.
+# Call it tab.  Do a prop.table on the rows and columns margins. 
+# Try as.data.frame(tab) or broom::tidy(tab)
+
 
 ####################################################
 # New Data set
 ####################################################
 ####################
-# Part 2
+# Part 3
 ####################
 ## Download the "Real Property Taxes" Data from my website (via OpenBaltimore):
 # http://johnmuschelli.com/intro_to_r/data/Real_Property_Taxes.csv.gz
