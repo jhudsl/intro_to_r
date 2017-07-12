@@ -108,6 +108,21 @@ bike = bike %>%
   )
 table(bike$type2)
 
+bike2 = bike %>% 
+  mutate(
+    type = factor(type,
+                  levels = c( "SIDEPATH", "BIKE BOULEVARD", 
+                              "BIKE LANE", "CONTRAFLOW", 
+                              "SHARED BUS BIKE", 
+                              "SHARROW", "SIGNED ROUTE")
+                  ),
+    type2 = recode_factor(type, 
+                          "CONTRAFLOW" = "OTHER",
+                          "SHARED BUS BIKE" = "OTHER",
+                          "SHARROW" = "OTHER",
+                          "SIGNED ROUTE" = "OTHER")
+  )
+table(bike2$type2)
 
 # 6.  Parse the following dates with the correct lubridate function:
 # a) "2014/02-14"
