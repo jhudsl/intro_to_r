@@ -7,6 +7,11 @@ theme: spacelab
 Introduction to R
 =============
 
+```{r setup, echo = FALSE, message = FALSE}
+library(pander)
+library(kableExtra)
+```
+
 [PDF](http://johnmuschelli.com/intro_to_r/black_and_white_theme.pdf)
 
 <a href="http://www.jhsph.edu/"><img alt = "JHSPH" align="right" src="http://johnmuschelli.com/intro_to_r/bloomberg.logo.small.horizontal.blue.png" width=400 height=240/></a>
@@ -24,57 +29,6 @@ Introduction to R
 ### Important links
 
 * [Syllabus](http://johnmuschelli.com/intro_to_r/Syllabus-student.doc)
-
-### Online Videos of Lectures
-
-#### From Summer Institute 1 2017
-
-```{r videos, echo = FALSE, message = FALSE, results='asis'}
-library(pander)
-library(kableExtra)
-mat = matrix(c(
-  "Day 1", "https://youtu.be/Xi-wsACc7p0",
-"Day 2", "https://youtu.be/u1FQt9Hr8iw",
-"Day 3", "https://youtu.be/woc7AGJTzZw",
-"Day 4", "https://youtu.be/RZ7eVIMPIes",
-"Day 5", "https://youtu.be/e8cFV8wluC0"), ncol = 2, byrow = TRUE)
-mat = data.frame(mat, stringsAsFactors = FALSE)
-colnames(mat) = c("Day", "Link to Video")
-knitr::kable(mat, format = "html") %>% 
-  kable_styling() 
-```
-
-#### From Summer Institute 2 2017
-
-```{r videos_summer2, echo = FALSE, message = FALSE, results='asis'}
-library(pander)
-library(kableExtra)
-mat = matrix(c(
-  "Day 1: Part 1", "https://youtu.be/QdD6x3tDI5Y",
-  "Day 1: Part 2", "https://youtu.be/GMBfu_bnKOI",
-"Day 2", "https://youtu.be/NQFAoxX-w74",
-"Day 3", "",
-"Day 4", "",
-"Day 5", ""),
-ncol = 2, byrow = TRUE)
-mat = data.frame(mat, stringsAsFactors = FALSE)
-colnames(mat) = c("Day", "Link to Video")
-knitr::kable(mat, format = "html") %>% 
-  kable_styling() 
-```
-
-### All the Requirements in this Course
-
-#### Packages 
-All the packages used (in any way - homework, lecture, lab), are listed in [this text file](all_the_packages.txt).  If you would like to install all the packages from this file, please download that text file and run [this R script](install_all_packages.R)
-
-#### Functions
-
-All the functions used (in any way - homework, lecture, lab), are listed in [this CSV file](all_the_functions.csv), which can start a kind of cheat sheet for you.
-
-#### Data
-All the data used that are not **specifically** to be downloaded from the web are located in [this zip file](data.zip), but we will show you how to read data from the internet as well.
-
 
 
 
@@ -179,6 +133,54 @@ knitr::kable(df, format = "html") %>%
 <!-- | 5  | 2017-01-13 | Module 13  | [HTML](Knitr/lecture/Knitr.html), [PDF](Knitr/lecture/Knitr.pdf), [Code](Knitr/lecture/Knitr.Rmd) | Reproducible Research | -->
 <!-- | 5  | 2017-01-13 |   | [RMD](ProjectExample/RMarkDown_FinalProject.Rmd), [DOC](ProjectExample/RMarkDown_FinalProject.docx)| Example Projects | -->
 <!-- | | | | | | -->
+
+
+### Online Videos of Lectures
+
+#### From Summer Institute 1 2017
+
+```{r videos, echo = FALSE, message = FALSE, results='asis'}
+mat = matrix(c(
+  "Day 1", "https://youtu.be/Xi-wsACc7p0",
+"Day 2", "https://youtu.be/u1FQt9Hr8iw",
+"Day 3", "https://youtu.be/woc7AGJTzZw",
+"Day 4", "https://youtu.be/RZ7eVIMPIes",
+"Day 5", "https://youtu.be/e8cFV8wluC0"), ncol = 2, byrow = TRUE)
+mat = data.frame(mat, stringsAsFactors = FALSE)
+colnames(mat) = c("Day", "Link to Video")
+knitr::kable(mat, format = "html") %>% 
+  kable_styling() 
+```
+
+#### From Summer Institute 2 2017
+
+```{r videos_summer2, echo = FALSE, message = FALSE, results='asis'}
+mat = matrix(c(
+  "Day 1: Part 1", "https://youtu.be/QdD6x3tDI5Y",
+  "Day 1: Part 2", "https://youtu.be/GMBfu_bnKOI",
+"Day 2", "https://youtu.be/NQFAoxX-w74",
+"Day 3", "",
+"Day 4", "",
+"Day 5", ""),
+ncol = 2, byrow = TRUE)
+mat = data.frame(mat, stringsAsFactors = FALSE)
+colnames(mat) = c("Day", "Link to Video")
+knitr::kable(mat, format = "html") %>% 
+  kable_styling() 
+```
+
+### All the Requirements in this Course
+
+#### Packages 
+All the packages used (in any way - homework, lecture, lab), are listed in [this text file](all_the_packages.txt).  If you would like to install all the packages from this file, please download that text file and run [this R script](install_all_packages.R)
+
+#### Functions
+
+All the functions used (in any way - homework, lecture, lab), are listed in [this CSV file](all_the_functions.csv), which can start a kind of cheat sheet for you.
+
+#### Data
+All the data used that are not **specifically** to be downloaded from the web are located in [this zip file](data.zip), but we will show you how to read data from the internet as well.
+
 
 
 ### Example Projects 
