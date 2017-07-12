@@ -74,14 +74,16 @@ head(as.numeric(bike$dateInstalled))
 head(as.numeric(as.character(bike$dateInstalled)))
 
 
+
+####################
+# Part 2
+####################
 # 5.  Convert type back to a character.
 # Make a column type2 (replacing the old one)
 # where if the type is one of these categories:
 # c("CONTRAFLOW", "SHARED BUS BIKE", "SHARROW", "SIGNED ROUTE")
 # call it "OTHER".  Use %in% and ifelse.  Make type2 a factor
 # with the levels c( "SIDEPATH", "BIKE BOULEVARD", "BIKE LANE", "OTHER")
-
-
 
 
 # 6.  Parse the following dates with the correct lubridate function:
