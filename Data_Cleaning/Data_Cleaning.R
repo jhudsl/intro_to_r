@@ -1,7 +1,8 @@
-## ---- echo = FALSE-------------------------------------------------------
+## ---- echo = FALSE, message = FALSE--------------------------------------
 library(knitr)
 opts_chunk$set(comment = "")
 library(readr)
+suppressPackageStartupMessages(library(dplyr))
 
 ## ------------------------------------------------------------------------
 x = c(0, NA, 2, 3, 4)
@@ -14,9 +15,6 @@ x > 2 & !is.na(x)
 ## ------------------------------------------------------------------------
 (x == 0 | x == 2) # has NA
 (x == 0 | x == 2) & !is.na(x) # No NA
-
-## ------------------------------------------------------------------------
-x %in% c(0, 2) # NEVER has NA and returns logical
 
 ## ------------------------------------------------------------------------
 x %in% c(0, 2, NA) # NEVER has NA and returns logical
@@ -50,6 +48,7 @@ tab[ tab > 0 ]
 tab <- table(c(0, 1, 2, 3, 2, 3, 3, 2,2, 3), 
              c(0, 1, 2, 3, 2, 3, 3, 4, 4, 3), 
               useNA = "always")
+tab
 
 ## ----margin--------------------------------------------------------------
 margin.table(tab, 2)
@@ -60,11 +59,11 @@ prop.table(tab,1)
 
 ## ----readSal, echo = TRUE, eval = FALSE----------------------------------
 ## Sal = read_csv("http://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv")
-## colnames(Sal)[1] = "Name"
+## Sal = rename(Sal, Name = name)
 
 ## ----readSal_csv, echo= FALSE, eval = TRUE-------------------------------
 Sal = read.csv("http://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv")
-colnames(Sal)[1] = "Name"
+Sal = rename(Sal, Name = name)
 
 ## ----isna----------------------------------------------------------------
 head(Sal,2)
@@ -73,6 +72,11 @@ any(is.na(Sal$Name)) # are there any NAs?
 ## ---- eval = FALSE-------------------------------------------------------
 ## data$gender[data$gender %in%
 ##     c("Male", "M", "m")] <- "Male"
+
+## ---- eval = FALSE-------------------------------------------------------
+## data %>%
+##   mutate(gender = ifelse(gender %in% c("Male", "M", "m"),
+##                          "Male", gender))
 
 ## ----gender, echo=FALSE--------------------------------------------------
 set.seed(4) # random sample below - make sure same every time

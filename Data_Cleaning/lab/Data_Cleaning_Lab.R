@@ -1,11 +1,58 @@
 #################
 # Data Cleaning and Plotting
 ##############
-library(readr)
+rm( list = ls() ) # clear the workspace
 library(stringr)
 library(dplyr)
+library(readr)
+library(lubridate)
+
+####################
+# Part 1
+####################
+# Bike Lanes Dataset: BikeBaltimore is the Department of Transportation's bike program. 
+# http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms
+# 	Download as a CSV in your current working directory
+# Note its also available at: 
+#	http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv
+
+bike = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
 
 
+####################
+# Part 1
+####################
+# 1.  Count the number of rows of the bike data and 
+# count the number of complete cases of the bike data.  
+# Use sum and complete.cases.
+
+
+# 2.  Create a data set called namat which is equal to is.na(bike).  
+# What is the class of namat?  Run rowSums and colSums on namat.
+# These represent the number of missing values in the rows and columns of
+# bike.  Don't print rowSums, but do a table of the rowSums
+
+
+
+# 3.  Filter rows of bike that are NOT missing the route variable, assign
+# this to the object have_route.  Do a table of the subType using table, 
+# including the missing subTypes.  Get the same frequency distribution
+# using group_by(subType) and tally()
+
+
+# 4.  Filter rows of bike that have the type SIDEPATH or BIKE LANE
+# using %in%.  Call it side_bike.  
+# Confirm this gives you the same number of results using the | and 
+# ==.
+
+
+
+####################################################
+# New Data set
+####################################################
+####################
+# Part 2
+####################
 ## Download the "Real Property Taxes" Data from my website (via OpenBaltimore):
 # http://johnmuschelli.com/intro_to_r/data/Real_Property_Taxes.csv.gz
 ## note you don't need to unzip it to read it into R
@@ -14,92 +61,30 @@ library(dplyr)
 tax = read_csv("http://johnmuschelli.com/intro_to_r/data/Real_Property_Taxes.csv.gz")
 
 # 2. How many addresses pay property taxes? 
-dim(tax)
-nrow(tax)
-length(tax$PropertyID)
 
-sum(is.na(tax$CityTax))
-sum(!is.na(tax$CityTax))
 
 # 3. What is the total city and state tax paid?  
 # You need to remove the $ from the CityTax variable
 # then you need to make it numeric.   Try str_replace, but remember
 # $ is "special" and you need fixed() around it.
-sum(tax$CityTax)
-as.numeric(str_replace(tax$CityTax, fixed("$"), ""))
 
-tax$CityTax %>% str_replace(fixed("$"), "") %>% 
-             as.numeric()
-tax = tax %>% mutate(
-  CityTax = CityTax %>% str_replace(fixed("$"), "") %>% 
-    as.numeric()
-)
-
-tax = tax %>% mutate(
-  CityTax = as.numeric(str_replace(CityTax, fixed("$"), "")),
-  StateTax = as.numeric(str_replace(StateTax, fixed("$"), ""))
-  
-)
-
-
-
-sum(as.numeric(tax$CityTax), na.rm = TRUE)
 
 # 4. Using `table()` or group_by and summarize(n()) or tally()
 #	a. how many observations/properties are in each ward?
-table(tax$Ward)
-
-ward_table = tax %>% 
-  group_by(Ward) %>% 
-  tally()
-
-ward_table = tax %>% 
-  group_by(Ward) %>% 
-  summarize(number_of_obs = n())
 
 
 
 #	b. what is the mean state tax per ward? use group_by and summarize
 
-ward_table = tax %>% 
-  group_by(Ward) %>% 
-  summarize(
-    number_of_obs = n(),
-    mean_state_tax = mean(StateTax, na.rm = TRUE))
-
-
 #	c. what is the maximum amount still due in each ward?  different summarization (max)
-tax = tax %>% mutate(
-  AmountDue = as.numeric(str_replace(AmountDue, fixed("$"), ""))
-)
 
-ward_table = tax %>% 
-  group_by(Ward) %>% 
-  summarize(
-    number_of_obs = n(),
-    mean_state_tax = mean(StateTax, na.rm = TRUE),
-    max_amount_due = max(AmountDue, na.rm = TRUE)
-    )
 
 # d. What is the 75th percentile of city and state tax paid by Ward? (quantile)
-ward_table = tax %>% 
-  group_by(Ward) %>% 
-  summarize(
-    number_of_obs = n(),
-    mean_state_tax = mean(StateTax, na.rm = TRUE),
-    max_amount_due = max(AmountDue, na.rm = TRUE),
-    q75_city = quantile(CityTax, probs = 0.75, na.rm = TRUE),
-    q75_state = quantile(StateTax, probs = 0.75, na.rm = TRUE)
-  )
+
 
 # 6. Make boxplots using base graphics showing cityTax (y -variable)
 #	 	by whether the property	is a principal residence (x) or not.
-boxplot( CityTax ~ ResCode, data = tax)
 
-max_city_tax = max()
-
-tax %>% filter(CityTax == max(CityTax, na.rm = TRUE))
-# lm( CityTax ~ ResCode + StateTax, data = tax)
 
 # 7. Subset the data to only retain those houses that are principal residences. 
 # which command subsets rows? Filter or select?
@@ -113,7 +98,11 @@ tax %>% filter(CityTax == max(CityTax, na.rm = TRUE))
 #	b) How many values of lot size were missing?
 
 
-
+##########################
+# Part 2
+##########################
+# x = c("This isn't that hard", "hard of a string", 'to "parse"',
+#       "BUT WE have HaRD", "Data ThAt", "Wecsw")
 ################################
 ## Read in the Salary FY2015 dataset
 # http://johnmuschelli.com/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv

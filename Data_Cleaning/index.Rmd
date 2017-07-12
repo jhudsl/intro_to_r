@@ -8,10 +8,11 @@ output:
 ---
 
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, message = FALSE}
 library(knitr)
 opts_chunk$set(comment = "")
 library(readr)
+suppressPackageStartupMessages(library(dplyr))
 ```
 
 ## Data Cleaning
@@ -89,15 +90,6 @@ what to do?
 
 ## Missing Data with Logicals: `%in%`
 
-Introduce the `%in%` operator:
-```{r}
-x %in% c(0, 2) # NEVER has NA and returns logical
-```
-
-reads "return `TRUE` if `x` is in 0 or 2". (Like `inlist` in Stata).
-
-## Missing Data with Logicals: `%in%`
-
 NEVER has NA, even if you put it there (BUT DON'T DO THIS):
 
 ```{r}
@@ -123,8 +115,6 @@ x * 2
 - `table(x)` - will give a one-way table of `x`
     - `table(x, useNA = "ifany")` - will have row NA 
 - `table(x, y)` - will give a cross-tab of `x` and `y`
-
-
 
 ## Creating One-way Tables 
 
@@ -174,6 +164,7 @@ A two-way table.  If you pass in 2 vectors, `table` creates a 2-dimensional tabl
 tab <- table(c(0, 1, 2, 3, 2, 3, 3, 2,2, 3), 
              c(0, 1, 2, 3, 2, 3, 3, 4, 4, 3), 
               useNA = "always")
+tab
 ```
 
 ## Finding Row or Column Totals
@@ -202,15 +193,16 @@ Read the CSV into R `Sal`:
 
 ```{r readSal, echo = TRUE, eval = FALSE}
 Sal = read_csv("http://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv")
-colnames(Sal)[1] = "Name"
+Sal = rename(Sal, Name = name)
 ```
 
 ```{r readSal_csv, echo= FALSE, eval = TRUE}
 Sal = read.csv("http://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv")
-colnames(Sal)[1] = "Name"
+Sal = rename(Sal, Name = name)
 ```
 
 ## Checking for logical conditions 
+
 * `any()` - checks if there are any `TRUE`s
 * `all()` - checks if ALL are true
 
@@ -221,7 +213,7 @@ any(is.na(Sal$Name)) # are there any NAs?
 
 # Recoding Variables
 
-## Example of Recoding: base R
+## Example of Recoding
 
 For example, let's say gender was coded as Male, M, m, Female, F, f.  Using Excel to find all of these would be a matter of filtering and changing all by hand or using if statements.
 
@@ -230,6 +222,12 @@ In R, you can simply do something like:
 ```{r, eval = FALSE}
 data$gender[data$gender %in% 
     c("Male", "M", "m")] <- "Male"
+```
+or use `ifelse`
+```{r, eval = FALSE}
+data %>% 
+  mutate(gender = ifelse(gender %in% c("Male", "M", "m"),
+                         "Male", gender))
 ```
 
 ## Example of Cleaning: more complicated
@@ -274,8 +272,6 @@ Useful String functions
 * `str_trim()` (in the `stringr` package) or `trimws` in base 
     - will trim whitespace
 * `nchar` - get the number of characters in a string
-* `paste()` - paste strings together with a space 
-* `paste0` - paste strings together with no space as default
 
 
 ## The `stringr` package
@@ -329,7 +325,8 @@ Base R
 
 ## Splitting String: base R
 
-In base R, `strsplit` splits a vector on a string into a list
+In base R, `strsplit` splits a vector on a string into a `list`
+
 ```{r strsplit}
 x <- c("I really", "like writing", "R code programs")
 y <- strsplit(x, split = " ") # returns a list
@@ -366,18 +363,6 @@ sapply(y, last) # on the fly
 ```
 
 
-## 'Find' functions: base R
-
-`grep`: `grep`, `grepl`, `regexpr` and `gregexpr` search for matches to argument pattern within each element of a character vector: they differ in the format of and amount of detail in the results. 
-
-`grep(pattern, x, fixed=FALSE)`, where:
-
-* pattern = character string containing a regular expression to be matched in the given character vector.
-
-* x = a character vector where matches are sought, or an object which can be coerced by as.character to a character vector.
-
-* If fixed=TRUE, it will do exact matching for the phrase anywhere in the vector (regular find)
-
 
 ## 'Find' functions: `stringr`
 
@@ -390,16 +375,6 @@ sapply(y, last) # on the fly
 * `str_replace` - replaces `pattern` with `replacement` the first time
 * `str_replace_all` - replaces `pattern` with `replacement` as many times matched
 
-## 'Find' functions: stringr compared to base R
-
-Base R does not use these functions.  Here is a "translator" of the `stringr` function to base R functions
-
-* `str_detect` - similar to `grepl` (return logical)
-* `grep(value = FALSE)` is similar to `which(str_detect())`
-* `str_subset` - similar to `grep(value = TRUE)` - return value of matched
-* `str_replace` - similar to `sub` - replace one time 
-* `str_replace_all` - similar to `gsub` - replace many times
-
 ## Let's look at modifier for `stringr`
 
 `?modifiers`
@@ -409,17 +384,7 @@ Base R does not use these functions.  Here is a "translator" of the `stringr` fu
 * `ignore_case` is an option to not have to use `tolower`
 
 
-## Important Comparisons
 
-Base R:
-
-* Argument order is `(pattern, x)`
-* Uses option `(fixed = TRUE)`
-
-`stringr`
-
-* Argument order is `(string, pattern)` aka `(x, pattern)`
-* Uses function `fixed(pattern)`
 
 ## 'Find' functions: finding values, `stringr` and `dplyr` 
 
@@ -470,6 +435,42 @@ rank(x)
 
 [Website](../index.html)
 
+
+
+## 'Find' functions: base R
+
+`grep`: `grep`, `grepl`, `regexpr` and `gregexpr` search for matches to argument pattern within each element of a character vector: they differ in the format of and amount of detail in the results. 
+
+`grep(pattern, x, fixed=FALSE)`, where:
+
+* pattern = character string containing a regular expression to be matched in the given character vector.
+
+* x = a character vector where matches are sought, or an object which can be coerced by as.character to a character vector.
+
+* If fixed=TRUE, it will do exact matching for the phrase anywhere in the vector (regular find)
+
+
+## 'Find' functions: stringr compared to base R
+
+Base R does not use these functions.  Here is a "translator" of the `stringr` function to base R functions
+
+* `str_detect` - similar to `grepl` (return logical)
+* `grep(value = FALSE)` is similar to `which(str_detect())`
+* `str_subset` - similar to `grep(value = TRUE)` - return value of matched
+* `str_replace` - similar to `sub` - replace one time 
+* `str_replace_all` - similar to `gsub` - replace many times
+
+## Important Comparisons
+
+Base R:
+
+* Argument order is `(pattern, x)`
+* Uses option `(fixed = TRUE)`
+
+`stringr`
+
+* Argument order is `(string, pattern)` aka `(x, pattern)`
+* Uses function `fixed(pattern)`
 
 ## 'Find' functions: Finding Indices
 

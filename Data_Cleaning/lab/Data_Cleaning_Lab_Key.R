@@ -2,21 +2,86 @@
 # Data Cleaning and Plotting
 ##############
 
-## Download the "Real Property Taxes" Data from my website (via OpenBaltimore):
-# http://johnmuschelli.com/intro_to_r/data/Real_Property_Taxes.csv.gz
-## note you don't need to unzip it to read it into R
 rm( list = ls() ) # clear the workspace
 library(stringr)
 library(dplyr)
 library(readr)
 library(lubridate)
 
+####################
+# Part 1
+####################
+# Bike Lanes Dataset: BikeBaltimore is the Department of Transportation's bike program. 
+# http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms
+# 	Download as a CSV in your current working directory
+# Note its also available at: 
+#	http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv
+
+bike = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
+
+
+# 1.  Count the number of rows of the bike data and 
+# count the number of complete cases of the bike data.  
+# Use sum and complete.cases.
+nrow(bike)
+sum(complete.cases(bike))
+
+# 2.  Create a data set called namat which is equal to is.na(bike).  
+# What is the class of namat?  Run rowSums and colSums on namat.
+# These represent the number of missing values in the rows and columns of
+# bike.  Don't print rowSums, but do a table of the rowSums
+namat = is.na(bike)
+colSums(namat)
+table(rowSums(namat))
+
+
+# 3.  Filter rows of bike that are NOT missing the route variable, assign
+# this to the object have_route.  Do a table of the subType using table, 
+# including the missing subTypes.  Get the same frequency distribution
+# using group_by(subType) and tally()
+have_route = bike %>% 
+  filter(!is.na(route))
+table(have_route$subType, useNA = "always")
+have_route %>% 
+  group_by(subType) %>% 
+  tally()
+
+have_route %>% 
+  group_by(subType) %>% 
+  summarize(n_obs = n())
+
+# 4.  Filter rows of bike that have the type SIDEPATH or BIKE LANE
+# using %in%.  Call it side_bike.  
+# Confirm this gives you the same number of results using the | and 
+# ==.
+side_bike = bike %>% filter(type %in% c("SIDEPATH", "BIKE LANE"))
+side_bike2 = bike %>% filter(type == "SIDEPATH" | type == "BIKE LANE")
+identical(side_bike, side_bike2)
+
+
+####################################################
+# New Data set
+####################################################
+####################
+# Part 2
+####################
+
+## Download the "Real Property Taxes" Data from my website (via OpenBaltimore):
+# http://johnmuschelli.com/intro_to_r/data/Real_Property_Taxes.csv.gz
+## note you don't need to unzip it to read it into R
+
+
 # 1. Read the Property Tax data into R and call it the variable `tax`
 tax = read_csv( "http://johnmuschelli.com/intro_to_r/data/Real_Property_Taxes.csv.gz")
 
 # 2. How many addresses pay property taxes? 
-nrow(tax)
 dim(tax)
+nrow(tax)
+length(tax$PropertyID)
+
+sum(is.na(tax$CityTax))
+sum(!is.na(tax$CityTax))
+
 
 # 3. What is the total city and state tax paid?  
 # You need to remove the $ from the CityTax variable
@@ -44,19 +109,29 @@ sum(tax$StateTax, na.rm = TRUE)/1e6
 ### sapply(tax_list, nrow)
 table(tax$Ward)
 
+ward_table = tax %>% 
+  group_by(Ward) %>% 
+  tally()
+
+ward_table = tax %>% 
+  group_by(Ward) %>% 
+  summarize(number_of_obs = n())
+
 
 
 #	b. what is the mean state tax per ward? use group_by and summarize
 tax %>%   group_by(Ward) %>% 
   summarize(mean_state = mean(StateTax, na.rm = TRUE))
 
-tapply(tax$StateTax, tax$Ward, mean, na.rm=TRUE)
-
 
 #	c. what is the maximum amount still due in each ward?  different summarization (max)
 tax$AmountDue = tax$AmountDue %>% 
   str_replace(fixed("$"), "") %>%
   as.numeric
+
+tax = tax %>% mutate(
+  AmountDue = as.numeric(str_replace(AmountDue, fixed("$"), ""))
+)
 
 tax %>% group_by(Ward) %>% 
   summarize(maxDue = max(AmountDue, na.rm = TRUE))
@@ -65,15 +140,26 @@ tax %>% group_by(Ward) %>%
 tax %>% group_by(Ward) %>% 
   summarize(Percentile = quantile(StateTax, prob = 0.75,na.rm = TRUE))
 
-tapply(tax$StateTax, tax$Ward,
-       quantile, prob = 0.75, na.rm=TRUE)
-tapply(tax$StateTax, tax$Ward,
-       quantile, na.rm=TRUE)
+
+ward_table = tax %>% 
+  group_by(Ward) %>% 
+  summarize(
+    number_of_obs = n(),
+    mean_state_tax = mean(StateTax, na.rm = TRUE),
+    max_amount_due = max(AmountDue, na.rm = TRUE),
+    q75_city = quantile(CityTax, probs = 0.75, na.rm = TRUE),
+    q75_state = quantile(StateTax, probs = 0.75, na.rm = TRUE)
+  )
+
 
 # 6. Make boxplots using base graphics showing cityTax (y -variable)
 #	 	by whether the property	is a principal residence (x) or not.
-tax$ResCode = str_trim(tax$ResCode)
-boxplot(log(CityTax+1) ~ ResCode, data = tax)
+tax = tax %>% 
+  mutate(ResCode = str_trim(ResCode))
+
+boxplot(log10(CityTax+1) ~ ResCode, data = tax)
+
+tax %>% filter(CityTax == max(CityTax, na.rm = TRUE))
 
 # 7. Subset the data to only retain those houses that are principal residences. 
 # which command subsets rows? Filter or select?
@@ -101,14 +187,18 @@ plot(density(pres$CityTax,  na.rm = TRUE))
 #		with only agencies of those with "fire" (or any forms), if any, in the name
 # remember fixed( ignore_case = TRUE) will ignore cases
 sal = read_csv("http://johnmuschelli.com/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv")
-health.sal = sal %>% filter(str_detect(JobTitle, fixed("fire", ignore_case = TRUE)))
+health.sal = sal %>% 
+  filter(str_detect(JobTitle, 
+                    fixed("fire", ignore_case = TRUE)))
 
 # 11. Make a data set called trans which contains only agencies that contain "TRANS".
-trans = sal %>% filter(str_detect(JobTitle, "TRANS"))
+trans = sal %>% 
+  filter(str_detect(JobTitle, "TRANS"))
 
 # 12. What is/are the profession(s) of people who have "abra" in their name for 
 # Baltimore's Salaries?  Case should be ignored
-sal %>% filter(str_detect(name, fixed("abra", ignore_case = TRUE)))
+sal %>% 
+  filter(str_detect(name, fixed("abra", ignore_case = TRUE)))
 
 # 13. What is the distribution of annual salaries look like? (use hist, 20 breaks) What is the IQR?
 #Hint: first convert to numeric. Try str_replace, but remember
@@ -151,6 +241,18 @@ emer = emer %>%
 ggplot(aes(x = HireDate, y = AnnualSalary, 
            colour = dept), data = emer) + 
   geom_point() + theme(legend.position = c(0.5, 0.8))
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

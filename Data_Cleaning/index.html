@@ -192,16 +192,6 @@ x &gt; 2</pre>
 
 </article></slide><slide class=''><hgroup><h2>Missing Data with Logicals: <code>%in%</code></h2></hgroup><article  id="missing-data-with-logicals-in">
 
-<p>Introduce the <code>%in%</code> operator:</p>
-
-<pre class = 'prettyprint lang-r'>x %in% c(0, 2) # NEVER has NA and returns logical</pre>
-
-<pre >[1]  TRUE FALSE  TRUE FALSE FALSE</pre>
-
-<p>reads &quot;return <code>TRUE</code> if <code>x</code> is in 0 or 2&quot;. (Like <code>inlist</code> in Stata).</p>
-
-</article></slide><slide class=''><hgroup><h2>Missing Data with Logicals: <code>%in%</code></h2></hgroup><article  id="missing-data-with-logicals-in-1">
-
 <p>NEVER has NA, even if you put it there (BUT DON&#39;T DO THIS):</p>
 
 <pre class = 'prettyprint lang-r'>x %in% c(0, 2, NA) # NEVER has NA and returns logical</pre>
@@ -305,7 +295,16 @@ tab</pre>
 
 <pre class = 'prettyprint lang-r'>tab &lt;- table(c(0, 1, 2, 3, 2, 3, 3, 2,2, 3), 
              c(0, 1, 2, 3, 2, 3, 3, 4, 4, 3), 
-              useNA = &quot;always&quot;)</pre>
+              useNA = &quot;always&quot;)
+tab</pre>
+
+<pre >      
+       0 1 2 3 4 &lt;NA&gt;
+  0    1 0 0 0 0    0
+  1    0 1 0 0 0    0
+  2    0 0 2 0 2    0
+  3    0 0 0 4 0    0
+  &lt;NA&gt; 0 0 0 0 0    0</pre>
 
 </article></slide><slide class=''><hgroup><h2>Finding Row or Column Totals</h2></hgroup><article  id="finding-row-or-column-totals">
 
@@ -348,7 +347,7 @@ tab</pre>
 <p>Read the CSV into R <code>Sal</code>:</p>
 
 <pre class = 'prettyprint lang-r'>Sal = read_csv(&quot;http://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv&quot;)
-colnames(Sal)[1] = &quot;Name&quot;</pre>
+Sal = rename(Sal, Name = name)</pre>
 
 </article></slide><slide class=''><hgroup><h2>Checking for logical conditions</h2></hgroup><article  id="checking-for-logical-conditions">
 
@@ -372,7 +371,7 @@ colnames(Sal)[1] = &quot;Name&quot;</pre>
 
 </article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Recoding Variables</h2></hgroup><article  id="recoding-variables">
 
-</article></slide><slide class=''><hgroup><h2>Example of Recoding: base R</h2></hgroup><article  id="example-of-recoding-base-r">
+</article></slide><slide class=''><hgroup><h2>Example of Recoding</h2></hgroup><article  id="example-of-recoding">
 
 <p>For example, let&#39;s say gender was coded as Male, M, m, Female, F, f. Using Excel to find all of these would be a matter of filtering and changing all by hand or using if statements.</p>
 
@@ -380,6 +379,12 @@ colnames(Sal)[1] = &quot;Name&quot;</pre>
 
 <pre class = 'prettyprint lang-r'>data$gender[data$gender %in% 
     c(&quot;Male&quot;, &quot;M&quot;, &quot;m&quot;)] &lt;- &quot;Male&quot;</pre>
+
+<p>or use <code>ifelse</code></p>
+
+<pre class = 'prettyprint lang-r'>data %&gt;% 
+  mutate(gender = ifelse(gender %in% c(&quot;Male&quot;, &quot;M&quot;, &quot;m&quot;),
+                         &quot;Male&quot;, gender))</pre>
 
 </article></slide><slide class=''><hgroup><h2>Example of Cleaning: more complicated</h2></hgroup><article  id="example-of-cleaning-more-complicated">
 
@@ -438,8 +443,6 @@ paste0(&quot;Visit&quot;,1:5)</pre>
 <li>will trim whitespace</li>
 </ul></li>
 <li><code>nchar</code> - get the number of characters in a string</li>
-<li><code>paste()</code> - paste strings together with a space</li>
-<li><code>paste0</code> - paste strings together with no space as default</li>
 </ul>
 
 </article></slide><slide class=''><hgroup><h2>The <code>stringr</code> package</h2></hgroup><article  id="the-stringr-package">
@@ -505,7 +508,7 @@ paste0(&quot;Visit&quot;,1:5)</pre>
 
 </article></slide><slide class=''><hgroup><h2>Splitting String: base R</h2></hgroup><article  id="splitting-string-base-r">
 
-<p>In base R, <code>strsplit</code> splits a vector on a string into a list</p>
+<p>In base R, <code>strsplit</code> splits a vector on a string into a <code>list</code></p>
 
 <pre class = 'prettyprint lang-r'>x &lt;- c(&quot;I really&quot;, &quot;like writing&quot;, &quot;R code programs&quot;)
 y &lt;- strsplit(x, split = &quot; &quot;) # returns a list
@@ -570,18 +573,6 @@ y[[2]]</pre>
 
 <pre >[1] &quot;really&quot;   &quot;writing&quot;  &quot;programs&quot;</pre>
 
-</article></slide><slide class=''><hgroup><h2>&#39;Find&#39; functions: base R</h2></hgroup><article  id="find-functions-base-r">
-
-<p><code>grep</code>: <code>grep</code>, <code>grepl</code>, <code>regexpr</code> and <code>gregexpr</code> search for matches to argument pattern within each element of a character vector: they differ in the format of and amount of detail in the results.</p>
-
-<p><code>grep(pattern, x, fixed=FALSE)</code>, where:</p>
-
-<ul>
-<li><p>pattern = character string containing a regular expression to be matched in the given character vector.</p></li>
-<li><p>x = a character vector where matches are sought, or an object which can be coerced by as.character to a character vector.</p></li>
-<li><p>If fixed=TRUE, it will do exact matching for the phrase anywhere in the vector (regular find)</p></li>
-</ul>
-
 </article></slide><slide class=''><hgroup><h2>&#39;Find&#39; functions: <code>stringr</code></h2></hgroup><article  id="find-functions-stringr">
 
 <p><code>str_detect</code>, <code>str_subset</code>, <code>str_replace</code>, and <code>str_replace_all</code> search for matches to argument pattern within each element of a character vector: they differ in the format of and amount of detail in the results.</p>
@@ -598,18 +589,6 @@ y[[2]]</pre>
 <li><code>str_replace_all</code> - replaces <code>pattern</code> with <code>replacement</code> as many times matched</li>
 </ul>
 
-</article></slide><slide class=''><hgroup><h2>&#39;Find&#39; functions: stringr compared to base R</h2></hgroup><article  id="find-functions-stringr-compared-to-base-r">
-
-<p>Base R does not use these functions. Here is a &quot;translator&quot; of the <code>stringr</code> function to base R functions</p>
-
-<ul>
-<li><code>str_detect</code> - similar to <code>grepl</code> (return logical)</li>
-<li><code>grep(value = FALSE)</code> is similar to <code>which(str_detect())</code></li>
-<li><code>str_subset</code> - similar to <code>grep(value = TRUE)</code> - return value of matched</li>
-<li><code>str_replace</code> - similar to <code>sub</code> - replace one time</li>
-<li><code>str_replace_all</code> - similar to <code>gsub</code> - replace many times</li>
-</ul>
-
 </article></slide><slide class=''><hgroup><h2>Let&#39;s look at modifier for <code>stringr</code></h2></hgroup><article  id="lets-look-at-modifier-for-stringr">
 
 <p><code>?modifiers</code></p>
@@ -618,22 +597,6 @@ y[[2]]</pre>
 <li><code>fixed</code> - match everything exactly</li>
 <li><code>regexp</code> - default - uses <strong>reg</strong>ular <strong>exp</strong>ressions</li>
 <li><code>ignore_case</code> is an option to not have to use <code>tolower</code></li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Important Comparisons</h2></hgroup><article  id="important-comparisons">
-
-<p>Base R:</p>
-
-<ul>
-<li>Argument order is <code>(pattern, x)</code></li>
-<li>Uses option <code>(fixed = TRUE)</code></li>
-</ul>
-
-<p><code>stringr</code></p>
-
-<ul>
-<li>Argument order is <code>(string, pattern)</code> aka <code>(x, pattern)</code></li>
-<li>Uses function <code>fixed(pattern)</code></li>
 </ul>
 
 </article></slide><slide class=''><hgroup><h2>&#39;Find&#39; functions: finding values, <code>stringr</code> and <code>dplyr</code></h2></hgroup><article  id="find-functions-finding-values-stringr-and-dplyr">
@@ -710,6 +673,46 @@ rank(x)</pre>
 </article></slide><slide class=''><hgroup><h2>Website</h2></hgroup><article  id="website">
 
 <p><a href='../index.html' title=''>Website</a></p>
+
+</article></slide><slide class=''><hgroup><h2>&#39;Find&#39; functions: base R</h2></hgroup><article  id="find-functions-base-r">
+
+<p><code>grep</code>: <code>grep</code>, <code>grepl</code>, <code>regexpr</code> and <code>gregexpr</code> search for matches to argument pattern within each element of a character vector: they differ in the format of and amount of detail in the results.</p>
+
+<p><code>grep(pattern, x, fixed=FALSE)</code>, where:</p>
+
+<ul>
+<li><p>pattern = character string containing a regular expression to be matched in the given character vector.</p></li>
+<li><p>x = a character vector where matches are sought, or an object which can be coerced by as.character to a character vector.</p></li>
+<li><p>If fixed=TRUE, it will do exact matching for the phrase anywhere in the vector (regular find)</p></li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>&#39;Find&#39; functions: stringr compared to base R</h2></hgroup><article  id="find-functions-stringr-compared-to-base-r">
+
+<p>Base R does not use these functions. Here is a &quot;translator&quot; of the <code>stringr</code> function to base R functions</p>
+
+<ul>
+<li><code>str_detect</code> - similar to <code>grepl</code> (return logical)</li>
+<li><code>grep(value = FALSE)</code> is similar to <code>which(str_detect())</code></li>
+<li><code>str_subset</code> - similar to <code>grep(value = TRUE)</code> - return value of matched</li>
+<li><code>str_replace</code> - similar to <code>sub</code> - replace one time</li>
+<li><code>str_replace_all</code> - similar to <code>gsub</code> - replace many times</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Important Comparisons</h2></hgroup><article  id="important-comparisons">
+
+<p>Base R:</p>
+
+<ul>
+<li>Argument order is <code>(pattern, x)</code></li>
+<li>Uses option <code>(fixed = TRUE)</code></li>
+</ul>
+
+<p><code>stringr</code></p>
+
+<ul>
+<li>Argument order is <code>(string, pattern)</code> aka <code>(x, pattern)</code></li>
+<li>Uses function <code>fixed(pattern)</code></li>
+</ul>
 
 </article></slide><slide class=''><hgroup><h2>&#39;Find&#39; functions: Finding Indices</h2></hgroup><article  id="find-functions-finding-indices">
 

@@ -42,6 +42,13 @@ x = factor(c("boy", "girl", "girl", "boy", "girl"))
 x 
 class(x)
 
+## ------------------------------------------------------------------------
+x = c(0, 2, 2, 3, 4)
+(x == 0 | x == 2) 
+
+## ------------------------------------------------------------------------
+x %in% c(0, 2) # NEVER has NA and returns logical
+
 ## ----factor2-------------------------------------------------------------
 cc = factor(c("case","case","case",
         "control","control","control"))
@@ -134,49 +141,30 @@ head(cx)
 table(cx)
 table(cx, useNA = "ifany")
 
-## ----date----------------------------------------------------------------
+## ---- message = FALSE----------------------------------------------------
 head(sort(circ$date))
-# creating a date for sorting
-circ$newDate <- as.Date(circ$date, "%m/%d/%Y")
-head(circ$newDate)
-range(circ$newDate)
-
-## ---- message=FALSE------------------------------------------------------
 library(lubridate) # great for dates!
 circ = mutate(circ, newDate2 = mdy(date))
 head(circ$newDate2)
 range(circ$newDate2) # gives you the range of the data
+
+## ---- message = FALSE----------------------------------------------------
+x = c("2014-02-4 05:02:00", "2016/09/24 14:02:00")
+ymd_hms(x)
+
+## ------------------------------------------------------------------------
+ymd_hm(x)
+
+## ---- message = FALSE----------------------------------------------------
+x = c("2014-02-4 05:02:00", "2016/09/24 14:02:00")
+dates = ymd_hms(x)
+class(dates)
 
 ## ------------------------------------------------------------------------
 theTime = Sys.time()
 theTime
 class(theTime)
 theTime + as.period(20, unit = "minutes") # the future
-
-## ---- message=FALSE------------------------------------------------------
-circ %>% 
-  mutate(first_date = first(newDate2),
-         last_date = last(newDate2),
-         third_date = nth(newDate2, 3)) %>% 
-  select(day, date, first_date, last_date, third_date) %>% head(3)
-
-## ---- message=FALSE------------------------------------------------------
-circ %>% 
-  group_by(day) %>% 
-  mutate(first_date = first(newDate2),
-         last_date = last(newDate2),
-         third_date = nth(newDate2, 3)) %>% 
-  select(day, date, first_date, last_date, third_date) %>% head(3)
-
-## ---- message=FALSE------------------------------------------------------
-circ = circ %>% 
-  group_by(day) %>% 
-  mutate(first_date = first(newDate2),
-         diff_from_first = difftime( # time1 - time2
-           time1 = newDate2, time2 = first_date)) 
-head(circ$diff_from_first, 10)
-units(circ$diff_from_first) = "days"
-head(circ$diff_from_first, 10)
 
 ## ----matrix--------------------------------------------------------------
 n = 1:9 
@@ -216,4 +204,29 @@ mylist[1:2] # returns a list
 mylist$letters[1]
 mylist[[2]][1]
 mylist[[3]][1:2,1:2]
+
+## ---- message=FALSE------------------------------------------------------
+circ %>% 
+  mutate(first_date = first(newDate2),
+         last_date = last(newDate2),
+         third_date = nth(newDate2, 3)) %>% 
+  select(day, date, first_date, last_date, third_date) %>% head(3)
+
+## ---- message=FALSE------------------------------------------------------
+circ %>% 
+  group_by(day) %>% 
+  mutate(first_date = first(newDate2),
+         last_date = last(newDate2),
+         third_date = nth(newDate2, 3)) %>% 
+  select(day, date, first_date, last_date, third_date) %>% head(3)
+
+## ---- message=FALSE------------------------------------------------------
+circ = circ %>% 
+  group_by(day) %>% 
+  mutate(first_date = first(newDate2),
+         diff_from_first = difftime( # time1 - time2
+           time1 = newDate2, time2 = first_date)) 
+head(circ$diff_from_first, 10)
+units(circ$diff_from_first) = "days"
+head(circ$diff_from_first, 10)
 

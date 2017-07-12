@@ -238,6 +238,25 @@ x </pre>
 <pre >factor(x = character(), levels, labels = levels,
        exclude = NA, ordered = is.ordered(x))</pre>
 
+</article></slide><slide class=''><hgroup><h2>Necessary for the lab: <code>%in%</code></h2></hgroup><article  id="necessary-for-the-lab-in">
+
+<pre class = 'prettyprint lang-r'>x = c(0, 2, 2, 3, 4)
+(x == 0 | x == 2) </pre>
+
+<pre >## [1]  TRUE  TRUE  TRUE FALSE FALSE</pre>
+
+<p>Introduce the <code>%in%</code> operator:</p>
+
+<pre class = 'prettyprint lang-r'>x %in% c(0, 2) # NEVER has NA and returns logical</pre>
+
+<pre >## [1]  TRUE  TRUE  TRUE FALSE FALSE</pre>
+
+<p>reads &quot;return <code>TRUE</code> if <code>x</code> is in 0 or 2&quot;. (Like <code>inlist</code> in Stata).</p>
+
+</article></slide><slide class=''><hgroup><h2>Lab Part 1</h2></hgroup><article  id="lab-part-1">
+
+<p><a href='../index.html' title=''>Website</a></p>
+
 </article></slide><slide class=''><hgroup><h2>Factors</h2></hgroup><article  id="factors-2">
 
 <p>Suppose we have a vector of case-control status</p>
@@ -504,29 +523,18 @@ head(cx)  </pre>
 ##    1    2 &lt;NA&gt; 
 ##   15   25   60</pre>
 
-</article></slide><slide class=''><hgroup><h2>Date</h2></hgroup><article  id="date">
+</article></slide><slide class=''><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
 
-<p>You can convert date-like strings in the <code>Date</code> class (<a href='http://www.statmethods.net/input/dates.html' title=''>http://www.statmethods.net/input/dates.html</a> for more info)</p>
+<p><a href='../index.html' title=''>Website</a></p>
+
+</article></slide><slide class=''><hgroup><h2>Dates</h2></hgroup><article  id="dates">
+
+<p>You can convert date-like strings in the <code>Date</code> class (<a href='http://www.statmethods.net/input/dates.html' title=''>http://www.statmethods.net/input/dates.html</a> for more info) using the <code>lubridate</code> package!</p>
 
 <pre class = 'prettyprint lang-r'>head(sort(circ$date))</pre>
 
 <pre >## [1] &quot;01/01/2011&quot; &quot;01/01/2012&quot; &quot;01/01/2013&quot; &quot;01/02/2011&quot; &quot;01/02/2012&quot;
 ## [6] &quot;01/02/2013&quot;</pre>
-
-<pre class = 'prettyprint lang-r'># creating a date for sorting
-circ$newDate &lt;- as.Date(circ$date, &quot;%m/%d/%Y&quot;)
-head(circ$newDate)</pre>
-
-<pre >## [1] &quot;2010-01-11&quot; &quot;2010-01-12&quot; &quot;2010-01-13&quot; &quot;2010-01-14&quot; &quot;2010-01-15&quot;
-## [6] &quot;2010-01-16&quot;</pre>
-
-<pre class = 'prettyprint lang-r'>range(circ$newDate)</pre>
-
-<pre >## [1] &quot;2010-01-11&quot; &quot;2013-03-01&quot;</pre>
-
-</article></slide><slide class=''><hgroup><h2>Date</h2></hgroup><article  id="date-1">
-
-<p>However, the <code>lubridate</code> package is much easier for generating explicit dates:</p>
 
 <pre class = 'prettyprint lang-r'>library(lubridate) # great for dates!
 circ = mutate(circ, newDate2 = mdy(date))
@@ -539,14 +547,39 @@ head(circ$newDate2)</pre>
 
 <pre >## [1] &quot;2010-01-11&quot; &quot;2013-03-01&quot;</pre>
 
+</article></slide><slide class=''><hgroup><h2>Works great - but need to specy the correct format still</h2></hgroup><article  id="works-great---but-need-to-specy-the-correct-format-still">
+
+<p>See <code>?ymd</code> and <code>?ymd_hms</code></p>
+
+<pre class = 'prettyprint lang-r'>x = c(&quot;2014-02-4 05:02:00&quot;, &quot;2016/09/24 14:02:00&quot;)
+ymd_hms(x)</pre>
+
+<pre >## [1] &quot;2014-02-04 05:02:00 UTC&quot; &quot;2016-09-24 14:02:00 UTC&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>ymd_hm(x)</pre>
+
+<pre >## Warning: All formats failed to parse. No formats found.</pre>
+
+<pre >## [1] NA NA</pre>
+
 </article></slide><slide class=''><hgroup><h2>POSIXct</h2></hgroup><article  id="posixct">
 
 <p>The <code>POSIXct</code> class is like a more general date format (with hours, minutes, seconds).</p>
 
+<pre class = 'prettyprint lang-r'>x = c(&quot;2014-02-4 05:02:00&quot;, &quot;2016/09/24 14:02:00&quot;)
+dates = ymd_hms(x)
+class(dates)</pre>
+
+<pre >## [1] &quot;POSIXct&quot; &quot;POSIXt&quot;</pre>
+
+</article></slide><slide class=''><hgroup><h2>Adding Periods of time</h2></hgroup><article  id="adding-periods-of-time">
+
+<p>The <code>as.Period</code> command is helpful for adding time to a date:</p>
+
 <pre class = 'prettyprint lang-r'>theTime = Sys.time()
 theTime</pre>
 
-<pre >## [1] &quot;2017-06-21 12:19:44 EDT&quot;</pre>
+<pre >## [1] &quot;2017-07-12 02:07:53 EDT&quot;</pre>
 
 <pre class = 'prettyprint lang-r'>class(theTime)</pre>
 
@@ -554,65 +587,7 @@ theTime</pre>
 
 <pre class = 'prettyprint lang-r'>theTime + as.period(20, unit = &quot;minutes&quot;) # the future</pre>
 
-<pre >## [1] &quot;2017-06-21 12:39:44 EDT&quot;</pre>
-
-</article></slide><slide class=''><hgroup><h2>Quick Aside: &quot;slicing&quot; data</h2></hgroup><article  id="quick-aside-slicing-data">
-
-<p>In <code>dplyr</code>, there are <code>first</code>, <code>last</code> and <code>nth</code> operators.</p>
-
-<p>If you first sort a data set using <code>arrange</code>, you can grab the first or last as so:</p>
-
-<pre class = 'prettyprint lang-r'>circ %&gt;% 
-  mutate(first_date = first(newDate2),
-         last_date = last(newDate2),
-         third_date = nth(newDate2, 3)) %&gt;% 
-  select(day, date, first_date, last_date, third_date) %&gt;% head(3)</pre>
-
-<pre >## # A tibble: 3 x 5
-##         day       date first_date  last_date third_date
-##       &lt;chr&gt;      &lt;chr&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;
-## 1    Monday 01/11/2010 2010-01-11 2013-03-01 2010-01-13
-## 2   Tuesday 01/12/2010 2010-01-11 2013-03-01 2010-01-13
-## 3 Wednesday 01/13/2010 2010-01-11 2013-03-01 2010-01-13</pre>
-
-</article></slide><slide class=''><hgroup><h2>Quick Aside: &quot;slicing&quot; data</h2></hgroup><article  id="quick-aside-slicing-data-1">
-
-<p>Many times, you need to group first</p>
-
-<pre class = 'prettyprint lang-r'>circ %&gt;% 
-  group_by(day) %&gt;% 
-  mutate(first_date = first(newDate2),
-         last_date = last(newDate2),
-         third_date = nth(newDate2, 3)) %&gt;% 
-  select(day, date, first_date, last_date, third_date) %&gt;% head(3)</pre>
-
-<pre >## # A tibble: 3 x 5
-## # Groups:   day [3]
-##         day       date first_date  last_date third_date
-##       &lt;chr&gt;      &lt;chr&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;
-## 1    Monday 01/11/2010 2010-01-11 2013-02-25 2010-01-25
-## 2   Tuesday 01/12/2010 2010-01-12 2013-02-26 2010-01-26
-## 3 Wednesday 01/13/2010 2010-01-13 2013-02-27 2010-01-27</pre>
-
-</article></slide><slide class=''><hgroup><h2>Date</h2></hgroup><article  id="date-2">
-
-<p>However, the <code>lubridate</code> package is much easier for generating explicit dates:</p>
-
-<pre class = 'prettyprint lang-r'>circ = circ %&gt;% 
-  group_by(day) %&gt;% 
-  mutate(first_date = first(newDate2),
-         diff_from_first = difftime( # time1 - time2
-           time1 = newDate2, time2 = first_date)) 
-head(circ$diff_from_first, 10)</pre>
-
-<pre >## Time differences in secs
-##  [1]      0      0      0      0      0      0      0 604800 604800 604800</pre>
-
-<pre class = 'prettyprint lang-r'>units(circ$diff_from_first) = &quot;days&quot;
-head(circ$diff_from_first, 10)</pre>
-
-<pre >## Time differences in days
-##  [1] 0 0 0 0 0 0 0 7 7 7</pre>
+<pre >## [1] &quot;2017-07-12 02:27:53 EDT&quot;</pre>
 
 </article></slide><slide class=''><hgroup><h2>Data Classes:</h2></hgroup><article  id="data-classes">
 
@@ -643,17 +618,6 @@ mat</pre>
 ## [1,]    1    4    7
 ## [2,]    2    5    8
 ## [3,]    3    6    9</pre>
-
-</article></slide><slide class=''><hgroup><h2>Matrix (and Data frame) Functions</h2></hgroup><article  id="matrix-and-data-frame-functions">
-
-<p>These are in addition to the previous useful vector functions:</p>
-
-<ul>
-<li><code>nrow()</code> displays the number of rows of a matrix or data frame</li>
-<li><code>ncol()</code> displays the number of columns</li>
-<li><code>dim()</code> displays a vector of length 2: # rows, # columns</li>
-<li><code>colnames()</code> displays the column names (if any) and <code>rownames()</code> displays the row names (if any)</li>
-</ul>
 
 </article></slide><slide class=''><hgroup><h2>Data Selection</h2></hgroup><article  id="data-selection">
 
@@ -774,6 +738,62 @@ $numbers
 <pre >     [,1] [,2]
 [1,]    1    6
 [2,]    2    7</pre>
+
+</article></slide><slide class=''><hgroup><h2>Quick Aside: &quot;slicing&quot; data</h2></hgroup><article  id="quick-aside-slicing-data">
+
+<p>In <code>dplyr</code>, there are <code>first</code>, <code>last</code> and <code>nth</code> operators.</p>
+
+<p>If you first sort a data set using <code>arrange</code>, you can grab the first or last as so:</p>
+
+<pre class = 'prettyprint lang-r'>circ %&gt;% 
+  mutate(first_date = first(newDate2),
+         last_date = last(newDate2),
+         third_date = nth(newDate2, 3)) %&gt;% 
+  select(day, date, first_date, last_date, third_date) %&gt;% head(3)</pre>
+
+<pre >## # A tibble: 3 x 5
+##         day       date first_date  last_date third_date
+##       &lt;chr&gt;      &lt;chr&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;
+## 1    Monday 01/11/2010 2010-01-11 2013-03-01 2010-01-13
+## 2   Tuesday 01/12/2010 2010-01-11 2013-03-01 2010-01-13
+## 3 Wednesday 01/13/2010 2010-01-11 2013-03-01 2010-01-13</pre>
+
+</article></slide><slide class=''><hgroup><h2>Quick Aside: &quot;slicing&quot; data</h2></hgroup><article  id="quick-aside-slicing-data-1">
+
+<p>Many times, you need to group first</p>
+
+<pre class = 'prettyprint lang-r'>circ %&gt;% 
+  group_by(day) %&gt;% 
+  mutate(first_date = first(newDate2),
+         last_date = last(newDate2),
+         third_date = nth(newDate2, 3)) %&gt;% 
+  select(day, date, first_date, last_date, third_date) %&gt;% head(3)</pre>
+
+<pre >## # A tibble: 3 x 5
+## # Groups:   day [3]
+##         day       date first_date  last_date third_date
+##       &lt;chr&gt;      &lt;chr&gt;     &lt;date&gt;     &lt;date&gt;     &lt;date&gt;
+## 1    Monday 01/11/2010 2010-01-11 2013-02-25 2010-01-25
+## 2   Tuesday 01/12/2010 2010-01-12 2013-02-26 2010-01-26
+## 3 Wednesday 01/13/2010 2010-01-13 2013-02-27 2010-01-27</pre>
+
+</article></slide><slide class=''><hgroup><h2>Differences in Times</h2></hgroup><article  id="differences-in-times">
+
+<pre class = 'prettyprint lang-r'>circ = circ %&gt;% 
+  group_by(day) %&gt;% 
+  mutate(first_date = first(newDate2),
+         diff_from_first = difftime( # time1 - time2
+           time1 = newDate2, time2 = first_date)) 
+head(circ$diff_from_first, 10)</pre>
+
+<pre >## Time differences in secs
+##  [1]      0      0      0      0      0      0      0 604800 604800 604800</pre>
+
+<pre class = 'prettyprint lang-r'>units(circ$diff_from_first) = &quot;days&quot;
+head(circ$diff_from_first, 10)</pre>
+
+<pre >## Time differences in days
+##  [1] 0 0 0 0 0 0 0 7 7 7</pre>
 
 </article></slide><slide class=''><hgroup><h2>Website</h2></hgroup><article  id="website">
 

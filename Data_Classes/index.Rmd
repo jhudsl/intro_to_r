@@ -5,7 +5,6 @@ output:
   ioslides_presentation:
     css: ../styles.css
     widescreen: yes
-  beamer_presentation: default
 ---
 
 ```{r, echo = FALSE, message=FALSE}
@@ -13,6 +12,7 @@ output:
 suppressPackageStartupMessages(library(dplyr))
 library(readr)
 ```
+
 
 
 ## Data Types:
@@ -126,6 +126,25 @@ Note that R reads in character strings as factors by default in functions like `
 factor(x = character(), levels, labels = levels,
        exclude = NA, ordered = is.ordered(x))
 ```
+
+## Necessary for the lab: `%in%`
+
+```{r}
+x = c(0, 2, 2, 3, 4)
+(x == 0 | x == 2) 
+```
+
+Introduce the `%in%` operator:
+```{r}
+x %in% c(0, 2) # NEVER has NA and returns logical
+```
+
+reads "return `TRUE` if `x` is in 0 or 2". (Like `inlist` in Stata).
+
+
+## Lab Part 1
+
+[Website](../index.html)
 
 ## Factors
 
@@ -322,32 +341,52 @@ table(cx)
 table(cx, useNA = "ifany")
 ```
 
-## Date
+## Lab Part 2
 
-You can convert date-like strings in the `Date` class (http://www.statmethods.net/input/dates.html for more info)
+[Website](../index.html)
 
-```{r date}
+
+## Dates
+
+You can convert date-like strings in the `Date` class (http://www.statmethods.net/input/dates.html for more info) using 
+the `lubridate` package!
+
+```{r, message = FALSE}
 head(sort(circ$date))
-# creating a date for sorting
-circ$newDate <- as.Date(circ$date, "%m/%d/%Y")
-head(circ$newDate)
-range(circ$newDate)
-```
-
-## Date 
-
-However, the `lubridate` package is much easier for generating explicit dates:
-
-```{r, message=FALSE}
 library(lubridate) # great for dates!
 circ = mutate(circ, newDate2 = mdy(date))
 head(circ$newDate2)
 range(circ$newDate2) # gives you the range of the data
 ```
 
+## Works great - but need to specy the correct format still
+
+See `?ymd` and `?ymd_hms`
+
+```{r, message = FALSE}
+x = c("2014-02-4 05:02:00", "2016/09/24 14:02:00")
+ymd_hms(x)
+```
+
+```{r}
+ymd_hm(x)
+```
+
 ## POSIXct
 
 The `POSIXct` class is like a more general date format (with hours, minutes, seconds).
+
+
+```{r, message = FALSE}
+x = c("2014-02-4 05:02:00", "2016/09/24 14:02:00")
+dates = ymd_hms(x)
+class(dates)
+```
+
+
+## Adding Periods of time
+
+The `as.Period` command is helpful for adding time to a date:
 
 ```{r}
 theTime = Sys.time()
@@ -355,50 +394,6 @@ theTime
 class(theTime)
 theTime + as.period(20, unit = "minutes") # the future
 ```
-
-## Quick Aside: "slicing" data
-
-In `dplyr`, there are `first`, `last` and `nth` operators.  
-
-If you first sort a data set using `arrange`, you can grab the first or last as so:
-
-```{r, message=FALSE}
-circ %>% 
-  mutate(first_date = first(newDate2),
-         last_date = last(newDate2),
-         third_date = nth(newDate2, 3)) %>% 
-  select(day, date, first_date, last_date, third_date) %>% head(3)
-```
-
-## Quick Aside: "slicing" data
-
-Many times, you need to group first
-
-```{r, message=FALSE}
-circ %>% 
-  group_by(day) %>% 
-  mutate(first_date = first(newDate2),
-         last_date = last(newDate2),
-         third_date = nth(newDate2, 3)) %>% 
-  select(day, date, first_date, last_date, third_date) %>% head(3)
-```
-
-
-## Date 
-
-However, the `lubridate` package is much easier for generating explicit dates:
-
-```{r, message=FALSE}
-circ = circ %>% 
-  group_by(day) %>% 
-  mutate(first_date = first(newDate2),
-         diff_from_first = difftime( # time1 - time2
-           time1 = newDate2, time2 = first_date)) 
-head(circ$diff_from_first, 10)
-units(circ$diff_from_first) = "days"
-head(circ$diff_from_first, 10)
-```
-
 
 ## Data Classes:
 
@@ -415,15 +410,6 @@ n
 mat = matrix(n, nrow = 3)
 mat
 ```
-
-## Matrix (and Data frame) Functions
-
-These are in addition to the previous useful vector functions:
-
-* `nrow()` displays the number of rows of a matrix or data frame
-* `ncol()` displays the number of columns 
-* `dim()` displays a vector of length 2: # rows, # columns
-* `colnames()` displays the column names (if any) and `rownames()` displays the row names (if any)
 
 ## Data Selection
 
@@ -497,6 +483,49 @@ You can also select down several levels of a list at once
 mylist$letters[1]
 mylist[[2]][1]
 mylist[[3]][1:2,1:2]
+```
+
+
+
+## Quick Aside: "slicing" data
+
+In `dplyr`, there are `first`, `last` and `nth` operators.  
+
+If you first sort a data set using `arrange`, you can grab the first or last as so:
+
+```{r, message=FALSE}
+circ %>% 
+  mutate(first_date = first(newDate2),
+         last_date = last(newDate2),
+         third_date = nth(newDate2, 3)) %>% 
+  select(day, date, first_date, last_date, third_date) %>% head(3)
+```
+
+## Quick Aside: "slicing" data
+
+Many times, you need to group first
+
+```{r, message=FALSE}
+circ %>% 
+  group_by(day) %>% 
+  mutate(first_date = first(newDate2),
+         last_date = last(newDate2),
+         third_date = nth(newDate2, 3)) %>% 
+  select(day, date, first_date, last_date, third_date) %>% head(3)
+```
+
+
+## Differences in Times 
+
+```{r, message=FALSE}
+circ = circ %>% 
+  group_by(day) %>% 
+  mutate(first_date = first(newDate2),
+         diff_from_first = difftime( # time1 - time2
+           time1 = newDate2, time2 = first_date)) 
+head(circ$diff_from_first, 10)
+units(circ$diff_from_first) = "days"
+head(circ$diff_from_first, 10)
 ```
 
 
