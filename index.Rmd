@@ -182,6 +182,18 @@ All the functions used (in any way - homework, lecture, lab), are listed in [thi
 All the data used that are not **specifically** to be downloaded from the web are located in [this zip file](data.zip), but we will show you how to read data from the internet as well.
 
 
+### Live Code Examples
+
+```{r, echo = FALSE, message = FALSE, results='asis'}
+df = matrix(
+  c("Replacing with ifelse in dplyr", "replace_if.R")
+, ncol = 2)
+df = data.frame(df, stringsAsFactors = FALSE)
+colnames(df) = c("Code Example", "Script")
+df$Script = paste0("[", df$Script, "](live_code/", df$Script, ")")
+knitr::kable(df, format = "html") %>% 
+  kable_styling() 
+```
 
 ### Example Projects 
 

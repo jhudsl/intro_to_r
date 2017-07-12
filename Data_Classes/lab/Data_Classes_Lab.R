@@ -42,7 +42,7 @@ table(bike$type)
 
 
 
-table(bike$type2)
+table(bike$type2, useNA = "always")
 
 # 4. 
 # a) Reassign dateInstalled into a character using as.character.  
@@ -67,7 +67,7 @@ head(bike$dateInstalled)
 head(as.numeric(bike$dateInstalled)) 
 
 
-# c) Do not reassign dateInstalled, but simply run
+# d) Do not reassign dateInstalled, but simply run
 # head(as.numeric(as.character(bike$dateInstalled)))
 # this is how you get "numeric" values back if they were "incorrectly" 
 # factors
