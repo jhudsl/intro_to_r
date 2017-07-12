@@ -74,6 +74,40 @@ bike = bike %>%
 # 8. (a) Numerically [hint: `quantile()`] and 
 #		(b) graphically [hint: `hist()` or `plot(density())`]
 #		 describe the distribution of bike "lane" lengths.
+quantile(bike$length)
 
-# 9. Then describe as above, after stratifying by i) type then ii) number of lanes
+hist(bike$length)
+hist(bike$length,breaks=100)
+
+hist(log2(bike$length),breaks=100)
+hist(log10(bike$length + 1),breaks=100)
+
+
+# 9. Then describe as above, after stratifying by 
+#		i) type then ii) number of lanes
+bike %>% 
+  group_by(type) %>% 
+  summarize(quant = quantile(length))
+
+bike %>% 
+  group_by(type) %>% 
+  summarize(min = min(length),
+            q25 = quantile(length, probs = 0.25),
+            q50 = quantile(length, probs = 0.5),
+            q75 = quantile(length, probs = 0.75),
+            max = max(length)
+  )
+
+  
+# 10. Then describe as above, after stratifying by i) type then 
+# ii) number of lanes
+boxplot(data = bike, length ~ type)
+boxplot(data = bike, log10(length) ~ type)
+
+
+ggplot(bike, aes(y = length, x = type)) + 
+  geom_boxplot()
+
+
+
 
