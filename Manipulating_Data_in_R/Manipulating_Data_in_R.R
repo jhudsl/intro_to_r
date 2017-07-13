@@ -114,7 +114,13 @@ tail(rj)
 rj2 = right_join(visits, base)
 dim(rj2)
 tail(rj2)
-identical(rj2, lj)
+
+## ----right_join_arrange, echo = FALSE------------------------------------
+rj2 = arrange(rj2, id, visit) %>% select(id, visit, Outcome, Age)
+lj = arrange(lj, id, visit) %>% select(id, visit, Outcome, Age)
+
+## ----right_join_arrange_out----------------------------------------------
+identical(rj2, lj) ## after some rearranging
 
 ## ----full_join-----------------------------------------------------------
 fj = full_join(base, visits)
