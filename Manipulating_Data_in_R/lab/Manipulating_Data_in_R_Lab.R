@@ -19,7 +19,6 @@ wide = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes_Wide.csv")
 # 2. Reshape wide using gather.  Call this data long.  Make the key
 # lanetype, and the value the_length.  Make sure we gather all columns **but**
 # name, using -name.
-long = gather(wide, key = "lanetype", value = "the_length", -name)
 
 # note the NAs here
 
@@ -44,9 +43,7 @@ head(road)
 
 # 4.  Replace (using str_replace) any hyphens (-) with a space in crash$Road.
 # Table the road variable.  Call this data crash2
-crash2 = crash %>% mutate(
-  Road = Road %>% str_replace("-", " ")
-)
+
 
 table(crash2$Road)
 
@@ -55,20 +52,11 @@ table(crash2$Road)
 
 # 6.  Separate the Road column (using `separate`) into (type and number) in
 # crash2.  Reassign this to crash2. Table crash2$type
-crash2 = crash2 %>% separate(
-  col = "Road", 
-  into = c("type", "number"), sep = "[ ]")
-
-crash3 = crash %>% separate(
-  col = "Road", 
-  into = c("type", "number"), sep = " ")
 
 table(crash2$type)
 
 # Create a new variable calling it road_hyphen usin the unite function.  Unite the
 # type and number columns using a hyphen (-) and then table road_hyphen
-crash2 = crash2 %>% unite(col = "road_hyphen", 
-                          type, number, sep = "-")
 
 
 ## 7. Which and how many years were data collected?
@@ -83,19 +71,14 @@ bike = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
   
 # 9.  Filter any rows that have a missing value in the "type" column or missing 
 # name and re-assign the output to bike
-bike = bike %>% filter(!is.na(type), !is.na(name))
-  
+
 # 10.  Select only the type, length, and name.  Summarize group the data by grouping
 # name 
 # and take the sum of the length (reassign length variable).  Call this data set sub
-sub = bike %>% select(type, length, name) %>% 
-  group_by(name, type) %>% 
-  summarize(length = sum(length))
 
 # 11. Reshape sub using spread.  Spread the data where the key is type
 # and we want the value in the new columns to be "length" - the bike lane length.  
 # Call this "wide".  
-wide = sub %>% spread(key = type, value = length)
 
 # look at the column names of wide - what are they? (they also have spaces)
 
@@ -115,16 +98,12 @@ anti2 = anti_join(crash, road, by = "Road")
 
 ## 13. Join data using a full_join.  Call the output full. 
 # How many observations are there?
-crash = arrange(crash, Year, Road, Volume)
-crash2 = crash
-crash2$Volume[1] = 20
+# crash = arrange(crash, Year, Road, Volume)
+# crash2 = crash
+# crash2$Volume[1] = 20
 # full = inner_join(crash, crash)
-
-crash == crash2
-arrange(full, Year, Road, Volume)
 
 
 ## 14. Do a left join of the road and crash.  ORDER matters here!  How many obersvrations
-left = left_join(road, crash)
 
 

@@ -104,7 +104,7 @@ tax = read_csv("http://johnmuschelli.com/intro_to_r/data/Real_Property_Taxes.csv
 
 
 ##########################
-# Part 2
+# Part 4
 ##########################
 # x = c("This isn't that hard", "hard of a string", 'to "parse"',
 #       "BUT WE have HaRD", "Data ThAt", "Wecsw")

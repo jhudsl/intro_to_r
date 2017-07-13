@@ -50,6 +50,12 @@ have_route %>%
   group_by(subType) %>% 
   summarize(n_obs = n())
 
+tally(
+  group_by(have_route, subType)
+)
+have_route = group_by(have_route, subType)
+tally(have_route)
+
 # 4.  Filter rows of bike that have the type SIDEPATH or BIKE LANE
 # using %in%.  Call it side_bike.  
 # Confirm this gives you the same number of results using the | and 
@@ -57,6 +63,11 @@ have_route %>%
 side_bike = bike %>% filter(type %in% c("SIDEPATH", "BIKE LANE"))
 side_bike2 = bike %>% filter(type == "SIDEPATH" | type == "BIKE LANE")
 identical(side_bike, side_bike2)
+
+side_bike = filter(bike,type %in% c("SIDEPATH", "BIKE LANE"))
+side_bike2 = filter(bike, type == "SIDEPATH" | type == "BIKE LANE")
+identical(side_bike, side_bike2)
+
 
 ####################
 # Part 2
@@ -103,6 +114,19 @@ head(tax$CityTax)
 tax$CityTax = tax$CityTax %>% 
   str_replace(fixed("$"), "") %>%
   as.numeric
+
+# no piping
+tax$CityTax = str_replace(tax$CityTax, fixed("$"), "")
+tax$CityTax = as.numeric(tax$CityTax)
+
+# using mutate
+tax = tax %>% 
+  mutate(
+    StateTax = StateTax %>% 
+      str_replace(fixed("$"), "") %>%
+      as.numeric
+  )
+# could also have done 
 tax$StateTax = tax$StateTax %>% 
   str_replace(fixed("$"), "") %>%
   as.numeric
