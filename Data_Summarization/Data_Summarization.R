@@ -53,43 +53,43 @@ apply(avgs,2,max,na.rm=TRUE) # column maxs
 
 ## ---- message = FALSE----------------------------------------------------
 library(readr)
-smoke = read_csv(
+yts = read_csv(
   "http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
-head(smoke)
+head(yts)
 
 ## ---- message = FALSE----------------------------------------------------
-unique(smoke$LocationDesc)[1:10]
+unique(yts$LocationDesc)[1:10]
 
 ## ------------------------------------------------------------------------
-length(unique(smoke$LocationDesc))
+length(unique(yts$LocationDesc))
 
 ## ---- message = FALSE----------------------------------------------------
-table(smoke$LocationDesc)[1:5]
+table(yts$LocationDesc)[1:5]
 
 ## ---- message=FALSE------------------------------------------------------
 library(dplyr)
-sub_smoke = filter(smoke, 
+sub_yts = filter(yts, 
                    MeasureDesc == "Smoking Status",
                    Gender == "Overall",
                    Response == "Current")
-sub_smoke = select(sub_smoke, YEAR, LocationDesc, Data_Value)
-head(sub_smoke, 4)
+sub_yts = select(sub_yts, YEAR, LocationDesc, Data_Value)
+head(sub_yts, 4)
 
 ## ------------------------------------------------------------------------
-summarize(group_by(sub_smoke, YEAR), year_avg = mean(Data_Value, na.rm = TRUE))
+summarize(group_by(sub_yts, YEAR), year_avg = mean(Data_Value, na.rm = TRUE))
 
 ## ------------------------------------------------------------------------
-smoke_avgs = sub_smoke %>% 
+yts_avgs = sub_yts %>% 
   group_by(YEAR) %>% 
   summarize(year_avg = mean(Data_Value, na.rm = TRUE))
-head(smoke_avgs)
+head(yts_avgs)
 
 ## ------------------------------------------------------------------------
-sub_smoke %>% 
+sub_yts %>% 
   group_by(YEAR) %>% 
   summarize(n = n()) %>% 
   head
-sub_smoke %>% 
+sub_yts %>% 
   group_by(YEAR) %>% 
   tally() %>% 
   head
@@ -101,16 +101,16 @@ plot(mtcars$mpg, mtcars$disp)
 hist(tb$before_2000_avg)
 
 ## ----hist_date-----------------------------------------------------------
-plot(smoke_avgs$YEAR, smoke_avgs$year_avg, type = "l")
+plot(yts_avgs$YEAR, yts_avgs$year_avg, type = "l")
 
 ## ----dens1,fig.width=5,fig.height=5--------------------------------------
-plot(density(sub_smoke$Data_Value))
+plot(density(sub_yts$Data_Value))
 
 ## ----box1----------------------------------------------------------------
-boxplot(sub_smoke$Data_Value ~ sub_smoke$LocationDesc)
+boxplot(sub_yts$Data_Value ~ sub_yts$LocationDesc)
 
 ## ----box2----------------------------------------------------------------
-boxplot(Data_Value ~ LocationDesc, data = sub_smoke)
+boxplot(Data_Value ~ LocationDesc, data = sub_yts)
 
 ## ----matplot1------------------------------------------------------------
 pairs(avgs)

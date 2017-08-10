@@ -178,27 +178,27 @@ Please download the Youth Tobacco Survey data.  You can also read it in directly
 
 ```{r, message = FALSE}
 library(readr)
-smoke = read_csv(
+yts = read_csv(
   "http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
-head(smoke)
+head(yts)
 ```
 
 ## Length and unique
 `unique(x)` will return the unique elements of `x`
 
 ```{r, message = FALSE}
-unique(smoke$LocationDesc)[1:10]
+unique(yts$LocationDesc)[1:10]
 ```
 `length` will tell you the length of a vector. Combined with `unique`, tells you the number of unique elements:
 ```{r}
-length(unique(smoke$LocationDesc))
+length(unique(yts$LocationDesc))
 ```
 
 ## Table
 `table(x)` will return a frequency table of unique elements of `x`
 
 ```{r, message = FALSE}
-table(smoke$LocationDesc)[1:5]
+table(yts$LocationDesc)[1:5]
 ```
 
 ## Lab Part 2
@@ -211,12 +211,12 @@ Let's just take smoking status measures for all genders using `filter`, and the 
 
 ```{r, message=FALSE}
 library(dplyr)
-sub_smoke = filter(smoke, 
+sub_yts = filter(yts, 
                    MeasureDesc == "Smoking Status",
                    Gender == "Overall",
                    Response == "Current")
-sub_smoke = select(sub_smoke, YEAR, LocationDesc, Data_Value)
-head(sub_smoke, 4)
+sub_yts = select(sub_yts, YEAR, LocationDesc, Data_Value)
+head(sub_yts, 4)
 ```
 
 
@@ -235,7 +235,7 @@ head(sub_smoke, 4)
 <!-- For example, we can estimate the average current smoking statuses over all states for each year:  -->
 
 <!-- ```{r tapply1} -->
-<!-- tapply(sub_smoke$Data_Value, sub_smoke$YEAR, mean, na.rm = TRUE) -->
+<!-- tapply(sub_yts$Data_Value, sub_yts$YEAR, mean, na.rm = TRUE) -->
 <!-- ``` -->
 
 ## Perform Operations By Groups: dplyr
@@ -245,19 +245,19 @@ head(sub_smoke, 4)
 We will use `group_by` to group the data by line, then use `summarize` (or `summarise`) to get the mean percentage of current smokers:
 
 ```{r}
-summarize(group_by(sub_smoke, YEAR), year_avg = mean(Data_Value, na.rm = TRUE))
+summarize(group_by(sub_yts, YEAR), year_avg = mean(Data_Value, na.rm = TRUE))
 ```    
 
 
 ## Using the `pipe` (comes with `dplyr`):
 
-Pipe `sub_smoke` into `group_by`, then pipe that into `summarize`:
+Pipe `sub_yts` into `group_by`, then pipe that into `summarize`:
 
 ```{r}
-smoke_avgs = sub_smoke %>% 
+yts_avgs = sub_yts %>% 
   group_by(YEAR) %>% 
   summarize(year_avg = mean(Data_Value, na.rm = TRUE))
-head(smoke_avgs)
+head(yts_avgs)
 ```
 
 ## Counting
@@ -265,11 +265,11 @@ head(smoke_avgs)
 Standard statistics can be calculated.  There are other functions, such as `n()` count the number of observations, `tally()` to count as a wrapper:
 
 ```{r}
-sub_smoke %>% 
+sub_yts %>% 
   group_by(YEAR) %>% 
   summarize(n = n()) %>% 
   head
-sub_smoke %>% 
+sub_yts %>% 
   group_by(YEAR) %>% 
   tally() %>% 
   head
@@ -307,7 +307,7 @@ hist(tb$before_2000_avg)
 `type = "l"` means a line
 
 ```{r hist_date}
-plot(smoke_avgs$YEAR, smoke_avgs$year_avg, type = "l")
+plot(yts_avgs$YEAR, yts_avgs$year_avg, type = "l")
 ```
 
 ## Density
@@ -315,20 +315,20 @@ plot(smoke_avgs$YEAR, smoke_avgs$year_avg, type = "l")
 Over all years and states, this is the density of smoking status incidence:
 
 ```{r dens1,fig.width=5,fig.height=5}
-plot(density(sub_smoke$Data_Value))
+plot(density(sub_yts$Data_Value))
 ```
 
 ## Boxplots
 
 ```{r box1}
-boxplot(sub_smoke$Data_Value ~ sub_smoke$LocationDesc)
+boxplot(sub_yts$Data_Value ~ sub_yts$LocationDesc)
 ```
 
 ## Boxplots
 
 
 ```{r box2}
-boxplot(Data_Value ~ LocationDesc, data = sub_smoke)
+boxplot(Data_Value ~ LocationDesc, data = sub_yts)
 ```
 
 ## Data Summarization for data.frames

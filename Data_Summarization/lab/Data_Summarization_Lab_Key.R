@@ -54,12 +54,24 @@ bike %>%
 arrange(summarize(group_by(bike, project, type), 
           n = n(), mean = mean(length)),
         desc(mean))
+
+avg = bike %>% 
+  group_by(type) %>% 
+  summarize(mn = mean(length, na.rm = TRUE)) %>% 
+  filter(mn == max(mn))
+
 # bike %>% summarize(subType = mean() )
 
 			  
 # 5. What was the average bike lane length per year that they were installed? 
 # Set bike$dateInstalled to NA if it is equal to zero.
-bike$dateInstalled[ bike$dateInstalled == 0 ] = NA
+bike = bike %>% mutate(
+  dateInstalled = ifelse(
+    dateInstalled == 0, 
+    NA,
+    dateInstalled)
+)
+# bike$dateInstalled[ bike$dateInstalled == 0 ] = NA
 mean(bike$length[ !is.na(bike$dateInstalled)])
 
 bike$dateInstalled == NA   # is.na(bike$dateInstalled)
