@@ -6,6 +6,7 @@
 ## 	  but please record your commands here.  
 ## Remember anything you type here can be "sent" to the console with 
 ##    Cmd-Enter (OS-X) or Cntr-Enter (Windows/Linux).
+library(dplyr)
 
 ##########################
 # Part 1
@@ -27,7 +28,8 @@ cars = mtcars
 cars = dplyr::rename(
   cars, 
   MPG = mpg, 
-  carbs = carb)
+  carbs = carb, 
+  DRaT = drat)
 
 # 5. Convert the column names of `cars` to all upper case
 # use colnames, and the toupper command
@@ -71,6 +73,12 @@ filter(mtcars, mpg > 20)
 mtcars2 =filter(mtcars, mpg < 16 & hp > 100)
 filter(mtcars, mpg < 16, hp > 100)
 
+df = mtcars
+df %>% 
+  filter(mpg > 20 & cyl == 4) %>% 
+  select(cyl, hp)
+
+
 ##########################
 # Part 4
 ##########################
@@ -86,14 +94,35 @@ cars2$car = rownames(cars2)
 carsSub = cars2 %>% 
   filter(cyl == 8) %>% 
   select(wt, qsec, hp, car)
+
+# carsSub = cars2 %>% 
+#   select(wt, qsec, hp, car) %>% 
+#   filter(cyl == 8)
+
 colnames(carsSub) = toupper(colnames(carsSub))
 
 # 11. Re-order the rows of `carsSub` by weight in increasing order
 # use arrange
-arrange(carsSub, WT)
+carsSub = arrange(carsSub, WT)
 
 
 # 12. Create a new variable in `carsSub` called wt2, which 
 # is equal to WT^2, using mutate.  Use piping
 carsSub %>% mutate(wt2 = WT^2)
 mutate(carsSub, wt2 = WT^2)
+
+df %>% 
+  mutate(cat = NA,
+         cat = ifelse(wt2 > 5 & is.na(cat), 1, cat),
+         cat = ifelse(wt2 > 6 & is.na(cat), 2, cat),
+         age_log2 = age^2,
+         age_log2 = log(age_log2)
+         
+  )
+  
+  
+  
+  
+  
+  
+  

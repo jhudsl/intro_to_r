@@ -24,6 +24,10 @@ write_csv(mon, path = "monuments_write_csv.csv")
 save(mon, file = "monuments_data.rda")
 load("monuments_data.rda")
 
+saveRDS(mon, file = "monuments.rds")
+mon2 = readRDS("monuments.rds")
+
+
 
 
 

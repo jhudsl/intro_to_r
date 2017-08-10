@@ -16,15 +16,11 @@ bike = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
 ##########################
 # 1. How many bike "lanes" are currently in Baltimore? 
 #		You can assume each observation/row is a different bike "lane"
-nrow(bike)
-dim(bike)
+
 
 # 2. How many (a) feet and (b) miles of bike "lanes" are currently in Baltimore?
 # what is the mean number of feet over all records?
-sum(bike$length)
-sum(bike$length)/5280
-sum(bike$length/5280)
-mean(bike$length)
+
 
 ##########################
 # Part 2
