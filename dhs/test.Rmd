@@ -1,0 +1,63 @@
+---
+title: "Untitled"
+author: "John Muschelli"
+date: "7/14/2017"
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+library(readr)
+library(pander)
+library(broom)
+library(ggplot2)
+library(dplyr)
+library(kableExtra)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE, message = FALSE}
+cars = read_csv("http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv")
+mod = lm(VehBCost ~ VehicleAge * Size, data = cars)
+tidy_mod = tidy(mod, conf.int = TRUE)
+tidy_mod = tidy_mod %>% select(term, estimate, p.value)
+pander::pander(tidy_mod)
+```
+
+```{r tab2, echo=TRUE, message = FALSE}
+knitr::kable(tidy_mod) %>% kable_styling()
+```
+
+$$
+y_i = x_{i} + \beta_1 + \varepsilon_{i}
+$$
+
+The $\beta_{0}$ estimate was `r round(mod$coefficients["(Intercept)"])`.  
+
+```{r plot}
+ggplot(aes(x = VehicleAge, y = VehBCost), data = cars) + 
+  geom_point()
+```
+
+The mean age of the cars was `r round(mean(cars$VehicleAge), 1)`.
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+

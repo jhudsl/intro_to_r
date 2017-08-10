@@ -23,7 +23,7 @@ all:
 		pwd && echo $$fol && cd $$fol && cp index.pdf $$fol.pdf && cp index.html $$fol.html && cp index.R $$fol.R && cd ../; \
 	done	
 	Rscript -e "rmarkdown::render('index.Rmd')"
-#  
+# https://superuser.com/questions/592974/how-to-print-to-save-as-pdf-from-a-command-line-with-chrome-or-chromium
 
 index.html: index.Rmd 
 	Rscript -e "rmarkdown::render('index.Rmd')"
