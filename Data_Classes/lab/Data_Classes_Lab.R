@@ -17,7 +17,7 @@ bike = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
 ####################
 # Part 1
 ####################
-# 1.  Get all the differet types of bike types from the "type" column.
+# 1.  Get all the different types of bike types from the "type" column.
 # Use sort(unique()).  Assign this to an object btypes. Type dput(btypes)
 
 

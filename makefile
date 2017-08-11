@@ -16,6 +16,7 @@ LIST += Subsetting_Data_in_R
 LIST += Intro
 
 all:
+	zip -q -r shiny_knitr.zip shiny_knitr/
 	for fol in $(LIST) ; do \
 		pwd && echo $$fol && cp makefile.copy $$fol/makefile && cd $$fol && make all && cd ../; \
 	done
