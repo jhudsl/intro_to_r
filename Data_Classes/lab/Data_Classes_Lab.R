@@ -86,6 +86,9 @@ head(as.numeric(as.character(bike$dateInstalled)))
 # with the levels c( "SIDEPATH", "BIKE BOULEVARD", "BIKE LANE", "OTHER")
 
 
+#################################
+# Part 3
+#################################
 # 6.  Parse the following dates with the correct lubridate function:
 # a) "2014/02-14"
 

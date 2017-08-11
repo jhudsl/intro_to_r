@@ -124,6 +124,9 @@ bike2 = bike %>%
   )
 table(bike2$type2)
 
+#################################
+# Part 3
+#################################
 # 6.  Parse the following dates with the correct lubridate function:
 # a) "2014/02-14"
 ymd("2014/02-14")
