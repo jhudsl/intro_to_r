@@ -193,6 +193,7 @@ tax = tax %>%
   mutate(ResCode = str_trim(ResCode))
 
 boxplot(log10(CityTax+1) ~ ResCode, data = tax)
+boxplot(CityTax ~ ResCode, data = tax)
 
 tax %>% filter(CityTax == max(CityTax, na.rm = TRUE))
 
@@ -264,7 +265,7 @@ emer = sal %>% filter(
     str_detect(Agency, "Fire Department")
 )
 
-# 16. Create a varaible called dept in the emer data set.
+# 16. Create a variable called dept in the emer data set.
 # dept = str_extract(Agency, ".*(ment|ice)").  Ee want to extract all characters
 # up until ment or ice (we can group in regex using parentheses) and then discard
 # the rest.

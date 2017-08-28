@@ -75,6 +75,12 @@ print(first_plot)
 pal = c("blue", "darkgreen","orange","purple")
 first_plot + scale_color_manual(values = pal)
 
+means = avg %>% 
+  group_by(line) %>% 
+  summarize(mean = mean(number),
+            date = median(date))
+first_plot + geom_point(aes(x = date, y = mean),
+                        data = means, color = "black")
 ########################
 # Part 2
 ########################
@@ -131,14 +137,27 @@ orange = type_wide %>%
 p = ggplot(aes(x = date ),  data = orange ) 
 p = p + geom_line(aes(y = Alightings), linetype = "dashed")
 p = p + geom_line(aes(y = Boardings), linetype = "dashed") 
-p = p + geom_line(aes(y = Average), linetype = "solid",
-                  color = "orange") 
+p = p + geom_line(aes(y = Average), linetype = "solid") 
 
 orange = long %>% 
-  filter(line == "orange")
+  filter(line == "orange") %>% 
+  filter(  !(day %in% c("Sunday", "Saturday")))
 p = ggplot(aes(x = date, y = number,
                linetype = type),  data = orange ) 
 p = p + geom_line()
 p + scale_linetype_manual(values = c("dashed", "solid", "dashed"))
+p + scale_linetype_manual(
+  values = c(Boardings = "dashed", 
+             Average = "solid", 
+             Alightings = "dashed")) + 
+  xlim(ymd("2012/01/01"), ymd("2013/01/01"))
+
+
+
+
+
+
+
+
 
 

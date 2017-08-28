@@ -23,25 +23,39 @@ bike = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
 # 1.  Count the number of rows of the bike data and 
 # count the number of complete cases of the bike data.  
 # Use sum and complete.cases.
+nrow(bike)
+sum(complete.cases(bike))
 
 
 # 2.  Create a data set called namat which is equal to is.na(bike).  
 # What is the class of namat?  Run rowSums and colSums on namat.
 # These represent the number of missing values in the rows and columns of
 # bike.  Don't print rowSums, but do a table of the rowSums
-
-
+namat = is.na(bike)
+table(rowSums(namat))
+colSums(namat)
 
 # 3.  Filter rows of bike that are NOT missing the route variable, assign
 # this to the object have_route.  Do a table of the subType using table, 
 # including the missing subTypes.  Get the same frequency distribution
 # using group_by(subType) and tally()
+have_route = bike %>% 
+  filter(!is.na(route))
+table(have_route$subType, useNA = "ifany")
 
+have_route %>% 
+  group_by(subType) %>% 
+  summarize(freq = n())
 
 # 4.  Filter rows of bike that have the type SIDEPATH or BIKE LANE
 # using %in%.  Call it side_bike.  
 # Confirm this gives you the same number of results using the | and 
 # ==.
+side_bike = bike %>% 
+  filter(type %in% c("SIDEPATH", "BIKE LANE"))
+
+side_bike2 = bike %>% 
+  filter(type == "SIDEPATH" | type == "BIKE LANE")
 
 
 ####################
@@ -50,7 +64,13 @@ bike = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
 # 5.  Do a cross tab of the bike type and the number of lanes.
 # Call it tab.  Do a prop.table on the rows and columns margins. 
 # Try as.data.frame(tab) or broom::tidy(tab)
+tab = table(bike$type, bike$numLanes, useNA = "ifany")
 
+prop.table(tab, 1)
+prop.table(tab, 2)
+
+df = as.data.frame(tab)
+bdf =  broom::tidy(tab)
 
 ####################################################
 # New Data set

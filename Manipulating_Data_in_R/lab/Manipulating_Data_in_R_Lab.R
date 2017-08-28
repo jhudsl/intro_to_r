@@ -19,7 +19,10 @@ wide = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes_Wide.csv")
 # 2. Reshape wide using gather.  Call this data long.  Make the key
 # lanetype, and the value the_length.  Make sure we gather all columns **but**
 # name, using -name.
-
+long = gather(wide, key = "lanetype", 
+              value = "the_length",
+              -name)
+long = filter(long, !is.na(the_length))
 # note the NAs here
 
 
@@ -43,21 +46,27 @@ head(road)
 
 # 4.  Replace (using str_replace) any hyphens (-) with a space in crash$Road.
 # Table the road variable.  Call this data crash2
-
+crash2 = crash %>% 
+  mutate(Road = str_replace(Road, "-", " ")
+  )
 
 table(crash2$Road)
 
 ## 5. How many observations are in each dataset?
-
+nrow(crash)
+nrow(road)
 
 # 6.  Separate the Road column (using `separate`) into (type and number) in
 # crash2.  Reassign this to crash2. Table crash2$type
-
+crash2 = crash2 %>% 
+  separate(Road, into = c("type", "number"))
 table(crash2$type)
 
 # Create a new variable calling it road_hyphen usin the unite function.  Unite the
 # type and number columns using a hyphen (-) and then table road_hyphen
-
+crash2 = crash2 %>% 
+  unite(col = road_hyphen, type, number, sep = "-")
+table(crash2$road_hyphen)
 
 ## 7. Which and how many years were data collected?
 
