@@ -48,64 +48,21 @@ head(type_wide)
 #	b. Color the points by day of the week
 # add geom_smooth(se = FALSE) to the plot (+ geom_smooth(se = FALSE))
 # set first_plot equal to the output of plot 1a. Type print(first_plot)
-qplot(data = avg, x = date, y = number, 
-      color = line, geom = "line")
 
-ggplot(aes(x = date, y = number, 
-           color = line), 
-       data = avg) + geom_line()
-
-g = ggplot(aes(x = date, y = number ),  data = avg) 
-g = g + aes( color = day ) 
-g = g + geom_line() 
-g = g + geom_smooth(se = FALSE, method = "loess")
-g + aes( color = line )
-
-first_plot = ggplot(aes(x = date, y = number, 
-           color = line), 
-       data = avg) 
-first_plot = first_plot + geom_point(size = 0.5) 
-first_plot = first_plot + geom_smooth(se = FALSE)
-
-print(first_plot)
 # 2. Replot 1a where the colors of the points are the
 #	name of the route (with banner --> blue)
 # pal = c("blue", "darkgreen","orange","purple")
 # use (add + ) 	scale_colour_manual(values = pal)
-pal = c("blue", "darkgreen","orange","purple")
-first_plot + scale_color_manual(values = pal)
 
-means = avg %>% 
-  group_by(line) %>% 
-  summarize(mean = mean(number),
-            date = median(date))
-first_plot + geom_point(aes(x = date, y = mean),
-                        data = means, color = "black")
 ########################
 # Part 2
 ########################
 # 3. plot average ridership  by date with one panel per route
 # use facet_wrap() or facet_grid() or (qplot): facets = ~line
-fac_plot = first_plot + facet_wrap(~ line)
-fac_plot 
-fac_plot +
-  geom_smooth(se = FALSE, color = "black")
-first_plot + facet_wrap(~ line, 
-                        scales = "free_x")
 
 # 4. plot average ridership by date with separate panels
 #		by day of the week, colored by route
 # combine facets and color
-first_plot + facet_grid(~ day)
-first_plot + facet_wrap(~ day, scales = "free_y")
-
-summ = avg %>% 
-  group_by(line) %>% 
-  slice(1)
-first_plot + 
-  geom_text(aes(label = line), 
-            data  = summ,
-            colour = "black")
 
 ########################
 # Part 3
@@ -118,12 +75,6 @@ first_plot +
 # Use the black and white theme theme_bw()
 # Change the text_size to (text = element_text(size = 20))
 # in theme
-first_plot + 
-  xlab("Year") + 
-  ylab("Number of People") +
-  theme_bw() +
-  theme(text = element_text(size = 20)) +
-  guides( color = guide_legend(title = "Route"))
   
 # 6. plot average ridership on the orange route versus date
 #		as a solid line, and add dashed "error" lines based 
@@ -132,32 +83,3 @@ first_plot +
 # (hint linetype is an aesthetic for lines) - see also scale_linetype and 
 # scale_linetype_manual
 # Alightings = "dashed", Boardings = "dashed", Average = "solid"
-orange = type_wide %>% 
-  filter(line == "orange")
-p = ggplot(aes(x = date ),  data = orange ) 
-p = p + geom_line(aes(y = Alightings), linetype = "dashed")
-p = p + geom_line(aes(y = Boardings), linetype = "dashed") 
-p = p + geom_line(aes(y = Average), linetype = "solid") 
-
-orange = long %>% 
-  filter(line == "orange") %>% 
-  filter(  !(day %in% c("Sunday", "Saturday")))
-p = ggplot(aes(x = date, y = number,
-               linetype = type),  data = orange ) 
-p = p + geom_line()
-p + scale_linetype_manual(values = c("dashed", "solid", "dashed"))
-p + scale_linetype_manual(
-  values = c(Boardings = "dashed", 
-             Average = "solid", 
-             Alightings = "dashed")) + 
-  xlim(ymd("2012/01/01"), ymd("2013/01/01"))
-
-
-
-
-
-
-
-
-
-

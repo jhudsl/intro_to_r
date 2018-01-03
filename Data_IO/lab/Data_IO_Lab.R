@@ -3,8 +3,8 @@
 ############
 
 # 1. Install and invoke the `readxl` package. 
-RStudio → Tools → Install Packages
-library(readxl)
+# RStudio → Tools → Install Packages
+# library(readxl)
 
 
 # 2. Download an Excel version of the Monuments dataset:
