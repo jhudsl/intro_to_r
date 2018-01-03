@@ -7,6 +7,9 @@
 ## Remember anything you type here can be "sent" to the console with 
 ##    Cmd-Enter (OS-X) or Cntr-Enter (Windows/Linux).
 
+#######################################
+# Part 1
+#######################################
 # 1. create a new variable called 'my.num' that contains 6 numbers
 
 # 2. mulitply 'my.num' by 4
@@ -19,6 +22,9 @@
 
 # 6. what class is 'both'?
 
+#######################################
+# Part 2
+#######################################
 # 7. divide 'both' by 3, what happens?
 
 # 8. create a vector with elements 1 2 3 4 5 6 and call it x

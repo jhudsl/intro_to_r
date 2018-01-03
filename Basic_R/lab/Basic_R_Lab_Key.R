@@ -7,7 +7,9 @@
 ## Remember anything you type here can be "sent" to the console with 
 ##    Cmd-Enter (OS-X) or Cntr-Enter (Windows/Linux).
 
-
+#######################################
+# Part 1
+#######################################
 # 1. create a new variable called 'my.num' that contains 6 numbers
 my.num = c(5,4,7,8,12,14)
 
@@ -27,6 +29,9 @@ length(both)
 # 6. what class is 'both'?
 class(both)
 
+#######################################
+# Part 2
+#######################################
 # 7. divide 'both' by 3, what happens?
 # both / 3
 # Error in both/3 : non-numeric argument to binary operator

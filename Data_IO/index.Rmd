@@ -204,26 +204,6 @@ class(dat)
 dat
 ```
 
-## Data Input
-
-There are also data importing functions provided in base R (rather than the `readr` package), like `read.delim` and `read.csv`. 
-
-These functions have slightly different syntax for reading in data, like `header` and `as.is`. 
-
-However, while many online resources use the base R tools, the latest version of RStudio switched to use these new `readr` data import tools, so we will use them in the class for slides. They are also up to two times faster for reading in large datasets, and have a progress bar which is nice. 
-
-But you can use whatever function you feel more comfortable with.
-
-## Data Input
-
-Here is how to read in the same dataset using base R functionality, which returns a `data.frame` directly
-
-```{r, readingCSV}
-dat2 = read.csv("../data/Youth_Tobacco_Survey_YTS_Data.csv", as.is = TRUE)
-head(dat2)
-```
-
-We will use the `readr` functionality for certain reasons.
 
 ## Data Input
 
@@ -233,10 +213,10 @@ We will use the `readr` functionality for certain reasons.
 * `colnames()` displays the column names (if any) and `rownames()` displays the row names (if any)
 
 ```{r, dims}
-dim(dat2)
-nrow(dat2)
-ncol(dat2)
-colnames(dat2)
+dim(dat)
+nrow(dat)
+ncol(dat)
+colnames(dat)
 ```
 
 
@@ -244,8 +224,9 @@ colnames(dat2)
 
 Changing variable names in `data.frame`s works using the `names()` function, which is analagous to `colnames()` for data frames (they can be used interchangeably)
 
-```{r names1}
-names(dat)[1] = "year"
+```{r names1, message = FALSE}
+library(dplyr)
+dat = rename(dat, year = YEAR)
 names(dat)
 ```
 
@@ -281,15 +262,15 @@ There are similar packages in base R, like `write.table` and `write.csv` which h
 For example, we can write back out the Youth Tobacco dataset with the new column name:
 
 ```{r writecsv,eval=FALSE}
-names(dat)[1] = "Year"
-write_csv(dat, path="YouthTobacco_newNames.csv")
+dat = rename(dat, Year = year)
+write_csv(dat, path = "YouthTobacco_newNames.csv")
 ```
 
 ## Data Input - Excel
 
 Many data analysts collaborate with researchers who use Excel to enter and curate their data. Often times, this is the input data for an analysis. You therefore have two options for getting this data into R:
 
-* Saving the Excel sheet as a .csv file, and using `read.csv()`
+* Saving the Excel sheet as a .csv file, and using `read_csv()`
 * Using an add-on package, like `xlsx`, `readxl`, or `openxlsx`
 
 For single worksheet .xlsx files, I often just save the spreadsheet as a .csv file (because I often have to strip off additional summary data from the columns)
@@ -360,6 +341,27 @@ yts2 = readRDS(file = "yts_dataset.rds")
 identical(yts, yts2) # test if they are the same 
 ```
 
+
+## Base R: Data Input
+
+There are also data importing functions provided in base R (rather than the `readr` package), like `read.delim` and `read.csv`. 
+
+These functions have slightly different syntax for reading in data, like `header` and `as.is`. 
+
+However, while many online resources use the base R tools, the latest version of RStudio switched to use these new `readr` data import tools, so we will use them in the class for slides. They are also up to two times faster for reading in large datasets, and have a progress bar which is nice. 
+
+But you can use whatever function you feel more comfortable with.
+
+## Base R: Data Input
+
+Here is how to read in the same dataset using base R functionality, which returns a `data.frame` directly
+
+```{r, readingCSV}
+dat2 = read.csv("../data/Youth_Tobacco_Survey_YTS_Data.csv", as.is = TRUE)
+head(dat2)
+```
+
+We will use the `readr` functionality for certain reasons.
 
 ## Website
 

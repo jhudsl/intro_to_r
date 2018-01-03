@@ -37,23 +37,20 @@ class(dat)
 ## ---- viewTibble---------------------------------------------------------
 dat
 
-## ---- readingCSV---------------------------------------------------------
-dat2 = read.csv("../data/Youth_Tobacco_Survey_YTS_Data.csv", as.is = TRUE)
-head(dat2)
-
 ## ---- dims---------------------------------------------------------------
-dim(dat2)
-nrow(dat2)
-ncol(dat2)
-colnames(dat2)
+dim(dat)
+nrow(dat)
+ncol(dat)
+colnames(dat)
 
-## ----names1--------------------------------------------------------------
-names(dat)[1] = "year"
+## ----names1, message = FALSE---------------------------------------------
+library(dplyr)
+dat = rename(dat, year = YEAR)
 names(dat)
 
 ## ----writecsv,eval=FALSE-------------------------------------------------
-## names(dat)[1] = "Year"
-## write_csv(dat, path="YouthTobacco_newNames.csv")
+## dat = rename(dat, Year = year)
+## write_csv(dat, path = "YouthTobacco_newNames.csv")
 
 ## ---- message = FALSE----------------------------------------------------
 x = 5; # can have semicolons a the end!
@@ -79,6 +76,10 @@ saveRDS(yts, file = "yts_dataset.rds")
 ## ------------------------------------------------------------------------
 yts2 = readRDS(file = "yts_dataset.rds")
 identical(yts, yts2) # test if they are the same 
+
+## ---- readingCSV---------------------------------------------------------
+dat2 = read.csv("../data/Youth_Tobacco_Survey_YTS_Data.csv", as.is = TRUE)
+head(dat2)
 
 ## ---- echo = FALSE, message = FALSE, results='hide'----------------------
 file.remove("yts_data.rda") # removing temporary file

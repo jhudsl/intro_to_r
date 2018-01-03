@@ -2,6 +2,7 @@
 output:
 html_document:
 theme: spacelab
+title: ""
 ---
 
 Introduction to R
@@ -32,6 +33,19 @@ library(kableExtra)
 ### Important links
 
 * [Syllabus](http://johnmuschelli.com/intro_to_r/Syllabus-student.doc)
+
+### All the Requirements in this Course
+
+#### Packages 
+All the packages used (in any way - homework, lecture, lab), are listed in [this text file](all_the_packages.txt).  If you would like to install all the packages from this file, please download that text file and run [this R script](install_all_packages.R)
+
+#### Functions
+
+All the functions used (in any way - homework, lecture, lab), are listed in [this CSV file](all_the_functions.csv), which can start a kind of cheat sheet for you.
+
+#### Data
+All the data used that are not **specifically** to be downloaded from the web are located in [this zip file](data.zip), but we will show you how to read data from the internet as well.
+
 
 
 ### Schedule
@@ -137,19 +151,6 @@ knitr::kable(df, format = "html") %>%
 <!-- | 5  | 2017-01-13 |   | [RMD](ProjectExample/RMarkDown_FinalProject.Rmd), [DOC](ProjectExample/RMarkDown_FinalProject.docx)| Example Projects | -->
 <!-- | | | | | | -->
 
-
-
-### All the Requirements in this Course
-
-#### Packages 
-All the packages used (in any way - homework, lecture, lab), are listed in [this text file](all_the_packages.txt).  If you would like to install all the packages from this file, please download that text file and run [this R script](install_all_packages.R)
-
-#### Functions
-
-All the functions used (in any way - homework, lecture, lab), are listed in [this CSV file](all_the_functions.csv), which can start a kind of cheat sheet for you.
-
-#### Data
-All the data used that are not **specifically** to be downloaded from the web are located in [this zip file](data.zip), but we will show you how to read data from the internet as well.
 
 
 
