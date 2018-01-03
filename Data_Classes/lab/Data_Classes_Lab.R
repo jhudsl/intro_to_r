@@ -7,12 +7,6 @@
 # 	Download as a CSV in your current working directory
 # Note its also available at: 
 #	http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv
-library(readr)
-library(dplyr)
-library(lubridate)
-
-bike = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
-
 
 ####################
 # Part 1
@@ -21,18 +15,10 @@ bike = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
 # Use sort(unique()).  Assign this to an object btypes. Type dput(btypes)
 
 
-dput(btypes)
-
 # 2. Reorder the output of the dput command so sidepath is first.  
 # Recode type as a factor using this vector of levels.  
 # Print head(bike$type).  Note what you see.  Run 
 # table(bike$type) afterwards and note the order
-
-
-
-head(bike$type)
-
-table(bike$type)
 
 # 3. Make a column type2, which is a factor of type, with the 
 # levels: 
@@ -40,40 +26,22 @@ table(bike$type)
 # with the option useNA = "always".  Note, we do not have to 
 # make type a character again before doing this
 
-
-
-table(bike$type2, useNA = "always")
-
 # 4. 
 # a) Reassign dateInstalled into a character using as.character.  
 # Run head(bike$dateInstalled).
-
-
-
-head(bike$dateInstalled)
-
-
 
 # b) Reassign dateInstalled a factor, using the default levels.
 # Run head(bike$dateInstalled).
 
 
-
-head(bike$dateInstalled)
-
 # c) Do not reassign dateInstalled, but simply run
 #  head(as.numeric(bike$dateInstalled)) 
 # we are looking to see what happens when we try to go from factor to numeric
-head(as.numeric(bike$dateInstalled)) 
-
 
 # d) Do not reassign dateInstalled, but simply run
 # head(as.numeric(as.character(bike$dateInstalled)))
 # this is how you get "numeric" values back if they were "incorrectly" 
 # factors
-head(as.numeric(as.character(bike$dateInstalled)))
-
-
 
 ####################
 # Part 2
