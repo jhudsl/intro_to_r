@@ -12,6 +12,7 @@ library(knitr)
 opts_chunk$set(comment = "", message = FALSE)
 suppressWarnings({library(dplyr)})
 library(readr)
+library(tidyverse)
 ```
 
 ## Data Summarization
@@ -111,7 +112,7 @@ tb = rename(tb,
             country = `TB incidence, all forms (per 100 000 population per year)`)
 ```
 
-`colnames` will show us the column names and sho that country is renamed:s
+`colnames` will show us the column names and sho that country is renamed:
 ```{r}
 colnames(tb)
 ```
@@ -169,8 +170,6 @@ apply(avgs,2,max,na.rm=TRUE) # column maxs
 * Other less used ones...
 
 See more details here: http://nsaunders.wordpress.com/2010/08/20/a-brief-introduction-to-apply-in-r/
-
-
 
 ## Youth Tobacco Survey
 
@@ -278,57 +277,49 @@ sub_yts %>%
 ## Lab Part 3
 [Website](../index.html)
 
-## Data Summarization/Visualization
 
-* Basic summarization plots
-    * `plot(x,y)`: scatterplot of x and y
-    * `boxplot(y~x)`: boxplot of y against levels of x
-    * `hist(x)`: histogram of x
-    * `density(x)`: kernel density plot of x
-    
+## Data Summarization/Visualization: ggplot2
+
+`ggplot2` is a package of plotting that is very popular and powerful (using the **g**rammar of **g**raphics). We will use `qplot` ("quick plot") for most of the basic examples:
+
+```{r}
+qplot
+```
+
 ## Basic Plots
 
 Plotting is an important component of exploratory data analysis. We will review some of the more useful and informative plots here. We will go over formatting and making plots look nicer in additional lectures.
 
 ## Scatterplot
 
-```{r scatter1}
-plot(mtcars$mpg, mtcars$disp)
+```{r}
+library(ggplot2)
+qplot(x = disp, y = mpg, data = mtcars)
 ```
 
 ## Histograms
 
-```{r hist1}
-hist(tb$before_2000_avg)
+```{r}
+qplot(x = before_2000_avg, data = tb, geom = "histogram")
 ```
 
 ## Plot with a line
 
-`type = "l"` means a line
-
-```{r hist_date}
-plot(yts_avgs$YEAR, yts_avgs$year_avg, type = "l")
+```{r}
+qplot(x = YEAR, y = year_avg, data = yts_avgs, geom = "line")
 ```
 
 ## Density
 
 Over all years and states, this is the density of smoking status incidence:
 
-```{r dens1,fig.width=5,fig.height=5}
-plot(density(sub_yts$Data_Value))
+```{r}
+qplot(x = Data_Value, data = sub_yts, geom = "density")
 ```
-
 ## Boxplots
 
-```{r box1}
-boxplot(sub_yts$Data_Value ~ sub_yts$LocationDesc)
-```
-
-## Boxplots
-
-
-```{r box2}
-boxplot(Data_Value ~ LocationDesc, data = sub_yts)
+```{r}
+qplot(x = LocationDesc, y = Data_Value, data = sub_yts, geom = "boxplot")
 ```
 
 ## Data Summarization for data.frames
@@ -357,3 +348,89 @@ pairs(avgs)
 ## Website
 
 [Website](../index.html)
+
+
+
+# Base R Plots - not covered
+
+## Data Summarization/Visualization
+
+* Basic summarization plots
+    * `plot(x,y)`: scatterplot of x and y
+    * `boxplot(y~x)`: boxplot of y against levels of x
+    * `hist(x)`: histogram of x
+    * `density(x)`: kernel density plot of x
+    
+## Basic Plots
+
+Plotting is an important component of exploratory data analysis. We will review some of the more useful and informative plots here. We will go over formatting and making plots look nicer in additional lectures.
+
+## Scatterplot
+
+```{r scatter1}
+plot(mtcars$mpg, mtcars$disp)
+```
+
+
+## Histograms
+
+```{r hist1}
+hist(tb$before_2000_avg)
+```
+
+## Plot with a line
+
+`type = "l"` means a line
+
+```{r hist_date}
+plot(yts_avgs$YEAR, yts_avgs$year_avg, type = "l")
+```
+
+## Density
+
+Over all years and states, this is the density of smoking status incidence:
+
+```{r dens1,fig.width=5,fig.height=5}
+plot(density(sub_yts$Data_Value))
+```
+
+
+## Boxplots
+
+```{r box1}
+boxplot(sub_yts$Data_Value ~ sub_yts$LocationDesc)
+```
+
+## Boxplots
+
+
+```{r box2}
+boxplot(Data_Value ~ LocationDesc, data = sub_yts)
+```
+
+## Data Summarization for data.frames
+
+* Basic summarization plots
+    * `matplot(x,y)`: scatterplot of two matrices, x and y
+    * `pairs(x,y)`: plots pairwise scatter plots of matrices x and y, column by column
+
+## Matrix plot
+
+```{r matplot2}
+pairs(avgs)
+```
+
+## Lab Part 4
+[Website](../index.html)
+
+<!-- ## Conclusion -->
+
+<!-- - Base R has apply statements that perform things repeatedly. -->
+<!-- - `dplyr` has a lot of more intuitive syntax. -->
+<!--     - `group_by` is very powerful, especilly with `summarise/summarize` -->
+<!-- - Base R has good things for quickly summarizing rows or colummns of all numeric data. -->
+<!--     - The `matrixStats` package extends this to `colMedians`, `colMaxs`, etc. -->
+
+<!-- ## Website -->
+
+<!-- [Website](../index.html) -->

@@ -3,6 +3,7 @@ library(knitr)
 opts_chunk$set(comment = "", message = FALSE)
 suppressWarnings({library(dplyr)})
 library(readr)
+library(tidyverse)
 
 ## ------------------------------------------------------------------------
 head(mtcars)
@@ -94,6 +95,28 @@ sub_yts %>%
   tally() %>% 
   head
 
+## ------------------------------------------------------------------------
+qplot
+
+## ------------------------------------------------------------------------
+library(ggplot2)
+qplot(x = disp, y = mpg, data = mtcars)
+
+## ------------------------------------------------------------------------
+qplot(x = before_2000_avg, data = tb, geom = "histogram")
+
+## ------------------------------------------------------------------------
+qplot(x = YEAR, y = year_avg, data = yts_avgs, geom = "line")
+
+## ------------------------------------------------------------------------
+qplot(x = Data_Value, data = sub_yts, geom = "density")
+
+## ------------------------------------------------------------------------
+qplot(x = LocationDesc, y = Data_Value, data = sub_yts, geom = "boxplot")
+
+## ----matplot1------------------------------------------------------------
+pairs(avgs)
+
 ## ----scatter1------------------------------------------------------------
 plot(mtcars$mpg, mtcars$disp)
 
@@ -112,6 +135,6 @@ boxplot(sub_yts$Data_Value ~ sub_yts$LocationDesc)
 ## ----box2----------------------------------------------------------------
 boxplot(Data_Value ~ LocationDesc, data = sub_yts)
 
-## ----matplot1------------------------------------------------------------
+## ----matplot2------------------------------------------------------------
 pairs(avgs)
 

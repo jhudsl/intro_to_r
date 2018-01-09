@@ -140,13 +140,14 @@ head(df)
 colnames(df)[ colnames(df) == "DRAT"] = "drat" #reset
 ```
 
-## Renaming Columns of a `data.frame`: dplyr and tidyverse
+## Renaming Columns of a `data.frame`: dplyr
+
 
 ```{r}
-library(tidyverse)
+library(dplyr)
 ```
 
-Note, when loading `dplyr`, it says objects can be "masked"/conflicts.  That means if you 
+Note, when loading `dplyr`, it says objects can be "masked".  That means if you 
 use a function defined in 2 places, it uses the one that is loaded in **last**.
 
 ## Renaming Columns of a `data.frame`: dplyr
@@ -157,7 +158,6 @@ means when you type `filter`, it will use the one from the `dplyr` package.
 ```{r}
 filter
 ```
-
 ## Renaming Columns of a `data.frame`: dplyr
 
 A `filter` function exists by default in the `stats` package, however.  If you want
@@ -178,7 +178,7 @@ To rename columns in `dplyr`, you use the `rename` command
 ```{r}
 df = dplyr::rename(df, MPG = mpg)
 head(df)
-df = rename(df, mpg = MPG) # reset - don't need :: b/c not masked
+df = dplyr::rename(df, mpg = MPG) # reset
 ```
 
 
@@ -258,6 +258,23 @@ Let's select **rows** 1 and 3 from `df` using brackets:
 df[ c(1, 3), ]
 ```
 
+## Subset rows of a `data.frame`: 
+
+Let's select the rows of `df` where the `mpg` column is greater than 20 or is less than 14.  Without any index for columns, all columns are returned:
+
+```{r}
+df[ df$mpg > 20 | df$mpg < 14, ]
+```
+
+## Subset rows of a `data.frame`: 
+
+We can subset both rows and colums at the same time:
+
+```{r}
+df[  df$mpg > 20 | df$mpg < 14, c("cyl", "hp")]
+```
+
+
 ## Subset rows of a `data.frame`: dplyr
 
 The command in `dplyr` for subsetting rows is `filter`.  Try `?filter`
@@ -320,10 +337,27 @@ df$newcol = df$wt/2.2
 head(df,3)
 ```
 
+## Removing columns to a `data.frame`: base R
+
+You can remove a column by assigning to `NULL`:
+```{r}
+df$newcol = NULL
+```
+or selecing only the columns that were not `newcol`:
+```{r}
+df = df[, colnames(df) != "newcol"]
+head(df,3)
+```
+
+## Adding new columns to a `data.frame`: base R
+
+You can also "**c**olumn **bind**" a `data.frame` with a vector (or series of vectors), using the `cbind` command:
+```{r}
+cbind(df, newcol = df$wt/2.2)
+```
+
 
 ## Adding columns to a `data.frame`: dplyr
-
-The `$` method is very common.
 
 The `mutate` function in `dplyr` allows you to add or replace columns of a `data.frame`:
 ```{r}
@@ -333,16 +367,6 @@ df = mutate(df, newcol = wt/2.2)
 ```{r, echo = FALSE}
 print({df = mutate(df, newcol = wt/2.2)})
 ```
-
-
-## Removing columns to a `data.frame`: base R
-
-You can remove a column by assigning to `NULL`:
-```{r, eval = FALSE}
-df$newcol = NULL
-```
-
-
 
 ## Removing columns to a `data.frame`: dplyr
 
@@ -360,8 +384,16 @@ Remove `newcol` and `drat`
 select(df, -one_of("newcol", "drat"))
 ```
 
-
 # Ordering columns
+
+## Ordering the columns of a `data.frame`: base R
+
+We can use the `colnames` function to get the column names of `df` and then put `newcol` first by subsetting `df` using brackets:
+
+```{r}
+cn = colnames(df)
+df[, c("newcol", cn[cn != "newcol"]) ]
+```
 
 ## Ordering the columns of a `data.frame`: dplyr
 
@@ -371,6 +403,28 @@ select(df, newcol, everything())
 ```
 
 # Ordering rows
+
+## Ordering the rows of a `data.frame`: base R
+
+We use the `order` function on a vector or set of vectors, in increasing order:
+
+```{r}
+df[ order(df$mpg), ]
+```
+
+## Ordering the rows of a `data.frame`: base R
+
+The `decreasing` argument will order it in decreasing order:
+```{r}
+df[ order(df$mpg, decreasing = TRUE), ]
+```
+
+## Ordering the rows of a `data.frame`: base R
+
+You can pass multiple vectors, and must use the negative (using `-`) to mix decreasing and increasing orderings (sort increasing on `x` and decreasing on `y`):
+```{r}
+df[ order(df$mpg, -df$hp), ]
+```
 
 ## Ordering the rows of a `data.frame`: dplyr
 
