@@ -152,6 +152,15 @@ knitr::kable(df, format = "html") %>%
 <!-- | | | | | | -->
 
 
+### Additional Resources
+
+* R for Data Science: http://r4ds.had.co.nz/
+* Homework will involve working through: http://tryr.codeschool.com/
+* DataCamp http://www.datacamp.com
+* UCLA Institute for Digital Research and Education: http://www.ats.ucla.edu/stat/r/
+* R reference card: http://cran.r-project.org/doc/contrib/Short-refcard.pdf
+* Undergrad Guide to R: https://sites.google.com/site/undergraduateguidetor/
+* Quick R: http://statmethods.net/
 
 
 ### Example Projects 
@@ -219,6 +228,31 @@ DHS package:
 ```r
 devtools::install_github("muschellij2/dhs")
 ```
+
+
+## How do I have `tidyverse` always loaded?
+
+In `R`, if you have never set an `Rprofile` before, you can make `tidyverse` load whenever you start `R` as follows:
+
+```{r, eval = FALSE}
+filename = "~/.Rprofile"
+x = ""
+if (file.exists(filename)) {
+  x = readLines(filename)
+} 
+have_r_pack = grepl("R_DEFAULT_PACKAGES", x)
+if (any(have_r_pack)) {
+  stop("add R_DEFAULT_PACKAGES to .Rprofile manually!")
+} else {
+  x = c('R_DEFAULT_PACKAGES="tidyverse"', x)
+  writeLines(x, con = filename)
+}
+```
+
+### Why NOT do this?
+
+For reproducibility, you should still have `library(tidyverse)` at the top of your scripts so that if someone else (or you if you change computers) try to run the code, the code should still work.  If you forget that, then the code is not reproducible and can be quite difficult to find this as the source of the problem.
+
 
 ## Find an Error!?
 
