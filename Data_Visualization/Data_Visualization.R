@@ -1,4 +1,4 @@
-## ----knit-setup, echo=FALSE----------------------------------------------
+## ----knit-setup, echo=FALSE, include = FALSE-----------------------------
 library(knitr)
 opts_chunk$set(echo = TRUE, 
                message = FALSE, 
@@ -65,6 +65,11 @@ sub = long %>% filter(country %in%
                           "Afghanistan", "Rwanda"))
 g = sub %>% ggplot(aes(x = year, y = deaths, colour = country))
 g + geom_line()
+
+## ----geom_color----------------------------------------------------------
+g + geom_line() + scale_colour_manual(values = 
+    c("United States" = "blue", "United Kingdom" = "green", 
+      "Sweden" = "black", "Afghanistan" = "red", "Rwanda" = "orange"))
 
 ## ----geom_noguide--------------------------------------------------------
 g + geom_line() + guides(colour = FALSE)

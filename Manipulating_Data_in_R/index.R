@@ -1,7 +1,11 @@
-## ---- echo = FALSE-------------------------------------------------------
+## ---- echo = FALSE, include=FALSE----------------------------------------
 library(knitr)
 library(readr)
 opts_chunk$set(comment = "")
+library(tidyverse)
+
+## ---- echo = FALSE, message=FALSE----------------------------------------
+library(tidyverse)
 
 ## ---- echo = FALSE-------------------------------------------------------
 ex_wide = data.frame(id = 1:2,
@@ -24,9 +28,9 @@ circ = read_csv(
   paste0("http://johnmuschelli.com/intro_to_r/",
          "data/Charm_City_Circulator_Ridership.csv"))
 head(circ, 2)
+class(circ$date)
 
 ## ---- message = FALSE----------------------------------------------------
-library(tidyverse)
 library(lubridate) # great for dates!
 
 ## ---- message= FALSE-----------------------------------------------------
@@ -141,7 +145,7 @@ head(wide)
 ## ------------------------------------------------------------------------
 long = long %>% filter(!is.na(number) & number > 0)
 first_and_last = long %>% arrange(date) %>% # arrange by date
-  filter(type %in% "Boardings") %>% # keep boardings only
+  filter(type == "Boardings") %>% # keep boardings only
   group_by(line) %>% # group by line
   slice( c(1, n())) # select ("slice") first and last (n() command) lines
 first_and_last %>%  head(4)

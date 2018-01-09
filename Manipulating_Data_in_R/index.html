@@ -3136,6 +3136,14 @@ color: black;
 slides > slide > hgroup + article {
 margin-top: 5px;
 }
+.left_col {
+float:left;
+width:48%;
+}
+.right_col {
+float:right;
+width:48%;
+}
 </style>
 
 </head>
@@ -3225,12 +3233,13 @@ head(circ, 2)</pre>
 #   greenAlightings &lt;int&gt;, greenAverage &lt;dbl&gt;, bannerBoardings &lt;int&gt;,
 #   bannerAlightings &lt;int&gt;, bannerAverage &lt;dbl&gt;, daily &lt;dbl&gt;</pre>
 
+<pre class = 'prettyprint lang-r'>class(circ$date)</pre>
+
+<pre >[1] &quot;character&quot;</pre>
+
 </article></slide><slide class=""><hgroup><h2>Creating a Date class from a character date</h2></hgroup><article  id="creating-a-date-class-from-a-character-date">
 
-<pre class = 'prettyprint lang-r'>library(tidyverse)
-library(lubridate) # great for dates!</pre>
-
-</article></slide><slide class=""><hgroup><h2>Creating a Date class from a character date</h2></hgroup><article  id="creating-a-date-class-from-a-character-date-1">
+<pre class = 'prettyprint lang-r'>library(lubridate) # great for dates!</pre>
 
 <pre class = 'prettyprint lang-r'>sum(is.na(circ$date))</pre>
 
@@ -3634,7 +3643,7 @@ head(wide)</pre>
 
 <pre class = 'prettyprint lang-r'>long = long %&gt;% filter(!is.na(number) &amp; number &gt; 0)
 first_and_last = long %&gt;% arrange(date) %&gt;% # arrange by date
-  filter(type %in% &quot;Boardings&quot;) %&gt;% # keep boardings only
+  filter(type == &quot;Boardings&quot;) %&gt;% # keep boardings only
   group_by(line) %&gt;% # group by line
   slice( c(1, n())) # select (&quot;slice&quot;) first and last (n() command) lines
 first_and_last %&gt;%  head(4)</pre>
@@ -3652,7 +3661,7 @@ first_and_last %&gt;%  head(4)</pre>
 
 <p><a href='../index.html' title=''>Website</a></p>
 
-</article></slide><slide class=""><hgroup><h2>Merging in base R (not covered)</h2></hgroup><article  id="merging-in-base-r-not-covered">
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Merging in base R (not covered)</h2></hgroup><article  id="merging-in-base-r-not-covered">
 
 </article></slide><slide class=""><hgroup><h2>Merging</h2></hgroup><article  id="merging">
 

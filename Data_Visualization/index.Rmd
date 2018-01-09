@@ -7,7 +7,7 @@ output:
     widescreen: yes
 ---
 
-```{r knit-setup, echo=FALSE}
+```{r knit-setup, echo=FALSE, include = FALSE}
 library(knitr)
 opts_chunk$set(echo = TRUE, 
                message = FALSE, 
@@ -18,9 +18,6 @@ opts_chunk$set(echo = TRUE,
 library(tidyverse)
 ```
 
-## Basic Plots
-
-We covered some basic plots previously, but we are going to expand the ability to customize these basic graphics first. 
 
 ```{r seed, comment="",echo=FALSE, }
 set.seed(3) 
@@ -178,6 +175,17 @@ sub = long %>% filter(country %in%
                           "Afghanistan", "Rwanda"))
 g = sub %>% ggplot(aes(x = year, y = deaths, colour = country))
 g + geom_line()
+```
+
+
+## Coloring manually
+
+There are many `scale_AESTHETICS_*` functions and `scale_AESTHETICS_manual` allows to directly specify the colors:
+
+```{r geom_color}
+g + geom_line() + scale_colour_manual(values = 
+    c("United States" = "blue", "United Kingdom" = "green", 
+      "Sweden" = "black", "Afghanistan" = "red", "Rwanda" = "orange"))
 ```
 
 ## ggplot2: grouping - using colour
