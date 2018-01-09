@@ -39,6 +39,10 @@ colnames(cars) = cn # reassign
 
 colnames(cars) = toupper(colnames(cars))
 
+cars = dplyr::rename_all(
+  cars, 
+  toupper)
+
 ##########################
 # Part 2
 ##########################
