@@ -90,7 +90,9 @@ tidy(fit)
 
 ## ----tt2, comment="", message = FALSE------------------------------------
 http_data_dir = "http://johnmuschelli.com/intro_to_r/data/"
-cars = read_csv(paste0(http_data_dir, "kaggleCarAuction.csv"))
+cars = read_csv(
+  paste0(http_data_dir, "kaggleCarAuction.csv"),   
+  col_types = cols(VehBCost = col_double()))
 
 ## ------------------------------------------------------------------------
 fit = lm(VehOdo~VehicleAge, data = cars)
@@ -131,8 +133,11 @@ summary(fit3)
 glmfit = glm(IsBadBuy ~ VehOdo + VehicleAge, data=cars, family = binomial())
 summary(glmfit)  
 
-## ----tidy_glm, comment="", fig.height=4,fig.width=8----------------------
-tidy(glmfit)
+## ----tidy_glmfit, comment="", fig.height=4,fig.width=8-------------------
+tidy(glmfit, conf.int = TRUE)
+
+## ----tidy_glm_exp, comment="", fig.height=4,fig.width=8------------------
+tidy(glmfit, conf.int = TRUE, exponentiate = TRUE)
 
 ## ----regress8, comment="", fig.height=4,fig.width=8----------------------
 exp(coef(glmfit))
