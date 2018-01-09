@@ -114,6 +114,10 @@ qplot(x = Data_Value, data = sub_yts, geom = "density")
 ## ------------------------------------------------------------------------
 qplot(x = LocationDesc, y = Data_Value, data = sub_yts, geom = "boxplot")
 
+## ----ggally_pairs--------------------------------------------------------
+library(GGally)
+ggpairs(avgs)
+
 ## ----matplot1------------------------------------------------------------
 pairs(avgs)
 

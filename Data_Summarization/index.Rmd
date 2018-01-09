@@ -316,6 +316,7 @@ Over all years and states, this is the density of smoking status incidence:
 ```{r}
 qplot(x = Data_Value, data = sub_yts, geom = "density")
 ```
+
 ## Boxplots
 
 ```{r}
@@ -327,6 +328,13 @@ qplot(x = LocationDesc, y = Data_Value, data = sub_yts, geom = "boxplot")
 * Basic summarization plots
     * `matplot(x,y)`: scatterplot of two matrices, x and y
     * `pairs(x,y)`: plots pairwise scatter plots of matrices x and y, column by column
+
+## Matrix plot
+
+```{r ggally_pairs}
+library(GGally)
+ggpairs(avgs)
+```
 
 ## Matrix plot
 
