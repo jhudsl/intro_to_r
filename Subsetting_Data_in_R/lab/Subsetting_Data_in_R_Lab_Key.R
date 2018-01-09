@@ -14,7 +14,7 @@ library(dplyr)
 # 1. Check to see if you have the `mtcars` dataset 
 #		(which is included in the `datasets` package)
 mtcars
-df = mtcars
+
 # 2. What class is `mtcars`?
 class(mtcars)
 
@@ -22,11 +22,14 @@ class(mtcars)
 dim(mtcars)
 nrow(mtcars)
 ncol(mtcars)
+glimpse(mtcars)
+
 # 4. Copy mtcars into an object called cars and rename mpg in cars to MPG
 # use rename
 cars = mtcars
-cars = dplyr::rename(
-  cars, 
+cars = rename(cars, MPG = mpg)
+
+cars2 = dplyr::rename(cars, 
   MPG = mpg, 
   carbs = carb, 
   DRaT = drat)
@@ -37,14 +40,29 @@ cn = colnames(cars) # extract column names
 cn = toupper(cn) # make them uppercase
 colnames(cars) = cn # reassign
 
+# base R, one shot
 colnames(cars) = toupper(colnames(cars))
+
+# dplyr
+cars = rename_all(cars, toupper)
 
 ##########################
 # Part 2
 ##########################
 # 6. Subset the columns from mtcars that end in "p" and call it pvars
 # use ends_with
+
 pvars = select(mtcars, ends_with("p"))
+
+# adding column of former row names
+library(tidyverse)
+tbl = rownames_to_column(tbl, var = "cars")
+
+## you can do this too
+# tbl$cars = rownames(cars)
+pvars_tbl = select(tbl, cars, ends_with("P"))
+pvars_tbl
+
 # 7. Create a subset of the data that only contains the columns:
 #		wt, qsec, and hp for only the cars  
 #		and assign this object to `carsSub` - 
@@ -56,7 +74,7 @@ dim(carsSub)
 # 8. Convert the column names of `carsSub` to all upper case
 # use colnames, and the toupper command
 colnames(carsSub) = toupper(colnames(carsSub))
-
+head(carsSub)
 
 ##########################
 # Part 3

@@ -58,7 +58,7 @@
 ##########################
 # Part 4
 ##########################
-# 7. Create a subset of the data that only contains the columns:
+# 11. Create a subset of the data that only contains the columns:
 #		wt, qsec, and hp for only the cars with 8 cylinders
 #		and reassign this object to `carsSub` - 
 #		what are the dimensions of this dataset?
@@ -67,10 +67,10 @@
 # use select and filter
 
 
-# 11. Re-order the rows of `carsSub` by weight in increasing order
+# 12. Re-order the rows of `carsSub` by weight in increasing order
 # use arrange
 
 
-# 12. Create a new variable in `carsSub` called wt2, which 
+# 13. Create a new variable in `carsSub` called wt2, which 
 # is equal to WT^2, using mutate.  Use piping
 
