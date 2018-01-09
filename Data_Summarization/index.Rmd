@@ -22,14 +22,15 @@ library(tidyverse)
     * `sd(x)`: takes the standard deviation of x
     * `median(x)`: takes the median of x
     * `quantile(x)`: displays sample quantities of x. Default is min, IQR, max
-    * `range(x)`: displays the range. Same as c(min(x), max(x))
+    * `range(x)`: displays the range. Same as `c(min(x), max(x))`
     * `sum(x)`: sum of x
+    * **all have a **`na.rm` for missing data - discussed later 
 * Transformations
     * `log` - log (base `e`) transformation
     * `log2` - log base 2 transform
     * `log10` - log base 10 transform
     * `sqrt` - square root
-    
+
 
 ## Some examples
 
@@ -38,7 +39,6 @@ We can use the `mtcars` to explore different ways of summarizing data.  The `hea
 ```{r}
 head(mtcars)
 ```
-
 
 ## Statistical summarization
 
@@ -62,6 +62,7 @@ quantile(mtcars$wt, probs = 0.6)
 
 ```{r}
 t.test(mtcars$wt) 
+broom::tidy(t.test(mtcars$wt))
 ```
 
 ## Statistical summarization
@@ -94,12 +95,12 @@ Please download the TB incidence data:
 
 http://johnmuschelli.com/intro_to_r/data/tb_incidence.xlsx
 
-Here we will read in a `data.frame` of values from TB incidence:
+Here we will read in a `tibble` of values from TB incidence:
 
 ```{r}
 library(readxl)
 tb <- read_excel("../data/tb_incidence.xlsx")
-head(tb)
+colnames(tb)
 ```
 
 ## Indicator of TB
@@ -123,12 +124,18 @@ colnames(tb)
 
 `colMeans` and `rowMeans` must work on all numeric data.  We will subset years before 2000 (starting with 1):
 
+
+
 ```{r colMeans}
 avgs = select(tb, starts_with("1"))
 colMeans(avgs, na.rm = TRUE)
+```
+
+```{r}
 tb$before_2000_avg = rowMeans(avgs, na.rm = TRUE)
 head(tb[, c("country", "before_2000_avg")])
 ```
+
 
 ## Summary
 
@@ -157,9 +164,10 @@ apply(X, MARGIN, FUN, ...)
 ## Apply statements
 
 ```{r apply1}
-apply(avgs,2,mean,na.rm=TRUE) # column means
-apply(avgs,2,sd,na.rm=TRUE) # columns sds
-apply(avgs,2,max,na.rm=TRUE) # column maxs
+apply(avgs,2,mean, na.rm=TRUE) # column means
+head(apply(avgs,1,mean, na.rm=TRUE)) # row means
+apply(avgs,2,sd, na.rm=TRUE) # columns sds
+apply(avgs,2,max, na.rm=TRUE) # column maxs
 ```
 
 ## Other Apply Statements
@@ -170,6 +178,8 @@ apply(avgs,2,max,na.rm=TRUE) # column maxs
 * Other less used ones...
 
 See more details here: http://nsaunders.wordpress.com/2010/08/20/a-brief-introduction-to-apply-in-r/
+
+- Commonly used, but we will discuss how to do all steps in `dplyr`
 
 ## Youth Tobacco Survey
 
@@ -211,9 +221,9 @@ Let's just take smoking status measures for all genders using `filter`, and the 
 ```{r, message=FALSE}
 library(dplyr)
 sub_yts = filter(yts, 
-                   MeasureDesc == "Smoking Status",
-                   Gender == "Overall",
-                   Response == "Current")
+                 MeasureDesc == "Smoking Status",
+                 Gender == "Overall",
+                 Response == "Current")
 sub_yts = select(sub_yts, YEAR, LocationDesc, Data_Value)
 head(sub_yts, 4)
 ```
@@ -239,16 +249,32 @@ head(sub_yts, 4)
 
 ## Perform Operations By Groups: dplyr
 
-`group_by` allows you group the data in a more intuitive way than `tapply`
-
-We will use `group_by` to group the data by line, then use `summarize` (or `summarise`) to get the mean percentage of current smokers:
+`group_by` allows you group the data set by grouping variables:
 
 ```{r}
-summarize(group_by(sub_yts, YEAR), year_avg = mean(Data_Value, na.rm = TRUE))
-```    
+sub_yts = group_by(sub_yts, YEAR)
+head(sub_yts)
+```
+
+- doesn't change the data in any way, but how **functions operate on it**
+
+## Summarize the data
+
+```{r}
+summarize(sub_yts, year_avg = mean(Data_Value, na.rm = TRUE))
+```
+
+## Ungroup the data
+
+You usually want to perform operations on groups and may want to redefine the groups.  The `ungroup` function will allow you to clear the groups from the data: 
+
+```{r}
+sub_yts = ungroup(sub_yts)
+sub_yts
+```
 
 
-## Using the `pipe` (comes with `dplyr`):
+## Using the `pipe` 
 
 Pipe `sub_yts` into `group_by`, then pipe that into `summarize`:
 
@@ -259,32 +285,62 @@ yts_avgs = sub_yts %>%
 head(yts_avgs)
 ```
 
+## `group_by` with `mutate` - just add data
+
+We can also use `mutate` to calculate the mean value for each year and add it as a column:
+
+```{r}
+sub_yts %>% 
+  group_by(YEAR) %>% 
+  mutate(year_avg = mean(Data_Value, na.rm = TRUE)) %>% 
+  arrange(LocationDesc, YEAR)
+```
+
 ## Counting
 
 Standard statistics can be calculated.  There are other functions, such as `n()` count the number of observations, `tally()` to count as a wrapper:
 
+<div class="left_col"> 
 ```{r}
 sub_yts %>% 
   group_by(YEAR) %>% 
   summarize(n = n()) %>% 
   head
+```
+</div>
+
+<div class="right_col"> 
+```{r}
 sub_yts %>% 
   group_by(YEAR) %>% 
   tally() %>% 
   head
 ```
+</div>
 
 ## Lab Part 3
 [Website](../index.html)
 
 
+## Data Summarization/Visualization
+
+* Basic summarization plots: 
+    * `plot(x,y)`: scatterplot of x and y
+    * `boxplot(y~x)`: boxplot of y against levels of x
+    * `hist(x)`: histogram of x
+    * `density(x)`: kernel density plot of x
+
 ## Data Summarization/Visualization: ggplot2
 
 `ggplot2` is a package of plotting that is very popular and powerful (using the **g**rammar of **g**raphics). We will use `qplot` ("quick plot") for most of the basic examples:
 
-```{r}
+```{r, eval = FALSE}
 qplot
 ```
+```{r, echo = FALSE}
+args(qplot)
+```
+
 
 ## Basic Plots
 
@@ -368,14 +424,6 @@ pairs(avgs)
 
 # Base R Plots - not covered
 
-## Data Summarization/Visualization
-
-* Basic summarization plots
-    * `plot(x,y)`: scatterplot of x and y
-    * `boxplot(y~x)`: boxplot of y against levels of x
-    * `hist(x)`: histogram of x
-    * `density(x)`: kernel density plot of x
-    
 ## Basic Plots
 
 Plotting is an important component of exploratory data analysis. We will review some of the more useful and informative plots here. We will go over formatting and making plots look nicer in additional lectures.

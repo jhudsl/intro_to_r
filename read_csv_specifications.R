@@ -11,7 +11,14 @@ cars <- read_csv(url, guess_max = Inf)
 
 spec(cars)
 
-# explicitly specify columns
+## best answer - quick and simple
+cars = read_csv(
+  url,
+  col_types = cols(
+    VehBCost = col_double()
+  ))
+
+# explicitly specify columns for ALL columns
 cars = read_csv(
   url,
   col_types = cols(

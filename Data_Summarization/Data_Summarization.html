@@ -3136,6 +3136,14 @@ color: black;
 slides > slide > hgroup + article {
 margin-top: 5px;
 }
+.left_col {
+float:left;
+width:48%;
+}
+.right_col {
+float:right;
+width:48%;
+}
 </style>
 
 </head>
@@ -3163,8 +3171,9 @@ margin-top: 5px;
 <li><code>sd(x)</code>: takes the standard deviation of x</li>
 <li><code>median(x)</code>: takes the median of x</li>
 <li><code>quantile(x)</code>: displays sample quantities of x. Default is min, IQR, max</li>
-<li><code>range(x)</code>: displays the range. Same as c(min(x), max(x))</li>
+<li><code>range(x)</code>: displays the range. Same as <code>c(min(x), max(x))</code></li>
 <li><code>sum(x)</code>: sum of x</li>
+<li><strong>all have a </strong><code>na.rm</code> for missing data - discussed later</li>
 </ul></li>
 <li>Transformations
 
@@ -3232,6 +3241,13 @@ sample estimates:
 mean of x 
   3.21725 </pre>
 
+<pre class = 'prettyprint lang-r'>broom::tidy(t.test(mtcars$wt))</pre>
+
+<pre >  estimate statistic      p.value parameter conf.low conf.high
+1  3.21725  18.60021 2.257406e-18        31 2.864478  3.570022
+             method alternative
+1 One Sample t-test   two.sided</pre>
+
 </article></slide><slide class=""><hgroup><h2>Statistical summarization</h2></hgroup><article  id="statistical-summarization-3">
 
 <p>Note that many of these functions have additional inputs regarding missing data, typically requiring the <code>na.rm</code> argument (&ldquo;remove NAs&rdquo;).</p>
@@ -3274,25 +3290,31 @@ mean(x)</pre>
 
 <p><a href='http://johnmuschelli.com/intro_to_r/data/tb_incidence.xlsx' title=''>http://johnmuschelli.com/intro_to_r/data/tb_incidence.xlsx</a></p>
 
-<p>Here we will read in a <code>data.frame</code> of values from TB incidence:</p>
+<p>Here we will read in a <code>tibble</code> of values from TB incidence:</p>
 
 <pre class = 'prettyprint lang-r'>library(readxl)
 tb &lt;- read_excel(&quot;../data/tb_incidence.xlsx&quot;)
-head(tb)</pre>
+colnames(tb)</pre>
 
-<pre ># A tibble: 6 x 19
-  `TB incidence, all forms (per 100 000 population per year)` `1990`
-                                                        &lt;chr&gt;  &lt;dbl&gt;
-1                                                 Afghanistan    168
-2                                                     Albania     25
-3                                                     Algeria     38
-4                                              American Samoa     21
-5                                                     Andorra     36
-6                                                      Angola    205
-# ... with 17 more variables: `1991` &lt;dbl&gt;, `1992` &lt;dbl&gt;, `1993` &lt;dbl&gt;,
-#   `1994` &lt;dbl&gt;, `1995` &lt;dbl&gt;, `1996` &lt;dbl&gt;, `1997` &lt;dbl&gt;, `1998` &lt;dbl&gt;,
-#   `1999` &lt;dbl&gt;, `2000` &lt;dbl&gt;, `2001` &lt;dbl&gt;, `2002` &lt;dbl&gt;, `2003` &lt;dbl&gt;,
-#   `2004` &lt;dbl&gt;, `2005` &lt;dbl&gt;, `2006` &lt;dbl&gt;, `2007` &lt;dbl&gt;</pre>
+<pre > [1] &quot;TB incidence, all forms (per 100 000 population per year)&quot;
+ [2] &quot;1990&quot;                                                     
+ [3] &quot;1991&quot;                                                     
+ [4] &quot;1992&quot;                                                     
+ [5] &quot;1993&quot;                                                     
+ [6] &quot;1994&quot;                                                     
+ [7] &quot;1995&quot;                                                     
+ [8] &quot;1996&quot;                                                     
+ [9] &quot;1997&quot;                                                     
+[10] &quot;1998&quot;                                                     
+[11] &quot;1999&quot;                                                     
+[12] &quot;2000&quot;                                                     
+[13] &quot;2001&quot;                                                     
+[14] &quot;2002&quot;                                                     
+[15] &quot;2003&quot;                                                     
+[16] &quot;2004&quot;                                                     
+[17] &quot;2005&quot;                                                     
+[18] &quot;2006&quot;                                                     
+[19] &quot;2007&quot;                                                     </pre>
 
 </article></slide><slide class=""><hgroup><h2>Indicator of TB</h2></hgroup><article  id="indicator-of-tb">
 
@@ -3400,21 +3422,25 @@ head(tb[, c(&quot;country&quot;, &quot;before_2000_avg&quot;)])</pre>
 
 </article></slide><slide class=""><hgroup><h2>Apply statements</h2></hgroup><article  id="apply-statements-1">
 
-<pre class = 'prettyprint lang-r'>apply(avgs,2,mean,na.rm=TRUE) # column means</pre>
+<pre class = 'prettyprint lang-r'>apply(avgs,2,mean, na.rm=TRUE) # column means</pre>
 
 <pre >    1990     1991     1992     1993     1994     1995     1996     1997 
 105.5797 107.6715 108.3140 110.3188 111.9662 114.1981 115.3527 118.8792 
     1998     1999 
 121.5169 125.0435 </pre>
 
-<pre class = 'prettyprint lang-r'>apply(avgs,2,sd,na.rm=TRUE) # columns sds</pre>
+<pre class = 'prettyprint lang-r'>head(apply(avgs,1,mean, na.rm=TRUE)) # row means</pre>
+
+<pre >[1] 168.0  26.3  41.8   8.5  28.8 224.6</pre>
+
+<pre class = 'prettyprint lang-r'>apply(avgs,2,sd, na.rm=TRUE) # columns sds</pre>
 
 <pre >    1990     1991     1992     1993     1994     1995     1996     1997 
 110.6440 112.7687 114.4853 116.6744 120.0931 122.7119 126.1800 131.0858 
     1998     1999 
 137.3754 146.0755 </pre>
 
-<pre class = 'prettyprint lang-r'>apply(avgs,2,max,na.rm=TRUE) # column maxs</pre>
+<pre class = 'prettyprint lang-r'>apply(avgs,2,max, na.rm=TRUE) # column maxs</pre>
 
 <pre >1990 1991 1992 1993 1994 1995 1996 1997 1998 1999 
  585  594  606  618  630  642  655  668  681  695 </pre>
@@ -3429,6 +3455,10 @@ head(tb[, c(&quot;country&quot;, &quot;before_2000_avg&quot;)])</pre>
 </ul>
 
 <p>See more details here: <a href='http://nsaunders.wordpress.com/2010/08/20/a-brief-introduction-to-apply-in-r/' title=''>http://nsaunders.wordpress.com/2010/08/20/a-brief-introduction-to-apply-in-r/</a></p>
+
+<ul>
+<li>Commonly used, but we will discuss how to do all steps in <code>dplyr</code></li>
+</ul>
 
 </article></slide><slide class=""><hgroup><h2>Youth Tobacco Survey</h2></hgroup><article  id="youth-tobacco-survey">
 
@@ -3498,9 +3528,9 @@ head(yts)</pre>
 
 <pre class = 'prettyprint lang-r'>library(dplyr)
 sub_yts = filter(yts, 
-                   MeasureDesc == &quot;Smoking Status&quot;,
-                   Gender == &quot;Overall&quot;,
-                   Response == &quot;Current&quot;)
+                 MeasureDesc == &quot;Smoking Status&quot;,
+                 Gender == &quot;Overall&quot;,
+                 Response == &quot;Current&quot;)
 sub_yts = select(sub_yts, YEAR, LocationDesc, Data_Value)
 head(sub_yts, 4)</pre>
 
@@ -3536,11 +3566,29 @@ head(sub_yts, 4)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Perform Operations By Groups: dplyr</h2></hgroup><article  id="perform-operations-by-groups-dplyr">
 
-<p><code>group_by</code> allows you group the data in a more intuitive way than <code>tapply</code></p>
+<p><code>group_by</code> allows you group the data set by grouping variables:</p>
 
-<p>We will use <code>group_by</code> to group the data by line, then use <code>summarize</code> (or <code>summarise</code>) to get the mean percentage of current smokers:</p>
+<pre class = 'prettyprint lang-r'>sub_yts = group_by(sub_yts, YEAR)
+head(sub_yts)</pre>
 
-<pre class = 'prettyprint lang-r'>summarize(group_by(sub_yts, YEAR), year_avg = mean(Data_Value, na.rm = TRUE))</pre>
+<pre ># A tibble: 6 x 3
+# Groups:   YEAR [1]
+   YEAR LocationDesc Data_Value
+  &lt;int&gt;        &lt;chr&gt;      &lt;dbl&gt;
+1  2015      Arizona        3.2
+2  2015  Connecticut        0.8
+3  2015  Connecticut        5.6
+4  2015      Georgia       10.8
+5  2015       Hawaii        3.0
+6  2015       Hawaii        7.4</pre>
+
+<ul>
+<li>doesn’t change the data in any way, but how <strong>functions operate on it</strong></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Summarize the data</h2></hgroup><article  id="summarize-the-data">
+
+<pre class = 'prettyprint lang-r'>summarize(sub_yts, year_avg = mean(Data_Value, na.rm = TRUE))</pre>
 
 <pre ># A tibble: 17 x 2
     YEAR  year_avg
@@ -3563,7 +3611,29 @@ head(sub_yts, 4)</pre>
 16  2014  7.157143
 17  2015  6.579167</pre>
 
-</article></slide><slide class=""><hgroup><h2>Using the <code>pipe</code> (comes with <code>dplyr</code>):</h2></hgroup><article  id="using-the-pipe-comes-with-dplyr">
+</article></slide><slide class=""><hgroup><h2>Ungroup the data</h2></hgroup><article  id="ungroup-the-data">
+
+<p>You usually want to perform operations on groups and may want to redefine the groups. The <code>ungroup</code> function will allow you to clear the groups from the data:</p>
+
+<pre class = 'prettyprint lang-r'>sub_yts = ungroup(sub_yts)
+sub_yts</pre>
+
+<pre ># A tibble: 419 x 3
+    YEAR LocationDesc Data_Value
+   &lt;int&gt;        &lt;chr&gt;      &lt;dbl&gt;
+ 1  2015      Arizona        3.2
+ 2  2015  Connecticut        0.8
+ 3  2015  Connecticut        5.6
+ 4  2015      Georgia       10.8
+ 5  2015       Hawaii        3.0
+ 6  2015       Hawaii        7.4
+ 7  2015     Illinois        2.0
+ 8  2015     Illinois        9.9
+ 9  2015    Louisiana        5.2
+10  2015  Mississippi        4.7
+# ... with 409 more rows</pre>
+
+</article></slide><slide class=""><hgroup><h2>Using the <code>pipe</code></h2></hgroup><article  id="using-the-pipe">
 
 <p>Pipe <code>sub_yts</code> into <code>group_by</code>, then pipe that into <code>summarize</code>:</p>
 
@@ -3582,10 +3652,36 @@ head(yts_avgs)</pre>
 5  2003 13.17619
 6  2004 13.92692</pre>
 
+</article></slide><slide class=""><hgroup><h2><code>group_by</code> with <code>mutate</code> - just add data</h2></hgroup><article  id="group_by-with-mutate---just-add-data">
+
+<p>We can also use <code>mutate</code> to calculate the mean value for each year and add it as a column:</p>
+
+<pre class = 'prettyprint lang-r'>sub_yts %&gt;% 
+  group_by(YEAR) %&gt;% 
+  mutate(year_avg = mean(Data_Value, na.rm = TRUE)) %&gt;% 
+  arrange(LocationDesc, YEAR)</pre>
+
+<pre ># A tibble: 419 x 4
+# Groups:   YEAR [17]
+    YEAR LocationDesc Data_Value year_avg
+   &lt;int&gt;        &lt;chr&gt;      &lt;dbl&gt;    &lt;dbl&gt;
+ 1  2000      Alabama       19.1 19.87843
+ 2  2000      Alabama       30.2 19.87843
+ 3  2002      Alabama       15.6 16.80233
+ 4  2002      Alabama       24.9 16.80233
+ 5  2004      Alabama       24.0 13.92692
+ 6  2004      Alabama       13.1 13.92692
+ 7  2006      Alabama       26.8 14.11364
+ 8  2006      Alabama       13.0 14.11364
+ 9  2008      Alabama       22.1 12.15909
+10  2008      Alabama        8.7 12.15909
+# ... with 409 more rows</pre>
+
 </article></slide><slide class=""><hgroup><h2>Counting</h2></hgroup><article  id="counting">
 
 <p>Standard statistics can be calculated. There are other functions, such as <code>n()</code> count the number of observations, <code>tally()</code> to count as a wrapper:</p>
 
+<div class="left_col">
 <pre class = 'prettyprint lang-r'>sub_yts %&gt;% 
   group_by(YEAR) %&gt;% 
   summarize(n = n()) %&gt;% 
@@ -3599,8 +3695,9 @@ head(yts_avgs)</pre>
 3  2001    18
 4  2002    43
 5  2003    21
-6  2004    26</pre>
+6  2004    26</pre></div>
 
+<div class="right_col">
 <pre class = 'prettyprint lang-r'>sub_yts %&gt;% 
   group_by(YEAR) %&gt;% 
   tally() %&gt;% 
@@ -3614,11 +3711,24 @@ head(yts_avgs)</pre>
 3  2001    18
 4  2002    43
 5  2003    21
-6  2004    26</pre>
+6  2004    26</pre></div>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 3</h2></hgroup><article  id="lab-part-3">
 
 <p><a href='../index.html' title=''>Website</a></p>
+
+</article></slide><slide class=""><hgroup><h2>Data Summarization/Visualization</h2></hgroup><article  id="data-summarizationvisualization">
+
+<ul>
+<li>Basic summarization plots:
+
+<ul>
+<li><code>plot(x,y)</code>: scatterplot of x and y</li>
+<li><code>boxplot(y~x)</code>: boxplot of y against levels of x</li>
+<li><code>hist(x)</code>: histogram of x</li>
+<li><code>density(x)</code>: kernel density plot of x</li>
+</ul></li>
+</ul>
 
 </article></slide><slide class=""><hgroup><h2>Data Summarization/Visualization: ggplot2</h2></hgroup><article  id="data-summarizationvisualization-ggplot2">
 
@@ -3630,88 +3740,7 @@ head(yts_avgs)</pre>
     geom = &quot;auto&quot;, xlim = c(NA, NA), ylim = c(NA, NA), log = &quot;&quot;, 
     main = NULL, xlab = deparse(substitute(x)), ylab = deparse(substitute(y)), 
     asp = NA, stat = NULL, position = NULL) 
-{
-    if (!missing(stat)) 
-        warning(&quot;`stat` is deprecated&quot;, call. = FALSE)
-    if (!missing(position)) 
-        warning(&quot;`position` is deprecated&quot;, call. = FALSE)
-    if (!is.character(geom)) 
-        stop(&quot;`geom` must be a character vector&quot;, call. = FALSE)
-    argnames &lt;- names(as.list(match.call(expand.dots = FALSE)[-1]))
-    arguments &lt;- as.list(match.call()[-1])
-    env &lt;- parent.frame()
-    aesthetics &lt;- compact(arguments[.all_aesthetics])
-    aesthetics &lt;- aesthetics[!is.constant(aesthetics)]
-    aes_names &lt;- names(aesthetics)
-    aesthetics &lt;- rename_aes(aesthetics)
-    class(aesthetics) &lt;- &quot;uneval&quot;
-    if (missing(data)) {
-        data &lt;- data.frame()
-        facetvars &lt;- all.vars(facets)
-        facetvars &lt;- facetvars[facetvars != &quot;.&quot;]
-        names(facetvars) &lt;- facetvars
-        facetsdf &lt;- as.data.frame(mget(facetvars, envir = env))
-        if (nrow(facetsdf)) 
-            data &lt;- facetsdf
-    }
-    if (&quot;auto&quot; %in% geom) {
-        if (&quot;sample&quot; %in% aes_names) {
-            geom[geom == &quot;auto&quot;] &lt;- &quot;qq&quot;
-        }
-        else if (missing(y)) {
-            x &lt;- eval(aesthetics$x, data, env)
-            if (is.discrete(x)) {
-                geom[geom == &quot;auto&quot;] &lt;- &quot;bar&quot;
-            }
-            else {
-                geom[geom == &quot;auto&quot;] &lt;- &quot;histogram&quot;
-            }
-            if (missing(ylab)) 
-                ylab &lt;- &quot;count&quot;
-        }
-        else {
-            if (missing(x)) {
-                aesthetics$x &lt;- bquote(seq_along(.(y)), aesthetics)
-            }
-            geom[geom == &quot;auto&quot;] &lt;- &quot;point&quot;
-        }
-    }
-    p &lt;- ggplot(data, aesthetics, environment = env)
-    if (is.null(facets)) {
-        p &lt;- p + facet_null()
-    }
-    else if (is.formula(facets) &amp;&amp; length(facets) == 2) {
-        p &lt;- p + facet_wrap(facets)
-    }
-    else {
-        p &lt;- p + facet_grid(facets = deparse(facets), margins = margins)
-    }
-    if (!is.null(main)) 
-        p &lt;- p + ggtitle(main)
-    for (g in geom) {
-        params &lt;- arguments[setdiff(names(arguments), c(aes_names, 
-            argnames))]
-        params &lt;- lapply(params, eval, parent.frame())
-        p &lt;- p + do.call(paste0(&quot;geom_&quot;, g), params)
-    }
-    logv &lt;- function(var) var %in% strsplit(log, &quot;&quot;)[[1]]
-    if (logv(&quot;x&quot;)) 
-        p &lt;- p + scale_x_log10()
-    if (logv(&quot;y&quot;)) 
-        p &lt;- p + scale_y_log10()
-    if (!is.na(asp)) 
-        p &lt;- p + theme(aspect.ratio = asp)
-    if (!missing(xlab)) 
-        p &lt;- p + xlab(xlab)
-    if (!missing(ylab)) 
-        p &lt;- p + ylab(ylab)
-    if (!missing(xlim)) 
-        p &lt;- p + xlim(xlim)
-    if (!missing(ylim)) 
-        p &lt;- p + ylim(ylim)
-    p
-}
-&lt;environment: namespace:ggplot2&gt;</pre>
+NULL</pre>
 
 </article></slide><slide class=""><hgroup><h2>Basic Plots</h2></hgroup><article  id="basic-plots">
 
@@ -3808,19 +3837,6 @@ ggpairs(avgs)</pre>
 <p><a href='../index.html' title=''>Website</a></p>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Base R Plots - not covered</h2></hgroup><article  id="base-r-plots---not-covered">
-
-</article></slide><slide class=""><hgroup><h2>Data Summarization/Visualization</h2></hgroup><article  id="data-summarizationvisualization">
-
-<ul>
-<li>Basic summarization plots
-
-<ul>
-<li><code>plot(x,y)</code>: scatterplot of x and y</li>
-<li><code>boxplot(y~x)</code>: boxplot of y against levels of x</li>
-<li><code>hist(x)</code>: histogram of x</li>
-<li><code>density(x)</code>: kernel density plot of x</li>
-</ul></li>
-</ul>
 
 </article></slide><slide class=""><hgroup><h2>Basic Plots</h2></hgroup><article  id="basic-plots-1">
 
