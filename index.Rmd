@@ -172,8 +172,9 @@ Example projects can be found with the source code: [Rmd](ProjectExample/RMarkDo
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}
 df = matrix(
-  c("Replacing with ifelse in dplyr", "replace_if.R")
-, ncol = 2)
+  c("Replacing with ifelse in dplyr", "replace_if.R",
+  "Fixing problems in read_csv with col_types", "read_csv_specifications.R")
+, ncol = 2, byrow = TRUE)
 df = data.frame(df, stringsAsFactors = FALSE)
 colnames(df) = c("Code Example", "Script")
 df$Script = paste0("[", df$Script, "](live_code/", df$Script, ")")
