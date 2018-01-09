@@ -74,16 +74,14 @@ circ = read_csv(
   paste0("http://johnmuschelli.com/intro_to_r/",
          "data/Charm_City_Circulator_Ridership.csv"))
 head(circ, 2)
+class(circ$date)
 ```
 
 ## Creating a Date class from a character date
 
 ```{r, message = FALSE}
-library(tidyverse)
 library(lubridate) # great for dates!
 ```
-
-## Creating a Date class from a character date
 
 ```{r, message= FALSE}
 sum(is.na(circ$date))
