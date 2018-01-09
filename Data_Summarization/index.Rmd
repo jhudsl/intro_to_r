@@ -320,6 +320,12 @@ qplot(x = Data_Value, data = sub_yts, geom = "density")
 ## Boxplots
 
 ```{r}
+qplot(x = LocationDesc, y = Data_Value, data = sub_yts, geom = "boxplot") 
+```
+
+## Boxplots
+
+```{r}
 qplot(x = LocationDesc, y = Data_Value, 
       data = sub_yts, geom = "boxplot") + coord_flip()
 ```
