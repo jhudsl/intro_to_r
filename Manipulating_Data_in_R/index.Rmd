@@ -8,14 +8,19 @@ output:
 ---
 
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, include=FALSE}
 library(knitr)
 library(readr)
 opts_chunk$set(comment = "")
+library(tidyverse)
 ```
 
 
 ## Reshaping Data 
+
+```{r, echo = FALSE, message=FALSE}
+library(tidyverse)
+```
 
 In this module, we will show you how to:
 
@@ -333,7 +338,7 @@ head(wide)
 ```{r}
 long = long %>% filter(!is.na(number) & number > 0)
 first_and_last = long %>% arrange(date) %>% # arrange by date
-  filter(type %in% "Boardings") %>% # keep boardings only
+  filter(type == "Boardings") %>% # keep boardings only
   group_by(line) %>% # group by line
   slice( c(1, n())) # select ("slice") first and last (n() command) lines
 first_and_last %>%  head(4)
@@ -345,7 +350,7 @@ first_and_last %>%  head(4)
 [Website](../index.html)
 
 
-## Merging in base R (not covered)
+# Merging in base R (not covered)
 
 ## Merging 
 
