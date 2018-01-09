@@ -112,9 +112,10 @@ qplot(x = YEAR, y = year_avg, data = yts_avgs, geom = "line")
 qplot(x = Data_Value, data = sub_yts, geom = "density")
 
 ## ------------------------------------------------------------------------
-qplot(x = LocationDesc, y = Data_Value, data = sub_yts, geom = "boxplot")
+qplot(x = LocationDesc, y = Data_Value, 
+      data = sub_yts, geom = "boxplot") + coord_flip()
 
-## ----ggally_pairs--------------------------------------------------------
+## ----ggally_pairs, warning=FALSE-----------------------------------------
 library(GGally)
 ggpairs(avgs)
 

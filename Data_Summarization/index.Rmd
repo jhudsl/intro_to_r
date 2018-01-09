@@ -320,7 +320,8 @@ qplot(x = Data_Value, data = sub_yts, geom = "density")
 ## Boxplots
 
 ```{r}
-qplot(x = LocationDesc, y = Data_Value, data = sub_yts, geom = "boxplot")
+qplot(x = LocationDesc, y = Data_Value, 
+      data = sub_yts, geom = "boxplot") + coord_flip()
 ```
 
 ## Data Summarization for data.frames
@@ -331,7 +332,7 @@ qplot(x = LocationDesc, y = Data_Value, data = sub_yts, geom = "boxplot")
 
 ## Matrix plot
 
-```{r ggally_pairs}
+```{r ggally_pairs, warning=FALSE}
 library(GGally)
 ggpairs(avgs)
 ```
