@@ -262,7 +262,7 @@ q = qplot(y = AnnualSalary, x = HireDate,
       data = sal, geom = "point")
 q + geom_smooth(colour = "red", se = FALSE)
 q + geom_smooth(colour = "red", se = FALSE, method = "loess")
-q + geom_smooth(colour = "red", se = FALSE, method = "loess", span = 2/3, degree = 1)
+q + geom_smooth(colour = "red", se = FALSE, method = "loess", span = 2/3)
 
 plot(AnnualSalary ~ HireDate, data = sal)
 scatter.smooth(sal$AnnualSalary, x = sal$HireDate, col = "red")
