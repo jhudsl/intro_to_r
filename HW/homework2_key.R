@@ -2,6 +2,8 @@
 ## Homework 2
 ## Due Date: Day 3
 
+library(tidyverse)
+library(broom)
 # Instructions: 
 # 1)	Get the dataset: http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv
 # 2)	Read the "dictionary": http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt
@@ -15,7 +17,12 @@
 # Questions
 # 1)	Read in the dataset itself, naming the R object "cars" into R. Use read_csv
 # Read in the dictionary and name it key.  Use read_tsv
-cars = read_csv("http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv")
+cars = read_csv(
+  "http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv",
+  col_types = cols(
+    VehBCost = col_double()
+  )
+  )
 key = read_tsv("http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt")
 
 

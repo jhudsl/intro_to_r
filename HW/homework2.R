@@ -3,10 +3,12 @@
 ## Due Date: Day 3
 
 # Instructions: 
+library(tidyverse)
 library(readr)
 library(dplyr)
 library(ggplot2)
 library(tidyr)
+
 # This is a dataset from the "Kaggle" website, which hosts competitions for prediction and machine learning. 
 # More details on this dataset are here: 
 # http://www.kaggle.com/c/DontGetKicked/details/Background
