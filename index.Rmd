@@ -173,7 +173,8 @@ Example projects can be found with the source code: [Rmd](ProjectExample/RMarkDo
 ```{r, echo = FALSE, message = FALSE, results='asis'}
 df = matrix(
   c("Replacing with ifelse in dplyr", "replace_if.R",
-  "Fixing problems in read_csv with col_types", "read_csv_specifications.R")
+  "Relevant to hw2: Fixing problems in read_csv with col_types", "read_csv_specifications.R",
+  "Multiple Summarization (mean/sd) and summarize with quantile", "mean_sd_number_of_non_missing.R")
 , ncol = 2, byrow = TRUE)
 df = data.frame(df, stringsAsFactors = FALSE)
 colnames(df) = c("Code Example", "Script")
@@ -184,6 +185,21 @@ knitr::kable(df, format = "html") %>%
 
 
 ### Online Videos of Lectures
+
+
+#### From Winter Institute 2018
+
+```{r, echo = FALSE, message = FALSE, results='asis'}
+mat = matrix(c(
+  "Data Summarization", "https://youtu.be/l-r4RBhNDDo"
+  ), ncol = 2, byrow = TRUE)
+mat = data.frame(mat, stringsAsFactors = FALSE)
+colnames(mat) = c("Day", "Link to Video")
+knitr::kable(mat, format = "html") %>% 
+  kable_styling() 
+```
+
+
 
 #### From Summer Institute 1 2017
 
