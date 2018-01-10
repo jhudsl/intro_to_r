@@ -1,7 +1,11 @@
-## ---- echo = FALSE-------------------------------------------------------
+## ---- echo = FALSE, include=FALSE----------------------------------------
 library(knitr)
 library(readr)
 opts_chunk$set(comment = "")
+library(tidyverse)
+
+## ---- echo = FALSE, message=FALSE----------------------------------------
+library(tidyverse)
 
 ## ---- echo = FALSE-------------------------------------------------------
 ex_wide = data.frame(id = 1:2,
@@ -22,13 +26,12 @@ ex_long
 ## ---- message = FALSE----------------------------------------------------
 circ = read_csv(
   paste0("http://johnmuschelli.com/intro_to_r/",
-         "data/Charm_City_Circulator_Ridership.csv")
-)
+         "data/Charm_City_Circulator_Ridership.csv"))
 head(circ, 2)
+class(circ$date)
 
 ## ---- message = FALSE----------------------------------------------------
 library(lubridate) # great for dates!
-library(dplyr) # mutate/summarise functions
 
 ## ---- message= FALSE-----------------------------------------------------
 sum(is.na(circ$date))
@@ -39,7 +42,6 @@ head(circ$date, 3)
 class(circ$date)
 
 ## ------------------------------------------------------------------------
-library(tidyr)
 long = gather(circ, key = "var", value = "number", 
               -day, -date, -daily)
 head(long, 4)
@@ -54,7 +56,6 @@ head(long, 4)
 table(long$var)
 
 ## ------------------------------------------------------------------------
-library(stringr)
 long = long %>% mutate(
   var = var %>% str_replace("Board", ".Board") %>% 
     str_replace("Alight", ".Alight") %>% 
@@ -131,16 +132,6 @@ tail(fj)
 duplicated(1:5)
 duplicated(c(1:5, 1))
 
-## ----merging2------------------------------------------------------------
-merged.data <- merge(base, visits, by = "id")
-merged.data[1:5,]
-dim(merged.data)
-
-## ----mergeall------------------------------------------------------------
-all.data <- merge(base, visits, by = "id", all = TRUE)
-tail(all.data)
-dim(all.data)
-
 ## ------------------------------------------------------------------------
 head(wide, 3)
 not_namat = !is.na(select(wide, Alightings, Average, Boardings))
@@ -154,8 +145,18 @@ head(wide)
 ## ------------------------------------------------------------------------
 long = long %>% filter(!is.na(number) & number > 0)
 first_and_last = long %>% arrange(date) %>% # arrange by date
-  filter(type %in% "Boardings") %>% # keep boardings only
+  filter(type == "Boardings") %>% # keep boardings only
   group_by(line) %>% # group by line
   slice( c(1, n())) # select ("slice") first and last (n() command) lines
 first_and_last %>%  head(4)
+
+## ----merging2------------------------------------------------------------
+merged.data <- merge(base, visits, by = "id")
+merged.data[1:5,]
+dim(merged.data)
+
+## ----mergeall------------------------------------------------------------
+all.data <- merge(base, visits, by = "id", all = TRUE)
+tail(all.data)
+dim(all.data)
 

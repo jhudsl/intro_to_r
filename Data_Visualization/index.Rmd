@@ -7,7 +7,7 @@ output:
     widescreen: yes
 ---
 
-```{r knit-setup, echo=FALSE}
+```{r knit-setup, echo=FALSE, include = FALSE}
 library(knitr)
 opts_chunk$set(echo = TRUE, 
                message = FALSE, 
@@ -15,11 +15,9 @@ opts_chunk$set(echo = TRUE,
                fig.height = 4,
                fig.width = 7, 
                comment = "")
+library(tidyverse)
 ```
 
-## Basic Plots
-
-We covered some basic plots previously, but we are going to expand the ability to customize these basic graphics first. 
 
 ```{r seed, comment="",echo=FALSE, }
 set.seed(3) 
@@ -41,80 +39,32 @@ colnames(death)[1] = "country"
 death[1:2, 1:5]
 ```
 
+# Data are not Tidy!
 
-## Basic Plots
-
-```{r plot1, comment="",  fig.align='center',cache = FALSE}
-library(dplyr)
-sweden = death %>% 
-  filter(country == "Sweden") %>% 
-  select(-country)
-year = as.numeric(colnames(sweden))
-plot(as.numeric(sweden) ~ year)
-```
-
-
-
-## Base Graphics parameters
-
-Set within most plots in the base 'graphics' package:
-
-* pch = point shape, http://voteview.com/symbols_pch.htm
-* cex = size/scale
-* xlab, ylab = labels for x and y axes
-* main = plot title
-* lwd = line density
-* col = color
-* cex.axis, cex.lab, cex.main = scaling/sizing for axes marks, axes labels, and title
-
-
-## Basic Plots
-
-The y-axis label isn't informative, and we can change the label of the y-axis using `ylab` (`xlab` for x), and `main` for the main title/label.
-
-```{r plotEx2, comment="",  fig.align='center',cache = FALSE}
-plot(as.numeric(sweden) ~ year,
-      ylab = "# of deaths per family", main = "Sweden", type = "l")
-```
-
-
-## Basic Plots
-
-Let's drop any of the projections and keep it to year 2012, and change the points to blue. 
-```{r plotEx3, fig.align='center', cache = FALSE}
-plot(as.numeric(sweden) ~ year,
-      ylab = "# of deaths per family", main = "Sweden",
-     xlim = c(1760,2012), pch = 19, cex=1.2,col="blue")
-```
-
-
-## Basic Plots
-You can also use the `subset` argument in the `plot()` function, only when using formula notation:
-
-```{r plotEx_sub, fig.align='center', cache = FALSE}
-plot(as.numeric(sweden) ~ year,
-      ylab = "# of deaths per family", main = "Sweden",
-     subset = year < 2015, pch = 19, cex=1.2,col="blue")
-```
-
-## Reshape the data
+## Tidying data: reshape the data
 
 After reshaping the data to long, we can plot the data with one `data.frame`:
 
 ```{r makelong_swede, fig.align='center', cache = FALSE}
-library(tidyr)
+library(tidyverse)
 long = gather(death, key = year, value = deaths, -country)
 long = long %>% filter(!is.na(deaths))
 head(long)
 class(long$year)
-long$year = as.numeric(long$year)
+long = long %>% mutate(year = as.numeric(year))
 ```
 
 ## Plot the long data
 
 ```{r plot_long_swede, fig.align='center'}
 swede_long = long %>% filter(country == "Sweden")
-plot(deaths ~ year, data = swede_long)
+qplot(x = year, y = deaths, data = swede_long)
+```
+
+## Plot the long data only up to 2012
+
+```{r plot_long_swede_xlim, fig.align='center', warning=FALSE}
+qplot(x = year, y = deaths, data = swede_long, xlim = c(1760,2012))
 ```
 
 ## ggplot2
@@ -157,6 +107,17 @@ Common aesthetics:
 
 If you set these in `aes`, you set them to a variable.  If you want to set them for all values, set them in a `geom`.
 
+
+## ggplot2
+
+You can do this most of the time using `qplot`, but `qplot` will assume a scatterplot if `x` and `y` are specified and histogram if `x` is specified:
+
+```{r gen_q, comment="",  fig.align="center", cache=FALSE}
+q = qplot(data = swede_long, x = year, y = deaths)
+q
+```
+
+`g` is an object, which you can adapt into multiple plots!
 
 ## ggplot2: what's a `geom`?
 
@@ -206,14 +167,24 @@ g + geom_line() + geom_smooth()
 
 ## ggplot2: grouping - using colour
 
-If we want a plot with new data, call `ggplot` again.  Group plots by `country` using `colour`:
+If we want a plot with new data, call `ggplot` again.  Group plots by `country` using `colour` (piping in the data):
 
 ```{r geom_all}
-sub = long %>% filter(country %in% 
-                        c("United States", "United Kingdom", "Sweden",
-                          "Afghanistan", "Rwanda"))
-g = ggplot(sub, aes(x = year, y = deaths, colour = country))
+sub = long %>% filter(country %in% c("United States", "United Kingdom", 
+    "Sweden", "Afghanistan", "Rwanda"))
+g = sub %>% ggplot(aes(x = year, y = deaths, colour = country))
 g + geom_line()
+```
+
+
+## Coloring manually
+
+There are many `scale_AESTHETICS_*` functions and `scale_AESTHETICS_manual` allows to directly specify the colors:
+
+```{r geom_color}
+g + geom_line() + scale_colour_manual(values = 
+    c("United States" = "blue", "United Kingdom" = "green", 
+      "Sweden" = "black", "Afghanistan" = "red", "Rwanda" = "orange"))
 ```
 
 ## ggplot2: grouping - using colour
@@ -240,6 +211,12 @@ ggplot(long, aes(x = year, y = deaths)) + geom_boxplot()
 For different plotting per year - must make it a factor - but x-axis is wrong!
 ```{r geom_box_fac}
 ggplot(long, aes(x = factor(year), y = deaths)) + geom_boxplot()
+```
+
+## ggplot2: boxplot
+
+```{r geom_box_grouped}
+ggplot(long, aes(x = year, y = deaths, group = year)) + geom_boxplot()
 ```
 
 ## ggplot2: boxplot with points
@@ -396,6 +373,12 @@ We can do histograms again using `hist`.  Let's do histograms of death rates ove
 hist(sub$deaths, breaks = 200)
 ```
 
+## Histograms again
+ 
+```{r qhist_death, comment="", fig.align='center', cache=FALSE}
+qplot(x = deaths, data = sub, bins = 200)
+```
+
 ## Multiple Histograms
 
 ```{r ghist, comment="", fig.align='center', cache = FALSE}
@@ -500,7 +483,7 @@ q2 + scale_fill_brewer( type = "div", palette =  "RdBu" )
 ## Bar Plots
 * Stacked Bar Charts are sometimes wanted to show distributions of data
 
-```{r barplot2, fig.align='center', cache = FALSE}
+```{r barplot2, fig.align='center', cache = FALSE, warn = FALSE}
 ## Stacked Bar Charts
 cars = read_csv(
   "http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv")
@@ -666,9 +649,9 @@ ggplot(aes(x = Time, y = weight, colour = Chick),
 Let's try this out on the childhood mortality data used above. However, let's do some manipulation first, by using `gather` on the data to convert to long. 
 
 ```{r}
-library(tidyr)
+library(tidyverse)
 long = death
-long$state = rownames(long)
+long = rownames_to_column(long, var = "state")
 long = long %>% gather(year, deaths, -state)
 head(long, 2)
 ```
@@ -712,9 +695,72 @@ Useful links:
 
 [Website](../index.html)
 
+
+
+
+
+
+
+
+
 # Base Graphics - explore on your own
 
 
+
+## Basic Plots
+
+```{r plot1, comment="",  fig.align='center',cache = FALSE}
+library(dplyr)
+sweden = death %>% 
+  filter(country == "Sweden") %>% 
+  select(-country)
+year = as.numeric(colnames(sweden))
+plot(as.numeric(sweden) ~ year)
+```
+
+
+
+## Base Graphics parameters
+
+Set within most plots in the base 'graphics' package:
+
+* pch = point shape, http://voteview.com/symbols_pch.htm
+* cex = size/scale
+* xlab, ylab = labels for x and y axes
+* main = plot title
+* lwd = line density
+* col = color
+* cex.axis, cex.lab, cex.main = scaling/sizing for axes marks, axes labels, and title
+
+
+## Basic Plots
+
+The y-axis label isn't informative, and we can change the label of the y-axis using `ylab` (`xlab` for x), and `main` for the main title/label.
+
+```{r plotEx2, comment="",  fig.align='center',cache = FALSE}
+plot(as.numeric(sweden) ~ year,
+      ylab = "# of deaths per family", main = "Sweden", type = "l")
+```
+
+
+## Basic Plots
+
+Let's drop any of the projections and keep it to year 2012, and change the points to blue. 
+```{r plotEx3, fig.align='center', cache = FALSE}
+plot(as.numeric(sweden) ~ year,
+      ylab = "# of deaths per family", main = "Sweden",
+     xlim = c(1760,2012), pch = 19, cex=1.2,col="blue")
+```
+
+
+## Basic Plots
+You can also use the `subset` argument in the `plot()` function, only when using formula notation:
+
+```{r plotEx_sub, fig.align='center', cache = FALSE}
+plot(as.numeric(sweden) ~ year,
+      ylab = "# of deaths per family", main = "Sweden",
+     subset = year < 2015, pch = 19, cex=1.2,col="blue")
+```
 
 ## Bar Plots
 

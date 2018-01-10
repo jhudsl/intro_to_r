@@ -8,14 +8,19 @@ output:
 ---
 
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, include=FALSE}
 library(knitr)
 library(readr)
 opts_chunk$set(comment = "")
+library(tidyverse)
 ```
 
 
 ## Reshaping Data 
+
+```{r, echo = FALSE, message=FALSE}
+library(tidyverse)
+```
 
 In this module, we will show you how to:
 
@@ -31,8 +36,6 @@ We will show you how to do each operation in base R then show you how to use the
 See the "Data Wrangling Cheat Sheet using `dplyr` and `tidyr`":
 
 * https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf
-
-
 
 ## What is wide/long data?
 
@@ -74,19 +77,16 @@ http://johnmuschelli.com/intro_to_r/data/Charm_City_Circulator_Ridership.csv
 ```{r, message = FALSE}
 circ = read_csv(
   paste0("http://johnmuschelli.com/intro_to_r/",
-         "data/Charm_City_Circulator_Ridership.csv")
-)
+         "data/Charm_City_Circulator_Ridership.csv"))
 head(circ, 2)
+class(circ$date)
 ```
 
 ## Creating a Date class from a character date
 
 ```{r, message = FALSE}
 library(lubridate) # great for dates!
-library(dplyr) # mutate/summarise functions
 ```
-
-## Creating a Date class from a character date
 
 ```{r, message= FALSE}
 sum(is.na(circ$date))
@@ -118,7 +118,6 @@ The `reshape` command exists.  It is a **confusing** function.  Don't use it.
 We want the column names into "`var`" variable in the output dataset and the value in "`number`" variable. We then describe which columns we want to "gather:" 
 
 ```{r}
-library(tidyr)
 long = gather(circ, key = "var", value = "number", 
               -day, -date, -daily)
 head(long, 4)
@@ -153,7 +152,6 @@ table(long$var)
 We will use `str_replace` from `stringr` to put periods in the names (periods are **not** special when in a replacement)
 
 ```{r}
-library(stringr)
 long = long %>% mutate(
   var = var %>% str_replace("Board", ".Board") %>% 
     str_replace("Alight", ".Alight") %>% 
@@ -297,6 +295,7 @@ tail(fj)
 duplicated(1:5)
 duplicated(c(1:5, 1))
 ```
+
 ## Lab Part 4
 
 [Website](../index.html)
@@ -309,23 +308,6 @@ duplicated(c(1:5, 1))
     * `rbind` is the equivalent of "appending" in Stata or "setting" in SAS
     * `cbind` allows you to add columns in addition to the previous ways
 * `t()` can transpose data but not 
-
-## Merging 
-
-```{r merging2}
-merged.data <- merge(base, visits, by = "id")
-merged.data[1:5,]
-dim(merged.data)
-```
-
-
-## Merging 
-
-```{r mergeall}
-all.data <- merge(base, visits, by = "id", all = TRUE)
-tail(all.data)
-dim(all.data)
-```
 
 # More Data Manipulation
 
@@ -356,7 +338,7 @@ head(wide)
 ```{r}
 long = long %>% filter(!is.na(number) & number > 0)
 first_and_last = long %>% arrange(date) %>% # arrange by date
-  filter(type %in% "Boardings") %>% # keep boardings only
+  filter(type == "Boardings") %>% # keep boardings only
   group_by(line) %>% # group by line
   slice( c(1, n())) # select ("slice") first and last (n() command) lines
 first_and_last %>%  head(4)
@@ -368,8 +350,24 @@ first_and_last %>%  head(4)
 [Website](../index.html)
 
 
+# Merging in base R (not covered)
+
+## Merging 
+
+```{r merging2}
+merged.data <- merge(base, visits, by = "id")
+merged.data[1:5,]
+dim(merged.data)
+```
 
 
+## Merging 
+
+```{r mergeall}
+all.data <- merge(base, visits, by = "id", all = TRUE)
+tail(all.data)
+dim(all.data)
+```
 
 <!-- # Bonus slides - explore after visualization!  -->
 

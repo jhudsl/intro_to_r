@@ -1,4 +1,4 @@
-## ----knit-setup, echo=FALSE----------------------------------------------
+## ----knit-setup, echo=FALSE, include = FALSE-----------------------------
 library(knitr)
 opts_chunk$set(echo = TRUE, 
                message = FALSE, 
@@ -6,6 +6,7 @@ opts_chunk$set(echo = TRUE,
                fig.height = 4,
                fig.width = 7, 
                comment = "")
+library(tidyverse)
 
 ## ----seed, comment="",echo=FALSE-----------------------------------------
 set.seed(3) 
@@ -20,39 +21,20 @@ death[1:2, 1:5]
 colnames(death)[1] = "country"
 death[1:2, 1:5]
 
-## ----plot1, comment="",  fig.align='center',cache = FALSE----------------
-library(dplyr)
-sweden = death %>% 
-  filter(country == "Sweden") %>% 
-  select(-country)
-year = as.numeric(colnames(sweden))
-plot(as.numeric(sweden) ~ year)
-
-## ----plotEx2, comment="",  fig.align='center',cache = FALSE--------------
-plot(as.numeric(sweden) ~ year,
-      ylab = "# of deaths per family", main = "Sweden", type = "l")
-
-## ----plotEx3, fig.align='center', cache = FALSE--------------------------
-plot(as.numeric(sweden) ~ year,
-      ylab = "# of deaths per family", main = "Sweden",
-     xlim = c(1760,2012), pch = 19, cex=1.2,col="blue")
-
-## ----plotEx_sub, fig.align='center', cache = FALSE-----------------------
-plot(as.numeric(sweden) ~ year,
-      ylab = "# of deaths per family", main = "Sweden",
-     subset = year < 2015, pch = 19, cex=1.2,col="blue")
-
 ## ----makelong_swede, fig.align='center', cache = FALSE-------------------
-library(tidyr)
+library(tidyverse)
 long = gather(death, key = year, value = deaths, -country)
 long = long %>% filter(!is.na(deaths))
 head(long)
 class(long$year)
-long$year = as.numeric(long$year)
+long = long %>% mutate(year = as.numeric(year))
 
 ## ----plot_long_swede, fig.align='center'---------------------------------
 swede_long = long %>% filter(country == "Sweden")
-plot(deaths ~ year, data = swede_long)
+qplot(x = year, y = deaths, data = swede_long)
+
+## ----plot_long_swede_xlim, fig.align='center', warning=FALSE-------------
+qplot(x = year, y = deaths, data = swede_long, xlim = c(1760,2012))
 
 ## ------------------------------------------------------------------------
 library(ggplot2)
@@ -60,6 +42,10 @@ qplot(x = year, y = deaths, data = swede_long)
 
 ## ----generic_gg, comment="",  fig.align='center', cache=FALSE------------
 g = ggplot(data = swede_long, aes(x = year, y = deaths))
+
+## ----gen_q, comment="",  fig.align="center", cache=FALSE-----------------
+q = qplot(data = swede_long, x = year, y = deaths)
+q
 
 ## ----gprint_point--------------------------------------------------------
 gpoints = g + geom_point(); print(gpoints) # one line for slides
@@ -74,11 +60,15 @@ g + geom_line() + geom_point()
 g + geom_line() + geom_smooth()
 
 ## ----geom_all------------------------------------------------------------
-sub = long %>% filter(country %in% 
-                        c("United States", "United Kingdom", "Sweden",
-                          "Afghanistan", "Rwanda"))
-g = ggplot(sub, aes(x = year, y = deaths, colour = country))
+sub = long %>% filter(country %in% c("United States", "United Kingdom", 
+    "Sweden", "Afghanistan", "Rwanda"))
+g = sub %>% ggplot(aes(x = year, y = deaths, colour = country))
 g + geom_line()
+
+## ----geom_color----------------------------------------------------------
+g + geom_line() + scale_colour_manual(values = 
+    c("United States" = "blue", "United Kingdom" = "green", 
+      "Sweden" = "black", "Afghanistan" = "red", "Rwanda" = "orange"))
 
 ## ----geom_noguide--------------------------------------------------------
 g + geom_line() + guides(colour = FALSE)
@@ -88,6 +78,9 @@ ggplot(long, aes(x = year, y = deaths)) + geom_boxplot()
 
 ## ----geom_box_fac--------------------------------------------------------
 ggplot(long, aes(x = factor(year), y = deaths)) + geom_boxplot()
+
+## ----geom_box_grouped----------------------------------------------------
+ggplot(long, aes(x = year, y = deaths, group = year)) + geom_boxplot()
 
 ## ----geom_box_jitter-----------------------------------------------------
 sub_year = long %>% filter( year > 1995 & year <= 2000)
@@ -154,6 +147,9 @@ q + transparent_legend
 ## ----hist_death, comment="", fig.align='center', cache=FALSE-------------
 hist(sub$deaths, breaks = 200)
 
+## ----qhist_death, comment="", fig.align='center', cache=FALSE------------
+qplot(x = deaths, data = sub, bins = 200)
+
 ## ----ghist, comment="", fig.align='center', cache = FALSE----------------
 qplot(x = deaths, fill = factor(country),
       data = sub, geom = c("histogram"))
@@ -196,7 +192,7 @@ q2 = qplot(x = year, y = country, fill = cat, data = sub, geom = "tile") +
 ## ----geom_tile_rescale_brewer--------------------------------------------
 q2 + scale_fill_brewer( type = "div", palette =  "RdBu" )
 
-## ----barplot2, fig.align='center', cache = FALSE-------------------------
+## ----barplot2, fig.align='center', cache = FALSE, warn = FALSE-----------
 ## Stacked Bar Charts
 cars = read_csv(
   "http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv")
@@ -286,9 +282,9 @@ ggplot(aes(x = Time, y = weight, colour = Chick),
     facet_wrap(facets = ~Diet) + guides(colour = FALSE)
 
 ## ------------------------------------------------------------------------
-library(tidyr)
+library(tidyverse)
 long = death
-long$state = rownames(long)
+long = rownames_to_column(long, var = "state")
 long = long %>% gather(year, deaths, -state)
 head(long, 2)
 
@@ -305,6 +301,28 @@ qplot(x = year, y = deaths, colour = state,
 ## ----geom_tile-----------------------------------------------------------
 qplot(x = year, y = state, colour = deaths, 
     data = long, geom = "tile") + guides(colour = FALSE)
+
+## ----plot1, comment="",  fig.align='center',cache = FALSE----------------
+library(dplyr)
+sweden = death %>% 
+  filter(country == "Sweden") %>% 
+  select(-country)
+year = as.numeric(colnames(sweden))
+plot(as.numeric(sweden) ~ year)
+
+## ----plotEx2, comment="",  fig.align='center',cache = FALSE--------------
+plot(as.numeric(sweden) ~ year,
+      ylab = "# of deaths per family", main = "Sweden", type = "l")
+
+## ----plotEx3, fig.align='center', cache = FALSE--------------------------
+plot(as.numeric(sweden) ~ year,
+      ylab = "# of deaths per family", main = "Sweden",
+     xlim = c(1760,2012), pch = 19, cex=1.2,col="blue")
+
+## ----plotEx_sub, fig.align='center', cache = FALSE-----------------------
+plot(as.numeric(sweden) ~ year,
+      ylab = "# of deaths per family", main = "Sweden",
+     subset = year < 2015, pch = 19, cex=1.2,col="blue")
 
 ## ----barplot3, fig.align='center', cache = FALSE-------------------------
 # Stacked Bar Plot with Colors and Legend    

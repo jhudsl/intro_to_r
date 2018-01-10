@@ -2,6 +2,7 @@
 # Data Cleaning and Plotting
 ##############
 rm( list = ls() ) # clear the workspace
+library(tidyverse)
 library(stringr)
 library(dplyr)
 library(readr)
@@ -192,6 +193,9 @@ ward_table = tax %>%
 tax = tax %>% 
   mutate(ResCode = str_trim(ResCode))
 
+qplot(y = log10(CityTax+1), x = ResCode, data = tax, geom = "boxplot")
+qplot(y = CityTax, x = ResCode, data = tax, geom = "boxplot")
+
 boxplot(log10(CityTax+1) ~ ResCode, data = tax)
 boxplot(CityTax ~ ResCode, data = tax)
 
@@ -208,6 +212,9 @@ dim(pres)
 
 #	b) Describe the distribution of property taxes on these residences.  Use 
 # hist with certain breaks or plot(density(variable))
+qplot(y = log10(CityTax+1),data = pres, geom = "histogram")
+qplot(y = CityTax, data = pres, geom = "density")
+
 hist(log2(pres$CityTax+1))
 hist(pres$CityTax)
 pres$CityTax
@@ -241,6 +248,8 @@ sal %>%
 # $ is "special" and you need fixed() around it.
 sal = sal %>% mutate(AnnualSalary = str_replace(AnnualSalary, fixed("$"), ""))
 sal = sal %>% mutate(AnnualSalary = as.numeric(AnnualSalary))
+qplot(x = AnnualSalary, data = sal, geom = "histogram", bins = 20)
+
 hist(sal$AnnualSalary, breaks = 20)
 
 # 14. Convert HireDate to the `Date` class - plot Annual Salary vs Hire Date.
@@ -248,6 +257,13 @@ hist(sal$AnnualSalary, breaks = 20)
 # x, y notation in scatter.smooth
 # Use lubridate package.  Is it mdy(date) or dmy(date) for this data - look at HireDate
 sal = sal %>% mutate(HireDate = lubridate::mdy(HireDate))
+
+q = qplot(y = AnnualSalary, x = HireDate, 
+      data = sal, geom = "point")
+q + geom_smooth(colour = "red", se = FALSE)
+q + geom_smooth(colour = "red", se = FALSE, method = "loess")
+q + geom_smooth(colour = "red", se = FALSE, method = "loess", span = 2/3)
+
 plot(AnnualSalary ~ HireDate, data = sal)
 scatter.smooth(sal$AnnualSalary, x = sal$HireDate, col = "red")
 
