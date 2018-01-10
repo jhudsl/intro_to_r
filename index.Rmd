@@ -13,10 +13,6 @@ library(pander)
 library(kableExtra)
 ```
 
-[PDF](http://johnmuschelli.com/intro_to_r/black_and_white_theme.pdf)
-
-[Shiny and Knitr Docs](http://johnmuschelli.com/intro_to_r/shiny_knitr.zip)
-
 
 <a href="http://www.jhsph.edu/"><img alt = "JHSPH" align="right" src="http://johnmuschelli.com/intro_to_r/bloomberg.logo.small.horizontal.blue.png" width=400 height=240/></a>
 
@@ -182,6 +178,12 @@ df$Script = paste0("[", df$Script, "](live_code/", df$Script, ")")
 knitr::kable(df, format = "html") %>% 
   kable_styling() 
 ```
+
+[PDF of black and white theme](http://johnmuschelli.com/intro_to_r/black_and_white_theme.pdf)
+
+[Shiny and Knitr Docs](http://johnmuschelli.com/intro_to_r/shiny_knitr.zip)
+
+
 
 
 ### Online Videos of Lectures
