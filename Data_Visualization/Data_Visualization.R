@@ -60,9 +60,8 @@ g + geom_line() + geom_point()
 g + geom_line() + geom_smooth()
 
 ## ----geom_all------------------------------------------------------------
-sub = long %>% filter(country %in% 
-                        c("United States", "United Kingdom", "Sweden",
-                          "Afghanistan", "Rwanda"))
+sub = long %>% filter(country %in% c("United States", "United Kingdom", 
+    "Sweden", "Afghanistan", "Rwanda"))
 g = sub %>% ggplot(aes(x = year, y = deaths, colour = country))
 g + geom_line()
 
@@ -79,6 +78,9 @@ ggplot(long, aes(x = year, y = deaths)) + geom_boxplot()
 
 ## ----geom_box_fac--------------------------------------------------------
 ggplot(long, aes(x = factor(year), y = deaths)) + geom_boxplot()
+
+## ----geom_box_grouped----------------------------------------------------
+ggplot(long, aes(x = year, y = deaths, group = year)) + geom_boxplot()
 
 ## ----geom_box_jitter-----------------------------------------------------
 sub_year = long %>% filter( year > 1995 & year <= 2000)

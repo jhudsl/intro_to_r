@@ -170,9 +170,8 @@ g + geom_line() + geom_smooth()
 If we want a plot with new data, call `ggplot` again.  Group plots by `country` using `colour` (piping in the data):
 
 ```{r geom_all}
-sub = long %>% filter(country %in% 
-                        c("United States", "United Kingdom", "Sweden",
-                          "Afghanistan", "Rwanda"))
+sub = long %>% filter(country %in% c("United States", "United Kingdom", 
+    "Sweden", "Afghanistan", "Rwanda"))
 g = sub %>% ggplot(aes(x = year, y = deaths, colour = country))
 g + geom_line()
 ```
@@ -212,6 +211,12 @@ ggplot(long, aes(x = year, y = deaths)) + geom_boxplot()
 For different plotting per year - must make it a factor - but x-axis is wrong!
 ```{r geom_box_fac}
 ggplot(long, aes(x = factor(year), y = deaths)) + geom_boxplot()
+```
+
+## ggplot2: boxplot
+
+```{r geom_box_grouped}
+ggplot(long, aes(x = year, y = deaths, group = year)) + geom_boxplot()
 ```
 
 ## ggplot2: boxplot with points
