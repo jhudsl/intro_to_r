@@ -216,14 +216,13 @@ table(yts$LocationDesc)[1:5]
 
 ## Subsetting to specific columns
 
-Let's just take smoking status measures for all genders using `filter`, and the columns that represent the year, state using `select`:
+Let's just take smoking status measures for all genders in middle school using `filter`, and the columns that represent the year, state using `select`:
 
 ```{r, message=FALSE}
 library(dplyr)
-sub_yts = filter(yts, 
-                 MeasureDesc == "Smoking Status",
-                 Gender == "Overall",
-                 Response == "Current")
+sub_yts = filter(yts, MeasureDesc == "Smoking Status",
+                 Gender == "Overall", Response == "Current",
+                 Education == "Middle School")
 sub_yts = select(sub_yts, YEAR, LocationDesc, Data_Value)
 head(sub_yts, 4)
 ```

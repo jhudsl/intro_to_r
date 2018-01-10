@@ -73,10 +73,9 @@ table(yts$LocationDesc)[1:5]
 
 ## ---- message=FALSE------------------------------------------------------
 library(dplyr)
-sub_yts = filter(yts, 
-                 MeasureDesc == "Smoking Status",
-                 Gender == "Overall",
-                 Response == "Current")
+sub_yts = filter(yts, MeasureDesc == "Smoking Status",
+                 Gender == "Overall", Response == "Current",
+                 Education == "Middle School")
 sub_yts = select(sub_yts, YEAR, LocationDesc, Data_Value)
 head(sub_yts, 4)
 
