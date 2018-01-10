@@ -361,6 +361,10 @@ cbind(df, newcol = df$wt/2.2)
 
 The `mutate` function in `dplyr` allows you to add or replace columns of a `data.frame`:
 ```{r}
+df = mutate(df, newcol = wt/2.2)
+```
+
+```{r, echo = FALSE}
 print({df = mutate(df, newcol = wt/2.2)})
 ```
 

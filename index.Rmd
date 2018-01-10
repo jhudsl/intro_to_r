@@ -172,8 +172,9 @@ Example projects can be found with the source code: [Rmd](ProjectExample/RMarkDo
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}
 df = matrix(
-  c("Replacing with ifelse in dplyr", "replace_if.R")
-, ncol = 2)
+  c("Replacing with ifelse in dplyr", "replace_if.R",
+  "Fixing problems in read_csv with col_types", "read_csv_specifications.R")
+, ncol = 2, byrow = TRUE)
 df = data.frame(df, stringsAsFactors = FALSE)
 colnames(df) = c("Code Example", "Script")
 df$Script = paste0("[", df$Script, "](live_code/", df$Script, ")")
@@ -233,17 +234,17 @@ devtools::install_github("muschellij2/dhs")
 
 ## How do I have `tidyverse` always loaded?
 
-In `R`, if you have never set an `Rprofile` before, you can make `tidyverse` load whenever you start `R` as follows:
+In `R`, if you have never set an `Renviron` before, you can make `tidyverse` load whenever you start `R` as follows:
 
 ```{r, eval = FALSE}
-filename = "~/.Rprofile"
+filename = "~/.Renviron"
 x = ""
 if (file.exists(filename)) {
   x = readLines(filename)
 } 
 have_r_pack = grepl("R_DEFAULT_PACKAGES", x)
 if (any(have_r_pack)) {
-  stop("add R_DEFAULT_PACKAGES to .Rprofile manually!")
+  stop("add R_DEFAULT_PACKAGES to .Renviron manually!")
 } else {
   x = c('R_DEFAULT_PACKAGES="tidyverse"', x)
   writeLines(x, con = filename)
