@@ -10,6 +10,8 @@ curl::curl_download(
   destfile = dta_file)
 
 df = read_dta(dta_file)
-head(df$ethnicity)
-df$ethnicity = as_factor(df$ethnicity)
-head(df$ethnicity)
+View(df)
+head(df$sex)
+head(as_factor(df$sex))
+df2 = as_factor(df)
+View(df2)
