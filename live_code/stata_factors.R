@@ -9,7 +9,7 @@ curl::curl_download(
   url = "http://johnmuschelli.com/intro_to_r/live_code/demog.dta",
   destfile = dta_file)
 
-df = read_dta("demographics.dta")
+df = read_dta(dta_file)
 head(df$ethnicity)
 df$ethnicity = as_factor(df$ethnicity)
 head(df$ethnicity)
