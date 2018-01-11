@@ -3,10 +3,6 @@
 ##############
 rm( list = ls() ) # clear the workspace
 library(tidyverse)
-library(stringr)
-library(dplyr)
-library(readr)
-library(lubridate)
 library(broom)
 
 ####################
@@ -40,20 +36,16 @@ table(rowSums(namat))
 # this to the object have_route.  Do a table of the subType using table, 
 # including the missing subTypes.  Get the same frequency distribution
 # using group_by(subType) and tally()
-have_route = bike %>% 
-  filter(!is.na(route))
-table(have_route$subType, useNA = "always")
-have_route %>% 
-  group_by(subType) %>% 
-  tally()
+have_route = bike %>%  filter(!is.na(route))
+dim(have_route)
 
-have_route %>% 
-  group_by(subType) %>% 
+table(have_route$subType, useNA = "always")
+have_route %>%   group_by(subType) %>%  tally()
+
+have_route %>% group_by(subType) %>% 
   summarize(n_obs = n())
 
-tally(
-  group_by(have_route, subType)
-)
+tally(   group_by(have_route, subType) )
 have_route = group_by(have_route, subType)
 tally(have_route)
 

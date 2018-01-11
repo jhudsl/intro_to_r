@@ -20,22 +20,22 @@ bike = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
 # 1.  Get all the differet types of bike types from the "type" column.
 # Use sort(unique()).  Assign this to an object btypes. Type dput(btypes)
 btypes = sort(unique(bike$type))
-dput(btypes)
+
+dput(btypes)[c(6,1:5,7)]
+dput(btypes[c(6,1:5,7)])
 
 # 2. Reorder the output of the dput command so sidepath is first.  
 # Recode type as a factor using this vector of levels.  
 # Print head(bike$type).  Note what you see.  Run 
 # table(bike$type) afterwards and note the order
+
+bike$type = factor(bike$type,
+          levels = dput(btypes)[c(6,1:5,7)])
+
 bike = bike %>% 
-  mutate(type = 
-           factor(
-             type, 
-             levels = c( "SIDEPATH", "BIKE BOULEVARD", 
-                         "BIKE LANE", "CONTRAFLOW", 
-                         "SHARED BUS BIKE", 
-                         "SHARROW", "SIGNED ROUTE")
-           )
-  )
+  mutate(type = factor(type, 
+             levels = dput(btypes)[c(6,1:5,7)]))
+  
 table(bike$type)
 
 # 3. Make a column type2, which is a factor of type, with the 
@@ -44,13 +44,9 @@ table(bike$type)
 # with the option useNA = "always".  Note, we do not have to 
 # make type a character again before doing this
 bike = bike %>% 
-  mutate(type2 = 
-           factor(
-             type, 
+  mutate(type2 = factor(type, 
              levels = c( "SIDEPATH", "BIKE BOULEVARD", 
-                         "BIKE LANE")
-           )
-  )
+                         "BIKE LANE") ) )
 table(bike$type)
 table(bike$type2)
 table(bike$type2, useNA = "always")
@@ -74,6 +70,10 @@ bike = bike %>%
   )
 head(bike$dateInstalled)
 
+table(factor(bike$dateInstalled, levels = 2005:2017))
+table(factor(bike$dateInstalled, levels = 2005:2017), 
+        useNA="ifany")
+
 # c) Do not reassign dateInstalled, but simply run
 #  head(as.numeric(bike$dateInstalled)) 
 # we are looking to see what happens when we try to go from factor to numeric
@@ -84,7 +84,8 @@ head(as.numeric(bike$dateInstalled))
 # head(as.numeric(as.character(bike$dateInstalled)))
 # this is how you get "numeric" values back if they were "incorrectly" 
 # factors
-head(as.numeric(as.character(bike$dateInstalled)))
+head(as.numeric(as.character(
+    bike$dateInstalled)))
 
 
 ####################
@@ -100,7 +101,9 @@ bike = bike %>%
   mutate(
     type = as.character(type),
     type2 = ifelse(type %in% c("CONTRAFLOW", "SHARED BUS BIKE", 
-                               "SHARROW", "SIGNED ROUTE"),
+                               "Slibrary(lubridate) # great for dates!
+circ = mutate(circ, newDate2 = mdy(date))
+                               head(circ$newDate2)HARROW", "SIGNED ROUTE"),
                    "OTHER", type),
     type2 = factor(type2, 
                    levels = c( "SIDEPATH", "BIKE BOULEVARD", 
