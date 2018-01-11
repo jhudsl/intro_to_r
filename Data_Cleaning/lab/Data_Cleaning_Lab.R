@@ -89,9 +89,6 @@ bike = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
 #	b) Describe the distribution of property taxes on these residences.  Use 
 # hist with certain breaks or plot(density(variable))
 
-# 8.a) Plot your numeric lotSize versus cityTax on principal residences. 
-#	b) How many values of lot size were missing?
-
 
 ##########################
 # Part 4
@@ -142,3 +139,6 @@ bike = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
 #	Tips: - 1 acre = 43560 square feet
 #		    - The hyphens represent inches (not decimals)
 # 		  - Don't spend more than 5-10 minutes on this; stop and move on
+
+#   a) Plot your numeric lotSize versus cityTax on principal residences. 
+#	b) How many values of lot size were missing?
