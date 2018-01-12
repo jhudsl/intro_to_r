@@ -1,6 +1,7 @@
 ###########
 ## Statistics Lab 
 ############
+library(tidyverse)
 
 #############################
 # Part 1
@@ -23,7 +24,8 @@
 # Part 2
 #############################
 # Read in the Kaggle cars auction dataset:
-cars = read_csv("http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv")
+cars = read_csv("http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv",
+                col_types = cols(VehBCost = col_double()))
 
 # 4. Fit a linear regression model with vehicle cost (VehBCost) as the outcome and 
 #    vehicle age (VehicleAge) and size (Size) as predictors as well as their interaction.
