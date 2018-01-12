@@ -89,9 +89,14 @@ summary(logfit_cars)
 # 7. Randomly sample 10,000 observations (rows) with replacement from the cars dataset
 #    and store this new dataset in an object called cars_subsample.
 set.seed(1)
-rows = sample(nrow(cars), size = 10000, replace = TRUE)
-cars_subsample = cars[rows,]
+cars_subsample = cars %>% 
+  sample_n(size = 10000)
+# another way
+# rows = sample(nrow(cars), size = 10000, replace = TRUE)
+# cars_subsample = cars[rows,]
 
+
+  
 # 8. Fit the same logistic regression model as in problem 6 above and display the 
 #    summary table. How do the results compare?
 logfit_cars2 = glm(IsBadBuy ~ expensive + VehicleAge, data = cars, family = binomial)

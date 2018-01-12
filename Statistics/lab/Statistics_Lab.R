@@ -32,7 +32,7 @@ cars = read_csv("http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv",
 #    Save the model fit in an object called lmfit_cars and display the summary table.
 
 # 5. Create a variable called "expensive" in the cars data that indicates if the 
-#    vehicle cost is over $80,000. Use a chi-squared test to assess if there is a
+#    vehicle cost is over $10,000. Use a chi-squared test to assess if there is a
 #    relationship between a car being expensive and it being labeled as a "bad buy."
 
 # 6. Fit a logistic regression model where the outcome is "bad buy" status and predictors
@@ -44,7 +44,8 @@ cars = read_csv("http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv",
 #############################
 
 # 7. Randomly sample 10,000 observations (rows) with replacement from the cars dataset
-#    and store this new dataset in an object called cars_subsample.
+#    and store this new dataset in an object called cars_subsample.  Use sample_n
+# Set the seed to be 1 first
 
 
 # 8. Fit the same logistic regression model as in problem 6 above 
