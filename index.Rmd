@@ -173,7 +173,9 @@ df = matrix(
   c("Replacing with ifelse in dplyr", "replace_if.R",
   "Relevant to hw2: Fixing problems in read_csv with col_types", "read_csv_specifications.R",
   "Multiple Summarization (mean/sd) and summarize with quantile", "mean_sd_number_of_non_missing.R",
-  "Changing Factors in Stata file", "stata_factors.R"  )
+  "Changing Factors in Stata file", "stata_factors.R",
+  "Tables and Figures in RMarkdown", "tables_and_plots.Rmd"
+  )
 , ncol = 2, byrow = TRUE)
 df = data.frame(df, stringsAsFactors = FALSE)
 colnames(df) = c("Code Example", "Script")
