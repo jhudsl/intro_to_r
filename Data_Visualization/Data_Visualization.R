@@ -196,13 +196,12 @@ print(q2)
 q2 + scale_fill_brewer( type = "div", palette =  "RdBu" )
 
 ## ----barplot2, fig.align='center', cache = FALSE, warn = FALSE-----------
-## Stacked Bar Charts
 cars = read_csv(
   "http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv")
 counts <- table(cars$IsBadBuy, cars$VehicleAge)
-barplot(counts, main="Car Distribution by Age and Bad Buy Status",
-  xlab="Vehicle Age", col=c("darkblue","red"),
-    legend = rownames(counts))
+
+## ----barplot2_2, fig.align='center', cache = FALSE, warn = FALSE---------
+barplot(counts, main="Car Distribution by Age and Bad Buy Status", xlab="Vehicle Age", col=c("darkblue","red"), legend = rownames(counts))
 
 ## ----barplot2a, fig.align='center', cache = FALSE------------------------
 ## Use percentages (column percentages)

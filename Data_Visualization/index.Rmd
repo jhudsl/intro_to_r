@@ -483,17 +483,19 @@ q2 + scale_fill_brewer( type = "div", palette =  "RdBu" )
 ```
 
 
-## Bar Plots
-* Stacked Bar Charts are sometimes wanted to show distributions of data
+## Bar Plots with a table
 
 ```{r barplot2, fig.align='center', cache = FALSE, warn = FALSE}
-## Stacked Bar Charts
 cars = read_csv(
   "http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv")
 counts <- table(cars$IsBadBuy, cars$VehicleAge)
-barplot(counts, main="Car Distribution by Age and Bad Buy Status",
-  xlab="Vehicle Age", col=c("darkblue","red"),
-    legend = rownames(counts))
+```
+
+## Bar Plots
+* Stacked Bar Charts are sometimes wanted to show distributions of data
+
+```{r barplot2_2, fig.align='center', cache = FALSE, warn = FALSE}
+barplot(counts, main="Car Distribution by Age and Bad Buy Status", xlab="Vehicle Age", col=c("darkblue","red"), legend = rownames(counts))
 ```
 
 
