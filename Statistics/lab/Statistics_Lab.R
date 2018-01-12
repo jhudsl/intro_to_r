@@ -2,6 +2,7 @@
 ## Statistics Lab 
 ############
 library(tidyverse)
+library(broom)
 
 #############################
 # Part 1
@@ -37,7 +38,10 @@ cars = read_csv("http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv",
 
 # 6. Fit a logistic regression model where the outcome is "bad buy" status and predictors
 #    are the "expensive" status and vehicle age (VehicleAge).
-#    Save the model fit in an object called logfit_cars and display the summary table.
+#    Save the model fit in an object called `logfit_cars` and display the summary table.
+# Use summary or tidy(logfit_cars, conf.int = TRUE, exponentiate = TRUE) 
+# or tidy(logfit_cars, conf.int = TRUE, exponentiate = FALSE) # log odds ratios 
+
 
 #############################
 # Part 3
@@ -50,4 +54,7 @@ cars = read_csv("http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv",
 
 # 8. Fit the same logistic regression model as in problem 6 above 
 # with this sample and display the 
-#    summary table. How do the results compare?
+#    summary table using the tidy function. How do the results compare?
+# Call this model logfit_cars_sub
+# tidy(logfit_cars_sub, conf.int = TRUE, exponentiate = TRUE)
+
