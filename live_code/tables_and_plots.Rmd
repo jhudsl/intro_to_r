@@ -1,7 +1,7 @@
 ---
 output:
-  word_document: default
   html_document: default
+  word_document: default
   pdf_document: default
 ---
 ```{r setup, include=FALSE}
@@ -9,7 +9,12 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 ```
 
-## R Markdown
+# I am a large section
+
+## I am a smaller section
+
+
+## Let's make a table
 
 ```{r}
 df = data.frame(y = rnorm(1000),
@@ -47,6 +52,13 @@ g = ggplot(cars, aes(x = VehYear, y = VehBCost,
                  colour = Make)) + 
   geom_boxplot() + guides(colour = FALSE)
 print(g)
+```
+
+
+## Let's use plotly to get an interactive graph
+
+```{r}
+ggplotly(g)
 ```
 
 
