@@ -1,13 +1,13 @@
-all: index.html index.R index.pdf
+all: Statistics.html Statistics.R Statistics.pdf
     
-index.html: index.Rmd 
-	Rscript -e "rmarkdown::render('index.Rmd', output_format = 'all')"
+Statistics.html: Statistics.Rmd 
+	Rscript -e "rmarkdown::render('Statistics.Rmd', output_format = 'all')"
 
-index.pdf: index.html index.Rmd 
-	electron-pdf index.html index.pdf --landscape
+Statistics.pdf: Statistics.html Statistics.Rmd 
+	electron-pdf Statistics.html Statistics.pdf --landscape
 
-index.R: index.Rmd
-	Rscript -e "knitr::purl('index.Rmd')"
+Statistics.R: Statistics.Rmd
+	Rscript -e "knitr::purl('Statistics.Rmd')"
 
 clean: 
-	rm index.html index.R index.pdf
+	rm Statistics.html Statistics.R Statistics.pdf
