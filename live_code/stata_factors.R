@@ -15,3 +15,8 @@ head(df$sex)
 head(as_factor(df$sex))
 df2 = as_factor(df)
 View(df2)
+
+
+
+
+
