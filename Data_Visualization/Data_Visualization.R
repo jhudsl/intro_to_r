@@ -179,7 +179,7 @@ qtile = qplot(x = year, y = country, fill = deaths, data = sub,
               geom = "tile") + xlim(1990, 2005) + guides(colour = FALSE)
 
 ## ----geom_tile_qtile_show, echo = FALSE----------------------------------
-qtile
+print(qtile)
 
 ## ----geom_tile_rescale---------------------------------------------------
 qtile + scale_fill_gradient( low = "blue", high = "red")
@@ -188,6 +188,9 @@ qtile + scale_fill_gradient( low = "blue", high = "red")
 sub$cat = cut(sub$deaths, breaks = c(0, 1, 2, max(sub$deaths)))
 q2 = qplot(x = year, y = country, fill = cat, data = sub, geom = "tile") + 
   guides(colour = FALSE)
+
+## ----geom_tile_qtile2_show, echo = FALSE---------------------------------
+print(q2)
 
 ## ----geom_tile_rescale_brewer--------------------------------------------
 q2 + scale_fill_brewer( type = "div", palette =  "RdBu" )
