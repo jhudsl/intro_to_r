@@ -182,6 +182,27 @@ dat = read_csv("../data/Youth_Tobacco_Survey_YTS_Data.csv")
 
 The data is now successfully read into your R workspace, just like from using the dropdown menu.
 
+
+
+## Data Input: Checking for problems
+
+* The `spec()` and `problems()` functions show you the specification of how the data was read in.  
+
+```{r stop_problems}
+dim(problems(dat))
+spec(dat)
+```
+
+
+## Data Input: Checking for problems
+
+* The `stop_for_problems()` function will stop if your data had an error when reading in.  If this occurs, you can either use `col_types` (from `spec()`) for the problematic columns, or set `guess_max = Inf` (takes much longer):
+
+```{r stop_problems2}
+stop_for_problems(dat)
+```
+
+
 ## Data Input
 
 The `read_delim()` and related functions returns a "tibble" is a `data.frame` with special printing, which is the primary data format for most data cleaning and analyses. 

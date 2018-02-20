@@ -3136,6 +3136,14 @@ color: black;
 slides > slide > hgroup + article {
 margin-top: 5px;
 }
+.left_col {
+float:left;
+width:48%;
+}
+.right_col {
+float:right;
+width:48%;
+}
 </style>
 
 </head>
@@ -3369,17 +3377,16 @@ help(&quot;dir&quot;)</pre>
 head(mydat)</pre>
 
 <pre ># A tibble: 6 x 31
-   YEAR LocationAbbr LocationDesc                 TopicType
-  &lt;int&gt;        &lt;chr&gt;        &lt;chr&gt;                     &lt;chr&gt;
-1  2015           AZ      Arizona Tobacco Use – Survey Data
-2  2015           AZ      Arizona Tobacco Use – Survey Data
-3  2015           AZ      Arizona Tobacco Use – Survey Data
-4  2015           AZ      Arizona Tobacco Use – Survey Data
-5  2015           AZ      Arizona Tobacco Use – Survey Data
-6  2015           AZ      Arizona Tobacco Use – Survey Data
-# ... with 27 more variables: TopicDesc &lt;chr&gt;, MeasureDesc &lt;chr&gt;,
-#   DataSource &lt;chr&gt;, Response &lt;chr&gt;, Data_Value_Unit &lt;chr&gt;,
-#   Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;,
+   YEAR LocationAbbr LocationDesc TopicType    TopicDesc  MeasureDesc     
+  &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;           
+1  2015 AZ           Arizona      Tobacco Use… Cessation… Percent of Curr…
+2  2015 AZ           Arizona      Tobacco Use… Cessation… Percent of Curr…
+3  2015 AZ           Arizona      Tobacco Use… Cessation… Percent of Curr…
+4  2015 AZ           Arizona      Tobacco Use… Cessation… Quit Attempt in…
+5  2015 AZ           Arizona      Tobacco Use… Cessation… Quit Attempt in…
+6  2015 AZ           Arizona      Tobacco Use… Cessation… Quit Attempt in…
+# ... with 25 more variables: DataSource &lt;chr&gt;, Response &lt;chr&gt;,
+#   Data_Value_Unit &lt;chr&gt;, Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;,
 #   Data_Value_Footnote_Symbol &lt;chr&gt;, Data_Value_Footnote &lt;chr&gt;,
 #   Data_Value_Std_Err &lt;dbl&gt;, Low_Confidence_Limit &lt;dbl&gt;,
 #   High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;int&gt;, Gender &lt;chr&gt;,
@@ -3454,6 +3461,60 @@ cols(
 
 <p>The data is now successfully read into your R workspace, just like from using the dropdown menu.</p>
 
+</article></slide><slide class=""><hgroup><h2>Data Input: Checking for problems</h2></hgroup><article  id="data-input-checking-for-problems">
+
+<ul>
+<li>The <code>spec()</code> and <code>problems()</code> functions show you the specification of how the data was read in.</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>dim(problems(dat))</pre>
+
+<pre >[1] 0 4</pre>
+
+<pre class = 'prettyprint lang-r'>spec(dat)</pre>
+
+<pre >cols(
+  YEAR = col_integer(),
+  LocationAbbr = col_character(),
+  LocationDesc = col_character(),
+  TopicType = col_character(),
+  TopicDesc = col_character(),
+  MeasureDesc = col_character(),
+  DataSource = col_character(),
+  Response = col_character(),
+  Data_Value_Unit = col_character(),
+  Data_Value_Type = col_character(),
+  Data_Value = col_double(),
+  Data_Value_Footnote_Symbol = col_character(),
+  Data_Value_Footnote = col_character(),
+  Data_Value_Std_Err = col_double(),
+  Low_Confidence_Limit = col_double(),
+  High_Confidence_Limit = col_double(),
+  Sample_Size = col_integer(),
+  Gender = col_character(),
+  Race = col_character(),
+  Age = col_character(),
+  Education = col_character(),
+  GeoLocation = col_character(),
+  TopicTypeId = col_character(),
+  TopicId = col_character(),
+  MeasureId = col_character(),
+  StratificationID1 = col_character(),
+  StratificationID2 = col_character(),
+  StratificationID3 = col_character(),
+  StratificationID4 = col_character(),
+  SubMeasureID = col_character(),
+  DisplayOrder = col_integer()
+)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Data Input: Checking for problems</h2></hgroup><article  id="data-input-checking-for-problems-1">
+
+<ul>
+<li>The <code>stop_for_problems()</code> function will stop if your data had an error when reading in. If this occurs, you can either use <code>col_types</code> (from <code>spec()</code>) for the problematic columns, or set <code>guess_max = Inf</code> (takes much longer):</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>stop_for_problems(dat)</pre>
+
 </article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-8">
 
 <p>The <code>read_delim()</code> and related functions returns a &ldquo;tibble&rdquo; is a <code>data.frame</code> with special printing, which is the primary data format for most data cleaning and analyses.</p>
@@ -3468,17 +3529,16 @@ cols(
 head(dat)</pre>
 
 <pre ># A tibble: 6 x 31
-   YEAR LocationAbbr LocationDesc                 TopicType
-  &lt;int&gt;        &lt;chr&gt;        &lt;chr&gt;                     &lt;chr&gt;
-1  2015           AZ      Arizona Tobacco Use – Survey Data
-2  2015           AZ      Arizona Tobacco Use – Survey Data
-3  2015           AZ      Arizona Tobacco Use – Survey Data
-4  2015           AZ      Arizona Tobacco Use – Survey Data
-5  2015           AZ      Arizona Tobacco Use – Survey Data
-6  2015           AZ      Arizona Tobacco Use – Survey Data
-# ... with 27 more variables: TopicDesc &lt;chr&gt;, MeasureDesc &lt;chr&gt;,
-#   DataSource &lt;chr&gt;, Response &lt;chr&gt;, Data_Value_Unit &lt;chr&gt;,
-#   Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;,
+   YEAR LocationAbbr LocationDesc TopicType    TopicDesc  MeasureDesc     
+  &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;           
+1  2015 AZ           Arizona      Tobacco Use… Cessation… Percent of Curr…
+2  2015 AZ           Arizona      Tobacco Use… Cessation… Percent of Curr…
+3  2015 AZ           Arizona      Tobacco Use… Cessation… Percent of Curr…
+4  2015 AZ           Arizona      Tobacco Use… Cessation… Quit Attempt in…
+5  2015 AZ           Arizona      Tobacco Use… Cessation… Quit Attempt in…
+6  2015 AZ           Arizona      Tobacco Use… Cessation… Quit Attempt in…
+# ... with 25 more variables: DataSource &lt;chr&gt;, Response &lt;chr&gt;,
+#   Data_Value_Unit &lt;chr&gt;, Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;,
 #   Data_Value_Footnote_Symbol &lt;chr&gt;, Data_Value_Footnote &lt;chr&gt;,
 #   Data_Value_Std_Err &lt;dbl&gt;, Low_Confidence_Limit &lt;dbl&gt;,
 #   High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;int&gt;, Gender &lt;chr&gt;,
@@ -3497,27 +3557,26 @@ head(dat)</pre>
 <pre class = 'prettyprint lang-r'>dat</pre>
 
 <pre ># A tibble: 9,794 x 31
-    YEAR LocationAbbr LocationDesc                 TopicType
-   &lt;int&gt;        &lt;chr&gt;        &lt;chr&gt;                     &lt;chr&gt;
- 1  2015           AZ      Arizona Tobacco Use – Survey Data
- 2  2015           AZ      Arizona Tobacco Use – Survey Data
- 3  2015           AZ      Arizona Tobacco Use – Survey Data
- 4  2015           AZ      Arizona Tobacco Use – Survey Data
- 5  2015           AZ      Arizona Tobacco Use – Survey Data
- 6  2015           AZ      Arizona Tobacco Use – Survey Data
- 7  2015           AZ      Arizona Tobacco Use – Survey Data
- 8  2015           AZ      Arizona Tobacco Use – Survey Data
- 9  2015           AZ      Arizona Tobacco Use – Survey Data
-10  2015           AZ      Arizona Tobacco Use – Survey Data
-# ... with 9,784 more rows, and 27 more variables: TopicDesc &lt;chr&gt;,
-#   MeasureDesc &lt;chr&gt;, DataSource &lt;chr&gt;, Response &lt;chr&gt;,
-#   Data_Value_Unit &lt;chr&gt;, Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;,
-#   Data_Value_Footnote_Symbol &lt;chr&gt;, Data_Value_Footnote &lt;chr&gt;,
-#   Data_Value_Std_Err &lt;dbl&gt;, Low_Confidence_Limit &lt;dbl&gt;,
-#   High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;int&gt;, Gender &lt;chr&gt;,
-#   Race &lt;chr&gt;, Age &lt;chr&gt;, Education &lt;chr&gt;, GeoLocation &lt;chr&gt;,
-#   TopicTypeId &lt;chr&gt;, TopicId &lt;chr&gt;, MeasureId &lt;chr&gt;,
-#   StratificationID1 &lt;chr&gt;, StratificationID2 &lt;chr&gt;,
+    YEAR LocationAbbr LocationDesc TopicType   TopicDesc   MeasureDesc    
+   &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;          
+ 1  2015 AZ           Arizona      Tobacco Us… Cessation … Percent of Cur…
+ 2  2015 AZ           Arizona      Tobacco Us… Cessation … Percent of Cur…
+ 3  2015 AZ           Arizona      Tobacco Us… Cessation … Percent of Cur…
+ 4  2015 AZ           Arizona      Tobacco Us… Cessation … Quit Attempt i…
+ 5  2015 AZ           Arizona      Tobacco Us… Cessation … Quit Attempt i…
+ 6  2015 AZ           Arizona      Tobacco Us… Cessation … Quit Attempt i…
+ 7  2015 AZ           Arizona      Tobacco Us… Cigarette … Smoking Status 
+ 8  2015 AZ           Arizona      Tobacco Us… Cigarette … Smoking Status 
+ 9  2015 AZ           Arizona      Tobacco Us… Cigarette … Smoking Status 
+10  2015 AZ           Arizona      Tobacco Us… Cigarette … Smoking Status 
+# ... with 9,784 more rows, and 25 more variables: DataSource &lt;chr&gt;,
+#   Response &lt;chr&gt;, Data_Value_Unit &lt;chr&gt;, Data_Value_Type &lt;chr&gt;,
+#   Data_Value &lt;dbl&gt;, Data_Value_Footnote_Symbol &lt;chr&gt;,
+#   Data_Value_Footnote &lt;chr&gt;, Data_Value_Std_Err &lt;dbl&gt;,
+#   Low_Confidence_Limit &lt;dbl&gt;, High_Confidence_Limit &lt;dbl&gt;,
+#   Sample_Size &lt;int&gt;, Gender &lt;chr&gt;, Race &lt;chr&gt;, Age &lt;chr&gt;,
+#   Education &lt;chr&gt;, GeoLocation &lt;chr&gt;, TopicTypeId &lt;chr&gt;, TopicId &lt;chr&gt;,
+#   MeasureId &lt;chr&gt;, StratificationID1 &lt;chr&gt;, StratificationID2 &lt;chr&gt;,
 #   StratificationID3 &lt;chr&gt;, StratificationID4 &lt;chr&gt;, SubMeasureID &lt;chr&gt;,
 #   DisplayOrder &lt;int&gt;</pre>
 

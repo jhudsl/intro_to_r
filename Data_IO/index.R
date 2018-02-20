@@ -29,6 +29,13 @@ read_csv
 ## ----readCSV2------------------------------------------------------------
 dat = read_csv("../data/Youth_Tobacco_Survey_YTS_Data.csv")
 
+## ----stop_problems-------------------------------------------------------
+dim(problems(dat))
+spec(dat)
+
+## ----stop_problems2------------------------------------------------------
+stop_for_problems(dat)
+
 ## ----readCSV_readr, message=FALSE----------------------------------------
 library(readr)
 head(dat)

@@ -1,10 +1,11 @@
+library(readr)
 
 url = "http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv"
 
 # default
 cars <- read_csv(url)
 problems(cars)
-
+stop_for_problems(cars)
 
 # most robust way
 cars <- read_csv(url, guess_max = Inf)
