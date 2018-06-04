@@ -24,7 +24,7 @@ library(kableExtra)
 
 ### Class:
 
-* 8:30AM-11:50PM in W4013 on January 8-12
+* 8:30AM-11:50PM in W3008 on June 11-15
 
 ### Important links
 
@@ -47,7 +47,7 @@ All the data used that are not **specifically** to be downloaded from the web ar
 ### Schedule
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}
-show_keys = TRUE
+show_keys = FALSE
 days = list(
   c("Homework 1"),
   c("Intro", "RStudio",  "Basic_R", "Data_IO", "Homework 2"),
