@@ -97,7 +97,7 @@ df$In_Class_Work[ fe ] = ""
 
 # Different for HW 1
 hw1 = gsub(" ", "", tolower(df$mod)) == "homework1"
-df$Code[hw1] = "[Try R](http://tryr.codeschool.com/), [Data Camp](https://campus.datacamp.com/courses/free-introduction-to-r)"
+df$Code[hw1] = "[Data Camp](https://campus.datacamp.com/courses/free-introduction-to-r)"
 
 
 df$hw = NULL
