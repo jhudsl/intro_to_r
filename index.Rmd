@@ -33,7 +33,15 @@ library(kableExtra)
 ### All the Requirements in this Course
 
 #### Packages 
-All the packages used (in any way - homework, lecture, lab), are listed in [this text file](all_the_packages.txt).  If you would like to install all the packages from this file, please download that text file and run [this R script](install_all_packages.R)
+
+We have an `R` package called `jhur` that will make sure all the packages are installed.
+
+```r
+install.packages("remotes")
+remotes::install_github("muschellij2/jhur")
+```
+
+Alternatively, all the packages used (in any way - homework, lecture, lab), are listed in [this text file](all_the_packages.txt).  If you would like to install all the packages from this file, please download that text file and run [this R script](install_all_packages.R).
 
 #### Functions
 
