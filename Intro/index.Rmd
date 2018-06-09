@@ -137,6 +137,19 @@ Materials will be uploaded the night before class
 
 * [Install RStudio](https://www.rstudio.com/products/rstudio/download/)
 
+## Collection of R packages
+
+We have an R package called jhur that will make sure all the packages are installed.
+
+You can just copy and paste the below code into your console - we'll explain what it all means in the next day or two
+
+```{r, packageInstall, eval=FALSE}
+install.packages("remotes")
+remotes::install_github("muschellij2/jhur")
+```
+
+Note it may take ~5-10 minutes to run.
+
 ## Useful (+Free) Resources
 
 * R for Data Science: http://r4ds.had.co.nz/ 
