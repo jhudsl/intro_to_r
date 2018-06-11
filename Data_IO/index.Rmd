@@ -39,7 +39,6 @@ getwd()
 setwd("~/Lectures") 
 ```
 
-
 ## Setting a Working Directory
 
 * Setting the directory can sometimes be finicky
@@ -71,7 +70,7 @@ This means if I try your code, and you use absolute paths, it won't work unless 
 
 ## Setting the Working Directory
 
-In RStudio, go to `Session --> Set Working Directory --> To Source File Location`
+In RStudio, go to `Session -> Set Working Directory -> To Source File Location`
 
 RStudio should put code in the Console, similar to this:
 ```{r, eval = FALSE}
@@ -101,7 +100,7 @@ help("dir")
 
 * Everything we do in class will be using real publicly available data - there are few 'toy' example datasets and 'simulated' data
 * OpenBaltimore and Data.gov will be sources for the first few days
-
+* We have also added functionality to load these datasets directly in the `jhur` package
 
 ## Data Input
 

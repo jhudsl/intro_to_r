@@ -97,7 +97,7 @@ Try evaluating the following:
 * `2 * 3 / 4 * 2`
 * `2^4 - 1`
 
----
+## R variables 
 
 * You can create variables from within the R environment and from files on your computer
 * R uses "=" or "<-" to assign values to a variable name
@@ -116,6 +116,7 @@ x + 2
 * You can think of these as essentially Excel spreadsheets with rows (usually subjects or observations) and columns (usually variables)
 
 ## R variables
+
 * `data.frame`s are somewhat advanced objects in R; we will start with simpler objects;
 * Here we introduce "1 dimensional" classes; often referred to as 'vectors'
 * Vectors can have multiple sets of observations, but each observation has to be the same class.
@@ -236,6 +237,7 @@ str(y)
 This tells you that `x` is a numeric vector and tells you the length.
 
 ## Review
+
 * Creating a new script
 * Using R as a calculator
 * Assigning values to variables
