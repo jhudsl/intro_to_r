@@ -22,24 +22,24 @@
 # Part 2
 ##########################
 # 3. How many types of bike lanes are there? Which type has 
-#		(a) the most number of?  Use `table`
+#		(a) the most number of?  Use `table()`
 
 # 4. How many different projects do the "bike" lanes fall into? 
-# use unique and length
+# use `unique()` and `length()`
 
 ##########################
 # Part 3
 ##########################
 # 5. Which bike lane type has the longest average bike lane length?
-# use group_by
+# use `group_by()`
 
 
 #	6. Which project category has the longest average bike lane? 
-# use group_by
+# use `group_by()`
 
 # 7. What was the average bike lane length per year that they were installed?
-# Set bike$dateInstalled to NA if it is equal to zero.
-# bike$dateInstalled[bike$dateInstalled == 0] = NA
+# Set `bike$dateInstalled` to NA if it is equal to zero.
+# e.g. `bike$dateInstalled[bike$dateInstalled == 0] = NA`
 
 ##########################
 # Part 4
