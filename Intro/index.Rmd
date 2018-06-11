@@ -100,6 +100,21 @@ http://johnmuschelli.com/intro_to_r
 
 Materials will be uploaded the night before class
 
+
+## Course Package 
+
+We have an `R` package called `jhur` that will make sure all the packages are installed.
+
+```r
+install.packages("remotes")
+remotes::install_github("muschellij2/jhur")
+```
+
+```{r}
+library(jhur)
+head(read_yts())
+```
+
 ## Learning Objectives
 
 - Reading data into R

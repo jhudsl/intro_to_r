@@ -2,3 +2,7 @@
 library(knitr)
 opts_chunk$set(comment = "")
 
+## ------------------------------------------------------------------------
+library(jhur)
+head(read_yts())
+
