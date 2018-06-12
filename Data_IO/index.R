@@ -59,6 +59,13 @@ names(dat)
 ## dat = rename(dat, Year = year)
 ## write_csv(dat, path = "YouthTobacco_newNames.csv")
 
+## ------------------------------------------------------------------------
+write_rds(dat, path = "yts_dataset.rds")
+
+## ------------------------------------------------------------------------
+dat2 = read_rds(path = "yts_dataset.rds")
+identical(dat, dat2) # test if they are the same 
+
 ## ---- message = FALSE----------------------------------------------------
 x = 5; # can have semicolons a the end!
 # calling read_csv function and pasting a long string together
@@ -76,13 +83,6 @@ ls()
 
 ## ------------------------------------------------------------------------
 print(z)
-
-## ------------------------------------------------------------------------
-saveRDS(yts, file = "yts_dataset.rds")
-
-## ------------------------------------------------------------------------
-yts2 = readRDS(file = "yts_dataset.rds")
-identical(yts, yts2) # test if they are the same 
 
 ## ---- readingCSV---------------------------------------------------------
 dat2 = read.csv("../data/Youth_Tobacco_Survey_YTS_Data.csv", as.is = TRUE)

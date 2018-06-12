@@ -7,6 +7,7 @@
 ## Remember anything you type here can be "sent" to the console with 
 ##    Cmd-Enter (OS-X) or Cntr-Enter (Windows/Linux).
 library(dplyr)
+library(tidyverse)
 
 ##########################
 # Part 1
@@ -108,7 +109,7 @@ df %>%
 # use colnames, and the toupper command
 # use select and filter
 cars2 = mtcars
-cars2$car = rownames(cars2)
+cars2 = rownames_to_column(tbl, var = "car")
 carsSub = cars2 %>% 
   filter(cyl == 8) %>% 
   select(wt, qsec, hp, car)

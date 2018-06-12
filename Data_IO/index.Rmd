@@ -307,10 +307,27 @@ For an .xlsx file with multiple well-formated worksheets, I use the `readxl` pac
 
 Some of these are now available in the RStudio dropdown list
 
+## More ways to save: write_rds
+
+If you want to save **one** object, you can use `readr::write_rds` to save to an `rds` file:
+
+```{r}
+write_rds(dat, path = "yts_dataset.rds")
+```
+
+
+## More ways to save: read_rds
+
+To read this back in to R, you need to use `read_rds`, but **need to assign it**:
+
+```{r}
+dat2 = read_rds(path = "yts_dataset.rds")
+identical(dat, dat2) # test if they are the same 
+```
 
 ## More ways to save: save
 
-The `save` command can save a set of R objects into an "R data file", with the extension `.rda` or `.RData`.  
+The `save` command can save a set of `R` objects into an "R data file", with the extension `.rda` or `.RData`.  
 
 ```{r, message = FALSE}
 x = 5; # can have semicolons a the end!
@@ -343,23 +360,7 @@ print(z)
 Note, `z` is a **character vector** of the **names** of the objects loaded, **not** the objects themselves.
 
 
-## More ways to save: saveRDS
 
-If you want to save **one** object, you can use `saveRDS` to save to an `rds` file:
-
-```{r}
-saveRDS(yts, file = "yts_dataset.rds")
-```
-
-
-## More ways to save: readRDS
-
-To read this back in to R, you need to use `readRDS`, but **need to assign it**:
-
-```{r}
-yts2 = readRDS(file = "yts_dataset.rds")
-identical(yts, yts2) # test if they are the same 
-```
 
 
 ## Base R: Data Input
