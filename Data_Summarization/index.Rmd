@@ -210,9 +210,22 @@ length(unique(yts$LocationDesc))
 table(yts$LocationDesc)[1:5]
 ```
 
+
+
 ## Lab Part 2
 [Website](../index.html)
 
+## `dplyr`: `count` 
+
+```{r, message = FALSE}
+yts %>% count(LocationDesc)
+```
+
+## `dplyr`: `count` 
+
+```{r, message = FALSE}
+yts %>% count(LocationDesc, Age)
+```
 
 ## Subsetting to specific columns
 
@@ -391,11 +404,11 @@ qplot(x = LocationDesc, y = Data_Value,
     * `matplot(x,y)`: scatterplot of two matrices, x and y
     * `pairs(x,y)`: plots pairwise scatter plots of matrices x and y, column by column
 
-## Matrix plot
+<!-- ## Matrix plot -->
 
-```{r ggally_pairs, warning=FALSE}
+```{r ggally_pairs, warning=FALSE, echo = FALSE}
 library(GGally)
-ggpairs(avgs)
+# ggpairs(avgs)
 ```
 
 ## Matrix plot

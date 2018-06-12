@@ -71,6 +71,12 @@ length(unique(yts$LocationDesc))
 ## ---- message = FALSE----------------------------------------------------
 table(yts$LocationDesc)[1:5]
 
+## ---- message = FALSE----------------------------------------------------
+yts %>% count(LocationDesc)
+
+## ---- message = FALSE----------------------------------------------------
+yts %>% count(LocationDesc, Age)
+
 ## ---- message=FALSE------------------------------------------------------
 library(dplyr)
 sub_yts = filter(yts, MeasureDesc == "Smoking Status",
@@ -140,9 +146,9 @@ qplot(x = LocationDesc, y = Data_Value, data = sub_yts, geom = "boxplot")
 qplot(x = LocationDesc, y = Data_Value, 
       data = sub_yts, geom = "boxplot") + coord_flip()
 
-## ----ggally_pairs, warning=FALSE-----------------------------------------
+## ----ggally_pairs, warning=FALSE, echo = FALSE---------------------------
 library(GGally)
-ggpairs(avgs)
+# ggpairs(avgs)
 
 ## ----matplot1------------------------------------------------------------
 pairs(avgs)
