@@ -9,6 +9,7 @@
 #	http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv
 library(readr)
 library(dplyr)
+library(tidyverse)
 
 bike = read_csv(
   "http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
@@ -34,12 +35,13 @@ length(unique(bike$type))
 
 is.na(unique(bike$type))
 
-tapply(bike$length, bike$type, mean, na.rm=TRUE)
 bike %>% 
   group_by(type) %>% 
   summarise(n = n(),
             mean = mean(length)) %>% 
   arrange(mean)
+
+# tapply(bike$length, bike$type, mean, na.rm=TRUE)
 
 # 4. How many different projects do the "bike" lanes fall into? 
 #		Which project category has the longest average bike lane? 
