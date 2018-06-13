@@ -8,6 +8,7 @@
 # 1.  Read in the Wide Bike lanes data: 
 # http://johnmuschelli.com/intro_to_r/data/Bike_Lanes_Wide.csv 
 # Name the data set wide
+wide = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes_Wide.csv")
 
 # 2. Reshape wide using gather.  Call this data long.  Make the key
 # lanetype, and the value the_length.  Make sure we gather all columns **but**

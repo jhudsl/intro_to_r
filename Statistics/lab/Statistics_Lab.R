@@ -9,6 +9,8 @@ library(broom)
 #############################
 # Read in the following infant mortality data: 
 # http://johnmuschelli.com/intro_to_r/data/indicatordeadkids35.csv
+mort = read_csv("http://johnmuschelli.com/intro_to_r/data/indicatordeadkids35.csv",)
+colnames(mort)[1] = "country"
 
 # 1. Compute the correlation between the 1980, 1990, 2000, and 2010 mortality data.
 #    No need to save this in an object. Just display the result to the screen.
