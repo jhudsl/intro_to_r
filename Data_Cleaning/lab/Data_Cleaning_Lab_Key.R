@@ -40,7 +40,8 @@ have_route = bike %>%  filter(!is.na(route))
 dim(have_route)
 
 table(have_route$subType, useNA = "always")
-have_route %>%   group_by(subType) %>%  tally()
+have_route %>%  group_by(subType) %>%  tally()
+have_route %>%  count(subType)
 
 have_route %>% group_by(subType) %>% 
   summarize(n_obs = n())
@@ -56,6 +57,8 @@ tally(have_route)
 side_bike = bike %>% filter(type %in% c("SIDEPATH", "BIKE LANE"))
 side_bike2 = bike %>% filter(type == "SIDEPATH" | type == "BIKE LANE")
 identical(side_bike, side_bike2)
+nrow(side_bike)
+nrow(side_bike2)
 
 side_bike = filter(bike,type %in% c("SIDEPATH", "BIKE LANE"))
 side_bike2 = filter(bike, type == "SIDEPATH" | type == "BIKE LANE")
