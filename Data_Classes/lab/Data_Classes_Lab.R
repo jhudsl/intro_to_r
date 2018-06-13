@@ -14,7 +14,6 @@
 # 1.  Get all the different types of bike types from the "type" column.
 # Use sort(unique()).  Assign this to an object btypes. Type dput(btypes)
 
-
 # 2. Reorder the output of the dput command so sidepath is first.  
 # Recode type as a factor using this vector of levels.  
 # Print head(bike$type).  Note what you see.  Run 

@@ -21,20 +21,21 @@ bike = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
 # Use sort(unique()).  Assign this to an object btypes. Type dput(btypes)
 btypes = sort(unique(bike$type))
 
+dput(btypes)
 dput(btypes)[c(6,1:5,7)]
 dput(btypes[c(6,1:5,7)])
-
+lev = c( "SIDEPATH", "BIKE BOULEVARD", "BIKE LANE", "CONTRAFLOW", "SHARED BUS BIKE", 
+        "SHARROW", "SIGNED ROUTE")
 # 2. Reorder the output of the dput command so sidepath is first.  
 # Recode type as a factor using this vector of levels.  
 # Print head(bike$type).  Note what you see.  Run 
 # table(bike$type) afterwards and note the order
 
 bike$type = factor(bike$type,
-          levels = dput(btypes)[c(6,1:5,7)])
+          levels = dput(btypes[c(6,1:5,7)]))
 
-bike = bike %>% 
-  mutate(type = factor(type, 
-             levels = dput(btypes)[c(6,1:5,7)]))
+bike = bike %>% mutate(type = factor(type, 
+                levels = dput(btypes[c(6,1:5,7)])))
   
 table(bike$type)
 
@@ -59,7 +60,6 @@ bike = bike %>%
            as.character(dateInstalled)
   )
 head(bike$dateInstalled)
-
 
 
 # b) Reassign dateInstalled a factor, using the default levels.
@@ -97,18 +97,13 @@ head(as.numeric(as.character(
 # c("CONTRAFLOW", "SHARED BUS BIKE", "SHARROW", "SIGNED ROUTE")
 # call it "OTHER".  Use %in% and ifelse.  Make type2 a factor
 # with the levels c( "SIDEPATH", "BIKE BOULEVARD", "BIKE LANE", "OTHER")
-bike = bike %>% 
-  mutate(
+bike = bike %>% mutate(
     type = as.character(type),
     type2 = ifelse(type %in% c("CONTRAFLOW", "SHARED BUS BIKE", 
-                               "Slibrary(lubridate) # great for dates!
-circ = mutate(circ, newDate2 = mdy(date))
-                               head(circ$newDate2)HARROW", "SIGNED ROUTE"),
-                   "OTHER", type),
-    type2 = factor(type2, 
-                   levels = c( "SIDEPATH", "BIKE BOULEVARD", 
-                               "BIKE LANE", "OTHER") )
-  )
+                               "SHARROW", "SIGNED ROUTE"), "OTHER", type),
+    type2 = factor(type2, levels = c( "SIDEPATH", "BIKE BOULEVARD", 
+                               "BIKE LANE", "OTHER") ))
+
 table(bike$type2)
 
 bike2 = bike %>% 
