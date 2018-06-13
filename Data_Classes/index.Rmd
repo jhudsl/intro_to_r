@@ -230,6 +230,7 @@ Please download the Charm City Circulator data:
 http://johnmuschelli.com/intro_to_r/data/Charm_City_Circulator_Ridership.csv
 
 ```{r, message = FALSE}
+circ = jhur::read_circulator()
 # paste/paste0 combines strings/character
 circ = read_csv(
   paste0("http://johnmuschelli.com/intro_to_r/data",
@@ -352,6 +353,7 @@ You can convert date-like strings in the `Date` class (http://www.statmethods.ne
 the `lubridate` package!
 
 ```{r, message = FALSE}
+circ = jhur::read_circulator()
 head(sort(circ$date))
 library(lubridate) # great for dates!
 circ = mutate(circ, newDate2 = mdy(date))

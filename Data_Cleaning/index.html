@@ -3272,10 +3272,10 @@ df %&gt;% filter(x &gt; 2)</pre>
 <pre ># A tibble: 6 x 1
       x
   &lt;dbl&gt;
-1   0.0
-2    NA
-3   2.0
-4   3.0
+1   0  
+2  NA  
+3   2  
+4   3  
 5  -0.5
 6   0.2</pre>
 
@@ -3305,7 +3305,7 @@ df %&gt;% filter(x &gt; 2)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 1</h2></hgroup><article  id="lab-part-1">
 
-<p><a href='../index.html' title=''>Website</a></p>
+<p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Tables and Tabulations</h2></hgroup><article  id="tables-and-tabulations">
 
@@ -3435,7 +3435,7 @@ tab</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
 
-<p><a href='../index.html' title=''>Website</a></p>
+<p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
 
 </article></slide><slide class=""><hgroup><h2>Download Salary FY2014 Data</h2></hgroup><article  id="download-salary-fy2014-data">
 
@@ -3624,26 +3624,27 @@ y</pre>
 <div class="left_col">
 <pre class = 'prettyprint lang-r'>df %&gt;% separate(x, into = c(&quot;first&quot;, &quot;second&quot;, &quot;third&quot;))</pre>
 
-<pre >Warning: Too few values at 2 locations: 1, 2</pre>
+<pre >Warning: Expected 3 pieces. Missing pieces filled with `NA` in 2 rows [1,
+2].</pre>
 
 <pre ># A tibble: 3 x 3
-  first  second    third
-* &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;
-1     I  really     &lt;NA&gt;
-2  like writing     &lt;NA&gt;
-3     R    code programs</pre></div>
+  first second  third   
+  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   
+1 I     really  &lt;NA&gt;    
+2 like  writing &lt;NA&gt;    
+3 R     code    programs</pre></div>
 
 <div class="right_col">
 <pre class = 'prettyprint lang-r'>df %&gt;% separate(x, into = c(&quot;first&quot;, &quot;second&quot;))</pre>
 
-<pre >Warning: Too many values at 1 locations: 3</pre>
+<pre >Warning: Expected 2 pieces. Additional pieces discarded in 1 rows [3].</pre>
 
 <pre ># A tibble: 3 x 2
-  first  second
-* &lt;chr&gt;   &lt;chr&gt;
-1     I  really
-2  like writing
-3     R    code</pre></div>
+  first second 
+  &lt;chr&gt; &lt;chr&gt;  
+1 I     really 
+2 like  writing
+3 R     code   </pre></div>
 
 </article></slide><slide class=""><hgroup><h2>&lsquo;Find&rsquo; functions: <code>stringr</code></h2></hgroup><article  id="find-functions-stringr">
 
@@ -3825,44 +3826,44 @@ paste0(&quot;Visit&quot;,1:5)</pre>
 
 <pre ># A tibble: 15 x 1
    unique_id
- *     &lt;chr&gt;
- 1       1_1
- 2       2_1
- 3       3_1
- 4       4_1
- 5       5_1
- 6       1_2
- 7       2_2
- 8       3_2
- 9       4_2
-10       5_2
-11       1_3
-12       2_3
-13       3_3
-14       4_3
-15       5_3</pre></div>
+   &lt;chr&gt;    
+ 1 1_1      
+ 2 2_1      
+ 3 3_1      
+ 4 4_1      
+ 5 5_1      
+ 6 1_2      
+ 7 2_2      
+ 8 3_2      
+ 9 4_2      
+10 5_2      
+11 1_3      
+12 2_3      
+13 3_3      
+14 4_3      
+15 5_3      </pre></div>
 
 <div class="right_col">
 <pre class = 'prettyprint lang-r'>df %&gt;% unite(col = &quot;unique_id&quot;, id, visit, sep = &quot;_&quot;, remove = FALSE)</pre>
 
 <pre ># A tibble: 15 x 3
    unique_id    id visit
- *     &lt;chr&gt; &lt;int&gt; &lt;int&gt;
- 1       1_1     1     1
- 2       2_1     2     1
- 3       3_1     3     1
- 4       4_1     4     1
- 5       5_1     5     1
- 6       1_2     1     2
- 7       2_2     2     2
- 8       3_2     3     2
- 9       4_2     4     2
-10       5_2     5     2
-11       1_3     1     3
-12       2_3     2     3
-13       3_3     3     3
-14       4_3     4     3
-15       5_3     5     3</pre></div>
+   &lt;chr&gt;     &lt;int&gt; &lt;int&gt;
+ 1 1_1           1     1
+ 2 2_1           2     1
+ 3 3_1           3     1
+ 4 4_1           4     1
+ 5 5_1           5     1
+ 6 1_2           1     2
+ 7 2_2           2     2
+ 8 3_2           3     2
+ 9 4_2           4     2
+10 5_2           5     2
+11 1_3           1     3
+12 2_3           2     3
+13 3_3           3     3
+14 4_3           4     3
+15 5_3           5     3</pre></div>
 
 </article></slide><slide class=""><hgroup><h2>Paste Depicting How Collapse Works</h2></hgroup><article  id="paste-depicting-how-collapse-works">
 
@@ -3916,11 +3917,11 @@ rank(x)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 3</h2></hgroup><article  id="lab-part-3">
 
-<p><a href='../index.html' title=''>Website</a></p>
+<p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
 
 </article></slide><slide class=""><hgroup><h2>Website</h2></hgroup><article  id="website">
 
-<p><a href='../index.html' title=''>Website</a></p>
+<p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Comparison of <code>stringr</code> to base R - not covered</h2></hgroup><article  id="comparison-of-stringr-to-base-r---not-covered">
 

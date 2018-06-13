@@ -86,6 +86,7 @@ head(bg2)
 length(bg) == length(bg2)
 
 ## ---- message = FALSE----------------------------------------------------
+circ = jhur::read_circulator()
 # paste/paste0 combines strings/character
 circ = read_csv(
   paste0("http://johnmuschelli.com/intro_to_r/data",
@@ -142,6 +143,7 @@ table(cx)
 table(cx, useNA = "ifany")
 
 ## ---- message = FALSE----------------------------------------------------
+circ = jhur::read_circulator()
 head(sort(circ$date))
 library(lubridate) # great for dates!
 circ = mutate(circ, newDate2 = mdy(date))

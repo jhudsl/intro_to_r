@@ -3224,9 +3224,9 @@ width:48%;
 head(circ, 2)</pre>
 
 <pre ># A tibble: 2 x 15
-      day       date orangeBoardings orangeAlightings orangeAverage
-    &lt;chr&gt;      &lt;chr&gt;           &lt;int&gt;            &lt;int&gt;         &lt;dbl&gt;
-1  Monday 01/11/2010             877             1027           952
+  day     date       orangeBoardings orangeAlightings orangeAverage
+  &lt;chr&gt;   &lt;chr&gt;                &lt;int&gt;            &lt;int&gt;         &lt;dbl&gt;
+1 Monday  01/11/2010             877             1027           952
 2 Tuesday 01/12/2010             777              815           796
 # ... with 10 more variables: purpleBoardings &lt;int&gt;,
 #   purpleAlightings &lt;int&gt;, purpleAverage &lt;dbl&gt;, greenBoardings &lt;int&gt;,
@@ -3288,12 +3288,12 @@ sum( is.na(circ$date) ) # all converted correctly</pre>
 head(long, 4)</pre>
 
 <pre ># A tibble: 4 x 5
-        day       date  daily             var number
-      &lt;chr&gt;     &lt;date&gt;  &lt;dbl&gt;           &lt;chr&gt;  &lt;dbl&gt;
-1    Monday 2010-01-11  952.0 orangeBoardings    877
-2   Tuesday 2010-01-12  796.0 orangeBoardings    777
-3 Wednesday 2010-01-13 1211.5 orangeBoardings   1203
-4  Thursday 2010-01-14 1213.5 orangeBoardings   1194</pre>
+  day       date       daily var             number
+  &lt;chr&gt;     &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;            &lt;dbl&gt;
+1 Monday    2010-01-11  952  orangeBoardings    877
+2 Tuesday   2010-01-12  796  orangeBoardings    777
+3 Wednesday 2010-01-13 1212. orangeBoardings   1203
+4 Thursday  2010-01-14 1214. orangeBoardings   1194</pre>
 
 </article></slide><slide class=""><hgroup><h2>Reshaping data from wide (fat) to long (tall): tidyr</h2></hgroup><article  id="reshaping-data-from-wide-fat-to-long-tall-tidyr-1">
 
@@ -3307,12 +3307,12 @@ head(long, 4)</pre>
 head(long, 4)</pre>
 
 <pre ># A tibble: 4 x 5
-        day       date  daily             var number
-      &lt;chr&gt;     &lt;date&gt;  &lt;dbl&gt;           &lt;chr&gt;  &lt;dbl&gt;
-1    Monday 2010-01-11  952.0 orangeBoardings    877
-2   Tuesday 2010-01-12  796.0 orangeBoardings    777
-3 Wednesday 2010-01-13 1211.5 orangeBoardings   1203
-4  Thursday 2010-01-14 1213.5 orangeBoardings   1194</pre>
+  day       date       daily var             number
+  &lt;chr&gt;     &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;            &lt;dbl&gt;
+1 Monday    2010-01-11  952  orangeBoardings    877
+2 Tuesday   2010-01-12  796  orangeBoardings    777
+3 Wednesday 2010-01-13 1212. orangeBoardings   1203
+4 Thursday  2010-01-14 1214. orangeBoardings   1194</pre>
 
 </article></slide><slide class=""><hgroup><h2>Reshaping data from wide (fat) to long (tall): tidyr</h2></hgroup><article  id="reshaping-data-from-wide-fat-to-long-tall-tidyr-2">
 
@@ -3328,7 +3328,7 @@ bannerAlightings    bannerAverage  bannerBoardings  greenAlightings
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 1</h2></hgroup><article  id="lab-part-1">
 
-<p><a href='../index.html' title=''>Website</a></p>
+<p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
 
 </article></slide><slide class=""><hgroup><h2>Making a separator</h2></hgroup><article  id="making-a-separator">
 
@@ -3358,9 +3358,9 @@ banner.Alightings    banner.Average  banner.Boardings  green.Alightings
 head(long, 2)</pre>
 
 <pre ># A tibble: 2 x 6
-      day       date daily   line      type number
-    &lt;chr&gt;     &lt;date&gt; &lt;dbl&gt;  &lt;chr&gt;     &lt;chr&gt;  &lt;dbl&gt;
-1  Monday 2010-01-11   952 orange Boardings    877
+  day     date       daily line   type      number
+  &lt;chr&gt;   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt;
+1 Monday  2010-01-11   952 orange Boardings    877
 2 Tuesday 2010-01-12   796 orange Boardings    777</pre>
 
 <pre class = 'prettyprint lang-r'>unique(long$line)</pre>
@@ -3380,10 +3380,10 @@ head(long, 2)</pre>
 reunited %&gt;% select(day, var) %&gt;% head(3) %&gt;% print</pre>
 
 <pre ># A tibble: 3 x 2
-        day              var
-      &lt;chr&gt;            &lt;chr&gt;
-1    Monday orange.Boardings
-2   Tuesday orange.Boardings
+  day       var             
+  &lt;chr&gt;     &lt;chr&gt;           
+1 Monday    orange.Boardings
+2 Tuesday   orange.Boardings
 3 Wednesday orange.Boardings</pre>
 
 <p>We could also use <code>paste</code>/<code>paste0</code>.</p>
@@ -3401,7 +3401,7 @@ colnames(circ) = cn # then reshape using gather!</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
 
-<p><a href='../index.html' title=''>Website</a></p>
+<p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
 
 </article></slide><slide class=""><hgroup><h2>Reshaping data from long (tall) to wide (fat): tidyr</h2></hgroup><article  id="reshaping-data-from-long-tall-to-wide-fat-tidyr">
 
@@ -3413,18 +3413,18 @@ wide = spread(wide, type, number)
 head(wide)</pre>
 
 <pre ># A tibble: 6 x 7
-     day       date  daily   line Alightings Average Boardings
-   &lt;chr&gt;     &lt;date&gt;  &lt;dbl&gt;  &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
-1 Friday 2010-01-15 1644.0 banner         NA      NA        NA
-2 Friday 2010-01-15 1644.0  green         NA      NA        NA
-3 Friday 2010-01-15 1644.0 orange       1643    1644      1645
-4 Friday 2010-01-15 1644.0 purple         NA      NA        NA
-5 Friday 2010-01-22 1394.5 banner         NA      NA        NA
-6 Friday 2010-01-22 1394.5  green         NA      NA        NA</pre>
+  day    date       daily line   Alightings Average Boardings
+  &lt;chr&gt;  &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
+1 Friday 2010-01-15 1644  banner         NA      NA        NA
+2 Friday 2010-01-15 1644  green          NA      NA        NA
+3 Friday 2010-01-15 1644  orange       1643    1644      1645
+4 Friday 2010-01-15 1644  purple         NA      NA        NA
+5 Friday 2010-01-22 1394. banner         NA      NA        NA
+6 Friday 2010-01-22 1394. green          NA      NA        NA</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 3</h2></hgroup><article  id="lab-part-3">
 
-<p><a href='../index.html' title=''>Website</a></p>
+<p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
 
 </article></slide><slide class=""><hgroup><h2>Merging: Simple Data</h2></hgroup><article  id="merging-simple-data">
 
@@ -3575,7 +3575,7 @@ visits[1:2,]</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 4</h2></hgroup><article  id="lab-part-4">
 
-<p><a href='../index.html' title=''>Website</a></p>
+<p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
 
 </article></slide><slide class=""><hgroup><h2>Data Merging/Append in Base R</h2></hgroup><article  id="data-mergingappend-in-base-r">
 
@@ -3603,18 +3603,18 @@ visits[1:2,]</pre>
 <pre class = 'prettyprint lang-r'>head(wide, 3)</pre>
 
 <pre ># A tibble: 3 x 7
-     day       date daily   line Alightings Average Boardings
-   &lt;chr&gt;     &lt;date&gt; &lt;dbl&gt;  &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
+  day    date       daily line   Alightings Average Boardings
+  &lt;chr&gt;  &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
 1 Friday 2010-01-15  1644 banner         NA      NA        NA
-2 Friday 2010-01-15  1644  green         NA      NA        NA
+2 Friday 2010-01-15  1644 green          NA      NA        NA
 3 Friday 2010-01-15  1644 orange       1643    1644      1645</pre>
 
 <pre class = 'prettyprint lang-r'>not_namat = !is.na(select(wide, Alightings, Average, Boardings))
 head(not_namat, 2)</pre>
 
-<pre >  Alightings Average Boardings
-1      FALSE   FALSE     FALSE
-2      FALSE   FALSE     FALSE</pre>
+<pre >     Alightings Average Boardings
+[1,]      FALSE   FALSE     FALSE
+[2,]      FALSE   FALSE     FALSE</pre>
 
 <pre class = 'prettyprint lang-r'>wide$good = rowSums(not_namat) &gt; 0</pre>
 
@@ -3626,14 +3626,14 @@ head(not_namat, 2)</pre>
 head(wide)</pre>
 
 <pre ># A tibble: 6 x 7
-     day       date  daily   line Alightings Average Boardings
-   &lt;chr&gt;     &lt;date&gt;  &lt;dbl&gt;  &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
-1 Friday 2010-01-15 1644.0 orange       1643  1644.0      1645
-2 Friday 2010-01-22 1394.5 orange       1388  1394.5      1401
-3 Friday 2010-01-29 1332.0 orange       1322  1332.0      1342
-4 Friday 2010-02-05 1217.5 orange       1204  1217.5      1231
-5 Friday 2010-02-12  671.0 orange        678   671.0       664
-6 Friday 2010-02-19 1642.0 orange       1647  1642.0      1637</pre>
+  day    date       daily line   Alightings Average Boardings
+  &lt;chr&gt;  &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
+1 Friday 2010-01-15 1644  orange       1643   1644       1645
+2 Friday 2010-01-22 1394. orange       1388   1394.      1401
+3 Friday 2010-01-29 1332  orange       1322   1332       1342
+4 Friday 2010-02-05 1218. orange       1204   1218.      1231
+5 Friday 2010-02-12  671  orange        678    671        664
+6 Friday 2010-02-19 1642  orange       1647   1642       1637</pre>
 
 </article></slide><slide class=""><hgroup><h2>Finding the First (or Last) record</h2></hgroup><article  id="finding-the-first-or-last-record">
 
@@ -3650,16 +3650,16 @@ first_and_last %&gt;%  head(4)</pre>
 
 <pre ># A tibble: 4 x 6
 # Groups:   line [2]
-      day       date   daily   line      type number
-    &lt;chr&gt;     &lt;date&gt;   &lt;dbl&gt;  &lt;chr&gt;     &lt;chr&gt;  &lt;dbl&gt;
-1  Monday 2012-06-04 13342.5 banner Boardings    520
-2  Friday 2013-03-01      NA banner Boardings    817
-3 Tuesday 2011-11-01  8873.0  green Boardings    887
-4  Friday 2013-03-01      NA  green Boardings   2592</pre>
+  day     date        daily line   type      number
+  &lt;chr&gt;   &lt;date&gt;      &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt;
+1 Monday  2012-06-04 13342. banner Boardings    520
+2 Friday  2013-03-01    NA  banner Boardings    817
+3 Tuesday 2011-11-01  8873  green  Boardings    887
+4 Friday  2013-03-01    NA  green  Boardings   2592</pre>
 
 </article></slide><slide class=""><hgroup><h2>Website</h2></hgroup><article  id="website">
 
-<p><a href='../index.html' title=''>Website</a></p>
+<p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Merging in base R (not covered)</h2></hgroup><article  id="merging-in-base-r-not-covered">
 
