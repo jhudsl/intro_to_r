@@ -184,7 +184,7 @@ df = rename(df, mpg = MPG) # reset - don't need :: b/c not masked
 
 ## Lab Part 1
 
-[Website](../index.html)
+[Website](http://johnmuschelli.com/intro_to_r/index.html)
 
 
 # Subsetting Columns
@@ -245,7 +245,8 @@ select(df, starts_with("c"))
 
 ## Lab Part 2
 
-[Website](../index.html)
+[Website](http://johnmuschelli.com/intro_to_r/index.html)
+
 
 
 # Subsetting Rows
@@ -279,7 +280,7 @@ filter(df, mpg > 20, cyl == 4)
 
 ## Lab Part 3
 
-[Website](../index.html)
+[Website](http://johnmuschelli.com/intro_to_r/index.html)
 
 ## Combining `filter` and `select`
 
@@ -401,4 +402,4 @@ transmute(df, newcol2 = wt/2.2, mpg, hp)
 
 ## Lab Part 4
 
-[Website](../index.html)
+[Website](http://johnmuschelli.com/intro_to_r/index.html)
