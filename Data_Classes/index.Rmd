@@ -189,12 +189,12 @@ as.numeric(x)
 However, you need to be careful modifying the labels of existing factors, as its quite easy to alter the meaning of the underlying data. 
 
 ```{r factorCheck}
-xCopy = x
-levels(xCopy) = c("case", "control") # wrong way
-xCopy        
-as.character(xCopy) # labels switched
-as.numeric(xCopy)
+cc = factor(c("case","case","case",
+        "control","control","control"))
+cc = relevel(cc, "control")
 ```
+
+This is another way to change the reference group.
 
 ## Creating categorical variables
 
