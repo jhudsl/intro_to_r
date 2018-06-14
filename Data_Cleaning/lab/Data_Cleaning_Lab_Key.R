@@ -107,9 +107,12 @@ sum(!is.na(tax$CityTax))
 # $ is "special" and you need fixed() around it.
 
 head(tax$CityTax)
-tax$CityTax = tax$CityTax %>% 
-  str_replace(fixed("$"), "") %>%
-  as.numeric
+tax = tax %>% 
+  mutate(
+    CityTax = str_replace(CityTax, 
+      fixed("$"), "") ,
+    CityTax = as.numeric(CityTax)
+  )
 
 # no piping
 tax$CityTax = str_replace(tax$CityTax, fixed("$"), "")
@@ -146,7 +149,8 @@ ward_table = tax %>%
 
 ward_table = tax %>% 
   group_by(Ward) %>% 
-  summarize(number_of_obs = n())
+  summarize(number_of_obs = n(),
+            mean(StateTax, na.rm = TRUE))
 
 
 
@@ -183,7 +187,7 @@ ward_table = tax %>%
   )
 
 
-# 6. Make boxplots using base graphics showing cityTax (y -variable)
+# 6. Make boxplots using showing cityTax (y -variable)
 #	 	by whether the property	is a principal residence (x) or not.
 tax = tax %>% 
   mutate(ResCode = str_trim(ResCode))

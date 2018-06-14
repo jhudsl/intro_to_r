@@ -19,7 +19,9 @@ wide = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes_Wide.csv")
 # 2. Reshape wide using gather.  Call this data long.  Make the key
 # lanetype, and the value the_length.  Make sure we gather all columns **but**
 # name, using -name.
-long = gather(wide, key = lanetype, value = the_length, -name)
+long = wide %>% 
+  gather(key = "lanetype", value = "the_length", -name)
+
 # note the NAs here
 
 
@@ -96,7 +98,7 @@ wide = spread(sub, key = type, value = length)
 # call the output merged.  How many observations are there?
 merged = inner_join(crash, road)
 merged = inner_join(crash, road, by = "Road")
-
+dim(merged)
 
 ## 13. Join data using a full_join.  Call the output full. 
 # How many observations are there?
@@ -107,4 +109,6 @@ nrow(full)
 left = left_join(road, crash)
 nrow(left)
 
+right = right_join(road, crash)
+nrow(right)
 

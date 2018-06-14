@@ -72,11 +72,9 @@ as.character(x)
 as.numeric(x)
 
 ## ----factorCheck---------------------------------------------------------
-xCopy = x
-levels(xCopy) = c("case", "control") # wrong way
-xCopy        
-as.character(xCopy) # labels switched
-as.numeric(xCopy)
+cc = factor(c("case","case","case",
+        "control","control","control"))
+cc = relevel(cc, "control")
 
 ## ----rep1----------------------------------------------------------------
 bg = rep(c("boy","girl"),each=50)

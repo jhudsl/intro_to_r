@@ -77,7 +77,7 @@ bike = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
 # d. What is the 75th percentile of city and state tax paid by Ward? (quantile)
 
 
-# 6. Make boxplots using base graphics showing cityTax (y -variable)
+# 6. Make boxplots showing cityTax (y -variable)
 #	 	by whether the property	is a principal residence (x) or not.
 
 

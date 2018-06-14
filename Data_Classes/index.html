@@ -3375,20 +3375,11 @@ as.character(x)</pre>
 
 <p>However, you need to be careful modifying the labels of existing factors, as its quite easy to alter the meaning of the underlying data.</p>
 
-<pre class = 'prettyprint lang-r'>xCopy = x
-levels(xCopy) = c(&quot;case&quot;, &quot;control&quot;) # wrong way
-xCopy        </pre>
+<pre class = 'prettyprint lang-r'>cc = factor(c(&quot;case&quot;,&quot;case&quot;,&quot;case&quot;,
+        &quot;control&quot;,&quot;control&quot;,&quot;control&quot;))
+cc = relevel(cc, &quot;control&quot;)</pre>
 
-<pre >## [1] control control control case    case    case   
-## Levels: case control</pre>
-
-<pre class = 'prettyprint lang-r'>as.character(xCopy) # labels switched</pre>
-
-<pre >## [1] &quot;control&quot; &quot;control&quot; &quot;control&quot; &quot;case&quot;    &quot;case&quot;    &quot;case&quot;</pre>
-
-<pre class = 'prettyprint lang-r'>as.numeric(xCopy)</pre>
-
-<pre >## [1] 2 2 2 1 1 1</pre>
+<p>This is another way to change the reference group.</p>
 
 </article></slide><slide class=""><hgroup><h2>Creating categorical variables</h2></hgroup><article  id="creating-categorical-variables">
 
@@ -3645,7 +3636,7 @@ class(dates)</pre>
 <pre class = 'prettyprint lang-r'>theTime = Sys.time()
 theTime</pre>
 
-<pre >## [1] &quot;2018-06-13 10:53:22 EDT&quot;</pre>
+<pre >## [1] &quot;2018-06-14 11:55:35 EDT&quot;</pre>
 
 <pre class = 'prettyprint lang-r'>class(theTime)</pre>
 
@@ -3653,7 +3644,7 @@ theTime</pre>
 
 <pre class = 'prettyprint lang-r'>theTime + as.period(20, unit = &quot;minutes&quot;) # the future</pre>
 
-<pre >## [1] &quot;2018-06-13 11:13:22 EDT&quot;</pre>
+<pre >## [1] &quot;2018-06-14 12:15:35 EDT&quot;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 3</h2></hgroup><article  id="lab-part-3">
 
