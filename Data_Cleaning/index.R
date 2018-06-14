@@ -64,6 +64,7 @@ prop.table(tab)
 prop.table(tab,1) * 100
 
 ## ----readSal, echo = TRUE, eval = FALSE----------------------------------
+## Sal = jhur::read_salaries() # or
 ## Sal = read_csv("http://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv")
 ## Sal = rename(Sal, Name = name)
 

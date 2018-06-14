@@ -3443,7 +3443,8 @@ tab</pre>
 
 <p>Read the CSV into R <code>Sal</code>:</p>
 
-<pre class = 'prettyprint lang-r'>Sal = read_csv(&quot;http://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv&quot;)
+<pre class = 'prettyprint lang-r'>Sal = jhur::read_salaries() # or
+Sal = read_csv(&quot;http://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv&quot;)
 Sal = rename(Sal, Name = name)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Checking for logical conditions</h2></hgroup><article  id="checking-for-logical-conditions">
