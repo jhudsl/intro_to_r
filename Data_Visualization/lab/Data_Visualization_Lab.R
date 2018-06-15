@@ -46,13 +46,13 @@ head(type_wide)
 # Try `qplot` and ggplot(aes(x, y, color ), data = avg) + geom_line()
 # a. Color the points by route (orange, purple, green, banner)
 #	b. Color the points by day of the week
-# add geom_smooth(se = FALSE) to the plot (+ geom_smooth(se = FALSE))
+# add `geom_smooth(se = FALSE)` to the plot (+ `geom_smooth(se = FALSE)`)
 # set first_plot equal to the output of plot 1a. Type print(first_plot)
 
 # 2. Replot 1a where the colors of the points are the
 #	name of the route (with banner --> blue)
 # pal = c("blue", "darkgreen","orange","purple")
-# use (add + ) 	scale_colour_manual(values = pal)
+# use (add + ) 	`scale_colour_manual(values = pal)`
 
 ########################
 # Part 2
@@ -72,14 +72,14 @@ head(type_wide)
 # use the average column for each route/line)
 # Make the x-label "Year"
 # Make the y-label "Number of People"
-# Use the black and white theme theme_bw()
-# Change the text_size to (text = element_text(size = 20))
-# in theme
+# Use the black and white theme `theme_bw()`
+# Change the text_size to `text = element_text(size = 20)`
+# in `theme()`
   
 # 6. plot average ridership on the orange route versus date
 #		as a solid line, and add dashed "error" lines based 
 #		on the boardings and alightings. 
 #	the line colors should be orange. 
-# (hint linetype is an aesthetic for lines) - see also scale_linetype and 
-# scale_linetype_manual
+# (hint `linetype`` is an aesthetic for lines) - see also `scale_linetype` and 
+# `scale_linetype_manual`
 # Alightings = "dashed", Boardings = "dashed", Average = "solid"
