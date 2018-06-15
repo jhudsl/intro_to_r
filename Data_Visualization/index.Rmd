@@ -365,15 +365,15 @@ q + transparent_legend
 [Website](http://johnmuschelli.com/intro_to_r/index.html)
 
 
-## Histograms again
- 
-We can do histograms again using `hist`.  Let's do histograms of death rates over the years:
+<!-- ## Histograms again -->
 
-```{r hist_death, comment="", fig.align='center', cache=FALSE}
-hist(sub$deaths, breaks = 200)
-```
+<!-- We can do histograms again using `hist`.  Let's do histograms of death rates over the years: -->
 
-## Histograms again
+<!-- ```{r hist_death, comment="", fig.align='center', cache=FALSE} -->
+<!-- hist(sub$deaths, breaks = 200) -->
+<!-- ``` -->
+
+## Histograms again: Changing bins
  
 ```{r qhist_death, comment="", fig.align='center', cache=FALSE}
 qplot(x = deaths, data = sub, bins = 200)
@@ -399,7 +399,7 @@ qplot(x = deaths, fill = country, data = sub,
 We cold also do densities:
 ```{r gdens, comment="", fig.align='center', cache = FALSE}
 qplot(x= deaths, fill = country, data = sub, 
-      geom = c("density"), alpha= .7)
+      geom = c("density"), alpha= .7)  + guides(alpha = FALSE)
 ```
 
 
@@ -409,7 +409,7 @@ qplot(x= deaths, fill = country, data = sub,
 
 ```{r gdens_alpha, comment="", fig.align='center', cache = FALSE}
 qplot(x = deaths, colour = country, data = sub, 
-      geom = c("density"), alpha= .7)
+      geom = c("density"), alpha= .7) + guides(alpha = FALSE)
 ```
 
 
@@ -487,7 +487,8 @@ q2 + scale_fill_brewer( type = "div", palette =  "RdBu" )
 
 ```{r barplot2, fig.align='center', cache = FALSE, warn = FALSE}
 cars = read_csv(
-  "http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv")
+  "http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv", 
+  col_types = cols(VehBCost = col_double()))
 counts <- table(cars$IsBadBuy, cars$VehicleAge)
 ```
 
@@ -615,7 +616,7 @@ ggplot(aes(x = weight, colour = Diet), data = ChickWeight) +
 We can make a spaghetti plot by telling ggplot we want a "line", and each line is colored by Chick.
 
 ```{r spaghetti, comment="", fig.align='center', cache=FALSE}
-qplot(x=Time, y=weight, colour = Chick, 
+qplot(x=Time, y=weight, colour = factor(Chick), 
       data = ChickWeight, geom = "line")
 ```
 
@@ -626,7 +627,7 @@ qplot(x=Time, y=weight, colour = Chick,
 In ggplot2, if you want separate plots for something, these are referred to as facets.
 
 ```{r fac_spag, comment="", fig.align='center', cache=FALSE}
-qplot(x = Time, y = weight, colour = Chick, 
+qplot(x = Time, y = weight, colour = factor(Chick), 
       facets = ~Diet, data = ChickWeight, geom = "line")
 ```
 
@@ -635,7 +636,7 @@ qplot(x = Time, y = weight, colour = Chick,
 
 We can turn off the legend (referred to a "guide" in ggplot2). (Note - there is different syntax with the `+`)
 ```{r fac_spag_noleg, comment="", fig.align='center', cache=FALSE}
-qplot(x=Time, y=weight, colour = Chick, 
+qplot(x=Time, y=weight, colour = factor(Chick), 
       facets = ~ Diet,  data = ChickWeight, 
         geom = "line") + guides(colour=FALSE)
 ```
@@ -643,7 +644,7 @@ qplot(x=Time, y=weight, colour = Chick,
 ## Spaghetti plot: Facets
 
 ```{r fac_spag2, comment="", fig.align='center', cache=FALSE}
-ggplot(aes(x = Time, y = weight, colour = Chick), 
+ggplot(aes(x = Time, y = weight, colour = factor(Chick)), 
     data = ChickWeight) + geom_line() + 
     facet_wrap(facets = ~Diet) + guides(colour = FALSE)
 ```
@@ -656,8 +657,7 @@ Let's try this out on the childhood mortality data used above. However, let's do
 ```{r}
 library(tidyverse)
 long = death
-long = rownames_to_column(long, var = "state")
-long = long %>% gather(year, deaths, -state)
+long = long %>% gather(year, deaths, -country)
 head(long, 2)
 ```
 
@@ -675,7 +675,7 @@ long = long %>% filter(!is.na(deaths))
 ## ggplot2
 
 ```{r geom_line_qplot, comment="", fig.align='center', cache=FALSE}
-qplot(x = year, y = deaths, colour = state, 
+qplot(x = year, y = deaths, colour = country, 
     data = long, geom = "line") + guides(colour = FALSE)
 ```
 
@@ -684,7 +684,7 @@ qplot(x = year, y = deaths, colour = state,
 Let's try to make it different like base R, a bit.  We use `tile` for the geometric unit:
 
 ```{r geom_tile}
-qplot(x = year, y = state, colour = deaths, 
+qplot(x = year, y = country, colour = deaths, 
     data = long, geom = "tile") + guides(colour = FALSE)
 ```
 

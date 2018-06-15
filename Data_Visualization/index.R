@@ -144,9 +144,6 @@ transparent_legend =  theme(legend.background = element_rect(
                             color = "transparent") )
 q + transparent_legend
 
-## ----hist_death, comment="", fig.align='center', cache=FALSE-------------
-hist(sub$deaths, breaks = 200)
-
 ## ----qhist_death, comment="", fig.align='center', cache=FALSE------------
 qplot(x = deaths, data = sub, bins = 200)
 
@@ -160,11 +157,11 @@ qplot(x = deaths, fill = country, data = sub,
 
 ## ----gdens, comment="", fig.align='center', cache = FALSE----------------
 qplot(x= deaths, fill = country, data = sub, 
-      geom = c("density"), alpha= .7)
+      geom = c("density"), alpha= .7)  + guides(alpha = FALSE)
 
 ## ----gdens_alpha, comment="", fig.align='center', cache = FALSE----------
 qplot(x = deaths, colour = country, data = sub, 
-      geom = c("density"), alpha= .7)
+      geom = c("density"), alpha= .7) + guides(alpha = FALSE)
 
 ## ----gdens_line_alpha_death, comment="", fig.align='center', cache = FALSE----
 ggplot(aes(x = deaths, colour = country), data = sub) + 
@@ -197,7 +194,8 @@ q2 + scale_fill_brewer( type = "div", palette =  "RdBu" )
 
 ## ----barplot2, fig.align='center', cache = FALSE, warn = FALSE-----------
 cars = read_csv(
-  "http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv")
+  "http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv", 
+  col_types = cols(VehBCost = col_double()))
 counts <- table(cars$IsBadBuy, cars$VehicleAge)
 
 ## ----barplot2_2, fig.align='center', cache = FALSE, warn = FALSE---------
@@ -266,28 +264,27 @@ ggplot(aes(x = weight, colour = Diet), data = ChickWeight) +
   geom_line(stat = "density")
 
 ## ----spaghetti, comment="", fig.align='center', cache=FALSE--------------
-qplot(x=Time, y=weight, colour = Chick, 
+qplot(x=Time, y=weight, colour = factor(Chick), 
       data = ChickWeight, geom = "line")
 
 ## ----fac_spag, comment="", fig.align='center', cache=FALSE---------------
-qplot(x = Time, y = weight, colour = Chick, 
+qplot(x = Time, y = weight, colour = factor(Chick), 
       facets = ~Diet, data = ChickWeight, geom = "line")
 
 ## ----fac_spag_noleg, comment="", fig.align='center', cache=FALSE---------
-qplot(x=Time, y=weight, colour = Chick, 
+qplot(x=Time, y=weight, colour = factor(Chick), 
       facets = ~ Diet,  data = ChickWeight, 
         geom = "line") + guides(colour=FALSE)
 
 ## ----fac_spag2, comment="", fig.align='center', cache=FALSE--------------
-ggplot(aes(x = Time, y = weight, colour = Chick), 
+ggplot(aes(x = Time, y = weight, colour = factor(Chick)), 
     data = ChickWeight) + geom_line() + 
     facet_wrap(facets = ~Diet) + guides(colour = FALSE)
 
 ## ------------------------------------------------------------------------
 library(tidyverse)
 long = death
-long = rownames_to_column(long, var = "state")
-long = long %>% gather(year, deaths, -state)
+long = long %>% gather(year, deaths, -country)
 head(long, 2)
 
 ## ------------------------------------------------------------------------
@@ -297,11 +294,11 @@ long$year = long$year %>% str_replace("^X", "") %>% as.numeric
 long = long %>% filter(!is.na(deaths))
 
 ## ----geom_line_qplot, comment="", fig.align='center', cache=FALSE--------
-qplot(x = year, y = deaths, colour = state, 
+qplot(x = year, y = deaths, colour = country, 
     data = long, geom = "line") + guides(colour = FALSE)
 
 ## ----geom_tile-----------------------------------------------------------
-qplot(x = year, y = state, colour = deaths, 
+qplot(x = year, y = country, colour = deaths, 
     data = long, geom = "tile") + guides(colour = FALSE)
 
 ## ----plot1, comment="",  fig.align='center',cache = FALSE----------------

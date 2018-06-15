@@ -109,8 +109,8 @@ smoothScatter(cars$VehOdo, log2(cars$VehBCost))
 
 # 9)	Which variables of cost, odometer reading, and/or warranty (if any) visually appear to 
 # associate with a car being a "lemon"/bad purchase?  Use boxplots
-boxplot(VehBCost ~ cars$IsBadBuy, data=cars,ylab="Cost")
-boxplot(VehOdo ~ cars$IsBadBuy, data=cars, ylab= "Odometer")
+boxplot(VehBCost ~ IsBadBuy, data=cars,ylab="Cost")
+boxplot(VehOdo ~ IsBadBuy, data=cars, ylab= "Odometer")
 boxplot(WarrantyCost ~ cars$IsBadBuy, data=cars, ylab="Warranty")
 
 # 10)	 How many vehicles:
