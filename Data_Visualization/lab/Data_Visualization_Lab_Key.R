@@ -100,31 +100,32 @@ first_plot  +
 orange = long %>% filter(line == "orange")
 
 ## line type is dashed
-g = ggplot(orange, aes(x = date, y = number)) + 
-  geom_line(linetype = "dashed")
-g
+ggplot(orange, aes(x = date, y = number)) + 
+  geom_line(linetype = "dashed", colour ="orange")
+
+## dont do this, trying to find column named `orange`
+ggplot(orange, aes(x = date, y = number)) + 
+  geom_line(linetype = "dashed", aes(colour="orange"))
 
 ## now line dashedness  varies by the type
-g = ggplot(orange, aes(x = date, y = number)) + 
-  geom_line(aes(linetype = type))
-g
+ggplot(orange, aes(x = date, y = number)) + 
+  geom_line(aes(linetype = type), colour = "orange")
 
-
+## this one as a quick plot
 qplot(data = orange, x = date, y = number,
-      linetype = type, geom = "line")
+      linetype = type, geom = "line", colour = "orange")
 
-g + scale_linetype_manual(
-  values = c("dashed",
-              "dashed", 
-             "solid"))
-g + scale_linetype_manual(
-  values = c(Alightings = "dashed",
+ggplot(orange, aes(x = date, y = number)) + 
+  geom_line(aes(linetype = type), colour = "orange") + 
+  scale_linetype_manual(values = c("dashed",
+              "dashed", "solid"))
+
+ggplot(orange, aes(x = date, y = number)) + 
+  geom_line(aes(linetype = type), colour = "orange") + 
+  scale_linetype_manual(
+      values = c(Alightings = "dashed",
              Boardings = "dashed", 
              Average = "solid"))
-
-g + scale_linetype_manual(
-  values = c("dashed", "dashed", "solid"))
-
 
 orange = circ[,c(1:2, grep("orange", colnames(circ)))]
 plot(orange.Average ~ date, data =orange,

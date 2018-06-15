@@ -40,6 +40,7 @@ range(cars$VehYear)
 table(cars$VehYear)
 sum(cars$VehYear < 2004)
 mean(cars$VehYear < 2004)
+table(cars$VehYear < 2004)
 
 # 4)	Drop any vehicles that cost less than or equal to $1500 (VehBCost), 
 # or missing - 
@@ -103,15 +104,16 @@ colorTab2[which.max(colorTab2)] # c
 
 # 8)	Display the relationship between acquisition cost and mileage, and \
 # describe this relationship using `plot`
-plot(VehBCost ~ VehOdo, data = cars)
+qplot(VehOdo,VehBCost , data = cars)
+qplot(VehOdo,log2(VehBCost) , data = cars)
 plot(log2(VehBCost) ~ VehOdo, data=cars)
 smoothScatter(cars$VehOdo, log2(cars$VehBCost))
 
 # 9)	Which variables of cost, odometer reading, and/or warranty (if any) visually appear to 
 # associate with a car being a "lemon"/bad purchase?  Use boxplots
-boxplot(VehBCost ~ cars$IsBadBuy, data=cars,ylab="Cost")
-boxplot(VehOdo ~ cars$IsBadBuy, data=cars, ylab= "Odometer")
-boxplot(WarrantyCost ~ cars$IsBadBuy, data=cars, ylab="Warranty")
+boxplot(VehBCost ~ IsBadBuy, data=cars,ylab="Cost")
+boxplot(VehOdo ~ IsBadBuy, data=cars, ylab= "Odometer")
+boxplot(WarrantyCost ~ IsBadBuy, data=cars, ylab="Warranty")
 
 # 10)	 How many vehicles:
 # a.	Were red and have fewer than 30,000 miles?
