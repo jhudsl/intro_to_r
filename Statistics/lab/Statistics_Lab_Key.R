@@ -15,6 +15,14 @@ colnames(mort)[1] = "country"
 
 # 1. Compute the correlation between the 1980, 1990, 2000, and 2010 mortality data.
 #    No need to save this in an object. Just display the result to the screen.
+sub = mort %>% 
+  select(`1980`, `1990`, `2000`, `2010`)
+
+cor(sub)
+cor(sub, use = "complete.obs")
+psych::corr.test(sub, use = "complete.obs")
+psych::corr.test(sub)
+
 cor(mort[,c("1980", "1990", "2000", "2010")])
 ## What's going on?! Seems we have NAs in the 2010 column
 summary(mort[,c("1980", "1990", "2000", "2010")])
@@ -28,8 +36,22 @@ cor(mort %>% select("1980", "1990", "2000", "2010"), use = "complete.obs")
 #       Store this correlation matrix in an object called country_cor
 #    b. Extract the Myanmar-US correlation from the correlation matrix.
 mort_subs = mort %>% 
-  filter(country %in% c("Myanmar", "China", "United States")) %>% 
+  filter(country %in% c( "China", "Myanmar","United States")) %>% 
+  arrange(country)
+
+long = mort_subs %>% 
+  gather(key = "year", value = death, -country) %>% 
+  filter(!is.na(death))
+long = long %>% 
+  spread(key = country, value = death)
+sub = long %>% 
+  select(Myanmar, China, `United States`)
+cor(sub)
+
+
+mort_subs = mort_subs %>% 
   select(-country)
+mort_subs = t(mort_subs)
 country_cor = cor(t(mort_subs), 
                   use = "complete.obs")
 ## Run the following to see that the order is China, Myanmar, US:
@@ -40,11 +62,12 @@ country_cor[1,3]
 # 3. Is there a difference between mortality information from 1990 and 2000?
 #    Run a t-test and a Wilcoxon rank sum test to assess this.
 #    Hint: to extract the column of information for 1990, use mort[["1990"]]
-t.test(mort[["1990"]], mort[["2000"]])
+t.test(mort$"1990", mort$"2000")
 t.test(mort$`1990`, mort$`2000`)
 t.test(mort$`1990`, mort$`2000`, paired = TRUE)
 
-wilcox.test(mort[["1990"]], mort[["2000"]])
+wilcox.test(mort$"1990", mort$"2000")
+wilcox.test(mort$"1990", mort$"2000", paired = TRUE)
 
 
 

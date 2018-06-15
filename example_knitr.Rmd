@@ -1,0 +1,76 @@
+---
+title: "My Great Analysis"
+author: "John Muschelli"
+date: "6/15/2018"
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+```
+
+$$
+y = x \beta + \varepsilon
+$$
+The equation for $\beta$ is up here.
+
+# This is a section
+## This is a subsection
+### This is a subsubsection
+#### This is smaller
+
+I like writing.  I like **bold** things.  I like *italicized*.
+
+* I am a list
+* I am bullet 2
+
+
+1.  I am a numbered list
+7.  It doesn't matter what numbers you use
+8.  markdown doens't care
+
+[I like dfasdflja;sldkfjal;sdfl;asfl;fsa; but not the long names](http://rmarkdown.rstudio.com).  
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars, echo = TRUE}
+summary(cars)
+tab = table(cars$speed > 5, cars$dist > 4)
+knitr::kable(tab)
+```
+
+The number of cars with speed greater than 5 is `r sum(cars$speed > 5)`.
+
+
+```{r}
+library(ggplot2)
+g = ggplot(mtcars, aes(wt, mpg)) + geom_point()
+print(g)
+```
+
+```{r}
+library(plotly)
+ggplotly(g)
+```
+
+
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE, fig.width= 3.5, fig.height=7, fig.cap="This is the pressure figure"}
+plot(pressure)
+```
+
+Figure \ref{fig:pressure} is awesome.
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
