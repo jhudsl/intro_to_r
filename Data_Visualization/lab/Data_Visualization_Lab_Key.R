@@ -42,12 +42,19 @@ head(type_wide)
 # 1. plot average ridership  by date.
 # 	a. Color the points by route (orange, purple, green, banner)
 qplot(x = date, y = number, data = avg, colour = line)
+qplot(x = date, y = number, data = avg)
+
 first_plot = qplot(x = date, y = number, data = avg, colour = line)
 print(first_plot)
 
+## add black smoothed curves for each line
+qplot(x = date, y = number, data = avg, colour = line) + geom_smooth(aes(group = line), colour= "black")
+
 #	b. Color the points by day of the week
 qplot(x = date, y = number, data = avg, colour = day)
-		 
+qplot(x = date, y = number, data = avg, colour = line) + geom_smooth()
+
+
 # 2. Replot 1a where the colors of the points are the
 #	name of the route (with banner --> blue)
 pal = c("blue", "darkgreen","orange","purple")
