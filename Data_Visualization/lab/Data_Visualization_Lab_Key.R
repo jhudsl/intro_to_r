@@ -98,11 +98,13 @@ first_plot  +
 # scale_linetype_manual
 # Alightings = "dashed", Boardings = "dashed", Average = "solid"
 orange = long %>% filter(line == "orange")
+
+## line type is dashed
 g = ggplot(orange, aes(x = date, y = number)) + 
   geom_line(linetype = "dashed")
 g
 
-orange = long %>% filter(line == "orange")
+## now line dashedness  varies by the type
 g = ggplot(orange, aes(x = date, y = number)) + 
   geom_line(aes(linetype = type))
 g
