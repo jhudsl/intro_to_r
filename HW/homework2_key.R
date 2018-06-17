@@ -115,6 +115,8 @@ boxplot(VehBCost ~ IsBadBuy, data=cars,ylab="Cost")
 boxplot(VehOdo ~ IsBadBuy, data=cars, ylab= "Odometer")
 boxplot(WarrantyCost ~ IsBadBuy, data=cars, ylab="Warranty")
 
+qplot(x = IsBadBuy, y = VehBCost, data =cars)
+
 # 10)	 How many vehicles:
 # a.	Were red and have fewer than 30,000 miles?
 sum(cars$Color == "RED" & cars$VehOdo < 30000)

@@ -39,16 +39,9 @@ library(broom)
 tidy_ct = tidy(ct)
 tidy_ct
 
-## ----cor4a, comment="",  fig.height=4,fig.width=4------------------------
-txt = paste0("r=", signif(ct$estimate,3))
-plot(circ$orangeAverage, circ$purpleAverage,
-     xlab="Orange Line", ylab="Purple Line",
-     main="Average Ridership",cex.axis=1.5,
-     cex.lab=1.5,cex.main=2)
-legend("topleft", txt, bty="n",cex=1.5)
-
 ## ----cor_ggplot, comment="",  fig.height=4,fig.width=4-------------------
 library(ggplot2)
+txt = paste0("r=", signif(ct$estimate,3))
 q = qplot(data = circ, x = orangeAverage, y = purpleAverage)
 q + annotate("text", x = 4000, y = 8000, label = txt, size = 5)
 
@@ -98,24 +91,27 @@ cars = read_csv(
 fit = lm(VehOdo~VehicleAge, data = cars)
 print(fit)
 
-## ----regress4, comment="", fig.height=4,fig.width=8----------------------
-par(mfrow=c(1,2))
-plot(VehOdo ~ jitter(VehicleAge,amount=0.2), data=cars, pch = 19,
-     col = scales::alpha("black",0.05), xlab = "Vehicle Age (Yrs)")
-abline(fit, col = "red",lwd=2)
-legend("topleft", paste("p =",summary(fit)$coef[2,4]))
-boxplot(VehOdo ~ VehicleAge, data=cars, varwidth=TRUE)
-abline(fit, col="red",lwd=2)
+## ------------------------------------------------------------------------
+cars %>% 
+  ggplot(aes(x = VehicleAge, y = VehOdo)) + geom_point() + 
+  geom_smooth(method = "lm")
 
 ## ----gg_regress, comment="", fig.height=4,fig.width=8--------------------
-g = ggplot(aes(x = VehicleAge, y = VehOdo), data = cars) + 
+ggplot(aes(x = VehicleAge, y = VehOdo), data = cars) + 
   geom_jitter(alpha = 0.05, height = 0) + 
   geom_smooth(se = FALSE, method = "lm")
-print(g)
 
 ## ----regress5, comment="", fig.height=4,fig.width=8----------------------
 fit2 = lm(VehOdo ~ IsBadBuy + VehicleAge, data = cars)
 summary(fit2)  
+
+## ----regress9, comment="", fig.height=4,fig.width=8----------------------
+fit3 = lm(VehOdo ~ IsBadBuy * VehicleAge, data = cars)
+summary(fit3)  
+
+## ----regress10, comment="", fig.height=4,fig.width=8---------------------
+fit4 = lm(VehOdo ~ IsBadBuy * VehicleAge -IsBadBuy , data = cars)
+summary(fit4)  
 
 ## ----avplot, comment="", fig.height=4,fig.width=8------------------------
 library(car)
