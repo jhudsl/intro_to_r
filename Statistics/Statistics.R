@@ -86,6 +86,7 @@ http_data_dir = "http://johnmuschelli.com/intro_to_r/data/"
 cars = read_csv(
   paste0(http_data_dir, "kaggleCarAuction.csv"),   
   col_types = cols(VehBCost = col_double()))
+head(cars)
 
 ## ------------------------------------------------------------------------
 fit = lm(VehOdo~VehicleAge, data = cars)
@@ -95,6 +96,11 @@ print(fit)
 cars %>% 
   ggplot(aes(x = VehicleAge, y = VehOdo)) + geom_point() + 
   geom_smooth(method = "lm")
+
+## ---- comment="", fig.height=4,fig.width=8-------------------------------
+ggplot(aes(x = factor(VehicleAge), y = VehOdo), data = cars) + 
+  geom_boxplot() + 
+  geom_smooth( aes(x = VehicleAge, y = VehOdo), se = FALSE, method = "lm")
 
 ## ----gg_regress, comment="", fig.height=4,fig.width=8--------------------
 ggplot(aes(x = VehicleAge, y = VehOdo), data = cars) + 

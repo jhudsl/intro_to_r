@@ -255,6 +255,7 @@ http_data_dir = "http://johnmuschelli.com/intro_to_r/data/"
 cars = read_csv(
   paste0(http_data_dir, "kaggleCarAuction.csv"),   
   col_types = cols(VehBCost = col_double()))
+head(cars)
 ```
 
 ## Linear Regression
@@ -292,11 +293,21 @@ cars %>%
 
 ## Linear Regression: adding line with ggplot2
 
+```{r, comment="", fig.height=4,fig.width=8}
+ggplot(aes(x = factor(VehicleAge), y = VehOdo), data = cars) + 
+  geom_boxplot() + 
+  geom_smooth( aes(x = VehicleAge, y = VehOdo), se = FALSE, method = "lm")
+```
+
+
+## Linear Regression: adding line with ggplot2
+
 ```{r gg_regress, comment="", fig.height=4,fig.width=8}
 ggplot(aes(x = VehicleAge, y = VehOdo), data = cars) + 
   geom_jitter(alpha = 0.05, height = 0) + 
   geom_smooth(se = FALSE, method = "lm")
 ```
+
 
 
 ## Linear Regression
