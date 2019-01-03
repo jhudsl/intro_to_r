@@ -90,8 +90,8 @@ df$Code = paste0("[R](", df$mod, "/", df$mod, ".R)")
 df$Code = paste0(df$Code, ", [Rmd](", df$mod, "/", "index", ".Rmd)")
 
 df$lab = paste0(df$mod, "/", "lab/", df$mod, "_Lab")
-df$lab_key = paste0(df$lab, "_Key.R")
-df$lab = paste0(df$lab, ".R")
+df$lab_key = paste0(df$lab, "_Key.Rmd")
+df$lab = paste0(df$lab, ".Rmd")
 df$have_lab = file.exists(df$lab)
 df$lab = paste0("[Lab](", df$lab, ")")
 if (show_keys) {
@@ -103,12 +103,12 @@ df$lab[!df$have_lab] = ""
 df$have_lab = df$lab_key = NULL
 df$hw = grepl("homework", tolower(df$mod))
 df$Slides[df$hw] = ""
-df$Code[df$hw] = paste0("[R](HW/", gsub(" ", "", tolower(df$mod[df$hw])), ".R)")
+df$Code[df$hw] = paste0("[R](HW/", gsub(" ", "", tolower(df$mod[df$hw])), ".Rmd)")
 
 if (show_keys) {
   # keep = rep(TRUE, nrow(df))
   keep = grepl("homework(2|3)", df$Code[df$hw])
-  df$Code[df$hw][keep] = paste0(df$Code[df$hw][keep], ", [Key](HW/", gsub(" ", "", tolower(df$mod[df$hw][keep])), "_key.R)")
+  df$Code[df$hw][keep] = paste0(df$Code[df$hw][keep], ", [Key](HW/", gsub(" ", "", tolower(df$mod[df$hw][keep])), "_key.Rmd)")
 }
 
 df$In_Class_Work = file.path(df$mod, "scratch.R")
