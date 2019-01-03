@@ -24,35 +24,35 @@ opts_chunk$set(comment = "")
     - RStudio helps with "tab completion"
     - discussed throughout
 
-## Getting Started
+<!-- ## Getting Started -->
 
-* You should have the latest version of R installed!
-* Open RStudio
-* Files --> New --> R Script
-* Save the blank R script in a directory of your choosing
-* Add a comment header
+<!-- * You should have the latest version of R installed! -->
+<!-- * Open RStudio -->
+<!-- * Files → New → R Script →
+<!-- * Save the blank R script in a directory of your choosing -->
+<!-- * Add a comment header -->
 
-## Commenting in Scripts
+<!-- ## Commenting in Scripts -->
 
-Add a comment header to day1.R :`#` is the comment symbol
+<!-- Add a comment header to day1.R :`#` is the comment symbol -->
 
-```{r}
-#################
-# Title: Demo R Script
-# Author: John Muschelli
-# Purpose: Demonstrate comments in R
-###################
- 
-# nothing to its right is evaluated
+<!-- ```{r} -->
+<!-- ################# -->
+<!-- # Title: Demo R Script -->
+<!-- # Author: John Muschelli -->
+<!-- # Purpose: Demonstrate comments in R -->
+<!-- ################### -->
 
-# this # is still a comment
-### you can use many #'s as you want
+<!-- # nothing to its right is evaluated -->
 
-# sometimes you have a really long comment,
-#    like explaining what you are doing 
-#    for a step in analysis. 
-# Take it to another line
-```
+<!-- # this # is still a comment -->
+<!-- ### you can use many #'s as you want -->
+
+<!-- # sometimes you have a really long comment, -->
+<!-- #    like explaining what you are doing  -->
+<!-- #    for a step in analysis.  -->
+<!-- # Take it to another line -->
+<!-- ``` -->
 
 ## Explaining output on slides
 
@@ -96,6 +96,23 @@ Try evaluating the following:
 * `2 + 2 * 3 / 4 -3`
 * `2 * 3 / 4 * 2`
 * `2^4 - 1`
+
+## Commenting in Scripts
+
+`#` is the comment symbol
+
+```{r}
+# this is a comment
+
+# nothing to its right is evaluated
+
+# this # is still a comment
+### you can use many #'s as you want
+
+1 + 2 # Can be the right of code
+
+```
+
 
 ## R variables 
 

@@ -25,10 +25,15 @@ all:
 	done	
 	echo "Running main index";
 	Rscript -e "rmarkdown::render('index.Rmd')"
+	echo "Running Starting"
+	Rscript -e "rmarkdown::render('starting_with_r.Rmd')"		
 # https://superuser.com/questions/592974/how-to-print-to-save-as-pdf-from-a-command-line-with-chrome-or-chromium
 
 index.html: index.Rmd 
 	Rscript -e "rmarkdown::render('index.Rmd')"
+
+starting_with_r.html: starting_with_r.Rmd 
+	Rscript -e "rmarkdown::render('starting_with_r.Rmd')"		
 
 clean: 
 	rm index.html
