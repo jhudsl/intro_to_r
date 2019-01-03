@@ -14,7 +14,7 @@ library(tidyverse)
 ##########################
 # 1. Check to see if you have the `mtcars` dataset 
 #		(which is included in the `datasets` package)
-mtcars
+
 
 # 2. What class is `mtcars`?
 class(mtcars)
@@ -36,7 +36,8 @@ cars2 = dplyr::rename(cars,
   DRaT = drat)
 
 # 5. Convert the column names of `cars` to all upper case
-# use colnames, and the toupper command
+# use rename_all, and the toupper command
+cars = rename_all(cars, toupper)
 cn = colnames(cars) # extract column names
 cn = toupper(cn) # make them uppercase
 colnames(cars) = cn # reassign

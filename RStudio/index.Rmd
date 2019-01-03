@@ -165,6 +165,13 @@ knitr::include_graphics("rstudio_environment.png")
 
 [Starting with R](http://johnmuschelli.com/intro_to_r/starting_with_r.Rmd)
 
+## Using the Viewer
+
+The `View` command allows you to view data in a spreadsheet format.  Run the following command:
+
+```{r, eval = FALSE}
+View(mtcars)
+```
 
 ## Website
 

@@ -3251,40 +3251,51 @@ setwd(&quot;~/Lectures&quot;) </pre>
 [15] &quot;Data_Visualization&quot;                      
 [16] &quot;data.zip&quot;                                
 [17] &quot;dhs&quot;                                     
-[18] &quot;Functions&quot;                               
-[19] &quot;HW&quot;                                      
-[20] &quot;ifelse_stata_way.R&quot;                      
-[21] &quot;index.html&quot;                              
-[22] &quot;index.Rmd&quot;                               
-[23] &quot;install_a_package.mov&quot;                   
-[24] &quot;install_all_packages.R&quot;                  
-[25] &quot;Intro&quot;                                   
-[26] &quot;intro_to_r.Rproj&quot;                        
-[27] &quot;Knitr&quot;                                   
-[28] &quot;LICENSE&quot;                                 
-[29] &quot;list_all_packages.R&quot;                     
-[30] &quot;live_code&quot;                               
-[31] &quot;makefile&quot;                                
-[32] &quot;makefile_old&quot;                            
-[33] &quot;makefile.copy&quot;                           
-[34] &quot;Manipulating_Data_in_R&quot;                  
-[35] &quot;my_tab.txt&quot;                              
-[36] &quot;ProjectExample&quot;                          
-[37] &quot;README.md&quot;                               
-[38] &quot;render.R&quot;                                
-[39] &quot;renderFile.R&quot;                            
-[40] &quot;replace_css.R&quot;                           
-[41] &quot;RStudio&quot;                                 
-[42] &quot;run_labs.R&quot;                              
-[43] &quot;scratch.R&quot;                               
-[44] &quot;shiny_knitr&quot;                             
-[45] &quot;shiny_knitr.zip&quot;                         
-[46] &quot;Simple_Knitr&quot;                            
-[47] &quot;Statistics&quot;                              
-[48] &quot;styles.css&quot;                              
-[49] &quot;Subsetting_Data_in_R&quot;                    
-[50] &quot;Syllabus-student.doc&quot;                    
-[51] &quot;tb.xlsx&quot;                                 </pre>
+[18] &quot;email_to_class.txt&quot;                      
+[19] &quot;example_knitr.html&quot;                      
+[20] &quot;example_knitr.pdf&quot;                       
+[21] &quot;example_knitr.Rmd&quot;                       
+[22] &quot;Functions&quot;                               
+[23] &quot;HW&quot;                                      
+[24] &quot;ifelse_stata_way.R&quot;                      
+[25] &quot;index.html&quot;                              
+[26] &quot;index.Rmd&quot;                               
+[27] &quot;install_a_package.mov&quot;                   
+[28] &quot;install_all_packages.R&quot;                  
+[29] &quot;Intro&quot;                                   
+[30] &quot;intro_to_r.Rproj&quot;                        
+[31] &quot;Knitr&quot;                                   
+[32] &quot;LICENSE&quot;                                 
+[33] &quot;list_all_packages.R&quot;                     
+[34] &quot;ListExamples&quot;                            
+[35] &quot;live_code&quot;                               
+[36] &quot;makefile&quot;                                
+[37] &quot;makefile_old&quot;                            
+[38] &quot;makefile.copy&quot;                           
+[39] &quot;Manipulating_Data_in_R&quot;                  
+[40] &quot;my_tab.txt&quot;                              
+[41] &quot;ProjectExample&quot;                          
+[42] &quot;README.md&quot;                               
+[43] &quot;render.R&quot;                                
+[44] &quot;renderFile.R&quot;                            
+[45] &quot;replace_css.R&quot;                           
+[46] &quot;RStudio&quot;                                 
+[47] &quot;rtools_windows.md&quot;                       
+[48] &quot;run_labs.R&quot;                              
+[49] &quot;scratch.R&quot;                               
+[50] &quot;shiny_knitr&quot;                             
+[51] &quot;shiny_knitr.zip&quot;                         
+[52] &quot;Simple_Knitr&quot;                            
+[53] &quot;starting_with_r.html&quot;                    
+[54] &quot;starting_with_r.Rmd&quot;                     
+[55] &quot;Statistics&quot;                              
+[56] &quot;styles.css&quot;                              
+[57] &quot;Subsetting_Data_in_R&quot;                    
+[58] &quot;Syllabus-student.doc&quot;                    
+[59] &quot;syllabus.docx&quot;                           
+[60] &quot;syllabus.html&quot;                           
+[61] &quot;syllabus.Rmd&quot;                            
+[62] &quot;tb.xlsx&quot;                                 </pre>
 
 </article></slide><slide class=""><hgroup><h2>Relative vs. absolute paths (From Wiki)</h2></hgroup><article  id="relative-vs.absolute-paths-from-wiki">
 
@@ -3338,9 +3349,9 @@ help(&quot;dir&quot;)</pre>
 <li>We are going to focus on simple delimited files first
 
 <ul>
-<li>tab delimited (e.g. &lsquo;.txt&rsquo;)</li>
-<li>comma separated (e.g. &lsquo;.csv&rsquo;)</li>
-<li>Microsoft excel (e.g. &lsquo;.xlsx&rsquo;)</li>
+<li>tab delimited (e.g. &lsquo;.txt&rsquo;)</li>
+<li>comma separated (e.g. &lsquo;.csv&rsquo;)</li>
+<li>Microsoft excel (e.g. &lsquo;.xlsx&rsquo;)</li>
 </ul></li>
 </ul>
 
@@ -3379,14 +3390,14 @@ help(&quot;dir&quot;)</pre>
 head(mydat)</pre>
 
 <pre ># A tibble: 6 x 31
-   YEAR LocationAbbr LocationDesc TopicType    TopicDesc  MeasureDesc     
-  &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;           
-1  2015 AZ           Arizona      Tobacco Use… Cessation… Percent of Curr…
-2  2015 AZ           Arizona      Tobacco Use… Cessation… Percent of Curr…
-3  2015 AZ           Arizona      Tobacco Use… Cessation… Percent of Curr…
-4  2015 AZ           Arizona      Tobacco Use… Cessation… Quit Attempt in…
-5  2015 AZ           Arizona      Tobacco Use… Cessation… Quit Attempt in…
-6  2015 AZ           Arizona      Tobacco Use… Cessation… Quit Attempt in…
+   YEAR LocationAbbr LocationDesc TopicType TopicDesc MeasureDesc
+  &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;      
+1  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
+2  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
+3  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
+4  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
+5  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
+6  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
 # ... with 25 more variables: DataSource &lt;chr&gt;, Response &lt;chr&gt;,
 #   Data_Value_Unit &lt;chr&gt;, Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;,
 #   Data_Value_Footnote_Symbol &lt;chr&gt;, Data_Value_Footnote &lt;chr&gt;,
@@ -3417,7 +3428,7 @@ head(mydat)</pre>
 <ul>
 <li>The filename is the path to your file, in quotes</li>
 <li>The function will look in your &ldquo;working directory&rdquo; if no absolute file path is given</li>
-<li>Note that the filename can also be a path to a file on a website (e.g. &lsquo;www.someurl.com/table1.txt&rsquo;)</li>
+<li>Note that the filename can also be a path to a file on a website (e.g. &lsquo;www.someurl.com/table1.txt&rsquo;)</li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-6">
@@ -3437,13 +3448,13 @@ head(mydat)</pre>
         locale = locale, skip = skip, comment = comment, n_max = n_max, 
         guess_max = guess_max, progress = progress)
 }
-&lt;bytecode: 0x7fc84595feb8&gt;
+&lt;bytecode: 0x7fc168ea19e0&gt;
 &lt;environment: namespace:readr&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-7">
 
 <ul>
-<li>Here would be reading in the data from the command line, specifying the file path:</li>
+<li>Here would be reading data from the command line, specifying the file path:</li>
 </ul>
 
 <pre class = 'prettyprint lang-r'>dat = read_csv(&quot;../data/Youth_Tobacco_Survey_YTS_Data.csv&quot;)</pre>
@@ -3532,14 +3543,14 @@ cols(
 head(dat)</pre>
 
 <pre ># A tibble: 6 x 31
-   YEAR LocationAbbr LocationDesc TopicType    TopicDesc  MeasureDesc     
-  &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;           
-1  2015 AZ           Arizona      Tobacco Use… Cessation… Percent of Curr…
-2  2015 AZ           Arizona      Tobacco Use… Cessation… Percent of Curr…
-3  2015 AZ           Arizona      Tobacco Use… Cessation… Percent of Curr…
-4  2015 AZ           Arizona      Tobacco Use… Cessation… Quit Attempt in…
-5  2015 AZ           Arizona      Tobacco Use… Cessation… Quit Attempt in…
-6  2015 AZ           Arizona      Tobacco Use… Cessation… Quit Attempt in…
+   YEAR LocationAbbr LocationDesc TopicType TopicDesc MeasureDesc
+  &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;      
+1  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
+2  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
+3  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
+4  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
+5  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
+6  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
 # ... with 25 more variables: DataSource &lt;chr&gt;, Response &lt;chr&gt;,
 #   Data_Value_Unit &lt;chr&gt;, Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;,
 #   Data_Value_Footnote_Symbol &lt;chr&gt;, Data_Value_Footnote &lt;chr&gt;,
@@ -3555,35 +3566,15 @@ head(dat)</pre>
 
 <pre >[1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</pre>
 
+<!-- ## Data Input -->
+
+<!-- ```{r, viewTibble} -->
+
+<!-- dat -->
+
+<!-- ``` -->
+
 </article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-9">
-
-<pre class = 'prettyprint lang-r'>dat</pre>
-
-<pre ># A tibble: 9,794 x 31
-    YEAR LocationAbbr LocationDesc TopicType   TopicDesc   MeasureDesc    
-   &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;          
- 1  2015 AZ           Arizona      Tobacco Us… Cessation … Percent of Cur…
- 2  2015 AZ           Arizona      Tobacco Us… Cessation … Percent of Cur…
- 3  2015 AZ           Arizona      Tobacco Us… Cessation … Percent of Cur…
- 4  2015 AZ           Arizona      Tobacco Us… Cessation … Quit Attempt i…
- 5  2015 AZ           Arizona      Tobacco Us… Cessation … Quit Attempt i…
- 6  2015 AZ           Arizona      Tobacco Us… Cessation … Quit Attempt i…
- 7  2015 AZ           Arizona      Tobacco Us… Cigarette … Smoking Status 
- 8  2015 AZ           Arizona      Tobacco Us… Cigarette … Smoking Status 
- 9  2015 AZ           Arizona      Tobacco Us… Cigarette … Smoking Status 
-10  2015 AZ           Arizona      Tobacco Us… Cigarette … Smoking Status 
-# ... with 9,784 more rows, and 25 more variables: DataSource &lt;chr&gt;,
-#   Response &lt;chr&gt;, Data_Value_Unit &lt;chr&gt;, Data_Value_Type &lt;chr&gt;,
-#   Data_Value &lt;dbl&gt;, Data_Value_Footnote_Symbol &lt;chr&gt;,
-#   Data_Value_Footnote &lt;chr&gt;, Data_Value_Std_Err &lt;dbl&gt;,
-#   Low_Confidence_Limit &lt;dbl&gt;, High_Confidence_Limit &lt;dbl&gt;,
-#   Sample_Size &lt;int&gt;, Gender &lt;chr&gt;, Race &lt;chr&gt;, Age &lt;chr&gt;,
-#   Education &lt;chr&gt;, GeoLocation &lt;chr&gt;, TopicTypeId &lt;chr&gt;, TopicId &lt;chr&gt;,
-#   MeasureId &lt;chr&gt;, StratificationID1 &lt;chr&gt;, StratificationID2 &lt;chr&gt;,
-#   StratificationID3 &lt;chr&gt;, StratificationID4 &lt;chr&gt;, SubMeasureID &lt;chr&gt;,
-#   DisplayOrder &lt;int&gt;</pre>
-
-</article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-10">
 
 <ul>
 <li><code>nrow()</code> displays the number of rows of a data frame</li>
@@ -3623,9 +3614,9 @@ head(dat)</pre>
 [29] &quot;StratificationID4&quot;          &quot;SubMeasureID&quot;              
 [31] &quot;DisplayOrder&quot;              </pre>
 
-</article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-11">
+</article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-10">
 
-<p>Changing variable names in <code>data.frame</code>s works using the <code>names()</code> function, which is analagous to <code>colnames()</code> for data frames (they can be used interchangeably)</p>
+<p>Changing variable names in <code>data.frame</code>s works using the <code>names()</code> function, which is analagous to <code>colnames()</code> for data frames (they can be used interchangeably). We use the <code>rename</code> function:</p>
 
 <pre class = 'prettyprint lang-r'>library(dplyr)
 dat = rename(dat, year = YEAR)
@@ -3667,7 +3658,7 @@ names(dat)</pre>
 
 <ul>
 <li>&ldquo;,&rdquo; = .csv - Note there is also a <code>write_csv()</code> function</li>
-<li>&ldquo;&rdquo; = tab delimited</li>
+<li>&quot; = tab delimited</li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Data Output</h2></hgroup><article  id="data-output-2">
@@ -3738,17 +3729,17 @@ save(yts, x, file = &quot;yts_data.rda&quot;)</pre>
 
 <pre class = 'prettyprint lang-r'>ls() # list things in the workspace</pre>
 
-<pre >[1] &quot;dat&quot;   &quot;dat2&quot;  &quot;lsos&quot;  &quot;mydat&quot; &quot;req&quot;   &quot;x&quot;     &quot;yts&quot;  </pre>
+<pre >[1] &quot;dat&quot;   &quot;dat2&quot;  &quot;lsos&quot;  &quot;mydat&quot; &quot;qq&quot;    &quot;req&quot;   &quot;x&quot;     &quot;yts&quot;  </pre>
 
 <pre class = 'prettyprint lang-r'>rm(list = c(&quot;x&quot;, &quot;yts&quot;))
 ls()</pre>
 
-<pre >[1] &quot;dat&quot;   &quot;dat2&quot;  &quot;lsos&quot;  &quot;mydat&quot; &quot;req&quot;  </pre>
+<pre >[1] &quot;dat&quot;   &quot;dat2&quot;  &quot;lsos&quot;  &quot;mydat&quot; &quot;qq&quot;    &quot;req&quot;  </pre>
 
 <pre class = 'prettyprint lang-r'>z = load(&quot;yts_data.rda&quot;)
 ls()</pre>
 
-<pre >[1] &quot;dat&quot;   &quot;dat2&quot;  &quot;lsos&quot;  &quot;mydat&quot; &quot;req&quot;   &quot;x&quot;     &quot;yts&quot;   &quot;z&quot;    </pre>
+<pre >[1] &quot;dat&quot;   &quot;dat2&quot;  &quot;lsos&quot;  &quot;mydat&quot; &quot;qq&quot;    &quot;req&quot;   &quot;x&quot;     &quot;yts&quot;   &quot;z&quot;    </pre>
 
 </article></slide><slide class=""><hgroup><h2>More ways to save: load</h2></hgroup><article  id="more-ways-to-save-load-1">
 

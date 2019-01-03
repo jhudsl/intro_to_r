@@ -14,3 +14,6 @@ knitr::include_graphics("rstudio_script.png")
 ## ---- out.width = "90%", echo = FALSE------------------------------------
 knitr::include_graphics("rstudio_environment.png")
 
+## ---- eval = FALSE-------------------------------------------------------
+## View(mtcars)
+
