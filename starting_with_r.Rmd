@@ -33,7 +33,7 @@ Here is code that will make a plot of the average daily ridership in Baltimore C
 
 Here we plot a few days:
 
-```{r plot_circ}
+```{r plot_circ, out.width = "100%"}
 # keep only some days
 avg = avg %>% 
   filter(day %in% c("Monday", "Tuesday", "Friday", "Saturday"))
