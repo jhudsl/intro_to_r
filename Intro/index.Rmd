@@ -110,6 +110,7 @@ install.packages("remotes")
 remotes::install_github("muschellij2/jhur")
 ```
 
+
 ```{r}
 library(jhur)
 head(read_yts())
