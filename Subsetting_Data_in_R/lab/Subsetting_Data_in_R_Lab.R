@@ -6,6 +6,8 @@
 ## 	  but please record your commands here.  
 ## Remember anything you type here can be "sent" to the console with 
 ##    Cmd-Enter (OS-X) or Cntr-Enter (Windows/Linux).
+library(dplyr)
+library(tidyverse)
 
 ##########################
 # Part 1
@@ -20,10 +22,11 @@
 
 # 4. Copy mtcars into an object called cars and rename mpg in cars to MPG
 # use rename
+cars = mtcars
 
 
 # 5. Convert the column names of `cars` to all upper case
-# use colnames, and the `toupper()` command
+# use rename_all, and the `toupper()` command (or colnames)
 
 
 ##########################
@@ -38,7 +41,7 @@
 # use `select()`
 
 # 8. Convert the column names of `carsSub` to all upper case
-# use `colnames()`, and the `toupper()` command
+# use `rename_all()`, and the `toupper()` command (or `colnames`)
 
 
 ##########################
@@ -62,7 +65,7 @@
 #		and reassign this object to `carsSub` - 
 #		what are the dimensions of this dataset?
 # Convert the column names of `carsSub` to all upper case
-# use `colnames()`, and the `toupper()` command
+# use `rename_all()`, and the `toupper()` command
 # use `select()` and `filter()`
 
 

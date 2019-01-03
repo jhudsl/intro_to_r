@@ -218,11 +218,11 @@ class(dat)
 ```
 
 
-## Data Input
+<!-- ## Data Input -->
 
-```{r, viewTibble}
-dat
-```
+<!-- ```{r, viewTibble} -->
+<!-- dat -->
+<!-- ``` -->
 
 
 ## Data Input
@@ -242,7 +242,7 @@ colnames(dat)
 
 ## Data Input
 
-Changing variable names in `data.frame`s works using the `names()` function, which is analagous to `colnames()` for data frames (they can be used interchangeably)
+Changing variable names in `data.frame`s works using the `names()` function, which is analagous to `colnames()` for data frames (they can be used interchangeably). We use the `rename` function:
 
 ```{r names1, message = FALSE}
 library(dplyr)

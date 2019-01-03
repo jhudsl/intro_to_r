@@ -3189,154 +3189,16 @@ width:48%;
 
 <p>The <code>dplyr</code> package also interfaces well with tibbles.</p>
 
-</article></slide><slide class=""><hgroup><h2>Select specific elements using an index</h2></hgroup><article  id="select-specific-elements-using-an-index">
-
-<p>Often you only want to look at subsets of a data set at any given time. As a review, elements of an R object are selected using the brackets (<code>[</code> and <code>]</code>).</p>
-
-<p>For example, <code>x</code> is a vector of numbers and we can select the second element of <code>x</code> using the brackets and an index (2):</p>
-
-<pre class = 'prettyprint lang-r'>x = c(1, 4, 2, 8, 10)
-x[2]</pre>
-
-<pre >[1] 4</pre>
-
-</article></slide><slide class=""><hgroup><h2>Select specific elements using an index</h2></hgroup><article  id="select-specific-elements-using-an-index-1">
-
-<p>We can select the fifth or second AND fifth elements below:</p>
-
-<pre class = 'prettyprint lang-r'>x = c(1, 2, 4, 8, 10)
-x[5]</pre>
-
-<pre >[1] 10</pre>
-
-<pre class = 'prettyprint lang-r'>x[c(2,5)]</pre>
-
-<pre >[1]  2 10</pre>
-
-</article></slide><slide class=""><hgroup><h2>Subsetting by deletion of entries</h2></hgroup><article  id="subsetting-by-deletion-of-entries">
-
-<p>You can put a minus (<code>-</code>) before integers inside brackets to remove these indices from the data.</p>
-
-<pre class = 'prettyprint lang-r'>x[-2] # all but the second</pre>
-
-<pre >[1]  1  4  8 10</pre>
-
-<p>Note that you have to be careful with this syntax when dropping more than 1 element:</p>
-
-<pre class = 'prettyprint lang-r'>x[-c(1,2,3)] # drop first 3</pre>
-
-<pre >[1]  8 10</pre>
-
-<pre class = 'prettyprint lang-r'># x[-1:3] # shorthand. R sees as -1 to 3
-x[-(1:3)] # needs parentheses</pre>
-
-<pre >[1]  8 10</pre>
-
-</article></slide><slide class=""><hgroup><h2>Select specific elements using logical operators</h2></hgroup><article  id="select-specific-elements-using-logical-operators">
-
-<p>What about selecting rows based on the values of two variables? We use logical statements. Here we select only elements of <code>x</code> greater than 2:</p>
-
-<pre class = 'prettyprint lang-r'>x</pre>
-
-<pre >[1]  1  2  4  8 10</pre>
-
-<pre class = 'prettyprint lang-r'>x &gt; 2</pre>
-
-<pre >[1] FALSE FALSE  TRUE  TRUE  TRUE</pre>
-
-<pre class = 'prettyprint lang-r'>x[ x &gt; 2 ]</pre>
-
-<pre >[1]  4  8 10</pre>
-
-</article></slide><slide class=""><hgroup><h2>Select specific elements using logical operators</h2></hgroup><article  id="select-specific-elements-using-logical-operators-1">
-
-<p>You can have multiple logical conditions using the following:</p>
-
-<ul>
-<li><code>&amp;</code> : AND</li>
-<li><code>|</code> : OR</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>x[ x &gt; 2 &amp; x &lt; 5 ]</pre>
-
-<pre >[1] 4</pre>
-
-<pre class = 'prettyprint lang-r'>x[ x &gt; 5 | x == 2 ]</pre>
-
-<pre >[1]  2  8 10</pre>
-
-</article></slide><slide class=""><hgroup><h2>which function</h2></hgroup><article  id="which-function">
-
-<p>The <code>which</code> functions takes in logical vectors and returns the index for the elements where the logical value is <code>TRUE</code>.</p>
-
-<pre class = 'prettyprint lang-r'>which(x &gt; 5 | x == 2) # returns index</pre>
-
-<pre >[1] 2 4 5</pre>
-
-<pre class = 'prettyprint lang-r'>x[ which(x &gt; 5 | x == 2) ]</pre>
-
-<pre >[1]  2  8 10</pre>
-
-<pre class = 'prettyprint lang-r'>x[ x &gt; 5 | x == 2 ]</pre>
-
-<pre >[1]  2  8 10</pre>
-
-</article></slide><slide class=""><hgroup><h2>Creating a <code>data.frame</code> to work with</h2></hgroup><article  id="creating-a-data.frame-to-work-with">
-
-<p>Here we use one of the datasets that comes with R called <code>mtcars</code> create a toy data.frame named <code>df</code> using random data:</p>
-
-<pre class = 'prettyprint lang-r'>data(mtcars)
-df = mtcars
-tbl = as.tbl(df)</pre>
-
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Renaming Columns</h2></hgroup><article  id="renaming-columns">
-
-</article></slide><slide class=""><hgroup><h2>Renaming Columns of a <code>data.frame</code>: base R</h2></hgroup><article  id="renaming-columns-of-a-data.frame-base-r">
-
-<p>We can use the <code>colnames</code> function to directly reassign column names of <code>df</code>:</p>
-
-<pre class = 'prettyprint lang-r'>colnames(df)[1:3] = c(&quot;MPG&quot;, &quot;CYL&quot;, &quot;DISP&quot;)
-head(df)</pre>
-
-<pre >                   MPG CYL DISP  hp drat    wt  qsec vs am gear carb
-Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
-Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
-Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</pre>
-
-<pre class = 'prettyprint lang-r'>colnames(df)[1:3] = c(&quot;mpg&quot;, &quot;cyl&quot;, &quot;disp&quot;) #reset</pre>
-
-</article></slide><slide class=""><hgroup><h2>Renaming Columns of a <code>data.frame</code>: base R</h2></hgroup><article  id="renaming-columns-of-a-data.frame-base-r-1">
-
-<p>We can assign the column names, change the ones we want, and then re-assign the column names:</p>
-
-<pre class = 'prettyprint lang-r'>cn = colnames(df)
-cn[ cn == &quot;drat&quot;] = &quot;DRAT&quot;
-colnames(df) = cn
-head(df)</pre>
-
-<pre >                   mpg cyl disp  hp DRAT    wt  qsec vs am gear carb
-Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
-Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
-Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</pre>
-
-<pre class = 'prettyprint lang-r'>colnames(df)[ colnames(df) == &quot;DRAT&quot;] = &quot;drat&quot; #reset</pre>
-
-</article></slide><slide class=""><hgroup><h2>Renaming Columns of a <code>data.frame</code>: dplyr and tidyverse</h2></hgroup><article  id="renaming-columns-of-a-data.frame-dplyr-and-tidyverse">
+</article></slide><slide class=""><hgroup><h2>Loading in dplyr and tidyverse</h2></hgroup><article  id="loading-in-dplyr-and-tidyverse">
 
 <pre class = 'prettyprint lang-r'>library(tidyverse)</pre>
 
 <pre >── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──</pre>
 
-<pre >✔ ggplot2 2.2.1.9000     ✔ readr   1.1.1     
-✔ tibble  1.4.2          ✔ purrr   0.2.4     
-✔ tidyr   0.8.0          ✔ stringr 1.3.1     
-✔ ggplot2 2.2.1.9000     ✔ forcats 0.3.0     </pre>
+<pre >✔ ggplot2 3.1.0     ✔ readr   1.1.1
+✔ tibble  1.4.2     ✔ purrr   0.2.5
+✔ tidyr   0.8.2     ✔ stringr 1.3.1
+✔ ggplot2 3.1.0     ✔ forcats 0.3.0</pre>
 
 <pre >── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
@@ -3344,7 +3206,7 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</pre>
 
 <p>Note, when loading <code>dplyr</code>, it says objects can be &ldquo;masked&rdquo;/conflicts. That means if you use a function defined in 2 places, it uses the one that is loaded in <strong>last</strong>.</p>
 
-</article></slide><slide class=""><hgroup><h2>Renaming Columns of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="renaming-columns-of-a-data.frame-dplyr">
+</article></slide><slide class=""><hgroup><h2>Loading in dplyr and tidyverse</h2></hgroup><article  id="loading-in-dplyr-and-tidyverse-1">
 
 <p>For example, if we print <code>filter</code>, then we see at the bottom <code>namespace:dplyr</code>, which means when you type <code>filter</code>, it will use the one from the <code>dplyr</code> package.</p>
 
@@ -3354,10 +3216,10 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</pre>
 {
     UseMethod(&quot;filter&quot;)
 }
-&lt;bytecode: 0x7fa4c6c36db0&gt;
+&lt;bytecode: 0x7fba05704b40&gt;
 &lt;environment: namespace:dplyr&gt;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Renaming Columns of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="renaming-columns-of-a-data.frame-dplyr-1">
+</article></slide><slide class=""><hgroup><h2>Loading in dplyr and tidyverse</h2></hgroup><article  id="loading-in-dplyr-and-tidyverse-2">
 
 <p>A <code>filter</code> function exists by default in the <code>stats</code> package, however. If you want to make sure you use that one, you use <code>PackageName::Function</code> with the colon-colon (&ldquo;<code>::</code>&rdquo;) operator.</p>
 
@@ -3367,9 +3229,60 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</pre>
 1 function (x, filter, method = c(&quot;convolution&quot;, &quot;recursive&quot;), 
 2     sides = 2L, circular = FALSE, init = NULL)               </pre>
 
-<p>This is important when loading many packages, and you may have some conflicts/masking:</p>
+<p>This is important when loading many packages, and you may have some conflicts/masking.</p>
 
-</article></slide><slide class=""><hgroup><h2>Renaming Columns of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="renaming-columns-of-a-data.frame-dplyr-2">
+</article></slide><slide class=""><hgroup><h2>Creating a <code>data.frame</code> to work with</h2></hgroup><article  id="creating-a-data.frame-to-work-with">
+
+<p>Here we use one of the datasets that comes with <code>R</code> called <code>mtcars</code> create a toy data.frame named <code>df</code> using random data:</p>
+
+<pre class = 'prettyprint lang-r'>data(mtcars)
+df = mtcars
+df</pre>
+
+<pre >                     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+Datsun 710          22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+Hornet 4 Drive      21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+Hornet Sportabout   18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+Valiant             18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+Duster 360          14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+Merc 240D           24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+Merc 230            22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+Merc 280            19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+Merc 280C           17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+Merc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
+Merc 450SL          17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
+Merc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
+Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
+Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
+Chrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
+Fiat 128            32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+Honda Civic         30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+Toyota Corolla      33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+Toyota Corona       21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+Dodge Challenger    15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
+AMC Javelin         15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
+Camaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
+Pontiac Firebird    19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
+Fiat X1-9           27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+Porsche 914-2       26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+Lotus Europa        30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+Ford Pantera L      15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
+Ferrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
+Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</pre>
+
+</article></slide><slide class=""><hgroup><h2>Creating a <code>data.frame</code> to work with</h2></hgroup><article  id="creating-a-data.frame-to-work-with-1">
+
+<p>If we would like to create a <code>tibble</code> (&ldquo;fancy&rdquo; data.frame), we can using <code>as.tbl</code>. In the &ldquo;tidy&rdquo; data format, all information of interest is a variable (not a name).</p>
+
+<pre class = 'prettyprint lang-r'>tbl = as.tbl(df)
+tbl = rownames_to_column(tbl, var = &quot;car&quot;)</pre>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Renaming Columns</h2></hgroup><article  id="renaming-columns">
+
+</article></slide><slide class=""><hgroup><h2>Renaming Columns of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="renaming-columns-of-a-data.frame-dplyr">
 
 <p>To rename columns in <code>dplyr</code>, you use the <code>rename</code> command</p>
 
@@ -3386,6 +3299,21 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</pre>
 
 <pre class = 'prettyprint lang-r'>df = rename(df, mpg = MPG) # reset - don&#39;t need :: b/c not masked</pre>
 
+</article></slide><slide class=""><hgroup><h2>Renaming All Columns of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="renaming-all-columns-of-a-data.frame-dplyr">
+
+<p>To rename all columns you use the <code>rename_all</code> command (with a function)</p>
+
+<pre class = 'prettyprint lang-r'>df_upper = dplyr::rename_all(df, toupper)
+head(df_upper)</pre>
+
+<pre >                   MPG CYL DISP  HP DRAT    WT  QSEC VS AM GEAR CARB
+Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</pre>
+
 </article></slide><slide class=""><hgroup><h2>Lab Part 1</h2></hgroup><article  id="lab-part-1">
 
 <p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
@@ -3399,140 +3327,6 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</pre>
 <pre class = 'prettyprint lang-r'>df$carb</pre>
 
 <pre > [1] 4 4 1 1 2 1 4 2 2 4 4 3 3 3 4 4 4 1 2 1 1 2 2 4 2 1 2 2 4 6 8 2</pre>
-
-</article></slide><slide class=""><hgroup><h2>Subset columns of a <code>data.frame</code>:</h2></hgroup><article  id="subset-columns-of-a-data.frame-1">
-
-<p>We can also subset a <code>data.frame</code> using the bracket <code>[, ]</code> subsetting.</p>
-
-<p>For <code>data.frame</code>s and matrices (2-dimensional objects), the brackets are <code>[rows, columns]</code> subsetting. We can grab the <code>x</code> column using the index of the column or the column name (&ldquo;<code>carb</code>&rdquo;)</p>
-
-<pre class = 'prettyprint lang-r'>df[, 11]</pre>
-
-<pre > [1] 4 4 1 1 2 1 4 2 2 4 4 3 3 3 4 4 4 1 2 1 1 2 2 4 2 1 2 2 4 6 8 2</pre>
-
-<pre class = 'prettyprint lang-r'>df[, &quot;carb&quot;]</pre>
-
-<pre > [1] 4 4 1 1 2 1 4 2 2 4 4 3 3 3 4 4 4 1 2 1 1 2 2 4 2 1 2 2 4 6 8 2</pre>
-
-</article></slide><slide class=""><hgroup><h2>Biggest difference between <code>tbl</code> and <code>data.frame</code>:</h2></hgroup><article  id="biggest-difference-between-tbl-and-data.frame">
-
-<p>Mostly, <code>tbl</code> (tibbles) are the same as <code>data.frame</code>s, except they don’t print all lines. When subsetting only one column using brackets, a <code>data.frame</code> will return a vector, but a <code>tbl</code> will return a <code>tbl</code></p>
-
-<pre class = 'prettyprint lang-r'>df[, 1]</pre>
-
-<pre > [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2
-[15] 10.4 10.4 14.7 32.4 30.4 33.9 21.5 15.5 15.2 13.3 19.2 27.3 26.0 30.4
-[29] 15.8 19.7 15.0 21.4</pre>
-
-<pre class = 'prettyprint lang-r'>tbl[, 1]</pre>
-
-<pre ># A tibble: 32 x 1
-     mpg
-   &lt;dbl&gt;
- 1  21  
- 2  21  
- 3  22.8
- 4  21.4
- 5  18.7
- 6  18.1
- 7  14.3
- 8  24.4
- 9  22.8
-10  19.2
-# ... with 22 more rows</pre>
-
-<pre class = 'prettyprint lang-r'>tbl[, &quot;mpg&quot;]</pre>
-
-<pre ># A tibble: 32 x 1
-     mpg
-   &lt;dbl&gt;
- 1  21  
- 2  21  
- 3  22.8
- 4  21.4
- 5  18.7
- 6  18.1
- 7  14.3
- 8  24.4
- 9  22.8
-10  19.2
-# ... with 22 more rows</pre>
-
-<pre class = 'prettyprint lang-r'>df[, 1, drop = FALSE]</pre>
-
-<pre >                     mpg
-Mazda RX4           21.0
-Mazda RX4 Wag       21.0
-Datsun 710          22.8
-Hornet 4 Drive      21.4
-Hornet Sportabout   18.7
-Valiant             18.1
-Duster 360          14.3
-Merc 240D           24.4
-Merc 230            22.8
-Merc 280            19.2
-Merc 280C           17.8
-Merc 450SE          16.4
-Merc 450SL          17.3
-Merc 450SLC         15.2
-Cadillac Fleetwood  10.4
-Lincoln Continental 10.4
-Chrysler Imperial   14.7
-Fiat 128            32.4
-Honda Civic         30.4
-Toyota Corolla      33.9
-Toyota Corona       21.5
-Dodge Challenger    15.5
-AMC Javelin         15.2
-Camaro Z28          13.3
-Pontiac Firebird    19.2
-Fiat X1-9           27.3
-Porsche 914-2       26.0
-Lotus Europa        30.4
-Ford Pantera L      15.8
-Ferrari Dino        19.7
-Maserati Bora       15.0
-Volvo 142E          21.4</pre>
-
-</article></slide><slide class=""><hgroup><h2>Subset columns of a <code>data.frame</code>:</h2></hgroup><article  id="subset-columns-of-a-data.frame-2">
-
-<p>We can select multiple columns using multiple column names:</p>
-
-<pre class = 'prettyprint lang-r'>df[, c(&quot;mpg&quot;, &quot;cyl&quot;)]</pre>
-
-<pre >                     mpg cyl
-Mazda RX4           21.0   6
-Mazda RX4 Wag       21.0   6
-Datsun 710          22.8   4
-Hornet 4 Drive      21.4   6
-Hornet Sportabout   18.7   8
-Valiant             18.1   6
-Duster 360          14.3   8
-Merc 240D           24.4   4
-Merc 230            22.8   4
-Merc 280            19.2   6
-Merc 280C           17.8   6
-Merc 450SE          16.4   8
-Merc 450SL          17.3   8
-Merc 450SLC         15.2   8
-Cadillac Fleetwood  10.4   8
-Lincoln Continental 10.4   8
-Chrysler Imperial   14.7   8
-Fiat 128            32.4   4
-Honda Civic         30.4   4
-Toyota Corolla      33.9   4
-Toyota Corona       21.5   4
-Dodge Challenger    15.5   8
-AMC Javelin         15.2   8
-Camaro Z28          13.3   8
-Pontiac Firebird    19.2   8
-Fiat X1-9           27.3   4
-Porsche 914-2       26.0   4
-Lotus Europa        30.4   4
-Ford Pantera L      15.8   8
-Ferrari Dino        19.7   6
-Maserati Bora       15.0   8
-Volvo 142E          21.4   4</pre>
 
 </article></slide><slide class=""><hgroup><h2>Subset columns of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="subset-columns-of-a-data.frame-dplyr">
 
@@ -3576,7 +3370,7 @@ Volvo 142E          21.4</pre>
 
 </article></slide><slide class=""><hgroup><h2>Select columns of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="select-columns-of-a-data.frame-dplyr">
 
-<p>The <code>select</code> command from <code>dplyr</code> allows you to subset columns of</p>
+<p>The <code>select</code> command from <code>dplyr</code> allows you to subset columns matching strings:</p>
 
 <pre class = 'prettyprint lang-r'>select(df, mpg, cyl)</pre>
 
@@ -3650,21 +3444,25 @@ Ferrari Dino          6    6
 Maserati Bora         8    8
 Volvo 142E            4    2</pre>
 
+</article></slide><slide class=""><hgroup><h2>See the Select &ldquo;helpers&rdquo;</h2></hgroup><article  id="see-the-select-helpers">
+
+<p>Run the command:</p>
+
+<pre class = 'prettyprint lang-r'>??tidyselect::select_helpers</pre>
+
+<p>Here are a few:</p>
+
+<pre class = 'prettyprint lang-r'>one_of()
+last_col()
+ends_with()
+contains() # like searching
+matches() # Matches a regular expression - cover later</pre>
+
 </article></slide><slide class=""><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
 
 <p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Subsetting Rows</h2></hgroup><article  id="subsetting-rows">
-
-</article></slide><slide class=""><hgroup><h2>Subset rows of a <code>data.frame</code> with indices:</h2></hgroup><article  id="subset-rows-of-a-data.frame-with-indices">
-
-<p>Let’s select <strong>rows</strong> 1 and 3 from <code>df</code> using brackets:</p>
-
-<pre class = 'prettyprint lang-r'>df[ c(1, 3), ]</pre>
-
-<pre >            mpg cyl disp  hp drat   wt  qsec vs am gear carb
-Mazda RX4  21.0   6  160 110 3.90 2.62 16.46  0  1    4    4
-Datsun 710 22.8   4  108  93 3.85 2.32 18.61  1  1    4    1</pre>
 
 </article></slide><slide class=""><hgroup><h2>Subset rows of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="subset-rows-of-a-data.frame-dplyr">
 
@@ -3695,7 +3493,14 @@ Datsun 710 22.8   4  108  93 3.85 2.32 18.61  1  1    4    1</pre>
 
 </article></slide><slide class=""><hgroup><h2>Subset rows of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="subset-rows-of-a-data.frame-dplyr-1">
 
-<p>By default, you can separate conditions by commas, and <code>filter</code> assumes these statements are joined by <code>&amp;</code></p>
+<p>You can have multiple logical conditions using the following:</p>
+
+<ul>
+<li><code>&amp;</code> : AND</li>
+<li><code>|</code> : OR</li>
+</ul>
+
+<p>By default, you can separate conditions by commas, and <code>filter</code> assumes these statements are joined by <code>&amp;</code>:</p>
 
 <pre class = 'prettyprint lang-r'>filter(df, mpg &gt; 20 &amp; cyl == 4)</pre>
 
@@ -3726,6 +3531,28 @@ Datsun 710 22.8   4  108  93 3.85 2.32 18.61  1  1    4    1</pre>
 9  26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
 10 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
 11 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</pre>
+
+</article></slide><slide class=""><hgroup><h2>Subset rows of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="subset-rows-of-a-data.frame-dplyr-2">
+
+<p>If you want OR statements, you need to do the pipe <code>|</code> explicitly:</p>
+
+<pre class = 'prettyprint lang-r'>filter(df, mpg &gt; 20 | cyl == 4)</pre>
+
+<pre >    mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+1  21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+2  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+3  22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+4  21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+5  24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+6  22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+7  32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+8  30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+9  33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+10 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+11 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+12 26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+13 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+14 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 3</h2></hgroup><article  id="lab-part-3">
 
@@ -3834,6 +3661,23 @@ Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1 1.054545</pre>
 31 15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8 1.6227273
 32 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2 1.2636364</pre>
 
+</article></slide><slide class=""><hgroup><h2>Adding columns to a <code>data.frame</code>: dplyr</h2></hgroup><article  id="adding-columns-to-a-data.frame-dplyr-1">
+
+<p>Combined with <code>ifelse(condition, TRUE, FALSE)</code>, it can give you didffer</p>
+
+<pre class = 'prettyprint lang-r'>df = mutate(df, 
+            disp_cat = ifelse(
+              disp &lt;= 200,
+              &quot;Low&quot;,
+              ifelse(disp &lt;= 400,
+                     &quot;Medium&quot;,
+                     &quot;High&quot;)
+            )
+)
+head(df$disp_cat)</pre>
+
+<pre >[1] &quot;Low&quot;    &quot;Low&quot;    &quot;Low&quot;    &quot;Medium&quot; &quot;Medium&quot; &quot;Medium&quot;</pre>
+
 </article></slide><slide class=""><hgroup><h2>Removing columns to a <code>data.frame</code>: base R</h2></hgroup><article  id="removing-columns-to-a-data.frame-base-r">
 
 <p>You can remove a column by assigning to <code>NULL</code>:</p>
@@ -3848,39 +3692,39 @@ Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1 1.054545</pre>
 
 <pre class = 'prettyprint lang-r'>select(df, -newcol)</pre>
 
-<pre >    mpg cyl  disp  hp drat    wt  qsec vs am gear carb
-1  21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
-2  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
-3  22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
-4  21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
-5  18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
-6  18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
-7  14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
-8  24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
-9  22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
-10 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
-11 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
-12 16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
-13 17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
-14 15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
-15 10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
-16 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
-17 14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
-18 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
-19 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
-20 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
-21 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
-22 15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
-23 15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
-24 13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
-25 19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
-26 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
-27 26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
-28 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
-29 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
-30 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
-31 15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
-32 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</pre>
+<pre >    mpg cyl  disp  hp drat    wt  qsec vs am gear carb disp_cat
+1  21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4      Low
+2  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4      Low
+3  22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1      Low
+4  21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1   Medium
+5  18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2   Medium
+6  18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1   Medium
+7  14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4   Medium
+8  24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2      Low
+9  22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2      Low
+10 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4      Low
+11 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4      Low
+12 16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3   Medium
+13 17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3   Medium
+14 15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3   Medium
+15 10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4     High
+16 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4     High
+17 14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4     High
+18 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1      Low
+19 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2      Low
+20 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1      Low
+21 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1      Low
+22 15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2   Medium
+23 15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2   Medium
+24 13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4   Medium
+25 19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2   Medium
+26 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1      Low
+27 26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2      Low
+28 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2      Low
+29 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4   Medium
+30 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6      Low
+31 15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8   Medium
+32 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2      Low</pre>
 
 </article></slide><slide class=""><hgroup><h2>Removing columns to a <code>data.frame</code>: dplyr</h2></hgroup><article  id="removing-columns-to-a-data.frame-dplyr-1">
 
@@ -3888,39 +3732,39 @@ Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1 1.054545</pre>
 
 <pre class = 'prettyprint lang-r'>select(df, -one_of(&quot;newcol&quot;, &quot;drat&quot;))</pre>
 
-<pre >    mpg cyl  disp  hp    wt  qsec vs am gear carb
-1  21.0   6 160.0 110 2.620 16.46  0  1    4    4
-2  21.0   6 160.0 110 2.875 17.02  0  1    4    4
-3  22.8   4 108.0  93 2.320 18.61  1  1    4    1
-4  21.4   6 258.0 110 3.215 19.44  1  0    3    1
-5  18.7   8 360.0 175 3.440 17.02  0  0    3    2
-6  18.1   6 225.0 105 3.460 20.22  1  0    3    1
-7  14.3   8 360.0 245 3.570 15.84  0  0    3    4
-8  24.4   4 146.7  62 3.190 20.00  1  0    4    2
-9  22.8   4 140.8  95 3.150 22.90  1  0    4    2
-10 19.2   6 167.6 123 3.440 18.30  1  0    4    4
-11 17.8   6 167.6 123 3.440 18.90  1  0    4    4
-12 16.4   8 275.8 180 4.070 17.40  0  0    3    3
-13 17.3   8 275.8 180 3.730 17.60  0  0    3    3
-14 15.2   8 275.8 180 3.780 18.00  0  0    3    3
-15 10.4   8 472.0 205 5.250 17.98  0  0    3    4
-16 10.4   8 460.0 215 5.424 17.82  0  0    3    4
-17 14.7   8 440.0 230 5.345 17.42  0  0    3    4
-18 32.4   4  78.7  66 2.200 19.47  1  1    4    1
-19 30.4   4  75.7  52 1.615 18.52  1  1    4    2
-20 33.9   4  71.1  65 1.835 19.90  1  1    4    1
-21 21.5   4 120.1  97 2.465 20.01  1  0    3    1
-22 15.5   8 318.0 150 3.520 16.87  0  0    3    2
-23 15.2   8 304.0 150 3.435 17.30  0  0    3    2
-24 13.3   8 350.0 245 3.840 15.41  0  0    3    4
-25 19.2   8 400.0 175 3.845 17.05  0  0    3    2
-26 27.3   4  79.0  66 1.935 18.90  1  1    4    1
-27 26.0   4 120.3  91 2.140 16.70  0  1    5    2
-28 30.4   4  95.1 113 1.513 16.90  1  1    5    2
-29 15.8   8 351.0 264 3.170 14.50  0  1    5    4
-30 19.7   6 145.0 175 2.770 15.50  0  1    5    6
-31 15.0   8 301.0 335 3.570 14.60  0  1    5    8
-32 21.4   4 121.0 109 2.780 18.60  1  1    4    2</pre>
+<pre >    mpg cyl  disp  hp    wt  qsec vs am gear carb disp_cat
+1  21.0   6 160.0 110 2.620 16.46  0  1    4    4      Low
+2  21.0   6 160.0 110 2.875 17.02  0  1    4    4      Low
+3  22.8   4 108.0  93 2.320 18.61  1  1    4    1      Low
+4  21.4   6 258.0 110 3.215 19.44  1  0    3    1   Medium
+5  18.7   8 360.0 175 3.440 17.02  0  0    3    2   Medium
+6  18.1   6 225.0 105 3.460 20.22  1  0    3    1   Medium
+7  14.3   8 360.0 245 3.570 15.84  0  0    3    4   Medium
+8  24.4   4 146.7  62 3.190 20.00  1  0    4    2      Low
+9  22.8   4 140.8  95 3.150 22.90  1  0    4    2      Low
+10 19.2   6 167.6 123 3.440 18.30  1  0    4    4      Low
+11 17.8   6 167.6 123 3.440 18.90  1  0    4    4      Low
+12 16.4   8 275.8 180 4.070 17.40  0  0    3    3   Medium
+13 17.3   8 275.8 180 3.730 17.60  0  0    3    3   Medium
+14 15.2   8 275.8 180 3.780 18.00  0  0    3    3   Medium
+15 10.4   8 472.0 205 5.250 17.98  0  0    3    4     High
+16 10.4   8 460.0 215 5.424 17.82  0  0    3    4     High
+17 14.7   8 440.0 230 5.345 17.42  0  0    3    4     High
+18 32.4   4  78.7  66 2.200 19.47  1  1    4    1      Low
+19 30.4   4  75.7  52 1.615 18.52  1  1    4    2      Low
+20 33.9   4  71.1  65 1.835 19.90  1  1    4    1      Low
+21 21.5   4 120.1  97 2.465 20.01  1  0    3    1      Low
+22 15.5   8 318.0 150 3.520 16.87  0  0    3    2   Medium
+23 15.2   8 304.0 150 3.435 17.30  0  0    3    2   Medium
+24 13.3   8 350.0 245 3.840 15.41  0  0    3    4   Medium
+25 19.2   8 400.0 175 3.845 17.05  0  0    3    2   Medium
+26 27.3   4  79.0  66 1.935 18.90  1  1    4    1      Low
+27 26.0   4 120.3  91 2.140 16.70  0  1    5    2      Low
+28 30.4   4  95.1 113 1.513 16.90  1  1    5    2      Low
+29 15.8   8 351.0 264 3.170 14.50  0  1    5    4   Medium
+30 19.7   6 145.0 175 2.770 15.50  0  1    5    6      Low
+31 15.0   8 301.0 335 3.570 14.60  0  1    5    8   Medium
+32 21.4   4 121.0 109 2.780 18.60  1  1    4    2      Low</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Ordering columns</h2></hgroup><article  id="ordering-columns">
 
@@ -3930,39 +3774,79 @@ Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1 1.054545</pre>
 
 <pre class = 'prettyprint lang-r'>select(df, newcol, everything())</pre>
 
-<pre >      newcol  mpg cyl  disp  hp drat    wt  qsec vs am gear carb
-1  1.1909091 21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
-2  1.3068182 21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
-3  1.0545455 22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
-4  1.4613636 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
-5  1.5636364 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
-6  1.5727273 18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
-7  1.6227273 14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
-8  1.4500000 24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
-9  1.4318182 22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
-10 1.5636364 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
-11 1.5636364 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
-12 1.8500000 16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
-13 1.6954545 17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
-14 1.7181818 15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
-15 2.3863636 10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
-16 2.4654545 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
-17 2.4295455 14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
-18 1.0000000 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
-19 0.7340909 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
-20 0.8340909 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
-21 1.1204545 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
-22 1.6000000 15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
-23 1.5613636 15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
-24 1.7454545 13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
-25 1.7477273 19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
-26 0.8795455 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
-27 0.9727273 26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
-28 0.6877273 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
-29 1.4409091 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
-30 1.2590909 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
-31 1.6227273 15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
-32 1.2636364 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</pre>
+<pre >      newcol  mpg cyl  disp  hp drat    wt  qsec vs am gear carb disp_cat
+1  1.1909091 21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4      Low
+2  1.3068182 21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4      Low
+3  1.0545455 22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1      Low
+4  1.4613636 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1   Medium
+5  1.5636364 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2   Medium
+6  1.5727273 18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1   Medium
+7  1.6227273 14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4   Medium
+8  1.4500000 24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2      Low
+9  1.4318182 22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2      Low
+10 1.5636364 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4      Low
+11 1.5636364 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4      Low
+12 1.8500000 16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3   Medium
+13 1.6954545 17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3   Medium
+14 1.7181818 15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3   Medium
+15 2.3863636 10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4     High
+16 2.4654545 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4     High
+17 2.4295455 14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4     High
+18 1.0000000 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1      Low
+19 0.7340909 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2      Low
+20 0.8340909 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1      Low
+21 1.1204545 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1      Low
+22 1.6000000 15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2   Medium
+23 1.5613636 15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2   Medium
+24 1.7454545 13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4   Medium
+25 1.7477273 19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2   Medium
+26 0.8795455 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1      Low
+27 0.9727273 26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2      Low
+28 0.6877273 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2      Low
+29 1.4409091 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4   Medium
+30 1.2590909 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6      Low
+31 1.6227273 15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8   Medium
+32 1.2636364 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2      Low</pre>
+
+</article></slide><slide class=""><hgroup><h2>Ordering the columns of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="ordering-the-columns-of-a-data.frame-dplyr-1">
+
+<p>Put <code>newcol</code> at the end (&ldquo;remove, everything, then add back in&rdquo;):</p>
+
+<pre class = 'prettyprint lang-r'>select(df, -newcol, everything(), newcol)</pre>
+
+<pre >    mpg cyl  disp  hp drat    wt  qsec vs am gear carb disp_cat    newcol
+1  21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4      Low 1.1909091
+2  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4      Low 1.3068182
+3  22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1      Low 1.0545455
+4  21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1   Medium 1.4613636
+5  18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2   Medium 1.5636364
+6  18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1   Medium 1.5727273
+7  14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4   Medium 1.6227273
+8  24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2      Low 1.4500000
+9  22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2      Low 1.4318182
+10 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4      Low 1.5636364
+11 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4      Low 1.5636364
+12 16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3   Medium 1.8500000
+13 17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3   Medium 1.6954545
+14 15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3   Medium 1.7181818
+15 10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4     High 2.3863636
+16 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4     High 2.4654545
+17 14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4     High 2.4295455
+18 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1      Low 1.0000000
+19 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2      Low 0.7340909
+20 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1      Low 0.8340909
+21 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1      Low 1.1204545
+22 15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2   Medium 1.6000000
+23 15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2   Medium 1.5613636
+24 13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4   Medium 1.7454545
+25 19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2   Medium 1.7477273
+26 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1      Low 0.8795455
+27 26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2      Low 0.9727273
+28 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2      Low 0.6877273
+29 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4   Medium 1.4409091
+30 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6      Low 1.2590909
+31 15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8   Medium 1.6227273
+32 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2      Low 1.2636364</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Ordering rows</h2></hgroup><article  id="ordering-rows">
 
@@ -3972,39 +3856,39 @@ Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1 1.054545</pre>
 
 <pre class = 'prettyprint lang-r'>arrange(df, mpg)</pre>
 
-<pre >    mpg cyl  disp  hp drat    wt  qsec vs am gear carb    newcol
-1  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4 2.3863636
-2  10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4 2.4654545
-3  13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4 1.7454545
-4  14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4 1.6227273
-5  14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4 2.4295455
-6  15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8 1.6227273
-7  15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3 1.7181818
-8  15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2 1.5613636
-9  15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2 1.6000000
-10 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4 1.4409091
-11 16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3 1.8500000
-12 17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3 1.6954545
-13 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4 1.5636364
-14 18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1 1.5727273
-15 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2 1.5636364
-16 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4 1.5636364
-17 19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2 1.7477273
-18 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6 1.2590909
-19 21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4 1.1909091
-20 21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4 1.3068182
-21 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1 1.4613636
-22 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2 1.2636364
-23 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1 1.1204545
-24 22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1 1.0545455
-25 22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2 1.4318182
-26 24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2 1.4500000
-27 26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2 0.9727273
-28 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1 0.8795455
-29 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2 0.7340909
-30 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2 0.6877273
-31 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1 1.0000000
-32 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1 0.8340909</pre>
+<pre >    mpg cyl  disp  hp drat    wt  qsec vs am gear carb    newcol disp_cat
+1  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4 2.3863636     High
+2  10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4 2.4654545     High
+3  13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4 1.7454545   Medium
+4  14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4 1.6227273   Medium
+5  14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4 2.4295455     High
+6  15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8 1.6227273   Medium
+7  15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3 1.7181818   Medium
+8  15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2 1.5613636   Medium
+9  15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2 1.6000000   Medium
+10 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4 1.4409091   Medium
+11 16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3 1.8500000   Medium
+12 17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3 1.6954545   Medium
+13 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4 1.5636364      Low
+14 18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1 1.5727273   Medium
+15 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2 1.5636364   Medium
+16 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4 1.5636364      Low
+17 19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2 1.7477273   Medium
+18 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6 1.2590909      Low
+19 21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4 1.1909091      Low
+20 21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4 1.3068182      Low
+21 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1 1.4613636   Medium
+22 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2 1.2636364      Low
+23 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1 1.1204545      Low
+24 22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1 1.0545455      Low
+25 22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2 1.4318182      Low
+26 24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2 1.4500000      Low
+27 26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2 0.9727273      Low
+28 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1 0.8795455      Low
+29 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2 0.7340909      Low
+30 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2 0.6877273      Low
+31 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1 1.0000000      Low
+32 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1 0.8340909      Low</pre>
 
 </article></slide><slide class=""><hgroup><h2>Ordering the rows of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="ordering-the-rows-of-a-data.frame-dplyr-1">
 
@@ -4012,39 +3896,39 @@ Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1 1.054545</pre>
 
 <pre class = 'prettyprint lang-r'>arrange(df, desc(mpg))</pre>
 
-<pre >    mpg cyl  disp  hp drat    wt  qsec vs am gear carb    newcol
-1  33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1 0.8340909
-2  32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1 1.0000000
-3  30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2 0.7340909
-4  30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2 0.6877273
-5  27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1 0.8795455
-6  26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2 0.9727273
-7  24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2 1.4500000
-8  22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1 1.0545455
-9  22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2 1.4318182
-10 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1 1.1204545
-11 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1 1.4613636
-12 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2 1.2636364
-13 21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4 1.1909091
-14 21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4 1.3068182
-15 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6 1.2590909
-16 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4 1.5636364
-17 19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2 1.7477273
-18 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2 1.5636364
-19 18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1 1.5727273
-20 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4 1.5636364
-21 17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3 1.6954545
-22 16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3 1.8500000
-23 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4 1.4409091
-24 15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2 1.6000000
-25 15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3 1.7181818
-26 15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2 1.5613636
-27 15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8 1.6227273
-28 14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4 2.4295455
-29 14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4 1.6227273
-30 13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4 1.7454545
-31 10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4 2.3863636
-32 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4 2.4654545</pre>
+<pre >    mpg cyl  disp  hp drat    wt  qsec vs am gear carb    newcol disp_cat
+1  33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1 0.8340909      Low
+2  32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1 1.0000000      Low
+3  30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2 0.7340909      Low
+4  30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2 0.6877273      Low
+5  27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1 0.8795455      Low
+6  26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2 0.9727273      Low
+7  24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2 1.4500000      Low
+8  22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1 1.0545455      Low
+9  22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2 1.4318182      Low
+10 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1 1.1204545      Low
+11 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1 1.4613636   Medium
+12 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2 1.2636364      Low
+13 21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4 1.1909091      Low
+14 21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4 1.3068182      Low
+15 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6 1.2590909      Low
+16 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4 1.5636364      Low
+17 19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2 1.7477273   Medium
+18 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2 1.5636364   Medium
+19 18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1 1.5727273   Medium
+20 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4 1.5636364      Low
+21 17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3 1.6954545   Medium
+22 16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3 1.8500000   Medium
+23 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4 1.4409091   Medium
+24 15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2 1.6000000   Medium
+25 15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3 1.7181818   Medium
+26 15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2 1.5613636   Medium
+27 15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8 1.6227273   Medium
+28 14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4 2.4295455     High
+29 14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4 1.6227273   Medium
+30 13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4 1.7454545   Medium
+31 10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4 2.3863636     High
+32 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4 2.4654545     High</pre>
 
 </article></slide><slide class=""><hgroup><h2>Ordering the rows of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="ordering-the-rows-of-a-data.frame-dplyr-2">
 
@@ -4052,39 +3936,39 @@ Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1 1.054545</pre>
 
 <pre class = 'prettyprint lang-r'>arrange(df, mpg, desc(hp))</pre>
 
-<pre >    mpg cyl  disp  hp drat    wt  qsec vs am gear carb    newcol
-1  10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4 2.4654545
-2  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4 2.3863636
-3  13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4 1.7454545
-4  14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4 1.6227273
-5  14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4 2.4295455
-6  15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8 1.6227273
-7  15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3 1.7181818
-8  15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2 1.5613636
-9  15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2 1.6000000
-10 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4 1.4409091
-11 16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3 1.8500000
-12 17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3 1.6954545
-13 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4 1.5636364
-14 18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1 1.5727273
-15 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2 1.5636364
-16 19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2 1.7477273
-17 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4 1.5636364
-18 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6 1.2590909
-19 21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4 1.1909091
-20 21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4 1.3068182
-21 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1 1.4613636
-22 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2 1.2636364
-23 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1 1.1204545
-24 22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2 1.4318182
-25 22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1 1.0545455
-26 24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2 1.4500000
-27 26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2 0.9727273
-28 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1 0.8795455
-29 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2 0.6877273
-30 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2 0.7340909
-31 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1 1.0000000
-32 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1 0.8340909</pre>
+<pre >    mpg cyl  disp  hp drat    wt  qsec vs am gear carb    newcol disp_cat
+1  10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4 2.4654545     High
+2  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4 2.3863636     High
+3  13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4 1.7454545   Medium
+4  14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4 1.6227273   Medium
+5  14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4 2.4295455     High
+6  15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8 1.6227273   Medium
+7  15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3 1.7181818   Medium
+8  15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2 1.5613636   Medium
+9  15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2 1.6000000   Medium
+10 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4 1.4409091   Medium
+11 16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3 1.8500000   Medium
+12 17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3 1.6954545   Medium
+13 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4 1.5636364      Low
+14 18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1 1.5727273   Medium
+15 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2 1.5636364   Medium
+16 19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2 1.7477273   Medium
+17 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4 1.5636364      Low
+18 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6 1.2590909      Low
+19 21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4 1.1909091      Low
+20 21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4 1.3068182      Low
+21 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1 1.4613636   Medium
+22 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2 1.2636364      Low
+23 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1 1.1204545      Low
+24 22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2 1.4318182      Low
+25 22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1 1.0545455      Low
+26 24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2 1.4500000      Low
+27 26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2 0.9727273      Low
+28 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1 0.8795455      Low
+29 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2 0.6877273      Low
+30 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2 0.7340909      Low
+31 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1 1.0000000      Low
+32 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1 0.8340909      Low</pre>
 
 </article></slide><slide class=""><hgroup><h2>Transmutation</h2></hgroup><article  id="transmutation">
 
@@ -4128,7 +4012,287 @@ Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1 1.054545</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 4</h2></hgroup><article  id="lab-part-4">
 
-<p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p></article></slide>
+<p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Bracket Subsetting</h2></hgroup><article  id="bracket-subsetting">
+
+</article></slide><slide class=""><hgroup><h2>Select specific elements using an index</h2></hgroup><article  id="select-specific-elements-using-an-index">
+
+<p>Often you only want to look at subsets of a data set at any given time. As a review, elements of an R object are selected using the brackets (<code>[</code> and <code>]</code>).</p>
+
+<p>For example, <code>x</code> is a vector of numbers and we can select the second element of <code>x</code> using the brackets and an index (2):</p>
+
+<pre class = 'prettyprint lang-r'>x = c(1, 4, 2, 8, 10)
+x[2]</pre>
+
+<pre >[1] 4</pre>
+
+</article></slide><slide class=""><hgroup><h2>Select specific elements using an index</h2></hgroup><article  id="select-specific-elements-using-an-index-1">
+
+<p>We can select the fifth or second AND fifth elements below:</p>
+
+<pre class = 'prettyprint lang-r'>x = c(1, 2, 4, 8, 10)
+x[5]</pre>
+
+<pre >[1] 10</pre>
+
+<pre class = 'prettyprint lang-r'>x[c(2,5)]</pre>
+
+<pre >[1]  2 10</pre>
+
+</article></slide><slide class=""><hgroup><h2>Subsetting by deletion of entries</h2></hgroup><article  id="subsetting-by-deletion-of-entries">
+
+<p>You can put a minus (<code>-</code>) before integers inside brackets to remove these indices from the data.</p>
+
+<pre class = 'prettyprint lang-r'>x[-2] # all but the second</pre>
+
+<pre >[1]  1  4  8 10</pre>
+
+<p>Note that you have to be careful with this syntax when dropping more than 1 element:</p>
+
+<pre class = 'prettyprint lang-r'>x[-c(1,2,3)] # drop first 3</pre>
+
+<pre >[1]  8 10</pre>
+
+<pre class = 'prettyprint lang-r'># x[-1:3] # shorthand. R sees as -1 to 3
+x[-(1:3)] # needs parentheses</pre>
+
+<pre >[1]  8 10</pre>
+
+</article></slide><slide class=""><hgroup><h2>Select specific elements using logical operators</h2></hgroup><article  id="select-specific-elements-using-logical-operators">
+
+<p>What about selecting rows based on the values of two variables? We use logical statements. Here we select only elements of <code>x</code> greater than 2:</p>
+
+<pre class = 'prettyprint lang-r'>x</pre>
+
+<pre >[1]  1  2  4  8 10</pre>
+
+<pre class = 'prettyprint lang-r'>x &gt; 2</pre>
+
+<pre >[1] FALSE FALSE  TRUE  TRUE  TRUE</pre>
+
+<pre class = 'prettyprint lang-r'>x[ x &gt; 2 ]</pre>
+
+<pre >[1]  4  8 10</pre>
+
+</article></slide><slide class=""><hgroup><h2>Select specific elements using logical operators</h2></hgroup><article  id="select-specific-elements-using-logical-operators-1">
+
+<p>You can have multiple logical conditions using the following:</p>
+
+<ul>
+<li><code>&amp;</code> : AND</li>
+<li><code>|</code> : OR</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>x[ x &gt; 2 &amp; x &lt; 5 ]</pre>
+
+<pre >[1] 4</pre>
+
+<pre class = 'prettyprint lang-r'>x[ x &gt; 5 | x == 2 ]</pre>
+
+<pre >[1]  2  8 10</pre>
+
+</article></slide><slide class=""><hgroup><h2>which function</h2></hgroup><article  id="which-function">
+
+<p>The <code>which</code> functions takes in logical vectors and returns the index for the elements where the logical value is <code>TRUE</code>.</p>
+
+<pre class = 'prettyprint lang-r'>which(x &gt; 5 | x == 2) # returns index</pre>
+
+<pre >[1] 2 4 5</pre>
+
+<pre class = 'prettyprint lang-r'>x[ which(x &gt; 5 | x == 2) ]</pre>
+
+<pre >[1]  2  8 10</pre>
+
+<pre class = 'prettyprint lang-r'>x[ x &gt; 5 | x == 2 ]</pre>
+
+<pre >[1]  2  8 10</pre>
+
+</article></slide><slide class=""><hgroup><h2>Renaming Columns of a <code>data.frame</code>: base R</h2></hgroup><article  id="renaming-columns-of-a-data.frame-base-r">
+
+<p>We can use the <code>colnames</code> function to extract and/or directly reassign column names of <code>df</code>:</p>
+
+<pre class = 'prettyprint lang-r'>colnames(df) # just prints</pre>
+
+<pre > [1] &quot;mpg&quot;      &quot;cyl&quot;      &quot;disp&quot;     &quot;hp&quot;       &quot;drat&quot;     &quot;wt&quot;      
+ [7] &quot;qsec&quot;     &quot;vs&quot;       &quot;am&quot;       &quot;gear&quot;     &quot;carb&quot;     &quot;newcol&quot;  
+[13] &quot;disp_cat&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>colnames(df)[1:3] = c(&quot;MPG&quot;, &quot;CYL&quot;, &quot;DISP&quot;) # reassigns
+head(df)</pre>
+
+<pre >   MPG CYL DISP  hp drat    wt  qsec vs am gear carb   newcol disp_cat
+1 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4 1.190909      Low
+2 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4 1.306818      Low
+3 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1 1.054545      Low
+4 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1 1.461364   Medium
+5 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2 1.563636   Medium
+6 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1 1.572727   Medium</pre>
+
+<pre class = 'prettyprint lang-r'>colnames(df)[1:3] = c(&quot;mpg&quot;, &quot;cyl&quot;, &quot;disp&quot;) #reset - just to keep consistent</pre>
+
+</article></slide><slide class=""><hgroup><h2>Renaming Columns of a <code>data.frame</code>: base R</h2></hgroup><article  id="renaming-columns-of-a-data.frame-base-r-1">
+
+<p>We can assign the column names, change the ones we want, and then re-assign the column names:</p>
+
+<pre class = 'prettyprint lang-r'>cn = colnames(df)
+cn[ cn == &quot;drat&quot;] = &quot;DRAT&quot;
+colnames(df) = cn
+head(df)</pre>
+
+<pre >   mpg cyl disp  hp DRAT    wt  qsec vs am gear carb   newcol disp_cat
+1 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4 1.190909      Low
+2 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4 1.306818      Low
+3 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1 1.054545      Low
+4 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1 1.461364   Medium
+5 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2 1.563636   Medium
+6 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1 1.572727   Medium</pre>
+
+<pre class = 'prettyprint lang-r'>colnames(df)[ colnames(df) == &quot;DRAT&quot;] = &quot;drat&quot; #reset</pre>
+
+</article></slide><slide class=""><hgroup><h2>Subset rows of a <code>data.frame</code> with indices:</h2></hgroup><article  id="subset-rows-of-a-data.frame-with-indices">
+
+<p>Let’s select <strong>rows</strong> 1 and 3 from <code>df</code> using brackets:</p>
+
+<pre class = 'prettyprint lang-r'>df[ c(1, 3), ]</pre>
+
+<pre >   mpg cyl disp  hp drat   wt  qsec vs am gear carb   newcol disp_cat
+1 21.0   6  160 110 3.90 2.62 16.46  0  1    4    4 1.190909      Low
+3 22.8   4  108  93 3.85 2.32 18.61  1  1    4    1 1.054545      Low</pre>
+
+</article></slide><slide class=""><hgroup><h2>Subset columns of a <code>data.frame</code>:</h2></hgroup><article  id="subset-columns-of-a-data.frame-1">
+
+<p>We can also subset a <code>data.frame</code> using the bracket <code>[, ]</code> subsetting.</p>
+
+<p>For <code>data.frame</code>s and matrices (2-dimensional objects), the brackets are <code>[rows, columns]</code> subsetting. We can grab the <code>x</code> column using the index of the column or the column name (&ldquo;<code>carb</code>&rdquo;)</p>
+
+<pre class = 'prettyprint lang-r'>df[, 11]</pre>
+
+<pre > [1] 4 4 1 1 2 1 4 2 2 4 4 3 3 3 4 4 4 1 2 1 1 2 2 4 2 1 2 2 4 6 8 2</pre>
+
+<pre class = 'prettyprint lang-r'>df[, &quot;carb&quot;]</pre>
+
+<pre > [1] 4 4 1 1 2 1 4 2 2 4 4 3 3 3 4 4 4 1 2 1 1 2 2 4 2 1 2 2 4 6 8 2</pre>
+
+</article></slide><slide class=""><hgroup><h2>Biggest difference between <code>tbl</code> and <code>data.frame</code>:</h2></hgroup><article  id="biggest-difference-between-tbl-and-data.frame">
+
+<p>Mostly, <code>tbl</code> (tibbles) are the same as <code>data.frame</code>s, except they don’t print all lines. When subsetting only one column using brackets, a <code>data.frame</code> will return a vector, but a <code>tbl</code> will return a <code>tbl</code></p>
+
+<pre class = 'prettyprint lang-r'>df[, 1]</pre>
+
+<pre > [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2
+[15] 10.4 10.4 14.7 32.4 30.4 33.9 21.5 15.5 15.2 13.3 19.2 27.3 26.0 30.4
+[29] 15.8 19.7 15.0 21.4</pre>
+
+<pre class = 'prettyprint lang-r'>tbl[, 1]</pre>
+
+<pre ># A tibble: 32 x 1
+   car              
+   &lt;chr&gt;            
+ 1 Mazda RX4        
+ 2 Mazda RX4 Wag    
+ 3 Datsun 710       
+ 4 Hornet 4 Drive   
+ 5 Hornet Sportabout
+ 6 Valiant          
+ 7 Duster 360       
+ 8 Merc 240D        
+ 9 Merc 230         
+10 Merc 280         
+# ... with 22 more rows</pre>
+
+<pre class = 'prettyprint lang-r'>tbl[, &quot;mpg&quot;]</pre>
+
+<pre ># A tibble: 32 x 1
+     mpg
+   &lt;dbl&gt;
+ 1  21  
+ 2  21  
+ 3  22.8
+ 4  21.4
+ 5  18.7
+ 6  18.1
+ 7  14.3
+ 8  24.4
+ 9  22.8
+10  19.2
+# ... with 22 more rows</pre>
+
+<pre class = 'prettyprint lang-r'>df[, 1, drop = FALSE]</pre>
+
+<pre >    mpg
+1  21.0
+2  21.0
+3  22.8
+4  21.4
+5  18.7
+6  18.1
+7  14.3
+8  24.4
+9  22.8
+10 19.2
+11 17.8
+12 16.4
+13 17.3
+14 15.2
+15 10.4
+16 10.4
+17 14.7
+18 32.4
+19 30.4
+20 33.9
+21 21.5
+22 15.5
+23 15.2
+24 13.3
+25 19.2
+26 27.3
+27 26.0
+28 30.4
+29 15.8
+30 19.7
+31 15.0
+32 21.4</pre>
+
+</article></slide><slide class=""><hgroup><h2>Subset columns of a <code>data.frame</code>:</h2></hgroup><article  id="subset-columns-of-a-data.frame-2">
+
+<p>We can select multiple columns using multiple column names:</p>
+
+<pre class = 'prettyprint lang-r'>df[, c(&quot;mpg&quot;, &quot;cyl&quot;)]</pre>
+
+<pre >    mpg cyl
+1  21.0   6
+2  21.0   6
+3  22.8   4
+4  21.4   6
+5  18.7   8
+6  18.1   6
+7  14.3   8
+8  24.4   4
+9  22.8   4
+10 19.2   6
+11 17.8   6
+12 16.4   8
+13 17.3   8
+14 15.2   8
+15 10.4   8
+16 10.4   8
+17 14.7   8
+18 32.4   4
+19 30.4   4
+20 33.9   4
+21 21.5   4
+22 15.5   8
+23 15.2   8
+24 13.3   8
+25 19.2   8
+26 27.3   4
+27 26.0   4
+28 30.4   4
+29 15.8   8
+30 19.7   6
+31 15.0   8
+32 21.4   4</pre></article></slide>
 
 
   <slide class="backdrop"></slide>
