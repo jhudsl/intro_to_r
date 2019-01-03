@@ -21,11 +21,11 @@ bike = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
 
 # 1.  Count the number of rows of the `bike` data and 
 # count the number of complete cases of the bike data.  
-# Use `sum` and `complete.cases`.
+# Use `sum()` and `complete.cases()`.
 
 
-# 2.  Create a data set called `namat`` which is equal to `is.na(bike)`.  
-# What is the class of `namat`?  Run `rowSums` and `colSums` on `namat`.
+# 2.  Create a data set called `namat` which is equal to `is.na(bike)`.  
+# What is the class of `namat`?  Run `rowSums()` and `colSums()` on `namat`.
 # These represent the number of missing values in the rows and columns of
 # bike.  Don't print rowSums, but do a table of the rowSums
 
@@ -35,7 +35,7 @@ bike = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
 # using `group_by(subType)` and `tally()`
 
 # 4.  Filter rows of bike that have the type SIDEPATH or BIKE LANE
-# using %in%.  Call it side_bike.  
+# using %in%.  Call it `side_bike`.  
 # Confirm this gives you the same number of results using the | and 
 # ==.
 
@@ -45,7 +45,7 @@ bike = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
 ####################
 # 5.  Do a cross tab of the bike type and the number of lanes.
 # Call it tab.  Do a prop.table on the rows and columns margins. 
-# Try `as.data.frame(tab)`, `as_data_frame(tab)`, or broom::tidy(tab)
+# Try `as.data.frame(tab)`, `as_data_frame(tab)`, or `broom::tidy(tab)`
 
 ####################################################
 # New Data set
@@ -63,22 +63,22 @@ bike = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
 
 # 3. What is the total city and state tax paid?  
 # You need to remove the $ from the CityTax variable
-# then you need to make it numeric.   Try str_replace, but remember
-# $ is "special" and you need fixed() around it.
+# then you need to make it numeric.   Try `str_replace()`, but remember
+# $ is "special" and you need `fixed()` around it.
 
-# 4. Using `table()` or group_by and summarize(n()) or tally()
+# 4. Using `table()` or `group_by()` and `summarize(n())` or `tally()`
 #	a. how many observations/properties are in each ward?
 
-#	b. what is the mean state tax per ward? use group_by and summarize
+#	b. what is the mean state tax per ward? use `group_by()` and `summarize()`
 
-#	c. what is the maximum amount still due in each ward?  different summarization (max)
-
-
-# d. What is the 75th percentile of city and state tax paid by Ward? (quantile)
+#	c. what is the maximum amount still due in each ward?  different summarization (`max()`)
 
 
-# 6. Make boxplots showing cityTax (y -variable)
-#	 	by whether the property	is a principal residence (x) or not.
+# d. What is the 75th percentile of city and state tax paid by Ward? (`quantile()`)
+
+
+# 6. Make boxplots showing cityTax (y-axis)
+#	 	by whether the property	is a principal residence (x-axis) or not.
 
 
 # 7. Subset the data to only retain those houses that are principal residences. 
@@ -87,7 +87,7 @@ bike = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
 
 
 #	b) Describe the distribution of property taxes on these residences.  Use 
-# hist with certain breaks or plot(density(variable))
+# `hist()` with certain breaks or `plot(density(variable))`
 
 
 ##########################
@@ -101,20 +101,20 @@ bike = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
 
 # 10. Make an object called health.sal using the salaries data set, 
 #		with only agencies of those with "fire" (or any forms), if any, in the name
-# remember fixed( ignore_case = TRUE) will ignore cases
+# remember `fixed( ignore_case = TRUE)` will ignore cases
 
-# 11. Make a data set called trans which contains only agencies that contain "TRANS".
+# 11. Make a data set called `trans` which contains only agencies that contain "TRANS".
 
 # 12. What is/are the profession(s) of people who have "abra" in their name for 
 # Baltimore's Salaries?  Case should be ignored
 
 # 13. What is the distribution of annual salaries look like? (use hist, 20 breaks) What is the IQR?
-#Hint: first convert to numeric. Try str_replace, but remember
-# $ is "special" and you need fixed() around it.
+#Hint: first convert to numeric. Try `str_replace()`, but remember
+# $ is "special" and you need `fixed()` around it.
 
 
 # 14. Convert HireDate to the `Date` class - plot Annual Salary vs Hire Date.
-# Use AnnualSalary ~ HireDate with a data = sal argument in plot or use 
+# Use `AnnualSalary ~ HireDate` with a `data = sal` argument in plot or use 
 # x, y notation in scatter.smooth
 # Use lubridate package.  Is it mdy(date) or dmy(date) for this data - look at HireDate
 
