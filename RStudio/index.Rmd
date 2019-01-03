@@ -75,6 +75,18 @@ More information
 
 Super useful "cheat sheet": https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf 
 
+## RStudio
+
+Let's start by making an RStudio "Project".
+
+1. Helps you organize your work.
+2. Helps with working directories (discussed later).
+3. Allows you to easily know which project you're on.
+
+Go to File → New Project → New Directory → New Project
+
+Call your Project "Intro_to_R"
+
 ## RStudio/R Console 
 <!-- ![Console](rstudio_console.png) -->
 
@@ -127,7 +139,7 @@ knitr::include_graphics("rstudio_environment.png")
 * Tells you what **objects** are in R
 * What exists in memory/what is loaded?/what did I read in?
 
-History
+**History**
 
 * Shows previous commands.  Good to look at for debugging, but **don't rely** on it as a script.  Make a script!
 * Also type the "up" key in the Console to scroll through previous commands
@@ -148,6 +160,11 @@ History
 * `Ctrl+1` takes you to the script page
 * `Ctrl+2` takes you to the console
 * [http://www.rstudio.com/ide/docs/using/keyboard_shortcuts](http://www.rstudio.com/ide/docs/using/keyboard_shortcuts)
+
+## Starting with R and RMarkdown
+
+[Starting with R](http://johnmuschelli.com/intro_to_r/starting_with_r.Rmd)
+
 
 ## Website
 
