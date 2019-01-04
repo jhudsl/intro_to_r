@@ -32,6 +32,9 @@ tb <- read_excel("../data/tb_incidence.xlsx")
 colnames(tb)
 
 ## ------------------------------------------------------------------------
+tb = jhur::read_tb()
+
+## ------------------------------------------------------------------------
 library(dplyr)
 tb = rename(tb, 
             country = `TB incidence, all forms (per 100 000 population per year)`)
@@ -47,14 +50,15 @@ colMeans(avgs, na.rm = TRUE)
 tb$before_2000_avg = rowMeans(avgs, na.rm = TRUE)
 head(tb[, c("country", "before_2000_avg")])
 
+## ------------------------------------------------------------------------
+summarize_all(avgs, mean, na.rm = TRUE)
+
 ## ----summary1------------------------------------------------------------
 summary(tb)
 
-## ----apply1--------------------------------------------------------------
-apply(avgs,2,mean, na.rm=TRUE) # column means
-head(apply(avgs,1,mean, na.rm=TRUE)) # row means
-apply(avgs,2,sd, na.rm=TRUE) # columns sds
-apply(avgs,2,max, na.rm=TRUE) # column maxs
+## ------------------------------------------------------------------------
+yts = jhur::read_yts()
+head(yts)
 
 ## ---- message = FALSE----------------------------------------------------
 library(readr)
@@ -173,4 +177,10 @@ boxplot(Data_Value ~ LocationDesc, data = sub_yts)
 
 ## ----matplot2------------------------------------------------------------
 pairs(avgs)
+
+## ----apply1--------------------------------------------------------------
+apply(avgs,2,mean, na.rm=TRUE) # column means
+head(apply(avgs,1,mean, na.rm=TRUE)) # row means
+apply(avgs,2,sd, na.rm=TRUE) # columns sds
+apply(avgs,2,max, na.rm=TRUE) # column maxs
 

@@ -84,6 +84,8 @@ quantile(x, na.rm = TRUE)
     * `rowSums(x)`: takes the sum of each row of x
     * `colSums(x)`: takes the sum of each column of x
     * `summary(x)`: for data frames, displays the quantile information
+* The `matrixStats` package has additional `row*` and `col*` functions 
+    * Like `rowSds`, `colQuantiles`
 
 ## Lab Part 1
 
@@ -103,6 +105,15 @@ library(readxl)
 tb <- read_excel("../data/tb_incidence.xlsx")
 colnames(tb)
 ```
+
+## TB Incidence
+
+Reading in the data is useful, but for following along, use:
+
+```{r}
+tb = jhur::read_tb()
+```
+
 
 ## Indicator of TB
 
@@ -125,8 +136,6 @@ colnames(tb)
 
 `colMeans` and `rowMeans` must work on all numeric data.  We will subset years before 2000 (starting with 1):
 
-
-
 ```{r colMeans}
 avgs = select(tb, starts_with("1"))
 colMeans(avgs, na.rm = TRUE)
@@ -137,8 +146,16 @@ tb$before_2000_avg = rowMeans(avgs, na.rm = TRUE)
 head(tb[, c("country", "before_2000_avg")])
 ```
 
+## Summarize the data: `dplyr` `summarize` function
 
-## Summary
+`dplyr::summarize` will allow you to summarize data. If you would like to summarize **all** columns, you can use `summarize_all` and pass in a function (with other arguments):
+
+```{r}
+summarize_all(avgs, mean, na.rm = TRUE)
+```
+
+
+## Summary Function
 
 Using `summary` can give you rough snapshots of each column, but you would likely use `mean`, `min`, `max`, and `quantile` when necessary:
 
@@ -146,45 +163,21 @@ Using `summary` can give you rough snapshots of each column, but you would likel
 summary(tb)
 ```
 
-## Apply statements
-
-You can apply more general functions to the rows or columns of a matrix or data frame, beyond the mean and sum.
-
-```
-apply(X, MARGIN, FUN, ...)
-```
-
-> X : an array, including a matrix.
-> 
-> MARGIN : a vector giving the subscripts which the function will be applied over. E.g., for a matrix 1 indicates rows, 2 indicates columns, c(1, 2) indicates rows and columns. Where X has named dimnames, it can be a character vector selecting dimension names.
-> 
-> FUN	: the function to be applied: see 'Details'. 
-> 
-> ...	: optional arguments to FUN.
-
-## Apply statements
-
-```{r apply1}
-apply(avgs,2,mean, na.rm=TRUE) # column means
-head(apply(avgs,1,mean, na.rm=TRUE)) # row means
-apply(avgs,2,sd, na.rm=TRUE) # columns sds
-apply(avgs,2,max, na.rm=TRUE) # column maxs
-```
-
-## Other Apply Statements
-
-* `tapply()`: 'grouping' apply
-* `lapply()`: 'list' apply [tomorrow]
-* `sapply()`: 'simple' apply [tomorrow]
-* Other less used ones...
-
-See more details here: http://nsaunders.wordpress.com/2010/08/20/a-brief-introduction-to-apply-in-r/
-
-- Commonly used, but we will discuss how to do all steps in `dplyr`
 
 ## Youth Tobacco Survey
 
-Please download the Youth Tobacco Survey data.  You can also read it in directly from the web:
+
+Please download the Youth Tobacco Survey data.   
+
+```{r}
+yts = jhur::read_yts()
+head(yts)
+```
+
+
+## Youth Tobacco Survey: Reading in yourself
+
+Please download the Youth Tobacco Survey data.   You can also read it in directly from the web:
 
 ```{r, message = FALSE}
 library(readr)
@@ -193,13 +186,17 @@ yts = read_csv(
 head(yts)
 ```
 
+
 ## Length and unique
+
 `unique(x)` will return the unique elements of `x`
 
 ```{r, message = FALSE}
 unique(yts$LocationDesc)[1:10]
 ```
+
 `length` will tell you the length of a vector. Combined with `unique`, tells you the number of unique elements:
+
 ```{r}
 length(unique(yts$LocationDesc))
 ```
@@ -499,6 +496,43 @@ pairs(avgs)
 ## Lab Part 4
 [Website](http://johnmuschelli.com/intro_to_r/index.html)
 
+## Apply statements
+
+You can apply more general functions to the rows or columns of a matrix or data frame, beyond the mean and sum.
+
+```
+apply(X, MARGIN, FUN, ...)
+```
+
+> X : an array, including a matrix.
+> 
+> MARGIN : a vector giving the subscripts which the function will be applied over. E.g., for a matrix 1 indicates rows, 2 indicates columns, c(1, 2) indicates rows and columns. Where X has named dimnames, it can be a character vector selecting dimension names.
+> 
+> FUN	: the function to be applied: see 'Details'. 
+> 
+> ...	: optional arguments to FUN.
+
+## Apply statements
+
+```{r apply1}
+apply(avgs,2,mean, na.rm=TRUE) # column means
+head(apply(avgs,1,mean, na.rm=TRUE)) # row means
+apply(avgs,2,sd, na.rm=TRUE) # columns sds
+apply(avgs,2,max, na.rm=TRUE) # column maxs
+```
+
+## Other Apply Statements
+
+* `tapply()`: 'grouping' apply
+* `lapply()`: 'list' apply [tomorrow]
+* `sapply()`: 'simple' apply [tomorrow]
+* Other less used ones...
+
+See more details here: http://nsaunders.wordpress.com/2010/08/20/a-brief-introduction-to-apply-in-r/
+
+- Commonly used, but we will discuss how to do all steps in `dplyr`
+
+
 <!-- ## Conclusion -->
 
 <!-- - Base R has apply statements that perform things repeatedly. -->
@@ -510,3 +544,5 @@ pairs(avgs)
 <!-- ## Website -->
 
 <!-- [Website](../index.html) -->
+
+
