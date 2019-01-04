@@ -37,8 +37,26 @@ use the `read_tsv()` function and name it `key`.
 key = read_tsv("http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt")
 ```
 
-3) What would you do if the data was formatted like this: http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary.txt with spaces and tabs and such?
+3) (Optional) What would you do if the data was formatted like this: http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary.txt with spaces and tabs and such?  See the `readLines` function.
 
+```{r}
+dict = readLines("http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary.txt")
+dict = dict[ !dict %in% "" ]
+dict = strsplit(dict, split = "\t")
+dict = sapply(dict, function(x) {
+  if (length(x) == 1) {
+    # split on long spaces
+    x = strsplit(x, split = "   ")[[1]]
+  }
+  x = trimws(x)
+  x = x[ !x %in% ""]
+  x
+})
+dict = t(dict)
+colnames(dict) = dict[1,]
+dict = dict[-1,]
+dict = tibble::as_data_frame(dict)
+```
 
 4) Save the key and data in an ".rda" file so you can access the data offline using the `save()` function. 
 

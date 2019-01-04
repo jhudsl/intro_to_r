@@ -25,8 +25,17 @@ all:
 	done	
 	echo "Running main index";
 	Rscript -e "rmarkdown::render('index.Rmd')"
-	echo "Running Starting"
-	Rscript -e "rmarkdown::render('starting_with_r.Rmd')"		
+	# echo "Running Starting"
+	# Rscript -e "rmarkdown::render('starting_with_r.Rmd')"		
+
+labs: 
+	
+	for fol in $(LIST) ; do \
+		pwd && echo $$fol && cd $$fol/lab && make all && cd ../; \
+	done
+	for fol in $(LIST) ; do \
+		pwd && echo $$fol && cd $$fol && cp index.pdf $$fol.pdf && cp index.html $$fol.html && cp index.R $$fol.R && cd ../; \
+	done	
 
 # https://superuser.com/questions/592974/how-to-print-to-save-as-pdf-from-a-command-line-with-chrome-or-chromium
 
