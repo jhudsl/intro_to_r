@@ -27,7 +27,7 @@ read the data set in using `read_csv()`, name the dataset `cars`.
 use the `read_tsv()` function and name it `key`. 
 
 3) What would you do if the data was formatted like this: http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary.txt
-with spaces and tabs and such?
+with spaces and tabs and such?  See the `readLines` function.
 
 4) Save the key and data in an ".rda" file so you can access the data offline using the `save()` function. 
 

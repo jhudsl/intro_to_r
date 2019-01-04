@@ -254,6 +254,20 @@ df = mutate(df, newcol = wt/2.2)
 print({df = mutate(df, newcol = wt/2.2)})
 ```
 
+## Creating conditional variables
+
+One frequently-used tool is creating variables with conditions.
+
+A general function for creating new variables based on existing variables is the `ifelse()` function, which "returns a value with the same shape as test which is filled with elements selected from either yes or no depending on whether the element of test is `TRUE` or `FALSE`."
+
+```
+ifelse(test, yes, no)
+
+# test: an object which can be coerced
+    to logical mode.
+# yes: return values for true elements of test.
+# no: return values for false elements of test.
+```
 
 
 ## Adding columns to a `data.frame`: dplyr
