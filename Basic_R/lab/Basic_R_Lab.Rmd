@@ -1,0 +1,93 @@
+---
+title: "Basic R Lab"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+In this lab you can use the interactive console to explore or **Knit** the document. 
+Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-X) or Cntr-Enter (Windows/Linux) in an R code chunk.
+
+
+# Part 1
+
+1. create a new variable called `my.num` that contains 6 numbers
+```{r}
+
+```
+
+2. mulitply `my.num` by 4
+```{r}
+
+```
+
+
+3. create a second variable called `my.char` that contains 5 character strings
+```{r}
+
+```
+
+
+4. combine the two variables `my.num` and `my.char` into a variable called `both`
+```{r}
+
+```
+
+5. what is the length of `both`?
+```{r}
+
+```
+
+
+6. what class is `both`?
+```{r}
+
+```
+
+
+# Part 2
+
+7. Divide `both` by 3, what happens?
+```{r, error=FALSE}
+
+```
+
+8. create a vector with elements 1 2 3 4 5 6 and call it `x`
+```{r}
+
+```
+
+
+9. create another vector with elements 10 20 30 40 50 and call it `y`
+```{r}
+
+```
+
+
+10. what happens if you try to add x and y together? why?
+```{r}
+
+```
+
+
+
+11. append the value 60 onto the vector `y` (hint: you can use the `c()` function)
+```{r}
+
+```
+
+12. add `x` and `y` together
+```{r}
+
+```
+
+
+13. multiply `x` and `y` together. pay attention to how R performs operations on vectors of the same length.
+```{r}
+
+```
+
+
