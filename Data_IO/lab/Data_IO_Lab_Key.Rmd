@@ -1,7 +1,5 @@
 ---
 title: "Data_IO_Lab"
-author: "Andrew Jaffe"
-date: "January 4, 2019"
 output: html_document
 ---
 
@@ -14,7 +12,7 @@ install.packages("readxl")
 
 2. Download an Excel version of the Monuments dataset:		http://johnmuschelli.com/intro_to_r/data/Monuments.xlsx
 
-```{r, getFile}
+```{r getFile}
 destfile = file.path(tempdir(), "Monuments.xlsx")
 download.file("http://johnmuschelli.com/intro_to_r/data/Monuments.xlsx", 
               destfile = destfile)
@@ -22,13 +20,13 @@ download.file("http://johnmuschelli.com/intro_to_r/data/Monuments.xlsx",
 
 3. Use the `read_excel()` function in the `readxl` package to read in the dataset
 
-```{r, import}
+```{r import}
 library(readxl)
 mon = read_excel(destfile)
 ```
 
 4. Write out the R object as a CSV file 
 
-```{r, export}
+```{r export}
 write.csv(mon, "Monuments.csv",row.names=FALSE)
 ```

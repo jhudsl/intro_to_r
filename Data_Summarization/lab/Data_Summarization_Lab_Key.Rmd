@@ -1,0 +1,157 @@
+---
+title: "Data Summarization Lab Key"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+# Data used
+
+Bike Lanes Dataset: BikeBaltimore is the Department of Transportation's bike program. 
+The data is from http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms
+
+You can Download as a CSV in your current working directory.  Note its also available at: 	http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv 
+
+```{r}
+library(readr)
+library(dplyr)
+library(tidyverse)
+library(jhur)
+
+bike = read_csv(
+  "http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
+```
+
+
+or use 
+```{r}
+library(jhur)
+bike = read_bike()
+```
+
+1. How many bike "lanes" are currently in Baltimore?  You can assume each observation/row is a different bike "lane"
+```{r q1}
+nrow(bike)
+dim(bike)
+```
+
+2. How many (a) feet and (b) miles of bike "lanes" are currently in Baltimore?
+
+```{r q2}
+sum(bike$length)
+sum(bike$length)/5280
+sum(bike$length/5280)
+```
+3. How many types of bike lanes are there? Which type has (a) the most number of and (b) longest average bike lane length?
+   
+```{r q3}
+table(bike$type, useNA = "ifany")
+unique(bike$type)
+length(table(bike$type))
+length(unique(bike$type))
+
+is.na(unique(bike$type))
+
+bike %>% 
+  group_by(type) %>% 
+  summarise(n = n(),
+            mean = mean(length)) %>% 
+  arrange(mean)
+```
+
+4. How many different projects do the "bike" lanes fall into? 
+		Which `project` category has the longest average bike lane? 
+
+```{r q4}
+length(unique(bike$project))
+
+bike %>% 
+  group_by(project, type) %>% 
+  summarise(n = n(),
+            mean = mean(length)) %>% 
+  arrange(desc(mean))
+
+arrange(summarize(group_by(bike, project, type), 
+          n = n(), mean = mean(length)),
+        desc(mean))
+
+avg = bike %>% 
+  group_by(type) %>% 
+  summarize(mn = mean(length, na.rm = TRUE)) %>% 
+  filter(mn == max(mn))
+```
+
+			  
+5. What was the average bike lane length per year that they were installed? 
+ Set `bike$dateInstalled` to `NA` if it is equal to zero.
+
+```{r q5}
+bike = bike %>% mutate(
+  dateInstalled = ifelse(
+    dateInstalled == 0, 
+    NA,
+    dateInstalled)
+)
+mean(bike$length[ !is.na(bike$dateInstalled)])
+
+is.na(bike$dateInstalled)
+!is.na(bike$dateInstalled)
+```
+
+```{r}
+b2 = bike %>% 
+  mutate(dateInstalled = ifelse(dateInstalled == "0", NA, 
+                                dateInstalled))
+ b2 = bike %>% 
+   mutate(dateInstalled = if_else(dateInstalled == "0", 
+                                  NA_integer_, 
+                                 dateInstalled))
+bike$dateInstalled[bike$dateInstalled == "0"] = NA
+
+bike %>% 
+  group_by(dateInstalled) %>% 
+  summarise(n = n(),
+            mean_of_the_bike = mean(length))
+            
+```
+
+6. (a) Numerically [hint: `quantile()`] and 
+		(b) graphically [hint: `hist()` or `plot(density())`]
+		 describe the distribution of bike "lane" lengths.
+```{r q6}
+quantile(bike$length)
+
+hist(bike$length)
+hist(bike$length,breaks=100)
+qplot(x = length, data = bike, geom = "histogram")
+qplot(x = log10(length), data = bike, geom = "histogram")
+
+hist(log2(bike$length),breaks=100)
+hist(log10(bike$length),breaks=100)
+```
+
+7. Then describe as above, after stratifying by  i) type then ii) number of lanes
+```{r q7}
+qplot(y = length, x = type, data = bike, geom = "boxplot")
+qplot(y = length, x = numLanes, data = bike, geom = "boxplot")
+```
+
+```{r}
+boxplot(bike$length~bike$type)
+boxplot(bike$length~bike$type, las=3)
+boxplot(bike$length~bike$numLanes)
+
+bike$length[1] = NA
+
+boxplot(log10(bike$length)~bike$type)
+
+
+bike %>% 
+  group_by(type) %>% 
+  summarise(q0.7 = quantile(length, na.rm = TRUE, probs =0.7))
+```
+
