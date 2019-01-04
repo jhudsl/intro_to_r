@@ -175,6 +175,16 @@ factor(casecontrol, levels = c("control","case"),
 
 ## Factors
 
+Another way to do this once you already have the factor made is with the `relevel()` function. 
+
+```{r factorCheck}
+cc = factor(c("case","case","case",
+        "control","control","control"))
+cc = relevel(cc, "control")
+```
+
+## Factors
+
 Factors can be converted to `numeric` or `character` very easily
 
 ```{r factor3}
@@ -183,18 +193,6 @@ x = factor(casecontrol,
 as.character(x)
 as.numeric(x)
 ```
-
-## Factors
-
-However, you need to be careful modifying the labels of existing factors, as its quite easy to alter the meaning of the underlying data. 
-
-```{r factorCheck}
-cc = factor(c("case","case","case",
-        "control","control","control"))
-cc = relevel(cc, "control")
-```
-
-This is another way to change the reference group.
 
 ## Creating categorical variables
 
