@@ -3164,7 +3164,7 @@ width:48%;
 <slide class=""><hgroup><h2>Data Types:</h2></hgroup><article  id="data-types">
 
 <ul>
-<li>One dimensional types (&lsquo;vectors&rsquo;):
+<li>One dimensional types (’vectors’):
 
 <ul>
 <li>Character: strings or individual characters, quoted</li>
@@ -3359,6 +3359,14 @@ factor(casecontrol, levels = c(&quot;control&quot;,&quot;case&quot;) )</pre>
 
 </article></slide><slide class=""><hgroup><h2>Factors</h2></hgroup><article  id="factors-4">
 
+<p>Another way to do this once you already have the factor made is with the <code>relevel()</code> function.</p>
+
+<pre class = 'prettyprint lang-r'>cc = factor(c(&quot;case&quot;,&quot;case&quot;,&quot;case&quot;,
+        &quot;control&quot;,&quot;control&quot;,&quot;control&quot;))
+cc = relevel(cc, &quot;control&quot;)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Factors</h2></hgroup><article  id="factors-5">
+
 <p>Factors can be converted to <code>numeric</code> or <code>character</code> very easily</p>
 
 <pre class = 'prettyprint lang-r'>x = factor(casecontrol,
@@ -3370,16 +3378,6 @@ as.character(x)</pre>
 <pre class = 'prettyprint lang-r'>as.numeric(x)</pre>
 
 <pre >## [1] 2 2 2 1 1 1</pre>
-
-</article></slide><slide class=""><hgroup><h2>Factors</h2></hgroup><article  id="factors-5">
-
-<p>However, you need to be careful modifying the labels of existing factors, as its quite easy to alter the meaning of the underlying data.</p>
-
-<pre class = 'prettyprint lang-r'>cc = factor(c(&quot;case&quot;,&quot;case&quot;,&quot;case&quot;,
-        &quot;control&quot;,&quot;control&quot;,&quot;control&quot;))
-cc = relevel(cc, &quot;control&quot;)</pre>
-
-<p>This is another way to change the reference group.</p>
 
 </article></slide><slide class=""><hgroup><h2>Creating categorical variables</h2></hgroup><article  id="creating-categorical-variables">
 
@@ -3636,7 +3634,7 @@ class(dates)</pre>
 <pre class = 'prettyprint lang-r'>theTime = Sys.time()
 theTime</pre>
 
-<pre >## [1] &quot;2018-06-14 11:55:35 EDT&quot;</pre>
+<pre >## [1] &quot;2019-01-04 16:11:09 EST&quot;</pre>
 
 <pre class = 'prettyprint lang-r'>class(theTime)</pre>
 
@@ -3644,7 +3642,7 @@ theTime</pre>
 
 <pre class = 'prettyprint lang-r'>theTime + as.period(20, unit = &quot;minutes&quot;) # the future</pre>
 
-<pre >## [1] &quot;2018-06-14 12:15:35 EDT&quot;</pre>
+<pre >## [1] &quot;2019-01-04 16:31:09 EST&quot;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 3</h2></hgroup><article  id="lab-part-3">
 

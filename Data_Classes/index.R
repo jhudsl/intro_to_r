@@ -65,16 +65,16 @@ factor(casecontrol, levels = c("control","case") )
 factor(casecontrol, levels = c("control","case"), 
        ordered=TRUE)
 
+## ----factorCheck---------------------------------------------------------
+cc = factor(c("case","case","case",
+        "control","control","control"))
+cc = relevel(cc, "control")
+
 ## ----factor3-------------------------------------------------------------
 x = factor(casecontrol,
         levels = c("control","case") )
 as.character(x)
 as.numeric(x)
-
-## ----factorCheck---------------------------------------------------------
-cc = factor(c("case","case","case",
-        "control","control","control"))
-cc = relevel(cc, "control")
 
 ## ----rep1----------------------------------------------------------------
 bg = rep(c("boy","girl"),each=50)
