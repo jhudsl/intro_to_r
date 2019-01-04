@@ -1,0 +1,149 @@
+---
+title: "Homework 2 - Key"
+author: "Andrew Jaffe"
+date: "January 9, 2019"
+output: html_document
+---
+
+This is the second homework assignment for Intro to R. You must submit both the RMD and "knitted" HTML files are due before class on Wednesday (Day 3)
+
+```{r initiatePackages, message=FALSE}
+## you can add more, or change...these are suggestions
+library(tidyverse)
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+```
+
+This is a dataset from the "Kaggle" website, which hosts competitions for prediction and machine learning. More details on this dataset are here: http://www.kaggle.com/c/DontGetKicked/details/Background
+
+Questions: 
+
+1)	Get the dataset: http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv
+read the data set in using `read_csv()`, name the dataset `cars`.
+
+```{r q1,message=FALSE}
+cars = read_csv(
+  "http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv",
+  col_types = cols(VehBCost = col_double())
+  )
+```
+
+2)	Read the "dictionary": http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt
+use the `read_tsv()` function and name it `key`. 
+
+```{r q2, message=FALSE}
+key = read_tsv("http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt")
+```
+
+3) What would you do if the data was formatted like this: http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary.txt with spaces and tabs and such?
+
+
+4) Save the key and data in an ".rda" file so you can access the data offline using the `save()` function. 
+
+```{r q4}
+save(cars, key, file = "kaggle.rda")
+```
+
+5)	How many cars are in the dataset? How many variables are recorded for each car?
+
+```{r q5}
+dim(cars)
+nrow(cars)
+```
+
+There are `r nrow(cars)` observations in the dataset.
+
+6) What is the range of the manufacturer's years of the vehicles? Use VehYear
+
+```{r q6}
+range(cars$VehYear)
+table(cars$VehYear)
+```
+
+7) How many cars were from before 2004, and what percent/proportion do these represent? Hint: use summarize/filter or sum
+
+```{r, q7}
+sum(cars$VehYear < 2004)
+mean(cars$VehYear < 2004)
+table(cars$VehYear < 2004)
+```
+
+8) Drop any vehicles that cost less than or equal to $1500 (VehBCost), or missing - (`filter()` removes missing values!). How many vehicles were removed? 
+Note the rest of the questions expect answers based on this reduced dataset.
+
+```{r, q8}
+sum(cars$VehBCost <= 1500 | is.na(cars$VehBCost))
+cars = filter(cars, VehBCost > 1500)
+nrow(cars)
+```
+
+There are `r nrow(cars)` after filtering by price.
+
+9) How many different vehicle a) manufacturers/makes (Make), b) models (Model) and c) sizes (Size) are there? Hint: use `table()` or `group_by()` with `tally()`/`summarize()`
+
+```{r, q9}
+length(unique(cars$Make)) # a
+length(table(cars$Make))
+length(unique(cars$Model)) # b
+length(unique(cars$Size)) # c
+```
+
+10)	Which vehicle a) make, b) model and c) color had the highest average acquisition cost paid for the vehicle at time of purchase, and what was this cost? Hint: use  `group_by()` with `summarize()`
+
+```{r, q10}
+cars %>% group_by(Make) %>% 
+  summarize(mean = mean(VehBCost)) %>% 
+  arrange(desc(mean))
+cars %>% group_by(Model) %>% 
+  summarize(mean = mean(VehBCost)) %>% 
+  arrange(desc(mean))
+
+cars %>% group_by(Color) %>% 
+  summarize(mean = mean(VehBCost)) %>% 
+  arrange(desc(mean))
+```
+
+11)	Which vehicle a) make, b) model and c) color had the highest variability in acquisition cost paid for the vehicle at time of purchase?
+
+```{r q11}
+cars %>% group_by(Make) %>% 
+  summarize(var = var(VehBCost)) %>% 
+  arrange(desc(var))
+cars %>% group_by(Model) %>% 
+  summarize(var = var(VehBCost)) %>% 
+  arrange(desc(var))
+
+cars %>% group_by(Color) %>% 
+  summarize(var = var(VehBCost)) %>% 
+  arrange(desc(var))
+```
+
+12)	 How many vehicles (using `filter()` or `sum()`):
+ a. Were red and have fewer than 30,000 miles?
+ b. Are made by GMC and were purchased in Texas? 
+ c. Are blue or red?
+ d. Are made by Chrysler or Nissan and are white or silver?
+ e. Are automatic, blue, Pontiac cars with under 40,000 miles? 
+ 
+```{r, q12}
+sum(cars$Color == "RED" & cars$VehOdo < 30000)
+
+# b.	Are made by GMC and were purchased in Texas? 
+sum(cars$Make == "GMC" & cars$VNST == "TX")
+
+# c.	Are blue or red?
+sum(cars$Color == "BLUE" | cars$Color == "RED" )
+sum(cars$Color %in% c("BLUE","RED"))
+
+# d.	Are made by Chrysler or Nissan and are white or silver? 
+sum((cars$Make == "CHRYSLER" | cars$Make=="NISSAN") & (cars$Color == "WHITE" | cars$Color == "WHITE" ))
+sum(cars$Make %in% c("CHRYSLER","NISSAN") & 
+	cars$Color %in% c("WHITE","SILVER" ))
+
+# e.	Are automatic, blue, Pontiac cars with under 40,000 miles? 
+sum(cars$Transmission == "AUTO" & cars$Color=="BLUE" & 
+	cars$Make == "PONTIAC" & cars$VehOdo < 40000)
+
+```
