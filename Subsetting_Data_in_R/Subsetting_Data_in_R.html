@@ -3216,7 +3216,7 @@ width:48%;
 {
     UseMethod(&quot;filter&quot;)
 }
-&lt;bytecode: 0x7fba05704b40&gt;
+&lt;bytecode: 0x7f92b664f720&gt;
 &lt;environment: namespace:dplyr&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Loading in dplyr and tidyverse</h2></hgroup><article  id="loading-in-dplyr-and-tidyverse-2">
@@ -3660,6 +3660,19 @@ Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1 1.054545</pre>
 30 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6 1.2590909
 31 15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8 1.6227273
 32 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2 1.2636364</pre>
+
+</article></slide><slide class=""><hgroup><h2>Creating conditional variables</h2></hgroup><article  id="creating-conditional-variables">
+
+<p>One frequently-used tool is creating variables with conditions.</p>
+
+<p>A general function for creating new variables based on existing variables is the <code>ifelse()</code> function, which &ldquo;returns a value with the same shape as test which is filled with elements selected from either yes or no depending on whether the element of test is <code>TRUE</code> or <code>FALSE</code>.&rdquo;</p>
+
+<pre >ifelse(test, yes, no)
+
+# test: an object which can be coerced
+    to logical mode.
+# yes: return values for true elements of test.
+# no: return values for false elements of test.</pre>
 
 </article></slide><slide class=""><hgroup><h2>Adding columns to a <code>data.frame</code>: dplyr</h2></hgroup><article  id="adding-columns-to-a-data.frame-dplyr-1">
 

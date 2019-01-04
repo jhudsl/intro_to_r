@@ -27,13 +27,20 @@ all:
 	Rscript -e "rmarkdown::render('index.Rmd')"
 	echo "Running Starting"
 	Rscript -e "rmarkdown::render('starting_with_r.Rmd')"		
+
 # https://superuser.com/questions/592974/how-to-print-to-save-as-pdf-from-a-command-line-with-chrome-or-chromium
 
 index.html: index.Rmd 
 	Rscript -e "rmarkdown::render('index.Rmd')"
 
 starting_with_r.html: starting_with_r.Rmd 
-	Rscript -e "rmarkdown::render('starting_with_r.Rmd')"		
+	Rscript -e "rmarkdown::render('starting_with_r.Rmd')"	
+
+homework: HW/homework*.Rmd 
+	cd HW/ && Rscript -e "rmarkdown::render('homework2.Rmd')";
+	cd HW/ && Rscript -e "rmarkdown::render('homework3.Rmd')";
+	cd HW/ && Rscript -e "rmarkdown::render('homework3_key.Rmd')";
+	cd HW/ && Rscript -e "rmarkdown::render('homework2_key.Rmd')";
 
 clean: 
 	rm index.html

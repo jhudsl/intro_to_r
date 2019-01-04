@@ -350,7 +350,7 @@ deathT[1:5,1:5]</code></pre>
 ## 1764          NA      NA      NA     NA        NA</code></pre>
 <p>Now let’s read in the population data:</p>
 <pre class="r"><code>pop = read.delim(&quot;http://johnmuschelli.com/intro_to_r/data/country_pop.txt&quot;,
-  as.is = TRUE)
+  as.is=TRUE)
 colnames(pop)[c(2,5)] = c(&quot;Country&quot;, &quot;percWorldPop&quot;)
 pop$Country = pop$Country  %&gt;% 
                     str_replace_all(&quot; &quot;,&quot;_&quot;)
