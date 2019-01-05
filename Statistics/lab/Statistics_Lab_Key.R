@@ -4,6 +4,7 @@
 
 library(tidyverse)
 library(broom)
+library(jhur)
 
 #############################
 # Part 1

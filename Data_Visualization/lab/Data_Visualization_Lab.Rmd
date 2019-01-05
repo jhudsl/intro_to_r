@@ -8,7 +8,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-```{r}
+```{r, message=FALSE}
 library(readr)
 library(ggplot2)
 library(tidyr)
@@ -17,6 +17,8 @@ library(lubridate)
 library(stringr)
 library(jhur)
 ```
+
+## Read in Data
 
 Read in the charm city circulator dataset:
 
