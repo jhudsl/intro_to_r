@@ -1,0 +1,131 @@
+---
+title: "Data Visualization Lab Key"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(readr)
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+library(lubridate)
+library(stringr)
+library(jhur)
+```
+
+Read in the charm city circulator dataset:
+
+`circ = read_csv("http://johnmuschelli.com/intro_to_r/data/Charm_City_Circulator_Ridership.csv")`
+or `circ = read_circulator()`
+
+```{r}
+circ = read_csv("http://johnmuschelli.com/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
+# covert dates
+circ = mutate(circ, date = mdy(date))
+# change colnames for reshaping
+colnames(circ) =  colnames(circ) %>% 
+  str_replace("Board", ".Board") %>% 
+  str_replace("Alight", ".Alight") %>% 
+  str_replace("Average", ".Average") 
+
+# make long
+long = gather(circ, "var", "number", 
+              starts_with("orange"),
+              starts_with("purple"), starts_with("green"),
+              starts_with("banner"))
+# separate
+long = separate(long, var, into = c("line", "type"), 
+	sep = "[.]")
+```
+
+or run: 
+```{r}
+long = read_circulator_long()
+```
+
+```{r}
+## take just average ridership per day
+avg = filter(long, type == "Average")
+avg = filter(avg, !is.na(number))
+
+# separate
+type_wide = spread(long, type, value = number)
+head(type_wide)
+```
+
+
+# Part 1
+
+In these questions, try to use `ggplot2` if possible.
+
+1. Plot average ridership by `date`.
+```{r}
+
+```
+
+a. Color the points by route (`orange`, `purple`, `green`, `banner`)
+```{r}
+
+
+```
+
+b. add black smoothed curves for each line
+```{r}
+
+```
+
+
+c. Color the points by day of the week
+```{r}
+
+
+
+```
+
+
+2. Replot 1a where the colors of the points are the name of the `line` (with `banner` --> `blue`)
+
+```{r}
+pal = c("blue", "darkgreen","orange","purple")
+
+
+```
+
+3. plot average ridership by date with one panel per `line`
+```{r}
+
+
+```
+	  
+4. Plot average ridership by date with separate panels by `day` of the week, colored by `line`
+```{r}
+
+
+```
+	  
+5. Plot average ridership (`avg`) by date, colored by `line` (same as 1a).  (do not take an average, use the average column for each route/line)
+Make the x-label `"Year"`. Make the y-label `"Number of People"`. Use the black and white theme `theme_bw()`. Change the `text_size` to (`text = element_text(size = 20)`)
+in `theme`
+ 
+```{r} 
+
+```
+
+6. Plot average ridership on the `orange` route versus date
+as a solid line, and add `dashed` "error" lines based 
+on the `boardings` and `alightings.` 
+the line colors should be `orange.`
+(hint `linetype` is an aesthetic for lines) - see also `scale_linetype` and 
+`scale_linetype_manual`
+`Alightings = "dashed", Boardings = "dashed", Average = "solid"`
+```{r}
+
+```
+
+
+
