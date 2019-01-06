@@ -184,102 +184,11 @@ the rest. Replot annual salary versus hire date, color by `dept` (not yet - usin
 
 
 
+17 (Bonus): convert the 'LotSize' variable to a numeric square feet variable in the tax data set. Some tips: 
+a) 1 acre = 43560 square feet
+b) The hyphens represent inches (not decimals)
+
 ```{r}
-tax = read_csv( "http://johnmuschelli.com/intro_to_r/data/Real_Property_Taxes.csv.gz")
 
-# BONUS. Convert the 'LotSize' variable to a numeric square feet variable. 
-# Using the tax data set
-#	Tips: - 1 acre = 43560 square feet
-#		    - The hyphens represent inches (not decimals)
-# 		  - Don't spend more than 5-10 minutes on this; stop and move on
-
-tax$LotSize = str_trim(tax$LotSize) # trim to be safe
-lot = tax$LotSize # for checking later
-
-# first lets take care of acres
-aIndex= c(grep("ACRE.*", tax$LotSize, ignore.case = TRUE),
-          grep(" %", tax$LotSize, fixed=TRUE))
-head(aIndex)
-head(lot[aIndex])
-
-acre = tax$LotSize[aIndex] # temporary variable
-## find and replace character strings
-acre = gsub(" ACRE.*","",acre)
-acre = gsub(" %","",acre)
-table(!is.na(as.numeric(acre)))
-
-head(acre[is.na(as.numeric(acre))],50)
-
-## lets clean the rest
-acre = gsub("-",".",acre,fixed=TRUE) # hyphen instead of decimal
-head(acre[is.na(as.numeric(acre))])
-table(!is.na(as.numeric(acre)))
-
-acre = gsub("ACRES","", acre, fixed=TRUE)
-head(acre[is.na(as.numeric(acre))])
-
-# take care of individual mistakes
-acre = gsub("O","0", acre, fixed=TRUE) # 0 vs O
-acre = gsub("Q","", acre, fixed=TRUE) # Q, oops
-acre = gsub(",.",".", acre, fixed=TRUE) # extra ,
-acre = gsub(",","", acre, fixed=TRUE) # extra ,
-acre = gsub("L","0", acre, fixed=TRUE) # leading L
-head(acre[is.na(as.numeric(acre))])
-
-acre2 = as.numeric(acre)*43560 
-sum(is.na(acre2)) # all but one
-
-#######################
-## now square feet:
-fIndex = grep("X", tax$LotSize)
-ft = tax$LotSize[fIndex]
-
-ft = gsub("&", "-", ft, fixed=TRUE)
-ft = gsub("IMP ONLY ", "", ft, fixed=TRUE)
-ft = gsub("`","1",ft,fixed=TRUE)
-
-ft= sapply(str_split(ft, " "), first)
-
-# wrapper for string split and sapply
-#### ss = function(x, pattern, slot=1,...) sapply(strsplit(x,pattern,...), "[", slot)
-
-width = sapply(str_split(ft,"X"), first)
-length = sapply(str_split(ft,"X"), nth, 2) 
-
-## width
-widthFeet = as.numeric(sapply(str_split(width, "-"), first))
-widthInch = as.numeric(sapply(str_split(width, "-"),nth,2))/12
-widthInch[is.na(widthInch)] = 0 # when no inches present
-totalWidth = widthFeet + widthInch # add together
-
-# length
-lengthFeet = as.numeric(sapply(str_split(length, "-"),first))
-lengthInch = as.numeric(sapply(str_split(length, "-",2),nth,2))/12
-lengthInch[is.na(lengthInch)] = 0 # when no inches present
-totalLength = lengthFeet + lengthInch
-
-# combine together for square feet
-sqrtFt = totalWidth*totalLength 
-head(ft[is.na(sqrtFt)]) # what is left?
-
-### combine together
-tax$sqft = NA
-tax$sqft[aIndex] = acre2
-tax$sqft[fIndex] = sqrtFt
-mean(!is.na(tax$sqft))
-
-# already in square feet, easy!!
-sIndex=c(grep("FT", tax$LotSize), 
-         grep("S.*F.", tax$LotSize))
-sf = tax$LotSize[sIndex] # subset temporary variable
-
-sqft2 = sapply(str_split(sf,"( |SQ|SF)"),first)
-sqft2 = as.numeric(gsub(",", "", sqft2)) # remove , and convert
-tax$sqft[sIndex] = sqft2
-table(is.na(tax$sqft)) 
-## progress!
-
-#what remains?
-head(lot[is.na(tax$sqft)])
 ```
 
