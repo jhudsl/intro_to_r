@@ -81,11 +81,11 @@ df
 
 ## Creating a `data.frame` to work with
 
-If we would like to create a `tibble` ("fancy" data.frame), we can using `as.tbl`.  In the "tidy" data format, all information of interest is a variable (not a name).
+If we would like to create a `tibble` ("fancy" data.frame), we can using `as.tbl`.  In the "tidy" data format, all information of interest is a variable (not a name). **as of tibble 2.0, rownames are removed**.
 
 ```{r}
-tbl = as.tbl(df)
-tbl = rownames_to_column(tbl, var = "car")
+tbl = rownames_to_column(df, var = "car")
+tbl = as.tbl(df) # no ROWNAMES
 ```
 
 

@@ -19,8 +19,8 @@ df = mtcars
 df
 
 ## ------------------------------------------------------------------------
-tbl = as.tbl(df)
-tbl = rownames_to_column(tbl, var = "car")
+tbl = rownames_to_column(df, var = "car")
+tbl = as.tbl(df) # no ROWNAMES
 
 ## ------------------------------------------------------------------------
 df = dplyr::rename(df, MPG = mpg)

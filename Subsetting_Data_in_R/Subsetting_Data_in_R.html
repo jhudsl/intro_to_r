@@ -3196,7 +3196,7 @@ width:48%;
 <pre >── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──</pre>
 
 <pre >✔ ggplot2 3.1.0     ✔ readr   1.1.1
-✔ tibble  1.4.2     ✔ purrr   0.2.5
+✔ tibble  2.0.0     ✔ purrr   0.2.5
 ✔ tidyr   0.8.2     ✔ stringr 1.3.1
 ✔ ggplot2 3.1.0     ✔ forcats 0.3.0</pre>
 
@@ -3216,7 +3216,7 @@ width:48%;
 {
     UseMethod(&quot;filter&quot;)
 }
-&lt;bytecode: 0x7f92b664f720&gt;
+&lt;bytecode: 0x7ff9bdbc8870&gt;
 &lt;environment: namespace:dplyr&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Loading in dplyr and tidyverse</h2></hgroup><article  id="loading-in-dplyr-and-tidyverse-2">
@@ -3275,10 +3275,10 @@ Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</pre>
 
 </article></slide><slide class=""><hgroup><h2>Creating a <code>data.frame</code> to work with</h2></hgroup><article  id="creating-a-data.frame-to-work-with-1">
 
-<p>If we would like to create a <code>tibble</code> (&ldquo;fancy&rdquo; data.frame), we can using <code>as.tbl</code>. In the &ldquo;tidy&rdquo; data format, all information of interest is a variable (not a name).</p>
+<p>If we would like to create a <code>tibble</code> (&ldquo;fancy&rdquo; data.frame), we can using <code>as.tbl</code>. In the &ldquo;tidy&rdquo; data format, all information of interest is a variable (not a name). <strong>as of tibble 2.0, rownames are removed</strong>.</p>
 
-<pre class = 'prettyprint lang-r'>tbl = as.tbl(df)
-tbl = rownames_to_column(tbl, var = &quot;car&quot;)</pre>
+<pre class = 'prettyprint lang-r'>tbl = rownames_to_column(df, var = &quot;car&quot;)
+tbl = as.tbl(df) # no ROWNAMES</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Renaming Columns</h2></hgroup><article  id="renaming-columns">
 
@@ -4200,19 +4200,19 @@ head(df)</pre>
 <pre class = 'prettyprint lang-r'>tbl[, 1]</pre>
 
 <pre ># A tibble: 32 x 1
-   car              
-   &lt;chr&gt;            
- 1 Mazda RX4        
- 2 Mazda RX4 Wag    
- 3 Datsun 710       
- 4 Hornet 4 Drive   
- 5 Hornet Sportabout
- 6 Valiant          
- 7 Duster 360       
- 8 Merc 240D        
- 9 Merc 230         
-10 Merc 280         
-# ... with 22 more rows</pre>
+     mpg
+   &lt;dbl&gt;
+ 1  21  
+ 2  21  
+ 3  22.8
+ 4  21.4
+ 5  18.7
+ 6  18.1
+ 7  14.3
+ 8  24.4
+ 9  22.8
+10  19.2
+# … with 22 more rows</pre>
 
 <pre class = 'prettyprint lang-r'>tbl[, &quot;mpg&quot;]</pre>
 
@@ -4229,7 +4229,7 @@ head(df)</pre>
  8  24.4
  9  22.8
 10  19.2
-# ... with 22 more rows</pre>
+# … with 22 more rows</pre>
 
 <pre class = 'prettyprint lang-r'>df[, 1, drop = FALSE]</pre>
 
