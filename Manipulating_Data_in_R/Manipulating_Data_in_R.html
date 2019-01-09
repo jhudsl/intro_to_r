@@ -3075,6 +3075,10 @@ if (document.readyState !== "loading" &&
       font-style: italic;
     }
 
+    summary {
+      display: list-item;
+    }
+
     slides > slide {
       -webkit-transition: all 0.4s ease-in-out;
       -moz-transition: all 0.4s ease-in-out;
@@ -3224,14 +3228,14 @@ width:48%;
 head(circ, 2)</pre>
 
 <pre ># A tibble: 2 x 15
-  day     date       orangeBoardings orangeAlightings orangeAverage
-  &lt;chr&gt;   &lt;chr&gt;                &lt;int&gt;            &lt;int&gt;         &lt;dbl&gt;
-1 Monday  01/11/2010             877             1027           952
-2 Tuesday 01/12/2010             777              815           796
-# ... with 10 more variables: purpleBoardings &lt;int&gt;,
-#   purpleAlightings &lt;int&gt;, purpleAverage &lt;dbl&gt;, greenBoardings &lt;int&gt;,
-#   greenAlightings &lt;int&gt;, greenAverage &lt;dbl&gt;, bannerBoardings &lt;int&gt;,
-#   bannerAlightings &lt;int&gt;, bannerAverage &lt;dbl&gt;, daily &lt;dbl&gt;</pre>
+  day   date  orangeBoardings orangeAlightings orangeAverage
+  &lt;chr&gt; &lt;chr&gt;           &lt;dbl&gt;            &lt;dbl&gt;         &lt;dbl&gt;
+1 Mond… 01/1…             877             1027           952
+2 Tues… 01/1…             777              815           796
+# … with 10 more variables: purpleBoardings &lt;dbl&gt;, purpleAlightings &lt;dbl&gt;,
+#   purpleAverage &lt;dbl&gt;, greenBoardings &lt;dbl&gt;, greenAlightings &lt;dbl&gt;,
+#   greenAverage &lt;dbl&gt;, bannerBoardings &lt;dbl&gt;, bannerAlightings &lt;dbl&gt;,
+#   bannerAverage &lt;dbl&gt;, daily &lt;dbl&gt;</pre>
 
 <pre class = 'prettyprint lang-r'>class(circ$date)</pre>
 
@@ -3398,6 +3402,13 @@ cn = cn %&gt;%
   str_replace(&quot;Alight&quot;, &quot;.Alight&quot;) %&gt;% 
   str_replace(&quot;Average&quot;, &quot;.Average&quot;) 
 colnames(circ) = cn # then reshape using gather!</pre>
+
+<p>or (with some string working (see data cleaning)):</p>
+
+<pre class = 'prettyprint lang-r'>circ = circ %&gt;% 
+  rename_all(.funs = str_replace,
+            pattern = &quot;(orange|purple|green|banner)&quot;,
+            replacement = &quot;\\1.&quot;)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
 

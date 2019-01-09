@@ -83,6 +83,12 @@ reunited %>% select(day, var) %>% head(3) %>% print
 ##   str_replace("Average", ".Average")
 ## colnames(circ) = cn # then reshape using gather!
 
+## ---- eval = FALSE-------------------------------------------------------
+## circ = circ %>%
+##   rename_all(.funs = str_replace,
+##             pattern = "(orange|purple|green|banner)",
+##             replacement = "\\1.")
+
 ## ------------------------------------------------------------------------
 # have to remove missing days
 wide = filter(long, !is.na(date))

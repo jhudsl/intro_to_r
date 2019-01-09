@@ -197,6 +197,15 @@ cn = cn %>%
 colnames(circ) = cn # then reshape using gather!
 ```
 
+or (with some string working (see data cleaning)):
+
+```{r, eval = FALSE}
+circ = circ %>% 
+  rename_all(.funs = str_replace,
+            pattern = "(orange|purple|green|banner)",
+            replacement = "\\1.")
+```
+
 ## Lab Part 2
 
 [Website](http://johnmuschelli.com/intro_to_r/index.html)
