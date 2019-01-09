@@ -3075,6 +3075,10 @@ if (document.readyState !== "loading" &&
       font-style: italic;
     }
 
+    summary {
+      display: list-item;
+    }
+
     slides > slide {
       -webkit-transition: all 0.4s ease-in-out;
       -moz-transition: all 0.4s ease-in-out;
@@ -3247,7 +3251,7 @@ mean of x
   estimate statistic  p.value parameter conf.low conf.high method
      &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt; 
 1     3.22      18.6 2.26e-18        31     2.86      3.57 One S…
-# ... with 1 more variable: alternative &lt;chr&gt;</pre>
+# … with 1 more variable: alternative &lt;chr&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Statistical summarization</h2></hgroup><article  id="statistical-summarization-3">
 
@@ -3299,7 +3303,8 @@ mean(x)</pre>
 <p>Here we will read in a <code>tibble</code> of values from TB incidence:</p>
 
 <pre class = 'prettyprint lang-r'>library(readxl)
-tb &lt;- read_excel(&quot;../data/tb_incidence.xlsx&quot;)
+# tb &lt;- read_excel(&quot;http://johnmuschelli.com/intro_to_r/data/tb_incidence.xlsx&quot;)
+tb = jhur::read_tb()
 colnames(tb)</pre>
 
 <pre > [1] &quot;TB incidence, all forms (per 100 000 population per year)&quot;
@@ -3436,23 +3441,23 @@ head(yts)</pre>
 
 <pre ># A tibble: 6 x 31
    YEAR LocationAbbr LocationDesc TopicType TopicDesc MeasureDesc
-  &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;      
+  &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;      
 1  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
 2  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
 3  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
 4  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
 5  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
 6  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
-# ... with 25 more variables: DataSource &lt;chr&gt;, Response &lt;chr&gt;,
+# … with 25 more variables: DataSource &lt;chr&gt;, Response &lt;chr&gt;,
 #   Data_Value_Unit &lt;chr&gt;, Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;,
 #   Data_Value_Footnote_Symbol &lt;chr&gt;, Data_Value_Footnote &lt;chr&gt;,
 #   Data_Value_Std_Err &lt;dbl&gt;, Low_Confidence_Limit &lt;dbl&gt;,
-#   High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;int&gt;, Gender &lt;chr&gt;,
+#   High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;dbl&gt;, Gender &lt;chr&gt;,
 #   Race &lt;chr&gt;, Age &lt;chr&gt;, Education &lt;chr&gt;, GeoLocation &lt;chr&gt;,
 #   TopicTypeId &lt;chr&gt;, TopicId &lt;chr&gt;, MeasureId &lt;chr&gt;,
 #   StratificationID1 &lt;chr&gt;, StratificationID2 &lt;chr&gt;,
 #   StratificationID3 &lt;chr&gt;, StratificationID4 &lt;chr&gt;, SubMeasureID &lt;chr&gt;,
-#   DisplayOrder &lt;int&gt;</pre>
+#   DisplayOrder &lt;dbl&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Youth Tobacco Survey: Reading in yourself</h2></hgroup><article  id="youth-tobacco-survey-reading-in-yourself">
 
@@ -3465,23 +3470,23 @@ head(yts)</pre>
 
 <pre ># A tibble: 6 x 31
    YEAR LocationAbbr LocationDesc TopicType TopicDesc MeasureDesc
-  &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;      
+  &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;      
 1  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
 2  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
 3  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
 4  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
 5  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
 6  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
-# ... with 25 more variables: DataSource &lt;chr&gt;, Response &lt;chr&gt;,
+# … with 25 more variables: DataSource &lt;chr&gt;, Response &lt;chr&gt;,
 #   Data_Value_Unit &lt;chr&gt;, Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;,
 #   Data_Value_Footnote_Symbol &lt;chr&gt;, Data_Value_Footnote &lt;chr&gt;,
 #   Data_Value_Std_Err &lt;dbl&gt;, Low_Confidence_Limit &lt;dbl&gt;,
-#   High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;int&gt;, Gender &lt;chr&gt;,
+#   High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;dbl&gt;, Gender &lt;chr&gt;,
 #   Race &lt;chr&gt;, Age &lt;chr&gt;, Education &lt;chr&gt;, GeoLocation &lt;chr&gt;,
 #   TopicTypeId &lt;chr&gt;, TopicId &lt;chr&gt;, MeasureId &lt;chr&gt;,
 #   StratificationID1 &lt;chr&gt;, StratificationID2 &lt;chr&gt;,
 #   StratificationID3 &lt;chr&gt;, StratificationID4 &lt;chr&gt;, SubMeasureID &lt;chr&gt;,
-#   DisplayOrder &lt;int&gt;</pre>
+#   DisplayOrder &lt;dbl&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Length and unique</h2></hgroup><article  id="length-and-unique">
 
@@ -3532,7 +3537,7 @@ head(yts)</pre>
  8 District of Columbia    48
  9 Florida                 96
 10 Georgia                282
-# ... with 40 more rows</pre>
+# … with 40 more rows</pre>
 
 </article></slide><slide class=""><hgroup><h2><code>dplyr</code>: <code>count</code></h2></hgroup><article  id="dplyr-count-1">
 
@@ -3551,7 +3556,7 @@ head(yts)</pre>
  8 District of Columbia All Ages    48
  9 Florida              All Ages    96
 10 Georgia              All Ages   282
-# ... with 40 more rows</pre>
+# … with 40 more rows</pre>
 
 </article></slide><slide class=""><hgroup><h2>Subsetting to specific columns</h2></hgroup><article  id="subsetting-to-specific-columns">
 
@@ -3566,7 +3571,7 @@ head(sub_yts, 4)</pre>
 
 <pre ># A tibble: 4 x 3
    YEAR LocationDesc Data_Value
-  &lt;int&gt; &lt;chr&gt;             &lt;dbl&gt;
+  &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt;
 1  2015 Arizona             3.2
 2  2015 Connecticut         0.8
 3  2015 Hawaii              3  
@@ -3604,7 +3609,7 @@ head(sub_yts)</pre>
 <pre ># A tibble: 6 x 3
 # Groups:   YEAR [1]
    YEAR LocationDesc Data_Value
-  &lt;int&gt; &lt;chr&gt;             &lt;dbl&gt;
+  &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt;
 1  2015 Arizona             3.2
 2  2015 Connecticut         0.8
 3  2015 Hawaii              3  
@@ -3622,7 +3627,7 @@ head(sub_yts)</pre>
 
 <pre ># A tibble: 17 x 2
     YEAR year_avg
-   &lt;int&gt;    &lt;dbl&gt;
+   &lt;dbl&gt;    &lt;dbl&gt;
  1  1999    14.6 
  2  2000    12.5 
  3  2001     9.84
@@ -3650,7 +3655,7 @@ sub_yts</pre>
 
 <pre ># A tibble: 222 x 3
     YEAR LocationDesc   Data_Value
-   &lt;int&gt; &lt;chr&gt;               &lt;dbl&gt;
+   &lt;dbl&gt; &lt;chr&gt;               &lt;dbl&gt;
  1  2015 Arizona               3.2
  2  2015 Connecticut           0.8
  3  2015 Hawaii                3  
@@ -3661,7 +3666,7 @@ sub_yts</pre>
  8  2015 New Jersey            1.2
  9  2015 North Carolina        2.3
 10  2015 North Dakota          3.6
-# ... with 212 more rows</pre>
+# … with 212 more rows</pre>
 
 </article></slide><slide class=""><hgroup><h2>Using the <code>pipe</code></h2></hgroup><article  id="using-the-pipe">
 
@@ -3674,7 +3679,7 @@ head(yts_avgs)</pre>
 
 <pre ># A tibble: 6 x 2
    YEAR year_avg
-  &lt;int&gt;    &lt;dbl&gt;
+  &lt;dbl&gt;    &lt;dbl&gt;
 1  1999    14.6 
 2  2000    12.5 
 3  2001     9.84
@@ -3694,7 +3699,7 @@ head(yts_avgs)</pre>
 <pre ># A tibble: 222 x 4
 # Groups:   YEAR [17]
     YEAR LocationDesc Data_Value year_avg
-   &lt;int&gt; &lt;chr&gt;             &lt;dbl&gt;    &lt;dbl&gt;
+   &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt;    &lt;dbl&gt;
  1  2000 Alabama            19.1    12.5 
  2  2002 Alabama            15.6     9.60
  3  2004 Alabama            13.1     8.2 
@@ -3705,7 +3710,7 @@ head(yts_avgs)</pre>
  8  2014 Alabama             6.4     2.93
  9  2000 Arizona            11.4    12.5 
 10  2003 Arizona             8.7     7.49
-# ... with 212 more rows</pre>
+# … with 212 more rows</pre>
 
 </article></slide><slide class=""><hgroup><h2>Counting</h2></hgroup><article  id="counting">
 
@@ -3719,7 +3724,7 @@ head(yts_avgs)</pre>
 
 <pre ># A tibble: 6 x 2
    YEAR     n
-  &lt;int&gt; &lt;int&gt;
+  &lt;dbl&gt; &lt;int&gt;
 1  1999    10
 2  2000    27
 3  2001    11
@@ -3735,7 +3740,7 @@ head(yts_avgs)</pre>
 
 <pre ># A tibble: 6 x 2
    YEAR     n
-  &lt;int&gt; &lt;int&gt;
+  &lt;dbl&gt; &lt;int&gt;
 1  1999    10
 2  2000    27
 3  2001    11

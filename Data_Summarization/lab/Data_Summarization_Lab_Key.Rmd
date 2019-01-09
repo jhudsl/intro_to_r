@@ -63,9 +63,12 @@ length(unique(bike$type))
 
 is.na(unique(bike$type))
 
+counts = bike %>% 
+  count(type)
+
 bike %>% 
   group_by(type) %>% 
-  summarise(n = n(),
+  summarise(number_of_rows = n(),
             mean = mean(length)) %>% 
   arrange(mean)
 ```
@@ -81,7 +84,16 @@ bike %>%
   group_by(project, type) %>% 
   summarise(n = n(),
             mean = mean(length)) %>% 
-  arrange(desc(mean))
+  arrange(desc(mean)) 
+
+bike %>% 
+  group_by(project, type) %>% 
+  summarise(n = n(),
+            mean = mean(length)) %>% 
+  arrange(desc(mean)) %>% 
+  ungroup() %>% 
+  slice(1) %>% 
+  magrittr::extract("project")
 
 arrange(summarize(group_by(bike, project, type), 
           n = n(), mean = mean(length)),
@@ -123,9 +135,12 @@ b2 = bike %>%
 bike$dateInstalled[bike$dateInstalled == "0"] = NA
 
 bike %>% 
+  mutate(length = ifelse(length == 0, NA, length)) %>% 
   group_by(dateInstalled) %>% 
   summarise(n = n(),
-            mean_of_the_bike = mean(length))
+            mean_of_the_bike = mean(length, na.rm = TRUE),
+            n_missing = sum(is.na(length)))
+
             
 ```
 
@@ -165,5 +180,13 @@ boxplot(log10(bike$length)~bike$type)
 bike %>% 
   group_by(type) %>% 
   summarise(q0.7 = quantile(length, na.rm = TRUE, probs =0.7))
+
+
+
+
+
+
+
+
 ```
 

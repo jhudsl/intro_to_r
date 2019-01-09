@@ -469,22 +469,25 @@ bike = read_bike()</code></pre>
 <pre><code>## [1] 8</code></pre>
 <pre class="r"><code>is.na(unique(bike$type))</code></pre>
 <pre><code>## [1] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE</code></pre>
-<pre class="r"><code>bike %&gt;% 
+<pre class="r"><code>counts = bike %&gt;% 
+  count(type)
+
+bike %&gt;% 
   group_by(type) %&gt;% 
-  summarise(n = n(),
+  summarise(number_of_rows = n(),
             mean = mean(length)) %&gt;% 
   arrange(mean)</code></pre>
 <pre><code>## # A tibble: 8 x 3
-##   type                n  mean
-##   &lt;chr&gt;           &lt;int&gt; &lt;dbl&gt;
-## 1 CONTRAFLOW         13  136.
-## 2 BIKE BOULEVARD     49  197.
-## 3 SHARROW           589  244.
-## 4 &lt;NA&gt;                9  260.
-## 5 SIGNED ROUTE      304  264.
-## 6 SHARED BUS BIKE    39  277.
-## 7 BIKE LANE         621  300.
-## 8 SIDEPATH            7  666.</code></pre>
+##   type            number_of_rows  mean
+##   &lt;chr&gt;                    &lt;int&gt; &lt;dbl&gt;
+## 1 CONTRAFLOW                  13  136.
+## 2 BIKE BOULEVARD              49  197.
+## 3 SHARROW                    589  244.
+## 4 &lt;NA&gt;                         9  260.
+## 5 SIGNED ROUTE               304  264.
+## 6 SHARED BUS BIKE             39  277.
+## 7 BIKE LANE                  621  300.
+## 8 SIDEPATH                     7  666.</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>How many different projects do the “bike” lanes fall into? Which <code>project</code> category has the longest average bike lane?</li>
 </ol>
@@ -494,7 +497,7 @@ bike = read_bike()</code></pre>
   group_by(project, type) %&gt;% 
   summarise(n = n(),
             mean = mean(length)) %&gt;% 
-  arrange(desc(mean))</code></pre>
+  arrange(desc(mean)) </code></pre>
 <pre><code>## # A tibble: 32 x 4
 ## # Groups:   project [13]
 ##    project                   type             n  mean
@@ -510,6 +513,18 @@ bike = read_bike()</code></pre>
 ##  9 PLANNING TRAFFIC          BIKE LANE        6  363.
 ## 10 &lt;NA&gt;                      BIKE LANE       12  357.
 ## # … with 22 more rows</code></pre>
+<pre class="r"><code>bike %&gt;% 
+  group_by(project, type) %&gt;% 
+  summarise(n = n(),
+            mean = mean(length)) %&gt;% 
+  arrange(desc(mean)) %&gt;% 
+  ungroup() %&gt;% 
+  slice(1) %&gt;% 
+  magrittr::extract(&quot;project&quot;)</code></pre>
+<pre><code>## # A tibble: 1 x 1
+##   project    
+##   &lt;chr&gt;      
+## 1 MAINTENANCE</code></pre>
 <pre class="r"><code>arrange(summarize(group_by(bike, project, type), 
           n = n(), mean = mean(length)),
         desc(mean))</code></pre>
@@ -742,21 +757,23 @@ b2 = bike %&gt;%
 bike$dateInstalled[bike$dateInstalled == &quot;0&quot;] = NA
 
 bike %&gt;% 
+  mutate(length = ifelse(length == 0, NA, length)) %&gt;% 
   group_by(dateInstalled) %&gt;% 
   summarise(n = n(),
-            mean_of_the_bike = mean(length))</code></pre>
-<pre><code>## # A tibble: 9 x 3
-##   dateInstalled     n mean_of_the_bike
-##           &lt;dbl&gt; &lt;int&gt;            &lt;dbl&gt;
-## 1          2006     2            1469.
-## 2          2007   368             310.
-## 3          2008   206             249.
-## 4          2009    86             407.
-## 5          2010   625             246.
-## 6          2011   101             233.
-## 7          2012   107             271.
-## 8          2013    10             290.
-## 9            NA   126             215.</code></pre>
+            mean_of_the_bike = mean(length, na.rm = TRUE),
+            n_missing = sum(is.na(length)))</code></pre>
+<pre><code>## # A tibble: 9 x 4
+##   dateInstalled     n mean_of_the_bike n_missing
+##           &lt;dbl&gt; &lt;int&gt;            &lt;dbl&gt;     &lt;int&gt;
+## 1          2006     2            1469.         0
+## 2          2007   368             310.         0
+## 3          2008   206             249.         0
+## 4          2009    86             407.         0
+## 5          2010   625             246.         0
+## 6          2011   101             233.         0
+## 7          2012   107             271.         0
+## 8          2013    10             290.         0
+## 9            NA   126             217.         1</code></pre>
 </div>
 <div id="part-4" class="section level1">
 <h1>Part 4</h1>

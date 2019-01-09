@@ -102,7 +102,8 @@ Here we will read in a `tibble` of values from TB incidence:
 
 ```{r}
 library(readxl)
-tb <- read_excel("../data/tb_incidence.xlsx")
+# tb <- read_excel("http://johnmuschelli.com/intro_to_r/data/tb_incidence.xlsx")
+tb = jhur::read_tb()
 colnames(tb)
 ```
 
