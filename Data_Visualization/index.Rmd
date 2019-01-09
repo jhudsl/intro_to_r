@@ -16,6 +16,7 @@ opts_chunk$set(echo = TRUE,
                fig.width = 7, 
                comment = "")
 library(tidyverse)
+library(jhur)
 ```
 
 
@@ -34,8 +35,15 @@ death[1:2, 1:5]
 ```
 
 
+## Read in Data: `jhur`
+
+```{r fig.align='center',cache=FALSE}
+jhur::read_mortality()
+```
+
+
 ```{r}
-colnames(death)[1] = "country"
+death = death %>% rename(country = X1)
 death[1:2, 1:5]
 ```
 
@@ -49,8 +57,7 @@ After reshaping the data to long, we can plot the data with one `data.frame`:
 library(tidyverse)
 long = gather(death, key = year, value = deaths, -country)
 long = long %>% filter(!is.na(deaths))
-head(long)
-class(long$year)
+head(long);   # note class year
 long = long %>% mutate(year = as.numeric(year))
 ```
 
@@ -304,8 +311,7 @@ Basically, you are creating a pdf file, and telling R to write any subsequent pl
 q = qplot(x = year, y = deaths, colour = country, data = sub,
           geom = "line") + 
   xlab("Year of Collection") + ylab("Deaths /100,000") +
-  ggtitle("Mortality of Children over the years",
-          subtitle = "not great") 
+  ggtitle("Mortality of Children over the years", subtitle = "not great") 
 q
 ```
 

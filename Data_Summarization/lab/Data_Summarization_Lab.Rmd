@@ -33,6 +33,8 @@ library(jhur)
 bike = read_bike()
 ```
 
+# Part 1
+
 1. How many bike "lanes" are currently in Baltimore?  You can assume each observation/row is a different bike "lane"
 ```{r q1}
 
@@ -43,6 +45,9 @@ bike = read_bike()
 ```{r q2}
 
 ```
+
+# Part 2
+
 3. How many types of bike lanes are there? Which type has (a) the most number of and (b) longest average bike lane length?
    
 ```{r q3}
@@ -50,6 +55,7 @@ bike = read_bike()
 
 
 ```
+
 
 4. How many different projects do the "bike" lanes fall into? 
 		Which `project` category has the longest average bike lane? 
@@ -60,6 +66,7 @@ bike = read_bike()
 
 ```
 
+# Part 3
 			  
 5. What was the average bike lane length per year that they were installed? 
  Set `bike$dateInstalled` to `NA` if it is equal to zero.
@@ -69,7 +76,7 @@ bike = read_bike()
 
 ```
 
-
+# Part 4
 
 6. (a) Numerically [hint: `quantile()`] and 
 		(b) graphically [hint: `hist()` or `plot(density())`]

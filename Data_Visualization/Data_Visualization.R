@@ -7,6 +7,7 @@ opts_chunk$set(echo = TRUE,
                fig.width = 7, 
                comment = "")
 library(tidyverse)
+library(jhur)
 
 ## ----seed, comment="",echo=FALSE-----------------------------------------
 set.seed(3) 
@@ -17,16 +18,18 @@ death = read_csv(
   "http://johnmuschelli.com/intro_to_r/data/indicatordeadkids35.csv")
 death[1:2, 1:5]
 
+## ----fig.align='center',cache=FALSE--------------------------------------
+jhur::read_mortality()
+
 ## ------------------------------------------------------------------------
-colnames(death)[1] = "country"
+death = death %>% rename(country = X1)
 death[1:2, 1:5]
 
 ## ----makelong_swede, fig.align='center', cache = FALSE-------------------
 library(tidyverse)
 long = gather(death, key = year, value = deaths, -country)
 long = long %>% filter(!is.na(deaths))
-head(long)
-class(long$year)
+head(long);   # note class year
 long = long %>% mutate(year = as.numeric(year))
 
 ## ----plot_long_swede, fig.align='center'---------------------------------
@@ -110,8 +113,7 @@ qplot(x = year, y = deaths, geom = "line", facets = ~ country, data = sub)
 q = qplot(x = year, y = deaths, colour = country, data = sub,
           geom = "line") + 
   xlab("Year of Collection") + ylab("Deaths /100,000") +
-  ggtitle("Mortality of Children over the years",
-          subtitle = "not great") 
+  ggtitle("Mortality of Children over the years", subtitle = "not great") 
 q
 
 ## ----labs_save, eval = TRUE----------------------------------------------
