@@ -18,7 +18,7 @@ x > 2 & !is.na(x)
 (x == 0 | x == 2) & !is.na(x) # No NA
 
 ## ------------------------------------------------------------------------
-df = data_frame(x = x)
+df = tibble(x = x)
 df %>% filter(x > 2)
 filter(df, between(x, -1, 3) | is.na(x))
 
@@ -118,13 +118,22 @@ sapply(y, nth, 2) # on the fly
 sapply(y, last) # on the fly
 
 ## ----separate_df---------------------------------------------------------
-df = data_frame(x = c("I really", "like writing", "R code programs"))
+df = tibble(x = c("I really", "like writing", "R code programs"))
 
 ## ------------------------------------------------------------------------
 df %>% separate(x, into = c("first", "second", "third"))
 
 ## ------------------------------------------------------------------------
 df %>% separate(x, into = c("first", "second"))
+
+## ----separate_df2--------------------------------------------------------
+df = tibble(x = c("I really", "like. _writing R. But not", "R code programs"))
+
+## ------------------------------------------------------------------------
+df %>% separate(x, into = c("first", "second", "third"), extra = "merge")
+
+## ------------------------------------------------------------------------
+df %>% separate(x, into = c("first", "second", "third"), extra = "merge", sep = " ")
 
 ## ----RawlMatch_log-------------------------------------------------------
 head(str_detect(Sal$Name, "Rawlings"))
@@ -178,7 +187,7 @@ paste("To", "is going be the ", "we go to the store!", sep = "day ")
 paste0("Visit",1:5)
 
 ## ----unite_df------------------------------------------------------------
-df = data_frame(id = rep(1:5, 3), visit = rep(1:3, each = 5))
+df = tibble(id = rep(1:5, 3), visit = rep(1:3, each = 5))
 
 ## ------------------------------------------------------------------------
 df %>% unite(col = "unique_id", id, visit, sep = "_")
