@@ -232,8 +232,8 @@ bike = read_csv(
 <h1>Part 1</h1>
 <ol style="list-style-type: decimal">
 <li><p>Count the number of rows of the bike data and count the number of complete cases of the bike data. Use <code>sum</code> and <code>complete.cases</code>.</p></li>
-<li><p>Create a data set called <code>namat</code> which is equal to <code>is.na(bike</code>).<br />
-What is the class of <code>namat</code>? Run rowSums and colSums on <code>namat.</code> These represent the number of missing values in the rows and columns of <code>bike.</code> Don’t print <code>rowSums</code>, but do a table of the <code>rowSums</code></p></li>
+<li><p>Create a data set called <code>namat</code> which is equal to <code>is.na(bike)</code>.<br />
+What is the class of <code>namat</code>? Run rowSums and colSums on <code>namat.</code> These represent the number of missing values in the rows and columns of <code>bike</code>. Don’t print <code>rowSums</code>, but do a table of the <code>rowSums</code></p></li>
 <li><p>Filter rows of bike that are NOT missing the <code>route</code> variable, assign this to the object <code>have_route.</code> Do a table of the <code>subType</code> using <code>table</code>, including the missing <code>subType</code>s Get the same frequency distribution using <code>group_by(subType)</code> and <code>tally()</code></p></li>
 <li><p>Filter rows of bike that have the type <code>SIDEPATH</code> or <code>BIKE LANE</code> using <code>%in%</code>. Call it <code>side_bike.</code> Confirm this gives you the same number of results using the <code>|</code> and <code>==</code>.</p></li>
 </ol>
@@ -248,7 +248,7 @@ What is the class of <code>namat</code>? Run rowSums and colSums on <code>namat.
 <h1>Part 3</h1>
 <p><strong>New Data set</strong></p>
 <p>Download the “Real Property Taxes” Data from my website (via OpenBaltimore): <a href="http://johnmuschelli.com/intro_to_r/data/Real_Property_Taxes.csv.gz" class="uri">http://johnmuschelli.com/intro_to_r/data/Real_Property_Taxes.csv.gz</a> note you don’t need to unzip it to read it into R</p>
-<ol style="list-style-type: decimal">
+<ol start="6" style="list-style-type: decimal">
 <li><p>Read the Property Tax data into R and call it the variable <code>tax</code></p></li>
 <li><p>How many addresses pay property taxes?</p></li>
 <li><p>What is the total city and state tax paid?<br />
@@ -261,7 +261,7 @@ You need to remove the <code>$</code> from the <code>CityTax</code> variable the
 <li><p>what is the maximum amount still due in each ward? different summarization (<code>max</code>)</p></li>
 <li><p>What is the 75th percentile of city and state tax paid by Ward? (<code>quantile</code>)</p></li>
 </ol>
-<ol start="6" style="list-style-type: decimal">
+<ol start="10" style="list-style-type: decimal">
 <li><p>Make boxplots using showing <code>cityTax</code> (<code>y</code> -variable) by whether the property is a principal residence (<code>x</code>) or not.</p></li>
 <li><p>Subset the data to only retain those houses that are principal residences. which command subsets rows? Filter or select?</p></li>
 </ol>
@@ -282,7 +282,7 @@ You need to remove the <code>$</code> from the <code>CityTax</code> variable the
 ##   AnnualSalary = col_character(),
 ##   GrossPay = col_character()
 ## )</code></pre>
-<ol start="10" style="list-style-type: decimal">
+<ol start="12" style="list-style-type: decimal">
 <li><p>Make an object called health.sal using the salaries data set, with only agencies of those with <code>&quot;fire&quot;</code> (or any forms), if any, in the name remember <code>fixed( ignore_case = TRUE)</code> will ignore cases</p></li>
 <li><p>Make a data set called <code>trans</code> which contains only agencies that contain “TRANS”.</p></li>
 <li><p>What is/are the profession(s) of people who have <code>&quot;abra&quot;</code> in their name for Baltimore’s Salaries? Case should be ignored</p></li>
@@ -291,7 +291,7 @@ You need to remove the <code>$</code> from the <code>CityTax</code> variable the
 <li><p>Create a smaller dataset that only includes the Police Department, Fire Department and Sheriff’s Office. Use the Agency variable with string matching. Call this <code>emer</code>. How many employees are in this new dataset?</p></li>
 <li><p>Create a variable called <code>dept</code> in the emer data set. <code>dept = str_extract(Agency, &quot;.*(ment|ice)&quot;)</code>. E.g. want to extract all characters up until <code>ment</code> or <code>ice</code> (we can group in <code>regex</code> using parentheses) and then discard the rest. Replot annual salary versus hire date, color by <code>dept</code> (not yet - using ggplot)</p></li>
 </ol>
-<p>17 (Bonus): convert the ‘LotSize’ variable to a numeric square feet variable in the tax data set. Some tips: a) 1 acre = 43560 square feet b) The hyphens represent inches (not decimals)</p>
+<p>19 (Bonus). Convert the ‘LotSize’ variable to a numeric square feet variable in the tax data set. Some tips: a) 1 acre = 43560 square feet b) The hyphens represent inches (not decimals)</p>
 </div>
 
 
