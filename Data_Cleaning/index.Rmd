@@ -531,17 +531,23 @@ paste0("Visit",1:5)
 df = tibble(id = rep(1:5, 3), visit = rep(1:3, each = 5))
 ```
 
-<div class="left_col"> 
 
 ```{r}
 df %>% unite(col = "unique_id", id, visit, sep = "_")
 ```
-</div>
-<div class="right_col"> 
+
+
+## Uniting columns based on a separator 
+
+* From `tidyr`, you can unite:
+
+```{r unite_df2}
+df = tibble(id = rep(1:5, 3), visit = rep(1:3, each = 5))
+```
+
 ```{r}
 df %>% unite(col = "unique_id", id, visit, sep = "_", remove = FALSE)
 ```
-</div>
 
 ## Paste Depicting How Collapse Works
 
