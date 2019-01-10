@@ -252,7 +252,7 @@ qplot(x = CityTax, data = pres, geom = "density")
 
 hist(log2(pres$CityTax+1))
 hist(pres$CityTax)
-pres$CityTax
+head(pres$CityTax)
 plot(density(pres$CityTax,  na.rm = TRUE))
 ```
 
