@@ -132,6 +132,9 @@ df = tibble(x = c("I really", "like. _writing R. But not", "R code programs"))
 ## ------------------------------------------------------------------------
 df %>% separate(x, into = c("first", "second", "third"), extra = "merge")
 
+## ----separate_df3--------------------------------------------------------
+df = tibble(x = c("I really", "like. _writing R. But not", "R code programs"))
+
 ## ------------------------------------------------------------------------
 df %>% separate(x, into = c("first", "second", "third"), extra = "merge", sep = " ")
 

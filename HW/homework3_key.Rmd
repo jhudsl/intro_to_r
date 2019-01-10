@@ -4,120 +4,115 @@ author: "Introduction to R for Public Health Researchers"
 output: html_document
 ---
 
-Let's first read in the childhood mortality dataset:
+
+Use this dataset on infant mortality for the following questions: http://johnmuschelli.com/intro_to_r/data/indicatordeadkids35.csv
+
+
+```{r initiatePackages, message=FALSE}
+## you can add more, or change...these are suggestions
+library(tidyverse)
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+```
+
+Questions
+
+1.	Read the data using `read_csv()` and name it `mort`. Rename the first column to `country` using the `rename()` command in `dplyr`.  Create an object `year` variable by extracting column names (using `colnames()`) and make it to an integer `as.integer()`), excluding the first column either with string manipulations or bracket subsetting or subsetting with `is.na`. 
 
 ```{r, dataImport}
-death = read.csv("http://johnmuschelli.com/intro_to_r/data/indicatordeadkids35.csv",
-                 as.is=TRUE,header=TRUE, row.names=1)
+mort = read_csv("http://johnmuschelli.com/intro_to_r/data/indicatordeadkids35.csv")
+mort = mort %>% 
+  rename(country = X1)
 ```
+
+Using Bracket notation:
+```{r}
+year = colnames(mort)
+year = year[-1]
+year = as.integer(year)
+```
+
+or using `is.na`:
+```{r}
+year = colnames(mort)
+year = as.integer(year)
+year = year[ !is.na(year)]
+```
+
+or using string manipulations
+```{r}
+year = colnames(mort)
+# start with a  digit
+year = year[str_detect(year, "^\\d")]
+year = as.integer(year)
+```
+
+2.	Reshape the data so that there is a variable named `year` corresponding to `year` (key) and a column of the mortalities named `mortality` (value). Hint: use the `tidyr` package and its `gather()` function. Name the output `long` and make `year` a numeric variable. Hint: remember that -COLUMN_NAME removes that column, gather all the columns but country.  
 
 Let's create a new vector for the years:
 
-```{r, question1}
-library(dplyr)
-library(stringr)
-year = names(death) %>% str_replace("X","") %>% as.integer
-head(year)
-class(year)
-```
-
-Let's transpose the data:
-
 ```{r, question2}
-deathT = as.data.frame(t(death))
-colnames(deathT) = colnames(deathT) %>% 
-                    str_replace_all(" ","_")
-colnames(deathT) = sapply(str_split(colnames(deathT), 
-                                      fixed(" (")), first)
-colnames(deathT) = sapply(str_split(colnames(deathT), 
-                                      fixed(",")), first)    
-rownames(deathT) = year
-deathT$year= year
-deathT[1:5,1:5]
+# can use quotes
+long = mort %>% 
+  gather(key = "year", value = "mortality", -country)
+# or without
+long = mort %>% 
+  gather(year, mortality, -country)
+
+long = long %>% 
+  mutate(year = as.numeric(year))
 ```
 
-Now let's read in the population data:
+
+3.	Read in this the tab-delim file: http://johnmuschelli.com/intro_to_r/data/country_pop.txt and call it `pop`, which contains population information on each country (hint: use `read_tsv()`).  Rename the second column to `"Country"` and the column `"% of world population"`, to `percent`
 
 ```{r, question3}
-pop = read.delim("http://johnmuschelli.com/intro_to_r/data/country_pop.txt",
-  as.is = TRUE)
-colnames(pop)[c(2,5)] = c("Country", "percWorldPop")
-pop$Country = pop$Country  %>% 
-                    str_replace_all(" ","_")
-pop$Country  = sapply(str_split(pop$Country , 
-                                      fixed(" (")), first)
-pop$Country  = sapply(str_split(pop$Country , 
-                                      fixed(",")), first)  
-pop$Country = str_trim(pop$Country)
-
-pop$Population = pop$Population %>% 
-    str_replace_all(",","") %>%
-    as.integer
-library(lubridate)
-pop$Date = dmy(pop$Date)
-pop$percWorldPop = pop$percWorldPop %>% 
-  str_replace_all("%","") %>% as.numeric
-head(pop)
+pop = read_tsv("http://johnmuschelli.com/intro_to_r/data/country_pop.txt")
+pop = pop %>% 
+  rename(Country = `Country (or dependent territory)`,
+         percent = `% of world population`)
 ```
 
-Let's match the population data to the country data
+4.	Determine the population of each country in `pop` using `arrange()`. Get the order of the countries based on this (first is the highest population), and extract that column and call it `pop_levels`.  Make a variable in the `long` data set named `sorted` that is the `country` variable coded as a factor based on `pop_levels`.
 
-```{r,question4}
-mm = match(pop$Country, names(deathT))
-sorted = deathT[,mm[!is.na(mm)]]
-sorted[1:5,1:5]
+```{r, question4}
+pop = pop %>% 
+  arrange(desc(Population))
+# this is sorted !
+pop_levels = pop$Country
+long = long %>% 
+  mutate(sorted = factor(country, levels = pop_levels))
 ```
 
-And now let's make some plots. 
-
-```{r, question 5a}
-library(tidyr)
-aCountry = death[grep("^A", rownames(death)), year %in% 1840:1900]
-aCountry$Country = rownames(aCountry)
-aLong = aCountry %>% gather(year, deaths, -Country)
-aLong$year = aLong$year %>% str_replace("^X", "") %>% as.numeric
-
-library(ggplot2)
-qplot(x = year, y = Country, colour = deaths, 
-    data = aLong, geom = "tile") + guides(colour = FALSE)
-```
-
-Smallest and largest...
-
+As an aside, we should do some cleaning and checking before doing this, as we see not all the countries in the `long` data set exactly match those in the `pop` data set:
 ```{r}
-NC = ncol(sorted)
-smallAndLarge = as.data.frame(t(sorted[rownames(sorted) %in% 1950:1975, 
-                        c(1:10, (NC-9):NC)]))
-smallAndLarge$Country = rownames(smallAndLarge)
-slLong = smallAndLarge %>% gather(year, deaths, -Country)
-slLong$year = slLong$year %>% as.character %>% 
-    str_replace("^X", "") %>% as.numeric
+# you would want to clean these up in practice
+# setdiff shows the "set difference"
+setdiff(long$country, pop$Country)
 
-qplot(x = year, y = Country, colour = deaths, 
-    data = slLong, geom = "tile") + guides(colour = FALSE)
+# some are now set to missing (as factors do)
+sum(is.na(long$country))
+sum(is.na(long$sorted))
 ```
 
-And lastly, spaghetti plots for select countries:
 
-```{r}
-whichCountry = which(nchar(rownames(death)) >= 7 &
-                  nchar(rownames(death)) <= 10)
-stDeath = death[whichCountry, year %in% 1975:2010]
-stDeath$Country = rownames(stDeath)
-stLong = stDeath %>% gather(year, deaths, -Country)
-stLong$year = stLong$year %>% str_replace("^X", "") %>% as.numeric
+5.	Subset `long` based on years 1975-2010, including 1975 and 2010 and call this `long_sub` using `&` or the `between()` function.  Subset the following countries using `dplyr::filter()` and the `%in%` operator on the sorted country factor ("sorted") for `long_sub` with
+`c("Venezuela", "Bahrain", "Estonia", "Iran", "Thailand", "Chile",  "Western Sahara", "Azerbaijan", "Argentina", "Haiti")`. Lastly, remove missing rows for mortality using `filter()` and `is.na()`.
 
-NC = ncol(sorted)
-smallAndLarge = as.data.frame(t(sorted[rownames(sorted) %in% 1950:1975, 
-                        c(1:10, (NC-9):NC)]))
-smallAndLarge$Country = rownames(smallAndLarge)
-slLong = smallAndLarge %>% gather(year, deaths, -Country)
-slLong$year = slLong$year %>% as.character %>% 
-    str_replace("^X", "") %>% as.numeric
-
-qplot(x = year, y = deaths, colour = Country, 
-    data = slLong, geom = "line")
+Subsetting long:
+```{r, question5}
+long_sub = long %>% 
+  filter(year >= 1975 & year <= 2010)
+range(long_sub$year)
 ```
 
-That's it!
+There is a function `between` that helps us with this for shorthand
 
+```{r, question5}
+long_sub = long %>% 
+  filter(between(year, 1975, 2010))
+range(long_sub$year)
+
+```

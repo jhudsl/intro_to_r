@@ -3659,7 +3659,6 @@ y</pre>
 
 <pre class = 'prettyprint lang-r'>df = tibble(x = c(&quot;I really&quot;, &quot;like. _writing R. But not&quot;, &quot;R code programs&quot;))</pre>
 
-<div class="left_col">
 <pre class = 'prettyprint lang-r'>df %&gt;% separate(x, into = c(&quot;first&quot;, &quot;second&quot;, &quot;third&quot;), extra = &quot;merge&quot;)</pre>
 
 <pre >Warning: Expected 3 pieces. Missing pieces filled with `NA` in 1 rows [1].</pre>
@@ -3669,9 +3668,16 @@ y</pre>
   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;     
 1 I     really  &lt;NA&gt;      
 2 like  writing R. But not
-3 R     code    programs  </pre></div>
+3 R     code    programs  </pre>
 
-<div class="right_col">
+</article></slide><slide class=""><hgroup><h2>Separating columns based on a separator</h2></hgroup><article  id="separating-columns-based-on-a-separator-2">
+
+<ul>
+<li><code>extra = &quot;merge&quot;</code> will not drop data. Also, you can specify the separator</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>df = tibble(x = c(&quot;I really&quot;, &quot;like. _writing R. But not&quot;, &quot;R code programs&quot;))</pre>
+
 <pre class = 'prettyprint lang-r'>df %&gt;% separate(x, into = c(&quot;first&quot;, &quot;second&quot;, &quot;third&quot;), extra = &quot;merge&quot;, sep = &quot; &quot;)</pre>
 
 <pre >Warning: Expected 3 pieces. Missing pieces filled with `NA` in 1 rows [1].</pre>
@@ -3681,7 +3687,7 @@ y</pre>
   &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;     
 1 I     really   &lt;NA&gt;      
 2 like. _writing R. But not
-3 R     code     programs  </pre></div>
+3 R     code     programs  </pre>
 
 </article></slide><slide class=""><hgroup><h2>&lsquo;Find&rsquo; functions: <code>stringr</code></h2></hgroup><article  id="find-functions-stringr">
 

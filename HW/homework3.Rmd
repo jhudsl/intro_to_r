@@ -21,7 +21,7 @@ library(tidyr)
 
 Questions
 
-1.	Read the data using `read_csv()` and name it `mort`. Create a integer 'year' variable using the column names (using `colnames()` and `as.integer()`), excluding the first column. Rename the first column to "country" using the `rename()` command in `dplyr`.
+1.	Read the data using `read_csv()` and name it `mort`. Rename the first column to "country" using the `rename()` command in `dplyr`.  Create an object `year` variable by extracting column names (using `colnames()`) and make it to an integer `as.integer()`), excluding the first column either with string manipulations or bracket subsetting or subsetting with `is.na`. 
 
 2.	Reshape the data so that there is a variable named "year" corresponding to year (key) and a column of the mortalities named mortality (value). Hint: use the `tidyr` package and its `gather()` function. Name the output `long` and make `year` a numeric variable. Hint: remember that -COLUMN_NAME removes that column, gather all the columns but country.  
 
@@ -29,7 +29,8 @@ Questions
 
 4.	Determine the population of each country in `pop` using `arrange()`. Get the order of the countries based on this (first is the highest population), then make a variable in the long data set named `sorted` that is the "country"" variable coded as a factor based on this sorted population level from `pop`
 
-5.	Subset `long` based on years 1975-2010, including 1975 and 2010 and call this `long_sub`.  Subset the following countries using `dplyr::filter()` and the %in% operator on the sorted country factor ("sorted") for `long_sub` with
-`c("Venezuela", "Bahrain", "Estonia", "Iran", "Thailand", "Chile",  "Western Sahara", "Azerbaijan", "Argentina", "Haiti")`. Lastly, remove missing rows for mortality using `filter()` and `is.na()`.
+5.	Subset `long` based on years 1975-2010, including 1975 and 2010 and call this `long_sub` using `&` or the `between()` function.  Subset the following countries using `dplyr::filter()` and the `%in%` operator on the sorted country factor (`sorted`) for `long_sub` with
+`c("Venezuela", "Bahrain", "Estonia", "Iran", "Thailand", "Chile",  "Western Sahara", "Azerbaijan", "Argentina", "Haiti")` and reassign to `long_sub`. Lastly, remove missing rows for mortality using `filter()` and `is.na()`.
+
 
 6.  Plotting: create "spaghetti"/line plots for the countries, using different colors for different countries. The x-axis should be year, and the y-axis should be mortality
