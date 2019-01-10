@@ -98,8 +98,8 @@ sum(is.na(long$sorted))
 ```
 
 
-5.	Subset `long` based on years 1975-2010, including 1975 and 2010 and call this `long_sub` using `&` or the `between()` function.  Subset the following countries using `dplyr::filter()` and the `%in%` operator on the sorted country factor ("sorted") for `long_sub` with
-`c("Venezuela", "Bahrain", "Estonia", "Iran", "Thailand", "Chile",  "Western Sahara", "Azerbaijan", "Argentina", "Haiti")`. Lastly, remove missing rows for mortality using `filter()` and `is.na()`.
+5.	Subset `long` based on years 1975-2010, including 1975 and 2010 and call this `long_sub` using `&` or the `between()` function.  Subset the following countries using `dplyr::filter()` and the `%in%` operator on the sorted country factor (`sorted`) for `long_sub` with
+`c("Venezuela", "Bahrain", "Estonia", "Iran", "Thailand", "Chile",  "Western Sahara", "Azerbaijan", "Argentina", "Haiti")` and reassign to `long_sub`. Lastly, remove missing rows for `mortality` using `filter()` and `is.na()`.
 
 Subsetting long:
 ```{r, question5}
@@ -110,9 +110,42 @@ range(long_sub$year)
 
 There is a function `between` that helps us with this for shorthand
 
-```{r, question5}
+```{r, question5b}
 long_sub = long %>% 
   filter(between(year, 1975, 2010))
 range(long_sub$year)
-
 ```
+
+```{r}
+long_sub = long_sub %>% 
+  filter(sorted %in% c("Venezuela", "Bahrain", "Estonia", "Iran", "Thailand", "Chile",  "Western Sahara", "Azerbaijan", "Argentina", "Haiti")) %>% 
+  filter(!is.na(mortality))
+```
+
+
+6.  Plotting: create "spaghetti"/line plots for the countries in `long_sub`, using different colors for different countries, using `sorted`. The x-axis should be `year`, and the y-axis should be `mortality`.  Make the plot using `qplot` and also `ggplot`.
+
+
+```{r}
+qplot(year, y = mortality, data = long_sub, color = sorted, geom = "line")
+```
+
+```{r}
+long_sub %>% 
+  ggplot(aes(x = year, y = mortality)) +
+  geom_line(aes(colour = sorted))
+```
+
+```{r}
+g = long_sub %>% 
+  ggplot(aes(x = year, y = mortality, colour = sorted)) 
+g
+```
+
+7.  Bonus, load the `plotly` package (`library(plotly)`) and assign the plot from 6) to `g` and run `ggplotly(g)`.
+
+```{r}
+library(plotly)
+ggplotly(g)
+```
+

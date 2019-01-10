@@ -283,6 +283,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -290,14 +293,74 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -324,12 +387,13 @@ library(ggplot2)
 library(tidyr)</code></pre>
 <p>Questions</p>
 <ol style="list-style-type: decimal">
-<li><p>Read the data using <code>read_csv()</code> and name it <code>mort</code>. Create a integer ‘year’ variable using the column names (using <code>colnames()</code> and <code>as.integer()</code>), excluding the first column. Rename the first column to “country” using the <code>rename()</code> command in <code>dplyr</code>.</p></li>
-<li><p>Reshape the data so that there is a variable named “year” corresponding to year (key) and a column of the mortalities named mortality (value). Hint: use the <code>tidyr</code> package and its <code>gather()</code> function. Name the output <code>long</code> and make <code>year</code> a numeric variable. Hint: remember that -COLUMN_NAME removes that column, gather all the columns but country.</p></li>
-<li><p>Read in this the tab-delim file: <a href="http://johnmuschelli.com/intro_to_r/data/country_pop.txt" class="uri">http://johnmuschelli.com/intro_to_r/data/country_pop.txt</a> and call it <code>pop</code>, which contains population information on each country (hint: use <code>read_tsv()</code>). Rename the second column to “Country” and the column “% of world population”, to “percent”</p></li>
-<li><p>Determine the population of each country in <code>pop</code> using <code>arrange()</code>. Get the order of the countries based on this (first is the highest population), then make a variable in the long data set named <code>sorted</code> that is the “country”&quot; variable coded as a factor based on this sorted population level from <code>pop</code></p></li>
-<li><p>Subset <code>long</code> based on years 1975-2010, including 1975 and 2010 and call this <code>long_sub</code>. Subset the following countries using <code>dplyr::filter()</code> and the %in% operator on the sorted country factor (“sorted”) for <code>long_sub</code> with <code>c(&quot;Venezuela&quot;, &quot;Bahrain&quot;, &quot;Estonia&quot;, &quot;Iran&quot;, &quot;Thailand&quot;, &quot;Chile&quot;,  &quot;Western Sahara&quot;, &quot;Azerbaijan&quot;, &quot;Argentina&quot;, &quot;Haiti&quot;)</code>. Lastly, remove missing rows for mortality using <code>filter()</code> and <code>is.na()</code>.</p></li>
-<li><p>Plotting: create “spaghetti”/line plots for the countries, using different colors for different countries. The x-axis should be year, and the y-axis should be mortality</p></li>
+<li><p>Read the data using <code>read_csv()</code> and name it <code>mort</code>. Rename the first column to <code>country</code> using the <code>rename()</code> command in <code>dplyr</code>. Create an object <code>year</code> variable by extracting column names (using <code>colnames()</code>) and make it to an integer <code>as.integer()</code>), excluding the first column either with string manipulations or bracket subsetting or subsetting with <code>is.na</code>.</p></li>
+<li><p>Reshape the data so that there is a variable named <code>year</code> corresponding to <code>year</code> (key) and a column of the mortalities named <code>mortality</code> (value). Hint: use the <code>tidyr</code> package and its <code>gather()</code> function. Name the output <code>long</code> and make <code>year</code> a numeric variable. Hint: remember that -COLUMN_NAME removes that column, gather all the columns but country.</p></li>
+<li><p>Read in this the tab-delim file: <a href="http://johnmuschelli.com/intro_to_r/data/country_pop.txt" class="uri">http://johnmuschelli.com/intro_to_r/data/country_pop.txt</a> and call it <code>pop</code>, which contains population information on each country (hint: use <code>read_tsv()</code>). Rename the second column to <code>&quot;Country&quot;</code> and the column <code>&quot;% of world population&quot;</code>, to <code>percent</code></p></li>
+<li><p>Determine the population of each country in <code>pop</code> using <code>arrange()</code>. Get the order of the countries based on this (first is the highest population), and extract that column and call it <code>pop_levels</code>. Make a variable in the <code>long</code> data set named <code>sorted</code> that is the <code>country</code> variable coded as a factor based on <code>pop_levels</code>.</p></li>
+<li><p>Subset <code>long</code> based on years 1975-2010, including 1975 and 2010 and call this <code>long_sub</code> using <code>&amp;</code> or the <code>between()</code> function. Subset the following countries using <code>dplyr::filter()</code> and the <code>%in%</code> operator on the sorted country factor (<code>sorted</code>) for <code>long_sub</code> with <code>c(&quot;Venezuela&quot;, &quot;Bahrain&quot;, &quot;Estonia&quot;, &quot;Iran&quot;, &quot;Thailand&quot;, &quot;Chile&quot;,  &quot;Western Sahara&quot;, &quot;Azerbaijan&quot;, &quot;Argentina&quot;, &quot;Haiti&quot;)</code> and reassign to <code>long_sub</code>. Lastly, remove missing rows for <code>mortality</code> using <code>filter()</code> and <code>is.na()</code>.</p></li>
+<li><p>Plotting: create “spaghetti”/line plots for the countries in <code>long_sub</code>, using different colors for different countries, using <code>sorted</code>. The x-axis should be <code>year</code>, and the y-axis should be <code>mortality</code>. Make the plot using <code>qplot</code> and also <code>ggplot</code>.</p></li>
+<li><p>Bonus, load the <code>plotly</code> package (<code>library(plotly)</code>) and assign the plot from 6) to <code>g</code> and run <code>ggplotly(g)</code>.</p></li>
 </ol>
 
 

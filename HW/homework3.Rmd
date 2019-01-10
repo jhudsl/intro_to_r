@@ -7,6 +7,7 @@ output: html_document
 
 This is the second homework assignment for Intro to R. You must submit both the RMD and "knitted" HTML files are due before class on Friday (Day 5)
 
+
 Use this dataset on infant mortality for the following questions: http://johnmuschelli.com/intro_to_r/data/indicatordeadkids35.csv
 
 
@@ -21,16 +22,52 @@ library(tidyr)
 
 Questions
 
-1.	Read the data using `read_csv()` and name it `mort`. Rename the first column to "country" using the `rename()` command in `dplyr`.  Create an object `year` variable by extracting column names (using `colnames()`) and make it to an integer `as.integer()`), excluding the first column either with string manipulations or bracket subsetting or subsetting with `is.na`. 
+1.	Read the data using `read_csv()` and name it `mort`. Rename the first column to `country` using the `rename()` command in `dplyr`.  Create an object `year` variable by extracting column names (using `colnames()`) and make it to an integer `as.integer()`), excluding the first column either with string manipulations or bracket subsetting or subsetting with `is.na`. 
 
-2.	Reshape the data so that there is a variable named "year" corresponding to year (key) and a column of the mortalities named mortality (value). Hint: use the `tidyr` package and its `gather()` function. Name the output `long` and make `year` a numeric variable. Hint: remember that -COLUMN_NAME removes that column, gather all the columns but country.  
+```{r, dataImport}
 
-3.	Read in this the tab-delim file: http://johnmuschelli.com/intro_to_r/data/country_pop.txt and call it `pop`, which contains population information on each country (hint: use `read_tsv()`).  Rename the second column to "Country" and the column "% of world population", to "percent"
+```
 
-4.	Determine the population of each country in `pop` using `arrange()`. Get the order of the countries based on this (first is the highest population), then make a variable in the long data set named `sorted` that is the "country"" variable coded as a factor based on this sorted population level from `pop`
+2.	Reshape the data so that there is a variable named `year` corresponding to `year` (key) and a column of the mortalities named `mortality` (value). Hint: use the `tidyr` package and its `gather()` function. Name the output `long` and make `year` a numeric variable. Hint: remember that -COLUMN_NAME removes that column, gather all the columns but country.  
+
+```{r, question2}
+
+```
+
+
+3.	Read in this the tab-delim file: http://johnmuschelli.com/intro_to_r/data/country_pop.txt and call it `pop`, which contains population information on each country (hint: use `read_tsv()`).  Rename the second column to `"Country"` and the column `"% of world population"`, to `percent`
+
+```{r, question3}
+
+
+```
+
+4.	Determine the population of each country in `pop` using `arrange()`. Get the order of the countries based on this (first is the highest population), and extract that column and call it `pop_levels`.  Make a variable in the `long` data set named `sorted` that is the `country` variable coded as a factor based on `pop_levels`.
+
+```{r, question4}
+
+
+```
+
+
 
 5.	Subset `long` based on years 1975-2010, including 1975 and 2010 and call this `long_sub` using `&` or the `between()` function.  Subset the following countries using `dplyr::filter()` and the `%in%` operator on the sorted country factor (`sorted`) for `long_sub` with
-`c("Venezuela", "Bahrain", "Estonia", "Iran", "Thailand", "Chile",  "Western Sahara", "Azerbaijan", "Argentina", "Haiti")` and reassign to `long_sub`. Lastly, remove missing rows for mortality using `filter()` and `is.na()`.
+`c("Venezuela", "Bahrain", "Estonia", "Iran", "Thailand", "Chile",  "Western Sahara", "Azerbaijan", "Argentina", "Haiti")` and reassign to `long_sub`. Lastly, remove missing rows for `mortality` using `filter()` and `is.na()`.
+
+```{r, question5}
 
 
-6.  Plotting: create "spaghetti"/line plots for the countries, using different colors for different countries. The x-axis should be year, and the y-axis should be mortality
+```
+
+
+6.  Plotting: create "spaghetti"/line plots for the countries in `long_sub`, using different colors for different countries, using `sorted`. The x-axis should be `year`, and the y-axis should be `mortality`.  Make the plot using `qplot` and also `ggplot`.
+
+
+7.  Bonus, load the `plotly` package (`library(plotly)`) and assign the plot from 6) to `g` and run `ggplotly(g)`.
+
+```{r}
+
+
+```
+
+
