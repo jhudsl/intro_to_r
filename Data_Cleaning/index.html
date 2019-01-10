@@ -3285,13 +3285,13 @@ df %&gt;% filter(x &gt; 2)</pre>
 
 </article></slide><slide class=""><hgroup><h2><code>dplyr::filter</code></h2></hgroup><article  id="dplyrfilter">
 
-<p>NEVER has NA, even if you put it there (BUT DON’T DO THIS):</p>
+<p>Be careful with missing data using subsetting:</p>
 
-<pre class = 'prettyprint lang-r'>x %in% c(0, 2, NA) # NEVER has NA and returns logical</pre>
+<pre class = 'prettyprint lang-r'>x %in% c(0, 2, NA) # this </pre>
 
 <pre >[1]  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE</pre>
 
-<pre class = 'prettyprint lang-r'>x %in% c(0, 2) | is.na(x)</pre>
+<pre class = 'prettyprint lang-r'>x %in% c(0, 2) | is.na(x) # versus this</pre>
 
 <pre >[1]  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE</pre>
 
@@ -3552,7 +3552,7 @@ female Female     fm   male   Male
 <ul>
 <li>are used on forums for answers</li>
 </ul></li>
-<li>Almost all functions start with <code>str_</code></li>
+<li>Almost all functions start with <code>str_*</code></li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Let’s look at modifier for <code>stringr</code></h2></hgroup><article  id="lets-look-at-modifier-for-stringr">

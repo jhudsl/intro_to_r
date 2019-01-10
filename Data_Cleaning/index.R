@@ -23,8 +23,8 @@ df %>% filter(x > 2)
 filter(df, between(x, -1, 3) | is.na(x))
 
 ## ------------------------------------------------------------------------
-x %in% c(0, 2, NA) # NEVER has NA and returns logical
-x %in% c(0, 2) | is.na(x)
+x %in% c(0, 2, NA) # this 
+x %in% c(0, 2) | is.na(x) # versus this
 
 ## ------------------------------------------------------------------------
 x + 2
