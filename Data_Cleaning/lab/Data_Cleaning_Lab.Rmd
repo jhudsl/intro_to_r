@@ -31,10 +31,10 @@ bike = read_csv(
 
 ```
 
-2.  Create a data set called `namat` which is equal to `is.na(bike`).  
+2.  Create a data set called `namat` which is equal to `is.na(bike)`.  
 What is the class of `namat`?  Run rowSums and colSums on `namat.`
 These represent the number of missing values in the rows and columns of
-`bike.`  Don't print `rowSums`, but do a table of the `rowSums`
+`bike`.  Don't print `rowSums`, but do a table of the `rowSums`
 ```{r}
 
 ```
