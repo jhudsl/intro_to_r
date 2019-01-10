@@ -194,12 +194,12 @@ $(document).ready(function () {
 <p>You can Download as a CSV in your current working directory. Note its also available at: <a href="http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv" class="uri">http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv</a></p>
 <pre class="r"><code>library(readr)
 library(tidyverse)</code></pre>
-<pre><code>## -- Attaching packages ------------------- tidyverse 1.2.1 --</code></pre>
+<pre><code>## -- Attaching packages -------------------------- tidyverse 1.2.1 --</code></pre>
 <pre><code>## v ggplot2 3.1.0     v purrr   0.2.5
 ## v tibble  2.0.0     v dplyr   0.7.8
 ## v tidyr   0.8.2     v stringr 1.3.1
 ## v ggplot2 3.1.0     v forcats 0.3.0</code></pre>
-<pre><code>## -- Conflicts ---------------------- tidyverse_conflicts() --
+<pre><code>## -- Conflicts ----------------------------- tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(dplyr)
@@ -441,28 +441,20 @@ tax$CityTax = as.numeric(tax$CityTax)</code></pre>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>state</li>
 </ol>
-<pre class="r"><code># using mutate
-tax = tax %&gt;% 
-  mutate(
-    StateTax = StateTax %&gt;% 
-      str_replace(fixed(&quot;$&quot;), &quot;&quot;) %&gt;%
-      as.numeric
-  )
-# could also have done 
-tax$StateTax = tax$StateTax %&gt;% 
-  str_replace(fixed(&quot;$&quot;), &quot;&quot;) %&gt;%
-  as.numeric
-
+<pre class="r"><code>## useing parse_numbers()
+options(digits=12) # so no rounding
+tax = tax %&gt;% mutate(StateTax = parse_number(StateTax))
+                     
 sum(tax$CityTax)</code></pre>
 <pre><code>## [1] NA</code></pre>
 <pre class="r"><code>sum(tax$CityTax, na.rm = TRUE)</code></pre>
-<pre><code>## [1] 859700559</code></pre>
+<pre><code>## [1] 859700558.94</code></pre>
 <pre class="r"><code>sum(tax$CityTax, na.rm = TRUE)/1e6</code></pre>
-<pre><code>## [1] 859.7006</code></pre>
+<pre><code>## [1] 859.70055894</code></pre>
 <pre class="r"><code>sum(tax$StateTax, na.rm = TRUE)</code></pre>
-<pre><code>## [1] 43484915</code></pre>
+<pre><code>## [1] 43484914.8</code></pre>
 <pre class="r"><code>sum(tax$StateTax, na.rm = TRUE)/1e6</code></pre>
-<pre><code>## [1] 43.48491</code></pre>
+<pre><code>## [1] 43.4849148</code></pre>
 <ol start="9" style="list-style-type: decimal">
 <li>Using <code>table()</code> or <code>group_by</code> and <code>summarize(n())</code> or <code>tally()</code></li>
 </ol>
@@ -15107,7 +15099,7 @@ tax$sqft = NA
 tax$sqft[aIndex] = acre2
 tax$sqft[fIndex] = sqrtFt
 mean(!is.na(tax$sqft))</code></pre>
-<pre><code>## [1] 0.9339944</code></pre>
+<pre><code>## [1] 0.93399441036</code></pre>
 <pre class="r"><code># already in square feet, easy!!
 sIndex=c(grep(&quot;FT&quot;, tax$LotSize), 
          grep(&quot;S.*F.&quot;, tax$LotSize))

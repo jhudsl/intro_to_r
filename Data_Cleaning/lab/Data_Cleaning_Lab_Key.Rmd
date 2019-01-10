@@ -90,6 +90,7 @@ prop.table(tab, 2)
 as.data.frame(tab)
 tidy(tab)
 
+
 ```
 
 # Part 3
@@ -136,22 +137,15 @@ tax = tax %>%
 # no piping
 tax$CityTax = str_replace(tax$CityTax, fixed("$"), "")
 tax$CityTax = as.numeric(tax$CityTax)
+
 ```
 
 b) state
 ```{r}
-# using mutate
-tax = tax %>% 
-  mutate(
-    StateTax = StateTax %>% 
-      str_replace(fixed("$"), "") %>%
-      as.numeric
-  )
-# could also have done 
-tax$StateTax = tax$StateTax %>% 
-  str_replace(fixed("$"), "") %>%
-  as.numeric
-
+## useing parse_numbers()
+options(digits=12) # so no rounding
+tax = tax %>% mutate(StateTax = parse_number(StateTax))
+                     
 sum(tax$CityTax)
 sum(tax$CityTax, na.rm = TRUE)
 sum(tax$CityTax, na.rm = TRUE)/1e6
