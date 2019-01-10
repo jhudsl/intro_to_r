@@ -84,7 +84,7 @@ identical(side_bike, side_bike2)
 Call it `tab`.  Do a `prop.table` on the rows and columns margins. 
 Try `as.data.frame(tab)` or `broom::tidy(tab)`
 ```{r}
-tab = table(bike$type, bike$numLanes)
+tab = table(type=bike$type, numLanes=bike$numLanes)
 prop.table(tab, 1)
 prop.table(tab, 2)
 as.data.frame(tab)
@@ -102,12 +102,12 @@ note you don't need to unzip it to read it into R
 
 
 
-1. Read the Property Tax data into R and call it the variable `tax`
+6. Read the Property Tax data into R and call it the variable `tax`
 ```{r}
 tax = read_csv( "http://johnmuschelli.com/intro_to_r/data/Real_Property_Taxes.csv.gz")
 ```
 
-2. How many addresses pay property taxes? 
+7. How many addresses pay property taxes? 
 ```{r}
 dim(tax)
 nrow(tax)
@@ -118,7 +118,7 @@ sum(!is.na(tax$CityTax))
 
 ```
 
-3. What is the total city and state tax paid?  
+8. What is the total city and state tax paid?  
 You need to remove the `$` from the `CityTax` variable
 then you need to make it numeric.   Try `str_replace`, but remember
 $ is "special" and you need `fixed()` around it.
@@ -161,7 +161,7 @@ sum(tax$StateTax, na.rm = TRUE)/1e6
 
 ```
 
-4. Using `table()` or `group_by` and `summarize(n())` or `tally()`
+9. Using `table()` or `group_by` and `summarize(n())` or `tally()`
 
 a. how many observations/properties are in each ward?
 ```{r}
@@ -219,7 +219,7 @@ ward_table = tax %>%
   )
 ```
 
-6. Make boxplots using showing `cityTax` (`y` -variable) by whether the property	is a principal residence (`x`) or not.
+10. Make boxplots using showing `cityTax` (`y` -variable) by whether the property	is a principal residence (`x`) or not.
 ```{r}
 tax = tax %>% 
   mutate(ResCode = str_trim(ResCode))
@@ -234,7 +234,7 @@ tax %>% filter(CityTax == max(CityTax, na.rm = TRUE))
 
 ```
 
-7. Subset the data to only retain those houses that are principal residences. 
+11. Subset the data to only retain those houses that are principal residences. 
 which command subsets rows? Filter or select?
 
 a) How many such houses are there?
@@ -264,26 +264,26 @@ Read in the Salary FY2015 dataset
 sal = read_csv("http://johnmuschelli.com/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv")
 ```
 
-10. Make an object called health.sal using the salaries data set, with only agencies of those with `"fire"` (or any forms), if any, in the name remember `fixed( ignore_case = TRUE)` will ignore cases
+12. Make an object called health.sal using the salaries data set, with only agencies of those with `"fire"` (or any forms), if any, in the name remember `fixed( ignore_case = TRUE)` will ignore cases
 ```{r}
 health.sal = sal %>% 
   filter(str_detect(JobTitle, 
                     fixed("fire", ignore_case = TRUE)))
 ```
 
-11. Make a data set called `trans` which contains only agencies that contain "TRANS".
+13. Make a data set called `trans` which contains only agencies that contain "TRANS".
 ```{r}
 trans = sal %>% 
   filter(str_detect(JobTitle, "TRANS"))
 ```
 
-12. What is/are the profession(s) of people who have `"abra"` in their name for Baltimore's Salaries?  Case should be ignored
+14. What is/are the profession(s) of people who have `"abra"` in their name for Baltimore's Salaries?  Case should be ignored
 ```{r}
 sal %>% 
   filter(str_detect(name, fixed("abra", ignore_case = TRUE)))
 ```
 
-13. What is the distribution of annual salaries look like? (use `hist`, 20 breaks) What is the IQR?
+15. What is the distribution of annual salaries look like? (use `hist`, 20 breaks) What is the IQR?
 Hint: first convert to numeric. Try `str_replace`, but remember`$` is "special" and you need `fixed()` around it.
 ```{r}
 sal = sal %>% mutate(AnnualSalary = str_replace(AnnualSalary, fixed("$"), ""))
@@ -294,7 +294,7 @@ hist(sal$AnnualSalary, breaks = 20)
 quantile(sal$AnnualSalary)
 ```
 
-14. Convert `HireDate` to the `Date` class - plot Annual Salary vs Hire Date.
+16. Convert `HireDate` to the `Date` class - plot Annual Salary vs Hire Date.
 Use `AnnualSalary ~ HireDate` with a `data = sal` argument in plot or use 
 x, y notation in `scatter.smooth`
 Use `lubridate` package.  Is it `mdy(date)` or `dmy(date)` for this data - look at `HireDate`
@@ -312,7 +312,7 @@ scatter.smooth(sal$AnnualSalary, x = sal$HireDate, col = "red")
 
 ```
 
-15. Create a smaller dataset that only includes the Police Department,  Fire Department and Sheriff's Office.  Use the Agency variable with string matching. Call this `emer`.  How many employees are in this new dataset?
+17. Create a smaller dataset that only includes the Police Department,  Fire Department and Sheriff's Office.  Use the Agency variable with string matching. Call this `emer`.  How many employees are in this new dataset?
 ```{r}
 emer = sal %>% filter(
   str_detect(Agency, "Sheriff's Office|Police Department|Fire Department")
@@ -326,7 +326,7 @@ emer = sal %>% filter(
 
 ```
 
-16. Create a variable called `dept` in the emer data set.
+18. Create a variable called `dept` in the emer data set.
 `dept = str_extract(Agency, ".*(ment|ice)")`.  E.g. want to extract all characters
 up until `ment` or `ice` (we can group in `regex` using parentheses) and then discard
 the rest. Replot annual salary versus hire date, color by `dept` (not yet - using ggplot)
@@ -342,16 +342,11 @@ ggplot(aes(x = HireDate, y = AnnualSalary,
 ```
 
 
-
-
+19 (Bonus). Convert the 'LotSize' variable to a numeric square feet variable in the tax data set. Some tips: 
+a) 1 acre = 43560 square feet
+b) The hyphens represent inches (not decimals)
 
 ```{r}
-# BONUS. Convert the 'LotSize' variable to a numeric square feet variable. 
-# Using the tax data set
-#	Tips: - 1 acre = 43560 square feet
-#		    - The hyphens represent inches (not decimals)
-# 		  - Don't spend more than 5-10 minutes on this; stop and move on
-
 tax$LotSize = str_trim(tax$LotSize) # trim to be safe
 lot = tax$LotSize # for checking later
 
