@@ -99,6 +99,8 @@ qplot(x = date, y = number, data = avg, colour = line) +
 	  scale_colour_manual(values = pal)
 ```
 
+# Part 2
+
 3. plot average ridership by date with one panel per `line`
 ```{r}
 qplot(x = date, y = number, data= avg, facets = ~line) 
@@ -118,7 +120,9 @@ ggplot(aes(x = date, y = number, colour = line), data= avg) +
   geom_point() + 
   facet_wrap( ~day) +  scale_colour_manual(values=pal)
 ```
-	  
+
+# Part 3
+
 5. Plot average ridership (`avg`) by date, colored by `line` (same as 1a). 
 (do not take an average, 
 use the average column for each route/line)
@@ -174,6 +178,8 @@ ggplot(orange, aes(x = date, y = number)) +
   geom_line(aes(linetype = type), colour = "orange") + 
   scale_linetype_manual(values = c("dashed",
               "dashed", "solid"))
+```
+
 ```{r}
 ggplot(orange, aes(x = date, y = number)) + 
   geom_line(aes(linetype = type), colour = "orange") + 

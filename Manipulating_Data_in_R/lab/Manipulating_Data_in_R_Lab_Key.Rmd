@@ -88,16 +88,16 @@ Name the data set `bike`,
 bike = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
 ```
 
-9.  Filter any rows that have a missing value in the `type` column or missing 
-`name` and re-assign the output to `bike`
+9.  Keep rows where the record is not missing `type` and not missing `name` and re-assign the output to `bike`.
+
 ```{r}
-bike = filter(bike, !is.na(type), !is.na(name))
+bike = filter(bike, !is.na(type) & !is.na(name))
 ```
 
-10.  Select only the `type`, `length`, and `name.`  Summarize group the data by grouping `name`  and take the sum of the length (reassign `length` variable).  Call this data set `sub`
+10.  Summarize and group the data by grouping `name` and `type`  and take the `sum` of the length (reassign `length` variable).  Call this data set `sub`
+
 ```{r}
 sub = bike %>% 
-  select(type, length, name) %>% 
   group_by(name, type) %>% 
   summarize(length = sum(length))
 ```

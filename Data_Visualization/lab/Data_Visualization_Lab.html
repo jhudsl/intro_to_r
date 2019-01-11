@@ -281,6 +281,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -288,14 +291,74 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -313,23 +376,12 @@ $(document).ready(function () {
 <pre class="r"><code>library(readr)
 library(ggplot2)
 library(tidyr)
-library(dplyr)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>library(lubridate)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;lubridate&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:base&#39;:
-## 
-##     date</code></pre>
-<pre class="r"><code>library(stringr)
+library(dplyr)
+library(lubridate)
+library(stringr)
 library(jhur)</code></pre>
+<div id="read-in-data" class="section level2">
+<h2>Read in Data</h2>
 <p>Read in the charm city circulator dataset:</p>
 <p><code>circ = read_csv(&quot;http://johnmuschelli.com/intro_to_r/data/Charm_City_Circulator_Ridership.csv&quot;)</code> or <code>circ = read_circulator()</code></p>
 <pre class="r"><code>circ = read_csv(&quot;http://johnmuschelli.com/intro_to_r/data/Charm_City_Circulator_Ridership.csv&quot;)</code></pre>
@@ -337,17 +389,17 @@ library(jhur)</code></pre>
 ## cols(
 ##   day = col_character(),
 ##   date = col_character(),
-##   orangeBoardings = col_integer(),
-##   orangeAlightings = col_integer(),
+##   orangeBoardings = col_double(),
+##   orangeAlightings = col_double(),
 ##   orangeAverage = col_double(),
-##   purpleBoardings = col_integer(),
-##   purpleAlightings = col_integer(),
+##   purpleBoardings = col_double(),
+##   purpleAlightings = col_double(),
 ##   purpleAverage = col_double(),
-##   greenBoardings = col_integer(),
-##   greenAlightings = col_integer(),
+##   greenBoardings = col_double(),
+##   greenAlightings = col_double(),
 ##   greenAverage = col_double(),
-##   bannerBoardings = col_integer(),
-##   bannerAlightings = col_integer(),
+##   bannerBoardings = col_double(),
+##   bannerAlightings = col_double(),
 ##   bannerAverage = col_double(),
 ##   daily = col_double()
 ## )</code></pre>
@@ -373,17 +425,17 @@ long = separate(long, var, into = c(&quot;line&quot;, &quot;type&quot;),
 ## cols(
 ##   day = col_character(),
 ##   date = col_character(),
-##   orangeBoardings = col_integer(),
-##   orangeAlightings = col_integer(),
+##   orangeBoardings = col_double(),
+##   orangeAlightings = col_double(),
 ##   orangeAverage = col_double(),
-##   purpleBoardings = col_integer(),
-##   purpleAlightings = col_integer(),
+##   purpleBoardings = col_double(),
+##   purpleAlightings = col_double(),
 ##   purpleAverage = col_double(),
-##   greenBoardings = col_integer(),
-##   greenAlightings = col_integer(),
+##   greenBoardings = col_double(),
+##   greenAlightings = col_double(),
 ##   greenAverage = col_double(),
-##   bannerBoardings = col_integer(),
-##   bannerAlightings = col_integer(),
+##   bannerBoardings = col_double(),
+##   bannerAlightings = col_double(),
 ##   bannerAverage = col_double(),
 ##   daily = col_double()
 ## )</code></pre>
@@ -403,11 +455,12 @@ head(type_wide)</code></pre>
 ## 4 Friday 2010-01-15 1644  purple         NA      NA        NA
 ## 5 Friday 2010-01-22 1394. banner         NA      NA        NA
 ## 6 Friday 2010-01-22 1394. green          NA      NA        NA</code></pre>
+</div>
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
 <p>In these questions, try to use <code>ggplot2</code> if possible.</p>
 <ol style="list-style-type: decimal">
-<li>Plot average ridership by <code>date</code>.</li>
+<li>Plot average ridership (<code>avg</code> data set) by <code>date</code>.</li>
 </ol>
 <ol style="list-style-type: lower-alpha">
 <li><p>Color the points by route (<code>orange</code>, <code>purple</code>, <code>green</code>, <code>banner</code>)</p></li>
@@ -418,9 +471,17 @@ head(type_wide)</code></pre>
 <li>Replot 1a where the colors of the points are the name of the <code>line</code> (with <code>banner</code> –&gt; <code>blue</code>)</li>
 </ol>
 <pre class="r"><code>pal = c(&quot;blue&quot;, &quot;darkgreen&quot;,&quot;orange&quot;,&quot;purple&quot;)</code></pre>
+</div>
+<div id="part-2" class="section level1">
+<h1>Part 2</h1>
 <ol start="3" style="list-style-type: decimal">
 <li><p>plot average ridership by date with one panel per <code>line</code></p></li>
 <li><p>Plot average ridership by date with separate panels by <code>day</code> of the week, colored by <code>line</code></p></li>
+</ol>
+</div>
+<div id="part-3" class="section level1">
+<h1>Part 3</h1>
+<ol start="5" style="list-style-type: decimal">
 <li><p>Plot average ridership (<code>avg</code>) by date, colored by <code>line</code> (same as 1a). (do not take an average, use the average column for each route/line) Make the x-label <code>&quot;Year&quot;</code>. Make the y-label <code>&quot;Number of People&quot;</code>. Use the black and white theme <code>theme_bw()</code>. Change the <code>text_size</code> to (<code>text = element_text(size = 20)</code>) in <code>theme</code></p></li>
 <li><p>Plot average ridership on the <code>orange</code> route versus date as a solid line, and add <code>dashed</code> “error” lines based on the <code>boardings</code> and <code>alightings.</code> the line colors should be <code>orange.</code> (hint <code>linetype</code> is an aesthetic for lines) - see also <code>scale_linetype</code> and <code>scale_linetype_manual</code> <code>Alightings = &quot;dashed&quot;, Boardings = &quot;dashed&quot;, Average = &quot;solid&quot;</code></p></li>
 </ol>
