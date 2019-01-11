@@ -65,9 +65,10 @@ head(type_wide)
 
 In these questions, try to use `ggplot2` if possible.
 
-1. Plot average ridership by date.
+1. Plot average ridership (`avg` data set) by `date`.
 ```{r}
-qplot(x = date, y = number, data = avg)
+q = qplot(x = date, y = number, data = avg)
+q + xlim(ymd("2011/05/03", "2012/06/04"))
 ```
 
 a. Color the points by route (`orange`, `purple`, `green`, `banner`)
@@ -81,6 +82,8 @@ print(first_plot)
 b. add black smoothed curves for each line
 ```{r}
 qplot(x = date, y = number, data = avg, colour = line) + geom_smooth(aes(group = line), colour= "black")
+
+qplot(x = date, y = number, data = avg, colour = line) + geom_smooth()
 ```
 
 
@@ -94,7 +97,7 @@ qplot(x = date, y = number, data = avg, colour = line) + geom_smooth()
 2. Replot 1a where the colors of the points are the name of the `line` (with `banner` --> `blue`)
 
 ```{r}
-pal = c("blue", "darkgreen","orange","purple")
+pal = c(banner = "blue", purple = "purple", green=  "darkgreen", orange = "orange")
 qplot(x = date, y = number, data = avg, colour = line) +
 	  scale_colour_manual(values = pal)
 ```
