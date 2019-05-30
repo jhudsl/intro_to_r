@@ -76,8 +76,8 @@ some conflicts/masking.
 Here we use one of the datasets that comes with `jhu` called `jhu_cars`, which is a (copy of another called `mtcars`) create a toy data.frame named `df` using random data:
 ```{r}
 data(jhu_cars)
-df = jhu_cars
-df
+df = jhu_cars # df is a copy of jhu_cars
+head(df) # changing df does **not** change jhu_cars
 ```
 
 ## Creating a `data.frame` to work with
@@ -86,6 +86,7 @@ If we would like to create a `tibble` ("fancy" data.frame), we can using `as.tbl
 
 ```{r}
 tbl = as_tibble(df) 
+head(tbl)
 ```
 
 
@@ -147,9 +148,16 @@ df$carb
 
 ## Subset columns of a `data.frame`: dplyr
 
-The `select` command from `dplyr` allows you to subset
+The `select` command from `dplyr` allows you to subset (gives a `tibble`!)
 ```{r}
 select(df, mpg)
+```
+
+## Subset columns of a `data.frame`: dplyr
+
+If you wanted it to be a single vector (not a `tibble`), use `pull`:
+```{r}
+pull(select(df, mpg))
 ```
 
 ## Select columns of a `data.frame`: dplyr

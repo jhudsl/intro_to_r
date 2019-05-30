@@ -142,6 +142,14 @@ tt
 
 ## T-tests
 
+Using `t.test` treats the data as independent.  Realistically, this data should be treated as a paired t-test.  The `paired = TRUE` argument to do a paired test
+
+```{r tt1_paired, comment=""}
+t.test(circ$orangeAverage, circ$purpleAverage, paired = TRUE)
+```
+
+## T-tests
+
 `t.test` saves a lot of information: the difference in means `estimate`, confidence interval for the difference `conf.int`, the p-value `p.value`, etc.
 
 ```{r tt1_1, comment=""}
