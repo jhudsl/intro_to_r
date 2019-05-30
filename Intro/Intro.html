@@ -4,7 +4,6 @@
   <title>Introduction to R</title>
 
   <meta charset="utf-8">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   <meta name="generator" content="pandoc" />
 
@@ -258,7 +257,6 @@ background: black;
 }
 
 slides > slide {
-display: none;
 font-family: 'Open Sans', Arial, sans-serif;
 font-size: 26px;
 color: #797979;
@@ -279,17 +277,19 @@ transition: all 0.6s ease-in-out;
 }
 
 slides > slide.far-past {
-display: none;
 }
 
 slides > slide.past {
-display: block;
 opacity: 0;
 }
 
 slides > slide.current {
 display: block;
 opacity: 1;
+z-index: 1;
+}
+slides > slide:not(.current) {
+z-index: 0;
 }
 
 slides > slide.current .auto-fadein {
@@ -304,13 +304,11 @@ background-size: 100% 100%;
 }
 
 slides > slide.next {
-display: block;
 opacity: 0;
 pointer-events: none;
 }
 
 slides > slide.far-next {
-display: none;
 }
 
 slides > slide.dark {
@@ -382,8 +380,6 @@ width: 1100px;
 
 slides.layout-widescreen > slide.far-past,
 slides.layout-faux-widescreen > slide.far-past {
-display: block;
-display: none;
 -webkit-transform: translate(-2260px);
 -moz-transform: translate(-2260px);
 -ms-transform: translate(-2260px);
@@ -417,8 +413,6 @@ pointer-events: none;
 
 slides.layout-widescreen > slide.far-next,
 slides.layout-faux-widescreen > slide.far-next {
-display: block;
-display: none;
 -webkit-transform: translate(2260px);
 -moz-transform: translate(2260px);
 -ms-transform: translate(2260px);
@@ -1349,6 +1343,13 @@ opacity: 1;
 
 .overview .slide-area {
 display: none;
+}
+slides > slide {
+background: linear-gradient(#ffffff, #ffffff 85%, #e6e6e6);
+background-color: white;
+}
+slides > slide {
+opacity: 0;
 }
 @media print {
 
@@ -3075,6 +3076,10 @@ if (document.readyState !== "loading" &&
       font-style: italic;
     }
 
+    summary {
+      display: list-item;
+    }
+
     slides > slide {
       -webkit-transition: all 0.4s ease-in-out;
       -moz-transition: all 0.4s ease-in-out;
@@ -3090,6 +3095,10 @@ if (document.readyState !== "loading" &&
       transition: opacity 0.6s ease-in 0.4s;
       opacity: 0;
     }
+/* https://github.com/ropensci/plotly/pull/524#issuecomment-468142578 */
+slide:not(.current) .plotly.html-widget{
+  display: block;
+}
 
   </style>
 
@@ -3181,14 +3190,6 @@ width:48%;
 
 </article></slide><slide class=""><hgroup><h2>About Us</h2></hgroup><article  id="about-us-1">
 
-<p><strong>Kayode Sosina</strong></p>
-
-<p>PhD Student Biostatistics</p>
-
-<p>Email: <a href='mailto:ksosina1@jhu.edu' title=''>ksosina1@jhu.edu</a></p>
-
-</article></slide><slide class=""><hgroup><h2>About Us</h2></hgroup><article  id="about-us-2">
-
 <p><strong>Andrew Jaffe</strong></p>
 
 <p>Lead Investigator, Lieber Institute for Brain Development</p>
@@ -3244,36 +3245,6 @@ width:48%;
 <p><a href='http://johnmuschelli.com/intro_to_r' title=''>http://johnmuschelli.com/intro_to_r</a></p>
 
 <p>Materials will be uploaded the night before class</p>
-
-</article></slide><slide class=""><hgroup><h2>Course Package</h2></hgroup><article  id="course-package">
-
-<p>We have an <code>R</code> package called <code>jhur</code> that will make sure all the packages are installed.</p>
-
-<pre class = 'prettyprint lang-r'>install.packages(&quot;remotes&quot;)
-remotes::install_github(&quot;muschellij2/jhur&quot;)</pre>
-
-<pre class = 'prettyprint lang-r'>library(jhur)
-head(read_yts()) # read youth tobacco data</pre>
-
-<pre ># A tibble: 6 x 31
-   YEAR LocationAbbr LocationDesc TopicType TopicDesc MeasureDesc
-  &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;      
-1  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
-2  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
-3  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
-4  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
-5  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
-6  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
-# ... with 25 more variables: DataSource &lt;chr&gt;, Response &lt;chr&gt;,
-#   Data_Value_Unit &lt;chr&gt;, Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;,
-#   Data_Value_Footnote_Symbol &lt;chr&gt;, Data_Value_Footnote &lt;chr&gt;,
-#   Data_Value_Std_Err &lt;dbl&gt;, Low_Confidence_Limit &lt;dbl&gt;,
-#   High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;int&gt;, Gender &lt;chr&gt;,
-#   Race &lt;chr&gt;, Age &lt;chr&gt;, Education &lt;chr&gt;, GeoLocation &lt;chr&gt;,
-#   TopicTypeId &lt;chr&gt;, TopicId &lt;chr&gt;, MeasureId &lt;chr&gt;,
-#   StratificationID1 &lt;chr&gt;, StratificationID2 &lt;chr&gt;,
-#   StratificationID3 &lt;chr&gt;, StratificationID4 &lt;chr&gt;, SubMeasureID &lt;chr&gt;,
-#   DisplayOrder &lt;int&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Learning Objectives</h2></hgroup><article  id="learning-objectives">
 

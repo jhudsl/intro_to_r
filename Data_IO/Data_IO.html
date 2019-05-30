@@ -4,7 +4,6 @@
   <title>Data Input/Output</title>
 
   <meta charset="utf-8">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   <meta name="generator" content="pandoc" />
 
@@ -258,7 +257,6 @@ background: black;
 }
 
 slides > slide {
-display: none;
 font-family: 'Open Sans', Arial, sans-serif;
 font-size: 26px;
 color: #797979;
@@ -279,17 +277,19 @@ transition: all 0.6s ease-in-out;
 }
 
 slides > slide.far-past {
-display: none;
 }
 
 slides > slide.past {
-display: block;
 opacity: 0;
 }
 
 slides > slide.current {
 display: block;
 opacity: 1;
+z-index: 1;
+}
+slides > slide:not(.current) {
+z-index: 0;
 }
 
 slides > slide.current .auto-fadein {
@@ -304,13 +304,11 @@ background-size: 100% 100%;
 }
 
 slides > slide.next {
-display: block;
 opacity: 0;
 pointer-events: none;
 }
 
 slides > slide.far-next {
-display: none;
 }
 
 slides > slide.dark {
@@ -382,8 +380,6 @@ width: 1100px;
 
 slides.layout-widescreen > slide.far-past,
 slides.layout-faux-widescreen > slide.far-past {
-display: block;
-display: none;
 -webkit-transform: translate(-2260px);
 -moz-transform: translate(-2260px);
 -ms-transform: translate(-2260px);
@@ -417,8 +413,6 @@ pointer-events: none;
 
 slides.layout-widescreen > slide.far-next,
 slides.layout-faux-widescreen > slide.far-next {
-display: block;
-display: none;
 -webkit-transform: translate(2260px);
 -moz-transform: translate(2260px);
 -ms-transform: translate(2260px);
@@ -1349,6 +1343,13 @@ opacity: 1;
 
 .overview .slide-area {
 display: none;
+}
+slides > slide {
+background: linear-gradient(#ffffff, #ffffff 85%, #e6e6e6);
+background-color: white;
+}
+slides > slide {
+opacity: 0;
 }
 @media print {
 
@@ -3075,6 +3076,10 @@ if (document.readyState !== "loading" &&
       font-style: italic;
     }
 
+    summary {
+      display: list-item;
+    }
+
     slides > slide {
       -webkit-transition: all 0.4s ease-in-out;
       -moz-transition: all 0.4s ease-in-out;
@@ -3090,6 +3095,10 @@ if (document.readyState !== "loading" &&
       transition: opacity 0.6s ease-in 0.4s;
       opacity: 0;
     }
+/* https://github.com/ropensci/plotly/pull/524#issuecomment-468142578 */
+slide:not(.current) .plotly.html-widget{
+  display: block;
+}
 
   </style>
 
@@ -3161,7 +3170,140 @@ width:48%;
           </hgroup>
   </slide>
 
-<slide class=""><hgroup><h2>Common new user mistakes we have seen</h2></hgroup><article  id="common-new-user-mistakes-we-have-seen">
+<slide class=""><hgroup><h2>Data We Use</h2></hgroup><article  id="data-we-use">
+
+<ul>
+<li>Everything we do in class will be using real publicly available data - there are few &lsquo;toy&rsquo; example datasets and &lsquo;simulated&rsquo; data</li>
+<li>OpenBaltimore and Data.gov will be sources for the first few days</li>
+<li>We have also added functionality to load these datasets directly in the <code>jhur</code> package</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input">
+
+<ul>
+<li>&lsquo;Reading in&rsquo; data is the first step of any real project/analysis</li>
+<li>R can read almost any file format, especially via add-on packages</li>
+<li>We are going to focus on simple delimited files first
+
+<ul>
+<li>tab delimited (e.g. &lsquo;.txt&rsquo;)</li>
+<li>comma separated (e.g. &lsquo;.csv&rsquo;)</li>
+<li>Microsoft excel (e.g. &lsquo;.xlsx&rsquo;)</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-1">
+
+<p>Youth Tobacco Survey (YTS) Dataset:</p>
+
+<p>&ldquo;The YTS was developed to provide states with comprehensive data on both middle school and high school students regarding tobacco use, exposure to environmental tobacco smoke, smoking cessation, school curriculum, minors’ ability to purchase or otherwise obtain tobacco products, knowledge and attitudes about tobacco, and familiarity with pro-tobacco and anti-tobacco media messages.&rdquo;</p>
+
+<ul>
+<li>Check out the data at: <a href='https://catalog.data.gov/dataset/youth-tobacco-survey-yts-data' title=''>https://catalog.data.gov/dataset/youth-tobacco-survey-yts-data</a></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-2">
+
+<ul>
+<li>Download data from <a href='http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv' title=''>http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv</a>
+
+<ul>
+<li>Safari - if a file loads in your browser, choose File –&gt; Save As, select, Format &ldquo;Page Source&rdquo; and save</li>
+</ul></li>
+<li>Within RStudio: Session –&gt; Set Working Directory –&gt; To Source File Location</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-3">
+
+<p>R Studio features some nice &ldquo;drop down&rdquo; support, where you can run some tasks by selecting them from the toolbar.</p>
+
+<p>For example, you can easily import text datasets using the &ldquo;File –&gt; Import Dataset –&gt; From CSV&rdquo; command. Selecting this will bring up a new screen that lets you specify the formatting of your text file.</p>
+
+<p>After importing a datatset, you get the corresponding R commands that you can enter in the console if you want to re-import data.</p>
+
+</article></slide><slide class=""><hgroup><h2>Read in Directly</h2></hgroup><article  id="read-in-directly">
+
+<pre class = 'prettyprint lang-r'>mydat = read_csv(&quot;http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv&quot;)
+head(mydat)</pre>
+
+<pre ># A tibble: 6 x 31
+   YEAR LocationAbbr LocationDesc TopicType TopicDesc MeasureDesc
+  &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;      
+1  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
+2  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
+3  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
+4  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
+5  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
+6  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
+# … with 25 more variables: DataSource &lt;chr&gt;, Response &lt;chr&gt;,
+#   Data_Value_Unit &lt;chr&gt;, Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;,
+#   Data_Value_Footnote_Symbol &lt;chr&gt;, Data_Value_Footnote &lt;chr&gt;,
+#   Data_Value_Std_Err &lt;dbl&gt;, Low_Confidence_Limit &lt;dbl&gt;,
+#   High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;dbl&gt;, Gender &lt;chr&gt;,
+#   Race &lt;chr&gt;, Age &lt;chr&gt;, Education &lt;chr&gt;, GeoLocation &lt;chr&gt;,
+#   TopicTypeId &lt;chr&gt;, TopicId &lt;chr&gt;, MeasureId &lt;chr&gt;,
+#   StratificationID1 &lt;chr&gt;, StratificationID2 &lt;chr&gt;,
+#   StratificationID3 &lt;chr&gt;, StratificationID4 &lt;chr&gt;, SubMeasureID &lt;chr&gt;,
+#   DisplayOrder &lt;dbl&gt;</pre>
+
+</article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-4">
+
+<p>So what is going on &ldquo;behind the scenes&rdquo;?</p>
+
+<p><code>read_delim()</code>: Read a delimited file into a data frame.</p>
+
+<pre >function (file, delim, quote = &quot;\&quot;&quot;, escape_backslash = FALSE, 
+    escape_double = TRUE, col_names = TRUE, col_types = NULL, 
+    locale = default_locale(), na = c(&quot;&quot;, &quot;NA&quot;), quoted_na = TRUE, 
+    comment = &quot;&quot;, trim_ws = FALSE, skip = 0, n_max = Inf, guess_max = min(1000, 
+        n_max), progress = show_progress(), skip_empty_rows = TRUE) 
+NULL</pre>
+
+<pre class = 'prettyprint lang-r'># for example: `read_delim(&quot;file.txt&quot;,delim=&quot;\t&quot;)`</pre>
+
+</article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-5">
+
+<ul>
+<li>The filename is the path to your file, in quotes</li>
+<li>The function will look in your &ldquo;working directory&rdquo; if no absolute file path is given</li>
+<li>Note that the filename can also be a path to a file on a website (e.g. &lsquo;www.someurl.com/table1.txt&rsquo;)</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-6">
+
+<p>There is another convenient function for reading in CSV files, where the delimiter is assumed to be a comma:</p>
+
+<pre >function (file, col_names = TRUE, col_types = NULL, locale = default_locale(), 
+    na = c(&quot;&quot;, &quot;NA&quot;), quoted_na = TRUE, quote = &quot;\&quot;&quot;, comment = &quot;&quot;, 
+    trim_ws = TRUE, skip = 0, n_max = Inf, guess_max = min(1000, 
+        n_max), progress = show_progress(), skip_empty_rows = TRUE) 
+NULL</pre>
+
+</article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-7">
+
+<ul>
+<li>Here would be reading data from the command line, specifying the file path:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>dat = read_csv(&quot;../data/Youth_Tobacco_Survey_YTS_Data.csv&quot;)</pre>
+
+<pre >Parsed with column specification:
+cols(
+  .default = col_character(),
+  YEAR = col_double(),
+  Data_Value = col_double(),
+  Data_Value_Std_Err = col_double(),
+  Low_Confidence_Limit = col_double(),
+  High_Confidence_Limit = col_double(),
+  Sample_Size = col_double(),
+  DisplayOrder = col_double()
+)</pre>
+
+<pre >See spec(...) for full column specifications.</pre>
+
+<p>The data is now successfully read into your R workspace, just like from using the dropdown menu.</p>
+
+</article></slide><slide class=""><hgroup><h2>Common new user mistakes we have seen</h2></hgroup><article  id="common-new-user-mistakes-we-have-seen">
 
 <ol>
 <li><strong>Working directory problems: trying to read files that R &ldquo;can’t find&rdquo;</strong>
@@ -3286,16 +3428,14 @@ setwd(&quot;~/Lectures&quot;) </pre>
 [50] &quot;shiny_knitr&quot;                             
 [51] &quot;shiny_knitr.zip&quot;                         
 [52] &quot;Simple_Knitr&quot;                            
-[53] &quot;starting_with_r.html&quot;                    
-[54] &quot;starting_with_r.Rmd&quot;                     
-[55] &quot;Statistics&quot;                              
-[56] &quot;styles.css&quot;                              
-[57] &quot;Subsetting_Data_in_R&quot;                    
-[58] &quot;Syllabus-student.doc&quot;                    
-[59] &quot;syllabus.docx&quot;                           
-[60] &quot;syllabus.html&quot;                           
-[61] &quot;syllabus.Rmd&quot;                            
-[62] &quot;tb.xlsx&quot;                                 </pre>
+[53] &quot;Statistics&quot;                              
+[54] &quot;styles.css&quot;                              
+[55] &quot;Subsetting_Data_in_R&quot;                    
+[56] &quot;Syllabus-student.doc&quot;                    
+[57] &quot;syllabus.docx&quot;                           
+[58] &quot;syllabus.html&quot;                           
+[59] &quot;syllabus.Rmd&quot;                            
+[60] &quot;tb.xlsx&quot;                                 </pre>
 
 </article></slide><slide class=""><hgroup><h2>Relative vs. absolute paths (From Wiki)</h2></hgroup><article  id="relative-vs.absolute-paths-from-wiki">
 
@@ -3333,149 +3473,11 @@ setwd(&quot;~/Lectures&quot;) </pre>
 <pre class = 'prettyprint lang-r'>?dir
 help(&quot;dir&quot;)</pre>
 
-</article></slide><slide class=""><hgroup><h2>Data Aside</h2></hgroup><article  id="data-aside">
-
-<ul>
-<li>Everything we do in class will be using real publicly available data - there are few &lsquo;toy&rsquo; example datasets and &lsquo;simulated&rsquo; data</li>
-<li>OpenBaltimore and Data.gov will be sources for the first few days</li>
-<li>We have also added functionality to load these datasets directly in the <code>jhur</code> package</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input">
-
-<ul>
-<li>&lsquo;Reading in&rsquo; data is the first step of any real project/analysis</li>
-<li>R can read almost any file format, especially via add-on packages</li>
-<li>We are going to focus on simple delimited files first
-
-<ul>
-<li>tab delimited (e.g. &lsquo;.txt&rsquo;)</li>
-<li>comma separated (e.g. &lsquo;.csv&rsquo;)</li>
-<li>Microsoft excel (e.g. &lsquo;.xlsx&rsquo;)</li>
-</ul></li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-1">
-
-<p>Youth Tobacco Survey (YTS) Dataset:</p>
-
-<p>&ldquo;The YTS was developed to provide states with comprehensive data on both middle school and high school students regarding tobacco use, exposure to environmental tobacco smoke, smoking cessation, school curriculum, minors’ ability to purchase or otherwise obtain tobacco products, knowledge and attitudes about tobacco, and familiarity with pro-tobacco and anti-tobacco media messages.&rdquo;</p>
-
-<ul>
-<li>Check out the data at: <a href='https://catalog.data.gov/dataset/youth-tobacco-survey-yts-data' title=''>https://catalog.data.gov/dataset/youth-tobacco-survey-yts-data</a></li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-2">
-
-<ul>
-<li>Download data from <a href='http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv' title=''>http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv</a>
-
-<ul>
-<li>Safari - if a file loads in your browser, choose File –&gt; Save As, select, Format &ldquo;Page Source&rdquo; and save</li>
-</ul></li>
-<li>Within RStudio: Session –&gt; Set Working Directory –&gt; To Source File Location</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-3">
-
-<p>R Studio features some nice &ldquo;drop down&rdquo; support, where you can run some tasks by selecting them from the toolbar.</p>
-
-<p>For example, you can easily import text datasets using the &ldquo;File –&gt; Import Dataset –&gt; From CSV&rdquo; command. Selecting this will bring up a new screen that lets you specify the formatting of your text file.</p>
-
-<p>After importing a datatset, you get the corresponding R commands that you can enter in the console if you want to re-import data.</p>
-
-</article></slide><slide class=""><hgroup><h2>Read in Directly</h2></hgroup><article  id="read-in-directly">
-
-<pre class = 'prettyprint lang-r'>mydat = read_csv(&quot;http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv&quot;)
-head(mydat)</pre>
-
-<pre ># A tibble: 6 x 31
-   YEAR LocationAbbr LocationDesc TopicType TopicDesc MeasureDesc
-  &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;      
-1  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
-2  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
-3  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
-4  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
-5  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
-6  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
-# ... with 25 more variables: DataSource &lt;chr&gt;, Response &lt;chr&gt;,
-#   Data_Value_Unit &lt;chr&gt;, Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;,
-#   Data_Value_Footnote_Symbol &lt;chr&gt;, Data_Value_Footnote &lt;chr&gt;,
-#   Data_Value_Std_Err &lt;dbl&gt;, Low_Confidence_Limit &lt;dbl&gt;,
-#   High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;int&gt;, Gender &lt;chr&gt;,
-#   Race &lt;chr&gt;, Age &lt;chr&gt;, Education &lt;chr&gt;, GeoLocation &lt;chr&gt;,
-#   TopicTypeId &lt;chr&gt;, TopicId &lt;chr&gt;, MeasureId &lt;chr&gt;,
-#   StratificationID1 &lt;chr&gt;, StratificationID2 &lt;chr&gt;,
-#   StratificationID3 &lt;chr&gt;, StratificationID4 &lt;chr&gt;, SubMeasureID &lt;chr&gt;,
-#   DisplayOrder &lt;int&gt;</pre>
-
-</article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-4">
-
-<p>So what is going on &ldquo;behind the scenes&rdquo;?</p>
-
-<p><code>read_delim()</code>: Read a delimited file into a data frame.</p>
-
-<pre >read_delim(file, delim, quote = &quot;\&quot;&quot;, escape_backslash = FALSE,
-  escape_double = TRUE, col_names = TRUE, col_types = NULL,
-  locale = default_locale(), na = c(&quot;&quot;, &quot;NA&quot;), quoted_na = TRUE,
-  comment = &quot;&quot;, trim_ws = FALSE, skip = 0, n_max = Inf,
-  guess_max = min(1000, n_max), progress = interactive())
-           
-# for example: `read_delim(&quot;file.txt&quot;,delim=&quot;\t&quot;)`</pre>
-
-</article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-5">
-
-<ul>
-<li>The filename is the path to your file, in quotes</li>
-<li>The function will look in your &ldquo;working directory&rdquo; if no absolute file path is given</li>
-<li>Note that the filename can also be a path to a file on a website (e.g. &lsquo;www.someurl.com/table1.txt&rsquo;)</li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-6">
-
-<p>There is another convenient function for reading in CSV files, where the delimiter is assumed to be a comma:</p>
-
-<pre class = 'prettyprint lang-r'>read_csv</pre>
-
-<pre >function (file, col_names = TRUE, col_types = NULL, locale = default_locale(), 
-    na = c(&quot;&quot;, &quot;NA&quot;), quoted_na = TRUE, quote = &quot;\&quot;&quot;, comment = &quot;&quot;, 
-    trim_ws = TRUE, skip = 0, n_max = Inf, guess_max = min(1000, 
-        n_max), progress = show_progress()) 
-{
-    tokenizer &lt;- tokenizer_csv(na = na, quoted_na = TRUE, quote = quote, 
-        comment = comment, trim_ws = trim_ws)
-    read_delimited(file, tokenizer, col_names = col_names, col_types = col_types, 
-        locale = locale, skip = skip, comment = comment, n_max = n_max, 
-        guess_max = guess_max, progress = progress)
-}
-&lt;bytecode: 0x7fc168ea19e0&gt;
-&lt;environment: namespace:readr&gt;</pre>
-
-</article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-7">
-
-<ul>
-<li>Here would be reading data from the command line, specifying the file path:</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>dat = read_csv(&quot;../data/Youth_Tobacco_Survey_YTS_Data.csv&quot;)</pre>
-
-<pre >Parsed with column specification:
-cols(
-  .default = col_character(),
-  YEAR = col_integer(),
-  Data_Value = col_double(),
-  Data_Value_Std_Err = col_double(),
-  Low_Confidence_Limit = col_double(),
-  High_Confidence_Limit = col_double(),
-  Sample_Size = col_integer(),
-  DisplayOrder = col_integer()
-)</pre>
-
-<pre >See spec(...) for full column specifications.</pre>
-
-<p>The data is now successfully read into your R workspace, just like from using the dropdown menu.</p>
-
 </article></slide><slide class=""><hgroup><h2>Data Input: Checking for problems</h2></hgroup><article  id="data-input-checking-for-problems">
+
+<pre class = 'prettyprint lang-r'>dat = read_csv(&quot;http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv&quot;)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Data Input: Checking for problems</h2></hgroup><article  id="data-input-checking-for-problems-1">
 
 <ul>
 <li>The <code>spec()</code> and <code>problems()</code> functions show you the specification of how the data was read in.</li>
@@ -3488,7 +3490,7 @@ cols(
 <pre class = 'prettyprint lang-r'>spec(dat)</pre>
 
 <pre >cols(
-  YEAR = col_integer(),
+  YEAR = col_double(),
   LocationAbbr = col_character(),
   LocationDesc = col_character(),
   TopicType = col_character(),
@@ -3504,7 +3506,7 @@ cols(
   Data_Value_Std_Err = col_double(),
   Low_Confidence_Limit = col_double(),
   High_Confidence_Limit = col_double(),
-  Sample_Size = col_integer(),
+  Sample_Size = col_double(),
   Gender = col_character(),
   Race = col_character(),
   Age = col_character(),
@@ -3518,10 +3520,10 @@ cols(
   StratificationID3 = col_character(),
   StratificationID4 = col_character(),
   SubMeasureID = col_character(),
-  DisplayOrder = col_integer()
+  DisplayOrder = col_double()
 )</pre>
 
-</article></slide><slide class=""><hgroup><h2>Data Input: Checking for problems</h2></hgroup><article  id="data-input-checking-for-problems-1">
+</article></slide><slide class=""><hgroup><h2>Data Input: Checking for problems</h2></hgroup><article  id="data-input-checking-for-problems-2">
 
 <ul>
 <li>The <code>stop_for_problems()</code> function will stop if your data had an error when reading in. If this occurs, you can either use <code>col_types</code> (from <code>spec()</code>) for the problematic columns, or set <code>guess_max = Inf</code> (takes much longer):</li>
@@ -3544,27 +3546,27 @@ head(dat)</pre>
 
 <pre ># A tibble: 6 x 31
    YEAR LocationAbbr LocationDesc TopicType TopicDesc MeasureDesc
-  &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;      
+  &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;      
 1  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
 2  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
 3  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
 4  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
 5  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
 6  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
-# ... with 25 more variables: DataSource &lt;chr&gt;, Response &lt;chr&gt;,
+# … with 25 more variables: DataSource &lt;chr&gt;, Response &lt;chr&gt;,
 #   Data_Value_Unit &lt;chr&gt;, Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;,
 #   Data_Value_Footnote_Symbol &lt;chr&gt;, Data_Value_Footnote &lt;chr&gt;,
 #   Data_Value_Std_Err &lt;dbl&gt;, Low_Confidence_Limit &lt;dbl&gt;,
-#   High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;int&gt;, Gender &lt;chr&gt;,
+#   High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;dbl&gt;, Gender &lt;chr&gt;,
 #   Race &lt;chr&gt;, Age &lt;chr&gt;, Education &lt;chr&gt;, GeoLocation &lt;chr&gt;,
 #   TopicTypeId &lt;chr&gt;, TopicId &lt;chr&gt;, MeasureId &lt;chr&gt;,
 #   StratificationID1 &lt;chr&gt;, StratificationID2 &lt;chr&gt;,
 #   StratificationID3 &lt;chr&gt;, StratificationID4 &lt;chr&gt;, SubMeasureID &lt;chr&gt;,
-#   DisplayOrder &lt;int&gt;</pre>
+#   DisplayOrder &lt;dbl&gt;</pre>
 
 <pre class = 'prettyprint lang-r'>class(dat)</pre>
 
-<pre >[1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</pre>
+<pre >[1] &quot;spec_tbl_df&quot; &quot;tbl_df&quot;      &quot;tbl&quot;         &quot;data.frame&quot; </pre>
 
 <!-- ## Data Input -->
 

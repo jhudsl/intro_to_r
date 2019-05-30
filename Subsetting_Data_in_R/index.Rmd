@@ -12,6 +12,7 @@ library(knitr)
 opts_chunk$set(comment = "")
 suppressPackageStartupMessages(library(dplyr))
 library(dplyr)
+library(jhur)
 ```
 
 ## Overview
@@ -72,21 +73,39 @@ some conflicts/masking.
 
 ## Creating a `data.frame` to work with
 
-Here we use one of the datasets that comes with `R` called `mtcars` create a toy data.frame named `df` using random data:
+Here we use one of the datasets that comes with `jhu` called `jhu_cars`, which is a (copy of another called `mtcars`) create a toy data.frame named `df` using random data:
 ```{r}
-data(mtcars)
-df = mtcars
+data(jhu_cars)
+df = jhu_cars
 df
 ```
 
 ## Creating a `data.frame` to work with
 
-If we would like to create a `tibble` ("fancy" data.frame), we can using `as.tbl`.  In the "tidy" data format, all information of interest is a variable (not a name). **as of tibble 2.0, rownames are removed**.
+If we would like to create a `tibble` ("fancy" data.frame), we can using `as.tbl` or `as_tibble`.  
 
 ```{r}
-tbl = rownames_to_column(df, var = "car")
-tbl = as.tbl(df) # no ROWNAMES
+tbl = as_tibble(df) 
 ```
+
+
+## No rownames in tibbles!
+ 
+In the "tidy" data format, all information of interest is a variable (not a name). **as of tibble 2.0, rownames are removed**.  For example, `mtcars`  has each car name as a row name: 
+
+```{r}
+head(mtcars)
+head(as_tibble(mtcars))
+```
+
+## No rownames in tibbles!
+
+If you run into this, use `rownames_to_column` to add it before turning it into a `tibble` to keep them:
+
+```{r}
+head(rownames_to_column(mtcars, var = "car"))
+```
+
 
 
 # Renaming Columns

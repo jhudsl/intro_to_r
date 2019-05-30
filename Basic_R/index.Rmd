@@ -226,10 +226,8 @@ x + c(1, 2, 3, 4)
 
 But things like algebra can only be performed on numbers.
 
-```
-> name2 + 4
-[1] Error in name2 + 4 : non-numeric argument
- to binary operator
+```{r, error=TRUE}
+name2 + 4
 ```
 
 ## R variables

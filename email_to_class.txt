@@ -9,6 +9,11 @@ You must bring a laptop to class, with the following software installed before t
 2. Please install the latest version of RStudio (Desktop): https://www.rstudio.com/products/RStudio/#Desktop
 3.  Please follow the instructions in the video https://youtu.be/-m1c8Xz1ZCg for installing the tidyverse package.  
 4.  If you are using a work computer, make sure you: Repeat this process for all of the packages in the text file attached to this email.
+5.  Run the following code in R:
+
+install.packages("remotes")
+remotes::install_github("muschellij2/jhur")
+
 
 HOMEWORK 1:
 Please complete the Modules for the Introduction to R: https://www.datacamp.com/courses/free-introduction-to-r before class starts (it will make things easier).

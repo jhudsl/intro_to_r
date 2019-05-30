@@ -31,14 +31,6 @@ Email: jmusche1@jhu.edu
 
 ## About Us
 
-**Kayode Sosina**
-
-PhD Student Biostatistics
-
-Email: ksosina1@jhu.edu
-
-## About Us
-
 **Andrew Jaffe**
 
 Lead Investigator, Lieber Institute for Brain Development
@@ -48,7 +40,6 @@ Assistant Professor, Department of Mental Health, JHSPH
 PhD in Epidemiology, MHS in Bioinformatics
 
 Email: ajaffe@jhu.edu
-
 
 
 ## What is R?
@@ -99,22 +90,6 @@ Why else to use R?
 http://johnmuschelli.com/intro_to_r
 
 Materials will be uploaded the night before class
-
-
-## Course Package 
-
-We have an `R` package called `jhur` that will make sure all the packages are installed.
-
-```r
-install.packages("remotes")
-remotes::install_github("muschellij2/jhur")
-```
-
-
-```{r}
-library(jhur)
-head(read_yts()) # read youth tobacco data
-```
 
 ## Learning Objectives
 
