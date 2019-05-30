@@ -94,8 +94,8 @@ tbl = as_tibble(df)
 In the "tidy" data format, all information of interest is a variable (not a name). **as of tibble 2.0, rownames are removed**.  For example, `mtcars`  has each car name as a row name: 
 
 ```{r}
-head(mtcars)
-head(as_tibble(mtcars))
+head(mtcars, 2)
+head(as_tibble(mtcars), 2)
 ```
 
 ## No rownames in tibbles!
@@ -103,7 +103,8 @@ head(as_tibble(mtcars))
 If you run into this, use `rownames_to_column` to add it before turning it into a `tibble` to keep them:
 
 ```{r}
-head(rownames_to_column(mtcars, var = "car"))
+head(rownames_to_column(mtcars, var = "car"),  2)
+head(as_tibble(rownames_to_column(mtcars, var = "car")),  2)
 ```
 
 
@@ -270,7 +271,7 @@ df = mutate(df, newcol = wt/2.2)
 ```
 
 ```{r, echo = FALSE}
-print({df = mutate(df, newcol = wt/2.2)})
+print(head({df = mutate(df, newcol = wt/2.2)}, 2))
 ```
 
 ## Creating conditional variables
@@ -291,7 +292,8 @@ ifelse(test, yes, no)
 
 ## Adding columns to a `data.frame`: dplyr
 
-Combined with `ifelse(condition, TRUE, FALSE)`, it can give you didffer
+Combined with `ifelse(condition, TRUE, FALSE)`, it can give you:
+
 ```{r}
 df = mutate(df, 
             disp_cat = ifelse(
@@ -303,6 +305,20 @@ df = mutate(df,
             )
 )
 head(df$disp_cat)
+```
+
+## Adding columns to a `data.frame`: dplyr
+
+Alternatively, `case_when` provides a clean syntax as well:
+
+```{r}
+df = mutate(df, 
+            disp_cat2 = case_when(
+              disp <= 200 ~ "Low",
+              disp > 200 & disp <= 400 ~ "Medium",
+              disp > 400 ~ "High",
+            ))
+head(df$disp_cat2)
 ```
 
 
@@ -317,34 +333,49 @@ df$newcol = NULL
 
 The `NULL` method is still very common.
 
-The `select` function can remove a column with a minus (`-`), much like removing rows:
-```{r}
+The `select` function can remove a column with minus (`-`):
+```{r, eval = FALSE}
 select(df, -newcol)
+```
+
+```{r, echo = FALSE}
+head(select(df, -newcol))
 ```
 
 ## Removing columns to a `data.frame`: dplyr
 
 Remove `newcol` and `drat`
-```{r}
+```{r, eval = FALSE}
 select(df, -one_of("newcol", "drat"))
 ```
 
+```{r, echo = FALSE}
+head(select(df, -one_of("newcol", "drat")))
+```
 
 # Ordering columns
 
 ## Ordering the columns of a `data.frame`: dplyr
 
 The `select` function can reorder columns.  Put `newcol` first, then select the rest of columns:
-```{r}
+```{r, eval = FALSE}
 select(df, newcol, everything())
+```
+
+```{r, echo = FALSE}
+head(select(df, newcol, everything()))
 ```
 
 ## Ordering the columns of a `data.frame`: dplyr
 
 Put `newcol` at the end ("remove, everything, then add back in"):
 
-```{r}
+```{r, eval = FALSE}
 select(df, -newcol, everything(), newcol)
+```
+
+```{r, echo = FALSE}
+head(select(df, -newcol, everything(), newcol))
 ```
 
 # Ordering rows

@@ -3225,7 +3225,7 @@ width:48%;
 {
     UseMethod(&quot;filter&quot;)
 }
-&lt;bytecode: 0x7fd9d2cce208&gt;
+&lt;bytecode: 0x7f9cc72c1430&gt;
 &lt;environment: namespace:dplyr&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Loading in dplyr and tidyverse</h2></hgroup><article  id="loading-in-dplyr-and-tidyverse-2">
@@ -3292,41 +3292,37 @@ df</pre>
 
 <p>In the &ldquo;tidy&rdquo; data format, all information of interest is a variable (not a name). <strong>as of tibble 2.0, rownames are removed</strong>. For example, <code>mtcars</code> has each car name as a row name:</p>
 
-<pre class = 'prettyprint lang-r'>head(mtcars)</pre>
+<pre class = 'prettyprint lang-r'>head(mtcars, 2)</pre>
 
-<pre >                   mpg cyl disp  hp drat    wt  qsec vs am gear carb
-Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
-Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
-Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</pre>
+<pre >              mpg cyl disp  hp drat    wt  qsec vs am gear carb
+Mazda RX4      21   6  160 110  3.9 2.620 16.46  0  1    4    4
+Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4</pre>
 
-<pre class = 'prettyprint lang-r'>head(as_tibble(mtcars))</pre>
+<pre class = 'prettyprint lang-r'>head(as_tibble(mtcars), 2)</pre>
 
-<pre ># A tibble: 6 x 11
+<pre ># A tibble: 2 x 11
     mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1  21       6   160   110  3.9   2.62  16.5     0     1     4     4
-2  21       6   160   110  3.9   2.88  17.0     0     1     4     4
-3  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1
-4  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1
-5  18.7     8   360   175  3.15  3.44  17.0     0     0     3     2
-6  18.1     6   225   105  2.76  3.46  20.2     1     0     3     1</pre>
+1    21     6   160   110   3.9  2.62  16.5     0     1     4     4
+2    21     6   160   110   3.9  2.88  17.0     0     1     4     4</pre>
 
 </article></slide><slide class=""><hgroup><h2>No rownames in tibbles!</h2></hgroup><article  id="no-rownames-in-tibbles-1">
 
 <p>If you run into this, use <code>rownames_to_column</code> to add it before turning it into a <code>tibble</code> to keep them:</p>
 
-<pre class = 'prettyprint lang-r'>head(rownames_to_column(mtcars, var = &quot;car&quot;))</pre>
+<pre class = 'prettyprint lang-r'>head(rownames_to_column(mtcars, var = &quot;car&quot;),  2)</pre>
 
-<pre >                car  mpg cyl disp  hp drat    wt  qsec vs am gear carb
-1         Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-2     Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-3        Datsun 710 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
-4    Hornet 4 Drive 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-5 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
-6           Valiant 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</pre>
+<pre >            car mpg cyl disp  hp drat    wt  qsec vs am gear carb
+1     Mazda RX4  21   6  160 110  3.9 2.620 16.46  0  1    4    4
+2 Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4</pre>
+
+<pre class = 'prettyprint lang-r'>head(as_tibble(rownames_to_column(mtcars, var = &quot;car&quot;)),  2)</pre>
+
+<pre ># A tibble: 2 x 12
+  car       mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+  &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 Mazda …    21     6   160   110   3.9  2.62  16.5     0     1     4     4
+2 Mazda …    21     6   160   110   3.9  2.88  17.0     0     1     4     4</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Renaming Columns</h2></hgroup><article  id="renaming-columns">
 
@@ -3679,72 +3675,9 @@ head(df,3)</pre>
 
 <pre class = 'prettyprint lang-r'>df = mutate(df, newcol = wt/2.2)</pre>
 
-<pre >                   car  mpg cyl  disp  hp drat    wt  qsec vs am gear carb
-1            Mazda RX4 21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
-2        Mazda RX4 Wag 21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
-3           Datsun 710 22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
-4       Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
-5    Hornet Sportabout 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
-6              Valiant 18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
-7           Duster 360 14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
-8            Merc 240D 24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
-9             Merc 230 22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
-10            Merc 280 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
-11           Merc 280C 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
-12          Merc 450SE 16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
-13          Merc 450SL 17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
-14         Merc 450SLC 15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
-15  Cadillac Fleetwood 10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
-16 Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
-17   Chrysler Imperial 14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
-18            Fiat 128 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
-19         Honda Civic 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
-20      Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
-21       Toyota Corona 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
-22    Dodge Challenger 15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
-23         AMC Javelin 15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
-24          Camaro Z28 13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
-25    Pontiac Firebird 19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
-26           Fiat X1-9 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
-27       Porsche 914-2 26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
-28        Lotus Europa 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
-29      Ford Pantera L 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
-30        Ferrari Dino 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
-31       Maserati Bora 15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
-32          Volvo 142E 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2
-      newcol
-1  1.1909091
-2  1.3068182
-3  1.0545455
-4  1.4613636
-5  1.5636364
-6  1.5727273
-7  1.6227273
-8  1.4500000
-9  1.4318182
-10 1.5636364
-11 1.5636364
-12 1.8500000
-13 1.6954545
-14 1.7181818
-15 2.3863636
-16 2.4654545
-17 2.4295455
-18 1.0000000
-19 0.7340909
-20 0.8340909
-21 1.1204545
-22 1.6000000
-23 1.5613636
-24 1.7454545
-25 1.7477273
-26 0.8795455
-27 0.9727273
-28 0.6877273
-29 1.4409091
-30 1.2590909
-31 1.6227273
-32 1.2636364</pre>
+<pre >            car mpg cyl disp  hp drat    wt  qsec vs am gear carb   newcol
+1     Mazda RX4  21   6  160 110  3.9 2.620 16.46  0  1    4    4 1.190909
+2 Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4 1.306818</pre>
 
 </article></slide><slide class=""><hgroup><h2>Creating conditional variables</h2></hgroup><article  id="creating-conditional-variables">
 
@@ -3761,7 +3694,7 @@ head(df,3)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Adding columns to a <code>data.frame</code>: dplyr</h2></hgroup><article  id="adding-columns-to-a-data.frame-dplyr-1">
 
-<p>Combined with <code>ifelse(condition, TRUE, FALSE)</code>, it can give you didffer</p>
+<p>Combined with <code>ifelse(condition, TRUE, FALSE)</code>, it can give you:</p>
 
 <pre class = 'prettyprint lang-r'>df = mutate(df, 
             disp_cat = ifelse(
@@ -3776,6 +3709,20 @@ head(df$disp_cat)</pre>
 
 <pre >[1] &quot;Low&quot;    &quot;Low&quot;    &quot;Low&quot;    &quot;Medium&quot; &quot;Medium&quot; &quot;Medium&quot;</pre>
 
+</article></slide><slide class=""><hgroup><h2>Adding columns to a <code>data.frame</code>: dplyr</h2></hgroup><article  id="adding-columns-to-a-data.frame-dplyr-2">
+
+<p>Alternatively, <code>case_when</code> provides a clean syntax as well:</p>
+
+<pre class = 'prettyprint lang-r'>df = mutate(df, 
+            disp_cat2 = case_when(
+              disp &lt;= 200 ~ &quot;Low&quot;,
+              disp &gt; 200 &amp; disp &lt;= 400 ~ &quot;Medium&quot;,
+              disp &gt; 400 ~ &quot;High&quot;,
+            ))
+head(df$disp_cat2)</pre>
+
+<pre >[1] &quot;Low&quot;    &quot;Low&quot;    &quot;Low&quot;    &quot;Medium&quot; &quot;Medium&quot; &quot;Medium&quot;</pre>
+
 </article></slide><slide class=""><hgroup><h2>Removing columns to a <code>data.frame</code>: base R</h2></hgroup><article  id="removing-columns-to-a-data.frame-base-r">
 
 <p>You can remove a column by assigning to <code>NULL</code>:</p>
@@ -3786,76 +3733,24 @@ head(df$disp_cat)</pre>
 
 <p>The <code>NULL</code> method is still very common.</p>
 
-<p>The <code>select</code> function can remove a column with a minus (<code>-</code>), much like removing rows:</p>
+<p>The <code>select</code> function can remove a column with minus (<code>-</code>):</p>
 
 <pre class = 'prettyprint lang-r'>select(df, -newcol)</pre>
 
-<pre >                   car  mpg cyl  disp  hp drat    wt  qsec vs am gear carb
-1            Mazda RX4 21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
-2        Mazda RX4 Wag 21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
-3           Datsun 710 22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
-4       Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
-5    Hornet Sportabout 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
-6              Valiant 18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
-7           Duster 360 14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
-8            Merc 240D 24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
-9             Merc 230 22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
-10            Merc 280 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
-11           Merc 280C 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
-12          Merc 450SE 16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
-13          Merc 450SL 17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
-14         Merc 450SLC 15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
-15  Cadillac Fleetwood 10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
-16 Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
-17   Chrysler Imperial 14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
-18            Fiat 128 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
-19         Honda Civic 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
-20      Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
-21       Toyota Corona 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
-22    Dodge Challenger 15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
-23         AMC Javelin 15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
-24          Camaro Z28 13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
-25    Pontiac Firebird 19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
-26           Fiat X1-9 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
-27       Porsche 914-2 26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
-28        Lotus Europa 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
-29      Ford Pantera L 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
-30        Ferrari Dino 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
-31       Maserati Bora 15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
-32          Volvo 142E 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2
-   disp_cat
-1       Low
-2       Low
-3       Low
-4    Medium
-5    Medium
-6    Medium
-7    Medium
-8       Low
-9       Low
-10      Low
-11      Low
-12   Medium
-13   Medium
-14   Medium
-15     High
-16     High
-17     High
-18      Low
-19      Low
-20      Low
-21      Low
-22   Medium
-23   Medium
-24   Medium
-25   Medium
-26      Low
-27      Low
-28      Low
-29   Medium
-30      Low
-31   Medium
-32      Low</pre>
+<pre >                car  mpg cyl disp  hp drat    wt  qsec vs am gear carb
+1         Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+2     Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+3        Datsun 710 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+4    Hornet 4 Drive 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+5 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+6           Valiant 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+  disp_cat disp_cat2
+1      Low       Low
+2      Low       Low
+3      Low       Low
+4   Medium    Medium
+5   Medium    Medium
+6   Medium    Medium</pre>
 
 </article></slide><slide class=""><hgroup><h2>Removing columns to a <code>data.frame</code>: dplyr</h2></hgroup><article  id="removing-columns-to-a-data.frame-dplyr-1">
 
@@ -3863,72 +3758,20 @@ head(df$disp_cat)</pre>
 
 <pre class = 'prettyprint lang-r'>select(df, -one_of(&quot;newcol&quot;, &quot;drat&quot;))</pre>
 
-<pre >                   car  mpg cyl  disp  hp    wt  qsec vs am gear carb
-1            Mazda RX4 21.0   6 160.0 110 2.620 16.46  0  1    4    4
-2        Mazda RX4 Wag 21.0   6 160.0 110 2.875 17.02  0  1    4    4
-3           Datsun 710 22.8   4 108.0  93 2.320 18.61  1  1    4    1
-4       Hornet 4 Drive 21.4   6 258.0 110 3.215 19.44  1  0    3    1
-5    Hornet Sportabout 18.7   8 360.0 175 3.440 17.02  0  0    3    2
-6              Valiant 18.1   6 225.0 105 3.460 20.22  1  0    3    1
-7           Duster 360 14.3   8 360.0 245 3.570 15.84  0  0    3    4
-8            Merc 240D 24.4   4 146.7  62 3.190 20.00  1  0    4    2
-9             Merc 230 22.8   4 140.8  95 3.150 22.90  1  0    4    2
-10            Merc 280 19.2   6 167.6 123 3.440 18.30  1  0    4    4
-11           Merc 280C 17.8   6 167.6 123 3.440 18.90  1  0    4    4
-12          Merc 450SE 16.4   8 275.8 180 4.070 17.40  0  0    3    3
-13          Merc 450SL 17.3   8 275.8 180 3.730 17.60  0  0    3    3
-14         Merc 450SLC 15.2   8 275.8 180 3.780 18.00  0  0    3    3
-15  Cadillac Fleetwood 10.4   8 472.0 205 5.250 17.98  0  0    3    4
-16 Lincoln Continental 10.4   8 460.0 215 5.424 17.82  0  0    3    4
-17   Chrysler Imperial 14.7   8 440.0 230 5.345 17.42  0  0    3    4
-18            Fiat 128 32.4   4  78.7  66 2.200 19.47  1  1    4    1
-19         Honda Civic 30.4   4  75.7  52 1.615 18.52  1  1    4    2
-20      Toyota Corolla 33.9   4  71.1  65 1.835 19.90  1  1    4    1
-21       Toyota Corona 21.5   4 120.1  97 2.465 20.01  1  0    3    1
-22    Dodge Challenger 15.5   8 318.0 150 3.520 16.87  0  0    3    2
-23         AMC Javelin 15.2   8 304.0 150 3.435 17.30  0  0    3    2
-24          Camaro Z28 13.3   8 350.0 245 3.840 15.41  0  0    3    4
-25    Pontiac Firebird 19.2   8 400.0 175 3.845 17.05  0  0    3    2
-26           Fiat X1-9 27.3   4  79.0  66 1.935 18.90  1  1    4    1
-27       Porsche 914-2 26.0   4 120.3  91 2.140 16.70  0  1    5    2
-28        Lotus Europa 30.4   4  95.1 113 1.513 16.90  1  1    5    2
-29      Ford Pantera L 15.8   8 351.0 264 3.170 14.50  0  1    5    4
-30        Ferrari Dino 19.7   6 145.0 175 2.770 15.50  0  1    5    6
-31       Maserati Bora 15.0   8 301.0 335 3.570 14.60  0  1    5    8
-32          Volvo 142E 21.4   4 121.0 109 2.780 18.60  1  1    4    2
-   disp_cat
+<pre >                car  mpg cyl disp  hp    wt  qsec vs am gear carb disp_cat
+1         Mazda RX4 21.0   6  160 110 2.620 16.46  0  1    4    4      Low
+2     Mazda RX4 Wag 21.0   6  160 110 2.875 17.02  0  1    4    4      Low
+3        Datsun 710 22.8   4  108  93 2.320 18.61  1  1    4    1      Low
+4    Hornet 4 Drive 21.4   6  258 110 3.215 19.44  1  0    3    1   Medium
+5 Hornet Sportabout 18.7   8  360 175 3.440 17.02  0  0    3    2   Medium
+6           Valiant 18.1   6  225 105 3.460 20.22  1  0    3    1   Medium
+  disp_cat2
 1       Low
 2       Low
 3       Low
 4    Medium
 5    Medium
-6    Medium
-7    Medium
-8       Low
-9       Low
-10      Low
-11      Low
-12   Medium
-13   Medium
-14   Medium
-15     High
-16     High
-17     High
-18      Low
-19      Low
-20      Low
-21      Low
-22   Medium
-23   Medium
-24   Medium
-25   Medium
-26      Low
-27      Low
-28      Low
-29   Medium
-30      Low
-31   Medium
-32      Low</pre>
+6    Medium</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Ordering columns</h2></hgroup><article  id="ordering-columns">
 
@@ -3938,72 +3781,20 @@ head(df$disp_cat)</pre>
 
 <pre class = 'prettyprint lang-r'>select(df, newcol, everything())</pre>
 
-<pre >      newcol                 car  mpg cyl  disp  hp drat    wt  qsec vs am
-1  1.1909091           Mazda RX4 21.0   6 160.0 110 3.90 2.620 16.46  0  1
-2  1.3068182       Mazda RX4 Wag 21.0   6 160.0 110 3.90 2.875 17.02  0  1
-3  1.0545455          Datsun 710 22.8   4 108.0  93 3.85 2.320 18.61  1  1
-4  1.4613636      Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0
-5  1.5636364   Hornet Sportabout 18.7   8 360.0 175 3.15 3.440 17.02  0  0
-6  1.5727273             Valiant 18.1   6 225.0 105 2.76 3.460 20.22  1  0
-7  1.6227273          Duster 360 14.3   8 360.0 245 3.21 3.570 15.84  0  0
-8  1.4500000           Merc 240D 24.4   4 146.7  62 3.69 3.190 20.00  1  0
-9  1.4318182            Merc 230 22.8   4 140.8  95 3.92 3.150 22.90  1  0
-10 1.5636364            Merc 280 19.2   6 167.6 123 3.92 3.440 18.30  1  0
-11 1.5636364           Merc 280C 17.8   6 167.6 123 3.92 3.440 18.90  1  0
-12 1.8500000          Merc 450SE 16.4   8 275.8 180 3.07 4.070 17.40  0  0
-13 1.6954545          Merc 450SL 17.3   8 275.8 180 3.07 3.730 17.60  0  0
-14 1.7181818         Merc 450SLC 15.2   8 275.8 180 3.07 3.780 18.00  0  0
-15 2.3863636  Cadillac Fleetwood 10.4   8 472.0 205 2.93 5.250 17.98  0  0
-16 2.4654545 Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0
-17 2.4295455   Chrysler Imperial 14.7   8 440.0 230 3.23 5.345 17.42  0  0
-18 1.0000000            Fiat 128 32.4   4  78.7  66 4.08 2.200 19.47  1  1
-19 0.7340909         Honda Civic 30.4   4  75.7  52 4.93 1.615 18.52  1  1
-20 0.8340909      Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1
-21 1.1204545       Toyota Corona 21.5   4 120.1  97 3.70 2.465 20.01  1  0
-22 1.6000000    Dodge Challenger 15.5   8 318.0 150 2.76 3.520 16.87  0  0
-23 1.5613636         AMC Javelin 15.2   8 304.0 150 3.15 3.435 17.30  0  0
-24 1.7454545          Camaro Z28 13.3   8 350.0 245 3.73 3.840 15.41  0  0
-25 1.7477273    Pontiac Firebird 19.2   8 400.0 175 3.08 3.845 17.05  0  0
-26 0.8795455           Fiat X1-9 27.3   4  79.0  66 4.08 1.935 18.90  1  1
-27 0.9727273       Porsche 914-2 26.0   4 120.3  91 4.43 2.140 16.70  0  1
-28 0.6877273        Lotus Europa 30.4   4  95.1 113 3.77 1.513 16.90  1  1
-29 1.4409091      Ford Pantera L 15.8   8 351.0 264 4.22 3.170 14.50  0  1
-30 1.2590909        Ferrari Dino 19.7   6 145.0 175 3.62 2.770 15.50  0  1
-31 1.6227273       Maserati Bora 15.0   8 301.0 335 3.54 3.570 14.60  0  1
-32 1.2636364          Volvo 142E 21.4   4 121.0 109 4.11 2.780 18.60  1  1
-   gear carb disp_cat
-1     4    4      Low
-2     4    4      Low
-3     4    1      Low
-4     3    1   Medium
-5     3    2   Medium
-6     3    1   Medium
-7     3    4   Medium
-8     4    2      Low
-9     4    2      Low
-10    4    4      Low
-11    4    4      Low
-12    3    3   Medium
-13    3    3   Medium
-14    3    3   Medium
-15    3    4     High
-16    3    4     High
-17    3    4     High
-18    4    1      Low
-19    4    2      Low
-20    4    1      Low
-21    3    1      Low
-22    3    2   Medium
-23    3    2   Medium
-24    3    4   Medium
-25    3    2   Medium
-26    4    1      Low
-27    5    2      Low
-28    5    2      Low
-29    5    4   Medium
-30    5    6      Low
-31    5    8   Medium
-32    4    2      Low</pre>
+<pre >    newcol               car  mpg cyl disp  hp drat    wt  qsec vs am gear
+1 1.190909         Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4
+2 1.306818     Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4
+3 1.054545        Datsun 710 22.8   4  108  93 3.85 2.320 18.61  1  1    4
+4 1.461364    Hornet 4 Drive 21.4   6  258 110 3.08 3.215 19.44  1  0    3
+5 1.563636 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3
+6 1.572727           Valiant 18.1   6  225 105 2.76 3.460 20.22  1  0    3
+  carb disp_cat disp_cat2
+1    4      Low       Low
+2    4      Low       Low
+3    1      Low       Low
+4    1   Medium    Medium
+5    2   Medium    Medium
+6    1   Medium    Medium</pre>
 
 </article></slide><slide class=""><hgroup><h2>Ordering the columns of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="ordering-the-columns-of-a-data.frame-dplyr-1">
 
@@ -4011,72 +3802,20 @@ head(df$disp_cat)</pre>
 
 <pre class = 'prettyprint lang-r'>select(df, -newcol, everything(), newcol)</pre>
 
-<pre >                   car  mpg cyl  disp  hp drat    wt  qsec vs am gear carb
-1            Mazda RX4 21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
-2        Mazda RX4 Wag 21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
-3           Datsun 710 22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
-4       Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
-5    Hornet Sportabout 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
-6              Valiant 18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
-7           Duster 360 14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
-8            Merc 240D 24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
-9             Merc 230 22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
-10            Merc 280 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
-11           Merc 280C 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
-12          Merc 450SE 16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
-13          Merc 450SL 17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
-14         Merc 450SLC 15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
-15  Cadillac Fleetwood 10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
-16 Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
-17   Chrysler Imperial 14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
-18            Fiat 128 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
-19         Honda Civic 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
-20      Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
-21       Toyota Corona 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
-22    Dodge Challenger 15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
-23         AMC Javelin 15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
-24          Camaro Z28 13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
-25    Pontiac Firebird 19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
-26           Fiat X1-9 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
-27       Porsche 914-2 26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
-28        Lotus Europa 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
-29      Ford Pantera L 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
-30        Ferrari Dino 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
-31       Maserati Bora 15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
-32          Volvo 142E 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2
-   disp_cat    newcol
-1       Low 1.1909091
-2       Low 1.3068182
-3       Low 1.0545455
-4    Medium 1.4613636
-5    Medium 1.5636364
-6    Medium 1.5727273
-7    Medium 1.6227273
-8       Low 1.4500000
-9       Low 1.4318182
-10      Low 1.5636364
-11      Low 1.5636364
-12   Medium 1.8500000
-13   Medium 1.6954545
-14   Medium 1.7181818
-15     High 2.3863636
-16     High 2.4654545
-17     High 2.4295455
-18      Low 1.0000000
-19      Low 0.7340909
-20      Low 0.8340909
-21      Low 1.1204545
-22   Medium 1.6000000
-23   Medium 1.5613636
-24   Medium 1.7454545
-25   Medium 1.7477273
-26      Low 0.8795455
-27      Low 0.9727273
-28      Low 0.6877273
-29   Medium 1.4409091
-30      Low 1.2590909
-31   Medium 1.6227273
-32      Low 1.2636364</pre>
+<pre >                car  mpg cyl disp  hp drat    wt  qsec vs am gear carb
+1         Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+2     Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+3        Datsun 710 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+4    Hornet 4 Drive 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+5 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+6           Valiant 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+  disp_cat disp_cat2   newcol
+1      Low       Low 1.190909
+2      Low       Low 1.306818
+3      Low       Low 1.054545
+4   Medium    Medium 1.461364
+5   Medium    Medium 1.563636
+6   Medium    Medium 1.572727</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Ordering rows</h2></hgroup><article  id="ordering-rows">
 
@@ -4119,39 +3858,39 @@ head(df$disp_cat)</pre>
 30        Lotus Europa 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
 31            Fiat 128 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
 32      Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
-      newcol disp_cat
-1  2.3863636     High
-2  2.4654545     High
-3  1.7454545   Medium
-4  1.6227273   Medium
-5  2.4295455     High
-6  1.6227273   Medium
-7  1.7181818   Medium
-8  1.5613636   Medium
-9  1.6000000   Medium
-10 1.4409091   Medium
-11 1.8500000   Medium
-12 1.6954545   Medium
-13 1.5636364      Low
-14 1.5727273   Medium
-15 1.5636364   Medium
-16 1.5636364      Low
-17 1.7477273   Medium
-18 1.2590909      Low
-19 1.1909091      Low
-20 1.3068182      Low
-21 1.4613636   Medium
-22 1.2636364      Low
-23 1.1204545      Low
-24 1.0545455      Low
-25 1.4318182      Low
-26 1.4500000      Low
-27 0.9727273      Low
-28 0.8795455      Low
-29 0.7340909      Low
-30 0.6877273      Low
-31 1.0000000      Low
-32 0.8340909      Low</pre>
+      newcol disp_cat disp_cat2
+1  2.3863636     High      High
+2  2.4654545     High      High
+3  1.7454545   Medium    Medium
+4  1.6227273   Medium    Medium
+5  2.4295455     High      High
+6  1.6227273   Medium    Medium
+7  1.7181818   Medium    Medium
+8  1.5613636   Medium    Medium
+9  1.6000000   Medium    Medium
+10 1.4409091   Medium    Medium
+11 1.8500000   Medium    Medium
+12 1.6954545   Medium    Medium
+13 1.5636364      Low       Low
+14 1.5727273   Medium    Medium
+15 1.5636364   Medium    Medium
+16 1.5636364      Low       Low
+17 1.7477273   Medium    Medium
+18 1.2590909      Low       Low
+19 1.1909091      Low       Low
+20 1.3068182      Low       Low
+21 1.4613636   Medium    Medium
+22 1.2636364      Low       Low
+23 1.1204545      Low       Low
+24 1.0545455      Low       Low
+25 1.4318182      Low       Low
+26 1.4500000      Low       Low
+27 0.9727273      Low       Low
+28 0.8795455      Low       Low
+29 0.7340909      Low       Low
+30 0.6877273      Low       Low
+31 1.0000000      Low       Low
+32 0.8340909      Low       Low</pre>
 
 </article></slide><slide class=""><hgroup><h2>Ordering the rows of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="ordering-the-rows-of-a-data.frame-dplyr-1">
 
@@ -4192,39 +3931,39 @@ head(df$disp_cat)</pre>
 30          Camaro Z28 13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
 31  Cadillac Fleetwood 10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
 32 Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
-      newcol disp_cat
-1  0.8340909      Low
-2  1.0000000      Low
-3  0.7340909      Low
-4  0.6877273      Low
-5  0.8795455      Low
-6  0.9727273      Low
-7  1.4500000      Low
-8  1.0545455      Low
-9  1.4318182      Low
-10 1.1204545      Low
-11 1.4613636   Medium
-12 1.2636364      Low
-13 1.1909091      Low
-14 1.3068182      Low
-15 1.2590909      Low
-16 1.5636364      Low
-17 1.7477273   Medium
-18 1.5636364   Medium
-19 1.5727273   Medium
-20 1.5636364      Low
-21 1.6954545   Medium
-22 1.8500000   Medium
-23 1.4409091   Medium
-24 1.6000000   Medium
-25 1.7181818   Medium
-26 1.5613636   Medium
-27 1.6227273   Medium
-28 2.4295455     High
-29 1.6227273   Medium
-30 1.7454545   Medium
-31 2.3863636     High
-32 2.4654545     High</pre>
+      newcol disp_cat disp_cat2
+1  0.8340909      Low       Low
+2  1.0000000      Low       Low
+3  0.7340909      Low       Low
+4  0.6877273      Low       Low
+5  0.8795455      Low       Low
+6  0.9727273      Low       Low
+7  1.4500000      Low       Low
+8  1.0545455      Low       Low
+9  1.4318182      Low       Low
+10 1.1204545      Low       Low
+11 1.4613636   Medium    Medium
+12 1.2636364      Low       Low
+13 1.1909091      Low       Low
+14 1.3068182      Low       Low
+15 1.2590909      Low       Low
+16 1.5636364      Low       Low
+17 1.7477273   Medium    Medium
+18 1.5636364   Medium    Medium
+19 1.5727273   Medium    Medium
+20 1.5636364      Low       Low
+21 1.6954545   Medium    Medium
+22 1.8500000   Medium    Medium
+23 1.4409091   Medium    Medium
+24 1.6000000   Medium    Medium
+25 1.7181818   Medium    Medium
+26 1.5613636   Medium    Medium
+27 1.6227273   Medium    Medium
+28 2.4295455     High      High
+29 1.6227273   Medium    Medium
+30 1.7454545   Medium    Medium
+31 2.3863636     High      High
+32 2.4654545     High      High</pre>
 
 </article></slide><slide class=""><hgroup><h2>Ordering the rows of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="ordering-the-rows-of-a-data.frame-dplyr-2">
 
@@ -4265,39 +4004,39 @@ head(df$disp_cat)</pre>
 30         Honda Civic 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
 31            Fiat 128 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
 32      Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
-      newcol disp_cat
-1  2.4654545     High
-2  2.3863636     High
-3  1.7454545   Medium
-4  1.6227273   Medium
-5  2.4295455     High
-6  1.6227273   Medium
-7  1.7181818   Medium
-8  1.5613636   Medium
-9  1.6000000   Medium
-10 1.4409091   Medium
-11 1.8500000   Medium
-12 1.6954545   Medium
-13 1.5636364      Low
-14 1.5727273   Medium
-15 1.5636364   Medium
-16 1.7477273   Medium
-17 1.5636364      Low
-18 1.2590909      Low
-19 1.1909091      Low
-20 1.3068182      Low
-21 1.4613636   Medium
-22 1.2636364      Low
-23 1.1204545      Low
-24 1.4318182      Low
-25 1.0545455      Low
-26 1.4500000      Low
-27 0.9727273      Low
-28 0.8795455      Low
-29 0.6877273      Low
-30 0.7340909      Low
-31 1.0000000      Low
-32 0.8340909      Low</pre>
+      newcol disp_cat disp_cat2
+1  2.4654545     High      High
+2  2.3863636     High      High
+3  1.7454545   Medium    Medium
+4  1.6227273   Medium    Medium
+5  2.4295455     High      High
+6  1.6227273   Medium    Medium
+7  1.7181818   Medium    Medium
+8  1.5613636   Medium    Medium
+9  1.6000000   Medium    Medium
+10 1.4409091   Medium    Medium
+11 1.8500000   Medium    Medium
+12 1.6954545   Medium    Medium
+13 1.5636364      Low       Low
+14 1.5727273   Medium    Medium
+15 1.5636364   Medium    Medium
+16 1.7477273   Medium    Medium
+17 1.5636364      Low       Low
+18 1.2590909      Low       Low
+19 1.1909091      Low       Low
+20 1.3068182      Low       Low
+21 1.4613636   Medium    Medium
+22 1.2636364      Low       Low
+23 1.1204545      Low       Low
+24 1.4318182      Low       Low
+25 1.0545455      Low       Low
+26 1.4500000      Low       Low
+27 0.9727273      Low       Low
+28 0.8795455      Low       Low
+29 0.6877273      Low       Low
+30 0.7340909      Low       Low
+31 1.0000000      Low       Low
+32 0.8340909      Low       Low</pre>
 
 </article></slide><slide class=""><hgroup><h2>Transmutation</h2></hgroup><article  id="transmutation">
 
@@ -4443,9 +4182,9 @@ x[-(1:3)] # needs parentheses</pre>
 
 <pre class = 'prettyprint lang-r'>colnames(df) # just prints</pre>
 
-<pre > [1] &quot;car&quot;      &quot;mpg&quot;      &quot;cyl&quot;      &quot;disp&quot;     &quot;hp&quot;       &quot;drat&quot;    
- [7] &quot;wt&quot;       &quot;qsec&quot;     &quot;vs&quot;       &quot;am&quot;       &quot;gear&quot;     &quot;carb&quot;    
-[13] &quot;newcol&quot;   &quot;disp_cat&quot;</pre>
+<pre > [1] &quot;car&quot;       &quot;mpg&quot;       &quot;cyl&quot;       &quot;disp&quot;      &quot;hp&quot;       
+ [6] &quot;drat&quot;      &quot;wt&quot;        &quot;qsec&quot;      &quot;vs&quot;        &quot;am&quot;       
+[11] &quot;gear&quot;      &quot;carb&quot;      &quot;newcol&quot;    &quot;disp_cat&quot;  &quot;disp_cat2&quot;</pre>
 
 <pre class = 'prettyprint lang-r'>colnames(df)[1:3] = c(&quot;MPG&quot;, &quot;CYL&quot;, &quot;DISP&quot;) # reassigns
 head(df)</pre>
@@ -4457,13 +4196,13 @@ head(df)</pre>
 4    Hornet 4 Drive 21.4    6  258 110 3.08 3.215 19.44  1  0    3    1
 5 Hornet Sportabout 18.7    8  360 175 3.15 3.440 17.02  0  0    3    2
 6           Valiant 18.1    6  225 105 2.76 3.460 20.22  1  0    3    1
-    newcol disp_cat
-1 1.190909      Low
-2 1.306818      Low
-3 1.054545      Low
-4 1.461364   Medium
-5 1.563636   Medium
-6 1.572727   Medium</pre>
+    newcol disp_cat disp_cat2
+1 1.190909      Low       Low
+2 1.306818      Low       Low
+3 1.054545      Low       Low
+4 1.461364   Medium    Medium
+5 1.563636   Medium    Medium
+6 1.572727   Medium    Medium</pre>
 
 <pre class = 'prettyprint lang-r'>colnames(df)[1:3] = c(&quot;mpg&quot;, &quot;cyl&quot;, &quot;disp&quot;) #reset - just to keep consistent</pre>
 
@@ -4483,13 +4222,13 @@ head(df)</pre>
 4    Hornet 4 Drive 21.4    6  258 110 3.08 3.215 19.44  1  0    3    1
 5 Hornet Sportabout 18.7    8  360 175 3.15 3.440 17.02  0  0    3    2
 6           Valiant 18.1    6  225 105 2.76 3.460 20.22  1  0    3    1
-    newcol disp_cat
-1 1.190909      Low
-2 1.306818      Low
-3 1.054545      Low
-4 1.461364   Medium
-5 1.563636   Medium
-6 1.572727   Medium</pre>
+    newcol disp_cat disp_cat2
+1 1.190909      Low       Low
+2 1.306818      Low       Low
+3 1.054545      Low       Low
+4 1.461364   Medium    Medium
+5 1.563636   Medium    Medium
+6 1.572727   Medium    Medium</pre>
 
 <pre class = 'prettyprint lang-r'>colnames(df)[ colnames(df) == &quot;DRAT&quot;] = &quot;drat&quot; #reset</pre>
 
@@ -4502,9 +4241,9 @@ head(df)</pre>
 <pre >         mpg  cyl disp disp  hp drat   wt  qsec vs am gear carb   newcol
 1  Mazda RX4 21.0    6  160 110 3.90 2.62 16.46  0  1    4    4 1.190909
 3 Datsun 710 22.8    4  108  93 3.85 2.32 18.61  1  1    4    1 1.054545
-  disp_cat
-1      Low
-3      Low</pre>
+  disp_cat disp_cat2
+1      Low       Low
+3      Low       Low</pre>
 
 </article></slide><slide class=""><hgroup><h2>Subset columns of a <code>data.frame</code>:</h2></hgroup><article  id="subset-columns-of-a-data.frame-1">
 
