@@ -481,6 +481,8 @@ x[ which(x > 5 | x == 2) ]
 x[ x > 5 | x == 2 ]
 ```
 
+# Extra Slides
+
 ## Renaming Columns of a `data.frame`: base R
 
 We can use the `colnames` function to extract and/or directly reassign column names of `df`:
