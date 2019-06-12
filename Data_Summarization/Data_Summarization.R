@@ -42,17 +42,19 @@ colnames(tb)
 
 
 ## ------------------------------------------------------------------------
-tb = jhur::read_tb()
-
-
-## ------------------------------------------------------------------------
 library(dplyr)
-tb = rename(tb, 
-            country = `TB incidence, all forms (per 100 000 population per year)`)
+tb = tb %>% rename(country = `TB incidence, all forms (per 100 000 population per year)`)
 
 
 ## ------------------------------------------------------------------------
 colnames(tb)
+
+
+## ------------------------------------------------------------------------
+tb %>% 
+  summarize(mean_2006 = mean(`2006`, na.rm = TRUE),
+            media_2007 = median(`2007`, na.rm = TRUE),
+            median(`2004`, na.rm = TRUE))
 
 
 ## ----colMeans------------------------------------------------------------
@@ -65,6 +67,10 @@ tb$before_2000_avg = rowMeans(avgs, na.rm = TRUE)
 head(tb[, c("country", "before_2000_avg")])
 
 
+## ---- echo = TRUE, eval=FALSE--------------------------------------------
+## summarize_all(DATASET, FUNCTION, OTHER_FUNCTION_ARGUMENTS) # how to use
+
+
 ## ------------------------------------------------------------------------
 summarize_all(avgs, mean, na.rm = TRUE)
 
@@ -75,13 +81,6 @@ summary(tb)
 
 ## ------------------------------------------------------------------------
 yts = jhur::read_yts()
-head(yts)
-
-
-## ---- message = FALSE----------------------------------------------------
-library(readr)
-yts = read_csv(
-  "http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
 head(yts)
 
 
@@ -110,7 +109,7 @@ library(dplyr)
 sub_yts = filter(yts, MeasureDesc == "Smoking Status",
                  Gender == "Overall", Response == "Current",
                  Education == "Middle School")
-sub_yts = select(sub_yts, YEAR, LocationDesc, Data_Value)
+sub_yts = select(sub_yts, YEAR, LocationDesc, Data_Value, Data_Value_Unit)
 head(sub_yts, 4)
 
 
@@ -120,7 +119,15 @@ head(sub_yts)
 
 
 ## ------------------------------------------------------------------------
-summarize(sub_yts, year_avg = mean(Data_Value, na.rm = TRUE))
+sub_yts %>% summarize(year_avg = mean(Data_Value, na.rm = TRUE))
+
+
+## ------------------------------------------------------------------------
+yts_avgs = sub_yts %>% 
+  group_by(YEAR) %>% 
+  summarize(year_avg = mean(Data_Value, na.rm = TRUE),
+            year_median = median(Data_Value, na.rm = TRUE))
+head(yts_avgs)
 
 
 ## ------------------------------------------------------------------------
@@ -129,30 +136,17 @@ sub_yts
 
 
 ## ------------------------------------------------------------------------
-yts_avgs = sub_yts %>% 
-  group_by(YEAR) %>% 
-  summarize(year_avg = mean(Data_Value, na.rm = TRUE))
-head(yts_avgs)
-
-
-## ------------------------------------------------------------------------
 sub_yts %>% 
   group_by(YEAR) %>% 
   mutate(year_avg = mean(Data_Value, na.rm = TRUE)) %>% 
-  arrange(LocationDesc, YEAR)
+  arrange(LocationDesc, YEAR) # look at year 2000 value
 
 
 ## ------------------------------------------------------------------------
 sub_yts %>% 
   group_by(YEAR) %>% 
-  summarize(n = n()) %>% 
-  head
-
-
-## ------------------------------------------------------------------------
-sub_yts %>% 
-  group_by(YEAR) %>% 
-  tally() %>% 
+  summarize(n = n(),
+            mean = mean(Data_Value, na.rm = TRUE)) %>% 
   head
 
 
@@ -192,10 +186,6 @@ qplot(x = LocationDesc, y = Data_Value,
 ## ----ggally_pairs, warning=FALSE, echo = FALSE---------------------------
 library(GGally)
 # ggpairs(avgs)
-
-
-## ----matplot1------------------------------------------------------------
-pairs(avgs)
 
 
 ## ----scatter1------------------------------------------------------------

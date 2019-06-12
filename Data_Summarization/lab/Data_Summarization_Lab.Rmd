@@ -37,12 +37,12 @@ bike = read_bike()
 
 # Part 1
 
-1. How many bike "lanes" are currently in Baltimore?  You can assume each observation/row is a different bike "lane"
+1. How many bike "lanes" are currently in Baltimore?  You can assume each observation/row is a different bike "lane".  (hint: how to get the number of rows of a data set)
 ```{r q1}
 
 ```
 
-2. How many (a) feet and (b) miles of bike "lanes" are currently in Baltimore?
+2. How many (a) feet and (b) miles of bike "lanes" are currently in Baltimore? (`5280` feet in a mile.
 
 ```{r q2}
 
@@ -50,7 +50,7 @@ bike = read_bike()
 
 # Part 2
 
-3. How many types of bike lanes are there? Which `type` has (a) the most number of and (b) longest average bike lane length?
+3. How many types of bike lanes are there?   (Hints: `unique`, `table`, or `bike %>% count`). Which `type` has (a) the most number of and (b) longest average bike lane length? (Hint: `group_by` and `summarize`)
    
 ```{r q3}
 
@@ -68,7 +68,6 @@ bike = read_bike()
 
 ```
 
-# Part 3
 			  
 5. What was the average bike lane length per year that they were installed? 
  Set `bike$dateInstalled` to `NA` if it is equal to zero.
@@ -78,18 +77,17 @@ bike = read_bike()
 
 ```
 
-# Part 4
+# Part 3
 
-6. (a) Numerically [hint: `quantile()`] and 
-		(b) graphically [hint: `hist()` or `plot(density())`]
-		 describe the distribution of bike "lane" lengths.
+6. (a) Numerically [hint: `quantile()`, using `bike$length`] and 
+		(b) graphically [hint: `qplot(length, geom = "histogram")` or `qplot( geom = "density")`] describe the distribution of bike "lane" lengths.
 ```{r q6}
 
 
 
 ```
 
-7. Then describe as above, after stratifying by  i) `type` then ii) number of lanes (`numLanes`)
+7. Then describe as above, after stratifying by  i) `type` then ii) number of lanes (`numLanes`) using `boxplot`: 
 ```{r q7}
 
 

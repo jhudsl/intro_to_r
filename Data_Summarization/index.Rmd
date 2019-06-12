@@ -109,35 +109,35 @@ tb = jhur::read_tb()
 colnames(tb)
 ```
 
-## TB Incidence
-
-Reading in the data is useful, but for following along, use:
-
-```{r}
-tb = jhur::read_tb()
-```
-
-
 ## Indicator of TB
 
 We can rename the first column to be the country measured using the `rename` function in `dplyr` (we have to use the \` things because there are spaces in the name):
 
 ```{r}
 library(dplyr)
-tb = rename(tb, 
-            country = `TB incidence, all forms (per 100 000 population per year)`)
+tb = tb %>% rename(country = `TB incidence, all forms (per 100 000 population per year)`)
 ```
 
-`colnames` will show us the column names and sho that country is renamed:
+`colnames` will show us the column names and show that country is renamed:
 ```{r}
 colnames(tb)
 ```
 
+## Summarize the data: `dplyr` `summarize` function
+
+`dplyr::summarize` will allow you to summarize data.  Format is `new = SUMMARY`. If you don't set a `new` name, it will be a messy output:
+
+```{r}
+tb %>% 
+  summarize(mean_2006 = mean(`2006`, na.rm = TRUE),
+            media_2007 = median(`2007`, na.rm = TRUE),
+            median(`2004`, na.rm = TRUE))
+```
 
 
 ## Column and Row means
 
-`colMeans` and `rowMeans` must work on all numeric data.  We will subset years before 2000 (starting with 1):
+`colMeans` and `rowMeans` must work on **all numeric data**.  We will subset years before 2000 (starting with 1):
 
 ```{r colMeans}
 avgs = select(tb, starts_with("1"))
@@ -153,6 +153,10 @@ head(tb[, c("country", "before_2000_avg")])
 
 `dplyr::summarize` will allow you to summarize data. If you would like to summarize **all** columns, you can use `summarize_all` and pass in a function (with other arguments):
 
+```{r, echo = TRUE, eval=FALSE}
+summarize_all(DATASET, FUNCTION, OTHER_FUNCTION_ARGUMENTS) # how to use
+```
+
 ```{r}
 summarize_all(avgs, mean, na.rm = TRUE)
 ```
@@ -160,7 +164,7 @@ summarize_all(avgs, mean, na.rm = TRUE)
 
 ## Summary Function
 
-Using `summary` can give you rough snapshots of each column, but you would likely use `mean`, `min`, `max`, and `quantile` when necessary:
+Using `summary` can give you rough snapshots of each column, but you would likely use `mean`, `min`, `max`, and `quantile` when necessary (and number of NAs):
 
 ```{r summary1}
 summary(tb)
@@ -170,22 +174,12 @@ summary(tb)
 ## Youth Tobacco Survey
 
 
-Please download the Youth Tobacco Survey data.   
+Here we will be using the Youth Tobacco Survey data:
+http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv .
+
 
 ```{r}
 yts = jhur::read_yts()
-head(yts)
-```
-
-
-## Youth Tobacco Survey: Reading in yourself
-
-Please download the Youth Tobacco Survey data.   You can also read it in directly from the web:
-
-```{r, message = FALSE}
-library(readr)
-yts = read_csv(
-  "http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
 head(yts)
 ```
 
@@ -211,10 +205,6 @@ length(unique(yts$LocationDesc))
 table(yts$LocationDesc)[1:5]
 ```
 
-## Lab Part 2
-
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
-
 ## `dplyr`: `count` 
 
 ```{r, message = FALSE}
@@ -229,14 +219,14 @@ yts %>% count(LocationDesc, Age)
 
 ## Subsetting to specific columns
 
-Let's just take smoking status measures for all genders in middle school using `filter`, and the columns that represent the year, state using `select`:
+Let's just take smoking status measures for all genders in middle school current smoking using `filter`, and the columns that represent the year, state and percentage using `select`:
 
 ```{r, message=FALSE}
 library(dplyr)
 sub_yts = filter(yts, MeasureDesc == "Smoking Status",
                  Gender == "Overall", Response == "Current",
                  Education == "Middle School")
-sub_yts = select(sub_yts, YEAR, LocationDesc, Data_Value)
+sub_yts = select(sub_yts, YEAR, LocationDesc, Data_Value, Data_Value_Unit)
 head(sub_yts, 4)
 ```
 
@@ -272,9 +262,26 @@ head(sub_yts)
 
 ## Summarize the data
 
+It's grouped!
+
 ```{r}
-summarize(sub_yts, year_avg = mean(Data_Value, na.rm = TRUE))
+sub_yts %>% summarize(year_avg = mean(Data_Value, na.rm = TRUE))
 ```
+
+
+
+## Using the `pipe` 
+
+Pipe `sub_yts` into `group_by`, then pipe that into `summarize`:
+
+```{r}
+yts_avgs = sub_yts %>% 
+  group_by(YEAR) %>% 
+  summarize(year_avg = mean(Data_Value, na.rm = TRUE),
+            year_median = median(Data_Value, na.rm = TRUE))
+head(yts_avgs)
+```
+
 
 ## Ungroup the data
 
@@ -285,18 +292,6 @@ sub_yts = ungroup(sub_yts)
 sub_yts
 ```
 
-
-## Using the `pipe` 
-
-Pipe `sub_yts` into `group_by`, then pipe that into `summarize`:
-
-```{r}
-yts_avgs = sub_yts %>% 
-  group_by(YEAR) %>% 
-  summarize(year_avg = mean(Data_Value, na.rm = TRUE))
-head(yts_avgs)
-```
-
 ## `group_by` with `mutate` - just add data
 
 We can also use `mutate` to calculate the mean value for each year and add it as a column:
@@ -305,43 +300,25 @@ We can also use `mutate` to calculate the mean value for each year and add it as
 sub_yts %>% 
   group_by(YEAR) %>% 
   mutate(year_avg = mean(Data_Value, na.rm = TRUE)) %>% 
-  arrange(LocationDesc, YEAR)
+  arrange(LocationDesc, YEAR) # look at year 2000 value
 ```
 
 ## Counting
 
-Standard statistics can be calculated.  There are other functions, such as `n()` count the number of observations, `tally()` to count as a wrapper:
+Standard statistics can be calculated.  There are other functions, such as `n()` count the number of observations.
 
-<div class="left_col"> 
 ```{r}
 sub_yts %>% 
   group_by(YEAR) %>% 
-  summarize(n = n()) %>% 
+  summarize(n = n(),
+            mean = mean(Data_Value, na.rm = TRUE)) %>% 
   head
 ```
-</div>
-
-<div class="right_col"> 
-```{r}
-sub_yts %>% 
-  group_by(YEAR) %>% 
-  tally() %>% 
-  head
-```
-</div>
 
 ## Lab Part 3
 
 [Website](http://johnmuschelli.com/intro_to_r/index.html)
 
-
-## Data Summarization/Visualization
-
-* Basic summarization plots: 
-    * `plot(x,y)`: scatterplot of x and y
-    * `boxplot(y~x)`: boxplot of y against levels of x
-    * `hist(x)`: histogram of x
-    * `density(x)`: kernel density plot of x
 
 ## Data Summarization/Visualization: ggplot2
 
@@ -399,11 +376,11 @@ qplot(x = LocationDesc, y = Data_Value,
       data = sub_yts, geom = "boxplot") + coord_flip()
 ```
 
-## Data Summarization for data.frames
+<!-- ## Data Summarization for data.frames -->
 
-* Basic summarization plots
-    * `matplot(x,y)`: scatterplot of two matrices, x and y
-    * `pairs(x,y)`: plots pairwise scatter plots of matrices x and y, column by column
+<!-- * Basic summarization plots -->
+<!--     * `matplot(x,y)`: scatterplot of two matrices, x and y -->
+<!--     * `pairs(x,y)`: plots pairwise scatter plots of matrices x and y, column by column -->
 
 <!-- ## Matrix plot -->
 
@@ -412,22 +389,28 @@ library(GGally)
 # ggpairs(avgs)
 ```
 
-## Matrix plot
+<!-- ## Matrix plot -->
 
-```{r matplot1}
-pairs(avgs)
-```
+<!-- ```{r matplot1} -->
+<!-- pairs(avgs) -->
+<!-- ``` -->
 
 ## Lab Part 4
 [Website](http://johnmuschelli.com/intro_to_r/index.html)
 
+## Base functions for plotting
+
+* Basic summarization plots: 
+    * `plot(x,y)`: scatterplot of x and y
+    * `boxplot(y~x)`: boxplot of y against levels of x
+    * `hist(x)`: histogram of x
+    * `density(x)`: kernel density plot of x
+
 ## Conclusion
 
-- Base R has apply statements that perform things repeatedly.
-- `dplyr` has a lot of more intuitive syntax.
-    - `group_by` is very powerful, especilly with `summarise/summarize`
-- Base R has good things for quickly summarizing rows or colummns of all numeric data.
-    - The `matrixStats` package extends this to `colMedians`, `colMaxs`, etc.
+- `group_by` is very powerful, especially with `summarise/summarize`
+- Using `group_by` and `mutate` keeps all the rows and repeates a value, `summarize` reduces the number of rows
+- The `matrixStats` package extends this to `colMedians`, `colMaxs`, etc.
 
 ## Website
 

@@ -4,7 +4,6 @@
   <title>Data Classes</title>
 
   <meta charset="utf-8">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   <meta name="generator" content="pandoc" />
 
@@ -258,7 +257,6 @@ background: black;
 }
 
 slides > slide {
-display: none;
 font-family: 'Open Sans', Arial, sans-serif;
 font-size: 26px;
 color: #797979;
@@ -279,17 +277,19 @@ transition: all 0.6s ease-in-out;
 }
 
 slides > slide.far-past {
-display: none;
 }
 
 slides > slide.past {
-display: block;
 opacity: 0;
 }
 
 slides > slide.current {
 display: block;
 opacity: 1;
+z-index: 1;
+}
+slides > slide:not(.current) {
+z-index: 0;
 }
 
 slides > slide.current .auto-fadein {
@@ -304,13 +304,11 @@ background-size: 100% 100%;
 }
 
 slides > slide.next {
-display: block;
 opacity: 0;
 pointer-events: none;
 }
 
 slides > slide.far-next {
-display: none;
 }
 
 slides > slide.dark {
@@ -382,8 +380,6 @@ width: 1100px;
 
 slides.layout-widescreen > slide.far-past,
 slides.layout-faux-widescreen > slide.far-past {
-display: block;
-display: none;
 -webkit-transform: translate(-2260px);
 -moz-transform: translate(-2260px);
 -ms-transform: translate(-2260px);
@@ -417,8 +413,6 @@ pointer-events: none;
 
 slides.layout-widescreen > slide.far-next,
 slides.layout-faux-widescreen > slide.far-next {
-display: block;
-display: none;
 -webkit-transform: translate(2260px);
 -moz-transform: translate(2260px);
 -ms-transform: translate(2260px);
@@ -1349,6 +1343,13 @@ opacity: 1;
 
 .overview .slide-area {
 display: none;
+}
+slides > slide {
+background: linear-gradient(#ffffff, #ffffff 85%, #e6e6e6);
+background-color: white;
+}
+slides > slide {
+opacity: 0;
 }
 @media print {
 
@@ -3075,6 +3076,10 @@ if (document.readyState !== "loading" &&
       font-style: italic;
     }
 
+    summary {
+      display: list-item;
+    }
+
     slides > slide {
       -webkit-transition: all 0.4s ease-in-out;
       -moz-transition: all 0.4s ease-in-out;
@@ -3090,6 +3095,10 @@ if (document.readyState !== "loading" &&
       transition: opacity 0.6s ease-in 0.4s;
       opacity: 0;
     }
+/* https://github.com/ropensci/plotly/pull/524#issuecomment-468142578 */
+slide:not(.current) .plotly.html-widget{
+  display: block;
+}
 
   </style>
 
@@ -3397,186 +3406,6 @@ head(bg2)</pre>
 
 <pre >## [1] TRUE</pre>
 
-</article></slide><slide class=""><hgroup><h2>Creating categorical variables</h2></hgroup><article  id="creating-categorical-variables-1">
-
-<p>One frequently-used tool is creating categorical variables out of continuous variables, like generating quantiles of a specific continuously measured variable.</p>
-
-<p>A general function for creating new variables based on existing variables is the <code>ifelse()</code> function, which &ldquo;returns a value with the same shape as test which is filled with elements selected from either yes or no depending on whether the element of test is <code>TRUE</code> or <code>FALSE</code>.&rdquo;</p>
-
-<pre >ifelse(test, yes, no)
-
-# test: an object which can be coerced
-    to logical mode.
-# yes: return values for true elements of test.
-# no: return values for false elements of test.</pre>
-
-</article></slide><slide class=""><hgroup><h2>Charm City Circulator data</h2></hgroup><article  id="charm-city-circulator-data">
-
-<p>Please download the Charm City Circulator data:</p>
-
-<p><a href='http://johnmuschelli.com/intro_to_r/data/Charm_City_Circulator_Ridership.csv' title=''>http://johnmuschelli.com/intro_to_r/data/Charm_City_Circulator_Ridership.csv</a></p>
-
-<pre class = 'prettyprint lang-r'>circ = jhur::read_circulator()
-# paste/paste0 combines strings/character
-circ = read_csv(
-  paste0(&quot;http://johnmuschelli.com/intro_to_r/data&quot;,
-         &quot;/Charm_City_Circulator_Ridership.csv&quot;))</pre>
-
-</article></slide><slide class=""><hgroup><h2>Creating categorical variables</h2></hgroup><article  id="creating-categorical-variables-2">
-
-<p>For example, we can create a new variable that records whether daily ridership on the Circulator was above 10,000.</p>
-
-<pre class = 'prettyprint lang-r'>hi_rider = ifelse(circ$daily &gt; 10000, &quot;high&quot;, &quot;low&quot;)
-hi_rider = factor(hi_rider, levels = c(&quot;low&quot;,&quot;high&quot;))
-head(hi_rider)</pre>
-
-<pre >## [1] low low low low low low
-## Levels: low high</pre>
-
-<pre class = 'prettyprint lang-r'>table(hi_rider)</pre>
-
-<pre >## hi_rider
-##  low high 
-##  740  282</pre>
-
-</article></slide><slide class=""><hgroup><h2>Creating categorical variables</h2></hgroup><article  id="creating-categorical-variables-3">
-
-<p>Using <code>mutate</code></p>
-
-<pre class = 'prettyprint lang-r'>circ %&gt;% 
-  mutate(hi_rider = ifelse(daily &gt; 10000, 
-                           &quot;high&quot;, &quot;low&quot;)) %&gt;% 
-  select(day, date, daily, hi_rider)</pre>
-
-<pre >## # A tibble: 1,146 x 4
-##    day       date       daily hi_rider
-##    &lt;chr&gt;     &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;   
-##  1 Monday    01/11/2010  952  low     
-##  2 Tuesday   01/12/2010  796  low     
-##  3 Wednesday 01/13/2010 1212. low     
-##  4 Thursday  01/14/2010 1214. low     
-##  5 Friday    01/15/2010 1644  low     
-##  6 Saturday  01/16/2010 1490. low     
-##  7 Sunday    01/17/2010  888. low     
-##  8 Monday    01/18/2010 1000. low     
-##  9 Tuesday   01/19/2010 1035  low     
-## 10 Wednesday 01/20/2010 1396. low     
-## # ... with 1,136 more rows</pre>
-
-</article></slide><slide class=""><hgroup><h2>Creating categorical variables</h2></hgroup><article  id="creating-categorical-variables-4">
-
-<p>You can also nest <code>ifelse()</code> within itself to create 3 levels of a variable.</p>
-
-<pre class = 'prettyprint lang-r'>riderLevels = ifelse(circ$daily &lt; 10000, &quot;low&quot;, 
-                  ifelse(circ$daily &gt; 20000,
-                  &quot;high&quot;, &quot;med&quot;))
-riderLevels = factor(riderLevels, 
-              levels = c(&quot;low&quot;,&quot;med&quot;,&quot;high&quot;))
-head(riderLevels)</pre>
-
-<pre >## [1] low low low low low low
-## Levels: low med high</pre>
-
-<pre class = 'prettyprint lang-r'>table(riderLevels)</pre>
-
-<pre >## riderLevels
-##  low  med high 
-##  740  280    2</pre>
-
-</article></slide><slide class=""><hgroup><h2>Creating categorical variables</h2></hgroup><article  id="creating-categorical-variables-5">
-
-<p>However, it’s much easier to use <code>cut()</code> to create categorical variables from continuous variables.</p>
-
-<p>&lsquo;cut divides the range of x into intervals and codes the values in x according to which interval they fall. The leftmost interval corresponds to level one, the next leftmost to level two and so on.&rsquo;</p>
-
-<pre >cut(x, breaks, labels = NULL, include.lowest = FALSE, 
-  right = TRUE, dig.lab = 3,
-  ordered_result = FALSE, ...)</pre>
-
-</article></slide><slide class=""><hgroup><h2>Creating categorical variables</h2></hgroup><article  id="creating-categorical-variables-6">
-
-<p><code>x</code>: a numeric vector which is to be converted to a factor by cutting.</p>
-
-<p><code>breaks</code>: either a numeric vector of two or more unique cut points or a single number (greater than or equal to 2) giving the number of intervals into which x is to be cut.</p>
-
-<p><code>labels</code>: labels for the levels of the resulting category. By default, labels are constructed using &ldquo;(a,b]&rdquo; interval notation. If <code>labels = FALSE</code>, simple integer codes are returned instead of a factor.</p>
-
-</article></slide><slide class=""><hgroup><h2>Creating categorical variables</h2></hgroup><article  id="creating-categorical-variables-7">
-
-<pre class = 'prettyprint lang-r'>riderLevels2 = cut(
-  circ$daily, 
-  breaks = c(min(circ$daily, na.rm = TRUE),
-             10000, 
-             20000,
-             max(circ$daily, na.rm = TRUE)),
-  labels = c(&quot;low&quot;, &quot;med&quot;, &quot;high&quot;), # one less than breaks
-  include.lowest = TRUE)
-head(riderLevels2)</pre>
-
-<pre >## [1] low low low low low low
-## Levels: low med high</pre>
-
-<pre class = 'prettyprint lang-r'>table(riderLevels2, riderLevels)</pre>
-
-<pre >##             riderLevels
-## riderLevels2 low med high
-##         low  740   0    0
-##         med    0 280    0
-##         high   0   0    2</pre>
-
-</article></slide><slide class=""><hgroup><h2>Cut</h2></hgroup><article  id="cut">
-
-<p>Now that we know more about factors, <code>cut()</code> will make more sense:</p>
-
-<pre class = 'prettyprint lang-r'>x = 1:100
-cx = cut(x, breaks = c(0,10,25,50,100))
-head(cx)  </pre>
-
-<pre >## [1] (0,10] (0,10] (0,10] (0,10] (0,10] (0,10]
-## Levels: (0,10] (10,25] (25,50] (50,100]</pre>
-
-<pre class = 'prettyprint lang-r'>table(cx)</pre>
-
-<pre >## cx
-##   (0,10]  (10,25]  (25,50] (50,100] 
-##       10       15       25       50</pre>
-
-</article></slide><slide class=""><hgroup><h2>Cut</h2></hgroup><article  id="cut-1">
-
-<p>We can also leave off the labels</p>
-
-<pre class = 'prettyprint lang-r'>cx = cut(x, breaks = c(0,10,25,50,100), labels = FALSE)
-head(cx)  </pre>
-
-<pre >## [1] 1 1 1 1 1 1</pre>
-
-<pre class = 'prettyprint lang-r'>table(cx)</pre>
-
-<pre >## cx
-##  1  2  3  4 
-## 10 15 25 50</pre>
-
-</article></slide><slide class=""><hgroup><h2>Cut</h2></hgroup><article  id="cut-2">
-
-<p>Note that you have to specify the endpoints of the data, otherwise some of the categories will not be created</p>
-
-<pre class = 'prettyprint lang-r'>cx = cut(x, breaks = c(10,25,50), labels = FALSE)
-head(cx)  </pre>
-
-<pre >## [1] NA NA NA NA NA NA</pre>
-
-<pre class = 'prettyprint lang-r'>table(cx)</pre>
-
-<pre >## cx
-##  1  2 
-## 15 25</pre>
-
-<pre class = 'prettyprint lang-r'>table(cx, useNA = &quot;ifany&quot;)</pre>
-
-<pre >## cx
-##    1    2 &lt;NA&gt; 
-##   15   25   60</pre>
-
 </article></slide><slide class=""><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
 
 <p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
@@ -3634,7 +3463,7 @@ class(dates)</pre>
 <pre class = 'prettyprint lang-r'>theTime = Sys.time()
 theTime</pre>
 
-<pre >## [1] &quot;2019-01-04 16:11:09 EST&quot;</pre>
+<pre >## [1] &quot;2019-06-12 12:07:39 EDT&quot;</pre>
 
 <pre class = 'prettyprint lang-r'>class(theTime)</pre>
 
@@ -3642,9 +3471,26 @@ theTime</pre>
 
 <pre class = 'prettyprint lang-r'>theTime + as.period(20, unit = &quot;minutes&quot;) # the future</pre>
 
-<pre >## [1] &quot;2019-01-04 16:31:09 EST&quot;</pre>
+<pre >## [1] &quot;2019-06-12 12:27:39 EDT&quot;</pre>
+
+</article></slide><slide class=""><hgroup><h2>Differences in Times</h2></hgroup><article  id="differences-in-times">
+
+<p>You can subtract times as well, the <code>difftime</code> function is helpful as you can set the units (note it does <code>time1 - time2</code>):</p>
+
+<pre class = 'prettyprint lang-r'>the_future = ymd_hms(&quot;2020-12-31 11:59:59&quot;)
+the_future - theTime</pre>
+
+<pre >## Time difference of 567.828 days</pre>
+
+<pre class = 'prettyprint lang-r'>difftime(the_future, theTime, units = &quot;weeks&quot;)</pre>
+
+<pre >## Time difference of 81.11829 weeks</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 3</h2></hgroup><article  id="lab-part-3">
+
+<p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
+
+</article></slide><slide class=""><hgroup><h2>Website</h2></hgroup><article  id="website">
 
 <p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
 
@@ -3836,7 +3682,7 @@ $numbers
 ## 2 Tuesday   01/12/2010 2010-01-12 2013-02-26 2010-01-26
 ## 3 Wednesday 01/13/2010 2010-01-13 2013-02-27 2010-01-27</pre>
 
-</article></slide><slide class=""><hgroup><h2>Differences in Times</h2></hgroup><article  id="differences-in-times">
+</article></slide><slide class=""><hgroup><h2>Differences in Times</h2></hgroup><article  id="differences-in-times-1">
 
 <pre class = 'prettyprint lang-r'>circ = circ %&gt;% 
   group_by(day) %&gt;% 
@@ -3854,7 +3700,7 @@ head(circ$diff_from_first, 10)</pre>
 <pre >## Time differences in days
 ##  [1] 0 0 0 0 0 0 0 7 7 7</pre>
 
-</article></slide><slide class=""><hgroup><h2>Website</h2></hgroup><article  id="website">
+</article></slide><slide class=""><hgroup><h2>Website</h2></hgroup><article  id="website-1">
 
 <p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p></article></slide>
 

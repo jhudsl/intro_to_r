@@ -206,139 +206,6 @@ head(bg2)
 length(bg) == length(bg2)
 ```
 
-## Creating categorical variables
-
-One frequently-used tool is creating categorical variables out of continuous variables, like generating quantiles of a specific continuously measured variable. 
-
-A general function for creating new variables based on existing variables is the `ifelse()` function, which "returns a value with the same shape as test which is filled with elements selected from either yes or no depending on whether the element of test is `TRUE` or `FALSE`."
-
-```
-ifelse(test, yes, no)
-
-# test: an object which can be coerced
-    to logical mode.
-# yes: return values for true elements of test.
-# no: return values for false elements of test.
-```
-
-## Charm City Circulator data
-
-Please download the Charm City Circulator data:
-
-http://johnmuschelli.com/intro_to_r/data/Charm_City_Circulator_Ridership.csv
-
-```{r, message = FALSE}
-circ = jhur::read_circulator()
-# paste/paste0 combines strings/character
-circ = read_csv(
-  paste0("http://johnmuschelli.com/intro_to_r/data",
-         "/Charm_City_Circulator_Ridership.csv"))
-```
-
-## Creating categorical variables
-
-For example, we can create a new variable that records whether daily ridership on the Circulator was above 10,000.
-
-```{r ifelse1}
-hi_rider = ifelse(circ$daily > 10000, "high", "low")
-hi_rider = factor(hi_rider, levels = c("low","high"))
-head(hi_rider)
-table(hi_rider)
-```
-
-## Creating categorical variables
-
-Using `mutate`
-
-```{r ifelse_mutate}
-circ %>% 
-  mutate(hi_rider = ifelse(daily > 10000, 
-                           "high", "low")) %>% 
-  select(day, date, daily, hi_rider)
-```
-
-## Creating categorical variables
-
-You can also nest `ifelse()` within itself to create 3 levels of a variable.
-
-```{r ifelse2}
-riderLevels = ifelse(circ$daily < 10000, "low", 
-                  ifelse(circ$daily > 20000,
-                  "high", "med"))
-riderLevels = factor(riderLevels, 
-              levels = c("low","med","high"))
-head(riderLevels)
-table(riderLevels)
-```
-
-## Creating categorical variables
-
-However, it's much easier to use `cut()` to create categorical variables from continuous variables. 
-
-'cut divides the range of x into intervals and codes the values in x according to which interval they fall. The leftmost interval corresponds to level one, the next leftmost to level two and so on.'
-
-```
-cut(x, breaks, labels = NULL, include.lowest = FALSE, 
-  right = TRUE, dig.lab = 3,
-  ordered_result = FALSE, ...)
-```
-
-## Creating categorical variables
-
-`x`: a numeric vector which is to be converted to a factor by cutting.
-
-`breaks`: either a numeric vector of two or more unique cut points or a single number (greater than or equal to 2) giving the number of intervals into which x is to be cut.
-
-`labels`: labels for the levels of the resulting category. By default, labels are constructed using "(a,b]" interval notation. If `labels = FALSE`, simple integer codes are returned instead of a factor.
-
-
-## Creating categorical variables
-
-
-```{r show_cut}
-riderLevels2 = cut(
-  circ$daily, 
-  breaks = c(min(circ$daily, na.rm = TRUE),
-             10000, 
-             20000,
-             max(circ$daily, na.rm = TRUE)),
-  labels = c("low", "med", "high"), # one less than breaks
-  include.lowest = TRUE)
-head(riderLevels2)
-table(riderLevels2, riderLevels)
-```
-
-## Cut
-
-Now that we know more about factors, `cut()` will make more sense:
-
-```{r cut1}
-x = 1:100
-cx = cut(x, breaks = c(0,10,25,50,100))
-head(cx)  
-table(cx)
-```
-
-## Cut
-
-We can also leave off the labels
-
-```{r cut2}
-cx = cut(x, breaks = c(0,10,25,50,100), labels = FALSE)
-head(cx)  
-table(cx)
-```
-
-## Cut
-
-Note that you have to specify the endpoints of the data, otherwise some of the categories will not be created
-
-```{r cut3}
-cx = cut(x, breaks = c(10,25,50), labels = FALSE)
-head(cx)  
-table(cx)
-table(cx, useNA = "ifany")
-```
 
 ## Lab Part 2
 
@@ -395,9 +262,26 @@ class(theTime)
 theTime + as.period(20, unit = "minutes") # the future
 ```
 
+## Differences in Times 
+
+You can subtract times as well, the `difftime` function is helpful as you can set the units (note it does `time1 - time2`):
+
+```{r}
+the_future = ymd_hms("2020-12-31 11:59:59")
+the_future - theTime
+difftime(the_future, theTime, units = "weeks")
+```
 ## Lab Part 3
 
 [Website](http://johnmuschelli.com/intro_to_r/index.html)
+
+
+
+
+## Website
+
+[Website](http://johnmuschelli.com/intro_to_r/index.html)
+
 
 ## Data Classes:
 

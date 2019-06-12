@@ -3,17 +3,21 @@
 suppressPackageStartupMessages(library(dplyr))
 library(readr)
 
+
 ## ----numChar-------------------------------------------------------------
 class(c("Andrew", "Jaffe"))
 class(c(1, 4, 7))
+
 
 ## ----seq-----------------------------------------------------------------
 x = seq(from = 1, to = 5) # seq() is a function
 x
 class(x)
 
+
 ## ----seqShort------------------------------------------------------------
 1:5
+
 
 ## ----logical1------------------------------------------------------------
 x = c(TRUE, FALSE, TRUE, TRUE, FALSE)
@@ -21,42 +25,52 @@ class(x)
 is.numeric(c("Andrew", "Jaffe"))
 is.character(c("Andrew", "Jaffe"))
 
+
 ## ----logical2------------------------------------------------------------
 z = c("TRUE", "FALSE", "TRUE", "FALSE")
 class(z)
 as.logical(z)
 
+
 ## ----logical_z-----------------------------------------------------------
 sum(as.logical(z))
+
 
 ## ----logical_coercion----------------------------------------------------
 is.numeric(c("Andrew", "Jaffe"))
 is.character(c("Andrew", "Jaffe"))
 
+
 ## ----logical_coercion2---------------------------------------------------
 as.character(c(1, 4, 7))
 as.numeric(c("Andrew", "Jaffe"))
+
 
 ## ----factor1-------------------------------------------------------------
 x = factor(c("boy", "girl", "girl", "boy", "girl"))
 x 
 class(x)
 
+
 ## ------------------------------------------------------------------------
 x = c(0, 2, 2, 3, 4)
 (x == 0 | x == 2) 
 
+
 ## ------------------------------------------------------------------------
 x %in% c(0, 2) # NEVER has NA and returns logical
+
 
 ## ----factor2-------------------------------------------------------------
 cc = factor(c("case","case","case",
         "control","control","control"))
 cc
 
+
 ## ------------------------------------------------------------------------
 levels(cc) = c("control","case")
 cc
+
 
 ## ----factor_cc_again-----------------------------------------------------
 casecontrol = c("case","case","case","control",
@@ -65,16 +79,19 @@ factor(casecontrol, levels = c("control","case") )
 factor(casecontrol, levels = c("control","case"), 
        ordered=TRUE)
 
+
 ## ----factorCheck---------------------------------------------------------
 cc = factor(c("case","case","case",
         "control","control","control"))
 cc = relevel(cc, "control")
+
 
 ## ----factor3-------------------------------------------------------------
 x = factor(casecontrol,
         levels = c("control","case") )
 as.character(x)
 as.numeric(x)
+
 
 ## ----rep1----------------------------------------------------------------
 bg = rep(c("boy","girl"),each=50)
@@ -83,62 +100,6 @@ bg2 = rep(c("boy","girl"),times=50)
 head(bg2)
 length(bg) == length(bg2)
 
-## ---- message = FALSE----------------------------------------------------
-circ = jhur::read_circulator()
-# paste/paste0 combines strings/character
-circ = read_csv(
-  paste0("http://johnmuschelli.com/intro_to_r/data",
-         "/Charm_City_Circulator_Ridership.csv"))
-
-## ----ifelse1-------------------------------------------------------------
-hi_rider = ifelse(circ$daily > 10000, "high", "low")
-hi_rider = factor(hi_rider, levels = c("low","high"))
-head(hi_rider)
-table(hi_rider)
-
-## ----ifelse_mutate-------------------------------------------------------
-circ %>% 
-  mutate(hi_rider = ifelse(daily > 10000, 
-                           "high", "low")) %>% 
-  select(day, date, daily, hi_rider)
-
-## ----ifelse2-------------------------------------------------------------
-riderLevels = ifelse(circ$daily < 10000, "low", 
-                  ifelse(circ$daily > 20000,
-                  "high", "med"))
-riderLevels = factor(riderLevels, 
-              levels = c("low","med","high"))
-head(riderLevels)
-table(riderLevels)
-
-## ----show_cut------------------------------------------------------------
-riderLevels2 = cut(
-  circ$daily, 
-  breaks = c(min(circ$daily, na.rm = TRUE),
-             10000, 
-             20000,
-             max(circ$daily, na.rm = TRUE)),
-  labels = c("low", "med", "high"), # one less than breaks
-  include.lowest = TRUE)
-head(riderLevels2)
-table(riderLevels2, riderLevels)
-
-## ----cut1----------------------------------------------------------------
-x = 1:100
-cx = cut(x, breaks = c(0,10,25,50,100))
-head(cx)  
-table(cx)
-
-## ----cut2----------------------------------------------------------------
-cx = cut(x, breaks = c(0,10,25,50,100), labels = FALSE)
-head(cx)  
-table(cx)
-
-## ----cut3----------------------------------------------------------------
-cx = cut(x, breaks = c(10,25,50), labels = FALSE)
-head(cx)  
-table(cx)
-table(cx, useNA = "ifany")
 
 ## ---- message = FALSE----------------------------------------------------
 circ = jhur::read_circulator()
@@ -148,17 +109,21 @@ circ = mutate(circ, newDate2 = mdy(date))
 head(circ$newDate2)
 range(circ$newDate2) # gives you the range of the data
 
+
 ## ---- message = FALSE----------------------------------------------------
 x = c("2014-02-4 05:02:00", "2016/09/24 14:02:00")
 ymd_hms(x)
 
+
 ## ------------------------------------------------------------------------
 ymd_hm(x)
+
 
 ## ---- message = FALSE----------------------------------------------------
 x = c("2014-02-4 05:02:00", "2016/09/24 14:02:00")
 dates = ymd_hms(x)
 class(dates)
+
 
 ## ------------------------------------------------------------------------
 theTime = Sys.time()
@@ -166,44 +131,60 @@ theTime
 class(theTime)
 theTime + as.period(20, unit = "minutes") # the future
 
+
+## ------------------------------------------------------------------------
+the_future = ymd_hms("2020-12-31 11:59:59")
+the_future - theTime
+difftime(the_future, theTime, units = "weeks")
+
+
 ## ----matrix--------------------------------------------------------------
 n = 1:9 
 n
 mat = matrix(n, nrow = 3)
 mat
 
+
 ## ----subset3-------------------------------------------------------------
 mat[1, 1] # individual entry: row 1, column 1
 mat[1, ] # first row
 mat[, 1] # first columns
 
+
 ## ----subset4-------------------------------------------------------------
 class(mat[1, ])
 class(mat[, 1])
+
 
 ## ----makeList, comment="", prompt=TRUE-----------------------------------
 mylist <- list(letters=c("A", "b", "c"), 
         numbers=1:3, matrix(1:25, ncol=5))
 
+
 ## ----Lists, comment="", prompt=TRUE--------------------------------------
 head(mylist)
+
 
 ## ----Listsref1, comment="", prompt=TRUE----------------------------------
 mylist[1] # returns a list
 mylist["letters"] # returns a list
+
 
 ## ----Listsrefvec, comment="", prompt=TRUE--------------------------------
 mylist[[1]] # returns the vector 'letters'
 mylist$letters # returns vector
 mylist[["letters"]] # returns the vector 'letters'
 
+
 ## ----Listsref2, comment="", prompt=TRUE----------------------------------
 mylist[1:2] # returns a list
+
 
 ## ----Listsref3, comment="", prompt=TRUE----------------------------------
 mylist$letters[1]
 mylist[[2]][1]
 mylist[[3]][1:2,1:2]
+
 
 ## ---- message=FALSE------------------------------------------------------
 circ %>% 
@@ -211,6 +192,7 @@ circ %>%
          last_date = last(newDate2),
          third_date = nth(newDate2, 3)) %>% 
   select(day, date, first_date, last_date, third_date) %>% head(3)
+
 
 ## ---- message=FALSE------------------------------------------------------
 circ %>% 
@@ -219,6 +201,7 @@ circ %>%
          last_date = last(newDate2),
          third_date = nth(newDate2, 3)) %>% 
   select(day, date, first_date, last_date, third_date) %>% head(3)
+
 
 ## ---- message=FALSE------------------------------------------------------
 circ = circ %>% 
