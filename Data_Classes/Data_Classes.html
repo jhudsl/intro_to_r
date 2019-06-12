@@ -3463,7 +3463,7 @@ class(dates)</pre>
 <pre class = 'prettyprint lang-r'>theTime = Sys.time()
 theTime</pre>
 
-<pre >## [1] &quot;2019-06-12 12:07:39 EDT&quot;</pre>
+<pre >## [1] &quot;2019-06-12 15:52:26 EDT&quot;</pre>
 
 <pre class = 'prettyprint lang-r'>class(theTime)</pre>
 
@@ -3471,7 +3471,7 @@ theTime</pre>
 
 <pre class = 'prettyprint lang-r'>theTime + as.period(20, unit = &quot;minutes&quot;) # the future</pre>
 
-<pre >## [1] &quot;2019-06-12 12:27:39 EDT&quot;</pre>
+<pre >## [1] &quot;2019-06-12 16:12:26 EDT&quot;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Differences in Times</h2></hgroup><article  id="differences-in-times">
 
@@ -3480,11 +3480,11 @@ theTime</pre>
 <pre class = 'prettyprint lang-r'>the_future = ymd_hms(&quot;2020-12-31 11:59:59&quot;)
 the_future - theTime</pre>
 
-<pre >## Time difference of 567.828 days</pre>
+<pre >## Time difference of 567.6719 days</pre>
 
 <pre class = 'prettyprint lang-r'>difftime(the_future, theTime, units = &quot;weeks&quot;)</pre>
 
-<pre >## Time difference of 81.11829 weeks</pre>
+<pre >## Time difference of 81.09599 weeks</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 3</h2></hgroup><article  id="lab-part-3">
 
