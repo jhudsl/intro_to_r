@@ -314,6 +314,19 @@ fj %>%
 
 [Website](http://johnmuschelli.com/intro_to_r/index.html)
 
+## Finding the First (or Last) record
+
+`pivot_longer` and `pivot_wider` are new (as of 2019) `tidyr` functions.
+
+See link below:
+
+https://tidyr.tidyverse.org/dev/articles/pivot.html
+
+## Website
+
+[Website](http://johnmuschelli.com/intro_to_r/index.html)
+
+
 ## Reshaping data from long (tall) to wide (fat): tidyr
 
 We can use `rowSums` to see if any values in the row is `NA` and keep if the row, which is a combination of date and line type has any non-missing data.
@@ -348,17 +361,6 @@ first_and_last = long %>% arrange(date) %>% # arrange by date
 first_and_last %>%  head(4)
 ```
 
-## Finding the First (or Last) record
-
-`pivot_longer` and `pivot_wider` are new (as of 2019) `tidyr` functions.
-
-See link below:
-
-https://tidyr.tidyverse.org/dev/articles/pivot.html
-
-## Website
-
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
 
 
 # Merging in base R (not covered)

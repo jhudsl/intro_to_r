@@ -3669,6 +3669,18 @@ tail(visits, 2)</pre>
 
 <p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
 
+</article></slide><slide class=""><hgroup><h2>Finding the First (or Last) record</h2></hgroup><article  id="finding-the-first-or-last-record">
+
+<p><code>pivot_longer</code> and <code>pivot_wider</code> are new (as of 2019) <code>tidyr</code> functions.</p>
+
+<p>See link below:</p>
+
+<p><a href='https://tidyr.tidyverse.org/dev/articles/pivot.html' title=''>https://tidyr.tidyverse.org/dev/articles/pivot.html</a></p>
+
+</article></slide><slide class=""><hgroup><h2>Website</h2></hgroup><article  id="website">
+
+<p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
+
 </article></slide><slide class=""><hgroup><h2>Reshaping data from long (tall) to wide (fat): tidyr</h2></hgroup><article  id="reshaping-data-from-long-tall-to-wide-fat-tidyr-1">
 
 <p>We can use <code>rowSums</code> to see if any values in the row is <code>NA</code> and keep if the row, which is a combination of date and line type has any non-missing data.</p>
@@ -3709,7 +3721,7 @@ head(wide)</pre>
 5 Friday 2010-02-12  671  orange        678    671        664
 6 Friday 2010-02-19 1642  orange       1647   1642       1637</pre>
 
-</article></slide><slide class=""><hgroup><h2>Finding the First (or Last) record</h2></hgroup><article  id="finding-the-first-or-last-record">
+</article></slide><slide class=""><hgroup><h2>Finding the First (or Last) record</h2></hgroup><article  id="finding-the-first-or-last-record-1">
 
 <ul>
 <li><code>slice</code> allows you to select <strong>records</strong> (compared to first/last on a <strong>vector</strong>)</li>
@@ -3730,18 +3742,6 @@ first_and_last %&gt;%  head(4)</pre>
 2 Friday  2013-03-01    NA  banner Boardings    817
 3 Tuesday 2011-11-01  8873  green  Boardings    887
 4 Friday  2013-03-01    NA  green  Boardings   2592</pre>
-
-</article></slide><slide class=""><hgroup><h2>Finding the First (or Last) record</h2></hgroup><article  id="finding-the-first-or-last-record-1">
-
-<p><code>pivot_longer</code> and <code>pivot_wider</code> are new (as of 2019) <code>tidyr</code> functions.</p>
-
-<p>See link below:</p>
-
-<p><a href='https://tidyr.tidyverse.org/dev/articles/pivot.html' title=''>https://tidyr.tidyverse.org/dev/articles/pivot.html</a></p>
-
-</article></slide><slide class=""><hgroup><h2>Website</h2></hgroup><article  id="website">
-
-<p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Merging in base R (not covered)</h2></hgroup><article  id="merging-in-base-r-not-covered">
 
