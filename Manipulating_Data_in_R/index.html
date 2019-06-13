@@ -4,7 +4,6 @@
   <title>Manipulating Data in R</title>
 
   <meta charset="utf-8">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   <meta name="generator" content="pandoc" />
 
@@ -258,7 +257,6 @@ background: black;
 }
 
 slides > slide {
-display: none;
 font-family: 'Open Sans', Arial, sans-serif;
 font-size: 26px;
 color: #797979;
@@ -279,17 +277,19 @@ transition: all 0.6s ease-in-out;
 }
 
 slides > slide.far-past {
-display: none;
 }
 
 slides > slide.past {
-display: block;
 opacity: 0;
 }
 
 slides > slide.current {
 display: block;
 opacity: 1;
+z-index: 1;
+}
+slides > slide:not(.current) {
+z-index: 0;
 }
 
 slides > slide.current .auto-fadein {
@@ -304,13 +304,11 @@ background-size: 100% 100%;
 }
 
 slides > slide.next {
-display: block;
 opacity: 0;
 pointer-events: none;
 }
 
 slides > slide.far-next {
-display: none;
 }
 
 slides > slide.dark {
@@ -382,8 +380,6 @@ width: 1100px;
 
 slides.layout-widescreen > slide.far-past,
 slides.layout-faux-widescreen > slide.far-past {
-display: block;
-display: none;
 -webkit-transform: translate(-2260px);
 -moz-transform: translate(-2260px);
 -ms-transform: translate(-2260px);
@@ -417,8 +413,6 @@ pointer-events: none;
 
 slides.layout-widescreen > slide.far-next,
 slides.layout-faux-widescreen > slide.far-next {
-display: block;
-display: none;
 -webkit-transform: translate(2260px);
 -moz-transform: translate(2260px);
 -ms-transform: translate(2260px);
@@ -1349,6 +1343,13 @@ opacity: 1;
 
 .overview .slide-area {
 display: none;
+}
+slides > slide {
+background: linear-gradient(#ffffff, #ffffff 85%, #e6e6e6);
+background-color: white;
+}
+slides > slide {
+opacity: 0;
 }
 @media print {
 
@@ -3094,6 +3095,10 @@ if (document.readyState !== "loading" &&
       transition: opacity 0.6s ease-in 0.4s;
       opacity: 0;
     }
+/* https://github.com/ropensci/plotly/pull/524#issuecomment-468142578 */
+slide:not(.current) .plotly.html-widget{
+  display: block;
+}
 
   </style>
 
@@ -3440,19 +3445,19 @@ head(wide)</pre>
 </article></slide><slide class=""><hgroup><h2>Merging: Simple Data</h2></hgroup><article  id="merging-simple-data">
 
 <pre class = 'prettyprint lang-r'>base &lt;- data.frame(id = 1:10, Age= seq(55,60, length=10))
-base[1:2,]</pre>
+head(base, 2)</pre>
 
 <pre >  id      Age
 1  1 55.00000
 2  2 55.55556</pre>
 
-<pre class = 'prettyprint lang-r'>visits &lt;- data.frame(id = rep(1:8, 3), visit= rep(1:3, 8),
-                    Outcome = seq(10,50, length=24))
-visits[1:2,]</pre>
+<pre class = 'prettyprint lang-r'>visits &lt;- data.frame(id = c(rep(1:8, 3), 11), visit= c(rep(1:3, 8), 3),
+                    Outcome = seq(10,50, length=25))
+tail(visits, 2)</pre>
 
-<pre >  id visit  Outcome
-1  1     1 10.00000
-2  2     2 11.73913</pre>
+<pre >   id visit  Outcome
+24  8     3 48.33333
+25 11     3 50.00000</pre>
 
 </article></slide><slide class=""><hgroup><h2>Joining in <code>dplyr</code></h2></hgroup><article  id="joining-in-dplyr">
 
@@ -3479,12 +3484,12 @@ visits[1:2,]</pre>
 <pre class = 'prettyprint lang-r'>tail(ij)</pre>
 
 <pre >   id      Age visit  Outcome
-19  7 58.33333     1 20.43478
-20  7 58.33333     3 34.34783
-21  7 58.33333     2 48.26087
-22  8 58.88889     2 22.17391
-23  8 58.88889     1 36.08696
-24  8 58.88889     3 50.00000</pre>
+19  7 58.33333     1 20.00000
+20  7 58.33333     3 33.33333
+21  7 58.33333     2 46.66667
+22  8 58.88889     2 21.66667
+23  8 58.88889     1 35.00000
+24  8 58.88889     3 48.33333</pre>
 
 </article></slide><slide class=""><hgroup><h2>Left Join</h2></hgroup><article  id="left-join">
 
@@ -3499,10 +3504,10 @@ visits[1:2,]</pre>
 <pre class = 'prettyprint lang-r'>tail(lj)</pre>
 
 <pre >   id      Age visit  Outcome
-21  7 58.33333     2 48.26087
-22  8 58.88889     2 22.17391
-23  8 58.88889     1 36.08696
-24  8 58.88889     3 50.00000
+21  7 58.33333     2 46.66667
+22  8 58.88889     2 21.66667
+23  8 58.88889     1 35.00000
+24  8 58.88889     3 48.33333
 25  9 59.44444    NA       NA
 26 10 60.00000    NA       NA</pre>
 
@@ -3514,17 +3519,17 @@ visits[1:2,]</pre>
 
 <pre class = 'prettyprint lang-r'>dim(rj)</pre>
 
-<pre >[1] 24  4</pre>
+<pre >[1] 25  4</pre>
 
 <pre class = 'prettyprint lang-r'>tail(rj)</pre>
 
 <pre >   id      Age visit  Outcome
-19  3 56.11111     1 41.30435
-20  4 56.66667     2 43.04348
-21  5 57.22222     3 44.78261
-22  6 57.77778     1 46.52174
-23  7 58.33333     2 48.26087
-24  8 58.88889     3 50.00000</pre>
+20  4 56.66667     2 41.66667
+21  5 57.22222     3 43.33333
+22  6 57.77778     1 45.00000
+23  7 58.33333     2 46.66667
+24  8 58.88889     3 48.33333
+25 11       NA     3 50.00000</pre>
 
 </article></slide><slide class=""><hgroup><h2>Right Join: Switching arguments</h2></hgroup><article  id="right-join-switching-arguments">
 
@@ -3539,10 +3544,10 @@ visits[1:2,]</pre>
 <pre class = 'prettyprint lang-r'>tail(rj2)</pre>
 
 <pre >   id visit  Outcome      Age
-21  7     2 48.26087 58.33333
-22  8     2 22.17391 58.88889
-23  8     1 36.08696 58.88889
-24  8     3 50.00000 58.88889
+21  7     2 46.66667 58.33333
+22  8     2 21.66667 58.88889
+23  8     1 35.00000 58.88889
+24  8     3 48.33333 58.88889
 25  9    NA       NA 59.44444
 26 10    NA       NA 60.00000</pre>
 
@@ -3558,22 +3563,22 @@ visits[1:2,]</pre>
 
 <pre class = 'prettyprint lang-r'>dim(fj)</pre>
 
-<pre >[1] 26  4</pre>
+<pre >[1] 27  4</pre>
 
 <pre class = 'prettyprint lang-r'>tail(fj)</pre>
 
 <pre >   id      Age visit  Outcome
-21  7 58.33333     2 48.26087
-22  8 58.88889     2 22.17391
-23  8 58.88889     1 36.08696
-24  8 58.88889     3 50.00000
+22  8 58.88889     2 21.66667
+23  8 58.88889     1 35.00000
+24  8 58.88889     3 48.33333
 25  9 59.44444    NA       NA
-26 10 60.00000    NA       NA</pre>
+26 10 60.00000    NA       NA
+27 11       NA     3 50.00000</pre>
 
 </article></slide><slide class=""><hgroup><h2>Duplicated</h2></hgroup><article  id="duplicated">
 
 <ul>
-<li>The <code>duplicated</code> command can give you indications if there are duplications in a vector:</li>
+<li>The <code>duplicated</code> command can give you indications if there are duplications in a <strong>vector</strong>e:</li>
 </ul>
 
 <pre class = 'prettyprint lang-r'>duplicated(1:5)</pre>
@@ -3587,25 +3592,6 @@ visits[1:2,]</pre>
 </article></slide><slide class=""><hgroup><h2>Lab Part 4</h2></hgroup><article  id="lab-part-4">
 
 <p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
-
-</article></slide><slide class=""><hgroup><h2>Data Merging/Append in Base R</h2></hgroup><article  id="data-mergingappend-in-base-r">
-
-<ul>
-<li><code>merge()</code> is the most common way to do this with data sets
-
-<ul>
-<li>we will use the &ldquo;join&rdquo; functions from <code>dplyr</code></li>
-</ul></li>
-<li><code>rbind</code>/<code>cbind</code> - row/column bind, respectively
-
-<ul>
-<li><code>rbind</code> is the equivalent of &ldquo;appending&rdquo; in Stata or &ldquo;setting&rdquo; in SAS</li>
-<li><code>cbind</code> allows you to add columns in addition to the previous ways</li>
-</ul></li>
-<li><code>t()</code> can transpose data but not</li>
-</ul>
-
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>More Data Manipulation</h2></hgroup><article  id="more-data-manipulation">
 
 </article></slide><slide class=""><hgroup><h2>Reshaping data from long (tall) to wide (fat): tidyr</h2></hgroup><article  id="reshaping-data-from-long-tall-to-wide-fat-tidyr-1">
 
@@ -3633,7 +3619,7 @@ head(not_namat, 2)</pre>
 
 <p>Now we can filter only the good rows and delete the <code>good</code> column.</p>
 
-<pre class = 'prettyprint lang-r'>wide = filter(wide, good) %&gt;% select(-good)
+<pre class = 'prettyprint lang-r'>wide = wide %&gt;% filter(good) %&gt;% select(-good)
 head(wide)</pre>
 
 <pre ># A tibble: 6 x 7
@@ -3649,7 +3635,7 @@ head(wide)</pre>
 </article></slide><slide class=""><hgroup><h2>Finding the First (or Last) record</h2></hgroup><article  id="finding-the-first-or-last-record">
 
 <ul>
-<li>Slice allows you to select <strong>records</strong> (compared to first/last on a <strong>vector</strong>)</li>
+<li><code>slice</code> allows you to select <strong>records</strong> (compared to first/last on a <strong>vector</strong>)</li>
 </ul>
 
 <pre class = 'prettyprint lang-r'>long = long %&gt;% filter(!is.na(number) &amp; number &gt; 0)
@@ -3668,23 +3654,48 @@ first_and_last %&gt;%  head(4)</pre>
 3 Tuesday 2011-11-01  8873  green  Boardings    887
 4 Friday  2013-03-01    NA  green  Boardings   2592</pre>
 
+</article></slide><slide class=""><hgroup><h2>Finding the First (or Last) record</h2></hgroup><article  id="finding-the-first-or-last-record-1">
+
+<p><code>pivot_longer</code> and <code>pivot_wider</code> are new (as of 2019) <code>tidyr</code> functions.</p>
+
+<p>See link below:</p>
+
+<p><a href='https://tidyr.tidyverse.org/dev/articles/pivot.html' title=''>https://tidyr.tidyverse.org/dev/articles/pivot.html</a></p>
+
 </article></slide><slide class=""><hgroup><h2>Website</h2></hgroup><article  id="website">
 
 <p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Merging in base R (not covered)</h2></hgroup><article  id="merging-in-base-r-not-covered">
 
+</article></slide><slide class=""><hgroup><h2>Data Merging/Append in Base R</h2></hgroup><article  id="data-mergingappend-in-base-r">
+
+<ul>
+<li><code>merge()</code> is the most common way to do this with data sets
+
+<ul>
+<li>we will use the &ldquo;join&rdquo; functions from <code>dplyr</code></li>
+</ul></li>
+<li><code>rbind</code>/<code>cbind</code> - row/column bind, respectively
+
+<ul>
+<li><code>rbind</code> is the equivalent of &ldquo;appending&rdquo; in Stata or &ldquo;setting&rdquo; in SAS</li>
+<li><code>cbind</code> allows you to add columns in addition to the previous ways</li>
+</ul></li>
+<li><code>t()</code> can transpose data but doesn’t make it a <code>data.frame</code></li>
+</ul>
+
 </article></slide><slide class=""><hgroup><h2>Merging</h2></hgroup><article  id="merging">
 
 <pre class = 'prettyprint lang-r'>merged.data &lt;- merge(base, visits, by = &quot;id&quot;)
-merged.data[1:5,]</pre>
+head(merged.data, 5)</pre>
 
 <pre >  id      Age visit  Outcome
 1  1 55.00000     1 10.00000
-2  1 55.00000     3 23.91304
-3  1 55.00000     2 37.82609
-4  2 55.55556     2 11.73913
-5  2 55.55556     1 25.65217</pre>
+2  1 55.00000     3 23.33333
+3  1 55.00000     2 36.66667
+4  2 55.55556     2 11.66667
+5  2 55.55556     1 25.00000</pre>
 
 <pre class = 'prettyprint lang-r'>dim(merged.data)</pre>
 
@@ -3696,16 +3707,16 @@ merged.data[1:5,]</pre>
 tail(all.data)</pre>
 
 <pre >   id      Age visit  Outcome
-21  7 58.33333     2 48.26087
-22  8 58.88889     2 22.17391
-23  8 58.88889     1 36.08696
-24  8 58.88889     3 50.00000
+22  8 58.88889     2 21.66667
+23  8 58.88889     1 35.00000
+24  8 58.88889     3 48.33333
 25  9 59.44444    NA       NA
-26 10 60.00000    NA       NA</pre>
+26 10 60.00000    NA       NA
+27 11       NA     3 50.00000</pre>
 
 <pre class = 'prettyprint lang-r'>dim(all.data)</pre>
 
-<pre >[1] 26  4</pre>
+<pre >[1] 27  4</pre>
 
 <!-- # Bonus slides - explore after visualization!  -->
 

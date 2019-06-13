@@ -231,10 +231,10 @@ head(wide)
 
 ```{r merging}
 base <- data.frame(id = 1:10, Age= seq(55,60, length=10))
-base[1:2,]
-visits <- data.frame(id = rep(1:8, 3), visit= rep(1:3, 8),
-                    Outcome = seq(10,50, length=24))
-visits[1:2,]
+head(base, 2)
+visits <- data.frame(id = c(rep(1:8, 3), 11), visit= c(rep(1:3, 8), 3),
+                    Outcome = seq(10,50, length=25))
+tail(visits, 2)
 ```
 
 
@@ -298,7 +298,7 @@ tail(fj)
 
 ## Duplicated
 
-- The `duplicated` command can give you indications if there are duplications in a vector:
+- The `duplicated` command can give you indications if there are duplications in a **vector**e:
 
 ```{r}
 duplicated(1:5)
@@ -308,17 +308,6 @@ duplicated(c(1:5, 1))
 ## Lab Part 4
 
 [Website](http://johnmuschelli.com/intro_to_r/index.html)
-
-## Data Merging/Append in Base R
-
-* `merge()` is the most common way to do this with data sets
-    - we will use the "join" functions from `dplyr`
-* `rbind`/`cbind` - row/column bind, respectively
-    * `rbind` is the equivalent of "appending" in Stata or "setting" in SAS
-    * `cbind` allows you to add columns in addition to the previous ways
-* `t()` can transpose data but not 
-
-# More Data Manipulation
 
 ## Reshaping data from long (tall) to wide (fat): tidyr
 
@@ -335,14 +324,14 @@ wide$good = rowSums(not_namat) > 0
 
 Now we can filter only the good rows and delete the `good` column.
 ```{r}
-wide = filter(wide, good) %>% select(-good)
+wide = wide %>% filter(good) %>% select(-good)
 head(wide)
 ```
 
 
 ## Finding the First (or Last) record
 
-- Slice allows you to select **records** (compared to first/last on a **vector**)
+- `slice` allows you to select **records** (compared to first/last on a **vector**)
 
 ```{r}
 long = long %>% filter(!is.na(number) & number > 0)
@@ -353,6 +342,13 @@ first_and_last = long %>% arrange(date) %>% # arrange by date
 first_and_last %>%  head(4)
 ```
 
+## Finding the First (or Last) record
+
+`pivot_longer` and `pivot_wider` are new (as of 2019) `tidyr` functions.
+
+See link below:
+
+https://tidyr.tidyverse.org/dev/articles/pivot.html
 
 ## Website
 
@@ -361,11 +357,20 @@ first_and_last %>%  head(4)
 
 # Merging in base R (not covered)
 
+## Data Merging/Append in Base R
+
+* `merge()` is the most common way to do this with data sets
+    - we will use the "join" functions from `dplyr`
+* `rbind`/`cbind` - row/column bind, respectively
+    * `rbind` is the equivalent of "appending" in Stata or "setting" in SAS
+    * `cbind` allows you to add columns in addition to the previous ways
+* `t()` can transpose data but doesn't make it a `data.frame`
+
 ## Merging 
 
 ```{r merging2}
 merged.data <- merge(base, visits, by = "id")
-merged.data[1:5,]
+head(merged.data, 5)
 dim(merged.data)
 ```
 
