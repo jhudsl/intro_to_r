@@ -39,11 +39,15 @@ bike = read_bike()
  Use `sort(unique())`.  Assign this to an object `btypes.` Type `dput(btypes)`
  
 ```{r q1}
-btypes = sort(unique(bike$type))
+head(factor(bike$type))
 
+btypes = sort(unique(bike$type))
+x = c("SIDEPATH","BIKE BOULEVARD", "BIKE LANE", "CONTRAFLOW",
+        "SHARED BUS BIKE",  "SHARROW",  "SIGNED ROUTE")
 dput(btypes)
 dput(btypes)[c(6,1:5,7)]
 dput(btypes[c(6,1:5,7)])
+
 lev = c( "SIDEPATH", "BIKE BOULEVARD", "BIKE LANE", "CONTRAFLOW", "SHARED BUS BIKE", 
         "SHARROW", "SIGNED ROUTE")
 ```
@@ -53,13 +57,13 @@ lev = c( "SIDEPATH", "BIKE BOULEVARD", "BIKE LANE", "CONTRAFLOW", "SHARED BUS BI
  Print `head(bike$type)`.  Note what you see.  Run 
  `table(bike$type)` afterwards and note the order
 ```{r q2}
-
+bike$type = factor(bike$type)
+bike$type = relevel(bike$type, "SIDEPATH")
 bike$type = factor(bike$type,
           levels = dput(btypes[c(6,1:5,7)]))
-
 bike = bike %>% mutate(type = factor(type, 
                 levels = dput(btypes[c(6,1:5,7)])))
-  
+
 table(bike$type)
 ```
 
