@@ -115,24 +115,6 @@ fit = lm(VehOdo~VehicleAge, data = cars)
 print(fit)
 
 
-## ------------------------------------------------------------------------
-cars %>% 
-  ggplot(aes(x = VehicleAge, y = VehOdo)) + geom_point() + 
-  geom_smooth(method = "lm")
-
-
-## ---- comment="", fig.height=4,fig.width=8-------------------------------
-ggplot(aes(x = factor(VehicleAge), y = VehOdo), data = cars) + 
-  geom_boxplot() + 
-  geom_smooth( aes(x = VehicleAge, y = VehOdo), se = FALSE, method = "lm")
-
-
-## ----gg_regress, comment="", fig.height=4,fig.width=8--------------------
-ggplot(aes(x = VehicleAge, y = VehOdo), data = cars) + 
-  geom_jitter(alpha = 0.05, height = 0) + 
-  geom_smooth(se = FALSE, method = "lm")
-
-
 ## ----regress5, comment="", fig.height=4,fig.width=8----------------------
 fit2 = lm(VehOdo ~ IsBadBuy + VehicleAge, data = cars)
 summary(fit2)  
@@ -146,16 +128,6 @@ summary(fit3)
 ## ----regress10, comment="", fig.height=4,fig.width=8---------------------
 fit4 = lm(VehOdo ~ IsBadBuy * VehicleAge -IsBadBuy , data = cars)
 summary(fit4)  
-
-
-## ----avplot, comment="", fig.height=4,fig.width=8------------------------
-library(car)
-avPlots(fit2)
-
-
-## ----plot_lm, comment="", fig.height=4,fig.width=8-----------------------
-par(mfrow=c(2,2))
-plot(fit2, ask = FALSE)
 
 
 ## ----regress6, comment="", fig.height=4,fig.width=8----------------------
@@ -180,10 +152,6 @@ tidy(glmfit, conf.int = TRUE, exponentiate = TRUE)
 exp(coef(glmfit))
 
 
-## ----prop1, comment=""---------------------------------------------------
-prop.test(x = 15, n =32)
-
-
 ## ----chisq1, comment=""--------------------------------------------------
 tab = table(cars$IsBadBuy, cars$IsOnlineSale)
 tab
@@ -205,18 +173,9 @@ prop.test(tab)
 fisher.test(tab)
 
 
-## ----rnorm, comment=""---------------------------------------------------
-rnorm(5)
-
-
-## ----sample, comment=""--------------------------------------------------
-sample(1:10, 5, replace=FALSE)
-
-
 ## ----samp_plot, comment="", fig.height=4,fig.width=7---------------------
-samp.cars <- cars[ sample(nrow(cars), 10000), ]
-samp.cars = dplyr::sample_n(cars, size = 10000)
-samp.cars = dplyr::sample_frac(cars, size = 0.2)
+samp.cars = sample_n(cars, size = 10000)
+samp.cars = sample_frac(cars, size = 0.2)
 ggplot(aes(x = VehBCost, y = VehOdo), 
        data = samp.cars) + geom_point() 
 
