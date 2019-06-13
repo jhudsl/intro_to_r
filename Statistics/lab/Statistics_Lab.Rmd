@@ -97,8 +97,6 @@ or `tidy(logfit_cars, conf.int = TRUE, exponentiate = FALSE)` for log odds ratio
 
 ```
 
-# Part 3
-
 7. Randomly sample `10,000` observations (rows) with replacement from the `cars` dataset and store this new dataset in an object called `cars_subsample`.  Hint: `sample_n` function
 
 ```{r}

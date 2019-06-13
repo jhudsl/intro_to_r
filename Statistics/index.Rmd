@@ -290,34 +290,6 @@ print(fit)
 <!-- abline(fit, col="red",lwd=2) -->
 <!-- ``` -->
 
-
-## Linear Regression: adding line with ggplot2
-
-```{r}
-cars %>% 
-  ggplot(aes(x = VehicleAge, y = VehOdo)) + geom_point() + 
-  geom_smooth(method = "lm")
-```
-
-## Linear Regression: adding line with ggplot2
-
-```{r, comment="", fig.height=4,fig.width=8}
-ggplot(aes(x = factor(VehicleAge), y = VehOdo), data = cars) + 
-  geom_boxplot() + 
-  geom_smooth( aes(x = VehicleAge, y = VehOdo), se = FALSE, method = "lm")
-```
-
-
-## Linear Regression: adding line with ggplot2
-
-```{r gg_regress, comment="", fig.height=4,fig.width=8}
-ggplot(aes(x = VehicleAge, y = VehOdo), data = cars) + 
-  geom_jitter(alpha = 0.05, height = 0) + 
-  geom_smooth(se = FALSE, method = "lm")
-```
-
-
-
 ## Linear Regression
 
 Note that you can have more than 1 predictor in regression models.The interpretation for each slope is change in the predictor corresponding to a one-unit change in the outcome, holding all other predictors constant.
@@ -347,28 +319,6 @@ fit4 = lm(VehOdo ~ IsBadBuy * VehicleAge -IsBadBuy , data = cars)
 summary(fit4)  
 ```
 
-
-
-
-## Linear Regression
-
-Added-Variable plots can show you the relationship between a variable and outcome after adjusting for other variables.  The function `avPlots` from the `car` package can do this:
-
-```{r avplot, comment="", fig.height=4,fig.width=8}
-library(car)
-avPlots(fit2)
-```
-
-## Linear Regression
-
-Plot on an `lm` object will do diagnostic plots.  Residuals vs. Fitted should have no discernable shape (the red line is the smoother), the qqplot shows how well the residuals fit a normal distribution, and Cook's distance measures the influence of individual points. 
-
----
-
-```{r plot_lm, comment="", fig.height=4,fig.width=8}
-par(mfrow=c(2,2))
-plot(fit2, ask = FALSE)
-```
 
 ## Linear Regression {.smaller}
 
@@ -406,20 +356,6 @@ Note the coefficients are on the original scale, we must exponentiate them for o
 
 ```{r regress8, comment="", fig.height=4,fig.width=8}
 exp(coef(glmfit))
-```
-
-## Proportion tests
-
-`prop.test()` can be used for testing the null that the proportions (probabilities of success) in several groups are the same, or that they equal certain given values.
-
-```
-prop.test(x, n, p = NULL,
-          alternative = c("two.sided", "less", "greater"),
-          conf.level = 0.95, correct = TRUE)
-```
-
-```{r prop1, comment=""}
-prop.test(x = 15, n =32)
 ```
 
 ## Chi-squared tests
@@ -471,55 +407,17 @@ fisher.test(x, y = NULL, workspace = 200000, hybrid = FALSE,
 fisher.test(tab)
 ```
 
-## Lab Part 2
-
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
-
-## Probability Distributions
-
-Sometimes you want to generate data from a distribution (such as normal), or want to see where a value falls in a known distribution. `R` has these distibutions built in:
-
-* Normal
-* Binomial
-* Beta
-* Exponential
-* Gamma
-* Hypergeometric
-* etc
-
-## Probability Distributions
-
-Each has 4 options:
-
-* `r` for random number generation [e.g. `rnorm()`]
-* `d` for density [e.g. `dnorm()`]
-* `p` for probability [e.g. `pnorm()`]
-* `q` for quantile [e.g. `qnorm()`]
-
-```{r rnorm, comment=""}
-rnorm(5)
-```
-
-## Sampling
-
-The `sample()` function is pretty useful for permutations
-
-```{r sample, comment=""}
-sample(1:10, 5, replace=FALSE)
-```
-
 ## Sampling
 
 Also, if you want to only plot a subset of the data (for speed/time or overplotting)
 
 ```{r samp_plot, comment="", fig.height=4,fig.width=7}
-samp.cars <- cars[ sample(nrow(cars), 10000), ]
-samp.cars = dplyr::sample_n(cars, size = 10000)
-samp.cars = dplyr::sample_frac(cars, size = 0.2)
+samp.cars = sample_n(cars, size = 10000)
+samp.cars = sample_frac(cars, size = 0.2)
 ggplot(aes(x = VehBCost, y = VehOdo), 
        data = samp.cars) + geom_point() 
 ```
 
-## Lab Part 3
+## Lab Part 2
 
 [Website](http://johnmuschelli.com/intro_to_r/index.html)

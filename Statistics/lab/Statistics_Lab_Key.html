@@ -409,17 +409,17 @@ $(document).ready(function () {
 <pre class="r"><code>sub = mort %&gt;% 
   select(`1980`, `1990`, `2000`, `2010`)
 cor(sub)</code></pre>
-<pre><code>##                1980           1990           2000 2010
-## 1980 1.000000000000 0.960153953723 0.888841117492   NA
-## 1990 0.960153953723 1.000000000000 0.961384203917   NA
-## 2000 0.888841117492 0.961384203917 1.000000000000   NA
-## 2010             NA             NA             NA    1</code></pre>
+<pre><code>##           1980      1990      2000 2010
+## 1980 1.0000000 0.9601540 0.8888411   NA
+## 1990 0.9601540 1.0000000 0.9613842   NA
+## 2000 0.8888411 0.9613842 1.0000000   NA
+## 2010        NA        NA        NA    1</code></pre>
 <pre class="r"><code>cor(sub, use = &quot;complete.obs&quot;)</code></pre>
-<pre><code>##                1980           1990           2000           2010
-## 1980 1.000000000000 0.959684628292 0.887743334542 0.846828397953
-## 1990 0.959684628292 1.000000000000 0.961026893827 0.924719217724
-## 2000 0.887743334542 0.961026893827 1.000000000000 0.986234456933
-## 2010 0.846828397953 0.924719217724 0.986234456933 1.000000000000</code></pre>
+<pre><code>##           1980      1990      2000      2010
+## 1980 1.0000000 0.9596846 0.8877433 0.8468284
+## 1990 0.9596846 1.0000000 0.9610269 0.9247192
+## 2000 0.8877433 0.9610269 1.0000000 0.9862345
+## 2010 0.8468284 0.9247192 0.9862345 1.0000000</code></pre>
 <pre class="r"><code>psych::corr.test(sub, use = &quot;complete.obs&quot;)</code></pre>
 <pre><code>## Call:psych::corr.test(x = sub, use = &quot;complete.obs&quot;)
 ## Correlation matrix 
@@ -465,42 +465,34 @@ cor(sub)</code></pre>
 ## 
 ##  To see confidence intervals of the correlations, print with the short=FALSE option</code></pre>
 <pre class="r"><code>cor(mort[,c(&quot;1980&quot;, &quot;1990&quot;, &quot;2000&quot;, &quot;2010&quot;)])</code></pre>
-<pre><code>##                1980           1990           2000 2010
-## 1980 1.000000000000 0.960153953723 0.888841117492   NA
-## 1990 0.960153953723 1.000000000000 0.961384203917   NA
-## 2000 0.888841117492 0.961384203917 1.000000000000   NA
-## 2010             NA             NA             NA    1</code></pre>
+<pre><code>##           1980      1990      2000 2010
+## 1980 1.0000000 0.9601540 0.8888411   NA
+## 1990 0.9601540 1.0000000 0.9613842   NA
+## 2000 0.8888411 0.9613842 1.0000000   NA
+## 2010        NA        NA        NA    1</code></pre>
 <p>What’s going on?! Seems we have <code>NA</code>s in the <code>2010</code> column</p>
 <pre class="r"><code>summary(mort[,c(&quot;1980&quot;, &quot;1990&quot;, &quot;2000&quot;, &quot;2010&quot;)])</code></pre>
-<pre><code>##       1980                  1990                  2000            
-##  Min.   :0.070490887   Min.   :0.049215555   Min.   :0.032320019  
-##  1st Qu.:0.186491646   1st Qu.:0.149422819   1st Qu.:0.093360836  
-##  Median :0.566647329   Median :0.343152280   Median :0.210366768  
-##  Mean   :0.947310323   Mean   :0.709108004   Mean   :0.550039910  
-##  3rd Qu.:1.478281448   3rd Qu.:0.995794215   3rd Qu.:0.710028877  
-##  Max.   :3.490352139   Max.   :3.289831218   Max.   :2.811858292  
-##                                                                   
-##       2010            
-##  Min.   :0.031731875  
-##  1st Qu.:0.081694736  
-##  Median :0.143392163  
-##  Mean   :0.396007581  
-##  3rd Qu.:0.499190608  
-##  Max.   :2.028572693  
-##  NA&#39;s   :4</code></pre>
+<pre><code>##       1980              1990              2000              2010        
+##  Min.   :0.07049   Min.   :0.04922   Min.   :0.03232   Min.   :0.03173  
+##  1st Qu.:0.18649   1st Qu.:0.14942   1st Qu.:0.09336   1st Qu.:0.08170  
+##  Median :0.56665   Median :0.34315   Median :0.21037   Median :0.14339  
+##  Mean   :0.94731   Mean   :0.70911   Mean   :0.55004   Mean   :0.39601  
+##  3rd Qu.:1.47828   3rd Qu.:0.99579   3rd Qu.:0.71003   3rd Qu.:0.49919  
+##  Max.   :3.49035   Max.   :3.28983   Max.   :2.81186   Max.   :2.02857  
+##                                                        NA&#39;s   :4</code></pre>
 <p>Both are equivalent</p>
 <pre class="r"><code>cor(mort[,c(&quot;1980&quot;, &quot;1990&quot;, &quot;2000&quot;, &quot;2010&quot;)], use = &quot;complete.obs&quot;)</code></pre>
-<pre><code>##                1980           1990           2000           2010
-## 1980 1.000000000000 0.959684628292 0.887743334542 0.846828397953
-## 1990 0.959684628292 1.000000000000 0.961026893827 0.924719217724
-## 2000 0.887743334542 0.961026893827 1.000000000000 0.986234456933
-## 2010 0.846828397953 0.924719217724 0.986234456933 1.000000000000</code></pre>
+<pre><code>##           1980      1990      2000      2010
+## 1980 1.0000000 0.9596846 0.8877433 0.8468284
+## 1990 0.9596846 1.0000000 0.9610269 0.9247192
+## 2000 0.8877433 0.9610269 1.0000000 0.9862345
+## 2010 0.8468284 0.9247192 0.9862345 1.0000000</code></pre>
 <pre class="r"><code>cor(mort %&gt;% select(&quot;1980&quot;, &quot;1990&quot;, &quot;2000&quot;, &quot;2010&quot;), use = &quot;complete.obs&quot;)</code></pre>
-<pre><code>##                1980           1990           2000           2010
-## 1980 1.000000000000 0.959684628292 0.887743334542 0.846828397953
-## 1990 0.959684628292 1.000000000000 0.961026893827 0.924719217724
-## 2000 0.887743334542 0.961026893827 1.000000000000 0.986234456933
-## 2010 0.846828397953 0.924719217724 0.986234456933 1.000000000000</code></pre>
+<pre><code>##           1980      1990      2000      2010
+## 1980 1.0000000 0.9596846 0.8877433 0.8468284
+## 1990 0.9596846 1.0000000 0.9610269 0.9247192
+## 2000 0.8877433 0.9610269 1.0000000 0.9862345
+## 2010 0.8468284 0.9247192 0.9862345 1.0000000</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li><ol style="list-style-type: lower-alpha">
 <li>Compute the correlation between the <code>Myanmar</code>, <code>China</code>, and <code>United States</code> mortality data. Store this correlation matrix in an object called <code>country_cor</code></li>
@@ -520,10 +512,10 @@ long = long %&gt;%
 sub = long %&gt;% 
   select(Myanmar, China, `United States`)
 cor(sub)</code></pre>
-<pre><code>##                      Myanmar          China  United States
-## Myanmar       1.000000000000 0.974364554315 0.629262462521
-## China         0.974364554315 1.000000000000 0.690926321344
-## United States 0.629262462521 0.690926321344 1.000000000000</code></pre>
+<pre><code>##                 Myanmar     China United States
+## Myanmar       1.0000000 0.9743646     0.6292625
+## China         0.9743646 1.0000000     0.6909263
+## United States 0.6292625 0.6909263     1.0000000</code></pre>
 <pre class="r"><code>mort_subs = mort_subs %&gt;% 
   select(-country)
 mort_subs = t(mort_subs)
@@ -536,8 +528,8 @@ country_cor = cor(mort_subs,
 ##   &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
 ## 1 China       NA     NA     NA     NA     NA     NA     NA     NA     NA
 ## 2 Myanmar     NA     NA     NA     NA     NA     NA     NA     NA     NA
-## 3 United…     NA     NA     NA     NA     NA     NA     NA     NA     NA
-## # … with 245 more variables: `1769` &lt;dbl&gt;, `1770` &lt;dbl&gt;, `1771` &lt;dbl&gt;,
+## 3 United~     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## # ... with 245 more variables: `1769` &lt;dbl&gt;, `1770` &lt;dbl&gt;, `1771` &lt;dbl&gt;,
 ## #   `1772` &lt;dbl&gt;, `1773` &lt;dbl&gt;, `1774` &lt;dbl&gt;, `1775` &lt;dbl&gt;, `1776` &lt;dbl&gt;,
 ## #   `1777` &lt;dbl&gt;, `1778` &lt;dbl&gt;, `1779` &lt;dbl&gt;, `1780` &lt;dbl&gt;, `1781` &lt;dbl&gt;,
 ## #   `1782` &lt;dbl&gt;, `1783` &lt;dbl&gt;, `1784` &lt;dbl&gt;, `1785` &lt;dbl&gt;, `1786` &lt;dbl&gt;,
@@ -557,10 +549,10 @@ country_cor = cor(mort_subs,
 ## #   `1852` &lt;dbl&gt;, `1853` &lt;dbl&gt;, `1854` &lt;dbl&gt;, `1855` &lt;dbl&gt;, `1856` &lt;dbl&gt;,
 ## #   `1857` &lt;dbl&gt;, `1858` &lt;dbl&gt;, `1859` &lt;dbl&gt;, `1860` &lt;dbl&gt;, `1861` &lt;dbl&gt;,
 ## #   `1862` &lt;dbl&gt;, `1863` &lt;dbl&gt;, `1864` &lt;dbl&gt;, `1865` &lt;dbl&gt;, `1866` &lt;dbl&gt;,
-## #   `1867` &lt;dbl&gt;, `1868` &lt;dbl&gt;, …</code></pre>
+## #   `1867` &lt;dbl&gt;, `1868` &lt;dbl&gt;, ...</code></pre>
 <p>Extract the Myanmar-US correlation</p>
 <pre class="r"><code>country_cor[1,3]</code></pre>
-<pre><code>## [1] 0.690926321344</code></pre>
+<pre><code>## [1] 0.6909263</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Is there a difference between mortality information from <code>1990</code> and <code>2000</code>? Run a t-test and a Wilcoxon rank sum test to assess this. Hint: to extract the column of information for <code>1990</code>, use <code>mort$&quot;1990&quot;</code></li>
 </ol>
@@ -569,50 +561,50 @@ country_cor = cor(mort_subs,
 ##  Welch Two Sample t-test
 ## 
 ## data:  mort$&quot;1990&quot; and mort$&quot;2000&quot;
-## t = 2.146049034, df = 386.2310023, p-value = 0.0324916449
+## t = 2.146, df = 386.23, p-value = 0.03249
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.0133362118521 0.3047999761377
+##  0.01333621 0.30479998
 ## sample estimates:
-##      mean of x      mean of y 
-## 0.709108003990 0.550039909995</code></pre>
+## mean of x mean of y 
+## 0.7091080 0.5500399</code></pre>
 <pre class="r"><code>t.test(mort$`1990`, mort$`2000`)</code></pre>
 <pre><code>## 
 ##  Welch Two Sample t-test
 ## 
 ## data:  mort$`1990` and mort$`2000`
-## t = 2.146049034, df = 386.2310023, p-value = 0.0324916449
+## t = 2.146, df = 386.23, p-value = 0.03249
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.0133362118521 0.3047999761377
+##  0.01333621 0.30479998
 ## sample estimates:
-##      mean of x      mean of y 
-## 0.709108003990 0.550039909995</code></pre>
+## mean of x mean of y 
+## 0.7091080 0.5500399</code></pre>
 <pre class="r"><code>t.test(mort$`1990`, mort$`2000`, paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Paired t-test
 ## 
 ## data:  mort$`1990` and mort$`2000`
-## t = 10.02534013, df = 196, p-value &lt; 2.220446e-16
+## t = 10.025, df = 196, p-value &lt; 2.2e-16
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  0.127776911751 0.190359276239
+##  0.1277769 0.1903593
 ## sample estimates:
 ## mean of the differences 
-##          0.159068093995</code></pre>
+##               0.1590681</code></pre>
 <pre class="r"><code>wilcox.test(mort$&quot;1990&quot;, mort$&quot;2000&quot;)</code></pre>
 <pre><code>## 
 ##  Wilcoxon rank sum test with continuity correction
 ## 
 ## data:  mort$&quot;1990&quot; and mort$&quot;2000&quot;
-## W = 23005.5, p-value = 0.00144462911
+## W = 23006, p-value = 0.001445
 ## alternative hypothesis: true location shift is not equal to 0</code></pre>
 <pre class="r"><code>wilcox.test(mort$&quot;1990&quot;, mort$&quot;2000&quot;, paired = TRUE)</code></pre>
 <pre><code>## 
 ##  Wilcoxon signed rank test with continuity correction
 ## 
 ## data:  mort$&quot;1990&quot; and mort$&quot;2000&quot;
-## V = 17997, p-value &lt; 2.220446e-16
+## V = 17997, p-value &lt; 2.2e-16
 ## alternative hypothesis: true location shift is not equal to 0</code></pre>
 </div>
 <div id="part-2" class="section level1">
@@ -631,70 +623,43 @@ summary(lmfit_cars)</code></pre>
 ## lm(formula = VehBCost ~ VehicleAge * Size, data = cars)
 ## 
 ## Residuals:
-##         Min          1Q      Median          3Q         Max 
-## -6376.76233  -762.64900   -46.87968   673.04214 34276.88344 
+##    Min     1Q Median     3Q    Max 
+##  -6377   -763    -47    673  34277 
 ## 
 ## Coefficients:
-##                                  Estimate     Std. Error   t value
-## (Intercept)                6702.172187733   41.109034009 163.03405
-## VehicleAge                 -359.215417161    8.623419700 -41.65580
-## SizeCROSSOVER              1707.927728356   97.044825287  17.59937
-## SizeLARGE                  1970.800576545   52.094595235  37.83119
-## SizeLARGE SUV              5300.381389440  150.473091072  35.22478
-## SizeLARGE TRUCK            3941.362972795   87.607024903  44.98912
-## SizeMEDIUM                 1356.221438338   44.250649102  30.64862
-## SizeMEDIUM SUV             3393.648227406   63.912305723  53.09851
-## SizeNULL                   3050.736903178  927.930652750   3.28768
-## SizeSMALL SUV              1982.948580893   81.549727684  24.31582
-## SizeSMALL TRUCK            1220.035355798  140.190260885   8.70271
-## SizeSPECIALTY              3226.936148957   87.731761400  36.78185
-## SizeSPORTS                 4455.203396003  156.974993062  28.38161
-## SizeVAN                    1188.962588506   60.505413100  19.65052
-## VehicleAge:SizeCROSSOVER    257.072707660   24.066865914  10.68160
-## VehicleAge:SizeLARGE        -70.768436952   11.722994071  -6.03672
-## VehicleAge:SizeLARGE SUV    -46.003089718   26.080114614  -1.76391
-## VehicleAge:SizeLARGE TRUCK    0.880204984   17.238591400   0.05106
-## VehicleAge:SizeMEDIUM      -126.328347281    9.468981563 -13.34128
-## VehicleAge:SizeMEDIUM SUV   -76.750221946   12.839062011  -5.97787
-## VehicleAge:SizeNULL         -54.420946476  253.389237005  -0.21477
-## VehicleAge:SizeSMALL SUV     59.282281655   16.377048532   3.61984
-## VehicleAge:SizeSMALL TRUCK   47.472592787   25.052619127   1.89492
-## VehicleAge:SizeSPECIALTY    168.169205664   24.000183203   7.00700
-## VehicleAge:SizeSPORTS      -346.336423830   28.729015634 -12.05528
-## VehicleAge:SizeVAN          -72.974650237   12.739086442  -5.72841
-##                              Pr(&gt;|t|)    
-## (Intercept)                &lt; 2.22e-16 ***
-## VehicleAge                 &lt; 2.22e-16 ***
-## SizeCROSSOVER              &lt; 2.22e-16 ***
-## SizeLARGE                  &lt; 2.22e-16 ***
-## SizeLARGE SUV              &lt; 2.22e-16 ***
-## SizeLARGE TRUCK            &lt; 2.22e-16 ***
-## SizeMEDIUM                 &lt; 2.22e-16 ***
-## SizeMEDIUM SUV             &lt; 2.22e-16 ***
-## SizeNULL                   0.00101065 ** 
-## SizeSMALL SUV              &lt; 2.22e-16 ***
-## SizeSMALL TRUCK            &lt; 2.22e-16 ***
-## SizeSPECIALTY              &lt; 2.22e-16 ***
-## SizeSPORTS                 &lt; 2.22e-16 ***
-## SizeVAN                    &lt; 2.22e-16 ***
-## VehicleAge:SizeCROSSOVER   &lt; 2.22e-16 ***
-## VehicleAge:SizeLARGE       1.5803e-09 ***
-## VehicleAge:SizeLARGE SUV   0.07775058 .  
-## VehicleAge:SizeLARGE TRUCK 0.95927773    
-## VehicleAge:SizeMEDIUM      &lt; 2.22e-16 ***
-## VehicleAge:SizeMEDIUM SUV  2.2712e-09 ***
-## VehicleAge:SizeNULL        0.82994558    
-## VehicleAge:SizeSMALL SUV   0.00029499 ***
-## VehicleAge:SizeSMALL TRUCK 0.05810757 .  
-## VehicleAge:SizeSPECIALTY   2.4559e-12 ***
-## VehicleAge:SizeSPORTS      &lt; 2.22e-16 ***
-## VehicleAge:SizeVAN         1.0178e-08 ***
+##                             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                6702.1722    41.1090 163.034  &lt; 2e-16 ***
+## VehicleAge                 -359.2154     8.6234 -41.656  &lt; 2e-16 ***
+## SizeCROSSOVER              1707.9277    97.0448  17.599  &lt; 2e-16 ***
+## SizeLARGE                  1970.8006    52.0946  37.831  &lt; 2e-16 ***
+## SizeLARGE SUV              5300.3814   150.4731  35.225  &lt; 2e-16 ***
+## SizeLARGE TRUCK            3941.3630    87.6070  44.989  &lt; 2e-16 ***
+## SizeMEDIUM                 1356.2214    44.2506  30.649  &lt; 2e-16 ***
+## SizeMEDIUM SUV             3393.6482    63.9123  53.099  &lt; 2e-16 ***
+## SizeNULL                   3050.7369   927.9307   3.288 0.001011 ** 
+## SizeSMALL SUV              1982.9486    81.5497  24.316  &lt; 2e-16 ***
+## SizeSMALL TRUCK            1220.0354   140.1903   8.703  &lt; 2e-16 ***
+## SizeSPECIALTY              3226.9361    87.7318  36.782  &lt; 2e-16 ***
+## SizeSPORTS                 4455.2034   156.9750  28.382  &lt; 2e-16 ***
+## SizeVAN                    1188.9626    60.5054  19.651  &lt; 2e-16 ***
+## VehicleAge:SizeCROSSOVER    257.0727    24.0669  10.682  &lt; 2e-16 ***
+## VehicleAge:SizeLARGE        -70.7684    11.7230  -6.037 1.58e-09 ***
+## VehicleAge:SizeLARGE SUV    -46.0031    26.0801  -1.764 0.077751 .  
+## VehicleAge:SizeLARGE TRUCK    0.8802    17.2386   0.051 0.959278    
+## VehicleAge:SizeMEDIUM      -126.3283     9.4690 -13.341  &lt; 2e-16 ***
+## VehicleAge:SizeMEDIUM SUV   -76.7502    12.8391  -5.978 2.27e-09 ***
+## VehicleAge:SizeNULL         -54.4209   253.3892  -0.215 0.829946    
+## VehicleAge:SizeSMALL SUV     59.2823    16.3770   3.620 0.000295 ***
+## VehicleAge:SizeSMALL TRUCK   47.4726    25.0526   1.895 0.058108 .  
+## VehicleAge:SizeSPECIALTY    168.1692    24.0002   7.007 2.46e-12 ***
+## VehicleAge:SizeSPORTS      -346.3364    28.7290 -12.055  &lt; 2e-16 ***
+## VehicleAge:SizeVAN          -72.9747    12.7391  -5.728 1.02e-08 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 1187.81241 on 72957 degrees of freedom
-## Multiple R-squared:  0.548707776,    Adjusted R-squared:  0.548553133 
-## F-statistic: 3548.21741 on 25 and 72957 DF,  p-value: &lt; 2.220446e-16</code></pre>
+## Residual standard error: 1188 on 72957 degrees of freedom
+## Multiple R-squared:  0.5487, Adjusted R-squared:  0.5486 
+## F-statistic:  3548 on 25 and 72957 DF,  p-value: &lt; 2.2e-16</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Create a variable called <code>expensive</code> in the <code>cars</code> data that indicates if the vehicle cost is over <code>$10,000</code>. Use a chi-squared test to assess if there is a relationship between a car being expensive and it being labeled as a “bad buy” (<code>IsBadBuy</code>).</li>
 </ol>
@@ -706,32 +671,32 @@ chisq.test(tab)</code></pre>
 ##  Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
 ## 
 ## data:  tab
-## X-squared = 1.815247312, df = 1, p-value = 0.177880045</code></pre>
+## X-squared = 1.8152, df = 1, p-value = 0.1779</code></pre>
 <pre class="r"><code>fisher.test(tab)</code></pre>
 <pre><code>## 
 ##  Fisher&#39;s Exact Test for Count Data
 ## 
 ## data:  tab
-## p-value = 0.178978818
+## p-value = 0.179
 ## alternative hypothesis: true odds ratio is not equal to 1
 ## 95 percent confidence interval:
-##  0.815642760873 1.036273536773
+##  0.8156428 1.0362735
 ## sample estimates:
-##     odds ratio 
-## 0.920542562973</code></pre>
+## odds ratio 
+##  0.9205426</code></pre>
 <pre class="r"><code>prop.test(tab)</code></pre>
 <pre><code>## 
 ##  2-sample test for equality of proportions with continuity
 ##  correction
 ## 
 ## data:  tab
-## X-squared = 1.815247312, df = 1, p-value = 0.177880045
+## X-squared = 1.8152, df = 1, p-value = 0.1779
 ## alternative hypothesis: two.sided
 ## 95 percent confidence interval:
-##  -0.02085354859625  0.00350610520518
+##  -0.020853549  0.003506105
 ## sample estimates:
-##         prop 1         prop 2 
-## 0.876676596776 0.885350318471</code></pre>
+##    prop 1    prop 2 
+## 0.8766766 0.8853503</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>Fit a logistic regression model where the outcome is “bad buy” status and predictors are the <code>expensive</code> status and vehicle age (<code>VehicleAge</code>). Save the model fit in an object called <code>logfit_cars</code> and display the summary table. Use summary or <code>tidy(logfit_cars, conf.int = TRUE, exponentiate = TRUE)</code> or <code>tidy(logfit_cars, conf.int = TRUE, exponentiate = FALSE)</code> for log odds ratios</li>
 </ol>
@@ -745,22 +710,22 @@ summary(logfit_cars)</code></pre>
 ##     data = cars)
 ## 
 ## Deviance Residuals: 
-##          Min            1Q        Median            3Q           Max  
-## -0.909091727  -0.548922874  -0.479968473  -0.364839574   2.485900048  
+##     Min       1Q   Median       3Q      Max  
+## -0.9091  -0.5489  -0.4800  -0.3648   2.4859  
 ## 
 ## Coefficients:
-##                     Estimate     Std. Error   z value Pr(&gt;|z|)    
-## (Intercept)   -3.24948976307  0.03324440927 -97.74545  &lt; 2e-16 ***
-## expensiveTRUE -0.08038741797  0.06069562592  -1.32444  0.18536    
-## VehicleAge     0.28660451302  0.00647588104  44.25722  &lt; 2e-16 ***
+##                Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)   -3.249490   0.033244 -97.745   &lt;2e-16 ***
+## expensiveTRUE -0.080387   0.060696  -1.324    0.185    
+## VehicleAge     0.286605   0.006476  44.257   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 54421.30728  on 72982  degrees of freedom
-## Residual deviance: 52441.78751  on 72980  degrees of freedom
-## AIC: 52447.78751
+##     Null deviance: 54421  on 72982  degrees of freedom
+## Residual deviance: 52442  on 72980  degrees of freedom
+## AIC: 52448
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
 <pre class="r"><code>tidy(logfit_cars, conf.int = TRUE, exponentiate = TRUE)</code></pre>
@@ -777,9 +742,6 @@ summary(logfit_cars)</code></pre>
 ## 1 (Intercept)    -3.25     0.0332     -97.7    0       -3.31    -3.18  
 ## 2 expensiveTRUE  -0.0804   0.0607      -1.32   0.185   -0.201    0.0370
 ## 3 VehicleAge      0.287    0.00648     44.3    0        0.274    0.299</code></pre>
-</div>
-<div id="part-3" class="section level1">
-<h1>Part 3</h1>
 <ol start="7" style="list-style-type: decimal">
 <li>Randomly sample <code>10,000</code> observations (rows) with replacement from the <code>cars</code> dataset and store this new dataset in an object called <code>cars_subsample</code>. Hint: <code>sample_n</code> function</li>
 </ol>
@@ -800,22 +762,22 @@ summary(logfit_cars_sub)</code></pre>
 ##     data = cars)
 ## 
 ## Deviance Residuals: 
-##          Min            1Q        Median            3Q           Max  
-## -0.909091727  -0.548922874  -0.479968473  -0.364839574   2.485900048  
+##     Min       1Q   Median       3Q      Max  
+## -0.9091  -0.5489  -0.4800  -0.3648   2.4859  
 ## 
 ## Coefficients:
-##                     Estimate     Std. Error   z value Pr(&gt;|z|)    
-## (Intercept)   -3.24948976307  0.03324440927 -97.74545  &lt; 2e-16 ***
-## expensiveTRUE -0.08038741797  0.06069562592  -1.32444  0.18536    
-## VehicleAge     0.28660451302  0.00647588104  44.25722  &lt; 2e-16 ***
+##                Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)   -3.249490   0.033244 -97.745   &lt;2e-16 ***
+## expensiveTRUE -0.080387   0.060696  -1.324    0.185    
+## VehicleAge     0.286605   0.006476  44.257   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 54421.30728  on 72982  degrees of freedom
-## Residual deviance: 52441.78751  on 72980  degrees of freedom
-## AIC: 52447.78751
+##     Null deviance: 54421  on 72982  degrees of freedom
+## Residual deviance: 52442  on 72980  degrees of freedom
+## AIC: 52448
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
 <pre class="r"><code>tidy(logfit_cars_sub, conf.int = TRUE, exponentiate = TRUE)</code></pre>
