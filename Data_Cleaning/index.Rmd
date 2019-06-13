@@ -207,19 +207,26 @@ prop.table(tab,1) * 100
 
 ## Download Salary FY2014 Data
 
-From https://data.baltimorecity.gov/City-Government/Baltimore-City-Employee-Salaries-FY2015/nsfe-bg53
-https://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv
+From https://data.baltimorecity.gov/City-Government/Baltimore-City-Employee-Salaries-FY2015/nsfe-bg53, from  https://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv
 
 Read the CSV into R `Sal`:
 
 ```{r readSal, echo = TRUE, eval = FALSE}
 Sal = jhur::read_salaries() # or
-Sal = read_csv("http://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv")
+Sal = read_csv("https://johnmuschelli.com/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv")
 Sal = rename(Sal, Name = name)
 ```
 
 ```{r readSal_csv, echo= FALSE, eval = TRUE}
-Sal = read.csv("http://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv")
+Sal = read_csv("https://johnmuschelli.com/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv", col_types = cols(
+  name = col_character(),
+  JobTitle = col_character(),
+  AgencyID = col_character(),
+  Agency = col_character(),
+  HireDate = col_character(),
+  AnnualSalary = col_character(),
+  GrossPay = col_character()
+))
 Sal = rename(Sal, Name = name)
 ```
 
@@ -360,17 +367,22 @@ sapply(y, last) # on the fly
 df = tibble(x = c("I really", "like writing", "R code programs"))
 ```
 
-<div class="left_col"> 
-
 ```{r}
 df %>% separate(x, into = c("first", "second", "third"))
 ```
-</div>
-<div class="right_col"> 
+
+
+## Separating columns based on a separator 
+
+* From `tidyr`, you can split a data set into multiple columns:
+
+```{r separate_df2_for_easy}
+df = tibble(x = c("I really", "like writing", "R code programs"))
+```
+
 ```{r}
 df %>% separate(x, into = c("first", "second"))
 ```
-</div>
 
 
 ## Separating columns based on a separator 

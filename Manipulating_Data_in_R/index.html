@@ -3203,20 +3203,24 @@ width:48%;
 </ul></li>
 </ul>
 
-<pre >  id visit1 visit2 visit3
-1  1     10      4      3
-2  2      5      6     NA</pre>
+<pre ># A tibble: 2 x 4
+     id visit1 visit2 visit3
+  &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1     1     10      4      3
+2     2      5      6     NA</pre>
 
 <ul>
 <li>Long - multiple rows per observation</li>
 </ul>
 
-<pre >  id visit value
-1  1     1    10
-2  1     2     4
-3  1     3     3
-4  2     1     5
-5  2     2     6</pre>
+<pre ># A tibble: 5 x 3
+     id visit value
+  &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;
+1     1     1    10
+2     1     2     4
+3     1     3     3
+4     2     1     5
+5     2     2     6</pre>
 
 </article></slide><slide class=""><hgroup><h2>What is wide/long data?</h2></hgroup><article  id="what-is-widelong-data-1">
 
@@ -3313,27 +3317,42 @@ head(long, 4)</pre>
 <pre class = 'prettyprint lang-r'>long = gather(circ, key = &quot;var&quot;, value = &quot;number&quot;, 
               starts_with(&quot;orange&quot;), starts_with(&quot;purple&quot;),
               starts_with(&quot;green&quot;), starts_with(&quot;banner&quot;))
-head(long, 4)</pre>
+long</pre>
 
-<pre ># A tibble: 4 x 5
-  day       date       daily var             number
-  &lt;chr&gt;     &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;            &lt;dbl&gt;
-1 Monday    2010-01-11  952  orangeBoardings    877
-2 Tuesday   2010-01-12  796  orangeBoardings    777
-3 Wednesday 2010-01-13 1212. orangeBoardings   1203
-4 Thursday  2010-01-14 1214. orangeBoardings   1194</pre>
+<pre ># A tibble: 13,752 x 5
+   day       date       daily var             number
+   &lt;chr&gt;     &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;            &lt;dbl&gt;
+ 1 Monday    2010-01-11  952  orangeBoardings    877
+ 2 Tuesday   2010-01-12  796  orangeBoardings    777
+ 3 Wednesday 2010-01-13 1212. orangeBoardings   1203
+ 4 Thursday  2010-01-14 1214. orangeBoardings   1194
+ 5 Friday    2010-01-15 1644  orangeBoardings   1645
+ 6 Saturday  2010-01-16 1490. orangeBoardings   1457
+ 7 Sunday    2010-01-17  888. orangeBoardings    839
+ 8 Monday    2010-01-18 1000. orangeBoardings    999
+ 9 Tuesday   2010-01-19 1035  orangeBoardings   1023
+10 Wednesday 2010-01-20 1396. orangeBoardings   1375
+# … with 13,742 more rows</pre>
 
 </article></slide><slide class=""><hgroup><h2>Reshaping data from wide (fat) to long (tall): tidyr</h2></hgroup><article  id="reshaping-data-from-wide-fat-to-long-tall-tidyr-2">
 
-<pre class = 'prettyprint lang-r'>table(long$var)</pre>
+<pre class = 'prettyprint lang-r'>long %&gt;% count(var)</pre>
 
-<pre >
-bannerAlightings    bannerAverage  bannerBoardings  greenAlightings 
-            1146             1146             1146             1146 
-    greenAverage   greenBoardings orangeAlightings    orangeAverage 
-            1146             1146             1146             1146 
- orangeBoardings purpleAlightings    purpleAverage  purpleBoardings 
-            1146             1146             1146             1146 </pre>
+<pre ># A tibble: 12 x 2
+   var                  n
+   &lt;chr&gt;            &lt;int&gt;
+ 1 bannerAlightings  1146
+ 2 bannerAverage     1146
+ 3 bannerBoardings   1146
+ 4 greenAlightings   1146
+ 5 greenAverage      1146
+ 6 greenBoardings    1146
+ 7 orangeAlightings  1146
+ 8 orangeAverage     1146
+ 9 orangeBoardings   1146
+10 purpleAlightings  1146
+11 purpleAverage     1146
+12 purpleBoardings   1146</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 1</h2></hgroup><article  id="lab-part-1">
 
@@ -3344,19 +3363,28 @@ bannerAlightings    bannerAverage  bannerBoardings  greenAlightings
 <p>We will use <code>str_replace</code> from <code>stringr</code> to put periods in the names (periods are <strong>not</strong> special when in a replacement)</p>
 
 <pre class = 'prettyprint lang-r'>long = long %&gt;% mutate(
-  var = var %&gt;% str_replace(&quot;Board&quot;, &quot;.Board&quot;) %&gt;% 
+  var = var %&gt;% 
+    str_replace(&quot;Board&quot;, &quot;.Board&quot;) %&gt;% 
     str_replace(&quot;Alight&quot;, &quot;.Alight&quot;) %&gt;% 
     str_replace(&quot;Average&quot;, &quot;.Average&quot;) 
 )
-table(long$var)</pre>
+long %&gt;% count(var)</pre>
 
-<pre >
-banner.Alightings    banner.Average  banner.Boardings  green.Alightings 
-             1146              1146              1146              1146 
-    green.Average   green.Boardings orange.Alightings    orange.Average 
-             1146              1146              1146              1146 
- orange.Boardings purple.Alightings    purple.Average  purple.Boardings 
-             1146              1146              1146              1146 </pre>
+<pre ># A tibble: 12 x 2
+   var                   n
+   &lt;chr&gt;             &lt;int&gt;
+ 1 banner.Alightings  1146
+ 2 banner.Average     1146
+ 3 banner.Boardings   1146
+ 4 green.Alightings   1146
+ 5 green.Average      1146
+ 6 green.Boardings    1146
+ 7 orange.Alightings  1146
+ 8 orange.Average     1146
+ 9 orange.Boardings   1146
+10 purple.Alightings  1146
+11 purple.Average     1146
+12 purple.Boardings   1146</pre>
 
 </article></slide><slide class=""><hgroup><h2>Reshaping data from wide (fat) to long (tall): tidyr</h2></hgroup><article  id="reshaping-data-from-wide-fat-to-long-tall-tidyr-3">
 
@@ -3397,23 +3425,39 @@ reunited %&gt;% select(day, var) %&gt;% head(3) %&gt;% print</pre>
 
 <p>We could also use <code>paste</code>/<code>paste0</code>.</p>
 
-</article></slide><slide class=""><hgroup><h2>Making column names a little more separated</h2></hgroup><article  id="making-column-names-a-little-more-separated">
+<!-- ## Making column names a little more separated -->
 
-<p>Alternative: We could have replaced the column names first <strong>then</strong> reshaped:</p>
+<!-- Alternative: We could have replaced the column names first **then** reshaped: -->
 
-<pre class = 'prettyprint lang-r'>cn = colnames(circ)
-cn = cn %&gt;% 
-  str_replace(&quot;Board&quot;, &quot;.Board&quot;) %&gt;% 
-  str_replace(&quot;Alight&quot;, &quot;.Alight&quot;) %&gt;% 
-  str_replace(&quot;Average&quot;, &quot;.Average&quot;) 
-colnames(circ) = cn # then reshape using gather!</pre>
+<!-- ```{r, eval = FALSE} -->
 
-<p>or (with some string working (see data cleaning)):</p>
+<!-- cn = colnames(circ) -->
 
-<pre class = 'prettyprint lang-r'>circ = circ %&gt;% 
-  rename_all(.funs = str_replace,
-            pattern = &quot;(orange|purple|green|banner)&quot;,
-            replacement = &quot;\\1.&quot;)</pre>
+<!-- cn = cn %>%  -->
+
+<!--   str_replace("Board", ".Board") %>%  -->
+
+<!--   str_replace("Alight", ".Alight") %>%  -->
+
+<!--   str_replace("Average", ".Average")  -->
+
+<!-- colnames(circ) = cn # then reshape using gather! -->
+
+<!-- ``` -->
+
+<!-- or (with some string working (see data cleaning)): -->
+
+<!-- ```{r, eval = FALSE} -->
+
+<!-- circ = circ %>%  -->
+
+<!--   rename_all(.funs = str_replace, -->
+
+<!--             pattern = "(orange|purple|green|banner)", -->
+
+<!--             replacement = "\\1.") -->
+
+<!-- ``` -->
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
 
@@ -3424,8 +3468,8 @@ colnames(circ) = cn # then reshape using gather!</pre>
 <p>In <code>tidyr</code>, the <code>spread</code> function spreads rows into columns. Now we have a long data set, but we want to separate the Average, Alightings and Boardings into different columns:</p>
 
 <pre class = 'prettyprint lang-r'># have to remove missing days
-wide = filter(long, !is.na(date))
-wide = spread(wide, type, number)
+wide = long %&gt;% filter(!is.na(date))
+wide = wide %&gt;% spread(type, number)
 head(wide)</pre>
 
 <pre ># A tibble: 6 x 7
@@ -3444,20 +3488,24 @@ head(wide)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Merging: Simple Data</h2></hgroup><article  id="merging-simple-data">
 
-<pre class = 'prettyprint lang-r'>base &lt;- data.frame(id = 1:10, Age= seq(55,60, length=10))
+<pre class = 'prettyprint lang-r'>base &lt;- tibble(id = 1:10, Age = seq(55,60, length=10))
 head(base, 2)</pre>
 
-<pre >  id      Age
-1  1 55.00000
-2  2 55.55556</pre>
+<pre ># A tibble: 2 x 2
+     id   Age
+  &lt;int&gt; &lt;dbl&gt;
+1     1  55  
+2     2  55.6</pre>
 
-<pre class = 'prettyprint lang-r'>visits &lt;- data.frame(id = c(rep(1:8, 3), 11), visit= c(rep(1:3, 8), 3),
+<pre class = 'prettyprint lang-r'>visits &lt;- tibble(id = c(rep(1:8, 3), 11), visit= c(rep(1:3, 8), 3),
                     Outcome = seq(10,50, length=25))
 tail(visits, 2)</pre>
 
-<pre >   id visit  Outcome
-24  8     3 48.33333
-25 11     3 50.00000</pre>
+<pre ># A tibble: 2 x 3
+     id visit Outcome
+  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+1     8     3    48.3
+2    11     3    50  </pre>
 
 </article></slide><slide class=""><hgroup><h2>Joining in <code>dplyr</code></h2></hgroup><article  id="joining-in-dplyr">
 
@@ -3483,13 +3531,15 @@ tail(visits, 2)</pre>
 
 <pre class = 'prettyprint lang-r'>tail(ij)</pre>
 
-<pre >   id      Age visit  Outcome
-19  7 58.33333     1 20.00000
-20  7 58.33333     3 33.33333
-21  7 58.33333     2 46.66667
-22  8 58.88889     2 21.66667
-23  8 58.88889     1 35.00000
-24  8 58.88889     3 48.33333</pre>
+<pre ># A tibble: 6 x 4
+     id   Age visit Outcome
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+1     7  58.3     1    20  
+2     7  58.3     3    33.3
+3     7  58.3     2    46.7
+4     8  58.9     2    21.7
+5     8  58.9     1    35  
+6     8  58.9     3    48.3</pre>
 
 </article></slide><slide class=""><hgroup><h2>Left Join</h2></hgroup><article  id="left-join">
 
@@ -3503,13 +3553,15 @@ tail(visits, 2)</pre>
 
 <pre class = 'prettyprint lang-r'>tail(lj)</pre>
 
-<pre >   id      Age visit  Outcome
-21  7 58.33333     2 46.66667
-22  8 58.88889     2 21.66667
-23  8 58.88889     1 35.00000
-24  8 58.88889     3 48.33333
-25  9 59.44444    NA       NA
-26 10 60.00000    NA       NA</pre>
+<pre ># A tibble: 6 x 4
+     id   Age visit Outcome
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+1     7  58.3     2    46.7
+2     8  58.9     2    21.7
+3     8  58.9     1    35  
+4     8  58.9     3    48.3
+5     9  59.4    NA    NA  
+6    10  60      NA    NA  </pre>
 
 </article></slide><slide class=""><hgroup><h2>Right Join</h2></hgroup><article  id="right-join">
 
@@ -3523,13 +3575,15 @@ tail(visits, 2)</pre>
 
 <pre class = 'prettyprint lang-r'>tail(rj)</pre>
 
-<pre >   id      Age visit  Outcome
-20  4 56.66667     2 41.66667
-21  5 57.22222     3 43.33333
-22  6 57.77778     1 45.00000
-23  7 58.33333     2 46.66667
-24  8 58.88889     3 48.33333
-25 11       NA     3 50.00000</pre>
+<pre ># A tibble: 6 x 4
+     id   Age visit Outcome
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+1     4  56.7     2    41.7
+2     5  57.2     3    43.3
+3     6  57.8     1    45  
+4     7  58.3     2    46.7
+5     8  58.9     3    48.3
+6    11  NA       3    50  </pre>
 
 </article></slide><slide class=""><hgroup><h2>Right Join: Switching arguments</h2></hgroup><article  id="right-join-switching-arguments">
 
@@ -3543,13 +3597,15 @@ tail(visits, 2)</pre>
 
 <pre class = 'prettyprint lang-r'>tail(rj2)</pre>
 
-<pre >   id visit  Outcome      Age
-21  7     2 46.66667 58.33333
-22  8     2 21.66667 58.88889
-23  8     1 35.00000 58.88889
-24  8     3 48.33333 58.88889
-25  9    NA       NA 59.44444
-26 10    NA       NA 60.00000</pre>
+<pre ># A tibble: 6 x 4
+     id visit Outcome   Age
+  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+1     7     2    46.7  58.3
+2     8     2    21.7  58.9
+3     8     1    35    58.9
+4     8     3    48.3  58.9
+5     9    NA    NA    59.4
+6    10    NA    NA    60  </pre>
 
 <pre class = 'prettyprint lang-r'>identical(rj2, lj) ## after some rearranging</pre>
 
@@ -3567,18 +3623,20 @@ tail(visits, 2)</pre>
 
 <pre class = 'prettyprint lang-r'>tail(fj)</pre>
 
-<pre >   id      Age visit  Outcome
-22  8 58.88889     2 21.66667
-23  8 58.88889     1 35.00000
-24  8 58.88889     3 48.33333
-25  9 59.44444    NA       NA
-26 10 60.00000    NA       NA
-27 11       NA     3 50.00000</pre>
+<pre ># A tibble: 6 x 4
+     id   Age visit Outcome
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+1     8  58.9     2    21.7
+2     8  58.9     1    35  
+3     8  58.9     3    48.3
+4     9  59.4    NA    NA  
+5    10  60      NA    NA  
+6    11  NA       3    50  </pre>
 
 </article></slide><slide class=""><hgroup><h2>Duplicated</h2></hgroup><article  id="duplicated">
 
 <ul>
-<li>The <code>duplicated</code> command can give you indications if there are duplications in a <strong>vector</strong>e:</li>
+<li>The <code>duplicated</code> command can give you indications if there are duplications in a <strong>vector</strong>:</li>
 </ul>
 
 <pre class = 'prettyprint lang-r'>duplicated(1:5)</pre>
@@ -3588,6 +3646,24 @@ tail(visits, 2)</pre>
 <pre class = 'prettyprint lang-r'>duplicated(c(1:5, 1))</pre>
 
 <pre >[1] FALSE FALSE FALSE FALSE FALSE  TRUE</pre>
+
+<pre class = 'prettyprint lang-r'>fj %&gt;% 
+  mutate(dup_id = duplicated(id))</pre>
+
+<pre ># A tibble: 27 x 5
+      id   Age visit Outcome dup_id
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;lgl&gt; 
+ 1     1  55       1    10   FALSE 
+ 2     1  55       3    23.3 TRUE  
+ 3     1  55       2    36.7 TRUE  
+ 4     2  55.6     2    11.7 FALSE 
+ 5     2  55.6     1    25   TRUE  
+ 6     2  55.6     3    38.3 TRUE  
+ 7     3  56.1     3    13.3 FALSE 
+ 8     3  56.1     2    26.7 TRUE  
+ 9     3  56.1     1    40   TRUE  
+10     4  56.7     1    15   FALSE 
+# … with 17 more rows</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 4</h2></hgroup><article  id="lab-part-4">
 
@@ -3606,7 +3682,8 @@ tail(visits, 2)</pre>
 2 Friday 2010-01-15  1644 green          NA      NA        NA
 3 Friday 2010-01-15  1644 orange       1643    1644      1645</pre>
 
-<pre class = 'prettyprint lang-r'>not_namat = !is.na(select(wide, Alightings, Average, Boardings))
+<pre class = 'prettyprint lang-r'>not_namat = wide %&gt;% select(Alightings, Average, Boardings)
+not_namat = !is.na(not_namat)
 head(not_namat, 2)</pre>
 
 <pre >     Alightings Average Boardings

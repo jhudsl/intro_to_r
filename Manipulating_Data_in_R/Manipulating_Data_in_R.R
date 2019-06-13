@@ -10,12 +10,12 @@ library(tidyverse)
 
 
 ## ---- echo = FALSE-------------------------------------------------------
-ex_wide = data.frame(id = 1:2,
+ex_wide = tibble(id = 1:2,
                      visit1 = c(10, 5),
                      visit2 = c(4, 6),
                      visit3 = c(3, NA)
                      )
-ex_long = data.frame(id = c(rep(1, 3), rep(2, 2)),
+ex_long = tibble(id = c(rep(1, 3), rep(2, 2)),
                      visit = c(1:3, 1:2),
                      value = c(10, 4, 3, 5, 6))
 
@@ -59,20 +59,21 @@ head(long, 4)
 long = gather(circ, key = "var", value = "number", 
               starts_with("orange"), starts_with("purple"),
               starts_with("green"), starts_with("banner"))
-head(long, 4)
+long
 
 
 ## ------------------------------------------------------------------------
-table(long$var)
+long %>% count(var)
 
 
 ## ------------------------------------------------------------------------
 long = long %>% mutate(
-  var = var %>% str_replace("Board", ".Board") %>% 
+  var = var %>% 
+    str_replace("Board", ".Board") %>% 
     str_replace("Alight", ".Alight") %>% 
     str_replace("Average", ".Average") 
 )
-table(long$var)
+long %>% count(var)
 
 
 ## ------------------------------------------------------------------------
@@ -89,33 +90,17 @@ reunited = long %>%
 reunited %>% select(day, var) %>% head(3) %>% print
 
 
-## ---- eval = FALSE-------------------------------------------------------
-## cn = colnames(circ)
-## cn = cn %>%
-##   str_replace("Board", ".Board") %>%
-##   str_replace("Alight", ".Alight") %>%
-##   str_replace("Average", ".Average")
-## colnames(circ) = cn # then reshape using gather!
-
-
-## ---- eval = FALSE-------------------------------------------------------
-## circ = circ %>%
-##   rename_all(.funs = str_replace,
-##             pattern = "(orange|purple|green|banner)",
-##             replacement = "\\1.")
-
-
 ## ------------------------------------------------------------------------
 # have to remove missing days
-wide = filter(long, !is.na(date))
-wide = spread(wide, type, number)
+wide = long %>% filter(!is.na(date))
+wide = wide %>% spread(type, number)
 head(wide)
 
 
 ## ----merging-------------------------------------------------------------
-base <- data.frame(id = 1:10, Age= seq(55,60, length=10))
+base <- tibble(id = 1:10, Age = seq(55,60, length=10))
 head(base, 2)
-visits <- data.frame(id = c(rep(1:8, 3), 11), visit= c(rep(1:3, 8), 3),
+visits <- tibble(id = c(rep(1:8, 3), 11), visit= c(rep(1:3, 8), 3),
                     Outcome = seq(10,50, length=25))
 tail(visits, 2)
 
@@ -160,11 +145,14 @@ tail(fj)
 ## ------------------------------------------------------------------------
 duplicated(1:5)
 duplicated(c(1:5, 1))
+fj %>% 
+  mutate(dup_id = duplicated(id))
 
 
 ## ------------------------------------------------------------------------
 head(wide, 3)
-not_namat = !is.na(select(wide, Alightings, Average, Boardings))
+not_namat = wide %>% select(Alightings, Average, Boardings)
+not_namat = !is.na(not_namat)
 head(not_namat, 2)
 wide$good = rowSums(not_namat) > 0
 

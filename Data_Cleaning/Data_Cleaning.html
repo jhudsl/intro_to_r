@@ -4,7 +4,6 @@
   <title>Data Cleaning</title>
 
   <meta charset="utf-8">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   <meta name="generator" content="pandoc" />
 
@@ -258,7 +257,6 @@ background: black;
 }
 
 slides > slide {
-display: none;
 font-family: 'Open Sans', Arial, sans-serif;
 font-size: 26px;
 color: #797979;
@@ -279,17 +277,19 @@ transition: all 0.6s ease-in-out;
 }
 
 slides > slide.far-past {
-display: none;
 }
 
 slides > slide.past {
-display: block;
 opacity: 0;
 }
 
 slides > slide.current {
 display: block;
 opacity: 1;
+z-index: 1;
+}
+slides > slide:not(.current) {
+z-index: 0;
 }
 
 slides > slide.current .auto-fadein {
@@ -304,13 +304,11 @@ background-size: 100% 100%;
 }
 
 slides > slide.next {
-display: block;
 opacity: 0;
 pointer-events: none;
 }
 
 slides > slide.far-next {
-display: none;
 }
 
 slides > slide.dark {
@@ -382,8 +380,6 @@ width: 1100px;
 
 slides.layout-widescreen > slide.far-past,
 slides.layout-faux-widescreen > slide.far-past {
-display: block;
-display: none;
 -webkit-transform: translate(-2260px);
 -moz-transform: translate(-2260px);
 -ms-transform: translate(-2260px);
@@ -417,8 +413,6 @@ pointer-events: none;
 
 slides.layout-widescreen > slide.far-next,
 slides.layout-faux-widescreen > slide.far-next {
-display: block;
-display: none;
 -webkit-transform: translate(2260px);
 -moz-transform: translate(2260px);
 -ms-transform: translate(2260px);
@@ -1349,6 +1343,13 @@ opacity: 1;
 
 .overview .slide-area {
 display: none;
+}
+slides > slide {
+background: linear-gradient(#ffffff, #ffffff 85%, #e6e6e6);
+background-color: white;
+}
+slides > slide {
+opacity: 0;
 }
 @media print {
 
@@ -3094,6 +3095,10 @@ if (document.readyState !== "loading" &&
       transition: opacity 0.6s ease-in 0.4s;
       opacity: 0;
     }
+/* https://github.com/ropensci/plotly/pull/524#issuecomment-468142578 */
+slide:not(.current) .plotly.html-widget{
+  display: block;
+}
 
   </style>
 
@@ -3443,12 +3448,12 @@ tab</pre>
 
 </article></slide><slide class=""><hgroup><h2>Download Salary FY2014 Data</h2></hgroup><article  id="download-salary-fy2014-data">
 
-<p>From <a href='https://data.baltimorecity.gov/City-Government/Baltimore-City-Employee-Salaries-FY2015/nsfe-bg53' title=''>https://data.baltimorecity.gov/City-Government/Baltimore-City-Employee-Salaries-FY2015/nsfe-bg53</a> <a href='https://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv' title=''>https://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv</a></p>
+<p>From <a href='https://data.baltimorecity.gov/City-Government/Baltimore-City-Employee-Salaries-FY2015/nsfe-bg53' title=''>https://data.baltimorecity.gov/City-Government/Baltimore-City-Employee-Salaries-FY2015/nsfe-bg53</a>, from <a href='https://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv' title=''>https://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv</a></p>
 
 <p>Read the CSV into R <code>Sal</code>:</p>
 
 <pre class = 'prettyprint lang-r'>Sal = jhur::read_salaries() # or
-Sal = read_csv(&quot;http://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv&quot;)
+Sal = read_csv(&quot;https://johnmuschelli.com/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv&quot;)
 Sal = rename(Sal, Name = name)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Checking for logical conditions</h2></hgroup><article  id="checking-for-logical-conditions">
@@ -3460,12 +3465,11 @@ Sal = rename(Sal, Name = name)</pre>
 
 <pre class = 'prettyprint lang-r'>head(Sal,2)</pre>
 
-<pre >              Name                      JobTitle AgencyID
-1 Aaron,Patricia G Facilities/Office Services II   A03031
-2    Aaron,Petra L    ASSISTANT STATE&#39;S ATTORNEY   A29045
-                         Agency   HireDate AnnualSalary  GrossPay
-1      OED-Employment Dev (031) 10/24/1979    $55314.00 $53626.04
-2 States Attorneys Office (045) 09/25/2006    $74000.00 $73000.08</pre>
+<pre ># A tibble: 2 x 7
+  Name     JobTitle      AgencyID Agency     HireDate AnnualSalary GrossPay
+  &lt;chr&gt;    &lt;chr&gt;         &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt;   
+1 Aaron,P… Facilities/O… A03031   OED-Emplo… 10/24/1… $55314.00    $53626.…
+2 Aaron,P… ASSISTANT ST… A29045   States At… 09/25/2… $74000.00    $73000.…</pre>
 
 <pre class = 'prettyprint lang-r'>any(is.na(Sal$Name)) # are there any NAs?</pre>
 
@@ -3626,7 +3630,6 @@ y</pre>
 
 <pre class = 'prettyprint lang-r'>df = tibble(x = c(&quot;I really&quot;, &quot;like writing&quot;, &quot;R code programs&quot;))</pre>
 
-<div class="left_col">
 <pre class = 'prettyprint lang-r'>df %&gt;% separate(x, into = c(&quot;first&quot;, &quot;second&quot;, &quot;third&quot;))</pre>
 
 <pre >Warning: Expected 3 pieces. Missing pieces filled with `NA` in 2 rows [1,
@@ -3637,9 +3640,16 @@ y</pre>
   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   
 1 I     really  &lt;NA&gt;    
 2 like  writing &lt;NA&gt;    
-3 R     code    programs</pre></div>
+3 R     code    programs</pre>
 
-<div class="right_col">
+</article></slide><slide class=""><hgroup><h2>Separating columns based on a separator</h2></hgroup><article  id="separating-columns-based-on-a-separator-1">
+
+<ul>
+<li>From <code>tidyr</code>, you can split a data set into multiple columns:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>df = tibble(x = c(&quot;I really&quot;, &quot;like writing&quot;, &quot;R code programs&quot;))</pre>
+
 <pre class = 'prettyprint lang-r'>df %&gt;% separate(x, into = c(&quot;first&quot;, &quot;second&quot;))</pre>
 
 <pre >Warning: Expected 2 pieces. Additional pieces discarded in 1 rows [3].</pre>
@@ -3649,9 +3659,9 @@ y</pre>
   &lt;chr&gt; &lt;chr&gt;  
 1 I     really 
 2 like  writing
-3 R     code   </pre></div>
+3 R     code   </pre>
 
-</article></slide><slide class=""><hgroup><h2>Separating columns based on a separator</h2></hgroup><article  id="separating-columns-based-on-a-separator-1">
+</article></slide><slide class=""><hgroup><h2>Separating columns based on a separator</h2></hgroup><article  id="separating-columns-based-on-a-separator-2">
 
 <ul>
 <li><code>extra = &quot;merge&quot;</code> will not drop data. Also, you can specify the separator</li>
@@ -3670,7 +3680,7 @@ y</pre>
 2 like  writing R. But not
 3 R     code    programs  </pre>
 
-</article></slide><slide class=""><hgroup><h2>Separating columns based on a separator</h2></hgroup><article  id="separating-columns-based-on-a-separator-2">
+</article></slide><slide class=""><hgroup><h2>Separating columns based on a separator</h2></hgroup><article  id="separating-columns-based-on-a-separator-3">
 
 <ul>
 <li><code>extra = &quot;merge&quot;</code> will not drop data. Also, you can specify the separator</li>
@@ -3743,14 +3753,12 @@ head(ss)</pre>
 
 <pre class = 'prettyprint lang-r'>Sal %&gt;% filter(str_detect(Name, &quot;Rawlings&quot;))</pre>
 
-<pre >                        Name             JobTitle AgencyID
-1          Rawlings,Kellye A EMERGENCY DISPATCHER   A40302
-2           Rawlings,Paula M       COMMUNITY AIDE   A04015
-3 Rawlings-Blake,Stephanie C                MAYOR   A01001
-                     Agency   HireDate AnnualSalary   GrossPay
-1 M-R Info Technology (302) 01/06/2003    $48940.00  $73356.42
-2      R&amp;P-Recreation (015) 12/10/2007    $19802.00  $10443.70
-3       Mayors Office (001) 12/07/1995   $167449.00 $165249.86</pre>
+<pre ># A tibble: 3 x 7
+  Name       JobTitle    AgencyID Agency     HireDate AnnualSalary GrossPay
+  &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt;   
+1 Rawlings,… EMERGENCY … A40302   M-R Info … 01/06/2… $48940.00    $73356.…
+2 Rawlings,… COMMUNITY … A04015   R&amp;P-Recre… 12/10/2… $19802.00    $10443.…
+3 Rawlings-… MAYOR       A01001   Mayors Of… 12/07/1… $167449.00   $165249…</pre>
 
 </article></slide><slide class=""><hgroup><h2>Using Regular Expressions</h2></hgroup><article  id="using-regular-expressions">
 
@@ -3812,16 +3820,18 @@ head(ss)</pre>
 
 <pre class = 'prettyprint lang-r'>class(Sal$AnnualSalary)</pre>
 
-<pre >[1] &quot;factor&quot;</pre>
+<pre >[1] &quot;character&quot;</pre>
 
 <pre class = 'prettyprint lang-r'>head(Sal$AnnualSalary, 4)</pre>
 
-<pre >[1] $55314.00 $74000.00 $64500.00 $46309.00
-1654 Levels: $10000.00 $100000.00 $100013.00 $100200.00 ... $99994.00</pre>
+<pre >[1] &quot;$55314.00&quot; &quot;$74000.00&quot; &quot;$64500.00&quot; &quot;$46309.00&quot;</pre>
 
 <pre class = 'prettyprint lang-r'>head(as.numeric(Sal$AnnualSalary), 4)</pre>
 
-<pre >[1]  908 1302 1094  722</pre>
+<pre >Warning in head(as.numeric(Sal$AnnualSalary), 4): NAs introduced by
+coercion</pre>
+
+<pre >[1] NA NA NA NA</pre>
 
 <p>R didn’t like the <code>$</code> so it thought turned them all to <code>NA</code>.</p>
 
@@ -4104,14 +4114,12 @@ y</pre>
 
 <pre class = 'prettyprint lang-r'>Sal[grep(&quot;Rawlings&quot;,Sal$Name),]</pre>
 
-<pre >                            Name             JobTitle AgencyID
-9     Rawlings-Blake,Stephanie C                MAYOR   A01001
-6854           Rawlings,Kellye A EMERGENCY DISPATCHER   A40302
-13284           Rawlings,Paula M       COMMUNITY AIDE   A04015
-                         Agency   HireDate AnnualSalary   GrossPay
-9           Mayors Office (001) 12/07/1995       167449 $165249.86
-6854  M-R Info Technology (302) 01/06/2003        48940  $73356.42
-13284      R&amp;P-Recreation (015) 12/10/2007        19802  $10443.70</pre>
+<pre ># A tibble: 3 x 7
+  Name       JobTitle    AgencyID Agency     HireDate AnnualSalary GrossPay
+  &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;   
+1 Rawlings-… MAYOR       A01001   Mayors Of… 12/07/1…       167449 $165249…
+2 Rawlings,… EMERGENCY … A40302   M-R Info … 01/06/2…        48940 $73356.…
+3 Rawlings,… COMMUNITY … A04015   R&amp;P-Recre… 12/10/2…        19802 $10443.…</pre>
 
 </article></slide><slide class=""><hgroup><h2>Showing differnce in <code>str_extract</code></h2></hgroup><article  id="showing-differnce-in-str_extract">
 
@@ -4221,12 +4229,14 @@ head(ss)</pre>
 Sal &lt;- Sal[order(Sal$AnnualSalary, decreasing=TRUE), ] 
 Sal[1:5, c(&quot;Name&quot;, &quot;AnnualSalary&quot;, &quot;JobTitle&quot;)]</pre>
 
-<pre >             Name AnnualSalary               JobTitle
-1 Mosby,Marilyn J       238772       STATE&#39;S ATTORNEY
-2 Batts,Anthony W       211785    Police Commissioner
-3       Wen,Leana       200000 Executive Director III
+<pre ># A tibble: 5 x 3
+  Name            AnnualSalary JobTitle              
+  &lt;chr&gt;                  &lt;dbl&gt; &lt;chr&gt;                 
+1 Mosby,Marilyn J       238772 STATE&#39;S ATTORNEY      
+2 Batts,Anthony W       211785 Police Commissioner   
+3 Wen,Leana             200000 Executive Director III
 4 Raymond,Henry J       192500 Executive Director III
-5   Swift,Michael       187200  CONTRACT SERV SPEC II</pre>
+5 Swift,Michael         187200 CONTRACT SERV SPEC II </pre>
 
 </article></slide><slide class=""><hgroup><h2>Replacing and subbing: <code>stringr</code></h2></hgroup><article  id="replacing-and-subbing-stringr">
 
