@@ -7,6 +7,7 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -268,7 +269,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -342,18 +342,6 @@ summary {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 
 
@@ -380,12 +368,21 @@ $(document).ready(function () {
 
 <p>Epi/Biostats Summer and Winter Institutes - Introduction to R for Public Health Researchers 140.886.13</p>
 <p>Class Website: <a href="http://johnmuschelli.com/intro_to_r/" class="uri">http://johnmuschelli.com/intro_to_r/</a></p>
-<p>Day/Time: June 10-14: 8:30AM-11:50AM in room W3008</p>
-<p>Instructors: John Muschelli (<a href="mailto:jmusche1@jhu.edu" class="email">jmusche1@jhu.edu</a>) and Andrew Jaffe (<a href="mailto:ajaffe@jhu.edu" class="email">ajaffe@jhu.edu</a>)</p>
+<p>Day/Time: January 6-10: 8:30AM-11:50PM in room W5030</p>
+<p>Instructors: John Muschelli (<a href="mailto:jmusche1@jhu.edu" class="email">jmusche1@jhu.edu</a>) and Andrew Jaffe (<a href="mailto:andrew.jaffe@libd.org" class="email">andrew.jaffe@libd.org</a>)</p>
 <p>Course website: <a href="http://johnmuschelli.com/intro_to_r/" class="uri">http://johnmuschelli.com/intro_to_r/</a></p>
 <p>Overview: This course will provide “hands-on” training for learning how to analyze data in the R statistical software package. We will cover data input/output, data management and manipulation, and how to make useful and informative graphics</p>
 <p>Course Format: Each class will consist of 2 or 3 hour-long modules: each module features an “interactive” lecture (where students can work follow along on their laptops) and an R programming lab, where student apply the skills taught in the modules to real data.</p>
-<p>By the end of the course, students should be comfortable: - Reading data into R - Recoding and manipulating data - Using R add-on packages - Making exploratory plots - Performing basic statistical tests - Understanding basic programming syntax - Creating reproducible R documents</p>
+<p>By the end of the course, students should be comfortable:</p>
+<ul>
+<li>Reading data into R</li>
+<li>Recoding and manipulating data</li>
+<li>Using R add-on packages</li>
+<li>Making exploratory plots</li>
+<li>Performing basic statistical tests</li>
+<li>Understanding basic programming syntax</li>
+<li>Creating reproducible R documents</li>
+</ul>
 <div id="tentative-schedule" class="section level1">
 <h1>Tentative Schedule:</h1>
 <div id="day-1" class="section level2">
@@ -453,6 +450,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
