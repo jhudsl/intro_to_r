@@ -114,7 +114,7 @@ df$lab[!df$have_lab] = ""
 df$have_lab = df$lab_key = NULL
 df$hw = grepl("homework", tolower(df$mod))
 df$Slides[df$hw] = ""
-df$Code[df$hw] = paste0("[R](HW/", gsub(" ", "", tolower(df$mod[df$hw])), ".Rmd)")
+df$Code[df$hw] = paste0("[Rmd](HW/", gsub(" ", "", tolower(df$mod[df$hw])), ".Rmd)")
 df$Code[df$hw] = paste0(df$Code[df$hw], ", ",
                         paste0("[HTML](HW/", gsub(" ", "", tolower(df$mod[df$hw])), ".html)")
 )
@@ -137,7 +137,7 @@ df$In_Class_Work[ fe ] = ""
 
 # Different for HW 1
 hw1 = gsub(" ", "", tolower(df$mod)) == "homework1"
-df$Code[hw1] = "[Data Camp](https://campus.datacamp.com/courses/free-introduction-to-r)"
+df$Code[hw1] = "[Code Academy](https://www.codecademy.com/courses/learn-r/lessons/)"
 
 
 df$hw = NULL
