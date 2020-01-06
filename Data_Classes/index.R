@@ -88,6 +88,10 @@ relevel(cc, "control")
 
 
 ## -----------------------------------------------------------------------------
+fct_relevel(cc, "control")
+
+
+## -----------------------------------------------------------------------------
 levels(fct_inorder(chickwts$feed))
 levels(fct_infreq(chickwts$feed))
 levels(fct_lump(chickwts$feed, n=1))
