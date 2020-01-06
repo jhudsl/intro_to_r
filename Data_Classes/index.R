@@ -2,6 +2,7 @@
 # library(dplyr)
 suppressPackageStartupMessages(library(dplyr))
 library(readr)
+library(forcats)
 
 
 ## ----numChar------------------------------------------------------------------
@@ -83,7 +84,13 @@ factor(casecontrol, levels = c("control","case"),
 ## ----factorCheck--------------------------------------------------------------
 cc = factor(c("case","case","case",
         "control","control","control"))
-cc = relevel(cc, "control")
+relevel(cc, "control")
+
+
+## -----------------------------------------------------------------------------
+levels(fct_inorder(chickwts$feed))
+levels(fct_infreq(chickwts$feed))
+levels(fct_lump(chickwts$feed, n=1))
 
 
 ## ----factor3------------------------------------------------------------------
