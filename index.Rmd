@@ -230,6 +230,19 @@ knitr::kable(df, format = "html") %>%
 ### Online Videos of Lectures
 
 
+#### From Winter Institute 2020
+
+```{r, echo = FALSE, message = FALSE, results='asis'}
+mat = matrix(c(
+  "RStudio and Data Classes", "https://www.youtube.com/watch?v=vyIsDnsq5jY"
+  ), ncol = 2, byrow = TRUE)
+mat = data.frame(mat, stringsAsFactors = FALSE)
+colnames(mat) = c("Day", "Link to Video")
+knitr::kable(mat, format = "html") %>% 
+  kable_styling() 
+```
+
+
 #### From Winter Institute 2018
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}
