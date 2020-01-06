@@ -1353,6 +1353,11 @@ opacity: 0;
 }
 @media print {
 
+@page {
+size: landscape;
+margin: 0;
+}
+
 slides slide {
 display: block !important;
 position: relative;
@@ -3102,58 +3107,7 @@ slide:not(.current) .plotly.html-widget{
 
   </style>
 
-  <style type="text/css">pre {
-font-family: 'Source Code Pro', 'Courier New', monospace;
-font-size: 24px;
-line-height: 24px;
-padding: 10px 0 10px 60px;
-letter-spacing: -1px;
-margin-bottom: 8px;
-width: 106%;
-left: -60px;
-position: relative;
--webkit-box-sizing: border-box;
--moz-box-sizing: border-box;
-box-sizing: border-box;
-
-}
-
-body{
-font-family: Helvetica;
-font-size: 16pt;
-}
-
-h1{
-font-size: 28pt;
-}
-h2{
-font-size: 24pt;
-}
-h3{
-font-size: 20pt;
-}
-.emphasized {
-font-size: 1.2em;
-}
-.small {
-font-size: 0.8em;
-}
-strong { font-weight: bold;
-color: black;
-}
-
-slides > slide > hgroup + article {
-margin-top: 5px;
-}
-.left_col {
-float:left;
-width:48%;
-}
-.right_col {
-float:right;
-width:48%;
-}
-</style>
+  <style type="text/css">pre {font-family: 'Source Code Pro', 'Courier New', monospace;font-size: 24px;line-height: 24px;padding: 10px 0 10px 60px;letter-spacing: -1px;margin-bottom: 8px;width: 106%;left: -60px;position: relative;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}body{font-family: Helvetica;font-size: 16pt;}h1{font-size: 28pt;}h2{font-size: 24pt;}h3{font-size: 20pt;}.emphasized {font-size: 1.2em;}.small {font-size: 0.8em;}strong { font-weight: bold;color: black;}slides > slide > hgroup + article {margin-top: 5px;}.left_col {float:left;width:48%;}.right_col {float:right;width:48%;}</style>
 
 </head>
 
@@ -3173,7 +3127,7 @@ width:48%;
 <slide class=""><hgroup><h2>Data Types:</h2></hgroup><article  id="data-types">
 
 <ul>
-<li>One dimensional types (’vectors’):
+<li>One dimensional types (&lsquo;vectors&rsquo;):
 
 <ul>
 <li>Character: strings or individual characters, quoted</li>
@@ -3372,9 +3326,37 @@ factor(casecontrol, levels = c(&quot;control&quot;,&quot;case&quot;) )</pre>
 
 <pre class = 'prettyprint lang-r'>cc = factor(c(&quot;case&quot;,&quot;case&quot;,&quot;case&quot;,
         &quot;control&quot;,&quot;control&quot;,&quot;control&quot;))
-cc = relevel(cc, &quot;control&quot;)</pre>
+relevel(cc, &quot;control&quot;)</pre>
+
+<pre >## [1] case    case    case    control control control
+## Levels: control case</pre>
 
 </article></slide><slide class=""><hgroup><h2>Factors</h2></hgroup><article  id="factors-5">
+
+<p>One of the core &ldquo;tidyverse&rdquo; packages is <code>forcats</code> which offers useful functionality for interacting with factors. For example, there is a function for releveling factors here:</p>
+
+<pre class = 'prettyprint lang-r'>fct_relevel(cc, &quot;control&quot;)</pre>
+
+<pre >## [1] case    case    case    control control control
+## Levels: control case</pre>
+
+</article></slide><slide class=""><hgroup><h2>Factors</h2></hgroup><article  id="factors-6">
+
+<p>There are other useful functions for dictating the levels of factors, like in the order they appears in the vector, by frequency, or into collapsed groups.</p>
+
+<pre class = 'prettyprint lang-r'>levels(fct_inorder(chickwts$feed))</pre>
+
+<pre >## [1] &quot;horsebean&quot; &quot;linseed&quot;   &quot;soybean&quot;   &quot;sunflower&quot; &quot;meatmeal&quot;  &quot;casein&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>levels(fct_infreq(chickwts$feed))</pre>
+
+<pre >## [1] &quot;soybean&quot;   &quot;casein&quot;    &quot;linseed&quot;   &quot;sunflower&quot; &quot;meatmeal&quot;  &quot;horsebean&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>levels(fct_lump(chickwts$feed, n=1))</pre>
+
+<pre >## [1] &quot;soybean&quot; &quot;Other&quot;</pre>
+
+</article></slide><slide class=""><hgroup><h2>Factors</h2></hgroup><article  id="factors-7">
 
 <p>Factors can be converted to <code>numeric</code> or <code>character</code> very easily</p>
 
@@ -3463,7 +3445,7 @@ class(dates)</pre>
 <pre class = 'prettyprint lang-r'>theTime = Sys.time()
 theTime</pre>
 
-<pre >## [1] &quot;2019-06-12 15:52:26 EDT&quot;</pre>
+<pre >## [1] &quot;2020-01-05 20:25:23 EST&quot;</pre>
 
 <pre class = 'prettyprint lang-r'>class(theTime)</pre>
 
@@ -3471,7 +3453,7 @@ theTime</pre>
 
 <pre class = 'prettyprint lang-r'>theTime + as.period(20, unit = &quot;minutes&quot;) # the future</pre>
 
-<pre >## [1] &quot;2019-06-12 16:12:26 EDT&quot;</pre>
+<pre >## [1] &quot;2020-01-05 20:45:23 EST&quot;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Differences in Times</h2></hgroup><article  id="differences-in-times">
 
@@ -3480,11 +3462,11 @@ theTime</pre>
 <pre class = 'prettyprint lang-r'>the_future = ymd_hms(&quot;2020-12-31 11:59:59&quot;)
 the_future - theTime</pre>
 
-<pre >## Time difference of 567.6719 days</pre>
+<pre >## Time difference of 360.4407 days</pre>
 
 <pre class = 'prettyprint lang-r'>difftime(the_future, theTime, units = &quot;weeks&quot;)</pre>
 
-<pre >## Time difference of 81.09599 weeks</pre>
+<pre >## Time difference of 51.49153 weeks</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 3</h2></hgroup><article  id="lab-part-3">
 
