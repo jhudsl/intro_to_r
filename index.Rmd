@@ -2,7 +2,9 @@
 title: "Introduction to R"
 output:
   html_document:
-  theme: spacelab
+    theme: spacelab
+    toc: false
+    toc_depth: 4
 ---
 
 ```{r setup, echo = FALSE, message = FALSE}
