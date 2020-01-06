@@ -3333,7 +3333,16 @@ relevel(cc, &quot;control&quot;)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Factors</h2></hgroup><article  id="factors-5">
 
-<p>One of the core &ldquo;tidyverse&rdquo; packages is <code>forcats</code> which offers useful functionality for interacting with factors.</p>
+<p>One of the core &ldquo;tidyverse&rdquo; packages is <code>forcats</code> which offers useful functionality for interacting with factors. For example, there is a function for releveling factors here:</p>
+
+<pre class = 'prettyprint lang-r'>fct_relevel(cc, &quot;control&quot;)</pre>
+
+<pre >## [1] case    case    case    control control control
+## Levels: control case</pre>
+
+</article></slide><slide class=""><hgroup><h2>Factors</h2></hgroup><article  id="factors-6">
+
+<p>There are other useful functions for dictating the levels of factors, like in the order they appears in the vector, by frequency, or into collapsed groups.</p>
 
 <pre class = 'prettyprint lang-r'>levels(fct_inorder(chickwts$feed))</pre>
 
@@ -3347,7 +3356,7 @@ relevel(cc, &quot;control&quot;)</pre>
 
 <pre >## [1] &quot;soybean&quot; &quot;Other&quot;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Factors</h2></hgroup><article  id="factors-6">
+</article></slide><slide class=""><hgroup><h2>Factors</h2></hgroup><article  id="factors-7">
 
 <p>Factors can be converted to <code>numeric</code> or <code>character</code> very easily</p>
 
@@ -3436,7 +3445,7 @@ class(dates)</pre>
 <pre class = 'prettyprint lang-r'>theTime = Sys.time()
 theTime</pre>
 
-<pre >## [1] &quot;2020-01-05 20:23:13 EST&quot;</pre>
+<pre >## [1] &quot;2020-01-05 20:25:23 EST&quot;</pre>
 
 <pre class = 'prettyprint lang-r'>class(theTime)</pre>
 
@@ -3444,7 +3453,7 @@ theTime</pre>
 
 <pre class = 'prettyprint lang-r'>theTime + as.period(20, unit = &quot;minutes&quot;) # the future</pre>
 
-<pre >## [1] &quot;2020-01-05 20:43:13 EST&quot;</pre>
+<pre >## [1] &quot;2020-01-05 20:45:23 EST&quot;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Differences in Times</h2></hgroup><article  id="differences-in-times">
 
@@ -3453,11 +3462,11 @@ theTime</pre>
 <pre class = 'prettyprint lang-r'>the_future = ymd_hms(&quot;2020-12-31 11:59:59&quot;)
 the_future - theTime</pre>
 
-<pre >## Time difference of 360.4422 days</pre>
+<pre >## Time difference of 360.4407 days</pre>
 
 <pre class = 'prettyprint lang-r'>difftime(the_future, theTime, units = &quot;weeks&quot;)</pre>
 
-<pre >## Time difference of 51.49174 weeks</pre>
+<pre >## Time difference of 51.49153 weeks</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 3</h2></hgroup><article  id="lab-part-3">
 

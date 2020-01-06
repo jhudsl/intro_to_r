@@ -185,7 +185,15 @@ relevel(cc, "control")
 
 ## Factors
 
-One of the core "tidyverse" packages is `forcats` which offers useful functionality for interacting with factors. 
+One of the core "tidyverse" packages is `forcats` which offers useful functionality for interacting with factors. For example, there is a function for releveling factors here:
+
+```{r}
+fct_relevel(cc, "control")
+```
+
+## Factors 
+
+There are other useful functions for dictating the levels of factors, like in the order they appears in the vector, by frequency, or into collapsed groups.
 
 ```{r}
 levels(fct_inorder(chickwts$feed))
