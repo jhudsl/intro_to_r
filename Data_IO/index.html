@@ -1353,6 +1353,11 @@ opacity: 0;
 }
 @media print {
 
+@page {
+size: landscape;
+margin: 0;
+}
+
 slides slide {
 display: block !important;
 position: relative;
@@ -3227,24 +3232,22 @@ width:48%;
 head(mydat)</pre>
 
 <pre ># A tibble: 6 x 31
-   YEAR LocationAbbr LocationDesc TopicType TopicDesc MeasureDesc
-  &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;      
-1  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
-2  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
-3  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
-4  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
-5  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
-6  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
-# … with 25 more variables: DataSource &lt;chr&gt;, Response &lt;chr&gt;,
-#   Data_Value_Unit &lt;chr&gt;, Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;,
-#   Data_Value_Footnote_Symbol &lt;chr&gt;, Data_Value_Footnote &lt;chr&gt;,
-#   Data_Value_Std_Err &lt;dbl&gt;, Low_Confidence_Limit &lt;dbl&gt;,
-#   High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;dbl&gt;, Gender &lt;chr&gt;,
-#   Race &lt;chr&gt;, Age &lt;chr&gt;, Education &lt;chr&gt;, GeoLocation &lt;chr&gt;,
-#   TopicTypeId &lt;chr&gt;, TopicId &lt;chr&gt;, MeasureId &lt;chr&gt;,
-#   StratificationID1 &lt;chr&gt;, StratificationID2 &lt;chr&gt;,
-#   StratificationID3 &lt;chr&gt;, StratificationID4 &lt;chr&gt;, SubMeasureID &lt;chr&gt;,
-#   DisplayOrder &lt;dbl&gt;</pre>
+   YEAR LocationAbbr LocationDesc TopicType TopicDesc MeasureDesc DataSource
+  &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;     
+1  2015 AZ           Arizona      Tobacco … Cessatio… Percent of… YTS       
+2  2015 AZ           Arizona      Tobacco … Cessatio… Percent of… YTS       
+3  2015 AZ           Arizona      Tobacco … Cessatio… Percent of… YTS       
+4  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem… YTS       
+5  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem… YTS       
+6  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem… YTS       
+# … with 24 more variables: Response &lt;chr&gt;, Data_Value_Unit &lt;chr&gt;,
+#   Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;, Data_Value_Footnote_Symbol &lt;chr&gt;,
+#   Data_Value_Footnote &lt;chr&gt;, Data_Value_Std_Err &lt;dbl&gt;,
+#   Low_Confidence_Limit &lt;dbl&gt;, High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;dbl&gt;,
+#   Gender &lt;chr&gt;, Race &lt;chr&gt;, Age &lt;chr&gt;, Education &lt;chr&gt;, GeoLocation &lt;chr&gt;,
+#   TopicTypeId &lt;chr&gt;, TopicId &lt;chr&gt;, MeasureId &lt;chr&gt;, StratificationID1 &lt;chr&gt;,
+#   StratificationID2 &lt;chr&gt;, StratificationID3 &lt;chr&gt;, StratificationID4 &lt;chr&gt;,
+#   SubMeasureID &lt;chr&gt;, DisplayOrder &lt;dbl&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-4">
 
@@ -3431,11 +3434,10 @@ setwd(&quot;~/Lectures&quot;) </pre>
 [53] &quot;Statistics&quot;                              
 [54] &quot;styles.css&quot;                              
 [55] &quot;Subsetting_Data_in_R&quot;                    
-[56] &quot;Syllabus-student.doc&quot;                    
-[57] &quot;syllabus.docx&quot;                           
-[58] &quot;syllabus.html&quot;                           
-[59] &quot;syllabus.Rmd&quot;                            
-[60] &quot;tb.xlsx&quot;                                 </pre>
+[56] &quot;syllabus.docx&quot;                           
+[57] &quot;syllabus.html&quot;                           
+[58] &quot;syllabus.Rmd&quot;                            
+[59] &quot;tb.xlsx&quot;                                 </pre>
 
 </article></slide><slide class=""><hgroup><h2>Relative vs. absolute paths (From Wiki)</h2></hgroup><article  id="relative-vs.absolute-paths-from-wiki">
 
@@ -3545,24 +3547,22 @@ help(&quot;dir&quot;)</pre>
 head(dat)</pre>
 
 <pre ># A tibble: 6 x 31
-   YEAR LocationAbbr LocationDesc TopicType TopicDesc MeasureDesc
-  &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;      
-1  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
-2  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
-3  2015 AZ           Arizona      Tobacco … Cessatio… Percent of…
-4  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
-5  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
-6  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem…
-# … with 25 more variables: DataSource &lt;chr&gt;, Response &lt;chr&gt;,
-#   Data_Value_Unit &lt;chr&gt;, Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;,
-#   Data_Value_Footnote_Symbol &lt;chr&gt;, Data_Value_Footnote &lt;chr&gt;,
-#   Data_Value_Std_Err &lt;dbl&gt;, Low_Confidence_Limit &lt;dbl&gt;,
-#   High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;dbl&gt;, Gender &lt;chr&gt;,
-#   Race &lt;chr&gt;, Age &lt;chr&gt;, Education &lt;chr&gt;, GeoLocation &lt;chr&gt;,
-#   TopicTypeId &lt;chr&gt;, TopicId &lt;chr&gt;, MeasureId &lt;chr&gt;,
-#   StratificationID1 &lt;chr&gt;, StratificationID2 &lt;chr&gt;,
-#   StratificationID3 &lt;chr&gt;, StratificationID4 &lt;chr&gt;, SubMeasureID &lt;chr&gt;,
-#   DisplayOrder &lt;dbl&gt;</pre>
+   YEAR LocationAbbr LocationDesc TopicType TopicDesc MeasureDesc DataSource
+  &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;     
+1  2015 AZ           Arizona      Tobacco … Cessatio… Percent of… YTS       
+2  2015 AZ           Arizona      Tobacco … Cessatio… Percent of… YTS       
+3  2015 AZ           Arizona      Tobacco … Cessatio… Percent of… YTS       
+4  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem… YTS       
+5  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem… YTS       
+6  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem… YTS       
+# … with 24 more variables: Response &lt;chr&gt;, Data_Value_Unit &lt;chr&gt;,
+#   Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;, Data_Value_Footnote_Symbol &lt;chr&gt;,
+#   Data_Value_Footnote &lt;chr&gt;, Data_Value_Std_Err &lt;dbl&gt;,
+#   Low_Confidence_Limit &lt;dbl&gt;, High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;dbl&gt;,
+#   Gender &lt;chr&gt;, Race &lt;chr&gt;, Age &lt;chr&gt;, Education &lt;chr&gt;, GeoLocation &lt;chr&gt;,
+#   TopicTypeId &lt;chr&gt;, TopicId &lt;chr&gt;, MeasureId &lt;chr&gt;, StratificationID1 &lt;chr&gt;,
+#   StratificationID2 &lt;chr&gt;, StratificationID3 &lt;chr&gt;, StratificationID4 &lt;chr&gt;,
+#   SubMeasureID &lt;chr&gt;, DisplayOrder &lt;dbl&gt;</pre>
 
 <pre class = 'prettyprint lang-r'>class(dat)</pre>
 
@@ -3660,7 +3660,7 @@ names(dat)</pre>
 
 <ul>
 <li>&ldquo;,&rdquo; = .csv - Note there is also a <code>write_csv()</code> function</li>
-<li>&quot; = tab delimited</li>
+<li>&ldquo;<code>\t</code>&rdquo; = tab delimited</li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Data Output</h2></hgroup><article  id="data-output-2">
@@ -3731,17 +3731,20 @@ save(yts, x, file = &quot;yts_data.rda&quot;)</pre>
 
 <pre class = 'prettyprint lang-r'>ls() # list things in the workspace</pre>
 
-<pre >[1] &quot;dat&quot;   &quot;dat2&quot;  &quot;lsos&quot;  &quot;mydat&quot; &quot;qq&quot;    &quot;req&quot;   &quot;x&quot;     &quot;yts&quot;  </pre>
+<pre >[1] &quot;dat&quot;        &quot;dat2&quot;       &quot;in_rstudio&quot; &quot;lsos&quot;       &quot;mydat&quot;     
+[6] &quot;qq&quot;         &quot;req&quot;        &quot;x&quot;          &quot;yts&quot;       </pre>
 
 <pre class = 'prettyprint lang-r'>rm(list = c(&quot;x&quot;, &quot;yts&quot;))
 ls()</pre>
 
-<pre >[1] &quot;dat&quot;   &quot;dat2&quot;  &quot;lsos&quot;  &quot;mydat&quot; &quot;qq&quot;    &quot;req&quot;  </pre>
+<pre >[1] &quot;dat&quot;        &quot;dat2&quot;       &quot;in_rstudio&quot; &quot;lsos&quot;       &quot;mydat&quot;     
+[6] &quot;qq&quot;         &quot;req&quot;       </pre>
 
 <pre class = 'prettyprint lang-r'>z = load(&quot;yts_data.rda&quot;)
 ls()</pre>
 
-<pre >[1] &quot;dat&quot;   &quot;dat2&quot;  &quot;lsos&quot;  &quot;mydat&quot; &quot;qq&quot;    &quot;req&quot;   &quot;x&quot;     &quot;yts&quot;   &quot;z&quot;    </pre>
+<pre > [1] &quot;dat&quot;        &quot;dat2&quot;       &quot;in_rstudio&quot; &quot;lsos&quot;       &quot;mydat&quot;     
+ [6] &quot;qq&quot;         &quot;req&quot;        &quot;x&quot;          &quot;yts&quot;        &quot;z&quot;         </pre>
 
 </article></slide><slide class=""><hgroup><h2>More ways to save: load</h2></hgroup><article  id="more-ways-to-save-load-1">
 
@@ -3768,41 +3771,27 @@ ls()</pre>
 <pre class = 'prettyprint lang-r'>dat2 = read.csv(&quot;../data/Youth_Tobacco_Survey_YTS_Data.csv&quot;, as.is = TRUE)
 head(dat2)</pre>
 
-<pre >  YEAR LocationAbbr LocationDesc                 TopicType
-1 2015           AZ      Arizona Tobacco Use – Survey Data
-2 2015           AZ      Arizona Tobacco Use – Survey Data
-3 2015           AZ      Arizona Tobacco Use – Survey Data
-4 2015           AZ      Arizona Tobacco Use – Survey Data
-5 2015           AZ      Arizona Tobacco Use – Survey Data
-6 2015           AZ      Arizona Tobacco Use – Survey Data
-          TopicDesc
-1 Cessation (Youth)
-2 Cessation (Youth)
-3 Cessation (Youth)
-4 Cessation (Youth)
-5 Cessation (Youth)
-6 Cessation (Youth)
-                                                MeasureDesc DataSource
-1               Percent of Current Smokers Who Want to Quit        YTS
-2               Percent of Current Smokers Who Want to Quit        YTS
-3               Percent of Current Smokers Who Want to Quit        YTS
-4 Quit Attempt in Past Year Among Current Cigarette Smokers        YTS
-5 Quit Attempt in Past Year Among Current Cigarette Smokers        YTS
-6 Quit Attempt in Past Year Among Current Cigarette Smokers        YTS
-  Response Data_Value_Unit Data_Value_Type Data_Value
-1                        %      Percentage         NA
-2                        %      Percentage         NA
-3                        %      Percentage         NA
-4                        %      Percentage         NA
-5                        %      Percentage         NA
-6                        %      Percentage         NA
-  Data_Value_Footnote_Symbol
-1                          *
-2                          *
-3                          *
-4                          *
-5                          *
-6                          *
+<pre >  YEAR LocationAbbr LocationDesc                 TopicType         TopicDesc
+1 2015           AZ      Arizona Tobacco Use – Survey Data Cessation (Youth)
+2 2015           AZ      Arizona Tobacco Use – Survey Data Cessation (Youth)
+3 2015           AZ      Arizona Tobacco Use – Survey Data Cessation (Youth)
+4 2015           AZ      Arizona Tobacco Use – Survey Data Cessation (Youth)
+5 2015           AZ      Arizona Tobacco Use – Survey Data Cessation (Youth)
+6 2015           AZ      Arizona Tobacco Use – Survey Data Cessation (Youth)
+                                                MeasureDesc DataSource Response
+1               Percent of Current Smokers Who Want to Quit        YTS         
+2               Percent of Current Smokers Who Want to Quit        YTS         
+3               Percent of Current Smokers Who Want to Quit        YTS         
+4 Quit Attempt in Past Year Among Current Cigarette Smokers        YTS         
+5 Quit Attempt in Past Year Among Current Cigarette Smokers        YTS         
+6 Quit Attempt in Past Year Among Current Cigarette Smokers        YTS         
+  Data_Value_Unit Data_Value_Type Data_Value Data_Value_Footnote_Symbol
+1               %      Percentage         NA                          *
+2               %      Percentage         NA                          *
+3               %      Percentage         NA                          *
+4               %      Percentage         NA                          *
+5               %      Percentage         NA                          *
+6               %      Percentage         NA                          *
                                                       Data_Value_Footnote
 1 Data in these cells have been suppressed because of a small sample size
 2 Data in these cells have been suppressed because of a small sample size
@@ -3810,20 +3799,20 @@ head(dat2)</pre>
 4 Data in these cells have been suppressed because of a small sample size
 5 Data in these cells have been suppressed because of a small sample size
 6 Data in these cells have been suppressed because of a small sample size
-  Data_Value_Std_Err Low_Confidence_Limit High_Confidence_Limit
-1                 NA                   NA                    NA
-2                 NA                   NA                    NA
-3                 NA                   NA                    NA
-4                 NA                   NA                    NA
-5                 NA                   NA                    NA
-6                 NA                   NA                    NA
-  Sample_Size  Gender      Race      Age     Education
-1          NA Overall All Races All Ages Middle School
-2          NA    Male All Races All Ages Middle School
-3          NA  Female All Races All Ages Middle School
-4          NA Overall All Races All Ages Middle School
-5          NA    Male All Races All Ages Middle School
-6          NA  Female All Races All Ages Middle School
+  Data_Value_Std_Err Low_Confidence_Limit High_Confidence_Limit Sample_Size
+1                 NA                   NA                    NA          NA
+2                 NA                   NA                    NA          NA
+3                 NA                   NA                    NA          NA
+4                 NA                   NA                    NA          NA
+5                 NA                   NA                    NA          NA
+6                 NA                   NA                    NA          NA
+   Gender      Race      Age     Education
+1 Overall All Races All Ages Middle School
+2    Male All Races All Ages Middle School
+3  Female All Races All Ages Middle School
+4 Overall All Races All Ages Middle School
+5    Male All Races All Ages Middle School
+6  Female All Races All Ages Middle School
                                 GeoLocation TopicTypeId TopicId MeasureId
 1 (34.865970280000454, -111.76381127699972)         BEH  105BEH    170CES
 2 (34.865970280000454, -111.76381127699972)         BEH  105BEH    170CES
