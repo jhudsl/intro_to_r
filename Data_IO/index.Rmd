@@ -126,7 +126,7 @@ setwd("~/Lectures")
 ## Setting a Working Directory
 
 * Setting the directory can sometimes be finicky
-    * **Windows**: Default directory structure involves single backslashes ("\"), but R interprets these as "escape" characters. So you must replace the backslash with forward slashes ("/") or two backslashes ("\\")
+    * **Windows**: Default directory structure involves single backslashes ("`\`"), but R interprets these as "escape" characters. So you must replace the backslash with forward slashes ("/") or two backslashes ("`\\`")
     * **Mac/Linux**: Default is forward slashes, so you are okay
 * Typical directory structure syntax applies
     * ".." - goes up one level
