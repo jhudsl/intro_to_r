@@ -189,7 +189,7 @@ head(yts)
 `unique(x)` will return the unique elements of `x`
 
 ```{r, message = FALSE}
-unique(yts$LocationDesc)[1:10]
+head(unique(yts$LocationDesc), 10)
 ```
 
 `length` will tell you the length of a vector. Combined with `unique`, tells you the number of unique elements:
@@ -202,7 +202,7 @@ length(unique(yts$LocationDesc))
 `table(x)` will return a frequency table of unique elements of `x`
 
 ```{r, message = FALSE}
-table(yts$LocationDesc)[1:5]
+head(table(yts$LocationDesc))
 ```
 
 ## `dplyr`: `count` 

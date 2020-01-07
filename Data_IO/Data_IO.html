@@ -3107,58 +3107,7 @@ slide:not(.current) .plotly.html-widget{
 
   </style>
 
-  <style type="text/css">pre {
-font-family: 'Source Code Pro', 'Courier New', monospace;
-font-size: 24px;
-line-height: 24px;
-padding: 10px 0 10px 60px;
-letter-spacing: -1px;
-margin-bottom: 8px;
-width: 106%;
-left: -60px;
-position: relative;
--webkit-box-sizing: border-box;
--moz-box-sizing: border-box;
-box-sizing: border-box;
-
-}
-
-body{
-font-family: Helvetica;
-font-size: 16pt;
-}
-
-h1{
-font-size: 28pt;
-}
-h2{
-font-size: 24pt;
-}
-h3{
-font-size: 20pt;
-}
-.emphasized {
-font-size: 1.2em;
-}
-.small {
-font-size: 0.8em;
-}
-strong { font-weight: bold;
-color: black;
-}
-
-slides > slide > hgroup + article {
-margin-top: 5px;
-}
-.left_col {
-float:left;
-width:48%;
-}
-.right_col {
-float:right;
-width:48%;
-}
-</style>
+  <style type="text/css">pre {font-family: 'Source Code Pro', 'Courier New', monospace;font-size: 24px;line-height: 24px;padding: 10px 0 10px 60px;letter-spacing: -1px;margin-bottom: 8px;width: 106%;left: -60px;position: relative;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}body{font-family: Helvetica;font-size: 16pt;}h1{font-size: 28pt;}h2{font-size: 24pt;}h3{font-size: 20pt;}.emphasized {font-size: 1.2em;}.small {font-size: 0.8em;}strong { font-weight: bold;color: black;}slides > slide > hgroup + article {margin-top: 5px;}.left_col {float:left;width:48%;}.right_col {float:right;width:48%;}</style>
 
 </head>
 
@@ -3350,7 +3299,7 @@ setwd(&quot;~/Lectures&quot;) </pre>
 <li>Setting the directory can sometimes be finicky
 
 <ul>
-<li><strong>Windows</strong>: Default directory structure involves single backslashes (&ldquo;&quot;), but R interprets these as&rdquo;escape&quot; characters. So you must replace the backslash with forward slashes (&ldquo;/&rdquo;) or two backslashes (&ldquo;\&rdquo;)</li>
+<li><strong>Windows</strong>: Default directory structure involves single backslashes (&ldquo;<code>\</code>&rdquo;), but R interprets these as &ldquo;escape&rdquo; characters. So you must replace the backslash with forward slashes (&ldquo;/&rdquo;) or two backslashes (&ldquo;<code>\\</code>&rdquo;)</li>
 <li><strong>Mac/Linux</strong>: Default is forward slashes, so you are okay</li>
 </ul></li>
 <li>Typical directory structure syntax applies
@@ -3372,10 +3321,9 @@ setwd(&quot;~/Lectures&quot;) </pre>
 
 <pre > [1] &quot;Data_IO.html&quot;              &quot;Data_IO.pdf&quot;              
  [3] &quot;Data_IO.R&quot;                 &quot;index.html&quot;               
- [5] &quot;index.pdf&quot;                 &quot;index.R&quot;                  
- [7] &quot;index.Rmd&quot;                 &quot;lab&quot;                      
- [9] &quot;lecture.zip&quot;               &quot;makefile&quot;                 
-[11] &quot;YouthTobacco_newNames.csv&quot; &quot;yts_dataset.rds&quot;          </pre>
+ [5] &quot;index.R&quot;                   &quot;index.Rmd&quot;                
+ [7] &quot;lab&quot;                       &quot;makefile&quot;                 
+ [9] &quot;YouthTobacco_newNames.csv&quot; &quot;yts_dataset.rds&quot;          </pre>
 
 <pre class = 'prettyprint lang-r'>dir(&quot;..&quot;)</pre>
 
@@ -3389,12 +3337,12 @@ setwd(&quot;~/Lectures&quot;) </pre>
  [8] &quot;black_and_white_theme.pdf&quot;               
  [9] &quot;bloomberg.logo.small.horizontal.blue.png&quot;
 [10] &quot;data&quot;                                    
-[11] &quot;Data_Classes&quot;                            
-[12] &quot;Data_Cleaning&quot;                           
-[13] &quot;Data_IO&quot;                                 
-[14] &quot;Data_Summarization&quot;                      
-[15] &quot;Data_Visualization&quot;                      
-[16] &quot;data.zip&quot;                                
+[11] &quot;data.zip&quot;                                
+[12] &quot;Data_Classes&quot;                            
+[13] &quot;Data_Cleaning&quot;                           
+[14] &quot;Data_IO&quot;                                 
+[15] &quot;Data_Summarization&quot;                      
+[16] &quot;Data_Visualization&quot;                      
 [17] &quot;dhs&quot;                                     
 [18] &quot;email_to_class.txt&quot;                      
 [19] &quot;example_knitr.html&quot;                      
@@ -3415,8 +3363,8 @@ setwd(&quot;~/Lectures&quot;) </pre>
 [34] &quot;ListExamples&quot;                            
 [35] &quot;live_code&quot;                               
 [36] &quot;makefile&quot;                                
-[37] &quot;makefile_old&quot;                            
-[38] &quot;makefile.copy&quot;                           
+[37] &quot;makefile.copy&quot;                           
+[38] &quot;makefile_old&quot;                            
 [39] &quot;Manipulating_Data_in_R&quot;                  
 [40] &quot;my_tab.txt&quot;                              
 [41] &quot;ProjectExample&quot;                          
@@ -3439,7 +3387,7 @@ setwd(&quot;~/Lectures&quot;) </pre>
 [58] &quot;syllabus.Rmd&quot;                            
 [59] &quot;tb.xlsx&quot;                                 </pre>
 
-</article></slide><slide class=""><hgroup><h2>Relative vs. absolute paths (From Wiki)</h2></hgroup><article  id="relative-vs.absolute-paths-from-wiki">
+</article></slide><slide class=""><hgroup><h2>Relative vs. absolute paths (From Wiki)</h2></hgroup><article  id="relative-vs.-absolute-paths-from-wiki">
 
 <p><em>An <strong>absolute or full path</strong> points to the same location in a file system, regardless of the current working directory. To do that, it must include the root directory.</em></p>
 
@@ -3537,7 +3485,7 @@ help(&quot;dir&quot;)</pre>
 
 <p>The <code>read_delim()</code> and related functions returns a &ldquo;tibble&rdquo; is a <code>data.frame</code> with special printing, which is the primary data format for most data cleaning and analyses.</p>
 
-</article></slide><slide class=""><hgroup><h2>Data Input with <code>tbl_df</code>s</h2></hgroup><article  id="data-input-with-tbl_dfs" class="smaller">
+</article></slide><slide class=""><hgroup><h2>Data Input with <code>tbl_df</code>s</h2></hgroup><article  class="smaller" id="data-input-with-tbl_dfs">
 
 <ul>
 <li>When using the dropdown menu in RStudio, it uses <code>read_csv</code>, which is an improved version of reading in CSVs. It is popular but <code>read.csv</code> is still largely used. It returns a <code>tbl</code> (tibble), that is a <code>data.frame</code> with improved printing and subsetting properties:</li>
@@ -3731,20 +3679,17 @@ save(yts, x, file = &quot;yts_data.rda&quot;)</pre>
 
 <pre class = 'prettyprint lang-r'>ls() # list things in the workspace</pre>
 
-<pre >[1] &quot;dat&quot;        &quot;dat2&quot;       &quot;in_rstudio&quot; &quot;lsos&quot;       &quot;mydat&quot;     
-[6] &quot;qq&quot;         &quot;req&quot;        &quot;x&quot;          &quot;yts&quot;       </pre>
+<pre >[1] &quot;dat&quot;   &quot;dat2&quot;  &quot;mydat&quot; &quot;x&quot;     &quot;yts&quot;  </pre>
 
 <pre class = 'prettyprint lang-r'>rm(list = c(&quot;x&quot;, &quot;yts&quot;))
 ls()</pre>
 
-<pre >[1] &quot;dat&quot;        &quot;dat2&quot;       &quot;in_rstudio&quot; &quot;lsos&quot;       &quot;mydat&quot;     
-[6] &quot;qq&quot;         &quot;req&quot;       </pre>
+<pre >[1] &quot;dat&quot;   &quot;dat2&quot;  &quot;mydat&quot;</pre>
 
 <pre class = 'prettyprint lang-r'>z = load(&quot;yts_data.rda&quot;)
 ls()</pre>
 
-<pre > [1] &quot;dat&quot;        &quot;dat2&quot;       &quot;in_rstudio&quot; &quot;lsos&quot;       &quot;mydat&quot;     
- [6] &quot;qq&quot;         &quot;req&quot;        &quot;x&quot;          &quot;yts&quot;        &quot;z&quot;         </pre>
+<pre >[1] &quot;dat&quot;   &quot;dat2&quot;  &quot;mydat&quot; &quot;x&quot;     &quot;yts&quot;   &quot;z&quot;    </pre>
 
 </article></slide><slide class=""><hgroup><h2>More ways to save: load</h2></hgroup><article  id="more-ways-to-save-load-1">
 
@@ -3771,13 +3716,13 @@ ls()</pre>
 <pre class = 'prettyprint lang-r'>dat2 = read.csv(&quot;../data/Youth_Tobacco_Survey_YTS_Data.csv&quot;, as.is = TRUE)
 head(dat2)</pre>
 
-<pre >  YEAR LocationAbbr LocationDesc                 TopicType         TopicDesc
-1 2015           AZ      Arizona Tobacco Use – Survey Data Cessation (Youth)
-2 2015           AZ      Arizona Tobacco Use – Survey Data Cessation (Youth)
-3 2015           AZ      Arizona Tobacco Use – Survey Data Cessation (Youth)
-4 2015           AZ      Arizona Tobacco Use – Survey Data Cessation (Youth)
-5 2015           AZ      Arizona Tobacco Use – Survey Data Cessation (Youth)
-6 2015           AZ      Arizona Tobacco Use – Survey Data Cessation (Youth)
+<pre >  YEAR LocationAbbr LocationDesc                   TopicType         TopicDesc
+1 2015           AZ      Arizona Tobacco Use â\200“ Survey Data Cessation (Youth)
+2 2015           AZ      Arizona Tobacco Use â\200“ Survey Data Cessation (Youth)
+3 2015           AZ      Arizona Tobacco Use â\200“ Survey Data Cessation (Youth)
+4 2015           AZ      Arizona Tobacco Use â\200“ Survey Data Cessation (Youth)
+5 2015           AZ      Arizona Tobacco Use â\200“ Survey Data Cessation (Youth)
+6 2015           AZ      Arizona Tobacco Use â\200“ Survey Data Cessation (Youth)
                                                 MeasureDesc DataSource Response
 1               Percent of Current Smokers Who Want to Quit        YTS         
 2               Percent of Current Smokers Who Want to Quit        YTS         
