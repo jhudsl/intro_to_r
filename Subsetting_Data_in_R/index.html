@@ -1353,6 +1353,11 @@ opacity: 0;
 }
 @media print {
 
+@page {
+size: landscape;
+margin: 0;
+}
+
 slides slide {
 display: block !important;
 position: relative;
@@ -3102,58 +3107,7 @@ slide:not(.current) .plotly.html-widget{
 
   </style>
 
-  <style type="text/css">pre {
-font-family: 'Source Code Pro', 'Courier New', monospace;
-font-size: 24px;
-line-height: 24px;
-padding: 10px 0 10px 60px;
-letter-spacing: -1px;
-margin-bottom: 8px;
-width: 106%;
-left: -60px;
-position: relative;
--webkit-box-sizing: border-box;
--moz-box-sizing: border-box;
-box-sizing: border-box;
-
-}
-
-body{
-font-family: Helvetica;
-font-size: 16pt;
-}
-
-h1{
-font-size: 28pt;
-}
-h2{
-font-size: 24pt;
-}
-h3{
-font-size: 20pt;
-}
-.emphasized {
-font-size: 1.2em;
-}
-.small {
-font-size: 0.8em;
-}
-strong { font-weight: bold;
-color: black;
-}
-
-slides > slide > hgroup + article {
-margin-top: 5px;
-}
-.left_col {
-float:left;
-width:48%;
-}
-.right_col {
-float:right;
-width:48%;
-}
-</style>
+  <style type="text/css">pre {font-family: 'Source Code Pro', 'Courier New', monospace;font-size: 24px;line-height: 24px;padding: 10px 0 10px 60px;letter-spacing: -1px;margin-bottom: 8px;width: 106%;left: -60px;position: relative;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}body{font-family: Helvetica;font-size: 16pt;}h1{font-size: 28pt;}h2{font-size: 24pt;}h3{font-size: 20pt;}.emphasized {font-size: 1.2em;}.small {font-size: 0.8em;}strong { font-weight: bold;color: black;}slides > slide > hgroup + article {margin-top: 5px;}.left_col {float:left;width:48%;}.right_col {float:right;width:48%;}</style>
 
 </head>
 
@@ -3202,16 +3156,16 @@ width:48%;
 
 <pre class = 'prettyprint lang-r'>library(tidyverse)</pre>
 
-<pre >── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──</pre>
+<pre >-- Attaching packages -------------------------- tidyverse 1.3.0 --</pre>
 
-<pre >✔ ggplot2 3.1.1          ✔ readr   1.3.1     
-✔ tibble  2.1.1.9000     ✔ purrr   0.3.2     
-✔ tidyr   0.8.3          ✔ stringr 1.4.0     
-✔ ggplot2 3.1.1          ✔ forcats 0.4.0     </pre>
+<pre >&lt;U+2713&gt; ggplot2 3.2.1     &lt;U+2713&gt; purrr   0.3.3
+&lt;U+2713&gt; tibble  2.1.3     &lt;U+2713&gt; stringr 1.4.0
+&lt;U+2713&gt; tidyr   1.0.0     &lt;U+2713&gt; forcats 0.4.0
+&lt;U+2713&gt; readr   1.3.1     </pre>
 
-<pre >── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()</pre>
+<pre >-- Conflicts ----------------------------- tidyverse_conflicts() --
+x dplyr::filter() masks stats::filter()
+x dplyr::lag()    masks stats::lag()</pre>
 
 <p>Note, when loading <code>dplyr</code>, it says objects can be &ldquo;masked&rdquo;/conflicts. That means if you use a function defined in 2 places, it uses the one that is loaded in <strong>last</strong>.</p>
 
@@ -3225,7 +3179,7 @@ width:48%;
 {
     UseMethod(&quot;filter&quot;)
 }
-&lt;bytecode: 0x7f869e394398&gt;
+&lt;bytecode: 0x0000000015bb1e50&gt;
 &lt;environment: namespace:dplyr&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Loading in dplyr and tidyverse</h2></hgroup><article  id="loading-in-dplyr-and-tidyverse-2">
@@ -3264,14 +3218,14 @@ head(df) # changing df does **not** change jhu_cars</pre>
 head(tbl)</pre>
 
 <pre ># A tibble: 6 x 12
-  car       mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
-  &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1 Mazda …  21       6   160   110  3.9   2.62  16.5     0     1     4     4
-2 Mazda …  21       6   160   110  3.9   2.88  17.0     0     1     4     4
-3 Datsun…  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1
-4 Hornet…  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1
-5 Hornet…  18.7     8   360   175  3.15  3.44  17.0     0     0     3     2
-6 Valiant  18.1     6   225   105  2.76  3.46  20.2     1     0     3     1</pre>
+  car            mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+  &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 Mazda RX4     21       6   160   110  3.9   2.62  16.5     0     1     4     4
+2 Mazda RX4 W…  21       6   160   110  3.9   2.88  17.0     0     1     4     4
+3 Datsun 710    22.8     4   108    93  3.85  2.32  18.6     1     1     4     1
+4 Hornet 4 Dr…  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1
+5 Hornet Spor…  18.7     8   360   175  3.15  3.44  17.0     0     0     3     2
+6 Valiant       18.1     6   225   105  2.76  3.46  20.2     1     0     3     1</pre>
 
 </article></slide><slide class=""><hgroup><h2>No rownames in tibbles!</h2></hgroup><article  id="no-rownames-in-tibbles">
 
@@ -3290,24 +3244,6 @@ Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4</pre>
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 1    21     6   160   110   3.9  2.62  16.5     0     1     4     4
 2    21     6   160   110   3.9  2.88  17.0     0     1     4     4</pre>
-
-</article></slide><slide class=""><hgroup><h2>No rownames in tibbles!</h2></hgroup><article  id="no-rownames-in-tibbles-1">
-
-<p>If you run into this, use <code>rownames_to_column</code> to add it before turning it into a <code>tibble</code> to keep them:</p>
-
-<pre class = 'prettyprint lang-r'>head(rownames_to_column(mtcars, var = &quot;car&quot;),  2)</pre>
-
-<pre >            car mpg cyl disp  hp drat    wt  qsec vs am gear carb
-1     Mazda RX4  21   6  160 110  3.9 2.620 16.46  0  1    4    4
-2 Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4</pre>
-
-<pre class = 'prettyprint lang-r'>head(as_tibble(rownames_to_column(mtcars, var = &quot;car&quot;)),  2)</pre>
-
-<pre ># A tibble: 2 x 12
-  car       mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
-  &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1 Mazda …    21     6   160   110   3.9  2.62  16.5     0     1     4     4
-2 Mazda …    21     6   160   110   3.9  2.88  17.0     0     1     4     4</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Renaming Columns</h2></hgroup><article  id="renaming-columns">
 
@@ -3403,9 +3339,9 @@ head(df_upper)</pre>
 
 <pre class = 'prettyprint lang-r'>pull(select(df, mpg))</pre>
 
-<pre > [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2
-[15] 10.4 10.4 14.7 32.4 30.4 33.9 21.5 15.5 15.2 13.3 19.2 27.3 26.0 30.4
-[29] 15.8 19.7 15.0 21.4</pre>
+<pre > [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2 10.4
+[16] 10.4 14.7 32.4 30.4 33.9 21.5 15.5 15.2 13.3 19.2 27.3 26.0 30.4 15.8 19.7
+[31] 15.0 21.4</pre>
 
 </article></slide><slide class=""><hgroup><h2>Select columns of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="select-columns-of-a-data.frame-dplyr">
 
@@ -3653,14 +3589,10 @@ df2 = select(df2, cyl, hp)</pre>
 <pre class = 'prettyprint lang-r'>df$newcol = df$wt/2.2
 head(df,3)</pre>
 
-<pre >            car  mpg cyl disp  hp drat    wt  qsec vs am gear carb
-1     Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-2 Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-3    Datsun 710 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
-    newcol
-1 1.190909
-2 1.306818
-3 1.054545</pre>
+<pre >            car  mpg cyl disp  hp drat    wt  qsec vs am gear carb   newcol
+1     Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4 1.190909
+2 Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4 1.306818
+3    Datsun 710 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1 1.054545</pre>
 
 </article></slide><slide class=""><hgroup><h2>Adding columns to a <code>data.frame</code>: dplyr</h2></hgroup><article  id="adding-columns-to-a-data.frame-dplyr">
 
@@ -3732,20 +3664,20 @@ head(df$disp_cat2)</pre>
 
 <pre class = 'prettyprint lang-r'>select(df, -newcol)</pre>
 
-<pre >                car  mpg cyl disp  hp drat    wt  qsec vs am gear carb
-1         Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-2     Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-3        Datsun 710 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
-4    Hornet 4 Drive 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-5 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
-6           Valiant 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
-  disp_cat disp_cat2
-1      Low       Low
-2      Low       Low
-3      Low       Low
-4   Medium    Medium
-5   Medium    Medium
-6   Medium    Medium</pre>
+<pre >                car  mpg cyl disp  hp drat    wt  qsec vs am gear carb disp_cat
+1         Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4      Low
+2     Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4      Low
+3        Datsun 710 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1      Low
+4    Hornet 4 Drive 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1   Medium
+5 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2   Medium
+6           Valiant 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1   Medium
+  disp_cat2
+1       Low
+2       Low
+3       Low
+4    Medium
+5    Medium
+6    Medium</pre>
 
 </article></slide><slide class=""><hgroup><h2>Removing columns to a <code>data.frame</code>: dplyr</h2></hgroup><article  id="removing-columns-to-a-data.frame-dplyr-1">
 
@@ -3776,20 +3708,20 @@ head(df$disp_cat2)</pre>
 
 <pre class = 'prettyprint lang-r'>select(df, newcol, everything())</pre>
 
-<pre >    newcol               car  mpg cyl disp  hp drat    wt  qsec vs am gear
-1 1.190909         Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4
-2 1.306818     Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4
-3 1.054545        Datsun 710 22.8   4  108  93 3.85 2.320 18.61  1  1    4
-4 1.461364    Hornet 4 Drive 21.4   6  258 110 3.08 3.215 19.44  1  0    3
-5 1.563636 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3
-6 1.572727           Valiant 18.1   6  225 105 2.76 3.460 20.22  1  0    3
-  carb disp_cat disp_cat2
-1    4      Low       Low
-2    4      Low       Low
-3    1      Low       Low
-4    1   Medium    Medium
-5    2   Medium    Medium
-6    1   Medium    Medium</pre>
+<pre >    newcol               car  mpg cyl disp  hp drat    wt  qsec vs am gear carb
+1 1.190909         Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+2 1.306818     Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+3 1.054545        Datsun 710 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+4 1.461364    Hornet 4 Drive 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+5 1.563636 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+6 1.572727           Valiant 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+  disp_cat disp_cat2
+1      Low       Low
+2      Low       Low
+3      Low       Low
+4   Medium    Medium
+5   Medium    Medium
+6   Medium    Medium</pre>
 
 </article></slide><slide class=""><hgroup><h2>Ordering the columns of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="ordering-the-columns-of-a-data.frame-dplyr-1">
 
@@ -3797,20 +3729,20 @@ head(df$disp_cat2)</pre>
 
 <pre class = 'prettyprint lang-r'>select(df, -newcol, everything(), newcol)</pre>
 
-<pre >                car  mpg cyl disp  hp drat    wt  qsec vs am gear carb
-1         Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-2     Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-3        Datsun 710 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
-4    Hornet 4 Drive 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-5 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
-6           Valiant 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
-  disp_cat disp_cat2   newcol
-1      Low       Low 1.190909
-2      Low       Low 1.306818
-3      Low       Low 1.054545
-4   Medium    Medium 1.461364
-5   Medium    Medium 1.563636
-6   Medium    Medium 1.572727</pre>
+<pre >                car  mpg cyl disp  hp drat    wt  qsec vs am gear carb disp_cat
+1         Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4      Low
+2     Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4      Low
+3        Datsun 710 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1      Low
+4    Hornet 4 Drive 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1   Medium
+5 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2   Medium
+6           Valiant 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1   Medium
+  disp_cat2   newcol
+1       Low 1.190909
+2       Low 1.306818
+3       Low 1.054545
+4    Medium 1.461364
+5    Medium 1.563636
+6    Medium 1.572727</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Ordering rows</h2></hgroup><article  id="ordering-rows">
 
@@ -4179,9 +4111,9 @@ x[-(1:3)] # needs parentheses</pre>
 
 <pre class = 'prettyprint lang-r'>colnames(df) # just prints</pre>
 
-<pre > [1] &quot;car&quot;       &quot;mpg&quot;       &quot;cyl&quot;       &quot;disp&quot;      &quot;hp&quot;       
- [6] &quot;drat&quot;      &quot;wt&quot;        &quot;qsec&quot;      &quot;vs&quot;        &quot;am&quot;       
-[11] &quot;gear&quot;      &quot;carb&quot;      &quot;newcol&quot;    &quot;disp_cat&quot;  &quot;disp_cat2&quot;</pre>
+<pre > [1] &quot;car&quot;       &quot;mpg&quot;       &quot;cyl&quot;       &quot;disp&quot;      &quot;hp&quot;        &quot;drat&quot;     
+ [7] &quot;wt&quot;        &quot;qsec&quot;      &quot;vs&quot;        &quot;am&quot;        &quot;gear&quot;      &quot;carb&quot;     
+[13] &quot;newcol&quot;    &quot;disp_cat&quot;  &quot;disp_cat2&quot;</pre>
 
 <pre class = 'prettyprint lang-r'>colnames(df)[1:3] = c(&quot;MPG&quot;, &quot;CYL&quot;, &quot;DISP&quot;) # reassigns
 head(df)</pre>
@@ -4382,7 +4314,25 @@ head(df)</pre>
 29      Ford Pantera L 15.8
 30        Ferrari Dino 19.7
 31       Maserati Bora 15.0
-32          Volvo 142E 21.4</pre></article></slide>
+32          Volvo 142E 21.4</pre>
+
+</article></slide><slide class=""><hgroup><h2>No rownames in tibbles!</h2></hgroup><article  id="no-rownames-in-tibbles-1">
+
+<p>If you run into losing a variable contained in your row names, use <code>rownames_to_column</code> to add it before turning it into a <code>tibble</code> to keep them:</p>
+
+<pre class = 'prettyprint lang-r'>head(rownames_to_column(mtcars, var = &quot;car&quot;),  2)</pre>
+
+<pre >            car mpg cyl disp  hp drat    wt  qsec vs am gear carb
+1     Mazda RX4  21   6  160 110  3.9 2.620 16.46  0  1    4    4
+2 Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4</pre>
+
+<pre class = 'prettyprint lang-r'>head(as_tibble(rownames_to_column(mtcars, var = &quot;car&quot;)),  2)</pre>
+
+<pre ># A tibble: 2 x 12
+  car            mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+  &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 Mazda RX4       21     6   160   110   3.9  2.62  16.5     0     1     4     4
+2 Mazda RX4 W…    21     6   160   110   3.9  2.88  17.0     0     1     4     4</pre></article></slide>
 
 
   <slide class="backdrop"></slide>

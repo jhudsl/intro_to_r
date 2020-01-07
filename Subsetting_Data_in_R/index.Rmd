@@ -99,17 +99,6 @@ head(mtcars, 2)
 head(as_tibble(mtcars), 2)
 ```
 
-## No rownames in tibbles!
-
-If you run into this, use `rownames_to_column` to add it before turning it into a `tibble` to keep them:
-
-```{r}
-head(rownames_to_column(mtcars, var = "car"),  2)
-head(as_tibble(rownames_to_column(mtcars, var = "car")),  2)
-```
-
-
-
 # Renaming Columns
 
 ## Renaming Columns of a `data.frame`: dplyr
@@ -550,4 +539,14 @@ We can select multiple columns using multiple column names:
 
 ```{r}
 df[, c("mpg", "cyl")]
+```
+
+
+## No rownames in tibbles!
+
+If you run into losing a variable contained in your row names, use `rownames_to_column` to add it before turning it into a `tibble` to keep them:
+
+```{r}
+head(rownames_to_column(mtcars, var = "car"),  2)
+head(as_tibble(rownames_to_column(mtcars, var = "car")),  2)
 ```
