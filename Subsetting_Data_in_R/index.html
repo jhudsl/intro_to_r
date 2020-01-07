@@ -3179,7 +3179,7 @@ x dplyr::lag()    masks stats::lag()</pre>
 {
     UseMethod(&quot;filter&quot;)
 }
-&lt;bytecode: 0x0000000015bb1e50&gt;
+&lt;bytecode: 0x000000001974a2a8&gt;
 &lt;environment: namespace:dplyr&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Loading in dplyr and tidyverse</h2></hgroup><article  id="loading-in-dplyr-and-tidyverse-2">
@@ -3471,9 +3471,15 @@ matches() # Matches a regular expression - cover later</pre>
 <p>You can have multiple logical conditions using the following:</p>
 
 <ul>
+<li><code>==</code> : equals to</li>
+<li><code>!</code> : not/negation</li>
+<li><code>&gt;</code> / <code>&lt;</code>: greater than / less than</li>
+<li><code>&gt;=</code> or <code>&lt;=</code>: greater than or equal to / less than or equal to</li>
 <li><code>&amp;</code> : AND</li>
 <li><code>|</code> : OR</li>
 </ul>
+
+</article></slide><slide class=""><hgroup><h2>Subset rows of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="subset-rows-of-a-data.frame-dplyr-2">
 
 <p>By default, you can separate conditions by commas, and <code>filter</code> assumes these statements are joined by <code>&amp;</code>:</p>
 
@@ -3507,7 +3513,7 @@ matches() # Matches a regular expression - cover later</pre>
 10   Lotus Europa 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
 11     Volvo 142E 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</pre>
 
-</article></slide><slide class=""><hgroup><h2>Subset rows of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="subset-rows-of-a-data.frame-dplyr-2">
+</article></slide><slide class=""><hgroup><h2>Subset rows of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="subset-rows-of-a-data.frame-dplyr-3">
 
 <p>If you want OR statements, you need to do the pipe <code>|</code> explicitly:</p>
 
