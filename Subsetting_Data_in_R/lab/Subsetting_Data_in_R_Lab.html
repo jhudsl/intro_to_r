@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -268,7 +268,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -330,6 +329,7 @@ summary {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -341,18 +341,6 @@ summary {
   display: none;
 }
 </style>
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
 
 <!-- code folding -->
 
@@ -398,7 +386,6 @@ library(jhur)</code></pre>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
 <ol start="6" style="list-style-type: decimal">
-<li><p>Copy <code>mtcars</code> into <code>cars</code> again. Create a column called <code>car</code> using the <code>rownames_to_column</code> function.</p></li>
 <li><p>Subset the columns from <code>cars</code> that end in <code>&quot;p&quot;</code> and call it <code>pvars</code>, use <code>ends_with()</code>.</p></li>
 <li><p>Create a subset of the data that only contains the columns: <code>wt</code>, <code>qsec</code>, and <code>hp</code> and assign this object to <code>carsSub</code> - what are the dimensions of this dataset? Use <code>select()</code> (and <code>dim</code>):</p></li>
 <li><p>Convert the column names of <code>carsSub</code> to all upper case. Use <code>rename_all()</code>, and the <code>toupper</code> command (or <code>colnames</code>)</p></li>
@@ -406,14 +393,14 @@ library(jhur)</code></pre>
 </div>
 <div id="part-3" class="section level1">
 <h1>Part 3</h1>
-<ol start="10" style="list-style-type: decimal">
+<ol start="9" style="list-style-type: decimal">
 <li><p>Subset the rows of cars that get more than 20 miles per gallon (<code>mpg</code>) of fuel efficiency - how many are there? Use <code>filter()</code></p></li>
 <li><p>Subset the rows that get less than 16 miles per gallon (<code>mpg</code>) of fuel efficiency and have more than 100 horsepower (<code>hp</code>) - how many are there?</p></li>
 </ol>
 </div>
 <div id="part-4" class="section level1">
 <h1>Part 4</h1>
-<ol start="12" style="list-style-type: decimal">
+<ol start="11" style="list-style-type: decimal">
 <li><p>Create a subset from the <code>cars</code> data that only contains the columns: <code>wt</code>, <code>qsec</code>, and <code>hp</code> for only the cars with 8 cylinders and reassign this object to <code>carsSub</code> - what are the dimensions of this dataset?</p></li>
 <li><p>Re-order the rows of <code>carsSub</code> by weight in increasing order. Use <code>arrange()</code></p></li>
 <li><p>Create a new variable in <code>carsSub</code> called <code>wt2</code>, which is equal to <code>wt^2</code>, using <code>mutate()</code>. Use piping <code>%&gt;%</code>:</p></li>
@@ -437,6 +424,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

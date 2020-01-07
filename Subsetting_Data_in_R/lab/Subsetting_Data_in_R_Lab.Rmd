@@ -63,13 +63,7 @@ cars = mtcars
 # Part 2
 
 
-6. Copy `mtcars` into `cars` again.  Create a column called `car` using the `rownames_to_column` function. 
-```{r}
-
-
-```
-
-7. Subset the columns from `cars` that end in `"p"` and call it `pvars`, use `ends_with()`.
+6. Subset the columns from `cars` that end in `"p"` and call it `pvars`, use `ends_with()`.
 
 ```{r}
 
@@ -77,7 +71,7 @@ cars = mtcars
 
 ```
 
-8. Create a subset of the data that only contains the columns: `wt`, `qsec`, and `hp` and assign this object to `carsSub` - what are the dimensions of this dataset? Use `select()` (and `dim`):
+7. Create a subset of the data that only contains the columns: `wt`, `qsec`, and `hp` and assign this object to `carsSub` - what are the dimensions of this dataset? Use `select()` (and `dim`):
 
 ```{r}
 
@@ -85,7 +79,7 @@ cars = mtcars
 
 ```
 
-9. Convert the column names of `carsSub` to all upper case.  Use `rename_all()`, and the `toupper` command (or `colnames`)
+8. Convert the column names of `carsSub` to all upper case.  Use `rename_all()`, and the `toupper` command (or `colnames`)
 
 ```{r}
 
@@ -97,7 +91,7 @@ cars = mtcars
 
 # Part 3
 
-10. Subset the rows of cars that get more than 20 miles per gallon (`mpg`) of fuel efficiency - how many are there? Use `filter()`
+9. Subset the rows of cars that get more than 20 miles per gallon (`mpg`) of fuel efficiency - how many are there? Use `filter()`
 ```{r}
 
 
@@ -105,7 +99,7 @@ cars = mtcars
 ```
 
 
-11. Subset the rows that get less than 16 miles per gallon (`mpg`) of fuel efficiency and have more than 100 horsepower (`hp`) - how many are there?
+10. Subset the rows that get less than 16 miles per gallon (`mpg`) of fuel efficiency and have more than 100 horsepower (`hp`) - how many are there?
 ```{r}
 
 
@@ -115,7 +109,7 @@ cars = mtcars
 
 # Part 4
 
-12. Create a subset from the `cars` data that only contains the columns:
+11. Create a subset from the `cars` data that only contains the columns:
 	`wt`, `qsec`, and `hp` for only the cars with 8 cylinders
 	and reassign this object to `carsSub` - what are the dimensions of this dataset?
 
@@ -126,7 +120,7 @@ cars = mtcars
 ```
 
 
-13. Re-order the rows of `carsSub` by weight in increasing order. Use `arrange()`
+12. Re-order the rows of `carsSub` by weight in increasing order. Use `arrange()`
 
 ```{r}
 
@@ -135,7 +129,7 @@ cars = mtcars
 ```
 
 
-14. Create a new variable in `carsSub` called `wt2`, which  is equal to `wt^2`, using `mutate()`.  Use piping `%>%`:
+13. Create a new variable in `carsSub` called `wt2`, which  is equal to `wt^2`, using `mutate()`.  Use piping `%>%`:
 
 ```{r}
 
