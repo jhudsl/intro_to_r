@@ -1353,6 +1353,11 @@ opacity: 0;
 }
 @media print {
 
+@page {
+size: landscape;
+margin: 0;
+}
+
 slides slide {
 display: block !important;
 position: relative;
@@ -3237,14 +3242,14 @@ width:48%;
 head(circ, 2)</pre>
 
 <pre ># A tibble: 2 x 15
-  day   date  orangeBoardings orangeAlightings orangeAverage
-  &lt;chr&gt; &lt;chr&gt;           &lt;dbl&gt;            &lt;dbl&gt;         &lt;dbl&gt;
-1 Mond… 01/1…             877             1027           952
-2 Tues… 01/1…             777              815           796
-# … with 10 more variables: purpleBoardings &lt;dbl&gt;, purpleAlightings &lt;dbl&gt;,
-#   purpleAverage &lt;dbl&gt;, greenBoardings &lt;dbl&gt;, greenAlightings &lt;dbl&gt;,
-#   greenAverage &lt;dbl&gt;, bannerBoardings &lt;dbl&gt;, bannerAlightings &lt;dbl&gt;,
-#   bannerAverage &lt;dbl&gt;, daily &lt;dbl&gt;</pre>
+  day   date  orangeBoardings orangeAlightings orangeAverage purpleBoardings
+  &lt;chr&gt; &lt;chr&gt;           &lt;dbl&gt;            &lt;dbl&gt;         &lt;dbl&gt;           &lt;dbl&gt;
+1 Mond… 01/1…             877             1027           952              NA
+2 Tues… 01/1…             777              815           796              NA
+# … with 9 more variables: purpleAlightings &lt;dbl&gt;, purpleAverage &lt;dbl&gt;,
+#   greenBoardings &lt;dbl&gt;, greenAlightings &lt;dbl&gt;, greenAverage &lt;dbl&gt;,
+#   bannerBoardings &lt;dbl&gt;, bannerAlightings &lt;dbl&gt;, bannerAverage &lt;dbl&gt;,
+#   daily &lt;dbl&gt;</pre>
 
 <pre class = 'prettyprint lang-r'>class(circ$date)</pre>
 
@@ -3329,7 +3334,7 @@ long</pre>
  5 Friday    2010-01-15 1644  orangeBoardings   1645
  6 Saturday  2010-01-16 1490. orangeBoardings   1457
  7 Sunday    2010-01-17  888. orangeBoardings    839
- 8 Monday    2010-01-18 1000. orangeBoardings    999
+ 8 Monday    2010-01-18  999. orangeBoardings    999
  9 Tuesday   2010-01-19 1035  orangeBoardings   1023
 10 Wednesday 2010-01-20 1396. orangeBoardings   1375
 # … with 13,742 more rows</pre>
@@ -3563,11 +3568,45 @@ tail(visits, 2)</pre>
 5     9  59.4    NA    NA  
 6    10  60      NA    NA  </pre>
 
+</article></slide><slide class=""><hgroup><h2>Logging the joins</h2></hgroup><article  id="logging-the-joins">
+
+<p>The <code>tidylog</code> package can show you log outputs from <code>dplyr</code> (newly added). You will need to install to use.</p>
+
+<pre class = 'prettyprint lang-r'>library(tidylog)
+left_join(base, visits)</pre>
+
+<pre >Joining, by = &quot;id&quot;left_join: added 2 columns (visit, Outcome)
+           &gt; rows only in x    2
+           &gt; rows only in y  ( 1)
+           &gt; matched rows     24    (includes duplicates)
+           &gt;                 ====
+           &gt; rows total       26</pre>
+
+<pre ># A tibble: 26 x 4
+      id   Age visit Outcome
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+ 1     1  55       1    10  
+ 2     1  55       3    23.3
+ 3     1  55       2    36.7
+ 4     2  55.6     2    11.7
+ 5     2  55.6     1    25  
+ 6     2  55.6     3    38.3
+ 7     3  56.1     3    13.3
+ 8     3  56.1     2    26.7
+ 9     3  56.1     1    40  
+10     4  56.7     1    15  
+# … with 16 more rows</pre>
+
 </article></slide><slide class=""><hgroup><h2>Right Join</h2></hgroup><article  id="right-join">
 
 <pre class = 'prettyprint lang-r'>rj = right_join(base, visits)</pre>
 
-<pre >Joining, by = &quot;id&quot;</pre>
+<pre >Joining, by = &quot;id&quot;right_join: added 2 columns (visit, Outcome)
+            &gt; rows only in x  ( 2)
+            &gt; rows only in y    1
+            &gt; matched rows     24
+            &gt;                 ====
+            &gt; rows total       25</pre>
 
 <pre class = 'prettyprint lang-r'>dim(rj)</pre>
 
@@ -3589,7 +3628,12 @@ tail(visits, 2)</pre>
 
 <pre class = 'prettyprint lang-r'>rj2 = right_join(visits, base)</pre>
 
-<pre >Joining, by = &quot;id&quot;</pre>
+<pre >Joining, by = &quot;id&quot;right_join: added one column (Age)
+            &gt; rows only in x  ( 1)
+            &gt; rows only in y    2
+            &gt; matched rows     24    (includes duplicates)
+            &gt;                 ====
+            &gt; rows total       26</pre>
 
 <pre class = 'prettyprint lang-r'>dim(rj2)</pre>
 
@@ -3615,7 +3659,12 @@ tail(visits, 2)</pre>
 
 <pre class = 'prettyprint lang-r'>fj = full_join(base, visits)</pre>
 
-<pre >Joining, by = &quot;id&quot;</pre>
+<pre >Joining, by = &quot;id&quot;full_join: added 2 columns (visit, Outcome)
+           &gt; rows only in x    2
+           &gt; rows only in y    1
+           &gt; matched rows     24    (includes duplicates)
+           &gt;                 ====
+           &gt; rows total       27</pre>
 
 <pre class = 'prettyprint lang-r'>dim(fj)</pre>
 
@@ -3649,6 +3698,8 @@ tail(visits, 2)</pre>
 
 <pre class = 'prettyprint lang-r'>fj %&gt;% 
   mutate(dup_id = duplicated(id))</pre>
+
+<pre >mutate: new variable &#39;dup_id&#39; with 2 unique values and 0% NA</pre>
 
 <pre ># A tibble: 27 x 5
       id   Age visit Outcome dup_id
@@ -3694,8 +3745,11 @@ tail(visits, 2)</pre>
 2 Friday 2010-01-15  1644 green          NA      NA        NA
 3 Friday 2010-01-15  1644 orange       1643    1644      1645</pre>
 
-<pre class = 'prettyprint lang-r'>not_namat = wide %&gt;% select(Alightings, Average, Boardings)
-not_namat = !is.na(not_namat)
+<pre class = 'prettyprint lang-r'>not_namat = wide %&gt;% select(Alightings, Average, Boardings)</pre>
+
+<pre >select: dropped 4 variables (day, date, daily, line)</pre>
+
+<pre class = 'prettyprint lang-r'>not_namat = !is.na(not_namat)
 head(not_namat, 2)</pre>
 
 <pre >     Alightings Average Boardings
@@ -3708,8 +3762,13 @@ head(not_namat, 2)</pre>
 
 <p>Now we can filter only the good rows and delete the <code>good</code> column.</p>
 
-<pre class = 'prettyprint lang-r'>wide = wide %&gt;% filter(good) %&gt;% select(-good)
-head(wide)</pre>
+<pre class = 'prettyprint lang-r'>wide = wide %&gt;% filter(good) %&gt;% select(-good)</pre>
+
+<pre >filter: removed 1,700 rows (37%), 2,884 rows remaining</pre>
+
+<pre >select: dropped one variable (good)</pre>
+
+<pre class = 'prettyprint lang-r'>head(wide)</pre>
 
 <pre ># A tibble: 6 x 7
   day    date       daily line   Alightings Average Boardings
@@ -3727,12 +3786,22 @@ head(wide)</pre>
 <li><code>slice</code> allows you to select <strong>records</strong> (compared to first/last on a <strong>vector</strong>)</li>
 </ul>
 
-<pre class = 'prettyprint lang-r'>long = long %&gt;% filter(!is.na(number) &amp; number &gt; 0)
-first_and_last = long %&gt;% arrange(date) %&gt;% # arrange by date
+<pre class = 'prettyprint lang-r'>long = long %&gt;% filter(!is.na(number) &amp; number &gt; 0)</pre>
+
+<pre >filter: removed 5,364 rows (39%), 8,388 rows remaining</pre>
+
+<pre class = 'prettyprint lang-r'>first_and_last = long %&gt;% arrange(date) %&gt;% # arrange by date
   filter(type == &quot;Boardings&quot;) %&gt;% # keep boardings only
   group_by(line) %&gt;% # group by line
-  slice( c(1, n())) # select (&quot;slice&quot;) first and last (n() command) lines
-first_and_last %&gt;%  head(4)</pre>
+  slice( c(1, n())) # select (&quot;slice&quot;) first and last (n() command) lines</pre>
+
+<pre >filter: removed 5,630 rows (67%), 2,758 rows remaining</pre>
+
+<pre >group_by: one grouping variable (line)</pre>
+
+<pre >slice (grouped): removed 2,750 rows (&gt;99%), 8 rows remaining</pre>
+
+<pre class = 'prettyprint lang-r'>first_and_last %&gt;%  head(4)</pre>
 
 <pre ># A tibble: 4 x 6
 # Groups:   line [2]

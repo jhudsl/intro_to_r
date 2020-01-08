@@ -266,6 +266,19 @@ dim(lj)
 tail(lj)
 ```
 
+## Logging the joins
+
+The `tidylog` package can show you log outputs from `dplyr` (newly added).  You will need to install to use.
+
+```{r, include=FALSE}
+library(tidylog)
+```
+
+```{r left_join_log}
+library(tidylog)
+left_join(base, visits)
+```
+
 ## Right Join
 
 ```{r right_join}

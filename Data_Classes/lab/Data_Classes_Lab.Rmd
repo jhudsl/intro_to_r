@@ -35,7 +35,7 @@ bike = read_bike()
 # Part 1
 
 1.  Get all the differet types of bike types from the `type` column.
- Use `sort(unique())`.  Assign this to an object `btypes`.  Remember the `$` can extract a single column from a data set.
+ Use `sort(unique())`.  Assign this to an object `btypes`.  Remember the `pull` function can extract a single column from a data set (or `$`).
  
 ```{r q1}
 
