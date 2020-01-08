@@ -242,7 +242,8 @@ knitr::kable(df, format = "html") %>%
 mat = matrix(c(
   "RStudio and Data Classes", "https://www.youtube.com/watch?v=vyIsDnsq5jY",
   "Subsetting Data", "https://youtu.be/mT8lSagYbjM",
-  "Data Summarization Part 1", "https://www.youtube.com/watch?v=SZYpzt9zy0g"
+  "Data Summarization Part 1", "https://www.youtube.com/watch?v=SZYpzt9zy0g",
+  "Data Classes", "https://www.youtube.com/watch?v=82zSA1N0mnA" 
   ), ncol = 2, byrow = TRUE)
 mat = data.frame(mat, stringsAsFactors = FALSE)
 colnames(mat) = c("Day", "Link to Video")
