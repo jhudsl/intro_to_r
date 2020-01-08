@@ -16,6 +16,85 @@ suppressPackageStartupMessages(library(dplyr))
 library(tidyverse)
 ```
 
+# Before Cleaning - Subsetting with Brackets
+
+## Select specific elements using an index
+
+Often you only want to look at subsets of a data set at any given time.  Elements of an R object are selected using the brackets (`[` and `]`).
+
+For example, `x` is a vector of numbers and we can select the second element of `x` using the brackets and an index (2):
+
+```{r}
+x = c(1, 4, 2, 8, 10)
+x[2]
+```
+`dplyr`:
+
+```{r}
+nth(x, n = 2)
+```
+
+## Select specific elements using an index
+
+We can select the fifth or second AND fifth elements below:
+
+```{r}
+x = c(1, 2, 4, 8, 10)
+x[5]
+x[c(2,5)]
+```
+
+```{r, error=TRUE}
+nth(x, n = c(2, 5)) # nth only returns one number
+```
+
+## Subsetting by deletion of entries
+
+You can put a minus (`-`) before integers inside brackets to remove these indices from the data.
+
+```{r negativeIndex}
+x[-2] # all but the second
+```
+Note that you have to be careful with this syntax when dropping more than 1 element:
+
+```{r negativeIndex2}
+x[-c(1,2,3)] # drop first 3
+# x[-1:3] # shorthand. R sees as -1 to 3
+x[-(1:3)] # needs parentheses
+```
+
+## Select specific elements using logical operators
+
+What about selecting rows based on the values of two variables? We use logical statements.  Here we select only elements of `x` greater than 2:
+
+```{r}
+x
+x > 2
+x[ x > 2 ]
+```
+
+## Select specific elements using logical operators
+You can have multiple logical conditions using the following:
+
+* `&` : AND
+* `|` : OR
+
+```{r}
+x[ x > 2 & x < 5 ]
+x[ x > 5 | x == 2 ]
+```
+
+
+## which function
+
+The `which` functions takes in logical vectors and returns the index for the elements where the logical value is `TRUE`.  
+
+```{r}
+which(x > 5 | x == 2) # returns index
+x[ which(x > 5 | x == 2) ]
+x[ x > 5 | x == 2 ]
+```
+
 ## Data Cleaning
 
 In general, data cleaning is a process of investigating your data for inaccuracies, or recoding it in a way that makes it more manageable.
@@ -35,7 +114,8 @@ MOST IMPORTANT RULE - LOOK AT YOUR DATA!
 - `complete.cases` - returns `TRUE` if EVERY value of a row is NOT `NA`
     - very stringent condition 
     - `FALSE` missing one value (even if not important)
- 
+    - `tidyr::drop_na` will drop rows with **any** missing
+
 
 
 
@@ -96,7 +176,7 @@ Filter removes missing values, have to keep them if you want them:
 ```{r}
 df = tibble(x = x)
 df %>% filter(x > 2)
-filter(df, between(x, -1, 3) | is.na(x))
+df %>% filter(between(x, -1, 3) | is.na(x))
 ```
 
 
@@ -131,6 +211,9 @@ x * 2
 - `table(x)` - will give a one-way table of `x`
     - `table(x, useNA = "ifany")` - will have row NA 
 - `table(x, y)` - will give a cross-tab of `x` and `y`
+- `df %>% count(x, y)` 
+  - `df %>% group_by(x, y) %>% tally`
+  
 
 ## Creating One-way Tables 
 
@@ -140,6 +223,7 @@ Here we will use `table` to make tabulations of the data.   Look at `?table` to 
 unique(x)
 table(x)
 table(x, useNA = "ifany") # will not 
+df %>% count(x)
 ```
 
 
@@ -147,15 +231,16 @@ table(x, useNA = "ifany") # will not
 
 `useNA = "ifany"` will not have NA in table heading if no `NA`:
 ```{r onetab_ifany}
-table(c(0, 1, 2, 3, 2, 3, 3, 2,2, 3), 
+table(c(0, 1, 2, 3, 2, 3, 3, 2, 2, 3), 
         useNA = "ifany")
+tibble(x = c(0, 1, 2, 3, 2, 3, 3, 2, 2, 3)) %>%  count(x)
 ```
 
 ## Creating One-way Tables 
 
 You can set `useNA = "always"` to have it always have a column for `NA`
 ```{r onetab}
-table(c(0, 1, 2, 3, 2, 3, 3, 2,2, 3), 
+table(c(0, 1, 2, 3, 2, 3, 3, 2, 2, 3), 
         useNA = "always")
 ```
 
@@ -164,12 +249,13 @@ table(c(0, 1, 2, 3, 2, 3, 3, 2,2, 3),
 If you use a `factor`, all levels will be given even if no exist! 
   - (May be wanted or not):
 
-```{r onetab_fact}
+```{r onetab_fact, error = TRUE}
 fac = factor(c(0, 1, 2, 3, 2, 3, 3, 2,2, 3),
              levels = 1:4)
 tab = table(fac)
 tab
 tab[ tab > 0 ]
+tibble(x = fac) %>% count(x)
 ```
 
 ## Creating Two-way Tables 
@@ -181,6 +267,14 @@ tab <- table(c(0, 1, 2, 3, 2, 3, 3, 2,2, 3),
              c(0, 1, 2, 3, 2, 3, 3, 4, 4, 3), 
               useNA = "always")
 tab
+```
+
+## Creating Two-way Tables 
+
+```{r}
+tab_df = tibble(x = c(0, 1, 2, 3, 2, 3, 3, 2,2, 3), 
+             y = c(0, 1, 2, 3, 2, 3, 3, 4, 4, 3))
+tab_df %>% count(x, y)
 ```
 
 ## Finding Row or Column Totals
@@ -200,6 +294,23 @@ prop.table(tab)
 prop.table(tab,1) * 100
 ```
 
+
+## Creating Two-way Tables 
+
+```{r}
+tab_df %>% 
+  count(x, y) %>% 
+  group_by(x) %>% mutate(pct_x = n / sum(n))
+```
+
+## Creating Two-way Tables 
+
+```{r}
+library(scales)
+tab_df %>% 
+  count(x, y) %>% 
+  group_by(x) %>% mutate(pct_x = percent(n / sum(n)))
+```
 
 ## Lab Part 2
 

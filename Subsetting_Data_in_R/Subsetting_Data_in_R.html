@@ -3107,7 +3107,58 @@ slide:not(.current) .plotly.html-widget{
 
   </style>
 
-  <style type="text/css">pre {font-family: 'Source Code Pro', 'Courier New', monospace;font-size: 24px;line-height: 24px;padding: 10px 0 10px 60px;letter-spacing: -1px;margin-bottom: 8px;width: 106%;left: -60px;position: relative;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}body{font-family: Helvetica;font-size: 16pt;}h1{font-size: 28pt;}h2{font-size: 24pt;}h3{font-size: 20pt;}.emphasized {font-size: 1.2em;}.small {font-size: 0.8em;}strong { font-weight: bold;color: black;}slides > slide > hgroup + article {margin-top: 5px;}.left_col {float:left;width:48%;}.right_col {float:right;width:48%;}</style>
+  <style type="text/css">pre {
+font-family: 'Source Code Pro', 'Courier New', monospace;
+font-size: 24px;
+line-height: 24px;
+padding: 10px 0 10px 60px;
+letter-spacing: -1px;
+margin-bottom: 8px;
+width: 106%;
+left: -60px;
+position: relative;
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+
+}
+
+body{
+font-family: Helvetica;
+font-size: 16pt;
+}
+
+h1{
+font-size: 28pt;
+}
+h2{
+font-size: 24pt;
+}
+h3{
+font-size: 20pt;
+}
+.emphasized {
+font-size: 1.2em;
+}
+.small {
+font-size: 0.8em;
+}
+strong { font-weight: bold;
+color: black;
+}
+
+slides > slide > hgroup + article {
+margin-top: 5px;
+}
+.left_col {
+float:left;
+width:48%;
+}
+.right_col {
+float:right;
+width:48%;
+}
+</style>
 
 </head>
 
@@ -3156,16 +3207,16 @@ slide:not(.current) .plotly.html-widget{
 
 <pre class = 'prettyprint lang-r'>library(tidyverse)</pre>
 
-<pre >-- Attaching packages ------------------------------ tidyverse 1.3.0 --</pre>
+<pre >── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</pre>
 
-<pre >&lt;U+2713&gt; ggplot2 3.2.1     &lt;U+2713&gt; purrr   0.3.3
-&lt;U+2713&gt; tibble  2.1.3     &lt;U+2713&gt; stringr 1.4.0
-&lt;U+2713&gt; tidyr   1.0.0     &lt;U+2713&gt; forcats 0.4.0
-&lt;U+2713&gt; readr   1.3.1     </pre>
+<pre >✔ ggplot2 3.2.1     ✔ purrr   0.3.3
+✔ tibble  2.1.3     ✔ stringr 1.4.0
+✔ tidyr   1.0.0     ✔ forcats 0.4.0
+✔ readr   1.3.1     </pre>
 
-<pre >-- Conflicts --------------------------------- tidyverse_conflicts() --
-x dplyr::filter() masks stats::filter()
-x dplyr::lag()    masks stats::lag()</pre>
+<pre >── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</pre>
 
 <p>Note, when loading <code>dplyr</code>, it says objects can be &ldquo;masked&rdquo;/conflicts. That means if you use a function defined in 2 places, it uses the one that is loaded in <strong>last</strong>.</p>
 
@@ -3179,7 +3230,7 @@ x dplyr::lag()    masks stats::lag()</pre>
 {
     UseMethod(&quot;filter&quot;)
 }
-&lt;bytecode: 0x0000000015865cd0&gt;
+&lt;bytecode: 0x7fb65c85f6f0&gt;
 &lt;environment: namespace:dplyr&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Loading in dplyr and tidyverse</h2></hgroup><article  id="loading-in-dplyr-and-tidyverse-2">
@@ -4014,100 +4065,6 @@ head(df$disp_cat2)</pre>
 </article></slide><slide class=""><hgroup><h2>Lab Part 4</h2></hgroup><article  id="lab-part-4">
 
 <p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
-
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Bracket Subsetting</h2></hgroup><article  id="bracket-subsetting">
-
-</article></slide><slide class=""><hgroup><h2>Select specific elements using an index</h2></hgroup><article  id="select-specific-elements-using-an-index">
-
-<p>Often you only want to look at subsets of a data set at any given time. As a review, elements of an R object are selected using the brackets (<code>[</code> and <code>]</code>).</p>
-
-<p>For example, <code>x</code> is a vector of numbers and we can select the second element of <code>x</code> using the brackets and an index (2):</p>
-
-<pre class = 'prettyprint lang-r'>x = c(1, 4, 2, 8, 10)
-x[2]</pre>
-
-<pre >[1] 4</pre>
-
-</article></slide><slide class=""><hgroup><h2>Select specific elements using an index</h2></hgroup><article  id="select-specific-elements-using-an-index-1">
-
-<p>We can select the fifth or second AND fifth elements below:</p>
-
-<pre class = 'prettyprint lang-r'>x = c(1, 2, 4, 8, 10)
-x[5]</pre>
-
-<pre >[1] 10</pre>
-
-<pre class = 'prettyprint lang-r'>x[c(2,5)]</pre>
-
-<pre >[1]  2 10</pre>
-
-</article></slide><slide class=""><hgroup><h2>Subsetting by deletion of entries</h2></hgroup><article  id="subsetting-by-deletion-of-entries">
-
-<p>You can put a minus (<code>-</code>) before integers inside brackets to remove these indices from the data.</p>
-
-<pre class = 'prettyprint lang-r'>x[-2] # all but the second</pre>
-
-<pre >[1]  1  4  8 10</pre>
-
-<p>Note that you have to be careful with this syntax when dropping more than 1 element:</p>
-
-<pre class = 'prettyprint lang-r'>x[-c(1,2,3)] # drop first 3</pre>
-
-<pre >[1]  8 10</pre>
-
-<pre class = 'prettyprint lang-r'># x[-1:3] # shorthand. R sees as -1 to 3
-x[-(1:3)] # needs parentheses</pre>
-
-<pre >[1]  8 10</pre>
-
-</article></slide><slide class=""><hgroup><h2>Select specific elements using logical operators</h2></hgroup><article  id="select-specific-elements-using-logical-operators">
-
-<p>What about selecting rows based on the values of two variables? We use logical statements. Here we select only elements of <code>x</code> greater than 2:</p>
-
-<pre class = 'prettyprint lang-r'>x</pre>
-
-<pre >[1]  1  2  4  8 10</pre>
-
-<pre class = 'prettyprint lang-r'>x &gt; 2</pre>
-
-<pre >[1] FALSE FALSE  TRUE  TRUE  TRUE</pre>
-
-<pre class = 'prettyprint lang-r'>x[ x &gt; 2 ]</pre>
-
-<pre >[1]  4  8 10</pre>
-
-</article></slide><slide class=""><hgroup><h2>Select specific elements using logical operators</h2></hgroup><article  id="select-specific-elements-using-logical-operators-1">
-
-<p>You can have multiple logical conditions using the following:</p>
-
-<ul>
-<li><code>&amp;</code> : AND</li>
-<li><code>|</code> : OR</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>x[ x &gt; 2 &amp; x &lt; 5 ]</pre>
-
-<pre >[1] 4</pre>
-
-<pre class = 'prettyprint lang-r'>x[ x &gt; 5 | x == 2 ]</pre>
-
-<pre >[1]  2  8 10</pre>
-
-</article></slide><slide class=""><hgroup><h2>which function</h2></hgroup><article  id="which-function">
-
-<p>The <code>which</code> functions takes in logical vectors and returns the index for the elements where the logical value is <code>TRUE</code>.</p>
-
-<pre class = 'prettyprint lang-r'>which(x &gt; 5 | x == 2) # returns index</pre>
-
-<pre >[1] 2 4 5</pre>
-
-<pre class = 'prettyprint lang-r'>x[ which(x &gt; 5 | x == 2) ]</pre>
-
-<pre >[1]  2  8 10</pre>
-
-<pre class = 'prettyprint lang-r'>x[ x &gt; 5 | x == 2 ]</pre>
-
-<pre >[1]  2  8 10</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Extra Slides</h2></hgroup><article  id="extra-slides">
 

@@ -1353,6 +1353,11 @@ opacity: 0;
 }
 @media print {
 
+@page {
+size: landscape;
+margin: 0;
+}
+
 slides slide {
 display: block !important;
 position: relative;
@@ -3170,7 +3175,111 @@ width:48%;
           </hgroup>
   </slide>
 
-<slide class=""><hgroup><h2>Data Cleaning</h2></hgroup><article  id="data-cleaning">
+<slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Before Cleaning - Subsetting with Brackets</h2></hgroup><article  id="before-cleaning---subsetting-with-brackets">
+
+</article></slide><slide class=""><hgroup><h2>Select specific elements using an index</h2></hgroup><article  id="select-specific-elements-using-an-index">
+
+<p>Often you only want to look at subsets of a data set at any given time. Elements of an R object are selected using the brackets (<code>[</code> and <code>]</code>).</p>
+
+<p>For example, <code>x</code> is a vector of numbers and we can select the second element of <code>x</code> using the brackets and an index (2):</p>
+
+<pre class = 'prettyprint lang-r'>x = c(1, 4, 2, 8, 10)
+x[2]</pre>
+
+<pre >[1] 4</pre>
+
+<p><code>dplyr</code>:</p>
+
+<pre class = 'prettyprint lang-r'>nth(x, n = 2)</pre>
+
+<pre >[1] 4</pre>
+
+</article></slide><slide class=""><hgroup><h2>Select specific elements using an index</h2></hgroup><article  id="select-specific-elements-using-an-index-1">
+
+<p>We can select the fifth or second AND fifth elements below:</p>
+
+<pre class = 'prettyprint lang-r'>x = c(1, 2, 4, 8, 10)
+x[5]</pre>
+
+<pre >[1] 10</pre>
+
+<pre class = 'prettyprint lang-r'>x[c(2,5)]</pre>
+
+<pre >[1]  2 10</pre>
+
+<pre class = 'prettyprint lang-r'>nth(x, n = c(2, 5)) # nth only returns one number</pre>
+
+<pre >Error in nth(x, n = c(2, 5)): length(n) == 1 is not TRUE</pre>
+
+</article></slide><slide class=""><hgroup><h2>Subsetting by deletion of entries</h2></hgroup><article  id="subsetting-by-deletion-of-entries">
+
+<p>You can put a minus (<code>-</code>) before integers inside brackets to remove these indices from the data.</p>
+
+<pre class = 'prettyprint lang-r'>x[-2] # all but the second</pre>
+
+<pre >[1]  1  4  8 10</pre>
+
+<p>Note that you have to be careful with this syntax when dropping more than 1 element:</p>
+
+<pre class = 'prettyprint lang-r'>x[-c(1,2,3)] # drop first 3</pre>
+
+<pre >[1]  8 10</pre>
+
+<pre class = 'prettyprint lang-r'># x[-1:3] # shorthand. R sees as -1 to 3
+x[-(1:3)] # needs parentheses</pre>
+
+<pre >[1]  8 10</pre>
+
+</article></slide><slide class=""><hgroup><h2>Select specific elements using logical operators</h2></hgroup><article  id="select-specific-elements-using-logical-operators">
+
+<p>What about selecting rows based on the values of two variables? We use logical statements. Here we select only elements of <code>x</code> greater than 2:</p>
+
+<pre class = 'prettyprint lang-r'>x</pre>
+
+<pre >[1]  1  2  4  8 10</pre>
+
+<pre class = 'prettyprint lang-r'>x &gt; 2</pre>
+
+<pre >[1] FALSE FALSE  TRUE  TRUE  TRUE</pre>
+
+<pre class = 'prettyprint lang-r'>x[ x &gt; 2 ]</pre>
+
+<pre >[1]  4  8 10</pre>
+
+</article></slide><slide class=""><hgroup><h2>Select specific elements using logical operators</h2></hgroup><article  id="select-specific-elements-using-logical-operators-1">
+
+<p>You can have multiple logical conditions using the following:</p>
+
+<ul>
+<li><code>&amp;</code> : AND</li>
+<li><code>|</code> : OR</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>x[ x &gt; 2 &amp; x &lt; 5 ]</pre>
+
+<pre >[1] 4</pre>
+
+<pre class = 'prettyprint lang-r'>x[ x &gt; 5 | x == 2 ]</pre>
+
+<pre >[1]  2  8 10</pre>
+
+</article></slide><slide class=""><hgroup><h2>which function</h2></hgroup><article  id="which-function">
+
+<p>The <code>which</code> functions takes in logical vectors and returns the index for the elements where the logical value is <code>TRUE</code>.</p>
+
+<pre class = 'prettyprint lang-r'>which(x &gt; 5 | x == 2) # returns index</pre>
+
+<pre >[1] 2 4 5</pre>
+
+<pre class = 'prettyprint lang-r'>x[ which(x &gt; 5 | x == 2) ]</pre>
+
+<pre >[1]  2  8 10</pre>
+
+<pre class = 'prettyprint lang-r'>x[ x &gt; 5 | x == 2 ]</pre>
+
+<pre >[1]  2  8 10</pre>
+
+</article></slide><slide class=""><hgroup><h2>Data Cleaning</h2></hgroup><article  id="data-cleaning">
 
 <p>In general, data cleaning is a process of investigating your data for inaccuracies, or recoding it in a way that makes it more manageable.</p>
 
@@ -3200,6 +3309,7 @@ width:48%;
 <ul>
 <li>very stringent condition</li>
 <li><code>FALSE</code> missing one value (even if not important)</li>
+<li><code>tidyr::drop_na</code> will drop rows with <strong>any</strong> missing</li>
 </ul></li>
 </ul>
 
@@ -3276,7 +3386,7 @@ df %&gt;% filter(x &gt; 2)</pre>
 1     3
 2     4</pre>
 
-<pre class = 'prettyprint lang-r'>filter(df, between(x, -1, 3) | is.na(x))</pre>
+<pre class = 'prettyprint lang-r'>df %&gt;% filter(between(x, -1, 3) | is.na(x))</pre>
 
 <pre ># A tibble: 6 x 1
       x
@@ -3328,6 +3438,11 @@ df %&gt;% filter(x &gt; 2)</pre>
 <li><code>table(x, useNA = &quot;ifany&quot;)</code> - will have row NA</li>
 </ul></li>
 <li><code>table(x, y)</code> - will give a cross-tab of <code>x</code> and <code>y</code></li>
+<li><code>df %&gt;% count(x, y)</code>
+
+<ul>
+<li><code>df %&gt;% group_by(x, y) %&gt;% tally</code></li>
+</ul></li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Creating One-way Tables</h2></hgroup><article  id="creating-one-way-tables">
@@ -3350,22 +3465,45 @@ df %&gt;% filter(x &gt; 2)</pre>
 -0.5    0  0.2    2    3    4 &lt;NA&gt; 
    1    1    1    1    1    1    1 </pre>
 
+<pre class = 'prettyprint lang-r'>df %&gt;% count(x)</pre>
+
+<pre ># A tibble: 7 x 2
+      x     n
+  &lt;dbl&gt; &lt;int&gt;
+1  -0.5     1
+2   0       1
+3   0.2     1
+4   2       1
+5   3       1
+6   4       1
+7  NA       1</pre>
+
 </article></slide><slide class=""><hgroup><h2>Creating One-way Tables</h2></hgroup><article  id="creating-one-way-tables-1">
 
 <p><code>useNA = &quot;ifany&quot;</code> will not have NA in table heading if no <code>NA</code>:</p>
 
-<pre class = 'prettyprint lang-r'>table(c(0, 1, 2, 3, 2, 3, 3, 2,2, 3), 
+<pre class = 'prettyprint lang-r'>table(c(0, 1, 2, 3, 2, 3, 3, 2, 2, 3), 
         useNA = &quot;ifany&quot;)</pre>
 
 <pre >
 0 1 2 3 
 1 1 4 4 </pre>
 
+<pre class = 'prettyprint lang-r'>tibble(x = c(0, 1, 2, 3, 2, 3, 3, 2, 2, 3)) %&gt;%  count(x)</pre>
+
+<pre ># A tibble: 4 x 2
+      x     n
+  &lt;dbl&gt; &lt;int&gt;
+1     0     1
+2     1     1
+3     2     4
+4     3     4</pre>
+
 </article></slide><slide class=""><hgroup><h2>Creating One-way Tables</h2></hgroup><article  id="creating-one-way-tables-2">
 
 <p>You can set <code>useNA = &quot;always&quot;</code> to have it always have a column for <code>NA</code></p>
 
-<pre class = 'prettyprint lang-r'>table(c(0, 1, 2, 3, 2, 3, 3, 2,2, 3), 
+<pre class = 'prettyprint lang-r'>table(c(0, 1, 2, 3, 2, 3, 3, 2, 2, 3), 
         useNA = &quot;always&quot;)</pre>
 
 <pre >
@@ -3391,6 +3529,19 @@ tab</pre>
 1 2 3 
 1 4 4 </pre>
 
+<pre class = 'prettyprint lang-r'>tibble(x = fac) %&gt;% count(x)</pre>
+
+<pre >Warning: Factor `x` contains implicit NA, consider using
+`forcats::fct_explicit_na`</pre>
+
+<pre ># A tibble: 4 x 2
+  x         n
+  &lt;fct&gt; &lt;int&gt;
+1 1         1
+2 2         4
+3 3         4
+4 &lt;NA&gt;      1</pre>
+
 </article></slide><slide class=""><hgroup><h2>Creating Two-way Tables</h2></hgroup><article  id="creating-two-way-tables">
 
 <p>A two-way table. If you pass in 2 vectors, <code>table</code> creates a 2-dimensional table.</p>
@@ -3407,6 +3558,21 @@ tab</pre>
   2    0 0 2 0 2    0
   3    0 0 0 4 0    0
   &lt;NA&gt; 0 0 0 0 0    0</pre>
+
+</article></slide><slide class=""><hgroup><h2>Creating Two-way Tables</h2></hgroup><article  id="creating-two-way-tables-1">
+
+<pre class = 'prettyprint lang-r'>tab_df = tibble(x = c(0, 1, 2, 3, 2, 3, 3, 2,2, 3), 
+             y = c(0, 1, 2, 3, 2, 3, 3, 4, 4, 3))
+tab_df %&gt;% count(x, y)</pre>
+
+<pre ># A tibble: 5 x 3
+      x     y     n
+  &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
+1     0     0     1
+2     1     1     1
+3     2     2     2
+4     2     4     2
+5     3     3     4</pre>
 
 </article></slide><slide class=""><hgroup><h2>Finding Row or Column Totals</h2></hgroup><article  id="finding-row-or-column-totals">
 
@@ -3442,6 +3608,51 @@ tab</pre>
   3      0   0   0 100   0    0
   &lt;NA&gt;                         </pre>
 
+</article></slide><slide class=""><hgroup><h2>Creating Two-way Tables</h2></hgroup><article  id="creating-two-way-tables-2">
+
+<pre class = 'prettyprint lang-r'>tab_df %&gt;% 
+  count(x, y) %&gt;% 
+  group_by(x) %&gt;% mutate(pct_x = n / sum(n))</pre>
+
+<pre ># A tibble: 5 x 4
+# Groups:   x [4]
+      x     y     n pct_x
+  &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;
+1     0     0     1   1  
+2     1     1     1   1  
+3     2     2     2   0.5
+4     2     4     2   0.5
+5     3     3     4   1  </pre>
+
+</article></slide><slide class=""><hgroup><h2>Creating Two-way Tables</h2></hgroup><article  id="creating-two-way-tables-3">
+
+<pre class = 'prettyprint lang-r'>library(scales)</pre>
+
+<pre >
+Attaching package: &#39;scales&#39;</pre>
+
+<pre >The following object is masked from &#39;package:purrr&#39;:
+
+    discard</pre>
+
+<pre >The following object is masked from &#39;package:readr&#39;:
+
+    col_factor</pre>
+
+<pre class = 'prettyprint lang-r'>tab_df %&gt;% 
+  count(x, y) %&gt;% 
+  group_by(x) %&gt;% mutate(pct_x = percent(n / sum(n)))</pre>
+
+<pre ># A tibble: 5 x 4
+# Groups:   x [4]
+      x     y     n pct_x
+  &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;
+1     0     0     1 100% 
+2     1     1     1 100% 
+3     2     2     2 50%  
+4     2     4     2 50%  
+5     3     3     4 100% </pre>
+
 </article></slide><slide class=""><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
 
 <p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
@@ -3466,10 +3677,10 @@ Sal = rename(Sal, Name = name)</pre>
 <pre class = 'prettyprint lang-r'>head(Sal,2)</pre>
 
 <pre ># A tibble: 2 x 7
-  Name     JobTitle      AgencyID Agency     HireDate AnnualSalary GrossPay
-  &lt;chr&gt;    &lt;chr&gt;         &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt;   
-1 Aaron,P… Facilities/O… A03031   OED-Emplo… 10/24/1… $55314.00    $53626.…
-2 Aaron,P… ASSISTANT ST… A29045   States At… 09/25/2… $74000.00    $73000.…</pre>
+  Name      JobTitle        AgencyID Agency       HireDate AnnualSalary GrossPay
+  &lt;chr&gt;     &lt;chr&gt;           &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt;   
+1 Aaron,Pa… Facilities/Off… A03031   OED-Employm… 10/24/1… $55314.00    $53626.…
+2 Aaron,Pe… ASSISTANT STAT… A29045   States Atto… 09/25/2… $74000.00    $73000.…</pre>
 
 <pre class = 'prettyprint lang-r'>any(is.na(Sal$Name)) # are there any NAs?</pre>
 
@@ -3499,10 +3710,10 @@ Sal = rename(Sal, Name = name)</pre>
 <pre class = 'prettyprint lang-r'>table(gender)</pre>
 
 <pre >gender
-     F FeMAle FEMALE     Fm      M     Ma   mAle   Male   MaLe   MALE 
-    75     82     74     89     89     79     87     89     88     95 
-   Man  Woman 
-    73     80 </pre>
+     F FeMAle FEMALE     Fm      M     Ma   mAle   Male   MaLe   MALE    Man 
+    80     88     76     87     99     76     84     83     79     93     84 
+ Woman 
+    71 </pre>
 
 </article></slide><slide class=""><hgroup><h2>Example of Cleaning: more complicated</h2></hgroup><article  id="example-of-cleaning-more-complicated-1">
 
@@ -3510,7 +3721,7 @@ Sal = rename(Sal, Name = name)</pre>
 
 <pre >gender
 female Female     fm   male   Male 
-   156    155     89    359    241 </pre>
+   164    151     87    339    259 </pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Strings functions</h2></hgroup><article  id="strings-functions">
 
@@ -3632,8 +3843,7 @@ y</pre>
 
 <pre class = 'prettyprint lang-r'>df %&gt;% separate(x, into = c(&quot;first&quot;, &quot;second&quot;, &quot;third&quot;))</pre>
 
-<pre >Warning: Expected 3 pieces. Missing pieces filled with `NA` in 2 rows [1,
-2].</pre>
+<pre >Warning: Expected 3 pieces. Missing pieces filled with `NA` in 2 rows [1, 2].</pre>
 
 <pre ># A tibble: 3 x 3
   first second  third   
@@ -3754,11 +3964,11 @@ head(ss)</pre>
 <pre class = 'prettyprint lang-r'>Sal %&gt;% filter(str_detect(Name, &quot;Rawlings&quot;))</pre>
 
 <pre ># A tibble: 3 x 7
-  Name       JobTitle    AgencyID Agency     HireDate AnnualSalary GrossPay
-  &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt;   
-1 Rawlings,… EMERGENCY … A40302   M-R Info … 01/06/2… $48940.00    $73356.…
-2 Rawlings,… COMMUNITY … A04015   R&amp;P-Recre… 12/10/2… $19802.00    $10443.…
-3 Rawlings-… MAYOR       A01001   Mayors Of… 12/07/1… $167449.00   $165249…</pre>
+  Name         JobTitle     AgencyID Agency       HireDate AnnualSalary GrossPay
+  &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt;   
+1 Rawlings,Ke… EMERGENCY D… A40302   M-R Info Te… 01/06/2… $48940.00    $73356.…
+2 Rawlings,Pa… COMMUNITY A… A04015   R&amp;P-Recreat… 12/10/2… $19802.00    $10443.…
+3 Rawlings-Bl… MAYOR        A01001   Mayors Offi… 12/07/1… $167449.00   $165249…</pre>
 
 </article></slide><slide class=""><hgroup><h2>Using Regular Expressions</h2></hgroup><article  id="using-regular-expressions">
 
@@ -3828,8 +4038,7 @@ head(ss)</pre>
 
 <pre class = 'prettyprint lang-r'>head(as.numeric(Sal$AnnualSalary), 4)</pre>
 
-<pre >Warning in head(as.numeric(Sal$AnnualSalary), 4): NAs introduced by
-coercion</pre>
+<pre >Warning in head(as.numeric(Sal$AnnualSalary), 4): NAs introduced by coercion</pre>
 
 <pre >[1] NA NA NA NA</pre>
 
@@ -3972,7 +4181,7 @@ paste0(&quot;Visit&quot;,1:5)</pre>
 x[1] = x[2] # create a tie
 rank(x)</pre>
 
-<pre > [1]  3.5  3.5  1.0  8.0  5.0  7.0  6.0  9.0  2.0 10.0</pre>
+<pre > [1]  2.5  2.5 10.0  7.0  4.0  1.0  8.0  5.0  9.0  6.0</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 3</h2></hgroup><article  id="lab-part-3">
 
@@ -4115,11 +4324,11 @@ y</pre>
 <pre class = 'prettyprint lang-r'>Sal[grep(&quot;Rawlings&quot;,Sal$Name),]</pre>
 
 <pre ># A tibble: 3 x 7
-  Name       JobTitle    AgencyID Agency     HireDate AnnualSalary GrossPay
-  &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;   
-1 Rawlings-… MAYOR       A01001   Mayors Of… 12/07/1…       167449 $165249…
-2 Rawlings,… EMERGENCY … A40302   M-R Info … 01/06/2…        48940 $73356.…
-3 Rawlings,… COMMUNITY … A04015   R&amp;P-Recre… 12/10/2…        19802 $10443.…</pre>
+  Name         JobTitle     AgencyID Agency       HireDate AnnualSalary GrossPay
+  &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;   
+1 Rawlings-Bl… MAYOR        A01001   Mayors Offi… 12/07/1…       167449 $165249…
+2 Rawlings,Ke… EMERGENCY D… A40302   M-R Info Te… 01/06/2…        48940 $73356.…
+3 Rawlings,Pa… COMMUNITY A… A04015   R&amp;P-Recreat… 12/10/2…        19802 $10443.…</pre>
 
 </article></slide><slide class=""><hgroup><h2>Showing differnce in <code>str_extract</code></h2></hgroup><article  id="showing-differnce-in-str_extract">
 
