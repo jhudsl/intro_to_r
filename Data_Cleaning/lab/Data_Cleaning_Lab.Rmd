@@ -36,6 +36,7 @@ bike = read_csv(
 What is the class of `namat`?  Run rowSums and colSums on `namat.`
 These represent the number of missing values in the rows and columns of
 `bike`.  Don't print `rowSums`, but do a table of the `rowSums`
+Try `nabike = bike %>% mutate_all(is.na)`.  Then try `nabike %>% summarise_all(sum)`.  What do you get?  
 ```{r}
 
 ```
