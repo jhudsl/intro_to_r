@@ -515,12 +515,9 @@ df %>% separate(x, into = c("first", "second", "third"), extra = "merge")
 
 * `extra = "merge"` will not drop data.  Also, you can specify the separator
 
-```{r separate_df3}
-df = tibble(x = c("I really", "like. _writing R. But not", "R code programs"))
-```
-
 ```{r}
-df %>% separate(x, into = c("first", "second", "third"), extra = "merge", sep = " ")
+df %>% separate(x, into = c("first", "second", "third"), 
+                extra = "merge", sep = " ")
 ```
 
 
