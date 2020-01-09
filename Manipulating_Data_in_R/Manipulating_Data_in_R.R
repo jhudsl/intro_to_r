@@ -69,16 +69,15 @@ long %>% count(var)
 ## -----------------------------------------------------------------------------
 long = long %>% mutate(
   var = var %>% 
-    str_replace("Board", ".Board") %>% 
-    str_replace("Alight", ".Alight") %>% 
-    str_replace("Average", ".Average") 
+    str_replace("Board", "_Board") %>% 
+    str_replace("Alight", "_Alight") %>% 
+    str_replace("Average", "_Average") 
 )
 long %>% count(var)
 
 
 ## -----------------------------------------------------------------------------
-long = separate(long, var, into = c("line", "type"), 
-                 sep = "[.]")
+long = separate(long, var, into = c("line", "type"), sep = "_")
 head(long, 2)
 unique(long$line)
 unique(long$type)
@@ -86,7 +85,7 @@ unique(long$type)
 
 ## -----------------------------------------------------------------------------
 reunited = long %>% 
-  unite(col = var, line, type, sep = ".")  
+  unite(col = var, line, type, sep = "_")  
 reunited %>% select(day, var) %>% head(3) %>% print
 
 
@@ -100,6 +99,9 @@ head(wide)
 ## ----merging------------------------------------------------------------------
 base <- tibble(id = 1:10, Age = seq(55,60, length=10))
 head(base, 2)
+
+
+## -----------------------------------------------------------------------------
 visits <- tibble(id = c(rep(1:8, 3), 11), visit= c(rep(1:3, 8), 3),
                     Outcome = seq(10,50, length=25))
 tail(visits, 2)

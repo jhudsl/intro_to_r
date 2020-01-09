@@ -3365,38 +3365,37 @@ long</pre>
 
 </article></slide><slide class=""><hgroup><h2>Making a separator</h2></hgroup><article  id="making-a-separator">
 
-<p>We will use <code>str_replace</code> from <code>stringr</code> to put periods in the names (periods are <strong>not</strong> special when in a replacement)</p>
+<p>We will use <code>str_replace</code> from <code>stringr</code> to put <code>_</code> in the names</p>
 
 <pre class = 'prettyprint lang-r'>long = long %&gt;% mutate(
   var = var %&gt;% 
-    str_replace(&quot;Board&quot;, &quot;.Board&quot;) %&gt;% 
-    str_replace(&quot;Alight&quot;, &quot;.Alight&quot;) %&gt;% 
-    str_replace(&quot;Average&quot;, &quot;.Average&quot;) 
+    str_replace(&quot;Board&quot;, &quot;_Board&quot;) %&gt;% 
+    str_replace(&quot;Alight&quot;, &quot;_Alight&quot;) %&gt;% 
+    str_replace(&quot;Average&quot;, &quot;_Average&quot;) 
 )
 long %&gt;% count(var)</pre>
 
 <pre ># A tibble: 12 x 2
    var                   n
    &lt;chr&gt;             &lt;int&gt;
- 1 banner.Alightings  1146
- 2 banner.Average     1146
- 3 banner.Boardings   1146
- 4 green.Alightings   1146
- 5 green.Average      1146
- 6 green.Boardings    1146
- 7 orange.Alightings  1146
- 8 orange.Average     1146
- 9 orange.Boardings   1146
-10 purple.Alightings  1146
-11 purple.Average     1146
-12 purple.Boardings   1146</pre>
+ 1 banner_Alightings  1146
+ 2 banner_Average     1146
+ 3 banner_Boardings   1146
+ 4 green_Alightings   1146
+ 5 green_Average      1146
+ 6 green_Boardings    1146
+ 7 orange_Alightings  1146
+ 8 orange_Average     1146
+ 9 orange_Boardings   1146
+10 purple_Alightings  1146
+11 purple_Average     1146
+12 purple_Boardings   1146</pre>
 
 </article></slide><slide class=""><hgroup><h2>Reshaping data from wide (fat) to long (tall): tidyr</h2></hgroup><article  id="reshaping-data-from-wide-fat-to-long-tall-tidyr-3">
 
 <p>Now each <code>var</code> is boardings, averages, or alightings. We want to separate these so we can have these by line. Remember &ldquo;.&rdquo; is special character:</p>
 
-<pre class = 'prettyprint lang-r'>long = separate(long, var, into = c(&quot;line&quot;, &quot;type&quot;), 
-                 sep = &quot;[.]&quot;)
+<pre class = 'prettyprint lang-r'>long = separate(long, var, into = c(&quot;line&quot;, &quot;type&quot;), sep = &quot;_&quot;)
 head(long, 2)</pre>
 
 <pre ># A tibble: 2 x 6
@@ -3418,15 +3417,15 @@ head(long, 2)</pre>
 <p>If we had the opposite problem, we could use the <code>unite</code> function:</p>
 
 <pre class = 'prettyprint lang-r'>reunited = long %&gt;% 
-  unite(col = var, line, type, sep = &quot;.&quot;)  
+  unite(col = var, line, type, sep = &quot;_&quot;)  
 reunited %&gt;% select(day, var) %&gt;% head(3) %&gt;% print</pre>
 
 <pre ># A tibble: 3 x 2
   day       var             
   &lt;chr&gt;     &lt;chr&gt;           
-1 Monday    orange.Boardings
-2 Tuesday   orange.Boardings
-3 Wednesday orange.Boardings</pre>
+1 Monday    orange_Boardings
+2 Tuesday   orange_Boardings
+3 Wednesday orange_Boardings</pre>
 
 <p>We could also use <code>paste</code>/<code>paste0</code>.</p>
 
@@ -3493,6 +3492,8 @@ head(wide)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Merging: Simple Data</h2></hgroup><article  id="merging-simple-data">
 
+<p><code>base</code> has baseline data for ids <code>1</code> to <code>10</code> and Age</p>
+
 <pre class = 'prettyprint lang-r'>base &lt;- tibble(id = 1:10, Age = seq(55,60, length=10))
 head(base, 2)</pre>
 
@@ -3501,6 +3502,8 @@ head(base, 2)</pre>
   &lt;int&gt; &lt;dbl&gt;
 1     1  55  
 2     2  55.6</pre>
+
+<p><code>visits</code> has ids 1 to 8, then 11 (new id), and 3 visits and outcome</p>
 
 <pre class = 'prettyprint lang-r'>visits &lt;- tibble(id = c(rep(1:8, 3), 11), visit= c(rep(1:3, 8), 3),
                     Outcome = seq(10,50, length=25))
