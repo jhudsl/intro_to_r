@@ -130,14 +130,12 @@ left_join(base, visits)
 
 ## ----right_join---------------------------------------------------------------
 rj = right_join(base, visits)
-dim(rj)
-tail(rj)
+tail(rj, 3)
 
 
 ## ----right_join2--------------------------------------------------------------
 rj2 = right_join(visits, base)
-dim(rj2)
-tail(rj2)
+tail(rj2, 3)
 
 ## ----right_join_arrange, echo = FALSE-----------------------------------------
 rj2 = arrange(rj2, id, visit) %>% select(id, visit, Outcome, Age)
@@ -149,15 +147,13 @@ identical(rj2, lj) ## after some rearranging
 
 ## ----full_join----------------------------------------------------------------
 fj = full_join(base, visits)
-dim(fj)
-tail(fj)
+tail(fj, 3)
 
 
 ## -----------------------------------------------------------------------------
 duplicated(1:5)
 duplicated(c(1:5, 1))
-fj %>% 
-  mutate(dup_id = duplicated(id))
+fj %>% mutate(dup_id = duplicated(id))
 
 
 ## -----------------------------------------------------------------------------

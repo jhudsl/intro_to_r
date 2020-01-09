@@ -3611,21 +3611,14 @@ left_join(base, visits)</pre>
             &gt;                 ====
             &gt; rows total       25</pre>
 
-<pre class = 'prettyprint lang-r'>dim(rj)</pre>
+<pre class = 'prettyprint lang-r'>tail(rj, 3)</pre>
 
-<pre >[1] 25  4</pre>
-
-<pre class = 'prettyprint lang-r'>tail(rj)</pre>
-
-<pre ># A tibble: 6 x 4
+<pre ># A tibble: 3 x 4
      id   Age visit Outcome
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-1     4  56.7     2    41.7
-2     5  57.2     3    43.3
-3     6  57.8     1    45  
-4     7  58.3     2    46.7
-5     8  58.9     3    48.3
-6    11  NA       3    50  </pre>
+1     7  58.3     2    46.7
+2     8  58.9     3    48.3
+3    11  NA       3    50  </pre>
 
 </article></slide><slide class=""><hgroup><h2>Right Join: Switching arguments</h2></hgroup><article  id="right-join-switching-arguments">
 
@@ -3638,21 +3631,14 @@ left_join(base, visits)</pre>
             &gt;                 ====
             &gt; rows total       26</pre>
 
-<pre class = 'prettyprint lang-r'>dim(rj2)</pre>
+<pre class = 'prettyprint lang-r'>tail(rj2, 3)</pre>
 
-<pre >[1] 26  4</pre>
-
-<pre class = 'prettyprint lang-r'>tail(rj2)</pre>
-
-<pre ># A tibble: 6 x 4
+<pre ># A tibble: 3 x 4
      id visit Outcome   Age
   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
-1     7     2    46.7  58.3
-2     8     2    21.7  58.9
-3     8     1    35    58.9
-4     8     3    48.3  58.9
-5     9    NA    NA    59.4
-6    10    NA    NA    60  </pre>
+1     8     3    48.3  58.9
+2     9    NA    NA    59.4
+3    10    NA    NA    60  </pre>
 
 <pre class = 'prettyprint lang-r'>identical(rj2, lj) ## after some rearranging</pre>
 
@@ -3669,21 +3655,14 @@ left_join(base, visits)</pre>
            &gt;                 ====
            &gt; rows total       27</pre>
 
-<pre class = 'prettyprint lang-r'>dim(fj)</pre>
+<pre class = 'prettyprint lang-r'>tail(fj, 3)</pre>
 
-<pre >[1] 27  4</pre>
-
-<pre class = 'prettyprint lang-r'>tail(fj)</pre>
-
-<pre ># A tibble: 6 x 4
+<pre ># A tibble: 3 x 4
      id   Age visit Outcome
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-1     8  58.9     2    21.7
-2     8  58.9     1    35  
-3     8  58.9     3    48.3
-4     9  59.4    NA    NA  
-5    10  60      NA    NA  
-6    11  NA       3    50  </pre>
+1     9  59.4    NA      NA
+2    10  60      NA      NA
+3    11  NA       3      50</pre>
 
 </article></slide><slide class=""><hgroup><h2>Duplicated</h2></hgroup><article  id="duplicated">
 
@@ -3699,8 +3678,7 @@ left_join(base, visits)</pre>
 
 <pre >[1] FALSE FALSE FALSE FALSE FALSE  TRUE</pre>
 
-<pre class = 'prettyprint lang-r'>fj %&gt;% 
-  mutate(dup_id = duplicated(id))</pre>
+<pre class = 'prettyprint lang-r'>fj %&gt;% mutate(dup_id = duplicated(id))</pre>
 
 <pre >mutate: new variable &#39;dup_id&#39; with 2 unique values and 0% NA</pre>
 
