@@ -7,7 +7,7 @@ output:
     widescreen: yes
 ---
 
-```{r knit-setup, echo=FALSE}
+```{r knit-setup, include=FALSE}
 library(knitr)
 opts_chunk$set(echo = TRUE, 
                message = FALSE, 

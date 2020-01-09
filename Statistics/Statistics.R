@@ -1,4 +1,4 @@
-## ----knit-setup, echo=FALSE---------------------------------------------------
+## ----knit-setup, include=FALSE------------------------------------------------
 library(knitr)
 opts_chunk$set(echo = TRUE, 
                message = FALSE, 
