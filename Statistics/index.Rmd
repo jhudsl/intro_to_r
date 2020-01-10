@@ -204,9 +204,23 @@ Nonparametric analog to t-test (testing medians):
 tidy(wilcox.test(avg ~ line, data = long))
 ```
 
+
+
 ## Lab Part 1
 
 [Website](http://johnmuschelli.com/intro_to_r/index.html)
+
+## Analysis of Variance
+
+The `aov` function exists for ANOVA, but we'd recommend `lm` (Linear models):
+
+```{r aov, comment=""}
+long3 = circ %>% 
+  select(date, orangeAverage, purpleAverage, bannerAverage) %>% 
+  gather(key = line, value = avg, -date)
+anova_res = aov(avg ~ line, data = long3)
+anova_res
+```
 
 
 ## Linear Regression
@@ -253,6 +267,13 @@ fit
 
 ## Linear Regression
 
+```{r regress1000, comment=""}
+fit = lm(avg ~ line, data = long3)
+fit
+```
+
+## Linear Regression
+
 The `summary` command gets all the additional information (p-values, t-statistics, r-square) that you usually want from a regression.
 
 ```{r regress2, comment=""}
@@ -262,19 +283,17 @@ print(sfit)
 
 ## Linear Regression
 
-The coefficients from a `summary` are the coefficients, standard errors, t-statistcs, and p-values for all the estimates.
+We can `tidy` linear models as well and it gives us all of this in a tibble:
 
-```{r regress3, comment=""}
-names(sfit)
-sfit$coef
+```{r tidy_lm, comment=""}
+tidy(fit)
 ```
 
 ## Linear Regression
 
-We can `tidy` linear models as well and it gives us all of this in one::
-
-```{r tidy_lm, comment=""}
-tidy(fit)
+The `confint` argument allows for confidence interfals
+```{r tidy_lm_onf, comment=""}
+tidy(fit, confint = TRUE)
 ```
 
 ## Using Cars Data

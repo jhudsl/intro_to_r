@@ -88,8 +88,21 @@ tidy(tt)
 tidy(wilcox.test(avg ~ line, data = long))
 
 
+## ----aov, comment=""----------------------------------------------------------
+long3 = circ %>% 
+  select(date, orangeAverage, purpleAverage, bannerAverage) %>% 
+  gather(key = line, value = avg, -date)
+anova_res = aov(avg ~ line, data = long3)
+anova_res
+
+
 ## ----regress1, comment=""-----------------------------------------------------
 fit = lm(avg ~ line, data = long)
+fit
+
+
+## ----regress1000, comment=""--------------------------------------------------
+fit = lm(avg ~ line, data = long3)
 fit
 
 
@@ -98,13 +111,12 @@ sfit = summary(fit)
 print(sfit)
 
 
-## ----regress3, comment=""-----------------------------------------------------
-names(sfit)
-sfit$coef
-
-
 ## ----tidy_lm, comment=""------------------------------------------------------
 tidy(fit)
+
+
+## ----tidy_lm_onf, comment=""--------------------------------------------------
+tidy(fit, confint = TRUE)
 
 
 ## ----tt2, comment="", message = FALSE-----------------------------------------

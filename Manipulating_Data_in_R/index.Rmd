@@ -253,6 +253,7 @@ tail(visits, 2)
 * `full_join(x, y)` - all rows of `x` and `y` are kept 
 * `left_join(x, y)` - all rows of `x` are kept even if not merged with `y`
 * `right_join(x, y)` - all rows of `y` are kept even if not merged with `x`
+* `anti_join(x, y)` - all rows from `x` not in `y` keeping just columns from `x`.
 
 ## Inner Join
 
