@@ -7,7 +7,7 @@ output:
     widescreen: yes
 ---
 
-```{r knit-setup, echo=FALSE}
+```{r knit-setup, include=FALSE}
 library(knitr)
 opts_chunk$set(echo = TRUE, 
                message = FALSE, 
@@ -15,6 +15,7 @@ opts_chunk$set(echo = TRUE,
                fig.height = 4,
                fig.width = 7, 
                comment = "")
+library(dplyr)
 ```
 
 ## Statistics
@@ -47,28 +48,48 @@ circ = read_csv("http://johnmuschelli.com/intro_to_r/data/Charm_City_Circulator_
 cor(circ$orangeAverage, circ$purpleAverage, use="complete.obs")
 ```
 
+
+## Correlation with `corrr` 
+
+The `corrr` package allows you to do correlations easily:
+
+```{r cor2, comment="", message = TRUE}
+library(corrr); library(dplyr)
+circ %>% 
+  select(orangeAverage, purpleAverage) %>% 
+  correlate()
+```
+
 ## Correlation  
 
-You can also get the correlation between matrix columns
-
-```{r cor2, comment=""}
-library(dplyr)
-avgs = circ %>% select(ends_with("Average"))
-avgs_cor = cor(avgs, use = "complete.obs")
-signif(avgs_cor,3)
-```
-
-## Correlation 
-
-You can also get the correlation between matrix columns
-
-Or between columns of two matrices/dfs, column by column.
+`correlate` is usually better with more than 2 columns:
 
 ```{r cor3, comment=""}
-op = avgs %>% select(orangeAverage, purpleAverage)
-gb = avgs %>% select(greenAverage, bannerAverage)
-signif(cor(op, gb, use = "complete.obs"), 3)
+avgs = circ %>% select(ends_with("Average"))
+cobj = avgs %>% correlate(use = "complete.obs", diagonal = 1)
+cobj %>% fashion(decimals = 3)
 ```
+
+## Correlation  
+
+```{r corplot, comment=""}
+cobj %>% rplot()
+```
+
+
+
+
+<!-- ## Correlation  -->
+
+<!-- You can also get the correlation between matrix columns -->
+
+<!-- Or between columns of two matrices/dfs, column by column. -->
+
+<!-- ```{r cor3, comment=""} -->
+<!-- op = avgs %>% select(orangeAverage, purpleAverage) -->
+<!-- gb = avgs %>% select(greenAverage, bannerAverage) -->
+<!-- signif(cor(op, gb, use = "complete.obs"), 3) -->
+<!-- ``` -->
 
 ## Correlation  
 
@@ -183,9 +204,23 @@ Nonparametric analog to t-test (testing medians):
 tidy(wilcox.test(avg ~ line, data = long))
 ```
 
+
+
 ## Lab Part 1
 
 [Website](http://johnmuschelli.com/intro_to_r/index.html)
+
+## Analysis of Variance
+
+The `aov` function exists for ANOVA, but we'd recommend `lm` (Linear models):
+
+```{r aov, comment=""}
+long3 = circ %>% 
+  select(date, orangeAverage, purpleAverage, bannerAverage) %>% 
+  gather(key = line, value = avg, -date)
+anova_res = aov(avg ~ line, data = long3)
+anova_res
+```
 
 
 ## Linear Regression
@@ -232,6 +267,13 @@ fit
 
 ## Linear Regression
 
+```{r regress1000, comment=""}
+fit = lm(avg ~ line, data = long3)
+fit
+```
+
+## Linear Regression
+
 The `summary` command gets all the additional information (p-values, t-statistics, r-square) that you usually want from a regression.
 
 ```{r regress2, comment=""}
@@ -241,19 +283,17 @@ print(sfit)
 
 ## Linear Regression
 
-The coefficients from a `summary` are the coefficients, standard errors, t-statistcs, and p-values for all the estimates.
+We can `tidy` linear models as well and it gives us all of this in a tibble:
 
-```{r regress3, comment=""}
-names(sfit)
-sfit$coef
+```{r tidy_lm, comment=""}
+tidy(fit)
 ```
 
 ## Linear Regression
 
-We can `tidy` linear models as well and it gives us all of this in one::
-
-```{r tidy_lm, comment=""}
-tidy(fit)
+The `confint` argument allows for confidence interfals
+```{r tidy_lm_onf, comment=""}
+tidy(fit, confint = TRUE)
 ```
 
 ## Using Cars Data

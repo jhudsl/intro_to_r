@@ -3896,9 +3896,8 @@ y</pre>
 <li><code>extra = &quot;merge&quot;</code> will not drop data. Also, you can specify the separator</li>
 </ul>
 
-<pre class = 'prettyprint lang-r'>df = tibble(x = c(&quot;I really&quot;, &quot;like. _writing R. But not&quot;, &quot;R code programs&quot;))</pre>
-
-<pre class = 'prettyprint lang-r'>df %&gt;% separate(x, into = c(&quot;first&quot;, &quot;second&quot;, &quot;third&quot;), extra = &quot;merge&quot;, sep = &quot; &quot;)</pre>
+<pre class = 'prettyprint lang-r'>df %&gt;% separate(x, into = c(&quot;first&quot;, &quot;second&quot;, &quot;third&quot;), 
+                extra = &quot;merge&quot;, sep = &quot; &quot;)</pre>
 
 <pre >Warning: Expected 3 pieces. Missing pieces filled with `NA` in 1 rows [1].</pre>
 
