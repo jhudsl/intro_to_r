@@ -377,6 +377,7 @@ acre = str_replace_all(acre, "Q","") # Q, oops
 acre = str_replace_all(acre, ",.",".") # extra ,
 acre = str_replace_all(acre, ",","") # extra ,
 acre = str_replace_all(acre, "L","0") # leading L
+acre = str_replace_all(acre, "-",".") # hyphen to period
 acre[is.na(as.numeric(acre))]
 
 acre2 = as.numeric(acre)*43560 
