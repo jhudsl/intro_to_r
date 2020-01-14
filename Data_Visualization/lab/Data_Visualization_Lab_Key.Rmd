@@ -71,6 +71,12 @@ In these questions, try to use `ggplot2` if possible.
 ```{r}
 q = qplot(x = date, y = number, data = avg)
 q + xlim(ymd("2011/05/03", "2012/06/04"))
+
+g = ggplot(avg, aes(x = date, y = number))
+g + geom_point()
+g + geom_point() + xlim(ymd("2011/05/03", "2012/06/04"))
+
+
 ```
 
 a. Color the points by route (`orange`, `purple`, `green`, `banner`)
@@ -79,6 +85,11 @@ qplot(x = date, y = number, data = avg, colour = line)
 
 first_plot = qplot(x = date, y = number, data = avg, colour = line)
 print(first_plot)
+
+
+g = ggplot(avg, aes(x = date, y = number, color = line))
+g + geom_point()
+
 ```
 
 b. add black smoothed curves for each line
@@ -86,6 +97,12 @@ b. add black smoothed curves for each line
 qplot(x = date, y = number, data = avg, colour = line) + geom_smooth(aes(group = line), colour= "black")
 
 qplot(x = date, y = number, data = avg, colour = line) + geom_smooth()
+
+g + geom_point() + geom_smooth(color="black")
+
+g + geom_point() + geom_smooth()
+
+
 ```
 
 
@@ -93,6 +110,11 @@ c. Color the points by day of the week
 ```{r}
 qplot(x = date, y = number, data = avg, colour = day)
 qplot(x = date, y = number, data = avg, colour = line) + geom_smooth()
+
+avg = avg %>% mutate(dayFactor = factor(day, levels = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")))
+g = ggplot(avg, aes(x = date, y = number, color = dayFactor))
+g + geom_point()
+
 ```
 
 
@@ -102,6 +124,10 @@ qplot(x = date, y = number, data = avg, colour = line) + geom_smooth()
 pal = c(banner = "blue", purple = "purple", green=  "darkgreen", orange = "orange")
 qplot(x = date, y = number, data = avg, colour = line) +
 	  scale_colour_manual(values = pal)
+
+g = ggplot(avg, aes(x = date, y = number, color = line))
+g + geom_point() + scale_colour_manual(values = pal)
+
 ```
 
 # Part 2
@@ -112,8 +138,14 @@ qplot(x = date, y = number, data= avg, facets = ~line)
 qplot(x = date, y = number, data= avg) +
   facet_wrap( ~ line)
 
-qplot(x = date, y = number, data= avg, facets = ~line,
-	colour = line) +  scale_colour_manual(values=pal)
+qplot(x = date, y = number, data= avg) +
+  facet_wrap( ~ line, ncol =4)
+
+qplot(x = date, y = number, data= avg, facets = ~line,	colour = line) +  scale_colour_manual(values=pal)
+
+g = ggplot(avg, aes(x = date, y = number, color = line))
+g + geom_point() +  facet_wrap( ~ line) + scale_colour_manual(values=pal)
+
 ```
 	  
 4. Plot average ridership by date with separate panels by `day` of the week, colored by `line`
@@ -138,6 +170,9 @@ Change the `text_size` to (`text = element_text(size = 20)`)
 in `theme`
  
 ```{r} 
+first_plot = ggplot(avg, aes(x = date, y = number, color = line)) + geom_point() + scale_colour_manual(values=pal)
+
+
 first_plot  +
   xlab("Year") + ylab("Number of People") + theme_bw() + 
   theme(text = element_text(size = 20))
