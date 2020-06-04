@@ -29,9 +29,9 @@ set.seed(3)
 
 ```{r plotEx,  fig.align='center',cache=FALSE}
 library(readr)
-death = read_csv(
+mort = read_csv(
   "http://johnmuschelli.com/intro_to_r/data/indicatordeadkids35.csv")
-death[1:2, 1:5]
+mort[1:2, 1:5]
 ```
 
 
@@ -43,8 +43,8 @@ jhur::read_mortality()
 
 
 ```{r}
-death = death %>% rename(country = X1)
-death[1:2, 1:5]
+mort = mort %>% rename(country = X1)
+mort[1:2, 1:5]
 ```
 
 # Data are not Tidy!
@@ -55,8 +55,8 @@ After reshaping the data to long, we can plot the data with one `data.frame`:
 
 ```{r makelong_swede, fig.align='center', cache = FALSE}
 library(tidyverse)
-long = gather(death, key = year, value = deaths, -country)
-long = long %>% filter(!is.na(deaths))
+long = gather(mort, key = year, value = morts, -country)
+long = long %>% filter(!is.na(morts))
 head(long);   # note class year
 long = long %>% mutate(year = as.numeric(year))
 ```
@@ -65,13 +65,13 @@ long = long %>% mutate(year = as.numeric(year))
 
 ```{r plot_long_swede, fig.align='center'}
 swede_long = long %>% filter(country == "Sweden")
-qplot(x = year, y = deaths, data = swede_long)
+qplot(x = year, y = morts, data = swede_long)
 ```
 
 ## Plot the long data only up to 2012
 
 ```{r plot_long_swede_xlim, fig.align='center', warning=FALSE}
-qplot(x = year, y = deaths, data = swede_long, xlim = c(1760,2012))
+qplot(x = year, y = morts, data = swede_long, xlim = c(1760,2012))
 ```
 
 ## ggplot2
@@ -81,7 +81,7 @@ qplot(x = year, y = deaths, data = swede_long, xlim = c(1760,2012))
 
 ```{r}
 library(ggplot2)
-qplot(x = year, y = deaths, data = swede_long)
+qplot(x = year, y = morts, data = swede_long)
 ```
 
 
@@ -94,7 +94,7 @@ ggplot(data, aes(args))
 ```
 
 ```{r generic_gg, comment="",  fig.align='center', cache=FALSE}
-g = ggplot(data = swede_long, aes(x = year, y = deaths))
+g = ggplot(data = swede_long, aes(x = year, y = morts))
 ```
 
 `g` is an object, which you can adapt into multiple plots!
@@ -120,7 +120,7 @@ If you set these in `aes`, you set them to a variable.  If you want to set them 
 You can do this most of the time using `qplot`, but `qplot` will assume a scatterplot if `x` and `y` are specified and histogram if `x` is specified:
 
 ```{r gen_q, comment="",  fig.align="center", cache=FALSE}
-q = qplot(data = swede_long, x = year, y = deaths)
+q = qplot(data = swede_long, x = year, y = morts)
 q
 ```
 
@@ -179,7 +179,7 @@ If we want a plot with new data, call `ggplot` again.  Group plots by `country` 
 ```{r geom_all}
 sub = long %>% filter(country %in% c("United States", "United Kingdom", 
     "Sweden", "Afghanistan", "Rwanda"))
-g = sub %>% ggplot(aes(x = year, y = deaths, colour = country))
+g = sub %>% ggplot(aes(x = year, y = morts, colour = country))
 g + geom_line()
 ```
 
@@ -210,20 +210,20 @@ g + geom_line() + guides(colour = FALSE)
 ## ggplot2: boxplot
 
 ```{r geom_box}
-ggplot(long, aes(x = year, y = deaths)) + geom_boxplot()
+ggplot(long, aes(x = year, y = morts)) + geom_boxplot()
 ```
 
 ## ggplot2: boxplot
 
 For different plotting per year - must make it a factor - but x-axis is wrong!
 ```{r geom_box_fac}
-ggplot(long, aes(x = factor(year), y = deaths)) + geom_boxplot()
+ggplot(long, aes(x = factor(year), y = morts)) + geom_boxplot()
 ```
 
 ## ggplot2: boxplot
 
 ```{r geom_box_grouped}
-ggplot(long, aes(x = year, y = deaths, group = year)) + geom_boxplot()
+ggplot(long, aes(x = year, y = morts, group = year)) + geom_boxplot()
 ```
 
 ## ggplot2: boxplot with points
@@ -232,7 +232,7 @@ ggplot(long, aes(x = year, y = deaths, group = year)) + geom_boxplot()
 
 ```{r geom_box_jitter}
 sub_year = long %>% filter( year > 1995 & year <= 2000)
-ggplot(sub_year, aes(x = factor(year), y = deaths)) + 
+ggplot(sub_year, aes(x = factor(year), y = morts)) + 
   geom_boxplot(outlier.shape = NA) + # don't show outliers - will below
   geom_jitter(height = 0)
 ```
@@ -242,7 +242,7 @@ ggplot(sub_year, aes(x = factor(year), y = deaths)) +
 A `facet` will make a plot over variables, keeping axes the same (out can change that):
 
 ```{r}
-sub %>% ggplot(aes(x = year, y = deaths)) + 
+sub %>% ggplot(aes(x = year, y = morts)) + 
   geom_line() + 
   facet_wrap(~ country)
 ```
@@ -251,7 +251,7 @@ sub %>% ggplot(aes(x = year, y = deaths)) +
 
 
 ```{r}
-sub %>% ggplot(aes(x = year, y = deaths)) + 
+sub %>% ggplot(aes(x = year, y = morts)) + 
   geom_line() + 
   facet_wrap(~ country, ncol = 1)
 ```
@@ -261,7 +261,7 @@ sub %>% ggplot(aes(x = year, y = deaths)) +
 You can use `facets` in `qplot`
 
 ```{r}
-qplot(x = year, y = deaths, geom = "line", facets = ~ country, data = sub)
+qplot(x = year, y = morts, geom = "line", facets = ~ country, data = sub)
 ```
 
 
@@ -269,7 +269,7 @@ qplot(x = year, y = deaths, geom = "line", facets = ~ country, data = sub)
 
 You can also do multiple factors with `+` on the right hand side
 ```{r, eval = FALSE}
-sub %>% ggplot(aes(x = year, y = deaths)) + 
+sub %>% ggplot(aes(x = year, y = morts)) + 
   geom_line() + 
   facet_wrap(~ country + x2 + ... )
 ```
@@ -308,9 +308,9 @@ Basically, you are creating a pdf file, and telling R to write any subsequent pl
 - `xlab`/`ylab` - functions to change the labels; `ggtitle` - change the title 
 
 ```{r labs, eval = TRUE}
-q = qplot(x = year, y = deaths, colour = country, data = sub,
+q = qplot(x = year, y = morts, colour = country, data = sub,
           geom = "line") + 
-  xlab("Year of Collection") + ylab("Deaths /100,000") +
+  xlab("Year of Collection") + ylab("morts /100,000") +
   ggtitle("Mortality of Children over the years", subtitle = "not great") 
 q
 ```
@@ -318,14 +318,14 @@ q
 ## Saving the output:
 
 ```{r labs_save, eval = TRUE}
-png("deaths_over_time.png")
+png("morts_over_time.png")
 print(q)
 dev.off()
-file.exists("deaths_over_time.png")
+file.exists("morts_over_time.png")
 ```
 
 ```{r labs_del, echo = FALSE, results="hide"}
-file.remove("deaths_over_time.png")
+file.remove("morts_over_time.png")
 ```
 
 ## Themes
@@ -373,22 +373,22 @@ q + transparent_legend
 
 <!-- ## Histograms again -->
 
-<!-- We can do histograms again using `hist`.  Let's do histograms of death rates over the years: -->
+<!-- We can do histograms again using `hist`.  Let's do histograms of mort rates over the years: -->
 
-<!-- ```{r hist_death, comment="", fig.align='center', cache=FALSE} -->
-<!-- hist(sub$deaths, breaks = 200) -->
+<!-- ```{r hist_mort, comment="", fig.align='center', cache=FALSE} -->
+<!-- hist(sub$morts, breaks = 200) -->
 <!-- ``` -->
 
 ## Histograms again: Changing bins
  
-```{r qhist_death, comment="", fig.align='center', cache=FALSE}
-qplot(x = deaths, data = sub, bins = 200)
+```{r qhist_mort, comment="", fig.align='center', cache=FALSE}
+qplot(x = morts, data = sub, bins = 200)
 ```
 
 ## Multiple Histograms
 
 ```{r ghist, comment="", fig.align='center', cache = FALSE}
-qplot(x = deaths, fill = factor(country),
+qplot(x = morts, fill = factor(country),
       data = sub, geom = c("histogram"))
 ```
 
@@ -396,7 +396,7 @@ qplot(x = deaths, fill = factor(country),
 
 Alpha refers to the opacity of the color, less is more opaque
 ```{r ghist_alpha, comment="", fig.align='center', cache = FALSE}
-qplot(x = deaths, fill = country, data = sub, 
+qplot(x = morts, fill = country, data = sub, 
       geom = c("histogram"), alpha=.7)
 ```
 
@@ -404,7 +404,7 @@ qplot(x = deaths, fill = country, data = sub,
 
 We cold also do densities:
 ```{r gdens, comment="", fig.align='center', cache = FALSE}
-qplot(x= deaths, fill = country, data = sub, 
+qplot(x= morts, fill = country, data = sub, 
       geom = c("density"), alpha= .7)  + guides(alpha = FALSE)
 ```
 
@@ -414,7 +414,7 @@ qplot(x= deaths, fill = country, data = sub,
 - using `colour` not `fill`:
 
 ```{r gdens_alpha, comment="", fig.align='center', cache = FALSE}
-qplot(x = deaths, colour = country, data = sub, 
+qplot(x = morts, colour = country, data = sub, 
       geom = c("density"), alpha= .7) + guides(alpha = FALSE)
 ```
 
@@ -423,15 +423,15 @@ qplot(x = deaths, colour = country, data = sub,
 ## Multiple Densities
 
 You can take off the lines of the bottom like this
-```{r gdens_line_alpha_death, comment="", fig.align='center', cache = FALSE}
-ggplot(aes(x = deaths, colour = country), data = sub) + 
+```{r gdens_line_alpha_mort, comment="", fig.align='center', cache = FALSE}
+ggplot(aes(x = morts, colour = country), data = sub) + 
   geom_line(stat = "density")
 ```
 
 ## ggplot2
 
 ```{r geom_line_qplot_nocol, comment="", fig.align='center', cache=FALSE}
-qplot(x = year, y = deaths, colour = country, 
+qplot(x = year, y = morts, colour = country, 
     data = long, geom = "line") + guides(colour = FALSE)
 ```
 
@@ -440,7 +440,7 @@ qplot(x = year, y = deaths, colour = country,
 Let's try to make it different like base R, a bit.  We use `tile` for the geom:
 
 ```{r geom_tile_qtile}
-qtile = qplot(x = year, y = country, fill = deaths, data = sub, 
+qtile = qplot(x = year, y = country, fill = morts, data = sub, 
               geom = "tile") + xlim(1990, 2005) + guides(colour = FALSE)
 ```
 ```{r geom_tile_qtile_show, echo = FALSE}
@@ -460,7 +460,7 @@ qtile + scale_fill_gradient( low = "blue", high = "red")
 Let's try categories.
 
 ```{r geom_tile_cut}
-sub$cat = cut(sub$deaths, breaks = c(0, 1, 2, max(sub$deaths)))
+sub$cat = cut(sub$morts, breaks = c(0, 1, 2, max(sub$morts)))
 q2 = qplot(x = year, y = country, fill = cat, data = sub, geom = "tile") + 
   guides(colour = FALSE)
 ```
@@ -662,8 +662,8 @@ Let's try this out on the childhood mortality data used above. However, let's do
 
 ```{r}
 library(tidyverse)
-long = death
-long = long %>% gather(year, deaths, -country)
+long = mort
+long = long %>% gather(year, morts, -country)
 head(long, 2)
 ```
 
@@ -675,13 +675,13 @@ Let's also make the year numeric, as we did above in the stand-alone `year` vari
 library(stringr)
 library(dplyr)
 long$year = long$year %>% str_replace("^X", "") %>% as.numeric
-long = long %>% filter(!is.na(deaths))
+long = long %>% filter(!is.na(morts))
 ```
 
 ## ggplot2
 
 ```{r geom_line_qplot, comment="", fig.align='center', cache=FALSE}
-qplot(x = year, y = deaths, colour = country, 
+qplot(x = year, y = morts, colour = country, 
     data = long, geom = "line") + guides(colour = FALSE)
 ```
 
@@ -690,7 +690,7 @@ qplot(x = year, y = deaths, colour = country,
 Let's try to make it different like base R, a bit.  We use `tile` for the geometric unit:
 
 ```{r geom_tile}
-qplot(x = year, y = country, colour = deaths, 
+qplot(x = year, y = country, colour = morts, 
     data = long, geom = "tile") + guides(colour = FALSE)
 ```
 
@@ -722,7 +722,7 @@ Useful links:
 
 ```{r plot1, comment="",  fig.align='center',cache = FALSE}
 library(dplyr)
-sweden = death %>% 
+sweden = mort %>% 
   filter(country == "Sweden") %>% 
   select(-country)
 year = as.numeric(colnames(sweden))
@@ -750,7 +750,7 @@ The y-axis label isn't informative, and we can change the label of the y-axis us
 
 ```{r plotEx2, comment="",  fig.align='center',cache = FALSE}
 plot(as.numeric(sweden) ~ year,
-      ylab = "# of deaths per family", main = "Sweden", type = "l")
+      ylab = "# of morts per family", main = "Sweden", type = "l")
 ```
 
 
@@ -759,7 +759,7 @@ plot(as.numeric(sweden) ~ year,
 Let's drop any of the projections and keep it to year 2012, and change the points to blue. 
 ```{r plotEx3, fig.align='center', cache = FALSE}
 plot(as.numeric(sweden) ~ year,
-      ylab = "# of deaths per family", main = "Sweden",
+      ylab = "# of morts per family", main = "Sweden",
      xlim = c(1760,2012), pch = 19, cex=1.2,col="blue")
 ```
 
@@ -769,7 +769,7 @@ You can also use the `subset` argument in the `plot()` function, only when using
 
 ```{r plotEx_sub, fig.align='center', cache = FALSE}
 plot(as.numeric(sweden) ~ year,
-      ylab = "# of deaths per family", main = "Sweden",
+      ylab = "# of morts per family", main = "Sweden",
      subset = year < 2015, pch = 19, cex=1.2,col="blue")
 ```
 
