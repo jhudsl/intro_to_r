@@ -3119,7 +3119,7 @@ slide:not(.current) .plotly.html-widget{
         <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
     <hgroup class="auto-fadein">
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
-      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      
       <p data-config-presenter><!-- populated from slide_config.json --></p>
           </hgroup>
   </slide>
@@ -3183,13 +3183,13 @@ head(mydat)</pre>
 <pre ># A tibble: 6 x 31
    YEAR LocationAbbr LocationDesc TopicType TopicDesc MeasureDesc DataSource
   &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;     
-1  2015 AZ           Arizona      Tobacco … Cessatio… Percent of… YTS       
-2  2015 AZ           Arizona      Tobacco … Cessatio… Percent of… YTS       
-3  2015 AZ           Arizona      Tobacco … Cessatio… Percent of… YTS       
-4  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem… YTS       
-5  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem… YTS       
-6  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem… YTS       
-# … with 24 more variables: Response &lt;chr&gt;, Data_Value_Unit &lt;chr&gt;,
+1  2015 AZ           Arizona      Tobacco ~ Cessatio~ Percent of~ YTS       
+2  2015 AZ           Arizona      Tobacco ~ Cessatio~ Percent of~ YTS       
+3  2015 AZ           Arizona      Tobacco ~ Cessatio~ Percent of~ YTS       
+4  2015 AZ           Arizona      Tobacco ~ Cessatio~ Quit Attem~ YTS       
+5  2015 AZ           Arizona      Tobacco ~ Cessatio~ Quit Attem~ YTS       
+6  2015 AZ           Arizona      Tobacco ~ Cessatio~ Quit Attem~ YTS       
+# ... with 24 more variables: Response &lt;chr&gt;, Data_Value_Unit &lt;chr&gt;,
 #   Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;, Data_Value_Footnote_Symbol &lt;chr&gt;,
 #   Data_Value_Footnote &lt;chr&gt;, Data_Value_Std_Err &lt;dbl&gt;,
 #   Low_Confidence_Limit &lt;dbl&gt;, High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;dbl&gt;,
@@ -3327,65 +3327,66 @@ setwd(&quot;~/Lectures&quot;) </pre>
 
 <pre class = 'prettyprint lang-r'>dir(&quot;..&quot;)</pre>
 
-<pre > [1] &quot;all_the_functions.csv&quot;                   
- [2] &quot;all_the_packages.txt&quot;                    
- [3] &quot;Arrays_Split&quot;                            
- [4] &quot;Basic_R&quot;                                 
- [5] &quot;Best_Model_Coefficients.csv&quot;             
- [6] &quot;Best_Model_Coefficients.xlsx&quot;            
- [7] &quot;bibliography.bib&quot;                        
- [8] &quot;black_and_white_theme.pdf&quot;               
- [9] &quot;bloomberg.logo.small.horizontal.blue.png&quot;
-[10] &quot;data&quot;                                    
-[11] &quot;data.zip&quot;                                
-[12] &quot;Data_Classes&quot;                            
-[13] &quot;Data_Cleaning&quot;                           
-[14] &quot;Data_IO&quot;                                 
-[15] &quot;Data_Summarization&quot;                      
-[16] &quot;Data_Visualization&quot;                      
-[17] &quot;dhs&quot;                                     
-[18] &quot;email_to_class.txt&quot;                      
-[19] &quot;example_knitr.html&quot;                      
-[20] &quot;example_knitr.pdf&quot;                       
-[21] &quot;example_knitr.Rmd&quot;                       
-[22] &quot;Functions&quot;                               
-[23] &quot;HW&quot;                                      
-[24] &quot;ifelse_stata_way.R&quot;                      
-[25] &quot;index.html&quot;                              
-[26] &quot;index.Rmd&quot;                               
-[27] &quot;install_a_package.mov&quot;                   
-[28] &quot;install_all_packages.R&quot;                  
-[29] &quot;Intro&quot;                                   
-[30] &quot;intro_to_r.Rproj&quot;                        
-[31] &quot;Knitr&quot;                                   
-[32] &quot;LICENSE&quot;                                 
-[33] &quot;list_all_packages.R&quot;                     
-[34] &quot;ListExamples&quot;                            
-[35] &quot;live_code&quot;                               
-[36] &quot;makefile&quot;                                
-[37] &quot;makefile.copy&quot;                           
-[38] &quot;makefile_old&quot;                            
-[39] &quot;Manipulating_Data_in_R&quot;                  
-[40] &quot;my_tab.txt&quot;                              
-[41] &quot;ProjectExample&quot;                          
-[42] &quot;README.md&quot;                               
-[43] &quot;render.R&quot;                                
-[44] &quot;renderFile.R&quot;                            
-[45] &quot;replace_css.R&quot;                           
-[46] &quot;RStudio&quot;                                 
-[47] &quot;rtools_windows.md&quot;                       
-[48] &quot;run_labs.R&quot;                              
-[49] &quot;scratch.R&quot;                               
-[50] &quot;shiny_knitr&quot;                             
-[51] &quot;shiny_knitr.zip&quot;                         
-[52] &quot;Simple_Knitr&quot;                            
-[53] &quot;Statistics&quot;                              
-[54] &quot;styles.css&quot;                              
-[55] &quot;Subsetting_Data_in_R&quot;                    
-[56] &quot;syllabus.docx&quot;                           
-[57] &quot;syllabus.html&quot;                           
-[58] &quot;syllabus.Rmd&quot;                            
-[59] &quot;tb.xlsx&quot;                                 </pre>
+<pre > [1] &quot;all_functions.xlsx&quot;                      
+ [2] &quot;all_the_functions.csv&quot;                   
+ [3] &quot;all_the_packages.txt&quot;                    
+ [4] &quot;Arrays_Split&quot;                            
+ [5] &quot;Basic_R&quot;                                 
+ [6] &quot;Best_Model_Coefficients.csv&quot;             
+ [7] &quot;Best_Model_Coefficients.xlsx&quot;            
+ [8] &quot;bibliography.bib&quot;                        
+ [9] &quot;black_and_white_theme.pdf&quot;               
+[10] &quot;bloomberg.logo.small.horizontal.blue.png&quot;
+[11] &quot;data&quot;                                    
+[12] &quot;data.zip&quot;                                
+[13] &quot;Data_Classes&quot;                            
+[14] &quot;Data_Cleaning&quot;                           
+[15] &quot;Data_IO&quot;                                 
+[16] &quot;Data_Summarization&quot;                      
+[17] &quot;Data_Visualization&quot;                      
+[18] &quot;dhs&quot;                                     
+[19] &quot;email_to_class.txt&quot;                      
+[20] &quot;example_knitr.html&quot;                      
+[21] &quot;example_knitr.pdf&quot;                       
+[22] &quot;example_knitr.Rmd&quot;                       
+[23] &quot;Functions&quot;                               
+[24] &quot;HW&quot;                                      
+[25] &quot;ifelse_stata_way.R&quot;                      
+[26] &quot;index.html&quot;                              
+[27] &quot;index.Rmd&quot;                               
+[28] &quot;install_a_package.mov&quot;                   
+[29] &quot;install_all_packages.R&quot;                  
+[30] &quot;Intro&quot;                                   
+[31] &quot;intro_to_r.Rproj&quot;                        
+[32] &quot;Knitr&quot;                                   
+[33] &quot;LICENSE&quot;                                 
+[34] &quot;list_all_packages.R&quot;                     
+[35] &quot;ListExamples&quot;                            
+[36] &quot;live_code&quot;                               
+[37] &quot;makefile&quot;                                
+[38] &quot;makefile.copy&quot;                           
+[39] &quot;makefile_old&quot;                            
+[40] &quot;Manipulating_Data_in_R&quot;                  
+[41] &quot;my_tab.txt&quot;                              
+[42] &quot;ProjectExample&quot;                          
+[43] &quot;README.md&quot;                               
+[44] &quot;render.R&quot;                                
+[45] &quot;renderFile.R&quot;                            
+[46] &quot;replace_css.R&quot;                           
+[47] &quot;RStudio&quot;                                 
+[48] &quot;rtools_windows.md&quot;                       
+[49] &quot;run_labs.R&quot;                              
+[50] &quot;scratch.R&quot;                               
+[51] &quot;shiny_knitr&quot;                             
+[52] &quot;shiny_knitr.zip&quot;                         
+[53] &quot;Simple_Knitr&quot;                            
+[54] &quot;Statistics&quot;                              
+[55] &quot;styles.css&quot;                              
+[56] &quot;Subsetting_Data_in_R&quot;                    
+[57] &quot;syllabus.docx&quot;                           
+[58] &quot;syllabus.html&quot;                           
+[59] &quot;syllabus.Rmd&quot;                            
+[60] &quot;tb.xlsx&quot;                                 </pre>
 
 </article></slide><slide class=""><hgroup><h2>Relative vs. absolute paths (From Wiki)</h2></hgroup><article  id="relative-vs.-absolute-paths-from-wiki">
 
@@ -3497,13 +3498,13 @@ head(dat)</pre>
 <pre ># A tibble: 6 x 31
    YEAR LocationAbbr LocationDesc TopicType TopicDesc MeasureDesc DataSource
   &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;     
-1  2015 AZ           Arizona      Tobacco … Cessatio… Percent of… YTS       
-2  2015 AZ           Arizona      Tobacco … Cessatio… Percent of… YTS       
-3  2015 AZ           Arizona      Tobacco … Cessatio… Percent of… YTS       
-4  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem… YTS       
-5  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem… YTS       
-6  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem… YTS       
-# … with 24 more variables: Response &lt;chr&gt;, Data_Value_Unit &lt;chr&gt;,
+1  2015 AZ           Arizona      Tobacco ~ Cessatio~ Percent of~ YTS       
+2  2015 AZ           Arizona      Tobacco ~ Cessatio~ Percent of~ YTS       
+3  2015 AZ           Arizona      Tobacco ~ Cessatio~ Percent of~ YTS       
+4  2015 AZ           Arizona      Tobacco ~ Cessatio~ Quit Attem~ YTS       
+5  2015 AZ           Arizona      Tobacco ~ Cessatio~ Quit Attem~ YTS       
+6  2015 AZ           Arizona      Tobacco ~ Cessatio~ Quit Attem~ YTS       
+# ... with 24 more variables: Response &lt;chr&gt;, Data_Value_Unit &lt;chr&gt;,
 #   Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;, Data_Value_Footnote_Symbol &lt;chr&gt;,
 #   Data_Value_Footnote &lt;chr&gt;, Data_Value_Std_Err &lt;dbl&gt;,
 #   Low_Confidence_Limit &lt;dbl&gt;, High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;dbl&gt;,
@@ -3703,7 +3704,7 @@ ls()</pre>
 
 <p>There are also data importing functions provided in base R (rather than the <code>readr</code> package), like <code>read.delim</code> and <code>read.csv</code>.</p>
 
-<p>These functions have slightly different syntax for reading in data, like <code>header</code> and <code>as.is</code>.</p>
+<p>These functions have slightly different syntax for reading in data, like <code>header</code> and <code>as.is</code> (which has recently changed in R version 4.0).</p>
 
 <p>However, while many online resources use the base R tools, the latest version of RStudio switched to use these new <code>readr</code> data import tools, so we will use them in the class for slides. They are also up to two times faster for reading in large datasets, and have a progress bar which is nice.</p>
 
@@ -3713,7 +3714,7 @@ ls()</pre>
 
 <p>Here is how to read in the same dataset using base R functionality, which returns a <code>data.frame</code> directly</p>
 
-<pre class = 'prettyprint lang-r'>dat2 = read.csv(&quot;../data/Youth_Tobacco_Survey_YTS_Data.csv&quot;, as.is = TRUE)
+<pre class = 'prettyprint lang-r'>dat2 = read.csv(&quot;../data/Youth_Tobacco_Survey_YTS_Data.csv&quot;)
 head(dat2)</pre>
 
 <pre >  YEAR LocationAbbr LocationDesc                   TopicType         TopicDesc

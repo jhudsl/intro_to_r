@@ -371,7 +371,7 @@ Note, `z` is a **character vector** of the **names** of the objects loaded, **no
 
 There are also data importing functions provided in base R (rather than the `readr` package), like `read.delim` and `read.csv`. 
 
-These functions have slightly different syntax for reading in data, like `header` and `as.is`. 
+These functions have slightly different syntax for reading in data, like `header` and `as.is` (which has recently changed in R version 4.0). 
 
 However, while many online resources use the base R tools, the latest version of RStudio switched to use these new `readr` data import tools, so we will use them in the class for slides. They are also up to two times faster for reading in large datasets, and have a progress bar which is nice. 
 
@@ -382,7 +382,7 @@ But you can use whatever function you feel more comfortable with.
 Here is how to read in the same dataset using base R functionality, which returns a `data.frame` directly
 
 ```{r, readingCSV}
-dat2 = read.csv("../data/Youth_Tobacco_Survey_YTS_Data.csv", as.is = TRUE)
+dat2 = read.csv("../data/Youth_Tobacco_Survey_YTS_Data.csv")
 head(dat2)
 ```
 
