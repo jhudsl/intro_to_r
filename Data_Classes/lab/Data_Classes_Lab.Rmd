@@ -43,12 +43,12 @@ bike = read_bike()
 
 ```
 
-2. Type `dput(btypes)` into the console.  Copy the output.  Reorder the output (in the editor, not in code) so `SIDEPATH` is first.  
- Recode `type` as a factor using this vector of levels.  Using `bike = bike %>% mutate(type = factor(type, levels = )`, where you paste in your levels. Print `head(bike$type)`.  Note what you see (quotation, levls, etc).  Run 
+2. Recode `type` as a factor that has the `SIDEPATH` level first.  Using `bike = bike %>% mutate(type = factor(type, levels = )`, where you paste in your levels. Print `head(bike$type)`.  Note what you see (quotation, levels, etc).  Run 
  `bike %>% count(type)` afterwards and note the order. Note the order of `table(bike$type)` as well.
  
 ```{r q2}
-
+x = c("SIDEPATH","BIKE BOULEVARD", "BIKE LANE", "CONTRAFLOW",
+        "SHARED BUS BIKE",  "SHARROW",  "SIGNED ROUTE")
 
 ```
 

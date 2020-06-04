@@ -52,8 +52,7 @@ lev = c( "SIDEPATH", "BIKE BOULEVARD", "BIKE LANE", "CONTRAFLOW", "SHARED BUS BI
         "SHARROW", "SIGNED ROUTE")
 ```
 
-2. Reorder the output of the `dput` command so `SIDEPATH` is first.  
- Recode type as a factor using this vector of levels.  
+2. 2. Recode `type` as a factor that has the `SIDEPATH` level first. 
  Print `head(bike$type)`.  Note what you see.  Run 
  `table(bike$type)` afterwards and note the order
 ```{r q2}
