@@ -109,7 +109,7 @@ print(z)
 
 
 ## ---- readingCSV--------------------------------------------------------------
-dat2 = read.csv("../data/Youth_Tobacco_Survey_YTS_Data.csv", as.is = TRUE)
+dat2 = read.csv("../data/Youth_Tobacco_Survey_YTS_Data.csv")
 head(dat2)
 
 
