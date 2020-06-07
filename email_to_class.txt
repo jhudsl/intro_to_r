@@ -1,15 +1,16 @@
+Dear Students,
 You are all registered for Introduction to R for Public Health Researchers.
 
-Class will be 8:30AM-11:50AM in Room W5030 at JHSPH on January 6-10, 2020.
+Class will be 8:30AM-11:50AM EST June 8-12, 2020.
 
-The class website is http://johnmuschelli.com/intro_to_r/- we may be posting additional content the night before each class.  The syllabus is located here.  The CoursePlus website https://courseplus.jhu.edu/ should have drop boxes for homework and projects.
+The class website is http://johnmuschelli.com/intro_to_r/ - we may be posting additional content the night before each class.  The syllabus is located here.  The CoursePlus website https://courseplus.jhu.edu/ should have drop boxes for homework and projects.
 
-You must bring a laptop to class, with the following software installed before the first class:
-1. Please install the latest version of R for Windows or Mac: https://cran.r-project.org/ (version 3.6.2)
+You must have a laptop to class, with the following software installed before the first class:
+1. Please install the latest version of R for Windows or Mac: https://cran.r-project.org/ (version 4.0)
 2. Please install the latest version of RStudio (Desktop): https://www.rstudio.com/products/RStudio/#Desktop
-3.  Please follow the instructions in the video https://youtu.be/-m1c8Xz1ZCg for installing the tidyverse package.  
-4.  If you are using a work computer, make sure you: Repeat this process for all of the packages in the text file attached to this email.
-5.  Run the following code in R (to install the jhur package):
+3.  Please follow the instructions in the video https://youtu.be/-m1c8Xz1ZCg for installing the tidyverse package.  
+4.  If you are using a work computer, make sure you: Repeat this process for all of the packages in the text file attached to this email.
+5.  Run the following code in R (to install the jhur package):
 
 if (!requireNamespace("remotes", quietly = TRUE)) {
 	install.packages("remotes")
@@ -18,8 +19,7 @@ remotes::install_github("muschellij2/jhur")
 
 
 HOMEWORK 1:
-Please complete the Modules for the Introduction to R: https://www.codecademy.com/courses/learn-r/lessons/introduction-to-r before class starts (it will make things easier).
-
+Please complete the Modules for the Introduction to R: https://www.codecademy.com/courses/learn-r/lessons/introduction-to-r before class starts (it will make things easier).  Please complete only the free sections. 
 Completing them is the first homework assignment due *Tuesday* before class (please upload a screenshot of the total completion).
 
 See everyone on Monday!
