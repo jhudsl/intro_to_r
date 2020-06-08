@@ -18,9 +18,25 @@ if (!requireNamespace("remotes", quietly = TRUE)) {
 remotes::install_github("muschellij2/jhur")
 
 
+If you are using Mac OSX:
+1) In the Terminal, run (copy and paste and hit enter): 
+xcode-select --install
+(this will ask you to agree to a user agreement) - this is installing extra tools that allow R packages to compile on your machine.
+2) In the Terminal, run:
+gfortran
+If you see:
+-bash: gfortran: command not found
+then continue to steps 3 and 4
+3) Install brew.  Go to the Terminal, run (copy and paste): 
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+4) Once that's done, run in the Terminal:
+brew install gfortran
+
+
 HOMEWORK 1:
 Please complete the Modules for the Introduction to R: https://www.codecademy.com/courses/learn-r/lessons/introduction-to-r before class starts (it will make things easier).  Please complete only the free sections. 
 Completing them is the first homework assignment due *Tuesday* before class (please upload a screenshot of the total completion).
+
 
 See everyone on Monday!
 
