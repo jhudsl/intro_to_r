@@ -3319,6 +3319,150 @@ cols(
 
 <p>The data is now successfully read into your R workspace, just like from using the dropdown menu.</p>
 
+</article></slide><slide class=""><hgroup><h2>Data Input: Checking for problems</h2></hgroup><article  id="data-input-checking-for-problems">
+
+<pre class = 'prettyprint lang-r'>dat = read_csv(&quot;http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv&quot;)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Data Input: Checking for problems</h2></hgroup><article  id="data-input-checking-for-problems-1">
+
+<ul>
+<li>The <code>spec()</code> and <code>problems()</code> functions show you the specification of how the data was read in.</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>dim(problems(dat))</pre>
+
+<pre >[1] 0 4</pre>
+
+<pre class = 'prettyprint lang-r'>spec(dat)</pre>
+
+<pre >cols(
+  YEAR = col_double(),
+  LocationAbbr = col_character(),
+  LocationDesc = col_character(),
+  TopicType = col_character(),
+  TopicDesc = col_character(),
+  MeasureDesc = col_character(),
+  DataSource = col_character(),
+  Response = col_character(),
+  Data_Value_Unit = col_character(),
+  Data_Value_Type = col_character(),
+  Data_Value = col_double(),
+  Data_Value_Footnote_Symbol = col_character(),
+  Data_Value_Footnote = col_character(),
+  Data_Value_Std_Err = col_double(),
+  Low_Confidence_Limit = col_double(),
+  High_Confidence_Limit = col_double(),
+  Sample_Size = col_double(),
+  Gender = col_character(),
+  Race = col_character(),
+  Age = col_character(),
+  Education = col_character(),
+  GeoLocation = col_character(),
+  TopicTypeId = col_character(),
+  TopicId = col_character(),
+  MeasureId = col_character(),
+  StratificationID1 = col_character(),
+  StratificationID2 = col_character(),
+  StratificationID3 = col_character(),
+  StratificationID4 = col_character(),
+  SubMeasureID = col_character(),
+  DisplayOrder = col_double()
+)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Data Input: Checking for problems</h2></hgroup><article  id="data-input-checking-for-problems-2">
+
+<ul>
+<li>The <code>stop_for_problems()</code> function will stop if your data had an error when reading in. If this occurs, you can either use <code>col_types</code> (from <code>spec()</code>) for the problematic columns, or set <code>guess_max = Inf</code> (takes much longer):</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>stop_for_problems(dat)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Lab Part 1</h2></hgroup><article  id="lab-part-1">
+
+<p><a href='http://johnmuschelli.com/intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd' title=''>Lab</a></p>
+
+<p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
+
+</article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-8">
+
+<p>The <code>read_delim()</code> and related functions returns a &ldquo;tibble&rdquo; is a <code>data.frame</code> with special printing, which is the primary data format for most data cleaning and analyses.</p>
+
+</article></slide><slide class=""><hgroup><h2>Data Input with <code>tbl_df</code>s</h2></hgroup><article  class="smaller" id="data-input-with-tbl_dfs">
+
+<ul>
+<li>When using the dropdown menu in RStudio, it uses <code>read_csv</code>, which is an improved version of reading in CSVs. It is popular but <code>read.csv</code> is still largely used. It returns a <code>tbl</code> (tibble), that is a <code>data.frame</code> with improved printing and subsetting properties:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>library(readr)
+head(dat, 3)</pre>
+
+<pre ># A tibble: 3 x 31
+   YEAR LocationAbbr LocationDesc TopicType TopicDesc MeasureDesc DataSource
+  &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;     
+1  2015 AZ           Arizona      Tobacco … Cessatio… Percent of… YTS       
+2  2015 AZ           Arizona      Tobacco … Cessatio… Percent of… YTS       
+3  2015 AZ           Arizona      Tobacco … Cessatio… Percent of… YTS       
+# … with 24 more variables: Response &lt;chr&gt;, Data_Value_Unit &lt;chr&gt;,
+#   Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;, Data_Value_Footnote_Symbol &lt;chr&gt;,
+#   Data_Value_Footnote &lt;chr&gt;, Data_Value_Std_Err &lt;dbl&gt;,
+#   Low_Confidence_Limit &lt;dbl&gt;, High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;dbl&gt;,
+#   Gender &lt;chr&gt;, Race &lt;chr&gt;, Age &lt;chr&gt;, Education &lt;chr&gt;, GeoLocation &lt;chr&gt;,
+#   TopicTypeId &lt;chr&gt;, TopicId &lt;chr&gt;, MeasureId &lt;chr&gt;, StratificationID1 &lt;chr&gt;,
+#   StratificationID2 &lt;chr&gt;, StratificationID3 &lt;chr&gt;, StratificationID4 &lt;chr&gt;,
+#   SubMeasureID &lt;chr&gt;, DisplayOrder &lt;dbl&gt;</pre>
+
+<pre class = 'prettyprint lang-r'>class(dat)</pre>
+
+<pre >[1] &quot;spec_tbl_df&quot; &quot;tbl_df&quot;      &quot;tbl&quot;         &quot;data.frame&quot; </pre>
+
+<!-- ## Data Input -->
+
+<!-- ```{r, viewTibble} -->
+
+<!-- dat -->
+
+<!-- ``` -->
+
+</article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-9">
+
+<ul>
+<li><code>nrow()</code> displays the number of rows of a data frame</li>
+<li><code>ncol()</code> displays the number of columns</li>
+<li><code>dim()</code> displays a vector of length 2: # rows, # columns</li>
+<li><code>colnames()</code> displays the column names (if any) and <code>rownames()</code> displays the row names (if any)</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>dim(dat)</pre>
+
+<pre >[1] 9794   31</pre>
+
+<pre class = 'prettyprint lang-r'>nrow(dat)</pre>
+
+<pre >[1] 9794</pre>
+
+<pre class = 'prettyprint lang-r'>ncol(dat)</pre>
+
+<pre >[1] 31</pre>
+
+<pre class = 'prettyprint lang-r'>colnames(dat)</pre>
+
+<pre > [1] &quot;YEAR&quot;                       &quot;LocationAbbr&quot;              
+ [3] &quot;LocationDesc&quot;               &quot;TopicType&quot;                 
+ [5] &quot;TopicDesc&quot;                  &quot;MeasureDesc&quot;               
+ [7] &quot;DataSource&quot;                 &quot;Response&quot;                  
+ [9] &quot;Data_Value_Unit&quot;            &quot;Data_Value_Type&quot;           
+[11] &quot;Data_Value&quot;                 &quot;Data_Value_Footnote_Symbol&quot;
+[13] &quot;Data_Value_Footnote&quot;        &quot;Data_Value_Std_Err&quot;        
+[15] &quot;Low_Confidence_Limit&quot;       &quot;High_Confidence_Limit&quot;     
+[17] &quot;Sample_Size&quot;                &quot;Gender&quot;                    
+[19] &quot;Race&quot;                       &quot;Age&quot;                       
+[21] &quot;Education&quot;                  &quot;GeoLocation&quot;               
+[23] &quot;TopicTypeId&quot;                &quot;TopicId&quot;                   
+[25] &quot;MeasureId&quot;                  &quot;StratificationID1&quot;         
+[27] &quot;StratificationID2&quot;          &quot;StratificationID3&quot;         
+[29] &quot;StratificationID4&quot;          &quot;SubMeasureID&quot;              
+[31] &quot;DisplayOrder&quot;              </pre>
+
 </article></slide><slide class=""><hgroup><h2>Common new user mistakes we have seen</h2></hgroup><article  id="common-new-user-mistakes-we-have-seen">
 
 <ol>
@@ -3450,8 +3594,9 @@ setwd(&quot;~/Lectures&quot;) </pre>
 [56] &quot;Subsetting_Data_in_R&quot;                    
 [57] &quot;syllabus.docx&quot;                           
 [58] &quot;syllabus.html&quot;                           
-[59] &quot;syllabus.Rmd&quot;                            
-[60] &quot;tb.xlsx&quot;                                 </pre>
+[59] &quot;syllabus.R&quot;                              
+[60] &quot;syllabus.Rmd&quot;                            
+[61] &quot;tb.xlsx&quot;                                 </pre>
 
 </article></slide><slide class=""><hgroup><h2>Relative vs. absolute paths (From Wiki)</h2></hgroup><article  id="relative-vs.-absolute-paths-from-wiki">
 
@@ -3489,146 +3634,11 @@ setwd(&quot;~/Lectures&quot;) </pre>
 <pre class = 'prettyprint lang-r'>?dir
 help(&quot;dir&quot;)</pre>
 
-</article></slide><slide class=""><hgroup><h2>Data Input: Checking for problems</h2></hgroup><article  id="data-input-checking-for-problems">
+</article></slide><slide class=""><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
 
-<pre class = 'prettyprint lang-r'>dat = read_csv(&quot;http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv&quot;)</pre>
+<p><a href='http://johnmuschelli.com/intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd' title=''>Lab</a></p>
 
-</article></slide><slide class=""><hgroup><h2>Data Input: Checking for problems</h2></hgroup><article  id="data-input-checking-for-problems-1">
-
-<ul>
-<li>The <code>spec()</code> and <code>problems()</code> functions show you the specification of how the data was read in.</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>dim(problems(dat))</pre>
-
-<pre >[1] 0 4</pre>
-
-<pre class = 'prettyprint lang-r'>spec(dat)</pre>
-
-<pre >cols(
-  YEAR = col_double(),
-  LocationAbbr = col_character(),
-  LocationDesc = col_character(),
-  TopicType = col_character(),
-  TopicDesc = col_character(),
-  MeasureDesc = col_character(),
-  DataSource = col_character(),
-  Response = col_character(),
-  Data_Value_Unit = col_character(),
-  Data_Value_Type = col_character(),
-  Data_Value = col_double(),
-  Data_Value_Footnote_Symbol = col_character(),
-  Data_Value_Footnote = col_character(),
-  Data_Value_Std_Err = col_double(),
-  Low_Confidence_Limit = col_double(),
-  High_Confidence_Limit = col_double(),
-  Sample_Size = col_double(),
-  Gender = col_character(),
-  Race = col_character(),
-  Age = col_character(),
-  Education = col_character(),
-  GeoLocation = col_character(),
-  TopicTypeId = col_character(),
-  TopicId = col_character(),
-  MeasureId = col_character(),
-  StratificationID1 = col_character(),
-  StratificationID2 = col_character(),
-  StratificationID3 = col_character(),
-  StratificationID4 = col_character(),
-  SubMeasureID = col_character(),
-  DisplayOrder = col_double()
-)</pre>
-
-</article></slide><slide class=""><hgroup><h2>Data Input: Checking for problems</h2></hgroup><article  id="data-input-checking-for-problems-2">
-
-<ul>
-<li>The <code>stop_for_problems()</code> function will stop if your data had an error when reading in. If this occurs, you can either use <code>col_types</code> (from <code>spec()</code>) for the problematic columns, or set <code>guess_max = Inf</code> (takes much longer):</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>stop_for_problems(dat)</pre>
-
-</article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-8">
-
-<p>The <code>read_delim()</code> and related functions returns a &ldquo;tibble&rdquo; is a <code>data.frame</code> with special printing, which is the primary data format for most data cleaning and analyses.</p>
-
-</article></slide><slide class=""><hgroup><h2>Data Input with <code>tbl_df</code>s</h2></hgroup><article  class="smaller" id="data-input-with-tbl_dfs">
-
-<ul>
-<li>When using the dropdown menu in RStudio, it uses <code>read_csv</code>, which is an improved version of reading in CSVs. It is popular but <code>read.csv</code> is still largely used. It returns a <code>tbl</code> (tibble), that is a <code>data.frame</code> with improved printing and subsetting properties:</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>library(readr)
-head(dat)</pre>
-
-<pre ># A tibble: 6 x 31
-   YEAR LocationAbbr LocationDesc TopicType TopicDesc MeasureDesc DataSource
-  &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;     
-1  2015 AZ           Arizona      Tobacco … Cessatio… Percent of… YTS       
-2  2015 AZ           Arizona      Tobacco … Cessatio… Percent of… YTS       
-3  2015 AZ           Arizona      Tobacco … Cessatio… Percent of… YTS       
-4  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem… YTS       
-5  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem… YTS       
-6  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem… YTS       
-# … with 24 more variables: Response &lt;chr&gt;, Data_Value_Unit &lt;chr&gt;,
-#   Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;, Data_Value_Footnote_Symbol &lt;chr&gt;,
-#   Data_Value_Footnote &lt;chr&gt;, Data_Value_Std_Err &lt;dbl&gt;,
-#   Low_Confidence_Limit &lt;dbl&gt;, High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;dbl&gt;,
-#   Gender &lt;chr&gt;, Race &lt;chr&gt;, Age &lt;chr&gt;, Education &lt;chr&gt;, GeoLocation &lt;chr&gt;,
-#   TopicTypeId &lt;chr&gt;, TopicId &lt;chr&gt;, MeasureId &lt;chr&gt;, StratificationID1 &lt;chr&gt;,
-#   StratificationID2 &lt;chr&gt;, StratificationID3 &lt;chr&gt;, StratificationID4 &lt;chr&gt;,
-#   SubMeasureID &lt;chr&gt;, DisplayOrder &lt;dbl&gt;</pre>
-
-<pre class = 'prettyprint lang-r'>class(dat)</pre>
-
-<pre >[1] &quot;spec_tbl_df&quot; &quot;tbl_df&quot;      &quot;tbl&quot;         &quot;data.frame&quot; </pre>
-
-<!-- ## Data Input -->
-
-<!-- ```{r, viewTibble} -->
-
-<!-- dat -->
-
-<!-- ``` -->
-
-</article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-9">
-
-<ul>
-<li><code>nrow()</code> displays the number of rows of a data frame</li>
-<li><code>ncol()</code> displays the number of columns</li>
-<li><code>dim()</code> displays a vector of length 2: # rows, # columns</li>
-<li><code>colnames()</code> displays the column names (if any) and <code>rownames()</code> displays the row names (if any)</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>dim(dat)</pre>
-
-<pre >[1] 9794   31</pre>
-
-<pre class = 'prettyprint lang-r'>nrow(dat)</pre>
-
-<pre >[1] 9794</pre>
-
-<pre class = 'prettyprint lang-r'>ncol(dat)</pre>
-
-<pre >[1] 31</pre>
-
-<pre class = 'prettyprint lang-r'>colnames(dat)</pre>
-
-<pre > [1] &quot;YEAR&quot;                       &quot;LocationAbbr&quot;              
- [3] &quot;LocationDesc&quot;               &quot;TopicType&quot;                 
- [5] &quot;TopicDesc&quot;                  &quot;MeasureDesc&quot;               
- [7] &quot;DataSource&quot;                 &quot;Response&quot;                  
- [9] &quot;Data_Value_Unit&quot;            &quot;Data_Value_Type&quot;           
-[11] &quot;Data_Value&quot;                 &quot;Data_Value_Footnote_Symbol&quot;
-[13] &quot;Data_Value_Footnote&quot;        &quot;Data_Value_Std_Err&quot;        
-[15] &quot;Low_Confidence_Limit&quot;       &quot;High_Confidence_Limit&quot;     
-[17] &quot;Sample_Size&quot;                &quot;Gender&quot;                    
-[19] &quot;Race&quot;                       &quot;Age&quot;                       
-[21] &quot;Education&quot;                  &quot;GeoLocation&quot;               
-[23] &quot;TopicTypeId&quot;                &quot;TopicId&quot;                   
-[25] &quot;MeasureId&quot;                  &quot;StratificationID1&quot;         
-[27] &quot;StratificationID2&quot;          &quot;StratificationID3&quot;         
-[29] &quot;StratificationID4&quot;          &quot;SubMeasureID&quot;              
-[31] &quot;DisplayOrder&quot;              </pre>
+<p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
 
 </article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-10">
 
@@ -3688,6 +3698,12 @@ names(dat)</pre>
 <pre class = 'prettyprint lang-r'>dat = rename(dat, Year = year)
 write_csv(dat, path = &quot;YouthTobacco_newNames.csv&quot;)</pre>
 
+</article></slide><slide class=""><hgroup><h2>Lab Part 3</h2></hgroup><article  id="lab-part-3">
+
+<p><a href='http://johnmuschelli.com/intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd' title=''>Lab</a></p>
+
+<p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
+
 </article></slide><slide class=""><hgroup><h2>Data Input - Excel</h2></hgroup><article  id="data-input---excel">
 
 <p>Many data analysts collaborate with researchers who use Excel to enter and curate their data. Often times, this is the input data for an analysis. You therefore have two options for getting this data into R:</p>
@@ -3728,6 +3744,12 @@ identical(dat, dat2) # test if they are the same </pre>
 
 <pre >[1] TRUE</pre>
 
+</article></slide><slide class=""><hgroup><h2>Lab Part 4</h2></hgroup><article  id="lab-part-4">
+
+<p><a href='http://johnmuschelli.com/intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd' title=''>Lab</a></p>
+
+<p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
+
 </article></slide><slide class=""><hgroup><h2>More ways to save: save</h2></hgroup><article  id="more-ways-to-save-save">
 
 <p>The <code>save</code> command can save a set of <code>R</code> objects into an &ldquo;R data file&rdquo;, with the extension <code>.rda</code> or <code>.RData</code>.</p>
@@ -3767,6 +3789,10 @@ ls()</pre>
 <pre >[1] &quot;yts&quot; &quot;x&quot;  </pre>
 
 <p>Note, <code>z</code> is a <strong>character vector</strong> of the <strong>names</strong> of the objects loaded, <strong>not</strong> the objects themselves.</p>
+
+</article></slide><slide class=""><hgroup><h2>Website</h2></hgroup><article  id="website">
+
+<p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
 
 </article></slide><slide class=""><hgroup><h2>Base R: Data Input</h2></hgroup><article  id="base-r-data-input">
 
@@ -3849,11 +3875,7 @@ head(dat2)</pre>
 5        YTS05            5
 6        YTS06            6</pre>
 
-<p>We will use the <code>readr</code> functionality for certain reasons.</p>
-
-</article></slide><slide class=""><hgroup><h2>Website</h2></hgroup><article  id="website">
-
-<p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p></article></slide>
+<p>We will use the <code>readr</code> functionality for certain reasons.</p></article></slide>
 
 
   <slide class="backdrop"></slide>

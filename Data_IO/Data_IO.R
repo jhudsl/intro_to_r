@@ -21,6 +21,32 @@ args(readr::read_csv)
 dat = read_csv("../data/Youth_Tobacco_Survey_YTS_Data.csv")
 
 
+## ----read_ur_againl, message = FALSE------------------------------------------
+dat = read_csv("http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
+
+
+## ----stop_problems------------------------------------------------------------
+dim(problems(dat))
+spec(dat)
+
+
+## ----stop_problems2-----------------------------------------------------------
+stop_for_problems(dat)
+
+
+## ----readCSV_readr, message=FALSE---------------------------------------------
+library(readr)
+head(dat, 3)
+class(dat)
+
+
+## ---- dims--------------------------------------------------------------------
+dim(dat)
+nrow(dat)
+ncol(dat)
+colnames(dat)
+
+
 ## ----workingDirectory,eval=FALSE----------------------------------------------
 ## ## get the working directory
 ## getwd()
@@ -39,32 +65,6 @@ dir("..")
 ## ---- eval = FALSE------------------------------------------------------------
 ## ?dir
 ## help("dir")
-
-
-## ----read_ur_againl, message = FALSE------------------------------------------
-dat = read_csv("http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
-
-
-## ----stop_problems------------------------------------------------------------
-dim(problems(dat))
-spec(dat)
-
-
-## ----stop_problems2-----------------------------------------------------------
-stop_for_problems(dat)
-
-
-## ----readCSV_readr, message=FALSE---------------------------------------------
-library(readr)
-head(dat)
-class(dat)
-
-
-## ---- dims--------------------------------------------------------------------
-dim(dat)
-nrow(dat)
-ncol(dat)
-colnames(dat)
 
 
 ## ----names1, message = FALSE--------------------------------------------------

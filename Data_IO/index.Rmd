@@ -96,6 +96,79 @@ dat = read_csv("../data/Youth_Tobacco_Survey_YTS_Data.csv")
 
 The data is now successfully read into your R workspace, just like from using the dropdown menu.
 
+
+## Data Input: Checking for problems
+
+
+```{r read_ur_againl, message = FALSE}
+dat = read_csv("http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
+```
+
+## Data Input: Checking for problems
+
+* The `spec()` and `problems()` functions show you the specification of how the data was read in.  
+
+```{r stop_problems}
+dim(problems(dat))
+spec(dat)
+```
+
+
+## Data Input: Checking for problems
+
+* The `stop_for_problems()` function will stop if your data had an error when reading in.  If this occurs, you can either use `col_types` (from `spec()`) for the problematic columns, or set `guess_max = Inf` (takes much longer):
+
+```{r stop_problems2}
+stop_for_problems(dat)
+```
+
+
+## Lab Part 1
+
+
+[Lab](http://johnmuschelli.com/intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd)
+
+[Website](http://johnmuschelli.com/intro_to_r/index.html)
+
+
+## Data Input
+
+The `read_delim()` and related functions returns a "tibble" is a `data.frame` with special printing, which is the primary data format for most data cleaning and analyses. 
+
+
+## Data Input with `tbl_df`s {.smaller}
+
+* When using the dropdown menu in RStudio, it uses `read_csv`, which is an improved version of reading in CSVs.  It is popular but `read.csv` is still largely used.  It returns a `tbl` (tibble), that is a `data.frame` with improved printing and subsetting properties: 
+
+```{r readCSV_readr, message=FALSE}
+library(readr)
+head(dat, 3)
+class(dat)
+```
+
+
+<!-- ## Data Input -->
+
+<!-- ```{r, viewTibble} -->
+<!-- dat -->
+<!-- ``` -->
+
+
+## Data Input
+
+* `nrow()` displays the number of rows of a data frame
+* `ncol()` displays the number of columns 
+* `dim()` displays a vector of length 2: # rows, # columns
+* `colnames()` displays the column names (if any) and `rownames()` displays the row names (if any)
+
+```{r, dims}
+dim(dat)
+nrow(dat)
+ncol(dat)
+colnames(dat)
+```
+
+
 ## Common new user mistakes we have seen
 
 1.  **Working directory problems: trying to read files that R "can't find"**
@@ -179,69 +252,13 @@ For any function, you can write `?FUNCTION_NAME`, or `help("FUNCTION_NAME")` to 
 help("dir")
 ```
 
-
-## Data Input: Checking for problems
-
-
-```{r read_ur_againl, message = FALSE}
-dat = read_csv("http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
-```
-
-## Data Input: Checking for problems
-
-* The `spec()` and `problems()` functions show you the specification of how the data was read in.  
-
-```{r stop_problems}
-dim(problems(dat))
-spec(dat)
-```
+## Lab Part 2
 
 
-## Data Input: Checking for problems
+[Lab](http://johnmuschelli.com/intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd)
 
-* The `stop_for_problems()` function will stop if your data had an error when reading in.  If this occurs, you can either use `col_types` (from `spec()`) for the problematic columns, or set `guess_max = Inf` (takes much longer):
+[Website](http://johnmuschelli.com/intro_to_r/index.html)
 
-```{r stop_problems2}
-stop_for_problems(dat)
-```
-
-
-## Data Input
-
-The `read_delim()` and related functions returns a "tibble" is a `data.frame` with special printing, which is the primary data format for most data cleaning and analyses. 
-
-
-## Data Input with `tbl_df`s {.smaller}
-
-* When using the dropdown menu in RStudio, it uses `read_csv`, which is an improved version of reading in CSVs.  It is popular but `read.csv` is still largely used.  It returns a `tbl` (tibble), that is a `data.frame` with improved printing and subsetting properties: 
-
-```{r readCSV_readr, message=FALSE}
-library(readr)
-head(dat)
-class(dat)
-```
-
-
-<!-- ## Data Input -->
-
-<!-- ```{r, viewTibble} -->
-<!-- dat -->
-<!-- ``` -->
-
-
-## Data Input
-
-* `nrow()` displays the number of rows of a data frame
-* `ncol()` displays the number of columns 
-* `dim()` displays a vector of length 2: # rows, # columns
-* `colnames()` displays the column names (if any) and `rownames()` displays the row names (if any)
-
-```{r, dims}
-dim(dat)
-nrow(dat)
-ncol(dat)
-colnames(dat)
-```
 
 
 ## Data Input
@@ -290,6 +307,15 @@ dat = rename(dat, Year = year)
 write_csv(dat, path = "YouthTobacco_newNames.csv")
 ```
 
+## Lab Part 3
+
+[Lab](http://johnmuschelli.com/intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd)
+
+[Website](http://johnmuschelli.com/intro_to_r/index.html)
+
+
+
+
 ## Data Input - Excel
 
 Many data analysts collaborate with researchers who use Excel to enter and curate their data. Often times, this is the input data for an analysis. You therefore have two options for getting this data into R:
@@ -329,6 +355,14 @@ dat2 = read_rds(path = "yts_dataset.rds")
 identical(dat, dat2) # test if they are the same 
 ```
 
+## Lab Part 4
+
+
+[Lab](http://johnmuschelli.com/intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd)
+
+[Website](http://johnmuschelli.com/intro_to_r/index.html)
+
+
 ## More ways to save: save
 
 The `save` command can save a set of `R` objects into an "R data file", with the extension `.rda` or `.RData`.  
@@ -363,6 +397,9 @@ print(z)
 
 Note, `z` is a **character vector** of the **names** of the objects loaded, **not** the objects themselves.
 
+## Website
+
+[Website](http://johnmuschelli.com/intro_to_r/index.html)
 
 
 
@@ -388,9 +425,6 @@ head(dat2)
 
 We will use the `readr` functionality for certain reasons.
 
-## Website
-
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
 
 
 ```{r, echo = FALSE, message = FALSE, results='hide'}

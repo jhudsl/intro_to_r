@@ -54,5 +54,14 @@ mon = read_excel("Monuments.xlsx")
 4. Write out the `mon` object as a CSV file calling it "monuments.csv", using `readr::write_csv`:
 
 ```{r}
-write_csv(mon, "Monuments.csv")
+write_csv(mon, "monuments.csv")
+```
+
+
+# Part 4
+
+5. Write out the `mon` object as a RDS file calling it "monuments.rds", using `readr::write_rds`:
+
+```{r}
+readr::write_rds(mon, "monuments.rds")
 ```

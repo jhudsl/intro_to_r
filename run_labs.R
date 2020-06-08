@@ -10,6 +10,8 @@ sapply(x, function(x) {
   knitr::purl(input = x, output = out)
   })
 
+sapply(x, rmarkdown::render)
+
 
 x = list.files(pattern = ".R$", recursive = TRUE)
 x = x[grepl("lab", tolower(x))]

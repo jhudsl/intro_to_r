@@ -25,7 +25,6 @@ all:
 	done	
 	echo "Running main index";
 	Rscript -e "rmarkdown::render('index.Rmd')"
-	Rscript run_labs.R		
 	# echo "Running Starting"
 	# Rscript -e "rmarkdown::render('starting_with_r.Rmd')"		
 
