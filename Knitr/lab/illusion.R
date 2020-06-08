@@ -1,8 +1,9 @@
-## ----'install instructions', eval = FALSE--------------------------------
+## ----'install instructions', eval = FALSE-----------------------------------------
 ## ## Run manually if you need to install these packages
 ## install.packages(c("plyr", "rmarkdown", "devtools"))
 
-## ----'cafe wall'---------------------------------------------------------
+
+## ----'cafe wall'------------------------------------------------------------------
 library("grid")
 rs <- expand.grid(x = seq(0, 1, 1/10), y = seq(0, 1, 1/10))
 grid.rect(rs$x, rs$y, 1/10/2, 1/10/2, gp = gpar(fill = "black", col = NA))
@@ -12,7 +13,8 @@ ls <- expand.grid(x = 0:1, y = seq(0, 1, 1/20) - 1/20/2)
 grid.polyline(ls$x, ls$y, id = gl(nrow(ls)/2, 2), gp = gpar(col = "grey50", 
     lwd = 1))
 
-## ----'un-named illusion'-------------------------------------------------
+
+## ----'un-named illusion'----------------------------------------------------------
 nx <- 6; ny <- 6; lwd <- 10; cr <- 1/100
 grid.newpage()
 grid.rect(0.5, 0.5, 1, 1, gp = gpar(fill = "black"))
@@ -23,7 +25,8 @@ grid.polyline(ls$x, ls$y, id = gl(nrow(ls)/2, 2), gp = gpar(col = "grey", lwd = 
 ls <- expand.grid(x = seq(0, 1, 1/nx/2) - 1/nx/2/2, y = seq(0, 1, 1/ny/2) - 1/ny/2/2)
 grid.circle(ls$x, ls$y, r= cr, gp = gpar(col = NA, fill = "white"))
 
-## ----'ouchi'-------------------------------------------------------------
+
+## ----'ouchi'----------------------------------------------------------------------
 grid.newpage()
 nx <- 10
 ny <- 30
@@ -34,7 +37,8 @@ rs <- expand.grid(x = seq(0.25, 0.75, 1/nx/2), y = seq(0.25, 0.75, 1/ny/2))
 grid.rect(rs$y, rs$x, 1/ny/2, 1/nx/2, gp = gpar(col = NA, fill = c("black", 
     "white")))
 
-## ----'fraser'------------------------------------------------------------
+
+## ----'fraser'---------------------------------------------------------------------
 library("plyr")
 grid.newpage()
 n <- 10
@@ -62,7 +66,8 @@ plyr::l_ply(1:ny, function(i) {
         col = NA))
 })
 
-## ----'fraser-wilcox'-----------------------------------------------------
+
+## ----'fraser-wilcox'--------------------------------------------------------------
 grid.newpage()
 No <- 3
 wo <- 1/3/2
@@ -90,14 +95,16 @@ for (y0 in seq(0, 1, len = 10)) {
     }
 }
 
-## ----'parallel'----------------------------------------------------------
+
+## ----'parallel'-------------------------------------------------------------------
 x = 1:100
 y = 1/log10(x)
 y2 = y + 0.2
 plot(x, y, type = "l", ylim = c(0, 1.5))
 lines(x, y2)
 
-## ----'snake'-------------------------------------------------------------
+
+## ----'snake'----------------------------------------------------------------------
 nt <- 41; nr <- 15; br <- 0.8
 col1 <- c("black", "white")
 col2 <- c("aquamarine4", "gold2")

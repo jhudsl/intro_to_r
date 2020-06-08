@@ -1,22 +1,57 @@
 ---
-title: "Data_IO_Lab"
+title: "Data_IO_Lab Key"
 output: html_document
 editor_options: 
   chunk_output_type: console
 ---
 
-1. Install and invoke the `readxl` package. 
-RStudio --> Tools --> Install Packages
+In this lab you can use the interactive console to explore or **Knit** the document. 
+Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-X) or Ctrl-Enter (Windows/Linux) in an R code chunk.
 
-2. Download an Excel version of the Monuments dataset:		http://johnmuschelli.com/intro_to_r/data/Monuments.xlsx
 
-3. Use the `read_excel()` function in the `readxl` package to read in the dataset
+# Part 1
+
+1.  Read in the Youth Tobacco study from
+http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv
+and name it `youth`, use the dropdown menu (using `readr`).
+
+```{r}
+library(readr)
+
+```
+
+2.  Check `youth` for any problems.
 
 ```{r}
 
 ```
 
-4. Write out the R object as a CSV file 
+# Part 2
+
+2. Load the `readxl` package with the `library` command. 
+If it is not installed, install it via: RStudio --> Tools --> Install Packages
+```{r}
+
+```
+
+
+Download in the dataset of monuments from: http://johnmuschelli.com/intro_to_r/data/Monuments.xlsx file to `Monuments.xlsx`
+
+```{r}
+download.file("http://johnmuschelli.com/intro_to_r/data/Monuments.xlsx",
+              destfile = "Monuments.xlsx",
+              overwrite = TRUE)
+```
+
+3. Use the `read_excel()` function in the `readxl` package to read the `Monuments.xlsx` file and call the output `mon`. 
+
+```{r}
+
+```
+
+# Part 3
+
+4. Write out the `mon` object as a CSV file calling it "monuments.csv", using `readr::write_csv`:
 
 ```{r}
 

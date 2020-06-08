@@ -16,10 +16,10 @@ x = x[grepl("lab", tolower(x))]
 x = x[ !grepl("run_labs", x)]
 r = x[1]
 # all_in_mem = ls()
-sapply(x, function(r) {
-  # wd = dirname(r)
-  # setwd(wd)
-  # on.exit(setwd)
-  print(r)
-  source(r, local = TRUE)
-})
+# sapply(x, function(r) {
+#   # wd = dirname(r)
+#   # setwd(wd)
+#   # on.exit(setwd)
+#   print(r)
+#   source(r, local = TRUE)
+# })
