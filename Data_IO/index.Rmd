@@ -80,7 +80,7 @@ args(readr::read_delim)
 
 ## Data Input
 
-There is another convenient function for reading in CSV files, where the delimiter is assumed to be a comma: 
+There is another convenient function for reading in CSV files, where the delimiter is assumed to be a comma (`readr::read_csv`): 
 
 ```{r readCSV, echo = FALSE}
 args(readr::read_csv)

@@ -40,6 +40,19 @@
     };
   </script>
 
+  <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
   <style type="text/css">@font-face {
 font-family: 'Open Sans';
 font-style: normal;
@@ -3107,7 +3120,58 @@ slide:not(.current) .plotly.html-widget{
 
   </style>
 
-  <style type="text/css">pre {font-family: 'Source Code Pro', 'Courier New', monospace;font-size: 24px;line-height: 24px;padding: 10px 0 10px 60px;letter-spacing: -1px;margin-bottom: 8px;width: 106%;left: -60px;position: relative;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}body{font-family: Helvetica;font-size: 16pt;}h1{font-size: 28pt;}h2{font-size: 24pt;}h3{font-size: 20pt;}.emphasized {font-size: 1.2em;}.small {font-size: 0.8em;}strong { font-weight: bold;color: black;}slides > slide > hgroup + article {margin-top: 5px;}.left_col {float:left;width:48%;}.right_col {float:right;width:48%;}</style>
+  <style type="text/css">pre {
+font-family: 'Source Code Pro', 'Courier New', monospace;
+font-size: 24px;
+line-height: 24px;
+padding: 10px 0 10px 60px;
+letter-spacing: -1px;
+margin-bottom: 8px;
+width: 106%;
+left: -60px;
+position: relative;
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+
+}
+
+body{
+font-family: Helvetica;
+font-size: 16pt;
+}
+
+h1{
+font-size: 28pt;
+}
+h2{
+font-size: 24pt;
+}
+h3{
+font-size: 20pt;
+}
+.emphasized {
+font-size: 1.2em;
+}
+.small {
+font-size: 0.8em;
+}
+strong { font-weight: bold;
+color: black;
+}
+
+slides > slide > hgroup + article {
+margin-top: 5px;
+}
+.left_col {
+float:left;
+width:48%;
+}
+.right_col {
+float:right;
+width:48%;
+}
+</style>
 
 </head>
 
@@ -3183,13 +3247,13 @@ head(mydat)</pre>
 <pre ># A tibble: 6 x 31
    YEAR LocationAbbr LocationDesc TopicType TopicDesc MeasureDesc DataSource
   &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;     
-1  2015 AZ           Arizona      Tobacco ~ Cessatio~ Percent of~ YTS       
-2  2015 AZ           Arizona      Tobacco ~ Cessatio~ Percent of~ YTS       
-3  2015 AZ           Arizona      Tobacco ~ Cessatio~ Percent of~ YTS       
-4  2015 AZ           Arizona      Tobacco ~ Cessatio~ Quit Attem~ YTS       
-5  2015 AZ           Arizona      Tobacco ~ Cessatio~ Quit Attem~ YTS       
-6  2015 AZ           Arizona      Tobacco ~ Cessatio~ Quit Attem~ YTS       
-# ... with 24 more variables: Response &lt;chr&gt;, Data_Value_Unit &lt;chr&gt;,
+1  2015 AZ           Arizona      Tobacco … Cessatio… Percent of… YTS       
+2  2015 AZ           Arizona      Tobacco … Cessatio… Percent of… YTS       
+3  2015 AZ           Arizona      Tobacco … Cessatio… Percent of… YTS       
+4  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem… YTS       
+5  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem… YTS       
+6  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem… YTS       
+# … with 24 more variables: Response &lt;chr&gt;, Data_Value_Unit &lt;chr&gt;,
 #   Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;, Data_Value_Footnote_Symbol &lt;chr&gt;,
 #   Data_Value_Footnote &lt;chr&gt;, Data_Value_Std_Err &lt;dbl&gt;,
 #   Low_Confidence_Limit &lt;dbl&gt;, High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;dbl&gt;,
@@ -3223,7 +3287,7 @@ NULL</pre>
 
 </article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-6">
 
-<p>There is another convenient function for reading in CSV files, where the delimiter is assumed to be a comma:</p>
+<p>There is another convenient function for reading in CSV files, where the delimiter is assumed to be a comma (<code>readr::read_csv</code>):</p>
 
 <pre >function (file, col_names = TRUE, col_types = NULL, locale = default_locale(), 
     na = c(&quot;&quot;, &quot;NA&quot;), quoted_na = TRUE, quote = &quot;\&quot;&quot;, comment = &quot;&quot;, 
@@ -3321,9 +3385,10 @@ setwd(&quot;~/Lectures&quot;) </pre>
 
 <pre > [1] &quot;Data_IO.html&quot;              &quot;Data_IO.pdf&quot;              
  [3] &quot;Data_IO.R&quot;                 &quot;index.html&quot;               
- [5] &quot;index.R&quot;                   &quot;index.Rmd&quot;                
- [7] &quot;lab&quot;                       &quot;makefile&quot;                 
- [9] &quot;YouthTobacco_newNames.csv&quot; &quot;yts_dataset.rds&quot;          </pre>
+ [5] &quot;index.pdf&quot;                 &quot;index.R&quot;                  
+ [7] &quot;index.Rmd&quot;                 &quot;lab&quot;                      
+ [9] &quot;lecture.zip&quot;               &quot;makefile&quot;                 
+[11] &quot;YouthTobacco_newNames.csv&quot; &quot;yts_dataset.rds&quot;          </pre>
 
 <pre class = 'prettyprint lang-r'>dir(&quot;..&quot;)</pre>
 
@@ -3338,12 +3403,12 @@ setwd(&quot;~/Lectures&quot;) </pre>
  [9] &quot;black_and_white_theme.pdf&quot;               
 [10] &quot;bloomberg.logo.small.horizontal.blue.png&quot;
 [11] &quot;data&quot;                                    
-[12] &quot;data.zip&quot;                                
-[13] &quot;Data_Classes&quot;                            
-[14] &quot;Data_Cleaning&quot;                           
-[15] &quot;Data_IO&quot;                                 
-[16] &quot;Data_Summarization&quot;                      
-[17] &quot;Data_Visualization&quot;                      
+[12] &quot;Data_Classes&quot;                            
+[13] &quot;Data_Cleaning&quot;                           
+[14] &quot;Data_IO&quot;                                 
+[15] &quot;Data_Summarization&quot;                      
+[16] &quot;Data_Visualization&quot;                      
+[17] &quot;data.zip&quot;                                
 [18] &quot;dhs&quot;                                     
 [19] &quot;email_to_class.txt&quot;                      
 [20] &quot;example_knitr.html&quot;                      
@@ -3364,8 +3429,8 @@ setwd(&quot;~/Lectures&quot;) </pre>
 [35] &quot;ListExamples&quot;                            
 [36] &quot;live_code&quot;                               
 [37] &quot;makefile&quot;                                
-[38] &quot;makefile.copy&quot;                           
-[39] &quot;makefile_old&quot;                            
+[38] &quot;makefile_old&quot;                            
+[39] &quot;makefile.copy&quot;                           
 [40] &quot;Manipulating_Data_in_R&quot;                  
 [41] &quot;my_tab.txt&quot;                              
 [42] &quot;ProjectExample&quot;                          
@@ -3498,13 +3563,13 @@ head(dat)</pre>
 <pre ># A tibble: 6 x 31
    YEAR LocationAbbr LocationDesc TopicType TopicDesc MeasureDesc DataSource
   &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;     
-1  2015 AZ           Arizona      Tobacco ~ Cessatio~ Percent of~ YTS       
-2  2015 AZ           Arizona      Tobacco ~ Cessatio~ Percent of~ YTS       
-3  2015 AZ           Arizona      Tobacco ~ Cessatio~ Percent of~ YTS       
-4  2015 AZ           Arizona      Tobacco ~ Cessatio~ Quit Attem~ YTS       
-5  2015 AZ           Arizona      Tobacco ~ Cessatio~ Quit Attem~ YTS       
-6  2015 AZ           Arizona      Tobacco ~ Cessatio~ Quit Attem~ YTS       
-# ... with 24 more variables: Response &lt;chr&gt;, Data_Value_Unit &lt;chr&gt;,
+1  2015 AZ           Arizona      Tobacco … Cessatio… Percent of… YTS       
+2  2015 AZ           Arizona      Tobacco … Cessatio… Percent of… YTS       
+3  2015 AZ           Arizona      Tobacco … Cessatio… Percent of… YTS       
+4  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem… YTS       
+5  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem… YTS       
+6  2015 AZ           Arizona      Tobacco … Cessatio… Quit Attem… YTS       
+# … with 24 more variables: Response &lt;chr&gt;, Data_Value_Unit &lt;chr&gt;,
 #   Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;, Data_Value_Footnote_Symbol &lt;chr&gt;,
 #   Data_Value_Footnote &lt;chr&gt;, Data_Value_Std_Err &lt;dbl&gt;,
 #   Low_Confidence_Limit &lt;dbl&gt;, High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;dbl&gt;,
@@ -3680,17 +3745,20 @@ save(yts, x, file = &quot;yts_data.rda&quot;)</pre>
 
 <pre class = 'prettyprint lang-r'>ls() # list things in the workspace</pre>
 
-<pre >[1] &quot;dat&quot;   &quot;dat2&quot;  &quot;mydat&quot; &quot;x&quot;     &quot;yts&quot;  </pre>
+<pre >[1] &quot;dat&quot;        &quot;dat2&quot;       &quot;in_rstudio&quot; &quot;lsos&quot;       &quot;mydat&quot;     
+[6] &quot;qq&quot;         &quot;req&quot;        &quot;x&quot;          &quot;yts&quot;       </pre>
 
 <pre class = 'prettyprint lang-r'>rm(list = c(&quot;x&quot;, &quot;yts&quot;))
 ls()</pre>
 
-<pre >[1] &quot;dat&quot;   &quot;dat2&quot;  &quot;mydat&quot;</pre>
+<pre >[1] &quot;dat&quot;        &quot;dat2&quot;       &quot;in_rstudio&quot; &quot;lsos&quot;       &quot;mydat&quot;     
+[6] &quot;qq&quot;         &quot;req&quot;       </pre>
 
 <pre class = 'prettyprint lang-r'>z = load(&quot;yts_data.rda&quot;)
 ls()</pre>
 
-<pre >[1] &quot;dat&quot;   &quot;dat2&quot;  &quot;mydat&quot; &quot;x&quot;     &quot;yts&quot;   &quot;z&quot;    </pre>
+<pre > [1] &quot;dat&quot;        &quot;dat2&quot;       &quot;in_rstudio&quot; &quot;lsos&quot;       &quot;mydat&quot;     
+ [6] &quot;qq&quot;         &quot;req&quot;        &quot;x&quot;          &quot;yts&quot;        &quot;z&quot;         </pre>
 
 </article></slide><slide class=""><hgroup><h2>More ways to save: load</h2></hgroup><article  id="more-ways-to-save-load-1">
 
@@ -3717,13 +3785,13 @@ ls()</pre>
 <pre class = 'prettyprint lang-r'>dat2 = read.csv(&quot;../data/Youth_Tobacco_Survey_YTS_Data.csv&quot;)
 head(dat2)</pre>
 
-<pre >  YEAR LocationAbbr LocationDesc                   TopicType         TopicDesc
-1 2015           AZ      Arizona Tobacco Use â\200“ Survey Data Cessation (Youth)
-2 2015           AZ      Arizona Tobacco Use â\200“ Survey Data Cessation (Youth)
-3 2015           AZ      Arizona Tobacco Use â\200“ Survey Data Cessation (Youth)
-4 2015           AZ      Arizona Tobacco Use â\200“ Survey Data Cessation (Youth)
-5 2015           AZ      Arizona Tobacco Use â\200“ Survey Data Cessation (Youth)
-6 2015           AZ      Arizona Tobacco Use â\200“ Survey Data Cessation (Youth)
+<pre >  YEAR LocationAbbr LocationDesc                 TopicType         TopicDesc
+1 2015           AZ      Arizona Tobacco Use – Survey Data Cessation (Youth)
+2 2015           AZ      Arizona Tobacco Use – Survey Data Cessation (Youth)
+3 2015           AZ      Arizona Tobacco Use – Survey Data Cessation (Youth)
+4 2015           AZ      Arizona Tobacco Use – Survey Data Cessation (Youth)
+5 2015           AZ      Arizona Tobacco Use – Survey Data Cessation (Youth)
+6 2015           AZ      Arizona Tobacco Use – Survey Data Cessation (Youth)
                                                 MeasureDesc DataSource Response
 1               Percent of Current Smokers Who Want to Quit        YTS         
 2               Percent of Current Smokers Who Want to Quit        YTS         
