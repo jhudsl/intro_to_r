@@ -22,7 +22,7 @@ library(jhur)
     * `mean(x)`: takes the mean of x
     * `sd(x)`: takes the standard deviation of x
     * `median(x)`: takes the median of x
-    * `quantile(x)`: displays sample quantities of x. Default is min, IQR, max
+    * `quantile(x)`: displays sample quantiles of x. Default is min, IQR, max
     * `range(x)`: displays the range. Same as `c(min(x), max(x))`
     * `sum(x)`: sum of x
     * **all have a **`na.rm` for missing data - discussed later 
