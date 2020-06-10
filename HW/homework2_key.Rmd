@@ -1,11 +1,17 @@
 ---
-title: "Homework 2 - Key"
-author: "Andrew Jaffe"
-date: "January 9, 2019"
-output: html_document
+title: '**KEY** Introduction to R: Homework 2'
+author: "Authored by Andrew Jaffe"
+date: "10 June 2020"
+output:
+  html_document: default
 ---
 
-This is the second homework assignment for Intro to R. You must submit both the RMD and "knitted" HTML files are due before class on Wednesday (Day 3)
+### **Instructions**
+1. You must submit both the RMD and "knitted" HTML files.<br />
+2. All assignments are due by the end of the grading period for this term (26 June 2020).
+
+### **Getting Started**
+In this assignment, we will be working with a dataset from the "Kaggle" website, which hosts competitions for prediction and machine learning. More details on this dataset are here: http://www.kaggle.com/c/DontGetKicked/details/Background.
 
 ```{r initiatePackages, message=FALSE}
 ## you can add more, or change...these are suggestions
@@ -16,28 +22,27 @@ library(ggplot2)
 library(tidyr)
 ```
 
-This is a dataset from the "Kaggle" website, which hosts competitions for prediction and machine learning. More details on this dataset are here: http://www.kaggle.com/c/DontGetKicked/details/Background
+### **Problem Set**
 
-Questions: 
+1) Get the dataset: http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv.<br />
+Read the data set in using `read_csv()` and name the dataset "cars".
 
-1)	Get the dataset: http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv
-read the data set in using `read_csv()`, name the dataset `cars`.
-
-```{r q1,message=FALSE}
+```{r q1, message=FALSE}
 cars = read_csv(
   "http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv",
   col_types = cols(VehBCost = col_double())
   )
 ```
 
-2)	Read the "dictionary": http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt
-use the `read_tsv()` function and name it `key`. 
+2) Import the "dictionary" from http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt_.<br />
+Use the `read_tsv()` function and name it "key". 
 
 ```{r q2, message=FALSE}
 key = read_tsv("http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt")
 ```
 
-3) (Optional) What would you do if the data was formatted like this: http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary.txt with spaces and tabs and such?  See the `readLines` function.
+3) (Optional) What would you do if the data was formatted with spaces and tabs and such, like this one: http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary.txt<br /> 
+**Hint:** see the `readLines()` function.
 
 ```{r}
 dict = readLines("http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary.txt")
@@ -58,13 +63,13 @@ dict = dict[-1,]
 dict = tibble::as_data_frame(dict)
 ```
 
-4) Save the key and data in an ".rda" file so you can access the data offline using the `save()` function. 
+4) Save the key and data in an .rda file so you can access the data offline using the `save()` function. 
 
 ```{r q4}
 save(cars, key, file = "kaggle.rda")
 ```
 
-5)	How many cars are in the dataset? How many variables are recorded for each car?
+5) How many cars are in the dataset? How many variables are recorded for each car?
 
 ```{r q5}
 dim(cars)
@@ -73,14 +78,15 @@ nrow(cars)
 
 There are `r nrow(cars)` observations in the dataset.
 
-6) What is the range of the manufacturer's years of the vehicles? Use VehYear
+6) What is the range of the manufacturer's years of the vehicles? Use "VehYear".
 
 ```{r q6}
 range(cars$VehYear)
 table(cars$VehYear)
 ```
 
-7) How many cars were from before 2004, and what percent/proportion do these represent? Hint: use summarize/filter or sum
+7) How many cars were from before 2004, and what percent/proportion do these represent?<br /> 
+**Hint:** use `summarize()` and `filter()` functions or `sum()`.
 
 ```{r, q7}
 sum(cars$VehYear < 2004)
@@ -88,8 +94,9 @@ mean(cars$VehYear < 2004)
 table(cars$VehYear < 2004)
 ```
 
-8) Drop any vehicles that cost less than or equal to $1500 (VehBCost), or missing - (`filter()` removes missing values!). How many vehicles were removed? 
-Note the rest of the questions expect answers based on this reduced dataset.
+8) Drop any vehicles that cost less than or equal to $1500 ("VehBCost") or that have missing values. How many vehicles were removed?<br />
+**Hint:** `filter()` removes missing values.<br />
+**Use this reduced dataset (generated in question 8) for all subsequent questions (9 through 12).**
 
 ```{r, q8}
 sum(cars$VehBCost <= 1500 | is.na(cars$VehBCost))
@@ -99,7 +106,8 @@ nrow(cars)
 
 There are `r nrow(cars)` after filtering by price.
 
-9) How many different vehicle a) manufacturers/makes (Make), b) models (Model) and c) sizes (Size) are there? Hint: use `table()` or `group_by()` with `tally()`/`summarize()`
+9) How many different vehicle a) manufacturers/makes ("Make"), b) models ("Model"), and c) sizes ("Size") are there?<br />
+**Hint:** use `table()` or `group_by()` with `tally()` or `summarize()`.
 
 ```{r, q9}
 length(unique(cars$Make)) # a
@@ -108,7 +116,8 @@ length(unique(cars$Model)) # b
 length(unique(cars$Size)) # c
 ```
 
-10)	Which vehicle a) make, b) model and c) color had the highest average acquisition cost paid for the vehicle at time of purchase, and what was this cost? Hint: use  `group_by()` with `summarize()`
+10) Which vehicle a) make, b) model, and c) color had the highest average acquisition cost paid for the vehicle at time of purchase, and what was this cost?<br />
+**Hint:** use  `group_by()` with `summarize()`.
 
 ```{r, q10}
 cars %>% group_by(Make) %>% 
@@ -123,7 +132,7 @@ cars %>% group_by(Color) %>%
   arrange(desc(mean))
 ```
 
-11)	Which vehicle a) make, b) model and c) color had the highest variability in acquisition cost paid for the vehicle at time of purchase?
+11) Which vehicle a) make, b) model, and c) color had the highest variability in acquisition cost paid for the vehicle at time of purchase?
 
 ```{r q11}
 cars %>% group_by(Make) %>% 
@@ -138,12 +147,12 @@ cars %>% group_by(Color) %>%
   arrange(desc(var))
 ```
 
-12)	 How many vehicles (using `filter()` or `sum()`):
- a. Were red and have fewer than 30,000 miles?
- b. Are made by GMC and were purchased in Texas? 
- c. Are blue or red?
- d. Are made by Chrysler or Nissan and are white or silver?
- e. Are automatic, blue, Pontiac cars with under 40,000 miles? 
+12) How many vehicles (using `filter()` or `sum()` ):
+    a. Were red and have fewer than 30,000 miles?
+    b. Are made by GMC and were purchased in Texas? 
+    c. Are blue or red?
+    d. Are made by Chrysler or Nissan and are white or silver?
+    e. Are automatic, blue, Pontiac cars with under 40,000 miles? 
  
 ```{r, q12}
 sum(cars$Color == "RED" & cars$VehOdo < 30000)
