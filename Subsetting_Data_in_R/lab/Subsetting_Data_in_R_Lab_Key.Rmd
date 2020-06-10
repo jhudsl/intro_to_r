@@ -74,13 +74,13 @@ cars = rownames_to_column(mtcars, var = "car")
 6. Subset the columns from `cars` that end in `"p"` and call it `pvars`, use `ends_with()`.
 
 ```{r}
-pvars = select(cars, ends_with("p"))
+pvars = select(cars, car, ends_with("p"))
 ```
 
 7. Create a subset of the data that only contains the columns: `wt`, `qsec`, and `hp` and assign this object to `carsSub` - what are the dimensions of this dataset? Use `select()` (and `dim`):
 
 ```{r}
-carsSub = select(mtcars, wt, qsec, hp)
+carsSub = select(cars, car, wt, qsec, hp)
 dim(carsSub)
 ```
 
@@ -97,9 +97,10 @@ carsSub = rename_all(carsSub, toupper)
 9. Subset the rows of cars that get more than 20 miles per gallon (`mpg`) of fuel efficiency - how many are there? Use `filter()`
 
 ```{r}
-cars_mpg = filter(cars, mpg > 18)
+cars_mpg = filter(cars, mpg > 20)
 dim(cars_mpg)
 nrow(cars_mpg)
+glimpse(cars_mpg)
 # filter(cars, mpg > 20)
 ```
 
