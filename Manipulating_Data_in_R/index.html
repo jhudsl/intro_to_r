@@ -40,6 +40,19 @@
     };
   </script>
 
+  <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
   <style type="text/css">@font-face {
 font-family: 'Open Sans';
 font-style: normal;
@@ -3170,7 +3183,7 @@ width:48%;
         <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
     <hgroup class="auto-fadein">
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
-      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      
       <p data-config-presenter><!-- populated from slide_config.json --></p>
           </hgroup>
   </slide>
@@ -3182,7 +3195,7 @@ width:48%;
 <ol>
 <li>Reshaping data from wide (fat) to long (tall)</li>
 <li>Reshaping data from long (tall) to wide (fat)</li>
-<li>Merging Data</li>
+<li>Merging Data/Joins</li>
 <li>Perform operations by a grouping variable</li>
 </ol>
 
@@ -3289,10 +3302,11 @@ sum( is.na(circ$date) ) # all converted correctly</pre>
 <p><code>tidyr</code> allows you to &ldquo;tidy&rdquo; your data. We will be talking about:</p>
 
 <ul>
-<li><code>gather</code> - make multiple columns into variables, (wide to long)</li>
-<li><code>spread</code> - make a variable into multiple columns, (long to wide)</li>
-<li><code>separate</code> - string into multiple columns</li>
-<li><code>unite</code> - multiple columns into one string</li>
+<li><p><code>gather</code> - make multiple columns into variables, (wide to long)</p></li>
+<li><p><code>spread</code> - make a variable into multiple columns, (long to wide)</p></li>
+<li><p><code>separate</code> - string into multiple columns</p></li>
+<li><p><code>unite</code> - multiple columns into one string</p></li>
+<li><p>All the &ldquo;join&rdquo; functions for mergin are in <code>dplyr</code></p></li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Reshaping data from wide (fat) to long (tall): tidyr</h2></hgroup><article  id="reshaping-data-from-wide-fat-to-long-tall-tidyr">
@@ -3579,12 +3593,19 @@ tail(visits, 2)</pre>
 <pre class = 'prettyprint lang-r'>library(tidylog)
 left_join(base, visits)</pre>
 
-<pre >Joining, by = &quot;id&quot;left_join: added 2 columns (visit, Outcome)
-           &gt; rows only in x    2
-           &gt; rows only in y  ( 1)
-           &gt; matched rows     24    (includes duplicates)
-           &gt;                 ====
-           &gt; rows total       26</pre>
+<pre >Joining, by = &quot;id&quot;</pre>
+
+<pre >left_join: added 2 columns (visit, Outcome)</pre>
+
+<pre >           &gt; rows only in x    2</pre>
+
+<pre >           &gt; rows only in y  ( 1)</pre>
+
+<pre >           &gt; matched rows     24    (includes duplicates)</pre>
+
+<pre >           &gt;                 ====</pre>
+
+<pre >           &gt; rows total       26</pre>
 
 <pre ># A tibble: 26 x 4
       id   Age visit Outcome
@@ -3605,19 +3626,26 @@ left_join(base, visits)</pre>
 
 <pre class = 'prettyprint lang-r'>rj = right_join(base, visits)</pre>
 
-<pre >Joining, by = &quot;id&quot;right_join: added 2 columns (visit, Outcome)
-            &gt; rows only in x  ( 2)
-            &gt; rows only in y    1
-            &gt; matched rows     24
-            &gt;                 ====
-            &gt; rows total       25</pre>
+<pre >Joining, by = &quot;id&quot;</pre>
+
+<pre >right_join: added 2 columns (visit, Outcome)</pre>
+
+<pre >            &gt; rows only in x  ( 2)</pre>
+
+<pre >            &gt; rows only in y    1</pre>
+
+<pre >            &gt; matched rows     24</pre>
+
+<pre >            &gt;                 ====</pre>
+
+<pre >            &gt; rows total       25</pre>
 
 <pre class = 'prettyprint lang-r'>tail(rj, 3)</pre>
 
 <pre ># A tibble: 3 x 4
      id   Age visit Outcome
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-1     7  58.3     2    46.7
+1     8  58.9     1    35  
 2     8  58.9     3    48.3
 3    11  NA       3    50  </pre>
 
@@ -3625,12 +3653,19 @@ left_join(base, visits)</pre>
 
 <pre class = 'prettyprint lang-r'>rj2 = right_join(visits, base)</pre>
 
-<pre >Joining, by = &quot;id&quot;right_join: added one column (Age)
-            &gt; rows only in x  ( 1)
-            &gt; rows only in y    2
-            &gt; matched rows     24    (includes duplicates)
-            &gt;                 ====
-            &gt; rows total       26</pre>
+<pre >Joining, by = &quot;id&quot;</pre>
+
+<pre >right_join: added one column (Age)</pre>
+
+<pre >            &gt; rows only in x  ( 1)</pre>
+
+<pre >            &gt; rows only in y    2</pre>
+
+<pre >            &gt; matched rows     24    (includes duplicates)</pre>
+
+<pre >            &gt;                 ====</pre>
+
+<pre >            &gt; rows total       26</pre>
 
 <pre class = 'prettyprint lang-r'>tail(rj2, 3)</pre>
 
@@ -3641,6 +3676,10 @@ left_join(base, visits)</pre>
 2     9    NA    NA    59.4
 3    10    NA    NA    60  </pre>
 
+<pre >select: no changes</pre>
+
+<pre >select: columns reordered (id, visit, Outcome, Age)</pre>
+
 <pre class = 'prettyprint lang-r'>identical(rj2, lj) ## after some rearranging</pre>
 
 <pre >[1] TRUE</pre>
@@ -3649,21 +3688,115 @@ left_join(base, visits)</pre>
 
 <pre class = 'prettyprint lang-r'>fj = full_join(base, visits)</pre>
 
-<pre >Joining, by = &quot;id&quot;full_join: added 2 columns (visit, Outcome)
-           &gt; rows only in x    2
-           &gt; rows only in y    1
-           &gt; matched rows     24    (includes duplicates)
-           &gt;                 ====
-           &gt; rows total       27</pre>
+<pre >Joining, by = &quot;id&quot;</pre>
 
-<pre class = 'prettyprint lang-r'>tail(fj, 3)</pre>
+<pre >full_join: added 2 columns (visit, Outcome)</pre>
 
-<pre ># A tibble: 3 x 4
+<pre >           &gt; rows only in x    2</pre>
+
+<pre >           &gt; rows only in y    1</pre>
+
+<pre >           &gt; matched rows     24    (includes duplicates)</pre>
+
+<pre >           &gt;                 ====</pre>
+
+<pre >           &gt; rows total       27</pre>
+
+<pre class = 'prettyprint lang-r'>tail(fj, 4)</pre>
+
+<pre ># A tibble: 4 x 4
      id   Age visit Outcome
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-1     9  59.4    NA      NA
-2    10  60      NA      NA
-3    11  NA       3      50</pre>
+1     8  58.9     3    48.3
+2     9  59.4    NA    NA  
+3    10  60      NA    NA  
+4    11  NA       3    50  </pre>
+
+</article></slide><slide class=""><hgroup><h2>Using the <code>by</code> argument</h2></hgroup><article  id="using-the-by-argument">
+
+<p>By default - uses intersection of column names. If <code>by</code> specified, then uses that, but if other columns with same name, adds <code>suffix</code>.</p>
+
+<pre class = 'prettyprint lang-r'>base = base %&gt;% mutate(x = 5)</pre>
+
+<pre >mutate: new variable &#39;x&#39; with one unique value and 0% NA</pre>
+
+<pre class = 'prettyprint lang-r'>viits = visits %&gt;% mutate(x = 4)</pre>
+
+<pre >mutate: new variable &#39;x&#39; with one unique value and 0% NA</pre>
+
+<pre class = 'prettyprint lang-r'>head(full_join(base, visits))</pre>
+
+<pre >Joining, by = &quot;id&quot;</pre>
+
+<pre >full_join: added 2 columns (visit, Outcome)</pre>
+
+<pre >           &gt; rows only in x    2</pre>
+
+<pre >           &gt; rows only in y    1</pre>
+
+<pre >           &gt; matched rows     24    (includes duplicates)</pre>
+
+<pre >           &gt;                 ====</pre>
+
+<pre >           &gt; rows total       27</pre>
+
+<pre ># A tibble: 6 x 5
+     id   Age     x visit Outcome
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+1     1  55       5     1    10  
+2     1  55       5     3    23.3
+3     1  55       5     2    36.7
+4     2  55.6     5     2    11.7
+5     2  55.6     5     1    25  
+6     2  55.6     5     3    38.3</pre>
+
+<pre class = 'prettyprint lang-r'>head(full_join(base, visits, by = &quot;id&quot;))</pre>
+
+<pre >full_join: added 2 columns (visit, Outcome)</pre>
+
+<pre >           &gt; rows only in x    2</pre>
+
+<pre >           &gt; rows only in y    1</pre>
+
+<pre >           &gt; matched rows     24    (includes duplicates)</pre>
+
+<pre >           &gt;                 ====</pre>
+
+<pre >           &gt; rows total       27</pre>
+
+<pre ># A tibble: 6 x 5
+     id   Age     x visit Outcome
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+1     1  55       5     1    10  
+2     1  55       5     3    23.3
+3     1  55       5     2    36.7
+4     2  55.6     5     2    11.7
+5     2  55.6     5     1    25  
+6     2  55.6     5     3    38.3</pre>
+
+<pre class = 'prettyprint lang-r'>head(full_join(base, visits, by = &quot;id&quot;, suffix = c(&quot;_base&quot;, &quot;_visit&quot;)))</pre>
+
+<pre >full_join: added 2 columns (visit, Outcome)</pre>
+
+<pre >           &gt; rows only in x    2</pre>
+
+<pre >           &gt; rows only in y    1</pre>
+
+<pre >           &gt; matched rows     24    (includes duplicates)</pre>
+
+<pre >           &gt;                 ====</pre>
+
+<pre >           &gt; rows total       27</pre>
+
+<pre ># A tibble: 6 x 5
+     id   Age     x visit Outcome
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+1     1  55       5     1    10  
+2     1  55       5     3    23.3
+3     1  55       5     2    36.7
+4     2  55.6     5     2    11.7
+5     2  55.6     5     1    25  
+6     2  55.6     5     3    38.3</pre>
 
 </article></slide><slide class=""><hgroup><h2>Duplicated</h2></hgroup><article  id="duplicated">
 
@@ -3818,33 +3951,33 @@ head(not_namat, 2)</pre>
 <pre class = 'prettyprint lang-r'>merged.data &lt;- merge(base, visits, by = &quot;id&quot;)
 head(merged.data, 5)</pre>
 
-<pre >  id      Age visit  Outcome
-1  1 55.00000     1 10.00000
-2  1 55.00000     3 23.33333
-3  1 55.00000     2 36.66667
-4  2 55.55556     2 11.66667
-5  2 55.55556     1 25.00000</pre>
+<pre >  id      Age x visit  Outcome
+1  1 55.00000 5     1 10.00000
+2  1 55.00000 5     3 23.33333
+3  1 55.00000 5     2 36.66667
+4  2 55.55556 5     2 11.66667
+5  2 55.55556 5     1 25.00000</pre>
 
 <pre class = 'prettyprint lang-r'>dim(merged.data)</pre>
 
-<pre >[1] 24  4</pre>
+<pre >[1] 24  5</pre>
 
 </article></slide><slide class=""><hgroup><h2>Merging</h2></hgroup><article  id="merging-1">
 
 <pre class = 'prettyprint lang-r'>all.data &lt;- merge(base, visits, by = &quot;id&quot;, all = TRUE)
 tail(all.data)</pre>
 
-<pre >   id      Age visit  Outcome
-22  8 58.88889     2 21.66667
-23  8 58.88889     1 35.00000
-24  8 58.88889     3 48.33333
-25  9 59.44444    NA       NA
-26 10 60.00000    NA       NA
-27 11       NA     3 50.00000</pre>
+<pre >   id      Age  x visit  Outcome
+22  8 58.88889  5     2 21.66667
+23  8 58.88889  5     1 35.00000
+24  8 58.88889  5     3 48.33333
+25  9 59.44444  5    NA       NA
+26 10 60.00000  5    NA       NA
+27 11       NA NA     3 50.00000</pre>
 
 <pre class = 'prettyprint lang-r'>dim(all.data)</pre>
 
-<pre >[1] 27  4</pre>
+<pre >[1] 27  5</pre>
 
 <!-- # Bonus slides - explore after visualization!  -->
 

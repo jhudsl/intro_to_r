@@ -26,7 +26,7 @@ In this module, we will show you how to:
 
 1. Reshaping data from wide (fat) to long (tall)
 2. Reshaping data from long (tall) to wide (fat)
-3. Merging Data
+3. Merging Data/Joins
 4. Perform operations by a grouping variable
 
 ## Setup
@@ -109,6 +109,8 @@ The `reshape` command exists.  It is a **confusing** function.  Don't use it.
 - `spread` - make a variable into multiple columns, (long to wide)
 - `separate` - string into multiple columns
 - `unite` - multiple columns into one string
+
+- All the "join" functions for mergin are in `dplyr`
 
 
 ## Reshaping data from wide (fat) to long (tall): tidyr 
@@ -310,7 +312,20 @@ identical(rj2, lj) ## after some rearranging
 
 ```{r full_join}
 fj = full_join(base, visits)
-tail(fj, 3)
+tail(fj, 4)
+```
+
+
+## Using the `by` argument
+
+By default - uses intersection of column names.  If `by` specified, then uses that, but if other columns with same name, adds `suffix`.
+
+```{r use_by}
+base = base %>% mutate(x = 5)
+viits = visits %>% mutate(x = 4)
+head(full_join(base, visits))
+head(full_join(base, visits, by = "id"))
+head(full_join(base, visits, by = "id", suffix = c("_base", "_visit")))
 ```
 
 ## Duplicated

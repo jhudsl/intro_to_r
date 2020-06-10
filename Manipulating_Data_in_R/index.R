@@ -147,7 +147,15 @@ identical(rj2, lj) ## after some rearranging
 
 ## ----full_join----------------------------------------------------------------
 fj = full_join(base, visits)
-tail(fj, 3)
+tail(fj, 4)
+
+
+## ----use_by-------------------------------------------------------------------
+base = base %>% mutate(x = 5)
+viits = visits %>% mutate(x = 4)
+head(full_join(base, visits))
+head(full_join(base, visits, by = "id"))
+head(full_join(base, visits, by = "id", suffix = c("_base", "_visit")))
 
 
 ## -----------------------------------------------------------------------------
