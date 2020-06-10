@@ -14,6 +14,7 @@ LIST += Knitr
 LIST += Arrays_Split
 LIST += Subsetting_Data_in_R
 LIST += Intro
+LIST += Data_Classes_summary
 
 all:
 	zip -q -r shiny_knitr.zip shiny_knitr/

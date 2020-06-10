@@ -3203,21 +3203,42 @@ width:48%;
 </ul></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Seq</h2></hgroup><article  id="seq">
+</article></slide><slide class=""><hgroup><h2>Character and numeric</h2></hgroup><article  id="character-and-numeric">
 
-<ul>
-<li><code>seq(from, to, by = )</code> can create sequences</li>
-</ul>
+<p>We have already covered <code>character</code> and <code>numeric</code> types.</p>
 
-<pre class = 'prettyprint lang-r'>seq(from = 1, to = 5) </pre>
+<pre class = 'prettyprint lang-r'>class(c(&quot;Andrew&quot;, &quot;Jaffe&quot;))</pre>
+
+<pre >## [1] &quot;character&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>class(c(1, 4, 7))</pre>
+
+<pre >## [1] &quot;numeric&quot;</pre>
+
+</article></slide><slide class=""><hgroup><h2>Integer</h2></hgroup><article  id="integer">
+
+<p><code>Integer</code> is a special subset of <code>numeric</code> that contains only whole numbers</p>
+
+<p>A sequence of numbers is an example of the integer type</p>
+
+<pre class = 'prettyprint lang-r'>x = seq(from = 1, to = 5) # seq() is a function
+x</pre>
 
 <pre >## [1] 1 2 3 4 5</pre>
 
-<pre class = 'prettyprint lang-r'>seq(from = 1, to = 5, by = 0.1) </pre>
+<pre class = 'prettyprint lang-r'>class(x)</pre>
 
-<pre >##  [1] 1.0 1.1 1.2 1.3 1.4 1.5 1.6 1.7 1.8 1.9 2.0 2.1 2.2 2.3 2.4 2.5 2.6 2.7 2.8
-## [20] 2.9 3.0 3.1 3.2 3.3 3.4 3.5 3.6 3.7 3.8 3.9 4.0 4.1 4.2 4.3 4.4 4.5 4.6 4.7
-## [39] 4.8 4.9 5.0</pre>
+<pre >## [1] &quot;integer&quot;</pre>
+
+</article></slide><slide class=""><hgroup><h2>Integer</h2></hgroup><article  id="integer-1">
+
+<p>The colon <code>:</code> is a shortcut for making sequences of numbers</p>
+
+<p>It makes consecutive integer sequence from <code>[num1]</code> to <code>[num2]</code> by 1</p>
+
+<pre class = 'prettyprint lang-r'>1:5</pre>
+
+<pre >## [1] 1 2 3 4 5</pre>
 
 </article></slide><slide class=""><hgroup><h2>Logical</h2></hgroup><article  id="logical">
 
@@ -3228,6 +3249,18 @@ class(x)</pre>
 
 <pre >## [1] &quot;logical&quot;</pre>
 
+<pre class = 'prettyprint lang-r'>is.numeric(c(&quot;Andrew&quot;, &quot;Jaffe&quot;))</pre>
+
+<pre >## [1] FALSE</pre>
+
+<pre class = 'prettyprint lang-r'>is.character(c(&quot;Andrew&quot;, &quot;Jaffe&quot;))</pre>
+
+<pre >## [1] TRUE</pre>
+
+</article></slide><slide class=""><hgroup><h2>Logical</h2></hgroup><article  id="logical-1">
+
+<p>Note that <code>logical</code> elements are NOT in quotes.</p>
+
 <pre class = 'prettyprint lang-r'>z = c(&quot;TRUE&quot;, &quot;FALSE&quot;, &quot;TRUE&quot;, &quot;FALSE&quot;)
 class(z)</pre>
 
@@ -3237,42 +3270,37 @@ class(z)</pre>
 
 <pre >## [1]  TRUE FALSE  TRUE FALSE</pre>
 
-</article></slide><slide class=""><hgroup><h2><code>as.</code> and <code>is.</code> functions</h2></hgroup><article  id="as.-and-is.-functions">
+<p>Bonus: <code>sum()</code> and <code>mean()</code> work on <code>logical</code> vectors - they return the total and proportion of <code>TRUE</code> elements, respectively.</p>
 
-<ul>
-<li><code>as.numeric</code>, <code>as.character</code>, <code>as.logical</code>, <code>as.integer</code> - &ldquo;coerces&rdquo;/changes a vector into that data type - MAY RESULT in <code>NA</code></li>
-<li><code>is.numeric</code>, <code>is.character</code>, <code>is.logical</code>, <code>is.integer</code> gives a single <code>TRUE</code> or <code>FALSE</code> if that vector is that class</li>
-</ul>
+<pre class = 'prettyprint lang-r'>sum(as.logical(z))</pre>
 
-<pre class = 'prettyprint lang-r'>is.logical(c(TRUE, FALSE))</pre>
+<pre >## [1] 2</pre>
 
-<pre >## [1] TRUE</pre>
+</article></slide><slide class=""><hgroup><h2>General Class Information</h2></hgroup><article  id="general-class-information">
 
-<pre class = 'prettyprint lang-r'>is.numeric(c(TRUE, FALSE))</pre>
+<p>There are two useful functions associated with practically all R classes, which relate to logically checking the underlying class (<code>is.CLASS_()</code>) and coercing between classes (<code>as.CLASS_()</code>).</p>
+
+<pre class = 'prettyprint lang-r'>is.numeric(c(&quot;Andrew&quot;, &quot;Jaffe&quot;))</pre>
 
 <pre >## [1] FALSE</pre>
 
-<pre class = 'prettyprint lang-r'>as.numeric(c(TRUE, FALSE))</pre>
+<pre class = 'prettyprint lang-r'>is.character(c(&quot;Andrew&quot;, &quot;Jaffe&quot;))</pre>
 
-<pre >## [1] 1 0</pre>
+<pre >## [1] TRUE</pre>
 
-<pre class = 'prettyprint lang-r'>as.numeric(c(&quot;5&quot;, &quot;0&quot;, &quot;$0 &quot;))</pre>
+</article></slide><slide class=""><hgroup><h2>General Class Information</h2></hgroup><article  id="general-class-information-1">
+
+<p>There are two useful functions associated with practically all R classes, which relate to logically checking the underlying class (<code>is.CLASS_()</code>) and coercing between classes (<code>as.CLASS_()</code>).</p>
+
+<pre class = 'prettyprint lang-r'>as.character(c(1, 4, 7))</pre>
+
+<pre >## [1] &quot;1&quot; &quot;4&quot; &quot;7&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>as.numeric(c(&quot;Andrew&quot;, &quot;Jaffe&quot;))</pre>
 
 <pre >## Warning: NAs introduced by coercion</pre>
 
-<pre >## [1]  5  0 NA</pre>
-
-<pre class = 'prettyprint lang-r'>as.character(c(TRUE, FALSE))</pre>
-
-<pre >## [1] &quot;TRUE&quot;  &quot;FALSE&quot;</pre>
-
-<pre class = 'prettyprint lang-r'>as.integer(c(TRUE, FALSE))</pre>
-
-<pre >## [1] 1 0</pre>
-
-<pre class = 'prettyprint lang-r'>as.logical(c(5, 0))</pre>
-
-<pre >## [1]  TRUE FALSE</pre>
+<pre >## [1] NA NA</pre>
 
 </article></slide><slide class=""><hgroup><h2>Factors</h2></hgroup><article  id="factors">
 
@@ -3292,38 +3320,433 @@ x </pre>
 
 </article></slide><slide class=""><hgroup><h2>Factors</h2></hgroup><article  id="factors-1">
 
-<ul>
-<li>don’t use <code>as.factor</code>, use <code>factor</code>, even when re-creating a factor</li>
-<li>don’t use the <code>relevel</code> function. Use the <code>levels</code> function to grab the levels if you need.<br/></li>
-<li>The <code>fct_relevel</code> function in <code>forcats</code> (in tidyverse) is fine to use.</li>
-<li>Check out the <code>forcats</code> functions <code>fct_inorder</code>, <code>fct_infreq</code>, <code>fct_lump</code></li>
-</ul>
+<p>Factors are used to represent categorical data, and can also be used for ordinal data (ie categories have an intrinsic ordering)</p>
+
+<p>Note that R reads in character strings as factors by default in functions like <code>read.csv()</code> (but not <code>read_csv</code>)</p>
+
+<p>&lsquo;The function factor is used to encode a vector as a factor (the terms ’category&rsquo; and &lsquo;enumerated type&rsquo; are also used for factors). If argument ordered is TRUE, the factor levels are assumed to be ordered.’</p>
+
+<pre >factor(x = character(), levels, labels = levels,
+       exclude = NA, ordered = is.ordered(x))</pre>
+
+</article></slide><slide class=""><hgroup><h2>Necessary for the lab: <code>%in%</code></h2></hgroup><article  id="necessary-for-the-lab-in">
+
+<pre class = 'prettyprint lang-r'>x = c(0, 2, 2, 3, 4)
+(x == 0 | x == 2) </pre>
+
+<pre >## [1]  TRUE  TRUE  TRUE FALSE FALSE</pre>
+
+<p>Introduce the <code>%in%</code> operator:</p>
+
+<pre class = 'prettyprint lang-r'>x %in% c(0, 2) # NEVER has NA and returns logical</pre>
+
+<pre >## [1]  TRUE  TRUE  TRUE FALSE FALSE</pre>
+
+<p>reads &ldquo;return <code>TRUE</code> if <code>x</code> is in 0 or 2&rdquo;. (Like <code>inlist</code> in Stata).</p>
+
+</article></slide><slide class=""><hgroup><h2>Lab Part 1</h2></hgroup><article  id="lab-part-1">
+
+<p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
+
+</article></slide><slide class=""><hgroup><h2>Factors</h2></hgroup><article  id="factors-2">
+
+<p>Suppose we have a vector of case-control status</p>
+
+<pre class = 'prettyprint lang-r'>cc = factor(c(&quot;case&quot;,&quot;case&quot;,&quot;case&quot;,
+        &quot;control&quot;,&quot;control&quot;,&quot;control&quot;))
+cc</pre>
+
+<pre >## [1] case    case    case    control control control
+## Levels: case control</pre>
+
+<p>We can reset the levels using the <code>levels</code> function, but this is <strong>bad</strong> and can cause problems. You should do this using the <code>levels</code> argument in the <code>factor()</code></p>
+
+<pre class = 'prettyprint lang-r'>levels(cc) = c(&quot;control&quot;,&quot;case&quot;)
+cc</pre>
+
+<pre >## [1] control control control case    case    case   
+## Levels: control case</pre>
+
+</article></slide><slide class=""><hgroup><h2>Factors</h2></hgroup><article  id="factors-3">
+
+<p>Note that the levels are alphabetically ordered by default. We can also specify the levels within the factor call</p>
+
+<pre class = 'prettyprint lang-r'>casecontrol = c(&quot;case&quot;,&quot;case&quot;,&quot;case&quot;,&quot;control&quot;,
+          &quot;control&quot;,&quot;control&quot;)
+factor(casecontrol, levels = c(&quot;control&quot;,&quot;case&quot;) )</pre>
+
+<pre >## [1] case    case    case    control control control
+## Levels: control case</pre>
+
+<pre class = 'prettyprint lang-r'>factor(casecontrol, levels = c(&quot;control&quot;,&quot;case&quot;), 
+       ordered=TRUE)</pre>
+
+<pre >## [1] case    case    case    control control control
+## Levels: control &lt; case</pre>
+
+</article></slide><slide class=""><hgroup><h2>Factors</h2></hgroup><article  id="factors-4">
+
+<p>Another way to do this once you already have the factor made is with the <code>relevel()</code> function.</p>
+
+<pre class = 'prettyprint lang-r'>cc = factor(c(&quot;case&quot;,&quot;case&quot;,&quot;case&quot;,
+        &quot;control&quot;,&quot;control&quot;,&quot;control&quot;))
+relevel(cc, &quot;control&quot;)</pre>
+
+<pre >## [1] case    case    case    control control control
+## Levels: control case</pre>
+
+</article></slide><slide class=""><hgroup><h2>Factors</h2></hgroup><article  id="factors-5">
+
+<p>One of the core &ldquo;tidyverse&rdquo; packages is <code>forcats</code> which offers useful functionality for interacting with factors. For example, there is a function for releveling factors here:</p>
+
+<pre class = 'prettyprint lang-r'>fct_relevel(cc, &quot;control&quot;)</pre>
+
+<pre >## [1] case    case    case    control control control
+## Levels: control case</pre>
+
+</article></slide><slide class=""><hgroup><h2>Factors</h2></hgroup><article  id="factors-6">
+
+<p>There are other useful functions for dictating the levels of factors, like in the order they appears in the vector, by frequency, or into collapsed groups.</p>
+
+<pre class = 'prettyprint lang-r'>levels(fct_inorder(chickwts$feed))</pre>
+
+<pre >## [1] &quot;horsebean&quot; &quot;linseed&quot;   &quot;soybean&quot;   &quot;sunflower&quot; &quot;meatmeal&quot;  &quot;casein&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>levels(fct_infreq(chickwts$feed))</pre>
+
+<pre >## [1] &quot;soybean&quot;   &quot;casein&quot;    &quot;linseed&quot;   &quot;sunflower&quot; &quot;meatmeal&quot;  &quot;horsebean&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>levels(fct_lump(chickwts$feed, n=1))</pre>
+
+<pre >## [1] &quot;soybean&quot; &quot;Other&quot;</pre>
+
+</article></slide><slide class=""><hgroup><h2>Factors</h2></hgroup><article  id="factors-7">
+
+<p>Factors can be converted to <code>numeric</code> or <code>character</code> very easily</p>
+
+<pre class = 'prettyprint lang-r'>x = factor(casecontrol,
+        levels = c(&quot;control&quot;,&quot;case&quot;) )
+as.character(x)</pre>
+
+<pre >## [1] &quot;case&quot;    &quot;case&quot;    &quot;case&quot;    &quot;control&quot; &quot;control&quot; &quot;control&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>as.numeric(x)</pre>
+
+<pre >## [1] 2 2 2 1 1 1</pre>
+
+</article></slide><slide class=""><hgroup><h2>Creating categorical variables</h2></hgroup><article  id="creating-categorical-variables">
+
+<p>The <code>rep()</code> [&ldquo;repeat&rdquo;] function is useful for creating new variables</p>
+
+<pre class = 'prettyprint lang-r'>bg = rep(c(&quot;boy&quot;,&quot;girl&quot;),each=50)
+head(bg)</pre>
+
+<pre >## [1] &quot;boy&quot; &quot;boy&quot; &quot;boy&quot; &quot;boy&quot; &quot;boy&quot; &quot;boy&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>bg2 = rep(c(&quot;boy&quot;,&quot;girl&quot;),times=50)
+head(bg2)</pre>
+
+<pre >## [1] &quot;boy&quot;  &quot;girl&quot; &quot;boy&quot;  &quot;girl&quot; &quot;boy&quot;  &quot;girl&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>length(bg) == length(bg2)</pre>
+
+<pre >## [1] TRUE</pre>
+
+</article></slide><slide class=""><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
+
+<p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
 
 </article></slide><slide class=""><hgroup><h2>Dates</h2></hgroup><article  id="dates">
 
-<ul>
-<li>Use the <code>lubridate</code> package - period.</li>
-<li>Change dates using <code>ymd</code>, <code>dmy</code>, or <code>mdy</code> or other combinations.
+<p>You can convert date-like strings in the <code>Date</code> class (<a href='http://www.statmethods.net/input/dates.html' title=''>http://www.statmethods.net/input/dates.html</a> for more info) using the <code>lubridate</code> package!</p>
 
-<ul>
-<li><code>lubridate</code> cannot guess this - you also don’t want it to</li>
-<li>If some are <code>ymd</code> and others are <code>dmy</code>, you need to clean</li>
-<li><code>as_date</code> also is a good function to try</li>
-</ul></li>
-<li>Make <code>datetimes</code> using <code>ymd_hms</code>, <code>ymd_hm</code>, or <code>ymd_h</code>
+<pre class = 'prettyprint lang-r'>circ = jhur::read_circulator()
+head(sort(circ$date))</pre>
 
-<ul>
-<li><code>as_datetime</code> also is a good function to try</li>
-</ul></li>
-</ul>
+<pre >## [1] &quot;01/01/2011&quot; &quot;01/01/2012&quot; &quot;01/01/2013&quot; &quot;01/02/2011&quot; &quot;01/02/2012&quot;
+## [6] &quot;01/02/2013&quot;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Lab</h2></hgroup><article  id="lab">
+<pre class = 'prettyprint lang-r'>library(lubridate) # great for dates!
+circ = mutate(circ, newDate2 = mdy(date))
+head(circ$newDate2)</pre>
 
-<p><a href='http://johnmuschelli.com/intro_to_r/Data_Classes/lab/Data_Classes_Lab.Rmd' title=''>Lab</a></p>
+<pre >## [1] &quot;2010-01-11&quot; &quot;2010-01-12&quot; &quot;2010-01-13&quot; &quot;2010-01-14&quot; &quot;2010-01-15&quot;
+## [6] &quot;2010-01-16&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>range(circ$newDate2) # gives you the range of the data</pre>
+
+<pre >## [1] &quot;2010-01-11&quot; &quot;2013-03-01&quot;</pre>
+
+</article></slide><slide class=""><hgroup><h2>Works great - but need to specy the correct format still</h2></hgroup><article  id="works-great---but-need-to-specy-the-correct-format-still">
+
+<p>See <code>?ymd</code> and <code>?ymd_hms</code></p>
+
+<pre class = 'prettyprint lang-r'>x = c(&quot;2014-02-4 05:02:00&quot;, &quot;2016/09/24 14:02:00&quot;)
+ymd_hms(x)</pre>
+
+<pre >## [1] &quot;2014-02-04 05:02:00 UTC&quot; &quot;2016-09-24 14:02:00 UTC&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>ymd_hm(x)</pre>
+
+<pre >## Warning: All formats failed to parse. No formats found.</pre>
+
+<pre >## [1] NA NA</pre>
+
+</article></slide><slide class=""><hgroup><h2>POSIXct</h2></hgroup><article  id="posixct">
+
+<p>The <code>POSIXct</code> class is like a more general date format (with hours, minutes, seconds).</p>
+
+<pre class = 'prettyprint lang-r'>x = c(&quot;2014-02-4 05:02:00&quot;, &quot;2016/09/24 14:02:00&quot;)
+dates = ymd_hms(x)
+class(dates)</pre>
+
+<pre >## [1] &quot;POSIXct&quot; &quot;POSIXt&quot;</pre>
+
+</article></slide><slide class=""><hgroup><h2>Adding Periods of time</h2></hgroup><article  id="adding-periods-of-time">
+
+<p>The <code>as.Period</code> command is helpful for adding time to a date:</p>
+
+<pre class = 'prettyprint lang-r'>theTime = Sys.time()
+theTime</pre>
+
+<pre >## [1] &quot;2020-06-10 14:39:18 EDT&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>class(theTime)</pre>
+
+<pre >## [1] &quot;POSIXct&quot; &quot;POSIXt&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>theTime + as.period(20, unit = &quot;minutes&quot;) # the future</pre>
+
+<pre >## [1] &quot;2020-06-10 14:59:18 EDT&quot;</pre>
+
+</article></slide><slide class=""><hgroup><h2>Differences in Times</h2></hgroup><article  id="differences-in-times">
+
+<p>You can subtract times as well, the <code>difftime</code> function is helpful as you can set the units (note it does <code>time1 - time2</code>):</p>
+
+<pre class = 'prettyprint lang-r'>the_future = ymd_hms(&quot;2020-12-31 11:59:59&quot;)
+the_future - theTime</pre>
+
+<pre >## Time difference of 203.7227 days</pre>
+
+<pre class = 'prettyprint lang-r'>difftime(the_future, theTime, units = &quot;weeks&quot;)</pre>
+
+<pre >## Time difference of 29.10324 weeks</pre>
+
+</article></slide><slide class=""><hgroup><h2>Lab Part 3</h2></hgroup><article  id="lab-part-3">
 
 <p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
 
 </article></slide><slide class=""><hgroup><h2>Website</h2></hgroup><article  id="website">
+
+<p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p>
+
+</article></slide><slide class=""><hgroup><h2>Data Classes:</h2></hgroup><article  id="data-classes">
+
+<ul>
+<li>Two dimensional classes:
+
+<ul>
+<li><code>data.frame</code>: traditional &lsquo;Excel&rsquo; spreadsheets
+
+<ul>
+<li>Each column can have a different class, from above</li>
+</ul></li>
+<li>Matrix: two-dimensional data, composed of rows and columns. Unlike data frames, the entire matrix is composed of one R class, e.g. all numeric or all characters.</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Matrices</h2></hgroup><article  id="matrices">
+
+<pre class = 'prettyprint lang-r'>n = 1:9 
+n</pre>
+
+<pre >## [1] 1 2 3 4 5 6 7 8 9</pre>
+
+<pre class = 'prettyprint lang-r'>mat = matrix(n, nrow = 3)
+mat</pre>
+
+<pre >##      [,1] [,2] [,3]
+## [1,]    1    4    7
+## [2,]    2    5    8
+## [3,]    3    6    9</pre>
+
+</article></slide><slide class=""><hgroup><h2>Data Selection</h2></hgroup><article  id="data-selection">
+
+<p>Matrices have two &ldquo;slots&rdquo; you can use to select data, which represent rows and columns, that are separated by a comma, so the syntax is <code>matrix[row,column]</code>. Note you cannot use <code>dplyr</code> functions on matrices.</p>
+
+<pre class = 'prettyprint lang-r'>mat[1, 1] # individual entry: row 1, column 1</pre>
+
+<pre >## [1] 1</pre>
+
+<pre class = 'prettyprint lang-r'>mat[1, ] # first row</pre>
+
+<pre >## [1] 1 4 7</pre>
+
+<pre class = 'prettyprint lang-r'>mat[, 1] # first columns</pre>
+
+<pre >## [1] 1 2 3</pre>
+
+</article></slide><slide class=""><hgroup><h2>Data Selection</h2></hgroup><article  id="data-selection-1">
+
+<p>Note that the class of the returned object is no longer a matrix</p>
+
+<pre class = 'prettyprint lang-r'>class(mat[1, ])</pre>
+
+<pre >## [1] &quot;integer&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>class(mat[, 1])</pre>
+
+<pre >## [1] &quot;integer&quot;</pre>
+
+</article></slide><slide class=""><hgroup><h2>Data Frames</h2></hgroup><article  id="data-frames">
+
+<p>To review, the <code>data.frame</code>/<code>tbl_df</code> are the other two dimensional variable classes.</p>
+
+<p>Again, data frames are like matrices, but each column is a vector that can have its own class. So some columns might be <code>character</code> and others might be <code>numeric</code>, while others maybe a <code>factor</code>.</p>
+
+</article></slide><slide class=""><hgroup><h2>Lists</h2></hgroup><article  id="lists">
+
+<ul>
+<li>One other data type that is the most generic are <code>lists</code>.</li>
+<li>Can be created using list()</li>
+<li>Can hold vectors, strings, matrices, models, list of other list, lists upon lists!</li>
+<li>Can reference data using $ (if the elements are named), or using [], or [[]]</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>&gt; mylist &lt;- list(letters=c(&quot;A&quot;, &quot;b&quot;, &quot;c&quot;), 
++         numbers=1:3, matrix(1:25, ncol=5))</pre>
+
+</article></slide><slide class=""><hgroup><h2>List Structure</h2></hgroup><article  id="list-structure">
+
+<pre class = 'prettyprint lang-r'>&gt; head(mylist)</pre>
+
+<pre >$letters
+[1] &quot;A&quot; &quot;b&quot; &quot;c&quot;
+
+$numbers
+[1] 1 2 3
+
+[[3]]
+     [,1] [,2] [,3] [,4] [,5]
+[1,]    1    6   11   16   21
+[2,]    2    7   12   17   22
+[3,]    3    8   13   18   23
+[4,]    4    9   14   19   24
+[5,]    5   10   15   20   25</pre>
+
+</article></slide><slide class=""><hgroup><h2>List referencing</h2></hgroup><article  id="list-referencing">
+
+<pre class = 'prettyprint lang-r'>&gt; mylist[1] # returns a list</pre>
+
+<pre >$letters
+[1] &quot;A&quot; &quot;b&quot; &quot;c&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>&gt; mylist[&quot;letters&quot;] # returns a list</pre>
+
+<pre >$letters
+[1] &quot;A&quot; &quot;b&quot; &quot;c&quot;</pre>
+
+</article></slide><slide class=""><hgroup><h2>List referencing</h2></hgroup><article  id="list-referencing-1">
+
+<pre class = 'prettyprint lang-r'>&gt; mylist[[1]] # returns the vector &#39;letters&#39;</pre>
+
+<pre >[1] &quot;A&quot; &quot;b&quot; &quot;c&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>&gt; mylist$letters # returns vector</pre>
+
+<pre >[1] &quot;A&quot; &quot;b&quot; &quot;c&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>&gt; mylist[[&quot;letters&quot;]] # returns the vector &#39;letters&#39;</pre>
+
+<pre >[1] &quot;A&quot; &quot;b&quot; &quot;c&quot;</pre>
+
+</article></slide><slide class=""><hgroup><h2>List referencing</h2></hgroup><article  id="list-referencing-2">
+
+<p>You can also select multiple lists with the single brackets.</p>
+
+<pre class = 'prettyprint lang-r'>&gt; mylist[1:2] # returns a list</pre>
+
+<pre >$letters
+[1] &quot;A&quot; &quot;b&quot; &quot;c&quot;
+
+$numbers
+[1] 1 2 3</pre>
+
+</article></slide><slide class=""><hgroup><h2>List referencing</h2></hgroup><article  id="list-referencing-3">
+
+<p>You can also select down several levels of a list at once</p>
+
+<pre class = 'prettyprint lang-r'>&gt; mylist$letters[1]</pre>
+
+<pre >[1] &quot;A&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>&gt; mylist[[2]][1]</pre>
+
+<pre >[1] 1</pre>
+
+<pre class = 'prettyprint lang-r'>&gt; mylist[[3]][1:2,1:2]</pre>
+
+<pre >     [,1] [,2]
+[1,]    1    6
+[2,]    2    7</pre>
+
+</article></slide><slide class=""><hgroup><h2>Quick Aside: &ldquo;slicing&rdquo; data: like _n and _N in Stata</h2></hgroup><article  id="quick-aside-slicing-data-like-_n-and-_n-in-stata">
+
+<p>In <code>dplyr</code>, there are <code>first</code>, <code>last</code> and <code>nth</code> operators.</p>
+
+<p>If you first sort a data set using <code>arrange</code>, you can grab the first or last as so:</p>
+
+<pre class = 'prettyprint lang-r'>circ %&gt;% 
+  mutate(first_date = first(newDate2),
+         last_date = last(newDate2),
+         third_date = nth(newDate2, 3)) %&gt;% 
+  select(day, date, first_date, last_date, third_date) %&gt;% head(3)</pre>
+
+<pre >## # A tibble: 3 x 5
+##   day       date       first_date last_date  third_date
+##   &lt;chr&gt;     &lt;chr&gt;      &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
+## 1 Monday    01/11/2010 2010-01-11 2013-03-01 2010-01-13
+## 2 Tuesday   01/12/2010 2010-01-11 2013-03-01 2010-01-13
+## 3 Wednesday 01/13/2010 2010-01-11 2013-03-01 2010-01-13</pre>
+
+</article></slide><slide class=""><hgroup><h2>Quick Aside: &ldquo;slicing&rdquo; data</h2></hgroup><article  id="quick-aside-slicing-data">
+
+<p>Many times, you need to group first</p>
+
+<pre class = 'prettyprint lang-r'>circ %&gt;% 
+  group_by(day) %&gt;% 
+  mutate(first_date = first(newDate2),
+         last_date = last(newDate2),
+         third_date = nth(newDate2, 3)) %&gt;% 
+  select(day, date, first_date, last_date, third_date) %&gt;% head(3)</pre>
+
+<pre >## # A tibble: 3 x 5
+## # Groups:   day [3]
+##   day       date       first_date last_date  third_date
+##   &lt;chr&gt;     &lt;chr&gt;      &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
+## 1 Monday    01/11/2010 2010-01-11 2013-02-25 2010-01-25
+## 2 Tuesday   01/12/2010 2010-01-12 2013-02-26 2010-01-26
+## 3 Wednesday 01/13/2010 2010-01-13 2013-02-27 2010-01-27</pre>
+
+</article></slide><slide class=""><hgroup><h2>Differences in Times</h2></hgroup><article  id="differences-in-times-1">
+
+<pre class = 'prettyprint lang-r'>circ = circ %&gt;% 
+  group_by(day) %&gt;% 
+  mutate(first_date = first(newDate2),
+         diff_from_first = difftime( # time1 - time2
+           time1 = newDate2, time2 = first_date)) 
+head(circ$diff_from_first, 10)</pre>
+
+<pre >## Time differences in secs
+##  [1]      0      0      0      0      0      0      0 604800 604800 604800</pre>
+
+<pre class = 'prettyprint lang-r'>units(circ$diff_from_first) = &quot;days&quot;
+head(circ$diff_from_first, 10)</pre>
+
+<pre >## Time differences in days
+##  [1] 0 0 0 0 0 0 0 7 7 7</pre>
+
+</article></slide><slide class=""><hgroup><h2>Website</h2></hgroup><article  id="website-1">
 
 <p><a href='http://johnmuschelli.com/intro_to_r/index.html' title=''>Website</a></p></article></slide>
 
