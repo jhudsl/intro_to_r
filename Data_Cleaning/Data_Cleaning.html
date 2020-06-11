@@ -40,6 +40,19 @@
     };
   </script>
 
+  <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
   <style type="text/css">@font-face {
 font-family: 'Open Sans';
 font-style: normal;
@@ -3170,7 +3183,7 @@ width:48%;
         <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
     <hgroup class="auto-fadein">
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
-      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      
       <p data-config-presenter><!-- populated from slide_config.json --></p>
           </hgroup>
   </slide>
@@ -3209,7 +3222,7 @@ x[5]</pre>
 
 <pre class = 'prettyprint lang-r'>nth(x, n = c(2, 5)) # nth only returns one number</pre>
 
-<pre >Error in nth(x, n = c(2, 5)): length(n) == 1 is not TRUE</pre>
+<pre >Error in format_error_bullets(x[-1]): nms %in% c(&quot;i&quot;, &quot;x&quot;, &quot;&quot;) is not TRUE</pre>
 
 </article></slide><slide class=""><hgroup><h2>Subsetting by deletion of entries</h2></hgroup><article  id="subsetting-by-deletion-of-entries">
 
@@ -3531,9 +3544,6 @@ tab</pre>
 
 <pre class = 'prettyprint lang-r'>tibble(x = fac) %&gt;% count(x)</pre>
 
-<pre >Warning: Factor `x` contains implicit NA, consider using
-`forcats::fct_explicit_na`</pre>
-
 <pre ># A tibble: 4 x 2
   x         n
   &lt;fct&gt; &lt;int&gt;
@@ -3690,7 +3700,7 @@ Sal = rename(Sal, Name = name)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Example of Recoding</h2></hgroup><article  id="example-of-recoding">
 
-<p>For example, let’s say gender was coded as Male, M, m, Female, F, f. Using Excel to find all of these would be a matter of filtering and changing all by hand or using if statements.</p>
+<p>For example, let’s say gender was coded as Male, M, m, Female, F, f. Using Excel to find all of these would be a matter of filtering and changing all by hand or using if statements.</p>
 
 <p>In <code>dplyr</code> you can use the <code>recode</code> function:</p>
 
@@ -3776,7 +3786,7 @@ female Female     fm   male   Male
 
 <ul>
 <li><code>fixed</code> - match everything exactly</li>
-<li><code>regexp</code> - default - uses <strong>reg</strong>ular <strong>exp</strong>ressions</li>
+<li><code>regex</code> - default - uses <strong>reg</strong>ular <strong>exp</strong>ressions</li>
 <li><code>ignore_case</code> is an option to not have to use <code>tolower</code></li>
 </ul>
 
