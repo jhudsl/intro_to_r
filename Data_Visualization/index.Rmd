@@ -49,16 +49,26 @@ mort[1:2, 1:5]
 
 # Data are not Tidy!
 
-## Tidying data: reshape the data
+## ggplot2
 
-After reshaping the data to long, we can plot the data with one `data.frame`:
+Let's try this out on the childhood mortality data used above. However, let's do some manipulation first, by using `gather` on the data to convert to long. 
 
-```{r makelong_swede, fig.align='center', cache = FALSE}
+```{r}
 library(tidyverse)
-long = gather(mort, key = year, value = morts, -country)
+long = mort
+long = long %>% gather(year, morts, -country)
+head(long, 2)
+```
+
+## ggplot2
+
+Let's also make the year numeric, as we did above in the stand-alone `year` variable. 
+
+```{r}
+library(stringr)
+library(dplyr)
+long$year = long$year %>% str_replace("^X", "") %>% as.numeric
 long = long %>% filter(!is.na(morts))
-head(long);   # note class year
-long = long %>% mutate(year = as.numeric(year))
 ```
 
 ## Plot the long data
@@ -303,18 +313,6 @@ dev.off()
 Basically, you are creating a pdf file, and telling R to write any subsequent plots to that file. Once you are done, you turn the device off. Note that failing to turn the device off will create a pdf file that is corrupt, that you cannot open.
 
 
-## Labels and such
-
-- `xlab`/`ylab` - functions to change the labels; `ggtitle` - change the title 
-
-```{r labs, eval = TRUE}
-q = qplot(x = year, y = morts, colour = country, data = sub,
-          geom = "line") + 
-  xlab("Year of Collection") + ylab("morts /100,000") +
-  ggtitle("Mortality of Children over the years", subtitle = "not great") 
-q
-```
-
 ## Saving the output:
 
 ```{r labs_save, eval = TRUE}
@@ -326,6 +324,22 @@ file.exists("morts_over_time.png")
 
 ```{r labs_del, echo = FALSE, results="hide"}
 file.remove("morts_over_time.png")
+```
+
+## Saving the output
+
+There's also a `ggsave` function that is useful for saving a single `ggplot` object. 
+
+## Labels and such
+
+- `xlab`/`ylab` - functions to change the labels; `ggtitle` - change the title 
+
+```{r labs, eval = TRUE}
+q = qplot(x = year, y = morts, colour = country, data = sub,
+          geom = "line") + 
+  xlab("Year of Collection") + ylab("morts /100,000") +
+  ggtitle("Mortality of Children over the years", subtitle = "not great") 
+q
 ```
 
 ## Themes
@@ -560,13 +574,20 @@ ggplot(aes(fill = factor(VehicleAge),
 ```
 
 
-## Histograms again
- 
-We can do histograms again using `hist`.  Let's do histograms of weight at all time points for the chick's weights.  We reiterate how useful these are to show your data.
+## ggplot2 
 
-```{r hist, comment="", fig.align='center', cache=FALSE}
-hist(ChickWeight$weight, breaks = 20)
-```
+Useful links:
+
+* http://docs.ggplot2.org/0.9.3/index.html
+* http://www.cookbook-r.com/Graphs/
+
+
+## Website
+
+[Website](http://johnmuschelli.com/intro_to_r/index.html)
+
+
+# ggplot examples on a second dataset
 
 ## Multiple Histograms
 
@@ -654,64 +675,6 @@ ggplot(aes(x = Time, y = weight, colour = factor(Chick)),
     data = ChickWeight) + geom_line() + 
     facet_wrap(facets = ~Diet) + guides(colour = FALSE)
 ```
-
-
-## ggplot2
-
-Let's try this out on the childhood mortality data used above. However, let's do some manipulation first, by using `gather` on the data to convert to long. 
-
-```{r}
-library(tidyverse)
-long = mort
-long = long %>% gather(year, morts, -country)
-head(long, 2)
-```
-
-## ggplot2
-
-Let's also make the year numeric, as we did above in the stand-alone `year` variable. 
-
-```{r}
-library(stringr)
-library(dplyr)
-long$year = long$year %>% str_replace("^X", "") %>% as.numeric
-long = long %>% filter(!is.na(morts))
-```
-
-## ggplot2
-
-```{r geom_line_qplot, comment="", fig.align='center', cache=FALSE}
-qplot(x = year, y = morts, colour = country, 
-    data = long, geom = "line") + guides(colour = FALSE)
-```
-
-## ggplot2
-
-Let's try to make it different like base R, a bit.  We use `tile` for the geometric unit:
-
-```{r geom_tile}
-qplot(x = year, y = country, colour = morts, 
-    data = long, geom = "tile") + guides(colour = FALSE)
-```
-
-## ggplot2 
-
-Useful links:
-
-* http://docs.ggplot2.org/0.9.3/index.html
-* http://www.cookbook-r.com/Graphs/
-
-
-## Website
-
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
-
-
-
-
-
-
-
 
 
 # Base Graphics - explore on your own
