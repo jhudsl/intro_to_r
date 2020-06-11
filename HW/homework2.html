@@ -379,7 +379,7 @@ summary {
 </div>
 <div id="getting-started" class="section level3">
 <h3><strong>Getting Started</strong></h3>
-<p>In this assignment, we will be working with a dataset from the “Kaggle” website, which hosts competitions for prediction and machine learning. More details on this dataset are here: <a href="http://www.kaggle.com/c/DontGetKicked/details/Background" class="uri">http://www.kaggle.com/c/DontGetKicked/details/Background</a>.</p>
+<p>In this assignment, we will be working with a dataset from the “Kaggle” website, which hosts competitions for prediction and machine learning. More details on this dataset are here: <a href="https://www.kaggle.com/c/DontGetKicked/overview/background" class="uri">https://www.kaggle.com/c/DontGetKicked/overview/background</a>.</p>
 <pre class="r"><code>## you can add more, or change...these are suggestions
 library(tidyverse)
 library(readr)
@@ -391,7 +391,7 @@ library(tidyr)</code></pre>
 <h3><strong>Problem Set</strong></h3>
 <ol style="list-style-type: decimal">
 <li><p>Get the dataset: <a href="http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv" class="uri">http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv</a>.<br /> Read the data set in using <code>read_csv()</code> and name the dataset “cars”.</p></li>
-<li><p>Import the “dictionary” from <a href="http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt_" class="uri">http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt_</a>.<br /> Use the <code>read_tsv()</code> function and name it “key”.</p></li>
+<li><p>Import the “dictionary” from <a href="http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt" class="uri">http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt</a>.<br /> Use the <code>read_tsv()</code> function and name it “key”.</p></li>
 <li><p>(Optional) What would you do if the data was formatted with spaces and tabs and such, like this one: <a href="http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary.txt" class="uri">http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary.txt</a><br /> <strong>Hint:</strong> see the <code>readLines()</code> function.</p></li>
 <li><p>Save the key and data in an .rda file so you can access the data offline using the <code>save()</code> function.</p></li>
 <li><p>How many cars are in the dataset? How many variables are recorded for each car?</p></li>
@@ -399,7 +399,7 @@ library(tidyr)</code></pre>
 <li><p>How many cars were from before 2004, and what percent/proportion do these represent?<br /> <strong>Hint:</strong> use <code>summarize()</code> and <code>filter()</code> functions or <code>sum()</code>.</p></li>
 <li><p>Drop any vehicles that cost less than or equal to $1500 (“VehBCost”) or that have missing values. How many vehicles were removed?<br /> <strong>Hint:</strong> <code>filter()</code> removes missing values.<br /> <strong>Use this reduced dataset (generated in question 8) for all subsequent questions (9 through 12).</strong></p></li>
 <li><p>How many different vehicle a) manufacturers/makes (“Make”), b) models (“Model”), and c) sizes (“Size”) are there?<br /> <strong>Hint:</strong> use <code>table()</code> or <code>group_by()</code> with <code>tally()</code> or <code>summarize()</code>.</p></li>
-<li><p>Which vehicle a) make, b) model, and c) color had the highest average acquisition cost paid for the vehicle at time of purchase, and what was this cost?<br /> <strong>Hint:</strong> use <code>group_by()</code> with <code>summarize()</code>.</p></li>
+<li><p>Which vehicle a) make, b) model, and c) color had the highest average acquisition cost paid for the vehicle at time of purchase, and what was this cost?<br /> <strong>Hint:</strong> use <code>group_by()</code> with <code>summarize()</code>. Be sure to use the key to find the column that corresponds to the aquisition cost paid for the vehicle at time of purchase!</p></li>
 <li><p>Which vehicle a) make, b) model, and c) color had the highest variability in acquisition cost paid for the vehicle at time of purchase?</p></li>
 <li><p>How many vehicles (using <code>filter()</code> or <code>sum()</code> ):</p>
 <ol style="list-style-type: lower-alpha">

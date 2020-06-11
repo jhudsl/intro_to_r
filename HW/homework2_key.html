@@ -379,7 +379,7 @@ summary {
 </div>
 <div id="getting-started" class="section level3">
 <h3><strong>Getting Started</strong></h3>
-<p>In this assignment, we will be working with a dataset from the “Kaggle” website, which hosts competitions for prediction and machine learning. More details on this dataset are here: <a href="http://www.kaggle.com/c/DontGetKicked/details/Background" class="uri">http://www.kaggle.com/c/DontGetKicked/details/Background</a>.</p>
+<p>In this assignment, we will be working with a dataset from the “Kaggle” website, which hosts competitions for prediction and machine learning. More details on this dataset are here: <a href="https://www.kaggle.com/c/DontGetKicked/overview/background" class="uri">https://www.kaggle.com/c/DontGetKicked/overview/background</a>.</p>
 <pre class="r"><code>## you can add more, or change...these are suggestions
 library(tidyverse)
 library(readr)
@@ -397,7 +397,7 @@ library(tidyr)</code></pre>
   col_types = cols(VehBCost = col_double())
   )</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Import the “dictionary” from <a href="http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt_" class="uri">http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt_</a>.<br /> Use the <code>read_tsv()</code> function and name it “key”.</li>
+<li>Import the “dictionary” from <a href="http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt" class="uri">http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt</a>.<br /> Use the <code>read_tsv()</code> function and name it “key”.</li>
 </ol>
 <pre class="r"><code>key = read_tsv(&quot;http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt&quot;)</code></pre>
 <ol start="3" style="list-style-type: decimal">
@@ -477,7 +477,7 @@ nrow(cars)</code></pre>
 <pre class="r"><code>length(unique(cars$Size)) # c</code></pre>
 <pre><code>## [1] 13</code></pre>
 <ol start="10" style="list-style-type: decimal">
-<li>Which vehicle a) make, b) model, and c) color had the highest average acquisition cost paid for the vehicle at time of purchase, and what was this cost?<br /> <strong>Hint:</strong> use <code>group_by()</code> with <code>summarize()</code>.</li>
+<li>Which vehicle a) make, b) model, and c) color had the highest average acquisition cost paid for the vehicle at time of purchase, and what was this cost?<br /> <strong>Hint:</strong> use <code>group_by()</code> with <code>summarize()</code>. Be sure to use the key to find the column that corresponds to the aquisition cost paid for the vehicle at time of purchase!</li>
 </ol>
 <pre class="r"><code>cars %&gt;% group_by(Make) %&gt;% 
   summarize(mean = mean(VehBCost)) %&gt;% 

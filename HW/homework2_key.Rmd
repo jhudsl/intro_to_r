@@ -11,7 +11,7 @@ output:
 2. All assignments are due by the end of the grading period for this term (26 June 2020).
 
 ### **Getting Started**
-In this assignment, we will be working with a dataset from the "Kaggle" website, which hosts competitions for prediction and machine learning. More details on this dataset are here: http://www.kaggle.com/c/DontGetKicked/details/Background.
+In this assignment, we will be working with a dataset from the "Kaggle" website, which hosts competitions for prediction and machine learning. More details on this dataset are here: https://www.kaggle.com/c/DontGetKicked/overview/background.
 
 ```{r initiatePackages, message=FALSE}
 ## you can add more, or change...these are suggestions
@@ -34,7 +34,7 @@ cars = read_csv(
   )
 ```
 
-2) Import the "dictionary" from http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt_.<br />
+2) Import the "dictionary" from http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt.<br />
 Use the `read_tsv()` function and name it "key". 
 
 ```{r q2, message=FALSE}
@@ -117,7 +117,7 @@ length(unique(cars$Size)) # c
 ```
 
 10) Which vehicle a) make, b) model, and c) color had the highest average acquisition cost paid for the vehicle at time of purchase, and what was this cost?<br />
-**Hint:** use  `group_by()` with `summarize()`.
+**Hint:** use  `group_by()` with `summarize()`. Be sure to use the key to find the column that corresponds to the aquisition cost paid for the vehicle at time of purchase!
 
 ```{r, q10}
 cars %>% group_by(Make) %>% 
