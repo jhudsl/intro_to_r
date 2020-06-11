@@ -30,12 +30,18 @@ mort = mort %>% rename(country = X1)
 mort[1:2, 1:5]
 
 
-## ----makelong_swede, fig.align='center', cache = FALSE------------------------
+## -----------------------------------------------------------------------------
 library(tidyverse)
-long = gather(mort, key = year, value = morts, -country)
+long = mort
+long = long %>% gather(year, morts, -country)
+head(long, 2)
+
+
+## -----------------------------------------------------------------------------
+library(stringr)
+library(dplyr)
+long$year = long$year %>% str_replace("^X", "") %>% as.numeric
 long = long %>% filter(!is.na(morts))
-head(long);   # note class year
-long = long %>% mutate(year = as.numeric(year))
 
 
 ## ----plot_long_swede, fig.align='center'--------------------------------------
@@ -135,14 +141,6 @@ qplot(x = year, y = morts, geom = "line", facets = ~ country, data = sub)
 ##   facet_wrap(~ country + x2 + ... )
 
 
-## ----labs, eval = TRUE--------------------------------------------------------
-q = qplot(x = year, y = morts, colour = country, data = sub,
-          geom = "line") + 
-  xlab("Year of Collection") + ylab("morts /100,000") +
-  ggtitle("Mortality of Children over the years", subtitle = "not great") 
-q
-
-
 ## ----labs_save, eval = TRUE---------------------------------------------------
 png("morts_over_time.png")
 print(q)
@@ -152,6 +150,14 @@ file.exists("morts_over_time.png")
 
 ## ----labs_del, echo = FALSE, results="hide"-----------------------------------
 file.remove("morts_over_time.png")
+
+
+## ----labs, eval = TRUE--------------------------------------------------------
+q = qplot(x = year, y = morts, colour = country, data = sub,
+          geom = "line") + 
+  xlab("Year of Collection") + ylab("morts /100,000") +
+  ggtitle("Mortality of Children over the years", subtitle = "not great") 
+q
 
 
 ## ----theme_bw, eval = TRUE----------------------------------------------------
@@ -287,10 +293,6 @@ ggplot(aes(fill = factor(VehicleAge),
        data = perc_yr) + geom_bar(stat = "identity")
 
 
-## ----hist, comment="", fig.align='center', cache=FALSE------------------------
-hist(ChickWeight$weight, breaks = 20)
-
-
 ## ----ghist_chick, comment="", fig.align='center', cache = FALSE---------------
 qplot(x = weight, 
       fill = factor(Diet),
@@ -343,30 +345,6 @@ qplot(x=Time, y=weight, colour = factor(Chick),
 ggplot(aes(x = Time, y = weight, colour = factor(Chick)), 
     data = ChickWeight) + geom_line() + 
     facet_wrap(facets = ~Diet) + guides(colour = FALSE)
-
-
-## -----------------------------------------------------------------------------
-library(tidyverse)
-long = mort
-long = long %>% gather(year, morts, -country)
-head(long, 2)
-
-
-## -----------------------------------------------------------------------------
-library(stringr)
-library(dplyr)
-long$year = long$year %>% str_replace("^X", "") %>% as.numeric
-long = long %>% filter(!is.na(morts))
-
-
-## ----geom_line_qplot, comment="", fig.align='center', cache=FALSE-------------
-qplot(x = year, y = morts, colour = country, 
-    data = long, geom = "line") + guides(colour = FALSE)
-
-
-## ----geom_tile----------------------------------------------------------------
-qplot(x = year, y = country, colour = morts, 
-    data = long, geom = "tile") + guides(colour = FALSE)
 
 
 ## ----plot1, comment="",  fig.align='center',cache = FALSE---------------------
