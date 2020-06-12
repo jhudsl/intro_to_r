@@ -116,12 +116,12 @@ col_types = cols(VehBCost = col_double()))
 ```
 
 4. Fit a linear regression model with vehicle cost (`VehBCost`) as the outcome and 
-vehicle age (`VehicleAge`) and size (`Size`) as predictors as well as their interaction.  Save the model fit in an object called `lmfit_cars` and display the summary table.
+vehicle age (`VehicleAge`) and whether it's an online sale (`IsOnlineSale`) as predictors as well as their interaction.  Save the model fit in an object called `lmfit_cars` and display the summary table.
 
 ```{r}
-lmfit_cars = lm(VehBCost ~ VehicleAge + Size + VehicleAge*Size, data = cars)
-lmfit_cars = lm(VehBCost ~ VehicleAge*Size, data = cars)
-summary(lmfit_cars)
+lmfit_cars = lm(VehBCost ~ VehicleAge + IsOnlineSale + VehicleAge*IsOnlineSale, data = cars)
+lmfit_cars = lm(VehBCost ~ VehicleAge*IsOnlineSale, data = cars)
+tidy(lmfit_cars)
 ```
 
 5. Create a variable called `expensive` in the `cars` data that indicates if the 
@@ -139,7 +139,7 @@ prop.test(tab)
 
 6. Fit a logistic regression model where the outcome is "bad buy" status and predictors are the `expensive` status and vehicle age (`VehicleAge`).
 Save the model fit in an object called `logfit_cars` and display the summary table.
-Use summary or `tidy(logfit_cars, conf.int = TRUE, exponentiate = TRUE)`
+Use `summary` or `tidy(logfit_cars, conf.int = TRUE, exponentiate = TRUE)`
 or `tidy(logfit_cars, conf.int = TRUE, exponentiate = FALSE)` for log odds ratios 
 
 ```{r}

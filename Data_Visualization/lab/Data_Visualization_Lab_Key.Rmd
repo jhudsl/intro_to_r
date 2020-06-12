@@ -43,13 +43,14 @@ long = gather(circ, "var", "number",
               starts_with("purple"), starts_with("green"),
               starts_with("banner"))
 # separate
-long = separate(long, var, into = c("line", "type"), 
+long = separate(long, var, into = c("route", "type"), 
 	sep = "[.]")
 ```
 
 or run: 
 ```{r}
-long = read_circulator_long()
+long = read_circulator_long() %>% 
+  rename(route = line)
 ```
 
 ```{r}
@@ -81,22 +82,22 @@ g + geom_point() + xlim(ymd("2011/05/03", "2012/06/04"))
 
 a. Color the points by route (`orange`, `purple`, `green`, `banner`)
 ```{r}
-qplot(x = date, y = number, data = avg, colour = line)
+qplot(x = date, y = number, data = avg, colour = route)
 
-first_plot = qplot(x = date, y = number, data = avg, colour = line)
+first_plot = qplot(x = date, y = number, data = avg, colour = route)
 print(first_plot)
 
 
-g = ggplot(avg, aes(x = date, y = number, color = line))
+g = ggplot(avg, aes(x = date, y = number, color = route))
 g + geom_point()
 
 ```
 
-b. add black smoothed curves for each line
+b. add black smoothed curves for each route
 ```{r}
-qplot(x = date, y = number, data = avg, colour = line) + geom_smooth(aes(group = line), colour= "black")
+qplot(x = date, y = number, data = avg, colour = route) + geom_smooth(aes(group = route), colour= "black")
 
-qplot(x = date, y = number, data = avg, colour = line) + geom_smooth()
+qplot(x = date, y = number, data = avg, colour = route) + geom_smooth()
 
 g + geom_point() + geom_smooth(color="black")
 
@@ -109,7 +110,7 @@ g + geom_point() + geom_smooth()
 c. Color the points by day of the week
 ```{r}
 qplot(x = date, y = number, data = avg, colour = day)
-qplot(x = date, y = number, data = avg, colour = line) + geom_smooth()
+qplot(x = date, y = number, data = avg, colour = route) + geom_smooth()
 
 avg = avg %>% mutate(dayFactor = factor(day, levels = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")))
 g = ggplot(avg, aes(x = date, y = number, color = dayFactor))
@@ -118,51 +119,51 @@ g + geom_point()
 ```
 
 
-2. Replot 1a where the colors of the points are the name of the `line` (with `banner` --> `blue`)
+2. Replot 1a where the colors of the points are the name of the `route` (with `banner` --> `blue`)
 
 ```{r}
 pal = c(banner = "blue", purple = "purple", green=  "darkgreen", orange = "orange")
-qplot(x = date, y = number, data = avg, colour = line) +
+qplot(x = date, y = number, data = avg, colour = route) +
 	  scale_colour_manual(values = pal)
 
-g = ggplot(avg, aes(x = date, y = number, color = line))
+g = ggplot(avg, aes(x = date, y = number, color = route))
 g + geom_point() + scale_colour_manual(values = pal)
 
 ```
 
 # Part 2
 
-3. plot average ridership by date with one panel per `line`
+3. plot average ridership by date with one panel per `route`
 ```{r}
-qplot(x = date, y = number, data= avg, facets = ~line) 
+qplot(x = date, y = number, data= avg, facets = ~route) 
 qplot(x = date, y = number, data= avg) +
-  facet_wrap( ~ line)
+  facet_wrap( ~ route)
 
 qplot(x = date, y = number, data= avg) +
-  facet_wrap( ~ line, ncol =4)
+  facet_wrap( ~ route, ncol =4)
 
-qplot(x = date, y = number, data= avg, facets = ~line,	colour = line) +  scale_colour_manual(values=pal)
+qplot(x = date, y = number, data= avg, facets = ~route,	colour = route) +  scale_colour_manual(values=pal)
 
-g = ggplot(avg, aes(x = date, y = number, color = line))
-g + geom_point() +  facet_wrap( ~ line) + scale_colour_manual(values=pal)
+g = ggplot(avg, aes(x = date, y = number, color = route))
+g + geom_point() +  facet_wrap( ~ route) + scale_colour_manual(values=pal)
 
 ```
 	  
-4. Plot average ridership by date with separate panels by `day` of the week, colored by `line`
+4. Plot average ridership by date with separate panels by `day` of the week, colored by `route`
 ```{r}
 qplot(x = date, y = number, data= avg, facets = ~day,
-	colour = line) +  scale_colour_manual(values=pal)
+	colour = route) +  scale_colour_manual(values=pal)
 
-ggplot(aes(x = date, y = number, colour = line), data= avg) + 
+ggplot(aes(x = date, y = number, colour = route), data= avg) + 
   geom_point() + 
   facet_wrap( ~day) +  scale_colour_manual(values=pal)
 ```
 
 # Part 3
 
-5. Plot average ridership (`avg`) by date, colored by `line` (same as 1a). 
+5. Plot average ridership (`avg`) by date, colored by `route` (same as 1a). 
 (do not take an average, 
-use the average column for each route/line)
+use the average column for each route)
 Make the x-label `"Year"`
 Make the y-label `"Number of People"`
 Use the black and white theme `theme_bw()`
@@ -170,7 +171,7 @@ Change the `text_size` to (`text = element_text(size = 20)`)
 in `theme`
  
 ```{r} 
-first_plot = ggplot(avg, aes(x = date, y = number, color = line)) + geom_point() + scale_colour_manual(values=pal)
+first_plot = ggplot(avg, aes(x = date, y = number, color = route)) + geom_point() + scale_colour_manual(values=pal)
 
 
 first_plot  +
@@ -186,7 +187,7 @@ the line colors should be `orange.`
 `scale_linetype_manual`
 `Alightings = "dashed", Boardings = "dashed", Average = "solid"`
 ```{r}
-orange = long %>% filter(line == "orange")
+orange = long %>% filter(route == "orange")
 ```
 
 line type is dashed

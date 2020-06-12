@@ -423,10 +423,11 @@ long = gather(circ, &quot;var&quot;, &quot;number&quot;,
               starts_with(&quot;purple&quot;), starts_with(&quot;green&quot;),
               starts_with(&quot;banner&quot;))
 # separate
-long = separate(long, var, into = c(&quot;line&quot;, &quot;type&quot;), 
+long = separate(long, var, into = c(&quot;route&quot;, &quot;type&quot;), 
     sep = &quot;[.]&quot;)</code></pre>
 <p>or run:</p>
-<pre class="r"><code>long = read_circulator_long()</code></pre>
+<pre class="r"><code>long = read_circulator_long() %&gt;% 
+  rename(route = line)</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   day = col_character(),
@@ -453,7 +454,7 @@ avg = filter(avg, !is.na(number))
 type_wide = spread(long, type, value = number)
 head(type_wide)</code></pre>
 <pre><code>## # A tibble: 6 x 7
-##   day    date       daily line   Alightings Average Boardings
+##   day    date       daily route  Alightings Average Boardings
 ##   &lt;chr&gt;  &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
 ## 1 Friday 2010-01-15 1644  banner         NA      NA        NA
 ## 2 Friday 2010-01-15 1644  green          NA      NA        NA
@@ -470,25 +471,25 @@ head(type_wide)</code></pre>
 </ol>
 <ol style="list-style-type: lower-alpha">
 <li><p>Color the points by route (<code>orange</code>, <code>purple</code>, <code>green</code>, <code>banner</code>)</p></li>
-<li><p>add black smoothed curves for each line</p></li>
+<li><p>add black smoothed curves for each route</p></li>
 <li><p>Color the points by day of the week</p></li>
 </ol>
 <ol start="2" style="list-style-type: decimal">
-<li>Replot 1a where the colors of the points are the name of the <code>line</code> (with <code>banner</code> –&gt; <code>blue</code>)</li>
+<li>Replot 1a where the colors of the points are the name of the <code>route</code> (with <code>banner</code> –&gt; <code>blue</code>)</li>
 </ol>
 <pre class="r"><code>pal = c(&quot;blue&quot;, &quot;darkgreen&quot;,&quot;orange&quot;,&quot;purple&quot;)</code></pre>
 </div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
 <ol start="3" style="list-style-type: decimal">
-<li><p>plot average ridership by date with one panel per <code>line</code></p></li>
-<li><p>Plot average ridership by date with separate panels by <code>day</code> of the week, colored by <code>line</code></p></li>
+<li><p>plot average ridership by date with one panel per <code>route</code></p></li>
+<li><p>Plot average ridership by date with separate panels by <code>day</code> of the week, colored by <code>route</code></p></li>
 </ol>
 </div>
 <div id="part-3" class="section level1">
 <h1>Part 3</h1>
 <ol start="5" style="list-style-type: decimal">
-<li><p>Plot average ridership (<code>avg</code>) by date, colored by <code>line</code> (same as 1a). (do not take an average, use the average column for each route/line) Make the x-label <code>&quot;Year&quot;</code>. Make the y-label <code>&quot;Number of People&quot;</code>. Use the black and white theme <code>theme_bw()</code>. Change the <code>text_size</code> to (<code>text = element_text(size = 20)</code>) in <code>theme</code></p></li>
+<li><p>Plot average ridership (<code>avg</code>) by date, colored by <code>route</code> (same as 1a). (do not take an average, use the average column for each route) Make the x-label <code>&quot;Year&quot;</code>. Make the y-label <code>&quot;Number of People&quot;</code>. Use the black and white theme <code>theme_bw()</code>. Change the <code>text_size</code> to (<code>text = element_text(size = 20)</code>) in <code>theme</code></p></li>
 <li><p>Plot average ridership on the <code>orange</code> route versus date as a solid line, and add <code>dashed</code> “error” lines based on the <code>boardings</code> and <code>alightings.</code> the line colors should be <code>orange.</code> (hint <code>linetype</code> is an aesthetic for lines) - see also <code>scale_linetype</code> and <code>scale_linetype_manual</code> <code>Alightings = &quot;dashed&quot;, Boardings = &quot;dashed&quot;, Average = &quot;solid&quot;</code></p></li>
 </ol>
 </div>

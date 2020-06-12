@@ -43,13 +43,14 @@ long = gather(circ, "var", "number",
               starts_with("purple"), starts_with("green"),
               starts_with("banner"))
 # separate
-long = separate(long, var, into = c("line", "type"), 
+long = separate(long, var, into = c("route", "type"), 
 	sep = "[.]")
 ```
 
 or run: 
 ```{r}
-long = read_circulator_long()
+long = read_circulator_long() %>% 
+  rename(route = line)
 ```
 
 ```{r}
@@ -78,7 +79,7 @@ a. Color the points by route (`orange`, `purple`, `green`, `banner`)
 
 ```
 
-b. add black smoothed curves for each line
+b. add black smoothed curves for each route
 ```{r}
 
 ```
@@ -92,7 +93,7 @@ c. Color the points by day of the week
 ```
 
 
-2. Replot 1a where the colors of the points are the name of the `line` (with `banner` --> `blue`)
+2. Replot 1a where the colors of the points are the name of the `route` (with `banner` --> `blue`)
 
 ```{r}
 pal = c("blue", "darkgreen","orange","purple")
@@ -102,13 +103,13 @@ pal = c("blue", "darkgreen","orange","purple")
 
 # Part 2
 
-3. plot average ridership by date with one panel per `line`
+3. plot average ridership by date with one panel per `route`
 ```{r}
 
 
 ```
 	  
-4. Plot average ridership by date with separate panels by `day` of the week, colored by `line`
+4. Plot average ridership by date with separate panels by `day` of the week, colored by `route`
 ```{r}
 
 
@@ -117,7 +118,7 @@ pal = c("blue", "darkgreen","orange","purple")
 # Part 3
 
 
-5. Plot average ridership (`avg`) by date, colored by `line` (same as 1a).  (do not take an average, use the average column for each route/line)
+5. Plot average ridership (`avg`) by date, colored by `route` (same as 1a).  (do not take an average, use the average column for each route)
 Make the x-label `"Year"`. Make the y-label `"Number of People"`. Use the black and white theme `theme_bw()`. Change the `text_size` to (`text = element_text(size = 20)`)
 in `theme`
  

@@ -116,7 +116,7 @@ tidy(fit)
 
 
 ## ----tidy_lm_onf, comment=""--------------------------------------------------
-tidy(fit, confint = TRUE)
+tidy(fit, conf.int = TRUE)
 
 
 ## ----tt2, comment="", message = FALSE-----------------------------------------
@@ -134,27 +134,27 @@ print(fit)
 
 ## ----regress5, comment="", fig.height=4,fig.width=8---------------------------
 fit2 = lm(VehOdo ~ IsBadBuy + VehicleAge, data = cars)
-summary(fit2)  
+tidy(fit2)  
 
 
 ## ----regress9, comment="", fig.height=4,fig.width=8---------------------------
 fit3 = lm(VehOdo ~ IsBadBuy * VehicleAge, data = cars)
-summary(fit3)  
+tidy(fit3)  
 
 
 ## ----regress10, comment="", fig.height=4,fig.width=8--------------------------
 fit4 = lm(VehOdo ~ IsBadBuy * VehicleAge -IsBadBuy , data = cars)
-summary(fit4)  
+tidy(fit4)  
 
 
 ## ----regress6, comment="", fig.height=4,fig.width=8---------------------------
 fit3 = lm(VehOdo ~ factor(TopThreeAmericanName), data = cars)
-summary(fit3)  
+tidy(fit3)  
 
 
 ## ----regress7, comment="", fig.height=4,fig.width=8---------------------------
 glmfit = glm(IsBadBuy ~ VehOdo + VehicleAge, data=cars, family = binomial())
-summary(glmfit)  
+tidy(glmfit)  
 
 
 ## ----tidy_glmfit, comment="", fig.height=4,fig.width=8------------------------

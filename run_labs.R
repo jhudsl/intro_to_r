@@ -10,7 +10,7 @@ sapply(x, function(x) {
   knitr::purl(input = x, output = out)
   })
 
-sapply(x, rmarkdown::render)
+sapply(x, rmarkdown::render, envir = new.env())
 
 
 x = list.files(pattern = ".R$", recursive = TRUE)

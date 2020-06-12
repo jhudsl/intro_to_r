@@ -291,9 +291,9 @@ tidy(fit)
 
 ## Linear Regression
 
-The `confint` argument allows for confidence interfals
+The `confint` argument allows for confidence intervals
 ```{r tidy_lm_onf, comment=""}
-tidy(fit, confint = TRUE)
+tidy(fit, conf.int = TRUE)
 ```
 
 ## Using Cars Data
@@ -336,7 +336,7 @@ Note that you can have more than 1 predictor in regression models.The interpreta
 
 ```{r regress5, comment="", fig.height=4,fig.width=8}
 fit2 = lm(VehOdo ~ IsBadBuy + VehicleAge, data = cars)
-summary(fit2)  
+tidy(fit2)  
 ```
 
 
@@ -346,7 +346,7 @@ The `*` does interactions:
 
 ```{r regress9, comment="", fig.height=4,fig.width=8}
 fit3 = lm(VehOdo ~ IsBadBuy * VehicleAge, data = cars)
-summary(fit3)  
+tidy(fit3)  
 ```
 
 
@@ -356,7 +356,7 @@ You can take out main effects with minus
 
 ```{r regress10, comment="", fig.height=4,fig.width=8}
 fit4 = lm(VehOdo ~ IsBadBuy * VehicleAge -IsBadBuy , data = cars)
-summary(fit4)  
+tidy(fit4)  
 ```
 
 
@@ -366,16 +366,16 @@ Factors get special treatment in regression models - lowest level of the factor 
 
 ```{r regress6, comment="", fig.height=4,fig.width=8}
 fit3 = lm(VehOdo ~ factor(TopThreeAmericanName), data = cars)
-summary(fit3)  
+tidy(fit3)  
 ```
 
 ## Logistic Regression and GLMs {.smaller}
 
-Generalized Linear Models (GLMs) allow for fitting regressions for non-continous/normal outcomes.  The `glm` has similar syntax to the `lm` command. Logistic regression is one example.
+Generalized Linear Models (GLMs) allow for fitting regressions for non-continuous/normal outcomes.  The `glm` has similar syntax to the `lm` command. Logistic regression is one example. See `?family` for 
 
 ```{r regress7, comment="", fig.height=4,fig.width=8}
 glmfit = glm(IsBadBuy ~ VehOdo + VehicleAge, data=cars, family = binomial())
-summary(glmfit)  
+tidy(glmfit)  
 ```
 
 ## Tidying GLMs

@@ -75,7 +75,7 @@ col_types = cols(VehBCost = col_double()))
 
 
 4. Fit a linear regression model with vehicle cost (`VehBCost`) as the outcome and 
-vehicle age (`VehicleAge`) and size (`Size`) as predictors as well as their interaction.  Save the model fit in an object called `lmfit_cars` and display the summary table.
+vehicle age (`VehicleAge`) and whether it's an online sale (`IsOnlineSale`) as predictors as well as their interaction.  Save the model fit in an object called `lmfit_cars` and display the summary table.
 
 ```{r}
 

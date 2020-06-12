@@ -384,31 +384,10 @@ summary {
 <p>Bike Lanes Dataset: BikeBaltimore is the Department of Transportation’s bike program. The data is from <a href="http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms" class="uri">http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms</a></p>
 <p>You can Download as a CSV in your current working directory. Note its also available at: <a href="http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv" class="uri">http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv</a></p>
 <pre class="r"><code>library(readr)
-library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
-<pre><code>## ✔ ggplot2 3.3.0.9000     ✔ purrr   0.3.4     
-## ✔ tibble  3.0.1          ✔ stringr 1.4.0     
-## ✔ tidyr   1.1.0          ✔ forcats 0.5.0</code></pre>
-<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::arrange()   masks plyr::arrange()
-## ✖ purrr::compact()   masks plyr::compact()
-## ✖ dplyr::count()     masks plyr::count()
-## ✖ dplyr::failwith()  masks plyr::failwith()
-## ✖ dplyr::filter()    masks stats::filter()
-## ✖ dplyr::id()        masks plyr::id()
-## ✖ dplyr::lag()       masks stats::lag()
-## ✖ dplyr::mutate()    masks plyr::mutate()
-## ✖ dplyr::rename()    masks plyr::rename()
-## ✖ dplyr::summarise() masks plyr::summarise()
-## ✖ dplyr::summarize() masks plyr::summarize()</code></pre>
-<pre class="r"><code>library(dplyr)
-library(lubridate)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;lubridate&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     date, intersect, setdiff, union</code></pre>
-<pre class="r"><code>library(jhur)
+library(tidyverse)
+library(dplyr)
+library(lubridate)
+library(jhur)
 
 bike = read_csv(
   &quot;http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv&quot;)</code></pre>
@@ -446,9 +425,9 @@ bike = read_bike()</code></pre>
 <li>Get all the differet types of bike types from the <code>type</code> column. Use <code>sort(unique())</code>. Assign this to an object <code>btypes.</code> Type <code>dput(btypes)</code></li>
 </ol>
 <pre class="r"><code>head(factor(bike$type))</code></pre>
-<pre><code>## [1] BIKE BOULEVARD SIDEPATH       SIGNED ROUTE   SIDEPATH       BIKE LANE     
-## [6] SIGNED ROUTE  
-## 7 Levels: BIKE BOULEVARD BIKE LANE CONTRAFLOW SHARED BUS BIKE ... SIGNED ROUTE</code></pre>
+<pre><code>## [1] BIKE BOULEVARD SIDEPATH       SIGNED ROUTE   SIDEPATH      
+## [5] BIKE LANE      SIGNED ROUTE  
+## 7 Levels: BIKE BOULEVARD BIKE LANE CONTRAFLOW ... SIGNED ROUTE</code></pre>
 <pre class="r"><code>btypes = sort(unique(bike$type))
 x = c(&quot;SIDEPATH&quot;,&quot;BIKE BOULEVARD&quot;, &quot;BIKE LANE&quot;, &quot;CONTRAFLOW&quot;,
         &quot;SHARED BUS BIKE&quot;,  &quot;SHARROW&quot;,  &quot;SIGNED ROUTE&quot;)
@@ -458,8 +437,9 @@ dput(btypes)</code></pre>
 <pre class="r"><code>dput(btypes)[c(6,1:5,7)]</code></pre>
 <pre><code>## c(&quot;BIKE BOULEVARD&quot;, &quot;BIKE LANE&quot;, &quot;CONTRAFLOW&quot;, &quot;SHARED BUS BIKE&quot;, 
 ## &quot;SHARROW&quot;, &quot;SIDEPATH&quot;, &quot;SIGNED ROUTE&quot;)</code></pre>
-<pre><code>## [1] &quot;SIDEPATH&quot;        &quot;BIKE BOULEVARD&quot;  &quot;BIKE LANE&quot;       &quot;CONTRAFLOW&quot;     
-## [5] &quot;SHARED BUS BIKE&quot; &quot;SHARROW&quot;         &quot;SIGNED ROUTE&quot;</code></pre>
+<pre><code>## [1] &quot;SIDEPATH&quot;        &quot;BIKE BOULEVARD&quot;  &quot;BIKE LANE&quot;      
+## [4] &quot;CONTRAFLOW&quot;      &quot;SHARED BUS BIKE&quot; &quot;SHARROW&quot;        
+## [7] &quot;SIGNED ROUTE&quot;</code></pre>
 <pre class="r"><code>dput(btypes[c(6,1:5,7)])</code></pre>
 <pre><code>## c(&quot;SIDEPATH&quot;, &quot;BIKE BOULEVARD&quot;, &quot;BIKE LANE&quot;, &quot;CONTRAFLOW&quot;, &quot;SHARED BUS BIKE&quot;, 
 ## &quot;SHARROW&quot;, &quot;SIGNED ROUTE&quot;)</code></pre>
@@ -482,10 +462,10 @@ bike$type = factor(bike$type,
 ## &quot;SHARROW&quot;, &quot;SIGNED ROUTE&quot;)</code></pre>
 <pre class="r"><code>table(bike$type)</code></pre>
 <pre><code>## 
-##        SIDEPATH  BIKE BOULEVARD       BIKE LANE      CONTRAFLOW SHARED BUS BIKE 
-##               7              49             621              13              39 
-##         SHARROW    SIGNED ROUTE 
-##             589             304</code></pre>
+##        SIDEPATH  BIKE BOULEVARD       BIKE LANE      CONTRAFLOW 
+##               7              49             621              13 
+## SHARED BUS BIKE         SHARROW    SIGNED ROUTE 
+##              39             589             304</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Make a column <code>type2</code>, which is a factor of type, with the levels: <code>c( &quot;SIDEPATH&quot;, &quot;BIKE BOULEVARD&quot;, &quot;BIKE LANE&quot;)</code>. Run <code>table(bike$type2)</code>, with the option <code>useNA = &quot;always&quot;</code>. Note, we do not have to make type a character again before doing this</li>
 </ol>
@@ -495,10 +475,10 @@ bike$type = factor(bike$type,
                          &quot;BIKE LANE&quot;) ) )
 table(bike$type)</code></pre>
 <pre><code>## 
-##        SIDEPATH  BIKE BOULEVARD       BIKE LANE      CONTRAFLOW SHARED BUS BIKE 
-##               7              49             621              13              39 
-##         SHARROW    SIGNED ROUTE 
-##             589             304</code></pre>
+##        SIDEPATH  BIKE BOULEVARD       BIKE LANE      CONTRAFLOW 
+##               7              49             621              13 
+## SHARED BUS BIKE         SHARROW    SIGNED ROUTE 
+##              39             589             304</code></pre>
 <pre class="r"><code>table(bike$type2)</code></pre>
 <pre><code>## 
 ##       SIDEPATH BIKE BOULEVARD      BIKE LANE 
