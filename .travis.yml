@@ -1,0 +1,14 @@
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
+
+language: R
+cache: packages
+
+env:
+  global:
+    - R_REMOTES_NO_ERRORS_FROM_WARNINGS=true
+
+script:
+  - Rscript -e 'install.packages(c("remotes", "corrr"))'
+  - Rscript -e 'remotes::install_github("muschellij2/jhur")'
+  - make
+  
