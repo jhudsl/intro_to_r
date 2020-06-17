@@ -1,13 +1,19 @@
 ---
-title: "Homework 3 - Key"
-author: "Introduction to R for Public Health Researchers"
-output: html_document
+title: '**KEY** Introduction to R: Homework 3'
+author: "Authored by Andrew Jaffe and John Muschelli"
+date: "11 June 2020"
+output:
+  html_document: default
 ---
 
+### **Instructions**
+1. You must submit both the RMD and "knitted" HTML files as one compressed .zip to the Homework 3 Drop Box on CoursePlus.<br />
+2. All assignments are due by the end of the grading period for this term (26 June 2020).
 
-Use this dataset on infant mortality for the following questions: http://johnmuschelli.com/intro_to_r/data/indicatordeadkids35.csv
+### **Getting Started**
+In this assignment, we will be working with the infant mortality data set, found here: http://johnmuschelli.com/intro_to_r/data/indicatordeadkids35.csv.<br />
 
-
+The packages listed below are simply suggestions, but please edit this list as you see fit.
 ```{r initiatePackages, message=FALSE}
 ## you can add more, or change...these are suggestions
 library(tidyverse)
@@ -17,9 +23,9 @@ library(ggplot2)
 library(tidyr)
 ```
 
-Questions
+### **Problem Set**
 
-1.	Read the data using `read_csv()` and name it `mort`. Rename the first column to `country` using the `rename()` command in `dplyr`.  Create an object `year` variable by extracting column names (using `colnames()`) and make it to an integer `as.integer()`), excluding the first column either with string manipulations or bracket subsetting or subsetting with `is.na`. 
+1.	Read the data using `read_csv()` and name it `mort`. Rename the first column to `country` using the `rename()` command in `dplyr`.  Create an object `year` variable by extracting column names (using `colnames()`) and make it to an integer `as.integer()`), excluding the first column either with string manipulations or bracket subsetting or subsetting with `is.na()`. 
 
 ```{r, dataImport}
 mort = read_csv("http://johnmuschelli.com/intro_to_r/data/indicatordeadkids35.csv")
@@ -49,9 +55,7 @@ year = year[str_detect(year, "^\\d")]
 year = as.integer(year)
 ```
 
-2.	Reshape the data so that there is a variable named `year` corresponding to `year` (key) and a column of the mortalities named `mortality` (value). Hint: use the `tidyr` package and its `gather()` function. Name the output `long` and make `year` a numeric variable. Hint: remember that -COLUMN_NAME removes that column, gather all the columns but country.  
-
-Let's create a new vector for the years:
+2.	Reshape the data so that there is a variable named `year` corresponding to `year` (key) and a column of the mortalities named `mortality` (value), using the `tidyr` package and its `gather()` function. Name the output `long` and make `year` a numeric variable.<br />**Hint:** remember that -COLUMN_NAME removes that column, gather all the columns but country.  
 
 ```{r, question2}
 # can use quotes
@@ -66,7 +70,8 @@ long = long %>%
 ```
 
 
-3.	Read in this the tab-delim file: http://johnmuschelli.com/intro_to_r/data/country_pop.txt and call it `pop`, which contains population information on each country (hint: use `read_tsv()`).  Rename the second column to `"Country"` and the column `"% of world population"`, to `percent`
+3.	Read in this the tab-delim file and call it `pop`: http://johnmuschelli.com/intro_to_r/data/country_pop.txt.
+The file contains population information on each country. Rename the second column to `"Country"` and the column `"% of world population"`, to `percent`.<br />**Hint:** use `read_tsv()`
 
 ```{r, question3}
 pop = read_tsv("http://johnmuschelli.com/intro_to_r/data/country_pop.txt")
@@ -74,6 +79,7 @@ pop = pop %>%
   rename(Country = `Country (or dependent territory)`,
          percent = `% of world population`)
 ```
+
 
 4.	Determine the population of each country in `pop` using `arrange()`. Get the order of the countries based on this (first is the highest population), and extract that column and call it `pop_levels`.  Make a variable in the `long` data set named `sorted` that is the `country` variable coded as a factor based on `pop_levels`.
 
@@ -98,8 +104,13 @@ sum(is.na(long$sorted))
 ```
 
 
-5.	Subset `long` based on years 1975-2010, including 1975 and 2010 and call this `long_sub` using `&` or the `between()` function.  Subset the following countries using `dplyr::filter()` and the `%in%` operator on the sorted country factor (`sorted`) for `long_sub` with
-`c("Venezuela", "Bahrain", "Estonia", "Iran", "Thailand", "Chile",  "Western Sahara", "Azerbaijan", "Argentina", "Haiti")` and reassign to `long_sub`. Lastly, remove missing rows for `mortality` using `filter()` and `is.na()`.
+5.	Parts a, b, and c below are only broken up here for clarity, but all three components can be addressed in one chunk of code/as one function, using `%>%` as necessary.<br />
+
+      **a.** Subset `long` based on years 1975-2010, including 1975 and 2010 and call this `long_sub` using `&` or the `between()` function.<br />
+      **b.** Further subset `long_sub` for the following countries using `dplyr::filter()` and the `%in%` operator on the sorted country factor (`sorted`):`c("Venezuela", "Bahrain", "Estonia", "Iran", "Thailand", "Chile",  "Western Sahara", "Azerbaijan", "Argentina", "Haiti")`.<br />
+      **c.** Lastly, remove missing rows for `mortality` using `filter()` and `is.na()`.<br />
+
+    **Hint:** Be sure to assign your final object created from a through c as `long_sub` so you can use it in questions 6 and 7.
 
 Subsetting long:
 ```{r, question5}
@@ -123,8 +134,7 @@ long_sub = long_sub %>%
 ```
 
 
-6.  Plotting: create "spaghetti"/line plots for the countries in `long_sub`, using different colors for different countries, using `sorted`. The x-axis should be `year`, and the y-axis should be `mortality`.  Make the plot using `qplot` and also `ggplot`.
-
+6.  Plotting: create "spaghetti"/line plots for the countries in `long_sub`, using different colors for different countries, using `sorted`. The x-axis should be `year`, and the y-axis should be `mortality`. Make the plot using a.`qplot` and b. `ggplot`.
 
 ```{r}
 qplot(year, y = mortality, data = long_sub, color = sorted, geom = "line")
@@ -142,10 +152,9 @@ g = long_sub %>%
 g
 ```
 
-7.  Bonus, load the `plotly` package (`library(plotly)`) and assign the plot from 6) to `g` and run `ggplotly(g)`.
+7.  **Bonus:** load the `plotly` package (`library(plotly)`) and assign the plot from question 6 to `g` and run `ggplotly(g)`.
 
 ```{r}
 library(plotly)
 ggplotly(g)
 ```
-
