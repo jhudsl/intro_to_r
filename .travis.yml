@@ -12,3 +12,8 @@ script:
   - Rscript -e 'remotes::install_github("muschellij2/jhur")'
   - make
 
+# Build all branches, *including* gh-pages:
+branches:
+  only:
+  - gh-pages
+  - /.*/
