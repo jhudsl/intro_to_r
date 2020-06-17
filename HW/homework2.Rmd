@@ -7,7 +7,7 @@ output:
 ---
 
 ### **Instructions**
-1. You must submit both the RMD and "knitted" HTML files.<br />
+1. You must submit both the RMD and "knitted" HTML files as one compressed .zip to the Homework 2 Drop Box on CoursePlus.<br />
 2. All assignments are due by the end of the grading period for this term (26 June 2020).
 
 ### **Getting Started**
@@ -44,6 +44,7 @@ Use the `read_tsv()` function and name it "key".
 
 8) Drop any vehicles that cost less than or equal to $1500 ("VehBCost") or that have missing values. How many vehicles were removed?<br />
 **Hint:** `filter()` removes missing values.<br />
+
 **Use this reduced dataset (generated in question 8) for all subsequent questions (9 through 12).**
 
 9) How many different vehicle a) manufacturers/makes ("Make"), b) models ("Model"), and c) sizes ("Size") are there?<br />

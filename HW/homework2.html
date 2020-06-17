@@ -373,7 +373,7 @@ summary {
 <div id="instructions" class="section level3">
 <h3><strong>Instructions</strong></h3>
 <ol style="list-style-type: decimal">
-<li>You must submit both the RMD and “knitted” HTML files.<br /></li>
+<li>You must submit both the RMD and “knitted” HTML files as one compressed .zip to the Homework 2 Drop Box on CoursePlus.<br /></li>
 <li>All assignments are due by the end of the grading period for this term (26 June 2020).</li>
 </ol>
 </div>
@@ -397,7 +397,10 @@ library(tidyr)</code></pre>
 <li><p>How many cars are in the dataset? How many variables are recorded for each car?</p></li>
 <li><p>What is the range of the manufacturer’s years of the vehicles? Use “VehYear”.</p></li>
 <li><p>How many cars were from before 2004, and what percent/proportion do these represent?<br /> <strong>Hint:</strong> use <code>summarize()</code> and <code>filter()</code> functions or <code>sum()</code>.</p></li>
-<li><p>Drop any vehicles that cost less than or equal to $1500 (“VehBCost”) or that have missing values. How many vehicles were removed?<br /> <strong>Hint:</strong> <code>filter()</code> removes missing values.<br /> <strong>Use this reduced dataset (generated in question 8) for all subsequent questions (9 through 12).</strong></p></li>
+<li><p>Drop any vehicles that cost less than or equal to $1500 (“VehBCost”) or that have missing values. How many vehicles were removed?<br /> <strong>Hint:</strong> <code>filter()</code> removes missing values.<br /></p></li>
+</ol>
+<p><strong>Use this reduced dataset (generated in question 8) for all subsequent questions (9 through 12).</strong></p>
+<ol start="9" style="list-style-type: decimal">
 <li><p>How many different vehicle a) manufacturers/makes (“Make”), b) models (“Model”), and c) sizes (“Size”) are there?<br /> <strong>Hint:</strong> use <code>table()</code> or <code>group_by()</code> with <code>tally()</code> or <code>summarize()</code>.</p></li>
 <li><p>Which vehicle a) make, b) model, and c) color had the highest average acquisition cost paid for the vehicle at time of purchase, and what was this cost?<br /> <strong>Hint:</strong> use <code>group_by()</code> with <code>summarize()</code>. Be sure to use the key to find the column that corresponds to the aquisition cost paid for the vehicle at time of purchase!</p></li>
 <li><p>Which vehicle a) make, b) model, and c) color had the highest variability in acquisition cost paid for the vehicle at time of purchase?</p></li>
