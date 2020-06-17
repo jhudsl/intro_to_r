@@ -11,4 +11,4 @@ script:
   - Rscript -e 'install.packages(c("remotes", "corrr"))'
   - Rscript -e 'remotes::install_github("muschellij2/jhur")'
   - make
-  
+
