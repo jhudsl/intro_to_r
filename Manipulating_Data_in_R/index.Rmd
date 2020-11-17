@@ -315,6 +315,9 @@ fj = full_join(base, visits)
 tail(fj, 4)
 ```
 
+```{r include=FALSE}
+unloadNamespace("tidylog")
+```
 
 ## Using the `by` argument
 
@@ -322,7 +325,7 @@ By default - uses intersection of column names.  If `by` specified, then uses th
 
 ```{r use_by}
 base = base %>% mutate(x = 5)
-viits = visits %>% mutate(x = 4)
+visits = visits %>% mutate(x = 4)
 head(full_join(base, visits))
 head(full_join(base, visits, by = "id"))
 head(full_join(base, visits, by = "id", suffix = c("_base", "_visit")))
