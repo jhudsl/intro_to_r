@@ -165,7 +165,7 @@ sum(cars$Color == "BLUE" | cars$Color == "RED" )
 sum(cars$Color %in% c("BLUE","RED"))
 
 # d.	Are made by Chrysler or Nissan and are white or silver? 
-sum((cars$Make == "CHRYSLER" | cars$Make=="NISSAN") & (cars$Color == "WHITE" | cars$Color == "WHITE" ))
+sum((cars$Make == "CHRYSLER" | cars$Make=="NISSAN") & (cars$Color == "WHITE" | cars$Color == "SILVER" ))
 sum(cars$Make %in% c("CHRYSLER","NISSAN") & 
 	cars$Color %in% c("WHITE","SILVER" ))
 
