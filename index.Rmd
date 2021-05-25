@@ -150,7 +150,7 @@ df$In_Class_Work[ fe ] = ""
 
 # Different for HW 1
 hw1 = gsub(" ", "", tolower(df$mod)) == "homework1"
-df$Code[hw1] = "[Code Academy](https://www.codecademy.com/learn/learn-r)"
+df$Code[hw1] = "[Data Quest](https://app.dataquest.io/m/499/introduction-to-programming-in-r)"
 
 
 df$hw = NULL
