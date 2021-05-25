@@ -191,7 +191,7 @@ You can also use the 'formula' notation.  In this syntax, it is `y ~ x`, where `
 library(tidyr)
 long = circ %>% 
   select(date, orangeAverage, purpleAverage) %>% 
-  gather(key = line, value = avg, -date)
+  pivot_longer(!date, names_to = "line", values_to = "avg")
 tt = t.test(avg ~ line, data = long)
 tidy(tt)
 ```
@@ -217,7 +217,7 @@ The `aov` function exists for ANOVA, but we'd recommend `lm` (Linear models):
 ```{r aov, comment=""}
 long3 = circ %>% 
   select(date, orangeAverage, purpleAverage, bannerAverage) %>% 
-  gather(key = line, value = avg, -date)
+  pivot_longer(!date, names_to = "line", values_to = "avg")
 anova_res = aov(avg ~ line, data = long3)
 anova_res
 ```
