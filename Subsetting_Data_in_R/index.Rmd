@@ -186,7 +186,7 @@ matches() # Matches a regular expression - cover later
 The command in `dplyr` for subsetting rows is `filter`.  Try `?filter`
 
 ```{r}
-filter(df, mpg > 20 | mpg < 14)
+filter(df, mpg > 20)
 ```
 Note, no `$` or subsetting is necessary.  R "knows" `mpg` refers to a column of `df`.
 
@@ -201,6 +201,14 @@ You can have multiple logical conditions using the following:
 * `>=` or `<=`: greater than or equal to / less than or equal to
 * `&` : AND
 * `|` : OR
+
+## Subset rows of a `data.frame`: dplyr
+
+The `%in%` operator can be used find values from a pre-made list (using `c()`):
+
+```{r}
+filter(df, mpg %in% c(20,21,22))
+```
 
 ## Subset rows of a `data.frame`: dplyr
 
