@@ -79,7 +79,7 @@ tidy(tt)
 library(tidyr)
 long = circ %>% 
   select(date, orangeAverage, purpleAverage) %>% 
-  gather(key = line, value = avg, -date)
+  pivot_longer(!date, names_to = "line", values_to = "avg")
 tt = t.test(avg ~ line, data = long)
 tidy(tt)
 
@@ -91,7 +91,7 @@ tidy(wilcox.test(avg ~ line, data = long))
 ## ----aov, comment=""----------------------------------------------------------
 long3 = circ %>% 
   select(date, orangeAverage, purpleAverage, bannerAverage) %>% 
-  gather(key = line, value = avg, -date)
+  pivot_longer(!date, names_to = "line", values_to = "avg")
 anova_res = aov(avg ~ line, data = long3)
 anova_res
 
