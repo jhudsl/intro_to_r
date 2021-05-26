@@ -25,9 +25,9 @@ library(stringr)
 
 ```
 
-2. Reshape `wide` using `gather.`  Call this data `long.`  Make the `key`
-`lanetype`, and the value `the_length.`  Make sure we gather all columns **but**
-`name`, using `-name`. Note the `NA`s here:
+2. Reshape `wide` using `pivot_longer.`  Call this data `long.`  Make the `names_to`
+`lanetype`, and the values `the_length.`  Make sure we pivot all columns **but**
+`name`, using `!name`. Note the `NA`s here:
 
 ```{r}
 
@@ -95,7 +95,7 @@ Name the data set `bike`.
 
 ```
 
-11. Reshape `sub` using `spread.`  Spread the data where the `key` is type and we want the value in the new columns to be `length` - the bike lane length.  
+11. Reshape `sub` using `pivot_wider.`  Pivot the data where the `names_from` is `type` and the values in the new columns are the `length` - the bike lane length.  
 Call this `wide`.  
 
 ```{r}

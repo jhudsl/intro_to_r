@@ -16,7 +16,8 @@ wide = read_csv("http://johnmuschelli.com/intro_to_r/data/Bike_Lanes_Wide.csv")
 
 ## ---------------------------------------------------------------------------------
 long = wide %>% 
-  gather(key = "lanetype", value = "the_length", -name)
+  pivot_longer(!name,
+               names_to = "lanetype", values_to = "the_length")
 head(long)
 
 
@@ -67,7 +68,7 @@ sub = bike %>%
 
 
 ## ---------------------------------------------------------------------------------
-wide = spread(sub, key = type, value = length)
+wide = pivot_wider(sub, names_from = "type", values_from = "length")
 
 
 ## ---------------------------------------------------------------------------------
