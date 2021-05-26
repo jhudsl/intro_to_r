@@ -38,10 +38,9 @@ colnames(circ) =  colnames(circ) %>%
   str_replace("Average", ".Average") 
 
 # make long
-long = gather(circ, "var", "number", 
-              starts_with("orange"),
-              starts_with("purple"), starts_with("green"),
-              starts_with("banner"))
+long = pivot_longer(circ, 
+                    starts_with(c("orange","purple","green","banner")),
+                    names_to = "var", values_to = "number")
 # separate
 long = separate(long, var, into = c("route", "type"), 
 	sep = "[.]")
@@ -59,7 +58,8 @@ avg = filter(long, type == "Average")
 avg = filter(avg, !is.na(number))
 
 # separate
-type_wide = spread(long, type, value = number)
+type_wide = pivot_wider(long, 
+                        names_from = "type", values_from = "number")
 head(type_wide)
 ```
 

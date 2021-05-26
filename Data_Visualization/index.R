@@ -33,7 +33,8 @@ mort[1:2, 1:5]
 ## -----------------------------------------------------------------------------
 library(tidyverse)
 long = mort
-long = long %>% gather(year, morts, -country)
+long = long %>% pivot_longer(!country, 
+                             names_to = "year", values_to = "morts")
 head(long, 2)
 
 
