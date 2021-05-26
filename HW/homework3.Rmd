@@ -31,7 +31,7 @@ library(tidyr)
 
 ```
 
-2.	Reshape the data so that there is a variable named `year` corresponding to `year` (key) and a column of the mortalities named `mortality` (value), using the `tidyr` package and its `gather()` function. Name the output `long` and make `year` a numeric variable.<br />**Hint:** remember that -COLUMN_NAME removes that column, gather all the columns but country.  
+2.	Reshape the data so that there is a variable named `year` corresponding to `year` (names) and a column of the mortalities named `mortality` (values), using the `tidyr` package and its `pivot_longer()` function. Name the output `long` and make `year` a numeric variable.<br />**Hint:** remember that !COLUMN_NAME removes that column, pivot all the columns but country.  
 
 ```{r, question2}
 
