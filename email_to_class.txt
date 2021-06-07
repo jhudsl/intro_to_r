@@ -16,29 +16,7 @@ Pre-class software installation:
 You should have the following software installed before the first class:
 1. Please install the latest version of R (4.1.0 as of May 28, 2021)
 2. Please install the latest version of RStudio (Desktop): https://www.rstudio.com/products/RStudio/#Desktop
-3. Please follow the instructions in the video https://youtu.be/-m1c8Xz1ZCg for installing the tidyverse package.  
-4. If you are using a work computer, make sure you: Repeat this process for all of the packages in the text file attached to this email.
-5. Run the following code in R (to install the jhur package):
-
-if (!requireNamespace("remotes", quietly = TRUE)) {
-	install.packages("remotes")
-}
-remotes::install_github("muschellij2/jhur")
-
-If you are using Mac OSX:
-1) In the Terminal, run (copy and paste and hit enter): 
-xcode-select --install
-(this will ask you to agree to a user agreement) - this is installing extra tools that allow R packages to compile on your machine.
-2) In the Terminal, run:
-gfortran
-If you see:
--bash: gfortran: command not found
-then continue to steps 3 and 4
-3) Install brew. Go to the Terminal, run (copy and paste): 
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-4) Once that's done, run in the Terminal:
-brew install gfortran
-
+You can find detailed instructions on how to do this on the CoursePlus Content page for Session 0.
 
 Pre-class homework:
 
