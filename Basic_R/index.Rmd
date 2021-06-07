@@ -234,7 +234,7 @@ name2 + 4
 
 ## R variables
 
-And save these modified vectors as a new vector.
+Save these modified vectors as a new vector.
 
 ```{r assign5}
 y = x + c(1, 2, 3, 4)
@@ -245,7 +245,7 @@ Note that the R object `y` is no longer "Hello  World!" - It has effectively bee
 
 ## R variables
 
-* You can get more attributes than just class.  The function `str` gives you the structure of the object.
+You can get more attributes than just class.  The function `str` gives you the structure of the object.
 
 ```{r assign2}
 str(x)
@@ -263,4 +263,4 @@ This tells you that `x` is a numeric vector and tells you the length.
 
 ## Lab Part 2
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)
