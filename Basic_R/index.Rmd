@@ -81,12 +81,14 @@ Note, when you type your command, R inherently thinks you want to print the resu
     * +, -, /, * are add, subtract, divide and multiply
     * ^ or ** is power
     * parentheses -- ( and ) -- work with order of operations 
+    * %% finds the remainder
 
 ## R as a calculator
 
 ```{r calcDemo2}
 2 + (2 * 3)^2
 (1 + 3) / 2 + 45
+6 / 2 * (1 + 2)
 ```
 
 ## R as a calculator
@@ -154,7 +156,7 @@ Try assigning your full name to an R variable called `name`
 Try assigning your full name to an R variable called `name`
 
 ```{r myName}
-name = "John Muschelli"
+name = "Ava Hoffman"
 name
 ```
 
@@ -177,7 +179,7 @@ Try assigning your first and last name as 2 separate character strings into a si
 Try assigning your first and last name as 2 separate character strings into a length-2 vector called `name2`
 
 ```{r myName2}
-name2 = c("John","Muschelli")
+name2 = c("Ava","Hoffman")
 name2
 ```
 
@@ -220,7 +222,7 @@ x + c(1, 2, 3, 4)
 
 ## Lab Part 1
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)
 
 ## R variables
 
@@ -232,7 +234,7 @@ name2 + 4
 
 ## R variables
 
-And save these modified vectors as a new vector.
+Save these modified vectors as a new vector.
 
 ```{r assign5}
 y = x + c(1, 2, 3, 4)
@@ -243,7 +245,7 @@ Note that the R object `y` is no longer "Hello  World!" - It has effectively bee
 
 ## R variables
 
-* You can get more attributes than just class.  The function `str` gives you the structure of the object.
+You can get more attributes than just class.  The function `str` gives you the structure of the object.
 
 ```{r assign2}
 str(x)
@@ -261,4 +263,4 @@ This tells you that `x` is a numeric vector and tells you the length.
 
 ## Lab Part 2
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)
