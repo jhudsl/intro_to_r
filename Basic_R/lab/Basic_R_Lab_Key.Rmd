@@ -73,8 +73,8 @@ y =  c(10,20,30,40,50)
 10. what happens if you try to add x and y together? why?
 ```{r}
 x + y
+# R "auto replicates" the shorter vector when the vectors aren't the same length - this is not what we want!
 ```
-
 
 
 11. append the value 60 onto the vector y (hint: you can use the c() function)
