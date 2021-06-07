@@ -81,12 +81,14 @@ Note, when you type your command, R inherently thinks you want to print the resu
     * +, -, /, * are add, subtract, divide and multiply
     * ^ or ** is power
     * parentheses -- ( and ) -- work with order of operations 
+    * %% finds the remainder
 
 ## R as a calculator
 
 ```{r calcDemo2}
 2 + (2 * 3)^2
 (1 + 3) / 2 + 45
+6 / 2 * (1 + 2)
 ```
 
 ## R as a calculator
