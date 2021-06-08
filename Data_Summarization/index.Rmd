@@ -145,9 +145,8 @@ colMeans(avgs, na.rm = TRUE)
 ```
 
 ```{r}
-tb %>%
-  mutate(before_2000_avg = rowMeans(avgs, na.rm = TRUE)) %>%
-  select(country, before_2000_avg)
+tb$before_2000_avg = rowMeans(avgs, na.rm = TRUE)
+head(tb[, c("country", "before_2000_avg")])
 ```
 
 ## Summarize the data: `dplyr` `summarize` function
