@@ -1,44 +1,40 @@
 Dear Students,
+
 You are all registered for Introduction to R for Public Health Researchers.
 
-Class will be 8:30AM-11:50AM EST June 8-12, 2020.
+Class will be 8:30AM-11:50AM EST June 14-18, 2021. The recurring Zoom link for our class is: https://jh.zoom.us/j/97752917969?pwd=WVpVQyt3eTh4OG5Gb0dwNXo1Ny9qdz09
 
-The class website is http://johnmuschelli.com/intro_to_r/ - we may be posting additional content the night before each class.  The syllabus is located here.  The CoursePlus website https://courseplus.jhu.edu/ should have drop boxes for homework and projects.
+The class website is http://jhudatascience.org/intro_to_r/ - we may be posting additional content the night before each class.  The syllabus is located here.  The CoursePlus website should have drop boxes for homework and projects.
 
-You must have a laptop to class, with the following software installed before the first class:
-1. Please install the latest version of R for Windows or Mac: https://cran.r-project.org/ (version 4.0)
+Please note the following below:
+- Pre-class software installation 
+- Pre-class homework
+- Signing up for the class Slack channel
+
+Pre-class software installation:
+
+You should have the following software installed before the first class:
+1. Please install the latest version of R (4.1.0 as of May 28, 2021)
 2. Please install the latest version of RStudio (Desktop): https://www.rstudio.com/products/RStudio/#Desktop
-3.  Please follow the instructions in the video https://youtu.be/-m1c8Xz1ZCg for installing the tidyverse package.  
-4.  If you are using a work computer, make sure you: Repeat this process for all of the packages in the text file attached to this email.
-5.  Run the following code in R (to install the jhur package):
+You can find detailed instructions on how to do this on the CoursePlus Content page for Session 0.
 
-if (!requireNamespace("remotes", quietly = TRUE)) {
-	install.packages("remotes")
-}
-remotes::install_github("muschellij2/jhur")
+Pre-class homework:
+
+Please complete the first module for the Introduction to R: https://app.dataquest.io/m/499/introduction-to-programming-in-r before class starts (it will make things easier). More details can be found here. Once complete, please upload a screenshot of the completion page here.
 
 
-If you are using Mac OSX:
-1) In the Terminal, run (copy and paste and hit enter): 
-xcode-select --install
-(this will ask you to agree to a user agreement) - this is installing extra tools that allow R packages to compile on your machine.
-2) In the Terminal, run:
-gfortran
-If you see:
--bash: gfortran: command not found
-then continue to steps 3 and 4
-3) Install brew.  Go to the Terminal, run (copy and paste): 
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-4) Once that's done, run in the Terminal:
-brew install gfortran
+Signing up for the class Slack channel:
 
+We have launched a Slack workspace for the 140.640 - Introduction to R [SI 2021-22] class. For those of you who are using Slack for the first time: Slack is a collaboration platform that allows connecting people within a group or organization. Here, we have created a Slack workspace to facilitate discussion within students themselves, as well as with TAs and instructors. We hope this chat platform will allow you to discuss and clarify lecture content and homework. Slack has worked well for that purpose in other classes' offerings, and we hope it will continue to be a useful tool for you. 
 
-HOMEWORK 1:
-Please complete the Modules for the Introduction to R: https://app.dataquest.io/m/499/introduction-to-programming-in-r before class starts (it will make things easier).  Please complete only the free sections. 
-Completing them is the first homework assignment due *Tuesday* before class (please upload a screenshot of the total completion).
+To join the Slack workspace for 140.640 - Introduction to R [SI 2021-22], use the following invitation link and follow the instructions:
+https://join.slack.com/t/140640introdu-wnv5964/shared_invite/zt-rd7hbusy-Jr5Vid8n3~GU7ITANGYY9w
+Once joined, to access the Slack workspace, use the link: 
+https://app.slack.com/client/T023TPZA8LF/C024YBC75NU
+Once you log in to the Slack workspace, you should be able to see a welcome message displayed in the "general" channel which includes a short Slack tutorial too.
 
 
 See everyone on Monday!
 
 Thanks,
-John and Andrew
+Ava, Carrie, and Marta
