@@ -80,7 +80,7 @@ bike = read_bike()
 # Part 3
 
 6. (a) Numerically [hint: `quantile()`, using `bike$length`] and 
-		(b) graphically [hint: `qplot(length, geom = "histogram")` or `qplot( geom = "density")`] describe the distribution of bike "lane" lengths.
+		(b) graphically [hint: `qplot()` with `geom = "histogram"` or `geom = "density")`] describe the distribution of bike "lane" lengths.
 ```{r q6}
 
 
