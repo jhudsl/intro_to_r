@@ -215,7 +215,7 @@ yts %>% count(LocationDesc)
 ## `dplyr`: `count` 
 
 ```{r, message = FALSE}
-yts %>% count(LocationDesc, Age)
+yts %>% count(LocationDesc, TopicDesc)
 ```
 
 ## Subsetting to specific columns
