@@ -145,22 +145,23 @@ colMeans(avgs, na.rm = TRUE)
 ```
 
 ```{r}
-tb$before_2000_avg = rowMeans(avgs, na.rm = TRUE)
-head(tb[, c("country", "before_2000_avg")])
+tb %>%
+  mutate(before_2000_avg = rowMeans(avgs, na.rm = TRUE)) %>%
+  select(country, before_2000_avg)
 ```
 
 ## Summarize the data: `dplyr` `summarize` function
 
-`dplyr::summarize` will allow you to summarize data. If you would like to summarize **all** columns, you can use `summarize_all` and pass in a function (with other arguments):
+`dplyr::summarize` will allow you to summarize data. If you would like to summarize **all** columns, you can use `across` and pass in a function (with arguments):
 
 ```{r, echo = TRUE, eval=FALSE}
-summarize_all(DATASET, FUNCTION, OTHER_FUNCTION_ARGUMENTS) # how to use
+summarize(across(COLUMNS), ~ FUNCTION(.x, FUNCTION_ARGUMENTS)) # how to use
 ```
 
 ```{r}
-summarize_all(avgs, mean, na.rm = TRUE)
+tb %>% 
+  summarize(across(starts_with("1"), ~ mean(.x, na.rm = TRUE)))
 ```
-
 
 ## Summary Function
 
