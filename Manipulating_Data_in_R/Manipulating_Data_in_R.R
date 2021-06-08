@@ -50,15 +50,15 @@ class(circ$date)
 
 
 ## -----------------------------------------------------------------------------
-long = gather(circ, key = "var", value = "number", 
-              -day, -date, -daily)
+long = pivot_longer(circ, !c(day, date, daily), # NOT pivoting these
+                    names_to = "var", values_to = "number")
 head(long, 4)
 
 
 ## -----------------------------------------------------------------------------
-long = gather(circ, key = "var", value = "number", 
-              starts_with("orange"), starts_with("purple"),
-              starts_with("green"), starts_with("banner"))
+long = pivot_longer(circ, 
+                    starts_with(c("orange","purple","green","banner")),
+                    names_to = "var", values_to = "number")
 long
 
 
@@ -92,7 +92,8 @@ reunited %>% select(day, var) %>% head(3) %>% print
 ## -----------------------------------------------------------------------------
 # have to remove missing days
 wide = long %>% filter(!is.na(date))
-wide = wide %>% spread(type, number)
+wide = wide %>% pivot_wider(names_from = "type", 
+                            values_from = "number") 
 head(wide)
 
 
@@ -150,9 +151,13 @@ fj = full_join(base, visits)
 tail(fj, 4)
 
 
+## ----include=FALSE------------------------------------------------------------
+unloadNamespace("tidylog")
+
+
 ## ----use_by-------------------------------------------------------------------
 base = base %>% mutate(x = 5)
-viits = visits %>% mutate(x = 4)
+visits = visits %>% mutate(x = 4)
 head(full_join(base, visits))
 head(full_join(base, visits, by = "id"))
 head(full_join(base, visits, by = "id", suffix = c("_base", "_visit")))

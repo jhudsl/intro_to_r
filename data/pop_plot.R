@@ -7,7 +7,8 @@ library(tidyr)
 death = read_csv(
   "http://johnmuschelli.com/intro_to_r/data/indicatordeadkids35.csv")
 colnames(death)[1] = "country"
-long = gather(death, key = year, value = deaths, -country)
+long = pivot_longer(death, !country,
+                    names_to = "year", values_to = "deaths")
 long = long %>% 
   filter(!is.na(deaths)) %>% 
   mutate(

@@ -70,10 +70,10 @@ mort_subs = mort %>%
   filter(country %in% c( "China", "Myanmar","United States")) %>% 
   arrange(country)
 long = mort_subs %>% 
-  gather(key = "year", value = death, -country) %>% 
+  pivot_longer(!country, names_to = "year", values_to = "death") %>% 
   filter(!is.na(death))
 long = long %>% 
-  spread(key = country, value = death)
+  pivot_wider(names_from = "country", values_from = "death")
 sub = long %>% 
   select(Myanmar, China, `United States`)
 cor(sub)

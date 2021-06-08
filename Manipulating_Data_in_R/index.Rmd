@@ -105,8 +105,8 @@ The `reshape` command exists.  It is a **confusing** function.  Don't use it.
 
 `tidyr` allows you to "tidy" your data.  We will be talking about:
 
-- `gather` - make multiple columns into variables, (wide to long)
-- `spread` - make a variable into multiple columns, (long to wide)
+- `pivot_longer` - make multiple columns into variables, (wide to long)
+- `pivot_wider` - make a variable into multiple columns, (long to wide)
 - `separate` - string into multiple columns
 - `unite` - multiple columns into one string
 
@@ -115,25 +115,25 @@ The `reshape` command exists.  It is a **confusing** function.  Don't use it.
 
 ## Reshaping data from wide (fat) to long (tall): tidyr 
 
-`tidyr::gather` - puts column data into rows.
+`tidyr::pivot_longer` - puts column data into rows.
 
-We want the column names into "`var`" variable in the output dataset and the value in "`number`" variable. We then describe which columns we want to "gather:" 
+We first describe which columns we want to "pivot_longer." We want the column names in a "var" variable in the output dataset and the values in a "number" variable:
 
 ```{r}
-long = gather(circ, key = "var", value = "number", 
-              -day, -date, -daily)
+long = pivot_longer(circ, !c(day, date, daily), # NOT pivoting these
+                    names_to = "var", values_to = "number")
 head(long, 4)
 ```
 
 
 ## Reshaping data from wide (fat) to long (tall): tidyr 
 
-- Could be explicit on what we want to gather
+- Could be explicit on what we want to pivot
 
 ```{r}
-long = gather(circ, key = "var", value = "number", 
-              starts_with("orange"), starts_with("purple"),
-              starts_with("green"), starts_with("banner"))
+long = pivot_longer(circ, 
+                    starts_with(c("orange","purple","green","banner")),
+                    names_to = "var", values_to = "number")
 long
 ```
 
@@ -215,12 +215,13 @@ We could also use `paste`/`paste0`.
 
 ## Reshaping data from long (tall) to wide (fat): tidyr
 
-In `tidyr`, the `spread` function spreads rows into columns.  Now we have a long data set, but we want to separate the Average, Alightings and Boardings into different columns:
+In `tidyr`, the `pivot_wider` function spreads rows into columns.  Now we have a long data set, but we want to separate the Average, Alightings and Boardings into different columns:
 
 ```{r}
 # have to remove missing days
 wide = long %>% filter(!is.na(date))
-wide = wide %>% spread(type, number)
+wide = wide %>% pivot_wider(names_from = "type", 
+                            values_from = "number") 
 head(wide)
 ```
 

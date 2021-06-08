@@ -51,12 +51,13 @@ mort[1:2, 1:5]
 
 ## ggplot2
 
-Let's try this out on the childhood mortality data used above. However, let's do some manipulation first, by using `gather` on the data to convert to long. 
+Let's try this out on the childhood mortality data used above. However, let's do some manipulation first, by using `pivor_longer` on the data to convert to long. 
 
 ```{r}
 library(tidyverse)
 long = mort
-long = long %>% gather(year, morts, -country)
+long = long %>% pivot_longer(!country, 
+                             names_to = "year", values_to = "morts")
 head(long, 2)
 ```
 

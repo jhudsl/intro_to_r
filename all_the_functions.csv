@@ -269,9 +269,9 @@ str_replace,stringr,"Vectorised over \code{string}, \code{pattern} and \code{rep
 str_split,stringr,Vectorised over \code{string} and \code{pattern}.
 str_subset,stringr,"\code{str\_subset()} is a wrapper around \code{x[str\_detect(x, pattern)]}, and is equivalent to \code{grep(pattern, x, value = TRUE)}. \code{str\_which()} is a wrapper around \code{which(str\_detect(x, pattern))}, and is equivalent to \code{grep(pattern, x)}."
 str_trim,stringr,Trim whitespace from start and end of string.
-gather,tidyr,"Gather takes multiple columns and collapses into key-value pairs, duplicating all other columns as needed. You use \code{gather()} when you notice that you have columns that are not variables."
+pivot_longer,tidyr,"Pivot_longer takes multiple columns and collapses into key-value pairs, duplicating all other columns as needed. You use \code{pivot_longer()} when you notice that you have columns that are not variables."
 separate,tidyr,"Given either regular expression or a vector of character positions, \code{separate()} turns a single character column into multiple columns."
-spread,tidyr,Spread a key-value pair across multiple columns.
+pivot_wider,tidyr,Pivot a key-value pair across multiple columns.
 unite,tidyr,Convenience function to paste together multiple columns into one.
 data,utils,"Loads specified data sets, or list the available data sets."
 download.file,utils,This function can be used to download a file from the Internet.
