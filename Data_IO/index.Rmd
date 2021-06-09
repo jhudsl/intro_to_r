@@ -351,7 +351,7 @@ write_rds(dat, path = "yts_dataset.rds")
 To read this back in to R, you need to use `read_rds`, but **need to assign it**:
 
 ```{r}
-dat2 = read_rds(path = "yts_dataset.rds")
+dat2 = read_rds(file = "yts_dataset.rds")
 identical(dat, dat2) # test if they are the same 
 ```
 
@@ -416,7 +416,7 @@ But you can use whatever function you feel more comfortable with.
 
 ## Base R: Data Input
 
-Here is how to read in the same dataset using base R functionality, which returns a `data.frame` directly
+Here is how to read in the same dataset using base R functionality, which returns a `data.frame` directly.
 
 ```{r, readingCSV}
 dat2 = read.csv("../data/Youth_Tobacco_Survey_YTS_Data.csv")
