@@ -91,20 +91,20 @@ quantile(x, na.rm = TRUE)
 
 ## Lab Part 1
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)
 
 
 ## TB Incidence 
 
 Please download the TB incidence data: 
 
-http://johnmuschelli.com/intro_to_r/data/tb_incidence.xlsx
+http://jhudatascience.org/intro_to_r/data/tb_incidence.xlsx
 
 Here we will read in a `tibble` of values from TB incidence:
 
 ```{r}
 library(readxl)
-# tb <- read_excel("http://johnmuschelli.com/intro_to_r/data/tb_incidence.xlsx")
+# tb <- read_excel("http://jhudatascience.org/intro_to_r/data/tb_incidence.xlsx")
 tb = jhur::read_tb()
 colnames(tb)
 ```
@@ -175,7 +175,7 @@ summary(tb)
 
 
 Here we will be using the Youth Tobacco Survey data:
-http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv .
+http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv .
 
 
 ```{r}
@@ -317,7 +317,7 @@ sub_yts %>%
 
 ## Lab Part 2
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)
 
 
 ## Data Summarization/Visualization: ggplot2
@@ -396,7 +396,7 @@ library(GGally)
 <!-- ``` -->
 
 ## Lab Part 3
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)
 
 ## Base functions for plotting
 
@@ -414,7 +414,7 @@ library(GGally)
 
 ## Website
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)
 
 
 
