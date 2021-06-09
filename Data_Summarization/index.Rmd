@@ -91,20 +91,20 @@ quantile(x, na.rm = TRUE)
 
 ## Lab Part 1
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)
 
 
 ## TB Incidence 
 
 Please download the TB incidence data: 
 
-http://johnmuschelli.com/intro_to_r/data/tb_incidence.xlsx
+http://jhudatascience.org/intro_to_r/data/tb_incidence.xlsx
 
 Here we will read in a `tibble` of values from TB incidence:
 
 ```{r}
 library(readxl)
-# tb <- read_excel("http://johnmuschelli.com/intro_to_r/data/tb_incidence.xlsx")
+# tb <- read_excel("http://jhudatascience.org/intro_to_r/data/tb_incidence.xlsx")
 tb = jhur::read_tb()
 colnames(tb)
 ```
@@ -151,14 +151,15 @@ head(tb[, c("country", "before_2000_avg")])
 
 ## Summarize the data: `dplyr` `summarize` function
 
-`dplyr::summarize` will allow you to summarize data. If you would like to summarize **all** columns, you can use `summarize_all` and pass in a function (with other arguments):
+`dplyr::summarize` will allow you to summarize data. If you would like to summarize **all** columns, you can use `across` and pass in a function (with arguments):
 
 ```{r, echo = TRUE, eval=FALSE}
-summarize_all(DATASET, FUNCTION, OTHER_FUNCTION_ARGUMENTS) # how to use
+summarize(across(COLUMNS), ~ FUNCTION(.x, FUNCTION_ARGUMENTS)) # how to use
 ```
 
 ```{r}
-summarize_all(avgs, mean, na.rm = TRUE)
+tb %>% 
+  summarize(across(starts_with("1"), ~ mean(.x, na.rm = TRUE)))
 ```
 
 
@@ -175,7 +176,7 @@ summary(tb)
 
 
 Here we will be using the Youth Tobacco Survey data:
-http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv .
+http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv .
 
 
 ```{r}
@@ -214,7 +215,7 @@ yts %>% count(LocationDesc)
 ## `dplyr`: `count` 
 
 ```{r, message = FALSE}
-yts %>% count(LocationDesc, Age)
+yts %>% count(LocationDesc, TopicDesc)
 ```
 
 ## Subsetting to specific columns
@@ -317,7 +318,7 @@ sub_yts %>%
 
 ## Lab Part 2
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)
 
 
 ## Data Summarization/Visualization: ggplot2
@@ -396,7 +397,7 @@ library(GGally)
 <!-- ``` -->
 
 ## Lab Part 3
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)
 
 ## Base functions for plotting
 
@@ -414,7 +415,7 @@ library(GGally)
 
 ## Website
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)
 
 
 

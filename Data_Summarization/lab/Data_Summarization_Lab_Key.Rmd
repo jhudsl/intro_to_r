@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 Bike Lanes Dataset: BikeBaltimore is the Department of Transportation's bike program. 
 The data is from http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms
 
-You can Download as a CSV in your current working directory.  Note its also available at: 	http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv 
+You can Download as a CSV in your current working directory.  Note its also available at: 	http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv 
 
 ```{r}
 library(readr)
@@ -25,7 +25,7 @@ library(tidyverse)
 library(jhur)
 
 bike = read_csv(
-  "http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
+  "http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv")
 ```
 
 
@@ -108,8 +108,6 @@ avg = bike %>%
 ```
 
 
-# Part 3
-		  
 5. What was the average bike lane length per year that they were installed? 
  Set `bike$dateInstalled` to `NA` if it is equal to zero.
 
@@ -148,9 +146,8 @@ bike %>%
 
 # Part 3
 
-6. (a) Numerically [hint: `quantile()`] and 
-		(b) graphically [hint: `hist()` or `plot(density())`]
-		 describe the distribution of bike "lane" lengths.
+6.  (a) Numerically [hint: `quantile()`, using `bike$length`] and 
+		(b) graphically [hint: `qplot()` with `geom = "histogram"` or `geom = "density")`] describe the distribution of bike "lane" lengths.
 ```{r q6}
 quantile(bike$length)
 
