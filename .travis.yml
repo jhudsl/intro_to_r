@@ -8,7 +8,7 @@ env:
     - R_REMOTES_NO_ERRORS_FROM_WARNINGS=true
 
 install:
-  - Rscript -e 'install.packages(c("remotes", "corrr", "pagedown", "GGally"))'
+  - Rscript -e 'install.packages(c("remotes", "corrr", "pagedown", "GGally", "dslabs", "DT", "haven", "readr", "shiny", "xlsx"))'
   - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
   - sudo apt install ./google-chrome-stable_current_amd64.deb
   - rm google-chrome-stable_current_amd64.deb
