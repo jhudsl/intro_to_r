@@ -62,3 +62,8 @@ slides > slide > hgroup + article {
    float:right;
    width:48%;
 }
+
+slides>slide.title-slide {
+    background-image: url('images/Intro_to_R.png');
+    background-size: 100% 100%;
+}

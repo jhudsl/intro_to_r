@@ -36,7 +36,7 @@ quantile(x, na.rm = TRUE)
 
 ## -----------------------------------------------------------------------------
 library(readxl)
-# tb <- read_excel("http://johnmuschelli.com/intro_to_r/data/tb_incidence.xlsx")
+# tb <- read_excel("http://jhudatascience.org/intro_to_r/data/tb_incidence.xlsx")
 tb = jhur::read_tb()
 colnames(tb)
 
@@ -68,11 +68,12 @@ head(tb[, c("country", "before_2000_avg")])
 
 
 ## ---- echo = TRUE, eval=FALSE-------------------------------------------------
-## summarize_all(DATASET, FUNCTION, OTHER_FUNCTION_ARGUMENTS) # how to use
+## summarize(across(COLUMNS), ~ FUNCTION(.x, FUNCTION_ARGUMENTS)) # how to use
 
 
 ## -----------------------------------------------------------------------------
-summarize_all(avgs, mean, na.rm = TRUE)
+tb %>% 
+  summarize(across(starts_with("1"), ~ mean(.x, na.rm = TRUE)))
 
 
 ## ----summary1-----------------------------------------------------------------
@@ -101,7 +102,7 @@ yts %>% count(LocationDesc)
 
 
 ## ---- message = FALSE---------------------------------------------------------
-yts %>% count(LocationDesc, Age)
+yts %>% count(LocationDesc, TopicDesc)
 
 
 ## ---- message=FALSE-----------------------------------------------------------
