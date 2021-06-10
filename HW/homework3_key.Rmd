@@ -28,7 +28,7 @@ library(tidyr)
 1.	Read the data using `read_csv()` and name it `mort`. Rename the first column to `country` using the `rename()` command in `dplyr`.  Create an object `year` variable by extracting column names (using `colnames()`) and make it to an integer `as.integer()`), excluding the first column either with string manipulations or bracket subsetting or subsetting with `is.na()`. 
 
 ```{r, dataImport}
-mort = read_csv("https://jhudatascience.org/intro_to_r/data/indicatordeadkids35.csv")
+mort = read_csv("https://jhudatascience.org/intro_to_r/data/infant_mortality.csv")
 mort = mort %>% 
   rename(country = X1)
 ```
