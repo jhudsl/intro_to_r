@@ -1,6 +1,5 @@
 ---
-title: "Introduction to R"
-author: "Introduction to R for Public Health Researchers"
+title: ""
 output:
   ioslides_presentation:
     css: ../styles.css
@@ -19,50 +18,109 @@ opts_chunk$set(comment = "")
 3. Getting R up and running
 
 
+```{r, fig.alt="Welcome!", out.width = "60%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("../images/welcome.jpg")
+```
+
+
+Photo by <a href="https://unsplash.com/@bel2000a?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Belinda Fewings</a> on <a href="https://unsplash.com/s/photos/welcome?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+  
+  
 ## About Us
 
-**John Muschelli** 
+**Carrie Wright** 
 
-Assistant Scientist, Department of Biostatistics
+Assistant Scientist, Department of Biostatistics, JHSPH
 
-PhD in Biostatistics, ScM in Biostatistics
+PhD in Biomedical Sciences
 
-Email: jmusche1@jhu.edu
+Email: cwrigh60@jhu.edu
+
+Website: carriewright11.github.io
+
+```{r, fig.alt="Welcome!", out.width = "30%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://ca.slack-edge.com/T023TPZA8LF-U024F9G49S8-9861ddd543db-192")
+```
+
 
 ## About Us
 
-**Andrew Jaffe**
+**Ava Hoffman**
 
-Lead Investigator, Lieber Institute for Brain Development
+Research Associate, Department of Biostatistics, JHSPH
 
-Associate Professor, Department of Mental Health, JHSPH
+PhD in Ecology
 
-PhD in Epidemiology, MHS in Bioinformatics
+Email: ava.hoffman@jhu.edu
 
-Email: andrew.jaffe@libd.org
+Website: avahoffman.com
 
+```{r, fig.alt="Welcome!", out.width = "30%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://ca.slack-edge.com/T023TPZA8LF-U0248RUHRC2-0ac3f9608641-512")
+```
+
+## About Us
+
+**Marta Karas**
+
+PhD Candidate, Department of Biostatistics, JHSPH
+
+MS in Mathematics
+
+Email: mkaras2@jhmi.edu
+
+Website: martakarass.github.io
+
+```{r, fig.alt="Welcome!", out.width = "30%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://ca.slack-edge.com/T023TPZA8LF-U024EN26Q0L-113294823b2c-512")
+```
 
 ## What is R?
 
 - R is a language and environment for statistical computing and graphics
 
-- R is the open source implementation of the S language, which was developed by Bell laboratories
+- R is the open source implementation of the [S language](https://en.wikipedia.org/wiki/S_(programming_language)), which was developed by [Bell laboratories](https://ca.slack-edge.com/T023TPZA8LF-U024EN26Q0L-113294823b2c-512) in the 70s.
 
-- R is both open source and open development
+- The aim of the S language, as expressed by John Chambers, is "to turn ideas into software, quickly and faithfully"
 
-(source: http://www.r-project.org/)
+```{r, fig.alt="Welcome!", out.width = "40%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Bell_Laboratories_logo.svg/2880px-Bell_Laboratories_logo.svg.png")
+```
+
+
+(source: http://www.r-project.org/, https://en.wikipedia.org/wiki/S_(programming_language), https://en.wikipedia.org/wiki/Bell_Labs)
+
+## What is R?
+
+- In 1991 **R**oss Ihaka and **R**obert Gentleman at the University of Auckland, New Zealand began developing R
+
+- R is named partly after the first names of the first two authors and  a play on the name of S.
+
+- R is both [open source](https://en.wikipedia.org/wiki/Open_source) and [open development](https://en.wikipedia.org/wiki/Open-source_software_development)
+
+```{r, fig.alt="Welcome!", out.width = "20%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://www.r-project.org/Rlogo.png")
+```
+
+
+(source: http://www.r-project.org/, https://en.wikipedia.org/wiki/R_(programming_language) )
 
 ## Why R?
 
-* Powerful and flexible
+* High level language designed for statistical computing
+
+* Powerful and flexible - especially for data wrangling and visualization
 
 * Free (open source)
 
 * Extensive add-on software (packages)
 
-* Designed for statistical computing
+* Strong community 
 
-* High level language
+```{r, fig.alt="R-Ladies - a non-profit civil society community", out.width = "25%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://rladies-baltimore.github.io/img/R-LadiesGlobal_RBG_online_LogoOnly.png")
+```
+(source: https://rladies-baltimore.github.io/)
 
 ## Why not R?
 
@@ -79,17 +137,31 @@ Email: andrew.jaffe@libd.org
 * Slower, and more memory intensive, than the more traditional programming languages (C, Java, Perl, Python)
 
 
+```{r, fig.alt="Welcome!", out.width = "30%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("../images/hex.png")
+```
+
 ## Introductions
 
 What do you hope to get out of the class?
 
-Why else to use R?
+Why do you want to use R?
+
+```{r, fig.alt="Welcome!", out.width = "60%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("../images/hope.jpg")
+``` 
+Photo by <a href="https://unsplash.com/@jannerboy62?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Nick Fewings</a> on <a href="https://unsplash.com/s/photos/hope?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+  
 
 ## Course Website
 
-http://johnmuschelli.com/intro_to_r
+http://jhudatascience.org/intro_to_r
 
 Materials will be uploaded the night before class
+
+```{r, fig.alt="Welcome!", out.width = "60%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("../images/Intro_to_R.png")
+```
 
 ## Learning Objectives
 
@@ -144,12 +216,14 @@ Note it may take ~5-10 minutes to run.
 ## Useful (+Free) Resources
 
 * R for Data Science: http://r4ds.had.co.nz/ 
-* Various "Cheat Sheets": https://www.rstudio.com/resources/cheatsheets/
-* DataCamp http://www.datacamp.com
-* R reference card: http://cran.r-project.org/doc/contrib/Short-refcard.pdf
-* UCLA Institute for Digital Research and Education: http://www.ats.ucla.edu/stat/r/
-* Quick R: http://statmethods.net/
+* Various "Cheat Sheets": https://www.rstudio.com/resources/cheatsheets/  
+* Dataquest: https://www.dataquest.io/
+* R reference card: http://cran.r-project.org/doc/contrib/Short-refcard.pdf  
+* UCLA Institute for Digital Research and Education: http://www.ats.ucla.edu/stat/r/  
+* Quick R: http://statmethods.net/  
+* Open Case Studies: https://www.opencasestudies.org/  
+* Tidyverse Skills for Data Science Book: https://jhudatascience.org/tidyversecourse/  
+* Tidyverse Skills for Data Science Course: https://www.coursera.org/specializations/tidyverse-data-science-r 
+* Roger Peng or Jeff Leek Courses on Coursera: https://www.coursera.org/
+* Course Website: http://jhudatascience.org/intro_to_r/index.html
 
-## Website
-
-[Website](http://johnmuschelli.com/intro_to_r/index.html)

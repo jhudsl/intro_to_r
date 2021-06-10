@@ -83,7 +83,7 @@ write_rds(dat, path = "yts_dataset.rds")
 
 
 ## -----------------------------------------------------------------------------
-dat2 = read_rds(path = "yts_dataset.rds")
+dat2 = read_rds(file = "yts_dataset.rds")
 identical(dat, dat2) # test if they are the same 
 
 
