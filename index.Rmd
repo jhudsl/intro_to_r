@@ -1,5 +1,8 @@
 ---
-title: "Introduction to R"
+title: |
+  ![](images/Intro_to_R.png){width=120px align=left style="padding-right: 20px"}
+  Introduction to R for Public Health Researchers
+  <br>
 output:
   html_document:
     theme: spacelab
@@ -7,17 +10,31 @@ output:
     toc_depth: 4
 ---
 
+***
+
 ```{r setup, echo = FALSE, message = FALSE}
 library(pander)
 library(kableExtra)
 ```
 
-<style>#forkongithub a{background:#000;color:#fff;text-decoration:none;font-family:arial,sans-serif;text-align:center;font-weight:bold;padding:5px 40px;font-size:1rem;line-height:2rem;position:relative;transition:0.5s;}#forkongithub a:hover{background:#c11;color:#fff;}#forkongithub a::before,#forkongithub a::after{content:"";width:100%;display:block;position:absolute;top:1px;left:0;height:1px;background:#fff;}#forkongithub a::after{bottom:1px;top:auto;}@media screen and (min-width:800px){#forkongithub{position:fixed;display:block;top:0;right:0;width:200px;overflow:hidden;height:200px;z-index:9999;}#forkongithub a{width:200px;position:absolute;top:60px;right:-60px;transform:rotate(45deg);-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);-moz-transform:rotate(45deg);-o-transform:rotate(45deg);box-shadow:4px 4px 10px rgba(0,0,0,0.8);}}</style><span id="forkongithub"><a href="https://github.com/muschellij2/intro_to_r">Fork me on GitHub</a></span>
+<style>#forkongithub a{background:#000;color:#fff;text-decoration:none;font-family:arial,sans-serif;text-align:center;font-weight:bold;padding:5px 40px;font-size:1rem;line-height:2rem;position:relative;transition:0.5s;}#forkongithub a:hover{background:#c11;color:#fff;}#forkongithub a::before,#forkongithub a::after{content:"";width:100%;display:block;position:absolute;top:1px;left:0;height:1px;background:#fff;}#forkongithub a::after{bottom:1px;top:auto;}@media screen and (min-width:800px){#forkongithub{position:fixed;display:block;top:0;right:0;width:200px;overflow:hidden;height:200px;z-index:9999;}#forkongithub a{width:200px;position:absolute;top:60px;right:-60px;transform:rotate(45deg);-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);-moz-transform:rotate(45deg);-o-transform:rotate(45deg);box-shadow:4px 4px 10px rgba(0,0,0,0.8);}}</style><span id="forkongithub"><a href="https://github.com/jhudsl/intro_to_r">Fork me on GitHub</a></span>
+
 
 
 <a href="http://www.jhsph.edu/"><img alt = "JHSPH" align="right" src="http://johnmuschelli.com/intro_to_r/bloomberg.logo.small.horizontal.blue.png" style="width:40%"/></a>
+<br>
+<br>
 
-### Instructors: 
+## Overview: 
+***
+Welcome to Introduction to R for Public Health Researchers!  
+
+This course is for students who have little to no familiarity with the R programming language and want to learn more about how to use R to import, wrangle, analyze, and visualize data.
+
+The course will provide students “hands-on” training for analyzing data in the R statistical software package, a popular open-source solution for data analysis and visualization. We will covers data input/output, data management and manipulation, and constructing useful and informative graphics.
+
+## Instructors: 
+***
 
 * [Carrie Wright](https://carriewright11.github.io/): cwrigh60 at jhu.edu
 
@@ -25,42 +42,71 @@ library(kableExtra)
 
 * [Marta Karas](https://martakarass.github.io/): mkaras2 at jhmi.edu
 
-### TAs
+## TAs
+***
 
 * Grant Schumock - gschumo1 at jhmi.edu
 * [Michael Breshock](https://mbreshock.github.io/) - mbresho1 at jhu.edu
 
-### Class:
+## Class:
+***
 
-* June 14-18, 8:30AM-11:50PM 
-* CoursePlus: https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/14746/
+* June 14-18, 8:30AM-11:50PM on Zoom  
+* CoursePlus: https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/14746/  
+
+## Zoom:
+***
+
 * Zoom link will be emailed to students
+* Class sessions will be recorded and later posted
+* We will have lectures as well as breakout room sessions to work on labs
+* Please be aware that there is the option to use closed captioning:
+
+![closed captioning on zoom](images/CC.png)
+
+* During lectures you can indicate how you feel about the pace of the course like so:
+
+![reactions about pace](images/slow_fast_reactions.png)
+
+* In breakout room sessions you can ask for help like so:
+
+![ask for help](images/help.png)
+
+* If you have a question based on our labs or homework (or not covered during lecture time), we ask that you post it on slack (which will be our main communication method - the link will be emailed). This allows for questions to be seen by everyone, not just the students in your breakout room. If another student does not answer your question (which we encourage!), we will try to answer it within 24 hours. If you feel uncomfortable posting a question publicly, let a TA or instructor know your question and we will post it for you anonymously. 
 
 
-### Grading
+## Grading
+***
 
 1. Attendance/Participation: 20%
 2. Nightly Homework: 3 x 15%
 3. Final "Project": 35%
 
-### Submitting Homework
+## Submitting Homework
+***
 
 Please go to https://courseplus.jhu.edu/, sign in, go to the Intro to R class, and then go to Drop Boxes to submit homework and projects.
 
-### Example Projects 
+
+## Example Projects 
+***
 
 This project should entail reading in a dataset of your choosing, doing some light data cleaning, performing some data summarization and visualization, and then doing some very light statistical analysis, like regression or chi-squared tests. Example projects can be found with the source code: [Rmd](ProjectExample/RMarkDown_FinalProject.Rmd), and the output [Docx](ProjectExample/RMarkDown_FinalProject.docx) here.
 
-### Example knitr
+## Example knitr  
+***
+***
 
 [Rmd](example_knitr.Rmd) and [html output](example_knitr.html)
 
-### Important links
+## Important links
+***
 
 * [Syllabus](syllabus.html)
 * [Syllabus (Word Document)](syllabus.docx)
 
-### All the Requirements in this Course
+## All the Requirements in this Course
+***
 
 #### Packages 
 
@@ -82,8 +128,8 @@ All the data used that are not **specifically** to be downloaded from the web ar
 
 
 
-### Schedule
-
+## Schedule
+***
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}
 show_keys = TRUE
@@ -201,7 +247,8 @@ knitr::kable(df, format = "html") %>%
 <!-- | | | | | | -->
 
 
-### Additional Resources
+## Additional Resources
+***
 
 * [Building up a `ggplot2` figure](https://hopstat.wordpress.com/2016/02/18/how-i-build-up-a-ggplot2-figure/)
 * RStudio Cheat Sheets: https://www.rstudio.com/resources/cheatsheets/
@@ -213,9 +260,12 @@ knitr::kable(df, format = "html") %>%
 * Undergrad Guide to R: https://sites.google.com/site/undergraduateguidetor/
 * Quick R: http://statmethods.net/
 * Regex Golf: https://alf.nu/RegexGolf
+* Open Case Studies: https://www.opencasestudies.org/
+* Tidyverse Skills for Data Science: http://jhudatascience.org/tidyversecourse/ - also available as a [course](https://www.coursera.org/specializations/tidyverse-data-science-r) with certification on Coursera.
 
 
-### Live Code Examples
+## Live Code Examples
+***
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}
 df = matrix(
@@ -240,8 +290,8 @@ knitr::kable(df, format = "html") %>%
 
 
 
-### Online Videos of Lectures
-
+## Online Videos of Lectures
+***
 
 #### From Winter Institute 2020
 
@@ -311,8 +361,8 @@ knitr::kable(mat, format = "html") %>%
 
 
 
-### DHS Related things 
-
+## DHS Related things 
+***
 [Example Script Reading in Stata DHS Data](dhs/example_dhs_reading.R)
 
 DHS package: 
@@ -358,4 +408,4 @@ rmarkdown::render('index.Rmd')
 
 This page was last updated on `r Sys.Date()`.
 
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+<p style="text-align:center;"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://live.staticflickr.com/4557/26350808799_6f9c8bcaa2_b.jpg" height="150"/> </a> </p><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
