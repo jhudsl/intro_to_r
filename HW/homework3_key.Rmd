@@ -1,6 +1,6 @@
 ---
 title: '**KEY** Introduction to R: Homework 3'
-author: "Authored by Andrew Jaffe and John Muschelli"
+author: "Originally authored by [Andrew Jaffe](http://aejaffe.com/) and [John Muschelli](https://johnmuschelli.com/)"
 date: "11 June 2020"
 output:
   html_document: default
@@ -8,10 +8,10 @@ output:
 
 ### **Instructions**
 1. You must submit both the RMD and "knitted" HTML files as one compressed .zip to the Homework 3 Drop Box on CoursePlus.<br />
-2. All assignments are due by the end of the grading period for this term (26 June 2020).
+2. All assignments are due by the end of the grading period for this term (25 June 2021).
 
 ### **Getting Started**
-In this assignment, we will be working with the infant mortality data set, found here: http://johnmuschelli.com/intro_to_r/data/indicatordeadkids35.csv.<br />
+In this assignment, we will be working with the infant mortality data set, found here: https://jhudatascience.org/intro_to_r/data/infant_mortality.csv.<br />
 
 The packages listed below are simply suggestions, but please edit this list as you see fit.
 ```{r initiatePackages, message=FALSE}
@@ -28,7 +28,7 @@ library(tidyr)
 1.	Read the data using `read_csv()` and name it `mort`. Rename the first column to `country` using the `rename()` command in `dplyr`.  Create an object `year` variable by extracting column names (using `colnames()`) and make it to an integer `as.integer()`), excluding the first column either with string manipulations or bracket subsetting or subsetting with `is.na()`. 
 
 ```{r, dataImport}
-mort = read_csv("http://johnmuschelli.com/intro_to_r/data/indicatordeadkids35.csv")
+mort = read_csv("https://jhudatascience.org/intro_to_r/data/indicatordeadkids35.csv")
 mort = mort %>% 
   rename(country = X1)
 ```
@@ -67,11 +67,11 @@ long = long %>%
 ```
 
 
-3.	Read in this the tab-delim file and call it `pop`: http://johnmuschelli.com/intro_to_r/data/country_pop.txt.
+3.	Read in this the tab-delim file and call it `pop`: https://jhudatascience.org/intro_to_r/data/country_pop.txt.
 The file contains population information on each country. Rename the second column to `"Country"` and the column `"% of world population"`, to `percent`.<br />**Hint:** use `read_tsv()`
 
 ```{r, question3}
-pop = read_tsv("http://johnmuschelli.com/intro_to_r/data/country_pop.txt")
+pop = read_tsv("https://jhudatascience.org/intro_to_r/data/country_pop.txt")
 pop = pop %>% 
   rename(Country = `Country (or dependent territory)`,
          percent = `% of world population`)
