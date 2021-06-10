@@ -1,6 +1,5 @@
 ---
 title: "RStudio"
-author: "Introduction to R for Public Health Researchers"
 output:
   ioslides_presentation:
     css: ../styles.css
@@ -12,48 +11,22 @@ library(knitr)
 opts_chunk$set(comment = "")
 ```
 
-## Working with R
-
-* The R Console "interprets" whatever you type
-    * Calculator
-    * Creating variables
-    * Applying functions
-
-* "Analysis" Script + Interactive Exploration
-    * Static copy of what you did (reproducibility)
-    * Try things out interactively, then add to your script
-
-# R essentially is a command line with a set of functions loaded
-
-## R Uses Functions, in Packages
-
-* R revolves around functions
-    * Commands that take input, performs computations, and returns results
-    * When you download R, it has a "base" set of functions/packages (**base R**)
-* Functions are enclosed in packages
-    * These written by R users/developers (like us) - **some are bad**
-    * Think of them as "R Extensions"
-    
-## Using Packages
-
-* You **need to know base R** - answers on Google commonly use it
-* We will show you some newer and **more intuitive** ways to do things, not in base R
-* RStudio (the company) makes a lot of great packages
-* **Hadley Wickham** writes a lot of them (Employee and Developer at RStudio)
-    * One authority on all things R
-    * How to trust an R package: http://simplystatistics.org/2015/11/06/how-i-decide-when-to-trust-an-r-package/
-    
-
-## RStudio (the software)
+## Working with R -- RStudio
 
 RStudio is an Integrated Development Environment (IDE) for R
 
-  * It helps the user effectively use R.
-  * Makes things easier  
-* Is NOT dropdown statistical tools (such as Stata)
+  * It helps the user effectively use R
+  * Makes things easier
+* Is NOT a dropdown statistical tool (such as Stata)
     * See [Rcmdr](https://cran.r-project.org/web/packages/Rcmdr/index.html) or [Radiant](http://vnijs.github.io/radiant/) 
 
-* All snapshots in these slides are taken from http://ayeimanol-r.net/2013/04/21/289/
+* All R Studio snapshots are taken from http://ayeimanol-r.net/2013/04/21/289/
+
+```{r, fig.alt="RStudio logo", out.width = "30%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/62bcc8535a06077094ca3c29c383e37ad7334311/a263f/assets/img/logo.svg")
+```
+
+source(https://www.rstudio.com/)
 
 ## RStudio
 
@@ -69,11 +42,101 @@ More information
 * Integrated R help and documentation
 * Searchable command history
 
+```{r, fig.alt="RStudio", out.width = "30%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://ayeimanolr.files.wordpress.com/2013/04/r-rstudio-1-1.png?w=640&h=382")
+```
+
+
 <!-- ## RStudio/R Console ![Console](r-rstudio-1-3-console.png) -->
+
+
+## Working with R in R Studio - 2 major panes:
+
+1) The **R Console**: "interprets" whatever you type
+    * Calculator
+    * Creating variables
+    * Applying functions
+
+2) The **Source/Editor**: "Analysis" Script + Interactive Exploration
+    * Static copy of what you did (reproducibility)
+    * Try things out interactively, then add to your script
+
+
+## R Console 
+<!-- ![Console](rstudio_console.png) -->
+
+```{r, out.width = "60%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/rstudio_console.png")
+```
+
+* Where code is executed (where things happen)
+* You can type here for things interactively
+* Code is **not saved** on your disk
+
+
+## Source Editor
+
+* Where files open to
+* Have R code and comments in them
+* Can highlight and press (CMD+Enter (Mac) or Ctrl+Enter (Windows)) to run the code
+
+In a .R file (we call a script), code is saved on your disk
+
+```{r, out.width = "90%", echo = FALSE}
+knitr::include_graphics("images/rstudio_script.png")
+```
+
+<!-- ## Workspace/Environment ![Workspace](r-rstudio-1-ggplot-point-2.png) -->
+    
+
+## Getting the editor
+
+```{r, out.width = "90%", echo = FALSE}
+knitr::include_graphics("images/both.png")
+```
 
 ## RStudio
 
-Super useful "cheat sheet": https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf 
+Super useful "cheat sheet": https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf
+
+```{r, fig.alt="RStudio", out.width = "65%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/rstudio_sheet.png")
+```
+
+
+# R essentially is a command line with a set of functions loaded
+
+## R Uses Functions, in Packages
+
+* R revolves around **functions**
+    * Commands that take input, performs computations, and returns results  
+
+* Functions are enclosed in **packages** 
+    * When you download R, it has a "base" set of functions/packages (**base R**)  
+    * You can install additional packages for your uses from [CRAN](https://cran.r-project.org/) or [GitHub](https://github.com/) 
+    * These additional packages are written by RStudio or R users/developers (like us)  
+    * Think of them as "R Extensions"  
+    
+```{r, fig.alt="Picture of R package stickers", out.width = "30%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("../images/hex.png")
+```
+    
+## Using Packages
+
+* You **need to be familiar with base R** - answers on Google commonly use it
+* We will focus on newer and **more intuitive** ways to do things (tidyverse), not in base R
+* RStudio (the company) makes a lot of great packages
+* Not all packages available on CRAN or GitHub are trustworthy
+* Who wrote it? **Hadley Wickham** is a major authority on R (Employee and Developer at RStudio)
+* How to trust an R package: http://simplystatistics.org/2015/11/06/how-i-decide-when-to-trust-an-r-package/
+
+
+```{r, fig.alt="Picture of Hadley Wickham", out.width = "20%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://pbs.twimg.com/profile_images/905186381995147264/7zKAG5sY_400x400.jpg")
+```
+(source: https://twitter.com/hadleywickham)
+
+# Let's take a look at R Studio ourselves!
 
 ## RStudio
 
@@ -87,51 +150,73 @@ Go to File → New Project → New Directory → New Project
 
 Call your Project "Intro_to_R"
 
-## RStudio/R Console 
-<!-- ![Console](rstudio_console.png) -->
-
-```{r, out.width = "90%", echo = FALSE}
-knitr::include_graphics("rstudio_console.png")
+```{r, out.width = "50%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/new_project.png")
 ```
 
-## RStudio/R Console
 
-* Where code is executed (where things happen)
-* You can type here for things interactively
-* Code is **not saved** on your disk
+## R Markdown file
+
+R Markdown files (.Rmd) help generate reports that include your code and output.
+Think of them as fancier scripts.
+
+1. Helps you describe your code
+2. Allows you to check the output
+3. Can create many different file types
+
+
+## Code chunks
+
+Within R Markdown files are code "chunks"
+
+This is where you can type R code and run it!
+
+```{r, out.width = "80%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/chunk.png")
+```
+
+## Knit
+
+```{r, fig.alt="knit", out.width = "100%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/knit.png")
+```
+
+## Create an R Markdown file
+
+Go to File → New File → R Markdown
+
+Call your file "first_markdown"
+
+```{r, out.width = "40%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/RMarkdown.png")
+```
+
+## RStudio layout
+
+```{r, fig.alt="RStudio layout", out.width = "100%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/first_markdown.png")
+```
+
 
 ## RStudio Layout
 
-If RStudio doesn't look like this (or our RStudio), then do:
+If RStudio doesn't look the way you want (or like our RStudio), then do:
 
 RStudio --> Preferences --> Pane Layout
 
-```{r, out.width = "500px", echo = FALSE}
-knitr::include_graphics("pane_layout.png")
+```{r, out.width = "500px", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/pane_layout.png")
 ```
 
 
 <!-- ## Source/Editor ![Script](r-rstudio-1-3-script.png) -->
-## Source/Editor
 
-```{r, out.width = "90%", echo = FALSE}
-knitr::include_graphics("rstudio_script.png")
-```
 
-## Source
-
-* Where files open to
-* Have R code and comments in them
-* Can highlight and press (CMD+Enter (Mac) or Ctrl+Enter (Windows)) to run the code
-
-In a .R file (we call a script), code is saved on your disk
-
-<!-- ## Workspace/Environment ![Workspace](r-rstudio-1-ggplot-point-2.png) -->
 ## Workspace/Environment 
 <!-- ![Workspace](rstudio_environment.png) -->
 
 ```{r, out.width = "90%", echo = FALSE}
-knitr::include_graphics("rstudio_environment.png")
+knitr::include_graphics("images/rstudio_environment.png")
 ```
 
 ## Workspace/Environment
@@ -149,7 +234,7 @@ knitr::include_graphics("rstudio_environment.png")
 * **Files** - shows the files on your computer of the directory you are working in
 * **Viewer** - can view data or R objects
 * **Help** - shows help of R commands
-* **Plots** - pretty pictures
+* **Plots** - pretty pictures and figures
 * **Packages** - list of R packages that are loaded in memory
 
 
@@ -163,7 +248,7 @@ knitr::include_graphics("rstudio_environment.png")
 
 ## Lab: Starting with R and RMarkdown
 
-[Starting with R](http://johnmuschelli.com/intro_to_r/RStudio/lab/RStudio_Lab.Rmd)
+[Starting with R](http://jhudatascience.org/intro_to_r/RStudio/lab/RStudio_Lab.Rmd)
 
 ## Using the Viewer
 
@@ -175,4 +260,4 @@ View(mtcars)
 
 ## Website
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)
