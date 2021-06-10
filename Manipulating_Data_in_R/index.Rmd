@@ -70,13 +70,17 @@ ex_long
 More accurately, data is wide or long **with respect** to certain variables.
 </div>
 
+```{r, fig.alt="Wide versus long data rearanges the position of column names and row content.", out.width = "60%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("../images/pivot.jpg")
+```
+
 ## Data used: Charm City Circulator
 
-http://johnmuschelli.com/intro_to_r/data/Charm_City_Circulator_Ridership.csv
+http://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv
 
 ```{r, message = FALSE}
 circ = read_csv(
-  paste0("http://johnmuschelli.com/intro_to_r/",
+  paste0("http://jhudatascience.org/intro_to_r/",
          "data/Charm_City_Circulator_Ridership.csv"))
 head(circ, 2)
 class(circ$date)
@@ -146,7 +150,7 @@ long %>% count(var)
 
 ## Lab Part 1
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)
 
 
 ## Making a separator
@@ -210,7 +214,7 @@ We could also use `paste`/`paste0`.
 
 ## Lab Part 2
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)
 
 
 ## Reshaping data from long (tall) to wide (fat): tidyr
@@ -228,7 +232,7 @@ head(wide)
 
 ## Lab Part 3
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)
 
 ## Merging: Simple Data
 
@@ -346,7 +350,7 @@ fj %>% mutate(dup_id = duplicated(id))
 
 ## Lab Part 4
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)
 
 ## Finding the First (or Last) record
 
@@ -358,7 +362,7 @@ https://tidyr.tidyverse.org/dev/articles/pivot.html
 
 ## Website
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)
 
 
 ## Reshaping data from long (tall) to wide (fat): tidyr
