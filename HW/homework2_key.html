@@ -9,9 +9,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Authored by Andrew Jaffe" />
+<meta name="author" content="Originally authored by Andrew Jaffe" />
 
-<meta name="date" content="2020-06-10" />
 
 <title>KEY Introduction to R: Homework 2</title>
 
@@ -350,8 +349,7 @@ pre code {
 
 
 <h1 class="title toc-ignore"><strong>KEY</strong> Introduction to R: Homework 2</h1>
-<h4 class="author">Authored by Andrew Jaffe</h4>
-<h4 class="date">10 June 2020</h4>
+<h4 class="author">Originally authored by <a href="http://aejaffe.com/">Andrew Jaffe</a></h4>
 
 </div>
 
@@ -360,7 +358,7 @@ pre code {
 <h3><strong>Instructions</strong></h3>
 <ol style="list-style-type: decimal">
 <li>You must submit both the RMD and “knitted” HTML files as one compressed .zip to the Homework 2 Drop Box on CoursePlus.<br /></li>
-<li>All assignments are due by the end of the grading period for this term (26 June 2020).</li>
+<li>All assignments are due by the end of the grading period for this term (25 June 2021).</li>
 </ol>
 </div>
 <div id="getting-started" class="section level3">
@@ -376,20 +374,20 @@ library(tidyr)</code></pre>
 <div id="problem-set" class="section level3">
 <h3><strong>Problem Set</strong></h3>
 <ol style="list-style-type: decimal">
-<li>Get the dataset: <a href="http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv" class="uri">http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv</a>.<br /> Read the data set in using <code>read_csv()</code> and name the dataset “cars”.</li>
+<li>Get the dataset: <a href="https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv" class="uri">https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv</a>.<br /> Read the data set in using <code>read_csv()</code> and name the dataset “cars”.</li>
 </ol>
 <pre class="r"><code>cars = read_csv(
-  &quot;http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv&quot;,
+  &quot;https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv&quot;,
   col_types = cols(VehBCost = col_double())
   )</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Import the “dictionary” from <a href="http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt" class="uri">http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt</a>.<br /> Use the <code>read_tsv()</code> function and name it “key”.</li>
+<li>Import the “dictionary” from <a href="https://jhudatascience.org/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt" class="uri">https://jhudatascience.org/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt</a>.<br /> Use the <code>read_tsv()</code> function and name it “key”.</li>
 </ol>
-<pre class="r"><code>key = read_tsv(&quot;http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt&quot;)</code></pre>
+<pre class="r"><code>key = read_tsv(&quot;https://jhudatascience.org/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt&quot;)</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li>(Optional) What would you do if the data was formatted with spaces and tabs and such, like this one: <a href="http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary.txt" class="uri">http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary.txt</a><br /> <strong>Hint:</strong> see the <code>readLines()</code> function.</li>
+<li>(Optional) What would you do if the data was formatted with spaces and tabs and such, like this one: <a href="https://jhudatascience.org/intro_to_r/data/Carvana_Data_Dictionary.txt" class="uri">https://jhudatascience.org/intro_to_r/data/Carvana_Data_Dictionary.txt</a><br /> <strong>Hint:</strong> see the <code>readLines()</code> function.</li>
 </ol>
-<pre class="r"><code>dict = readLines(&quot;http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary.txt&quot;)
+<pre class="r"><code>dict = readLines(&quot;https://jhudatascience.org/intro_to_r/data/Carvana_Data_Dictionary.txt&quot;)
 dict = dict[ !dict %in% &quot;&quot; ]
 dict = strsplit(dict, split = &quot;\t&quot;)
 dict = sapply(dict, function(x) {

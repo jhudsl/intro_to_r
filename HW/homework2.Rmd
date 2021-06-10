@@ -1,14 +1,13 @@
 ---
 title: 'Introduction to R: Homework 2'
-author: "Authored by Andrew Jaffe"
-date: "10 June 2020"
+author: "Originally authored by [Andrew Jaffe](http://aejaffe.com/)"
 output:
   html_document: default
 ---
 
 ### **Instructions**
 1. You must submit both the RMD and "knitted" HTML files as one compressed .zip to the Homework 2 Drop Box on CoursePlus.<br />
-2. All assignments are due by the end of the grading period for this term (26 June 2020).
+2. All assignments are due by the end of the grading period for this term (25 June 2021).
 
 ### **Getting Started**
 In this assignment, we will be working with a dataset from the "Kaggle" website, which hosts competitions for prediction and machine learning. More details on this dataset are here: https://www.kaggle.com/c/DontGetKicked/overview/background.
@@ -24,13 +23,14 @@ library(tidyr)
 
 ### **Problem Set**
 
-1) Get the dataset: http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv.<br />
+1) Get the dataset: https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv.<br />
 Read the data set in using `read_csv()` and name the dataset "cars".
 
-2) Import the "dictionary" from http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt.<br />
+2) Import the "dictionary" from https://jhudatascience.org/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt.<br />
 Use the `read_tsv()` function and name it "key". 
 
-3) (Optional) What would you do if the data was formatted with spaces and tabs and such, like this one: http://johnmuschelli.com/intro_to_r/data/Carvana_Data_Dictionary.txt<br /> 
+3) (Optional) What would you do if the data was formatted with spaces and tabs and such, like this one: https://jhudatascience.org/intro_to_r/data/Carvana_Data_Dictionary.txt<br /> 
+
 **Hint:** see the `readLines()` function.
 
 4) Save the key and data in an .rda file so you can access the data offline using the `save()` function. 
