@@ -11,7 +11,7 @@ library(corrr)
 
 
 ## ---------------------------------------------------------------------
-mort = read_csv("http://johnmuschelli.com/intro_to_r/data/indicatordeadkids35.csv")
+mort = read_csv("https://jhudatascience.org/intro_to_r/data/infant_mortality.csv")
 
 
 ## ---------------------------------------------------------------------
