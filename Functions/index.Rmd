@@ -103,7 +103,7 @@ lapply(matList, function(x) x[1:2,1:2])
 
 ## Simple apply 
 
-`sapply()` is useful for lists and data frames because it attempts output of the dimensions as the input.
+`sapply()` is useful for lists and data frames. It attempts to make an array with the same length as the input.
 
 ```{r sapply1, comment=""}
 df = data.frame(day1 = c(600,660), day2 = c(440, 500))
