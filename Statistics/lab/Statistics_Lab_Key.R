@@ -10,7 +10,7 @@ library(psych)
 
 
 ## ---------------------------------------------------------------------
-mort = read_csv("https://jhudatascience.org/intro_to_r/data/infant_mortality.csv")
+mort = read_csv("https://jhudatascience.org/intro_to_r/data/mortality.csv")
 
 
 ## ---------------------------------------------------------------------
@@ -81,7 +81,7 @@ wilcox.test(mort$"1990", mort$"2000", paired = TRUE)
 
 
 ## ---------------------------------------------------------------------
-cars = read_csv("http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv",
+cars = read_csv("http://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv",
 col_types = cols(VehBCost = col_double()))
 
 

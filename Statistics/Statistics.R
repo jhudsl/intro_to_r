@@ -11,7 +11,7 @@ library(dplyr)
 
 ## ----cor1, comment="", message = FALSE----------------------------------------
 library(readr)
-circ = read_csv("http://johnmuschelli.com/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
+circ = read_csv("https://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
 cor(circ$orangeAverage, circ$purpleAverage, use="complete.obs")
 
 
@@ -120,7 +120,7 @@ tidy(fit, conf.int = TRUE)
 
 
 ## ----tt2, comment="", message = FALSE-----------------------------------------
-http_data_dir = "http://johnmuschelli.com/intro_to_r/data/"
+http_data_dir = "https://jhudatascience.org/intro_to_r/data/"
 cars = read_csv(
   paste0(http_data_dir, "kaggleCarAuction.csv"),   
   col_types = cols(VehBCost = col_double()))

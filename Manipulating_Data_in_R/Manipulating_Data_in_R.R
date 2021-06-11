@@ -28,9 +28,13 @@ ex_wide
 ex_long
 
 
+## ---- fig.alt="Wide versus long data rearanges the position of column names and row content.", out.width = "60%", echo = FALSE, fig.align='center'----
+knitr::include_graphics("../images/pivot.jpg")
+
+
 ## ---- message = FALSE---------------------------------------------------------
 circ = read_csv(
-  paste0("http://johnmuschelli.com/intro_to_r/",
+  paste0("http://jhudatascience.org/intro_to_r/",
          "data/Charm_City_Circulator_Ridership.csv"))
 head(circ, 2)
 class(circ$date)
