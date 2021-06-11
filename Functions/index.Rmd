@@ -103,11 +103,12 @@ lapply(matList, function(x) x[1:2,1:2])
 
 ## Simple apply 
 
-`sapply()` is a user-friendly version and wrapper of `lapply` by default returning a vector, matrix, or array
+`sapply()` is useful for lists and data frames because it attempts output of the dimensions as the input.
 
 ```{r sapply1, comment=""}
-sapply(matList, dim)
-sapply(matList, class)
+df = data.frame(day1 = c(600,660), day2 = c(440, 500))
+df
+sapply(df, log)
 ```
 
 ---
