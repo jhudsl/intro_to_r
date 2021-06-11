@@ -127,11 +127,11 @@ sapply(tmp, class)
 
 ```{r sapplyDf, comment="", message=FALSE}
 library(readr)
-circ = read_csv(paste0("http://johnmuschelli.com/intro_to_r/",
+circ = read_csv(paste0("http://jhudatascience.org/intro_to_r/",
   "data/Charm_City_Circulator_Ridership.csv"))
 sapply(circ,class)
 ```
 
 ## Website
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)
