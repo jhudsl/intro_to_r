@@ -145,7 +145,8 @@ long_sub %>%
 
 ```{r}
 g = long_sub %>% 
-  ggplot(aes(x = year, y = mortality, colour = sorted)) 
+      ggplot(aes(x = year, y = mortality, colour = sorted)) +   
+      geom_line(aes(colour = sorted))
 g
 ```
 
