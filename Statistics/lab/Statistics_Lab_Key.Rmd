@@ -17,9 +17,9 @@ library(psych)
 ```
 
 # Part 1
-Read in the following infant mortality data from https://jhudatascience.org/intro_to_r/data/infant_mortality.csv
+Read in the following child mortality data from https://jhudatascience.org/intro_to_r/data/mortality.csv
 ```{r}
-mort = read_csv("https://jhudatascience.org/intro_to_r/data/infant_mortality.csv")
+mort = read_csv("https://jhudatascience.org/intro_to_r/data/mortality.csv")
 ```
 
 or use 

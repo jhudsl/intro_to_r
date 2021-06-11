@@ -30,7 +30,7 @@ set.seed(3)
 ```{r plotEx,  fig.align='center',cache=FALSE}
 library(readr)
 mort = read_csv(
-  "http://johnmuschelli.com/intro_to_r/data/indicatordeadkids35.csv")
+  "https://jhudatascience.org/intro_to_r/data/mortality.csv")
 mort[1:2, 1:5]
 ```
 
@@ -215,7 +215,7 @@ g + geom_line() + guides(colour = FALSE)
 
 ## Lab Part 1
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](https://jhudatascience.org/intro_to_r/index.html)
 
 
 ## ggplot2: boxplot
@@ -288,7 +288,7 @@ sub %>% ggplot(aes(x = year, y = morts)) +
 
 ## Lab Part 2
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](https://jhudatascience.org/intro_to_r/index.html)
 
 
 ## Devices
@@ -383,7 +383,7 @@ q + transparent_legend
 
 ## Lab Part 3
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](https://jhudatascience.org/intro_to_r/index.html)
 
 
 <!-- ## Histograms again -->
@@ -508,7 +508,7 @@ q2 + scale_fill_brewer( type = "div", palette =  "RdBu" )
 
 ```{r barplot2, fig.align='center', cache = FALSE, warn = FALSE}
 cars = read_csv(
-  "http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv", 
+  "https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv", 
   col_types = cols(VehBCost = col_double()))
 counts <- table(cars$IsBadBuy, cars$VehicleAge)
 ```
@@ -585,7 +585,7 @@ Useful links:
 
 ## Website
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](https://jhudatascience.org/intro_to_r/index.html)
 
 
 # ggplot examples on a second dataset
@@ -829,7 +829,7 @@ legend("topleft", paste("Diet",levels(ChickWeight$Diet)),
 ## Coloring by variable
 
 ```{r circ, comment="", fig.align='center', cache=FALSE}
-circ = read_csv("http://johnmuschelli.com/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
+circ = read_csv("https://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
 palette(brewer.pal(7,"Dark2"))
 dd = factor(circ$day)
 plot(orangeAverage ~ greenAverage, data=circ, 
