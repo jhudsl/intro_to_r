@@ -19,7 +19,7 @@ library(stringr)
 ```
 
 # Part 1
-1.  Read in the Wide Bike lanes data: http://johnmuschelli.com/intro_to_r/data/Bike_Lanes_Wide.csv .  Name the data set `wide`.
+1.  Read in the Wide Bike lanes data: http://jhudatascience.org/intro_to_r/data/Bike_Lanes_Wide.csv .  Name the data set `wide`.
 
 ```{r}
 
@@ -40,8 +40,8 @@ library(stringr)
 This exercise is motivated by https://anythingbutrbitrary.blogspot.com/2012/08/manipulating-data-frames-using-sqldf.html
 
 3. read in the roads and crashes CSVs.  Call them `crash` and `road`
-`crash`: http://johnmuschelli.com/intro_to_r/Manipulating_Data_in_R/lab/crashes.csv
-`road`: http://johnmuschelli.com/intro_to_r/Manipulating_Data_in_R/lab/roads.csv
+`crash`: http://jhudatascience.org/intro_to_r/Manipulating_Data_in_R/lab/crashes.csv
+`road`: http://jhudatascience.org/intro_to_r/Manipulating_Data_in_R/lab/roads.csv
 
 ```{r}
 
@@ -78,7 +78,7 @@ Create a new variable calling it road_hyphen using the `unite` function.  Unite 
 ```
 
 # Part 3
-8.  Read in the Bike lanes data: http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv or use `jhur::read_bike()`.
+8.  Read in the Bike lanes data: http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv or use `jhur::read_bike()`.
 Name the data set `bike`.
 ```{r}
 
