@@ -67,9 +67,9 @@ Hint: to extract the column of information for `1990`, use `mort$"1990"`
 ```
 # Part 2
 
-Read in the Kaggle cars auction dataset from http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv with the argument `col_types = cols(VehBCost = col_double())`:
+Read in the Kaggle cars auction dataset from http://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv with the argument `col_types = cols(VehBCost = col_double())`:
 ```{r}
-cars = read_csv("http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv",
+cars = read_csv("http://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv",
 col_types = cols(VehBCost = col_double()))
 ```
 

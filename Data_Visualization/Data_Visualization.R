@@ -17,7 +17,7 @@ set.seed(3)
 ## ----plotEx,  fig.align='center',cache=FALSE----------------------------------
 library(readr)
 mort = read_csv(
-  "http://johnmuschelli.com/intro_to_r/data/indicatordeadkids35.csv")
+  "https://jhudatascience.org/intro_to_r/data/mortality.csv")
 mort[1:2, 1:5]
 
 
@@ -247,7 +247,7 @@ q2 + scale_fill_brewer( type = "div", palette =  "RdBu" )
 
 ## ----barplot2, fig.align='center', cache = FALSE, warn = FALSE----------------
 cars = read_csv(
-  "http://johnmuschelli.com/intro_to_r/data/kaggleCarAuction.csv", 
+  "https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv", 
   col_types = cols(VehBCost = col_double()))
 counts <- table(cars$IsBadBuy, cars$VehicleAge)
 
@@ -418,7 +418,7 @@ legend("topleft", paste("Diet",levels(ChickWeight$Diet)),
 
 
 ## ----circ, comment="", fig.align='center', cache=FALSE------------------------
-circ = read_csv("http://johnmuschelli.com/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
+circ = read_csv("https://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
 palette(brewer.pal(7,"Dark2"))
 dd = factor(circ$day)
 plot(orangeAverage ~ greenAverage, data=circ, 
