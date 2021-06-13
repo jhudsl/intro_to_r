@@ -8,7 +8,7 @@ library(tidyverse)
 library(broom)
 
 bike = read_csv(
-  "http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
+  "http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv")
 
 
 ## ---------------------------------------------------------------------------------
@@ -73,7 +73,7 @@ bike = read_csv(
 
 ## ---------------------------------------------------------------------------------
 
-sal = read_csv("http://johnmuschelli.com/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv")
+sal = read_csv("http://jhudatascience.org/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv")
 
 
 ## ---------------------------------------------------------------------------------
