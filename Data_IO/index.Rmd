@@ -15,8 +15,8 @@ opts_chunk$set(comment = "")
 
 ## Outline 
 
-* Part 1: reading CSV file, checking for problems in the loaded data, data input overview, common new user mistakes in data reading
-* Part 2: working directories, relative vs. absolute paths, reading XLSX file (Excel file), other data inputs
+* Part 1: reading CSV file, common new user mistakes in data reading, checking for problems in the loaded data
+* Part 2: data input overview, working directories, relative vs. absolute paths, reading XLSX file (Excel file), other data inputs
 * Part 3: exporting CSV file
 * Part 4: reading and saving RDS file (R object file)
 
@@ -24,7 +24,7 @@ opts_chunk$set(comment = "")
 ## Data We Use
 
 * Everything we do in class will be using real publicly available data - there are few 'toy' example datasets and 'simulated' data
-* Open Baltimore Data and Data.gov will be sources for the first few days
+* Baltimore Open Data and Data.gov will be sources for the first few days
 * We have also added functionality to load these datasets directly in the `jhur` package
 
 ## Data Input
@@ -38,105 +38,111 @@ opts_chunk$set(comment = "")
 
 ## Data Input
 
-Youth Tobacco Survey (YTS) Dataset:
+Youth Tobacco Survey (YTS) dataset:
 
 "The YTS was developed to provide states with comprehensive data on both middle school and high school students regarding tobacco use, exposure to environmental tobacco smoke, smoking cessation, school curriculum, minors' ability to purchase or otherwise obtain tobacco products, knowledge and attitudes about tobacco, and familiarity with pro-tobacco and anti-tobacco media messages."
 
 * Check out the data at: https://catalog.data.gov/dataset/youth-tobacco-survey-yts-data
 
-## Data Input
+## Data Input: Dataset Location
 
-* Download data from http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv
+Dataset is located at http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv
+
+* Download data by clicking the above link
+    
     * Safari - if a file loads in your browser, choose File --> Save As, select, Format "Page Source" and save
-* Within RStudio: Session --> Set Working Directory --> To Source File Location
 
-## Data Input
-
-R Studio features some nice "drop down" support, where you can run some tasks by selecting them from the toolbar.
-
-For example, you can easily import text datasets using the "File --> Import Dataset --> From CSV" command. Selecting this will bring up a new screen that lets you specify the formatting of your text file. 
-
-After importing a datatset, you get the corresponding R commands that you can enter in the console if you want to re-import data.
-
-## Read in Directly
+## Data Input: Read in Directly 
 
 ```{r read_url, message = FALSE}
-mydat = read_csv("http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
-head(mydat)
+# load library `readr` that contains function `read_csv`
+library(readr)
+dat = read_csv("http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
+# `head` displays first few rows of a data frame 
+head(dat)
 ```
 
-## Data Input
+## Data Input: Read in Directly 
 
-So what is going on "behind the scenes"?
+So what is going on "behind the scenes"? 
 
-`read_delim()`: Read a delimited file into a data frame.
+`read_csv()` is a special case of the general `read_delim()` -- a function to read a delimited file into a data frame. 
+
+`read_delim()` arguments: 
 
 ```{r, echo = FALSE}
 args(readr::read_delim)
 ```
 
 ```r     
-# for example: `read_delim("file.txt",delim="\t")`
+# for example: `read_delim("file.txt", delim = "\t")`
 ```
 
-## Data Input
+## Data Input: Read in Directly 
 
-* The filename is the path to your file, in quotes
-* The function will look in your "working directory" if no absolute file path is given
-* Note that the filename can also be a path to a file on a website (e.g. 'www.someurl.com/table1.txt')
+`read_delim()` arguments -- unpacking: 
 
+* `file` is the path to your file, in quotes
+  * The function will look in your "working directory" if no absolute file path is given
+  * Note that the `file` can also be a path to a file on a website (e.g. 'www.someurl.com/table1.txt')
 
-## Data Input
+* `delim` -- single character used to separate fields within a record 
+  * in `read_csv()`, it is set to comma and we only need to specify `file` argument 
 
-There is another convenient function for reading in CSV files, where the delimiter is assumed to be a comma (`readr::read_csv`): 
+## Data Input: Read in From RStudio Toolbar
 
-```{r readCSV, echo = FALSE}
-args(readr::read_csv)
-```
+R Studio features some nice "drop-down" support, where you can run some tasks by selecting them from the toolbar.
 
-## Data Input
+For example, you can easily import text datasets using the "File --> Import Dataset --> From Text (readr)" command. Selecting this will bring up a new screen that lets you specify the formatting of your text file. 
 
-* Here would be reading data from the command line, specifying the file path:
+After importing a datatset, you get the corresponding R command that you can enter in the console if you want to re-import data.
+
+## Data Input: Read in Directly From File Path
+
+To read CSV data set directly from file path: 
 
 ```{r readCSV2}
+# an example of using relative path to a file
 dat = read_csv("../data/Youth_Tobacco_Survey_YTS_Data.csv")
 ```
 
-The data is now successfully read into your R workspace, just like from using the dropdown menu.
+The data is now successfully read into your R workspace.
 
+## Common new user mistakes we have seen
 
-## Data Input: Checking for problems
-
-
-```{r read_ur_againl, message = FALSE}
-dat = read_csv("http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
-```
+1.  **Working directory problems: trying to read files that R "can't find"**
+    - Path misspecification 
+2.  Typos (R is **case sensitive**, `x` and `X` are different)
+    - RStudio helps with "tab completion"
+3.  Data type problems (is that a string or a number?)
+4.  Open ended quotes, parentheses, and brackets     
+5.  Different versions of software
 
 ## Data Input: Checking for problems
 
 * The `spec()` and `problems()` functions show you the specification of how the data was read in.  
 
 ```{r stop_problems}
-dim(problems(dat))
+problems(dat)
 spec(dat)
 ```
 
-
 ## Data Input: Checking for problems
 
-* The `stop_for_problems()` function will stop if your data had an error when reading in.  If this occurs, you can either use `col_types` (from `spec()`) for the problematic columns, or set `guess_max = Inf` (takes much longer):
+
+The `stop_for_problems()` function will stop if your data had any problem when reading in (even if that problem did not cause the data reading to fail).  
+
+- Particularly useful to put after the data reading code e.g. in some automated R script that should not proceed in case some data "weirdness" occurred. 
 
 ```{r stop_problems2}
 stop_for_problems(dat)
 ```
 
-
 ## Lab Part 1
 
+[Lab](http://jhudatascience.org//intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd)
 
-[Lab](http://johnmuschelli.com/intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd)
-
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://jhudatascience.org//intro_to_r/)
 
 
 ## Data Input
@@ -149,7 +155,6 @@ The `read_delim()` and related functions returns a "tibble" is a `data.frame` wi
 * When using the dropdown menu in RStudio, it uses `read_csv`, which is an improved version of reading in CSVs.  It is popular but `read.csv` is still largely used.  It returns a `tbl` (tibble), that is a `data.frame` with improved printing and subsetting properties: 
 
 ```{r readCSV_readr, message=FALSE}
-library(readr)
 head(dat, 3)
 class(dat)
 ```
@@ -176,18 +181,6 @@ ncol(dat)
 colnames(dat)
 ```
 
-
-## Common new user mistakes we have seen
-
-1.  **Working directory problems: trying to read files that R "can't find"**
-    - RStudio can help, and so do RStudio Projects
-    - discuss in Data Input/Output lecture
-2.  Typos (R is **case sensitive**, `x` and `X` are different)
-    - RStudio helps with "tab completion"
-    - discussed throughout
-3.  Data type problems (is that a string or a number?)
-4.  Open ended quotes, parentheses, and brackets     
-5.  Different versions of software
     
 ## Working Directories
 
