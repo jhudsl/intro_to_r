@@ -10,7 +10,7 @@ editor_options:
 Bike Lanes Dataset: BikeBaltimore is the Department of Transportation's bike program. 
 The data is from http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms
 
-You can Download as a CSV in your current working directory.  Note its also available at: 	http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv 
+You can Download as a CSV in your current working directory.  Note its also available at: 	http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv 
 
 ```{r}
 library(readr)
@@ -22,7 +22,7 @@ library(tidyverse)
 library(broom)
 
 bike = read_csv(
-  "http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
+  "http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv")
 ```
 
 # Part 1
@@ -99,14 +99,14 @@ tidy(tab)
 **New Data set**
 
 Download the "Real Property Taxes" Data from my website (via OpenBaltimore):
-http://johnmuschelli.com/intro_to_r/data/Real_Property_Taxes.csv.gz
+http://jhudatascience.org/intro_to_r/data/Real_Property_Taxes.csv.gz
 note you don't need to unzip it to read it into R
 
 
 
 6. Read the Property Tax data into R and call it the variable `tax`
 ```{r}
-tax = read_csv( "http://johnmuschelli.com/intro_to_r/data/Real_Property_Taxes.csv.gz")
+tax = read_csv( "http://jhudatascience.org/intro_to_r/data/Real_Property_Taxes.csv.gz")
 ```
 
 7. How many addresses pay property taxes? 
@@ -256,10 +256,10 @@ plot(density(pres$CityTax,  na.rm = TRUE))
 Read in the Salary FY2015 dataset
 ```{r}
 
-sal = read_csv("http://johnmuschelli.com/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv")
+sal = read_csv("http://jhudatascience.org/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv")
 ```
 
-12. Make an object called health.sal using the salaries data set, with only agencies of those with `"fire"` (or any forms), if any, in the name remember `fixed( ignore_case = TRUE)` will ignore cases
+12. Make an object called health.sal using the salaries data set, with only agencies of those with `"fire"` (or any forms), if any, in the name (remember `fixed( ignore_case = TRUE)` will ignore cases).
 ```{r}
 health.sal = sal %>% 
   filter(str_detect(JobTitle, 

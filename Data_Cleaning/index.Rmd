@@ -1,6 +1,5 @@
 ---
 title: "Data Cleaning"
-author: "Introduction to R for Public Health Researchers"
 output:
   ioslides_presentation:
     css: ../styles.css
@@ -28,6 +27,7 @@ For example, `x` is a vector of numbers and we can select the second element of 
 x = c(1, 4, 2, 8, 10)
 x[2]
 ```
+
 `dplyr`:
 
 ```{r}
@@ -201,7 +201,7 @@ x * 2
 
 ## Lab Part 1
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)
 
 # Tables and Tabulations
 
@@ -221,8 +221,7 @@ Here we will use `table` to make tabulations of the data.   Look at `?table` to 
 
 ```{r table}
 unique(x)
-table(x)
-table(x, useNA = "ifany") # will not 
+table(x, useNA = "ifany")
 df %>% count(x)
 ```
 
@@ -255,6 +254,11 @@ fac = factor(c(0, 1, 2, 3, 2, 3, 3, 2,2, 3),
 tab = table(fac)
 tab
 tab[ tab > 0 ]
+```
+
+
+## Factors cont
+```{r}
 tibble(x = fac) %>% count(x)
 ```
 
@@ -282,6 +286,7 @@ tab_df %>% count(x, y)
 `margin.table` finds the marginal sums of the table.  `margin` is 1 for rows, 2 for columns in general in `R`.  Here is the column sums of the table:
 
 ```{r margin}
+tab
 margin.table(tab, 2)
 ```
 
@@ -305,7 +310,7 @@ tab_df %>%
 
 ## Creating Two-way Tables 
 
-```{r}
+```{r, message = FALSE}
 library(scales)
 tab_df %>% 
   count(x, y) %>% 
@@ -314,7 +319,7 @@ tab_df %>%
 
 ## Lab Part 2
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)
 
 ## Download Salary FY2014 Data
 
@@ -324,12 +329,12 @@ Read the CSV into R `Sal`:
 
 ```{r readSal, echo = TRUE, eval = FALSE}
 Sal = jhur::read_salaries() # or
-Sal = read_csv("https://johnmuschelli.com/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv")
+Sal = read_csv("https://jhudatascience.org/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv")
 Sal = rename(Sal, Name = name)
 ```
 
 ```{r readSal_csv, echo= FALSE, eval = TRUE}
-Sal = read_csv("https://johnmuschelli.com/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv", col_types = cols(
+Sal = read_csv("https://jhudatascience.org/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv", col_types = cols(
   name = col_character(),
   JobTitle = col_character(),
   AgencyID = col_character(),
@@ -704,11 +709,11 @@ rank(x)
 
 ## Lab Part 3
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)
 
 ## Website
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)
 
 
 

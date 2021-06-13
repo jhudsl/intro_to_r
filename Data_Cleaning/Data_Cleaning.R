@@ -85,8 +85,7 @@ x * 2
 
 ## ----table--------------------------------------------------------------------
 unique(x)
-table(x)
-table(x, useNA = "ifany") # will not 
+table(x, useNA = "ifany")
 df %>% count(x)
 
 
@@ -107,6 +106,9 @@ fac = factor(c(0, 1, 2, 3, 2, 3, 3, 2,2, 3),
 tab = table(fac)
 tab
 tab[ tab > 0 ]
+
+
+## -----------------------------------------------------------------------------
 tibble(x = fac) %>% count(x)
 
 
@@ -124,6 +126,7 @@ tab_df %>% count(x, y)
 
 
 ## ----margin-------------------------------------------------------------------
+tab
 margin.table(tab, 2)
 
 
@@ -138,7 +141,7 @@ tab_df %>%
   group_by(x) %>% mutate(pct_x = n / sum(n))
 
 
-## -----------------------------------------------------------------------------
+## ---- message = FALSE---------------------------------------------------------
 library(scales)
 tab_df %>% 
   count(x, y) %>% 
@@ -147,12 +150,12 @@ tab_df %>%
 
 ## ----readSal, echo = TRUE, eval = FALSE---------------------------------------
 ## Sal = jhur::read_salaries() # or
-## Sal = read_csv("https://johnmuschelli.com/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv")
+## Sal = read_csv("https://jhudatascience.org/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv")
 ## Sal = rename(Sal, Name = name)
 
 
 ## ----readSal_csv, echo= FALSE, eval = TRUE------------------------------------
-Sal = read_csv("https://johnmuschelli.com/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv", col_types = cols(
+Sal = read_csv("https://jhudatascience.org/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv", col_types = cols(
   name = col_character(),
   JobTitle = col_character(),
   AgencyID = col_character(),
