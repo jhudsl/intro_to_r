@@ -44,8 +44,9 @@ lapply(matList, function(x) x[1:2,1:2])
 
 
 ## ----sapply1, comment=""------------------------------------------------------
-sapply(matList, dim)
-sapply(matList, class)
+df = data.frame(day1 = c(600,660), day2 = c(440, 500))
+df
+sapply(df, log)
 
 
 ## ----sapply2, comment=""------------------------------------------------------
@@ -58,7 +59,7 @@ sapply(tmp, class)
 
 ## ----sapplyDf, comment="", message=FALSE--------------------------------------
 library(readr)
-circ = read_csv(paste0("http://johnmuschelli.com/intro_to_r/",
+circ = read_csv(paste0("http://jhudatascience.org/intro_to_r/",
   "data/Charm_City_Circulator_Ridership.csv"))
 sapply(circ,class)
 
