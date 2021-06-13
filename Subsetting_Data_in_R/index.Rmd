@@ -37,7 +37,7 @@ Many resources on how to use `dplyr` exist and are straightforward:
 * https://stat545-ubc.github.io/block009_dplyr-intro.html
 * https://www.datacamp.com/courses/dplyr-data-manipulation-r-tutorial
 
-The `dplyr` package also interfaces well with tibbles.
+The `dplyr` package also interfaces well with tibbles (a fancy tidyverse version of a data frame).
 
 ## Loading in dplyr and tidyverse
 
@@ -73,10 +73,11 @@ some conflicts/masking.
 
 ## Creating a `data.frame` to work with
 
-Here we use one of the datasets that comes with `jhu` called `jhu_cars`, which is a (copy of another called `mtcars`) create a toy data.frame named `df` using random data:
+Here we use one of the datasets that comes with the `jhur` package called `jhu_cars`, which is a (copy of another called `mtcars`). We will now create a toy data.frame named `df` using this data:
 ```{r}
+library(jhur)
 data(jhu_cars)
-df = jhu_cars # df is a copy of jhu_cars
+df= jhu_cars # df is a copy of jhu_cars
 head(df) # changing df does **not** change jhu_cars
 ```
 
@@ -86,13 +87,13 @@ If we would like to create a `tibble` ("fancy" data.frame), we can using `as.tbl
 
 ```{r}
 tbl = as_tibble(df) 
-head(tbl)
+tbl
 ```
 
 
 ## No rownames in tibbles!
  
-In the "tidy" data format, all information of interest is a variable (not a name). **as of tibble 2.0, rownames are removed**.  For example, `mtcars`  has each car name as a row name: 
+In the "tidy" data format, all information of interest is a variable (not a name). **as of tibble 2.0, rownames are removed**.  For example, `mtcars`  has each car name as a row name. Here we use the `head()` function to see the first 2 rows of each.
 
 ```{r}
 head(mtcars, 2)
@@ -103,37 +104,50 @@ head(as_tibble(mtcars), 2)
 
 ## Renaming Columns of a `data.frame`: dplyr
 
-To rename columns in `dplyr`, you use the `rename` command
+To rename columns in `dplyr`, you use the `rename` command.
+
+For example, let's rename mpg to MPG.
 
 ```{r}
 df = dplyr::rename(df, MPG = mpg)
 head(df)
-df = rename(df, mpg = MPG) # reset - don't need :: b/c not masked
 ```
 
 ## Renaming All Columns of a `data.frame`: dplyr
 
-To rename all columns you use the `rename_all` command (with a function)
+To rename all columns you use the `rename_all` command (with a function). In this case we will use `toupper()` to make all letters upper case. Could also use `tolower()` function.
 
 ```{r}
 df_upper = dplyr::rename_all(df, toupper)
-head(df_upper)
+head(df_upper, 3)
 ```
 
+```{r}
+df = dplyr::rename_all(df, tolower)
+head(df, 3)
+```
 
 ## Lab Part 1
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://https://jhudatascience.org/intro_to_r/index.html)
 
 # Subsetting Columns
 
 ## Subset columns of a `data.frame`: 
 
-We can grab the `carb` column using the `$` operator. 
+We can grab the `carb` column using the `$` operator. This is the base R way to do this:
 
 ```{r}
 df$carb
 ```
+
+## Subset columns of a `data.frame` - `tidyverse` way: 
+
+To grab the `carb` column the `tidyverse` way we can use the `pull` function:
+```{r}
+pull(df, carb)
+```
+
 
 ## Subset columns of a `data.frame`: dplyr
 
@@ -144,9 +158,13 @@ select(df, mpg)
 
 ## Subset columns of a `data.frame`: dplyr
 
-If you wanted it to be a single vector (not a `tibble`), use `pull`:
+Note that if you want a single vector (not a `tibble`), use `pull` or `$`:
 ```{r}
-pull(select(df, mpg))
+pull(df, mpg)
+
+# pull with select works too!
+
+pull(select(df,mpg))
 ```
 
 ## Select columns of a `data.frame`: dplyr
@@ -177,7 +195,7 @@ matches() # Matches a regular expression - cover later
 
 ## Lab Part 2
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://https://jhudatascience.org/intro_to_r/index.html)
 
 # Subsetting Rows
 
@@ -197,6 +215,7 @@ You can have multiple logical conditions using the following:
 
 * `==` : equals to
 * `!` : not/negation
+* `!=`: not equal to
 * `>` / `<`: greater than / less than
 * `>=` or `<=`: greater than or equal to / less than or equal to
 * `&` : AND
@@ -216,7 +235,7 @@ By default, you can separate conditions by commas, and `filter` assumes these st
 
 ```{r}
 filter(df, mpg > 20 & cyl == 4)
-filter(df, mpg > 20, cyl == 4)
+filter(df, mpg > 20, cyl == 4, mpg != 22.8)
 ```
 
 ## Subset rows of a `data.frame`: dplyr
@@ -225,12 +244,13 @@ If you want OR statements, you need to do the pipe `|` explicitly:
 
 ```{r}
 filter(df, mpg > 20 | cyl == 4)
+
 ```
 
 
 ## Lab Part 3
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://https://jhudatascience.org/intro_to_r/index.html)
 
 ## Combining `filter` and `select`
 
@@ -240,7 +260,7 @@ You can combine `filter` and `select` to subset the rows and columns, respective
 select(filter(df, mpg > 20 & cyl == 4), cyl, hp)
 ```
 
-In `R`, the common way to perform multiple operations is to wrap functions around each other in a nested way such as above 
+In `R`, the common way to perform multiple operations is to wrap functions around each other in a nested way such as above. 
 
 ## Assigning Temporary Objects
 
@@ -249,6 +269,8 @@ One can also create temporary objects and reassign them:
 ```{r}
 df2 = filter(df, mpg > 20 & cyl == 4)
 df2 = select(df2, cyl, hp)
+
+head(df2,4)
 ```
 
 ## Using the `pipe` (comes with `dplyr`):
@@ -272,7 +294,7 @@ head(df,3)
 ```
 
 
-## Adding columns to a `data.frame`: dplyr
+## Adding columns to a `data.frame`: dplyr (`tidyverse` way)
 
 The `$` method is very common.
 
@@ -333,14 +355,15 @@ head(df$disp_cat2)
 ```
 
 
-## Removing columns to a `data.frame`: base R
+## Removing columns of a `data.frame`: base R
 
 You can remove a column by assigning to `NULL`:
 ```{r, eval = FALSE}
 df$newcol = NULL
+head(df)
 ```
 
-## Removing columns to a `data.frame`: dplyr
+## Removing columns of a `data.frame`: dplyr
 
 The `NULL` method is still very common.
 
@@ -353,15 +376,22 @@ select(df, -newcol)
 head(select(df, -newcol))
 ```
 
+Or, you can simply select the columns you want to keep, ignoring the ones you want to remove.
+
 ## Removing columns to a `data.frame`: dplyr
 
-Remove `newcol` and `drat`
+The `one_of()` function checks for columns with the names indicated. If there are columns that match they will get removed. This is useful if you can't recall if the columns you want to remove are still present.
+
+Otherwise you could use `c()` to list the columns to remove.
+
+Remove `newcol` and `drat`:
 ```{r, eval = FALSE}
 select(df, -one_of("newcol", "drat"))
+select(df, -c("newcol", "drat"))
 ```
 
 ```{r, echo = FALSE}
-head(select(df, -one_of("newcol", "drat")))
+head(select(df, -one_of("newcol", "drat")), 4)
 ```
 
 # Ordering columns
@@ -420,7 +450,7 @@ transmute(df, newcol2 = wt/2.2, mpg, hp)
 
 ## Lab Part 4
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://https://jhudatascience.org/intro_to_r/index.html)
 
 
 # Extra Slides
