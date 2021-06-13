@@ -58,55 +58,75 @@ Dataset is located at http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Sur
 # load library `readr` that contains function `read_csv`
 library(readr)
 dat = read_csv("http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
+
 # `head` displays first few rows of a data frame 
-head(dat)
+head(dat, 5)
 ```
 
 ## Data Input: Read in Directly 
 
 So what is going on "behind the scenes"? 
 
-`read_csv()` is a special case of the general `read_delim()` -- a function to read a delimited file into a data frame. 
+`read_csv()` parses a "flat" text file (.csv) and turns it into a `tibble` -- a rectangular data frame, where data are split into rows and columns 
 
-`read_delim()` arguments: 
+- First, a flat  file is parsed into a rectangular matrix of strings
+
+- Second, the type of each column is determined (heuristic-based guess)
+
+
+## Data Input: Read in Directly 
+
+`read_csv()` needs path to your file, will return `tibble`
+
+```{r, echo = FALSE}
+args(readr::read_csv)
+```
+
+- `file` is the path to your file, in quotes 
+- can be path in your local computer -- absolute file path or relative file path 
+- can be path to a file on a website
+
+```{r, eval = FALSE}
+## Examples 
+
+# dat = read_csv("/Users/martakaras/Downloads/Youth_Tobacco_Survey_YTS_Data.csv")
+
+# dat = read_csv("Youth_Tobacco_Survey_YTS_Data.csv")
+
+# dat = read_csv("www.someurl.com/table1.csv")
+```
+
+
+## Data Input: Read in Directly 
+
+`read_csv()` is a special case of `read_delim()` -- a general function to read a delimited file into a data frame  
+
+`read_delim()` needs path to your file and fileds delimiter, will return `tibble`
 
 ```{r, echo = FALSE}
 args(readr::read_delim)
 ```
 
-```r     
-# for example: `read_delim("file.txt", delim = "\t")`
+- `file` is the path to your file, in quotes 
+- `delim` is what separates the fields within a record 
+
+```{r, eval = FALSE}
+## Examples 
+
+# dat = read_delim("Youth_Tobacco_Survey_YTS_Data.csv", delim = ",")
+
+# dat = read_delim("www.someurl.com/table1.txt", delim = "\t")
 ```
-
-## Data Input: Read in Directly 
-
-`read_delim()` arguments -- unpacking: 
-
-* `file` is the path to your file, in quotes
-  * The function will look in your "working directory" if no absolute file path is given
-  * Note that the `file` can also be a path to a file on a website (e.g. 'www.someurl.com/table1.txt')
-
-* `delim` -- single character used to separate fields within a record 
-  * in `read_csv()`, it is set to comma and we only need to specify `file` argument 
-
-## Data Input: Read in From RStudio Toolbar
-
-R Studio features some nice "drop-down" support, where you can run some tasks by selecting them from the toolbar.
-
-For example, you can easily import text datasets using the "File --> Import Dataset --> From Text (readr)" command. Selecting this will bring up a new screen that lets you specify the formatting of your text file. 
-
-After importing a datatset, you get the corresponding R command that you can enter in the console if you want to re-import data.
 
 ## Data Input: Read in Directly From File Path
 
 To read CSV data set directly from file path: 
 
 ```{r readCSV2}
-# an example of using relative path to a file
 dat = read_csv("../data/Youth_Tobacco_Survey_YTS_Data.csv")
 ```
 
-The data is now successfully read into your R workspace.
+The data is now successfully read into your R workspace. Colum specification of first few columns is printed to the console. 
 
 ## Common new user mistakes we have seen
 
@@ -137,6 +157,14 @@ The `stop_for_problems()` function will stop if your data had any problem when r
 ```{r stop_problems2}
 stop_for_problems(dat)
 ```
+
+## Data Input: Read in From RStudio Toolbar
+
+R Studio features some nice "drop-down" support, where you can run some tasks by selecting them from the toolbar.
+
+For example, you can easily import text datasets using the "File --> Import Dataset --> From Text (readr)" command. Selecting this will bring up a new screen that lets you specify the formatting of your text file. 
+
+After importing a datatset, you get (printed in the R console) the corresponding R command that you can enter in the console if you want to re-import data.
 
 ## Lab Part 1
 
