@@ -136,10 +136,10 @@ In recognition of [Juneteenth](https://en.wikipedia.org/wiki/Juneteenth) (June 1
 show_keys = TRUE
 days = list(
   c("Homework 1"),
-  c("Intro", "RStudio",  "Basic_R", "Data_IO", "Homework 2"),
-  c("Subsetting_Data_in_R", "Data_Summarization"), 
-  c("Data_Classes", "Data_Classes_summary", "Data_Cleaning", "Homework 3"),
-  c("Manipulating_Data_in_R", "Data_Visualization"),
+  c("Intro", "RStudio",  "Basic_R", "Data_IO"),
+  c("Subsetting_Data_in_R", "Data_Summarization", "Homework 2"), 
+  c("Data_Classes", "Data_Classes_summary", "Data_Cleaning"),
+  c("Manipulating_Data_in_R", "Data_Visualization", "Homework 3"),
   c("Statistics", "Functions", "Knitr")
 )
 mods = mapply(function(day, mod) {

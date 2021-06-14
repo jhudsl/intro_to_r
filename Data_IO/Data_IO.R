@@ -5,28 +5,37 @@ opts_chunk$set(comment = "")
 
 
 ## ----read_url, message = FALSE------------------------------------------------
-mydat = read_csv("http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
-head(mydat)
+# load library `readr` that contains function `read_csv`
+library(readr)
+dat = read_csv("http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
+
+# `head` displays first few rows of a data frame 
+head(dat, 5)
 
 
-## ---- echo = FALSE------------------------------------------------------------
-args(readr::read_delim)
+## ---- eval = FALSE------------------------------------------------------------
+## ## Examples
+## 
+## dat = read_csv("/Users/martakaras/Downloads/Youth_Tobacco_Survey_YTS_Data.csv")
+## 
+## dat = read_csv("Youth_Tobacco_Survey_YTS_Data.csv")
+## 
+## dat = read_csv("www.someurl.com/table1.csv")
 
 
-## ----readCSV, echo = FALSE----------------------------------------------------
-args(readr::read_csv)
+## ---- eval = FALSE------------------------------------------------------------
+## ## Examples
+## dat = read_delim("Youth_Tobacco_Survey_YTS_Data.csv", delim = ",")
+## 
+## dat = read_delim("www.someurl.com/table1.txt", delim = "\t")
 
 
 ## ----readCSV2-----------------------------------------------------------------
 dat = read_csv("../data/Youth_Tobacco_Survey_YTS_Data.csv")
 
 
-## ----read_ur_againl, message = FALSE------------------------------------------
-dat = read_csv("http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
-
-
 ## ----stop_problems------------------------------------------------------------
-dim(problems(dat))
+problems(dat)
 spec(dat)
 
 
@@ -34,8 +43,12 @@ spec(dat)
 stop_for_problems(dat)
 
 
+## ---- eval = FALSE------------------------------------------------------------
+## ?read_delim
+## help("read_delim")
+
+
 ## ----readCSV_readr, message=FALSE---------------------------------------------
-library(readr)
 head(dat, 3)
 class(dat)
 
@@ -44,11 +57,14 @@ class(dat)
 dim(dat)
 nrow(dat)
 ncol(dat)
+
+
+## ---- colnames_rownames-------------------------------------------------------
 colnames(dat)
 
 
 ## ----workingDirectory,eval=FALSE----------------------------------------------
-## ## get the working directory
+## # get the working directory
 ## getwd()
 ## setwd("~/Lectures")
 
@@ -62,24 +78,16 @@ dir("..")
 ## setwd("~/Lectures/Data_IO/lecture")
 
 
-## ---- eval = FALSE------------------------------------------------------------
-## ?dir
-## help("dir")
-
-
-## ----names1, message = FALSE--------------------------------------------------
-library(dplyr)
-dat = rename(dat, year = YEAR)
-names(dat)
-
-
 ## ----writecsv,eval=FALSE------------------------------------------------------
-## dat = rename(dat, Year = year)
+## # load `dplyr` package that has `rename` function
+## library(dplyr)
+## dat = rename(dat, Location_Abbr = LocationAbbr)
+## 
 ## write_csv(dat, path = "YouthTobacco_newNames.csv")
 
 
 ## -----------------------------------------------------------------------------
-write_rds(dat, path = "yts_dataset.rds")
+write_rds(dat, file = "yts_dataset.rds")
 
 
 ## -----------------------------------------------------------------------------
@@ -89,10 +97,13 @@ identical(dat, dat2) # test if they are the same
 
 ## ---- message = FALSE---------------------------------------------------------
 x = 5; # can have semicolons a the end!
+
 # calling read_csv function and pasting a long string together
 yts = readr::read_csv(
   paste0("http://johnmuschelli.com/intro_to_r/",
          "data/Youth_Tobacco_Survey_YTS_Data.csv")) 
+
+# saving two files 
 save(yts, x, file = "yts_data.rda")
 
 
@@ -105,12 +116,8 @@ ls()
 
 
 ## -----------------------------------------------------------------------------
+z = load("yts_data.rda")
 print(z)
-
-
-## ---- readingCSV--------------------------------------------------------------
-dat2 = read.csv("../data/Youth_Tobacco_Survey_YTS_Data.csv")
-head(dat2)
 
 
 ## ---- echo = FALSE, message = FALSE, results='hide'---------------------------

@@ -19,6 +19,14 @@ knitr::include_graphics("https://ca.slack-edge.com/T023TPZA8LF-U0248RUHRC2-0ac3f
 knitr::include_graphics("https://ca.slack-edge.com/T023TPZA8LF-U024EN26Q0L-113294823b2c-512")
 
 
+## ---- fig.alt="Michael's picture", out.width = "30%", echo = FALSE, fig.align='center'----
+knitr::include_graphics("https://ca.slack-edge.com/T9HRLUCSW-UHLJ37F7U-c7982c75f1d0-512")
+
+
+## ---- fig.alt="Michael's picture", out.width = "30%", echo = FALSE, fig.align='center'----
+knitr::include_graphics("https://ca.slack-edge.com/T9HRLUCSW-U024P27E4JV-dea9308f50ef-512")
+
+
 ## ---- fig.alt="Bell Labs old logo", out.width = "40%", echo = FALSE, fig.align='center'----
 knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Bell_Laboratories_logo.svg/2880px-Bell_Laboratories_logo.svg.png")
 
