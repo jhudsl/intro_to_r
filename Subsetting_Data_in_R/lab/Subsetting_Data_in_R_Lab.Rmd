@@ -51,7 +51,7 @@ cars = mtcars
 
 ```
 
-5. Convert the column names of `cars` to all upper case. Use `rename_all`, and the `toupper` command (or `colnames`).
+5. Convert the column names of `cars` to all upper case. Use `rename_all` (or `colnames`) and the `toupper` commands
 
 ```{r}
 
@@ -62,8 +62,13 @@ cars = mtcars
 
 # Part 2
 
+You can create a column called `car` using the `rownames_to_column` function. 
 
-6. Subset the columns from `cars` that end in `"p"` and call it `pvars`, use `ends_with()`.
+```{r}
+cars = rownames_to_column(mtcars, var = "car")
+```
+
+6. Subset from `cars` the new column we just created `car` and the columns that end in `"p"`. Call the subset `pvars`, use `ends_with()`
 
 ```{r}
 
@@ -71,7 +76,7 @@ cars = mtcars
 
 ```
 
-7. Create a subset of the data that only contains the columns: `wt`, `qsec`, and `hp` and assign this object to `carsSub` - what are the dimensions of this dataset? Use `select()` (and `dim`):
+7. Create a subset of the data that only contains the columns: `car`, `wt`, `qsec`, and `hp` and assign this object to `carsSub` - what are the dimensions of this dataset? Use `select()` (and `dim`):
 
 ```{r}
 
@@ -79,7 +84,7 @@ cars = mtcars
 
 ```
 
-8. Convert the column names of `carsSub` to all upper case.  Use `rename_all()`, and the `toupper` command (or `colnames`)
+8. Convert the column names of `carsSub` to all upper case.  Use `rename_all()` (or `colnames`), and the `toupper` commands
 
 ```{r}
 
@@ -110,7 +115,7 @@ cars = mtcars
 # Part 4
 
 11. Create a subset from the `cars` data that only contains the columns:
-	`wt`, `qsec`, and `hp` for only the cars with 8 cylinders
+	`wt`, `qsec`, `hp`, and `car` for only the cars with 8 cylinders
 	and reassign this object to `carsSub` - what are the dimensions of this dataset?
 
 ```{r}
@@ -120,7 +125,7 @@ cars = mtcars
 ```
 
 
-12. Re-order the rows of `carsSub` by weight in increasing order. Use `arrange()`
+12. Re-order the rows of `carsSub` by weight (`wt`) in increasing order. Use `arrange()`
 
 ```{r}
 
