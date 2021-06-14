@@ -11,12 +11,12 @@ Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-
 # Part 1
 
 1.  Read in the Youth Tobacco study from
-http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv
+http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv
 and name it `youth`
 
 ```{r}
 library(readr)
-youth = read_csv("http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
+youth = read_csv("http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
 ```
 
 2.  Check `youth` for any problems.
@@ -35,10 +35,10 @@ library(readxl)
 ```
 
 
-Download in the dataset of monuments from: http://johnmuschelli.com/intro_to_r/data/Monuments.xlsx file to `Monuments.xlsx`
+Download in the dataset of monuments from: http://jhudatascience.org/intro_to_r/data/Monuments.xlsx file to `Monuments.xlsx`
 
 ```{r}
-download.file("http://johnmuschelli.com/intro_to_r/data/Monuments.xlsx",
+download.file("http://jhudatascience.org/intro_to_r/data/Monuments.xlsx",
               destfile = "Monuments.xlsx",
               overwrite = TRUE)
 ```

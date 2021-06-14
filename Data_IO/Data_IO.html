@@ -3284,7 +3284,7 @@ background-size: 100% 100%;
 
 </article></slide><slide class=""><hgroup><h2>Data Input: Dataset Location</h2></hgroup><article  id="data-input-dataset-location">
 
-<p>Dataset is located at <a href='http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv' title=''>http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv</a></p>
+<p>Dataset is located at <a href='http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv' title=''>http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv</a></p>
 
 <ul>
 <li><p>Download data by clicking the above link</p>
@@ -3298,7 +3298,7 @@ background-size: 100% 100%;
 
 <pre class = 'prettyprint lang-r'># load library `readr` that contains function `read_csv`
 library(readr)
-dat = read_csv(&quot;http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv&quot;)
+dat = read_csv(&quot;http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv&quot;)
 
 # `head` displays first few rows of a data frame 
 head(dat, 5)</pre>
@@ -3856,7 +3856,7 @@ identical(dat, dat2) # test if they are the same </pre>
 
 # calling read_csv function and pasting a long string together
 yts = readr::read_csv(
-  paste0(&quot;http://johnmuschelli.com/intro_to_r/&quot;,
+  paste0(&quot;http://jhudatascience.org/intro_to_r/&quot;,
          &quot;data/Youth_Tobacco_Survey_YTS_Data.csv&quot;)) 
 
 # saving two files 

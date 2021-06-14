@@ -1,6 +1,6 @@
 ## -----------------------------------------------------------------------------
 library(readr)
-youth = read_csv("http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
+youth = read_csv("http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
 
 
 ## -----------------------------------------------------------------------------
@@ -13,7 +13,7 @@ library(readxl)
 
 
 ## -----------------------------------------------------------------------------
-download.file("http://johnmuschelli.com/intro_to_r/data/Monuments.xlsx",
+download.file("http://jhudatascience.org/intro_to_r/data/Monuments.xlsx",
               destfile = "Monuments.xlsx",
               overwrite = TRUE)
 
