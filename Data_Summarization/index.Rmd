@@ -125,6 +125,7 @@ tb %>%
             median(`2004`, na.rm = TRUE))
 ```
 
+Use the [`across`](https://dplyr.tidyverse.org/reference/across.html) function with `summarize` to summarize across all columns of your data.
 
 ## Column and Row means
 
@@ -139,20 +140,6 @@ colMeans(avgs, na.rm = TRUE)
 tb$before_2000_avg = rowMeans(avgs, na.rm = TRUE)
 head(tb[, c("country", "before_2000_avg")])
 ```
-
-## Summarize the data: `dplyr` `summarize` function
-
-`dplyr::summarize` will allow you to summarize data. If you would like to summarize **all** columns, you can use `across` and pass in a function (with arguments):
-
-```{r, echo = TRUE, eval=FALSE}
-summarize(across(COLUMNS), ~ FUNCTION(.x, FUNCTION_ARGUMENTS)) # how to use
-```
-
-```{r}
-tb %>% 
-  summarize(across(starts_with("1"), ~ mean(.x, na.rm = TRUE)))
-```
-
 
 ## Summary Function
 
