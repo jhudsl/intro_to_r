@@ -60,15 +60,6 @@ quantile(jhu_cars$wt, probs = 0.6)
 
 ## Statistical summarization
 
-`t.test` will be covered more in detail later, gives a mean and 95\% CI:
-
-```{r}
-t.test(jhu_cars$wt) 
-broom::tidy(t.test(jhu_cars$wt))
-```
-
-## Statistical summarization
-
 Note that many of these functions have additional inputs regarding missing data, typically requiring the `na.rm` argument ("remove NAs"). 
 
 ```{r}
