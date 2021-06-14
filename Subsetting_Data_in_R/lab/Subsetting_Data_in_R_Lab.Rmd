@@ -63,7 +63,7 @@ cars = mtcars
 # Part 2
 
 
-6. Subset the columns from `cars` that end in `"p"` and call it `pvars`, use `ends_with()`.
+6. Subset both the column `car` that you just created and the columns from `cars` that end in `"p"` and call it `pvars`. Hint: use `ends_with()`.
 
 ```{r}
 
