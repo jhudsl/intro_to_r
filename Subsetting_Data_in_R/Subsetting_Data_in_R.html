@@ -3264,7 +3264,7 @@ background-size: 100% 100%;
 <ul>
 <li><a href='https://cran.rstudio.com/web/packages/dplyr/vignettes/' title=''>https://cran.rstudio.com/web/packages/dplyr/vignettes/</a></li>
 <li><a href='https://stat545-ubc.github.io/block009_dplyr-intro.html' title=''>https://stat545-ubc.github.io/block009_dplyr-intro.html</a></li>
-<li><a href='https://www.datacamp.com/courses/dplyr-data-manipulation-r-tutorial' title=''>https://www.datacamp.com/courses/dplyr-data-manipulation-r-tutorial</a></li>
+<li><a href='https://www.opencasestudies.org/' title=''>https://www.opencasestudies.org/</a></li>
 </ul>
 
 <p>The <code>dplyr</code> package also interfaces well with tibbles (a fancy tidyverse version of a data frame).</p>
@@ -3296,18 +3296,14 @@ x dplyr::lag()    masks stats::lag()</pre>
 {
     UseMethod(&quot;filter&quot;)
 }
-&lt;bytecode: 0x7f8025ca74c0&gt;
+&lt;bytecode: 0x7ff25f9ef688&gt;
 &lt;environment: namespace:dplyr&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Loading in dplyr and tidyverse</h2></hgroup><article  id="loading-in-dplyr-and-tidyverse-2">
 
 <p>A <code>filter</code> function exists by default in the <code>stats</code> package, however. If you want to make sure you use that one, you use <code>PackageName::Function</code> with the colon-colon (&ldquo;<code>::</code>&rdquo;) operator.</p>
 
-<pre class = 'prettyprint lang-r'>head(stats::filter,2)</pre>
-
-<pre >                                                               
-1 function (x, filter, method = c(&quot;convolution&quot;, &quot;recursive&quot;), 
-2     sides = 2L, circular = FALSE, init = NULL)               </pre>
+<pre class = 'prettyprint lang-r'>stats::filter</pre>
 
 <p>This is important when loading many packages, and you may have some conflicts/masking.</p>
 
@@ -3317,7 +3313,7 @@ x dplyr::lag()    masks stats::lag()</pre>
 
 <pre class = 'prettyprint lang-r'>library(jhur)
 data(jhu_cars)
-df= jhu_cars # df is a copy of jhu_cars
+df = jhu_cars # df is a copy of jhu_cars
 head(df) # changing df does **not** change jhu_cars</pre>
 
 <pre >                car  mpg cyl disp  hp drat    wt  qsec vs am gear carb
@@ -3330,7 +3326,7 @@ head(df) # changing df does **not** change jhu_cars</pre>
 
 </article></slide><slide class=""><hgroup><h2>Creating a <code>data.frame</code> to work with</h2></hgroup><article  id="creating-a-data.frame-to-work-with-1">
 
-<p>If we would like to create a <code>tibble</code> (&ldquo;fancy&rdquo; data.frame), we can using <code>as.tbl</code> or <code>as_tibble</code>.</p>
+<p>If we would like to create a <code>tibble</code> (&ldquo;fancy&rdquo; data.frame), we can using the <code>as.tbl</code> (from the<code>dplyr</code>package) or <code>as_tibble</code> (from the <code>tibble</code> package) functions.</p>
 
 <pre class = 'prettyprint lang-r'>tbl = as_tibble(df) 
 tbl</pre>
@@ -3352,7 +3348,7 @@ tbl</pre>
 
 </article></slide><slide class=""><hgroup><h2>No rownames in tibbles!</h2></hgroup><article  id="no-rownames-in-tibbles">
 
-<p>In the &ldquo;tidy&rdquo; data format, all information of interest is a variable (not a name). <strong>as of tibble 2.0, rownames are removed</strong>. For example, <code>mtcars</code> has each car name as a row name. Here we use the <code>head()</code> function to see the first 2 rows of each.</p>
+<p>In the &ldquo;tidy&rdquo; data format, all information of interest is a variable (not a name). <strong>as of tibble 2.0, rownames are removed</strong>. For example, <code>mtcars</code> has each car name as a row name. Here we use the <code>head()</code> function to see the first 2 rows of each. In this case we would want to make the rownames a new column first before making into a tibble.</p>
 
 <pre class = 'prettyprint lang-r'>head(mtcars, 2)</pre>
 
@@ -3374,7 +3370,7 @@ Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4</pre>
 
 <p>To rename columns in <code>dplyr</code>, you use the <code>rename</code> command.</p>
 
-<p>For example, let’s rename mpg to MPG.</p>
+<p>For example, let’s rename mpg to MPG. Notice the new name is listed first!</p>
 
 <pre class = 'prettyprint lang-r'>df = dplyr::rename(df, MPG = mpg)
 head(df)</pre>
@@ -3571,11 +3567,10 @@ pull(select(df,mpg))</pre>
 
 <p>Here are a few:</p>
 
-<pre class = 'prettyprint lang-r'>one_of()
+<pre class = 'prettyprint lang-r'>one_of() # if they exist
 last_col()
 ends_with()
-contains() # like searching
-matches() # Matches a regular expression - cover later</pre>
+contains() # like searching</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
 
@@ -3844,29 +3839,82 @@ head(df)</pre>
 5    Medium
 6    Medium</pre>
 
-<p>Or, you can simply select the columns you want to keep, ignoring the ones you want to remove.</p>
+<p><strong>Or, you can simply select the columns you want to keep, ignoring the ones you want to remove.</strong></p>
 
 </article></slide><slide class=""><hgroup><h2>Removing columns to a <code>data.frame</code>: dplyr</h2></hgroup><article  id="removing-columns-to-a-data.frame-dplyr">
 
-<p>The <code>one_of()</code> function checks for columns with the names indicated. If there are columns that match they will get removed. This is useful if you can’t recall if the columns you want to remove are still present.</p>
-
-<p>Otherwise you could use <code>c()</code> to list the columns to remove.</p>
+<p>You can use <code>c()</code> to list the columns to remove.</p>
 
 <p>Remove <code>newcol</code> and <code>drat</code>:</p>
 
-<pre class = 'prettyprint lang-r'>select(df, -one_of(&quot;newcol&quot;, &quot;drat&quot;))
-select(df, -c(&quot;newcol&quot;, &quot;drat&quot;))</pre>
+<pre class = 'prettyprint lang-r'>select(df, -c(&quot;newcol&quot;, &quot;drat&quot;))</pre>
 
-<pre >             car  mpg cyl disp  hp    wt  qsec vs am gear carb disp_cat
-1      Mazda RX4 21.0   6  160 110 2.620 16.46  0  1    4    4      Low
-2  Mazda RX4 Wag 21.0   6  160 110 2.875 17.02  0  1    4    4      Low
-3     Datsun 710 22.8   4  108  93 2.320 18.61  1  1    4    1      Low
-4 Hornet 4 Drive 21.4   6  258 110 3.215 19.44  1  0    3    1   Medium
-  disp_cat2
-1       Low
-2       Low
-3       Low
-4    Medium</pre>
+<pre >                   car  mpg cyl  disp  hp    wt  qsec vs am gear carb disp_cat
+1            Mazda RX4 21.0   6 160.0 110 2.620 16.46  0  1    4    4      Low
+2        Mazda RX4 Wag 21.0   6 160.0 110 2.875 17.02  0  1    4    4      Low
+3           Datsun 710 22.8   4 108.0  93 2.320 18.61  1  1    4    1      Low
+4       Hornet 4 Drive 21.4   6 258.0 110 3.215 19.44  1  0    3    1   Medium
+5    Hornet Sportabout 18.7   8 360.0 175 3.440 17.02  0  0    3    2   Medium
+6              Valiant 18.1   6 225.0 105 3.460 20.22  1  0    3    1   Medium
+7           Duster 360 14.3   8 360.0 245 3.570 15.84  0  0    3    4   Medium
+8            Merc 240D 24.4   4 146.7  62 3.190 20.00  1  0    4    2      Low
+9             Merc 230 22.8   4 140.8  95 3.150 22.90  1  0    4    2      Low
+10            Merc 280 19.2   6 167.6 123 3.440 18.30  1  0    4    4      Low
+11           Merc 280C 17.8   6 167.6 123 3.440 18.90  1  0    4    4      Low
+12          Merc 450SE 16.4   8 275.8 180 4.070 17.40  0  0    3    3   Medium
+13          Merc 450SL 17.3   8 275.8 180 3.730 17.60  0  0    3    3   Medium
+14         Merc 450SLC 15.2   8 275.8 180 3.780 18.00  0  0    3    3   Medium
+15  Cadillac Fleetwood 10.4   8 472.0 205 5.250 17.98  0  0    3    4     High
+16 Lincoln Continental 10.4   8 460.0 215 5.424 17.82  0  0    3    4     High
+17   Chrysler Imperial 14.7   8 440.0 230 5.345 17.42  0  0    3    4     High
+18            Fiat 128 32.4   4  78.7  66 2.200 19.47  1  1    4    1      Low
+19         Honda Civic 30.4   4  75.7  52 1.615 18.52  1  1    4    2      Low
+20      Toyota Corolla 33.9   4  71.1  65 1.835 19.90  1  1    4    1      Low
+21       Toyota Corona 21.5   4 120.1  97 2.465 20.01  1  0    3    1      Low
+22    Dodge Challenger 15.5   8 318.0 150 3.520 16.87  0  0    3    2   Medium
+23         AMC Javelin 15.2   8 304.0 150 3.435 17.30  0  0    3    2   Medium
+24          Camaro Z28 13.3   8 350.0 245 3.840 15.41  0  0    3    4   Medium
+25    Pontiac Firebird 19.2   8 400.0 175 3.845 17.05  0  0    3    2   Medium
+26           Fiat X1-9 27.3   4  79.0  66 1.935 18.90  1  1    4    1      Low
+27       Porsche 914-2 26.0   4 120.3  91 2.140 16.70  0  1    5    2      Low
+28        Lotus Europa 30.4   4  95.1 113 1.513 16.90  1  1    5    2      Low
+29      Ford Pantera L 15.8   8 351.0 264 3.170 14.50  0  1    5    4   Medium
+30        Ferrari Dino 19.7   6 145.0 175 2.770 15.50  0  1    5    6      Low
+31       Maserati Bora 15.0   8 301.0 335 3.570 14.60  0  1    5    8   Medium
+32          Volvo 142E 21.4   4 121.0 109 2.780 18.60  1  1    4    2      Low
+   disp_cat2
+1        Low
+2        Low
+3        Low
+4     Medium
+5     Medium
+6     Medium
+7     Medium
+8        Low
+9        Low
+10       Low
+11       Low
+12    Medium
+13    Medium
+14    Medium
+15      High
+16      High
+17      High
+18       Low
+19       Low
+20       Low
+21       Low
+22    Medium
+23    Medium
+24    Medium
+25    Medium
+26       Low
+27       Low
+28       Low
+29    Medium
+30       Low
+31    Medium
+32       Low</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Ordering columns</h2></hgroup><article  id="ordering-columns">
 
@@ -3911,6 +3959,83 @@ select(df, -c(&quot;newcol&quot;, &quot;drat&quot;))</pre>
 4    Medium 1.461364
 5    Medium 1.563636
 6    Medium 1.572727</pre>
+
+</article></slide><slide class=""><hgroup><h2>Odering the colunames of a <code>data.frame</code>: alphabetically</h2></hgroup><article  id="odering-the-colunames-of-a-data.frame-alphabetically">
+
+<p>Using the base R <code>order()</code> function.</p>
+
+<pre class = 'prettyprint lang-r'>order(colnames(df))</pre>
+
+<pre > [1] 10  1 12  3  4 14 15  6 11  5  2 13  8  9  7</pre>
+
+<pre class = 'prettyprint lang-r'>df %&gt;% select(order(colnames(df)))</pre>
+
+<pre >   am                 car carb cyl  disp disp_cat disp_cat2 drat gear  hp  mpg
+1   1           Mazda RX4    4   6 160.0      Low       Low 3.90    4 110 21.0
+2   1       Mazda RX4 Wag    4   6 160.0      Low       Low 3.90    4 110 21.0
+3   1          Datsun 710    1   4 108.0      Low       Low 3.85    4  93 22.8
+4   0      Hornet 4 Drive    1   6 258.0   Medium    Medium 3.08    3 110 21.4
+5   0   Hornet Sportabout    2   8 360.0   Medium    Medium 3.15    3 175 18.7
+6   0             Valiant    1   6 225.0   Medium    Medium 2.76    3 105 18.1
+7   0          Duster 360    4   8 360.0   Medium    Medium 3.21    3 245 14.3
+8   0           Merc 240D    2   4 146.7      Low       Low 3.69    4  62 24.4
+9   0            Merc 230    2   4 140.8      Low       Low 3.92    4  95 22.8
+10  0            Merc 280    4   6 167.6      Low       Low 3.92    4 123 19.2
+11  0           Merc 280C    4   6 167.6      Low       Low 3.92    4 123 17.8
+12  0          Merc 450SE    3   8 275.8   Medium    Medium 3.07    3 180 16.4
+13  0          Merc 450SL    3   8 275.8   Medium    Medium 3.07    3 180 17.3
+14  0         Merc 450SLC    3   8 275.8   Medium    Medium 3.07    3 180 15.2
+15  0  Cadillac Fleetwood    4   8 472.0     High      High 2.93    3 205 10.4
+16  0 Lincoln Continental    4   8 460.0     High      High 3.00    3 215 10.4
+17  0   Chrysler Imperial    4   8 440.0     High      High 3.23    3 230 14.7
+18  1            Fiat 128    1   4  78.7      Low       Low 4.08    4  66 32.4
+19  1         Honda Civic    2   4  75.7      Low       Low 4.93    4  52 30.4
+20  1      Toyota Corolla    1   4  71.1      Low       Low 4.22    4  65 33.9
+21  0       Toyota Corona    1   4 120.1      Low       Low 3.70    3  97 21.5
+22  0    Dodge Challenger    2   8 318.0   Medium    Medium 2.76    3 150 15.5
+23  0         AMC Javelin    2   8 304.0   Medium    Medium 3.15    3 150 15.2
+24  0          Camaro Z28    4   8 350.0   Medium    Medium 3.73    3 245 13.3
+25  0    Pontiac Firebird    2   8 400.0   Medium    Medium 3.08    3 175 19.2
+26  1           Fiat X1-9    1   4  79.0      Low       Low 4.08    4  66 27.3
+27  1       Porsche 914-2    2   4 120.3      Low       Low 4.43    5  91 26.0
+28  1        Lotus Europa    2   4  95.1      Low       Low 3.77    5 113 30.4
+29  1      Ford Pantera L    4   8 351.0   Medium    Medium 4.22    5 264 15.8
+30  1        Ferrari Dino    6   6 145.0      Low       Low 3.62    5 175 19.7
+31  1       Maserati Bora    8   8 301.0   Medium    Medium 3.54    5 335 15.0
+32  1          Volvo 142E    2   4 121.0      Low       Low 4.11    4 109 21.4
+      newcol  qsec vs    wt
+1  1.1909091 16.46  0 2.620
+2  1.3068182 17.02  0 2.875
+3  1.0545455 18.61  1 2.320
+4  1.4613636 19.44  1 3.215
+5  1.5636364 17.02  0 3.440
+6  1.5727273 20.22  1 3.460
+7  1.6227273 15.84  0 3.570
+8  1.4500000 20.00  1 3.190
+9  1.4318182 22.90  1 3.150
+10 1.5636364 18.30  1 3.440
+11 1.5636364 18.90  1 3.440
+12 1.8500000 17.40  0 4.070
+13 1.6954545 17.60  0 3.730
+14 1.7181818 18.00  0 3.780
+15 2.3863636 17.98  0 5.250
+16 2.4654545 17.82  0 5.424
+17 2.4295455 17.42  0 5.345
+18 1.0000000 19.47  1 2.200
+19 0.7340909 18.52  1 1.615
+20 0.8340909 19.90  1 1.835
+21 1.1204545 20.01  1 2.465
+22 1.6000000 16.87  0 3.520
+23 1.5613636 17.30  0 3.435
+24 1.7454545 15.41  0 3.840
+25 1.7477273 17.05  0 3.845
+26 0.8795455 18.90  1 1.935
+27 0.9727273 16.70  0 2.140
+28 0.6877273 16.90  1 1.513
+29 1.4409091 14.50  0 3.170
+30 1.2590909 15.50  0 2.770
+31 1.6227273 14.60  0 3.570
+32 1.2636364 18.60  1 2.780</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Ordering rows</h2></hgroup><article  id="ordering-rows">
 

@@ -14,14 +14,14 @@ library(tidyverse)
 filter
 
 
-## -----------------------------------------------------------------------------
-head(stats::filter,2)
+## ---- eval=FALSE--------------------------------------------------------------
+## stats::filter
 
 
 ## -----------------------------------------------------------------------------
 library(jhur)
 data(jhu_cars)
-df= jhu_cars # df is a copy of jhu_cars
+df = jhu_cars # df is a copy of jhu_cars
 head(df) # changing df does **not** change jhu_cars
 
 
@@ -80,11 +80,10 @@ select(df, starts_with("c"))
 
 
 ## ---- eval = FALSE------------------------------------------------------------
-## one_of()
+## one_of() # if they exist
 ## last_col()
 ## ends_with()
 ## contains() # like searching
-## matches() # Matches a regular expression - cover later
 
 
 ## -----------------------------------------------------------------------------
@@ -169,13 +168,8 @@ head(df$disp_cat2)
 head(select(df, -newcol))
 
 
-## ---- eval = FALSE------------------------------------------------------------
-## select(df, -one_of("newcol", "drat"))
-## select(df, -c("newcol", "drat"))
-
-
-## ---- echo = FALSE------------------------------------------------------------
-head(select(df, -one_of("newcol", "drat")), 4)
+## -----------------------------------------------------------------------------
+select(df, -c("newcol", "drat"))
 
 
 ## ---- eval = FALSE------------------------------------------------------------
@@ -192,6 +186,11 @@ head(select(df, newcol, everything()))
 
 ## ---- echo = FALSE------------------------------------------------------------
 head(select(df, -newcol, everything(), newcol))
+
+
+## -----------------------------------------------------------------------------
+order(colnames(df))
+df %>% select(order(colnames(df)))
 
 
 ## -----------------------------------------------------------------------------

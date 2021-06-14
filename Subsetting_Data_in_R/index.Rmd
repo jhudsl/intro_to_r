@@ -34,7 +34,7 @@ Many resources on how to use `dplyr` exist and are straightforward:
 
 * https://cran.rstudio.com/web/packages/dplyr/vignettes/
 * https://stat545-ubc.github.io/block009_dplyr-intro.html
-* https://www.datacamp.com/courses/dplyr-data-manipulation-r-tutorial
+* https://www.opencasestudies.org/
 
 The `dplyr` package also interfaces well with tibbles (a fancy tidyverse version of a data frame).
 
@@ -62,8 +62,8 @@ A `filter` function exists by default in the `stats` package, however.  If you w
 to make sure you use that one, you use `PackageName::Function` with the colon-colon 
 ("`::`") operator. 
 
-```{r}
-head(stats::filter,2)
+```{r, eval=FALSE}
+stats::filter
 ```
 
 This is important when loading many packages, and you may have
@@ -76,13 +76,13 @@ Here we use one of the datasets that comes with the `jhur` package called `jhu_c
 ```{r}
 library(jhur)
 data(jhu_cars)
-df= jhu_cars # df is a copy of jhu_cars
+df = jhu_cars # df is a copy of jhu_cars
 head(df) # changing df does **not** change jhu_cars
 ```
 
 ## Creating a `data.frame` to work with
 
-If we would like to create a `tibble` ("fancy" data.frame), we can using `as.tbl` or `as_tibble`.  
+If we would like to create a `tibble` ("fancy" data.frame), we can using the `as.tbl` (from  the`dplyr`package) or `as_tibble` (from the `tibble` package) functions.  
 
 ```{r}
 tbl = as_tibble(df) 
@@ -92,7 +92,7 @@ tbl
 
 ## No rownames in tibbles!
  
-In the "tidy" data format, all information of interest is a variable (not a name). **as of tibble 2.0, rownames are removed**.  For example, `mtcars`  has each car name as a row name. Here we use the `head()` function to see the first 2 rows of each.
+In the "tidy" data format, all information of interest is a variable (not a name). **as of tibble 2.0, rownames are removed**.  For example, `mtcars`  has each car name as a row name. Here we use the `head()` function to see the first 2 rows of each. In this case we would want to make the rownames a new column first before making into a tibble.
 
 ```{r}
 head(mtcars, 2)
@@ -105,7 +105,7 @@ head(as_tibble(mtcars), 2)
 
 To rename columns in `dplyr`, you use the `rename` command.
 
-For example, let's rename mpg to MPG.
+For example, let's rename mpg to MPG. Notice the new name is listed first!
 
 ```{r}
 df = dplyr::rename(df, MPG = mpg)
@@ -185,11 +185,10 @@ Run the command:
 Here are a few:
 
 ```{r, eval = FALSE}
-one_of()
+one_of() # if they exist
 last_col()
 ends_with()
 contains() # like searching
-matches() # Matches a regular expression - cover later
 ```
 
 ## Lab Part 2
@@ -375,23 +374,17 @@ select(df, -newcol)
 head(select(df, -newcol))
 ```
 
-Or, you can simply select the columns you want to keep, ignoring the ones you want to remove.
+**Or, you can simply select the columns you want to keep, ignoring the ones you want to remove.**
 
 ## Removing columns to a `data.frame`: dplyr
 
-The `one_of()` function checks for columns with the names indicated. If there are columns that match they will get removed. This is useful if you can't recall if the columns you want to remove are still present.
-
-Otherwise you could use `c()` to list the columns to remove.
+You can use `c()` to list the columns to remove.
 
 Remove `newcol` and `drat`:
-```{r, eval = FALSE}
-select(df, -one_of("newcol", "drat"))
+```{r}
 select(df, -c("newcol", "drat"))
 ```
 
-```{r, echo = FALSE}
-head(select(df, -one_of("newcol", "drat")), 4)
-```
 
 # Ordering columns
 
@@ -416,6 +409,14 @@ select(df, -newcol, everything(), newcol)
 
 ```{r, echo = FALSE}
 head(select(df, -newcol, everything(), newcol))
+```
+
+## Odering the colunames of a `data.frame`: alphabetically
+Using the base R `order()` function.
+
+```{r}
+order(colnames(df))
+df %>% select(order(colnames(df)))
 ```
 
 # Ordering rows

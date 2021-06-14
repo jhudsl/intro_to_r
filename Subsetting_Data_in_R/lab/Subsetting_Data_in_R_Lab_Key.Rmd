@@ -71,7 +71,7 @@ You can create a column called `car` using the `rownames_to_column` function.
 cars = rownames_to_column(mtcars, var = "car")
 ```
 
-6. Subset the columns from `cars` that end in `"p"` and call it `pvars`, use `ends_with()`.
+6. Subset both the column `car` that you just created and the columns from `cars` that end in `"p"` and call it `pvars`. Hint: use `ends_with()`.
 
 ```{r}
 pvars = select(cars, car, ends_with("p"))
