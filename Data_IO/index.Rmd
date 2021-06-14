@@ -13,10 +13,18 @@ library(readr)
 opts_chunk$set(comment = "")
 ```
 
+## Outline 
+
+* Part 1: reading CSV file, common new user mistakes in data reading, checking for problems in the read data
+* Part 2: data input overview, working directories, relative vs. absolute paths, reading XLSX file (Excel file), other data inputs
+* Part 3: writing CSV file
+* Part 4: reading and saving R objects
+
+
 ## Data We Use
 
 * Everything we do in class will be using real publicly available data - there are few 'toy' example datasets and 'simulated' data
-* OpenBaltimore and Data.gov will be sources for the first few days
+* Baltimore Open Data and Data.gov will be sources for the first few days
 * We have also added functionality to load these datasets directly in the `jhur` package
 
 ## Data Input
@@ -24,135 +32,193 @@ opts_chunk$set(comment = "")
 * 'Reading in' data is the first step of any real project/analysis
 * R can read almost any file format, especially via add-on packages
 * We are going to focus on simple delimited files first
-    * tab delimited (e.g. '.txt')
     * comma separated (e.g. '.csv')
-    * Microsoft excel (e.g. '.xlsx')
+    * tab delimited (e.g. '.txt')
+    * Microsoft Excel (e.g. '.xlsx')
 
 ## Data Input
 
-Youth Tobacco Survey (YTS) Dataset:
+Youth Tobacco Survey (YTS) dataset:
 
 "The YTS was developed to provide states with comprehensive data on both middle school and high school students regarding tobacco use, exposure to environmental tobacco smoke, smoking cessation, school curriculum, minors' ability to purchase or otherwise obtain tobacco products, knowledge and attitudes about tobacco, and familiarity with pro-tobacco and anti-tobacco media messages."
 
 * Check out the data at: https://catalog.data.gov/dataset/youth-tobacco-survey-yts-data
 
-## Data Input
+## Data Input: Dataset Location
 
-* Download data from http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv
+Dataset is located at http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv
+
+* Download data by clicking the above link
+    
     * Safari - if a file loads in your browser, choose File --> Save As, select, Format "Page Source" and save
-* Within RStudio: Session --> Set Working Directory --> To Source File Location
 
-## Data Input
-
-R Studio features some nice "drop down" support, where you can run some tasks by selecting them from the toolbar.
-
-For example, you can easily import text datasets using the "File --> Import Dataset --> From CSV" command. Selecting this will bring up a new screen that lets you specify the formatting of your text file. 
-
-After importing a datatset, you get the corresponding R commands that you can enter in the console if you want to re-import data.
-
-## Read in Directly
+## Data Input: Read in Directly 
 
 ```{r read_url, message = FALSE}
-mydat = read_csv("http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
-head(mydat)
+# load library `readr` that contains function `read_csv`
+library(readr)
+dat = read_csv("http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
+
+# `head` displays first few rows of a data frame 
+head(dat, 5)
 ```
 
-## Data Input
+## Data Input: Read in Directly 
 
-So what is going on "behind the scenes"?
+So what is going on "behind the scenes"? 
 
-`read_delim()`: Read a delimited file into a data frame.
+`read_csv()` parses a "flat" text file (.csv) and turns it into a **tibble** -- a rectangular data frame, where data are split into rows and columns 
 
-```{r, echo = FALSE}
-args(readr::read_delim)
+- First, a flat  file is parsed into a rectangular matrix of strings
+
+- Second, the type of each column is determined (heuristic-based guess)
+
+
+## Data Input: Read in Directly 
+
+`read_csv()` needs path to your file, will return a tibble
+
+```
+read_csv(file, col_names = TRUE, col_types = NULL,
+  locale = default_locale(), na = c("", "NA"),
+  quoted_na = TRUE, quote = "\"", comment = "", trim_ws = TRUE,
+  skip = 0, n_max = Inf, guess_max = min(1000, n_max),
+  progress = show_progress(), skip_empty_rows = TRUE
+)
 ```
 
-```r     
-# for example: `read_delim("file.txt",delim="\t")`
+- `file` is the path to your file, in quotes 
+- can be path in your local computer -- absolute file path or relative file path 
+- can be path to a file on a website
+
+```{r, eval = FALSE}
+## Examples 
+
+dat = read_csv("/Users/martakaras/Downloads/Youth_Tobacco_Survey_YTS_Data.csv")
+
+dat = read_csv("Youth_Tobacco_Survey_YTS_Data.csv")
+
+dat = read_csv("www.someurl.com/table1.csv")
 ```
 
-## Data Input
 
-* The filename is the path to your file, in quotes
-* The function will look in your "working directory" if no absolute file path is given
-* Note that the filename can also be a path to a file on a website (e.g. 'www.someurl.com/table1.txt')
+## Data Input: Read in Directly 
 
+`read_csv()` is a special case of `read_delim()` -- a general function to read a delimited file into a data frame  
 
-## Data Input
+`read_delim()` needs path to your file and fileds delimiter, will return a tibble
 
-There is another convenient function for reading in CSV files, where the delimiter is assumed to be a comma (`readr::read_csv`): 
-
-```{r readCSV, echo = FALSE}
-args(readr::read_csv)
+```
+read_delim(file, delim, quote = "\"", escape_backslash = FALSE, 
+  escape_double = TRUE, col_names = TRUE,  col_types = NULL, 
+  locale = default_locale(),na = c("", "NA"),  quoted_na = TRUE, 
+  comment = "", trim_ws = FALSE, skip = 0, 
+  n_max = Inf,  guess_max = min(1000, n_max), 
+  progress = show_progress(), skip_empty_rows = TRUE
+)
 ```
 
-## Data Input
+- `file` is the path to your file, in quotes 
+- `delim` is what separates the fields within a record 
 
-* Here would be reading data from the command line, specifying the file path:
+```{r, eval = FALSE}
+## Examples 
+dat = read_delim("Youth_Tobacco_Survey_YTS_Data.csv", delim = ",")
+
+dat = read_delim("www.someurl.com/table1.txt", delim = "\t")
+```
+
+## Data Input: Read in Directly From File Path
 
 ```{r readCSV2}
 dat = read_csv("../data/Youth_Tobacco_Survey_YTS_Data.csv")
 ```
 
-The data is now successfully read into your R workspace, just like from using the dropdown menu.
+The data is now successfully read into your R workspace. Colum specification of first few columns is printed to the console. 
 
+## Common new user mistakes we have seen
 
-## Data Input: Checking for problems
-
-
-```{r read_ur_againl, message = FALSE}
-dat = read_csv("http://johnmuschelli.com/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
-```
+1.  **Working directory problems: trying to read files that R "can't find"**
+    - Path misspecification 
+2.  Typos (R is **case sensitive**, `x` and `X` are different)
+    - RStudio helps with "tab completion"
+3.  Data type problems (is that a string or a number?)
+4.  Open ended quotes, parentheses, and brackets     
+5.  Different versions of software
 
 ## Data Input: Checking for problems
 
 * The `spec()` and `problems()` functions show you the specification of how the data was read in.  
 
 ```{r stop_problems}
-dim(problems(dat))
+problems(dat)
 spec(dat)
 ```
 
-
 ## Data Input: Checking for problems
 
-* The `stop_for_problems()` function will stop if your data had an error when reading in.  If this occurs, you can either use `col_types` (from `spec()`) for the problematic columns, or set `guess_max = Inf` (takes much longer):
+
+The `stop_for_problems()` function will stop if your data had any problem when reading in (even if that problem did not cause the data reading to fail).  
+
+- Particularly useful to put after the data reading code e.g. in some automated R script that should not proceed in case some data "weirdness" occurred. 
 
 ```{r stop_problems2}
 stop_for_problems(dat)
 ```
 
+## Help
+
+For any function, you can write `?FUNCTION_NAME`, or `help("FUNCTION_NAME")` to look at the help file:
+
+```{r, eval = FALSE}
+?read_delim
+help("read_delim")
+```
+
+## Data Input: Read in From RStudio Toolbar
+
+R Studio features some nice "drop-down" support, where you can run some tasks by selecting them from the toolbar.
+
+For example, you can easily import text datasets using the `File --> Import Dataset --> From Text (readr)` command. Selecting this will bring up a new screen that lets you specify the formatting of your text file. 
+
+After importing a datatset, you get (printed in the R console) the corresponding R command that you can enter in the console if you want to re-import data.
+
+## Data Input: base R 
+
+There are also data importing functions provided in base R (rather than the `readr` package), like `read.delim()` and `read.csv()`. 
+
+These functions have slightly different syntax for reading in data (e.g. `header` argument). 
+
+However, while many online resources use the base R tools, the latest version of RStudio switched to use these new `readr` data import tools, so we will use them in the class for slides. They are also up to two times faster for reading in large datasets, and have a progress bar which is nice. 
+
+But you can use whatever function you feel more comfortable with.
 
 ## Lab Part 1
 
+[Lab](http://jhudatascience.org//intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd)
 
-[Lab](http://johnmuschelli.com/intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd)
-
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
-
-
-## Data Input
-
-The `read_delim()` and related functions returns a "tibble" is a `data.frame` with special printing, which is the primary data format for most data cleaning and analyses. 
+[Website](http://jhudatascience.org/intro_to_r/)
 
 
-## Data Input with `tbl_df`s {.smaller}
+## Data Input: `tbl_df` (a tibble) 
 
-* When using the dropdown menu in RStudio, it uses `read_csv`, which is an improved version of reading in CSVs.  It is popular but `read.csv` is still largely used.  It returns a `tbl` (tibble), that is a `data.frame` with improved printing and subsetting properties: 
+The `read_csv()`, `read_delim()` and related functions from `readr` all return `tbl_df` object (colloquially: a tibble) that is a `data.frame` object but with improved printing and subsetting properties.
+
+We also get `tbl_df` (tibble) when using drop-down menu in RStudio. 
+
+Alternatives: 
+
+- `read.csv()` -- "base" R function, still largely used; returns `data.frame` object
+
+- `fread()` -- from `data.table` R package; returns `data.table` object 
+
+
+## Data Input: `tbl_df` (a tibble) 
 
 ```{r readCSV_readr, message=FALSE}
-library(readr)
 head(dat, 3)
 class(dat)
 ```
-
-
-<!-- ## Data Input -->
-
-<!-- ```{r, viewTibble} -->
-<!-- dat -->
-<!-- ``` -->
-
 
 ## Data Input
 
@@ -165,33 +231,33 @@ class(dat)
 dim(dat)
 nrow(dat)
 ncol(dat)
+```
+
+## Data Input
+
+* `nrow()` displays the number of rows of a data frame
+* `ncol()` displays the number of columns 
+* `dim()` displays a vector of length 2: # rows, # columns
+* `colnames()` displays the column names (if any) and `rownames()` displays the row names (if any)
+
+```{r, colnames_rownames}
 colnames(dat)
 ```
 
 
-## Common new user mistakes we have seen
-
-1.  **Working directory problems: trying to read files that R "can't find"**
-    - RStudio can help, and so do RStudio Projects
-    - discuss in Data Input/Output lecture
-2.  Typos (R is **case sensitive**, `x` and `X` are different)
-    - RStudio helps with "tab completion"
-    - discussed throughout
-3.  Data type problems (is that a string or a number?)
-4.  Open ended quotes, parentheses, and brackets     
-5.  Different versions of software
-    
 ## Working Directories
 
-* R "looks" for files on your computer relative to the "working" directory
-* Many people recommend not setting a directory in the scripts 
-    - assume you're in the directory the script is in
-    - If you open an R file with a new RStudio session, it does this for you.
-* If you do set a working directory, do it at the beginning of your script. 
+* R "looks" for files on your computer relative to the **working directory** 
+
+* Many people recommend not setting a working directory in the scripts 
+    - If you open an R file with a new RStudio session, it assumes the working directory is where the script is in
+    
+* If you do set a working directory, do it at the beginning of your script 
+
 * Example of getting and setting the working directory:
 
 ```{r workingDirectory,eval=FALSE}
-## get the working directory
+# get the working directory
 getwd()
 setwd("~/Lectures") 
 ```
@@ -225,7 +291,7 @@ This means if I try your code, and you use absolute paths, it won't work unless 
 
 *By contrast, a **relative path starts from some given working directory**, avoiding the need to provide the full absolute path. A filename can be considered as a relative path based at the current working directory. *
 
-## Setting the Working Directory
+## Setting the Working Directory From RStudio Toolbar
 
 In RStudio, go to `Session -> Set Working Directory -> To Source File Location`
 
@@ -234,87 +300,13 @@ RStudio should put code in the Console, similar to this:
 setwd("~/Lectures/Data_IO/lecture")
 ```
     
-## Setting the Working Directory
+Again, if you open an R file with a new RStudio session, RStudio sets working directory to the file's location for you.
+
+## Setting the Working Directory 
     
-Again, if you open an R file with a new RStudio session, it does this for you.  You may need to make this a default.
+You may need to make sure that RStudio is the default application to open .R files
 
-1. Make sure RStudio is the default application to open .R files
-    * Mac - right click --> Get Info --> Open With: RStudio --> Change All
-    * Windows - Andrew will show
-
-
-## Help
-
-For any function, you can write `?FUNCTION_NAME`, or `help("FUNCTION_NAME")` to look at the help file:
-
-```{r, eval = FALSE}
-?dir
-help("dir")
-```
-
-## Lab Part 2
-
-
-[Lab](http://johnmuschelli.com/intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd)
-
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
-
-
-
-## Data Input
-
-Changing variable names in `data.frame`s works using the `names()` function, which is analagous to `colnames()` for data frames (they can be used interchangeably). We use the `rename` function:
-
-```{r names1, message = FALSE}
-library(dplyr)
-dat = rename(dat, year = YEAR)
-names(dat)
-```
-
-
-## Data Output
-
-While its nice to be able to read in a variety of data formats, it's equally important to be able to output data somewhere.
-
-There are also data exporting functions in the `readr` package, which have the pattern `write_*` like `write_csv` and `write_delim`
-
-```
-write_delim(x, path, delim = " ", na = "NA", append = FALSE,
-  col_names = !append)
-```
-
-## Data Output
-
-`x`: the R `data.frame` or `matrix` you want to write
-
-`path`: the file name where you want to R object written. It can be an absolute path, or a filename (which writes the file to your working directory)
-
-`delim`: what character separates the columns? 
-
-* "," = .csv - Note there is also a `write_csv()` function
-* "`\t`" = tab delimited
-
-## Data Output
-
-There are similar packages in base R, like `write.table` and `write.csv` which have the general arguments, but are called different things. Note these functions do  write out row names, which you can set to `FALSE`. I do this a lot since I often email these to collaborators who open them in Excel
-
-## Data Output
-
-For example, we can write back out the Youth Tobacco dataset with the new column name:
-
-```{r writecsv,eval=FALSE}
-dat = rename(dat, Year = year)
-write_csv(dat, path = "YouthTobacco_newNames.csv")
-```
-
-## Lab Part 3
-
-[Lab](http://johnmuschelli.com/intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd)
-
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
-
-
-
+* Mac - right click --> `Get Info --> Open With: RStudio --> Change All`
 
 ## Data Input - Excel
 
@@ -327,28 +319,104 @@ For single worksheet .xlsx files, I often just save the spreadsheet as a .csv fi
 
 For an .xlsx file with multiple well-formated worksheets, I use the `readxl` package for reading in the data. 
 
+
 ## Data Input - Other Software
 
-* **haven** package (https://cran.r-project.org/web/packages/haven/index.html) reads in SAS, SPSS, Stata formats
-* **readxl** package - the `read_excel` function can read Excel sheets easily
-* **readr** package - Has *read_csv*/*write_csv* and *read_table* functions similar to *read.csv*/*write.csv* and *read.table*.  Has different defaults, but can read **much faster** for very large data sets
-* **sas7bdat** reads .sas7bdat files
-* **foreign** package - can read all the formats as **haven**.  Around longer (aka more testing), but not as maintained (bad for future).
+* **readr** package - has `read_csv()`/`write_csv()` and `read_table()` functions similar to `read.csv()`/`write.csv()` and `read.table()` from base R; has different defaults, but can read **much faster** for very large data sets
 
-Some of these are now available in the RStudio dropdown list
+* **readxl** package - the `read_excel()` function can read Excel sheets easily
 
-## More ways to save: write_rds
+* **haven** package reads in SAS, SPSS, Stata formats
 
-If you want to save **one** object, you can use `readr::write_rds` to save to an `rds` file:
+* **sas7bdat** reads .sas7bdat files (SAS files) 
 
-```{r}
-write_rds(dat, path = "yts_dataset.rds")
+* **foreign** package - can read all the formats as **haven**.  Around longer (aka more testing), but not as maintained (bad for future)
+
+Some of these are now available in the RStudio drop-down list. 
+
+## Lab Part 2
+
+[Lab](http://jhudatascience.org/intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd)
+
+[Website](http://jhudatascience.org/intro_to_r/)
+
+
+## Data Output
+
+While its nice to be able to read in a variety of data formats, it's equally important to be able to output data somewhere.
+
+There are also data exporting functions in the `readr` package, which have the pattern `write_*` like `write_csv()` and `write_delim()`
+
+```
+write_csv(x, file, 
+  na = "NA", append = FALSE, 
+  col_names = !append, quote_escape = "double",
+  eol = "\n", path = deprecated()
+)
 ```
 
+```
+write_delim(x, file, delim = " ", 
+  na = "NA", append = FALSE, 
+  col_names = !append, quote_escape = "double",
+  eol = "\n", path = deprecated()
+)
+```
 
-## More ways to save: read_rds
+## Data Output
 
-To read this back in to R, you need to use `read_rds`, but **need to assign it**:
+`x`: data frame or tibble you want to write
+
+`file`: the file name where you want to R object written 
+
+* It can be an absolute path, a relative path (relative to your working directory), or a filename (which writes the file to your working directory)
+
+`delim`: what character separates the columns? 
+
+* `","` = comma delimted
+* `"\t"` = tab delimited
+
+## Data Output
+
+
+There other functions in base R to do the writing, like `write.table()` and `write.csv()` 
+
+* Some of their arguments may be named differently than in  `write_csv()` -- look up teir documentation (e.g. run `?write.table`)  
+
+* Note base R writing functions by default do write out row names, which you can change by setting e.g. `row.names = TRUE`. I do this a lot since I often email these to collaborators who open them in Excel
+
+## Data Output
+
+For example, we can write back out the Youth Tobacco dataset with the new column name:
+
+```{r writecsv,eval=FALSE}
+# load `dplyr` package that has `rename` function
+library(dplyr)
+dat = rename(dat, Location_Abbr = LocationAbbr)
+
+write_csv(dat, path = "YouthTobacco_newNames.csv")
+```
+
+## Lab Part 3
+
+[Lab](http://jhudatascience.org/intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd)
+
+[Website](http://jhudatascience.org/intro_to_r/)
+
+
+## Write a single R object to a file
+
+If you want to save **one** R object, you can use `write_rds()` from `readr` package to save an R object (e.g., a tibble) to an R binary file with `rds` extension
+
+```{r}
+write_rds(dat, file = "yts_dataset.rds")
+```
+
+`rds` is R's native format for storing single objects
+
+## Read a single R object from a file
+
+To read this back in to R, you need to use `read_rds()`. Note you  **need to assign it**: 
 
 ```{r}
 dat2 = read_rds(file = "yts_dataset.rds")
@@ -358,28 +426,33 @@ identical(dat, dat2) # test if they are the same
 ## Lab Part 4
 
 
-[Lab](http://johnmuschelli.com/intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd)
+[Lab](http://jhudatascience.org/intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd)
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+[Website](http://jhudatascience.org/intro_to_r/)
 
 
-## More ways to save: save
+## Write multiple R objects to a file
 
 The `save` command can save a set of `R` objects into an "R data file", with the extension `.rda` or `.RData`.  
 
 ```{r, message = FALSE}
 x = 5; # can have semicolons a the end!
+
 # calling read_csv function and pasting a long string together
 yts = readr::read_csv(
   paste0("http://johnmuschelli.com/intro_to_r/",
          "data/Youth_Tobacco_Survey_YTS_Data.csv")) 
+
+# saving two files 
 save(yts, x, file = "yts_data.rda")
 ```
 
 
-## More ways to save: load
+## Load multiple R objects from a file
 
-The opposite of `save` is `load`.  The `ls()` command lists the items in the workspace/environment and `rm` removes them:
+The opposite of `save` is `load`.  
+
+The `ls()` command lists the items in the workspace/environment and `rm()` removes them:
 
 ```{r}
 ls() # list things in the workspace
@@ -389,42 +462,14 @@ z = load("yts_data.rda")
 ls()
 ```
 
-## More ways to save: load
+## Load multiple R objects from a file
 
 ```{r}
+z = load("yts_data.rda")
 print(z)
 ```
 
 Note, `z` is a **character vector** of the **names** of the objects loaded, **not** the objects themselves.
-
-## Website
-
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
-
-
-
-
-## Base R: Data Input
-
-There are also data importing functions provided in base R (rather than the `readr` package), like `read.delim` and `read.csv`. 
-
-These functions have slightly different syntax for reading in data, like `header` and `as.is` (which has recently changed in R version 4.0). 
-
-However, while many online resources use the base R tools, the latest version of RStudio switched to use these new `readr` data import tools, so we will use them in the class for slides. They are also up to two times faster for reading in large datasets, and have a progress bar which is nice. 
-
-But you can use whatever function you feel more comfortable with.
-
-## Base R: Data Input
-
-Here is how to read in the same dataset using base R functionality, which returns a `data.frame` directly.
-
-```{r, readingCSV}
-dat2 = read.csv("../data/Youth_Tobacco_Survey_YTS_Data.csv")
-head(dat2)
-```
-
-We will use the `readr` functionality for certain reasons.
-
 
 
 ```{r, echo = FALSE, message = FALSE, results='hide'}
