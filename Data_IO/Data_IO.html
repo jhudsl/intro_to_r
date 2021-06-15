@@ -3385,7 +3385,7 @@ dat = read_delim(&quot;www.someurl.com/table1.txt&quot;, delim = &quot;\t&quot;)
 <pre class = 'prettyprint lang-r'>dat = read_csv(&quot;../data/Youth_Tobacco_Survey_YTS_Data.csv&quot;)</pre>
 
 <pre >
-── Column specification ──────────────────────────────────────────────────────────────────────────────────────────────────
+── Column specification ─────────────────────────────────────────────────────────
 cols(
   .default = col_character(),
   YEAR = col_double(),
@@ -3500,276 +3500,89 @@ help(&quot;read_delim&quot;)</pre>
 
 <p>But you can use whatever function you feel more comfortable with.</p>
 
+</article></slide><slide class=""><hgroup><h2>Revision</h2></hgroup><article  id="revision">
+
+<ul>
+<li><p>Data importing functions provided in base R: <code>read.delim()</code>, <code>read.csv()</code></p></li>
+<li><p>Modern, improved tools from <code>readr</code> R package: <code>read_delim()</code>, <code>read_csv()</code></p>
+
+<ul>
+<li>needs a file path to be provided</li>
+<li>parses the file into rows/columns, determines column type</li>
+<li>returns a data frame</li>
+</ul></li>
+<li><p>Some functions to look at a data frame:</p>
+
+<ul>
+<li><code>head()</code> shows first few rows</li>
+<li><code>spec()</code> gives specification of column types</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Data input: other file types</h2></hgroup><article  id="data-input-other-file-types">
+
+<ul>
+<li><p>From <code>readr</code> package:</p>
+
+<ul>
+<li><code>read_delim()</code>: general delimited files</li>
+<li><code>read_csv()</code>: comma separated (CSV) files</li>
+<li><code>read_tsv()</code>: tab separated files</li>
+<li>others</li>
+</ul></li>
+<li><p>For reading Excel files, you can do one of:</p>
+
+<ul>
+<li>open in Excel, &ldquo;Save as&rdquo; a sheet as a .csv file, and open using <code>read_csv()</code></li>
+<li>use <code>read_excel()</code> function from <code>readxl</code> package</li>
+<li>use other packages: <code>xlsx</code>, <code>openxlsx</code></li>
+</ul></li>
+<li><p><code>haven</code> package has functions to read SAS, SPSS, Stata formats</p></li>
+<li><p><code>sas7bdat</code> has functions to read SAS formats</p></li>
+</ul>
+
 </article></slide><slide class=""><hgroup><h2>Lab Part 1</h2></hgroup><article  id="lab-part-1">
 
-<p><a href='http://jhudatascience.org//intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd' title=''>Lab</a></p>
+<p>Lab file: <a href='http://jhudatascience.org//intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd' title=''>http://jhudatascience.org//intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd</a></p>
 
 <p><a href='http://jhudatascience.org/intro_to_r/' title=''>Website</a></p>
-
-</article></slide><slide class=""><hgroup><h2>Data Input: <code>tbl_df</code> (a tibble)</h2></hgroup><article  id="data-input-tbl_df-a-tibble">
-
-<p>The <code>read_csv()</code>, <code>read_delim()</code> and related functions from <code>readr</code> all return <code>tbl_df</code> object (colloquially: a tibble) that is a <code>data.frame</code> object but with improved printing and subsetting properties.</p>
-
-<p>We also get <code>tbl_df</code> (tibble) when using drop-down menu in RStudio.</p>
-
-<p>Alternatives:</p>
-
-<ul>
-<li><p><code>read.csv()</code> – &ldquo;base&rdquo; R function, still largely used; returns <code>data.frame</code> object</p></li>
-<li><p><code>fread()</code> – from <code>data.table</code> R package; returns <code>data.table</code> object</p></li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Data Input: <code>tbl_df</code> (a tibble)</h2></hgroup><article  id="data-input-tbl_df-a-tibble-1">
-
-<pre class = 'prettyprint lang-r'>head(dat, 3)</pre>
-
-<pre ># A tibble: 3 x 31
-   YEAR LocationAbbr LocationDesc TopicType   TopicDesc MeasureDesc   DataSource
-  &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;         &lt;chr&gt;     
-1  2015 AZ           Arizona      Tobacco Us… Cessatio… Percent of C… YTS       
-2  2015 AZ           Arizona      Tobacco Us… Cessatio… Percent of C… YTS       
-3  2015 AZ           Arizona      Tobacco Us… Cessatio… Percent of C… YTS       
-# … with 24 more variables: Response &lt;chr&gt;, Data_Value_Unit &lt;chr&gt;,
-#   Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;, Data_Value_Footnote_Symbol &lt;chr&gt;,
-#   Data_Value_Footnote &lt;chr&gt;, Data_Value_Std_Err &lt;dbl&gt;,
-#   Low_Confidence_Limit &lt;dbl&gt;, High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;dbl&gt;,
-#   Gender &lt;chr&gt;, Race &lt;chr&gt;, Age &lt;chr&gt;, Education &lt;chr&gt;, GeoLocation &lt;chr&gt;,
-#   TopicTypeId &lt;chr&gt;, TopicId &lt;chr&gt;, MeasureId &lt;chr&gt;, StratificationID1 &lt;chr&gt;,
-#   StratificationID2 &lt;chr&gt;, StratificationID3 &lt;chr&gt;, StratificationID4 &lt;chr&gt;,
-#   SubMeasureID &lt;chr&gt;, DisplayOrder &lt;dbl&gt;</pre>
-
-<pre class = 'prettyprint lang-r'>class(dat)</pre>
-
-<pre >[1] &quot;spec_tbl_df&quot; &quot;tbl_df&quot;      &quot;tbl&quot;         &quot;data.frame&quot; </pre>
-
-</article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-2">
-
-<ul>
-<li><code>nrow()</code> displays the number of rows of a data frame</li>
-<li><code>ncol()</code> displays the number of columns</li>
-<li><code>dim()</code> displays a vector of length 2: # rows, # columns</li>
-<li><code>colnames()</code> displays the column names (if any) and <code>rownames()</code> displays the row names (if any)</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>dim(dat)</pre>
-
-<pre >[1] 9794   31</pre>
-
-<pre class = 'prettyprint lang-r'>nrow(dat)</pre>
-
-<pre >[1] 9794</pre>
-
-<pre class = 'prettyprint lang-r'>ncol(dat)</pre>
-
-<pre >[1] 31</pre>
-
-</article></slide><slide class=""><hgroup><h2>Data Input</h2></hgroup><article  id="data-input-3">
-
-<ul>
-<li><code>nrow()</code> displays the number of rows of a data frame</li>
-<li><code>ncol()</code> displays the number of columns</li>
-<li><code>dim()</code> displays a vector of length 2: # rows, # columns</li>
-<li><code>colnames()</code> displays the column names (if any) and <code>rownames()</code> displays the row names (if any)</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>colnames(dat)</pre>
-
-<pre > [1] &quot;YEAR&quot;                       &quot;LocationAbbr&quot;              
- [3] &quot;LocationDesc&quot;               &quot;TopicType&quot;                 
- [5] &quot;TopicDesc&quot;                  &quot;MeasureDesc&quot;               
- [7] &quot;DataSource&quot;                 &quot;Response&quot;                  
- [9] &quot;Data_Value_Unit&quot;            &quot;Data_Value_Type&quot;           
-[11] &quot;Data_Value&quot;                 &quot;Data_Value_Footnote_Symbol&quot;
-[13] &quot;Data_Value_Footnote&quot;        &quot;Data_Value_Std_Err&quot;        
-[15] &quot;Low_Confidence_Limit&quot;       &quot;High_Confidence_Limit&quot;     
-[17] &quot;Sample_Size&quot;                &quot;Gender&quot;                    
-[19] &quot;Race&quot;                       &quot;Age&quot;                       
-[21] &quot;Education&quot;                  &quot;GeoLocation&quot;               
-[23] &quot;TopicTypeId&quot;                &quot;TopicId&quot;                   
-[25] &quot;MeasureId&quot;                  &quot;StratificationID1&quot;         
-[27] &quot;StratificationID2&quot;          &quot;StratificationID3&quot;         
-[29] &quot;StratificationID4&quot;          &quot;SubMeasureID&quot;              
-[31] &quot;DisplayOrder&quot;              </pre>
 
 </article></slide><slide class=""><hgroup><h2>Working Directories</h2></hgroup><article  id="working-directories">
 
-<ul>
-<li><p>R &ldquo;looks&rdquo; for files on your computer relative to the <strong>working directory</strong></p></li>
-<li><p>Many people recommend not setting a working directory in the scripts</p>
+<p>Working directory is a directory that R assumes &ldquo;you are working in&rdquo;.</p>
 
-<ul>
-<li>If you open an R file with a new RStudio session, it assumes the working directory is where the script is in</li>
-</ul></li>
-<li><p>If you do set a working directory, do it at the beginning of your script</p></li>
-<li><p>Example of getting and setting the working directory:</p></li>
-</ul>
+<p>&ldquo;Setting working directory&rdquo; means specifying the path to the directory.</p>
 
 <pre class = 'prettyprint lang-r'># get the working directory
 getwd()
-setwd(&quot;~/Lectures&quot;) </pre>
 
-</article></slide><slide class=""><hgroup><h2>Setting a Working Directory</h2></hgroup><article  id="setting-a-working-directory">
+# set the working directory
+setwd(&quot;/Users/martakaras/Desktop&quot;) </pre>
 
-<ul>
-<li>Setting the directory can sometimes be finicky
+<p>R uses working directory as a starting place when searching for files.</p>
 
-<ul>
-<li><strong>Windows</strong>: Default directory structure involves single backslashes (&ldquo;<code>\</code>&rdquo;), but R interprets these as &ldquo;escape&rdquo; characters. So you must replace the backslash with forward slashes (&ldquo;/&rdquo;) or two backslashes (&ldquo;<code>\\</code>&rdquo;)</li>
-<li><strong>Mac/Linux</strong>: Default is forward slashes, so you are okay</li>
-</ul></li>
-<li>Typical directory structure syntax applies
+</article></slide><slide class=""><hgroup><h2>Working Directories</h2></hgroup><article  id="working-directories-1">
+
+<p>R uses working directory as a starting place when searching for files:</p>
 
 <ul>
-<li>&ldquo;..&rdquo; - goes up one level</li>
-<li>&ldquo;./&rdquo; - is the current directory</li>
-<li>&ldquo;~&rdquo; - is your &ldquo;home&rdquo; directory</li>
-</ul></li>
+<li><p>if you use <code>read_csv(&quot;Bike_Lanes_Long.csv&quot;)</code>, R assumes that the file is <strong>in</strong> the working directory</p></li>
+<li><p>if you use <code>read_csv(&quot;data/Bike_Lanes_Long.csv&quot;)</code>, R assumes that <code>data</code> directory is <strong>in</strong> the working directory</p></li>
+<li><p>if you use an absolute path, e.g. <code>read_csv(&quot;/Users/martakaras/data/Bike_Lanes_Long.csv&quot;)</code>, the working directory information is not used</p></li>
 </ul>
-
-</article></slide><slide class=""><hgroup><h2>Working Directory</h2></hgroup><article  id="working-directory">
-
-<p>Note that the <code>dir()</code> function interfaces with your operating system and can show you which files are in your current working directory.</p>
-
-<p>You can try some directory navigation:</p>
-
-<pre class = 'prettyprint lang-r'>dir(&quot;./&quot;) # shows directory contents</pre>
-
-<pre > [1] &quot;Data_IO.html&quot;              &quot;Data_IO.pdf&quot;              
- [3] &quot;Data_IO.R&quot;                 &quot;index.html&quot;               
- [5] &quot;index.pdf&quot;                 &quot;index.R&quot;                  
- [7] &quot;index.Rmd&quot;                 &quot;lab&quot;                      
- [9] &quot;makefile&quot;                  &quot;YouthTobacco_newNames.csv&quot;
-[11] &quot;yts_dataset.rds&quot;          </pre>
-
-<pre class = 'prettyprint lang-r'>dir(&quot;..&quot;)</pre>
-
-<pre > [1] &quot;all_functions.xlsx&quot;                      
- [2] &quot;all_the_functions.csv&quot;                   
- [3] &quot;all_the_packages.txt&quot;                    
- [4] &quot;Arrays_Split&quot;                            
- [5] &quot;Basic_R&quot;                                 
- [6] &quot;Best_Model_Coefficients.csv&quot;             
- [7] &quot;Best_Model_Coefficients.xlsx&quot;            
- [8] &quot;bibliography.bib&quot;                        
- [9] &quot;black_and_white_theme.pdf&quot;               
-[10] &quot;bloomberg.logo.small.horizontal.blue.png&quot;
-[11] &quot;data&quot;                                    
-[12] &quot;Data_Classes&quot;                            
-[13] &quot;Data_Classes_summary&quot;                    
-[14] &quot;Data_Cleaning&quot;                           
-[15] &quot;Data_IO&quot;                                 
-[16] &quot;Data_Summarization&quot;                      
-[17] &quot;Data_Visualization&quot;                      
-[18] &quot;data.zip&quot;                                
-[19] &quot;dhs&quot;                                     
-[20] &quot;email_to_class.txt&quot;                      
-[21] &quot;example_knitr.html&quot;                      
-[22] &quot;example_knitr.pdf&quot;                       
-[23] &quot;example_knitr.Rmd&quot;                       
-[24] &quot;Functions&quot;                               
-[25] &quot;HW&quot;                                      
-[26] &quot;ifelse_stata_way.R&quot;                      
-[27] &quot;images&quot;                                  
-[28] &quot;index.html&quot;                              
-[29] &quot;index.Rmd&quot;                               
-[30] &quot;install_a_package.mov&quot;                   
-[31] &quot;install_all_packages.R&quot;                  
-[32] &quot;Intro&quot;                                   
-[33] &quot;intro_to_r.Rproj&quot;                        
-[34] &quot;Knitr&quot;                                   
-[35] &quot;LICENSE&quot;                                 
-[36] &quot;list_all_packages.R&quot;                     
-[37] &quot;ListExamples&quot;                            
-[38] &quot;live_code&quot;                               
-[39] &quot;makefile&quot;                                
-[40] &quot;makefile_old&quot;                            
-[41] &quot;makefile.copy&quot;                           
-[42] &quot;Manipulating_Data_in_R&quot;                  
-[43] &quot;my_tab.txt&quot;                              
-[44] &quot;ProjectExample&quot;                          
-[45] &quot;README.md&quot;                               
-[46] &quot;render.R&quot;                                
-[47] &quot;renderFile.R&quot;                            
-[48] &quot;replace_css.R&quot;                           
-[49] &quot;RStudio&quot;                                 
-[50] &quot;rtools_windows.md&quot;                       
-[51] &quot;run_labs.R&quot;                              
-[52] &quot;scratch.R&quot;                               
-[53] &quot;shiny_knitr&quot;                             
-[54] &quot;shiny_knitr.zip&quot;                         
-[55] &quot;Simple_Knitr&quot;                            
-[56] &quot;Statistics&quot;                              
-[57] &quot;styles.css&quot;                              
-[58] &quot;Subsetting_Data_in_R&quot;                    
-[59] &quot;syllabus.docx&quot;                           
-[60] &quot;syllabus.html&quot;                           
-[61] &quot;syllabus.pdf&quot;                            
-[62] &quot;syllabus.R&quot;                              
-[63] &quot;syllabus.Rmd&quot;                            
-[64] &quot;tb.xlsx&quot;                                 </pre>
-
-</article></slide><slide class=""><hgroup><h2>Relative vs. absolute paths (From Wiki)</h2></hgroup><article  id="relative-vs.-absolute-paths-from-wiki">
-
-<p><em>An <strong>absolute or full path</strong> points to the same location in a file system, regardless of the current working directory. To do that, it must include the root directory.</em></p>
-
-<p>This means if I try your code, and you use absolute paths, it won’t work unless we have the exact same folder structure where R is looking (bad).</p>
-
-<p><em>By contrast, a <strong>relative path starts from some given working directory</strong>, avoiding the need to provide the full absolute path. A filename can be considered as a relative path based at the current working directory. </em></p>
-
-</article></slide><slide class=""><hgroup><h2>Setting the Working Directory From RStudio Toolbar</h2></hgroup><article  id="setting-the-working-directory-from-rstudio-toolbar">
-
-<p>In RStudio, go to <code>Session -&gt; Set Working Directory -&gt; To Source File Location</code></p>
-
-<p>RStudio should put code in the Console, similar to this:</p>
-
-<pre class = 'prettyprint lang-r'>setwd(&quot;~/Lectures/Data_IO/lecture&quot;)</pre>
-
-<p>Again, if you open an R file with a new RStudio session, RStudio sets working directory to the file’s location for you.</p>
-
-</article></slide><slide class=""><hgroup><h2>Setting the Working Directory</h2></hgroup><article  id="setting-the-working-directory">
-
-<p>You may need to make sure that RStudio is the default application to open .R files</p>
-
-<ul>
-<li>Mac - right click –&gt; <code>Get Info --&gt; Open With: RStudio --&gt; Change All</code></li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Data Input - Excel</h2></hgroup><article  id="data-input---excel">
-
-<p>Many data analysts collaborate with researchers who use Excel to enter and curate their data. Often times, this is the input data for an analysis. You therefore have two options for getting this data into R:</p>
-
-<ul>
-<li>Saving the Excel sheet as a .csv file, and using <code>read_csv()</code></li>
-<li>Using an add-on package, like <code>xlsx</code>, <code>readxl</code>, or <code>openxlsx</code></li>
-</ul>
-
-<p>For single worksheet .xlsx files, I often just save the spreadsheet as a .csv file (because I often have to strip off additional summary data from the columns)</p>
-
-<p>For an .xlsx file with multiple well-formated worksheets, I use the <code>readxl</code> package for reading in the data.</p>
-
-</article></slide><slide class=""><hgroup><h2>Data Input - Other Software</h2></hgroup><article  id="data-input---other-software">
-
-<ul>
-<li><p><strong>readr</strong> package - has <code>read_csv()</code>/<code>write_csv()</code> and <code>read_table()</code> functions similar to <code>read.csv()</code>/<code>write.csv()</code> and <code>read.table()</code> from base R; has different defaults, but can read <strong>much faster</strong> for very large data sets</p></li>
-<li><p><strong>readxl</strong> package - the <code>read_excel()</code> function can read Excel sheets easily</p></li>
-<li><p><strong>haven</strong> package reads in SAS, SPSS, Stata formats</p></li>
-<li><p><strong>sas7bdat</strong> reads .sas7bdat files (SAS files)</p></li>
-<li><p><strong>foreign</strong> package - can read all the formats as <strong>haven</strong>. Around longer (aka more testing), but not as maintained (bad for future)</p></li>
-</ul>
-
-<p>Some of these are now available in the RStudio drop-down list.</p>
-
-</article></slide><slide class=""><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
-
-<p><a href='http://jhudatascience.org/intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd' title=''>Lab</a></p>
-
-<p><a href='http://jhudatascience.org/intro_to_r/' title=''>Website</a></p>
 
 </article></slide><slide class=""><hgroup><h2>Data Output</h2></hgroup><article  id="data-output">
 
 <p>While its nice to be able to read in a variety of data formats, it’s equally important to be able to output data somewhere.</p>
 
-<p>There are also data exporting functions in the <code>readr</code> package, which have the pattern <code>write_*</code> like <code>write_csv()</code> and <code>write_delim()</code></p>
+<p>The <code>readr</code> package provides data exporting functions which have the pattern <code>write_*</code>:</p>
+
+<ul>
+<li><code>write_csv()</code>,</li>
+<li><code>write_delim()</code>, others.</li>
+</ul>
+
+<p>From <code>write_csv()</code> documentation:</p>
 
 <pre >write_csv(x, file, 
   na = &quot;NA&quot;, append = FALSE, 
@@ -3777,119 +3590,48 @@ setwd(&quot;~/Lectures&quot;) </pre>
   eol = &quot;\n&quot;, path = deprecated()
 )</pre>
 
-<pre >write_delim(x, file, delim = &quot; &quot;, 
-  na = &quot;NA&quot;, append = FALSE, 
-  col_names = !append, quote_escape = &quot;double&quot;,
-  eol = &quot;\n&quot;, path = deprecated()
-)</pre>
-
 </article></slide><slide class=""><hgroup><h2>Data Output</h2></hgroup><article  id="data-output-1">
 
-<p><code>x</code>: data frame or tibble you want to write</p>
+<p><code>x</code>: data frame you want to write</p>
 
-<p><code>file</code>: the file name where you want to R object written</p>
-
-<ul>
-<li>It can be an absolute path, a relative path (relative to your working directory), or a filename (which writes the file to your working directory)</li>
-</ul>
-
-<p><code>delim</code>: what character separates the columns?</p>
+<p><code>file</code>: file path where you want to R object written; it can be:</p>
 
 <ul>
-<li><code>&quot;,&quot;</code> = comma delimted</li>
-<li><code>&quot;\t&quot;</code> = tab delimited</li>
+<li>an absolute path,</li>
+<li>a relative path (relative to your working directory),</li>
+<li>a file name only (which writes the file to your working directory)</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Data Output</h2></hgroup><article  id="data-output-2">
+<pre class = 'prettyprint lang-r'># Examples 
 
-<p>There other functions in base R to do the writing, like <code>write.table()</code> and <code>write.csv()</code></p>
+write_csv(dat, file = &quot;YouthTobacco_newNames.csv&quot;)
 
-<ul>
-<li><p>Some of their arguments may be named differently than in <code>write_csv()</code> – look up teir documentation (e.g. run <code>?write.table</code>)</p></li>
-<li><p>Note base R writing functions by default do write out row names, which you can change by setting e.g. <code>row.names = TRUE</code>. I do this a lot since I often email these to collaborators who open them in Excel</p></li>
-</ul>
+write_delim(dat, file = &quot;YouthTobacco_newNames.csv&quot;, delim = &quot;,&quot;)</pre>
 
-</article></slide><slide class=""><hgroup><h2>Data Output</h2></hgroup><article  id="data-output-3">
+</article></slide><slide class=""><hgroup><h2>R binary file</h2></hgroup><article  id="r-binary-file">
 
-<p>For example, we can write back out the Youth Tobacco dataset with the new column name:</p>
+<p><code>.rds</code> is an extension for R native file format</p>
 
-<pre class = 'prettyprint lang-r'># load `dplyr` package that has `rename` function
-library(dplyr)
-dat = rename(dat, Location_Abbr = LocationAbbr)
+<p><code>write_rds()</code> and <code>read_rds()</code> from <code>readr</code> package can be used to write/read a single R variable to/from file</p>
 
-write_csv(dat, path = &quot;YouthTobacco_newNames.csv&quot;)</pre>
+<pre class = 'prettyprint lang-r'># write a variable: a data frame &quot;dat&quot; 
+write_rds(dat, file = &quot;yts_dataset.rds&quot;)
 
-</article></slide><slide class=""><hgroup><h2>Lab Part 3</h2></hgroup><article  id="lab-part-3">
+# write a variable: vector &quot;x&quot;
+x &lt;- c(1,3,3)
+write_rds(x, file = &quot;my_vector.rds&quot;)
 
-<p><a href='http://jhudatascience.org/intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd' title=''>Lab</a></p>
+# read a variable from file and assign to a new variable named &quot;y&quot;
+x2 &lt;- read_rds(&quot;my_vector.rds&quot;)
+x2</pre>
 
-<p><a href='http://jhudatascience.org/intro_to_r/' title=''>Website</a></p>
+<pre >[1] 1 3 3</pre>
 
-</article></slide><slide class=""><hgroup><h2>Write a single R object to a file</h2></hgroup><article  id="write-a-single-r-object-to-a-file">
+</article></slide><slide class=""><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
 
-<p>If you want to save <strong>one</strong> R object, you can use <code>write_rds()</code> from <code>readr</code> package to save an R object (e.g., a tibble) to an R binary file with <code>rds</code> extension</p>
+<p>Lab file: <a href='http://jhudatascience.org//intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd' title=''>http://jhudatascience.org//intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd</a></p>
 
-<pre class = 'prettyprint lang-r'>write_rds(dat, file = &quot;yts_dataset.rds&quot;)</pre>
-
-<p><code>rds</code> is R’s native format for storing single objects</p>
-
-</article></slide><slide class=""><hgroup><h2>Read a single R object from a file</h2></hgroup><article  id="read-a-single-r-object-from-a-file">
-
-<p>To read this back in to R, you need to use <code>read_rds()</code>. Note you <strong>need to assign it</strong>:</p>
-
-<pre class = 'prettyprint lang-r'>dat2 = read_rds(file = &quot;yts_dataset.rds&quot;)
-identical(dat, dat2) # test if they are the same </pre>
-
-<pre >[1] TRUE</pre>
-
-</article></slide><slide class=""><hgroup><h2>Lab Part 4</h2></hgroup><article  id="lab-part-4">
-
-<p><a href='http://jhudatascience.org/intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd' title=''>Lab</a></p>
-
-<p><a href='http://jhudatascience.org/intro_to_r/' title=''>Website</a></p>
-
-</article></slide><slide class=""><hgroup><h2>Write multiple R objects to a file</h2></hgroup><article  id="write-multiple-r-objects-to-a-file">
-
-<p>The <code>save</code> command can save a set of <code>R</code> objects into an &ldquo;R data file&rdquo;, with the extension <code>.rda</code> or <code>.RData</code>.</p>
-
-<pre class = 'prettyprint lang-r'>x = 5; # can have semicolons a the end!
-
-# calling read_csv function and pasting a long string together
-yts = readr::read_csv(
-  paste0(&quot;http://jhudatascience.org/intro_to_r/&quot;,
-         &quot;data/Youth_Tobacco_Survey_YTS_Data.csv&quot;)) 
-
-# saving two files 
-save(yts, x, file = &quot;yts_data.rda&quot;)</pre>
-
-</article></slide><slide class=""><hgroup><h2>Load multiple R objects from a file</h2></hgroup><article  id="load-multiple-r-objects-from-a-file">
-
-<p>The opposite of <code>save</code> is <code>load</code>.</p>
-
-<p>The <code>ls()</code> command lists the items in the workspace/environment and <code>rm()</code> removes them:</p>
-
-<pre class = 'prettyprint lang-r'>ls() # list things in the workspace</pre>
-
-<pre >[1] &quot;dat&quot;  &quot;dat2&quot; &quot;x&quot;    &quot;yts&quot; </pre>
-
-<pre class = 'prettyprint lang-r'>rm(list = c(&quot;x&quot;, &quot;yts&quot;))
-ls()</pre>
-
-<pre >[1] &quot;dat&quot;  &quot;dat2&quot;</pre>
-
-<pre class = 'prettyprint lang-r'>z = load(&quot;yts_data.rda&quot;)
-ls()</pre>
-
-<pre >[1] &quot;dat&quot;  &quot;dat2&quot; &quot;x&quot;    &quot;yts&quot;  &quot;z&quot;   </pre>
-
-</article></slide><slide class=""><hgroup><h2>Load multiple R objects from a file</h2></hgroup><article  id="load-multiple-r-objects-from-a-file-1">
-
-<pre class = 'prettyprint lang-r'>z = load(&quot;yts_data.rda&quot;)
-print(z)</pre>
-
-<pre >[1] &quot;yts&quot; &quot;x&quot;  </pre>
-
-<p>Note, <code>z</code> is a <strong>character vector</strong> of the <strong>names</strong> of the objects loaded, <strong>not</strong> the objects themselves.</p></article></slide>
+<p><a href='http://jhudatascience.org/intro_to_r/' title=''>Website</a></p></article></slide>
 
 
   <slide class="backdrop"></slide>
