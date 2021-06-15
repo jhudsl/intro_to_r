@@ -53,8 +53,6 @@ sum(bike$length)/5280
 sum(bike$length/5280)
 ```
 
-# Part 2
-
 3. How many types of bike lanes are there? Which type has (a) the most number of and (b) longest average bike lane length?
    
 ```{r q3}
@@ -144,7 +142,7 @@ bike %>%
             
 ```
 
-# Part 3
+# Part 2
 
 6.  (a) Numerically [hint: `quantile()`, using `bike$length`] and 
 		(b) graphically [hint: `qplot()` with `geom = "histogram"` or `geom = "density")`] describe the distribution of bike "lane" lengths.

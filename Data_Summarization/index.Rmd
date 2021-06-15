@@ -77,13 +77,8 @@ quantile(x, na.rm = TRUE)
     * `rowSums(x)`: takes the sum of each row of x
     * `colSums(x)`: takes the sum of each column of x
     * `summary(x)`: for data frames, displays the quantile information
-* The `matrixStats` package has additional `row*` and `col*` functions 
-    * Like `rowSds`, `colQuantiles`
-
-## Lab Part 1
-
-[Website](http://jhudatascience.org/intro_to_r/index.html)
-
+<!-- * The `matrixStats` package has additional `row*` and `col*` functions  -->
+<!--     * Like `rowSds`, `colQuantiles` -->
 
 ## TB Incidence 
 
@@ -177,20 +172,20 @@ head(unique(yts$LocationDesc), 10)
 length(unique(yts$LocationDesc))
 ```
 
-## Table
+## `table` and `dplyr`: `count` 
 `table(x)` will return a frequency table of unique elements of `x`
 
 ```{r, message = FALSE}
 head(table(yts$LocationDesc))
 ```
 
-## `dplyr`: `count` 
+## `table` and `dplyr`: `count` 
 
 ```{r, message = FALSE}
 yts %>% count(LocationDesc)
 ```
 
-## `dplyr`: `count` 
+## `table` and `dplyr`: `count` 
 
 ```{r, message = FALSE}
 yts %>% count(LocationDesc, TopicDesc)
@@ -294,7 +289,7 @@ sub_yts %>%
   head
 ```
 
-## Lab Part 2
+## Lab Part 1
 
 [Website](http://jhudatascience.org/intro_to_r/index.html)
 
@@ -374,7 +369,7 @@ library(GGally)
 <!-- pairs(avgs) -->
 <!-- ``` -->
 
-## Lab Part 3
+## Lab Part 2
 [Website](http://jhudatascience.org/intro_to_r/index.html)
 
 ## Base functions for plotting
