@@ -59,7 +59,7 @@ dict = sapply(dict, function(x) {
 dict = t(dict)
 colnames(dict) = dict[1,]
 dict = dict[-1,]
-dict = tibble::as_data_frame(dict)
+dict = tibble::as_tibble(dict)
 ```
 
 4) Save the key and data in an .rda file so you can access the data offline using the `save()` function. 
