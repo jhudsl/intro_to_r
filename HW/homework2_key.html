@@ -402,10 +402,7 @@ dict = sapply(dict, function(x) {
 dict = t(dict)
 colnames(dict) = dict[1,]
 dict = dict[-1,]
-dict = tibble::as_data_frame(dict)</code></pre>
-<pre><code>## Warning: `as_data_frame()` was deprecated in tibble 2.0.0.
-## Please use `as_tibble()` instead.
-## The signature and semantics have changed, see `?as_tibble`.</code></pre>
+dict = tibble::as_tibble(dict)</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Save the key and data in an .rda file so you can access the data offline using the <code>save()</code> function.</li>
 </ol>
