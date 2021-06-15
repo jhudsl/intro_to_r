@@ -23,11 +23,6 @@ quantile(jhu_cars$wt, probs = 0.6)
 
 
 ## -----------------------------------------------------------------------------
-t.test(jhu_cars$wt) 
-broom::tidy(t.test(jhu_cars$wt))
-
-
-## -----------------------------------------------------------------------------
 x = c(1,5,7,NA,4,2, 8,10,45,42)
 mean(x)
 mean(x, na.rm = TRUE)
@@ -65,15 +60,6 @@ colMeans(avgs, na.rm = TRUE)
 ## -----------------------------------------------------------------------------
 tb$before_2000_avg = rowMeans(avgs, na.rm = TRUE)
 head(tb[, c("country", "before_2000_avg")])
-
-
-## ---- echo = TRUE, eval=FALSE-------------------------------------------------
-## summarize(across(COLUMNS), ~ FUNCTION(.x, FUNCTION_ARGUMENTS)) # how to use
-
-
-## -----------------------------------------------------------------------------
-tb %>% 
-  summarize(across(starts_with("1"), ~ mean(.x, na.rm = TRUE)))
 
 
 ## ----summary1-----------------------------------------------------------------

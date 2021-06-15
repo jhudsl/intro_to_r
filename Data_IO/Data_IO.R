@@ -48,78 +48,31 @@ stop_for_problems(dat)
 ## help("read_delim")
 
 
-## ----readCSV_readr, message=FALSE---------------------------------------------
-head(dat, 3)
-class(dat)
-
-
-## ---- dims--------------------------------------------------------------------
-dim(dat)
-nrow(dat)
-ncol(dat)
-
-
-## ---- colnames_rownames-------------------------------------------------------
-colnames(dat)
-
-
 ## ----workingDirectory,eval=FALSE----------------------------------------------
 ## # get the working directory
 ## getwd()
-## setwd("~/Lectures")
-
-
-## ----directoryNav-------------------------------------------------------------
-dir("./") # shows directory contents
-dir("..")
+## 
+## # set the working directory
+## setwd("/Users/martakaras/Desktop")
 
 
 ## ---- eval = FALSE------------------------------------------------------------
-## setwd("~/Lectures/Data_IO/lecture")
-
-
-## ----writecsv,eval=FALSE------------------------------------------------------
-## # load `dplyr` package that has `rename` function
-## library(dplyr)
-## dat = rename(dat, Location_Abbr = LocationAbbr)
+## # Examples
 ## 
-## write_csv(dat, path = "YouthTobacco_newNames.csv")
+## write_csv(dat, file = "YouthTobacco_newNames.csv")
+## 
+## write_delim(dat, file = "YouthTobacco_newNames.csv", delim = ",")
 
 
 ## -----------------------------------------------------------------------------
+# write a variable: a data frame "dat" 
 write_rds(dat, file = "yts_dataset.rds")
 
+# write a variable: vector "x"
+x <- c(1,3,3)
+write_rds(x, file = "my_vector.rds")
 
-## -----------------------------------------------------------------------------
-dat2 = read_rds(file = "yts_dataset.rds")
-identical(dat, dat2) # test if they are the same 
-
-
-## ---- message = FALSE---------------------------------------------------------
-x = 5; # can have semicolons a the end!
-
-# calling read_csv function and pasting a long string together
-yts = readr::read_csv(
-  paste0("http://jhudatascience.org/intro_to_r/",
-         "data/Youth_Tobacco_Survey_YTS_Data.csv")) 
-
-# saving two files 
-save(yts, x, file = "yts_data.rda")
-
-
-## -----------------------------------------------------------------------------
-ls() # list things in the workspace
-rm(list = c("x", "yts"))
-ls()
-z = load("yts_data.rda")
-ls()
-
-
-## -----------------------------------------------------------------------------
-z = load("yts_data.rda")
-print(z)
-
-
-## ---- echo = FALSE, message = FALSE, results='hide'---------------------------
-file.remove("yts_data.rda") # removing temporary file
+# read a variable from file and assign to a new variable named "y"
+x2 <- read_rds("my_vector.rds")
+x2
 

@@ -3246,8 +3246,8 @@ background-size: 100% 100%;
 <p>We showed one way to read data into R using <code>read_csv</code> and <code>read.csv</code>. In this module, we will show you how to:</p>
 
 <ol>
-<li>Select specific elements of an object by an index or logical condition</li>
-<li>Renaming columns of a <code>data.frame</code></li>
+<li>Create a <code>data.frame</code> and a <code>tibble</code></li>
+<li>Rename columns of a <code>data.frame</code></li>
 <li>Subset rows of a <code>data.frame</code></li>
 <li>Subset columns of a <code>data.frame</code></li>
 <li>Add/remove new columns to a <code>data.frame</code></li>
@@ -3257,55 +3257,32 @@ background-size: 100% 100%;
 
 </article></slide><slide class=""><hgroup><h2>Setup</h2></hgroup><article  id="setup">
 
-<p>We will show you how to do each operation in base R then show you how to use the <code>dplyr</code> package to do the same operation (if applicable).</p>
+<p>We will largely focus on the<code>dplyr</code> package which is part of the <code>tidyverse</code>.</p>
 
 <p>Many resources on how to use <code>dplyr</code> exist and are straightforward:</p>
 
 <ul>
 <li><a href='https://cran.rstudio.com/web/packages/dplyr/vignettes/' title=''>https://cran.rstudio.com/web/packages/dplyr/vignettes/</a></li>
 <li><a href='https://stat545-ubc.github.io/block009_dplyr-intro.html' title=''>https://stat545-ubc.github.io/block009_dplyr-intro.html</a></li>
-<li><a href='https://www.opencasestudies.org/' title=''>https://www.opencasestudies.org/</a></li>
+<li><a href='https://www.opencasestudies.org/' title=''>https://www.opencasestudies.org/</a> .</li>
 </ul>
-
-<p>The <code>dplyr</code> package also interfaces well with tibbles (a fancy tidyverse version of a data frame).</p>
 
 </article></slide><slide class=""><hgroup><h2>Loading in dplyr and tidyverse</h2></hgroup><article  id="loading-in-dplyr-and-tidyverse">
 
-<pre class = 'prettyprint lang-r'>library(tidyverse)</pre>
+<p>See this website for a list of the packages included in the <code>tidyverse</code>: <a href='https://www.tidyverse.org/packages/' title=''>https://www.tidyverse.org/packages/</a></p>
 
-<pre >── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</pre>
+<pre class = 'prettyprint lang-r'>library(tidyverse)# loads dplyr and other packages!</pre>
+
+<pre >── Attaching packages ──────────────────────────────────────── tidyverse 1.3.1 ──</pre>
 
 <pre >✓ ggplot2 3.3.3     ✓ purrr   0.3.4
 ✓ tibble  3.1.1     ✓ stringr 1.4.0
 ✓ tidyr   1.1.3     ✓ forcats 0.5.1
 ✓ readr   1.4.0     </pre>
 
-<pre >── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+<pre >── Conflicts ─────────────────────────────────────────── tidyverse_conflicts() ──
 x dplyr::filter() masks stats::filter()
 x dplyr::lag()    masks stats::lag()</pre>
-
-<p>Note, when loading <code>dplyr</code>, it says objects can be &ldquo;masked&rdquo;/conflicts. That means if you use a function defined in 2 places, it uses the one that is loaded in <strong>last</strong>.</p>
-
-</article></slide><slide class=""><hgroup><h2>Loading in dplyr and tidyverse</h2></hgroup><article  id="loading-in-dplyr-and-tidyverse-1">
-
-<p>For example, if we print <code>filter</code>, then we see at the bottom <code>namespace:dplyr</code>, which means when you type <code>filter</code>, it will use the one from the <code>dplyr</code> package.</p>
-
-<pre class = 'prettyprint lang-r'>filter</pre>
-
-<pre >function (.data, ..., .preserve = FALSE) 
-{
-    UseMethod(&quot;filter&quot;)
-}
-&lt;bytecode: 0x7ff25f9ef688&gt;
-&lt;environment: namespace:dplyr&gt;</pre>
-
-</article></slide><slide class=""><hgroup><h2>Loading in dplyr and tidyverse</h2></hgroup><article  id="loading-in-dplyr-and-tidyverse-2">
-
-<p>A <code>filter</code> function exists by default in the <code>stats</code> package, however. If you want to make sure you use that one, you use <code>PackageName::Function</code> with the colon-colon (&ldquo;<code>::</code>&rdquo;) operator.</p>
-
-<pre class = 'prettyprint lang-r'>stats::filter</pre>
-
-<p>This is important when loading many packages, and you may have some conflicts/masking.</p>
 
 </article></slide><slide class=""><hgroup><h2>Creating a <code>data.frame</code> to work with</h2></hgroup><article  id="creating-a-data.frame-to-work-with">
 
@@ -3324,9 +3301,9 @@ head(df) # changing df does **not** change jhu_cars</pre>
 5 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
 6           Valiant 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</pre>
 
-</article></slide><slide class=""><hgroup><h2>Creating a <code>data.frame</code> to work with</h2></hgroup><article  id="creating-a-data.frame-to-work-with-1">
+</article></slide><slide class=""><hgroup><h2>Creating a <code>tibble</code></h2></hgroup><article  id="creating-a-tibble">
 
-<p>If we would like to create a <code>tibble</code> (&ldquo;fancy&rdquo; data.frame), we can using the <code>as.tbl</code> (from the<code>dplyr</code>package) or <code>as_tibble</code> (from the <code>tibble</code> package) functions.</p>
+<p>If we would like to create a <code>tibble</code> (&ldquo;fancy&rdquo; data.frame), we can using the <code>as_tibble()</code> function (from the <code>tibble</code> package - part of the <code>tidyverse</code> too!).</p>
 
 <pre class = 'prettyprint lang-r'>tbl = as_tibble(df) 
 tbl</pre>
@@ -3368,9 +3345,9 @@ Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4</pre>
 
 </article></slide><slide class=""><hgroup><h2>Renaming Columns of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="renaming-columns-of-a-data.frame-dplyr">
 
-<p>To rename columns in <code>dplyr</code>, you use the <code>rename</code> command.</p>
+<p>To rename columns in <code>dplyr</code>, you can use the <code>rename</code> function.</p>
 
-<p>For example, let’s rename mpg to MPG. Notice the new name is listed first!</p>
+<p>For example, let’s rename mpg to MPG. Notice the new name is listed <strong>first</strong>!</p>
 
 <pre class = 'prettyprint lang-r'>df = dplyr::rename(df, MPG = mpg)
 head(df)</pre>
@@ -3385,7 +3362,7 @@ head(df)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Renaming All Columns of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="renaming-all-columns-of-a-data.frame-dplyr">
 
-<p>To rename all columns you use the <code>rename_all</code> command (with a function). In this case we will use <code>toupper()</code> to make all letters upper case. Could also use <code>tolower()</code> function.</p>
+<p>To rename all columns you use the <code>rename_all()</code>. In this case we will use <code>toupper()</code> to make all letters upper case. Could also use <code>tolower()</code> function.</p>
 
 <pre class = 'prettyprint lang-r'>df_upper = dplyr::rename_all(df, toupper)
 head(df_upper, 3)</pre>
@@ -3561,16 +3538,16 @@ pull(select(df,mpg))</pre>
 
 </article></slide><slide class=""><hgroup><h2>See the Select &ldquo;helpers&rdquo;</h2></hgroup><article  id="see-the-select-helpers">
 
-<p>Run the command:</p>
-
-<pre class = 'prettyprint lang-r'>??tidyselect::select_helpers</pre>
-
 <p>Here are a few:</p>
 
 <pre class = 'prettyprint lang-r'>one_of() # if they exist
 last_col()
 ends_with()
 contains() # like searching</pre>
+
+<p>Run the command to see them:</p>
+
+<pre class = 'prettyprint lang-r'>??tidyselect::select_helpers</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
 
@@ -3580,7 +3557,7 @@ contains() # like searching</pre>
 
 </article></slide><slide class=""><hgroup><h2>Subset rows of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="subset-rows-of-a-data.frame-dplyr">
 
-<p>The command in <code>dplyr</code> for subsetting rows is <code>filter</code>. Try <code>?filter</code></p>
+<p>The command in <code>dplyr</code> for subsetting rows is <code>filter</code>.</p>
 
 <pre class = 'prettyprint lang-r'>filter(df, mpg &gt; 20)</pre>
 
@@ -3608,8 +3585,7 @@ contains() # like searching</pre>
 
 <ul>
 <li><code>==</code> : equals to</li>
-<li><code>!</code> : not/negation</li>
-<li><code>!=</code>: not equal to</li>
+<li><code>!=</code>: not equal to (<code>!</code> : not/negation)</li>
 <li><code>&gt;</code> / <code>&lt;</code>: greater than / less than</li>
 <li><code>&gt;=</code> or <code>&lt;=</code>: greater than or equal to / less than or equal to</li>
 <li><code>&amp;</code> : AND</li>
@@ -3628,7 +3604,7 @@ contains() # like searching</pre>
 
 </article></slide><slide class=""><hgroup><h2>Subset rows of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="subset-rows-of-a-data.frame-dplyr-3">
 
-<p>By default, you can separate conditions by commas, and <code>filter</code> assumes these statements are joined by <code>&amp;</code>:</p>
+<p>You can filter by two conditions using <code>&amp;</code> or commas:</p>
 
 <pre class = 'prettyprint lang-r'>filter(df, mpg &gt; 20 &amp; cyl == 4)</pre>
 
@@ -3645,22 +3621,24 @@ contains() # like searching</pre>
 10   Lotus Europa 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
 11     Volvo 142E 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</pre>
 
-<pre class = 'prettyprint lang-r'>filter(df, mpg &gt; 20, cyl == 4, mpg != 22.8)</pre>
+<pre class = 'prettyprint lang-r'>filter(df, mpg &gt; 20, cyl == 4)</pre>
 
-<pre >             car  mpg cyl  disp  hp drat    wt  qsec vs am gear carb
-1      Merc 240D 24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
-2       Fiat 128 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
-3    Honda Civic 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
-4 Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
-5  Toyota Corona 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
-6      Fiat X1-9 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
-7  Porsche 914-2 26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
-8   Lotus Europa 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
-9     Volvo 142E 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</pre>
+<pre >              car  mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+1      Datsun 710 22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+2       Merc 240D 24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+3        Merc 230 22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+4        Fiat 128 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+5     Honda Civic 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+6  Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+7   Toyota Corona 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+8       Fiat X1-9 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+9   Porsche 914-2 26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+10   Lotus Europa 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+11     Volvo 142E 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</pre>
 
 </article></slide><slide class=""><hgroup><h2>Subset rows of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="subset-rows-of-a-data.frame-dplyr-4">
 
-<p>If you want OR statements, you need to do the pipe <code>|</code> explicitly:</p>
+<p>If you want OR statements (meaning the data can meet either condition does not need to meet both), you need to use the pipe <code>|</code> between conditions:</p>
 
 <pre class = 'prettyprint lang-r'>filter(df, mpg &gt; 20 | cyl == 4)</pre>
 
@@ -3765,56 +3743,11 @@ head(df,3)</pre>
 1     Mazda RX4  21   6  160 110  3.9 2.620 16.46  0  1    4    4 1.190909
 2 Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4 1.306818</pre>
 
-</article></slide><slide class=""><hgroup><h2>Creating conditional variables</h2></hgroup><article  id="creating-conditional-variables">
-
-<p>One frequently-used tool is creating variables with conditions.</p>
-
-<p>A general function for creating new variables based on existing variables is the <code>ifelse()</code> function, which &ldquo;returns a value with the same shape as test which is filled with elements selected from either yes or no depending on whether the element of test is <code>TRUE</code> or <code>FALSE</code>.&rdquo;</p>
-
-<pre >ifelse(test, yes, no)
-
-# test: an object which can be coerced
-    to logical mode.
-# yes: return values for true elements of test.
-# no: return values for false elements of test.</pre>
-
-</article></slide><slide class=""><hgroup><h2>Adding columns to a <code>data.frame</code>: dplyr</h2></hgroup><article  id="adding-columns-to-a-data.frame-dplyr">
-
-<p>Combined with <code>ifelse(condition, TRUE, FALSE)</code>, it can give you:</p>
-
-<pre class = 'prettyprint lang-r'>df = mutate(df, 
-            disp_cat = ifelse(
-              disp &lt;= 200,
-              &quot;Low&quot;,
-              ifelse(disp &lt;= 400,
-                     &quot;Medium&quot;,
-                     &quot;High&quot;)
-            )
-)
-head(df$disp_cat)</pre>
-
-<pre >[1] &quot;Low&quot;    &quot;Low&quot;    &quot;Low&quot;    &quot;Medium&quot; &quot;Medium&quot; &quot;Medium&quot;</pre>
-
-</article></slide><slide class=""><hgroup><h2>Adding columns to a <code>data.frame</code>: dplyr</h2></hgroup><article  id="adding-columns-to-a-data.frame-dplyr-1">
-
-<p>Alternatively, <code>case_when</code> provides a clean syntax as well:</p>
-
-<pre class = 'prettyprint lang-r'>df = mutate(df, 
-            disp_cat2 = case_when(
-              disp &lt;= 200 ~ &quot;Low&quot;,
-              disp &gt; 200 &amp; disp &lt;= 400 ~ &quot;Medium&quot;,
-              disp &gt; 400 ~ &quot;High&quot;,
-            ))
-head(df$disp_cat2)</pre>
-
-<pre >[1] &quot;Low&quot;    &quot;Low&quot;    &quot;Low&quot;    &quot;Medium&quot; &quot;Medium&quot; &quot;Medium&quot;</pre>
-
 </article></slide><slide class=""><hgroup><h2>Removing columns of a <code>data.frame</code>: base R</h2></hgroup><article  id="removing-columns-of-a-data.frame-base-r">
 
 <p>You can remove a column by assigning to <code>NULL</code>:</p>
 
-<pre class = 'prettyprint lang-r'>df$newcol = NULL
-head(df)</pre>
+<pre class = 'prettyprint lang-r'>df$newcol = NULL</pre>
 
 </article></slide><slide class=""><hgroup><h2>Removing columns of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="removing-columns-of-a-data.frame-dplyr">
 
@@ -3824,20 +3757,13 @@ head(df)</pre>
 
 <pre class = 'prettyprint lang-r'>select(df, -newcol)</pre>
 
-<pre >                car  mpg cyl disp  hp drat    wt  qsec vs am gear carb disp_cat
-1         Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4      Low
-2     Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4      Low
-3        Datsun 710 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1      Low
-4    Hornet 4 Drive 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1   Medium
-5 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2   Medium
-6           Valiant 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1   Medium
-  disp_cat2
-1       Low
-2       Low
-3       Low
-4    Medium
-5    Medium
-6    Medium</pre>
+<pre >                car  mpg cyl disp  hp drat    wt  qsec vs am gear carb
+1         Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+2     Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+3        Datsun 710 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+4    Hornet 4 Drive 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+5 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+6           Valiant 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</pre>
 
 <p><strong>Or, you can simply select the columns you want to keep, ignoring the ones you want to remove.</strong></p>
 
@@ -3849,193 +3775,93 @@ head(df)</pre>
 
 <pre class = 'prettyprint lang-r'>select(df, -c(&quot;newcol&quot;, &quot;drat&quot;))</pre>
 
-<pre >                   car  mpg cyl  disp  hp    wt  qsec vs am gear carb disp_cat
-1            Mazda RX4 21.0   6 160.0 110 2.620 16.46  0  1    4    4      Low
-2        Mazda RX4 Wag 21.0   6 160.0 110 2.875 17.02  0  1    4    4      Low
-3           Datsun 710 22.8   4 108.0  93 2.320 18.61  1  1    4    1      Low
-4       Hornet 4 Drive 21.4   6 258.0 110 3.215 19.44  1  0    3    1   Medium
-5    Hornet Sportabout 18.7   8 360.0 175 3.440 17.02  0  0    3    2   Medium
-6              Valiant 18.1   6 225.0 105 3.460 20.22  1  0    3    1   Medium
-7           Duster 360 14.3   8 360.0 245 3.570 15.84  0  0    3    4   Medium
-8            Merc 240D 24.4   4 146.7  62 3.190 20.00  1  0    4    2      Low
-9             Merc 230 22.8   4 140.8  95 3.150 22.90  1  0    4    2      Low
-10            Merc 280 19.2   6 167.6 123 3.440 18.30  1  0    4    4      Low
-11           Merc 280C 17.8   6 167.6 123 3.440 18.90  1  0    4    4      Low
-12          Merc 450SE 16.4   8 275.8 180 4.070 17.40  0  0    3    3   Medium
-13          Merc 450SL 17.3   8 275.8 180 3.730 17.60  0  0    3    3   Medium
-14         Merc 450SLC 15.2   8 275.8 180 3.780 18.00  0  0    3    3   Medium
-15  Cadillac Fleetwood 10.4   8 472.0 205 5.250 17.98  0  0    3    4     High
-16 Lincoln Continental 10.4   8 460.0 215 5.424 17.82  0  0    3    4     High
-17   Chrysler Imperial 14.7   8 440.0 230 5.345 17.42  0  0    3    4     High
-18            Fiat 128 32.4   4  78.7  66 2.200 19.47  1  1    4    1      Low
-19         Honda Civic 30.4   4  75.7  52 1.615 18.52  1  1    4    2      Low
-20      Toyota Corolla 33.9   4  71.1  65 1.835 19.90  1  1    4    1      Low
-21       Toyota Corona 21.5   4 120.1  97 2.465 20.01  1  0    3    1      Low
-22    Dodge Challenger 15.5   8 318.0 150 3.520 16.87  0  0    3    2   Medium
-23         AMC Javelin 15.2   8 304.0 150 3.435 17.30  0  0    3    2   Medium
-24          Camaro Z28 13.3   8 350.0 245 3.840 15.41  0  0    3    4   Medium
-25    Pontiac Firebird 19.2   8 400.0 175 3.845 17.05  0  0    3    2   Medium
-26           Fiat X1-9 27.3   4  79.0  66 1.935 18.90  1  1    4    1      Low
-27       Porsche 914-2 26.0   4 120.3  91 2.140 16.70  0  1    5    2      Low
-28        Lotus Europa 30.4   4  95.1 113 1.513 16.90  1  1    5    2      Low
-29      Ford Pantera L 15.8   8 351.0 264 3.170 14.50  0  1    5    4   Medium
-30        Ferrari Dino 19.7   6 145.0 175 2.770 15.50  0  1    5    6      Low
-31       Maserati Bora 15.0   8 301.0 335 3.570 14.60  0  1    5    8   Medium
-32          Volvo 142E 21.4   4 121.0 109 2.780 18.60  1  1    4    2      Low
-   disp_cat2
-1        Low
-2        Low
-3        Low
-4     Medium
-5     Medium
-6     Medium
-7     Medium
-8        Low
-9        Low
-10       Low
-11       Low
-12    Medium
-13    Medium
-14    Medium
-15      High
-16      High
-17      High
-18       Low
-19       Low
-20       Low
-21       Low
-22    Medium
-23    Medium
-24    Medium
-25    Medium
-26       Low
-27       Low
-28       Low
-29    Medium
-30       Low
-31    Medium
-32       Low</pre>
+<pre >                   car  mpg cyl  disp  hp    wt  qsec vs am gear carb
+1            Mazda RX4 21.0   6 160.0 110 2.620 16.46  0  1    4    4
+2        Mazda RX4 Wag 21.0   6 160.0 110 2.875 17.02  0  1    4    4
+3           Datsun 710 22.8   4 108.0  93 2.320 18.61  1  1    4    1
+4       Hornet 4 Drive 21.4   6 258.0 110 3.215 19.44  1  0    3    1
+5    Hornet Sportabout 18.7   8 360.0 175 3.440 17.02  0  0    3    2
+6              Valiant 18.1   6 225.0 105 3.460 20.22  1  0    3    1
+7           Duster 360 14.3   8 360.0 245 3.570 15.84  0  0    3    4
+8            Merc 240D 24.4   4 146.7  62 3.190 20.00  1  0    4    2
+9             Merc 230 22.8   4 140.8  95 3.150 22.90  1  0    4    2
+10            Merc 280 19.2   6 167.6 123 3.440 18.30  1  0    4    4
+11           Merc 280C 17.8   6 167.6 123 3.440 18.90  1  0    4    4
+12          Merc 450SE 16.4   8 275.8 180 4.070 17.40  0  0    3    3
+13          Merc 450SL 17.3   8 275.8 180 3.730 17.60  0  0    3    3
+14         Merc 450SLC 15.2   8 275.8 180 3.780 18.00  0  0    3    3
+15  Cadillac Fleetwood 10.4   8 472.0 205 5.250 17.98  0  0    3    4
+16 Lincoln Continental 10.4   8 460.0 215 5.424 17.82  0  0    3    4
+17   Chrysler Imperial 14.7   8 440.0 230 5.345 17.42  0  0    3    4
+18            Fiat 128 32.4   4  78.7  66 2.200 19.47  1  1    4    1
+19         Honda Civic 30.4   4  75.7  52 1.615 18.52  1  1    4    2
+20      Toyota Corolla 33.9   4  71.1  65 1.835 19.90  1  1    4    1
+21       Toyota Corona 21.5   4 120.1  97 2.465 20.01  1  0    3    1
+22    Dodge Challenger 15.5   8 318.0 150 3.520 16.87  0  0    3    2
+23         AMC Javelin 15.2   8 304.0 150 3.435 17.30  0  0    3    2
+24          Camaro Z28 13.3   8 350.0 245 3.840 15.41  0  0    3    4
+25    Pontiac Firebird 19.2   8 400.0 175 3.845 17.05  0  0    3    2
+26           Fiat X1-9 27.3   4  79.0  66 1.935 18.90  1  1    4    1
+27       Porsche 914-2 26.0   4 120.3  91 2.140 16.70  0  1    5    2
+28        Lotus Europa 30.4   4  95.1 113 1.513 16.90  1  1    5    2
+29      Ford Pantera L 15.8   8 351.0 264 3.170 14.50  0  1    5    4
+30        Ferrari Dino 19.7   6 145.0 175 2.770 15.50  0  1    5    6
+31       Maserati Bora 15.0   8 301.0 335 3.570 14.60  0  1    5    8
+32          Volvo 142E 21.4   4 121.0 109 2.780 18.60  1  1    4    2</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Ordering columns</h2></hgroup><article  id="ordering-columns">
 
 </article></slide><slide class=""><hgroup><h2>Ordering the columns of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="ordering-the-columns-of-a-data.frame-dplyr">
 
-<p>The <code>select</code> function can reorder columns. Put <code>newcol</code> first, then select the rest of columns:</p>
+<p>The <code>select</code> function can reorder columns.</p>
 
-<pre class = 'prettyprint lang-r'>select(df, newcol, everything())</pre>
+<pre class = 'prettyprint lang-r'>head(df)
+select(df, cyl, mpg, wt, car) %&gt;%
+head()</pre>
 
-<pre >    newcol               car  mpg cyl disp  hp drat    wt  qsec vs am gear carb
-1 1.190909         Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-2 1.306818     Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-3 1.054545        Datsun 710 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
-4 1.461364    Hornet 4 Drive 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-5 1.563636 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
-6 1.572727           Valiant 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
-  disp_cat disp_cat2
-1      Low       Low
-2      Low       Low
-3      Low       Low
-4   Medium    Medium
-5   Medium    Medium
-6   Medium    Medium</pre>
+<!-- ## Ordering the columns of a `data.frame`: dplyr -->
 
-</article></slide><slide class=""><hgroup><h2>Ordering the columns of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="ordering-the-columns-of-a-data.frame-dplyr-1">
+<!-- The `select` function can reorder columns.  Put `newcol` first, then select the rest of columns: -->
 
-<p>Put <code>newcol</code> at the end (&ldquo;remove, everything, then add back in&rdquo;):</p>
+<!-- ```{r, eval = FALSE} -->
 
-<pre class = 'prettyprint lang-r'>select(df, -newcol, everything(), newcol)</pre>
+<!-- select(df, newcol, everything()) -->
 
-<pre >                car  mpg cyl disp  hp drat    wt  qsec vs am gear carb disp_cat
-1         Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4      Low
-2     Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4      Low
-3        Datsun 710 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1      Low
-4    Hornet 4 Drive 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1   Medium
-5 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2   Medium
-6           Valiant 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1   Medium
-  disp_cat2   newcol
-1       Low 1.190909
-2       Low 1.306818
-3       Low 1.054545
-4    Medium 1.461364
-5    Medium 1.563636
-6    Medium 1.572727</pre>
+<!-- ``` -->
 
-</article></slide><slide class=""><hgroup><h2>Odering the colunames of a <code>data.frame</code>: alphabetically</h2></hgroup><article  id="odering-the-colunames-of-a-data.frame-alphabetically">
+<!-- ```{r, echo = FALSE} -->
 
-<p>Using the base R <code>order()</code> function.</p>
+<!-- head(select(df, newcol, everything())) -->
 
-<pre class = 'prettyprint lang-r'>order(colnames(df))</pre>
+<!-- ``` -->
 
-<pre > [1] 10  1 12  3  4 14 15  6 11  5  2 13  8  9  7</pre>
+<!-- ## Ordering the columns of a `data.frame`: dplyr -->
 
-<pre class = 'prettyprint lang-r'>df %&gt;% select(order(colnames(df)))</pre>
+<!-- Put `newcol` at the end ("remove, everything, then add back in"): -->
 
-<pre >   am                 car carb cyl  disp disp_cat disp_cat2 drat gear  hp  mpg
-1   1           Mazda RX4    4   6 160.0      Low       Low 3.90    4 110 21.0
-2   1       Mazda RX4 Wag    4   6 160.0      Low       Low 3.90    4 110 21.0
-3   1          Datsun 710    1   4 108.0      Low       Low 3.85    4  93 22.8
-4   0      Hornet 4 Drive    1   6 258.0   Medium    Medium 3.08    3 110 21.4
-5   0   Hornet Sportabout    2   8 360.0   Medium    Medium 3.15    3 175 18.7
-6   0             Valiant    1   6 225.0   Medium    Medium 2.76    3 105 18.1
-7   0          Duster 360    4   8 360.0   Medium    Medium 3.21    3 245 14.3
-8   0           Merc 240D    2   4 146.7      Low       Low 3.69    4  62 24.4
-9   0            Merc 230    2   4 140.8      Low       Low 3.92    4  95 22.8
-10  0            Merc 280    4   6 167.6      Low       Low 3.92    4 123 19.2
-11  0           Merc 280C    4   6 167.6      Low       Low 3.92    4 123 17.8
-12  0          Merc 450SE    3   8 275.8   Medium    Medium 3.07    3 180 16.4
-13  0          Merc 450SL    3   8 275.8   Medium    Medium 3.07    3 180 17.3
-14  0         Merc 450SLC    3   8 275.8   Medium    Medium 3.07    3 180 15.2
-15  0  Cadillac Fleetwood    4   8 472.0     High      High 2.93    3 205 10.4
-16  0 Lincoln Continental    4   8 460.0     High      High 3.00    3 215 10.4
-17  0   Chrysler Imperial    4   8 440.0     High      High 3.23    3 230 14.7
-18  1            Fiat 128    1   4  78.7      Low       Low 4.08    4  66 32.4
-19  1         Honda Civic    2   4  75.7      Low       Low 4.93    4  52 30.4
-20  1      Toyota Corolla    1   4  71.1      Low       Low 4.22    4  65 33.9
-21  0       Toyota Corona    1   4 120.1      Low       Low 3.70    3  97 21.5
-22  0    Dodge Challenger    2   8 318.0   Medium    Medium 2.76    3 150 15.5
-23  0         AMC Javelin    2   8 304.0   Medium    Medium 3.15    3 150 15.2
-24  0          Camaro Z28    4   8 350.0   Medium    Medium 3.73    3 245 13.3
-25  0    Pontiac Firebird    2   8 400.0   Medium    Medium 3.08    3 175 19.2
-26  1           Fiat X1-9    1   4  79.0      Low       Low 4.08    4  66 27.3
-27  1       Porsche 914-2    2   4 120.3      Low       Low 4.43    5  91 26.0
-28  1        Lotus Europa    2   4  95.1      Low       Low 3.77    5 113 30.4
-29  1      Ford Pantera L    4   8 351.0   Medium    Medium 4.22    5 264 15.8
-30  1        Ferrari Dino    6   6 145.0      Low       Low 3.62    5 175 19.7
-31  1       Maserati Bora    8   8 301.0   Medium    Medium 3.54    5 335 15.0
-32  1          Volvo 142E    2   4 121.0      Low       Low 4.11    4 109 21.4
-      newcol  qsec vs    wt
-1  1.1909091 16.46  0 2.620
-2  1.3068182 17.02  0 2.875
-3  1.0545455 18.61  1 2.320
-4  1.4613636 19.44  1 3.215
-5  1.5636364 17.02  0 3.440
-6  1.5727273 20.22  1 3.460
-7  1.6227273 15.84  0 3.570
-8  1.4500000 20.00  1 3.190
-9  1.4318182 22.90  1 3.150
-10 1.5636364 18.30  1 3.440
-11 1.5636364 18.90  1 3.440
-12 1.8500000 17.40  0 4.070
-13 1.6954545 17.60  0 3.730
-14 1.7181818 18.00  0 3.780
-15 2.3863636 17.98  0 5.250
-16 2.4654545 17.82  0 5.424
-17 2.4295455 17.42  0 5.345
-18 1.0000000 19.47  1 2.200
-19 0.7340909 18.52  1 1.615
-20 0.8340909 19.90  1 1.835
-21 1.1204545 20.01  1 2.465
-22 1.6000000 16.87  0 3.520
-23 1.5613636 17.30  0 3.435
-24 1.7454545 15.41  0 3.840
-25 1.7477273 17.05  0 3.845
-26 0.8795455 18.90  1 1.935
-27 0.9727273 16.70  0 2.140
-28 0.6877273 16.90  1 1.513
-29 1.4409091 14.50  0 3.170
-30 1.2590909 15.50  0 2.770
-31 1.6227273 14.60  0 3.570
-32 1.2636364 18.60  1 2.780</pre>
+<!-- ```{r, eval = FALSE} -->
+
+<!-- select(df, -newcol, everything(), newcol) -->
+
+<!-- ``` -->
+
+<!-- ```{r, echo = FALSE} -->
+
+<!-- head(select(df, -newcol, everything(), newcol)) -->
+
+<!-- ``` -->
+
+<!-- ## Odering the colunames of a `data.frame`: alphabetically -->
+
+<!-- Using the base R `order()` function. -->
+
+<!-- ```{r} -->
+
+<!-- order(colnames(df)) -->
+
+<!-- df %>% select(order(colnames(df))) -->
+
+<!-- ``` -->
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Ordering rows</h2></hgroup><article  id="ordering-rows">
 
@@ -4078,39 +3904,39 @@ head(df)</pre>
 30        Lotus Europa 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
 31            Fiat 128 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
 32      Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
-      newcol disp_cat disp_cat2
-1  2.3863636     High      High
-2  2.4654545     High      High
-3  1.7454545   Medium    Medium
-4  1.6227273   Medium    Medium
-5  2.4295455     High      High
-6  1.6227273   Medium    Medium
-7  1.7181818   Medium    Medium
-8  1.5613636   Medium    Medium
-9  1.6000000   Medium    Medium
-10 1.4409091   Medium    Medium
-11 1.8500000   Medium    Medium
-12 1.6954545   Medium    Medium
-13 1.5636364      Low       Low
-14 1.5727273   Medium    Medium
-15 1.5636364   Medium    Medium
-16 1.5636364      Low       Low
-17 1.7477273   Medium    Medium
-18 1.2590909      Low       Low
-19 1.1909091      Low       Low
-20 1.3068182      Low       Low
-21 1.4613636   Medium    Medium
-22 1.2636364      Low       Low
-23 1.1204545      Low       Low
-24 1.0545455      Low       Low
-25 1.4318182      Low       Low
-26 1.4500000      Low       Low
-27 0.9727273      Low       Low
-28 0.8795455      Low       Low
-29 0.7340909      Low       Low
-30 0.6877273      Low       Low
-31 1.0000000      Low       Low
-32 0.8340909      Low       Low</pre>
+      newcol
+1  2.3863636
+2  2.4654545
+3  1.7454545
+4  1.6227273
+5  2.4295455
+6  1.6227273
+7  1.7181818
+8  1.5613636
+9  1.6000000
+10 1.4409091
+11 1.8500000
+12 1.6954545
+13 1.5636364
+14 1.5727273
+15 1.5636364
+16 1.5636364
+17 1.7477273
+18 1.2590909
+19 1.1909091
+20 1.3068182
+21 1.4613636
+22 1.2636364
+23 1.1204545
+24 1.0545455
+25 1.4318182
+26 1.4500000
+27 0.9727273
+28 0.8795455
+29 0.7340909
+30 0.6877273
+31 1.0000000
+32 0.8340909</pre>
 
 </article></slide><slide class=""><hgroup><h2>Ordering the rows of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="ordering-the-rows-of-a-data.frame-dplyr-1">
 
@@ -4151,43 +3977,43 @@ head(df)</pre>
 30          Camaro Z28 13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
 31  Cadillac Fleetwood 10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
 32 Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
-      newcol disp_cat disp_cat2
-1  0.8340909      Low       Low
-2  1.0000000      Low       Low
-3  0.7340909      Low       Low
-4  0.6877273      Low       Low
-5  0.8795455      Low       Low
-6  0.9727273      Low       Low
-7  1.4500000      Low       Low
-8  1.0545455      Low       Low
-9  1.4318182      Low       Low
-10 1.1204545      Low       Low
-11 1.4613636   Medium    Medium
-12 1.2636364      Low       Low
-13 1.1909091      Low       Low
-14 1.3068182      Low       Low
-15 1.2590909      Low       Low
-16 1.5636364      Low       Low
-17 1.7477273   Medium    Medium
-18 1.5636364   Medium    Medium
-19 1.5727273   Medium    Medium
-20 1.5636364      Low       Low
-21 1.6954545   Medium    Medium
-22 1.8500000   Medium    Medium
-23 1.4409091   Medium    Medium
-24 1.6000000   Medium    Medium
-25 1.7181818   Medium    Medium
-26 1.5613636   Medium    Medium
-27 1.6227273   Medium    Medium
-28 2.4295455     High      High
-29 1.6227273   Medium    Medium
-30 1.7454545   Medium    Medium
-31 2.3863636     High      High
-32 2.4654545     High      High</pre>
+      newcol
+1  0.8340909
+2  1.0000000
+3  0.7340909
+4  0.6877273
+5  0.8795455
+6  0.9727273
+7  1.4500000
+8  1.0545455
+9  1.4318182
+10 1.1204545
+11 1.4613636
+12 1.2636364
+13 1.1909091
+14 1.3068182
+15 1.2590909
+16 1.5636364
+17 1.7477273
+18 1.5636364
+19 1.5727273
+20 1.5636364
+21 1.6954545
+22 1.8500000
+23 1.4409091
+24 1.6000000
+25 1.7181818
+26 1.5613636
+27 1.6227273
+28 2.4295455
+29 1.6227273
+30 1.7454545
+31 2.3863636
+32 2.4654545</pre>
 
 </article></slide><slide class=""><hgroup><h2>Ordering the rows of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="ordering-the-rows-of-a-data.frame-dplyr-2">
 
-<p>It is a bit more straightforward to mix increasing and decreasing orderings:</p>
+<p>Increasing and decreasing orderings:</p>
 
 <pre class = 'prettyprint lang-r'>arrange(df, mpg, desc(hp))</pre>
 
@@ -4224,85 +4050,114 @@ head(df)</pre>
 30         Honda Civic 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
 31            Fiat 128 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
 32      Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
-      newcol disp_cat disp_cat2
-1  2.4654545     High      High
-2  2.3863636     High      High
-3  1.7454545   Medium    Medium
-4  1.6227273   Medium    Medium
-5  2.4295455     High      High
-6  1.6227273   Medium    Medium
-7  1.7181818   Medium    Medium
-8  1.5613636   Medium    Medium
-9  1.6000000   Medium    Medium
-10 1.4409091   Medium    Medium
-11 1.8500000   Medium    Medium
-12 1.6954545   Medium    Medium
-13 1.5636364      Low       Low
-14 1.5727273   Medium    Medium
-15 1.5636364   Medium    Medium
-16 1.7477273   Medium    Medium
-17 1.5636364      Low       Low
-18 1.2590909      Low       Low
-19 1.1909091      Low       Low
-20 1.3068182      Low       Low
-21 1.4613636   Medium    Medium
-22 1.2636364      Low       Low
-23 1.1204545      Low       Low
-24 1.4318182      Low       Low
-25 1.0545455      Low       Low
-26 1.4500000      Low       Low
-27 0.9727273      Low       Low
-28 0.8795455      Low       Low
-29 0.6877273      Low       Low
-30 0.7340909      Low       Low
-31 1.0000000      Low       Low
-32 0.8340909      Low       Low</pre>
+      newcol
+1  2.4654545
+2  2.3863636
+3  1.7454545
+4  1.6227273
+5  2.4295455
+6  1.6227273
+7  1.7181818
+8  1.5613636
+9  1.6000000
+10 1.4409091
+11 1.8500000
+12 1.6954545
+13 1.5636364
+14 1.5727273
+15 1.5636364
+16 1.7477273
+17 1.5636364
+18 1.2590909
+19 1.1909091
+20 1.3068182
+21 1.4613636
+22 1.2636364
+23 1.1204545
+24 1.4318182
+25 1.0545455
+26 1.4500000
+27 0.9727273
+28 0.8795455
+29 0.6877273
+30 0.7340909
+31 1.0000000
+32 0.8340909</pre>
 
-</article></slide><slide class=""><hgroup><h2>Transmutation</h2></hgroup><article  id="transmutation">
+<!-- ## Transmutation -->
 
-<p>The <code>transmute</code> function in <code>dplyr</code> combines both the <code>mutate</code> and <code>select</code> functions. One can create new columns and keep the only the columns wanted:</p>
+<!-- The `transmute` function in `dplyr` combines both the `mutate` and `select` functions. One can create new columns and keep the only the columns wanted: -->
 
-<pre class = 'prettyprint lang-r'>transmute(df, newcol2 = wt/2.2, mpg, hp)</pre>
+<!-- ```{r} -->
 
-<pre >     newcol2  mpg  hp
-1  1.1909091 21.0 110
-2  1.3068182 21.0 110
-3  1.0545455 22.8  93
-4  1.4613636 21.4 110
-5  1.5636364 18.7 175
-6  1.5727273 18.1 105
-7  1.6227273 14.3 245
-8  1.4500000 24.4  62
-9  1.4318182 22.8  95
-10 1.5636364 19.2 123
-11 1.5636364 17.8 123
-12 1.8500000 16.4 180
-13 1.6954545 17.3 180
-14 1.7181818 15.2 180
-15 2.3863636 10.4 205
-16 2.4654545 10.4 215
-17 2.4295455 14.7 230
-18 1.0000000 32.4  66
-19 0.7340909 30.4  52
-20 0.8340909 33.9  65
-21 1.1204545 21.5  97
-22 1.6000000 15.5 150
-23 1.5613636 15.2 150
-24 1.7454545 13.3 245
-25 1.7477273 19.2 175
-26 0.8795455 27.3  66
-27 0.9727273 26.0  91
-28 0.6877273 30.4 113
-29 1.4409091 15.8 264
-30 1.2590909 19.7 175
-31 1.6227273 15.0 335
-32 1.2636364 21.4 109</pre>
+<!-- transmute(df, newcol2 = wt/2.2, mpg, hp) -->
+
+<!-- ``` -->
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 4</h2></hgroup><article  id="lab-part-4">
 
 <p><a href='http://https://jhudatascience.org/intro_to_r/index.html' title=''>Website</a></p>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Extra Slides</h2></hgroup><article  id="extra-slides">
+
+</article></slide><slide class=""><hgroup><h2>Creating conditional variables</h2></hgroup><article  id="creating-conditional-variables">
+
+<p>One frequently-used tool is creating variables with conditions.</p>
+
+<p>A general function for creating new variables based on existing variables is the <code>ifelse()</code> function, which &ldquo;returns a value depending on whether the element of test is <code>TRUE</code> or <code>FALSE</code>.&rdquo;</p>
+
+<pre >ifelse(test, yes, no)
+
+# test: an object which can be coerced
+    to logical mode.
+# yes: return values for true elements of test.
+# no: return values for false elements of test.</pre>
+
+</article></slide><slide class=""><hgroup><h2>ifelse example</h2></hgroup><article  id="ifelse-example">
+
+<pre class = 'prettyprint lang-r'>df$disp</pre>
+
+<pre > [1] 160.0 160.0 108.0 258.0 360.0 225.0 360.0 146.7 140.8 167.6 167.6 275.8
+[13] 275.8 275.8 472.0 460.0 440.0  78.7  75.7  71.1 120.1 318.0 304.0 350.0
+[25] 400.0  79.0 120.3  95.1 351.0 145.0 301.0 121.0</pre>
+
+<pre class = 'prettyprint lang-r'>#ifelse(test, yes, no)
+ifelse(df$disp&lt;=200, &quot;low&quot;, &quot;high&quot;)</pre>
+
+<pre > [1] &quot;low&quot;  &quot;low&quot;  &quot;low&quot;  &quot;high&quot; &quot;high&quot; &quot;high&quot; &quot;high&quot; &quot;low&quot;  &quot;low&quot;  &quot;low&quot; 
+[11] &quot;low&quot;  &quot;high&quot; &quot;high&quot; &quot;high&quot; &quot;high&quot; &quot;high&quot; &quot;high&quot; &quot;low&quot;  &quot;low&quot;  &quot;low&quot; 
+[21] &quot;low&quot;  &quot;high&quot; &quot;high&quot; &quot;high&quot; &quot;high&quot; &quot;low&quot;  &quot;low&quot;  &quot;low&quot;  &quot;high&quot; &quot;low&quot; 
+[31] &quot;high&quot; &quot;low&quot; </pre>
+
+</article></slide><slide class=""><hgroup><h2>Adding columns to a <code>data.frame</code>: dplyr</h2></hgroup><article  id="adding-columns-to-a-data.frame-dplyr">
+
+<p>Combined with <code>ifelse(condition, TRUE, FALSE)</code>, it can give you:</p>
+
+<pre class = 'prettyprint lang-r'>df = mutate(df, 
+            disp_cat = ifelse(disp &lt;= 200, &quot;Low&quot;,&quot;High&quot;)
+            )
+
+head(df,2)</pre>
+
+<pre >            car mpg cyl disp  hp drat    wt  qsec vs am gear carb   newcol
+1     Mazda RX4  21   6  160 110  3.9 2.620 16.46  0  1    4    4 1.190909
+2 Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4 1.306818
+  disp_cat
+1      Low
+2      Low</pre>
+
+</article></slide><slide class=""><hgroup><h2>Adding columns to a <code>data.frame</code>: dplyr</h2></hgroup><article  id="adding-columns-to-a-data.frame-dplyr-1">
+
+<p>Alternatively, <code>case_when</code> provides a clean syntax as well:</p>
+
+<pre class = 'prettyprint lang-r'>df = mutate(df, 
+            disp_cat2 = case_when(
+              disp &lt;= 200 ~ &quot;Low&quot;,
+              disp &gt; 200 ~ &quot;High&quot;,
+            ))
+head(df$disp_cat2)</pre>
+
+<pre >[1] &quot;Low&quot;  &quot;Low&quot;  &quot;Low&quot;  &quot;High&quot; &quot;High&quot; &quot;High&quot;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Renaming Columns of a <code>data.frame</code>: base R</h2></hgroup><article  id="renaming-columns-of-a-data.frame-base-r">
 
@@ -4328,9 +4183,9 @@ head(df)</pre>
 1 1.190909      Low       Low
 2 1.306818      Low       Low
 3 1.054545      Low       Low
-4 1.461364   Medium    Medium
-5 1.563636   Medium    Medium
-6 1.572727   Medium    Medium</pre>
+4 1.461364     High      High
+5 1.563636     High      High
+6 1.572727     High      High</pre>
 
 <pre class = 'prettyprint lang-r'>colnames(df)[1:3] = c(&quot;mpg&quot;, &quot;cyl&quot;, &quot;disp&quot;) #reset - just to keep consistent</pre>
 
@@ -4354,9 +4209,9 @@ head(df)</pre>
 1 1.190909      Low       Low
 2 1.306818      Low       Low
 3 1.054545      Low       Low
-4 1.461364   Medium    Medium
-5 1.563636   Medium    Medium
-6 1.572727   Medium    Medium</pre>
+4 1.461364     High      High
+5 1.563636     High      High
+6 1.572727     High      High</pre>
 
 <pre class = 'prettyprint lang-r'>colnames(df)[ colnames(df) == &quot;DRAT&quot;] = &quot;drat&quot; #reset</pre>
 
