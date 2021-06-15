@@ -70,7 +70,8 @@ bike = read_bike()
 
 			  
 5. What was the average bike lane length per year that they were installed? 
- Set `bike$dateInstalled` to `NA` if it is equal to zero.
+ Set `bike$dateInstalled` to `NA` if it is equal to zero. (Hint: use `mutate` with the `ifelse` 
+ function: `ifelse(column == value, <value if true>, <value if false>`))
 ```{r q5}
 
 
@@ -79,8 +80,9 @@ bike = read_bike()
 
 # Part 3
 
-6.  (a) Numerically [hint: `quantile()`, using `bike$length`] and 
-		(b) graphically [hint: `qplot()` with `geom = "histogram"` or `geom = "density")`] describe the distribution of bike "lane" lengths.
+6.  Describe the distribution of bike "lane" lengths:
+    (a) Numerically [hint: `quantile()`, using `bike$length`] and 
+		(b) graphically [hint: `qplot()` with `geom = "histogram"` or `geom = "density")`].
 ```{r q6}
 
 
