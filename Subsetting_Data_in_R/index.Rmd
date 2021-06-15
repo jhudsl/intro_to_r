@@ -18,7 +18,7 @@ library(jhur)
 
 We showed one way to read data into R using `read_csv` and `read.csv`.  In this module, we will show you how to:
 
-1. Select specific elements of an object by an index or logical condition
+1. Create a `data.frame` and a `tibble`
 2. Renaming columns of a `data.frame`
 3. Subset rows of a `data.frame`
 4. Subset columns of a `data.frame`
@@ -28,47 +28,21 @@ We showed one way to read data into R using `read_csv` and `read.csv`.  In this 
 
 ## Setup
 
-We will show you how to do each operation in base R then show you how to use the `dplyr` package to do the same operation (if applicable).
+We will largely focus on the`dplyr` package which is part of the `tidyverse`.
 
 Many resources on how to use `dplyr` exist and are straightforward: 
 
 * https://cran.rstudio.com/web/packages/dplyr/vignettes/
 * https://stat545-ubc.github.io/block009_dplyr-intro.html
 * https://www.opencasestudies.org/
-
-The `dplyr` package also interfaces well with tibbles (a fancy tidyverse version of a data frame).
+.
 
 ## Loading in dplyr and tidyverse
 
+See this website for a list of the packages included in the `tidyverse`: https://www.tidyverse.org/packages/
 ```{r}
-library(tidyverse)
+library(tidyverse)# loads dplyr and other packages!
 ```
-
-Note, when loading `dplyr`, it says objects can be "masked"/conflicts.  That means if you 
-use a function defined in 2 places, it uses the one that is loaded in **last**.
-
-## Loading in dplyr and tidyverse
-
-For example, if we print `filter`, then we see at the bottom `namespace:dplyr`, which
-means when you type `filter`, it will use the one from the `dplyr` package.
-
-```{r}
-filter
-```
-
-## Loading in dplyr and tidyverse
-
-A `filter` function exists by default in the `stats` package, however.  If you want
-to make sure you use that one, you use `PackageName::Function` with the colon-colon 
-("`::`") operator. 
-
-```{r, eval=FALSE}
-stats::filter
-```
-
-This is important when loading many packages, and you may have
-some conflicts/masking.
-
 
 ## Creating a `data.frame` to work with
 
@@ -80,9 +54,9 @@ df = jhu_cars # df is a copy of jhu_cars
 head(df) # changing df does **not** change jhu_cars
 ```
 
-## Creating a `data.frame` to work with
+## Creating a `tibble`
 
-If we would like to create a `tibble` ("fancy" data.frame), we can using the `as.tbl` (from  the`dplyr`package) or `as_tibble` (from the `tibble` package) functions.  
+If we would like to create a `tibble` ("fancy" data.frame), we can using the  `as_tibble()` function (from the `tibble` package - part of the `tidyverse` too!).  
 
 ```{r}
 tbl = as_tibble(df) 
@@ -103,9 +77,9 @@ head(as_tibble(mtcars), 2)
 
 ## Renaming Columns of a `data.frame`: dplyr
 
-To rename columns in `dplyr`, you use the `rename` command.
+To rename columns in `dplyr`, you can use the `rename` function.
 
-For example, let's rename mpg to MPG. Notice the new name is listed first!
+For example, let's rename mpg to MPG. Notice the new name is listed **first**!
 
 ```{r}
 df = dplyr::rename(df, MPG = mpg)
@@ -114,7 +88,7 @@ head(df)
 
 ## Renaming All Columns of a `data.frame`: dplyr
 
-To rename all columns you use the `rename_all` command (with a function). In this case we will use `toupper()` to make all letters upper case. Could also use `tolower()` function.
+To rename all columns you use the `rename_all()`. In this case we will use `toupper()` to make all letters upper case. Could also use `tolower()` function.
 
 ```{r}
 df_upper = dplyr::rename_all(df, toupper)
@@ -176,12 +150,6 @@ select(df, starts_with("c"))
 
 ## See the Select "helpers"
 
-Run the command:
-
-```{r, eval = FALSE}
-??tidyselect::select_helpers
-```
-
 Here are a few:
 
 ```{r, eval = FALSE}
@@ -189,6 +157,12 @@ one_of() # if they exist
 last_col()
 ends_with()
 contains() # like searching
+```
+
+Run the command to see them:
+
+```{r, eval = FALSE}
+??tidyselect::select_helpers
 ```
 
 ## Lab Part 2
@@ -199,7 +173,7 @@ contains() # like searching
 
 ## Subset rows of a `data.frame`: dplyr
 
-The command in `dplyr` for subsetting rows is `filter`.  Try `?filter`
+The command in `dplyr` for subsetting rows is `filter`.
 
 ```{r}
 filter(df, mpg > 20)
@@ -212,8 +186,7 @@ Note, no `$` or subsetting is necessary.  R "knows" `mpg` refers to a column of 
 You can have multiple logical conditions using the following:
 
 * `==` : equals to
-* `!` : not/negation
-* `!=`: not equal to
+* `!=`: not equal to (`!` : not/negation)
 * `>` / `<`: greater than / less than
 * `>=` or `<=`: greater than or equal to / less than or equal to
 * `&` : AND
@@ -229,21 +202,22 @@ filter(df, mpg %in% c(20,21,22))
 
 ## Subset rows of a `data.frame`: dplyr
 
-By default, you can separate conditions by commas, and `filter` assumes these statements are joined by `&`:
+You can filter by two conditions using `&` or commas:
 
 ```{r}
 filter(df, mpg > 20 & cyl == 4)
-filter(df, mpg > 20, cyl == 4, mpg != 22.8)
+filter(df, mpg > 20, cyl == 4)
 ```
 
 ## Subset rows of a `data.frame`: dplyr
 
-If you want OR statements, you need to do the pipe `|` explicitly:
+If you want OR statements (meaning the data can meet either condition does not need to meet both), you need to use the pipe `|` between conditions:
 
 ```{r}
 filter(df, mpg > 20 | cyl == 4)
 
 ```
+
 
 
 ## Lab Part 3
@@ -305,60 +279,12 @@ df = mutate(df, newcol = wt/2.2)
 print(head({df = mutate(df, newcol = wt/2.2)}, 2))
 ```
 
-## Creating conditional variables
-
-One frequently-used tool is creating variables with conditions.
-
-A general function for creating new variables based on existing variables is the `ifelse()` function, which "returns a value with the same shape as test which is filled with elements selected from either yes or no depending on whether the element of test is `TRUE` or `FALSE`."
-
-```
-ifelse(test, yes, no)
-
-# test: an object which can be coerced
-    to logical mode.
-# yes: return values for true elements of test.
-# no: return values for false elements of test.
-```
-
-
-## Adding columns to a `data.frame`: dplyr
-
-Combined with `ifelse(condition, TRUE, FALSE)`, it can give you:
-
-```{r}
-df = mutate(df, 
-            disp_cat = ifelse(
-              disp <= 200,
-              "Low",
-              ifelse(disp <= 400,
-                     "Medium",
-                     "High")
-            )
-)
-head(df$disp_cat)
-```
-
-## Adding columns to a `data.frame`: dplyr
-
-Alternatively, `case_when` provides a clean syntax as well:
-
-```{r}
-df = mutate(df, 
-            disp_cat2 = case_when(
-              disp <= 200 ~ "Low",
-              disp > 200 & disp <= 400 ~ "Medium",
-              disp > 400 ~ "High",
-            ))
-head(df$disp_cat2)
-```
-
 
 ## Removing columns of a `data.frame`: base R
 
 You can remove a column by assigning to `NULL`:
 ```{r, eval = FALSE}
 df$newcol = NULL
-head(df)
 ```
 
 ## Removing columns of a `data.frame`: dplyr
@@ -390,34 +316,44 @@ select(df, -c("newcol", "drat"))
 
 ## Ordering the columns of a `data.frame`: dplyr
 
-The `select` function can reorder columns.  Put `newcol` first, then select the rest of columns:
+The `select` function can reorder columns.
 ```{r, eval = FALSE}
-select(df, newcol, everything())
+head(df)
+select(df, cyl, mpg, wt, car) %>%
+head()
 ```
 
-```{r, echo = FALSE}
-head(select(df, newcol, everything()))
-```
 
-## Ordering the columns of a `data.frame`: dplyr
+<!-- ## Ordering the columns of a `data.frame`: dplyr -->
 
-Put `newcol` at the end ("remove, everything, then add back in"):
+<!-- The `select` function can reorder columns.  Put `newcol` first, then select the rest of columns: -->
+<!-- ```{r, eval = FALSE} -->
+<!-- select(df, newcol, everything()) -->
+<!-- ``` -->
 
-```{r, eval = FALSE}
-select(df, -newcol, everything(), newcol)
-```
+<!-- ```{r, echo = FALSE} -->
+<!-- head(select(df, newcol, everything())) -->
+<!-- ``` -->
 
-```{r, echo = FALSE}
-head(select(df, -newcol, everything(), newcol))
-```
+<!-- ## Ordering the columns of a `data.frame`: dplyr -->
 
-## Odering the colunames of a `data.frame`: alphabetically
-Using the base R `order()` function.
+<!-- Put `newcol` at the end ("remove, everything, then add back in"): -->
 
-```{r}
-order(colnames(df))
-df %>% select(order(colnames(df)))
-```
+<!-- ```{r, eval = FALSE} -->
+<!-- select(df, -newcol, everything(), newcol) -->
+<!-- ``` -->
+
+<!-- ```{r, echo = FALSE} -->
+<!-- head(select(df, -newcol, everything(), newcol)) -->
+<!-- ``` -->
+
+<!-- ## Odering the colunames of a `data.frame`: alphabetically -->
+<!-- Using the base R `order()` function. -->
+
+<!-- ```{r} -->
+<!-- order(colnames(df)) -->
+<!-- df %>% select(order(colnames(df))) -->
+<!-- ``` -->
 
 # Ordering rows
 
@@ -435,18 +371,21 @@ arrange(df, desc(mpg))
 ```
 
 ## Ordering the rows of a `data.frame`: dplyr
-It is a bit more straightforward to mix increasing and decreasing orderings:
+Increasing and decreasing orderings:
 ```{r}
 arrange(df, mpg, desc(hp))
 ```
 
-## Transmutation
+<!-- ## Transmutation -->
 
-The `transmute` function in `dplyr` combines both the `mutate` and `select` functions. One can create new columns and keep the only the columns wanted:
+<!-- The `transmute` function in `dplyr` combines both the `mutate` and `select` functions. One can create new columns and keep the only the columns wanted: -->
 
-```{r}
-transmute(df, newcol2 = wt/2.2, mpg, hp)
-```
+<!-- ```{r} -->
+<!-- transmute(df, newcol2 = wt/2.2, mpg, hp) -->
+<!-- ``` -->
+
+
+
 
 ## Lab Part 4
 
@@ -454,6 +393,56 @@ transmute(df, newcol2 = wt/2.2, mpg, hp)
 
 
 # Extra Slides
+
+## Creating conditional variables
+
+One frequently-used tool is creating variables with conditions.
+
+A general function for creating new variables based on existing variables is the `ifelse()` function, which "returns a value depending on whether the element of test is `TRUE` or `FALSE`."
+
+```
+ifelse(test, yes, no)
+
+# test: an object which can be coerced
+    to logical mode.
+# yes: return values for true elements of test.
+# no: return values for false elements of test.
+```
+
+## ifelse example
+
+```{r}
+df$disp
+#ifelse(test, yes, no)
+ifelse(df$disp<=200, "low", "high")
+```
+
+## Adding columns to a `data.frame`: dplyr
+
+Combined with `ifelse(condition, TRUE, FALSE)`, it can give you:
+
+```{r}
+df = mutate(df, 
+            disp_cat = ifelse(disp <= 200, "Low","High")
+            )
+
+head(df,2)
+```
+
+## Adding columns to a `data.frame`: dplyr
+
+Alternatively, `case_when` provides a clean syntax as well:
+
+```{r}
+df = mutate(df, 
+            disp_cat2 = case_when(
+              disp <= 200 ~ "Low",
+              disp > 200 ~ "High",
+            ))
+head(df$disp_cat2)
+```
+
+
 
 ## Renaming Columns of a `data.frame`: base R
 
