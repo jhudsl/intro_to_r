@@ -37,7 +37,7 @@ bike = read_bike()
 
 # Part 1
 
-1. How many bike "lanes" are currently in Baltimore?  You can assume each observation/row is a different bike "lane"
+1. How many bike "lanes" are currently in Baltimore?  You can assume each observation/row is a different bike "lane".  (hint: how do you get the number of rows of a data set? You can use `dim()` or `nrow()`).
 ```{r q1}
 nrow(bike)
 dim(bike)
@@ -45,15 +45,20 @@ bike %>%
   nrow()
 ```
 
-2. How many (a) feet and (b) miles of bike "lanes" are currently in Baltimore?
+2. How many (a) feet and (b) miles of bike "lanes" are currently in Baltimore, based on the `length` column? (`5280` feet in a mile).
 
 ```{r q2}
+# (a)
 sum(bike$length)
+sum(bike %>% pull(length))
+
+#
 sum(bike$length)/5280
 sum(bike$length/5280)
+sum(bike %>% pull(length)) / 5280
 ```
 
-3. How many types of bike lanes are there? Which type has (a) the most number of and (b) longest average bike lane length?
+3. How many types of bike lanes are there?   (Hints: `unique`, `table`, or `bike %>% count()` on the column named `type`).
    
 ```{r q3}
 table(bike$type, useNA = "ifany")
@@ -65,88 +70,66 @@ is.na(unique(bike$type))
 
 counts = bike %>% 
   count(type)
+```
 
+4. Which bike lane`type` has (a) the most number of and (b) longest average bike lane length? (Hint: `group_by` and `summarize`)
+
+```{r q4}
 bike %>% 
   group_by(type) %>% 
-  summarise(number_of_rows = n(),
+  summarize(number_of_rows = n(),
+            mean = mean(length))
+```
+
+5. Take your code from the above question, adding another pipe (`%>%`) and `arrange()` to sort the output by `mean`.
+
+```{r q5}
+bike %>% 
+  group_by(type) %>% 
+  summarize(number_of_rows = n(),
             mean = mean(length)) %>% 
   arrange(mean)
 ```
 
+6. Zeros aren't a very meaningful value for year. Change any zeros in `bike$dateInstalled` to `NA`. For the curious,`ifelse()` in R works takes the same arguments as the "IF" function in Excel!
 
-4. How many different projects do the "bike" lanes fall into? 
-		Which `project` category has the longest average bike lane? 
+```{r q6}
+bike = bike %>% 
+  mutate(dateInstalled = ifelse(dateInstalled == 0, NA, dateInstalled))
 
-```{r q4}
-length(unique(bike$project))
+bike$dateInstalled[bike$dateInstalled == "0"] = NA
 
-bike %>% 
-  group_by(project) %>% 
-  summarise(n = n(),
-            mean = mean(length)) %>% 
-  arrange(desc(mean)) 
-
-bike %>% 
-  group_by(project, type) %>% 
-  summarise(n = n(),
-            mean = mean(length)) %>% 
-  arrange(desc(mean)) %>% 
-  ungroup() %>% 
-  slice(1) %>% 
-  magrittr::extract("project")
-
-arrange(summarize(group_by(bike, project, type), 
-          n = n(), mean = mean(length)),
-        desc(mean))
-
-avg = bike %>% 
-  group_by(type) %>% 
-  summarize(mn = mean(length, na.rm = TRUE)) %>% 
-  filter(mn == max(mn))
-```
-
-
-5. What was the average bike lane length per year that they were installed? 
- Set `bike$dateInstalled` to `NA` if it is equal to zero.
-
-```{r q5}
-bike = bike %>% mutate(
-  dateInstalled = ifelse(
-    dateInstalled == 0, 
-    NA,
-    dateInstalled)
-)
-mean(bike$length[ !is.na(bike$dateInstalled)])
-
+# How to find NAs?
 is.na(bike$dateInstalled)
 !is.na(bike$dateInstalled)
 ```
 
-```{r}
-b2 = bike %>% 
-  mutate(dateInstalled = ifelse(dateInstalled == "0", NA, 
-                                dateInstalled))
-b2 = bike %>% 
-  mutate(dateInstalled = if_else(dateInstalled == "0", 
-                                 NA_real_,
-                                 dateInstalled))
-bike$dateInstalled[bike$dateInstalled == "0"] = NA
+7. What was the average bike lane length grouped by `dateInstalled`? Remove `NA`s with `na.rm = TRUE`.
+
+```{r q7}
+bike %>%
+  group_by(dateInstalled) %>% 
+  summarise(mean_of_the_bike = mean(length, na.rm = F))
+
+# Can combine 6 & 7! 
+mean(bike$length[ !is.na(bike$dateInstalled)])
 
 bike %>% 
   mutate(length = ifelse(length == 0, NA, length)) %>% 
   group_by(dateInstalled) %>% 
-  summarise(n = n(),
+  summarise(n = n(), # Add this column if you want!
             mean_of_the_bike = mean(length, na.rm = TRUE),
-            n_missing = sum(is.na(length)))
+            n_missing = sum(is.na(length))) # Add this column if you want!
 
             
 ```
 
 # Part 2
 
-6.  (a) Numerically [hint: `quantile()`, using `bike$length`] and 
-		(b) graphically [hint: `qplot()` with `geom = "histogram"` or `geom = "density")`] describe the distribution of bike "lane" lengths.
-```{r q6}
+8.  Describe the distribution of bike "lane" lengths:
+    (a) Numerically [hint: `quantile()`, using `bike$length`] and 
+		(b) graphically [hint: `qplot()` with `geom = "histogram"` or `geom = "density")`].
+```{r q8}
 quantile(bike$length)
 
 qplot(x = length, data = bike, geom = "histogram")
@@ -159,7 +142,7 @@ hist(log2(bike$length),breaks=100)
 hist(log10(bike$length),breaks=100)
 ```
 
-7. Then describe as above, after stratifying by  i) type then ii) number of lanes
+9. Then describe as above, after stratifying by  i) type (`type`) then ii) number of lanes (`numLanes`) using `geom = "boxplot"`: 
 ```{r q7}
 qplot(y = length, x = type, data = bike, geom = "boxplot")
 qplot(y = length, x = factor(numLanes), data = bike, geom = "boxplot")
@@ -177,14 +160,7 @@ boxplot(log10(bike$length)~bike$type)
 
 bike %>% 
   group_by(type) %>% 
-  summarise(q0.7 = quantile(length, na.rm = TRUE, probs =0.7))
-
-
-
-
-
-
-
+  summarize(q0.7 = quantile(length, na.rm = TRUE, probs =0.7))
 
 ```
 
