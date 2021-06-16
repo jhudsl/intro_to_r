@@ -25,826 +25,348 @@ set.seed(3)
 ```
 
 
-## Read in the Data
+## Overview
 
-```{r plotEx,  fig.align='center',cache=FALSE}
-library(readr)
-mort = read_csv(
-  "https://jhudatascience.org/intro_to_r/data/mortality.csv")
-mort[1:2, 1:5]
+- Making plots with base R
+
+- Making plots with `ggplot2` package 
+
+  - Main concept: "linking" data with the plot elements
+  - First plot 
+  - Specifying plot layers: line, point, boxplot, ...
+  - Customizing plot look: title, axis labels, background colors, ...
+  - Combining multiple plots
+  - Saving a plot to file
+
+## Making plots with base R
+
+- Pros: the fastest way to make a plot 
+- Cons: limits for plot customization 
+
+```{r, echo = FALSE}
+set.seed(1)
+```
+
+```{r, fig.width=4, fig.height=3}
+var_1 <- seq(from = 1, to = 30)
+var_2 <- rnorm(30)
+
+plot(x = var_1, y = var_2)
+```
+
+## Making plots with base R
+
+You can change **plot type** (default are points) other elements by modifying other arguments.
+
+- Google, *"r base graphics change plot title*" 
+
+```{r, fig.width=4, fig.height=3}
+plot(x = var_1, y = var_2, 
+     type = "l", 
+     xlab = "My variable 1", ylab = "My variable 2", 
+     main = "Title of my plot")
+```
+
+## Making plots with base R
+
+Often, you want to plot the data straight from a data frame 
+
+```{r, fig.width=4, fig.height=3}
+# creating a data frame from the vectors we had 
+my_data = data.frame(var_1, var_2)
+my_data
+```
+
+## Making plots with base R
+
+Often, you want to plot the data straight from a data frame 
+
+```{r, fig.width=5, fig.height=4}
+# use $ to access column from a data set 
+plot(x = my_data$var_1, y = my_data$var_2)
 ```
 
 
-## Read in Data: `jhur`
+## Making plots with base R
 
-```{r fig.align='center',cache=FALSE}
-jhur::read_mortality()
+`plot()` is one of the functions from base R to produce a graphic. 
+
+We also have `hist()`, `boxplot()` and many others. They may vary in usage, e.g. in number of arguments we typically need to supply 
+
+```{r, fig.width=5, fig.height=4}
+# use $ to access column from a data set 
+boxplot(x = my_data$var_1)
 ```
-
-
-```{r}
-mort = mort %>% rename(country = X1)
-mort[1:2, 1:5]
-```
-
-# Data are not Tidy!
 
 ## ggplot2
 
-Let's try this out on the childhood mortality data used above. However, let's do some manipulation first, by using `pivor_longer` on the data to convert to long. 
+- A package for producing graphic 
 
-```{r}
-library(tidyverse)
-long = mort
-long = long %>% pivot_longer(!country, 
-                             names_to = "year", values_to = "morts")
-head(long, 2)
-```
+- Created by Hadley Wickham in 2005
 
-## ggplot2
+- Belongs to "Tidyverse" family of packages
 
-Let's also make the year numeric, as we did above in the stand-alone `year` variable. 
+- *"Make a ggplot"* = Make a plot with the use of ggplot2 package
 
-```{r}
-library(stringr)
-library(dplyr)
-long$year = long$year %>% str_replace("^X", "") %>% as.numeric
-long = long %>% filter(!is.na(morts))
-```
+- Pros: extremely powerful/flexible -- allows combining multiple plot elements together, allows high customization of a look, many resources online
 
-## Plot the long data
+- Cons: ggplot2-specific "grammar of graphic" of constructing a plot
 
-```{r plot_long_swede, fig.align='center'}
-swede_long = long %>% filter(country == "Sweden")
-qplot(x = year, y = morts, data = swede_long)
-```
+- [ggplot2 gallery](https://www.google.com/search?q=ggplot2+gallery&tbm=isch&ved=2ahUKEwir2NjN_ZzxAhUVA1kFHdraAZoQ2-cCegQIABAA&oq=ggplot2+gallery&gs_lcp=CgNpbWcQAzICCAAyBggAEAcQHjIECAAQGFCxiAFYsYgBYI2TAWgAcAB4AIABN4gBN5IBATGYAQCgAQGqAQtnd3Mtd2l6LWltZ8ABAQ&sclient=img&ei=iF3KYKv0JpWG5NoP2rWH0Ak&bih=859&biw=1474)
 
-## Plot the long data only up to 2012
+## Tidy data 
 
-```{r plot_long_swede_xlim, fig.align='center', warning=FALSE}
-qplot(x = year, y = morts, data = swede_long, xlim = c(1760,2012))
-```
+To make graphics using `ggplot2`, our data needs to be in a **tidy** format
 
-## ggplot2
+**Tidy data**:
 
-`ggplot2` is a package of plotting that is very popular and powerful (using the **g**rammar of **g**raphics). `qplot` ("quick plot"), similar to `plot`
+1. Each variable forms a column.
+2. Each observation forms a row.
 
+Messy data: 
 
-```{r}
+* Column headers are values, not variable names.
+* Multiple variables are stored in one column.
+* Variables are stored in both rows and columns.
+
+## Tidy data: example 
+
+Each variable forms a column. Each observation forms a row.
+
+![](img/tidy_data_ex1.png)
+
+## Messy data: example 
+
+Column headers are values, not variable names
+
+![](img/messy_data_ex1.png){width=80%}
+
+Read more about tidy data and see other examples: [Tidy Data](https://vita.had.co.nz/papers/tidy-data.pdf) tutorial by Hadley Wickham
+
+## First plot with `ggplot2` package 
+
+```{r, fig.width=4, fig.height=3}
+head(my_data, 3)   # to recall how "my_data" data frame looks like
 library(ggplot2)
-qplot(x = year, y = morts, data = swede_long)
+
+ggplot(my_data, aes(x = var_1, y = var_2)) + 
+  geom_point() 
 ```
 
 
-## ggplot2
+## First plot with `ggplot2` package: unpacking  
 
-The generic plotting function is `ggplot`, which uses **aes**thetics:
-
+```{r, fig.width=4, fig.height=3, eval = FALSE}
+ggplot(my_data, aes(x = var_1, y = var_2)) + 
+  geom_point() 
 ```
-ggplot(data, aes(args))
-```
+In the code first line, we use `ggplot()` function. It takes two arguments:
+  
+* **Data frame** (here: `my_data`)
+* **Aesthetic mapping** (here: `aes(x = var_1, y = var_2)`) that describes how variables in our data are mapped to elements of the plot 
 
-```{r generic_gg, comment="",  fig.align='center', cache=FALSE}
-g = ggplot(data = swede_long, aes(x = year, y = morts))
-```
+    Here, can read: *take variable named `var_1` from a data frame `my_data` and use it for `x` axis; take variable named `var_2` from a data frame `my_data` and use it for `y` axis*
 
-`g` is an object, which you can adapt into multiple plots!
+In the code second line, we have definition of a **layer** of a plot. There is only one layer here, `+ geom_point()`
 
+* Here, can read: *add points to the plot (use data as provided by the aesthetic mapping)*
+    
+## Specifying plot layers
 
-## ggplot2
+There are many to choose from, to list just a few:  
 
-Common aesthetics:
+- `geom_point()` -- points (we have seen)
+- `geom_line()` -- lines to connect observations 
+- `geom_boxplot()`
+- `geom_histogram()`
+- `geom_bar()`
+- `geom_errorbar()`
+- `geom_density()`
+- `geom_tile()` -- blocks filled with color
 
-- **x**
-- **y**
-- **colour/color**
-- **size**
-- **fill** 
-- **shape**
+## Specifying plot layers: examples
 
+```{r, fig.width=4, fig.height=3}
+plt1 <- 
+  ggplot(my_data, aes(x = var_1, y = var_2)) + 
+  geom_point()
 
-If you set these in `aes`, you set them to a variable.  If you want to set them for all values, set them in a `geom`.
+plt2 <- 
+  ggplot(my_data, aes(x = var_1, y = var_2)) + 
+  geom_line()
 
-
-## ggplot2
-
-You can do this most of the time using `qplot`, but `qplot` will assume a scatterplot if `x` and `y` are specified and histogram if `x` is specified:
-
-```{r gen_q, comment="",  fig.align="center", cache=FALSE}
-q = qplot(data = swede_long, x = year, y = morts)
-q
-```
-
-`g` is an object, which you can adapt into multiple plots!
-
-## ggplot2: what's a `geom`?
-
-`g` on it's own can't be plotted, we have to add `layers`, usually with `geom_` commands:
-
-- `geom_point` - add points
-- `geom_line` - add lines
-- `geom_density` - add a density plot
-- `geom_histogram` - add a histogram
-- `geom_smooth` - add a smoother
-- `geom_boxplot` - add a boxplots
-- `geom_bar` - bar charts
-- `geom_tile` - rectangles/heatmaps
-
-
-## ggplot2: adding a geom and assigning
-
-You "add" things to a plot with a `+` sign (not pipe!).  If you assign a plot to an object, you must call `print` to print it.  
-
-```{r gprint_point}
-gpoints = g + geom_point(); print(gpoints) # one line for slides
+plt1; plt2 # to have 2 plots printed next to each other on a slide
 ```
 
-## ggplot2: adding a geom 
+## Specifying plot layers: examples
 
-Otherwise it prints by default - this time it's a line
+```{r, fig.width=4, fig.height=3}
+plt3 <- 
+  ggplot(my_data, aes(y = var_2)) + 
+  geom_boxplot()
 
-```{r geom_line}
-g + geom_line()
+plt4 <- 
+  ggplot(my_data, aes(x = var_2)) + 
+  geom_histogram()
+
+plt3; plt4 # to have 2 plots printed next to each other on a slide
 ```
 
-## ggplot2: adding a geom
+## Specifying plot layers: combining multiple layers
 
-You can add multiple geoms:
-
-```{r geom_line_point}
-g + geom_line() + geom_point()
+```{r, fig.width=5, fig.height=3}
+ggplot(my_data, aes(x = var_1, y = var_2)) + 
+  geom_point() + 
+  geom_line()
 ```
 
-## ggplot2: adding a smoother
+## Customize the look of the plot
 
-Let's add a smoother through the points:
+You can change look of each layer separately. 
 
-```{r line_smooth}
-g + geom_line() + geom_smooth()
+```{r, fig.width=5, fig.height=3}
+ggplot(my_data, aes(x = var_1, y = var_2)) + 
+  geom_point(size = 5, color = "red", alpha = 0.5) + 
+  geom_line(size = 0.8, color = "brown", linetype = 2)
 ```
 
-## ggplot2: grouping - using colour
+## Customize the look of the plot
 
-If we want a plot with new data, call `ggplot` again.  Group plots by `country` using `colour` (piping in the data):
+You can change look of each layer separately. You can change the look of whole plot-specific elements, too. 
 
-```{r geom_all}
-sub = long %>% filter(country %in% c("United States", "United Kingdom", 
-    "Sweden", "Afghanistan", "Rwanda"))
-g = sub %>% ggplot(aes(x = year, y = morts, colour = country))
-g + geom_line()
+```{r, fig.width=5, fig.height=3}
+ggplot(my_data, aes(x = var_1, y = var_2)) + 
+  geom_point(size = 5, color = "red", alpha = 0.5) + 
+  geom_line(size = 0.8, color = "brown", linetype = 2) + 
+  labs(x = "My variable 1", y = "My variable 2",
+       title = "My plot title") + 
+  theme_bw(base_size = 12, base_family = "Times New Roman")
 ```
 
+## Lab 1
 
-## Coloring manually
+Lab document: http://jhudatascience.org//intro_to_r/Data_Visualization/lab/Data_Visualization_Lab.Rmd
 
-There are many `scale_AESTHETICS_*` functions and `scale_AESTHETICS_manual` allows to directly specify the colors:
+## Group and color by variable's values 
 
-```{r geom_color}
-g + geom_line() + scale_colour_manual(values = 
-    c("United States" = "blue", "United Kingdom" = "green", 
-      "Sweden" = "black", "Afghanistan" = "red", "Rwanda" = "orange"))
-```
+We generate some data frame for the purpose of demonstration 
 
-## ggplot2: grouping - using colour
-
-Let's remove the legend using the `guide` command:
-
-```{r geom_noguide}
-g + geom_line() + guides(colour = FALSE)
-```
-
-## Lab Part 1
-
-[Website](https://jhudatascience.org/intro_to_r/index.html)
-
-
-## ggplot2: boxplot
-
-```{r geom_box}
-ggplot(long, aes(x = year, y = morts)) + geom_boxplot()
-```
-
-## ggplot2: boxplot
-
-For different plotting per year - must make it a factor - but x-axis is wrong!
-```{r geom_box_fac}
-ggplot(long, aes(x = factor(year), y = morts)) + geom_boxplot()
-```
-
-## ggplot2: boxplot
-
-```{r geom_box_grouped}
-ggplot(long, aes(x = year, y = morts, group = year)) + geom_boxplot()
-```
-
-## ggplot2: boxplot with points
-
-- `geom_jitter` plots points "jittered" with noise so not overlapping
-
-```{r geom_box_jitter}
-sub_year = long %>% filter( year > 1995 & year <= 2000)
-ggplot(sub_year, aes(x = factor(year), y = morts)) + 
-  geom_boxplot(outlier.shape = NA) + # don't show outliers - will below
-  geom_jitter(height = 0)
-```
-
-## facets: plotting multiple panels
-
-A `facet` will make a plot over variables, keeping axes the same (out can change that):
+- 20 different items (e.g. products in a store)
+- 2 different categories (e.g. pasta, rice)
+- 100 time points of data collection for each item
+- price value for each item 
 
 ```{r}
-sub %>% ggplot(aes(x = year, y = morts)) + 
-  geom_line() + 
-  facet_wrap(~ country)
+# create 4 vectors: 2x character class and 2x numeric class
+item_categ <- as.vector(sapply(1:20, function(i) rep(sample(c("pasta", "rice"), 1), 100)))
+item_ID  <- rep(seq(from = 1, to = 20), each = 100)
+item_ID <- paste0("ID_", item_ID)
+observation_time  <- rep(seq(from = 1, to = 100), times = 20)
+item_price <- as.vector(replicate(20, cumsum(rnorm(100))))
+item_price <- item_price + abs(min(item_price)) + 1
+
+# use 4 vectors to create data frame with 4 columns
+df  <- data.frame(item_categ, item_ID, observation_time, item_price) 
 ```
 
-## facets: plotting multiple panels
-
+## Group and color by variable's values 
 
 ```{r}
-sub %>% ggplot(aes(x = year, y = morts)) + 
-  geom_line() + 
-  facet_wrap(~ country, ncol = 1)
+head(df)
+str(df)
 ```
 
-## facets: plotting multiple panels
+## Group and color by variable's values 
 
-You can use `facets` in `qplot`
+You can use `group` element in a mapping to indicate that each `item_ID` will have a separate price line (more generally: a separate layer element)
+
+```{r, fig.width=6, fig.height=4}
+ggplot(df, aes(x = observation_time, y = item_price, group = item_ID)) + 
+  geom_line(size = 0.3) 
+```
+
+## Group and color by variable's values 
+
+You can use `color` element in a mapping to indicate that each `item_categ` will have different color used. 
+
+Colors palette is selected by default (and can be modified). Legend position, legend title etc. have a default look (and can be modified).
+
+```{r, fig.width=6 , fig.height=4 * 0.8}
+ggplot(df, aes(x = observation_time, y = item_price, group = item_ID,
+               color = item_categ)) + 
+  geom_line(size = 0.3) 
+```
+
+## Group and color by variable's values
+
+We can experiment with different layer: use boxplot instead of lines. 
+
+Again: we `group` element in a mapping to indicate that each `item_ID` will have a separate price boxplot (more generally: a separate layer element)
+
+```{r, fig.width=6 , fig.height=4 * 0.8}
+ggplot(df, aes(x = item_ID, y = item_price, group = item_ID)) + 
+  geom_boxplot() + 
+  labs(x = "Item ID", y = "Item prices over a time window") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+```
+
+## Group and color by variable's values
+
+We use `fill` element in a mapping to indicate that each `item_categ` will have different color of boxplot filling used.
+
+```{r, fig.width=7, fig.height=4 * 0.8}
+ggplot(df, aes(x = item_ID, y = item_price, group = item_ID,
+               fill = item_categ)) + 
+  geom_boxplot() + 
+  labs(x = "Item ID", y = "Item prices", fill = "Item\ncategory") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+```
+
+## Split plot into panels by variable
+
+We define data subset to keep only 4 (out of 20) item IDs. We use `facet_grid(. ~ item_ID)` to split the plot into panels where each product ID has a separate panel
+
+```{r, fig.width=8, fig.height=2.7}
+df_subset <- df %>% 
+  filter(item_ID %in% c("ID_1", "ID_2", "ID_3", "ID_4"))
+
+ggplot(df_subset, aes(x = observation_time, y = item_price)) + 
+  geom_line() + 
+  facet_grid(. ~ item_ID) + 
+  labs(x = "Observation time", y = "Item prices")
+```
+
+## Split plot into panels by variable
+
+We define data subset to keep only 4 (out of 20) item IDs. We use `facet_grid(item_ID ~ .)` to split the plot into panels where each product ID has a separate panel
+
+```{r, fig.width=4, fig.height=3}
+ggplot(df_subset, aes(x = item_price)) + 
+  geom_histogram(fill = "yellow", color = "brown", alpha = 0.5) + 
+  facet_grid(item_ID ~ .) + 
+  labs(x = "Item prices", y = "Observations count")
+```
+
+## Saving a ggplot to file 
+
+A few options: 
+
+- RStudio > Plots > Export > Save as image / Save as PDF
+- RStudio > Plots > Zoom > [right mouse click on the plot] > Save image as
+- In the code
 
 ```{r}
-qplot(x = year, y = morts, geom = "line", facets = ~ country, data = sub)
+plot_FINAL <- 
+  ggplot(df_subset, aes(x = item_price)) + 
+  geom_histogram(fill = "yellow", color = "brown", alpha = 0.5) + 
+  facet_grid(item_ID ~ .) + 
+  labs(x = "Item prices", y = "Observations count")
+
+ggsave(filename = "very_important_plot.png",  # will save in working directory
+       plot = plot_FINAL, 
+       width = 6, height = 3.5)               # by default in inch
 ```
 
+## Lab 2
 
-## facets: plotting multiple panels
-
-You can also do multiple factors with `+` on the right hand side
-```{r, eval = FALSE}
-sub %>% ggplot(aes(x = year, y = morts)) + 
-  geom_line() + 
-  facet_wrap(~ country + x2 + ... )
-```
-
-
-## Lab Part 2
-
-[Website](https://jhudatascience.org/intro_to_r/index.html)
-
-
-## Devices
-
-By default, R displays plots in a separate panel. From there, you can export the plot to a variety of image file types, or copy it to the clipboard. 
-
-However, sometimes its very nice to save many plots made at one time to one pdf file, say, for flipping through. Or being more precise with the plot size in the saved file.
-
-R has 5 additional graphics devices: `bmp()`, `jpeg()`, `png()`, `tiff()`, and `pdf()`
-
-## Devices
-
-The syntax is very similar for all of them:
-
-```
-pdf("filename.pdf", width=8, height=8) # inches
-plot() # plot 1
-plot() # plot 2
-# etc
-dev.off()
-```
-
-Basically, you are creating a pdf file, and telling R to write any subsequent plots to that file. Once you are done, you turn the device off. Note that failing to turn the device off will create a pdf file that is corrupt, that you cannot open.
-
-
-## Saving the output:
-
-```{r labs_save, eval = TRUE}
-png("morts_over_time.png")
-print(q)
-dev.off()
-file.exists("morts_over_time.png")
-```
-
-```{r labs_del, echo = FALSE, results="hide"}
-file.remove("morts_over_time.png")
-```
-
-## Saving the output
-
-There's also a `ggsave` function that is useful for saving a single `ggplot` object. 
-
-## Labels and such
-
-- `xlab`/`ylab` - functions to change the labels; `ggtitle` - change the title 
-
-```{r labs, eval = TRUE}
-q = qplot(x = year, y = morts, colour = country, data = sub,
-          geom = "line") + 
-  xlab("Year of Collection") + ylab("morts /100,000") +
-  ggtitle("Mortality of Children over the years", subtitle = "not great") 
-q
-```
-
-## Themes
-
-- see `?theme_bw` - for ggthemes - black and white
-
-```{r theme_bw, eval = TRUE}
-q + theme_bw()
-```
-
-## Themes: change plot parameters
-
-- `theme` - global or specific elements/increase text size 
-
-```{r theme, eval = TRUE}
-q + theme(text = element_text(size = 12), title = element_text(size = 20))
-```
-
-
-## Themes
-
-```{r theme2, eval = TRUE}
-q = q + theme(axis.text = element_text(size = 14),
-          title = element_text(size = 20),
-          axis.title = element_text(size = 16),
-          legend.position = c(0.9, 0.8)) + 
-  guides(colour = guide_legend(title = "Country"))
-q
-```
-
-## Code for a transparent legend
-```{r translegend}
-transparent_legend =  theme(legend.background = element_rect(
-    fill = "transparent"),
-  legend.key = element_rect(fill = "transparent", 
-                            color = "transparent") )
-q + transparent_legend
-```
-
-
-## Lab Part 3
-
-[Website](https://jhudatascience.org/intro_to_r/index.html)
-
-
-<!-- ## Histograms again -->
-
-<!-- We can do histograms again using `hist`.  Let's do histograms of mort rates over the years: -->
-
-<!-- ```{r hist_mort, comment="", fig.align='center', cache=FALSE} -->
-<!-- hist(sub$morts, breaks = 200) -->
-<!-- ``` -->
-
-## Histograms again: Changing bins
- 
-```{r qhist_mort, comment="", fig.align='center', cache=FALSE}
-qplot(x = morts, data = sub, bins = 200)
-```
-
-## Multiple Histograms
-
-```{r ghist, comment="", fig.align='center', cache = FALSE}
-qplot(x = morts, fill = factor(country),
-      data = sub, geom = c("histogram"))
-```
-
-## Multiple Histograms
-
-Alpha refers to the opacity of the color, less is more opaque
-```{r ghist_alpha, comment="", fig.align='center', cache = FALSE}
-qplot(x = morts, fill = country, data = sub, 
-      geom = c("histogram"), alpha=.7)
-```
-
-## Multiple Densities
-
-We cold also do densities:
-```{r gdens, comment="", fig.align='center', cache = FALSE}
-qplot(x= morts, fill = country, data = sub, 
-      geom = c("density"), alpha= .7)  + guides(alpha = FALSE)
-```
-
-
-## Multiple Densities
-
-- using `colour` not `fill`:
-
-```{r gdens_alpha, comment="", fig.align='center', cache = FALSE}
-qplot(x = morts, colour = country, data = sub, 
-      geom = c("density"), alpha= .7) + guides(alpha = FALSE)
-```
-
-
-
-## Multiple Densities
-
-You can take off the lines of the bottom like this
-```{r gdens_line_alpha_mort, comment="", fig.align='center', cache = FALSE}
-ggplot(aes(x = morts, colour = country), data = sub) + 
-  geom_line(stat = "density")
-```
-
-## ggplot2
-
-```{r geom_line_qplot_nocol, comment="", fig.align='center', cache=FALSE}
-qplot(x = year, y = morts, colour = country, 
-    data = long, geom = "line") + guides(colour = FALSE)
-```
-
-## ggplot2
-
-Let's try to make it different like base R, a bit.  We use `tile` for the geom:
-
-```{r geom_tile_qtile}
-qtile = qplot(x = year, y = country, fill = morts, data = sub, 
-              geom = "tile") + xlim(1990, 2005) + guides(colour = FALSE)
-```
-```{r geom_tile_qtile_show, echo = FALSE}
-print(qtile)
-```
-
-## ggplot2: changing colors
-
-`scale_fill_gradient` let's us change the colors for the fill:
-
-```{r geom_tile_rescale}
-qtile + scale_fill_gradient( low = "blue", high = "red")
-```
-
-## ggplot2
-
-Let's try categories.
-
-```{r geom_tile_cut}
-sub$cat = cut(sub$morts, breaks = c(0, 1, 2, max(sub$morts)))
-q2 = qplot(x = year, y = country, fill = cat, data = sub, geom = "tile") + 
-  guides(colour = FALSE)
-```
-```{r geom_tile_qtile2_show, echo = FALSE}
-print(q2)
-```
-
-
-## Colors
-
-It's actually pretty hard to make a good color palette. Luckily, smart and artistic people have spent a lot more time thinking about this. The result is the `RColorBrewer` package
-
-`RColorBrewer::display.brewer.all()` will show you all of the palettes available. You can even print it out and keep it next to your monitor for reference.
-
-The help file for `brewer.pal()` gives you an idea how to use the package.
-
-You can also get a "sneak peek" of these palettes at: http://colorbrewer2.org/ . You would provide the number of levels or classes of your data, and then the type of data: sequential, diverging, or qualitative. The names of the `RColorBrewer` palettes are the string after 'pick a color scheme:' 
-
-
-## ggplot2: changing colors
-
-`scale_fill_brewer` will allow us to use these palettes conveniently
-
-```{r geom_tile_rescale_brewer}
-q2 + scale_fill_brewer( type = "div", palette =  "RdBu" )
-```
-
-
-## Bar Plots with a table
-
-```{r barplot2, fig.align='center', cache = FALSE, warn = FALSE}
-cars = read_csv(
-  "https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv", 
-  col_types = cols(VehBCost = col_double()))
-counts <- table(cars$IsBadBuy, cars$VehicleAge)
-```
-
-## Bar Plots
-* Stacked Bar Charts are sometimes wanted to show distributions of data
-
-```{r barplot2_2, fig.align='center', cache = FALSE, warn = FALSE}
-barplot(counts, main="Car Distribution by Age and Bad Buy Status", xlab="Vehicle Age", col=c("darkblue","red"), legend = rownames(counts))
-```
-
-
-## Bar Plots
-`prop.table` allows you to convert a table to proportions (depends on margin - either row percent or column percent)
-
-```{r barplot2a, fig.align='center', cache = FALSE}
-## Use percentages (column percentages)
-barplot(prop.table(counts, 2), 
-        main = "Car Distribution by Age and Bad Buy Status",
-  xlab="Vehicle Age", col=c("darkblue","red"),
-    legend = rownames(counts))
-```
-
-
-
-## Bar Plots
-
-```{r barplot2_stacked_geom, fig.align='center', cache = FALSE}
-ggplot(aes(fill = factor(IsBadBuy), x = VehicleAge), 
-       data = cars) + geom_bar()
-```
-
-## Normalized Stacked Bar charts
-
-- we must calculate percentages on our own
-
-```{r make_perc_data, fig.align='center', cache = FALSE}
-perc = cars %>% 
-  group_by(IsBadBuy, VehicleAge) %>% 
-  tally() %>% ungroup
-head(perc)
-```
-
-## Each Age adds to 1
-
-```{r norm_bar_1}
-perc_is_bad = perc %>% 
-  group_by(VehicleAge) %>% mutate(perc = n / sum(n))
-ggplot(aes(fill = factor(IsBadBuy), 
-           x = VehicleAge, 
-           y = perc), 
-       data = perc_is_bad) + geom_bar(stat = "identity")
-```
-
-## Each Bar adds to 1 for bad buy or not
-
-```{r norm_bad_buy}
-perc_yr = perc %>% 
-  group_by(IsBadBuy) %>% mutate(perc = n / sum(n))
-ggplot(aes(fill = factor(VehicleAge), 
-           x = IsBadBuy, 
-           y = perc), 
-       data = perc_yr) + geom_bar(stat = "identity")
-```
-
-
-## ggplot2 
-
-Useful links:
-
-* http://docs.ggplot2.org/0.9.3/index.html
-* http://www.cookbook-r.com/Graphs/
-
-
-## Website
-
-[Website](https://jhudatascience.org/intro_to_r/index.html)
-
-
-# ggplot examples on a second dataset
-
-## Multiple Histograms
-
-```{r ghist_chick, comment="", fig.align='center', cache = FALSE}
-qplot(x = weight, 
-      fill = factor(Diet),
-      data = ChickWeight, 
-      geom = c("histogram"))
-```
-
-## Multiple Histograms
-
-Alpha refers tot he opacity of the color, less is 
-```{r ghist_chick_alpha, comment="", fig.align='center', cache = FALSE}
-qplot(x = weight, fill = Diet, data = ChickWeight, 
-      geom = c("histogram"), alpha=.7)
-```
-
-## Multiple Densities
-
-We cold also do densities
-```{r gdens_chick, comment="", fig.align='center', cache = FALSE}
-qplot(x= weight, fill = Diet, data = ChickWeight, 
-      geom = c("density"), alpha= .7)
-```
-
-
-## Multiple Densities
-
-```{r gdens_chick_alpha, comment="", fig.align='center', cache = FALSE}
-qplot(x= weight, colour = Diet, data = ChickWeight, 
-      geom = c("density"), alpha=.7)
-```
-
-
-## Multiple Densities
-
-```{r gdens_alpha_gg, comment="", fig.align='center', cache = FALSE}
-ggplot(aes(x= weight, colour = Diet), 
-  data = ChickWeight) + geom_density(alpha=.7)
-```
-
-## Multiple Densities
-
-You can take off the lines of the bottom like this
-```{r gdens_line_alpha, comment="", fig.align='center', cache = FALSE}
-ggplot(aes(x = weight, colour = Diet), data = ChickWeight) + 
-  geom_line(stat = "density")
-```
-
-## Spaghetti plot
- 
-We can make a spaghetti plot by telling ggplot we want a "line", and each line is colored by Chick.
-
-```{r spaghetti, comment="", fig.align='center', cache=FALSE}
-qplot(x=Time, y=weight, colour = factor(Chick), 
-      data = ChickWeight, geom = "line")
-```
-
-
-
-## Spaghetti plot: Facets
-
-In ggplot2, if you want separate plots for something, these are referred to as facets.
-
-```{r fac_spag, comment="", fig.align='center', cache=FALSE}
-qplot(x = Time, y = weight, colour = factor(Chick), 
-      facets = ~Diet, data = ChickWeight, geom = "line")
-```
-
-
-## Spaghetti plot: Facets
-
-We can turn off the legend (referred to a "guide" in ggplot2). (Note - there is different syntax with the `+`)
-```{r fac_spag_noleg, comment="", fig.align='center', cache=FALSE}
-qplot(x=Time, y=weight, colour = factor(Chick), 
-      facets = ~ Diet,  data = ChickWeight, 
-        geom = "line") + guides(colour=FALSE)
-```
-
-## Spaghetti plot: Facets
-
-```{r fac_spag2, comment="", fig.align='center', cache=FALSE}
-ggplot(aes(x = Time, y = weight, colour = factor(Chick)), 
-    data = ChickWeight) + geom_line() + 
-    facet_wrap(facets = ~Diet) + guides(colour = FALSE)
-```
-
-
-# Base Graphics - explore on your own
-
-
-
-## Basic Plots
-
-```{r plot1, comment="",  fig.align='center',cache = FALSE}
-library(dplyr)
-sweden = mort %>% 
-  filter(country == "Sweden") %>% 
-  select(-country)
-year = as.numeric(colnames(sweden))
-plot(as.numeric(sweden) ~ year)
-```
-
-
-
-## Base Graphics parameters
-
-Set within most plots in the base 'graphics' package:
-
-* pch = point shape, http://voteview.com/symbols_pch.htm
-* cex = size/scale
-* xlab, ylab = labels for x and y axes
-* main = plot title
-* lwd = line density
-* col = color
-* cex.axis, cex.lab, cex.main = scaling/sizing for axes marks, axes labels, and title
-
-
-## Basic Plots
-
-The y-axis label isn't informative, and we can change the label of the y-axis using `ylab` (`xlab` for x), and `main` for the main title/label.
-
-```{r plotEx2, comment="",  fig.align='center',cache = FALSE}
-plot(as.numeric(sweden) ~ year,
-      ylab = "# of morts per family", main = "Sweden", type = "l")
-```
-
-
-## Basic Plots
-
-Let's drop any of the projections and keep it to year 2012, and change the points to blue. 
-```{r plotEx3, fig.align='center', cache = FALSE}
-plot(as.numeric(sweden) ~ year,
-      ylab = "# of morts per family", main = "Sweden",
-     xlim = c(1760,2012), pch = 19, cex=1.2,col="blue")
-```
-
-
-## Basic Plots
-You can also use the `subset` argument in the `plot()` function, only when using formula notation:
-
-```{r plotEx_sub, fig.align='center', cache = FALSE}
-plot(as.numeric(sweden) ~ year,
-      ylab = "# of morts per family", main = "Sweden",
-     subset = year < 2015, pch = 19, cex=1.2,col="blue")
-```
-
-## Bar Plots
-
-Using the `beside` argument in `barplot`, you can get side-by-side barplots.
-```{r barplot3, fig.align='center', cache = FALSE}
-# Stacked Bar Plot with Colors and Legend    
-barplot(counts, main="Car Distribution by Age and Bad Buy Status",
-  xlab="Vehicle Age", col=c("darkblue","red"),
-    legend = rownames(counts), beside=TRUE)
-```
-
-
-## Boxplots, revisited
-
-These are one of my favorite plots. They are way more informative than the barchart + antenna...
-
-```{r boxplots, comment="", fig.align='center', cache=FALSE}
-boxplot(weight ~ Diet, data=ChickWeight, outline=FALSE)
-points(ChickWeight$weight ~ jitter(as.numeric(ChickWeight$Diet),0.5))
-```
-
-## Formulas
-
-Formulas have the format of `y ~ x` and functions taking formulas have a `data` argument where you pass the data.frame.  You don't need to use `$` or referencing when using formulas:
-
-```{r box_ex, eval=FALSE}
-boxplot(weight ~ Diet, data=ChickWeight, outline=FALSE)
-```
-
-
-## Colors
-
-R relies on color 'palettes'.
-
-```{r pal, fig.align='center', cache = FALSE}
-palette("default")
-plot(1:8, 1:8, type="n")
-text(1:8, 1:8, lab = palette(), col = 1:8)
-```
-
-
-## Colors
-
-The default color palette is pretty bad, so you can try to make your own. 
-
-```{r pal2, fig.align='center', cache = FALSE}
-palette(c("darkred","orange","blue"))
-plot(1:3,1:3,col=1:3,pch =19,cex=2)
-```
-
-
-
-
-## Colors
-
-```{r pal5, fig.align='center', cache=FALSE}
-library(RColorBrewer)
-palette(brewer.pal(5,"Dark2"))
-plot(weight ~ jitter(Time,amount=0.2),data=ChickWeight,
-     pch = 19,  col = Diet,xlab="Time")
-```
-
-
-
-## Adding legends
-
-The legend() command adds a legend to your plot. There are tons of arguments to pass it. 
-
-x, y=NULL: this just means you can give (x,y) coordinates, or more commonly just give x, as a character string: "top","bottom","topleft","bottomleft","topright","bottomright".
-
-legend: unique character vector, the levels of a factor
-
-pch, lwd: if you want points in the legend, give a pch value. if you want lines, give a lwd value. 
-
-col: give the color for each legend level
-
-
-## Adding legends
-
-
-```{r leg1, fig.align='center', cache=FALSE}
-palette(brewer.pal(5,"Dark2"))
-plot(weight ~ jitter(Time,amount=0.2),data=ChickWeight,
-                pch = 19,  col = Diet,xlab="Time")
-legend("topleft", paste("Diet",levels(ChickWeight$Diet)), 
-        col = 1:length(levels(ChickWeight$Diet)),
-       lwd = 3, ncol = 2)
-```
-
-
-## Coloring by variable
-
-```{r circ, comment="", fig.align='center', cache=FALSE}
-circ = read_csv("https://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
-palette(brewer.pal(7,"Dark2"))
-dd = factor(circ$day)
-plot(orangeAverage ~ greenAverage, data=circ, 
-     pch=19, col = as.numeric(dd))
-legend("bottomright", levels(dd), col=1:length(dd), pch = 19)
-```
-
-## Coloring by variable
-
-```{r circ2, comment="", fig.align='center', cache=FALSE}
-dd = factor(circ$day, levels=c("Monday","Tuesday","Wednesday",
-            "Thursday","Friday","Saturday","Sunday"))
-plot(orangeAverage ~ greenAverage, data=circ,
-     pch=19, col = as.numeric(dd))
-legend("bottomright", levels(dd), col=1:length(dd), pch = 19)
-```
-
-
+Lab document: http://jhudatascience.org//intro_to_r/Data_Visualization/lab/Data_Visualization_Lab.Rmd
