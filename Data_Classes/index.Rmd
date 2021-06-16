@@ -16,7 +16,7 @@ library(forcats)
 
 ## Data Types:
 
-* One dimensional types ('vectors'):
+* One dimensional types ("vectors"):
     * Character: strings or individual characters, quoted
     * Numeric: any real number(s)
     * Integer: any integer(s)/whole numbers
@@ -45,17 +45,6 @@ x
 class(x)
 ```
 
-## Integer
-
-The colon `:` is a shortcut for making sequences of numbers
-
-It makes consecutive integer sequence from `[num1]` to `[num2]` by 1
-
-
-```{r seqShort}
-1:5
-```
-
 ## Logical
 
 `logical` is a type that only has two possible elements: `TRUE` and `FALSE`
@@ -63,23 +52,12 @@ It makes consecutive integer sequence from `[num1]` to `[num2]` by 1
 ```{r logical1}
 x = c(TRUE, FALSE, TRUE, TRUE, FALSE)
 class(x)
-is.numeric(c("Andrew", "Jaffe"))
-is.character(c("Andrew", "Jaffe"))
 ```
-
-## Logical
 
 Note that `logical` elements are NOT in quotes. 
 ```{r logical2}
 z = c("TRUE", "FALSE", "TRUE", "FALSE")
 class(z)
-as.logical(z)
-```
-
-Bonus: `sum()` and `mean()` work on `logical` vectors - they return the total and proportion of `TRUE` elements, respectively.
-
-```{r logical_z}
-sum(as.logical(z))
 ```
 
 ## General Class Information
@@ -93,220 +71,216 @@ is.character(c("Andrew", "Jaffe"))
 
 ## General Class Information
 
-There are two useful functions associated with practically all R classes, which relate to logically checking the underlying class (`is.CLASS_()`) and coercing between classes (`as.CLASS_()`).
+There are two useful functions associated with practically all R classes: 
+
+- `is.CLASS_NAME(x)` to check whether or not `x` is of certain  class 
+- `as.CLASS_NAME(x)` to coerce `x` from current `x` class into a certain class 
 
 ```{r logical_coercion2}
-as.character(c(1, 4, 7))
-as.numeric(c("Andrew", "Jaffe"))
+is.character(c(1, 4, 7))
+is.numeric(c(1, 4, 7))
 ```
+
+## General Class Information: coercing
+
+In some cases the coercing is seamless 
+
+```{r logical_coercion3s}
+as.character(c(1, 4, 7))
+as.numeric(c("1", "4", "7"))
+as.logical(c("TRUE", "FALSE", "FALSE"))
+```
+
+## General Class Information: coercing
+
+In some cases the coercing is not possible; if executed, will return `NA` (an R constant representing "**N**ot **A**vailable" i.e. missing value)
+
+```{r logical_coercions4}
+as.numeric(c("1", "4", "7a"))
+as.logical(c("TRUE", "FALSE", "UNKNOWN"))
+as.Date(c("2021-06-15", "2021-06-32"))
+```
+
 
 ## Factors
 
 A `factor` is a special `character` vector where the elements have pre-defined groups or 'levels'. You can think of these as qualitative or categorical variables:
 
 ```{r factor1}
-x = factor(c("boy", "girl", "girl", "boy", "girl"))
-x 
+x <- c("red", "red", "blue", "yellow", "blue")
 class(x)
+
+x_fact = factor(x)  # factor() is a function
+class(x_fact)
+x_fact
 ```
 
 Note that levels are, by default, in alphanumerical order.
 
 ## Factors
 
-Factors are used to represent categorical data, and can also be used for ordinal data (ie categories have an intrinsic ordering)
+You can learn what are the unique levels of a `factor` vector
 
-Note that R reads in character strings as factors by default in functions like `read.csv()` (but not `read_csv`)
-
-'The function factor is used to encode a vector as a factor (the terms 'category' and 'enumerated type' are also used for factors). If argument ordered is TRUE, the factor levels are assumed to be ordered.'
-
-```
-factor(x = character(), levels, labels = levels,
-       exclude = NA, ordered = is.ordered(x))
+```{r factor1b}
+levels(x_fact)
 ```
 
-## Necessary for the lab: `%in%`
+To change the levels ordering, use `relevel()` function. 
 
-```{r}
-x = c(0, 2, 2, 3, 4)
-(x == 0 | x == 2) 
-```
-
-Introduce the `%in%` operator:
-```{r}
-x %in% c(0, 2) # NEVER has NA and returns logical
-```
-
-reads "return `TRUE` if `x` is in 0 or 2". (Like `inlist` in Stata).
-
-
-## Lab Part 1
-
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
-
-
-## Factors
-
-Suppose we have a vector of case-control status
-
-```{r factor2}
-cc = factor(c("case","case","case",
-        "control","control","control"))
-cc
-```
-
-We can reset the levels using the `levels` function, but this is **bad** and can cause problems.  You should do this using the `levels` argument in the `factor()`
-```{r}
-levels(cc) = c("control","case")
-cc
-```
-
-## Factors
-
-Note that the levels are alphabetically ordered by default. We can also specify the levels within the factor call
-
-```{r factor_cc_again}
-casecontrol = c("case","case","case","control",
-          "control","control")
-factor(casecontrol, levels = c("control","case") )
-factor(casecontrol, levels = c("control","case"), 
-       ordered=TRUE)
-```
-
-## Factors
-
-Another way to do this once you already have the factor made is with the `relevel()` function. 
-
-```{r factorCheck}
-cc = factor(c("case","case","case",
-        "control","control","control"))
-relevel(cc, "control")
-```
-
-## Factors
-
-One of the core "tidyverse" packages is `forcats` which offers useful functionality for interacting with factors. For example, there is a function for releveling factors here:
-
-```{r}
-fct_relevel(cc, "control")
-```
-
-## Factors 
-
-There are other useful functions for dictating the levels of factors, like in the order they appears in the vector, by frequency, or into collapsed groups.
-
-```{r}
-levels(fct_inorder(chickwts$feed))
-levels(fct_infreq(chickwts$feed))
-levels(fct_lump(chickwts$feed, n=1))
-```
 
 ## Factors
 
 Factors can be converted to `numeric` or `character` very easily
 
 ```{r factor3}
-x = factor(casecontrol,
-        levels = c("control","case") )
-as.character(x)
-as.numeric(x)
+x_fact
+
+as.character(x_fact)
+as.numeric(x_fact)
 ```
 
+## Factors
 
-## Creating categorical variables
+Note that R: 
 
-The `rep()` ["repeat"] function is useful for creating new variables 
+- reads in character strings as `factor` class by default for some functions like `read.csv()` from base R
 
-```{r rep1}
-bg = rep(c("boy","girl"),each=50)
-head(bg)
-bg2 = rep(c("boy","girl"),times=50)
-head(bg2)
-length(bg) == length(bg2)
+- reads in character strings as `character` class by default for other functions like `read_csv()` from `readr` package
+
+## Useful functions to create vectors 
+
+For character: `rep()`
+
+```{r}
+rep(c("black", "white"), each = 3)
+rep(c("black", "white"), times = 3)
 ```
 
+## Useful functions to create vectors 
 
-## Lab Part 2
+For numeric: `seq()`
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+```{r}
+seq(from = 0, to = 1, by = 0.2)
+seq(from = -5, to = 5, length.out = 10)
+```
 
+## Lab Part 1
+
+Lab document: http://jhudatascience.org//intro_to_r/Data_Classes/lab/Data_Classes_Lab.Rmd
 
 ## Dates
 
-You can convert date-like strings in the `Date` class (http://www.statmethods.net/input/dates.html for more info) using 
-the `lubridate` package!
+There are two most popular R classes used when working with dates and times: 
+
+- `Date` class representing a calendar date
+- `POSIXct` class representing a calendar date with hours, minutes, seconds
+
+We convert data from character to `Date`/`POSIXct` to use functions to manipilate date/date and time
+
+`lubridate` is a powerful, widely used R package from "tidyverse" family to work with `Date` / `POSIXct` class objects 
+
+
+## Creating `Date` class object  
 
 ```{r, message = FALSE}
-circ = jhur::read_circulator()
-head(sort(circ$date))
-library(lubridate) # great for dates!
-circ = mutate(circ, newDate2 = mdy(date))
-head(circ$newDate2)
-range(circ$newDate2) # gives you the range of the data
+class("2021-06-15")
+
+as.Date("2021-06-15")         # base R 
+class(as.Date("2021-06-15"))  # base R 
 ```
 
-## Works great - but need to specy the correct format still
-
-See `?ymd` and `?ymd_hms`
+## Creating `Date` class object  
 
 ```{r, message = FALSE}
-x = c("2014-02-4 05:02:00", "2016/09/24 14:02:00")
-ymd_hms(x)
+class("2021-06-15")
+
+library(lubridate)
+
+ymd("2021-06-15")             # lubridate package         
+class(ymd("2021-06-15"))      # lubridate package    
 ```
+
+Note for  function `ymd`: **y**year **m**onth **d**ay  
+
+## Creating `Date` class object 
+
+```{r, error = TRUE}
+mdy("06/15/2021")  
+
+mdy("06/15/21")  
+```
+
+Note for  function `mdy`: **m**onth **d**ay  **y**year
+
+
+## Creating `POSIXct` class object  
 
 ```{r}
-ymd_hm(x)
+class("2013-01-24 19:39:07")
+ymd_hms("2013-01-24 19:39:07")             # lubridate package 
+class(ymd_hms("2013-01-24 19:39:07"))      # lubridate package 
 ```
 
-## POSIXct
+UTC represents time zone, by default: Coordinated Universal Time
 
-The `POSIXct` class is like a more general date format (with hours, minutes, seconds).
+Note for  function `ymd_hms`: **y**year **m**onth **d**ay **h**our **m**inute **s**econd. 
 
+There are functions in case your data have only date, hour and minute (`ymd_hm()`) or only  date and hour (`ymd_h()`). 
 
-```{r, message = FALSE}
-x = c("2014-02-4 05:02:00", "2016/09/24 14:02:00")
-dates = ymd_hms(x)
-class(dates)
-```
-
-
-## Adding Periods of time
-
-The `as.Period` command is helpful for adding time to a date:
+## Some useful functions from `lubridate` to manipulate `Date` objects
 
 ```{r}
-theTime = Sys.time()
-theTime
-class(theTime)
-theTime + as.period(20, unit = "minutes") # the future
+x <- ymd(c("2021-06-15", "2021-07-15"))
+x
+day(x)   # see also: month(x) , year(x)
+x + days(10)
+x + months(1) + days(10)
+wday(x, label = TRUE)
 ```
 
-## Differences in Times 
-
-You can subtract times as well, the `difftime` function is helpful as you can set the units (note it does `time1 - time2`):
+## Some useful functions from `lubridate` to manipulate `POSIXct` objects
 
 ```{r}
-the_future = ymd_hms("2020-12-31 11:59:59")
-the_future - theTime
-difftime(the_future, theTime, units = "weeks")
+x <- ymd_hms("2013-01-24 19:39:07")
+x
+date(x)
+x + hours(3)
+floor_date(x, "1 hour")  # see also: ceiling_date()
 ```
-## Lab Part 3
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+## Differences in dates 
 
+```{r}
+x1 <- ymd(c("2021-06-15"))
+x2 <- ymd(c("2021-07-15"))
 
-## Website
+difftime(x2, x1, units = "weeks")
+as.numeric(difftime(x2, x1, units = "weeks"))
+```
 
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+Similar can be done with time (e.g. difference in hours). 
 
+## Lab Part 2
 
-## Data Classes:
+Lab document: http://jhudatascience.org//intro_to_r/Data_Classes/lab/Data_Classes_Lab.Rmd
 
-* Two dimensional classes:
-    * `data.frame`: traditional 'Excel' spreadsheets
-        * Each column can have a different class, from above
-    * Matrix: two-dimensional data, composed of rows and columns. Unlike data frames, the entire matrix is composed of one R class, e.g. all numeric or all characters.
+## Two-dimensional data classes
+
+Two-dimensional classes are those we would often use to store data read from a file 
+
+* a data frame (`data.frame` or `tibble` class)
+
+    * "traditional", Excel-like spreadsheets
+    * different columns (variables) can be of different classes
+    * for example one variable is calendar date -- `Date` class, another variable is age -- `numeric` class
     
+* a matrix (`matrix` class)
+
+    * also composed of rows and columns
+    * unlike data frame, the entire matrix is composed of one R class
+    * for example: all entries are `numeric`, or all entries are `character`
+
 ## Matrices
 
 ```{r matrix}
@@ -316,124 +290,51 @@ mat = matrix(n, nrow = 3)
 mat
 ```
 
-## Data Selection
+## Matrices: data selection
 
-Matrices have two "slots" you can use to select data, which represent rows and columns, that are separated by a comma, so the syntax is `matrix[row,column]`. Note you cannot use `dplyr` functions on matrices.
+Note you cannot use `dplyr` functions (like `select`) on matrices. To subset matrix rows and/or columns, use `matrix[row_index, column_index]`.
 
 ```{r subset3}
 mat[1, 1] # individual entry: row 1, column 1
-mat[1, ] # first row
-mat[, 1] # first columns
+mat[1, ]  # first row
+mat[, 1]  # first column
+
+mat[c(1,2), c(2,3)]   # subset of original matrix: two rows and two columns
 ```
-
-## Data Selection
-
-Note that the class of the returned object is no longer a matrix
-
-```{r subset4}
-class(mat[1, ])
-class(mat[, 1])
-```
-
-## Data Frames
-
-To review, the `data.frame`/`tbl_df` are the other two dimensional variable classes. 
-
-Again, data frames are like matrices, but each column is a vector that can have its own class. So some columns might be `character` and others might be `numeric`, while others maybe a `factor`.
 
 ## Lists
 
-* One other data type that is the most generic are `lists`.
-* Can be created using list()
-* Can hold vectors, strings, matrices, models, list of other list, lists upon lists!
-* Can reference data using $ (if the elements are named), or using [], or [[]]
+* One other data type that is the most generic are `lists
+* Can be created using `list()`
+* Can hold vectors, strings, matrices, models, list of other list!
 
-```{r makeList, comment="", prompt=TRUE}
-mylist <- list(letters=c("A", "b", "c"), 
-        numbers=1:3, matrix(1:25, ncol=5))
+```{r makeList}
+mylist <- list(c("A", "b", "c"), c(1,2,3), matrix(1:4, ncol = 2))
+mylist
+class(mylist)
 ```
 
-## List Structure
-```{r Lists, comment="", prompt=TRUE}
-head(mylist)
+## Lists
+
+List elements can be named
+
+```{r makeListv}
+mylist_named <- list(letters = c("A", "b", "c"), 
+                     numbers = c(1,2,3), 
+                     one_matrix = matrix(1:4, ncol = 2))
+mylist_named
 ```
 
-## List referencing
-```{r Listsref1, comment="", prompt=TRUE}
-mylist[1] # returns a list
-mylist["letters"] # returns a list
+## Lists: data selection
+
+You can reference data from list using `$` (if elements are named) or using `[[ ]]`
+
+```{r}
+mylist_named[[1]]
+mylist_named[["letters"]]     # works only for a list with elements' names 
+mylist_named$letters          # works only for a list with elements' names 
 ```
 
-## List referencing
-  
-```{r Listsrefvec, comment="", prompt=TRUE}  
-mylist[[1]] # returns the vector 'letters'
-mylist$letters # returns vector
-mylist[["letters"]] # returns the vector 'letters'
-```
+## Lab Part 3
 
-## List referencing
-
-You can also select multiple lists with the single brackets. 
-
-```{r Listsref2, comment="", prompt=TRUE}
-mylist[1:2] # returns a list
-```
-
-## List referencing
-
-You can also select down several levels of a list at once
-
-```{r Listsref3, comment="", prompt=TRUE}
-mylist$letters[1]
-mylist[[2]][1]
-mylist[[3]][1:2,1:2]
-```
-
-
-
-## Quick Aside: "slicing" data: like _n and _N in Stata
-
-In `dplyr`, there are `first`, `last` and `nth` operators.  
-
-If you first sort a data set using `arrange`, you can grab the first or last as so:
-
-```{r, message=FALSE}
-circ %>% 
-  mutate(first_date = first(newDate2),
-         last_date = last(newDate2),
-         third_date = nth(newDate2, 3)) %>% 
-  select(day, date, first_date, last_date, third_date) %>% head(3)
-```
-
-## Quick Aside: "slicing" data
-
-Many times, you need to group first
-
-```{r, message=FALSE}
-circ %>% 
-  group_by(day) %>% 
-  mutate(first_date = first(newDate2),
-         last_date = last(newDate2),
-         third_date = nth(newDate2, 3)) %>% 
-  select(day, date, first_date, last_date, third_date) %>% head(3)
-```
-
-
-## Differences in Times 
-
-```{r, message=FALSE}
-circ = circ %>% 
-  group_by(day) %>% 
-  mutate(first_date = first(newDate2),
-         diff_from_first = difftime( # time1 - time2
-           time1 = newDate2, time2 = first_date)) 
-head(circ$diff_from_first, 10)
-units(circ$diff_from_first) = "days"
-head(circ$diff_from_first, 10)
-```
-
-
-## Website
-
-[Website](http://johnmuschelli.com/intro_to_r/index.html)
+Lab document: http://jhudatascience.org//intro_to_r/Data_Classes/lab/Data_Classes_Lab.Rmd

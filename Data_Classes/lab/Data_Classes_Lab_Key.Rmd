@@ -5,13 +5,13 @@ editor_options:
   chunk_output_type: console
 ---
 
+Dataset used is the Bike Lanes Dataset: BikeBaltimore is the Department of Transportation's bike program. 
 
-# Data used
-
-Bike Lanes Dataset: BikeBaltimore is the Department of Transportation's bike program. 
 The data is from http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms
 
-You can Download as a CSV in your current working directory.  Note its also available at: 	http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv 
+# Part 1
+
+0. Load all the libraries we will use in this lab. 
 
 ```{r}
 library(readr)
@@ -19,175 +19,112 @@ library(tidyverse)
 library(dplyr)
 library(lubridate)
 library(jhur)
-
-bike = read_csv(
-  "http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
 ```
 
+1. Read Bike Lanes Dataset using `read_bike()` function from `jhur` package. Assign it to `bike` variable. Use `str()` function to take a look at the data and learn column types.
 
-or use 
+Note: alternatively you can read data to R from URL `"http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv"` using `read_csv()` function. 
+
 ```{r}
-library(jhur)
 bike = read_bike()
+str(bike)
 ```
 
+2. Use `mutate()` function to create a new variable in the data set named `type_fact` that is of class `factor` made from the `type` variable. 
 
-
-# Part 1
-
-1.  Get all the differet types of bike types from the `type` column.
- Use `sort(unique())`.  Assign this to an object `btypes.` Type `dput(btypes)`
- 
-```{r q1}
-head(factor(bike$type))
-
-btypes = sort(unique(bike$type))
-x = c("SIDEPATH","BIKE BOULEVARD", "BIKE LANE", "CONTRAFLOW",
-        "SHARED BUS BIKE",  "SHARROW",  "SIGNED ROUTE")
-dput(btypes)
-dput(btypes)[c(6,1:5,7)]
-dput(btypes[c(6,1:5,7)])
-
-lev = c( "SIDEPATH", "BIKE BOULEVARD", "BIKE LANE", "CONTRAFLOW", "SHARED BUS BIKE", 
-        "SHARROW", "SIGNED ROUTE")
+```{r}
+bike <- mutate(bike, type_fact = factor(type))
 ```
 
-2. 2. Recode `type` as a factor that has the `SIDEPATH` level first. 
- Print `head(bike$type)`.  Note what you see.  Run 
- `table(bike$type)` afterwards and note the order
-```{r q2}
-bike$type = factor(bike$type)
-bike$type = relevel(bike$type, "SIDEPATH")
-bike$type = factor(bike$type,
-          levels = dput(btypes[c(6,1:5,7)]))
-bike = bike %>% mutate(type = factor(type, 
-                levels = dput(btypes[c(6,1:5,7)])))
+3. Use `str()` function again. Note the difference between `type` and `type_fact` variables 
 
-table(bike$type)
+```{r}
+str(bike)
 ```
 
-3. Make a column `type2`, which is a factor of type, with the 
- levels: 
- `c( "SIDEPATH", "BIKE BOULEVARD", "BIKE LANE")`.  Run `table(bike$type2)`,
- with the option `useNA = "always"`.  Note, we do not have to 
- make type a character again before doing this
-```{r q3}
-bike = bike %>% 
-  mutate(type2 = factor(type, 
-             levels = c( "SIDEPATH", "BIKE BOULEVARD", 
-                         "BIKE LANE") ) )
-table(bike$type)
-table(bike$type2)
-table(bike$type2, useNA = "always")
+4. Use `levels()` function on `type_fact` variable to display levels of `type_fact` variable. Hint: recall you can use `data$variable_name` to access variable of interest. 
+
+```{r}
+levels(bike$type_fact)
 ```
 
-4. 
- a) Reassign `dateInstalled` into a character using `as.character`.
- Run `head(bike$dateInstalled)`.
-```{r q4a}
-bike = bike %>% 
-  mutate(dateInstalled = 
-           as.character(dateInstalled)
-  )
-head(bike$dateInstalled)
-```
+5. Use `table()` function on `type_fact` variable to display the count of observations with each bike type. 
 
+Use `table()` function again and specify additional argumet `useNA = "always"`. 
 
- b) Reassign `dateInstalled` a factor, using the default levels.
- Run `head(bike$dateInstalled)`.
-```{r q4b}
-bike = bike %>% 
-  mutate(dateInstalled = 
-           factor(dateInstalled)
-  )
-head(bike$dateInstalled)
-
-table(factor(bike$dateInstalled, levels = 2005:2017))
-table(factor(bike$dateInstalled, levels = 2005:2017), 
-        useNA="ifany")
-```
-
- c) Do not reassign `dateInstalled`, but simply run
- `head(as.numeric(bike$dateInstalled))`  we are looking to see what happens when we try to go from factor to numeric
-```{r q4c}
-head(as.numeric(bike$dateInstalled)) 
-```
-
-
- d) Do not reassign `dateInstalled`, but simply run
- `head(as.numeric(as.character(bike$dateInstalled)))`
- this is how you get "numeric" values back if they were "incorrectly" 
- factors
-```{r q4d}
-head(as.numeric(as.character(
-    bike$dateInstalled)))
+```{r}
+table(bike$type_fact)
+table(bike$type_fact, useNA = "always")
 ```
 
 
 # Part 2
 
-5.  Convert `type` back to a character.
- Make a column `type2` (replacing the old one)
- where if the type is one of these categories:
- `c("CONTRAFLOW", "SHARED BUS BIKE", "SHARROW", "SIGNED ROUTE")`
- call it `"OTHER"`.  Use `%in%` and `ifelse`.  Make `type2` a factor
- with the levels `c( "SIDEPATH", "BIKE BOULEVARD", "BIKE LANE", "OTHER")`
-```{r q5}
- 
-bike = bike %>% mutate(
-    type = as.character(type),
-    type2 = ifelse(type %in% c("CONTRAFLOW", "SHARED BUS BIKE", 
-                               "SHARROW", "SIGNED ROUTE"), "OTHER", type),
-    type2 = factor(type2, levels = c( "SIDEPATH", "BIKE BOULEVARD", 
-                               "BIKE LANE", "OTHER") ))
+1. Read Read Charm City Circulator data using `read_circulator()` function from `jhur` package. Assign it to `circ` variable. Use `str()` function to take a look at the data and learn column types.
 
-table(bike$type2)
-
-bike2 = bike %>% 
-  mutate(
-    type = factor(type,
-                  levels = c( "SIDEPATH", "BIKE BOULEVARD", 
-                              "BIKE LANE", "CONTRAFLOW", 
-                              "SHARED BUS BIKE", 
-                              "SHARROW", "SIGNED ROUTE")
-                  ),
-    type2 = recode_factor(type, 
-                          "CONTRAFLOW" = "OTHER",
-                          "SHARED BUS BIKE" = "OTHER",
-                          "SHARROW" = "OTHER",
-                          "SIGNED ROUTE" = "OTHER")
-  )
-table(bike2$type2)
+```{r}
+circ = read_circulator()
+str(circ)
 ```
 
+2. Use `mutate()` function to create a new column named `date_formatted` that is of `Date` class. The new variable is created from `date` column. Hint: use `mdy()` function.
+
+```{r}
+circ = mutate(circ, date_formatted = mdy(date))
+```
+
+3. Use `str()` function again. Note the difference between `date` and `date_formatted` columns.  
+
+```{r}
+str(circ)
+```
+
+5. Use `range()` function on `date_formatted` variable to display the range of dates in the data set.
+
+```{r}
+range(circ$date_formatted)
+```
+ 
+6. Use `mutate()` function to create a new column named `date_year` that represents year of the calendar date. The new variable is created from `date_formatted` column. Hint: use `year()` function.
+
+```{r}
+circ = mutate(circ, date_year = year(date_formatted))
+```
+
+7. Use `table()` function on `date_year` variable to display the count of observations with each calendar year. 
+
+```{r}
+table(circ$date_year)
+```
+ 
+ 
 # Part 3
 
-6.  Parse the following dates with the correct `lubridate` function:
+1. Use function `seq()` to generate 16 numeric values ranging from 1 to 16 Assign them to a variable named `vals`. 
 
-a) "2014/02-14"
-
-```{r q6a}
-ymd("2014/02-14")
+```{r}
+vals <- seq(from = 1, to = 16)
+vals
 ```
 
- b) "04/22/14 03:20"
- 
-```{r q6b}
-mdy_hm("04/22/14 03:20")
+2. Use values from the `vals` vector to create 5x5 matrix. Assign the matrix to variable named `mat`. 
+
+```{r}
+mat <- matrix(vals, nrow = 4)
+mat
 ```
 
-c) "4/5/2016 03:2:22"  assume `mdy`
+3. What happens when you type `mat + 100`? 
 
-```{r q6c}
-mdy_hms("4/5/2016 03:2:22")
+```{r}
+mat + 100
 ```
 
+4. What happens when you type `mat + mat`? 
 
-
-
-
-
-
+```{r}
+mat + mat
+```
 
 
 
