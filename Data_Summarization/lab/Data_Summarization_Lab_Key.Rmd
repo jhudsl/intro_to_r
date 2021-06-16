@@ -143,7 +143,7 @@ hist(log10(bike$length),breaks=100)
 ```
 
 9. Then describe as above, after stratifying by  i) type (`type`) then ii) number of lanes (`numLanes`) using `geom = "boxplot"`: 
-```{r q7}
+```{r q9}
 qplot(y = length, x = type, data = bike, geom = "boxplot")
 qplot(y = length, x = factor(numLanes), data = bike, geom = "boxplot")
 ```

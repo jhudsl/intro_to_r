@@ -6,6 +6,7 @@ library(lubridate)
 library(jhur)
 library(tidyverse)
 library(broom)
+library(naniar)
 
 bike = read_csv(
   "http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv")
@@ -38,28 +39,8 @@ tally(   group_by(have_route, subType) )
 have_route = group_by(have_route, subType)
 tally(have_route)
 
-
 ## ---------------------------------------------------------------------------------
-side_bike = bike %>% filter(type %in% c("SIDEPATH", "BIKE LANE"))
-side_bike2 = bike %>% filter(type == "SIDEPATH" | type == "BIKE LANE")
-identical(side_bike, side_bike2)
-nrow(side_bike)
-nrow(side_bike2)
-
-side_bike = filter(bike,type %in% c("SIDEPATH", "BIKE LANE"))
-side_bike2 = filter(bike, type == "SIDEPATH" | type == "BIKE LANE")
-identical(side_bike, side_bike2)
-
-
-## ---------------------------------------------------------------------------------
-tab = table(type=bike$type, numLanes=bike$numLanes)
-prop.table(tab, 1)
-prop.table(tab, 2)
-as.data.frame(tab)
-tidy(tab)
-
-
-
+naniar::gg_miss_var(bike)
 
 ## ---------------------------------------------------------------------------------
 tax = read_csv( "http://jhudatascience.org/intro_to_r/data/Real_Property_Taxes.csv.gz")
@@ -91,31 +72,7 @@ tax$CityTax = as.numeric(tax$CityTax)
 
 
 ## ---------------------------------------------------------------------------------
-## useing parse_numbers()
-options(digits=12) # so no rounding
-tax = tax %>% mutate(StateTax = parse_number(StateTax))
-                     
-sum(tax$CityTax)
-sum(tax$CityTax, na.rm = TRUE)
-sum(tax$CityTax, na.rm = TRUE)/1e6
-
-sum(tax$StateTax, na.rm = TRUE)
-sum(tax$StateTax, na.rm = TRUE)/1e6
-
-
-
-## ---------------------------------------------------------------------------------
 table(tax$Ward)
-
-ward_table = tax %>% 
-  group_by(Ward) %>% 
-  tally()
-
-ward_table = tax %>% 
-  group_by(Ward) %>% 
-  summarize(number_of_obs = n(),
-            mean(StateTax, na.rm = TRUE))
-
 
 
 
@@ -140,50 +97,11 @@ tax %>% group_by(Ward) %>%
 
 
 
-## ---------------------------------------------------------------------------------
-tax %>% group_by(Ward) %>% 
-  summarize(Percentile = quantile(StateTax, prob = 0.75,na.rm = TRUE))
-
-
-ward_table = tax %>% 
-  group_by(Ward) %>% 
-  summarize(
-    number_of_obs = n(),
-    mean_state_tax = mean(StateTax, na.rm = TRUE),
-    max_amount_due = max(AmountDue, na.rm = TRUE),
-    q75_city = quantile(CityTax, probs = 0.75, na.rm = TRUE),
-    q75_state = quantile(StateTax, probs = 0.75, na.rm = TRUE)
-  )
-
-
-## ---------------------------------------------------------------------------------
-tax = tax %>% 
-  mutate(ResCode = str_trim(ResCode))
-
-qplot(y = log10(CityTax+1), x = ResCode, data = tax, geom = "boxplot")
-qplot(y = CityTax, x = ResCode, data = tax, geom = "boxplot")
-
-boxplot(log10(CityTax+1) ~ ResCode, data = tax)
-boxplot(CityTax ~ ResCode, data = tax)
-
-tax %>% filter(CityTax == max(CityTax, na.rm = TRUE))
-
-
 
 ## ---------------------------------------------------------------------------------
 pres = tax %>% filter( ResCode %in% "PRINCIPAL RESIDENCE")
 pres = tax %>% filter( ResCode == "PRINCIPAL RESIDENCE")
 dim(pres)
-
-
-## ---------------------------------------------------------------------------------
-qplot(x = log10(CityTax+1),data = pres, geom = "histogram")
-qplot(x = CityTax, data = pres, geom = "density")
-
-hist(log2(pres$CityTax+1))
-hist(pres$CityTax)
-head(pres$CityTax)
-plot(density(pres$CityTax,  na.rm = TRUE))
 
 
 ## ---------------------------------------------------------------------------------
@@ -207,28 +125,6 @@ sal %>%
   filter(str_detect(name, fixed("abra", ignore_case = TRUE)))
 
 
-## ---------------------------------------------------------------------------------
-sal = sal %>% mutate(AnnualSalary = str_replace(AnnualSalary, fixed("$"), ""))
-sal = sal %>% mutate(AnnualSalary = as.numeric(AnnualSalary))
-qplot(x = AnnualSalary, data = sal, geom = "histogram", bins = 20)
-
-hist(sal$AnnualSalary, breaks = 20)
-quantile(sal$AnnualSalary)
-
-
-## ---------------------------------------------------------------------------------
-sal = sal %>% mutate(HireDate = lubridate::mdy(HireDate))
-
-q = qplot(y = AnnualSalary, x = HireDate, 
-      data = sal, geom = "point")
-q + geom_smooth(colour = "red", se = FALSE)
-q + geom_smooth(colour = "red", se = FALSE, method = "loess")
-q + geom_smooth(colour = "red", se = FALSE, method = "loess", span = 2/3)
-
-plot(AnnualSalary ~ HireDate, data = sal)
-scatter.smooth(sal$AnnualSalary, x = sal$HireDate, col = "red")
-
-
 
 ## ---------------------------------------------------------------------------------
 emer = sal %>% filter(
@@ -242,16 +138,6 @@ emer = sal %>% filter(
 )
 
 
-
-## ---------------------------------------------------------------------------------
-emer = emer %>% 
-  mutate(
-    dept = str_extract(Agency, ".*(ment|ice)")
-  )
-# Replot annual salary versus hire date, color by dept (not yet - using ggplot)
-ggplot(aes(x = HireDate, y = AnnualSalary, 
-           colour = dept), data = emer) + 
-  geom_point() + theme(legend.position = c(0.5, 0.8))
 
 
 ## ---------------------------------------------------------------------------------

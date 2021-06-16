@@ -6,6 +6,7 @@ library(lubridate)
 library(jhur)
 library(tidyverse)
 library(broom)
+library(naniar)
 
 bike = read_csv(
   "http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv")
