@@ -281,6 +281,30 @@ Two-dimensional classes are those we would often use to store data read from a f
     * unlike data frame, the entire matrix is composed of one R class
     * for example: all entries are `numeric`, or all entries are `character`
 
+## Vectors: data selection
+
+To get element(s) of a vector (one-dimensional object): 
+
+- Type the name of the variable and open the rectangular brackets `[ ]`
+- In the rectangular brackets, type index (/vector of indexes) of element (/elements) you want to pull. **In R, indexes start from 1** (not: 0)
+
+```{r}
+x <- c("a", "b", "c", "d", "e", "f", "g", "h")
+x
+x[2]
+x[c(1, 2, 100)]
+```
+
+## Vectors: data selection
+
+```{r}
+x <- c("a", "b", "c", "d", "e", "f", "g", "h")
+x_long <- rep(x, times = 20)
+x_long
+x
+```
+
+
 ## Matrices
 
 ```{r matrix}
