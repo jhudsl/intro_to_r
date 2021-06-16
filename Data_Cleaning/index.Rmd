@@ -28,11 +28,11 @@ x = c(1, 4, 2, 8, 10)
 x[2]
 ```
 
-`dplyr`:
+<!-- `dplyr`: -->
 
-```{r}
-nth(x, n = 2)
-```
+<!-- ```{r} -->
+<!-- nth(x, n = 2) -->
+<!-- ``` -->
 
 ## Select specific elements using an index
 
@@ -44,9 +44,11 @@ x[5]
 x[c(2,5)]
 ```
 
-```{r, error=TRUE}
-nth(x, n = c(2, 5)) # nth only returns one number
-```
+
+<!-- ```{r, error=TRUE} -->
+<!-- nth(x, n = c(2, 5)) # nth only returns one number -->
+<!-- ``` -->
+
 
 ## Subsetting by deletion of entries
 
@@ -55,6 +57,7 @@ You can put a minus (`-`) before integers inside brackets to remove these indice
 ```{r negativeIndex}
 x[-2] # all but the second
 ```
+
 Note that you have to be careful with this syntax when dropping more than 1 element:
 
 ```{r negativeIndex2}
@@ -63,37 +66,37 @@ x[-c(1,2,3)] # drop first 3
 x[-(1:3)] # needs parentheses
 ```
 
-## Select specific elements using logical operators
+<!-- ## Select specific elements using logical operators -->
 
-What about selecting rows based on the values of two variables? We use logical statements.  Here we select only elements of `x` greater than 2:
+<!-- What about selecting rows based on the values of two variables? We use logical statements.  Here we select only elements of `x` greater than 2: -->
 
-```{r}
-x
-x > 2
-x[ x > 2 ]
-```
+<!-- ```{r} -->
+<!-- x -->
+<!-- x > 2 -->
+<!-- x[ x > 2 ] -->
+<!-- ``` -->
 
-## Select specific elements using logical operators
-You can have multiple logical conditions using the following:
+<!-- ## Select specific elements using logical operators -->
+<!-- You can have multiple logical conditions using the following: -->
 
-* `&` : AND
-* `|` : OR
+<!-- * `&` : AND -->
+<!-- * `|` : OR -->
 
-```{r}
-x[ x > 2 & x < 5 ]
-x[ x > 5 | x == 2 ]
-```
+<!-- ```{r} -->
+<!-- x[ x > 2 & x < 5 ] -->
+<!-- x[ x > 5 | x == 2 ] -->
+<!-- ``` -->
 
 
-## which function
+<!-- ## which function -->
 
-The `which` functions takes in logical vectors and returns the index for the elements where the logical value is `TRUE`.  
+<!-- The `which` functions takes in logical vectors and returns the index for the elements where the logical value is `TRUE`.   -->
 
-```{r}
-which(x > 5 | x == 2) # returns index
-x[ which(x > 5 | x == 2) ]
-x[ x > 5 | x == 2 ]
-```
+<!-- ```{r} -->
+<!-- which(x > 5 | x == 2) # returns index -->
+<!-- x[ which(x > 5 | x == 2) ] -->
+<!-- x[ x > 5 | x == 2 ] -->
+<!-- ``` -->
 
 ## Data Cleaning
 
@@ -116,8 +119,26 @@ MOST IMPORTANT RULE - LOOK AT YOUR DATA!
     - `FALSE` missing one value (even if not important)
     - `tidyr::drop_na` will drop rows with **any** missing
 
+## Complete.cases
 
+```{r}
+complete.cases(x)
+complete.cases(mtcars)
+```
 
+## Naniar
+
+```{r, error=FALSE}
+#install.packageS(naniar)
+library(naniar)
+x = c(0, NA, 2, 3, 4, -0.5, 0.2)
+naniar::pct_complete(x)
+```
+
+## Naniar plots
+```{r}
+naniar::gg_miss_var(iris)
+```
 
 # Dealing with Missing Data
 
@@ -141,37 +162,39 @@ Each missing data type has a function that returns `TRUE` if the data is missing
 
 ## Missing Data with Logicals
 
-One important aspect (esp with subsetting) is that logical operations return `NA` for `NA` values.  Think about it, the data could be `> 2` or not we don't know, 
-so `R` says there is no `TRUE` or `FALSE`, so that is missing:
+One important aspect (esp with subsetting) is that logical operations return `NA` for `NA` values.  This is a good thing. The data could be `> 2` or not, we don't know, 
+so `R` says there is no `TRUE` or `FALSE`, so that is missing.
 ```{r}
 x = c(0, NA, 2, 3, 4, -0.5, 0.2)
 x > 2
 ```
 
-## Missing Data with Logicals
+<!-- ## Missing Data with Logicals -->
 
-What to do?  What if we want if `x > 2` and `x` isn't `NA`?  
-Don't do `x != NA`, do `x > 2` and `x` is NOT `NA`:
+<!-- What to do?  What if we want if `x > 2` and `x` isn't `NA`? -->
+<!-- Don't do `x != NA`, do `x > 2` and `x` is NOT `NA`: -->
 
-```{r}
-x != NA
-x > 2 & !is.na(x)
-```
+<!-- ```{r} -->
+<!-- x > 2 & x != NA -->
+<!-- x > 2 & !is.na(x) -->
+<!-- ``` -->
 
-## Missing Data with Logicals
+<!-- ## Missing Data with Logicals -->
 
-What about seeing if a value is equal to multiple values?  You can do `(x == 1 | x == 2) & !is.na(x)`, but that is not efficient.  
+<!-- What about seeing if a value is equal to multiple values?  You can do `(x == 1 | x == 2) & !is.na(x)`, but that is not efficient.   -->
 
-```{r}
-(x == 0 | x == 2) # has NA
-(x == 0 | x == 2) & !is.na(x) # No NA
-```
+<!-- ```{r} -->
+<!-- (x == 0 | x == 2) # has NA -->
+<!-- (x == 0 | x == 2) & !is.na(x) # No NA -->
+<!-- ``` -->
 
-what to do?
+<!-- what to do? -->
 
-## Missing Data with Logicals: `%in%`
+## filter() and missing data
 
-Filter removes missing values, have to keep them if you want them:
+filter() removes missing values by default.
+
+To keep them need to add is.na():
 
 ```{r}
 df = tibble(x = x)
@@ -185,8 +208,10 @@ df %>% filter(between(x, -1, 3) | is.na(x))
 Be careful with missing data using subsetting: 
 
 ```{r}
-x %in% c(0, 2, NA) # this 
-x %in% c(0, 2) | is.na(x) # versus this
+x # looks like the 1st and 3rd element should be TRUE
+x %in% c(0, 2) # uh oh - not good!
+x %in% c(0, 2) | is.na(x) # do this
+
 ```
 
 
@@ -243,83 +268,44 @@ table(c(0, 1, 2, 3, 2, 3, 3, 2, 2, 3),
         useNA = "always")
 ```
 
-## Tables with Factors 
+<!-- ## Tables with Factors  -->
 
-If you use a `factor`, all levels will be given even if no exist! 
-  - (May be wanted or not):
+<!-- If you use a `factor`, all levels will be given even if no exist!  -->
+<!--   - (May be wanted or not): -->
 
-```{r onetab_fact, error = TRUE}
-fac = factor(c(0, 1, 2, 3, 2, 3, 3, 2,2, 3),
-             levels = 1:4)
-tab = table(fac)
-tab
-tab[ tab > 0 ]
-```
-
-
-## Factors cont
-```{r}
-tibble(x = fac) %>% count(x)
-```
-
-## Creating Two-way Tables 
-
-A two-way table.  If you pass in 2 vectors, `table` creates a 2-dimensional table.
-
-```{r}
-tab <- table(c(0, 1, 2, 3, 2, 3, 3, 2,2, 3), 
-             c(0, 1, 2, 3, 2, 3, 3, 4, 4, 3), 
-              useNA = "always")
-tab
-```
-
-## Creating Two-way Tables 
-
-```{r}
-tab_df = tibble(x = c(0, 1, 2, 3, 2, 3, 3, 2,2, 3), 
-             y = c(0, 1, 2, 3, 2, 3, 3, 4, 4, 3))
-tab_df %>% count(x, y)
-```
-
-## Finding Row or Column Totals
-
-`margin.table` finds the marginal sums of the table.  `margin` is 1 for rows, 2 for columns in general in `R`.  Here is the column sums of the table:
-
-```{r margin}
-tab
-margin.table(tab, 2)
-```
-
-## Proportion Tables 
-
-`prop.table` finds the marginal proportions of the table. Think of it dividing the table by it's respective marginal totals.  If `margin` not set, divides by overall total.
-
-```{r table2}
-prop.table(tab)
-prop.table(tab,1) * 100
-```
+<!-- ```{r onetab_fact, error = TRUE} -->
+<!-- fac = factor(c(0, 1, 2, 3, 2, 3, 3, 2,2, 3), -->
+<!--              levels = 1:4) -->
+<!-- tab = table(fac) -->
+<!-- tab -->
+<!-- tab[ tab > 0 ] -->
+<!-- ``` -->
 
 
-## Creating Two-way Tables 
+<!-- ## Factors cont -->
+<!-- ```{r} -->
+<!-- tibble(x = fac) %>% count(x) -->
+<!-- ``` -->
 
-```{r}
-tab_df %>% 
-  count(x, y) %>% 
-  group_by(x) %>% mutate(pct_x = n / sum(n))
-```
 
-## Creating Two-way Tables 
+<!-- ## Finding Row or Column Totals -->
 
-```{r, message = FALSE}
-library(scales)
-tab_df %>% 
-  count(x, y) %>% 
-  group_by(x) %>% mutate(pct_x = percent(n / sum(n)))
-```
+<!-- `margin.table` finds the marginal sums of the table.  `margin` is 1 for rows, 2 for columns in general in `R`.  Here is the column sums of the table: -->
 
-## Lab Part 2
+<!-- ```{r margin} -->
+<!-- tab -->
+<!-- margin.table(tab, 2) -->
+<!-- ``` -->
 
-[Website](http://jhudatascience.org/intro_to_r/index.html)
+<!-- ## Proportion Tables  -->
+
+<!-- `prop.table` finds the marginal proportions of the table. Think of it dividing the table by it's respective marginal totals.  If `margin` not set, divides by overall total. -->
+
+<!-- ```{r table2} -->
+<!-- prop.table(tab) -->
+<!-- prop.table(tab,1) * 100 -->
+<!-- ``` -->
+
 
 ## Download Salary FY2014 Data
 
@@ -366,43 +352,45 @@ In `dplyr` you can use the `recode` function:
 
 ```{r, eval = FALSE}
 data = data %>% 
-  mutate(gender = recode(gender, M = "Male", m = "Male", M = "Male"))
+  mutate(gender = recode(gender, M = "Male", m = "Male", Man = "Male"))
 ```
 
-or use `ifelse`:
+Or use `ifelse()` or `case_when()`.
 
-```{r, eval = FALSE}
-data %>% 
-  mutate(gender = ifelse(gender %in% c("Male", "M", "m"),
-                         "Male", gender))
-```
-
-## Example of Cleaning: more complicated
-
-Sometimes though, it's not so simple.  That's where functions that find patterns come in very useful.
-
-```{r gender, echo=FALSE}
-set.seed(4) # random sample below - make sure same every time
-gender <- sample(c("Male", "mAle", "MaLe", "M", "MALE", "Ma", "FeMAle", "F", "Woman", "Man", "Fm", "FEMALE"), 1000, replace = TRUE)
-```
-
-```{r gentab}
-table(gender)
-```
+<!-- # ```{r, eval = FALSE} -->
+<!-- # data %>%  -->
+<!-- #   mutate(gender = ifelse(gender %in% c("Male", "M", "m"), -->
+<!-- #                          "Male", gender)) -->
+<!-- # ``` -->
 
 
-## Example of Cleaning: more complicated
 
-```{r gender2, echo=FALSE}
-gender = gender %>% 
-  tolower %>% 
-  recode(m = "Male", f = "Female", ma = "Male",
-         woman = "Female", man = "Male")
-```
+<!-- ## Example of Cleaning: more complicated -->
 
-```{r gentab2}
-table(gender)
-```
+<!-- Sometimes though, it's not so simple.  That's where functions that find patterns come in very useful. -->
+
+<!-- ```{r gender, echo=FALSE} -->
+<!-- set.seed(4) # random sample below - make sure same every time -->
+<!-- gender <- sample(c("Male", "mAle", "MaLe", "M", "MALE", "Ma", "FeMAle", "F", "Woman", "Man", "Fm", "FEMALE"), 1000, replace = TRUE) -->
+<!-- ``` -->
+
+<!-- ```{r gentab} -->
+<!-- table(gender) -->
+<!-- ``` -->
+
+
+<!-- ## Example of Cleaning: more complicated -->
+
+<!-- ```{r gender2, echo=FALSE} -->
+<!-- gender = gender %>%  -->
+<!--   tolower %>%  -->
+<!--   recode(m = "Male", f = "Female", ma = "Male", -->
+<!--          woman = "Female", man = "Male") -->
+<!-- ``` -->
+
+<!-- ```{r gentab2} -->
+<!-- table(gender) -->
+<!-- ``` -->
 
 # Strings functions
 ## Splitting/Find/Replace and Regular Expressions
@@ -442,7 +430,7 @@ The `stringr` package:
 `?modifiers`
 
 * `fixed` - match everything exactly
-* `regex` - default - uses **reg**ular **exp**ressions
+<!-- * `regex` - default - uses **reg**ular **exp**ressions -->
 * `ignore_case` is an option to not have to use `tolower`
 
 ## Substring and String Splitting
@@ -452,9 +440,11 @@ The `stringr` package:
 
 ```{r str_split_orig}
 library(stringr)
-x <- c("I really", "like writing", "R code programs")
-y <- str_split(x, " ") # returns a list
+x <- c("I really like writing R code")
+df = tibble(x = c("I really", "like writing", "R code programs"))
+y <- unlist(str_split(x, " "))
 y
+length(y)
 ```
 
 ## Using a fixed expression
@@ -470,9 +460,9 @@ str_split("I.like.strings", fixed("."))
 
 ```{r stsplit2}
 y[[2]]
-sapply(y, dplyr::first) # on the fly
-sapply(y, nth, 2) # on the fly
-sapply(y, last) # on the fly
+# sapply(y, dplyr::first) # on the fly
+# sapply(y, nth, 2) # on the fly
+# sapply(y, last) # on the fly
 ```
 
 ## Separating columns based on a separator 
@@ -488,37 +478,37 @@ df %>% separate(x, into = c("first", "second", "third"))
 ```
 
 
+<!-- ## Separating columns based on a separator  -->
+
+<!-- * From `tidyr`, you can split a data set into multiple columns: -->
+
+<!-- ```{r separate_df2_for_easy} -->
+<!-- df = tibble(x = c("I really", "like writing", "R code programs")) -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- df %>% separate(x, into = c("first", "second")) -->
+<!-- ``` -->
+
+
+<!-- ## Separating columns based on a separator  -->
+
+<!-- * `extra = "merge"` will not drop data.  Also, you can specify the separator -->
+
+<!-- ```{r separate_df2} -->
+<!-- df = tibble(x = c("I really", "like. _writing R. But not", "R code programs")) -->
+<!-- ``` -->
+
+
+<!-- ```{r} -->
+<!-- df %>% separate(x, into = c("first", "second", "third"), extra = "merge") -->
+<!-- ``` -->
+
+
+
 ## Separating columns based on a separator 
-
-* From `tidyr`, you can split a data set into multiple columns:
-
-```{r separate_df2_for_easy}
-df = tibble(x = c("I really", "like writing", "R code programs"))
-```
-
-```{r}
-df %>% separate(x, into = c("first", "second"))
-```
-
-
-## Separating columns based on a separator 
-
-* `extra = "merge"` will not drop data.  Also, you can specify the separator
-
-```{r separate_df2}
-df = tibble(x = c("I really", "like. _writing R. But not", "R code programs"))
-```
-
-
-```{r}
-df %>% separate(x, into = c("first", "second", "third"), extra = "merge")
-```
-
-
-
-## Separating columns based on a separator 
-
-* `extra = "merge"` will not drop data.  Also, you can specify the separator
+You can specify the separator with `sep`.
+* `extra = "merge"` will not drop data.  
 
 ```{r}
 df %>% separate(x, into = c("first", "second", "third"), 
@@ -546,28 +536,30 @@ These are the indices where the pattern match occurs:
 head(str_detect(Sal$Name, "Rawlings"))
 ```
 
-## 'Find' functions: Finding Indices
+<!-- ## 'Find' functions: Finding Indices -->
 
-These are the indices where the pattern match occurs:
+<!-- These are the indices where the pattern match occurs: -->
 
-```{r RawlMatch}
-which(str_detect(Sal$Name, "Rawlings"))
-```
+<!-- ```{r RawlMatch} -->
+<!-- which(str_detect(Sal$Name, "Rawlings")) -->
+<!-- ``` -->
 
-## Showing difference in `str_extract`
+<!-- ## Showing difference in `str_extract` -->
 
-`str_extract` extracts just the matched string
+<!-- `str_extract` extracts just the matched string -->
 
-```{r ggrep2}
-ss = str_extract(Sal$Name, "Rawling")
-head(ss)
-ss[ !is.na(ss)]
-```
+<!-- ```{r ggrep2} -->
+<!-- ss = str_extract(Sal$Name, "Rawling") -->
+<!-- head(ss) -->
+<!-- ss[ !is.na(ss)] -->
+<!-- ``` -->
 
-## 'Find' functions: finding values, `stringr` and `dplyr` 
+<!-- str_subset(Sal$Name, "Rawlings") -->
 
-```{r ggrep}
-str_subset(Sal$Name, "Rawlings")
+
+## 'Find' functions: finding values: `stringr` 
+
+```{r}
 Sal %>% filter(str_detect(Name, "Rawlings"))
 ```
 
@@ -587,22 +579,27 @@ head(str_subset( Sal$Name, "Spence.*C.*"))
 ```
 
 
-## Showing differnce in `str_extract` and  `str_extract_all`
+<!-- ## Showing differnce in `str_extract` and  `str_extract_all` -->
 
-`str_extract_all` extracts all the matched strings
-- `\\d` searches for DIGITS/numbers
+<!-- `str_extract_all` extracts all the matched strings -->
+<!-- - `\\d` searches for DIGITS/numbers -->
 
-```{r }
-head(str_extract(Sal$AgencyID, "\\d"))
-head(str_extract_all(Sal$AgencyID, "\\d"), 2)
-```
+<!-- ```{r } -->
+<!-- head(str_extract(Sal$AgencyID, "\\d")) -->
+<!-- head(str_extract_all(Sal$AgencyID, "\\d"), 2) -->
+<!-- ``` -->
 
 ## Showing differnce in `str_replace` and  `str_replace_all`
 
-`str_replace_all` extracts all the matched strings
+`str_replace` replaces only the first instance.
 
-```{r }
-head(str_replace(Sal$Name, "a", "j"))
+```{r}
+head(Sal$Name, 2)
+head(str_replace(Sal$Name, "a", "j"),2)
+```
+
+`str_replace` replaces all instances.
+```{r}
 head(str_replace_all(Sal$Name, "a", "j"), 2)
 ```
 
@@ -614,6 +611,7 @@ Let's say we wanted to sort the data set by Annual Salary:
 ```{r classSal}
 class(Sal$AnnualSalary)
 ```
+
 ```{r destringSal}
 head(Sal$AnnualSalary, 4)
 head(as.numeric(Sal$AnnualSalary), 4)
@@ -621,17 +619,17 @@ head(as.numeric(Sal$AnnualSalary), 4)
 
 R didn't like the `$` so it thought turned them all to `NA`.
 
-## Replacing and substituting 
+<!-- ## Replacing and substituting  -->
 
-Now we can replace the `$` with nothing (used `fixed("$")` because `$` means ending):
+<!-- Now we can replace the `$` with nothing (used `fixed("$")` because `$` means ending): -->
 
-```{r orderSal}
-Sal = Sal %>% mutate(
-  AnnualSalary = str_replace(AnnualSalary, fixed("$"), ""),
-  AnnualSalary = as.numeric(AnnualSalary)
-  ) %>% 
-  arrange(desc(AnnualSalary))
-```
+<!-- ```{r orderSal} -->
+<!-- Sal = Sal %>% mutate( -->
+<!--   AnnualSalary = str_replace(AnnualSalary, fixed("$"), ""), -->
+<!--   AnnualSalary = as.numeric(AnnualSalary) -->
+<!--   ) %>%  -->
+<!--   arrange(desc(AnnualSalary)) -->
+<!-- ``` -->
 
 
 
@@ -641,10 +639,10 @@ Paste can be very useful for joining vectors together:
 
 ```{r Paste}
 paste("Visit", 1:5, sep = "_")
-paste("Visit", 1:5, sep = "_", collapse = " ")
+paste("Visit", 1:5, sep = "_", collapse = "_")
 paste("To", "is going be the ", "we go to the store!", sep = "day ")
 # and paste0 can be even simpler see ?paste0 
-paste0("Visit",1:5)
+paste0("Visit",1:5) # no space!
 ```
 
 
@@ -654,60 +652,62 @@ paste0("Visit",1:5)
 
 ```{r unite_df}
 df = tibble(id = rep(1:5, 3), visit = rep(1:3, each = 5))
+head(df, 4)
 ```
 
 
 ```{r}
-df %>% unite(col = "unique_id", id, visit, sep = "_")
+df_united <- df %>% unite(col = "unique_id", id, visit, sep = "_")
+head(df_united, 4)
 ```
 
 
-## Uniting columns based on a separator 
+<!-- ## Uniting columns based on a separator  -->
 
-* From `tidyr`, you can unite:
+<!-- * From `tidyr`, you can unite: -->
 
-```{r unite_df2}
-df = tibble(id = rep(1:5, 3), visit = rep(1:3, each = 5))
-```
+<!-- ```{r unite_df2} -->
+<!-- df = tibble(id = rep(1:5, 3), visit = rep(1:3, each = 5)) -->
+<!-- ``` -->
 
-```{r}
-df %>% unite(col = "unique_id", id, visit, sep = "_", remove = FALSE)
-```
+<!-- ```{r} -->
+<!-- df %>% unite(col = "unique_id", id, visit, sep = "_", remove = FALSE) -->
+<!-- ``` -->
 
-## Paste Depicting How Collapse Works
+<!-- ## Paste Depicting How Collapse Works -->
 
-```{r Paste2}
-paste(1:5)
-paste(1:5, collapse = " ")
-```
+<!-- ```{r Paste2} -->
+<!-- paste(1:5) -->
+<!-- paste(1:5, collapse = " ") -->
+<!-- ``` -->
 
-## Useful String Functions
+<!-- ## Useful String Functions -->
 
-Useful String functions
+<!-- Useful String functions -->
 
-* `toupper()`, `tolower()` - uppercase or lowercase your data:
-* `str_trim()` (in the `stringr` package) or `trimws` in base 
-    - will trim whitespace
-* `nchar` - get the number of characters in a string
+<!-- * `toupper()`, `tolower()` - uppercase or lowercase your data: -->
+<!-- * `str_trim()` (in the `stringr` package) or `trimws` in base  -->
+<!--     - will trim whitespace -->
+<!-- * `nchar` - get the number of characters in a string -->
 
 
 
-## Sorting characters
+<!-- ## Sorting characters -->
 
-- `sort` - reorders the data - characters work, but not correctly
-- `rank` - gives the rank of the data - ties are split
-- `order` - gives the indices, if subset, would give the data sorted
-    - `x[order(x)]` is the same as sorting
+<!-- - `sort` - reorders the data - characters work, but not correctly -->
+<!-- - `rank` - gives the rank of the data - ties are split -->
+<!-- - `order` - gives the indices, if subset, would give the data sorted -->
+<!--     - `x[order(x)]` is the same as sorting -->
 
-```{r orderrank}
-sort(c("1", "2", "10")) #  not sort correctly (order simply ranks the data)
-order(c("1", "2", "10"))
-x = rnorm(10)
-x[1] = x[2] # create a tie
-rank(x)
-```
+<!-- ```{r orderrank} -->
+<!-- sort(c("1", "2", "10")) #  not sort correctly (order simply ranks the data) -->
+<!-- order(c("1", "2", "10")) -->
+<!-- x = rnorm(10) -->
+<!-- x[1] = x[2] # create a tie -->
+<!-- rank(x) -->
+<!-- ``` -->
 
-## Lab Part 3
+## Lab Part 2
 
 [Website](http://jhudatascience.org/intro_to_r/index.html)
 
@@ -952,3 +952,41 @@ all.equal(check_Sal, dplyr_sal)
 ## Website
 
 [Website](../index.html)
+
+# Extra slides
+
+## Creating Two-way Tables
+
+A two-way table.  If you pass in 2 vectors, `table` creates a 2-dimensional table.
+
+```{r}
+tab <- table(c(0, 1, 2, 3, 2, 3, 3, 2,2, 3),
+             c(0, 1, 2, 3, 2, 3, 3, 4, 4, 3),
+              useNA = "always")
+tab
+```
+
+## Creating Two-way Tables
+
+```{r}
+tab_df = tibble(x = c(0, 1, 2, 3, 2, 3, 3, 2,2, 3),
+             y = c(0, 1, 2, 3, 2, 3, 3, 4, 4, 3))
+tab_df %>% count(x, y)
+```
+
+## Creating Two-way Tables 
+
+```{r}
+tab_df %>% 
+  count(x, y) %>% 
+  group_by(x) %>% mutate(pct_x = n / sum(n))
+```
+
+## Creating Two-way Tables 
+
+```{r, message = FALSE}
+library(scales)
+tab_df %>% 
+  count(x, y) %>% 
+  group_by(x) %>% mutate(pct_x = percent(n / sum(n)))
+```

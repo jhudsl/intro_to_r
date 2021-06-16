@@ -3332,18 +3332,9 @@ mean(x)</pre>
 <li><code>colMeans(x)</code>: takes the means of each column of x</li>
 <li><code>rowSums(x)</code>: takes the sum of each row of x</li>
 <li><code>colSums(x)</code>: takes the sum of each column of x</li>
-<li><code>summary(x)</code>: for data frames, displays the quantile information</li>
-</ul></li>
-<li>The <code>matrixStats</code> package has additional <code>row*</code> and <code>col*</code> functions
-
-<ul>
-<li>Like <code>rowSds</code>, <code>colQuantiles</code></li>
+<li><code>summary(x)</code>: for data frames, displays the quantile information <!-- * The `matrixStats` package has additional `row*` and `col*` functions  --> <!--     * Like `rowSds`, `colQuantiles` --></li>
 </ul></li>
 </ul>
-
-</article></slide><slide class=""><hgroup><h2>Lab Part 1</h2></hgroup><article  id="lab-part-1">
-
-<p><a href='http://jhudatascience.org/intro_to_r/index.html' title=''>Website</a></p>
 
 </article></slide><slide class=""><hgroup><h2>TB Incidence</h2></hgroup><article  id="tb-incidence">
 
@@ -3524,7 +3515,7 @@ head(yts)</pre>
 
 <pre >[1] 50</pre>
 
-</article></slide><slide class=""><hgroup><h2>Table</h2></hgroup><article  id="table">
+</article></slide><slide class=""><hgroup><h2><code>table</code> and <code>dplyr</code>: <code>count</code></h2></hgroup><article  id="table-and-dplyr-count">
 
 <p><code>table(x)</code> will return a frequency table of unique elements of <code>x</code></p>
 
@@ -3534,7 +3525,7 @@ head(yts)</pre>
     Alabama     Arizona    Arkansas  California    Colorado Connecticut 
         378         240         210          96          48         384 </pre>
 
-</article></slide><slide class=""><hgroup><h2><code>dplyr</code>: <code>count</code></h2></hgroup><article  id="dplyr-count">
+</article></slide><slide class=""><hgroup><h2><code>table</code> and <code>dplyr</code>: <code>count</code></h2></hgroup><article  id="table-and-dplyr-count-1">
 
 <pre class = 'prettyprint lang-r'>yts %&gt;% count(LocationDesc)</pre>
 
@@ -3553,7 +3544,7 @@ head(yts)</pre>
 10 Georgia                282
 # … with 40 more rows</pre>
 
-</article></slide><slide class=""><hgroup><h2><code>dplyr</code>: <code>count</code></h2></hgroup><article  id="dplyr-count-1">
+</article></slide><slide class=""><hgroup><h2><code>table</code> and <code>dplyr</code>: <code>count</code></h2></hgroup><article  id="table-and-dplyr-count-2">
 
 <pre class = 'prettyprint lang-r'>yts %&gt;% count(LocationDesc, TopicDesc)</pre>
 
@@ -3749,7 +3740,7 @@ sub_yts</pre>
 5  2003    12  7.49
 6  2004    14  8.2 </pre>
 
-</article></slide><slide class=""><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
+</article></slide><slide class=""><hgroup><h2>Lab Part 1</h2></hgroup><article  id="lab-part-1">
 
 <p><a href='http://jhudatascience.org/intro_to_r/index.html' title=''>Website</a></p>
 
@@ -3828,7 +3819,7 @@ qplot(x = disp, y = mpg, data = jhu_cars)</pre>
 
 <!-- ``` -->
 
-</article></slide><slide class=""><hgroup><h2>Lab Part 3</h2></hgroup><article  id="lab-part-3">
+</article></slide><slide class=""><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
 
 <p><a href='http://jhudatascience.org/intro_to_r/index.html' title=''>Website</a></p>
 
@@ -3849,8 +3840,7 @@ qplot(x = disp, y = mpg, data = jhu_cars)</pre>
 
 <ul>
 <li><code>group_by</code> is very powerful, especially with <code>summarise/summarize</code></li>
-<li>Using <code>group_by</code> and <code>mutate</code> keeps all the rows and repeates a value, <code>summarize</code> reduces the number of rows</li>
-<li>The <code>matrixStats</code> package extends this to <code>colMedians</code>, <code>colMaxs</code>, etc.</li>
+<li>Using <code>group_by</code> and <code>mutate</code> keeps all the rows and repeates a value, <code>summarize</code> reduces the number of rows <!-- - The `matrixStats` package extends this to `colMedians`, `colMaxs`, etc. --></li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Website</h2></hgroup><article  id="website">

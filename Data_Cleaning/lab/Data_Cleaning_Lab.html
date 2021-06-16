@@ -376,6 +376,7 @@ library(lubridate)</code></pre>
 <pre class="r"><code>library(jhur)
 library(tidyverse)
 library(broom)
+library(naniar)
 
 bike = read_csv(
   &quot;http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv&quot;)</code></pre>
@@ -399,41 +400,30 @@ bike = read_csv(
 <li><p>Count the number of rows of the bike data and count the number of complete cases of the bike data. Use <code>sum</code> and <code>complete.cases</code>.</p></li>
 <li><p>Create a data set called <code>namat</code> which is equal to <code>is.na(bike)</code>.<br />
 What is the class of <code>namat</code>? Run rowSums and colSums on <code>namat.</code> These represent the number of missing values in the rows and columns of <code>bike</code>. Don’t print <code>rowSums</code>, but do a table of the <code>rowSums</code> Try <code>nabike = bike %&gt;% mutate_all(is.na)</code>. Then try <code>nabike %&gt;% summarise_all(sum)</code>. What do you get?</p></li>
-<li><p>Filter rows of bike that are NOT missing the <code>route</code> variable, assign this to the object <code>have_route.</code> Do a table of the <code>subType</code> using <code>table</code>, including the missing <code>subType</code>s Get the same frequency distribution using <code>group_by(subType)</code> and <code>tally()</code></p></li>
-<li><p>Filter rows of bike that have the type <code>SIDEPATH</code> or <code>BIKE LANE</code> using <code>%in%</code>. Call it <code>side_bike.</code> Confirm this gives you the same number of results using the <code>|</code> and <code>==</code>.</p></li>
+<li><p>Filter rows of bike that are NOT missing the <code>route</code> variable, assign this to the object <code>have_route.</code> Do a table of the <code>subType</code> using <code>table</code>, including the missing <code>subType</code>s. Get the same frequency distribution using <code>group_by(subType)</code> and <code>tally().</code></p></li>
+<li><p>Use <code>naniar</code> to make a visual of the amount of data missing for each variable of <code>bike</code> (use <code>naniar::gg_miss_var()</code>).</p></li>
 </ol>
 </div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
-<ol start="5" style="list-style-type: decimal">
-<li>Do a cross tabulation of the bike <code>type</code> and the number of lanes. Call it <code>tab</code>. Do a <code>prop.table</code> on the rows and columns margins. Try <code>as.data.frame(tab)</code> or <code>broom::tidy(tab)</code></li>
-</ol>
-</div>
-<div id="part-3" class="section level1">
-<h1>Part 3</h1>
 <p><strong>New Data set</strong></p>
 <p>Download the “Real Property Taxes” Data from my website (via OpenBaltimore): <a href="http://jhudatascience.org/intro_to_r/data/Real_Property_Taxes.csv.gz" class="uri">http://jhudatascience.org/intro_to_r/data/Real_Property_Taxes.csv.gz</a> note you don’t need to unzip it to read it into R</p>
-<ol start="6" style="list-style-type: decimal">
+<ol start="5" style="list-style-type: decimal">
 <li><p>Read the Property Tax data into R and call it the variable <code>tax</code></p></li>
 <li><p>How many addresses pay property taxes?</p></li>
-<li><p>What is the total city and state tax paid?<br />
-You need to remove the <code>$</code> from the <code>CityTax</code> variable then you need to make it numeric. Try <code>str_replace</code>, but remember $ is “special” and you need <code>fixed()</code> around it.</p></li>
-<li><p>Using <code>table()</code> or <code>group_by</code> and <code>summarize(n())</code> or <code>tally()</code></p></li>
+<li><p>What is the total city tax paid?<br />
+You need to remove the <code>$</code> from the <code>CityTax</code> variable then you need to make it numeric. Try <code>str_replace</code>, but $ is “special” and you need <code>fixed()</code> around it.</p></li>
+<li><ol style="list-style-type: lower-alpha">
+<li>how many observations/properties are in each ward?</li>
+</ol></li>
 </ol>
-<ol style="list-style-type: lower-alpha">
-<li><p>how many observations/properties are in each ward?</p></li>
-<li><p>what is the mean state tax per ward? use <code>group_by</code> and <code>summarize</code></p></li>
-<li><p>what is the maximum amount still due in each ward? different summarization (<code>max</code>)</p></li>
-<li><p>What is the 75th percentile of city and state tax paid by Ward? (<code>quantile</code>)</p></li>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>what is the maximum amount still due in each ward? different summarization (<code>max</code>)</li>
 </ol>
 <ol start="10" style="list-style-type: decimal">
-<li><p>Make boxplots using showing <code>cityTax</code> (<code>y</code> -variable) by whether the property is a principal residence (<code>x</code>) or not.</p></li>
-<li><p>Subset the data to only retain those houses that are principal residences. which command subsets rows? Filter or select?</p></li>
+<li>Subset the data to only retain those houses that are principal residences. which command subsets rows? Filter or select?</li>
 </ol>
-<ol style="list-style-type: lower-alpha">
-<li><p>How many such houses are there?</p></li>
-<li><p>Describe the distribution of property taxes on these residences. Use hist with certain breaks or <code>plot(density(variable))</code></p></li>
-</ol>
+<p>How many such houses are there?</p>
 <p><strong>New Data Set</strong></p>
 <p>Read in the Salary FY2015 dataset</p>
 <pre class="r"><code>sal = read_csv(&quot;http://jhudatascience.org/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv&quot;)</code></pre>
@@ -448,16 +438,14 @@ You need to remove the <code>$</code> from the <code>CityTax</code> variable the
 ##   AnnualSalary = col_character(),
 ##   GrossPay = col_character()
 ## )</code></pre>
-<ol start="12" style="list-style-type: decimal">
+<ol start="11" style="list-style-type: decimal">
 <li><p>Make an object called health.sal using the salaries data set, with only agencies of those with <code>&quot;fire&quot;</code> (or any forms), if any, in the name (remember <code>fixed( ignore_case = TRUE)</code> will ignore cases).</p></li>
 <li><p>Make a data set called <code>trans</code> which contains only agencies that contain “TRANS”.</p></li>
 <li><p>What is/are the profession(s) of people who have <code>&quot;abra&quot;</code> in their name for Baltimore’s Salaries? Case should be ignored</p></li>
-<li><p>What is the distribution of annual salaries look like? (use <code>hist</code>, 20 breaks) What is the IQR? Hint: first convert to numeric. Try <code>str_replace</code>, but remember<code>$</code> is “special” and you need <code>fixed()</code> around it.</p></li>
-<li><p>Convert <code>HireDate</code> to the <code>Date</code> class - plot Annual Salary vs Hire Date. Use <code>AnnualSalary ~ HireDate</code> with a <code>data = sal</code> argument in plot or use x, y notation in <code>scatter.smooth</code> Use <code>lubridate</code> package. Is it <code>mdy(date)</code> or <code>dmy(date)</code> for this data - look at <code>HireDate</code></p></li>
 <li><p>Create a smaller dataset that only includes the Police Department, Fire Department and Sheriff’s Office. Use the Agency variable with string matching. Call this <code>emer</code>. How many employees are in this new dataset?</p></li>
-<li><p>Create a variable called <code>dept</code> in the emer data set. <code>dept = str_extract(Agency, &quot;.*(ment|ice)&quot;)</code>. E.g. want to extract all characters up until <code>ment</code> or <code>ice</code> (we can group in <code>regex</code> using parentheses) and then discard the rest. Replot annual salary versus hire date, color by <code>dept</code> (not yet - using ggplot)</p></li>
+<li><p>Create a variable called <code>dept</code> in the emer data set. <code>dept = str_extract(Agency, &quot;.*(ment|ice)&quot;)</code>. E.g. want to extract all characters up until <code>ment</code> or <code>ice</code> (we can group in <code>regex</code> using parentheses) and then discard the rest.</p></li>
 </ol>
-<p>19 (Bonus). Convert the ‘LotSize’ variable to a numeric square feet variable in the tax data set. Some tips: a) 1 acre = 43560 square feet b) The hyphens represent inches (not decimals)</p>
+<p>16 (Bonus). Convert the ‘LotSize’ variable to a numeric square feet variable in the tax data set. Some tips: a) 1 acre = 43560 square feet b) The hyphens represent inches (not decimals)</p>
 </div>
 
 

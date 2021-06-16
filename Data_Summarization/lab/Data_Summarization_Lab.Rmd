@@ -101,7 +101,7 @@ bike = read_bike()
 8.  Describe the distribution of bike "lane" lengths:
     (a) Numerically [hint: `quantile()`, using `bike$length`] and 
 		(b) graphically [hint: `qplot()` with `geom = "histogram"` or `geom = "density")`].
-```{r q6}
+```{r q8}
 
 # (b)
 # qplot(x = ???, data = ???, geom = ???)
@@ -109,7 +109,7 @@ bike = read_bike()
 ```
 
 9. Then describe as above, after stratifying by  i) type (`type`) then ii) number of lanes (`numLanes`) using `geom = "boxplot"`: 
-```{r q7}
+```{r q9}
 
 
 
