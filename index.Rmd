@@ -82,6 +82,8 @@ The course will provide students with “hands-on” training for analyzing data
 2) Nightly Homework: 3 x 15%  
 3) Final "Project": 35%  
 
+All assignments are due June 25th 2021.
+
 ## Submitting Homework
 ***
 
@@ -138,7 +140,7 @@ days = list(
   c("Homework 1"),
   c("Intro", "RStudio",  "Basic_R", "Data_IO"),
   c("Subsetting_Data_in_R", "Data_Summarization", "Homework 2"), 
-  c("Data_Classes", "Data_Classes_summary", "Data_Cleaning"),
+  c("Data_Classes", "Data_Cleaning"),
   c("Manipulating_Data_in_R", "Data_Visualization", "Homework 3"),
   c("Statistics", "Functions", "Knitr")
 )
@@ -190,10 +192,10 @@ if (show_keys) {
 }
 
   
-df$In_Class_Work = file.path(df$mod, "scratch.R")
-fe = !file.exists(df$In_Class_Work )
-df$In_Class_Work = paste0("[Live R file](", df$In_Class_Work, ")")
-df$In_Class_Work[ fe ] = ""
+#df$In_Class_Work = file.path(df$mod, "scratch.R")
+#fe = !file.exists(df$In_Class_Work )
+#df$In_Class_Work = paste0("[Live R file](", df$In_Class_Work, ")")
+#df$In_Class_Work[ fe ] = ""
 
 # Different for HW 1
 hw1 = gsub(" ", "", tolower(df$mod)) == "homework1"
