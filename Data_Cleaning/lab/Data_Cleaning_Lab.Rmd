@@ -31,27 +31,36 @@ bike = read_csv(
 1.  Count the number of rows of the bike data and count the number of complete cases of the bike data.  Use `sum` and `complete.cases`.
 ```{r}
 
+
 ```
 
 2.  Create a data set called `namat` which is equal to `is.na(bike)`.  
-What is the class of `namat`?  Run rowSums and colSums on `namat.`
-These represent the number of missing values in the rows and columns of
-`bike`.  Don't print `rowSums`, but do a table of the `rowSums`
-Try `nabike = bike %>% mutate_all(is.na)`.  Then try `nabike %>% summarise_all(sum)`.  What do you get?  
+What is the class of `namat`?  Run colSums on `namat.`
+These represent the number of missing values in the columns of
+`bike`. 
 ```{r}
 
 ```
 
 3.  Filter rows of bike that are NOT missing the `route` variable, assign
-this to the object `have_route.`  Do a table of the `subType` using `table`, 
-including the missing `subType`s.  Get the same frequency distribution
-using `group_by(subType)` and `tally().`
+this to the object `have_route.`  Create a table of the `subType` using `table`, 
+including the missing `subType`s. 
+
 ```{r}
+#have_route = ??? %>%  filter(???(route))
+```
+
+4. 
+
+a. Use `naniar` to make a visual of the amount of data missing for each variable of `bike` (use `naniar::gg_miss_var()`).
+```{r}
+
 
 ```
 
-4. Use `naniar` to make a visual of the amount of data missing for each variable of `bike` (use `naniar::gg_miss_var()`).
 
+b. What is the percent complete for `subType` of `bike` ? Hint: use another `naniar` function.
+ 
 ```{r}
 
 ```
@@ -59,93 +68,69 @@ using `group_by(subType)` and `tally().`
 # Part 2
 
 **New Data set**
+Now imagine we work in a clinic and we are trying to understand more about blood types of patients. 
 
-Download the "Real Property Taxes" Data from my website (via OpenBaltimore):
-http://jhudatascience.org/intro_to_r/data/Real_Property_Taxes.csv.gz
-note you don't need to unzip it to read it into R
-
-
-
-5. Read the Property Tax data into R and call it the variable `tax`
+Let's say we imported the data like so:
 ```{r}
+BloodType <- tibble(gender = 
+                    c("M", "Male", "Female", "F", "M", 
+                      "Male", "F", "M", "F", "M", 
+                      "F", "Man", "NA", "Man", "female"), 
+                    type = c("A.-", "AB.+", "O.-", "O.+", "AB.-",
+                               "B.+", "B.-", "o.-", "O.+", "A.-",
+                              "A.+", "O.-", "B.-", "o.+", "AB.-"),
+                    infection = c("Yes", "No", "Yes", "No", "No",
+                                  "No", "Yes", "No", "Yes", "No",
+                                  "No", "Yes", "Yes", "Yes", "Yes"))
+
+BloodType
+```
+
+There are some issues with this data that we need to figure out!
+
+5. Recode the `gender` variable of the `BloodType` data so that it is consistent.
+
+```{r}
+# BloodType <- ??? %>%
+#  mutate(??? = recode(gender, ? = "Male", ? = "Male", ?= "Male",
+#                                ? = "Female", ? = "Female"))
 
 ```
 
-6. How many addresses pay property taxes? 
-```{r}
+Check to see that `gender` only has NA values, the value you used males, and the value you used for females.
 
+```{r}
+# BloodType %>% pull(???) %>% ???(useNA = "ifany")
 ```
 
-7. What is the total city tax paid?  
-You need to remove the `$` from the `CityTax` variable
-then you need to make it numeric.   Try `str_replace`, but 
-$ is "special"  and you need `fixed()` around it.
+6. Recode the `type` variable of the `BloodType` data to be consistent.
 ```{r}
-
+#BloodType <- BloodType %>%
+#  ???(??? = ???(type, "o.-" = "O.-", "o.+" = "O.+"))
 ```
 
-8. a. how many observations/properties are in each ward?
-```{r}
-
-```
-
-b. what is the maximum amount still due in each ward?  different summarization (`max`)
-```{r}
-
-```
-
-10. Subset the data to only retain those houses that are principal residences. 
-which command subsets rows? Filter or select?
-
-How many such houses are there?
-```{r}
-
-```
-
-
-**New Data Set**
-
-Read in the Salary FY2015 dataset
-```{r}
-
-sal = read_csv("http://jhudatascience.org/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv")
-```
-
-11. Make an object called health.sal using the salaries data set, with only agencies of those with `"fire"` (or any forms), if any, in the name (remember `fixed( ignore_case = TRUE)` will ignore cases).
-```{r}
-
-```
-
-12. Make a data set called `trans` which contains only agencies that contain "TRANS".
-```{r}
-
-```
-
-13. What is/are the profession(s) of people who have `"abra"` in their name for Baltimore's Salaries?  Case should be ignored
-```{r}
-
-```
-
-
-14. Create a smaller dataset that only includes the Police Department,  Fire Department and Sheriff's Office.  Use the Agency variable with string matching. Call this `emer`.  How many employees are in this new dataset?
-```{r}
-
-```
-
-15. Create a variable called `dept` in the emer data set.
-`dept = str_extract(Agency, ".*(ment|ice)")`.  E.g. want to extract all characters
-up until `ment` or `ice` (we can group in `regex` using parentheses) and then discard the rest.
-```{r}
-
-```
-
-
-
-16 (Bonus). Convert the 'LotSize' variable to a numeric square feet variable in the tax data set. Some tips: 
-a) 1 acre = 43560 square feet
-b) The hyphens represent inches (not decimals)
+Check to see that `type` only has only these possible values:
+ "A.-","A.+", "AB.-", "AB.+", "B-","B+", "O.-", "O.+"
 
 ```{r}
 
 ```
 
+7. Make a new tibble of `BloodType` called `Bloodtype_split` that splits the `type` variable into two called `blood_type` and  `Rhfactor` separating by the period. (Note periods are special characters that generally are interpreted as wild cards thus we need `\\` to tell R that we want it to be interpreted as a period.)
+```{r}
+#BloodType_split  <- BloodType %>% ???(type, ??? = c("blood_type", "Rhfactor"), sep = "\\.")
+```
+
+8. a. How many observations are there for each `Rhfactor`:
+```{r}
+# ??? %>%pull(Rhfactor) %>% ???
+```
+
+b. Filtering for patients with type O, how many had the infection?
+```{r}
+#??? %>%
+#  ???(blood_type ??? "O") %>%
+#  pull(???) %>%
+#  table()
+
+```
