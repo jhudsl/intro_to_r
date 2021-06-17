@@ -399,53 +399,84 @@ bike = read_csv(
 <ol style="list-style-type: decimal">
 <li><p>Count the number of rows of the bike data and count the number of complete cases of the bike data. Use <code>sum</code> and <code>complete.cases</code>.</p></li>
 <li><p>Create a data set called <code>namat</code> which is equal to <code>is.na(bike)</code>.<br />
-What is the class of <code>namat</code>? Run rowSums and colSums on <code>namat.</code> These represent the number of missing values in the rows and columns of <code>bike</code>. Don’t print <code>rowSums</code>, but do a table of the <code>rowSums</code> Try <code>nabike = bike %&gt;% mutate_all(is.na)</code>. Then try <code>nabike %&gt;% summarise_all(sum)</code>. What do you get?</p></li>
-<li><p>Filter rows of bike that are NOT missing the <code>route</code> variable, assign this to the object <code>have_route.</code> Do a table of the <code>subType</code> using <code>table</code>, including the missing <code>subType</code>s. Get the same frequency distribution using <code>group_by(subType)</code> and <code>tally().</code></p></li>
+What is the class of <code>namat</code>? Run colSums on <code>namat.</code> These represent the number of missing values in the columns of <code>bike</code>.</p></li>
+<li><p>Filter rows of bike that are NOT missing the <code>route</code> variable, assign this to the object <code>have_route.</code> Create a table of the <code>subType</code> using <code>table</code>, including the missing <code>subType</code>s.</p></li>
+</ol>
+<pre class="r"><code>#have_route = ??? %&gt;%  filter(???(route))</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li></li>
+</ol>
+<ol style="list-style-type: lower-alpha">
 <li><p>Use <code>naniar</code> to make a visual of the amount of data missing for each variable of <code>bike</code> (use <code>naniar::gg_miss_var()</code>).</p></li>
+<li><p>What is the percent complete for <code>subType</code> of <code>bike</code> ? Hint: use another <code>naniar</code> function.</p></li>
 </ol>
 </div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
-<p><strong>New Data set</strong></p>
-<p>Download the “Real Property Taxes” Data from my website (via OpenBaltimore): <a href="http://jhudatascience.org/intro_to_r/data/Real_Property_Taxes.csv.gz" class="uri">http://jhudatascience.org/intro_to_r/data/Real_Property_Taxes.csv.gz</a> note you don’t need to unzip it to read it into R</p>
+<p><strong>New Data set</strong> Now imagine we work in a clinic and we are trying to understand more about blood types of patients.</p>
+<p>Let’s say we imported the data like so:</p>
+<pre class="r"><code>BloodType &lt;- tibble(gender = 
+                    c(&quot;M&quot;, &quot;Male&quot;, &quot;Female&quot;, &quot;F&quot;, &quot;M&quot;, 
+                      &quot;Male&quot;, &quot;F&quot;, &quot;M&quot;, &quot;F&quot;, &quot;M&quot;, 
+                      &quot;F&quot;, &quot;Man&quot;, &quot;NA&quot;, &quot;Man&quot;, &quot;female&quot;), 
+                    type = c(&quot;A.-&quot;, &quot;AB.+&quot;, &quot;O.-&quot;, &quot;O.+&quot;, &quot;AB.-&quot;,
+                               &quot;B.+&quot;, &quot;B.-&quot;, &quot;o.-&quot;, &quot;O.+&quot;, &quot;A.-&quot;,
+                              &quot;A.+&quot;, &quot;O.-&quot;, &quot;B.-&quot;, &quot;o.+&quot;, &quot;AB.-&quot;),
+                    infection = c(&quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;No&quot;,
+                                  &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;,
+                                  &quot;No&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;))
+
+BloodType</code></pre>
+<pre><code>## # A tibble: 15 x 3
+##    gender type  infection
+##    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;    
+##  1 M      A.-   Yes      
+##  2 Male   AB.+  No       
+##  3 Female O.-   Yes      
+##  4 F      O.+   No       
+##  5 M      AB.-  No       
+##  6 Male   B.+   No       
+##  7 F      B.-   Yes      
+##  8 M      o.-   No       
+##  9 F      O.+   Yes      
+## 10 M      A.-   No       
+## 11 F      A.+   No       
+## 12 Man    O.-   Yes      
+## 13 NA     B.-   Yes      
+## 14 Man    o.+   Yes      
+## 15 female AB.-  Yes</code></pre>
+<p>There are some issues with this data that we need to figure out!</p>
 <ol start="5" style="list-style-type: decimal">
-<li><p>Read the Property Tax data into R and call it the variable <code>tax</code></p></li>
-<li><p>How many addresses pay property taxes?</p></li>
-<li><p>What is the total city tax paid?<br />
-You need to remove the <code>$</code> from the <code>CityTax</code> variable then you need to make it numeric. Try <code>str_replace</code>, but $ is “special” and you need <code>fixed()</code> around it.</p></li>
+<li>Recode the <code>gender</code> variable of the <code>BloodType</code> data so that it is consistent.</li>
+</ol>
+<pre class="r"><code># BloodType &lt;- ??? %&gt;%
+#  mutate(??? = recode(gender, ? = &quot;Male&quot;, ? = &quot;Male&quot;, ?= &quot;Male&quot;,
+#                                ? = &quot;Female&quot;, ? = &quot;Female&quot;))</code></pre>
+<p>Check to see that <code>gender</code> only has NA values, the value you used males, and the value you used for females.</p>
+<pre class="r"><code># BloodType %&gt;% pull(???) %&gt;% ???(useNA = &quot;ifany&quot;)</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Recode the <code>type</code> variable of the <code>BloodType</code> data to be consistent.</li>
+</ol>
+<pre class="r"><code>#BloodType &lt;- BloodType %&gt;%
+#  ???(??? = ???(type, &quot;o.-&quot; = &quot;O.-&quot;, &quot;o.+&quot; = &quot;O.+&quot;))</code></pre>
+<p>Check to see that <code>type</code> only has only these possible values: “A.-”,“A.+”, “AB.-”, “AB.+”, “B-”,“B+”, “O.-”, “O.+”</p>
+<ol start="7" style="list-style-type: decimal">
+<li>Make a new tibble of <code>BloodType</code> called <code>Bloodtype_split</code> that splits the <code>type</code> variable into two called <code>blood_type</code> and <code>Rhfactor</code> separating by the period. (Note periods are special characters that generally are interpreted as wild cards thus we need <code>\\</code> to tell R that we want it to be interpreted as a period.)</li>
+</ol>
+<pre class="r"><code>#BloodType_split  &lt;- BloodType %&gt;% ???(type, ??? = c(&quot;blood_type&quot;, &quot;Rhfactor&quot;), sep = &quot;\\.&quot;)</code></pre>
+<ol start="8" style="list-style-type: decimal">
 <li><ol style="list-style-type: lower-alpha">
-<li>how many observations/properties are in each ward?</li>
+<li>How many observations are there for each <code>Rhfactor</code>:</li>
 </ol></li>
 </ol>
+<pre class="r"><code># ??? %&gt;%pull(Rhfactor) %&gt;% ???</code></pre>
 <ol start="2" style="list-style-type: lower-alpha">
-<li>what is the maximum amount still due in each ward? different summarization (<code>max</code>)</li>
+<li>Filtering for patients with type O, how many had the infection?</li>
 </ol>
-<ol start="10" style="list-style-type: decimal">
-<li>Subset the data to only retain those houses that are principal residences. which command subsets rows? Filter or select?</li>
-</ol>
-<p>How many such houses are there?</p>
-<p><strong>New Data Set</strong></p>
-<p>Read in the Salary FY2015 dataset</p>
-<pre class="r"><code>sal = read_csv(&quot;http://jhudatascience.org/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv&quot;)</code></pre>
-<pre><code>## 
-## ── Column specification ────────────────────────────────────────────────────────
-## cols(
-##   name = col_character(),
-##   JobTitle = col_character(),
-##   AgencyID = col_character(),
-##   Agency = col_character(),
-##   HireDate = col_character(),
-##   AnnualSalary = col_character(),
-##   GrossPay = col_character()
-## )</code></pre>
-<ol start="11" style="list-style-type: decimal">
-<li><p>Make an object called health.sal using the salaries data set, with only agencies of those with <code>&quot;fire&quot;</code> (or any forms), if any, in the name (remember <code>fixed( ignore_case = TRUE)</code> will ignore cases).</p></li>
-<li><p>Make a data set called <code>trans</code> which contains only agencies that contain “TRANS”.</p></li>
-<li><p>What is/are the profession(s) of people who have <code>&quot;abra&quot;</code> in their name for Baltimore’s Salaries? Case should be ignored</p></li>
-<li><p>Create a smaller dataset that only includes the Police Department, Fire Department and Sheriff’s Office. Use the Agency variable with string matching. Call this <code>emer</code>. How many employees are in this new dataset?</p></li>
-<li><p>Create a variable called <code>dept</code> in the emer data set. <code>dept = str_extract(Agency, &quot;.*(ment|ice)&quot;)</code>. E.g. want to extract all characters up until <code>ment</code> or <code>ice</code> (we can group in <code>regex</code> using parentheses) and then discard the rest.</p></li>
-</ol>
-<p>16 (Bonus). Convert the ‘LotSize’ variable to a numeric square feet variable in the tax data set. Some tips: a) 1 acre = 43560 square feet b) The hyphens represent inches (not decimals)</p>
+<pre class="r"><code>#??? %&gt;%
+#  ???(blood_type ??? &quot;O&quot;) %&gt;%
+#  pull(???) %&gt;%
+#  table()</code></pre>
 </div>
 
 
