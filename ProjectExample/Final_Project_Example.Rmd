@@ -1,0 +1,146 @@
+---
+title: "Project Example"
+output: html_document
+---
+
+# Final Project
+
+## Data
+
+The data that I am using for my project is from the World Happiness Report.
+
+I obtained the data from Kaggle.com at this link: https://www.kaggle.com/ajaypalsinghlo/world-happiness-report-2021/download.
+
+
+The data comes from an annual report from the Gallup World Poll. Here is a link for more information about this poll: https://www.gallup.com/analytics/247355/gallup-world-happiness-report.aspx. This report has gained global recognition and is used to inform policy making decisions. 
+
+The variables in the data include score estimates for various factors that have been shown to be related to happiness. The estimate for happiness variable is called "Ladder Score". There is data related to a fake country called "Dystopia" which simulates a country that has the worlds lowest values for all the factors related to happiness. The factors related to happiness are sometimes used to explain why some countries report higher levels of happiness.
+
+I attempted to find more about how people were surveyed for the poll, but did not find much information. The poll however occurs annually through a survey of adults around the world.
+
+
+Now I will load packages that I may need in my analysis:
+```{r}
+library(readr)
+library(tidyverse)
+library(dplyr)
+library(lubridate)
+library(jhur)
+library(tidyverse)
+library(broom)
+library(naniar)
+```
+
+
+## Data Import
+
+I will then import my data by using the read_csv() function of the readr package as the data is in csv format. I will name the data Happiness.
+
+```{r}
+Happiness <-read_csv("/Users/carriewright/Documents/GitHub/Teaching/intro_to_r/ProjectExample/world-happiness-report-2021.csv")
+```
+I then take a look at my data using the `head()` function. I use the `dim()` function to see how many rows/columns there are.
+```{r}
+head(Happiness)
+dim(Happiness)
+```
+
+
+To determine how many unique countries there are I used the `unqiue()` function and the length() function.
+```{r}
+pull(Happiness, "Country name") %>% unique() %>% length
+```
+
+This shows that there are 149 Countries.
+
+
+## Data Cleaning/Wrangling
+
+I decided to rename the first variable called "Country name" so that it would not have a space - this makes it easier to work with as I will not need to use quotes around it for most functions. I used the `rename()` function to do this, listing the new name first.
+
+```{r}
+
+Happiness  <- Happiness %>% 
+                rename("Country_name" ="Country name")
+colnames(Happiness)
+```
+
+I can see that this column is renamed, but I then realized that many columns have names with spaces. I decided to do the same thing for the "Ladder score" variable. I renamed it "Happiness_score"
+
+```{r}
+  Happiness  <- Happiness %>% 
+                rename("Happiness_score" ="Ladder score")
+colnames(Happiness) 
+```
+
+I then decided to arrange the data by `Happiness_score` using the `arrange()` function with the largest score shown first, thus I needed to use `desc()`
+```{r}
+Happiness <- Happiness %>% arrange(desc(Happiness_score))
+head(Happiness)
+```
+
+I could see from this that Finland is the top scoring country and that all of the top 6 countries are in Western Europe.
+
+
+I then wanted to know about the US so I filtered for `United States` for the `Country_name`.
+
+```{R}
+Happiness %>% filter(Country_name == "United States")
+```
+
+Looks like the score was fairly high for the United States - much higher than Dystopia.
+
+I wondered how  the US ranked, so I decided to make a variable for rank. To do so I used the `seq()` function to create a sequence of numbers from 1 to 149 the number of countries or rows in the data.
+
+```{r}
+Happiness <- Happiness %>% mutate(rank = seq(1:149))
+Happiness$rank
+```
+
+
+I then looked again at the US using filter(). I used the pull() function to get the rank for the US.
+
+```{r}
+Happiness %>% filter(Country_name == "United States") %>% pull(rank)
+```
+
+The US ranked 19 in 2021 for happiness out of the 149 countries.
+
+## Data Visualization
+I decided to make a plot of the top 5 countrie using geom_point() and ggplot().
+First I created a new dataset of just the top 10 ranking countries.
+
+```{r}
+top20 <- Happiness %>% filter(rank<5)
+
+ggplot(data = top20, aes( x= Country_name, y = Happiness_score )) +
+  geom_point()
+```
+I then decided to make a plot of a few countries of interest:
+
+```{r}
+int_Country<- Happiness %>% filter(Country_name %in% c("China", "United States", "India", "Mexico"))
+
+ggplot(data = int_Country, aes( x= Country_name, y = Happiness_score ), group = Country_name) +
+  geom_boxplot()
+```
+
+I can see from this plot that the United States ranked higher than China, India, or Mexico. Mexico ranked second, China third, and India fourth.
+
+# Data Analysis
+
+I then decided to perform a simple analysis to compare countries in different regions. Using `unique()` I determined that there were 10 different regions. I decided to compare countries in `Western Europe` with those of `East Asia`.
+
+```{r}
+unique(Happiness$`Regional indicator`)
+```
+I first filtered the data to create two new data sets for these regions only and then performed a t test without assuming equal variance between the scores for the countries for each region.
+
+```{r}
+West_Eur <- Happiness %>% filter(`Regional indicator` == "Western Europe")
+NAmer <-Happiness %>% filter(`Regional indicator` == "North America and ANZ")
+
+t.test(x = West_Eur$Happiness_score, y = NAmer$Happiness_score, var.equal = FALSE)
+```
+
+The p-value was greater than 0.05, suggesting that there might not be a difference in happiness scores between Western Europe and North America. Disclaimer- this was intended to demonstrate how one might perform such an analysis. We are not claiming that there is a difference or is not a difference in happiness scores between the countries in these two regions. 
