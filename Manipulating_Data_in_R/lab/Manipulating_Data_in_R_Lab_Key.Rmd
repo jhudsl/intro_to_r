@@ -75,6 +75,19 @@ colnames(wide_crash2)
 
 # Part 2
 
+Use this code if you need to reload libraries and the data on day 2:
+
+```{r}
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(stringr)
+
+crash = read_csv("http://jhudatascience.org/intro_to_r/Manipulating_Data_in_R/lab/crashes.csv")
+road = read_csv("http://jhudatascience.org/intro_to_r/Manipulating_Data_in_R/lab/roads.csv")
+```
+
 7. Join data to retain only complete data, (using an inner join) e.g. those observations with road lengths and districts.  Merge without using `by` argument, then merge using `by = "Road"`. call the output `merged.`  How many observations are there?
 
 ```{r}
