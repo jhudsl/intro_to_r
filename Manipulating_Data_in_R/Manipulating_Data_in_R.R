@@ -10,14 +10,29 @@ library(tidyverse)
 
 
 ## ---- echo = FALSE------------------------------------------------------------
-ex_wide = tibble(id = 1:2,
-                     visit1 = c(10, 5),
-                     visit2 = c(4, 6),
-                     visit3 = c(3, NA)
+ex_wide = tibble(State = "Alabama",
+                 June_vacc_rate = "37.2%",
+                 May_vacc_rate = "36.0%",
+                 April_vacc_rate = "32.4%"
                      )
-ex_long = tibble(id = c(rep(1, 3), rep(2, 2)),
-                     visit = c(1:3, 1:2),
-                     value = c(10, 4, 3, 5, 6))
+ex_long = pivot_longer(ex_wide, cols = c(June_vacc_rate, May_vacc_rate, April_vacc_rate))
+
+
+## ---- echo = FALSE------------------------------------------------------------
+ex_wide
+
+
+## ---- echo = FALSE------------------------------------------------------------
+ex_long
+
+
+## ---- echo = FALSE------------------------------------------------------------
+ex_wide = tibble(State = c("Alabama", "Alaska"),
+                 June_vacc_rate = c("37.2%", "47.5%"),
+                 May_vacc_rate = c("36.0%", "46.2%"),
+                 April_vacc_rate = c("32.4%", "41.7%")
+                     )
+ex_long = pivot_longer(ex_wide, cols = c(June_vacc_rate, May_vacc_rate, April_vacc_rate))
 
 
 ## ---- echo = FALSE------------------------------------------------------------
@@ -32,36 +47,30 @@ ex_long
 knitr::include_graphics("../images/pivot.jpg")
 
 
+## ---- echo = FALSE------------------------------------------------------------
+ex_wide
+
+
+## ---- echo = FALSE------------------------------------------------------------
+ex_long
+
+
 ## ---- message = FALSE---------------------------------------------------------
 circ = read_csv(
   paste0("http://jhudatascience.org/intro_to_r/",
          "data/Charm_City_Circulator_Ridership.csv"))
-head(circ, 2)
-class(circ$date)
-
-
-## ---- message = FALSE---------------------------------------------------------
-library(lubridate) # great for dates!
-
-
-## ---- message= FALSE----------------------------------------------------------
-sum(is.na(circ$date))
-sum( circ$date == "")
-circ = mutate(circ, date = mdy(date))
-sum( is.na(circ$date) ) # all converted correctly
-head(circ$date, 3)
-class(circ$date)
+head(circ, 5)
 
 
 ## -----------------------------------------------------------------------------
-long = pivot_longer(circ, !c(day, date, daily), # NOT pivoting these
-                    names_to = "var", values_to = "number")
-head(long, 4)
+long = circ %>% 
+  pivot_longer(starts_with(c("orange","purple","green","banner")),
+               names_to = "var", values_to = "number")
+long
 
 
 ## -----------------------------------------------------------------------------
-long = pivot_longer(circ, 
-                    starts_with(c("orange","purple","green","banner")),
+long = circ %>% pivot_longer(!c(day, date, daily),
                     names_to = "var", values_to = "number")
 long
 
@@ -72,33 +81,30 @@ long %>% count(var)
 
 ## -----------------------------------------------------------------------------
 long = long %>% mutate(
-  var = var %>% 
-    str_replace("Board", "_Board") %>% 
-    str_replace("Alight", "_Alight") %>% 
-    str_replace("Average", "_Average") 
+  var = str_replace(var, "Board", "_Board"),
+  var = str_replace(var, "Alight", "_Alight"),
+  var = str_replace(var, "Average", "_Average") 
 )
-long %>% count(var)
+long
 
 
 ## -----------------------------------------------------------------------------
-long = separate(long, var, into = c("line", "type"), sep = "_")
-head(long, 2)
-unique(long$line)
-unique(long$type)
+long = 
+  long %>% 
+  separate(var, into = c("line", "type"), sep = "_")
+long
 
 
 ## -----------------------------------------------------------------------------
 reunited = long %>% 
-  unite(col = var, line, type, sep = "_")  
-reunited %>% select(day, var) %>% head(3) %>% print
+  unite(var, line, type, sep = "_")  
+reunited
 
 
 ## -----------------------------------------------------------------------------
-# have to remove missing days
-wide = long %>% filter(!is.na(date))
-wide = wide %>% pivot_wider(names_from = "type", 
+wide = long %>% pivot_wider(names_from = "type", 
                             values_from = "number") 
-head(wide)
+wide
 
 
 ## ----merging------------------------------------------------------------------
@@ -107,21 +113,21 @@ head(base, 2)
 
 
 ## -----------------------------------------------------------------------------
-visits <- tibble(id = c(rep(1:8, 3), 11), visit= c(rep(1:3, 8), 3),
-                    Outcome = seq(10,50, length=25))
-tail(visits, 2)
+visits <- tibble(id = rep(2:11, 3), visit= rep(1:3, 10),
+                    Outcome = seq(10,50, length=30))
+head(visits, 2)
 
 
 ## ----inner_join---------------------------------------------------------------
 ij = inner_join(base, visits)
 dim(ij)
-tail(ij)
+head(ij)
 
 
 ## ----left_join----------------------------------------------------------------
 lj = left_join(base, visits)
 dim(lj)
-tail(lj)
+head(lj)
 
 
 ## ---- include=FALSE-----------------------------------------------------------
@@ -129,48 +135,41 @@ library(tidylog)
 
 
 ## ----left_join_log------------------------------------------------------------
+# install.packages("tidylog")
 library(tidylog)
 left_join(base, visits)
 
 
 ## ----right_join---------------------------------------------------------------
 rj = right_join(base, visits)
-tail(rj, 3)
 
 
 ## ----right_join2--------------------------------------------------------------
-rj2 = right_join(visits, base)
-tail(rj2, 3)
-
-## ----right_join_arrange, echo = FALSE-----------------------------------------
-rj2 = arrange(rj2, id, visit) %>% select(id, visit, Outcome, Age)
-lj = arrange(lj, id, visit) %>% select(id, visit, Outcome, Age)
-
-## ----right_join_arrange_out---------------------------------------------------
-identical(rj2, lj) ## after some rearranging
+lj2 = left_join(visits, base)
 
 
 ## ----full_join----------------------------------------------------------------
 fj = full_join(base, visits)
-tail(fj, 4)
+
+
+## -----------------------------------------------------------------------------
+# fj = full_join(base, visits)
+head(fj, 10)
 
 
 ## ----include=FALSE------------------------------------------------------------
 unloadNamespace("tidylog")
 
 
-## ----use_by-------------------------------------------------------------------
-base = base %>% mutate(x = 5)
-visits = visits %>% mutate(x = 4)
-head(full_join(base, visits))
-head(full_join(base, visits, by = "id"))
-head(full_join(base, visits, by = "id", suffix = c("_base", "_visit")))
-
-
 ## -----------------------------------------------------------------------------
 duplicated(1:5)
 duplicated(c(1:5, 1))
 fj %>% mutate(dup_id = duplicated(id))
+
+
+## ----use_by-------------------------------------------------------------------
+# for multiple, by = c(col1, col2)
+head(full_join(base, visits, by = "id"))
 
 
 ## -----------------------------------------------------------------------------

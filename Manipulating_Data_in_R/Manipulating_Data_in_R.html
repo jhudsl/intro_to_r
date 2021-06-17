@@ -3260,53 +3260,86 @@ background-size: 100% 100%;
 <li>Perform operations by a grouping variable</li>
 </ol>
 
-</article></slide><slide class=""><hgroup><h2>Setup</h2></hgroup><article  id="setup">
+<!-- ## Setup -->
 
-<p>We will show you how to do each operation in base R then show you how to use the <code>dplyr</code> or <code>tidyr</code> package to do the same operation (if applicable).</p>
+<!-- We will show you how to do each operation in base R then show you how to use the `dplyr` or `tidyr` package to do the same operation (if applicable).   -->
 
-<p>See the &ldquo;Data Wrangling Cheat Sheet using <code>dplyr</code> and <code>tidyr</code>&rdquo;:</p>
+<!-- See the "Data Wrangling Cheat Sheet using `dplyr` and `tidyr`": -->
 
-<ul>
-<li><a href='https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf' title=''>https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf</a></li>
-</ul>
+<!-- * https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf -->
+
+<!-- See http://www.cookbook-r.com/Manipulating_data/Converting_data_between_wide_and_long_format/ -->
 
 </article></slide><slide class=""><hgroup><h2>What is wide/long data?</h2></hgroup><article  id="what-is-widelong-data">
 
-<p>See <a href='http://www.cookbook-r.com/Manipulating_data/Converting_data_between_wide_and_long_format/' title=''>http://www.cookbook-r.com/Manipulating_data/Converting_data_between_wide_and_long_format/</a></p>
+<p>Data is stored <em>differently</em> in the tibble.</p>
 
-<ul>
-<li>Wide - multiple columns per observation
+<p>Wide: has many columns</p>
 
-<ul>
-<li>e.g. visit1, visit2, visit3</li>
-</ul></li>
-</ul>
+<pre ># A tibble: 1 x 4
+  State   June_vacc_rate May_vacc_rate April_vacc_rate
+  &lt;chr&gt;   &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;          
+1 Alabama 37.2%          36.0%         32.4%          </pre>
 
-<pre ># A tibble: 2 x 4
-     id visit1 visit2 visit3
-  &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-1     1     10      4      3
-2     2      5      6     NA</pre>
+<p>Long: column names become data</p>
 
-<ul>
-<li>Long - multiple rows per observation</li>
-</ul>
-
-<pre ># A tibble: 5 x 3
-     id visit value
-  &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;
-1     1     1    10
-2     1     2     4
-3     1     3     3
-4     2     1     5
-5     2     2     6</pre>
+<pre ># A tibble: 3 x 3
+  State   name            value
+  &lt;chr&gt;   &lt;chr&gt;           &lt;chr&gt;
+1 Alabama June_vacc_rate  37.2%
+2 Alabama May_vacc_rate   36.0%
+3 Alabama April_vacc_rate 32.4%</pre>
 
 </article></slide><slide class=""><hgroup><h2>What is wide/long data?</h2></hgroup><article  id="what-is-widelong-data-1">
 
+<p>Wide: multiple columns per individual, values spread across multiple columns</p>
+
+<pre ># A tibble: 2 x 4
+  State   June_vacc_rate May_vacc_rate April_vacc_rate
+  &lt;chr&gt;   &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;          
+1 Alabama 37.2%          36.0%         32.4%          
+2 Alaska  47.5%          46.2%         41.7%          </pre>
+
+<p>Long: multiple rows per observation, a single column contains the values</p>
+
+<pre ># A tibble: 6 x 3
+  State   name            value
+  &lt;chr&gt;   &lt;chr&gt;           &lt;chr&gt;
+1 Alabama June_vacc_rate  37.2%
+2 Alabama May_vacc_rate   36.0%
+3 Alabama April_vacc_rate 32.4%
+4 Alaska  June_vacc_rate  47.5%
+5 Alaska  May_vacc_rate   46.2%
+6 Alaska  April_vacc_rate 41.7%</pre>
+
+</article></slide><slide class=""><hgroup><h2>What is wide/long data?</h2></hgroup><article  id="what-is-widelong-data-2">
+
 <div style="font-size:40pt">
-<p>More accurately, data is wide or long <strong>with respect</strong> to certain variables.</p></div>
+<p>Data is wide or long <strong>with respect</strong> to certain variables.</p></div>
 
 <p><img src="data:image/jpeg;base64,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" title="Wide versus long data rearanges the position of column names and row content." alt="Wide versus long data rearanges the position of column names and row content." width="60%" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Why do we need to switch between wide/long data?</h2></hgroup><article  id="why-do-we-need-to-switch-between-widelong-data">
+
+<p>Wide: <strong>Easier for humans to read</strong></p>
+
+<pre ># A tibble: 2 x 4
+  State   June_vacc_rate May_vacc_rate April_vacc_rate
+  &lt;chr&gt;   &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;          
+1 Alabama 37.2%          36.0%         32.4%          
+2 Alaska  47.5%          46.2%         41.7%          </pre>
+
+<p>Long: <strong>Easier for R to make plots &amp; do analysis</strong></p>
+
+<pre ># A tibble: 6 x 3
+  State   name            value
+  &lt;chr&gt;   &lt;chr&gt;           &lt;chr&gt;
+1 Alabama June_vacc_rate  37.2%
+2 Alabama May_vacc_rate   36.0%
+3 Alabama April_vacc_rate 32.4%
+4 Alaska  June_vacc_rate  47.5%
+5 Alaska  May_vacc_rate   46.2%
+6 Alaska  April_vacc_rate 41.7%</pre>
 
 </article></slide><slide class=""><hgroup><h2>Data used: Charm City Circulator</h2></hgroup><article  id="data-used-charm-city-circulator">
 
@@ -3315,105 +3348,109 @@ background-size: 100% 100%;
 <pre class = 'prettyprint lang-r'>circ = read_csv(
   paste0(&quot;http://jhudatascience.org/intro_to_r/&quot;,
          &quot;data/Charm_City_Circulator_Ridership.csv&quot;))
-head(circ, 2)</pre>
+head(circ, 5)</pre>
 
-<pre ># A tibble: 2 x 15
+<pre ># A tibble: 5 x 15
   day     date    orangeBoardings orangeAlightings orangeAverage purpleBoardings
   &lt;chr&gt;   &lt;chr&gt;             &lt;dbl&gt;            &lt;dbl&gt;         &lt;dbl&gt;           &lt;dbl&gt;
-1 Monday  01/11/…             877             1027           952              NA
-2 Tuesday 01/12/…             777              815           796              NA
+1 Monday  01/11/…             877             1027          952               NA
+2 Tuesday 01/12/…             777              815          796               NA
+3 Wednes… 01/13/…            1203             1220         1212.              NA
+4 Thursd… 01/14/…            1194             1233         1214.              NA
+5 Friday  01/15/…            1645             1643         1644               NA
 # … with 9 more variables: purpleAlightings &lt;dbl&gt;, purpleAverage &lt;dbl&gt;,
 #   greenBoardings &lt;dbl&gt;, greenAlightings &lt;dbl&gt;, greenAverage &lt;dbl&gt;,
 #   bannerBoardings &lt;dbl&gt;, bannerAlightings &lt;dbl&gt;, bannerAverage &lt;dbl&gt;,
 #   daily &lt;dbl&gt;</pre>
 
-<pre class = 'prettyprint lang-r'>class(circ$date)</pre>
+<!-- ## Creating a Date class from a character date -->
 
-<pre >[1] &quot;character&quot;</pre>
+<!-- ```{r, message = FALSE} -->
 
-</article></slide><slide class=""><hgroup><h2>Creating a Date class from a character date</h2></hgroup><article  id="creating-a-date-class-from-a-character-date">
+<!-- library(lubridate) # great for dates! -->
 
-<pre class = 'prettyprint lang-r'>library(lubridate) # great for dates!</pre>
+<!-- ``` -->
 
-<pre class = 'prettyprint lang-r'>sum(is.na(circ$date))</pre>
+<!-- ```{r, message= FALSE} -->
 
-<pre >[1] 0</pre>
+<!-- sum(is.na(circ$date)) -->
 
-<pre class = 'prettyprint lang-r'>sum( circ$date == &quot;&quot;)</pre>
+<!-- sum( circ$date == "") -->
 
-<pre >[1] 0</pre>
+<!-- circ = mutate(circ, date = mdy(date)) -->
 
-<pre class = 'prettyprint lang-r'>circ = mutate(circ, date = mdy(date))
-sum( is.na(circ$date) ) # all converted correctly</pre>
+<!-- sum( is.na(circ$date) ) # all converted correctly -->
 
-<pre >[1] 0</pre>
+<!-- head(circ$date, 3) -->
 
-<pre class = 'prettyprint lang-r'>head(circ$date, 3)</pre>
+<!-- class(circ$date) -->
 
-<pre >[1] &quot;2010-01-11&quot; &quot;2010-01-12&quot; &quot;2010-01-13&quot;</pre>
-
-<pre class = 'prettyprint lang-r'>class(circ$date)</pre>
-
-<pre >[1] &quot;Date&quot;</pre>
-
-</article></slide><slide class=""><hgroup><h2>Reshaping data from wide (fat) to long (tall): base R</h2></hgroup><article  id="reshaping-data-from-wide-fat-to-long-tall-base-r">
-
-<p>The <code>reshape</code> command exists. It is a <strong>confusing</strong> function. Don’t use it.</p>
+<!-- ``` -->
 
 </article></slide><slide class=""><hgroup><h2>tidyr package</h2></hgroup><article  id="tidyr-package">
 
 <p><code>tidyr</code> allows you to &ldquo;tidy&rdquo; your data. We will be talking about:</p>
 
 <ul>
-<li><p><code>pivot_longer</code> - make multiple columns into variables, (wide to long)</p></li>
-<li><p><code>pivot_wider</code> - make a variable into multiple columns, (long to wide)</p></li>
-<li><p><code>separate</code> - string into multiple columns</p></li>
-<li><p><code>unite</code> - multiple columns into one string</p></li>
-<li><p>All the &ldquo;join&rdquo; functions for merging are in <code>dplyr</code></p></li>
+<li><code>pivot_longer</code> - make multiple columns into variables, (wide to long)</li>
+<li><code>pivot_wider</code> - make a variable into multiple columns, (long to wide)</li>
+<li><code>separate</code> - string into multiple columns</li>
+<li><code>unite</code> - multiple columns into one string</li>
 </ul>
+
+<p>The <code>reshape</code> command exists. It is a <strong>confusing</strong> function. Don’t use it.</p>
 
 </article></slide><slide class=""><hgroup><h2>Reshaping data from wide (fat) to long (tall): tidyr</h2></hgroup><article  id="reshaping-data-from-wide-fat-to-long-tall-tidyr">
 
 <p><code>tidyr::pivot_longer</code> - puts column data into rows.</p>
 
-<p>We first describe which columns we want to &ldquo;pivot_longer.&rdquo; We want the column names in a &ldquo;var&rdquo; variable in the output dataset and the values in a &ldquo;number&rdquo; variable:</p>
+<ul>
+<li>First describe which columns we want to &ldquo;pivot_longer&rdquo;</li>
+<li><code>names_to =</code> gives a new name to the pivoted columns</li>
+<li><code>values_to =</code> gives a new name to the values that used to be in those columns</li>
+</ul>
 
-<pre class = 'prettyprint lang-r'>long = pivot_longer(circ, !c(day, date, daily), # NOT pivoting these
-                    names_to = &quot;var&quot;, values_to = &quot;number&quot;)
-head(long, 4)</pre>
+<pre class = 'prettyprint lang-r'>long = circ %&gt;% 
+  pivot_longer(starts_with(c(&quot;orange&quot;,&quot;purple&quot;,&quot;green&quot;,&quot;banner&quot;)),
+               names_to = &quot;var&quot;, values_to = &quot;number&quot;)
+long</pre>
 
-<pre ># A tibble: 4 x 5
-  day    date       daily var              number
-  &lt;chr&gt;  &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt;
-1 Monday 2010-01-11   952 orangeBoardings     877
-2 Monday 2010-01-11   952 orangeAlightings   1027
-3 Monday 2010-01-11   952 orangeAverage       952
-4 Monday 2010-01-11   952 purpleBoardings      NA</pre>
+<pre ># A tibble: 13,752 x 5
+   day    date       daily var              number
+   &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt;
+ 1 Monday 01/11/2010   952 orangeBoardings     877
+ 2 Monday 01/11/2010   952 orangeAlightings   1027
+ 3 Monday 01/11/2010   952 orangeAverage       952
+ 4 Monday 01/11/2010   952 purpleBoardings      NA
+ 5 Monday 01/11/2010   952 purpleAlightings     NA
+ 6 Monday 01/11/2010   952 purpleAverage        NA
+ 7 Monday 01/11/2010   952 greenBoardings       NA
+ 8 Monday 01/11/2010   952 greenAlightings      NA
+ 9 Monday 01/11/2010   952 greenAverage         NA
+10 Monday 01/11/2010   952 bannerBoardings      NA
+# … with 13,742 more rows</pre>
 
 </article></slide><slide class=""><hgroup><h2>Reshaping data from wide (fat) to long (tall): tidyr</h2></hgroup><article  id="reshaping-data-from-wide-fat-to-long-tall-tidyr-1">
 
-<ul>
-<li>Could be explicit on what we want to pivot</li>
-</ul>
+<p>We have many columns here, so we could instead use the <code>!</code> to say which columns we <em>don’t</em> want to pivot.</p>
 
-<pre class = 'prettyprint lang-r'>long = pivot_longer(circ, 
-                    starts_with(c(&quot;orange&quot;,&quot;purple&quot;,&quot;green&quot;,&quot;banner&quot;)),
+<pre class = 'prettyprint lang-r'>long = circ %&gt;% pivot_longer(!c(day, date, daily),
                     names_to = &quot;var&quot;, values_to = &quot;number&quot;)
 long</pre>
 
 <pre ># A tibble: 13,752 x 5
    day    date       daily var              number
-   &lt;chr&gt;  &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt;
- 1 Monday 2010-01-11   952 orangeBoardings     877
- 2 Monday 2010-01-11   952 orangeAlightings   1027
- 3 Monday 2010-01-11   952 orangeAverage       952
- 4 Monday 2010-01-11   952 purpleBoardings      NA
- 5 Monday 2010-01-11   952 purpleAlightings     NA
- 6 Monday 2010-01-11   952 purpleAverage        NA
- 7 Monday 2010-01-11   952 greenBoardings       NA
- 8 Monday 2010-01-11   952 greenAlightings      NA
- 9 Monday 2010-01-11   952 greenAverage         NA
-10 Monday 2010-01-11   952 bannerBoardings      NA
+   &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt;
+ 1 Monday 01/11/2010   952 orangeBoardings     877
+ 2 Monday 01/11/2010   952 orangeAlightings   1027
+ 3 Monday 01/11/2010   952 orangeAverage       952
+ 4 Monday 01/11/2010   952 purpleBoardings      NA
+ 5 Monday 01/11/2010   952 purpleAlightings     NA
+ 6 Monday 01/11/2010   952 purpleAverage        NA
+ 7 Monday 01/11/2010   952 greenBoardings       NA
+ 8 Monday 01/11/2010   952 greenAlightings      NA
+ 9 Monday 01/11/2010   952 greenAverage         NA
+10 Monday 01/11/2010   952 bannerBoardings      NA
 # … with 13,742 more rows</pre>
 
 </article></slide><slide class=""><hgroup><h2>Reshaping data from wide (fat) to long (tall): tidyr</h2></hgroup><article  id="reshaping-data-from-wide-fat-to-long-tall-tidyr-2">
@@ -3436,75 +3473,80 @@ long</pre>
 11 purpleAverage     1146
 12 purpleBoardings   1146</pre>
 
-</article></slide><slide class=""><hgroup><h2>Lab Part 1</h2></hgroup><article  id="lab-part-1">
-
-<p><a href='http://jhudatascience.org/intro_to_r/index.html' title=''>Website</a></p>
-
 </article></slide><slide class=""><hgroup><h2>Making a separator</h2></hgroup><article  id="making-a-separator">
 
-<p>We will use <code>str_replace</code> from <code>stringr</code> to put <code>_</code> in the names</p>
+<p>We will use <code>str_replace</code> from the <code>stringr</code> package to put <code>_</code> in the names</p>
 
 <pre class = 'prettyprint lang-r'>long = long %&gt;% mutate(
-  var = var %&gt;% 
-    str_replace(&quot;Board&quot;, &quot;_Board&quot;) %&gt;% 
-    str_replace(&quot;Alight&quot;, &quot;_Alight&quot;) %&gt;% 
-    str_replace(&quot;Average&quot;, &quot;_Average&quot;) 
+  var = str_replace(var, &quot;Board&quot;, &quot;_Board&quot;),
+  var = str_replace(var, &quot;Alight&quot;, &quot;_Alight&quot;),
+  var = str_replace(var, &quot;Average&quot;, &quot;_Average&quot;) 
 )
-long %&gt;% count(var)</pre>
+long</pre>
 
-<pre ># A tibble: 12 x 2
-   var                   n
-   &lt;chr&gt;             &lt;int&gt;
- 1 banner_Alightings  1146
- 2 banner_Average     1146
- 3 banner_Boardings   1146
- 4 green_Alightings   1146
- 5 green_Average      1146
- 6 green_Boardings    1146
- 7 orange_Alightings  1146
- 8 orange_Average     1146
- 9 orange_Boardings   1146
-10 purple_Alightings  1146
-11 purple_Average     1146
-12 purple_Boardings   1146</pre>
+<pre ># A tibble: 13,752 x 5
+   day    date       daily var               number
+   &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;              &lt;dbl&gt;
+ 1 Monday 01/11/2010   952 orange_Boardings     877
+ 2 Monday 01/11/2010   952 orange_Alightings   1027
+ 3 Monday 01/11/2010   952 orange_Average       952
+ 4 Monday 01/11/2010   952 purple_Boardings      NA
+ 5 Monday 01/11/2010   952 purple_Alightings     NA
+ 6 Monday 01/11/2010   952 purple_Average        NA
+ 7 Monday 01/11/2010   952 green_Boardings       NA
+ 8 Monday 01/11/2010   952 green_Alightings      NA
+ 9 Monday 01/11/2010   952 green_Average         NA
+10 Monday 01/11/2010   952 banner_Boardings      NA
+# … with 13,742 more rows</pre>
 
 </article></slide><slide class=""><hgroup><h2>Reshaping data from wide (fat) to long (tall): tidyr</h2></hgroup><article  id="reshaping-data-from-wide-fat-to-long-tall-tidyr-3">
 
-<p>Now each <code>var</code> is boardings, averages, or alightings. We want to separate these so we can have these by line. Remember &ldquo;.&rdquo; is special character:</p>
+<p>Now each <code>var</code> is Boardings, Averages, or Alightings. We use &ldquo;<code>into =</code>&rdquo; to name the new columns and &ldquo;<code>sep =</code>&rdquo; to show where the separation should happen.</p>
 
-<pre class = 'prettyprint lang-r'>long = separate(long, var, into = c(&quot;line&quot;, &quot;type&quot;), sep = &quot;_&quot;)
-head(long, 2)</pre>
+<pre class = 'prettyprint lang-r'>long = 
+  long %&gt;% 
+  separate(var, into = c(&quot;line&quot;, &quot;type&quot;), sep = &quot;_&quot;)
+long</pre>
 
-<pre ># A tibble: 2 x 6
-  day    date       daily line   type       number
-  &lt;chr&gt;  &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;       &lt;dbl&gt;
-1 Monday 2010-01-11   952 orange Boardings     877
-2 Monday 2010-01-11   952 orange Alightings   1027</pre>
-
-<pre class = 'prettyprint lang-r'>unique(long$line)</pre>
-
-<pre >[1] &quot;orange&quot; &quot;purple&quot; &quot;green&quot;  &quot;banner&quot;</pre>
-
-<pre class = 'prettyprint lang-r'>unique(long$type)</pre>
-
-<pre >[1] &quot;Boardings&quot;  &quot;Alightings&quot; &quot;Average&quot;   </pre>
+<pre ># A tibble: 13,752 x 6
+   day    date       daily line   type       number
+   &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;       &lt;dbl&gt;
+ 1 Monday 01/11/2010   952 orange Boardings     877
+ 2 Monday 01/11/2010   952 orange Alightings   1027
+ 3 Monday 01/11/2010   952 orange Average       952
+ 4 Monday 01/11/2010   952 purple Boardings      NA
+ 5 Monday 01/11/2010   952 purple Alightings     NA
+ 6 Monday 01/11/2010   952 purple Average        NA
+ 7 Monday 01/11/2010   952 green  Boardings      NA
+ 8 Monday 01/11/2010   952 green  Alightings     NA
+ 9 Monday 01/11/2010   952 green  Average        NA
+10 Monday 01/11/2010   952 banner Boardings      NA
+# … with 13,742 more rows</pre>
 
 </article></slide><slide class=""><hgroup><h2>Re-uniting all the lines</h2></hgroup><article  id="re-uniting-all-the-lines">
 
 <p>If we had the opposite problem, we could use the <code>unite</code> function:</p>
 
 <pre class = 'prettyprint lang-r'>reunited = long %&gt;% 
-  unite(col = var, line, type, sep = &quot;_&quot;)  
-reunited %&gt;% select(day, var) %&gt;% head(3) %&gt;% print</pre>
+  unite(var, line, type, sep = &quot;_&quot;)  
+reunited</pre>
 
-<pre ># A tibble: 3 x 2
-  day    var              
-  &lt;chr&gt;  &lt;chr&gt;            
-1 Monday orange_Boardings 
-2 Monday orange_Alightings
-3 Monday orange_Average   </pre>
+<pre ># A tibble: 13,752 x 5
+   day    date       daily var               number
+   &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;              &lt;dbl&gt;
+ 1 Monday 01/11/2010   952 orange_Boardings     877
+ 2 Monday 01/11/2010   952 orange_Alightings   1027
+ 3 Monday 01/11/2010   952 orange_Average       952
+ 4 Monday 01/11/2010   952 purple_Boardings      NA
+ 5 Monday 01/11/2010   952 purple_Alightings     NA
+ 6 Monday 01/11/2010   952 purple_Average        NA
+ 7 Monday 01/11/2010   952 green_Boardings       NA
+ 8 Monday 01/11/2010   952 green_Alightings      NA
+ 9 Monday 01/11/2010   952 green_Average         NA
+10 Monday 01/11/2010   952 banner_Boardings      NA
+# … with 13,742 more rows</pre>
 
-<p>We could also use <code>paste</code>/<code>paste0</code>.</p>
+<!-- We could also use `paste`/`paste0`. -->
 
 <!-- ## Making column names a little more separated -->
 
@@ -3540,33 +3582,44 @@ reunited %&gt;% select(day, var) %&gt;% head(3) %&gt;% print</pre>
 
 <!-- ``` -->
 
-</article></slide><slide class=""><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
-
-<p><a href='http://jhudatascience.org/intro_to_r/index.html' title=''>Website</a></p>
-
 </article></slide><slide class=""><hgroup><h2>Reshaping data from long (tall) to wide (fat): tidyr</h2></hgroup><article  id="reshaping-data-from-long-tall-to-wide-fat-tidyr">
 
 <p>In <code>tidyr</code>, the <code>pivot_wider</code> function spreads rows into columns. Now we have a long data set, but we want to separate the Average, Alightings and Boardings into different columns:</p>
 
-<pre class = 'prettyprint lang-r'># have to remove missing days
-wide = long %&gt;% filter(!is.na(date))
-wide = wide %&gt;% pivot_wider(names_from = &quot;type&quot;, 
+<pre class = 'prettyprint lang-r'>wide = long %&gt;% pivot_wider(names_from = &quot;type&quot;, 
                             values_from = &quot;number&quot;) 
-head(wide)</pre>
+wide</pre>
 
-<pre ># A tibble: 6 x 7
-  day     date       daily line   Boardings Alightings Average
-  &lt;chr&gt;   &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
-1 Monday  2010-01-11   952 orange       877       1027     952
-2 Monday  2010-01-11   952 purple        NA         NA      NA
-3 Monday  2010-01-11   952 green         NA         NA      NA
-4 Monday  2010-01-11   952 banner        NA         NA      NA
-5 Tuesday 2010-01-12   796 orange       777        815     796
-6 Tuesday 2010-01-12   796 purple        NA         NA      NA</pre>
+<pre ># A tibble: 4,584 x 7
+   day       date       daily line   Boardings Alightings Average
+   &lt;chr&gt;     &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
+ 1 Monday    01/11/2010  952  orange       877       1027    952 
+ 2 Monday    01/11/2010  952  purple        NA         NA     NA 
+ 3 Monday    01/11/2010  952  green         NA         NA     NA 
+ 4 Monday    01/11/2010  952  banner        NA         NA     NA 
+ 5 Tuesday   01/12/2010  796  orange       777        815    796 
+ 6 Tuesday   01/12/2010  796  purple        NA         NA     NA 
+ 7 Tuesday   01/12/2010  796  green         NA         NA     NA 
+ 8 Tuesday   01/12/2010  796  banner        NA         NA     NA 
+ 9 Wednesday 01/13/2010 1212. orange      1203       1220   1212.
+10 Wednesday 01/13/2010 1212. purple        NA         NA     NA 
+# … with 4,574 more rows</pre>
 
-</article></slide><slide class=""><hgroup><h2>Lab Part 3</h2></hgroup><article  id="lab-part-3">
+</article></slide><slide class=""><hgroup><h2>Lab Part 1</h2></hgroup><article  id="lab-part-1">
 
 <p><a href='http://jhudatascience.org/intro_to_r/index.html' title=''>Website</a></p>
+
+</article></slide><slide class=""><hgroup><h2>Joining in <code>dplyr</code></h2></hgroup><article  id="joining-in-dplyr">
+
+<ul>
+<li>Merging/joining data sets together - usually on key variables, usually &ldquo;id&rdquo;</li>
+<li><code>?join</code> - see different types of joining for <code>dplyr</code> <!-- * Let's look at https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf --></li>
+<li><code>inner_join(x, y)</code> - only rows that match for <code>x</code> and <code>y</code> are kept</li>
+<li><code>full_join(x, y)</code> - all rows of <code>x</code> and <code>y</code> are kept</li>
+<li><code>left_join(x, y)</code> - all rows of <code>x</code> are kept even if not merged with <code>y</code></li>
+<li><code>right_join(x, y)</code> - all rows of <code>y</code> are kept even if not merged with <code>x</code></li>
+<li><code>anti_join(x, y)</code> - all rows from <code>x</code> not in <code>y</code> keeping just columns from <code>x</code>.</li>
+</ul>
 
 </article></slide><slide class=""><hgroup><h2>Merging: Simple Data</h2></hgroup><article  id="merging-simple-data">
 
@@ -3581,30 +3634,17 @@ head(base, 2)</pre>
 1     1  55  
 2     2  55.6</pre>
 
-<p><code>visits</code> has ids 1 to 8, then 11 (new id), and 3 visits and outcome</p>
+<p><code>visits</code> has ids <code>2</code> to <code>11</code>, 3 different visits, and an outcome</p>
 
-<pre class = 'prettyprint lang-r'>visits &lt;- tibble(id = c(rep(1:8, 3), 11), visit= c(rep(1:3, 8), 3),
-                    Outcome = seq(10,50, length=25))
-tail(visits, 2)</pre>
+<pre class = 'prettyprint lang-r'>visits &lt;- tibble(id = rep(2:11, 3), visit= rep(1:3, 10),
+                    Outcome = seq(10,50, length=30))
+head(visits, 2)</pre>
 
 <pre ># A tibble: 2 x 3
      id visit Outcome
-  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-1     8     3    48.3
-2    11     3    50  </pre>
-
-</article></slide><slide class=""><hgroup><h2>Joining in <code>dplyr</code></h2></hgroup><article  id="joining-in-dplyr">
-
-<ul>
-<li>Merging/joining data sets together - usually on key variables, usually &ldquo;id&rdquo;</li>
-<li><code>?join</code> - see different types of joining for <code>dplyr</code></li>
-<li>Let’s look at <a href='https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf' title=''>https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf</a></li>
-<li><code>inner_join(x, y)</code> - only rows that match for <code>x</code> and <code>y</code> are kept</li>
-<li><code>full_join(x, y)</code> - all rows of <code>x</code> and <code>y</code> are kept</li>
-<li><code>left_join(x, y)</code> - all rows of <code>x</code> are kept even if not merged with <code>y</code></li>
-<li><code>right_join(x, y)</code> - all rows of <code>y</code> are kept even if not merged with <code>x</code></li>
-<li><code>anti_join(x, y)</code> - all rows from <code>x</code> not in <code>y</code> keeping just columns from <code>x</code>.</li>
-</ul>
+  &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;
+1     2     1    10  
+2     3     2    11.4</pre>
 
 </article></slide><slide class=""><hgroup><h2>Inner Join</h2></hgroup><article  id="inner-join">
 
@@ -3614,19 +3654,19 @@ tail(visits, 2)</pre>
 
 <pre class = 'prettyprint lang-r'>dim(ij)</pre>
 
-<pre >[1] 24  4</pre>
+<pre >[1] 27  4</pre>
 
-<pre class = 'prettyprint lang-r'>tail(ij)</pre>
+<pre class = 'prettyprint lang-r'>head(ij)</pre>
 
 <pre ># A tibble: 6 x 4
      id   Age visit Outcome
-  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-1     7  58.3     1    20  
-2     7  58.3     3    33.3
-3     7  58.3     2    46.7
-4     8  58.9     2    21.7
-5     8  58.9     1    35  
-6     8  58.9     3    48.3</pre>
+  &lt;int&gt; &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
+1     2  55.6     1    10  
+2     2  55.6     2    23.8
+3     2  55.6     3    37.6
+4     3  56.1     2    11.4
+5     3  56.1     3    25.2
+6     3  56.1     1    39.0</pre>
 
 </article></slide><slide class=""><hgroup><h2>Left Join</h2></hgroup><article  id="left-join">
 
@@ -3636,55 +3676,54 @@ tail(visits, 2)</pre>
 
 <pre class = 'prettyprint lang-r'>dim(lj)</pre>
 
-<pre >[1] 26  4</pre>
+<pre >[1] 28  4</pre>
 
-<pre class = 'prettyprint lang-r'>tail(lj)</pre>
+<pre class = 'prettyprint lang-r'>head(lj)</pre>
 
 <pre ># A tibble: 6 x 4
      id   Age visit Outcome
-  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-1     7  58.3     2    46.7
-2     8  58.9     2    21.7
-3     8  58.9     1    35  
-4     8  58.9     3    48.3
-5     9  59.4    NA    NA  
-6    10  60      NA    NA  </pre>
+  &lt;int&gt; &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
+1     1  55      NA    NA  
+2     2  55.6     1    10  
+3     2  55.6     2    23.8
+4     2  55.6     3    37.6
+5     3  56.1     2    11.4
+6     3  56.1     3    25.2</pre>
 
-</article></slide><slide class=""><hgroup><h2>Logging the joins</h2></hgroup><article  id="logging-the-joins">
+</article></slide><slide class=""><hgroup><h2>Install <code>tidylog</code> package to log outputs</h2></hgroup><article  id="install-tidylog-package-to-log-outputs">
 
-<p>The <code>tidylog</code> package can show you log outputs from <code>dplyr</code> (newly added). You will need to install to use.</p>
-
-<pre class = 'prettyprint lang-r'>library(tidylog)
+<pre class = 'prettyprint lang-r'># install.packages(&quot;tidylog&quot;)
+library(tidylog)
 left_join(base, visits)</pre>
 
 <pre >Joining, by = &quot;id&quot;</pre>
 
 <pre >left_join: added 2 columns (visit, Outcome)</pre>
 
-<pre >           &gt; rows only in x    2</pre>
+<pre >           &gt; rows only in x    1</pre>
 
-<pre >           &gt; rows only in y  ( 1)</pre>
+<pre >           &gt; rows only in y  ( 3)</pre>
 
-<pre >           &gt; matched rows     24    (includes duplicates)</pre>
+<pre >           &gt; matched rows     27    (includes duplicates)</pre>
 
 <pre >           &gt;                 ====</pre>
 
-<pre >           &gt; rows total       26</pre>
+<pre >           &gt; rows total       28</pre>
 
-<pre ># A tibble: 26 x 4
+<pre ># A tibble: 28 x 4
       id   Age visit Outcome
-   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
- 1     1  55       1    10  
- 2     1  55       3    23.3
- 3     1  55       2    36.7
- 4     2  55.6     2    11.7
- 5     2  55.6     1    25  
- 6     2  55.6     3    38.3
- 7     3  56.1     3    13.3
- 8     3  56.1     2    26.7
- 9     3  56.1     1    40  
-10     4  56.7     1    15  
-# … with 16 more rows</pre>
+   &lt;int&gt; &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
+ 1     1  55      NA    NA  
+ 2     2  55.6     1    10  
+ 3     2  55.6     2    23.8
+ 4     2  55.6     3    37.6
+ 5     3  56.1     2    11.4
+ 6     3  56.1     3    25.2
+ 7     3  56.1     1    39.0
+ 8     4  56.7     3    12.8
+ 9     4  56.7     1    26.6
+10     4  56.7     2    40.3
+# … with 18 more rows</pre>
 
 </article></slide><slide class=""><hgroup><h2>Right Join</h2></hgroup><article  id="right-join">
 
@@ -3694,59 +3733,47 @@ left_join(base, visits)</pre>
 
 <pre >right_join: added 2 columns (visit, Outcome)</pre>
 
-<pre >            &gt; rows only in x  ( 2)</pre>
+<pre >            &gt; rows only in x  ( 1)</pre>
 
-<pre >            &gt; rows only in y    1</pre>
+<pre >            &gt; rows only in y    3</pre>
 
-<pre >            &gt; matched rows     24</pre>
+<pre >            &gt; matched rows     27</pre>
 
 <pre >            &gt;                 ====</pre>
 
-<pre >            &gt; rows total       25</pre>
+<pre >            &gt; rows total       30</pre>
 
-<pre class = 'prettyprint lang-r'>tail(rj, 3)</pre>
+</article></slide><slide class=""><hgroup><h2>Left Join: Switching arguments</h2></hgroup><article  id="left-join-switching-arguments">
 
-<pre ># A tibble: 3 x 4
-     id   Age visit Outcome
-  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-1     8  58.9     1    35  
-2     8  58.9     3    48.3
-3    11  NA       3    50  </pre>
-
-</article></slide><slide class=""><hgroup><h2>Right Join: Switching arguments</h2></hgroup><article  id="right-join-switching-arguments">
-
-<pre class = 'prettyprint lang-r'>rj2 = right_join(visits, base)</pre>
+<pre class = 'prettyprint lang-r'>lj2 = left_join(visits, base)</pre>
 
 <pre >Joining, by = &quot;id&quot;</pre>
 
-<pre >right_join: added one column (Age)</pre>
+<pre >left_join: added one column (Age)</pre>
 
-<pre >            &gt; rows only in x  ( 1)</pre>
+<pre >           &gt; rows only in x    3</pre>
 
-<pre >            &gt; rows only in y    2</pre>
+<pre >           &gt; rows only in y  ( 1)</pre>
 
-<pre >            &gt; matched rows     24    (includes duplicates)</pre>
+<pre >           &gt; matched rows     27</pre>
 
-<pre >            &gt;                 ====</pre>
+<pre >           &gt;                 ====</pre>
 
-<pre >            &gt; rows total       26</pre>
+<pre >           &gt; rows total       30</pre>
 
-<pre class = 'prettyprint lang-r'>tail(rj2, 3)</pre>
+<!-- ```{r right_join_arrange, echo = FALSE} -->
 
-<pre ># A tibble: 3 x 4
-     id visit Outcome   Age
-  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
-1     8     3    48.3  58.9
-2     9    NA    NA    59.4
-3    10    NA    NA    60  </pre>
+<!-- rj2 = arrange(rj2, id, visit) %>% select(id, visit, Outcome, Age) -->
 
-<pre >select: no changes</pre>
+<!-- lj = arrange(lj, id, visit) %>% select(id, visit, Outcome, Age) -->
 
-<pre >select: columns reordered (id, visit, Outcome, Age)</pre>
+<!-- ``` -->
 
-<pre class = 'prettyprint lang-r'>identical(rj2, lj) ## after some rearranging</pre>
+<!-- ```{r right_join_arrange_out} -->
 
-<pre >[1] TRUE</pre>
+<!-- identical(rj2, lj) ## after some rearranging -->
+
+<!-- ``` -->
 
 </article></slide><slide class=""><hgroup><h2>Full Join</h2></hgroup><article  id="full-join">
 
@@ -3756,69 +3783,36 @@ left_join(base, visits)</pre>
 
 <pre >full_join: added 2 columns (visit, Outcome)</pre>
 
-<pre >           &gt; rows only in x    2</pre>
+<pre >           &gt; rows only in x    1</pre>
 
-<pre >           &gt; rows only in y    1</pre>
+<pre >           &gt; rows only in y    3</pre>
 
-<pre >           &gt; matched rows     24    (includes duplicates)</pre>
+<pre >           &gt; matched rows     27    (includes duplicates)</pre>
 
 <pre >           &gt;                 ====</pre>
 
-<pre >           &gt; rows total       27</pre>
+<pre >           &gt; rows total       31</pre>
 
-<pre class = 'prettyprint lang-r'>tail(fj, 4)</pre>
+</article></slide><slide class=""><hgroup><h2>Full Join</h2></hgroup><article  id="full-join-1">
 
-<pre ># A tibble: 4 x 4
-     id   Age visit Outcome
-  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-1     8  58.9     3    48.3
-2     9  59.4    NA    NA  
-3    10  60      NA    NA  
-4    11  NA       3    50  </pre>
+<p>Note what tidylog means by <code>includes duplicates</code>. Data from <code>base</code> is being duplicated.</p>
 
-</article></slide><slide class=""><hgroup><h2>Using the <code>by</code> argument</h2></hgroup><article  id="using-the-by-argument">
+<pre class = 'prettyprint lang-r'># fj = full_join(base, visits)
+head(fj, 10)</pre>
 
-<p>By default - uses intersection of column names. If <code>by</code> specified, then uses that, but if other columns with same name, adds <code>suffix</code>.</p>
-
-<pre class = 'prettyprint lang-r'>base = base %&gt;% mutate(x = 5)
-visits = visits %&gt;% mutate(x = 4)
-head(full_join(base, visits))</pre>
-
-<pre >Joining, by = c(&quot;id&quot;, &quot;x&quot;)</pre>
-
-<pre ># A tibble: 6 x 5
-     id   Age     x visit Outcome
-  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-1     1  55       5    NA      NA
-2     2  55.6     5    NA      NA
-3     3  56.1     5    NA      NA
-4     4  56.7     5    NA      NA
-5     5  57.2     5    NA      NA
-6     6  57.8     5    NA      NA</pre>
-
-<pre class = 'prettyprint lang-r'>head(full_join(base, visits, by = &quot;id&quot;))</pre>
-
-<pre ># A tibble: 6 x 6
-     id   Age   x.x visit Outcome   x.y
-  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
-1     1  55       5     1    10       4
-2     1  55       5     3    23.3     4
-3     1  55       5     2    36.7     4
-4     2  55.6     5     2    11.7     4
-5     2  55.6     5     1    25       4
-6     2  55.6     5     3    38.3     4</pre>
-
-<pre class = 'prettyprint lang-r'>head(full_join(base, visits, by = &quot;id&quot;, suffix = c(&quot;_base&quot;, &quot;_visit&quot;)))</pre>
-
-<pre ># A tibble: 6 x 6
-     id   Age x_base visit Outcome x_visit
-  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-1     1  55        5     1    10         4
-2     1  55        5     3    23.3       4
-3     1  55        5     2    36.7       4
-4     2  55.6      5     2    11.7       4
-5     2  55.6      5     1    25         4
-6     2  55.6      5     3    38.3       4</pre>
+<pre ># A tibble: 10 x 4
+      id   Age visit Outcome
+   &lt;int&gt; &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
+ 1     1  55      NA    NA  
+ 2     2  55.6     1    10  
+ 3     2  55.6     2    23.8
+ 4     2  55.6     3    37.6
+ 5     3  56.1     2    11.4
+ 6     3  56.1     3    25.2
+ 7     3  56.1     1    39.0
+ 8     4  56.7     3    12.8
+ 9     4  56.7     1    26.6
+10     4  56.7     2    40.3</pre>
 
 </article></slide><slide class=""><hgroup><h2>Duplicated</h2></hgroup><article  id="duplicated">
 
@@ -3836,36 +3830,56 @@ head(full_join(base, visits))</pre>
 
 <pre class = 'prettyprint lang-r'>fj %&gt;% mutate(dup_id = duplicated(id))</pre>
 
-<pre ># A tibble: 27 x 5
+<pre ># A tibble: 31 x 5
       id   Age visit Outcome dup_id
-   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;lgl&gt; 
- 1     1  55       1    10   FALSE 
- 2     1  55       3    23.3 TRUE  
- 3     1  55       2    36.7 TRUE  
- 4     2  55.6     2    11.7 FALSE 
- 5     2  55.6     1    25   TRUE  
- 6     2  55.6     3    38.3 TRUE  
- 7     3  56.1     3    13.3 FALSE 
- 8     3  56.1     2    26.7 TRUE  
- 9     3  56.1     1    40   TRUE  
-10     4  56.7     1    15   FALSE 
-# … with 17 more rows</pre>
+   &lt;int&gt; &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;lgl&gt; 
+ 1     1  55      NA    NA   FALSE 
+ 2     2  55.6     1    10   FALSE 
+ 3     2  55.6     2    23.8 TRUE  
+ 4     2  55.6     3    37.6 TRUE  
+ 5     3  56.1     2    11.4 FALSE 
+ 6     3  56.1     3    25.2 TRUE  
+ 7     3  56.1     1    39.0 TRUE  
+ 8     4  56.7     3    12.8 FALSE 
+ 9     4  56.7     1    26.6 TRUE  
+10     4  56.7     2    40.3 TRUE  
+# … with 21 more rows</pre>
 
-</article></slide><slide class=""><hgroup><h2>Lab Part 4</h2></hgroup><article  id="lab-part-4">
+</article></slide><slide class=""><hgroup><h2>Using the <code>by</code> argument</h2></hgroup><article  id="using-the-by-argument">
+
+<p>By default - uses intersection of column names. If <code>by</code> specified, then uses that.</p>
+
+<pre class = 'prettyprint lang-r'># for multiple, by = c(col1, col2)
+head(full_join(base, visits, by = &quot;id&quot;))</pre>
+
+<pre ># A tibble: 6 x 4
+     id   Age visit Outcome
+  &lt;int&gt; &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
+1     1  55      NA    NA  
+2     2  55.6     1    10  
+3     2  55.6     2    23.8
+4     2  55.6     3    37.6
+5     3  56.1     2    11.4
+6     3  56.1     3    25.2</pre>
+
+</article></slide><slide class=""><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
 
 <p><a href='http://jhudatascience.org/intro_to_r/index.html' title=''>Website</a></p>
 
-</article></slide><slide class=""><hgroup><h2>Finding the First (or Last) record</h2></hgroup><article  id="finding-the-first-or-last-record">
+<!-- ## Finding the First (or Last) record -->
 
-<p><code>pivot_longer</code> and <code>pivot_wider</code> are new (as of 2019) <code>tidyr</code> functions.</p>
+<!-- `pivot_longer` and `pivot_wider` are new (as of 2019) `tidyr` functions. -->
 
-<p>See link below:</p>
+<!-- See link below: -->
 
-<p><a href='https://tidyr.tidyverse.org/dev/articles/pivot.html' title=''>https://tidyr.tidyverse.org/dev/articles/pivot.html</a></p>
+<!-- https://tidyr.tidyverse.org/dev/articles/pivot.html -->
 
-</article></slide><slide class=""><hgroup><h2>Website</h2></hgroup><article  id="website">
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Other <code>tidy</code> topics (not covered)</h2></hgroup><article  id="other-tidy-topics-not-covered">
 
-<p><a href='http://jhudatascience.org/intro_to_r/index.html' title=''>Website</a></p>
+<ul>
+<li>Using <code>rowSums()</code> to get rid of missing data (<code>NA</code>s)</li>
+<li>Finding the first and last record using <code>slice()</code></li>
+</ul>
 
 </article></slide><slide class=""><hgroup><h2>Reshaping data from long (tall) to wide (fat): tidyr</h2></hgroup><article  id="reshaping-data-from-long-tall-to-wide-fat-tidyr-1">
 
@@ -3875,10 +3889,10 @@ head(full_join(base, visits))</pre>
 
 <pre ># A tibble: 3 x 7
   day    date       daily line   Boardings Alightings Average
-  &lt;chr&gt;  &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
-1 Monday 2010-01-11   952 orange       877       1027     952
-2 Monday 2010-01-11   952 purple        NA         NA      NA
-3 Monday 2010-01-11   952 green         NA         NA      NA</pre>
+  &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
+1 Monday 01/11/2010   952 orange       877       1027     952
+2 Monday 01/11/2010   952 purple        NA         NA      NA
+3 Monday 01/11/2010   952 green         NA         NA      NA</pre>
 
 <pre class = 'prettyprint lang-r'>not_namat = wide %&gt;% select(Alightings, Average, Boardings)
 not_namat = !is.na(not_namat)
@@ -3899,15 +3913,15 @@ head(wide)</pre>
 
 <pre ># A tibble: 6 x 7
   day       date       daily line   Boardings Alightings Average
-  &lt;chr&gt;     &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
-1 Monday    2010-01-11  952  orange       877       1027    952 
-2 Tuesday   2010-01-12  796  orange       777        815    796 
-3 Wednesday 2010-01-13 1212. orange      1203       1220   1212.
-4 Thursday  2010-01-14 1214. orange      1194       1233   1214.
-5 Friday    2010-01-15 1644  orange      1645       1643   1644 
-6 Saturday  2010-01-16 1490. orange      1457       1524   1490.</pre>
+  &lt;chr&gt;     &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
+1 Monday    01/11/2010  952  orange       877       1027    952 
+2 Tuesday   01/12/2010  796  orange       777        815    796 
+3 Wednesday 01/13/2010 1212. orange      1203       1220   1212.
+4 Thursday  01/14/2010 1214. orange      1194       1233   1214.
+5 Friday    01/15/2010 1644  orange      1645       1643   1644 
+6 Saturday  01/16/2010 1490. orange      1457       1524   1490.</pre>
 
-</article></slide><slide class=""><hgroup><h2>Finding the First (or Last) record</h2></hgroup><article  id="finding-the-first-or-last-record-1">
+</article></slide><slide class=""><hgroup><h2>Finding the First (or Last) record</h2></hgroup><article  id="finding-the-first-or-last-record">
 
 <ul>
 <li><code>slice</code> allows you to select <strong>records</strong> (compared to first/last on a <strong>vector</strong>)</li>
@@ -3922,12 +3936,12 @@ first_and_last %&gt;%  head(4)</pre>
 
 <pre ># A tibble: 4 x 6
 # Groups:   line [2]
-  day     date        daily line   type      number
-  &lt;chr&gt;   &lt;date&gt;      &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt;
-1 Monday  2012-06-04 13342. banner Boardings    520
-2 Friday  2013-03-01    NA  banner Boardings    817
-3 Tuesday 2011-11-01  8873  green  Boardings    887
-4 Friday  2013-03-01    NA  green  Boardings   2592</pre>
+  day     date       daily line   type      number
+  &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt;
+1 Tuesday 01/01/2013   NA  banner Boardings    317
+2 Monday  12/31/2012   NA  banner Boardings    615
+3 Sunday  01/01/2012 3940. green  Boardings    706
+4 Monday  12/31/2012   NA  green  Boardings   1925</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Merging in base R (not covered)</h2></hgroup><article  id="merging-in-base-r-not-covered">
 
@@ -3953,33 +3967,33 @@ first_and_last %&gt;%  head(4)</pre>
 <pre class = 'prettyprint lang-r'>merged.data &lt;- merge(base, visits, by = &quot;id&quot;)
 head(merged.data, 5)</pre>
 
-<pre >  id      Age x.x visit  Outcome x.y
-1  1 55.00000   5     1 10.00000   4
-2  1 55.00000   5     3 23.33333   4
-3  1 55.00000   5     2 36.66667   4
-4  2 55.55556   5     2 11.66667   4
-5  2 55.55556   5     1 25.00000   4</pre>
+<pre >  id      Age visit  Outcome
+1  2 55.55556     1 10.00000
+2  2 55.55556     2 23.79310
+3  2 55.55556     3 37.58621
+4  3 56.11111     3 25.17241
+5  3 56.11111     2 11.37931</pre>
 
 <pre class = 'prettyprint lang-r'>dim(merged.data)</pre>
 
-<pre >[1] 24  6</pre>
+<pre >[1] 27  4</pre>
 
 </article></slide><slide class=""><hgroup><h2>Merging</h2></hgroup><article  id="merging-1">
 
 <pre class = 'prettyprint lang-r'>all.data &lt;- merge(base, visits, by = &quot;id&quot;, all = TRUE)
 tail(all.data)</pre>
 
-<pre >   id      Age x.x visit  Outcome x.y
-22  8 58.88889   5     2 21.66667   4
-23  8 58.88889   5     1 35.00000   4
-24  8 58.88889   5     3 48.33333   4
-25  9 59.44444   5    NA       NA  NA
-26 10 60.00000   5    NA       NA  NA
-27 11       NA  NA     3 50.00000   4</pre>
+<pre >   id Age visit  Outcome
+26 10  60     3 21.03448
+27 10  60     1 34.82759
+28 10  60     2 48.62069
+29 11  NA     1 22.41379
+30 11  NA     2 36.20690
+31 11  NA     3 50.00000</pre>
 
 <pre class = 'prettyprint lang-r'>dim(all.data)</pre>
 
-<pre >[1] 27  6</pre>
+<pre >[1] 31  4</pre>
 
 <!-- # Bonus slides - explore after visualization!  -->
 

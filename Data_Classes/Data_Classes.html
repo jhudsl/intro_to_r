@@ -3608,6 +3608,48 @@ difftime(x2, x1, units = &quot;weeks&quot;)</pre>
 </ul></li>
 </ul>
 
+</article></slide><slide class=""><hgroup><h2>Vectors: data selection</h2></hgroup><article  id="vectors-data-selection">
+
+<p>To get element(s) of a vector (one-dimensional object):</p>
+
+<ul>
+<li>Type the name of the variable and open the rectangular brackets <code>[ ]</code></li>
+<li>In the rectangular brackets, type index (/vector of indexes) of element (/elements) you want to pull. <strong>In R, indexes start from 1</strong> (not: 0)</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>x &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;f&quot;, &quot;g&quot;, &quot;h&quot;)
+x</pre>
+
+<pre >## [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>x[2]</pre>
+
+<pre >## [1] &quot;b&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>x[c(1, 2, 100)]</pre>
+
+<pre >## [1] &quot;a&quot; &quot;b&quot; NA</pre>
+
+</article></slide><slide class=""><hgroup><h2>Vectors: data selection</h2></hgroup><article  id="vectors-data-selection-1">
+
+<pre class = 'prettyprint lang-r'>x &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;f&quot;, &quot;g&quot;, &quot;h&quot;)
+x_long &lt;- rep(x, times = 20)
+x_long</pre>
+
+<pre >##   [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;a&quot; &quot;b&quot;
+##  [19] &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot;
+##  [37] &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot;
+##  [55] &quot;g&quot; &quot;h&quot; &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot;
+##  [73] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;a&quot; &quot;b&quot;
+##  [91] &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot;
+## [109] &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot;
+## [127] &quot;g&quot; &quot;h&quot; &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot;
+## [145] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>x</pre>
+
+<pre >## [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot;</pre>
+
 </article></slide><slide class=""><hgroup><h2>Matrices</h2></hgroup><article  id="matrices">
 
 <pre class = 'prettyprint lang-r'>n = 1:9 
