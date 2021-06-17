@@ -15,88 +15,6 @@ suppressPackageStartupMessages(library(dplyr))
 library(tidyverse)
 ```
 
-<!-- # Before Cleaning - Subsetting with Brackets -->
-
-<!-- ## Select specific elements using an index -->
-
-<!-- Often you only want to look at subsets of a data set at any given time.  Elements of an R object are selected using the brackets (`[` and `]`). -->
-
-<!-- For example, `x` is a vector of numbers and we can select the second element of `x` using the brackets and an index (2): -->
-
-<!-- ```{r} -->
-<!-- x = c(1, 4, 2, 8, 10) -->
-<!-- x[2] -->
-<!-- ``` -->
-
-<!-- <!-- `dplyr`: --> -->
-
-<!-- <!-- ```{r} --> -->
-<!-- <!-- nth(x, n = 2) --> -->
-<!-- <!-- ``` --> -->
-
-<!-- ## Select specific elements using an index -->
-
-<!-- We can select the fifth or second AND fifth elements below: -->
-
-<!-- ```{r} -->
-<!-- x = c(1, 2, 4, 8, 10) -->
-<!-- x[5] -->
-<!-- x[c(2,5)] -->
-<!-- ``` -->
-
-
-<!-- ```{r, error=TRUE} -->
-<!-- nth(x, n = c(2, 5)) # nth only returns one number -->
-<!-- ``` -->
-
-
-<!-- ## Subsetting by deletion of entries -->
-
-<!-- You can put a minus (`-`) before integers inside brackets to remove these indices from the data. -->
-
-<!-- ```{r negativeIndex} -->
-<!-- x[-2] # all but the second -->
-<!-- ``` -->
-
-<!-- Note that you have to be careful with this syntax when dropping more than 1 element: -->
-
-<!-- ```{r negativeIndex2} -->
-<!-- x[-c(1,2,3)] # drop first 3 -->
-<!-- # x[-1:3] # shorthand. R sees as -1 to 3 -->
-<!-- x[-(1:3)] # needs parentheses -->
-<!-- ``` -->
-
-<!-- ## Select specific elements using logical operators -->
-
-<!-- What about selecting rows based on the values of two variables? We use logical statements.  Here we select only elements of `x` greater than 2: -->
-
-<!-- ```{r} -->
-<!-- x -->
-<!-- x > 2 -->
-<!-- x[ x > 2 ] -->
-<!-- ``` -->
-
-<!-- ## Select specific elements using logical operators -->
-<!-- You can have multiple logical conditions using the following: -->
-
-<!-- * `&` : AND -->
-<!-- * `|` : OR -->
-
-<!-- ```{r} -->
-<!-- x[ x > 2 & x < 5 ] -->
-<!-- x[ x > 5 | x == 2 ] -->
-<!-- ``` -->
-
-
-<!-- ## which function -->
-
-<!-- The `which` functions takes in logical vectors and returns the index for the elements where the logical value is `TRUE`.   -->
-
-<!-- ```{r} -->
-<!-- which(x > 5 | x == 2) # returns index -->
-<!-- x[ which(x > 5 | x == 2) ] -->
-<!-- x[ x > 5 | x == 2 ] -->
-<!-- ``` -->
 
 ## Data Cleaning
 
@@ -319,7 +237,11 @@ table(z, useNA = "always")
 
 ## Lab Part 1
 
+[lab part 1](http://jhudatascience.org/intro_to_r/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd)
+
 [Website](http://jhudatascience.org/intro_to_r/index.html)
+
+
 
 
 
@@ -437,47 +359,21 @@ head(df_united, 4)
 # Strings functions
 ## Splitting/Find/Replace and Regular Expressions
 
-* R can do much more than find exact matches for a whole string
-* Like Perl and other languages, it can use regular expressions.
-* What are regular expressions?
-    * Ways to search for specific strings 
-    * Can be very complicated or simple
-    * Highly Useful - think "Find" on steroids
+* R can do much more than find exact matches for a whole string!
 
-
-## A bit on Regular Expressions
-
-* http://www.regular-expressions.info/reference.html
-* They can use to match a large number of strings in one statement
-* `.` matches any single character
-* `*` means repeat as many (even if 0) more times the last character
-* `?` makes the last thing optional
-* `^` matches start of vector `^a` - starts with "a"
-* `$` matches end of vector `b$` - ends with "b"
 
 ## The `stringr` package
 
 The `stringr` package:
 
 * Makes string manipulation more intuitive
-* Has a standard format for most functions
-    * the first argument is a string like first argument is a `data.frame` in `dplyr`
 * We will not cover `grep` or `gsub` - base R functions
     - are used on forums for answers
 * Almost all functions start with `str_*`
 
 
-## Let's look at modifier for `stringr`
+##  String Splitting
 
-`?modifiers`
-
-* `fixed` - match everything exactly
-<!-- * `regex` - default - uses **reg**ular **exp**ressions -->
-* `ignore_case` is an option to not have to use `tolower`
-
-## Substring and String Splitting
-
-* `str_sub(x, start, end)` - substrings from position start to position end
 * `str_split(string, pattern)` - splits strings up - returns list!
 
 ```{r str_split_orig}
@@ -489,13 +385,32 @@ y
 length(y)
 ```
 
+## A bit on Regular Expressions
+
+* http://www.regular-expressions.info/reference.html
+* They can use to match a large number of strings in one statement
+* `.` matches any single character
+* `*` means repeat as many (even if 0) more times the last character
+* `?` makes the last thing optional
+* `^` matches start of vector `^a` - starts with "a"
+* `$` matches end of vector `b$` - ends with "b"
+
+## Let's look at modifiers for `stringr`
+
+`?modifiers`
+
+* `fixed` - match everything exactly
+<!-- * `regex` - default - uses **reg**ular **exp**ressions -->
+* `ignore_case` is an option to not have to use `tolower`
+
 ## Using a fixed expression
 
-One example case is when you want to split on a period "`.`".  In regular expressions `.` means **ANY** character, so
+One example case is when you want to split on a period "`.`".  In regular expressions `.` means **ANY** character, so we need to specify that we want R to interpret "." as simply a period.
 
 ```{r}
 str_split("I.like.strings", ".")
 str_split("I.like.strings", fixed("."))
+str_split("I.like.strings", "\\.")
 ```
 
 <!-- ## Let's extract from `y` -->
@@ -538,19 +453,15 @@ str_split("I.like.strings", fixed("."))
 
 
 
-
-
-
 ## 'Find' functions: `stringr`
 
-`str_detect`, `str_subset`, `str_replace`, and `str_replace_all` search for matches to argument pattern within each element of a character vector: they differ in the format of and amount of detail in the results. 
+`str_detect`, and `str_replace` search for matches to argument pattern within each element of a character vector (not data frame or tibble!).
 
 * `str_detect` - returns `TRUE` if `pattern` is found
-* `str_subset` - returns only the strings which pattern were detected
-    * convenient wrapper around `x[str_detect(x, pattern)]`
-* `str_extract` - returns only strings which pattern were detected, but ONLY the pattern
-* `str_replace` - replaces `pattern` with `replacement` the first time
-* `str_replace_all` - replaces `pattern` with `replacement` as many times matched
+<!-- * `str_subset` - returns only the strings which pattern were detected -->
+<!--     * convenient wrapper around `x[str_detect(x, pattern)]` -->
+<!-- * `str_extract` - returns only strings which pattern were detected, but ONLY the pattern -->
+* `str_replace` - replaces `pattern` with `replacement` 
 
 ## Download Salary FY2014 Data
 
@@ -558,21 +469,21 @@ From https://data.baltimorecity.gov/City-Government/Baltimore-City-Employee-Sala
 
 Read the CSV into R `Sal`:
 
-```{r readSal, echo = TRUE, eval = TRUE}
+```{r readSal, echo = TRUE, eval = TRUE, message=FALSE}
 Sal = jhur::read_salaries() # or
-Sal = read_csv("https://jhudatascience.org/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv")
-Sal = rename(Sal, Name = name)
-Sal
+```
+```{r}
+head(Sal)
 ```
 
 
-## 'Find' functions: Finding Logicals
+<!-- ## 'Find' functions: Finding Logicals -->
 
-These are the indices where the pattern match occurs:
+<!-- These are the indices where the pattern match occurs: -->
 
-```{r RawlMatch_log}
-head(str_detect(Sal$Name, "Rawlings"))
-```
+<!-- ```{r RawlMatch_log} -->
+<!-- head(str_detect(Sal$name, "Rawlings")) -->
+<!-- ``` -->
 
 <!-- ## 'Find' functions: Finding Indices -->
 
@@ -598,7 +509,7 @@ head(str_detect(Sal$Name, "Rawlings"))
 ## 'Find' functions: finding values: `stringr` 
 
 ```{r}
-Sal %>% filter(str_detect(Name, "Rawlings"))
+Sal %>% filter(str_detect(name, "Rawlings"))
 ```
 
 
@@ -619,12 +530,12 @@ Sal %>% filter(str_detect(Name, "Rawlings"))
 
 ```{r}
 head(Sal$Name, 2)
-head(str_replace(Sal$Name, "a", "j"),2)
+head(str_replace(Sal$name, "a", "j"),2)
 ```
 
 `str_replace` replaces all instances.
 ```{r}
-head(str_replace_all(Sal$Name, "a", "j"), 2)
+head(str_replace_all(Sal$name, "a", "j"), 2)
 ```
 
 
@@ -664,10 +575,18 @@ Paste can be very useful for joining vectors together:
 ```{r Paste}
 paste("Visit", 1:5, sep = "_")
 paste("Visit", 1:5, sep = "_", collapse = "_")
-paste("To", "is going be the ", "we go to the store!", sep = "day ")
 # and paste0 can be even simpler see ?paste0 
 paste0("Visit",1:5) # no space!
 ```
+
+<!-- ```{r } -->
+<!-- paste("Visit", 1:5, sep = "_") -->
+<!-- paste("Visit", 1:5, sep = "_", collapse = "_") -->
+<!-- paste("To", "is going be the ", "we go to the store!", sep = "day ") -->
+<!-- # and paste0 can be even simpler see ?paste0  -->
+<!-- paste0("Visit",1:5) # no space! -->
+<!-- ``` -->
+
 ## Lab Part 2
 
 [lab part 2](http://jhudatascience.org/intro_to_r/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd)
@@ -678,6 +597,89 @@ paste0("Visit",1:5) # no space!
 
 # Extra Slides
 
+!-- # Before Cleaning - Subsetting with Brackets -->
+
+<!-- ## Select specific elements using an index -->
+
+<!-- Often you only want to look at subsets of a data set at any given time.  Elements of an R object are selected using the brackets (`[` and `]`). -->
+
+<!-- For example, `x` is a vector of numbers and we can select the second element of `x` using the brackets and an index (2): -->
+
+<!-- ```{r} -->
+<!-- x = c(1, 4, 2, 8, 10) -->
+<!-- x[2] -->
+<!-- ``` -->
+
+<!-- <!-- `dplyr`: --> -->
+
+<!-- <!-- ```{r} --> -->
+<!-- <!-- nth(x, n = 2) --> -->
+<!-- <!-- ``` --> -->
+
+<!-- ## Select specific elements using an index -->
+
+<!-- We can select the fifth or second AND fifth elements below: -->
+
+<!-- ```{r} -->
+<!-- x = c(1, 2, 4, 8, 10) -->
+<!-- x[5] -->
+<!-- x[c(2,5)] -->
+<!-- ``` -->
+
+
+<!-- ```{r, error=TRUE} -->
+<!-- nth(x, n = c(2, 5)) # nth only returns one number -->
+<!-- ``` -->
+
+
+<!-- ## Subsetting by deletion of entries -->
+
+<!-- You can put a minus (`-`) before integers inside brackets to remove these indices from the data. -->
+
+<!-- ```{r negativeIndex} -->
+<!-- x[-2] # all but the second -->
+<!-- ``` -->
+
+<!-- Note that you have to be careful with this syntax when dropping more than 1 element: -->
+
+<!-- ```{r negativeIndex2} -->
+<!-- x[-c(1,2,3)] # drop first 3 -->
+<!-- # x[-1:3] # shorthand. R sees as -1 to 3 -->
+<!-- x[-(1:3)] # needs parentheses -->
+<!-- ``` -->
+
+<!-- ## Select specific elements using logical operators -->
+
+<!-- What about selecting rows based on the values of two variables? We use logical statements.  Here we select only elements of `x` greater than 2: -->
+
+<!-- ```{r} -->
+<!-- x -->
+<!-- x > 2 -->
+<!-- x[ x > 2 ] -->
+<!-- ``` -->
+
+<!-- ## Select specific elements using logical operators -->
+<!-- You can have multiple logical conditions using the following: -->
+
+<!-- * `&` : AND -->
+<!-- * `|` : OR -->
+
+<!-- ```{r} -->
+<!-- x[ x > 2 & x < 5 ] -->
+<!-- x[ x > 5 | x == 2 ] -->
+<!-- ``` -->
+
+
+<!-- ## which function -->
+
+<!-- The `which` functions takes in logical vectors and returns the index for the elements where the logical value is `TRUE`.   -->
+
+<!-- ```{r} -->
+<!-- which(x > 5 | x == 2) # returns index -->
+<!-- x[ which(x > 5 | x == 2) ] -->
+<!-- x[ x > 5 | x == 2 ] -->
+<!-- ``` -->
+
 ## Using Regular Expressions
 * Look for any name that starts with:
     * Payne at the beginning, 
@@ -685,12 +687,12 @@ paste0("Visit",1:5) # no space!
     * Spence then capital C
 
 ```{r grepstar_stringr}
-head(str_subset( Sal$Name, "^Payne.*"), 3)
+head(str_subset( Sal$name, "^Payne.*"), 3)
 ```
 
 ```{r grepstar2_stringr}
-head(str_subset( Sal$Name, "Leonard.?S"))
-head(str_subset( Sal$Name, "Spence.*C.*"))
+head(str_subset( Sal$name, "Leonard.?S"))
+head(str_subset( Sal$name, "Spence.*C.*"))
 ```
 
 
@@ -893,24 +895,24 @@ head(str_extract_all(Sal$AgencyID, "\\d"), 2)
     * Spence then capital C
 
 ```{r}
-head(grep("^Payne.*", x = Sal$Name, value = TRUE), 3)
+head(grep("^Payne.*", x = Sal$name, value = TRUE), 3)
 ```
 
 ```{r}
-head(grep("Leonard.?S", x = Sal$Name, value = TRUE))
-head(grep("Spence.*C.*", x = Sal$Name, value = TRUE))
+head(grep("Leonard.?S", x = Sal$name, value = TRUE))
+head(grep("Spence.*C.*", x = Sal$name, value = TRUE))
 ```
 
 
 
 ## Using Regular Expressions: `stringr`
 ```{r}
-head(str_subset( Sal$Name, "^Payne.*"), 3)
+head(str_subset( Sal$name, "^Payne.*"), 3)
 ```
 
 ```{r}
-head(str_subset( Sal$Name, "Leonard.?S"))
-head(str_subset( Sal$Name, "Spence.*C.*"))
+head(str_subset( Sal$name, "Leonard.?S"))
+head(str_subset( Sal$name, "Spence.*C.*"))
 ```
 
 ## Replace
@@ -946,7 +948,7 @@ Now we can replace the `$` with nothing (used `fixed=TRUE` because `$` means end
 Sal$AnnualSalary <- as.numeric(gsub(pattern = "$", replacement="", 
                               Sal$AnnualSalary, fixed=TRUE))
 Sal <- Sal[order(Sal$AnnualSalary, decreasing=TRUE), ] 
-Sal[1:5, c("Name", "AnnualSalary", "JobTitle")]
+Sal[1:5, c("name", "AnnualSalary", "JobTitle")]
 ```
 
 ## Replacing and subbing: `stringr` 

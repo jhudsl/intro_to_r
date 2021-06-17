@@ -3241,116 +3241,6 @@ background-size: 100% 100%;
           </hgroup>
   </slide>
 
-<!-- # Before Cleaning - Subsetting with Brackets -->
-
-<!-- ## Select specific elements using an index -->
-
-<!-- Often you only want to look at subsets of a data set at any given time.  Elements of an R object are selected using the brackets (`[` and `]`). -->
-
-<!-- For example, `x` is a vector of numbers and we can select the second element of `x` using the brackets and an index (2): -->
-
-<!-- ```{r} -->
-
-<!-- x = c(1, 4, 2, 8, 10) -->
-
-<!-- x[2] -->
-
-<!-- ``` -->
-
-<!-- <!-- `dplyr`: -->
-
-<p>–&gt;</p>
-
-<!-- <!-- ```{r} -->
-
-<p>–&gt; <!-- <!-- nth(x, n = 2) --> –&gt; <!-- <!-- ``` --> –&gt;</p>
-
-<!-- ## Select specific elements using an index -->
-
-<!-- We can select the fifth or second AND fifth elements below: -->
-
-<!-- ```{r} -->
-
-<!-- x = c(1, 2, 4, 8, 10) -->
-
-<!-- x[5] -->
-
-<!-- x[c(2,5)] -->
-
-<!-- ``` -->
-
-<!-- ```{r, error=TRUE} -->
-
-<!-- nth(x, n = c(2, 5)) # nth only returns one number -->
-
-<!-- ``` -->
-
-<!-- ## Subsetting by deletion of entries -->
-
-<!-- You can put a minus (`-`) before integers inside brackets to remove these indices from the data. -->
-
-<!-- ```{r negativeIndex} -->
-
-<!-- x[-2] # all but the second -->
-
-<!-- ``` -->
-
-<!-- Note that you have to be careful with this syntax when dropping more than 1 element: -->
-
-<!-- ```{r negativeIndex2} -->
-
-<!-- x[-c(1,2,3)] # drop first 3 -->
-
-<!-- # x[-1:3] # shorthand. R sees as -1 to 3 -->
-
-<!-- x[-(1:3)] # needs parentheses -->
-
-<!-- ``` -->
-
-<!-- ## Select specific elements using logical operators -->
-
-<!-- What about selecting rows based on the values of two variables? We use logical statements.  Here we select only elements of `x` greater than 2: -->
-
-<!-- ```{r} -->
-
-<!-- x -->
-
-<!-- x > 2 -->
-
-<!-- x[ x > 2 ] -->
-
-<!-- ``` -->
-
-<!-- ## Select specific elements using logical operators -->
-
-<!-- You can have multiple logical conditions using the following: -->
-
-<!-- * `&` : AND -->
-
-<!-- * `|` : OR -->
-
-<!-- ```{r} -->
-
-<!-- x[ x > 2 & x < 5 ] -->
-
-<!-- x[ x > 5 | x == 2 ] -->
-
-<!-- ``` -->
-
-<!-- ## which function -->
-
-<!-- The `which` functions takes in logical vectors and returns the index for the elements where the logical value is `TRUE`.   -->
-
-<!-- ```{r} -->
-
-<!-- which(x > 5 | x == 2) # returns index -->
-
-<!-- x[ which(x > 5 | x == 2) ] -->
-
-<!-- x[ x > 5 | x == 2 ] -->
-
-<!-- ``` -->
-
 <slide class=""><hgroup><h2>Data Cleaning</h2></hgroup><article  id="data-cleaning">
 
 <p>In general, data cleaning is a process of investigating your data for inaccuracies, or recoding it in a way that makes it more manageable.</p>
@@ -3648,6 +3538,8 @@ A B
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 1</h2></hgroup><article  id="lab-part-1">
 
+<p><a href='http://jhudatascience.org/intro_to_r/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd' title=''>lab part 1</a></p>
+
 <p><a href='http://jhudatascience.org/intro_to_r/index.html' title=''>Website</a></p>
 
 <!-- ```{r readSal_csv, echo= FALSE, eval = TRUE} -->
@@ -3817,27 +3709,7 @@ head(df_united, 4)</pre>
 </article></slide><slide class=""><hgroup><h2>Splitting/Find/Replace and Regular Expressions</h2></hgroup><article  id="splittingfindreplace-and-regular-expressions">
 
 <ul>
-<li>R can do much more than find exact matches for a whole string</li>
-<li>Like Perl and other languages, it can use regular expressions.</li>
-<li>What are regular expressions?
-
-<ul>
-<li>Ways to search for specific strings</li>
-<li>Can be very complicated or simple</li>
-<li>Highly Useful - think &ldquo;Find&rdquo; on steroids</li>
-</ul></li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>A bit on Regular Expressions</h2></hgroup><article  id="a-bit-on-regular-expressions">
-
-<ul>
-<li><a href='http://www.regular-expressions.info/reference.html' title=''>http://www.regular-expressions.info/reference.html</a></li>
-<li>They can use to match a large number of strings in one statement</li>
-<li><code>.</code> matches any single character</li>
-<li><code>*</code> means repeat as many (even if 0) more times the last character</li>
-<li><code>?</code> makes the last thing optional</li>
-<li><code>^</code> matches start of vector <code>^a</code> - starts with &ldquo;a&rdquo;</li>
-<li><code>$</code> matches end of vector <code>b$</code> - ends with &ldquo;b&rdquo;</li>
+<li>R can do much more than find exact matches for a whole string!</li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>The <code>stringr</code> package</h2></hgroup><article  id="the-stringr-package">
@@ -3846,11 +3718,6 @@ head(df_united, 4)</pre>
 
 <ul>
 <li>Makes string manipulation more intuitive</li>
-<li>Has a standard format for most functions
-
-<ul>
-<li>the first argument is a string like first argument is a <code>data.frame</code> in <code>dplyr</code></li>
-</ul></li>
 <li>We will not cover <code>grep</code> or <code>gsub</code> - base R functions
 
 <ul>
@@ -3859,19 +3726,9 @@ head(df_united, 4)</pre>
 <li>Almost all functions start with <code>str_*</code></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Let’s look at modifier for <code>stringr</code></h2></hgroup><article  id="lets-look-at-modifier-for-stringr">
-
-<p><code>?modifiers</code></p>
+</article></slide><slide class=""><hgroup><h2>String Splitting</h2></hgroup><article  id="string-splitting">
 
 <ul>
-<li><code>fixed</code> - match everything exactly <!-- * `regex` - default - uses **reg**ular **exp**ressions --></li>
-<li><code>ignore_case</code> is an option to not have to use <code>tolower</code></li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Substring and String Splitting</h2></hgroup><article  id="substring-and-string-splitting">
-
-<ul>
-<li><code>str_sub(x, start, end)</code> - substrings from position start to position end</li>
 <li><code>str_split(string, pattern)</code> - splits strings up - returns list!</li>
 </ul>
 
@@ -3887,9 +3744,30 @@ y</pre>
 
 <pre >[1] 6</pre>
 
+</article></slide><slide class=""><hgroup><h2>A bit on Regular Expressions</h2></hgroup><article  id="a-bit-on-regular-expressions">
+
+<ul>
+<li><a href='http://www.regular-expressions.info/reference.html' title=''>http://www.regular-expressions.info/reference.html</a></li>
+<li>They can use to match a large number of strings in one statement</li>
+<li><code>.</code> matches any single character</li>
+<li><code>*</code> means repeat as many (even if 0) more times the last character</li>
+<li><code>?</code> makes the last thing optional</li>
+<li><code>^</code> matches start of vector <code>^a</code> - starts with &ldquo;a&rdquo;</li>
+<li><code>$</code> matches end of vector <code>b$</code> - ends with &ldquo;b&rdquo;</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Let’s look at modifiers for <code>stringr</code></h2></hgroup><article  id="lets-look-at-modifiers-for-stringr">
+
+<p><code>?modifiers</code></p>
+
+<ul>
+<li><code>fixed</code> - match everything exactly <!-- * `regex` - default - uses **reg**ular **exp**ressions --></li>
+<li><code>ignore_case</code> is an option to not have to use <code>tolower</code></li>
+</ul>
+
 </article></slide><slide class=""><hgroup><h2>Using a fixed expression</h2></hgroup><article  id="using-a-fixed-expression">
 
-<p>One example case is when you want to split on a period &ldquo;<code>.</code>&rdquo;. In regular expressions <code>.</code> means <strong>ANY</strong> character, so</p>
+<p>One example case is when you want to split on a period &ldquo;<code>.</code>&rdquo;. In regular expressions <code>.</code> means <strong>ANY</strong> character, so we need to specify that we want R to interpret &ldquo;.&rdquo; as simply a period.</p>
 
 <pre class = 'prettyprint lang-r'>str_split(&quot;I.like.strings&quot;, &quot;.&quot;)</pre>
 
@@ -3897,6 +3775,11 @@ y</pre>
  [1] &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot;</pre>
 
 <pre class = 'prettyprint lang-r'>str_split(&quot;I.like.strings&quot;, fixed(&quot;.&quot;))</pre>
+
+<pre >[[1]]
+[1] &quot;I&quot;       &quot;like&quot;    &quot;strings&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>str_split(&quot;I.like.strings&quot;, &quot;\\.&quot;)</pre>
 
 <pre >[[1]]
 [1] &quot;I&quot;       &quot;like&quot;    &quot;strings&quot;</pre>
@@ -3949,18 +3832,11 @@ y</pre>
 
 </article></slide><slide class=""><hgroup><h2>&lsquo;Find&rsquo; functions: <code>stringr</code></h2></hgroup><article  id="find-functions-stringr">
 
-<p><code>str_detect</code>, <code>str_subset</code>, <code>str_replace</code>, and <code>str_replace_all</code> search for matches to argument pattern within each element of a character vector: they differ in the format of and amount of detail in the results.</p>
+<p><code>str_detect</code>, and <code>str_replace</code> search for matches to argument pattern within each element of a character vector (not data frame or tibble!).</p>
 
 <ul>
-<li><code>str_detect</code> - returns <code>TRUE</code> if <code>pattern</code> is found</li>
-<li><code>str_subset</code> - returns only the strings which pattern were detected
-
-<ul>
-<li>convenient wrapper around <code>x[str_detect(x, pattern)]</code></li>
-</ul></li>
-<li><code>str_extract</code> - returns only strings which pattern were detected, but ONLY the pattern</li>
-<li><code>str_replace</code> - replaces <code>pattern</code> with <code>replacement</code> the first time</li>
-<li><code>str_replace_all</code> - replaces <code>pattern</code> with <code>replacement</code> as many times matched</li>
+<li><code>str_detect</code> - returns <code>TRUE</code> if <code>pattern</code> is found <!-- * `str_subset` - returns only the strings which pattern were detected --> <!--     * convenient wrapper around `x[str_detect(x, pattern)]` --> <!-- * `str_extract` - returns only strings which pattern were detected, but ONLY the pattern --></li>
+<li><code>str_replace</code> - replaces <code>pattern</code> with <code>replacement</code></li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Download Salary FY2014 Data</h2></hgroup><article  id="download-salary-fy2014-data">
@@ -3971,57 +3847,27 @@ y</pre>
 
 <pre class = 'prettyprint lang-r'>Sal = jhur::read_salaries() # or</pre>
 
-<pre >
-── Column specification ────────────────────────────────────────────────────────────────────
-cols(
-  name = col_character(),
-  JobTitle = col_character(),
-  AgencyID = col_character(),
-  Agency = col_character(),
-  HireDate = col_character(),
-  AnnualSalary = col_character(),
-  GrossPay = col_character()
-)</pre>
+<pre class = 'prettyprint lang-r'>head(Sal)</pre>
 
-<pre class = 'prettyprint lang-r'>Sal = read_csv(&quot;https://jhudatascience.org/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv&quot;)</pre>
+<pre ># A tibble: 6 x 7
+  name       JobTitle       AgencyID Agency       HireDate AnnualSalary GrossPay
+  &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt;   
+1 Aaron,Pat… Facilities/Of… A03031   OED-Employm… 10/24/1… $55314.00    $53626.…
+2 Aaron,Pet… ASSISTANT STA… A29045   States Atto… 09/25/2… $74000.00    $73000.…
+3 Abaineh,Y… EPIDEMIOLOGIST A65026   HLTH-Health… 07/23/2… $64500.00    $64403.…
+4 Abbene,An… POLICE OFFICER A99005   Police Depa… 07/24/2… $46309.00    $59620.…
+5 Abbey,Emm… CONTRACT SERV… A40001   M-R Info Te… 05/01/2… $60060.00    $54059.…
+6 Abbott-Co… CONTRACT SERV… A90005   TRANS-Traff… 11/28/2… $42702.00    $20250.…</pre>
 
-<pre >
-── Column specification ────────────────────────────────────────────────────────────────────
-cols(
-  name = col_character(),
-  JobTitle = col_character(),
-  AgencyID = col_character(),
-  Agency = col_character(),
-  HireDate = col_character(),
-  AnnualSalary = col_character(),
-  GrossPay = col_character()
-)</pre>
+<!-- ## 'Find' functions: Finding Logicals -->
 
-<pre class = 'prettyprint lang-r'>Sal = rename(Sal, Name = name)
-Sal</pre>
+<!-- These are the indices where the pattern match occurs: -->
 
-<pre ># A tibble: 14,017 x 7
-   Name      JobTitle       AgencyID Agency       HireDate AnnualSalary GrossPay
-   &lt;chr&gt;     &lt;chr&gt;          &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt;   
- 1 Aaron,Pa… Facilities/Of… A03031   OED-Employm… 10/24/1… $55314.00    $53626.…
- 2 Aaron,Pe… ASSISTANT STA… A29045   States Atto… 09/25/2… $74000.00    $73000.…
- 3 Abaineh,… EPIDEMIOLOGIST A65026   HLTH-Health… 07/23/2… $64500.00    $64403.…
- 4 Abbene,A… POLICE OFFICER A99005   Police Depa… 07/24/2… $46309.00    $59620.…
- 5 Abbey,Em… CONTRACT SERV… A40001   M-R Info Te… 05/01/2… $60060.00    $54059.…
- 6 Abbott-C… CONTRACT SERV… A90005   TRANS-Traff… 11/28/2… $42702.00    $20250.…
- 7 Abdal-Ra… EMT Firefight… A64120   Fire Depart… 03/30/2… $62175.00    $83757.…
- 8 Abdi,Eze… POLICE SERGEA… A99127   Police Depa… 06/14/2… $77343.00    $92574.…
- 9 Abdul Ad… RADIO DISPATC… A38410   Sheriff&#39;s O… 09/02/1… $44548.00    $55943.…
-10 Abdul Az… LIFEGUARD I    P04002   R&amp;P-Recreat… 06/18/2… $18408.00    $1051.25
-# … with 14,007 more rows</pre>
+<!-- ```{r RawlMatch_log} -->
 
-</article></slide><slide class=""><hgroup><h2>&lsquo;Find&rsquo; functions: Finding Logicals</h2></hgroup><article  id="find-functions-finding-logicals">
+<!-- head(str_detect(Sal$name, "Rawlings")) -->
 
-<p>These are the indices where the pattern match occurs:</p>
-
-<pre class = 'prettyprint lang-r'>head(str_detect(Sal$Name, &quot;Rawlings&quot;))</pre>
-
-<pre >[1] FALSE FALSE FALSE FALSE FALSE FALSE</pre>
+<!-- ``` -->
 
 <!-- ## 'Find' functions: Finding Indices -->
 
@@ -4051,10 +3897,10 @@ Sal</pre>
 
 </article></slide><slide class=""><hgroup><h2>&lsquo;Find&rsquo; functions: finding values: <code>stringr</code></h2></hgroup><article  id="find-functions-finding-values-stringr">
 
-<pre class = 'prettyprint lang-r'>Sal %&gt;% filter(str_detect(Name, &quot;Rawlings&quot;))</pre>
+<pre class = 'prettyprint lang-r'>Sal %&gt;% filter(str_detect(name, &quot;Rawlings&quot;))</pre>
 
 <pre ># A tibble: 3 x 7
-  Name         JobTitle     AgencyID Agency       HireDate AnnualSalary GrossPay
+  name         JobTitle     AgencyID Agency       HireDate AnnualSalary GrossPay
   &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt;   
 1 Rawlings,Ke… EMERGENCY D… A40302   M-R Info Te… 01/06/2… $48940.00    $73356.…
 2 Rawlings,Pa… COMMUNITY A… A04015   R&amp;P-Recreat… 12/10/2… $19802.00    $10443.…
@@ -4080,15 +3926,17 @@ Sal</pre>
 
 <pre class = 'prettyprint lang-r'>head(Sal$Name, 2)</pre>
 
-<pre >[1] &quot;Aaron,Patricia G&quot; &quot;Aaron,Petra L&quot;   </pre>
+<pre >Warning: Unknown or uninitialised column: `Name`.</pre>
 
-<pre class = 'prettyprint lang-r'>head(str_replace(Sal$Name, &quot;a&quot;, &quot;j&quot;),2)</pre>
+<pre >NULL</pre>
+
+<pre class = 'prettyprint lang-r'>head(str_replace(Sal$name, &quot;a&quot;, &quot;j&quot;),2)</pre>
 
 <pre >[1] &quot;Ajron,Patricia G&quot; &quot;Ajron,Petra L&quot;   </pre>
 
 <p><code>str_replace</code> replaces all instances.</p>
 
-<pre class = 'prettyprint lang-r'>head(str_replace_all(Sal$Name, &quot;a&quot;, &quot;j&quot;), 2)</pre>
+<pre class = 'prettyprint lang-r'>head(str_replace_all(Sal$name, &quot;a&quot;, &quot;j&quot;), 2)</pre>
 
 <pre >[1] &quot;Ajron,Pjtricij G&quot; &quot;Ajron,Petrj L&quot;   </pre>
 
@@ -4142,14 +3990,24 @@ Sal</pre>
 
 <pre >[1] &quot;Visit_1_Visit_2_Visit_3_Visit_4_Visit_5&quot;</pre>
 
-<pre class = 'prettyprint lang-r'>paste(&quot;To&quot;, &quot;is going be the &quot;, &quot;we go to the store!&quot;, sep = &quot;day &quot;)</pre>
-
-<pre >[1] &quot;Today is going be the day we go to the store!&quot;</pre>
-
 <pre class = 'prettyprint lang-r'># and paste0 can be even simpler see ?paste0 
 paste0(&quot;Visit&quot;,1:5) # no space!</pre>
 
 <pre >[1] &quot;Visit1&quot; &quot;Visit2&quot; &quot;Visit3&quot; &quot;Visit4&quot; &quot;Visit5&quot;</pre>
+
+<!-- ```{r } -->
+
+<!-- paste("Visit", 1:5, sep = "_") -->
+
+<!-- paste("Visit", 1:5, sep = "_", collapse = "_") -->
+
+<!-- paste("To", "is going be the ", "we go to the store!", sep = "day ") -->
+
+<!-- # and paste0 can be even simpler see ?paste0  -->
+
+<!-- paste0("Visit",1:5) # no space! -->
+
+<!-- ``` -->
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
 
@@ -4158,6 +4016,116 @@ paste0(&quot;Visit&quot;,1:5) # no space!</pre>
 <p><a href='http://jhudatascience.org/intro_to_r/index.html' title=''>Website</a></p>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Extra Slides</h2></hgroup><article  id="extra-slides">
+
+<p>!– # Before Cleaning - Subsetting with Brackets –&gt;</p>
+
+<!-- ## Select specific elements using an index -->
+
+<!-- Often you only want to look at subsets of a data set at any given time.  Elements of an R object are selected using the brackets (`[` and `]`). -->
+
+<!-- For example, `x` is a vector of numbers and we can select the second element of `x` using the brackets and an index (2): -->
+
+<!-- ```{r} -->
+
+<!-- x = c(1, 4, 2, 8, 10) -->
+
+<!-- x[2] -->
+
+<!-- ``` -->
+
+<!-- <!-- `dplyr`: -->
+
+<p>–&gt;</p>
+
+<!-- <!-- ```{r} -->
+
+<p>–&gt; <!-- <!-- nth(x, n = 2) --> –&gt; <!-- <!-- ``` --> –&gt;</p>
+
+<!-- ## Select specific elements using an index -->
+
+<!-- We can select the fifth or second AND fifth elements below: -->
+
+<!-- ```{r} -->
+
+<!-- x = c(1, 2, 4, 8, 10) -->
+
+<!-- x[5] -->
+
+<!-- x[c(2,5)] -->
+
+<!-- ``` -->
+
+<!-- ```{r, error=TRUE} -->
+
+<!-- nth(x, n = c(2, 5)) # nth only returns one number -->
+
+<!-- ``` -->
+
+<!-- ## Subsetting by deletion of entries -->
+
+<!-- You can put a minus (`-`) before integers inside brackets to remove these indices from the data. -->
+
+<!-- ```{r negativeIndex} -->
+
+<!-- x[-2] # all but the second -->
+
+<!-- ``` -->
+
+<!-- Note that you have to be careful with this syntax when dropping more than 1 element: -->
+
+<!-- ```{r negativeIndex2} -->
+
+<!-- x[-c(1,2,3)] # drop first 3 -->
+
+<!-- # x[-1:3] # shorthand. R sees as -1 to 3 -->
+
+<!-- x[-(1:3)] # needs parentheses -->
+
+<!-- ``` -->
+
+<!-- ## Select specific elements using logical operators -->
+
+<!-- What about selecting rows based on the values of two variables? We use logical statements.  Here we select only elements of `x` greater than 2: -->
+
+<!-- ```{r} -->
+
+<!-- x -->
+
+<!-- x > 2 -->
+
+<!-- x[ x > 2 ] -->
+
+<!-- ``` -->
+
+<!-- ## Select specific elements using logical operators -->
+
+<!-- You can have multiple logical conditions using the following: -->
+
+<!-- * `&` : AND -->
+
+<!-- * `|` : OR -->
+
+<!-- ```{r} -->
+
+<!-- x[ x > 2 & x < 5 ] -->
+
+<!-- x[ x > 5 | x == 2 ] -->
+
+<!-- ``` -->
+
+<!-- ## which function -->
+
+<!-- The `which` functions takes in logical vectors and returns the index for the elements where the logical value is `TRUE`.   -->
+
+<!-- ```{r} -->
+
+<!-- which(x > 5 | x == 2) # returns index -->
+
+<!-- x[ which(x > 5 | x == 2) ] -->
+
+<!-- x[ x > 5 | x == 2 ] -->
+
+<!-- ``` -->
 
 </article></slide><slide class=""><hgroup><h2>Using Regular Expressions</h2></hgroup><article  id="using-regular-expressions">
 
@@ -4171,16 +4139,16 @@ paste0(&quot;Visit&quot;,1:5) # no space!</pre>
 </ul></li>
 </ul>
 
-<pre class = 'prettyprint lang-r'>head(str_subset( Sal$Name, &quot;^Payne.*&quot;), 3)</pre>
+<pre class = 'prettyprint lang-r'>head(str_subset( Sal$name, &quot;^Payne.*&quot;), 3)</pre>
 
 <pre >[1] &quot;Payne El,Boaz L&quot;         &quot;Payne El,Jackie&quot;        
 [3] &quot;Payne Johnson,Nickole A&quot;</pre>
 
-<pre class = 'prettyprint lang-r'>head(str_subset( Sal$Name, &quot;Leonard.?S&quot;))</pre>
+<pre class = 'prettyprint lang-r'>head(str_subset( Sal$name, &quot;Leonard.?S&quot;))</pre>
 
 <pre >[1] &quot;Payne,Leonard S&quot;      &quot;Szumlanski,Leonard S&quot;</pre>
 
-<pre class = 'prettyprint lang-r'>head(str_subset( Sal$Name, &quot;Spence.*C.*&quot;))</pre>
+<pre class = 'prettyprint lang-r'>head(str_subset( Sal$name, &quot;Spence.*C.*&quot;))</pre>
 
 <pre >[1] &quot;Spencer,Charles A&quot;  &quot;Spencer,Clarence W&quot; &quot;Spencer,Michael C&quot; </pre>
 
@@ -4335,56 +4303,69 @@ y</pre>
 
 <pre class = 'prettyprint lang-r'>grep(&quot;Rawlings&quot;,Sal$Name)</pre>
 
-<pre >[1] 10256 10257 10258</pre>
+<pre >Warning: Unknown or uninitialised column: `Name`.</pre>
+
+<pre >integer(0)</pre>
 
 <pre class = 'prettyprint lang-r'>which(grepl(&quot;Rawlings&quot;, Sal$Name))</pre>
 
-<pre >[1] 10256 10257 10258</pre>
+<pre >Warning: Unknown or uninitialised column: `Name`.</pre>
+
+<pre >integer(0)</pre>
 
 <pre class = 'prettyprint lang-r'>which(str_detect(Sal$Name, &quot;Rawlings&quot;))</pre>
 
-<pre >[1] 10256 10257 10258</pre>
+<pre >Warning: Unknown or uninitialised column: `Name`.</pre>
 
-</article></slide><slide class=""><hgroup><h2>&lsquo;Find&rsquo; functions: Finding Logicals</h2></hgroup><article  id="find-functions-finding-logicals-1">
+<pre >integer(0)</pre>
+
+</article></slide><slide class=""><hgroup><h2>&lsquo;Find&rsquo; functions: Finding Logicals</h2></hgroup><article  id="find-functions-finding-logicals">
 
 <p>These are the indices where the pattern match occurs:</p>
 
 <pre class = 'prettyprint lang-r'>head(grepl(&quot;Rawlings&quot;,Sal$Name))</pre>
 
-<pre >[1] FALSE FALSE FALSE FALSE FALSE FALSE</pre>
+<pre >Warning: Unknown or uninitialised column: `Name`.</pre>
+
+<pre >logical(0)</pre>
 
 <pre class = 'prettyprint lang-r'>head(str_detect(Sal$Name, &quot;Rawlings&quot;))</pre>
 
-<pre >[1] FALSE FALSE FALSE FALSE FALSE FALSE</pre>
+<pre >Warning: Unknown or uninitialised column: `Name`.</pre>
+
+<pre >logical(0)</pre>
 
 </article></slide><slide class=""><hgroup><h2>&lsquo;Find&rsquo; functions: finding values, base R</h2></hgroup><article  id="find-functions-finding-values-base-r">
 
 <pre class = 'prettyprint lang-r'>grep(&quot;Rawlings&quot;,Sal$Name,value=TRUE)</pre>
 
-<pre >[1] &quot;Rawlings,Kellye A&quot;          &quot;Rawlings,Paula M&quot;          
-[3] &quot;Rawlings-Blake,Stephanie C&quot;</pre>
+<pre >Warning: Unknown or uninitialised column: `Name`.</pre>
+
+<pre >character(0)</pre>
 
 <pre class = 'prettyprint lang-r'>Sal[grep(&quot;Rawlings&quot;,Sal$Name),]</pre>
 
-<pre ># A tibble: 3 x 7
-  Name         JobTitle     AgencyID Agency       HireDate AnnualSalary GrossPay
-  &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt;   
-1 Rawlings,Ke… EMERGENCY D… A40302   M-R Info Te… 01/06/2… $48940.00    $73356.…
-2 Rawlings,Pa… COMMUNITY A… A04015   R&amp;P-Recreat… 12/10/2… $19802.00    $10443.…
-3 Rawlings-Bl… MAYOR        A01001   Mayors Offi… 12/07/1… $167449.00   $165249…</pre>
+<pre >Warning: Unknown or uninitialised column: `Name`.</pre>
+
+<pre ># A tibble: 0 x 7
+# … with 7 variables: name &lt;chr&gt;, JobTitle &lt;chr&gt;, AgencyID &lt;chr&gt;, Agency &lt;chr&gt;,
+#   HireDate &lt;chr&gt;, AnnualSalary &lt;chr&gt;, GrossPay &lt;chr&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Showing differnce in <code>str_extract</code></h2></hgroup><article  id="showing-differnce-in-str_extract">
 
 <p><code>str_extract</code> extracts just the matched string</p>
 
-<pre class = 'prettyprint lang-r'>ss = str_extract(Sal$Name, &quot;Rawling&quot;)
-head(ss)</pre>
+<pre class = 'prettyprint lang-r'>ss = str_extract(Sal$Name, &quot;Rawling&quot;)</pre>
 
-<pre >[1] NA NA NA NA NA NA</pre>
+<pre >Warning: Unknown or uninitialised column: `Name`.</pre>
+
+<pre class = 'prettyprint lang-r'>head(ss)</pre>
+
+<pre >character(0)</pre>
 
 <pre class = 'prettyprint lang-r'>ss[ !is.na(ss)]</pre>
 
-<pre >[1] &quot;Rawling&quot; &quot;Rawling&quot; &quot;Rawling&quot;</pre>
+<pre >character(0)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Showing differnce in <code>str_extract</code> and <code>str_extract_all</code></h2></hgroup><article  id="showing-differnce-in-str_extract-and-str_extract_all">
 
@@ -4414,31 +4395,31 @@ head(ss)</pre>
 </ul></li>
 </ul>
 
-<pre class = 'prettyprint lang-r'>head(grep(&quot;^Payne.*&quot;, x = Sal$Name, value = TRUE), 3)</pre>
+<pre class = 'prettyprint lang-r'>head(grep(&quot;^Payne.*&quot;, x = Sal$name, value = TRUE), 3)</pre>
 
 <pre >[1] &quot;Payne El,Boaz L&quot;         &quot;Payne El,Jackie&quot;        
 [3] &quot;Payne Johnson,Nickole A&quot;</pre>
 
-<pre class = 'prettyprint lang-r'>head(grep(&quot;Leonard.?S&quot;, x = Sal$Name, value = TRUE))</pre>
+<pre class = 'prettyprint lang-r'>head(grep(&quot;Leonard.?S&quot;, x = Sal$name, value = TRUE))</pre>
 
 <pre >[1] &quot;Payne,Leonard S&quot;      &quot;Szumlanski,Leonard S&quot;</pre>
 
-<pre class = 'prettyprint lang-r'>head(grep(&quot;Spence.*C.*&quot;, x = Sal$Name, value = TRUE))</pre>
+<pre class = 'prettyprint lang-r'>head(grep(&quot;Spence.*C.*&quot;, x = Sal$name, value = TRUE))</pre>
 
 <pre >[1] &quot;Spencer,Charles A&quot;  &quot;Spencer,Clarence W&quot; &quot;Spencer,Michael C&quot; </pre>
 
 </article></slide><slide class=""><hgroup><h2>Using Regular Expressions: <code>stringr</code></h2></hgroup><article  id="using-regular-expressions-stringr">
 
-<pre class = 'prettyprint lang-r'>head(str_subset( Sal$Name, &quot;^Payne.*&quot;), 3)</pre>
+<pre class = 'prettyprint lang-r'>head(str_subset( Sal$name, &quot;^Payne.*&quot;), 3)</pre>
 
 <pre >[1] &quot;Payne El,Boaz L&quot;         &quot;Payne El,Jackie&quot;        
 [3] &quot;Payne Johnson,Nickole A&quot;</pre>
 
-<pre class = 'prettyprint lang-r'>head(str_subset( Sal$Name, &quot;Leonard.?S&quot;))</pre>
+<pre class = 'prettyprint lang-r'>head(str_subset( Sal$name, &quot;Leonard.?S&quot;))</pre>
 
 <pre >[1] &quot;Payne,Leonard S&quot;      &quot;Szumlanski,Leonard S&quot;</pre>
 
-<pre class = 'prettyprint lang-r'>head(str_subset( Sal$Name, &quot;Spence.*C.*&quot;))</pre>
+<pre class = 'prettyprint lang-r'>head(str_subset( Sal$name, &quot;Spence.*C.*&quot;))</pre>
 
 <pre >[1] &quot;Spencer,Charles A&quot;  &quot;Spencer,Clarence W&quot; &quot;Spencer,Michael C&quot; </pre>
 
@@ -4483,10 +4464,10 @@ head(ss)</pre>
 <pre class = 'prettyprint lang-r'>Sal$AnnualSalary &lt;- as.numeric(gsub(pattern = &quot;$&quot;, replacement=&quot;&quot;, 
                               Sal$AnnualSalary, fixed=TRUE))
 Sal &lt;- Sal[order(Sal$AnnualSalary, decreasing=TRUE), ] 
-Sal[1:5, c(&quot;Name&quot;, &quot;AnnualSalary&quot;, &quot;JobTitle&quot;)]</pre>
+Sal[1:5, c(&quot;name&quot;, &quot;AnnualSalary&quot;, &quot;JobTitle&quot;)]</pre>
 
 <pre ># A tibble: 5 x 3
-  Name            AnnualSalary JobTitle              
+  name            AnnualSalary JobTitle              
   &lt;chr&gt;                  &lt;dbl&gt; &lt;chr&gt;                 
 1 Mosby,Marilyn J       238772 STATE&#39;S ATTORNEY      
 2 Batts,Anthony W       211785 Police Commissioner   

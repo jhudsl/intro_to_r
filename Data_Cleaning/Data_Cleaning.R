@@ -100,47 +100,43 @@ length(y)
 ## -----------------------------------------------------------------------------
 str_split("I.like.strings", ".")
 str_split("I.like.strings", fixed("."))
+str_split("I.like.strings", "\\.")
 
 
-## ----readSal, echo = TRUE, eval = TRUE----------------------------------------
+## ----readSal, echo = TRUE, eval = TRUE, message=FALSE-------------------------
 Sal = jhur::read_salaries() # or
-Sal = read_csv("https://jhudatascience.org/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv")
-Sal = rename(Sal, Name = name)
-Sal
 
-
-## ----RawlMatch_log------------------------------------------------------------
-head(str_detect(Sal$Name, "Rawlings"))
+## -----------------------------------------------------------------------------
+head(Sal)
 
 
 ## -----------------------------------------------------------------------------
-Sal %>% filter(str_detect(Name, "Rawlings"))
+Sal %>% filter(str_detect(name, "Rawlings"))
 
 
 ## -----------------------------------------------------------------------------
 head(Sal$Name, 2)
-head(str_replace(Sal$Name, "a", "j"),2)
+head(str_replace(Sal$name, "a", "j"),2)
 
 
 ## -----------------------------------------------------------------------------
-head(str_replace_all(Sal$Name, "a", "j"), 2)
+head(str_replace_all(Sal$name, "a", "j"), 2)
 
 
 ## ----Paste--------------------------------------------------------------------
 paste("Visit", 1:5, sep = "_")
 paste("Visit", 1:5, sep = "_", collapse = "_")
-paste("To", "is going be the ", "we go to the store!", sep = "day ")
 # and paste0 can be even simpler see ?paste0 
 paste0("Visit",1:5) # no space!
 
 
 ## ----grepstar_stringr---------------------------------------------------------
-head(str_subset( Sal$Name, "^Payne.*"), 3)
+head(str_subset( Sal$name, "^Payne.*"), 3)
 
 
 ## ----grepstar2_stringr--------------------------------------------------------
-head(str_subset( Sal$Name, "Leonard.?S"))
-head(str_subset( Sal$Name, "Spence.*C.*"))
+head(str_subset( Sal$name, "Leonard.?S"))
+head(str_subset( Sal$name, "Spence.*C.*"))
 
 
 ## -----------------------------------------------------------------------------
@@ -182,21 +178,21 @@ head(str_extract_all(Sal$AgencyID, "\\d"), 2)
 
 
 ## -----------------------------------------------------------------------------
-head(grep("^Payne.*", x = Sal$Name, value = TRUE), 3)
+head(grep("^Payne.*", x = Sal$name, value = TRUE), 3)
 
 
 ## -----------------------------------------------------------------------------
-head(grep("Leonard.?S", x = Sal$Name, value = TRUE))
-head(grep("Spence.*C.*", x = Sal$Name, value = TRUE))
+head(grep("Leonard.?S", x = Sal$name, value = TRUE))
+head(grep("Spence.*C.*", x = Sal$name, value = TRUE))
 
 
 ## -----------------------------------------------------------------------------
-head(str_subset( Sal$Name, "^Payne.*"), 3)
+head(str_subset( Sal$name, "^Payne.*"), 3)
 
 
 ## -----------------------------------------------------------------------------
-head(str_subset( Sal$Name, "Leonard.?S"))
-head(str_subset( Sal$Name, "Spence.*C.*"))
+head(str_subset( Sal$name, "Leonard.?S"))
+head(str_subset( Sal$name, "Spence.*C.*"))
 
 
 ## -----------------------------------------------------------------------------
@@ -217,7 +213,7 @@ head(as.numeric(Sal$AnnualSalary), 4)
 Sal$AnnualSalary <- as.numeric(gsub(pattern = "$", replacement="", 
                               Sal$AnnualSalary, fixed=TRUE))
 Sal <- Sal[order(Sal$AnnualSalary, decreasing=TRUE), ] 
-Sal[1:5, c("Name", "AnnualSalary", "JobTitle")]
+Sal[1:5, c("name", "AnnualSalary", "JobTitle")]
 
 
 ## -----------------------------------------------------------------------------
