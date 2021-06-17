@@ -20,78 +20,77 @@ library(dplyr)
 library(jhur)
 ```
 
-1. Read Bike Lanes Dataset using `read_bike()` function from `jhur` package. Assign it to `bike` variable. Use `str()` function to take a look at the data and learn column types. 
+0. Read Bike Lanes Dataset using `read_bike()` function from `jhur` package. Assign it to `bike` variable. 
+
+Then, use the provided code to compute a data frame `bike_agg` with aggregate summary of bike lanes: average length of lanes (`lane_avg_length`) for each year (`dateInstalled`). 
 
 ```{r}
 bike = read_bike()
-str(bike)
-```
 
-2. Create a summary data frame (`bike_agg`) where for each year (`dateInstalled`) we have information about: 
-
-- number of lanes (`lane_count`),
-- average length of lanes (`lane_avg_length`)
-
-Before the summarization step, filter data to keep only these observations for which year (`dateInstalled`) is non-0. 
-
-```{r}
 bike_agg <- 
   bike %>%
+  # filter data to keep only these observations for which year is non-0
   filter(dateInstalled != 0) %>%
   group_by(dateInstalled) %>%
-  summarise(
-    lane_count = n(),
-    lane_avg_length = mean(length)
-  )
+  summarise(lane_avg_length = mean(length)) 
+
 bike_agg
+
 ```
 
-3. Use base R graphic to make two plots: 
+1. Use base R graphic to make plot of average length of lanes (`lane_avg_length`; y-axis) for each year (`dateInstalled`; x-axis).
 
-- number of lanes (`lane_count`; y-axis) ~ year (`dateInstalled`; x-axis) 
-- average length of lanes (`lane_avg_length`; y-axis) ~ year (`dateInstalled`; x-axis) 
-
-You can use point type (default) or line type  (option `type = "l`). 
+Try using point plot type (default) and line type  (use argument `type = "l`). 
 
 ```{r}
-plot(x = bike_agg$dateInstalled, y = bike_agg$lane_count)
-plot(x = bike_agg$dateInstalled, y = bike_agg$lane_count, type = "l")
-
 plot(x = bike_agg$dateInstalled, y = bike_agg$lane_avg_length)
 plot(x = bike_agg$dateInstalled, y = bike_agg$lane_avg_length, type = "l")
 ```
 
-4. Use `ggplot2` package to make two different plots: 
+2. Use `ggplot2` package make plot of average length of lanes (`lane_avg_length`; y-axis) for each year (`dateInstalled`; x-axis). You can use lines layer (`+ geom_line()`) or points layer (`+ geom_point()`), or both!
 
-- number of lanes (`lane_count`; y-axis) ~ year (`dateInstalled`; x-axis) 
-- average length of lanes (`lane_avg_length`; y-axis) ~ year (`dateInstalled`; x-axis) 
-
-You can use lines layer (`+ geom_line()`) or points layer (`+ geom_point()`), or both! 
+Assign the plot to variable `my_plot`. Type `my_plot` in the console to have it displayed 
 
 ```{r}
-ggplot(bike_agg, aes(x = dateInstalled, y = lane_count)) + 
-  geom_line() + 
-  geom_point()
-
 ggplot(bike_agg, aes(x = dateInstalled, y = lane_avg_length)) + 
   geom_line() + 
   geom_point()
-```
 
-5. Redo one of the ggplot2 and assign it to a variable `my_plot`. Generate a few different versions of this plot using different themes: 
-
-- `my_plot + theme_bw()`
-- `my_plot + theme_classic()`
-- `my_plot + theme_dark()`
-- `my_plot + theme_gray()`
-- `my_plot + theme_void()`
-
-```{r}
 my_plot <- 
-  ggplot(bike_agg, aes(x = dateInstalled, y = lane_count)) + 
+  ggplot(bike_agg, aes(x = dateInstalled, y = lane_avg_length)) + 
   geom_line() + 
   geom_point()
 
+my_plot
+```
+
+3. "Update" your plot by adding additional elements, e.g. plot labels. 
+
+```{r}
+my_plot <- 
+  my_plot + 
+  labs(x = "Year of bike lane installation",
+       y = "Average bike lane length",
+       title = "Average bike lane length 2006-2013")
+
+my_plot
+```
+
+4. You can use `scale_x_continuous()` function and its arguments to modify x-axis look. You can use `scale_y_continuous()` function and its arguments to modify y-axis look. 
+
+```{r}
+my_plot <- 
+  my_plot + 
+  scale_x_continuous(breaks = c(2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013)) + 
+  scale_y_continuous(limits = c(0, NA))  # force y-axis to start from 0, do not force upper bound 
+  
+my_plot
+```
+
+
+5. Observe different versions of the plot by displaying `my_plot` while adding different "theme" to it  
+
+```{r}
 my_plot + theme_bw()
 my_plot + theme_classic()
 my_plot + theme_dark()
@@ -102,29 +101,18 @@ my_plot + theme_void()
 
 # Part 2
 
-1. Create a summary data frame (`bike_agg_2`) where for 
-
-- each year (`dateInstalled`),
-- each bike lane type (`type`) 
-
-we have information about: 
-
-- number of lanes (`lane_count`),
-- average length of lanes (`lane_avg_length`)
-
-Before the summarization step, filter data to keep only these observations for which year (`dateInstalled`) is non-0. 
+1. Use the provided code to compute a data frame `bike_agg_2` with aggregate summary of bike lanes: number of lanes (`lane_count`) -- separately for each year (`dateInstalled`) and for each lane type. 
 
 ```{r}
 bike_agg_2 <- 
   bike %>%
   filter(dateInstalled != 0) %>%
   group_by(dateInstalled, type) %>%
-  summarise(
-    lane_count = n(),
-    lane_avg_length = mean(length)
-  )
+  summarise(lane_count = n())
+
 bike_agg_2
 ```
+
 
 2.  Use `ggplot2` package to make a plot showing trajectories of number of lanes (`lane_count`; y-axis) over year (`dateInstalled`; x-axis), where each bike line type has a different line (hint: use `group = type` in mapping) and a different color (hint: use `color = type` in mapping). 
 
