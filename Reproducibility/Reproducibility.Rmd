@@ -1,0 +1,70 @@
+---
+title: "Reproducibility"
+output:
+  pdf_document: default
+  ioslides_presentation:
+    css: ../styles.css
+    widescreen: yes
+---
+ 
+
+```{r, echo = FALSE, message = FALSE}
+library(knitr)
+opts_chunk$set(comment = "")
+library(readr)
+suppressPackageStartupMessages(library(dplyr))
+library(tidyverse)
+```
+
+## Reproducibility
+- clean your environment regularly
+- use RMarkdown 
+- check the knit of your RMarkdown regularly
+- tell your future self and others what you did!
+
+## RMarkdown
+Clicking the knit button, will knit your document to create different types of reports. The default is html.
+
+```{r, fig.alt="How to knit an Rmd", out.width = "60%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/knit.png")
+```
+
+## Code Chunks
+```{r, fig.alt="Options for code chunks", out.width = "30%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/chunks.png")
+```
+
+After knitting:  
+1) **echo** - determines if your code should be shown or not  
+    - TRUE = code is **shown** (default)  
+    - FALSE = code is not shown (but might be run...depends on eval)  
+2) **eval** - determines if your code should be evaluated (run) or not  
+    - TRUE = code is **run** (default)  
+    - FALSE = code is not run (but might be shown...depends on echo)  
+3) **message** = FALSE -suppresses messages when your run your code  
+
+
+
+## RMarkdown syntax
+
+Before:
+```{r, fig.alt="Markdown sytax before rendering", out.width = "80%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/original.png")
+```
+
+After knit:
+```{r, fig.alt="Result of markdown sytax after rendering", out.width = "80%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/rendered.png")
+```
+
+## RMarkdown syntax
+
+Go to File > Help > Cheatsheets > R Markdown Cheatsheet
+
+## Final Project
+
+Specific guidelines and example on website  
+
+Turn in through CoursePlus:  
+1) RMarkdown file    
+2) html file  
