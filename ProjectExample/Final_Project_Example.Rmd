@@ -21,32 +21,27 @@ I attempted to find more about how people were surveyed for the poll, but did no
 
 Now I will load packages that I may need in my analysis:
 ```{r}
-library(readr)
 library(tidyverse)
-library(dplyr)
-library(lubridate)
-library(jhur)
-library(tidyverse)
-library(broom)
-library(naniar)
 ```
 
 
 ## Data Import
 
-I will then import my data by using the read_csv() function of the readr package as the data is in csv format. I will name the data Happiness.
+I will then import my data by using the `read_csv()` function of the readr package as the data is in csv format. I will name the data Happiness.
 
 ```{r}
 Happiness <-read_csv("/Users/carriewright/Documents/GitHub/Teaching/intro_to_r/ProjectExample/world-happiness-report-2021.csv")
 ```
+
 I then take a look at my data using the `head()` function. I use the `dim()` function to see how many rows/columns there are.
+
 ```{r}
 head(Happiness)
 dim(Happiness)
 ```
 
 
-To determine how many unique countries there are I used the `unqiue()` function and the length() function.
+To determine how many unique countries there are I used the `unqiue()` function and the `length()` function.
 ```{r}
 pull(Happiness, "Country name") %>% unique() %>% length
 ```
@@ -56,7 +51,7 @@ This shows that there are 149 Countries.
 
 ## Data Cleaning/Wrangling
 
-I decided to rename the first variable called "Country name" so that it would not have a space - this makes it easier to work with as I will not need to use quotes around it for most functions. I used the `rename()` function to do this, listing the new name first.
+I decided to rename the first variable called `Country name` so that it would not have a space - this makes it easier to work with as I will not need to use quotes around it for most functions. I used the `rename()` function to do this, listing the new name first.
 
 ```{r}
 
@@ -65,7 +60,7 @@ Happiness  <- Happiness %>%
 colnames(Happiness)
 ```
 
-I can see that this column is renamed, but I then realized that many columns have names with spaces. I decided to do the same thing for the "Ladder score" variable. I renamed it "Happiness_score"
+I can see that this column is renamed, but I then realized that many columns have names with spaces. I decided to do the same thing for the `"Ladder score"` variable. I renamed it `"Happiness_score"`.
 
 ```{r}
   Happiness  <- Happiness %>% 
@@ -74,6 +69,7 @@ colnames(Happiness)
 ```
 
 I then decided to arrange the data by `Happiness_score` using the `arrange()` function with the largest score shown first, thus I needed to use `desc()`
+
 ```{r}
 Happiness <- Happiness %>% arrange(desc(Happiness_score))
 head(Happiness)
@@ -98,7 +94,7 @@ Happiness$rank
 ```
 
 
-I then looked again at the US using filter(). I used the pull() function to get the rank for the US.
+I then looked again at the US using `filter()`. I used the `pull()` function to get the rank for the US.
 
 ```{r}
 Happiness %>% filter(Country_name == "United States") %>% pull(rank)
@@ -107,33 +103,52 @@ Happiness %>% filter(Country_name == "United States") %>% pull(rank)
 The US ranked 19 in 2021 for happiness out of the 149 countries.
 
 ## Data Visualization
-I decided to make a plot of the top 5 countrie using geom_point() and ggplot().
-First I created a new dataset of just the top 10 ranking countries.
+I decided to make a plot of the top 5 countries using `geom_point()` and `ggplot()`.
+First I created a new dataset of just the top 5 ranking countries.
 
 ```{r}
-top20 <- Happiness %>% filter(rank<5)
+top5 <- Happiness %>% filter(rank<5)
 
-ggplot(data = top20, aes( x= Country_name, y = Happiness_score )) +
+ggplot(data = top5, aes( x= Country_name, y = Happiness_score )) +
   geom_point()
 ```
+
 I then decided to make a plot of a few countries of interest:
 
 ```{r}
 int_Country<- Happiness %>% filter(Country_name %in% c("China", "United States", "India", "Mexico"))
 
 ggplot(data = int_Country, aes( x= Country_name, y = Happiness_score ), group = Country_name) +
-  geom_boxplot()
+  geom_point()
 ```
 
-I can see from this plot that the United States ranked higher than China, India, or Mexico. Mexico ranked second, China third, and India fourth.
+I can see from this plot that the United States ranked highest. Mexico ranked second, China third, and India fourth.
 
-# Data Analysis
 
-I then decided to perform a simple analysis to compare countries in different regions. Using `unique()` I determined that there were 10 different regions. I decided to compare countries in `Western Europe` with those of `East Asia`.
+I then decided to compare different regions. Using `unique()` I determined that there were 10 different regions.
 
 ```{r}
 unique(Happiness$`Regional indicator`)
 ```
+
+I then used `ggplot()` to create a boxplot of the happiness scores for the countries in these different regions.
+
+```{r}
+
+ggplot(data = Happiness, 
+          aes(x = `Regional indicator` , 
+              y = Happiness_score), 
+              color ="Regional indicator") +
+          geom_boxplot()+
+          coord_flip()
+
+```
+
+# Data Analysis
+
+I then decided to perform a simple analysis to compare countries in different regions. I decided to compare countries in `Western Europe` with those of `East Asia`.
+
+
 I first filtered the data to create two new data sets for these regions only and then performed a t test without assuming equal variance between the scores for the countries for each region.
 
 ```{r}
