@@ -55,8 +55,8 @@ Note: column names are in 1st column of `mort` data frame.
 #   select(???)
 
 # transpose and rename 
-mortality_only_transposed <- as.data.frame(t(mortality_only))
-colnames(mortality_only_transposed) <- c( "China", "Myanmar", "United States")
+# mortality_only_transposed <- as.data.frame(t(mortality_only))
+# colnames(mortality_only_transposed) <- c( "China", "Myanmar", "United States")
 
 # compute correlation matrix
 # country_cor <- cor(???, use = ???)

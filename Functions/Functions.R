@@ -1,65 +1,53 @@
-## ----return2, comment=""------------------------------------------------------
-return2 = function(x) {
-  return(x[2])
-}
-return2(c(1,4,5,76))
-
-
 ## ----return2a, comment=""-----------------------------------------------------
-return2a = function(x) {
-  x[2]
-}
-return2a(c(1,4,5,76))
+return2a = function(x) x[2]
+
+
+## ----return2a2, comment=""----------------------------------------------------
+return2a(x = c(1,4,5,76))
 
 
 ## ----return2b, comment=""-----------------------------------------------------
-return2b = function(x) x[2]
-return2b(c(1,4,5,76))
+return2b = function(x) {
+  x[2]
+}
+return2b(x = c(1,4,5,76))
 
 
 ## ----return2c, comment=""-----------------------------------------------------
-return2c = function(x,n) x[n]
-return2c(c(1,4,5,76), 3)
+return2c = function(x) {
+  output = x[2]
+  return(output)
+}
+return2c(x = c(1,4,5,76))
+
+
+## ----return_n, comment=""-----------------------------------------------------
+return_n = function(x, n) x[n]
+return_n(x = c(1,4,5,76), n = 3)
+
+
+## ----return_n2, comment=""----------------------------------------------------
+return_n2 = function(x = c(1,2,3), n = 2) x[n]
+return_n2()
 
 
 ## ----sqdif, comment=""--------------------------------------------------------
-sqdif <- function(x=2,y=3){
-     (x-y)^2
-}
+sqdif <- function(x=2,y=3) (x-y)^2
 
 sqdif()
 sqdif(x=10,y=5)
 sqdif(10,5)
 
 
-## ----top, comment=""----------------------------------------------------------
-top = function(mat,n=5) mat[1:n,1:n]
-my.mat = matrix(1:1000,nr=100) 
-top(my.mat) #note that we are using the default value for n 
+## ----top, message=FALSE-------------------------------------------------------
+top = function(df, n=5) df[1:n, 1:n]
+bike = jhur::read_bike()
 
-
-## ----top3, comment=""---------------------------------------------------------
-matList = list(x = matrix(1:25,nc=5),y=matrix(26:50,nc=5))
-lapply(matList, function(x) x[1:2,1:2])
+## ---- comment=""--------------------------------------------------------------
+top(bike) # Note that we are using the default value for n 
 
 
 ## ----sapply1, comment=""------------------------------------------------------
-df = data.frame(day1 = c(600,660), day2 = c(440, 500))
-df
-sapply(df, log)
-
-
-## ----sapply2, comment=""------------------------------------------------------
-myList = list(a=1:10, b=c(2,4,5), c = c("a","b","c"),
-                d = factor(c("boy","girl","girl")))
-tmp = lapply(myList,function(x) x[1])
-tmp
-sapply(tmp, class)
-
-
-## ----sapplyDf, comment="", message=FALSE--------------------------------------
-library(readr)
-circ = read_csv(paste0("http://jhudatascience.org/intro_to_r/",
-  "data/Charm_City_Circulator_Ridership.csv"))
-sapply(circ,class)
+sapply(bike, class)
+sapply(bike$length, log)
 

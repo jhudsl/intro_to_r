@@ -7,192 +7,111 @@ opts_chunk$set(echo = TRUE,
                fig.width = 7, 
                comment = "")
 library(dplyr)
+options(scipen=999)
+
 
 
 ## ----cor1, comment="", message = FALSE----------------------------------------
 library(readr)
-circ = read_csv("https://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
-cor(circ$orangeAverage, circ$purpleAverage, use="complete.obs")
+circ = read_csv(paste0("https://jhudatascience.org/intro_to_r/data",
+                       "/Charm_City_Circulator_Ridership.csv"))
+head(circ)
 
 
-## ----cor2, comment="", message = TRUE-----------------------------------------
-library(corrr); library(dplyr)
-circ %>% 
-  select(orangeAverage, purpleAverage) %>% 
-  correlate()
+## -----------------------------------------------------------------------------
+cor(circ$orangeAverage, circ$purpleAverage)
+cor(circ$orangeAverage, circ$purpleAverage, use = "complete.obs")
 
 
-## ----cor3, comment=""---------------------------------------------------------
-avgs = circ %>% select(ends_with("Average"))
-cobj = avgs %>% correlate(use = "complete.obs", diagonal = 1)
-cobj %>% fashion(decimals = 3)
+## ---- fig.width=3, fig.height=3-----------------------------------------------
+cor_val = cor(circ$orangeAverage, circ$purpleAverage, use = "complete.obs")
+cor_val_label <- paste0("r = ", round(cor_val, 3))
+
+library(ggplot2)
+ggplot(circ, aes(x = orangeAverage, y = purpleAverage)) + 
+  geom_point(size = 0.3) + 
+  annotate("text", x = 2000, y = 7500, label = cor_val_label, size = 5)
 
 
-## ----corplot, comment=""------------------------------------------------------
-cobj %>% rplot()
+## -----------------------------------------------------------------------------
+circ_subset_Average <- circ %>% select(ends_with("Average"))
+dim(circ_subset_Average)
+
+cor_mat <- cor(circ_subset_Average, use = "complete.obs")
+cor_mat
 
 
-## ----cor4, comment=""---------------------------------------------------------
-ct = cor.test(circ$orangeAverage, circ$purpleAverage, 
-              use = "complete.obs")
-ct
+## ---- fig.width=4, fig.height=4-----------------------------------------------
+library(corrplot)
+corrplot(cor_mat, type = "upper", order = "hclust")
 
 
-## ----cor5, comment=""---------------------------------------------------------
-# str(ct)
-names(ct)
-ct$statistic
-ct$p.value
+## -----------------------------------------------------------------------------
+t.test(circ$orangeAverage)
+
+
+## -----------------------------------------------------------------------------
+t.test(circ$orangeAverage, circ$purpleAverage)
+
+
+## -----------------------------------------------------------------------------
+result <- t.test(circ$orangeAverage, circ$purpleAverage)
+is.list(result)
+names(result)
+result$statistic
+result$p.value
 
 
 ## ----broom, comment=""--------------------------------------------------------
 library(broom)
-tidy_ct = tidy(ct)
-tidy_ct
+result_tidy = tidy(result)
+result_tidy
 
 
-## ----cor_ggplot, comment="",  fig.height=4,fig.width=4------------------------
-library(ggplot2)
-txt = paste0("r=", signif(ct$estimate,3))
-q = qplot(data = circ, x = orangeAverage, y = purpleAverage)
-q + annotate("text", x = 4000, y = 8000, label = txt, size = 5)
-
-
-## ----tt1, comment=""----------------------------------------------------------
-tt = t.test(circ$orangeAverage, circ$purpleAverage)
-tt
-
-
-## ----tt1_paired, comment=""---------------------------------------------------
-t.test(circ$orangeAverage, circ$purpleAverage, paired = TRUE)
-
-
-## ----tt1_1, comment=""--------------------------------------------------------
-names(tt)
-
-
-## ----tt1_broom, comment=""----------------------------------------------------
-tidy(tt)
-
-
-## ----long_tt------------------------------------------------------------------
-library(tidyr)
-long = circ %>% 
-  select(date, orangeAverage, purpleAverage) %>% 
-  pivot_longer(!date, names_to = "line", values_to = "avg")
-tt = t.test(avg ~ line, data = long)
-tidy(tt)
-
-
-## ----wt, comment=""-----------------------------------------------------------
-tidy(wilcox.test(avg ~ line, data = long))
-
-
-## ----aov, comment=""----------------------------------------------------------
-long3 = circ %>% 
-  select(date, orangeAverage, purpleAverage, bannerAverage) %>% 
-  pivot_longer(!date, names_to = "line", values_to = "avg")
-anova_res = aov(avg ~ line, data = long3)
-anova_res
-
-
-## ----regress1, comment=""-----------------------------------------------------
-fit = lm(avg ~ line, data = long)
-fit
-
-
-## ----regress1000, comment=""--------------------------------------------------
-fit = lm(avg ~ line, data = long3)
-fit
-
-
-## ----regress2, comment=""-----------------------------------------------------
-sfit = summary(fit)
-print(sfit)
-
-
-## ----tidy_lm, comment=""------------------------------------------------------
-tidy(fit)
-
-
-## ----tidy_lm_onf, comment=""--------------------------------------------------
-tidy(fit, conf.int = TRUE)
-
-
-## ----tt2, comment="", message = FALSE-----------------------------------------
-http_data_dir = "https://jhudatascience.org/intro_to_r/data/"
+## -----------------------------------------------------------------------------
 cars = read_csv(
-  paste0(http_data_dir, "kaggleCarAuction.csv"),   
+  paste0("https://jhudatascience.org/intro_to_r/data/", 
+         "kaggleCarAuction.csv"),   
   col_types = cols(VehBCost = col_double()))
 head(cars)
 
 
 ## -----------------------------------------------------------------------------
-fit = lm(VehOdo~VehicleAge, data = cars)
+fit = lm(VehOdo ~ VehicleAge, data = cars)
 print(fit)
 
 
-## ----regress5, comment="", fig.height=4,fig.width=8---------------------------
-fit2 = lm(VehOdo ~ IsBadBuy + VehicleAge, data = cars)
-tidy(fit2)  
+## -----------------------------------------------------------------------------
+sfit = summary(fit)
+print(sfit)
 
 
-## ----regress9, comment="", fig.height=4,fig.width=8---------------------------
-fit3 = lm(VehOdo ~ IsBadBuy * VehicleAge, data = cars)
-tidy(fit3)  
+## -----------------------------------------------------------------------------
+sfit$coefficients
+sfit$r.squared
 
 
-## ----regress10, comment="", fig.height=4,fig.width=8--------------------------
-fit4 = lm(VehOdo ~ IsBadBuy * VehicleAge -IsBadBuy , data = cars)
-tidy(fit4)  
+## -----------------------------------------------------------------------------
+fit_2 = lm(VehOdo ~ VehicleAge + WarrantyCost, data = cars)
+summary(fit_2)
+
+
+## -----------------------------------------------------------------------------
+table(cars$TopThreeAmericanName)
 
 
 ## ----regress6, comment="", fig.height=4,fig.width=8---------------------------
-fit3 = lm(VehOdo ~ factor(TopThreeAmericanName), data = cars)
-tidy(fit3)  
+fit_3 = lm(VehOdo ~ factor(TopThreeAmericanName), data = cars)
+summary(fit_3)
+
+
+## ---- comment="", fig.height=4,fig.width=8------------------------------------
+# tidy() is a function from broom package
+fit_3_tidy = tidy(fit_3)
+fit_3_tidy
 
 
 ## ----regress7, comment="", fig.height=4,fig.width=8---------------------------
-glmfit = glm(IsBadBuy ~ VehOdo + VehicleAge, data=cars, family = binomial())
-tidy(glmfit)  
-
-
-## ----tidy_glmfit, comment="", fig.height=4,fig.width=8------------------------
-tidy(glmfit, conf.int = TRUE)
-
-
-## ----tidy_glm_exp, comment="", fig.height=4,fig.width=8-----------------------
-tidy(glmfit, conf.int = TRUE, exponentiate = TRUE)
-
-
-## ----regress8, comment="", fig.height=4,fig.width=8---------------------------
-exp(coef(glmfit))
-
-
-## ----chisq1, comment=""-------------------------------------------------------
-tab = table(cars$IsBadBuy, cars$IsOnlineSale)
-tab
-
-
-## ----chisq2, comment=""-------------------------------------------------------
-cq = chisq.test(tab)
-cq
-names(cq)
-cq$p.value
-
-
-## ----chisq3, comment=""-------------------------------------------------------
-chisq.test(tab)
-prop.test(tab)
-
-
-## ----fish.test, comment=""----------------------------------------------------
-fisher.test(tab)
-
-
-## ----samp_plot, comment="", fig.height=4,fig.width=7--------------------------
-samp.cars = sample_n(cars, size = 10000)
-samp.cars = sample_frac(cars, size = 0.2)
-ggplot(aes(x = VehBCost, y = VehOdo), 
-       data = samp.cars) + geom_point() 
+glm_fit = glm(IsBadBuy ~ VehOdo + VehicleAge, data = cars, family = binomial())
+summary(glm_fit)  
 

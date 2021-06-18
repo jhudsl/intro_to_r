@@ -116,11 +116,12 @@ item_price <- as.vector(replicate(20, cumsum(rnorm(100))))
 item_price <- item_price + abs(min(item_price)) + 1
 
 # use 4 vectors to create data frame with 4 columns
-df  <- data.frame(item_categ, item_ID, observation_time, item_price) 
+df  <- data.frame(item_ID, item_categ, observation_time, item_price) 
 
 
 ## -----------------------------------------------------------------------------
-head(df)
+head(df, 3)
+tail(df, 3)
 str(df)
 
 
@@ -136,15 +137,41 @@ ggplot(df, aes(x = observation_time, y = item_price, group = item_ID,
 
 
 ## ---- fig.width=6 , fig.height=4 * 0.8----------------------------------------
-ggplot(df, aes(x = item_ID, y = item_price, group = item_ID)) + 
+ggplot(df, aes(x = item_ID, y = item_price)) + 
   geom_boxplot() + 
-  labs(x = "Item ID", y = "Item prices over a time window") + 
+  labs(x = "Item ID", y = "Item prices") + 
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
 
 
 ## ---- fig.width=7, fig.height=4 * 0.8-----------------------------------------
-ggplot(df, aes(x = item_ID, y = item_price, group = item_ID,
-               fill = item_categ)) + 
+ggplot(df, aes(x = item_ID, y = item_price, color = item_categ)) + 
+  geom_boxplot() + 
+  labs(x = "Item ID", y = "Item prices", color = "Item\ncategory") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+
+
+## ---- fig.width=7, fig.height=4 * 0.8-----------------------------------------
+ggplot(df, aes(x = item_ID, y = item_price, fill = item_categ)) + 
+  geom_boxplot() + 
+  labs(x = "Item ID", y = "Item prices", fill = "Item\ncategory") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+
+
+## -----------------------------------------------------------------------------
+item_ID_levels <- 
+  df %>% 
+  group_by(item_ID) %>% 
+  summarise(item_price_median = median(item_price)) %>%
+  arrange(item_price_median) %>%
+  pull(item_ID)
+
+df <- 
+  df %>%
+  mutate(item_ID_factor = factor(item_ID, levels = item_ID_levels))
+
+
+## ---- fig.width=6 , fig.height=4 * 0.8----------------------------------------
+ggplot(df, aes(x = item_ID_factor, y = item_price, fill = item_categ)) + 
   geom_boxplot() + 
   labs(x = "Item ID", y = "Item prices", fill = "Item\ncategory") + 
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
@@ -156,23 +183,23 @@ df_subset <- df %>%
 
 ggplot(df_subset, aes(x = observation_time, y = item_price)) + 
   geom_line() + 
-  facet_grid(. ~ item_ID) + 
-  labs(x = "Observation time", y = "Item prices")
+  labs(x = "Observation time", y = "Item prices") + 
+  facet_grid(. ~ item_ID) 
 
 
 ## ---- fig.width=4, fig.height=3-----------------------------------------------
 ggplot(df_subset, aes(x = item_price)) + 
   geom_histogram(fill = "yellow", color = "brown", alpha = 0.5) + 
-  facet_grid(item_ID ~ .) + 
-  labs(x = "Item prices", y = "Observations count")
+  labs(x = "Item prices", y = "Observations count") + 
+  facet_grid(item_ID ~ .) 
 
 
 ## -----------------------------------------------------------------------------
 plot_FINAL <- 
   ggplot(df_subset, aes(x = item_price)) + 
   geom_histogram(fill = "yellow", color = "brown", alpha = 0.5) + 
-  facet_grid(item_ID ~ .) + 
-  labs(x = "Item prices", y = "Observations count")
+  labs(x = "Item prices", y = "Observations count") + 
+  facet_grid(item_ID ~ .)  
 
 ggsave(filename = "very_important_plot.png",  # will save in working directory
        plot = plot_FINAL, 
