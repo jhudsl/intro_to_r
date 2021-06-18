@@ -9,11 +9,15 @@ output: html_document
 
 You are also free to create your own data if you wish but please ensure that it is large enough to perform the rest of the following requirements.
 
-Options for places to find data are: https://www.kaggle.com/datasets, https://shiny.rstudio.com/gallery/tidy-tuesday.html, or https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html (the data that comes with R - you can load them using `datasets::` and tab in RStudio)
+Options for places to find data are:  
+1. https://www.kaggle.com/datasets  
+2. https://shiny.rstudio.com/gallery/tidy-tuesday.html  
+3. https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html   
+(This is the data that comes with R - you can load them using `datasets::` and pressing tab in RStudio to see the names of the datasets - for example `datasets::ability.cov` will load the ability dataset.)
 
-You are not limited to these options.
+You are not limited to these options for finding your data.
 
-2) Perform at least **three** data subsetting, cleaning, or manipulation methods that were described in this course on your data. Examples are: renaming the columns, recoding values, reshaping the data, filtering the data etc.
+2) Perform at least **three** different data subsetting, cleaning, or manipulation methods that were described in this course on your data. Examples are: renaming the columns, recoding values, reshaping the data, filtering the data etc.
 
 3) Make **two** different kinds of visualizations of your data.
 
@@ -22,3 +26,5 @@ You are not limited to these options.
 5) Please **describe** your data, where you got it, what you did to clean/subset/wrangle/manipulate your data and why, as well as what analysis you performed and why. Provide some simple **interpretation** about what your analysis might indicate about your data. You ***will not*** be graded based on the validity of your **statistical interpretation**, but rather the implementation and description of what you did. 
 
 6) All steps and descriptions should be written in an RMarkdown file that is rendered to an html file. Code should be included in code chunks. Please submit **both** the Rmarkdown (.Rmd) file and html file. 
+
+Please see the project example on our website for an example project: Source code [Rmd](ProjectExample/Final_Project_Example.Rmd) and the output [html](ProjectExample/Final_Project_Example.html).
