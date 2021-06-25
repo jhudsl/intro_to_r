@@ -28,7 +28,7 @@ data_highschool %>%
   geom_boxplot()
 ```
 
-OK this is very useful, but it is a bit difficult to read, because we expect the values to be plotted by the order that we know, not by alphabetical order. Currently `grade` is class `character` but lets change that to class `factor` which allows us to specify the levels or order of the values.
+OK this is very useful, but it is a bit difficult to read, because we expect the values to be plotted by the order that we know, not by alphabetical order. Currently `grade` is class `character` but let's change that to class `factor` which allows us to specify the levels or order of the values.
 
 ```{R}
 class(data_highschool$grade)
@@ -46,7 +46,7 @@ data_highschool_fct %>%
 ```
 
 
-Now that's more like it! Notice how the data is automatically plotted in the order we would like it.
+Now that's more like it! Notice how the data is automatically plotted in the order we would like.
 
 What about if we arrange the two versions of our data by grade?
 ```{r}
@@ -55,7 +55,7 @@ data_highschool_fct %>% arrange(grade)
 ```
 
 
-Again notice that the order is not what we would hope for the first version, but it is for the second version!
+Again notice that the order is not what we would hope for with the first version, but it is for the second version!
 
 Now what about results from some calculations.
 
