@@ -38,10 +38,10 @@ index.html: index.Rmd
 	Rscript -e "rmarkdown::render('index.Rmd')"
 
 syllabus.html: syllabus.Rmd 
-	Rscript -e "rmarkdown::render('syllabus.Rmd', output_format = 'html_document')"
+	Rscript -e "rmarkdown::render('Syllabus/syllabus.Rmd', output_format = 'html_document')"
 
 syllabus.docx: syllabus.docx
-	Rscript -e "rmarkdown::render('syllabus.Rmd', output_format = 'word_document')"
+	Rscript -e "rmarkdown::render('Syllabus/syllabus.Rmd', output_format = 'word_document')"
 
 starting_with_r.html: starting_with_r.Rmd 
 	Rscript -e "rmarkdown::render('starting_with_r.Rmd')"	
