@@ -141,11 +141,15 @@ In recognition of [Martin Luther King Jr. Day](https://en.wikipedia.org/wiki/Mar
 show_keys = TRUE
 days = list(
   c("Homework 1"),
-  c("Intro", "RStudio",  "Basic_R", "Data_IO"),
-  c("Subsetting_Data_in_R", "Data_Summarization", "Homework 2"), 
-  c("Data_Classes", "Data_Cleaning"),
-  c("Manipulating_Data_in_R", "Data_Visualization", "Homework 3"),
-  c("Statistics", "Functions", "Reproducibility")
+  c("Intro", "RStudio", "Reproduciblility"),
+  c("Basic_R", "Data_IO"),
+  c("Subsetting_Data_in_R", "Homework 2"),
+  c("Data_Summarization", "Data_Classes"), 
+  c("Data_Cleaning"),
+  c("Manipulating_Data_in_R", "Homework 3"),
+  c("Data_Visualization"),
+  c("Statistics", "Project_Guidelines"),
+  c("Functions", "Project_Guidelines")
 )
 mods = mapply(function(day, mod) {
   cbind(Day = day, mod = mod)
@@ -184,6 +188,7 @@ df$Code[df$hw] = paste0(df$Code[df$hw], ", ",
                         paste0("[HTML](HW/", gsub(" ", "", tolower(df$mod[df$hw])), ".html)")
 )
 
+
 if (show_keys) {
   # keep = rep(TRUE, nrow(df))
   keep = grepl("homework(2|3)", df$Code[df$hw])
@@ -193,6 +198,7 @@ if (show_keys) {
                                                   tolower(df$mod[df$hw][keep])),
                                 "_key.html)")
 }
+
 
   
 #df$In_Class_Work = file.path(df$mod, "scratch.R")
@@ -204,12 +210,19 @@ if (show_keys) {
 hw1 = gsub(" ", "", tolower(df$mod)) == "homework1"
 df$Code[hw1] = "[Dataquest](https://app.dataquest.io/m/499/introduction-to-programming-in-r)"
 
+# Different for Final Project
+FP = tolower(df$mod) == "project_guidelines"
+df$lab[FP] = "[Instructions](https://jhudatascience.org/intro_to_r/Project_Guidelines.html)"
+df$Slides[FP] = ""
+df$Code[FP] = "[Example RMD](https://jhudatascience.org/intro_to_r/ProjectExample/Final_Project_Example.Rmd), [Example HTML](https://jhudatascience.org/intro_to_r/ProjectExample/Final_Project_Example.html) "
+
 
 df$hw = NULL
 bad = df$mod == ""
 for (icol in 1:ncol(df)) {
   df[ bad , icol] = " "
 }
+
 df$mod = gsub("_", " ", df$mod)
 cn = colnames(df)
 cn = gsub("_", " ", cn)
@@ -228,7 +241,11 @@ knitr::kable(df, format = "html") %>%
   group_rows("Day 2", grouped[2] + 1, grouped[3]) %>% 
   group_rows("Day 3", grouped[3] + 1, grouped[4]) %>% 
   group_rows("Day 4", grouped[4] + 1, grouped[5]) %>% 
-  group_rows("Day 5", grouped[5] + 1, nrow(df)) 
+  group_rows("Day 5", grouped[5] + 1, grouped[6]) %>% 
+  group_rows("Day 6", grouped[6] + 1, grouped[7]) %>% 
+  group_rows("Day 7", grouped[7] + 1, grouped[8]) %>% 
+  group_rows("Day 8", grouped[8] + 1, grouped[9]) %>% 
+  group_rows("Day 9", grouped[9] + 1, nrow(df)) 
 ```
 
 <!-- | Day  | Date  |  Module  | Resources  |  Description | -->
