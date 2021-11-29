@@ -30,7 +30,7 @@ all:
 	# Rscript -e "rmarkdown::render('starting_with_r.Rmd')"		
 
 labs: 
-	Rscript run_labs.R	
+	Rscript scripts/run_labs.R	
 
 # https://superuser.com/questions/592974/how-to-print-to-save-as-pdf-from-a-command-line-with-chrome-or-chromium
 
