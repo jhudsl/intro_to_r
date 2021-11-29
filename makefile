@@ -17,7 +17,7 @@ LIST += Intro
 LIST += Data_Classes_summary
 
 all:
-	zip -q -r shiny_knitr.zip shiny_knitr/
+	zip -q -r Examples/shiny_knitr.zip Examples/shiny_knitr/
 	for fol in $(LIST) ; do \
 		pwd && echo $$fol && cp makefile.copy $$fol/makefile && cd $$fol && make all && cd ../; \
 	done
