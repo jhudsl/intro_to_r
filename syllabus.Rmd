@@ -1,28 +1,28 @@
 ---
 title: "Syllabus"
 output:
-  pdf_document: default
-  html_document: default
   word_document: default
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Epi/Biostats Summer and Winter Institutes - Introduction to R for Public Health Researchers
-140.886.13
+Epi/Biostats  Winter Institute - Introduction to R for Public Health Researchers
+140.604.73
 
 Class Website: http://jhudatascience.org/intro_to_r/   
-CoursePlus: https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/14746/
+CoursePlus: https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/16733/
 
 **Zoom link will be emailed to students.**
 
-Day/Time: June 14-18: 8:30AM-11:50AM on Zoom
+Day/Time: Jan 10 - 21: 8:30AM-11:50AM on Zoom
 
-Instructors: Carrie Wright (cwrigh60@jhu.edu), Ava Hoffman (ava.hoffman@jhu.edu), and Marta Karas (mkaras2@jhmi.edu) 
+Instructors: Carrie Wright (cwrigh60@jhu.edu), Ava Hoffman (ava.hoffman@jhu.edu), and Candace Savonen(csavone1@jhu.edu) 
 
-TAs:  Grant Schumock (gschumo1@jhmi.edu), Michael Breshock (mbresho1@jhu.edu)
+TAs:  Grant Schumock (gschumo1@jhmi.edu) and Qier Meng(qmeng11@jhmi.edu)
 
 
 **Communication will mainly occur through Slack and we will email you about how to connect to slack.**
@@ -30,7 +30,7 @@ TAs:  Grant Schumock (gschumo1@jhmi.edu), Michael Breshock (mbresho1@jhu.edu)
 
 Overview: This course will provide "hands-on" training for learning how to analyze data in the R statistical software package. We will cover data input/output, data management and manipulation, and how to make useful and informative graphics
  
-Course Format: Each class will consist of 2 or 3 hour-long modules: each module features an "interactive" lecture (where students can work follow along on their laptops) and an R programming lab, where student apply the skills taught in the modules to real data. 
+Course Format: Each class will consist of 2 or 3 hour-long modules: each module features a lecture and an R programming lab, where student apply the skills taught in the modules to real data. 
 
 By the end of the course, students should be comfortable:
 
@@ -44,37 +44,69 @@ By the end of the course, students should be comfortable:
 
 # Tentative Schedule:
 
+
+## Day Overview
+
+| Time (EST)        | Content   |
+|-------------------|-----------|
+| 8:30am - 9:30am   | Session 1 |
+| 9:30am - 9:40am   | Break     |
+| 9:40am - 10:40am  | Session 2 |
+| 10:40am - 10:50am | Break     |
+| 10:50am - 11:50am | Session 3 |
+
+
 ## Day 1
 
 - Introduction 
-- R Studio 
+- RStudio 
+- Reproducible Research 
+
+
+## Day 2
 - Basic R: Variables/Objects in R
 - Data Input/Output 
 
-## Day 2
-
-- Subsetting 
-- Summarization 
 
 ## Day 3
 
-- Data Classes 
-- Data Cleaning
+- Subsetting Data
+- Homework 2
 
 ## Day 4
 
-- Manipulation
-- Visualization
+- Summarization 
+- Data Classes
 
 ## Day 5
 
-- Statistics
-- Reproducible Research 
-- Functions
+ 
+- Data Cleaning
 
+
+
+## Day 6
+- Data Manipulation
+- Homework 3
+
+## Day 7
+
+-  Data Visualization
+
+## Day 8
+
+- Statistics
+- Work on Final Project
+
+
+## Day 9
+
+- Functions
+- Good code practices 
+- Work on Final Project
 
 ### Grading
 
-1. Attendance/Participation: 20%
-2. Nightly Homework: 3 x 15%
+1. Attendance/Participation: 20% (Please let the instructors know if attendance will be difficult for you.)
+2. Homework: 3 x 15%
 3. Final "Project": 35%

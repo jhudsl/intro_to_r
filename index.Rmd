@@ -8,6 +8,7 @@ output:
     theme: spacelab
     toc: false
     toc_depth: 4
+    fig_caption: false
 ---
 
 ***
@@ -29,7 +30,7 @@ library(kableExtra)
 ***
 Welcome to Introduction to R for Public Health Researchers!  
 
-This course is for students who have little to no familiarity with the R programming language and want to learn more about how to use R to import, wrangle, analyze, and visualize data.
+This course is for students who have little to no familiarity with the R programming language and want to learn more about how to use R to import, wrangle, visualize, and analyze data.
 
 The course will provide students with “hands-on” training for analyzing data with the R programming language for statistical computing, a popular open-source solution for data analysis and visualization.  
 
@@ -40,18 +41,18 @@ The course will provide students with “hands-on” training for analyzing data
 
 * [Ava Hoffman](https://www.avahoffman.com/): ava.hoffman at jhu.edu
 
-* [Marta Karas](https://martakarass.github.io/): mkaras2 at jhmi.edu
+* [Candace Savonen](https://www.cansavvy.com/): csavone1 at jhu.edu
 
 ## TAs
 ***
 
 * Grant Schumock - gschumo1 at jhmi.edu
-* [Michael Breshock](https://mbreshock.github.io/) - mbresho1 at jhu.edu
+* Qier Meng - qmeng11 at jhmi.edu
 
 ## Class:
 ***
 
-* June 14-18, 8:30AM-11:50PM on Zoom  
+* Jan 10-21, 2022, 8:30AM-11:50AM on Zoom  - No class on Jan 17th for Martin Luther King Jr. Day.
 * CoursePlus: https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/14746/  
 
 ## Zoom:
@@ -82,7 +83,7 @@ The course will provide students with “hands-on” training for analyzing data
 2) Nightly Homework: 3 x 15%  
 3) Final "Project": 35%  
 
-All assignments are due June 25th 2021.
+All assignments are due Friday, Jan 28, 2022.
 
 ## Submitting Homework
 ***
@@ -134,17 +135,21 @@ All the data used that are not **specifically** to be downloaded from the web ar
 ## Schedule
 ***
 
-In recognition of [Juneteenth](https://en.wikipedia.org/wiki/Juneteenth) (June 19th), no assignments will be due on Friday June 18th. There is an assignment due before class to [install software](https://courseplus.jhu.edu/fileDepot/onlineLibrary/1280/R_and_RStudio_installation.html) and we recommend completing HW 1 (uploading a screenshot showing that you finished the Dataquest module indicated below) before class, but all other assignments will be due June 25th. You are welcome to turn assignments in earlier if you wish.
+In recognition of [Martin Luther King Jr. Day](https://en.wikipedia.org/wiki/Martin_Luther_King_Jr._Day), there will be no class on Monday January 17th 2022. There is an assignment due before class to [install software](https://courseplus.jhu.edu/fileDepot/onlineLibrary/1280/R_and_RStudio_installation.html) and we recommend completing HW 1 (uploading a screenshot showing that you finished the Dataquest module indicated below) before class, but all other assignments will be due January 28th. You are welcome to turn assignments in earlier if you wish.
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}
 show_keys = TRUE
 days = list(
   c("Homework 1"),
-  c("Intro", "RStudio",  "Basic_R", "Data_IO"),
-  c("Subsetting_Data_in_R", "Data_Summarization", "Homework 2"), 
-  c("Data_Classes", "Data_Cleaning"),
-  c("Manipulating_Data_in_R", "Data_Visualization", "Homework 3"),
-  c("Statistics", "Functions", "Reproducibility")
+  c("Intro", "RStudio", "Reproduciblility"),
+  c("Basic_R", "Data_IO"),
+  c("Subsetting_Data_in_R", "Homework 2"),
+  c("Data_Summarization", "Data_Classes"), 
+  c("Data_Cleaning"),
+  c("Manipulating_Data_in_R", "Homework 3"),
+  c("Data_Visualization"),
+  c("Statistics", "Project_Guidelines"),
+  c("Functions", "Project_Guidelines")
 )
 mods = mapply(function(day, mod) {
   cbind(Day = day, mod = mod)
@@ -183,6 +188,7 @@ df$Code[df$hw] = paste0(df$Code[df$hw], ", ",
                         paste0("[HTML](HW/", gsub(" ", "", tolower(df$mod[df$hw])), ".html)")
 )
 
+
 if (show_keys) {
   # keep = rep(TRUE, nrow(df))
   keep = grepl("homework(2|3)", df$Code[df$hw])
@@ -192,6 +198,7 @@ if (show_keys) {
                                                   tolower(df$mod[df$hw][keep])),
                                 "_key.html)")
 }
+
 
   
 #df$In_Class_Work = file.path(df$mod, "scratch.R")
@@ -203,12 +210,19 @@ if (show_keys) {
 hw1 = gsub(" ", "", tolower(df$mod)) == "homework1"
 df$Code[hw1] = "[Dataquest](https://app.dataquest.io/m/499/introduction-to-programming-in-r)"
 
+# Different for Final Project
+FP = tolower(df$mod) == "project_guidelines"
+df$lab[FP] = "[Instructions](https://jhudatascience.org/intro_to_r/Project_Guidelines.html)"
+df$Slides[FP] = ""
+df$Code[FP] = "[Example RMD](https://jhudatascience.org/intro_to_r/ProjectExample/Final_Project_Example.Rmd), [Example HTML](https://jhudatascience.org/intro_to_r/ProjectExample/Final_Project_Example.html) "
+
 
 df$hw = NULL
 bad = df$mod == ""
 for (icol in 1:ncol(df)) {
   df[ bad , icol] = " "
 }
+
 df$mod = gsub("_", " ", df$mod)
 cn = colnames(df)
 cn = gsub("_", " ", cn)
@@ -227,7 +241,11 @@ knitr::kable(df, format = "html") %>%
   group_rows("Day 2", grouped[2] + 1, grouped[3]) %>% 
   group_rows("Day 3", grouped[3] + 1, grouped[4]) %>% 
   group_rows("Day 4", grouped[4] + 1, grouped[5]) %>% 
-  group_rows("Day 5", grouped[5] + 1, nrow(df)) 
+  group_rows("Day 5", grouped[5] + 1, grouped[6]) %>% 
+  group_rows("Day 6", grouped[6] + 1, grouped[7]) %>% 
+  group_rows("Day 7", grouped[7] + 1, grouped[8]) %>% 
+  group_rows("Day 8", grouped[8] + 1, grouped[9]) %>% 
+  group_rows("Day 9", grouped[9] + 1, nrow(df)) 
 ```
 
 <!-- | Day  | Date  |  Module  | Resources  |  Description | -->
