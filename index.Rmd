@@ -212,7 +212,7 @@ df$Code[hw1] = "[Dataquest](https://app.dataquest.io/m/499/introduction-to-progr
 
 # Different for Final Project
 FP = tolower(df$mod) == "project_guidelines"
-df$lab[FP] = "[Instructions](https://jhudatascience.org/intro_to_r/Project_Guidelines.html)"
+df$lab[FP] = "[Instructions](https://jhudatascience.org/intro_to_r/Project_Guidelines/Project_Guidelines.html)"
 df$Slides[FP] = ""
 df$Code[FP] = "[Example RMD](https://jhudatascience.org/intro_to_r/ProjectExample/Final_Project_Example.Rmd), [Example HTML](https://jhudatascience.org/intro_to_r/ProjectExample/Final_Project_Example.html) "
 
