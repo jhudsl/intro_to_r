@@ -17,7 +17,7 @@ LIST += Intro
 LIST += Data_Classes_summary
 
 all:
-	zip -q -r shiny_knitr.zip shiny_knitr/
+	zip -q -r Examples/shiny_knitr.zip Examples/shiny_knitr/
 	for fol in $(LIST) ; do \
 		pwd && echo $$fol && cp makefile.copy $$fol/makefile && cd $$fol && make all && cd ../; \
 	done
@@ -30,7 +30,7 @@ all:
 	# Rscript -e "rmarkdown::render('starting_with_r.Rmd')"		
 
 labs: 
-	Rscript run_labs.R	
+	Rscript scripts/run_labs.R	
 
 # https://superuser.com/questions/592974/how-to-print-to-save-as-pdf-from-a-command-line-with-chrome-or-chromium
 
@@ -38,10 +38,10 @@ index.html: index.Rmd
 	Rscript -e "rmarkdown::render('index.Rmd')"
 
 syllabus.html: syllabus.Rmd 
-	Rscript -e "rmarkdown::render('syllabus.Rmd', output_format = 'html_document')"
+	Rscript -e "rmarkdown::render('Syllabus/syllabus.Rmd', output_format = 'html_document')"
 
 syllabus.docx: syllabus.docx
-	Rscript -e "rmarkdown::render('syllabus.Rmd', output_format = 'word_document')"
+	Rscript -e "rmarkdown::render('Syllabus/syllabus.Rmd', output_format = 'word_document')"
 
 starting_with_r.html: starting_with_r.Rmd 
 	Rscript -e "rmarkdown::render('starting_with_r.Rmd')"	

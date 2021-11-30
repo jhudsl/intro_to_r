@@ -25,7 +25,7 @@ theLibs = ss(theLibs, " ", 1, fixed = TRUE)
 theLibs = unique(theLibs)
 theLibs = sort(theLibs)
 
-writeLines(theLibs, con = "all_the_packages.txt")
+writeLines(theLibs, con = "./resources/all_the_packages.txt")
 
 sapply(theLibs, library, character.only = TRUE)
 
@@ -70,7 +70,7 @@ all_func = all_func %>%
   dplyr::arrange(package, func)
 all_func = all_func %>% 
   dplyr::filter(
-    !(package == "" & func %in% c("f", "renamer", "renderFile", 
+    !(package == "" | func %in% c("f", "renamer", "renderFile", 
                                   "return2", "return2a", "return2b", 
                                   "return2c", "set", "sqdif", "ss"))
   )
@@ -120,7 +120,7 @@ helps = lapply(helps, function(x) {
 helps = unlist(helps)
 all_func$description = helps
 
-readr::write_csv(all_func, path = "all_the_functions.csv")
+readr::write_csv(all_func, file = "./resources/all_the_functions.csv")
 
 ## AAAAAND INSTALL!!!
 # install.packages(theLibs)

@@ -6,7 +6,7 @@ files = files[ files != "index.Rmd" ]
 files = files[ !grepl("HW", files)]
 files = files[ basename(files) != "illusion.Rmd" ]
 
-source("renderFile.R")
+source("scripts/renderFile.R")
 
 ## Render all Rmd files in this directory
 for (file in files) {
