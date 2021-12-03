@@ -111,7 +111,7 @@ By the end of the course, students should be comfortable:
 # Read in schedule from excel - easier to read than md :)
 # The mutate_all creates an absolute url to linked documents since there are word and pdf rendered versions of the syllabus
 pander::pandoc.table(
-  readxl::read_excel("schedule.xlsx")  %>% 
+  schedule  %>% 
     mutate_all(funs(str_replace_all(., "\\./", "https://jhudatascience.org/intro_to_r/"))),
   missing = "",
   split.tables = Inf,

@@ -122,7 +122,7 @@ All the data used that are not **specifically** to be downloaded from the web ar
 ```{r, results='asis', echo = FALSE}
 # Read in schedule from excel - easier to read than md :)
 pander::pandoc.table(
-  readxl::read_excel("Syllabus/schedule.xlsx"),
+  schedule,
   missing = "",
   split.tables = Inf,
   style = "rmarkdown"
