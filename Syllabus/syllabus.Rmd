@@ -7,8 +7,7 @@ output:
 ---
 
 ```{r setup, echo = FALSE, message = FALSE}
-library(pander)
-library(kableExtra)
+library(tidyverse)
 ```
 
 Epi/Biostats  Winter Institute - Introduction to R for Public Health Researchers
@@ -111,7 +110,6 @@ By the end of the course, students should be comfortable:
 ```{r, results='asis', echo = FALSE}
 # Read in schedule from excel - easier to read than md :)
 # The mutate_all creates an absolute url to linked documents since there are word and pdf rendered versions of the syllabus
-library(tidyverse)
 pander::pandoc.table(
   readxl::read_excel("schedule.xlsx")  %>% 
     mutate_all(funs(str_replace_all(., "\\./", "https://jhudatascience.org/intro_to_r/"))),
