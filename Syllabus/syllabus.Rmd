@@ -54,8 +54,32 @@ By the end of the course, students should be comfortable:
 | 10:40am - 10:50am | Break     |
 | 10:50am - 11:50am | Session 3 |
 
+```{r, child="_child_schedule.Rmd"}
+```
 
-## Day 1
+```{r, results='asis', echo = FALSE, message=FALSE}
+# Read in schedule from excel - easier to read than md :)
+# https://docs.google.com/spreadsheets/d/18Hcl_nOodBqjbwYX9RtusEIt-y76Uf3ZaATvwl5mPlI/edit?usp=sharing
+# The mutate_all creates an absolute url to linked documents since there are word and pdf rendered versions of the syllabus
+pander::pandoc.table(
+  schedule  %>%
+    mutate(across(
+      .fns = ~ str_replace_all(., "\\./", "https://jhudatascience.org/intro_to_r/")
+    )),
+  missing = "",
+  split.tables = Inf,
+  style = "rmarkdown"
+)
+```
+
+```{r, child="_child_assignments.Rmd"}
+```
+
+# Module Details:
+
+## [Day 0 (before the first session)](module_details/day0.html)
+
+## [Day 1](module_details/day1.html)
 
 - Introduction 
 - RStudio 
@@ -103,21 +127,3 @@ By the end of the course, students should be comfortable:
 - Functions
 - Good code practices 
 - Work on Final Project
-
-```{r, child=c(paste(here::here(), "/Syllabus/_child_schedule.Rmd", sep = ""))}
-```
-
-```{r, results='asis', echo = FALSE}
-# Read in schedule from excel - easier to read than md :)
-# The mutate_all creates an absolute url to linked documents since there are word and pdf rendered versions of the syllabus
-pander::pandoc.table(
-  schedule  %>% 
-    mutate_all(funs(str_replace_all(., "\\./", "https://jhudatascience.org/intro_to_r/"))),
-  missing = "",
-  split.tables = Inf,
-  style = "rmarkdown"
-)
-```
-
-```{r, child=c(paste(here::here(), "/Syllabus/_child_assignments.Rmd", sep = ""))}
-```

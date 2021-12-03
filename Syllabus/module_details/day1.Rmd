@@ -1,0 +1,58 @@
+---
+output:
+  html_document:
+    fig_caption: false
+---
+
+```{r setup, echo = FALSE, message = FALSE}
+library(tidyverse)
+
+schedule <- googlesheets4::read_sheet(
+    "https://docs.google.com/spreadsheets/d/18Hcl_nOodBqjbwYX9RtusEIt-y76Uf3ZaATvwl5mPlI/edit?usp=sharing"
+  )
+```
+
+# Day 1
+
+## Objectives
+
+Upon completion of this session, you will be able to do the following:
+
+1. Begin interfacing with the RStudio IDE.
+2. Locate basic help tools within the RStudio IDE.
+3. Learn how to open and create RMarkdown files (.Rmd).
+4. Understand R as a calculator.
+5. Import common data types like csv, xls/xlsx, and txt files into RStudio.
+
+
+## Lectures
+
+Lecture recording links will be emailed directly to students.
+
+
+## Material
+
+```{r, results='asis', echo = FALSE, message=FALSE}
+# Read in schedule from excel - easier to read than md :)
+# https://docs.google.com/spreadsheets/d/18Hcl_nOodBqjbwYX9RtusEIt-y76Uf3ZaATvwl5mPlI/edit?usp=sharing
+pander::pandoc.table(
+  schedule  %>%
+    mutate(across(
+      .fns = ~ str_replace_all(., "\\./", "https://jhudatascience.org/intro_to_r/")
+    )) %>%
+    filter(
+      row_number() >= which(str_detect(schedule$`**Day**`, "\\[Day 1\\]")) &
+        row_number() < which(str_detect(schedule$`**Day**`, "\\[Day 2\\]")) - 1
+    ),
+  missing = "",
+  split.tables = Inf,
+  style = "rmarkdown"
+)
+``` 
+
+
+## Homework
+
+`r emo::ji("rotating_light")` **SURVEY**: [Best times for Office Hours](fixthislink)
+
+`r emo::ji("rotating_light")` **SURVEY**: [First impressions feedback](fixthislink) 
