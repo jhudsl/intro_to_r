@@ -75,28 +75,8 @@ The course will provide students with “hands-on” training for analyzing data
 
 * If you have a question based on our labs or homework (or not covered during lecture time), we ask that you post it on slack (which will be our main communication method - the link will be emailed). This allows for questions to be seen by everyone, not just the students in your breakout room. If another student does not answer your question (which we encourage!), we will try to answer it within 24 hours. If you feel uncomfortable posting a question publicly, let a TA or instructor know your question and we will post it for you anonymously. 
 
-
-## Grading
-***
-
-1) Attendance/Participation: 20%  
-2) Nightly Homework: 3 x 15%  
-3) Final "Project": 35%  
-
-All assignments are due Friday, Jan 28, 2022.
-
-## Submitting Homework
-***
-
-Please go to https://courseplus.jhu.edu/, sign in, go to the Intro to R class, and then go to Drop Boxes to submit homework and projects.
-
-
-## Final Projects 
-***
-
-This project should entail reading in a dataset of your choosing, doing some light data cleaning, performing some data summarization and visualization, and then doing some very light statistical analysis, like regression or chi-squared tests. Example projects can be found with the source code: [Rmd](ProjectExample/Final_Project_Example.Rmd), and the output [html](ProjectExample/Final_Project_Example.html) here.
-
-See the [guidelines/instructions](Project_Guidelines/Project_Guidelines.html) for final projects.
+```{r, child=c("Syllabus/_child_assignments.Rmd")}
+```
 
 ## Example knitr  
 ***
@@ -135,140 +115,19 @@ All the data used that are not **specifically** to be downloaded from the web ar
 ## Schedule
 ***
 
-In recognition of [Martin Luther King Jr. Day](https://en.wikipedia.org/wiki/Martin_Luther_King_Jr._Day), there will be no class on Monday January 17th 2022. There is an assignment due before class to [install software](https://courseplus.jhu.edu/fileDepot/onlineLibrary/1280/R_and_RStudio_installation.html) and we recommend completing HW 1 (uploading a screenshot showing that you finished the Dataquest module indicated below) before class, but all other assignments will be due January 28th. You are welcome to turn assignments in earlier if you wish.
-
-```{r, echo = FALSE, message = FALSE, results='asis'}
-show_keys = TRUE
-days = list(
-  c("Homework 1"),
-  c("Intro", "RStudio", "Reproduciblility"),
-  c("Basic_R", "Data_IO"),
-  c("Subsetting_Data_in_R", "Homework 2"),
-  c("Data_Summarization", "Data_Classes"), 
-  c("Data_Cleaning"),
-  c("Manipulating_Data_in_R", "Homework 3"),
-  c("Data_Visualization"),
-  c("Statistics", "Project_Guidelines"),
-  c("Functions", "Project_Guidelines")
-)
-mods = mapply(function(day, mod) {
-  cbind(Day = day, mod = mod)
-}, 0:(length(days) - 1), days, SIMPLIFY = FALSE)
-mods = do.call("rbind", mods)
-
-df = data.frame(mods, stringsAsFactors = FALSE)
-df$Slides = paste0("[HTML](", df$mod, "/", df$mod, ".html)")
-df$Slides = paste0(df$Slides, ", [PDF](", df$mod, "/", df$mod, ".pdf)")
-df$Code = paste0("[R](", df$mod, "/", df$mod, ".R)")
-# df$Code = paste0(df$Code, ", [Rmd](", df$mod, "/", df$mod, ".Rmd)")
-df$Code = paste0(df$Code, ", [Rmd](", df$mod, "/", "index", ".Rmd)")
-
-df$lab = paste0(df$mod, "/", "lab/", df$mod, "_Lab")
-df$lab_key = paste0(df$lab, "_Key.Rmd")
-df$lab = paste0(df$lab, ".Rmd")
-df$have_lab = file.exists(df$lab)
-df$lab = paste0("[Lab](", df$lab, ")")
-
-if (show_keys) {
-  keep = rep(TRUE, nrow(df))
-  # keep = grepl("Basic_R|Data_IO|Subsetting|Summarization", df$lab_key)
-  df$lab[keep] = paste0(df$lab[keep], ", [Key](", df$lab_key[keep], ")")
-  df$lab[keep] = paste0(df$lab[keep], ", ",
-                        paste0("[Key HTML](", 
-                               sub("[.]Rmd", ".html", 
-                                   df$lab_key[keep]), ")")
-  )  
-}
-df$lab[!df$have_lab] = ""
-df$have_lab = df$lab_key = NULL
-df$hw = grepl("homework", tolower(df$mod))
-df$Slides[df$hw] = ""
-df$Code[df$hw] = paste0("[Rmd](HW/", gsub(" ", "", tolower(df$mod[df$hw])), ".Rmd)")
-df$Code[df$hw] = paste0(df$Code[df$hw], ", ",
-                        paste0("[HTML](HW/", gsub(" ", "", tolower(df$mod[df$hw])), ".html)")
-)
-
-
-if (show_keys) {
-  # keep = rep(TRUE, nrow(df))
-  keep = grepl("homework(2|3)", df$Code[df$hw])
-  df$Code[df$hw][keep] = paste0(df$Code[df$hw][keep], ", [Key](HW/", gsub(" ", "", tolower(df$mod[df$hw][keep])), "_key.Rmd)")
-  df$Code[df$hw][keep] = paste0(df$Code[df$hw][keep], ", ",
-                                "[Key HTML](HW/", gsub(" ", "",
-                                                  tolower(df$mod[df$hw][keep])),
-                                "_key.html)")
-}
-
-
-  
-#df$In_Class_Work = file.path(df$mod, "scratch.R")
-#fe = !file.exists(df$In_Class_Work )
-#df$In_Class_Work = paste0("[Live R file](", df$In_Class_Work, ")")
-#df$In_Class_Work[ fe ] = ""
-
-# Different for HW 1
-hw1 = gsub(" ", "", tolower(df$mod)) == "homework1"
-df$Code[hw1] = "[Dataquest](https://app.dataquest.io/m/499/introduction-to-programming-in-r)"
-
-# Different for Final Project
-FP = tolower(df$mod) == "project_guidelines"
-df$lab[FP] = "[Instructions](https://jhudatascience.org/intro_to_r/Project_Guidelines/Project_Guidelines.html)"
-df$Slides[FP] = ""
-df$Code[FP] = "[Example RMD](https://jhudatascience.org/intro_to_r/ProjectExample/Final_Project_Example.Rmd), [Example HTML](https://jhudatascience.org/intro_to_r/ProjectExample/Final_Project_Example.html) "
-
-
-df$hw = NULL
-bad = df$mod == ""
-for (icol in 1:ncol(df)) {
-  df[ bad , icol] = " "
-}
-
-df$mod = gsub("_", " ", df$mod)
-cn = colnames(df)
-cn = gsub("_", " ", cn)
-cn[ cn == "mod"] = "Module"
-cn[ cn == "lab"] = "Resource"
-# cn[ cn == "In_Class_Work"] = "Resource"
-colnames(df) = cn
-
-grouped = diff(as.numeric(df$Day))
-grouped = which(grouped > 0)
-df$Day = NULL
-knitr::kable(df, format = "html") %>% 
-  kable_styling() %>% 
-  group_rows("Day 0", 1, grouped[1]) %>% 
-  group_rows("Day 1", grouped[1] + 1, grouped[2]) %>% 
-  group_rows("Day 2", grouped[2] + 1, grouped[3]) %>% 
-  group_rows("Day 3", grouped[3] + 1, grouped[4]) %>% 
-  group_rows("Day 4", grouped[4] + 1, grouped[5]) %>% 
-  group_rows("Day 5", grouped[5] + 1, grouped[6]) %>% 
-  group_rows("Day 6", grouped[6] + 1, grouped[7]) %>% 
-  group_rows("Day 7", grouped[7] + 1, grouped[8]) %>% 
-  group_rows("Day 8", grouped[8] + 1, grouped[9]) %>% 
-  group_rows("Day 9", grouped[9] + 1, nrow(df)) 
+```{r, child=c("Syllabus/_child_schedule.Rmd")}
 ```
 
-<!-- | Day  | Date  |  Module  | Resources  |  Description | -->
-<!-- |--------|--------|--------|--------|--------| -->
-<!-- | 0  | 2017-01-09  | Homework 1  | [Try R](http://tryr.codeschool.com/), [Data Camp](https://campus.datacamp.com/courses/free-introduction-to-r)  | Finish all modules  | -->
-<!-- | 1  | 2017-01-09  | Module 1  | [HTML](Intro/lecture/Intro.html), [PDF](Intro/lecture/Intro.pdf)  | Class Introduction  | -->
-<!-- | 1  | 2017-01-09  | Module 2  | [HTML](RStudio/lecture/RStudio.html), [PDF](RStudio/lecture/RStudio.pdf) | R Studio  | -->
-<!-- | 1  | 2017-01-09  | Module 3  | [HTML](Basic_R/lecture/Basic_R.html), [PDF](Basic_R/lecture/Basic_R.pdf), [Code](Basic_R/lecture/Basic_R.R), [Lab](Basic_R/lab/Basic_R_Lab.R),[Key](Basic_R/lab/Basic_R_Lab_Key.R)| Basic R| -->
-<!-- | 1  | 2017-01-09  | Module 4  | [HTML](Data_IO/lecture/Data_IO.html), [PDF](Data_IO/lecture/Data_IO.pdf), [Code](Data_IO/lecture/Data_IO.R), [Lab](Data_IO/lab/Data_IO_Lab.R), [Key](Data_IO/lab/Data_IO_Lab_Key.R)| Data Import/Output  | -->
-<!-- | 1  | 2017-01-09  | Homework 2  | [HW ](HW/homework2.R)  |   | -->
-<!-- | 2  | 2017-01-10  | Module 5  | [HTML](Subsetting_Data_in_R/lecture/Subsetting_Data_in_R.html), [PDF](Subsetting_Data_in_R/lecture/Subsetting_Data_in_R.pdf), [Code](Subsetting_Data_in_R/lecture/Subsetting_Data_in_R.R),  [Lab](Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab.R),[Key](Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab_Key.R)| Subsetting Data | -->
-<!-- | 2  | 2017-01-10 | Module 6 | [HTML](Data_Summarization/lecture/Data_Summarization.html), [PDF](Data_Summarization/lecture/Data_Summarization.pdf), [Code](Data_Summarization/lecture/Data_Summarization.R), [Lab](Data_Summarization/lab/Data_Summarization_Lab.R),[Key](Data_Summarization/lab/Data_Summarization_Lab_Key.R) | Data Summarization | -->
-<!-- | 3  | 2017-01-11 | Module 7  | [HTML](Data_Classes/lecture/Data_Classes.html), [PDF](Data_Classes/lecture/Data_Classes.pdf), [Code](Data_Classes/lecture/Data_Classes.R) | Data Classes -->
-<!-- | 3  | 2017-01-11 | Module 8  | [HTML](Data_Cleaning/lecture/Data_Cleaning.html),[PDF](Data_Cleaning/lecture/Data_Cleaning.pdf),[Code](Data_Cleaning/lecture/Data_Cleaning.R),[Lab](Data_Cleaning/lab/Data_Cleaning_Lab.R),[Scratch](Data_Cleaning/lecture/scratch.R),[Key](Data_Cleaning/lab/Data_Cleaning_Lab_key.R) | Data Cleaning | -->
-<!-- | 3  | 2017-01-11  | Homework 3  | [HW ](HW/homework3.R)  |   | -->
-<!-- | 4  | 2017-01-12 | Module 9  | [HTML](Manipulating_Data_in_R/lecture/Manipulating_Data_in_R.html), [PDF](Manipulating_Data_in_R/lecture/Manipulating_Data_in_R.pdf), [Code](Manipulating_Data_in_R/lecture/Manipulating_Data_in_R.R),[Lab](Manipulating_Data_in_R/lab/Data_Manipulation_Lab.R),[Scratch](Manipulating_Data_in_R/lecture/scratch.R),[Key](Manipulating_Data_in_R/lab/Data_Manipulation_Lab_Key.R)| Data Manipulation | -->
-<!-- | 4  | 2017-01-12 | Module 10  | [HTML](Data_Visualization/lecture/Data_Visualization.html), [PDF](Data_Visualization/lecture/Data_Visualization.pdf), [Code](Data_Visualization/lecture/Data_Visualization.R), [Lab](Data_Visualization/lab/Data_Visualization_Lab.R),[Video](https://youtu.be/KukM8a-QPGk),[Key](Data_Visualization/lab/Data_Visualization_Lab_key.R)| Data Visualization | -->
-<!-- | 5  | 2017-01-13 | Module 11  | [HTML](Statistics/lecture/Statistics.html), [PDF](Statistics/lecture/Statistics.pdf), [Code](Statistics/lecture/Statistics.R) | Statistics | -->
-<!-- | 5  | 2017-01-13 | Module 12  | [HTML](Functions/lecture/Functions.html), [PDF](Functions/lecture/Functions.pdf), [Code](Functions/lecture/Functions.R) | Functions | -->
-<!-- | 5  | 2017-01-13 | Module 13  | [HTML](Knitr/lecture/Knitr.html), [PDF](Knitr/lecture/Knitr.pdf), [Code](Knitr/lecture/Knitr.Rmd) | Reproducible Research | -->
-<!-- | 5  | 2017-01-13 |   | [RMD](ProjectExample/RMarkDown_FinalProject.Rmd), [DOC](ProjectExample/RMarkDown_FinalProject.docx)| Example Projects | -->
-<!-- | | | | | | -->
-
+```{r, results='asis', echo = FALSE}
+# Read in schedule from excel - easier to read than md :)
+library(tidyverse)
+pander::pandoc.table(
+  readxl::read_excel("Syllabus/schedule.xlsx"),
+  missing = "",
+  split.tables = Inf,
+  style = "rmarkdown"
+)
+```
 
 ## Additional Resources
 ***
