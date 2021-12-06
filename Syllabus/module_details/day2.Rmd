@@ -12,15 +12,15 @@ schedule <- googlesheets4::read_sheet(
   )
 ```
 
-# Day 1
+# Day 2
 
 ## Objectives
 
 Upon completion of this session, you will be able to do the following:
 
-1. Begin interfacing with the RStudio IDE.
-2. Locate basic help tools within the RStudio IDE.
-3. Describe the fundamentals of reproducible research.
+1. Learn how to open and create RMarkdown files (.Rmd).
+2. Understand R as a calculator.
+3. Import common data types like csv, xls/xlsx, and txt files into RStudio.
 
 
 ## Lectures
@@ -39,8 +39,8 @@ pander::pandoc.table(
       .fns = ~ str_replace_all(., "\\./", "https://jhudatascience.org/intro_to_r/")
     )) %>%
     filter(
-      row_number() >= which(str_detect(schedule$`**Day**`, "\\[Day 1\\]")) &
-        row_number() < which(str_detect(schedule$`**Day**`, "\\[Day 2\\]")) - 1
+      row_number() >= which(str_detect(schedule$`**Day**`, "\\[Day 2\\]")) &
+        row_number() < which(str_detect(schedule$`**Day**`, "\\[Day 3\\]")) - 1
     ),
   missing = "",
   split.tables = Inf,
@@ -53,7 +53,7 @@ pander::pandoc.table(
 
 `r emo::ji("rotating_light")` **SURVEY**: [Best times for Office Hours](https://courseplus.jhu.edu/core/index.cfm/go/survey2:student.home/coID/16733/#!/surveyid/30881/surveyview)
 
-`r emo::ji("rotating_light")` **SURVEY**: [First impressions feedback](https://courseplus.jhu.edu/core/index.cfm/go/survey2:student.home/coID/16733/#!/surveyid/30882/surveyview) 
+`r emo::ji("rotating_light")` **SURVEY**: [Day 2 check-in](https://courseplus.jhu.edu/core/index.cfm/go/survey2:student.home/coID/16733/#!/surveyid/30885/surveyview) 
 
 `r emo::ji("pencil")` **HOMEWORK 1**: [Dataquest](https://app.dataquest.io/login?target-url=%2Fm%2F499%2Fintroduction-to-programming-in-r) 
 

@@ -12,15 +12,15 @@ schedule <- googlesheets4::read_sheet(
   )
 ```
 
-# Day 1
+# Day 3
 
 ## Objectives
 
 Upon completion of this session, you will be able to do the following:
 
-1. Begin interfacing with the RStudio IDE.
-2. Locate basic help tools within the RStudio IDE.
-3. Describe the fundamentals of reproducible research.
+1. Verify the integrity of an imported dataset.
+2. Successfully apply functions from popular R packages to filter a dataset of interest.
+3. Gain familiarity with R syntax and RMarkdown markup language.
 
 
 ## Lectures
@@ -39,8 +39,8 @@ pander::pandoc.table(
       .fns = ~ str_replace_all(., "\\./", "https://jhudatascience.org/intro_to_r/")
     )) %>%
     filter(
-      row_number() >= which(str_detect(schedule$`**Day**`, "\\[Day 1\\]")) &
-        row_number() < which(str_detect(schedule$`**Day**`, "\\[Day 2\\]")) - 1
+      row_number() >= which(str_detect(schedule$`**Day**`, "\\[Day 3\\]")) &
+        row_number() < which(str_detect(schedule$`**Day**`, "\\[Day 4\\]")) - 1
     ),
   missing = "",
   split.tables = Inf,
@@ -51,11 +51,11 @@ pander::pandoc.table(
 
 ## Homework
 
-`r emo::ji("rotating_light")` **SURVEY**: [Best times for Office Hours](https://courseplus.jhu.edu/core/index.cfm/go/survey2:student.home/coID/16733/#!/surveyid/30881/surveyview)
-
-`r emo::ji("rotating_light")` **SURVEY**: [First impressions feedback](https://courseplus.jhu.edu/core/index.cfm/go/survey2:student.home/coID/16733/#!/surveyid/30882/surveyview) 
+`r emo::ji("rotating_light")` **SURVEY**: [Day 3 check-in](https://courseplus.jhu.edu/core/index.cfm/go/survey2:student.home/coID/16733/#!/surveyid/30886/surveyview)
 
 `r emo::ji("pencil")` **HOMEWORK 1**: [Dataquest](https://app.dataquest.io/login?target-url=%2Fm%2F499%2Fintroduction-to-programming-in-r) 
+
+`r emo::ji("pencil")` **HOMEWORK 2**: [Questions (Rmd)](../../HW/homework2.Rmd), [Questions (HTML)](../../HW/homework2.html)
 
 
 ## Drop Boxes
@@ -70,3 +70,4 @@ pander::pandoc.table(
 [RStudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
 
 [RStudio IDE cheatsheet (PDF)](../../resources/rstudio_IDE_cheatsheet.pdf)
+
