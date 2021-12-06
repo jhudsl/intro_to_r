@@ -6,8 +6,8 @@ output:
   pdf_document: default
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r setup, echo = FALSE, message = FALSE}
+library(tidyverse)
 ```
 
 Epi/Biostats  Winter Institute - Introduction to R for Public Health Researchers
@@ -44,7 +44,6 @@ By the end of the course, students should be comfortable:
 
 # Tentative Schedule:
 
-
 ## Day Overview
 
 | Time (EST)        | Content   |
@@ -55,58 +54,80 @@ By the end of the course, students should be comfortable:
 | 10:40am - 10:50am | Break     |
 | 10:50am - 11:50am | Session 3 |
 
+```{r, child="_child_schedule.Rmd"}
+```
 
-## Day 1
+```{r, results='asis', echo = FALSE, message=FALSE}
+# The mutate_all creates an absolute url to linked documents since there are word and pdf rendered versions of the syllabus
+source("../scripts/utils.R")
+pander::pandoc.table(
+  read_markdown("_schedule_table.Rmd")  %>%
+    mutate(across(
+      .fns = ~ str_replace_all(., "\\./", "https://jhudatascience.org/intro_to_r/")
+    )),
+  missing = "",
+  split.tables = Inf,
+  style = "rmarkdown"
+)
+```
+
+```{r, child="_child_assignments.Rmd"}
+```
+
+# Module Details:
+
+## [Day 0 (before the first session)](https://jhudatascience.org/intro_to_r/module_details/day0.html)
+
+## [Day 1](https://jhudatascience.org/intro_to_r/module_details/day1.html)
 
 - Introduction 
 - RStudio 
 - Reproducible Research 
 
 
-## Day 2
+## [Day 2](https://jhudatascience.org/intro_to_r/module_details/day2.html)
+
 - Basic R: Variables/Objects in R
 - Data Input/Output 
 
 
-## Day 3
+## [Day 3](https://jhudatascience.org/intro_to_r/module_details/day3.html)
 
 - Subsetting Data
 - Homework 2
 
-## Day 4
+
+## [Day 4](https://jhudatascience.org/intro_to_r/module_details/day4.html)
 
 - Summarization 
 - Data Classes
 
-## Day 5
 
- 
+## [Day 5](https://jhudatascience.org/intro_to_r/module_details/day5.html)
+
+- Factors
 - Data Cleaning
-
-
-
-## Day 6
-- Data Manipulation
 - Homework 3
 
-## Day 7
 
--  Data Visualization
+## [Day 6](https://jhudatascience.org/intro_to_r/module_details/day6.html)
 
-## Day 8
+- Data Manipulation
+
+
+## [Day 7](https://jhudatascience.org/intro_to_r/module_details/day7.html)
+
+- Data Visualization
+
+
+## [Day 8](https://jhudatascience.org/intro_to_r/module_details/day8.html)
 
 - Statistics
 - Work on Final Project
 
 
-## Day 9
+## [Day 9](https://jhudatascience.org/intro_to_r/module_details/day9.html)
 
 - Functions
-- Good code practices 
 - Work on Final Project
 
-### Grading
-
-1. Attendance/Participation: 20% (Please let the instructors know if attendance will be difficult for you.)
-2. Homework: 3 x 15%
-3. Final "Project": 35%

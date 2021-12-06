@@ -1,0 +1,74 @@
+---
+output:
+  html_document:
+    fig_caption: false
+---
+
+```{r setup, echo = FALSE, message = FALSE}
+library(tidyverse)
+
+schedule <- googlesheets4::read_sheet(
+    "https://docs.google.com/spreadsheets/d/18Hcl_nOodBqjbwYX9RtusEIt-y76Uf3ZaATvwl5mPlI/edit?usp=sharing"
+  )
+```
+
+# Day 7
+
+## Objectives
+
+Upon completion of this session, you will be able to do the following:
+
+1. Read multiple data formats into R
+2. Recode and manipulate data
+3. Make exploratory and customizable plots 
+
+
+## Lectures
+
+Lecture recording links will be emailed directly to students.
+
+
+## Material
+
+```{r, results='asis', echo = FALSE, message=FALSE}
+# Read in schedule from excel - easier to read than md :)
+# https://docs.google.com/spreadsheets/d/18Hcl_nOodBqjbwYX9RtusEIt-y76Uf3ZaATvwl5mPlI/edit?usp=sharing
+pander::pandoc.table(
+  schedule  %>%
+    mutate(across(
+      .fns = ~ str_replace_all(., "\\./", "https://jhudatascience.org/intro_to_r/")
+    )) %>%
+    filter(
+      row_number() >= which(str_detect(schedule$`**Day**`, "\\[Day 7\\]")) &
+        row_number() < which(str_detect(schedule$`**Day**`, "\\[Day 8\\]")) - 1
+    ),
+  missing = "",
+  split.tables = Inf,
+  style = "rmarkdown"
+)
+``` 
+
+
+## Homework
+
+`r emo::ji("rotating_light")` **SURVEY**: [Day 7 check-in](https://courseplus.jhu.edu/core/index.cfm/go/survey2:student.home/coid/16733/#!/surveyid/31505/surveyview)
+
+`r emo::ji("pencil")` **HOMEWORK 1**: [Dataquest](https://app.dataquest.io/login?target-url=%2Fm%2F499%2Fintroduction-to-programming-in-r) 
+
+`r emo::ji("pencil")` **HOMEWORK 2**: [Questions (Rmd)](../../HW/homework2.Rmd), [Questions (HTML)](../../HW/homework2.html)
+
+`r emo::ji("pencil")` **HOMEWORK 3**: [Questions (Rmd)](../../HW/homework3.Rmd), [Questions (HTML)](../../HW/homework3.html)
+
+
+## Drop Boxes
+
+[Assignment Drop Boxes](https://courseplus.jhu.edu/core/index.cfm/go/db:main/coid/16733/)
+
+**Note**: only people taking the course for credit must turn in the assignments. However, we will evaluate all submitted assignments in case others would like feedback on their work.
+
+
+## Library
+
+[RStudio cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
+
+[RStudio IDE cheatsheet (PDF)](../../resources/rstudio_IDE_cheatsheet.pdf)
