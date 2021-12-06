@@ -37,11 +37,10 @@ labs:
 index.html: index.Rmd 
 	Rscript -e "rmarkdown::render('index.Rmd')"
 
-syllabus.html: syllabus.Rmd 
-	Rscript -e "rmarkdown::render('Syllabus/syllabus.Rmd', output_format = 'html_document')"
-
-syllabus.docx: syllabus.docx
-	Rscript -e "rmarkdown::render('Syllabus/syllabus.Rmd', output_format = 'word_document')"
+syllabus_files:
+	Rscript -e "rmarkdown::render('./Syllabus/syllabus.Rmd', output_format = 'all')"
+	echo "Running module details";
+	Rscript -e "for (i in c('day0.Rmd','day1.Rmd','day2.Rmd','day3.Rmd','day4.Rmd','day5.Rmd','day6.Rmd','day7.Rmd','day8.Rmd','day9.Rmd')) {rmarkdown::render(paste('./Syllabus/module_details/',i,sep = ''))}"
 
 starting_with_r.html: starting_with_r.Rmd 
 	Rscript -e "rmarkdown::render('starting_with_r.Rmd')"	
