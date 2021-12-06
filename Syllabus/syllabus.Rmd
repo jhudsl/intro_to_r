@@ -59,9 +59,9 @@ By the end of the course, students should be comfortable:
 
 ```{r, results='asis', echo = FALSE, message=FALSE}
 # The mutate_all creates an absolute url to linked documents since there are word and pdf rendered versions of the syllabus
-source("scripts/utils.R")
+source("../scripts/utils.R")
 pander::pandoc.table(
-  read_markdown("Syllabus/_schedule_table.Rmd")  %>%
+  read_markdown("_schedule_table.Rmd")  %>%
     mutate(across(
       .fns = ~ str_replace_all(., "\\./", "https://jhudatascience.org/intro_to_r/")
     )),
