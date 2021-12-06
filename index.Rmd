@@ -200,8 +200,10 @@ mat = matrix(c(
   "Subsetting Data", "https://youtu.be/mT8lSagYbjM",
   "Data Summarization Part 1", "https://www.youtube.com/watch?v=SZYpzt9zy0g",
   "Data Classes", "https://www.youtube.com/watch?v=82zSA1N0mnA",
-  "Statistics",
-  "https://www.youtube.com/watch?v=Jr4ljyzrr4U"
+  "Data Cleaning", "https://youtu.be/G3V2YPaQN34",
+  "Data Manipulation", "https://youtu.be/43MPdw5bf4o",
+  "Statistics 1", "https://www.youtube.com/watch?v=Jr4ljyzrr4U",
+  "Statistics 2", "https://youtu.be/ub2BSbK9lMM"
   ), ncol = 2, byrow = TRUE)
 mat = data.frame(mat, stringsAsFactors = FALSE)
 colnames(mat) = c("Day", "Link to Video")
