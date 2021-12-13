@@ -1,10 +1,12 @@
 ---
 title: "Reproducibility"
 output:
-  pdf_document: default
+  html_document:
+    df_print: paged
   ioslides_presentation:
     css: ../styles.css
     widescreen: yes
+  pdf_document: default
 ---
 
 
@@ -19,19 +21,26 @@ library(tidyverse)
 ## Reproducibility
 What's reproducibility?
 
-A different analyst re­-performs the analysis with 
+A different analyst re-performs the analysis with
 the same code and
 the same data and obtains
 the same result.
 
+## Reproducibility vs Repeatability vs Replicability
+
+```{r, fig.alt="session info", out.width = "60%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/reproducibility.png")
+```
+
 ## Reproducibility
-- clean your environment regularly
-- use RMarkdown
-- check the knit of your RMarkdown regularly
-- tell your future self and others what you did!
+- Clean your environment regularly
+- Use RMarkdown
+- Check the knit of your RMarkdown regularly
+- Tell your future self and others what you did!
 - Print session info!
 
 ## RMarkdown
+
 Clicking the knit button, will knit your document to create different types of reports. The default is html.
 
 ```{r, fig.alt="How to knit an Rmd", out.width = "60%", echo = FALSE, fig.align='center'}
@@ -51,8 +60,6 @@ After knitting:
     - TRUE = code is **run** (default)  
     - FALSE = code is not run (but might be shown...depends on echo)  
 3) **message** = FALSE -suppresses messages when your run your code  
-
-
 
 ## RMarkdown syntax
 
@@ -80,8 +87,12 @@ Turn in through CoursePlus:
 
 ## Session Info
 
+```{r, fig.alt="session info", out.width = "60%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/session_info.png")
+```
+
 Session info helps
 
 ```{r}
-SessionInfo()
+sessionInfo()
 ```
