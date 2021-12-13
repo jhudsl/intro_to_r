@@ -6,7 +6,7 @@ output:
     css: ../styles.css
     widescreen: yes
 ---
- 
+
 
 ```{r, echo = FALSE, message = FALSE}
 library(knitr)
@@ -17,10 +17,19 @@ library(tidyverse)
 ```
 
 ## Reproducibility
+What's reproducibility?
+
+A different analyst re­-performs the analysis with 
+the same code and
+the same data and obtains
+the same result.
+
+## Reproducibility
 - clean your environment regularly
-- use RMarkdown 
+- use RMarkdown
 - check the knit of your RMarkdown regularly
 - tell your future self and others what you did!
+- Print session info!
 
 ## RMarkdown
 Clicking the knit button, will knit your document to create different types of reports. The default is html.
@@ -68,3 +77,11 @@ Specific guidelines and example on website
 Turn in through CoursePlus:  
 1) RMarkdown file    
 2) html file  
+
+## Session Info
+
+Session info helps
+
+```{r}
+SessionInfo()
+```
