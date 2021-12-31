@@ -63,6 +63,23 @@ knitr::include_graphics("../images/hex.png")
 sum(1, 20234)
 
 
+## -----------------------------------------------------------------------------
+sum(1, 20234)
+
+
+## -----------------------------------------------------------------------------
+round(0.627, digits = 2)
+round(0.627, digits = 1)
+
+
+## -----------------------------------------------------------------------------
+head(iris)
+
+
+## ---- fig.alt="R hex stickers for packages", out.width = "50%", echo = FALSE, fig.align='center'----
+knitr::include_graphics("https://keydifferences.com/wp-content/uploads/2016/09/rows-vs-column.jpg")
+
+
 ## ---- fig.alt="Tidyverse hex sticker", out.width = "10%", echo = FALSE, fig.align='center'----
 knitr::include_graphics("https://tidyverse.tidyverse.org/logo.png")
 

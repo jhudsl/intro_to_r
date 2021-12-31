@@ -275,7 +275,7 @@ If you have a Mac: https://www.youtube.com/watch?v=Ao9e0cDzMrE
 
 R jargon: https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf
 
-* **Package** - a package in R is a bundle or "package" of code (and or possibly data) that can be loaded together for easy repeated use or for **sharing** with others.
+**Package** - a package in R is a bundle or "package" of code (and or possibly data) that can be loaded together for easy repeated use or for **sharing** with others.
 
 Packages are sort of analogous to a software application like Microsoft Word on your computer. Your operating system allows you to use it, just like having R installed (and other required packages) allows you to use packages.
 
@@ -286,7 +286,7 @@ knitr::include_graphics("../images/hex.png")
 ## Basic terms
 
 
-* **Function** - a function is a particular piece of code that allows you to do something in R. You can write your own, use functions that come directly from installing R, or use functions from additional packages.
+**Function** - a function is a particular piece of code that allows you to do something in R. You can write your own, use functions that come directly from installing R, or use functions from additional packages.
 
 A function might help you add numbers together, create a plot, or organize your data. More on that soon!
 
@@ -294,10 +294,29 @@ A function might help you add numbers together, create a plot, or organize your 
 sum(1, 20234)
 ```
 
+
+## Basic terms
+
+ **Argument** - what you pass to a function
+
+- can be data like the number 1 or 20234 
+
+```{r}
+sum(1, 20234)
+```
+
+- can be options about how you want the function to work
+
+```{r}
+round(0.627, digits = 2)
+round(0.627, digits = 1)
+```
+
+
 ## Basic terms
 
 
-* **object** - an object is something that can be worked with in R - can be lots of different things!
+**Object** - an object is something that can be worked with in R - can be lots of different things!
 
 - a matrix of numbers
 - a plot
@@ -305,9 +324,32 @@ sum(1, 20234)
 
 ... many more
 
-##
+## Variable and Sample
+
+- **Variable**: something measured or counted that is a characteristic about a sample
+
+examples: temperature, length, count, color, category
+
+- **Sample**: individuals that you have data about -
+
+examples: people, houses, viruses etc.
+
+```{r}
+head(iris)
+```
 
 
+## Columns and Rows
+
+```{r, fig.alt="R hex stickers for packages", out.width = "50%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://keydifferences.com/wp-content/uploads/2016/09/rows-vs-column.jpg")
+```
+[[source](https://keydifferences.com/difference-between-rows-and-columns.html)]
+
+Sample = Row  
+Variable = Column
+
+Data objects that looks like this is often called a **data frame**
 
 ## Tidyverse and Base R
 
