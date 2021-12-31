@@ -15,7 +15,7 @@ knitr::include_graphics("https://ca.slack-edge.com/T023TPZA8LF-U024F9G49S8-9861d
 knitr::include_graphics("https://ca.slack-edge.com/T023TPZA8LF-U0248RUHRC2-0ac3f9608641-512")
 
 
-## ---- fig.alt="Candace's picture", out.width = "30%", echo = FALSE, fig.align='center'----
+## ---- fig.alt="Candace's picture", out.width = "25%", echo = FALSE, fig.align='center'----
 knitr::include_graphics("https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://coursera-instructor-photos.s3.amazonaws.com/3d/20b2387e1f494290006afaddce852a/Candace_Savonen.jpg?auto=format%2Ccompress&dpr=2&w=112&h=112&q=40&fit=crop")
 
 
@@ -39,8 +39,8 @@ knitr::include_graphics("https://www.r-project.org/Rlogo.png")
 knitr::include_graphics("https://rladies-baltimore.github.io/img/R-LadiesGlobal_RBG_online_LogoOnly.png")
 
 
-## ---- fig.alt="R hex stickers for packages", out.width = "30%", echo = FALSE, fig.align='center'----
-knitr::include_graphics("../images/hex.png")
+## ---- fig.alt="tortoise and hare", out.width = "40%", echo = FALSE, fig.align='center'----
+knitr::include_graphics("images/tortoise_hare.jpg")
 
 
 ## ---- fig.alt="image of rocks with word hope painted on", out.width = "60%", echo = FALSE, fig.align='center'----
@@ -49,6 +49,22 @@ knitr::include_graphics("images/hope.jpg")
 
 ## ---- fig.alt="Intro to R course logo", out.width = "60%", echo = FALSE, fig.align='center'----
 knitr::include_graphics("../images/Intro_to_R.png")
+
+
+## ---- fig.alt="Surveys count", out.width = "50%", echo = FALSE, fig.align='center'----
+knitr::include_graphics("images/feedback-illustration.jpeg")
+
+
+## ---- fig.alt="R hex stickers for packages", out.width = "35%", echo = FALSE, fig.align='center'----
+knitr::include_graphics("../images/hex.png")
+
+
+## -----------------------------------------------------------------------------
+sum(1, 20234)
+
+
+## ---- fig.alt="Tidyverse hex sticker", out.width = "10%", echo = FALSE, fig.align='center'----
+knitr::include_graphics("https://tidyverse.tidyverse.org/logo.png")
 
 
 ## ---- packageInstall, eval=FALSE----------------------------------------------
