@@ -26,7 +26,7 @@ RStudio is an Integrated Development Environment (IDE) for R
 knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/62bcc8535a06077094ca3c29c383e37ad7334311/a263f/assets/img/logo.svg")
 ```
 
-source(https://www.rstudio.com/)
+<sub>[[source](https://www.rstudio.com/)]</sub>
 
 ## RStudio
 
@@ -42,39 +42,36 @@ More information
 * Integrated R help and documentation
 * Searchable command history
 
-```{r, fig.alt="RStudio", out.width = "30%", echo = FALSE, fig.align='center'}
+## RStudio
+
+```{r, fig.alt="RStudio", out.width = "80%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("https://ayeimanolr.files.wordpress.com/2013/04/r-rstudio-1-1.png?w=640&h=382")
 ```
 
 
 <!-- ## RStudio/R Console ![Console](r-rstudio-1-3-console.png) -->
 
+## Getting the editor
+
+```{r, out.width = "90%", echo = FALSE}
+knitr::include_graphics("images/both.png")
+```
+
 
 ## Working with R in R Studio - 2 major panes:
 
-1) The **R Console**: "interprets" whatever you type
+1) The **Source/Editor**: "Analysis" Script + Interactive Exploration
+    * Static copy of what you did (reproducibility)
+    * Try things out interactively, then add to your script
+    
+2) The **R Console**: "interprets" whatever you type
     * Calculator
     * Creating variables
     * Applying functions
 
-2) The **Source/Editor**: "Analysis" Script + Interactive Exploration
-    * Static copy of what you did (reproducibility)
-    * Try things out interactively, then add to your script
 
 
-## R Console 
-<!-- ![Console](rstudio_console.png) -->
-
-```{r, out.width = "60%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("images/rstudio_console.png")
-```
-
-* Where code is executed (where things happen)
-* You can type here for things interactively
-* Code is **not saved** on your disk
-
-
-## Source Editor
+## Source / Editor
 
 * Where files open to
 * Have R code and comments in them
@@ -89,11 +86,16 @@ knitr::include_graphics("images/rstudio_script.png")
 <!-- ## Workspace/Environment ![Workspace](r-rstudio-1-ggplot-point-2.png) -->
     
 
-## Getting the editor
+## R Console 
+<!-- ![Console](rstudio_console.png) -->
 
-```{r, out.width = "90%", echo = FALSE}
-knitr::include_graphics("images/both.png")
+```{r, out.width = "60%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/rstudio_console.png")
 ```
+
+* Where code is executed (where things happen)
+* You can type here for things interactively
+* Code is **not saved** on your disk
 
 ## RStudio
 
@@ -104,9 +106,8 @@ knitr::include_graphics("images/rstudio_sheet.png")
 ```
 
 
-# R essentially is a command line with a set of functions loaded
 
-## R Uses Functions, in Packages
+## More on Functions and Packages
 
 * R revolves around **functions**
     * Commands that take input, performs computations, and returns results  
@@ -123,7 +124,7 @@ knitr::include_graphics("../images/hex.png")
     
 ## Using Packages
 
-* You **need to be familiar with base R** - answers on Google commonly use it
+* It helps to be somewhat familiar with base R - answers on Google commonly use it
 * We will focus on newer and **more intuitive** ways to do things (tidyverse), not in base R
 * RStudio (the company) makes a lot of great packages
 * Not all packages available on CRAN or GitHub are trustworthy
@@ -226,7 +227,8 @@ knitr::include_graphics("images/rstudio_environment.png")
 
 **History**
 
-* Shows previous commands.  Good to look at for debugging, but **don't rely** on it as a script.  Make a script!
+* Shows previous commands.  Good to look at for debugging, but **don't rely** on it.  
+ Instead use RMarkdown!
 * Also type the "up" key in the Console to scroll through previous commands
 
 ## Other Panes
@@ -234,7 +236,7 @@ knitr::include_graphics("images/rstudio_environment.png")
 * **Files** - shows the files on your computer of the directory you are working in
 * **Viewer** - can view data or R objects
 * **Help** - shows help of R commands
-* **Plots** - pretty pictures and figures
+* **Plots** - pictures and figures
 * **Packages** - list of R packages that are loaded in memory
 
 
@@ -246,17 +248,24 @@ knitr::include_graphics("images/rstudio_environment.png")
 * `Ctrl+2` takes you to the console
 * [http://www.rstudio.com/ide/docs/using/keyboard_shortcuts](http://www.rstudio.com/ide/docs/using/keyboard_shortcuts)
 
-## Lab: Starting with R and RMarkdown
 
-[Starting with R](http://jhudatascience.org/intro_to_r/RStudio/lab/RStudio_Lab.Rmd)
+## Viewing data
 
-## Using the Viewer
-
-The `View` command allows you to view data in a spreadsheet format.  Run the following command:
+The `View` command allows you to view data in a spreadsheet format.
 
 ```{r, eval = FALSE}
 View(mtcars)
 ```
+
+```{r}
+head(mtcars)
+tail(mtcars)
+```
+
+
+## Lab: Starting with R and RMarkdown
+
+[Starting with R](http://jhudatascience.org/intro_to_r/RStudio/lab/RStudio_Lab.Rmd)
 
 ## Website
 
