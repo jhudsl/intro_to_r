@@ -195,17 +195,18 @@ knitr::kable(df, format = "html") %>%
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}
 mat = matrix(c(
-  "RStudio", "https://drive.google.com/file/d/1LWQBRTALhnUJpvzcGo8Sr3QRpTkQbOAe/view?usp=sharing",
-  "Basic R", "https://drive.google.com/file/d/1qv3s-zVEgrQ8bhkz1298iCKAd0vsX8_W/view?usp=sharing",
-  "Data IO", "https://drive.google.com/file/d/12KQWVIyqkqUAtzXQT5VvSGwinPqHWIi9/view?usp=sharing",
-  "Subsetting Data", "https://drive.google.com/file/d/1FsCYmIXkI-82xPN5hNBJ42FxSW66kPqb/view?usp=sharing",
-  "Data Summarization Part 1 + 2", "https://drive.google.com/file/d/1IN1pCs6OMIfFxrAt0kZZEKpctxteyCAf/view?usp=sharing",
-  "Data Classes", "https://drive.google.com/file/d/1MM_HnAL69dRnnETCfRTkkwnh-MQUqJxx/view?usp=sharing",
-  "Data Cleaning", "https://drive.google.com/file/d/1YSQ1jS_zvgf3Gx8Vej3XEKizoKb5iKV9/view?usp=sharing",
-  "Data Manipulation", "https://drive.google.com/file/d/115Ll-bq2rLwCji8K6j7Xrpv1efjhl1Rc/view?usp=sharing",
-  "Reproducibility", "https://drive.google.com/file/d/1-Ep2wy_WeSzKG8xiXcUDcIDwwSDKoxug/view?usp=sharing",
-  "Statistics", "https://drive.google.com/file/d/1n5pi5YIGW5mSgDz507ZrDijbMJtN_WeR/view?usp=sharing",
-  "Data Visualization", "https://drive.google.com/file/d/1K61Px4QCnWb6zmXXy57wJBM6Xb0Jc42j/view?usp=sharing"
+  "RStudio", "https://youtu.be/o0DyqNJtEKE",
+  "Basic R", "https://youtu.be/md30mwFJ2_Q",
+  "Data IO", "https://youtu.be/6xNyETqIqZU",
+  "Subsetting Data", "https://youtu.be/YeBSc2YXr4U",
+  "Data Summarization Part 1 + 2", "https://youtu.be/yL3BGDWtVC4",
+  "Data Classes", "https://youtu.be/zBCvbikMTAc",
+  "Data Cleaning", "https://youtu.be/TaREvr5evwk",
+  "Data Manipulation", "https://youtu.be/-039V99I-PE",
+  "Reproducibility", "https://youtu.be/ui9dJLqtdCs",
+  "Statistics", "https://youtu.be/EJwlBoBHoz4",
+  "Data Visualization", "https://youtu.be/ngQX9khx7UQ",
+  "Functions", "https://youtu.be/epIujSKgNi4"
   ), ncol = 2, byrow = TRUE)
 mat = data.frame(mat, stringsAsFactors = FALSE)
 colnames(mat) = c("Day", "Link to Video")
