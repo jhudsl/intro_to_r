@@ -191,17 +191,40 @@ knitr::kable(df, format = "html") %>%
 ## Online Videos of Lectures
 ***
 
+#### From Summer Institute 2021
+
+```{r, echo = FALSE, message = FALSE, results='asis'}
+mat = matrix(c(
+  "RStudio", "https://drive.google.com/file/d/1LWQBRTALhnUJpvzcGo8Sr3QRpTkQbOAe/view?usp=sharing",
+  "Basic R", "https://drive.google.com/file/d/1qv3s-zVEgrQ8bhkz1298iCKAd0vsX8_W/view?usp=sharing",
+  "Data IO", "https://drive.google.com/file/d/12KQWVIyqkqUAtzXQT5VvSGwinPqHWIi9/view?usp=sharing",
+  "Subsetting Data", "https://drive.google.com/file/d/1FsCYmIXkI-82xPN5hNBJ42FxSW66kPqb/view?usp=sharing",
+  "Data Summarization Part 1 + 2", "https://drive.google.com/file/d/1IN1pCs6OMIfFxrAt0kZZEKpctxteyCAf/view?usp=sharing",
+  "Data Classes", "https://drive.google.com/file/d/1MM_HnAL69dRnnETCfRTkkwnh-MQUqJxx/view?usp=sharing",
+  "Data Cleaning", "https://drive.google.com/file/d/1YSQ1jS_zvgf3Gx8Vej3XEKizoKb5iKV9/view?usp=sharing",
+  "Data Manipulation", "https://drive.google.com/file/d/115Ll-bq2rLwCji8K6j7Xrpv1efjhl1Rc/view?usp=sharing",
+  "Reproducibility", "https://drive.google.com/file/d/1-Ep2wy_WeSzKG8xiXcUDcIDwwSDKoxug/view?usp=sharing",
+  "Statistics", "https://drive.google.com/file/d/1n5pi5YIGW5mSgDz507ZrDijbMJtN_WeR/view?usp=sharing",
+  "Data Visualization", "https://drive.google.com/file/d/1K61Px4QCnWb6zmXXy57wJBM6Xb0Jc42j/view?usp=sharing"
+  ), ncol = 2, byrow = TRUE)
+mat = data.frame(mat, stringsAsFactors = FALSE)
+colnames(mat) = c("Day", "Link to Video")
+knitr::kable(mat, format = "html") %>% 
+  kable_styling() 
+```
+
+
 #### From Winter Institute 2020
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}
 mat = matrix(c(
-  "RStudio and Data Classes", "https://www.youtube.com/watch?v=vyIsDnsq5jY",
+  "RStudio and Data Classes", "https://youtu.be/vyIsDnsq5jY",
   "Subsetting Data", "https://youtu.be/mT8lSagYbjM",
-  "Data Summarization Part 1", "https://www.youtube.com/watch?v=SZYpzt9zy0g",
-  "Data Classes", "https://www.youtube.com/watch?v=82zSA1N0mnA",
+  "Data Summarization Part 1", "https://youtu.be/SZYpzt9zy0g",
+  "Data Classes", "https://youtu.be/82zSA1N0mnA",
   "Data Cleaning", "https://youtu.be/G3V2YPaQN34",
   "Data Manipulation", "https://youtu.be/43MPdw5bf4o",
-  "Statistics 1", "https://www.youtube.com/watch?v=Jr4ljyzrr4U",
+  "Statistics 1", "https://youtu.be/Jr4ljyzrr4U",
   "Statistics 2", "https://youtu.be/ub2BSbK9lMM"
   ), ncol = 2, byrow = TRUE)
 mat = data.frame(mat, stringsAsFactors = FALSE)
