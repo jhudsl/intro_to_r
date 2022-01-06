@@ -23,6 +23,8 @@ opts_chunk$set(comment = "")
     - RStudio helps with "tab completion"
     - discussed throughout
 
+For more on the most common errors and how to debug them read [this guide from the Childhood Cancer Data Lab](https://github.com/AlexsLemonade/training-modules/blob/master/intro-to-R-tidyverse/00b-debugging_resources.md).
+
 <!-- ## Getting Started -->
 
 <!-- * You should have the latest version of R installed! -->
@@ -71,7 +73,7 @@ So `print("I'm code")` is the code chunk and [1] "I'm code" is the output.
 2 ^ 3
 ```
 
-Note, when you type your command, R inherently thinks you want to print the result. 
+Note, when you type your command, R inherently thinks you want to print the result.
 
 ## R as a calculator
 
@@ -79,7 +81,7 @@ Note, when you type your command, R inherently thinks you want to print the resu
 * Try to play around with it:
     * +, -, /, * are add, subtract, divide and multiply
     * ^ or ** is power
-    * parentheses -- ( and ) -- work with order of operations 
+    * parentheses -- ( and ) -- work with order of operations
     * %% finds the remainder
 
 ## R as a calculator
@@ -98,7 +100,7 @@ Try evaluating the following:
 * `2 * 3 / 4 * 2`
 * `2^4 - 1`
 
-## Commenting in Scripts
+## Commenting
 
 `#` is the comment symbol
 
@@ -115,14 +117,14 @@ Try evaluating the following:
 ```
 
 
-## R variables 
+## R variables
 
 * You can create variables from within the R environment and from files on your computer
-* R uses "=" or "<-" to assign values to a variable name
+* R uses "<-" to assign values to a variable name
 * Variable names are case-sensitive, i.e. X and x are different
 
 ```{r assign}
-x = 2 # Same as: x <- 2
+x <- 2
 x
 x * 4
 x + 2
@@ -141,7 +143,7 @@ x + 2
 
 ```{r assignClass}
 class(x)
-y = "hello world!"
+y <- "hello world!"
 print(y)
 class(y)
 ```
@@ -155,13 +157,13 @@ Try assigning your full name to an R variable called `name`
 Try assigning your full name to an R variable called `name`
 
 ```{r myName}
-name = "Ava Hoffman"
+name <- "Candace Savonen"
 name
 ```
 
 ## The 'combine' function
 
-The function `c()` collects/combines/joins single R objects into a vector of R objects. It is mostly used for creating vectors of numbers, character strings, and other data types. 
+The function `c()` collects/combines/joins single R objects into a vector of R objects. It is mostly used for creating vectors of numbers, character strings, and other data types.
 
 ```{r assign3a}
 x <- c(1, 4, 6, 8)
@@ -178,7 +180,7 @@ Try assigning your first and last name as 2 separate character strings into a si
 Try assigning your first and last name as 2 separate character strings into a length-2 vector called `name2`
 
 ```{r myName2}
-name2 = c("Ava","Hoffman")
+name2 <- c("Ava","Hoffman")
 name2
 ```
 
@@ -236,8 +238,8 @@ name2 + 4
 Save these modified vectors as a new vector.
 
 ```{r assign5}
-y = x + c(1, 2, 3, 4)
-y 
+y <- x + c(1, 2, 3, 4)
+y
 ```
 
 Note that the R object `y` is no longer "Hello  World!" - It has effectively been overwritten by assigning new data to the variable
