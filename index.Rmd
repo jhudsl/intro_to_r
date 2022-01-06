@@ -191,17 +191,41 @@ knitr::kable(df, format = "html") %>%
 ## Online Videos of Lectures
 ***
 
+#### From Summer Institute 2021
+
+```{r, echo = FALSE, message = FALSE, results='asis'}
+mat = matrix(c(
+  "RStudio", "https://youtu.be/zpAQrglIJb0",
+  "Basic R", "https://youtu.be/md30mwFJ2_Q",
+  "Data IO", "https://youtu.be/6xNyETqIqZU",
+  "Subsetting Data", "https://youtu.be/YeBSc2YXr4U",
+  "Data Summarization Part 1 + 2", "https://youtu.be/yL3BGDWtVC4",
+  "Data Classes", "https://youtu.be/zBCvbikMTAc",
+  "Data Cleaning", "https://youtu.be/TaREvr5evwk",
+  "Data Manipulation", "https://youtu.be/-039V99I-PE",
+  "Reproducibility", "https://youtu.be/ui9dJLqtdCs",
+  "Statistics", "https://youtu.be/EJwlBoBHoz4",
+  "Data Visualization", "https://youtu.be/ngQX9khx7UQ",
+  "Functions", "https://youtu.be/epIujSKgNi4"
+  ), ncol = 2, byrow = TRUE)
+mat = data.frame(mat, stringsAsFactors = FALSE)
+colnames(mat) = c("Day", "Link to Video")
+knitr::kable(mat, format = "html") %>% 
+  kable_styling() 
+```
+
+
 #### From Winter Institute 2020
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}
 mat = matrix(c(
-  "RStudio and Data Classes", "https://www.youtube.com/watch?v=vyIsDnsq5jY",
+  "RStudio and Data Classes", "https://youtu.be/vyIsDnsq5jY",
   "Subsetting Data", "https://youtu.be/mT8lSagYbjM",
-  "Data Summarization Part 1", "https://www.youtube.com/watch?v=SZYpzt9zy0g",
-  "Data Classes", "https://www.youtube.com/watch?v=82zSA1N0mnA",
+  "Data Summarization Part 1", "https://youtu.be/SZYpzt9zy0g",
+  "Data Classes", "https://youtu.be/82zSA1N0mnA",
   "Data Cleaning", "https://youtu.be/G3V2YPaQN34",
   "Data Manipulation", "https://youtu.be/43MPdw5bf4o",
-  "Statistics 1", "https://www.youtube.com/watch?v=Jr4ljyzrr4U",
+  "Statistics 1", "https://youtu.be/Jr4ljyzrr4U",
   "Statistics 2", "https://youtu.be/ub2BSbK9lMM"
   ), ncol = 2, byrow = TRUE)
 mat = data.frame(mat, stringsAsFactors = FALSE)
