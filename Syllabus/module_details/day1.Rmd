@@ -6,10 +6,8 @@ output:
 
 ```{r setup, echo = FALSE, message = FALSE}
 library(tidyverse)
-
-schedule <- googlesheets4::read_sheet(
-    "https://docs.google.com/spreadsheets/d/18Hcl_nOodBqjbwYX9RtusEIt-y76Uf3ZaATvwl5mPlI/edit?usp=sharing"
-  )
+source("../../scripts/utils.R")
+schedule <- read_markdown("../_schedule_table.Rmd")
 ```
 
 # Day 1
@@ -31,8 +29,8 @@ Lecture recording links will be emailed directly to students.
 ## Material
 
 ```{r, results='asis', echo = FALSE, message=FALSE}
-# Read in schedule from excel - easier to read than md :)
-# https://docs.google.com/spreadsheets/d/18Hcl_nOodBqjbwYX9RtusEIt-y76Uf3ZaATvwl5mPlI/edit?usp=sharing
+# The str_replace_all creates an absolute url to linked documents. Important because there are word and pdf rendered versions of the syllabus.
+# The filter() step removes all dates but this date to make a smaller table.
 pander::pandoc.table(
   schedule  %>%
     mutate(across(
@@ -40,7 +38,7 @@ pander::pandoc.table(
     )) %>%
     filter(
       row_number() >= which(str_detect(schedule$`**Day**`, "\\[Day 1\\]")) &
-        row_number() < which(str_detect(schedule$`**Day**`, "\\[Day 2\\]")) - 1
+        row_number() < which(str_detect(schedule$`**Day**`, "\\[Day 2\\]"))
     ),
   missing = "",
   split.tables = Inf,
