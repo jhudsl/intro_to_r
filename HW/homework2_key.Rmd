@@ -23,28 +23,28 @@ library(tidyr)
 
 ### **Problem Set**
 
-1) Get the dataset: https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv.<br />
+1) Get the dataset: https://jhudatascience.org/intro_to_R_class/data/kaggleCarAuction.csv.<br />
 Read the data set in using `read_csv()` and name the dataset "cars".
 
 ```{r q1, message=FALSE}
 cars = read_csv(
-  "https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv",
+  "https://jhudatascience.org/intro_to_R_class/data/kaggleCarAuction.csv",
   col_types = cols(VehBCost = col_double())
   )
 ```
 
-2) Import the "dictionary" from https://jhudatascience.org/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt.<br />
+2) Import the "dictionary" from https://jhudatascience.org/intro_to_R_class/data/Carvana_Data_Dictionary_formatted.txt.<br />
 Use the `read_tsv()` function and name it "key". 
 
 ```{r q2, message=FALSE}
-key = read_tsv("https://jhudatascience.org/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt")
+key = read_tsv("https://jhudatascience.org/intro_to_R_class/data/Carvana_Data_Dictionary_formatted.txt")
 ```
 
-3) (Optional) What would you do if the data was formatted with spaces and tabs and such, like this one: https://jhudatascience.org/intro_to_r/data/Carvana_Data_Dictionary.txt<br /> 
+3) (Optional) What would you do if the data was formatted with spaces and tabs and such, like this one: https://jhudatascience.org/intro_to_R_class/data/Carvana_Data_Dictionary.txt<br /> 
 **Hint:** see the `readLines()` function.
 
 ```{r}
-dict = readLines("https://jhudatascience.org/intro_to_r/data/Carvana_Data_Dictionary.txt")
+dict = readLines("https://jhudatascience.org/intro_to_R_class/data/Carvana_Data_Dictionary.txt")
 dict = dict[ !dict %in% "" ]
 dict = strsplit(dict, split = "\t")
 dict = sapply(dict, function(x) {

@@ -13,7 +13,7 @@ library(tidyverse)
 Epi/Biostats  Winter Institute - Introduction to R for Public Health Researchers
 140.604.73
 
-Class Website: http://jhudatascience.org/intro_to_r/   
+Class Website: http://jhudatascience.org/intro_to_R_class/   
 CoursePlus: https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/16733/
 
 **Zoom link will be emailed to students.**
@@ -63,7 +63,7 @@ source("../scripts/utils.R")
 pander::pandoc.table(
   read_markdown("_schedule_table.Rmd")  %>%
     mutate(across(
-      .fns = ~ str_replace_all(., "\\./", "https://jhudatascience.org/intro_to_r/")
+      .fns = ~ str_replace_all(., "\\./", "https://jhudatascience.org/intro_to_R_class/")
     )),
   missing = "",
   split.tables = Inf,
@@ -76,57 +76,57 @@ pander::pandoc.table(
 
 # Module Details:
 
-## [Day 0 (before the first session)](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day0.html)
+## [Day 0 (before the first session)](https://jhudatascience.org/intro_to_R_class/Syllabus/module_details/day0.html)
 
-## [Day 1](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day1.html)
+## [Day 1](https://jhudatascience.org/intro_to_R_class/Syllabus/module_details/day1.html)
 
 - Introduction 
 - RStudio 
 - Reproducible Research 
 
 
-## [Day 2](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day2.html)
+## [Day 2](https://jhudatascience.org/intro_to_R_class/Syllabus/module_details/day2.html)
 
 - Basic R: Variables/Objects in R
 - Data Input/Output 
 
 
-## [Day 3](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day3.html)
+## [Day 3](https://jhudatascience.org/intro_to_R_class/Syllabus/module_details/day3.html)
 
 - Subsetting Data
 - Homework 2
 
 
-## [Day 4](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day4.html)
+## [Day 4](https://jhudatascience.org/intro_to_R_class/Syllabus/module_details/day4.html)
 
 - Summarization 
 - Data Classes
 
 
-## [Day 5](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day5.html)
+## [Day 5](https://jhudatascience.org/intro_to_R_class/Syllabus/module_details/day5.html)
 
 - Factors
 - Data Cleaning
 - Homework 3
 
 
-## [Day 6](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day6.html)
+## [Day 6](https://jhudatascience.org/intro_to_R_class/Syllabus/module_details/day6.html)
 
 - Data Manipulation
 
 
-## [Day 7](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day7.html)
+## [Day 7](https://jhudatascience.org/intro_to_R_class/Syllabus/module_details/day7.html)
 
 - Data Visualization
 
 
-## [Day 8](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day8.html)
+## [Day 8](https://jhudatascience.org/intro_to_R_class/Syllabus/module_details/day8.html)
 
 - Statistics
 - Work on Final Project
 
 
-## [Day 9](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day9.html)
+## [Day 9](https://jhudatascience.org/intro_to_R_class/Syllabus/module_details/day9.html)
 
 - Functions
 - Work on Final Project

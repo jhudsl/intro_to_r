@@ -27,7 +27,7 @@ Upon completion of this session, you will be able to do the following:
 pander::pandoc.table(
   schedule  %>%
     mutate(across(
-      .fns = ~ str_replace_all(., "\\./", "https://jhudatascience.org/intro_to_r/")
+      .fns = ~ str_replace_all(., "\\./", "https://jhudatascience.org/intro_to_R_class/")
     )) %>%
     filter(
       row_number() >= which(str_detect(schedule$`**Day**`, "\\[Day 0\\]")) &
