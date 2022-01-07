@@ -12,7 +12,7 @@ library(readr)
 
 
 ## -----------------------------------------------------------------------------
-download.file("http://jhudatascience.org/intro_to_r/data/Monuments.xlsx",
+download.file("http://jhudatascience.org/intro_to_R_class/data/Monuments.xlsx",
               destfile = "Monuments.xlsx",
               overwrite = TRUE)
 

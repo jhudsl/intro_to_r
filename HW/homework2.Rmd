@@ -23,13 +23,13 @@ library(tidyr)
 
 ### **Problem Set**
 
-1) Get the dataset: https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv.<br />
+1) Get the dataset: https://jhudatascience.org/intro_to_R_class/data/kaggleCarAuction.csv.<br />
 Read the data set in using `read_csv()` and name the dataset "cars".
 
-2) Import the "dictionary" from https://jhudatascience.org/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt.<br />
+2) Import the "dictionary" from https://jhudatascience.org/intro_to_R_class/data/Carvana_Data_Dictionary_formatted.txt.<br />
 Use the `read_tsv()` function and name it "key". 
 
-3) (Optional) What would you do if the data was formatted with spaces and tabs and such, like this one: https://jhudatascience.org/intro_to_r/data/Carvana_Data_Dictionary.txt<br /> 
+3) (Optional) What would you do if the data was formatted with spaces and tabs and such, like this one: https://jhudatascience.org/intro_to_R_class/data/Carvana_Data_Dictionary.txt<br /> 
 
 **Hint:** see the `readLines()` function.
 

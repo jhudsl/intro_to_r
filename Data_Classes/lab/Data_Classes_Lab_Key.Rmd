@@ -23,7 +23,7 @@ library(jhur)
 
 1. Read Bike Lanes Dataset using `read_bike()` function from `jhur` package. Assign it to `bike` variable. Use `str()` function to take a look at the data and learn column types.
 
-Note: alternatively you can read data to R from URL `"http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv"` using `read_csv()` function. 
+Note: alternatively you can read data to R from URL `"http://jhudatascience.org/intro_to_R_class/data/Bike_Lanes.csv"` using `read_csv()` function. 
 
 ```{r}
 bike = read_bike()

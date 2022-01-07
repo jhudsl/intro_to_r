@@ -11,12 +11,12 @@ Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-
 # Part 1
 
 1.  Read in the Youth Tobacco study from URL 
-http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv
+http://jhudatascience.org/intro_to_R_class/data/Youth_Tobacco_Survey_YTS_Data.csv
 and assign it to a variable named `youth`. 
 
 ```{r}
 library(readr)
-youth = read_csv("http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
+youth = read_csv("http://jhudatascience.org/intro_to_R_class/data/Youth_Tobacco_Survey_YTS_Data.csv")
 ```
 
 2. Use `head()` to display the first few rows of the data frame. 
@@ -40,10 +40,10 @@ library(readxl)
 ```
 
 
-5. Download in the dataset of monuments from: http://jhudatascience.org/intro_to_r/data/Monuments.xlsx file to `Monuments.xlsx`. 
+5. Download in the dataset of monuments from: http://jhudatascience.org/intro_to_R_class/data/Monuments.xlsx file to `Monuments.xlsx`. 
 
 ```{r}
-download.file("http://jhudatascience.org/intro_to_r/data/Monuments.xlsx",
+download.file("http://jhudatascience.org/intro_to_R_class/data/Monuments.xlsx",
               destfile = "Monuments.xlsx",
               overwrite = TRUE, 
               mode = "wb")

@@ -7,7 +7,7 @@ opts_chunk$set(comment = "")
 ## ----read_url, message = FALSE------------------------------------------------
 # load library `readr` that contains function `read_csv`
 library(readr)
-dat = read_csv("http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
+dat = read_csv("http://jhudatascience.org/intro_to_R_class/data/Youth_Tobacco_Survey_YTS_Data.csv")
 
 # `head` displays first few rows of a data frame 
 head(dat, 5)

@@ -13,7 +13,7 @@ options(scipen=999)
 
 ## ----cor1, comment="", message = FALSE----------------------------------------
 library(readr)
-circ = read_csv(paste0("https://jhudatascience.org/intro_to_r/data",
+circ = read_csv(paste0("https://jhudatascience.org/intro_to_R_class/data",
                        "/Charm_City_Circulator_Ridership.csv"))
 head(circ)
 
@@ -70,7 +70,7 @@ result_tidy
 
 ## -----------------------------------------------------------------------------
 cars = read_csv(
-  paste0("https://jhudatascience.org/intro_to_r/data/", 
+  paste0("https://jhudatascience.org/intro_to_R_class/data/", 
          "kaggleCarAuction.csv"),   
   col_types = cols(VehBCost = col_double()))
 head(cars)

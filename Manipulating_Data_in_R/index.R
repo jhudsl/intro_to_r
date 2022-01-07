@@ -57,7 +57,7 @@ ex_long
 
 ## ---- message = FALSE---------------------------------------------------------
 circ = read_csv(
-  paste0("http://jhudatascience.org/intro_to_r/",
+  paste0("http://jhudatascience.org/intro_to_R_class/",
          "data/Charm_City_Circulator_Ridership.csv"))
 head(circ, 5)
 

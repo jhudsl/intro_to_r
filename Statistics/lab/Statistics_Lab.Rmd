@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 1. Load the libraries needed in this lab. Read in the following child mortality data using `read_mortality()` function from `jhur` package. Assign it to `mort` variable. Change its first column name `X1` into `country`
 
-https://jhudatascience.org/intro_to_r/data/mortality.csv
+https://jhudatascience.org/intro_to_R_class/data/mortality.csv
 ```{r}
 library(tidyverse)
 library(broom)
@@ -65,10 +65,10 @@ Note: column names are in 1st column of `mort` data frame.
 
 # Part 2
 
-1. Read in the Kaggle cars auction dataset from "http://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv" with the argument `col_types = cols(VehBCost = col_double())`:
+1. Read in the Kaggle cars auction dataset from "http://jhudatascience.org/intro_to_R_class/data/kaggleCarAuction.csv" with the argument `col_types = cols(VehBCost = col_double())`:
 
 ```{r}
-cars = read_csv("http://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv",
+cars = read_csv("http://jhudatascience.org/intro_to_R_class/data/kaggleCarAuction.csv",
                 col_types = cols(VehBCost = col_double()))
 
 ```
