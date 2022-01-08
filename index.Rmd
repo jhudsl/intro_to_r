@@ -79,7 +79,7 @@ The course will provide students with “hands-on” training for analyzing data
 ```{r, child=c("Syllabus/_child_assignments.Rmd")}
 ```
 
-## Example knitr  
+## Guides for R Markdown  
 ***
 
 [Rmd](Examples/example_knitr.Rmd) and [html output](Examples/example_knitr.html)
@@ -101,12 +101,6 @@ We have an `R` package called `jhur` that will make sure all the packages are in
 install.packages("remotes")
 remotes::install_github("muschellij2/jhur")
 ```
-
-Alternatively, all the packages used (in any way - homework, lecture, lab), are listed in [this text file](all_the_packages.txt).  If you would like to install all the packages from this file, please download that text file and run [this R script](scripts/install_all_packages.R).
-
-#### Functions
-
-All the functions used (in any way - homework, lecture, lab), are listed in [this Google doc](https://drive.google.com/file/d/1v4uSgIq78cMpR0y0mF97Bq7JUbLJTOCu/view?usp=sharing), which can start a kind of cheat sheet for you.
 
 #### Data
 All the data used that are not **specifically** to be downloaded from the web are located in [this zip file](data.zip), but we will show you how to read data from the internet as well.
@@ -132,34 +126,65 @@ pander::pandoc.table(
 ## Additional Resources
 ***
 
-* [Building up a `ggplot2` figure](https://hopstat.wordpress.com/2016/02/18/how-i-build-up-a-ggplot2-figure/)
-* RStudio Cheat Sheets: https://www.rstudio.com/resources/cheatsheets/
-* Lubridate Cheat Sheet: https://github.com/rstudio/cheatsheets/raw/master/lubridate.pdf
-* R for Data Science: http://r4ds.had.co.nz/
-* DataCamp http://www.datacamp.com
-* UCLA Institute for Digital Research and Education: http://www.ats.ucla.edu/stat/r/
-* R reference card: http://cran.r-project.org/doc/contrib/Short-refcard.pdf
-* Undergrad Guide to R: https://sites.google.com/site/undergraduateguidetor/
-* Quick R: http://statmethods.net/
-* Regex Golf: https://alf.nu/RegexGolf
-* Open Case Studies: https://www.opencasestudies.org/
-* Tidyverse Skills for Data Science: http://jhudatascience.org/tidyversecourse/ - also available as a [course](https://www.coursera.org/specializations/tidyverse-data-science-r) with certification on Coursera.
+**Need help?** 
 
-* Animations of join functions:
+- [Various "Cheat Sheets"](https://www.rstudio.com/resources/cheatsheets/)   
+
+- [R reference card](http://cran.r-project.org/doc/contrib/Short-refcard.pdf) 
+
+- [R jargon](https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf)  
+
+- [R vs Stata](https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf)  
+
+- [R terminology](https://cran.r-project.org/doc/manuals/r-release/R-lang.pdf)
+
+- [What is the Tidyverse](https://www.tidyverse.org/packages/)
+
+-  Animations of join functions:
 [`full-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/full-join.gif)
 [`inner_join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/inner-join.gif)
 [`left-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/left-join.gif)
 [`right-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/right-join.gif)
 
-* Guide for terms: https://cran.r-project.org/doc/manuals/r-release/R-lang.pdf
+- PC users who want to see how to move files around (especially from downloads), check out this video:   https://youtu.be/we6vwB7DsNU
 
-* [Tidvyverse](https://www.tidyverse.org/packages/)
+- Mac users who want to see how to move files around (especially from downloads), check out this video:   https://www.youtube.com/watch?v=Ao9e0cDzMrE
 
-* For students with a PC who want to see how to move files around (especially from downloads), check out this video: https://youtu.be/we6vwB7DsNU
+**Want more?**  
 
-* For students with a mac here is how you can move files: https://www.youtube.com/watch?v=Ao9e0cDzMrE
+- [Tidyverse Skills for Data Science Book](https://jhudatascience.org/tidyversecourse/)  
+(more about the tidyverse, some modeling, and machine learning)
 
-* Example about why factors are useful: [html](Examples/factor_example.html) & [Rmd](Examples/factor_example.Rmd)
+- [Tidyverse Skills for Data Science Course](https://www.coursera.org/specializations/tidyverse-data-science-r)  
+(same content with quizzes, can get certificate with $)
+
+- [R for Data Science](http://r4ds.had.co.nz/)  
+(great general information)
+ 
+- [Open Case Studies](https://www.opencasestudies.org/)  
+(resource for specific public health cases with statistical implementation and interpretation)
+
+- [Dataquest](https://www.dataquest.io/)  
+(general interactive resource)
+
+- [Quick R Guide]( http://statmethods.net/)  
+(nice free general resource)
+
+- [Building up a `ggplot2` figure](https://hopstat.wordpress.com/2016/02/18/how-i-build-up-a-ggplot2-figure/)  
+(guide to making plots)
+
+**Interested in Reproducibility?**
+
+Check out Candace's courses:
+
+- [Introduction](https://jhudatascience.org/Reproducibility_in_Cancer_Informatics/)
+
+- [Advanced](https://jhudatascience.org/Adv_Reproducibility_in_Cancer_Informatics/)
+
+
+
+
+
 
 
 ## Live Code Examples
@@ -300,7 +325,7 @@ devtools::install_github("muschellij2/dhs")
 ***
 
 Feel free to submit typos/errors/etc via the github repository associated with the class: 
-https://github.com/jhudsl/intro_to_r
+https://github.com/jhudsl/intro_to_r_class
 
 ```{r, eval = FALSE, echo = FALSE}
 ## Render this file:
