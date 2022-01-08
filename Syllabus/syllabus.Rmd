@@ -1,8 +1,8 @@
 ---
 title: "Syllabus"
 output:
-  pdf_document: default
   word_document: default
+  pdf_document: default
   html_document: default
 ---
 
@@ -57,7 +57,7 @@ By the end of the course, students should be comfortable:
 ```{r, child="_child_schedule.Rmd"}
 ```
 
-```{r, results='asis', echo = FALSE, message=FALSE}
+```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
 # The str_replace_all creates an absolute url to linked documents since there are word and pdf rendered versions of the syllabus
 source("../scripts/utils.R")
 pander::pandoc.table(
