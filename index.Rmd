@@ -29,11 +29,12 @@ library(tidyverse)
 
 ## Overview: 
 ***
-Welcome to Introduction to R for Public Health Researchers!  
+
+**Welcome to Introduction to R for Public Health Researchers!**  
 
 This course is for students who have little to no familiarity with the R programming language and want to learn more about how to use R to import, wrangle, visualize, and analyze data.
 
-The course will provide students with “hands-on” training for analyzing data with the R programming language for statistical computing, a popular open-source solution for data analysis and visualization.  
+The course will provide students with **“hands-on” training** for analyzing data with the R programming language for statistical computing, a popular open-source solution for data analysis and visualization.  
 
 ## Instructors:
 ***
@@ -55,6 +56,8 @@ The course will provide students with “hands-on” training for analyzing data
 
 * Jan 10-21, 2022, 8:30AM-11:50AM on Zoom  - No class on Jan 17th for Martin Luther King Jr. Day.
 * CoursePlus: https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/16733/ 
+* [Syllabus](Syllabus/syllabus.html)
+* [Syllabus (Word Document)](Syllabus/syllabus.docx)
 
 ## Zoom:
 ***
@@ -79,16 +82,10 @@ The course will provide students with “hands-on” training for analyzing data
 ```{r, child=c("Syllabus/_child_assignments.Rmd")}
 ```
 
-## Guides for R Markdown  
-***
 
-[Rmd](Examples/example_knitr.Rmd) and [html output](Examples/example_knitr.html)
 
-## Important links
-***
-
-* [Syllabus](Syllabus/syllabus.html)
-* [Syllabus (Word Document)](Syllabus/syllabus.docx)
+```{r, child=c("Syllabus/_child_code_of_coduct.Rmd")}
+```
 
 ## All the Requirements in this Course
 ***
@@ -140,6 +137,10 @@ pander::pandoc.table(
 
 - [What is the Tidyverse](https://www.tidyverse.org/packages/)
 
+
+- [R Markdown formatting example](Examples/example_knitr.Rmd) and [html output](Examples/example_knitr.html)
+
+
 -  Animations of join functions:
 [`full-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/full-join.gif)
 [`inner_join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/inner-join.gif)
@@ -182,37 +183,6 @@ Check out Candace's courses:
 - [Advanced](https://jhudatascience.org/Adv_Reproducibility_in_Cancer_Informatics/)
 
 
-
-
-
-
-
-## Live Code Examples
-***
-
-```{r, echo = FALSE, message = FALSE, results='asis'}
-df = matrix(
-  c("Replacing with ifelse in dplyr", "replace_if.R",
-  "Relevant to hw2: Fixing problems in read_csv with col_types", "read_csv_specifications.R",
-  "Multiple Summarization (mean/sd) and summarize with quantile", "mean_sd_number_of_non_missing.R",
-  "Changing Factors in Stata file", "stata_factors.R",
-  "Tables and Figures in RMarkdown", "tables_and_plots.Rmd"
-  )
-, ncol = 2, byrow = TRUE)
-df = data.frame(df, stringsAsFactors = FALSE)
-colnames(df) = c("Code Example", "Script")
-df$Script = paste0("[", df$Script, "](live_code/", df$Script, ")")
-knitr::kable(df, format = "html") %>% 
-  kable_styling() 
-```
-
-[PDF of black and white theme](images/black_and_white_theme.pdf)
-
-[Shiny and Knitr Docs](Examples/shiny_knitr.zip)
-
-
-
-
 ## Online Videos of Lectures
 ***
 
@@ -236,18 +206,6 @@ knitr::kable(mat, format = "html") %>%
 ```
 
 
-#### From Winter Institute 2018
-
-```{r, echo = FALSE, message = FALSE, results='asis'}
-mat = matrix(c(
-  "Data Summarization", "https://youtu.be/l-r4RBhNDDo"
-  ), ncol = 2, byrow = TRUE)
-mat = data.frame(mat, stringsAsFactors = FALSE)
-colnames(mat) = c("Day", "Link to Video")
-knitr::kable(mat, format = "html") %>% 
-  kable_styling() 
-```
-
 
 
 #### From Summer Institute 1 2017
@@ -265,24 +223,6 @@ knitr::kable(mat, format = "html") %>%
   kable_styling() 
 ```
 
-#### From Summer Institute 2 2017
-
-```{r videos_summer2, echo = FALSE, message = FALSE, results='asis'}
-mat = matrix(c(
-  "Day 1: Part 1", "https://youtu.be/QdD6x3tDI5Y",
-  "Day 1: Part 2", "https://youtu.be/GMBfu_bnKOI",
-"Day 2", "https://youtu.be/NQFAoxX-w74",
-"Day 3: Part 1", "https://youtu.be/OEv1ZZXvToY",
-"Day 3: Part 2", "https://youtu.be/OEbgC3A5vKw",
-"Day 4: Part 1: Strings", "https://youtu.be/D6QDXDlKaWs",
-"Day 4: Part 2: Strings", "https://youtu.be/8pVPMZugn6E",
-"Day 5", ""),
-ncol = 2, byrow = TRUE)
-mat = data.frame(mat, stringsAsFactors = FALSE)
-colnames(mat) = c("Day", "Link to Video")
-knitr::kable(mat, format = "html") %>% 
-  kable_styling() 
-```
 
 
 
