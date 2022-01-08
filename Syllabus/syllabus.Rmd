@@ -3,34 +3,34 @@ title: "Syllabus"
 output:
   word_document: default
   html_document: default
-  pdf_document: default
+  pdf_document:
+    latex_engine: xelatex
 ---
 
 ```{r setup, echo = FALSE, message = FALSE}
 library(tidyverse)
 ```
 
-Epi/Biostats  Winter Institute - Introduction to R for Public Health Researchers
-140.604.73
 
-Class Website: http://jhudatascience.org/intro_to_R_class/   
-CoursePlus: https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/16733/
+**Epi/Biostats Winter Institute - Introduction to R for Public Health Researchers
+140.604.73**
+
+**Class Website:** http://jhudatascience.org/intro_to_R_class/   
+**CoursePlus:** https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/16733/
 
 **Zoom link will be emailed to students.**
 
-Day/Time: Jan 10 - 21: 8:30AM-11:50AM on Zoom
+**Day/Time:** Jan 10 - 21: 8:30AM-11:50AM on Zoom
 
-Instructors: Carrie Wright (cwrigh60@jhu.edu), Ava Hoffman (ava.hoffman@jhu.edu), and Candace Savonen (csavone1@jhu.edu) 
+**Instructors:** Carrie Wright (cwrigh60@jhu.edu), Ava Hoffman (ava.hoffman@jhu.edu), and Candace Savonen (csavone1@jhu.edu) 
 
-TAs:  Grant Schumock (gschumo1@jhmi.edu) and Qier Meng(qmeng11@jhmi.edu)
-
+**TAs:**  Grant Schumock (gschumo1@jhmi.edu) and Qier Meng(qmeng11@jhmi.edu)
 
 **Communication will mainly occur through Slack and we will email you about how to connect to slack.**
 
-
-Overview: This course will provide "hands-on" training for learning how to analyze data in the R statistical software package. We will cover data input/output, data management and manipulation, and how to make useful and informative graphics
+**Overview:** This course will provide **"hands-on" training** for learning how to analyze data in the R statistical software package. We will cover data input/output, data management and manipulation, and how to make useful and informative graphics
  
-Course Format: Each class will consist of 2 or 3 hour-long modules: each module features a lecture and an R programming lab, where student apply the skills taught in the modules to real data. 
+**Course Format:** Each class will consist of 2 or 3 hour-long modules: each module features a lecture and an R programming lab, where students apply the skills taught in the modules to real data. 
 
 By the end of the course, students should be comfortable:
 
@@ -72,6 +72,9 @@ pander::pandoc.table(
 ```
 
 ```{r, child="_child_assignments.Rmd"}
+```
+
+```{r, child="_child_code_of_coduct.Rmd"}
 ```
 
 # Module Details:
