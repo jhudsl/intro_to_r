@@ -119,7 +119,7 @@ All the data used that are not **specifically** to be downloaded from the web ar
 ```{r, child=c("Syllabus/_child_schedule.Rmd")}
 ```
 
-```{r, results='asis', echo = FALSE}
+```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
 source("scripts/utils.R")
 pander::pandoc.table(
   read_markdown("Syllabus/_schedule_table.Rmd"),
