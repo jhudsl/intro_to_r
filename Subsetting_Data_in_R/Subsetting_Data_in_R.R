@@ -6,29 +6,85 @@ library(dplyr)
 library(jhur)
 
 
-## -----------------------------------------------------------------------------
-library(tidyverse)# loads dplyr and other packages!
+## ---- fig.alt="dplyr", out.width = "25%", echo = FALSE, fig.align='center'----
+knitr::include_graphics("https://dplyr.tidyverse.org/logo.png")
+
+
+## ---- fig.alt="dplyr", out.width = "100%", echo = FALSE, fig.align='center'----
+knitr::include_graphics("images/dplyr.png")
 
 
 ## -----------------------------------------------------------------------------
-library(jhur)
-data(jhu_cars)
-df = jhu_cars # df is a copy of jhu_cars
-head(df) # changing df does **not** change jhu_cars
+library(tidyverse) # loads dplyr and other packages!
 
 
 ## -----------------------------------------------------------------------------
-tbl = as_tibble(df) 
+df <- mtcars # df is a copy of mtcars
+head(df) # changing df does **not** change mtcars!
+
+
+## -----------------------------------------------------------------------------
+data.frame(df)
+
+
+## -----------------------------------------------------------------------------
+df_updated <-data.frame(df)
+# this would overwrite the existing df object
+df<-data.frame(df) 
+
+
+## ---- eval = FALSE------------------------------------------------------------
+## # function comes from base R - no package loading required
+## df_example_readr <- read.csv("documents/data_analysis/data_file.csv")
+
+
+## ---- fig.alt="dplyr", out.width = "25%", echo = FALSE, fig.align='center'----
+knitr::include_graphics("https://github.com/tidyverse/tibble/raw/main/man/figures/logo.png")
+
+
+## -----------------------------------------------------------------------------
+tbl <- as_tibble(df) 
 tbl
 
 
-## -----------------------------------------------------------------------------
-head(mtcars, 2)
-head(as_tibble(mtcars), 2)
+## ---- eval = FALSE------------------------------------------------------------
+## 
+## df_example_readr <- read_csv("documents/data_analysis/data_file.csv")
 
 
 ## -----------------------------------------------------------------------------
-df = dplyr::rename(df, MPG = mpg)
+head(df, 2)
+head(as_tibble(df), 2)
+
+
+## ---- eval = FALSE------------------------------------------------------------
+## # the format!
+## mutate({data_to_use}, {new_variable_name} = {new_varaible_source})
+
+
+## -----------------------------------------------------------------------------
+mtcars_mutated <- mutate(mtcars, car = rownames(mtcars))
+head(mtcars_mutated, 2)
+
+
+## ---- size = "tiny"-----------------------------------------------------------
+head(rownames_to_column(df, var = "car"),  2)
+head(as_tibble(rownames_to_column(df, var = "car")),  2)
+
+
+## ---- size = 'tiny'-----------------------------------------------------------
+mtcars_tbl <- tibble(mtcars_mutated) 
+mtcars_tbl
+
+
+## ---- eval = FALSE------------------------------------------------------------
+## # general format
+## {data you are creating or changing} <- dplyr::rename({data you are using},
+##                                         {New Name} = {Old name})
+
+
+## -----------------------------------------------------------------------------
+df <- dplyr::rename(df, MPG = mpg)
 head(df)
 
 
@@ -214,9 +270,4 @@ df[, 1, drop = FALSE]
 
 ## -----------------------------------------------------------------------------
 df[, c("mpg", "cyl")]
-
-
-## -----------------------------------------------------------------------------
-head(rownames_to_column(mtcars, var = "car"),  2)
-head(as_tibble(rownames_to_column(mtcars, var = "car")),  2)
 
