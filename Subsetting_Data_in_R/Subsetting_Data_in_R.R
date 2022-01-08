@@ -57,29 +57,14 @@ head(df, 2)
 head(as_tibble(df), 2)
 
 
-## ---- eval = FALSE------------------------------------------------------------
-## # the format!
-## mutate({data_to_use}, {new_variable_name} = {new_varaible_source})
-
-
-## -----------------------------------------------------------------------------
-mtcars_mutated <- mutate(mtcars, car = rownames(mtcars))
-head(mtcars_mutated, 2)
-
-
 ## ---- size = "tiny"-----------------------------------------------------------
 head(rownames_to_column(df, var = "car"),  2)
 head(as_tibble(rownames_to_column(df, var = "car")),  2)
 
 
-## ---- size = 'tiny'-----------------------------------------------------------
-mtcars_tbl <- tibble(mtcars_mutated) 
-mtcars_tbl
-
-
 ## ---- eval = FALSE------------------------------------------------------------
-## # general format
-## {data you are creating or changing} <- dplyr::rename({data you are using},
+## # general format! not code!
+## {data you are creating or changing} <- rename({data you are using},
 ##                                         {New Name} = {Old name})
 
 
@@ -172,6 +157,12 @@ df$newcol = df$wt/2.2
 head(df,3)
 
 
+## ---- eval = FALSE------------------------------------------------------------
+## # General format - Not the code!
+## {data object to update} <- mutate({data to use},
+##                                 {new variable name} = {new variable source})
+
+
 ## -----------------------------------------------------------------------------
 df = mutate(df, newcol = wt/2.2)
 
@@ -200,6 +191,16 @@ select(df, -c("newcol", "drat"))
 ## head(df)
 ## select(df, cyl, mpg, wt, car) %>%
 ## head()
+
+
+## -----------------------------------------------------------------------------
+
+head(df)
+
+df_carb <- relocate(.data = df, wt,
+                       .before = mpg)
+
+df_carb
 
 
 ## -----------------------------------------------------------------------------
