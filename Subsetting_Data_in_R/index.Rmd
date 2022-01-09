@@ -532,6 +532,10 @@ ifelse(test, yes, no)
 
 ```{r}
 df$disp
+```
+
+Now with `ifelse`()
+```{r}
 #ifelse(test, yes, no)
 ifelse(df$disp<=200, "low", "high")
 ```
