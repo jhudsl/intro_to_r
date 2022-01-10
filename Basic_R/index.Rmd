@@ -1,10 +1,9 @@
 ---
-title: "Variables: Objects in R"
+title: "Basic R"
 output:
   ioslides_presentation:
     css: ../styles.css
     widescreen: yes
-subtitle: Basic R Functionality
 ---
 
 ```{r, echo = FALSE}
@@ -118,11 +117,11 @@ Try evaluating the following:
 ## R variables 
 
 * You can create variables from within the R environment and from files on your computer
-* R uses "=" or "<-" to assign values to a variable name
+* R uses "<-" to assign values to a variable name (you can also use "=" but this is less accepted)
 * Variable names are case-sensitive, i.e. X and x are different
 
 ```{r assign}
-x = 2 # Same as: x <- 2
+x <- 2
 x
 x * 4
 x + 2
@@ -131,7 +130,7 @@ x + 2
 ## R variables
 
 * The most comfortable and familiar class/data type for many of you will be `data.frame`
-* You can think of these as essentially Excel spreadsheets with rows (usually subjects or observations) and columns (usually variables)
+* You can think of these as essentially spreadsheets with rows (usually subjects or observations) and columns (usually variables)
 
 ## R variables
 
@@ -141,7 +140,7 @@ x + 2
 
 ```{r assignClass}
 class(x)
-y = "hello world!"
+y <- "hello world!"
 print(y)
 class(y)
 ```
@@ -155,7 +154,7 @@ Try assigning your full name to an R variable called `name`
 Try assigning your full name to an R variable called `name`
 
 ```{r myName}
-name = "Ava Hoffman"
+name <- "Ava Hoffman"
 name
 ```
 
@@ -178,7 +177,7 @@ Try assigning your first and last name as 2 separate character strings into a si
 Try assigning your first and last name as 2 separate character strings into a length-2 vector called `name2`
 
 ```{r myName2}
-name2 = c("Ava","Hoffman")
+name2 <- c("Ava","Hoffman")
 name2
 ```
 
@@ -236,7 +235,7 @@ name2 + 4
 Save these modified vectors as a new vector.
 
 ```{r assign5}
-y = x + c(1, 2, 3, 4)
+y <- x + c(1, 2, 3, 4)
 y 
 ```
 
