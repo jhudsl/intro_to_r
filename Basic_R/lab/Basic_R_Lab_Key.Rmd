@@ -17,35 +17,37 @@ Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-
 
 # Part 1
 
-1. create a new variable called `my.num` that contains 6 numbers
+1. Create a new variable called `my.num` that contains 6 numbers.
 ```{r}
 my.num <- c(5,4,7,8,12,14) # These can be any real numbers
 ```
 
-2. mulitply `my.num` by 4
+
+2. Multiply `my.num` by 4.
 ```{r}
 my.num * 4 
 ```
 
 
-3. create a second variable called `my.char` that contains 5 character strings
+3. Create a second variable called `my.char` that contains 5 character strings.
 ```{r}
 my.char <- c("banana", "garlic", "pickles", "hot chocolate", "7-Up") # Again,these can be anything
 ```
 
 
-4. combine the two variables `my.num` and `my.char` into a variable called `both`
+4. Combine the two variables `my.num` and `my.char` into a variable called `both`.
 ```{r}
 both <- c(my.num, my.char)
 ```
 
-5. what is the length of `both`?
+
+5. What is the length of `both`?
 ```{r}
 length(both)
 ```
 
 
-6. what class is `both`?
+6. What class is `both`?
 ```{r}
 class(both)
 ```
@@ -58,39 +60,48 @@ class(both)
 both / 3
 ```
 
-8. create a vector with elements 1 2 3 4 5 6 and call it `x`
+
+8. Create a vector with elements 1 2 3 4 5 6 and call it `x`.
 ```{r}
-x <- c(1,2,3,4,5,6)
+x <- c(1, 2, 3, 4, 5, 6)
 ```
 
 
-9. create another vector with elements 10 20 30 40 50 and call it `y`
+9. Create another vector with elements 10 20 30 40 50 60 and call it `y`.
 ```{r}
-y <- c(10,20,30,40,50)
+y <- c(10, 20, 30, 40, 50, 60)
 ```
 
 
-10. what happens if you try to add x and y together? why?
+10. The code `z <- y[1:5]` saves the first five items in `y` as the new variable `z`. Print `z`.
 ```{r}
-x + y
+z <- y[1:5]
+print(z)
+```
+
+
+11. What happens when you add `x` and `z` together? How is this different from #10 ?
+```{r}
+x + z
 # R "auto replicates" the shorter vector when the vectors aren't the same length - this is not what we want!
+# In this case, it reads y as c(10, 20, 30, 40, 50, 10)!
 ```
 
 
-11. append the value 60 onto the vector y (hint: you can use the c() function)
+12. Append the value 100 onto the vector `z` (hint: you can use the c() function).
 ```{r}
-y <- c(y, 60)
+z <- c(z, 100)
 ```
 
-12. add x and y together
+
+13. Add `x` and `z` together.
 ```{r}
-x + y
+x + z
 ```
 
 
-13. multiply x and y together. pay attention to how R performs operations on vectors of the same length.
+14. Multiply `x` and `z` together. How is this similar to the way R performs addition in #13 ?
 ```{r}
-x * y
+x * z
+# R adds together the first element of each vector, then the second, and so on. This order also applies when multiplying!
 ```
-
-
