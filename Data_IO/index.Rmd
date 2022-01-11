@@ -12,18 +12,79 @@ library(readr)
 opts_chunk$set(comment = "")
 ```
 
+<style type="text/css">
+pre { /* Code block - slightly smaller in this lecture */
+    font-size: 20px;
+}
+</style>
+
+
 ## Outline 
 
+* Part 0: A little bit of set up!
 * Part 1: reading CSV file, common new user mistakes in data reading, checking for problems in the read data
 * Part 2: data input overview, working directories, relative vs. absolute paths, reading XLSX file (Excel file), other data inputs
 * Part 3: writing CSV file
 * Part 4: reading and saving R objects
+
+
+## New R Project
+
+Let's make an R Project so we can stay organized in the next steps.
+
+Click the new R Project button at the top left of RStudio:
+
+```{r, fig.alt="The New R Project button is highlighted.", out.width = "40%", echo = FALSE, align = "center"}
+knitr::include_graphics("../images/Data_IO_Rproject.png")
+```
+
+
+## New R Project
+
+In the New Project Wizard, click "New Directory":
+
+```{r, fig.alt="In the New Project Wizard, the 'New Directory' option is highlighted.", out.width = "60%", echo = FALSE, align = "center"}
+knitr::include_graphics("../images/Data_IO_new_directory.png")
+```
+
+
+## New R Project
+
+Click "New Project":
+
+```{r, fig.alt="In the New Project Wizard, the 'New Project' option is highlighted.", out.width = "60%", echo = FALSE, align = "center"}
+knitr::include_graphics("../images/Data_IO_new_project.png")
+```
+
+
+## New R Project
+
+Type in a name for your new folder.
+
+Store it somewhere easy to find, such as your Desktop:
+
+```{r, fig.alt="In the New Project Wizard, the new project has been given a name and is going to be stored in the Desktop directory. The 'Create Project' button is highlighted.", out.width = "60%", echo = FALSE, align = "center"}
+knitr::include_graphics("../images/Data_IO_new_project_details.png")
+```
+
+
+## New R Project
+
+You now have a new R Project folder on your Desktop! 
+
+Make sure you add any scripts or data files to this folder as we go through today's lesson. This will make sure R is able to "find" your files.
+
+```{r, fig.alt="The image shows an image of an arrow pointing to the newly created R project repository.", out.width = "60%", echo = FALSE, align = "center"}
+knitr::include_graphics("../images/Data_IO_new_desktop.png")
+```
+
 
 ## Data We Use
 
 * Everything we do in class will be using real publicly available data - there are few 'toy' example datasets and 'simulated' data
 * Baltimore Open Data and Data.gov will be sources for the first few days
 * We have also added functionality to load these datasets directly in the `jhur` package
+
 
 ## Data Input
 
@@ -34,6 +95,7 @@ opts_chunk$set(comment = "")
     * tab delimited (e.g. '.txt')
     * Microsoft Excel (e.g. '.xlsx')
 
+
 ## Data Input
 
 Youth Tobacco Survey (YTS) dataset:
@@ -41,6 +103,7 @@ Youth Tobacco Survey (YTS) dataset:
 "The YTS was developed to provide states with comprehensive data on both middle school and high school students regarding tobacco use, exposure to environmental tobacco smoke, smoking cessation, school curriculum, minors' ability to purchase or otherwise obtain tobacco products, knowledge and attitudes about tobacco, and familiarity with pro-tobacco and anti-tobacco media messages."
 
 * Check out the data at: https://catalog.data.gov/dataset/youth-tobacco-survey-yts-data
+
 
 ## Data Input: Dataset Location
 
@@ -50,16 +113,18 @@ Dataset is located at http://jhudatascience.org/intro_to_R_class/data/Youth_Toba
     
     * Safari - if a file loads in your browser, choose File --> Save As, select, Format "Page Source" and save
 
+
 ## Data Input: Read in Directly 
 
 ```{r read_url, message = FALSE}
 # load library `readr` that contains function `read_csv`
 library(readr)
-dat = read_csv("http://jhudatascience.org/intro_to_R_class/data/Youth_Tobacco_Survey_YTS_Data.csv")
+dat <- read_csv("http://jhudatascience.org/intro_to_R_class/data/Youth_Tobacco_Survey_YTS_Data.csv")
 
 # `head` displays first few rows of a data frame 
 head(dat, 5)
 ```
+
 
 ## Data Input: Read in Directly 
 
@@ -74,7 +139,7 @@ So what is going on "behind the scenes"?
 
 ## Data Input: Read in Directly 
 
-`read_csv()` needs path to your file, will return a tibble
+`read_csv()` needs the path to your file. It will return a tibble
 
 ```
 read_csv(file, col_names = TRUE, col_types = NULL,
@@ -92,11 +157,35 @@ read_csv(file, col_names = TRUE, col_types = NULL,
 ```{r, eval = FALSE}
 ## Examples 
 
-dat = read_csv("/Users/martakaras/Downloads/Youth_Tobacco_Survey_YTS_Data.csv")
+dat <- read_csv("/Users/avahoffman/Downloads/Youth_Tobacco_Survey_YTS_Data.csv")
 
-dat = read_csv("Youth_Tobacco_Survey_YTS_Data.csv")
+dat <- read_csv("Youth_Tobacco_Survey_YTS_Data.csv")
 
-dat = read_csv("www.someurl.com/table1.csv")
+dat <- read_csv("www.someurl.com/table1.csv")
+```
+
+
+## Data Input: Read in Directly 
+
+Great, but what is my "path"?
+
+```{r, fig.alt="GIF with text. PC: *autosaves file* Me: Cool, so where did the file save? PC: shows image of Power Rangers shrugging.", out.width = "40%", echo = FALSE, align = "center"}
+knitr::include_graphics("../images/Data_IO_where_are_the_files.gif")
+```
+
+
+## Data Input: Read in Directly 
+
+Luckily, we already set up an R Project! 
+
+```{r, fig.alt="Image showing the csv dataset being moved to the R Project directory created earlier.", out.width = "40%", echo = FALSE, align = "center"}
+knitr::include_graphics("../images/Data_IO_file_move.png")
+```
+
+If we add the Youth_Tobacco_Survey_YTS_Data.csv file to the intro_to_r_class folder, we can use the relative path:
+
+```{r, eval = FALSE}
+dat <- read_csv("Youth_Tobacco_Survey_YTS_Data.csv")
 ```
 
 
@@ -121,18 +210,20 @@ read_delim(file, delim, quote = "\"", escape_backslash = FALSE,
 
 ```{r, eval = FALSE}
 ## Examples 
-dat = read_delim("Youth_Tobacco_Survey_YTS_Data.csv", delim = ",")
+dat <- read_delim("Youth_Tobacco_Survey_YTS_Data.csv", delim = ",")
 
-dat = read_delim("www.someurl.com/table1.txt", delim = "\t")
+dat <- read_delim("www.someurl.com/table1.txt", delim = "\t")
 ```
+
 
 ## Data Input: Read in Directly From File Path
 
 ```{r readCSV2}
-dat = read_csv("../data/Youth_Tobacco_Survey_YTS_Data.csv")
+dat <- read_csv("../data/Youth_Tobacco_Survey_YTS_Data.csv")
 ```
 
 The data is now successfully read into your R workspace. Colum specification of first few columns is printed to the console. 
+
 
 ## Common new user mistakes we have seen
 
@@ -146,23 +237,47 @@ The data is now successfully read into your R workspace. Colum specification of 
 
 ## Data Input: Checking for problems
 
-* The `spec()` and `problems()` functions show you the specification of how the data was read in.  
+The `spec()` function shows you the specification of how the data was read in. 
 
 ```{r stop_problems}
-problems(dat)
+# dat <- read_csv("../data/Youth_Tobacco_Survey_YTS_Data.csv")
 spec(dat)
 ```
 
+
 ## Data Input: Checking for problems
 
+The `problems()` function shows you if there were any obvious issues when the data was read in.
+
+The output of `problems()` is a tibble showing each line with a concern.
+
+```{r stop_problems2}
+problems(dat)
+```
+
+
+## Data Input: Checking for problems
+
+`dat` looks good so far. What do you see on a messy dataset?
+
+```{r stop_problems2.1, message = FALSE, warning = FALSE}
+ufo_data <- read_csv("https://github.com/SISBID/Data-Wrangling/blob/gh-pages/data/ufo/ufo_data_complete.csv")
+```
+```{r stop_problems2.2}
+problems(ufo_data)
+```
+
+
+## Data Input: Checking for problems
 
 The `stop_for_problems()` function will stop if your data had any problem when reading in (even if that problem did not cause the data reading to fail).  
 
 - Particularly useful to put after the data reading code e.g. in some automated R script that should not proceed in case some data "weirdness" occurred. 
 
-```{r stop_problems2}
-stop_for_problems(dat)
+```{r stop_problems3, error = TRUE}
+stop_for_problems(ufo_data)
 ```
+
 
 ## Help
 
@@ -173,6 +288,11 @@ For any function, you can write `?FUNCTION_NAME`, or `help("FUNCTION_NAME")` to 
 help("read_delim")
 ```
 
+```{r, fig.alt="Screenshot of the RStudio console. '?read_delim' has been typed and the help page has appeared in the help pane on the right.", out.width = "60%", echo = FALSE, align = "center"}
+knitr::include_graphics("../images/Data_IO_read_delim.png")
+```
+
+
 ## Data Input: Read in From RStudio Toolbar
 
 R Studio features some nice "drop-down" support, where you can run some tasks by selecting them from the toolbar.
@@ -180,6 +300,14 @@ R Studio features some nice "drop-down" support, where you can run some tasks by
 For example, you can easily import text datasets using the `File --> Import Dataset --> From Text (readr)` command. Selecting this will bring up a new screen that lets you specify the formatting of your text file. 
 
 After importing a datatset, you get (printed in the R console) the corresponding R command that you can enter in the console if you want to re-import data.
+
+
+## Data Input: Read in From RStudio Toolbar
+
+```{r, fig.alt="Screenshot of the RStudio console. '?read_delim' has been typed and the help page has appeared in the help pane on the right.", out.width = "80%", echo = FALSE, align = "center"}
+knitr::include_graphics("../images/Data_IO_import_dataset.gif")
+```
+
 
 ## Data Input: base R 
 
@@ -189,7 +317,6 @@ These functions have slightly different syntax for reading in data (e.g. `header
 
 However, while many online resources use the base R tools, the latest version of RStudio switched to use these new `readr` data import tools, so we will use them in the class for slides. They are also up to two times faster for reading in large datasets, and have a progress bar which is nice. 
 
-But you can use whatever function you feel more comfortable with.
 
 ## Revision
 
@@ -224,7 +351,7 @@ But you can use whatever function you feel more comfortable with.
 
 ## Lab Part 1
 
-Lab file: http://jhudatascience.org//intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd
+Lab file: http://jhudatascience.org/intro_to_r_class/Data_IO/lab/Data_IO_Lab.Rmd
 
 [Website](http://jhudatascience.org/intro_to_R_class/)
 
