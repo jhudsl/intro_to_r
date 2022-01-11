@@ -19,6 +19,14 @@ print("I'm code")
 6 / 2 * (1 + 2)
 
 
+## ---- fig.alt="Problem gives answer of 1 or 9 depending on calculator.", out.width = "30%", echo = FALSE, out.extra='style="float:left"'----
+knitr::include_graphics("../images/Basic_R_calculator.jpg")
+
+
+## ---- fig.alt="Problem gives answer of 1 or 9 depending on calculator.", out.width = "60%", echo = FALSE, out.extra='style="float:left"'----
+knitr::include_graphics("../images/Basic_R_viral_math_problem.png")
+
+
 ## -----------------------------------------------------------------------------
 # this is a comment
 
