@@ -37,7 +37,7 @@ mtcars
 
 ```
 
-4. Copy mtcars into an object called `cars_mt_copy`. Next, rename `mpg` in `cars_mt_copy` to `MPG` (hint - use `rename()`)
+4. Copy mtcars into an object called `cars_mt_copy`. Next, rename `mpg` in `cars_mt_copy` to `MPG` (hint - use `rename()`).
 
 ```{r}
 cars_mt_copy <- mtcars
@@ -50,7 +50,7 @@ cars_mt_copy <- mtcars
 
 ```
 
-Bonus: How can you print the first 3 rows and the last 3 rows of `cars_mt_copy`
+Bonus: How can you print the first 3 rows and the last 3 rows of `cars_mt_copy`?
 
 ```{r}
 
@@ -161,12 +161,6 @@ Bonus: What happens if you do the steps in a different order? Why?
 
 ```
 
-BONUS: How can you find the value of `WT2` for the Cadillac Fleetwood without looking at the data?
-`
-```{r}
-
-
-```
 
 5. Move the `WT2` column to be first. Use `relocate`.
 
@@ -174,4 +168,11 @@ BONUS: How can you find the value of `WT2` for the Cadillac Fleetwood without lo
 
 ```
 
+
+BONUS: How can you find the value of `WT2` for the Cadillac Fleetwood without looking at the data?
+`
+```{r}
+
+
+```
 
