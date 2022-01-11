@@ -7,7 +7,7 @@ library(jhur)
 
 
 ## ---- fig.alt="dplyr", out.width = "25%", echo = FALSE, fig.align='center'----
-knitr::include_graphics("https://dplyr.tidyverse.org/logo.png")
+knitr::include_graphics("https://tidyverse.tidyverse.org/logo.png")
 
 
 ## ---- fig.alt="dplyr", out.width = "100%", echo = FALSE, fig.align='center'----
@@ -43,7 +43,7 @@ knitr::include_graphics("https://github.com/tidyverse/tibble/raw/main/man/figure
 
 
 ## -----------------------------------------------------------------------------
-tbl <- as_tibble(df) 
+tbl <- dplyr::tibble(df) 
 tbl
 
 
@@ -54,12 +54,12 @@ tbl
 
 ## -----------------------------------------------------------------------------
 head(df, 2)
-head(as_tibble(df), 2)
+head(tibble(df), 2)
 
 
 ## ---- size = "tiny"-----------------------------------------------------------
 head(rownames_to_column(df, var = "car"),  2)
-head(as_tibble(rownames_to_column(df, var = "car")),  2)
+head(tibble(rownames_to_column(df, var = "car")),  2)
 
 
 ## ---- eval = FALSE------------------------------------------------------------
@@ -116,7 +116,7 @@ select(df, starts_with("c"))
 
 
 ## ---- eval = FALSE------------------------------------------------------------
-## ??tidyselect::select_helpers
+## tidyslect::
 
 
 ## -----------------------------------------------------------------------------

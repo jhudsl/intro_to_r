@@ -4,6 +4,8 @@ output:
   ioslides_presentation:
     css: ../styles.css
     widescreen: yes
+  pdf_document:
+    latex_engine: xelatex
 ---
 
 ```{r, echo = FALSE}
@@ -32,7 +34,7 @@ In this module, we will show you how to:
 We will largely focus on the `dplyr` package which is part of the `tidyverse`.
 
 ```{r, fig.alt="dplyr", out.width = "25%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("https://dplyr.tidyverse.org/logo.png")
+knitr::include_graphics("https://tidyverse.tidyverse.org/logo.png")
 ```
 
 Some resources on how to use `dplyr`: 
@@ -109,10 +111,10 @@ knitr::include_graphics("https://github.com/tidyverse/tibble/raw/main/man/figure
 
 ## Creating a `tibble`
 
-If we would like to create a `tibble` ("fancy" data frame), we can using the  `as_tibble()` function (from the `tibble` package - part of the `tidyverse` too!).  
+If we would like to create a `tibble` ("fancy" data frame), we can using the  `tibble()` function.  
 
 ```{r}
-tbl <- as_tibble(df) 
+tbl <- dplyr::tibble(df) 
 tbl
 ```
 Note don't necessarily need to use `head()`- tibbles conveniently print a portion of the data.
@@ -145,7 +147,7 @@ In the "tidy" data format, rownames are removed.  For example, `df` has each car
 
 ```{r}
 head(df, 2)
-head(as_tibble(df), 2)
+head(tibble(df), 2)
 ```
 
 
@@ -157,7 +159,7 @@ If you run into losing a variable contained in your row names, you can also use 
 
 ```{r, size = "tiny"}
 head(rownames_to_column(df, var = "car"),  2)
-head(as_tibble(rownames_to_column(df, var = "car")),  2)
+head(tibble(rownames_to_column(df, var = "car")),  2)
 ```
 
 
@@ -253,11 +255,13 @@ ends_with()
 contains() # like searching
 ```
 
-Run the command to see them:
+Type `tidyselect::` in the console and see what RStudio suggests:
 
 ```{r, eval = FALSE}
-??tidyselect::select_helpers
+tidyslect:: 
 ```
+
+
 
 ## Lab Part 2
 
