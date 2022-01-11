@@ -304,7 +304,7 @@ After importing a datatset, you get (printed in the R console) the corresponding
 
 ## Data Input: Read in From RStudio Toolbar
 
-```{r, fig.alt="Screenshot of the RStudio console. '?read_delim' has been typed and the help page has appeared in the help pane on the right.", out.width = "80%", echo = FALSE, align = "center"}
+```{r, fig.alt="Gif showing the process of importing a dataset via readr.", out.width = "80%", echo = FALSE, align = "center"}
 knitr::include_graphics("../images/Data_IO_import_dataset.gif")
 ```
 
@@ -358,7 +358,7 @@ Lab file: http://jhudatascience.org/intro_to_r_class/Data_IO/lab/Data_IO_Lab.Rmd
 
 ## Working Directories
 
-Working directory is a directory that R assumes "you are working in". 
+Working directory is a directory that R assumes "you are working in". It's where R looks for files.
 
 "Setting working directory" means specifying the path to the directory.
 
@@ -367,10 +367,11 @@ Working directory is a directory that R assumes "you are working in".
 getwd()
 
 # set the working directory
-setwd("/Users/martakaras/Desktop") 
+setwd("/Users/avahoffman/Desktop") 
 ```
 
 R uses working directory as a starting place when searching for files.
+
 
 ## Working Directories
 
@@ -380,7 +381,17 @@ R uses working directory as a starting place when searching for files:
 
 * if you use `read_csv("data/Bike_Lanes_Long.csv")`, R assumes that `data` directory is **in** the working directory
 
-* if you use an absolute path, e.g. `read_csv("/Users/martakaras/data/Bike_Lanes_Long.csv")`, the working directory information is not used
+* if you use an absolute path, e.g. `read_csv("/Users/avahoffman/data/Bike_Lanes_Long.csv")`, the working directory information is not used
+
+
+## Working Directories
+
+Setting up an R Project can avoid headaches by telling R that the working directory is wherever the `.Rproj` file is.
+
+```{r, fig.alt="Image showing the RStudio console. There is an arrow pointing to the .Rproj file. The top right corner shows that the 'Intro_to_r_class' project has been selected.", out.width = "80%", echo = FALSE, align = "center"}
+knitr::include_graphics("../images/Data_IO_Rproj_file.png")
+```
+
 
 ## Data Output
 
@@ -401,6 +412,7 @@ write_csv(x, file,
 )
 ```
 
+
 ## Data Output
 
 `x`: data frame you want to write
@@ -419,11 +431,14 @@ write_csv(dat, file = "YouthTobacco_newNames.csv")
 write_delim(dat, file = "YouthTobacco_newNames.csv", delim = ",")
 ```
 
+
 ## R binary file
 
-`.rds` is an extension for R native file format 
+`.rds` is an extension for R native file format.
 
-`write_rds()` and `read_rds()` from `readr` package can be used to write/read a single R variable to/from file 
+`write_rds()` and `read_rds()` from `readr` package can be used to write/read a single R variable to/from file.
+
+Saving datasets in `.rds` format can save time if you have to read it back in later.
 
 ```{r}
 # write a variable: a data frame "dat" 
@@ -441,7 +456,7 @@ x2
 
 ## Lab Part 2
 
-Lab file: http://jhudatascience.org//intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd
+Lab file: http://jhudatascience.org/intro_to_r_class/Data_IO/lab/Data_IO_Lab.Rmd
 
 [Website](http://jhudatascience.org/intro_to_R_class/)
 
