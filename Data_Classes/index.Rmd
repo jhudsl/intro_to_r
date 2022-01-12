@@ -74,21 +74,19 @@ class(z)
 
 There are two useful functions associated with practically all R classes: 
 
-- `is.CLASS_NAME(x)` to **check** whether or not `x` is of certain  class 
-- `as.CLASS_NAME(x)` to **coerce** `x` from current `x` class into a certain class 
+- `is.CLASS_NAME(x)` to **logically check** whether or not `x` is of certain  class 
+- `as.CLASS_NAME(x)` to **coerce between classes** `x` from current `x` class into a certain class 
 
-```{r logical_coercion2}
-is.character(c(1, 4, 7))
-is.numeric(c(1, 4, 7))
-```
+
 
 ## General Class Information: Checking
 
-There are two useful functions associated with practically all R classes, which relate to logically checking the underlying class (`is.CLASS_()`) and coercing between classes (`as.CLASS_()`).
 
 ```{r logical_coercion}
-is.numeric(c("tree", "cloud"))
+is.character(c(1, 4, 7))
+is.numeric(c(1, 4, 7))
 is.character(c("tree", "cloud"))
+is.numeric(c("tree", "cloud"))
 ```
 
 
@@ -119,7 +117,7 @@ as.Date(c("2021-06-15", "2021-06-32"))
 A `factor` is a special `character` vector where the elements have pre-defined groups or 'levels'. You can think of these as qualitative or categorical variables:
 
 ```{r factor1}
-x <- c("red", "red", "blue", "yellow", "blue")
+x <- c("small", "mediam", "large", "medium", "large")
 class(x)
 
 x_fact = factor(x)  # factor() is a function
@@ -127,7 +125,7 @@ class(x_fact)
 x_fact
 ```
 
-Note that levels are, by default, in alphanumerical order.
+Note that levels are, by default, in **alphanumerical** order!
 
 ## Factors
 
@@ -137,7 +135,7 @@ You can learn what are the unique levels of a `factor` vector
 levels(x_fact)
 ```
 
-To change the levels ordering, use `relevel()` function. 
+More on how to change the levels ordering in a lecture coming up! 
 
 
 ## Factors
@@ -161,16 +159,24 @@ Note that R:
 
 ## Useful functions to create vectors 
 
-For character: `rep()`
+For character: `rep()` can create very long vectors. 
+
+The `each` argument specifies how many of each item you want repeated.
+The `times` argument specifies how many times you want the vector repeated.
 
 ```{r}
 rep(c("black", "white"), each = 3)
 rep(c("black", "white"), times = 3)
+rep(c("black", "white"), each = 2, times = 2)
 ```
 
 ## Useful functions to create vectors 
 
-For numeric: `seq()`
+For numeric: `seq()` can be very useful.
+The `from` argument says what number to start on.
+The `to` argument says what number to not go above.
+The `by` argument says how much to increment by.
+The `length.out` argument says how long the vector should be overall.
 
 ```{r}
 seq(from = 0, to = 1, by = 0.2)
