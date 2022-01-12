@@ -1,15 +1,17 @@
 ---
-title: 'Introduction to R: Homework 2'
-author: "Originally authored by [Andrew Jaffe](http://aejaffe.com/)"
+title: '**KEY** Introduction to R: Homework 2'
 output:
   html_document: default
 ---
 
 ### **Instructions**
-1. You must submit both the RMD and "knitted" HTML files as one compressed .zip to the Homework 2 Drop Box on CoursePlus.<br />
-2. All assignments are due by the end of the grading period for this term (25 June 2021).
+
+1. Please submit your filled out .Rmd file to the assignment drop box on CoursePlus: https://courseplus.jhu.edu/core/index.cfm/go/db:assignment.submit/assignmentID/40988/coID/16733/ 
+
+2. All assignments are due by the end of the grading period for this term (Wednesday, Jan 26, 2022 at 11:59pm EST). Please reach out to us if you need help before this time!
 
 ### **Getting Started**
+
 In this assignment, we will be working with a dataset from the "Kaggle" website, which hosts competitions for prediction and machine learning. More details on this dataset are here: https://www.kaggle.com/c/DontGetKicked/overview/background.
 
 ```{r initiatePackages, message=FALSE}
@@ -23,41 +25,158 @@ library(tidyr)
 
 ### **Problem Set**
 
-1) Get the dataset: https://jhudatascience.org/intro_to_R_class/data/kaggleCarAuction.csv.<br />
-Read the data set in using `read_csv()` and name the dataset "cars".
+1\. Make a new variable: Type out your birthday in day-month-year format (1-Jan) and assign it to a new variable "bday".
 
-2) Import the "dictionary" from https://jhudatascience.org/intro_to_R_class/data/Carvana_Data_Dictionary_formatted.txt.<br />
-Use the `read_tsv()` function and name it "key". 
+```{r}
 
-3) (Optional) What would you do if the data was formatted with spaces and tabs and such, like this one: https://jhudatascience.org/intro_to_R_class/data/Carvana_Data_Dictionary.txt<br /> 
+```
 
-**Hint:** see the `readLines()` function.
+2\. Combine "bday" with a character string that contains your name. Name this newly combined variable "me".
 
-4) Save the key and data in an .rda file so you can access the data offline using the `save()` function. 
+```{r}
 
-5) How many cars are in the dataset? How many variables are recorded for each car?
+```
 
-6) What is the range of the manufacturer's years of the vehicles? Use "VehYear".
+3\. Determine the data class for "me".
 
-7) How many cars were from before 2004, and what percent/proportion do these represent?<br /> 
-**Hint:** use `summarize()` and `filter()` functions or `sum()`.
+```{r}
 
-8) Drop any vehicles that cost less than or equal to $1500 ("VehBCost") or that have missing values. How many vehicles were removed?<br />
-**Hint:** `filter()` removes missing values.<br />
+```
 
-**Use this reduced dataset (generated in question 8) for all subsequent questions (9 through 12).**
+4\. If I want to do `me / 2` I get the following error: `Error in me/2 : non-numeric argument to binary operator`. Why? Include your answer in a comment inside the R chunk.
 
-9) How many different vehicle a) manufacturers/makes ("Make"), b) models ("Model"), and c) sizes ("Size") are there?<br />
-**Hint:** use `table()` or `group_by()` with `tally()` or `summarize()`.
+```{r}
 
-10) Which vehicle a) make, b) model, and c) color had the highest average acquisition cost paid for the vehicle at time of purchase, and what was this cost?<br />
-**Hint:** use  `group_by()` with `summarize()`. Be sure to use the key to find the column that corresponds to the aquisition cost paid for the vehicle at time of purchase!
+```
 
-11) Which vehicle a) make, b) model, and c) color had the highest variability in acquisition cost paid for the vehicle at time of purchase?
+**Now let's move to the dataset.**
 
-12) How many vehicles (using `filter()` or `sum()` ):
-    a. Were red and have fewer than 30,000 miles?
-    b. Are made by GMC and were purchased in Texas? 
-    c. Are blue or red?
-    d. Are made by Chrysler or Nissan and are white or silver?
-    e. Are automatic, blue, Pontiac cars with under 40,000 miles? 
+5\. Get the dataset: https://jhudatascience.org/intro_to_R_class/data/kaggleCarAuction.csv. You can use the link, download it, or use whatever method you like for getting the file. Read the data set in using `read_csv()` and name the dataset "cars".
+
+```{r}
+
+```
+
+6\. Import the data "dictionary" from https://jhudatascience.org/intro_to_R_class/data/Carvana_Data_Dictionary_formatted.txt. Use the `read_tsv()` function and name this data "key". 
+
+```{r}
+
+```
+
+7\. Save the `cars` data in an .rds file so you can access the data later. Use the `write_rds()` function.
+
+```{r}
+
+```
+
+8\. The first three columns of the cars data are "RefId", "IsBadBuy", and "PurchDate". Retrieve the full column specification for this data so that you can see what class type these columns are (e.g., col_character(), col_double()). Write these first three specifications in a comment.
+
+```{r}
+
+```
+
+9\. How many cars are in the dataset? How many variables are recorded for each car? 
+
+```{r q5}
+
+```
+
+10\. Filter out (i.e., remove) any vehicles that cost less than or equal to $5000 ("VehBCost") or that have missing values. Reassign the new filtered dataset to "cars". How many vehicles are left after filtering?
+
+**Hint:** the `filter()` function also removes missing values.
+
+```{r}
+
+```
+
+11\. From this point on, work with the filtered "cars" dataset from the above question. Given the average car loan today is 70 months, create a new variable (column) called "MonthlyPrice" that shows the monthly cost (Divide "VehBCost" by 70). Check to make sure the new column is there.
+
+**Hint:** use the `mutate()` function.
+
+```{r}
+
+```
+
+12\. What is the range of the manufacturer's years of the vehicles? Use "VehYear".
+
+```{r}
+
+```
+
+13\. How many cars were from before 2004, and what percent/proportion do these represent?
+
+**Hint:** use `summarize()` and `group_by()`, `filter()`, or `sum()`.
+
+```{r}
+
+```
+
+14\. How many different vehicle manufacturers/makes ("Make") are there?
+
+**Hint:** use `table()`, `group_by()` with `tally()`, or `length()` with `unique()`
+
+```{r}
+
+```
+
+15)\. How many different vehicle models ("Model") are there?
+
+```{r}
+
+```
+
+16\. Which vehicle color had the highest average acquisition cost paid for the vehicle at time of purchase, and what was this cost?
+
+**Hint:** use  `group_by()` with `summarize()`. Be sure to use the key to find the column that corresponds to the acquisition cost paid for the vehicle at time of purchase by looking at the data dictionary / key you read in earlier!
+
+```{r}
+
+```
+
+17\. Which vehicle color had the highest variability in acquisition cost paid for the vehicle at time of purchase?
+
+```{r}
+
+```
+
+18\. How many vehicles (using `filter()` or `sum()` ) were red and have fewer than 30,000 miles?
+
+```{r}
+
+```
+
+19\. How many vehicles (using `filter()` or `sum()` ) are blue or red?
+
+```{r}
+
+```
+
+20\. How many vehicles (using `filter()` or `sum()` ) are made by Chrysler or Nissan and are white or silver?
+
+```{r}
+
+```
+
+### **Bonus Practice**
+
+A\. Knit your document into a report.
+
+You use the knit button to do this. Make sure all your code is working first!
+
+B\.Using cars, create a new binary (TRUEs and FALSEs) column to indicate if the car has an automatic transmission. Call it "is_automatic".
+
+```{r}
+
+```
+
+C\. What is the average vehicle odometer reading for cars that are both RED and NISSANs? How does this compare with vehicles that do NOT fit this criteria?
+
+```{r}
+
+```
+
+D\. Among red Nissans, what is the distribution of vehicle ages?
+
+```{r}
+
+```
