@@ -13,9 +13,10 @@ library(readr)
 library(forcats)
 ```
 
-## Data Types:
 
-* One dimensional types ("vectors"):
+# One dimensional types ("vectors")
+
+## Data Types
     * Character: strings or individual characters, quoted
     * Numeric: any real number(s)
     * Integer: any integer(s)/whole numbers
@@ -28,8 +29,17 @@ library(forcats)
 We have already covered `character` and `numeric` types.
 
 ```{r numChar}
-class(c("Andrew", "Jaffe"))
+class(c("tree", "cloud", "stars_&_sky"))
 class(c(1, 4, 7))
+```
+
+## Character and numeric
+
+This can also be a bit tricky.
+
+```{r numChar}
+class(c(1, 2, "tree"))
+class(c("1", "4", "7"))
 ```
 
 ## Integer
@@ -59,26 +69,29 @@ z = c("TRUE", "FALSE", "TRUE", "FALSE")
 class(z)
 ```
 
-## General Class Information
-
-There are two useful functions associated with practically all R classes, which relate to logically checking the underlying class (`is.CLASS_()`) and coercing between classes (`as.CLASS_()`).
-
-```{r logical_coercion}
-is.numeric(c("Andrew", "Jaffe"))
-is.character(c("Andrew", "Jaffe"))
-```
 
 ## General Class Information
 
 There are two useful functions associated with practically all R classes: 
 
-- `is.CLASS_NAME(x)` to check whether or not `x` is of certain  class 
-- `as.CLASS_NAME(x)` to coerce `x` from current `x` class into a certain class 
+- `is.CLASS_NAME(x)` to **check** whether or not `x` is of certain  class 
+- `as.CLASS_NAME(x)` to **coerce** `x` from current `x` class into a certain class 
 
 ```{r logical_coercion2}
 is.character(c(1, 4, 7))
 is.numeric(c(1, 4, 7))
 ```
+
+## General Class Information: Checking
+
+There are two useful functions associated with practically all R classes, which relate to logically checking the underlying class (`is.CLASS_()`) and coercing between classes (`as.CLASS_()`).
+
+```{r logical_coercion}
+is.numeric(c("tree", "cloud"))
+is.character(c("tree", "cloud"))
+```
+
+
 
 ## General Class Information: coercing
 
