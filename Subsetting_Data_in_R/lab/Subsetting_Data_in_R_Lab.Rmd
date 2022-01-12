@@ -9,9 +9,10 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-In this lab you can use the interactive console to explore but please record your commands here.  Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-X) or Cntr-Enter (Windows/Linux) (But only in side the ```{r}``` areas).
+In this lab you can use the interactive console to explore but please record your commands here.  Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-X) or Cntr-Enter (Windows/Linux) (But only inside the code chunks designated with the ```{r}``` areas).
 
 ```{r, message = FALSE}
+# don't forget to load the packages that you will need!
 library(dplyr)
 library(tidyverse)
 library(jhur)
@@ -19,126 +20,159 @@ library(jhur)
 
 # Part 1
 
-1. Check to see if you have the `mtcars` dataset 
+1. Check to see if you have the `mtcars` dataset. 
 ```{r}
-
-
-
+mtcars
 ```
 
 
 2. What class is `mtcars`?
 ```{r}
 
-
-
 ```
 
-3. How many observations (rows) and variables (columns) are in the `mtcars` dataset?
+3. How many observations (rows) and variables (columns) are in the `mtcars` dataset - try the `dim()` function?
 
 ```{r}
 
-
-
 ```
 
-4. Copy mtcars into an object called cars and rename `mpg` in cars to `MPG`. Use `rename`
+4. Copy mtcars into an object called `cars_mt_copy`. Next, rename `mpg` in `cars_mt_copy` to `MPG` (hint - use `rename()`).
 
 ```{r}
-cars = mtcars
-
-
+cars_mt_copy <- mtcars
 
 ```
 
-5. Convert the column names of `cars` to all upper case. Use `rename_all`, and the `toupper` command (or `colnames`).
+5. Convert the column names of `cars_mt_copy` to all upper case. Use `rename_all()`, and the `toupper` command.
 
 ```{r}
 
-
-
 ```
 
+Bonus: How can you print the first 3 rows and the last 3 rows of `cars_mt_copy`?
+
+```{r}
+
+```
 
 # Part 2
 
-You can create a column called `car` using the `rownames_to_column` function. 
-
-```{r}
-cars = rownames_to_column(mtcars, var = "car")
-```
-
-
-6. Subset both the column `car` that you just created and the columns from `cars` that end in `"p"` and call it `pvars`. Hint: use `ends_with()`.
+1. Using `cars_mt_copy`  create a column called `CAR` using the `rownames_to_column` function. Then create a tibble from the data called `cars_mt_copy`.  Take a look at your data to check it. How many dimensions does it have?
 
 ```{r}
 
+```
 
+2. Subset both the column `CAR` that you just created and the columns from `cars_mt_copy` that end in `"P"` and call it `pvars`. Hint: use `ends_with()`. Again take a look at the data.
+
+```{r}
 
 ```
 
-7. Create a subset of the data that only contains the columns: `wt`, `qsec`, and `hp` and assign this object to `carsSub` - what are the dimensions of this dataset? Use `select()` (and `dim`):
+3. Create a subset of the `cars_mt_copy` that only contains the columns: `CAR`, `WT`, `QSEC`, and `HP` and assign this object to `carsSub` - what are the dimensions of this dataset? Use `select()`:
 
 ```{r}
 
 
-
 ```
 
-8. Convert the column names of `carsSub` to all upper case.  Use `rename_all()`, and the `toupper` command (or `colnames`)
+4. Convert the column names of `carsSub` to all lower case. Take a look at the data.
 
 ```{r}
 
 
+```
+
+Bonus: Pull the variable `car` from `carsSUB`. How does this differ form selecting it?
+
+```{r}
 
 ```
 
+Bonus: select the variables that contain the letter a from `cars_mt_copy`
 
+```{r}
+
+```
 
 # Part 3
 
-9. Subset the rows of cars that get more than 20 miles per gallon (`mpg`) of fuel efficiency - how many are there? Use `filter()`
+1. Subset the rows of `cars_mt_copy` that get more than 20 miles per gallon (`MPG`) of fuel efficiency - how many are there? Use `filter()`.
+
 ```{r}
-
-
 
 ```
 
 
-10. Subset the rows that get less than 16 miles per gallon (`mpg`) of fuel efficiency and have more than 100 horsepower (`hp`) - how many are there?
+
+2. Subset the rows of `cars_mt_copy` that get less than 16 miles per gallon (`MPG`) of fuel efficiency and greater than 150 horsepower (`HP`) - how many are there?
 ```{r}
 
+```
 
+
+3. Subset the rows of `cars_mt_copy` that get less than 16 miles per gallon (`MPG`) of fuel efficiency and greater than or equal to 150 horsepower (`HP`) - how many are there?
+```{r}
 
 ```
+
+4. Why do the answers for 10 and 11 differ?
+
+They differ because there are two cars with HP values that are exactly 150.
+
+Bonus:
+
+Subset the rows of `cars_mt_copy` for cars that have 4 `CYL`,  or less than 1.9 WT.
+How many cars have both?
+
+
 
 
 # Part 4
 
-11. Create a subset from the `cars` data that only contains the columns:
-	`wt`, `qsec`, and `hp` for only the cars with 8 cylinders
-	and reassign this object to `carsSub` - what are the dimensions of this dataset?
+1. Create a subset called `carsSub`from the `cars_mt_copy` data that only contains the columns:
+`CAR`,	`WT`, `QSEC`, and `HP` for only the cars with 8 cylinders (`CYL`).
+	What are the dimensions of this dataset? Don't use pipes (`%>%`).
 
 ```{r}
 
+```
 
+2. Try the same thing again with pipes `%>%`.
+
+```{r}
+
+```
+
+Bonus: What happens if you do the steps in a different order? Why?
+
+
+3. Re-order the rows of `carsSub` by weight (`WT`) in increasing order. Use `arrange()`. What is the heaviest car?
+
+```{r}
 
 ```
 
 
-12. Re-order the rows of `carsSub` by weight in increasing order. Use `arrange()`
+4. Create a new variable in `carsSub` called `WT2`, which  is equal to `WT^2`, using `mutate()`(don't forget to reassign `carsSub`). Use piping `%>%`:
 
 ```{r}
-
-
 
 ```
 
 
-13. Create a new variable in `carsSub` called `wt2`, which  is equal to `wt^2`, using `mutate()`.  Use piping `%>%`:
+5. Move the `WT2` column to be first. Use `relocate`.
 
 ```{r}
 
+```
+
+
+BONUS: How can you find the value of `WT2` for the Cadillac Fleetwood without looking at the data?
+`
+```{r}
 
 
 ```
+

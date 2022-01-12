@@ -106,11 +106,11 @@ ex_long
 
 ## Data used: Charm City Circulator
 
-http://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv
+http://jhudatascience.org/intro_to_R_class/data/Charm_City_Circulator_Ridership.csv
 
 ```{r, message = FALSE}
 circ = read_csv(
-  paste0("http://jhudatascience.org/intro_to_r/",
+  paste0("http://jhudatascience.org/intro_to_R_class/",
          "data/Charm_City_Circulator_Ridership.csv"))
 head(circ, 5)
 ```
@@ -243,7 +243,7 @@ wide
 
 ## Lab Part 1
 
-[Website](http://jhudatascience.org/intro_to_r/index.html)
+[Website](http://jhudatascience.org/intro_to_R_class/index.html)
 
 ## Joining in `dplyr`
 
@@ -363,7 +363,7 @@ head(full_join(base, visits, by = "id"))
 
 ## Lab Part 2
 
-[Website](http://jhudatascience.org/intro_to_r/index.html)
+[Website](http://jhudatascience.org/intro_to_R_class/index.html)
 
 <!-- ## Finding the First (or Last) record -->
 

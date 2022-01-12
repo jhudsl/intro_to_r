@@ -31,7 +31,7 @@ quantile(x, na.rm = TRUE)
 
 ## -----------------------------------------------------------------------------
 library(readxl)
-# tb <- read_excel("http://jhudatascience.org/intro_to_r/data/tb_incidence.xlsx")
+# tb <- read_excel("http://jhudatascience.org/intro_to_R_class/data/tb_incidence.xlsx")
 tb = jhur::read_tb()
 colnames(tb)
 

@@ -20,10 +20,10 @@ library(stringr)
 
 # Part 1
 
-1.  Read in the Wide Bike lanes data: http://jhudatascience.org/intro_to_r/data/Bike_Lanes_Wide.csv .  Name the data set `wide`. Note the `NA`s here!
+1.  Read in the Wide Bike lanes data: http://jhudatascience.org/intro_to_R_class/data/Bike_Lanes_Wide.csv .  Name the data set `wide`. Note the `NA`s here!
 
 ```{r}
-wide = read_csv("http://jhudatascience.org/intro_to_r/data/Bike_Lanes_Wide.csv")
+wide = read_csv("http://jhudatascience.org/intro_to_R_class/data/Bike_Lanes_Wide.csv")
 ```
 
 2. Reshape `wide` using `pivot_longer.`  Call this data `long.`  Make the `names_to`
@@ -38,14 +38,14 @@ head(long)
 ```
 
 3. read in the roads and crashes CSVs.  Call them `crash` and `road`
-`crash`: http://jhudatascience.org/intro_to_r/Manipulating_Data_in_R/lab/crashes.csv
-`road`: http://jhudatascience.org/intro_to_r/Manipulating_Data_in_R/lab/roads.csv
+`crash`: http://jhudatascience.org/intro_to_R_class/Manipulating_Data_in_R/lab/crashes.csv
+`road`: http://jhudatascience.org/intro_to_R_class/Manipulating_Data_in_R/lab/roads.csv
 
 (This exercise is motivated by https://anythingbutrbitrary.blogspot.com/2012/08/manipulating-data-frames-using-sqldf.html)
 
 ```{r}
-crash = read_csv("http://jhudatascience.org/intro_to_r/Manipulating_Data_in_R/lab/crashes.csv")
-road = read_csv("http://jhudatascience.org/intro_to_r/Manipulating_Data_in_R/lab/roads.csv")
+crash = read_csv("http://jhudatascience.org/intro_to_R_class/Manipulating_Data_in_R/lab/crashes.csv")
+road = read_csv("http://jhudatascience.org/intro_to_R_class/Manipulating_Data_in_R/lab/roads.csv")
 head(crash)
 head(road)
 ```
@@ -84,8 +84,8 @@ library(ggplot2)
 library(tidyr)
 library(stringr)
 
-crash = read_csv("http://jhudatascience.org/intro_to_r/Manipulating_Data_in_R/lab/crashes.csv")
-road = read_csv("http://jhudatascience.org/intro_to_r/Manipulating_Data_in_R/lab/roads.csv")
+crash = read_csv("http://jhudatascience.org/intro_to_R_class/Manipulating_Data_in_R/lab/crashes.csv")
+road = read_csv("http://jhudatascience.org/intro_to_R_class/Manipulating_Data_in_R/lab/roads.csv")
 ```
 
 7. Join data to retain only complete data, (using an inner join) e.g. those observations with road lengths and districts.  Merge without using `by` argument, then merge using `by = "Road"`. call the output `merged.`  How many observations are there?

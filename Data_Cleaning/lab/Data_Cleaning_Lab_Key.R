@@ -9,7 +9,7 @@ library(broom)
 library(naniar)
 
 bike = read_csv(
-  "http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv")
+  "http://jhudatascience.org/intro_to_R_class/data/Bike_Lanes.csv")
 
 
 

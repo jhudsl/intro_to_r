@@ -19,6 +19,14 @@ print("I'm code")
 6 / 2 * (1 + 2)
 
 
+## ---- fig.alt="Problem gives answer of 1 or 9 depending on calculator.", out.width = "30%", echo = FALSE, out.extra='style="float:left"'----
+knitr::include_graphics("../images/Basic_R_calculator.jpg")
+
+
+## ---- fig.alt="Problem gives answer of 1 or 9 depending on calculator.", out.width = "60%", echo = FALSE, out.extra='style="float:left"'----
+knitr::include_graphics("../images/Basic_R_viral_math_problem.png")
+
+
 ## -----------------------------------------------------------------------------
 # this is a comment
 
@@ -32,7 +40,7 @@ print("I'm code")
 
 
 ## ----assign-------------------------------------------------------------------
-x = 2 # Same as: x <- 2
+x <- 2
 x
 x * 4
 x + 2
@@ -40,13 +48,13 @@ x + 2
 
 ## ----assignClass--------------------------------------------------------------
 class(x)
-y = "hello world!"
+y <- "hello world!"
 print(y)
 class(y)
 
 
 ## ----myName-------------------------------------------------------------------
-name = "Ava Hoffman"
+name <- "Ava Hoffman"
 name
 
 
@@ -57,7 +65,7 @@ class(x)
 
 
 ## ----myName2------------------------------------------------------------------
-name2 = c("Ava","Hoffman")
+name2 <- c("Ava","Hoffman")
 name2
 
 
@@ -83,7 +91,7 @@ name2 + 4
 
 
 ## ----assign5------------------------------------------------------------------
-y = x + c(1, 2, 3, 4)
+y <- x + c(1, 2, 3, 4)
 y 
 
 

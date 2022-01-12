@@ -29,11 +29,12 @@ library(tidyverse)
 
 ## Overview: 
 ***
-Welcome to Introduction to R for Public Health Researchers!  
+
+**Welcome to Introduction to R for Public Health Researchers!**  
 
 This course is for students who have little to no familiarity with the R programming language and want to learn more about how to use R to import, wrangle, visualize, and analyze data.
 
-The course will provide students with “hands-on” training for analyzing data with the R programming language for statistical computing, a popular open-source solution for data analysis and visualization.  
+The course will provide students with **“hands-on” training** for analyzing data with the R programming language for statistical computing, a popular open-source solution for data analysis and visualization.  
 
 ## Instructors:
 ***
@@ -55,6 +56,8 @@ The course will provide students with “hands-on” training for analyzing data
 
 * Jan 10-21, 2022, 8:30AM-11:50AM on Zoom  - No class on Jan 17th for Martin Luther King Jr. Day.
 * CoursePlus: https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/16733/ 
+* [Syllabus](Syllabus/syllabus.html)
+* [Syllabus (Word Document)](Syllabus/syllabus.docx)
 
 ## Zoom:
 ***
@@ -79,16 +82,10 @@ The course will provide students with “hands-on” training for analyzing data
 ```{r, child=c("Syllabus/_child_assignments.Rmd")}
 ```
 
-## Example knitr  
-***
 
-[Rmd](Examples/example_knitr.Rmd) and [html output](Examples/example_knitr.html)
 
-## Important links
-***
-
-* [Syllabus](Syllabus/syllabus.html)
-* [Syllabus (Word Document)](Syllabus/syllabus.docx)
+```{r, child=c("Syllabus/_child_code_of_coduct.Rmd")}
+```
 
 ## All the Requirements in this Course
 ***
@@ -102,12 +99,6 @@ install.packages("remotes")
 remotes::install_github("muschellij2/jhur")
 ```
 
-Alternatively, all the packages used (in any way - homework, lecture, lab), are listed in [this text file](all_the_packages.txt).  If you would like to install all the packages from this file, please download that text file and run [this R script](scripts/install_all_packages.R).
-
-#### Functions
-
-All the functions used (in any way - homework, lecture, lab), are listed in [this Google doc](https://drive.google.com/file/d/1v4uSgIq78cMpR0y0mF97Bq7JUbLJTOCu/view?usp=sharing), which can start a kind of cheat sheet for you.
-
 #### Data
 All the data used that are not **specifically** to be downloaded from the web are located in [this zip file](data.zip), but we will show you how to read data from the internet as well.
 
@@ -119,7 +110,7 @@ All the data used that are not **specifically** to be downloaded from the web ar
 ```{r, child=c("Syllabus/_child_schedule.Rmd")}
 ```
 
-```{r, results='asis', echo = FALSE}
+```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
 source("scripts/utils.R")
 pander::pandoc.table(
   read_markdown("Syllabus/_schedule_table.Rmd"),
@@ -132,60 +123,67 @@ pander::pandoc.table(
 ## Additional Resources
 ***
 
-* [Building up a `ggplot2` figure](https://hopstat.wordpress.com/2016/02/18/how-i-build-up-a-ggplot2-figure/)
-* RStudio Cheat Sheets: https://www.rstudio.com/resources/cheatsheets/
-* Lubridate Cheat Sheet: https://github.com/rstudio/cheatsheets/raw/master/lubridate.pdf
-* R for Data Science: http://r4ds.had.co.nz/
-* DataCamp http://www.datacamp.com
-* UCLA Institute for Digital Research and Education: http://www.ats.ucla.edu/stat/r/
-* R reference card: http://cran.r-project.org/doc/contrib/Short-refcard.pdf
-* Undergrad Guide to R: https://sites.google.com/site/undergraduateguidetor/
-* Quick R: http://statmethods.net/
-* Regex Golf: https://alf.nu/RegexGolf
-* Open Case Studies: https://www.opencasestudies.org/
-* Tidyverse Skills for Data Science: http://jhudatascience.org/tidyversecourse/ - also available as a [course](https://www.coursera.org/specializations/tidyverse-data-science-r) with certification on Coursera.
+**Need help?** 
 
-* Animations of join functions:
+- [Various "Cheat Sheets"](https://www.rstudio.com/resources/cheatsheets/)   
+
+- [R reference card](http://cran.r-project.org/doc/contrib/Short-refcard.pdf) 
+
+- [R jargon](https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf)  
+
+- [R terminology](https://cran.r-project.org/doc/manuals/r-release/R-lang.pdf)
+
+- [What is the Tidyverse?](https://www.tidyverse.org/packages/)
+
+- [R Markdown formatting example](Examples/example_knitr.Rmd) and [html output](Examples/example_knitr.html)
+
+-  Animations of join functions:
 [`full-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/full-join.gif)
 [`inner_join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/inner-join.gif)
 [`left-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/left-join.gif)
 [`right-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/right-join.gif)
 
-* Guide for terms: https://cran.r-project.org/doc/manuals/r-release/R-lang.pdf
+- PC users who want to see how to move files around (especially from downloads), check out this video:   https://youtu.be/we6vwB7DsNU
 
-* [Tidvyverse](https://www.tidyverse.org/packages/)
+- Mac users who want to see how to move files around (especially from downloads), check out this video:   https://www.youtube.com/watch?v=Ao9e0cDzMrE
 
-* For students with a PC who want to see how to move files around (especially from downloads), check out this video: https://youtu.be/we6vwB7DsNU
+**Want more?**  
 
-* For students with a mac here is how you can move files: https://www.youtube.com/watch?v=Ao9e0cDzMrE
+- [Tidyverse Skills for Data Science Book](https://jhudatascience.org/tidyversecourse/)  
+(more about the tidyverse, some modeling, and machine learning)
 
-* Example about why factors are useful: [html](Examples/factor_example.html) & [Rmd](Examples/factor_example.Rmd)
+- [Tidyverse Skills for Data Science Course](https://www.coursera.org/specializations/tidyverse-data-science-r)  
+(same content with quizzes, can get certificate with $)
 
+- [R for Data Science](http://r4ds.had.co.nz/)  
+(great general information)
+ 
+- [Open Case Studies](https://www.opencasestudies.org/)  
+(resource for specific public health cases with statistical implementation and interpretation)
 
-## Live Code Examples
-***
+- [Dataquest](https://www.dataquest.io/)  
+(general interactive resource)
 
-```{r, echo = FALSE, message = FALSE, results='asis'}
-df = matrix(
-  c("Replacing with ifelse in dplyr", "replace_if.R",
-  "Relevant to hw2: Fixing problems in read_csv with col_types", "read_csv_specifications.R",
-  "Multiple Summarization (mean/sd) and summarize with quantile", "mean_sd_number_of_non_missing.R",
-  "Changing Factors in Stata file", "stata_factors.R",
-  "Tables and Figures in RMarkdown", "tables_and_plots.Rmd"
-  )
-, ncol = 2, byrow = TRUE)
-df = data.frame(df, stringsAsFactors = FALSE)
-colnames(df) = c("Code Example", "Script")
-df$Script = paste0("[", df$Script, "](live_code/", df$Script, ")")
-knitr::kable(df, format = "html") %>% 
-  kable_styling() 
-```
+- [Quick R Guide]( http://statmethods.net/)  
+(nice free general resource)
 
-[PDF of black and white theme](images/black_and_white_theme.pdf)
+- [Building up a `ggplot2` figure](https://hopstat.wordpress.com/2016/02/18/how-i-build-up-a-ggplot2-figure/)  
+(guide to making plots)
 
-[Shiny and Knitr Docs](Examples/shiny_knitr.zip)
+**Interested in Reproducibility?**
 
+Check out Candace's courses:
 
+- [Introduction](https://jhudatascience.org/Reproducibility_in_Cancer_Informatics/)
+
+- [Advanced](https://jhudatascience.org/Adv_Reproducibility_in_Cancer_Informatics/)
+
+**R for Stata, SPSS, and SAS files**
+
+ - The [Haven](https://haven.tidyverse.org/) package  
+ (This package is super useful for reading and writing files so that they are compatible across Stata, SPSS, SAS, and R) 
+- [R vs Stata](https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf)  
+(See page 505)
 
 
 ## Online Videos of Lectures
@@ -211,18 +209,6 @@ knitr::kable(mat, format = "html") %>%
 ```
 
 
-#### From Winter Institute 2018
-
-```{r, echo = FALSE, message = FALSE, results='asis'}
-mat = matrix(c(
-  "Data Summarization", "https://youtu.be/l-r4RBhNDDo"
-  ), ncol = 2, byrow = TRUE)
-mat = data.frame(mat, stringsAsFactors = FALSE)
-colnames(mat) = c("Day", "Link to Video")
-knitr::kable(mat, format = "html") %>% 
-  kable_styling() 
-```
-
 
 
 #### From Summer Institute 1 2017
@@ -240,24 +226,6 @@ knitr::kable(mat, format = "html") %>%
   kable_styling() 
 ```
 
-#### From Summer Institute 2 2017
-
-```{r videos_summer2, echo = FALSE, message = FALSE, results='asis'}
-mat = matrix(c(
-  "Day 1: Part 1", "https://youtu.be/QdD6x3tDI5Y",
-  "Day 1: Part 2", "https://youtu.be/GMBfu_bnKOI",
-"Day 2", "https://youtu.be/NQFAoxX-w74",
-"Day 3: Part 1", "https://youtu.be/OEv1ZZXvToY",
-"Day 3: Part 2", "https://youtu.be/OEbgC3A5vKw",
-"Day 4: Part 1: Strings", "https://youtu.be/D6QDXDlKaWs",
-"Day 4: Part 2: Strings", "https://youtu.be/8pVPMZugn6E",
-"Day 5", ""),
-ncol = 2, byrow = TRUE)
-mat = data.frame(mat, stringsAsFactors = FALSE)
-colnames(mat) = c("Day", "Link to Video")
-knitr::kable(mat, format = "html") %>% 
-  kable_styling() 
-```
 
 
 
@@ -300,7 +268,7 @@ devtools::install_github("muschellij2/dhs")
 ***
 
 Feel free to submit typos/errors/etc via the github repository associated with the class: 
-https://github.com/jhudsl/intro_to_r
+https://github.com/jhudsl/intro_to_r_class
 
 ```{r, eval = FALSE, echo = FALSE}
 ## Render this file:

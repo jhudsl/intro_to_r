@@ -184,9 +184,9 @@ library(stringr)</code></pre>
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
 <ol style="list-style-type: decimal">
-<li>Read in the Wide Bike lanes data: <a href="http://jhudatascience.org/intro_to_r/data/Bike_Lanes_Wide.csv" class="uri">http://jhudatascience.org/intro_to_r/data/Bike_Lanes_Wide.csv</a> . Name the data set <code>wide</code>. Note the <code>NA</code>s here!</li>
+<li>Read in the Wide Bike lanes data: <a href="http://jhudatascience.org/intro_to_R_class/data/Bike_Lanes_Wide.csv" class="uri">http://jhudatascience.org/intro_to_R_class/data/Bike_Lanes_Wide.csv</a> . Name the data set <code>wide</code>. Note the <code>NA</code>s here!</li>
 </ol>
-<pre class="r"><code>wide = read_csv(&quot;http://jhudatascience.org/intro_to_r/data/Bike_Lanes_Wide.csv&quot;)</code></pre>
+<pre class="r"><code>wide = read_csv(&quot;http://jhudatascience.org/intro_to_R_class/data/Bike_Lanes_Wide.csv&quot;)</code></pre>
 <pre><code>## 
 ## ── Column specification ────────────────────────────────────────────────────────
 ## cols(
@@ -217,10 +217,10 @@ head(long)</code></pre>
 ## 5 ALBEMARLE ST SHARROW               110.
 ## 6 ALBEMARLE ST SIDEPATH               NA</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li>read in the roads and crashes CSVs. Call them <code>crash</code> and <code>road</code> <code>crash</code>: <a href="http://jhudatascience.org/intro_to_r/Manipulating_Data_in_R/lab/crashes.csv" class="uri">http://jhudatascience.org/intro_to_r/Manipulating_Data_in_R/lab/crashes.csv</a> <code>road</code>: <a href="http://jhudatascience.org/intro_to_r/Manipulating_Data_in_R/lab/roads.csv" class="uri">http://jhudatascience.org/intro_to_r/Manipulating_Data_in_R/lab/roads.csv</a></li>
+<li>read in the roads and crashes CSVs. Call them <code>crash</code> and <code>road</code> <code>crash</code>: <a href="http://jhudatascience.org/intro_to_R_class/Manipulating_Data_in_R/lab/crashes.csv" class="uri">http://jhudatascience.org/intro_to_R_class/Manipulating_Data_in_R/lab/crashes.csv</a> <code>road</code>: <a href="http://jhudatascience.org/intro_to_R_class/Manipulating_Data_in_R/lab/roads.csv" class="uri">http://jhudatascience.org/intro_to_R_class/Manipulating_Data_in_R/lab/roads.csv</a></li>
 </ol>
 <p>(This exercise is motivated by <a href="https://anythingbutrbitrary.blogspot.com/2012/08/manipulating-data-frames-using-sqldf.html" class="uri">https://anythingbutrbitrary.blogspot.com/2012/08/manipulating-data-frames-using-sqldf.html</a>)</p>
-<pre class="r"><code>crash = read_csv(&quot;http://jhudatascience.org/intro_to_r/Manipulating_Data_in_R/lab/crashes.csv&quot;)</code></pre>
+<pre class="r"><code>crash = read_csv(&quot;http://jhudatascience.org/intro_to_R_class/Manipulating_Data_in_R/lab/crashes.csv&quot;)</code></pre>
 <pre><code>## 
 ## ── Column specification ────────────────────────────────────────────────────────
 ## cols(
@@ -229,7 +229,7 @@ head(long)</code></pre>
 ##   N_Crashes = col_double(),
 ##   Volume = col_double()
 ## )</code></pre>
-<pre class="r"><code>road = read_csv(&quot;http://jhudatascience.org/intro_to_r/Manipulating_Data_in_R/lab/roads.csv&quot;)</code></pre>
+<pre class="r"><code>road = read_csv(&quot;http://jhudatascience.org/intro_to_R_class/Manipulating_Data_in_R/lab/roads.csv&quot;)</code></pre>
 <pre><code>## 
 ## ── Column specification ────────────────────────────────────────────────────────
 ## cols(
@@ -292,7 +292,7 @@ library(ggplot2)
 library(tidyr)
 library(stringr)
 
-crash = read_csv(&quot;http://jhudatascience.org/intro_to_r/Manipulating_Data_in_R/lab/crashes.csv&quot;)</code></pre>
+crash = read_csv(&quot;http://jhudatascience.org/intro_to_R_class/Manipulating_Data_in_R/lab/crashes.csv&quot;)</code></pre>
 <pre><code>## 
 ## ── Column specification ────────────────────────────────────────────────────────
 ## cols(
@@ -301,7 +301,7 @@ crash = read_csv(&quot;http://jhudatascience.org/intro_to_r/Manipulating_Data_in
 ##   N_Crashes = col_double(),
 ##   Volume = col_double()
 ## )</code></pre>
-<pre class="r"><code>road = read_csv(&quot;http://jhudatascience.org/intro_to_r/Manipulating_Data_in_R/lab/roads.csv&quot;)</code></pre>
+<pre class="r"><code>road = read_csv(&quot;http://jhudatascience.org/intro_to_R_class/Manipulating_Data_in_R/lab/roads.csv&quot;)</code></pre>
 <pre><code>## 
 ## ── Column specification ────────────────────────────────────────────────────────
 ## cols(

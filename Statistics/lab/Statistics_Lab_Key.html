@@ -173,7 +173,7 @@ pre code {
 <ol style="list-style-type: decimal">
 <li>Load the libraries needed in this lab. Read in the following child mortality data using <code>read_mortality()</code> function from <code>jhur</code> package. Assign it to <code>mort</code> variable. Change its first column name <code>X1</code> into <code>country</code></li>
 </ol>
-<p><a href="https://jhudatascience.org/intro_to_r/data/mortality.csv" class="uri">https://jhudatascience.org/intro_to_r/data/mortality.csv</a></p>
+<p><a href="https://jhudatascience.org/intro_to_R_class/data/mortality.csv" class="uri">https://jhudatascience.org/intro_to_R_class/data/mortality.csv</a></p>
 <pre class="r"><code>library(tidyverse)</code></pre>
 <pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
 <pre><code>## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
@@ -258,9 +258,9 @@ country_cor</code></pre>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
 <ol style="list-style-type: decimal">
-<li>Read in the Kaggle cars auction dataset from “<a href="http://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv" class="uri">http://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv</a>” with the argument <code>col_types = cols(VehBCost = col_double())</code>:</li>
+<li>Read in the Kaggle cars auction dataset from “<a href="http://jhudatascience.org/intro_to_R_class/data/kaggleCarAuction.csv" class="uri">http://jhudatascience.org/intro_to_R_class/data/kaggleCarAuction.csv</a>” with the argument <code>col_types = cols(VehBCost = col_double())</code>:</li>
 </ol>
-<pre class="r"><code>cars = read_csv(&quot;http://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv&quot;,
+<pre class="r"><code>cars = read_csv(&quot;http://jhudatascience.org/intro_to_R_class/data/kaggleCarAuction.csv&quot;,
                 col_types = cols(VehBCost = col_double()))</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Fit a linear regression model with vehicle cost (<code>VehBCost</code>) as the outcome and vehicle age (<code>VehicleAge</code>) and whether it’s an online sale (<code>IsOnlineSale</code>) as predictors.</li>
