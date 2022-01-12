@@ -69,7 +69,14 @@ df <- mtcars # df is a copy of mtcars
 head(df) # changing df does **not** change mtcars!
 ```
 
+## Getting data to work with
 
+`dim()` and `nrow()` are good functions to check the dimensions and number of rows in your data before moving forward.
+
+```{r}
+dim(df) # rows, columns
+nrow(df) # number of rows
+```
 
 
 # Making data frames(base R) and tibbles (tidyverse)
