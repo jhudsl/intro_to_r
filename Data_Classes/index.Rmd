@@ -46,13 +46,16 @@ class(c("1", "4", "7"))
 
 `Integer` is a special subset of `numeric` that contains only whole numbers
 
-A sequence of numbers is an example of the integer type
+A sequence of numbers is an example of the integer type. You can use the `seq()` function to create a sequence of integers.
 
 ```{r seq}
-x = seq(from = 1, to = 5) # seq() is a function
+x = c(1, 2, 3, 4, 5)
+x
+x = seq(1:5)
 x
 class(x)
 ```
+
 
 ## Logical
 
@@ -114,7 +117,7 @@ as.Date(c("2021-06-15", "2021-06-32"))
 
 ## Factors
 
-A `factor` is a special `character` vector where the elements have pre-defined groups or 'levels'. You can think of these as qualitative or categorical variables:
+A `factor` is a special `character` vector where the elements have pre-defined groups or 'levels'. You can think of these as qualitative or categorical variables. Use the `factor()` function to create factors.
 
 ```{r factor1}
 x <- c("small", "mediam", "large", "medium", "large")

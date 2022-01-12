@@ -6,9 +6,6 @@ editor_options:
 ---
 
 
-Dataset used is the Bike Lanes Dataset: BikeBaltimore is the Department of Transportation's bike program. 
-
-The data is from http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms
 
 # Part 1
 
@@ -22,39 +19,53 @@ library(lubridate)
 library(jhur)
 ```
 
-1. Read Bike Lanes Dataset using `read_bike()` function from `jhur` package. Assign it to `bike` variable. Use `str()` function to take a look at the data and learn column types.
+1. Create some data to work with. 
+First, create a vector that has class integer called `int_vect` that starts at 1 and goes up to 10 and repeats this sequence 3 times using `rep`  (hint use `seq()`).
+Next, create a random vector of integers from 1 to 30 called `rand_vect` (hint use `sample()`).
+Create a vector that repeats `c(TRUE, TRUE, FALSE)` 10 times called `TF_vect`. 
+Create a vector that repeats `c("TRUE", "TRUE", "FALSE")` 10 times called `TF_vect2`.
 
-Note: alternatively you can read data to R from URL `"http://jhudatascience.org/intro_to_R_class/data/Bike_Lanes.csv"` using `read_csv()` function. 
+Because we are using a random vector let's use the `set.seed()` function to make sure we all have the same result - this code will already be in the code chunk for you. Simply create the vectors below the `set.seed` line.
+
+```{r}
+set.seed(1234)
+
+```
+
+Create a tibble combining these vectors together called vect_data using the following code.
+
+```{r}
+vect_data <- tibble(int_vect, rand_vect, TF_vect, TF_vect2)
+```
+
+
+2. Take a look at 5 random rows using the `slice_sample()` function. Try this a few times to see how the results change.
 
 ```{r}
 
 ```
 
-2. Use `mutate()` function to create a new variable in the data set named `type_fact` that is of class `factor` made from the `type` variable. 
+3. Check to see if the `TF_vect` is logical. Check to see if `TF_vect2` is logical. Why are the results what they are?
 
 ```{r}
 
 ```
 
-3. Use `str()` function again. Note the difference between `type` and `type_fact` variables 
+
+4. Use `mutate()` function to create a new variable in the data set named `type_fact` that is of class `factor` made from the `int_vect` variable. Take a look at the data. 
 
 ```{r}
 
 ```
 
-4. Use `levels()` function on `type_fact` variable to display levels of `type_fact` variable. Hint: recall you can use `data$variable_name` to access variable of interest. 
+
+
+5. Use `levels()` function on `type_fact` variable to display levels of `type_fact` variable. Hint: recall you can use `data$variable_name` to access variable of interest. 
 
 ```{r}
 
 ```
 
-5. Use `table()` function on `type_fact` variable to display the count of observations with each bike type. 
-
-Use `table()` function again and specify additional argumet `useNA = "always"`. 
-
-```{r}
-
-```
 
 
 # Part 2
