@@ -258,3 +258,37 @@ cars %>% filter(Make %in% c("CHRYSLER","NISSAN") & cars$Color %in% c("WHITE","SI
 ```
 
 <span style="color:red"> A total of `r sum((cars$Make == "CHRYSLER" | cars$Make=="NISSAN") & (cars$Color == "WHITE" | cars$Color == "SILVER" ))` cars. </span>
+
+### **Bonus Practice**
+
+A\. Knit your document into a report.
+
+You use the knit button to do this. Make sure all your code is working first!
+
+B\.Using cars, create a new binary (TRUEs and FALSEs) column to indicate if the car has an automatic transmission. Call it "is_automatic".
+
+```{r}
+cars <- cars %>% mutate(is_automatic = (Transmission == "AUTO"))
+```
+
+C\. What is the average vehicle odometer reading for cars that are both RED and NISSANs? How does this compare with vehicles that do NOT fit this criteria?
+
+```{r}
+mean_red_nissan <- cars %>% filter(Color == "RED" & Make == "NISSAN") %>% summarize(mean = mean(VehOdo)) %>% pull()
+mean_not_red_nissan <- cars %>% filter(Color != "RED" | Make != "NISSAN") %>% summarize(mean = mean(VehOdo)) %>% pull()
+```
+
+<span style="color:red"> Red Nissans have an average odometer of `r mean_red_nissan` while cars not fitting this criteria are `r mean_not_red_nissan` </span>
+
+D\. Among red Nissans, what is the distribution of vehicle ages?
+
+```{r}
+red_nissan <- cars %>% filter(Color == "RED" & Make == "NISSAN")
+red_nissan %>% group_by(VehicleAge) %>% select(VehicleAge) %>% table()
+# OR
+red_nissan <- cars %>% filter(Color == "RED" & Make == "NISSAN")
+red_nissan %>% group_by(VehicleAge) %>%  count()
+# OR
+red_nissan <- cars %>% filter(Color == "RED" & Make == "NISSAN")
+red_nissan %>% group_by(VehicleAge) %>% tally()
+```

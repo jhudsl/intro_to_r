@@ -518,6 +518,52 @@ cars %&gt;% filter(Make %in% c(&quot;CHRYSLER&quot;,&quot;NISSAN&quot;) &amp; ca
 ## 1  3718</code></pre>
 <p><span style="color:red"> A total of 3718 cars. </span></p>
 </div>
+<div id="bonus-practice" class="section level3">
+<h3><strong>Bonus Practice</strong></h3>
+<p>A. Knit your document into a report.</p>
+<p>You use the knit button to do this. Make sure all your code is working first!</p>
+<p>B.Using cars, create a new binary (TRUEs and FALSEs) column to indicate if the car has an automatic transmission. Call it “is_automatic”.</p>
+<pre class="r"><code>cars &lt;- cars %&gt;% mutate(is_automatic = (Transmission == &quot;AUTO&quot;))</code></pre>
+<p>C. What is the average vehicle odometer reading for cars that are both RED and NISSANs? How does this compare with vehicles that do NOT fit this criteria?</p>
+<pre class="r"><code>mean_red_nissan &lt;- cars %&gt;% filter(Color == &quot;RED&quot; &amp; Make == &quot;NISSAN&quot;) %&gt;% summarize(mean = mean(VehOdo)) %&gt;% pull()
+mean_not_red_nissan &lt;- cars %&gt;% filter(Color != &quot;RED&quot; | Make != &quot;NISSAN&quot;) %&gt;% summarize(mean = mean(VehOdo)) %&gt;% pull()</code></pre>
+<p><span style="color:red"> Red Nissans have an average odometer of 7.5117316^{4} while cars not fitting this criteria are 7.0324337^{4} </span></p>
+<p>D. Among red Nissans, what is the distribution of vehicle ages?</p>
+<pre class="r"><code>red_nissan &lt;- cars %&gt;% filter(Color == &quot;RED&quot; &amp; Make == &quot;NISSAN&quot;)
+red_nissan %&gt;% group_by(VehicleAge) %&gt;% select(VehicleAge) %&gt;% table()</code></pre>
+<pre><code>## .
+##  2  3  4  5  6  7  8  9 
+##  8 35 48 34 13 14  4  2</code></pre>
+<pre class="r"><code># OR
+red_nissan &lt;- cars %&gt;% filter(Color == &quot;RED&quot; &amp; Make == &quot;NISSAN&quot;)
+red_nissan %&gt;% group_by(VehicleAge) %&gt;%  count()</code></pre>
+<pre><code>## # A tibble: 8 x 2
+## # Groups:   VehicleAge [8]
+##   VehicleAge     n
+##        &lt;dbl&gt; &lt;int&gt;
+## 1          2     8
+## 2          3    35
+## 3          4    48
+## 4          5    34
+## 5          6    13
+## 6          7    14
+## 7          8     4
+## 8          9     2</code></pre>
+<pre class="r"><code># OR
+red_nissan &lt;- cars %&gt;% filter(Color == &quot;RED&quot; &amp; Make == &quot;NISSAN&quot;)
+red_nissan %&gt;% group_by(VehicleAge) %&gt;% tally()</code></pre>
+<pre><code>## # A tibble: 8 x 2
+##   VehicleAge     n
+##        &lt;dbl&gt; &lt;int&gt;
+## 1          2     8
+## 2          3    35
+## 3          4    48
+## 4          5    34
+## 5          6    13
+## 6          7    14
+## 7          8     4
+## 8          9     2</code></pre>
+</div>
 
 
 
