@@ -91,7 +91,7 @@ glimpse(df)
 
 ## Checking your data: `slice_sample()`
 
-What if you want to see the middle of your data? You can use the `slice_sample()` function of the `dplyr` package (more on that in a bit) to see a random set of rows. You can specify the number of rows with the `n` argument or use a proportion with the `prop` argument.
+What if you want to see the middle of your data? You can use the `slice_sample()` function of the `dplyr` package to see a random set of rows. You can specify the number of rows with the `n` argument or use a proportion with the `prop` argument.
 
 ```{r}
 slice_sample(df, n=3)
@@ -130,11 +130,6 @@ df_example_readr <- read.csv("documents/data_analysis/data_file.csv")
 
 We can create a **fancier** version of the previous data frame which can be really helpful. 
 
-To do this we will use the `tibble` package which is also part of the `tidyverse`.
-
-```{r, fig.alt="dplyr", out.width = "25%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("https://github.com/tidyverse/tibble/raw/main/man/figures/logo.png")
-```
 
 
 ## Creating a `tibble`
@@ -145,6 +140,7 @@ If we would like to create a `tibble` ("fancy" data frame), we can using the  `t
 tbl <- dplyr::tibble(df) 
 tbl
 ```
+
 Note don't necessarily need to use `head()`- tibbles conveniently print a portion of the data.
 
 ## tibbles form read_csv()

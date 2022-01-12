@@ -54,10 +54,6 @@ df<-data.frame(df)
 ## df_example_readr <- read.csv("documents/data_analysis/data_file.csv")
 
 
-## ---- fig.alt="dplyr", out.width = "25%", echo = FALSE, fig.align='center'----
-knitr::include_graphics("https://github.com/tidyverse/tibble/raw/main/man/figures/logo.png")
-
-
 ## -----------------------------------------------------------------------------
 tbl <- dplyr::tibble(df) 
 tbl
