@@ -20,14 +20,15 @@ library(jhur)
 
 In this module, we will show you how to:
 
-1. Create a data frame and a tibble
-2. Create new variables/make rownames a column
-3. Rename columns of a data frame
-4. Subset rows of a data frame
-5. Subset columns of a data frame
-6. Add/remove new columns to a data frame
-7. Order the columns of a data frame
-8. Order the rows of a data frame
+1. Look at your data in different ways
+2. Create a data frame and a tibble
+3. Create new variables/make rownames a column
+4. Rename columns of a data frame
+5. Subset rows of a data frame
+6. Subset columns of a data frame
+7. Add/remove new columns to a data frame
+8. Order the columns of a data frame
+9. Order the rows of a data frame
 
 ## Setup
 
@@ -69,13 +70,33 @@ df <- mtcars # df is a copy of mtcars
 head(df) # changing df does **not** change mtcars!
 ```
 
-## Getting data to work with
+## Checking the data `dim()`
 
-`dim()` and `nrow()` are good functions to check the dimensions and number of rows in your data before moving forward.
+The `dim()` , `nrow()`, and `ncol()` functions are good options to check the dimensions of your data before moving forward.
 
 ```{r}
 dim(df) # rows, columns
 nrow(df) # number of rows
+ncol(df) # number of columns
+```
+
+## Checking the data: `glimpse()`
+
+In addition to `head()` and `tail()`, the `glimpse()`function of the `dplyr` package  is another great function to look at your data. 
+
+```{r}
+glimpse(df)
+```
+
+
+## Checking your data: `slice_sample()`
+
+What if you want to see the middle of your data? You can use the `slice_sample()` function of the `dplyr` package (more on that in a bit) to see a random set of rows. You can specify the number of rows with the `n` argument or use a proportion with the `prop` argument.
+
+```{r}
+slice_sample(df, n=3)
+slice_sample(df, prop = .2)
+
 ```
 
 

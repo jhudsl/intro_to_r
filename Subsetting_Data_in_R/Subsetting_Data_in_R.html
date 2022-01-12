@@ -172,6 +172,7 @@ slide:not(.current) .plotly.html-widget{
 <p>In this module, we will show you how to:</p>
 
 <ol>
+<li>Look at your data in different ways</li>
 <li>Create a data frame and a tibble</li>
 <li>Create new variables/make rownames a column</li>
 <li>Rename columns of a data frame</li>
@@ -233,6 +234,63 @@ Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
 Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
 Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</pre>
+
+</article></slide><slide class=""><hgroup><h2>Checking the data <code>dim()</code></h2></hgroup><article  id="checking-the-data-dim">
+
+<p>The <code>dim()</code> , <code>nrow()</code>, and <code>ncol()</code> functions are good options to check the dimensions of your data before moving forward.</p>
+
+<pre class = 'prettyprint lang-r'>dim(df) # rows, columns</pre>
+
+<pre >[1] 32 11</pre>
+
+<pre class = 'prettyprint lang-r'>nrow(df) # number of rows</pre>
+
+<pre >[1] 32</pre>
+
+<pre class = 'prettyprint lang-r'>ncol(df) # number of columns</pre>
+
+<pre >[1] 11</pre>
+
+</article></slide><slide class=""><hgroup><h2>Checking the data: <code>glimpse()</code></h2></hgroup><article  id="checking-the-data-glimpse">
+
+<p>In addition to <code>head()</code> and <code>tail()</code>, the <code>glimpse()</code>function of the <code>dplyr</code> package is another great function to look at your data.</p>
+
+<pre class = 'prettyprint lang-r'>glimpse(df)</pre>
+
+<pre >Rows: 32
+Columns: 11
+$ mpg  &lt;dbl&gt; 21.0, 21.0, 22.8, 21.4, 18.7, 18.1, 14.3, 24.4, 22.8, 19.2, 17.8,…
+$ cyl  &lt;dbl&gt; 6, 6, 4, 6, 8, 6, 8, 4, 4, 6, 6, 8, 8, 8, 8, 8, 8, 4, 4, 4, 4, 8,…
+$ disp &lt;dbl&gt; 160.0, 160.0, 108.0, 258.0, 360.0, 225.0, 360.0, 146.7, 140.8, 16…
+$ hp   &lt;dbl&gt; 110, 110, 93, 110, 175, 105, 245, 62, 95, 123, 123, 180, 180, 180…
+$ drat &lt;dbl&gt; 3.90, 3.90, 3.85, 3.08, 3.15, 2.76, 3.21, 3.69, 3.92, 3.92, 3.92,…
+$ wt   &lt;dbl&gt; 2.620, 2.875, 2.320, 3.215, 3.440, 3.460, 3.570, 3.190, 3.150, 3.…
+$ qsec &lt;dbl&gt; 16.46, 17.02, 18.61, 19.44, 17.02, 20.22, 15.84, 20.00, 22.90, 18…
+$ vs   &lt;dbl&gt; 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0,…
+$ am   &lt;dbl&gt; 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0,…
+$ gear &lt;dbl&gt; 4, 4, 4, 3, 3, 3, 3, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 4, 4, 4, 3, 3,…
+$ carb &lt;dbl&gt; 4, 4, 1, 1, 2, 1, 4, 2, 2, 4, 4, 3, 3, 3, 4, 4, 4, 1, 2, 1, 1, 2,…</pre>
+
+</article></slide><slide class=""><hgroup><h2>Checking your data: <code>slice_sample()</code></h2></hgroup><article  id="checking-your-data-slice_sample">
+
+<p>What if you want to see the middle of your data? You can use the <code>slice_sample()</code> function of the <code>dplyr</code> package (more on that in a bit) to see a random set of rows. You can specify the number of rows with the <code>n</code> argument or use a proportion with the <code>prop</code> argument.</p>
+
+<pre class = 'prettyprint lang-r'>slice_sample(df, n=3)</pre>
+
+<pre >                   mpg cyl disp  hp drat   wt  qsec vs am gear carb
+Hornet Sportabout 18.7   8  360 175 3.15 3.44 17.02  0  0    3    2
+Duster 360        14.3   8  360 245 3.21 3.57 15.84  0  0    3    4
+Ferrari Dino      19.7   6  145 175 3.62 2.77 15.50  0  1    5    6</pre>
+
+<pre class = 'prettyprint lang-r'>slice_sample(df, prop = .2)</pre>
+
+<pre >                mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+AMC Javelin    15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
+Merc 230       22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+Fiat X1-9      27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+Ford Pantera L 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Making data frames(base R) and tibbles (tidyverse)</h2></hgroup><article  id="making-data-framesbase-r-and-tibbles-tidyverse">
 
