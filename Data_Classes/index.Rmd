@@ -37,7 +37,7 @@ class(c(1, 4, 7))
 
 This can also be a bit tricky.
 
-```{r numChar}
+```{r numChar2}
 class(c(1, 2, "tree"))
 class(c("1", "4", "7"))
 ```
@@ -292,15 +292,20 @@ Two-dimensional classes are those we would often use to store data read from a f
 
 * a data frame (`data.frame` or `tibble` class)
 
-    * "traditional", Excel-like spreadsheets
-    * different columns (variables) can be of different classes
-    * for example one variable is calendar date -- `Date` class, another variable is age -- `numeric` class
-    
 * a matrix (`matrix` class)
 
     * also composed of rows and columns
-    * unlike data frame, the entire matrix is composed of one R class
+    * unlike `data.frame` or `tibble`, the entire matrix is composed of one R class
     * for example: all entries are `numeric`, or all entries are `character`
+
+## Matrices
+
+```{r matrix}
+n = 1:9 
+n
+mat = matrix(n, nrow = 3)
+mat
+```
 
 ## Vectors: data selection
 
@@ -316,31 +321,16 @@ x[2]
 x[c(1, 2, 100)]
 ```
 
-## Vectors: data selection
 
-```{r}
-x <- c("a", "b", "c", "d", "e", "f", "g", "h")
-x_long <- rep(x, times = 20)
-x_long
-x
-```
-
-
-## Matrices
-
-```{r matrix}
-n = 1:9 
-n
-mat = matrix(n, nrow = 3)
-mat
-```
 
 ## Matrices: data selection
 
 Note you cannot use `dplyr` functions (like `select`) on matrices. To subset matrix rows and/or columns, use `matrix[row_index, column_index]`.
 
 ```{r subset3}
+mat
 mat[1, 1] # individual entry: row 1, column 1
+mat[1, 2] # individual entry: row 1, column 2
 mat[1, ]  # first row
 mat[, 1]  # first column
 
