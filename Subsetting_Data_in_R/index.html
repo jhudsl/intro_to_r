@@ -209,14 +209,14 @@ slide:not(.current) .plotly.html-widget{
 
 <pre class = 'prettyprint lang-r'>library(tidyverse) # loads dplyr and other packages!</pre>
 
-<pre >── Attaching packages ──────────────────────────────────────── tidyverse 1.3.1 ──</pre>
+<pre >── Attaching packages ──────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.1 ──</pre>
 
 <pre >✓ ggplot2 3.3.5     ✓ purrr   0.3.4
 ✓ tibble  3.1.6     ✓ stringr 1.4.0
 ✓ tidyr   1.1.4     ✓ forcats 0.5.1
 ✓ readr   2.1.1     </pre>
 
-<pre >── Conflicts ─────────────────────────────────────────── tidyverse_conflicts() ──
+<pre >── Conflicts ─────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 x dplyr::filter() masks stats::filter()
 x dplyr::lag()    masks stats::lag()</pre>
 
@@ -275,22 +275,22 @@ $ carb &lt;dbl&gt; 4, 4, 1, 1, 2, 1, 4, 2, 2, 4, 4, 3, 3, 3, 4, 4, 4, 1, 2, 1, 1
 
 <p>What if you want to see the middle of your data? You can use the <code>slice_sample()</code> function of the <code>dplyr</code> package to see a random set of rows. You can specify the number of rows with the <code>n</code> argument or use a proportion with the <code>prop</code> argument.</p>
 
-<pre class = 'prettyprint lang-r'>slice_sample(df, n=3)</pre>
+<pre class = 'prettyprint lang-r'>slice_sample(df, n = 3)</pre>
 
-<pre >                mpg cyl  disp  hp drat    wt qsec vs am gear carb
-AMC Javelin    15.2   8 304.0 150 3.15 3.435 17.3  0  0    3    2
-Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.9  1  1    4    1
-Merc 280       19.2   6 167.6 123 3.92 3.440 18.3  1  0    4    4</pre>
+<pre >               mpg cyl disp  hp drat    wt  qsec vs am gear carb
+Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+Duster 360    14.3   8  360 245 3.21 3.570 15.84  0  0    3    4</pre>
 
 <pre class = 'prettyprint lang-r'>slice_sample(df, prop = .2)</pre>
 
-<pre >                   mpg cyl  disp  hp drat   wt  qsec vs am gear carb
-Merc 240D         24.4   4 146.7  62 3.69 3.19 20.00  1  0    4    2
-Camaro Z28        13.3   8 350.0 245 3.73 3.84 15.41  0  0    3    4
-Hornet Sportabout 18.7   8 360.0 175 3.15 3.44 17.02  0  0    3    2
-Maserati Bora     15.0   8 301.0 335 3.54 3.57 14.60  0  1    5    8
-Valiant           18.1   6 225.0 105 2.76 3.46 20.22  1  0    3    1
-Dodge Challenger  15.5   8 318.0 150 2.76 3.52 16.87  0  0    3    2</pre>
+<pre >                   mpg cyl disp  hp drat    wt  qsec vs am gear carb
+Ferrari Dino      19.7   6  145 175 3.62 2.770 15.50  0  1    5    6
+Camaro Z28        13.3   8  350 245 3.73 3.840 15.41  0  0    3    4
+Ford Pantera L    15.8   8  351 264 4.22 3.170 14.50  0  1    5    4
+Chrysler Imperial 14.7   8  440 230 3.23 5.345 17.42  0  0    3    4
+Dodge Challenger  15.5   8  318 150 2.76 3.520 16.87  0  0    3    2
+Pontiac Firebird  19.2   8  400 175 3.08 3.845 17.05  0  0    3    2</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Making data frames(base R) and tibbles (tidyverse)</h2></hgroup><article  id="making-data-framesbase-r-and-tibbles-tidyverse">
 
@@ -454,7 +454,7 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</pre>
 
 <p>To rename all columns you use the <code>rename_all()</code>. In this case we will use <code>toupper()</code> to make all letters upper case. Could also use <code>tolower()</code> function.</p>
 
-<pre class = 'prettyprint lang-r'>df_upper = dplyr::rename_all(df, toupper)
+<pre class = 'prettyprint lang-r'>df_upper &lt;- dplyr::rename_all(df, toupper)
 head(df_upper, 3)</pre>
 
 <pre >               MPG CYL DISP  HP DRAT    WT  QSEC VS AM GEAR CARB
@@ -462,7 +462,7 @@ Mazda RX4     21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
 Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
 Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</pre>
 
-<pre class = 'prettyprint lang-r'>df = dplyr::rename_all(df, tolower)
+<pre class = 'prettyprint lang-r'>df &lt;- dplyr::rename_all(df, tolower)
 head(df, 3)</pre>
 
 <pre >               mpg cyl disp  hp drat    wt  qsec vs am gear carb
@@ -777,8 +777,8 @@ Volvo 142E       4 109</pre>
 
 <p>One can also create temporary objects and reassign them:</p>
 
-<pre class = 'prettyprint lang-r'>df2 = filter(df, mpg &gt; 20 &amp; cyl == 4)
-df2 = select(df2, cyl, hp)
+<pre class = 'prettyprint lang-r'>df2 &lt;- filter(df, mpg &gt; 20 &amp; cyl == 4)
+df2 &lt;- select(df2, cyl, hp)
 
 head(df2,4)</pre>
 
@@ -813,7 +813,7 @@ Volvo 142E       4 109</pre>
 
 <p>You can add a new column, called <code>newcol</code> to <code>df</code>, using the <code>$</code> operator:</p>
 
-<pre class = 'prettyprint lang-r'>df$newcol = df$wt/2.2
+<pre class = 'prettyprint lang-r'>df$newcol &lt;- df$wt/2.2
 head(df,3)</pre>
 
 <pre >               mpg cyl disp  hp drat    wt  qsec vs am gear carb   newcol
@@ -831,17 +831,13 @@ Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1 1.054545</pre>
 {data object to update} &lt;- mutate({data to use}, 
                                 {new variable name} = {new variable source}) </pre>
 
-<pre class = 'prettyprint lang-r'>df = mutate(df, newcol = wt/2.2)</pre>
-
-<pre >              mpg cyl disp  hp drat    wt  qsec vs am gear carb   newcol
-Mazda RX4      21   6  160 110  3.9 2.620 16.46  0  1    4    4 1.190909
-Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4 1.306818</pre>
+<pre class = 'prettyprint lang-r'>df &lt;- mutate(df, newcol = wt/2.2)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Removing columns of a data frame: base R</h2></hgroup><article  id="removing-columns-of-a-data-frame-base-r">
 
 <p>You can remove a column by assigning to <code>NULL</code>:</p>
 
-<pre class = 'prettyprint lang-r'>df$newcol = NULL</pre>
+<pre class = 'prettyprint lang-r'>df$newcol &lt;- NULL</pre>
 
 </article></slide><slide class=""><hgroup><h2>Removing columns of a data frame: dplyr</h2></hgroup><article  id="removing-columns-of-a-data-frame-dplyr">
 
@@ -849,7 +845,7 @@ Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4 1.306818</pre>
 
 <p>The <code>select</code> function can remove a column with minus (<code>-</code>):</p>
 
-<pre class = 'prettyprint lang-r'>select(df, -newcol)</pre>
+<pre class = 'prettyprint lang-r'>select(df, - newcol)</pre>
 
 <pre >                   mpg cyl disp  hp drat    wt  qsec vs am gear carb
 Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
@@ -1306,7 +1302,7 @@ Toyota Corolla      0.8340909</pre>
 <p>Now with <code>ifelse</code>()</p>
 
 <pre class = 'prettyprint lang-r'>#ifelse(test, yes, no)
-ifelse(df$disp&lt;=200, &quot;low&quot;, &quot;high&quot;)</pre>
+ifelse(df$disp &lt;= 200, &quot;low&quot;, &quot;high&quot;)</pre>
 
 <pre > [1] &quot;low&quot;  &quot;low&quot;  &quot;low&quot;  &quot;high&quot; &quot;high&quot; &quot;high&quot; &quot;high&quot; &quot;low&quot;  &quot;low&quot;  &quot;low&quot; 
 [11] &quot;low&quot;  &quot;high&quot; &quot;high&quot; &quot;high&quot; &quot;high&quot; &quot;high&quot; &quot;high&quot; &quot;low&quot;  &quot;low&quot;  &quot;low&quot; 
