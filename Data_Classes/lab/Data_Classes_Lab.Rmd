@@ -5,11 +5,6 @@ editor_options:
   chunk_output_type: console
 ---
 
-
-Dataset used is the Bike Lanes Dataset: BikeBaltimore is the Department of Transportation's bike program. 
-
-The data is from http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms
-
 # Part 1
 
 0. Load all the libraries we will use in this lab. 
@@ -22,39 +17,61 @@ library(lubridate)
 library(jhur)
 ```
 
-1. Read Bike Lanes Dataset using `read_bike()` function from `jhur` package. Assign it to `bike` variable. Use `str()` function to take a look at the data and learn column types.
+1. Create some data to work with. 
 
-Note: alternatively you can read data to R from URL `"http://jhudatascience.org/intro_to_R_class/data/Bike_Lanes.csv"` using `read_csv()` function. 
-
-```{r}
-
-```
-
-2. Use `mutate()` function to create a new variable in the data set named `type_fact` that is of class `factor` made from the `type` variable. 
+First, create a vector that has class integer called `int_vect` that starts at 1 and goes up to 10 and repeats this sequence 3 times using `rep`  (hint use `seq()`).
 
 ```{r}
 
 ```
 
-3. Use `str()` function again. Note the difference between `type` and `type_fact` variables 
+2. Next, create a random vector of integers from 1 to 30 called `rand_vect` (hint use `sample()`).
+
+Because we are using a random vector let's use the `set.seed()` function to make sure we all have the same result - this code is already be in the code chunk for you. Simply create the vector below the `set.seed` line.
+
+
+```{r}
+set.seed(1234)
+
+
+```
+
+3. Create a vector that repeats `c(TRUE, TRUE, FALSE)` 10 times called `TF_vect`. Also create a vector that repeats `c("TRUE", "TRUE", "FALSE")` 10 times called `TF_vect2`.
+
+```{r}
+
+
+```
+
+Create a tibble combining these vectors together called `vect_data` using the following code.
+
+```{r, eval = FALSE}
+vect_data <- tibble(int_vect, rand_vect, TF_vect, TF_vect2)
+```
+
+
+4. Take a look at 5 random rows using the `slice_sample()` function. Try this a few times to see how the results change.
 
 ```{r}
 
 ```
 
-4. Use `levels()` function on `type_fact` variable to display levels of `type_fact` variable. Hint: recall you can use `data$variable_name` to access variable of interest. 
+5. Check to see if the `TF_vect` is logical. Check to see if `TF_vect2` is logical. Why are the results what they are?
 
 ```{r}
 
+
 ```
 
-5. Use `table()` function on `type_fact` variable to display the count of observations with each bike type. 
 
-Use `table()` function again and specify additional argumet `useNA = "always"`. 
+6. Use `mutate()` function to create a new variable in the data set named `type_fact` that is of class `factor` made from the `int_vect` variable. Take a look at the data. 
 
 ```{r}
 
+
+
 ```
+
 
 
 # Part 2
@@ -62,6 +79,7 @@ Use `table()` function again and specify additional argumet `useNA = "always"`.
 1. Read Read Charm City Circulator data using `read_circulator()` function from `jhur` package. Assign it to `circ` variable. Use `str()` function to take a look at the data and learn column types.
 
 ```{r}
+circ = read_circulator()
 
 ```
 
@@ -69,58 +87,40 @@ Use `table()` function again and specify additional argumet `useNA = "always"`.
 
 ```{r}
 
-```
-
-3. Use `str()` function again. Note the difference between `date` and `date_formatted` columns.  
-
-```{r}
 
 ```
 
-5. Use `range()` function on `date_formatted` variable to display the range of dates in the data set.
+3. Move the `date_formatted` variable to be before `date` using the `relocate` function. Take a lookat the data using `glimpse()`. Note the difference between `date` and `date_formatted` columns.  
 
 ```{r}
+
+
+
+```
+
+4. Create a list data object called `classes_data` that combines the `vect_data` from the first part of the lab and `circ`. Use `glimpse()` to look at the data.
+
+```{r}
+
+
+
+```
+
+Bonus: Use `range()` function on `date_formatted` variable to display the range of dates in the data set. How does this compare to that of `date`? Why?
+
+```{r}
+
 
 ```
  
-6. Use `mutate()` function to create a new column named `date_year` that represents year of the calendar date. The new variable is created from `date_formatted` column. Hint: use `year()` function.
+
+Bonus: Use `table()` function on `day` variable to display the count of `orangeBoardings` observations with each day. Which day had the most boardings? Is this true for the other routes (`purpleBoardings`, `greenBoardings`, `bannerBoardings`)?
 
 ```{r}
 
-```
 
-7. Use `table()` function on `date_year` variable to display the count of observations with each calendar year. 
-
-```{r}
 
 ```
  
- 
-# Part 3
-
-1. Use function `seq()` to generate 16 numeric values ranging from 1 to 16 Assign them to a variable named `vals`. 
-
-```{r}
-
-```
-
-2. Use values from the `vals` vector to create 5x5 matrix. Assign the matrix to variable named `mat`. 
-
-```{r}
-
-```
-
-3. What happens when you type `mat + 100`? 
-
-```{r}
-
-```
-
-4. What happens when you type `mat + mat`? 
-
-```{r}
-
-```
-
 
 
