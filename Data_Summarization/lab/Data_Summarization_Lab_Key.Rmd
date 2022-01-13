@@ -9,8 +9,6 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
-
 # Data used
 
 Bike Lanes Dataset: BikeBaltimore is the Department of Transportation's bike program. 
@@ -28,16 +26,16 @@ bike = read_csv(
   "http://jhudatascience.org/intro_to_R_class/data/Bike_Lanes.csv")
 ```
 
-
 or use 
 ```{r}
 library(jhur)
-bike = read_bike()
+bike <- read_bike()
 ```
 
 # Part 1
 
-1. How many bike "lanes" are currently in Baltimore?  You can assume each observation/row is a different bike "lane".  (hint: how do you get the number of rows of a data set? You can use `dim()` or `nrow()`).
+1. How many bike "lanes" are currently in Baltimore?  You can assume each observation/row is a different bike "lane".  (hint: how do you get the number of rows of a data set? You can use `dim()` or `nrow()` or another function).
+
 ```{r q1}
 nrow(bike)
 dim(bike)
@@ -45,22 +43,32 @@ bike %>%
   nrow()
 ```
 
-2. How many (a) feet and (b) miles of bike "lanes" are currently in Baltimore, based on the `length` column? (`5280` feet in a mile).
+2. How many feet of bike "lanes" are currently in Baltimore, based on the `length` column? (use `sum()`)
 
-```{r q2}
-# (a)
+```{r}
 sum(bike$length)
 sum(bike %>% pull(length))
-
-#
-sum(bike$length)/5280
-sum(bike$length/5280)
-sum(bike %>% pull(length)) / 5280
 ```
 
-3. How many types of bike lanes are there?   (Hints: `unique`, `table`, or `bike %>% count()` on the column named `type`).
+3. Summarize the data to get the `max` and `min` of `length` using the `summarize` function.
+
+```{r}
+bike %>% summarize(max = max(length),
+                   min = min(length))
+```
+
+# Part 2
+
+4. How many types of bike lanes are there?   (Hints: `unique`, `table`, or `bike %>% count()` on the column named `type`).
    
-```{r q3}
+```{r}
+# So many ways!!
+
+bike %>% count(type)
+
+bike %>% pull(type) %>% table()
+
+unique(bike %>% pull(type))
 table(bike$type, useNA = "ifany")
 unique(bike$type)
 length(table(bike$type))
@@ -68,22 +76,23 @@ length(unique(bike$type))
 
 is.na(unique(bike$type))
 
-counts = bike %>% 
-  count(type)
+bike %>%
+  group_by(type) %>% 
+  summarize(count = n())
 ```
 
-4. Which bike lane`type` has (a) the most number of and (b) longest average bike lane length? (Hint: `group_by` and `summarize`)
+5. Which bike lane`type` has (a) the most number of and (b) longest average bike lane length? (Hint: `group_by` and `summarize`)
 
-```{r q4}
+```{r}
 bike %>% 
   group_by(type) %>% 
   summarize(number_of_rows = n(),
             mean = mean(length))
 ```
 
-5. Take your code from the above question, adding another pipe (`%>%`) and `arrange()` to sort the output by `mean`.
+6. Take your code from the above question, adding another pipe (`%>%`) and `arrange()` to sort the output by `mean`.
 
-```{r q5}
+```{r}
 bike %>% 
   group_by(type) %>% 
   summarize(number_of_rows = n(),
@@ -91,22 +100,75 @@ bike %>%
   arrange(mean)
 ```
 
-6. Zeros aren't a very meaningful value for year. Change any zeros in `bike$dateInstalled` to `NA`. For the curious,`ifelse()` in R works takes the same arguments as the "IF" function in Excel!
+7. Make a new column using `mutate`. This new column should be different for each year (`dateInstalled`), and indicate the total sum number of lanes (`numLanes`) built in that year. Call this new column `year_total` and make sure to reassign the dataset. (hint: use `group_by` first)
 
-```{r q6}
-bike = bike %>% 
-  mutate(dateInstalled = ifelse(dateInstalled == 0, NA, dateInstalled))
-
-bike$dateInstalled[bike$dateInstalled == "0"] = NA
-
-# How to find NAs?
-is.na(bike$dateInstalled)
-!is.na(bike$dateInstalled)
+```{r}
+bike <- bike %>% 
+  group_by(dateInstalled) %>% 
+  mutate(year_total = sum(numLanes, na.rm = TRUE))
 ```
 
-7. What was the average bike lane length grouped by `dateInstalled`? Remove `NA`s with `na.rm = TRUE`.
+8. How does your data from above change if you also group by `type`? Ungroup your data when you are done.
 
-```{r q7}
+```{r}
+bike %>% 
+  group_by(dateInstalled, type) %>% 
+  mutate(year_total = sum(numLanes, na.rm = TRUE))
+
+bike <- ungroup(bike)
+```
+
+# Part 2
+
+9. Create a histogram for the `length` variable in the `bike` dataset. Try playing with the `breaks=` argument.
+
+```{r}
+hist( pull(bike, length), breaks = 100)
+```
+
+10. Create a scatterplot with `dateInstalled` on the x axis and `length` on the y axis.
+
+```{r}
+plot( pull(bike, dateInstalled), pull(bike, length) )
+```
+
+**Bonus**
+
+A. Summarize the `bike` data to get the mean of `length` and `dateInstalled`. Do this three ways: 1) with `summarize`, 2) with `summarize` and `across`, and 3) with `colMeans()`.
+
+```{r}
+bike %>% summarize( mean_length = mean(length, na.rm = TRUE),
+                    mean_date = mean(dateInstalled, na.rm = TRUE))
+bike %>% 
+  summarize(across( c(length, dateInstalled), ~ mean(.x, na.rm = TRUE)))
+
+bike %>% select(length, dateInstalled) %>% colMeans()
+```
+
+You should have gotten a mean date sometime in the 1800s - that doesn't make much sense! Hypothesize why the average date is a date from before bike lanes were being built in Baltimore.
+
+> There are probably some zeros or other incorrect low values in the data.
+
+B. Change any zeros in `bike$dateInstalled` to `NA` using `mutate`. For the curious,`ifelse()` in R works takes the same arguments as the "IF" function in Excel!
+
+```{r}
+bike <- bike %>% 
+  mutate(dateInstalled = ifelse(dateInstalled == 0, NA, dateInstalled))
+
+bike$dateInstalled[bike$dateInstalled == "0"] <- NA
+
+# How to find NAs?
+# is.na(bike$dateInstalled)
+# !is.na(bike$dateInstalled)
+```
+
+What is another way to remove zeros from the data?
+
+> Add a filtering step
+
+C. What was the average bike lane length grouped by `dateInstalled`? Remove `NA`s with `na.rm = TRUE`.
+
+```{r}
 bike %>%
   group_by(dateInstalled) %>% 
   summarise(mean_of_the_bike = mean(length, na.rm = F))
@@ -120,47 +182,21 @@ bike %>%
   summarise(n = n(), # Add this column if you want!
             mean_of_the_bike = mean(length, na.rm = TRUE),
             n_missing = sum(is.na(length))) # Add this column if you want!
-
-            
 ```
 
-# Part 2
-
-8.  Describe the distribution of bike "lane" lengths:
-    (a) Numerically [hint: `quantile()`, using `bike$length`] and 
-		(b) graphically [hint: `qplot()` with `geom = "histogram"` or `geom = "density")`].
-```{r q8}
-quantile(bike$length)
-
-qplot(x = length, data = bike, geom = "histogram")
-qplot(x = log10(length), data = bike, geom = "histogram")
-
-hist(bike$length)
-hist(bike$length,breaks=100)
-
-hist(log2(bike$length),breaks=100)
-hist(log10(bike$length),breaks=100)
-```
-
-9. Then describe as above, after stratifying by  i) type (`type`) then ii) number of lanes (`numLanes`) using `geom = "boxplot"`: 
-```{r q9}
-qplot(y = length, x = type, data = bike, geom = "boxplot")
-qplot(y = length, x = factor(numLanes), data = bike, geom = "boxplot")
-```
+D. Does the plot from question 10 improve if you remove the zeros?
 
 ```{r}
-boxplot(bike$length~bike$type)
-boxplot(bike$length~bike$type, las=3)
-boxplot(bike$length~bike$numLanes)
+plot( pull(bike, dateInstalled), pull(bike, length) )
+```
 
-bike$length[1] = NA
+> Yes!
 
-boxplot(log10(bike$length)~bike$type)
+E. What kind of plot would be better for showing the length by each year group? Make this plot.
 
+> A boxplot would be more appropriate since year behaves more as a category than a continuous number.
 
-bike %>% 
-  group_by(type) %>% 
-  summarize(q0.7 = quantile(length, na.rm = TRUE, probs =0.7))
-
+```{r}
+boxplot( pull(bike, length) ~ pull(bike, dateInstalled) )
 ```
 
