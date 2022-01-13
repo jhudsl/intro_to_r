@@ -34,7 +34,7 @@ glimpse(df)
 
 
 ## -----------------------------------------------------------------------------
-slice_sample(df, n=3)
+slice_sample(df, n = 3)
 slice_sample(df, prop = .2)
 
 
@@ -86,12 +86,12 @@ head(df)
 
 
 ## -----------------------------------------------------------------------------
-df_upper = dplyr::rename_all(df, toupper)
+df_upper <- dplyr::rename_all(df, toupper)
 head(df_upper, 3)
 
 
 ## -----------------------------------------------------------------------------
-df = dplyr::rename_all(df, tolower)
+df <- dplyr::rename_all(df, tolower)
 head(df, 3)
 
 
@@ -154,8 +154,8 @@ select(filter(df, mpg > 20 & cyl == 4), cyl, hp)
 
 
 ## -----------------------------------------------------------------------------
-df2 = filter(df, mpg > 20 & cyl == 4)
-df2 = select(df2, cyl, hp)
+df2 <- filter(df, mpg > 20 & cyl == 4)
+df2 <- select(df2, cyl, hp)
 
 head(df2,4)
 
@@ -165,7 +165,7 @@ df %>% filter(mpg > 20 & cyl == 4) %>% select(cyl, hp)
 
 
 ## -----------------------------------------------------------------------------
-df$newcol = df$wt/2.2
+df$newcol <- df$wt/2.2
 head(df,3)
 
 
@@ -176,19 +176,15 @@ head(df,3)
 
 
 ## -----------------------------------------------------------------------------
-df = mutate(df, newcol = wt/2.2)
-
-
-## ---- echo = FALSE------------------------------------------------------------
-print(head({df = mutate(df, newcol = wt/2.2)}, 2))
+df <- mutate(df, newcol = wt/2.2)
 
 
 ## ---- eval = FALSE------------------------------------------------------------
-## df$newcol = NULL
+## df$newcol <- NULL
 
 
 ## ---- eval = FALSE------------------------------------------------------------
-## select(df, -newcol)
+## select(df, - newcol)
 
 
 ## ---- echo = FALSE------------------------------------------------------------
@@ -233,7 +229,7 @@ df$disp
 
 ## -----------------------------------------------------------------------------
 #ifelse(test, yes, no)
-ifelse(df$disp<=200, "low", "high")
+ifelse(df$disp <= 200, "low", "high")
 
 
 ## -----------------------------------------------------------------------------

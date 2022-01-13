@@ -94,7 +94,7 @@ glimpse(df)
 What if you want to see the middle of your data? You can use the `slice_sample()` function of the `dplyr` package to see a random set of rows. You can specify the number of rows with the `n` argument or use a proportion with the `prop` argument.
 
 ```{r}
-slice_sample(df, n=3)
+slice_sample(df, n = 3)
 slice_sample(df, prop = .2)
 
 ```
@@ -211,12 +211,12 @@ head(df)
 To rename all columns you use the `rename_all()`. In this case we will use `toupper()` to make all letters upper case. Could also use `tolower()` function.
 
 ```{r}
-df_upper = dplyr::rename_all(df, toupper)
+df_upper <- dplyr::rename_all(df, toupper)
 head(df_upper, 3)
 ```
 
 ```{r}
-df = dplyr::rename_all(df, tolower)
+df <- dplyr::rename_all(df, tolower)
 head(df, 3)
 ```
 
@@ -362,8 +362,8 @@ In `R`, the common way to perform multiple operations is to wrap functions aroun
 One can also create temporary objects and reassign them:
 
 ```{r}
-df2 = filter(df, mpg > 20 & cyl == 4)
-df2 = select(df2, cyl, hp)
+df2 <- filter(df, mpg > 20 & cyl == 4)
+df2 <- select(df2, cyl, hp)
 
 head(df2,4)
 ```
@@ -384,7 +384,7 @@ df %>% filter(mpg > 20 & cyl == 4) %>% select(cyl, hp)
 
 You can add a new column, called `newcol` to `df`, using the `$` operator:
 ```{r}
-df$newcol = df$wt/2.2
+df$newcol <- df$wt/2.2
 head(df,3)
 ```
 
@@ -402,19 +402,16 @@ The `mutate` function in `dplyr` allows you to add or modify columns of a data f
 ```
 
 ```{r}
-df = mutate(df, newcol = wt/2.2)
+df <- mutate(df, newcol = wt/2.2)
 ```
 
-```{r, echo = FALSE}
-print(head({df = mutate(df, newcol = wt/2.2)}, 2))
-```
 
 
 ## Removing columns of a data frame: base R
 
 You can remove a column by assigning to `NULL`:
 ```{r, eval = FALSE}
-df$newcol = NULL
+df$newcol <- NULL
 ```
 
 ## Removing columns of a data frame: dplyr
@@ -423,7 +420,7 @@ The `NULL` method is still very common.
 
 The `select` function can remove a column with minus (`-`):
 ```{r, eval = FALSE}
-select(df, -newcol)
+select(df, - newcol)
 ```
 
 ```{r, echo = FALSE}
@@ -565,7 +562,7 @@ df$disp
 Now with `ifelse`()
 ```{r}
 #ifelse(test, yes, no)
-ifelse(df$disp<=200, "low", "high")
+ifelse(df$disp <= 200, "low", "high")
 ```
 
 ## Adding columns to a data frame: dplyr
