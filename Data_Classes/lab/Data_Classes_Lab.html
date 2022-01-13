@@ -174,43 +174,64 @@ pre code {
 <li>Load all the libraries we will use in this lab.</li>
 </ol>
 <pre class="r"><code>library(readr)
-library(tidyverse)
-library(dplyr)
-library(lubridate)
-library(jhur)</code></pre>
+library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.5     ✓ dplyr   1.0.7
+## ✓ tibble  3.1.6     ✓ stringr 1.4.0
+## ✓ tidyr   1.1.4     ✓ forcats 0.5.1
+## ✓ purrr   0.3.4</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(dplyr)
+library(lubridate)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;lubridate&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     date, intersect, setdiff, union</code></pre>
+<pre class="r"><code>library(jhur)</code></pre>
 <ol style="list-style-type: decimal">
-<li>Create some data to work with. First, create a vector that has class integer called <code>int_vect</code> that starts at 1 and goes up to 10 and repeats this sequence 3 times using <code>rep</code> (hint use <code>seq()</code>). Next, create a random vector of integers from 1 to 30 called <code>rand_vect</code> (hint use <code>sample()</code>). Create a vector that repeats <code>c(TRUE, TRUE, FALSE)</code> 10 times called <code>TF_vect</code>. Create a vector that repeats <code>c(&quot;TRUE&quot;, &quot;TRUE&quot;, &quot;FALSE&quot;)</code> 10 times called <code>TF_vect2</code>.</li>
+<li>Create some data to work with.</li>
 </ol>
-<p>Because we are using a random vector let’s use the <code>set.seed()</code> function to make sure we all have the same result - this code will already be in the code chunk for you. Simply create the vectors below the <code>set.seed</code> line.</p>
-<pre class="r"><code>set.seed(1234)</code></pre>
-<p>Create a tibble combining these vectors together called vect_data using the following code.</p>
-<pre class="r"><code>vect_data &lt;- tibble(int_vect, rand_vect, TF_vect, TF_vect2)</code></pre>
+<p>First, create a vector that has class integer called <code>int_vect</code> that starts at 1 and goes up to 10 and repeats this sequence 3 times using <code>rep</code> (hint use <code>seq()</code>).</p>
 <ol start="2" style="list-style-type: decimal">
+<li>Next, create a random vector of integers from 1 to 30 called <code>rand_vect</code> (hint use <code>sample()</code>).</li>
+</ol>
+<p>Because we are using a random vector let’s use the <code>set.seed()</code> function to make sure we all have the same result - this code is already be in the code chunk for you. Simply create the vector below the <code>set.seed</code> line.</p>
+<pre class="r"><code>set.seed(1234)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Create a vector that repeats <code>c(TRUE, TRUE, FALSE)</code> 10 times called <code>TF_vect</code>. Also create a vector that repeats <code>c(&quot;TRUE&quot;, &quot;TRUE&quot;, &quot;FALSE&quot;)</code> 10 times called <code>TF_vect2</code>.</li>
+</ol>
+<p>Create a tibble combining these vectors together called <code>vect_data</code> using the following code.</p>
+<pre class="r"><code>vect_data &lt;- tibble(int_vect, rand_vect, TF_vect, TF_vect2)</code></pre>
+<ol start="4" style="list-style-type: decimal">
 <li><p>Take a look at 5 random rows using the <code>slice_sample()</code> function. Try this a few times to see how the results change.</p></li>
 <li><p>Check to see if the <code>TF_vect</code> is logical. Check to see if <code>TF_vect2</code> is logical. Why are the results what they are?</p></li>
 <li><p>Use <code>mutate()</code> function to create a new variable in the data set named <code>type_fact</code> that is of class <code>factor</code> made from the <code>int_vect</code> variable. Take a look at the data.</p></li>
-<li><p>Use <code>levels()</code> function on <code>type_fact</code> variable to display levels of <code>type_fact</code> variable. Hint: recall you can use <code>data$variable_name</code> to access variable of interest.</p></li>
 </ol>
 </div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
 <ol style="list-style-type: decimal">
-<li><p>Read Read Charm City Circulator data using <code>read_circulator()</code> function from <code>jhur</code> package. Assign it to <code>circ</code> variable. Use <code>str()</code> function to take a look at the data and learn column types.</p></li>
+<li>Read Read Charm City Circulator data using <code>read_circulator()</code> function from <code>jhur</code> package. Assign it to <code>circ</code> variable. Use <code>str()</code> function to take a look at the data and learn column types.</li>
+</ol>
+<pre class="r"><code>circ = read_circulator()</code></pre>
+<pre><code>## Rows: 1146 Columns: 15</code></pre>
+<pre><code>## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr  (2): day, date
+## dbl (13): orangeBoardings, orangeAlightings, orangeAverage, purpleBoardings,...</code></pre>
+<pre><code>## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<ol start="2" style="list-style-type: decimal">
 <li><p>Use <code>mutate()</code> function to create a new column named <code>date_formatted</code> that is of <code>Date</code> class. The new variable is created from <code>date</code> column. Hint: use <code>mdy()</code> function.</p></li>
-<li><p>Use <code>str()</code> function again. Note the difference between <code>date</code> and <code>date_formatted</code> columns.</p></li>
-<li><p>Use <code>range()</code> function on <code>date_formatted</code> variable to display the range of dates in the data set.</p></li>
-<li><p>Use <code>mutate()</code> function to create a new column named <code>date_year</code> that represents year of the calendar date. The new variable is created from <code>date_formatted</code> column. Hint: use <code>year()</code> function.</p></li>
-<li><p>Use <code>table()</code> function on <code>date_year</code> variable to display the count of observations with each calendar year.</p></li>
+<li><p>Move the <code>date_formatted</code> variable to be before <code>date</code> using the <code>relocate</code> function. Take a lookat the data using <code>glimpse()</code>. Note the difference between <code>date</code> and <code>date_formatted</code> columns.</p></li>
+<li><p>Create a list data object called <code>classes_data</code> that combines the <code>vect_data</code> from the first part of the lab and <code>circ</code>. Use <code>glimpse()</code> to look at the data.</p></li>
 </ol>
-</div>
-<div id="part-3" class="section level1">
-<h1>Part 3</h1>
-<ol style="list-style-type: decimal">
-<li><p>Use function <code>seq()</code> to generate 16 numeric values ranging from 1 to 16 Assign them to a variable named <code>vals</code>.</p></li>
-<li><p>Use values from the <code>vals</code> vector to create 5x5 matrix. Assign the matrix to variable named <code>mat</code>.</p></li>
-<li><p>What happens when you type <code>mat + 100</code>?</p></li>
-<li><p>What happens when you type <code>mat + mat</code>?</p></li>
-</ol>
+<p>Bonus: Use <code>range()</code> function on <code>date_formatted</code> variable to display the range of dates in the data set. How does this compare to that of <code>date</code>? Why?</p>
+<p>Bonus: Use <code>table()</code> function on <code>day</code> variable to display the count of <code>orangeBoardings</code> observations with each day. Which day had the most boardings? Is this true for the other routes (<code>purpleBoardings</code>, <code>greenBoardings</code>, <code>bannerBoardings</code>)?</p>
 </div>
 
 

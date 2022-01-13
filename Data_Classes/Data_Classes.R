@@ -21,6 +21,19 @@ x
 x = seq(1:5)
 x
 class(x)
+typeof(x)
+
+
+## ----double-------------------------------------------------------------------
+y = c(1.1, 2.0, 3.2, 4.5, 5.6)
+y
+class(y)
+typeof(y)
+
+
+## -----------------------------------------------------------------------------
+tibble(xvar = x, yvar = y)
+
 
 
 ## ----logical1-----------------------------------------------------------------
@@ -44,6 +57,8 @@ is.numeric(c("tree", "cloud"))
 as.character(c(1, 4, 7))
 as.numeric(c("1", "4", "7"))
 as.logical(c("TRUE", "FALSE", "FALSE"))
+as.integer(c(1.2, 3.7))
+as.double(c(1, 2, 3))
 
 
 ## ----logical_coercions4-------------------------------------------------------
@@ -83,11 +98,25 @@ seq(from = 0, to = 1, by = 0.2)
 seq(from = -5, to = 5, length.out = 10)
 
 
-## ---- message = FALSE---------------------------------------------------------
-class("2021-06-15")
+## -----------------------------------------------------------------------------
+head(iris)
+class(iris)
+iris_mat <-head(tibble(select(iris, -Species)))
+as.matrix(iris_mat)
+matrix(1:4, ncol = 2)
 
-as.Date("2021-06-15")         # base R 
-class(as.Date("2021-06-15"))  # base R 
+
+## ----makeList-----------------------------------------------------------------
+mylist <- list(c("A", "b", "c"), c(1,2,3), matrix(1:4, ncol = 2))
+mylist
+class(mylist)
+
+
+## ----makeListv----------------------------------------------------------------
+mylist_named <- list(letters = c("A", "b", "c"), 
+                     numbers = c(1,2,3), 
+                     one_matrix = matrix(1:4, ncol = 2))
+mylist_named
 
 
 ## ---- message = FALSE---------------------------------------------------------
@@ -158,19 +187,6 @@ mat[1, ]  # first row
 mat[, 1]  # first column
 
 mat[c(1,2), c(2,3)]   # subset of original matrix: two rows and two columns
-
-
-## ----makeList-----------------------------------------------------------------
-mylist <- list(c("A", "b", "c"), c(1,2,3), matrix(1:4, ncol = 2))
-mylist
-class(mylist)
-
-
-## ----makeListv----------------------------------------------------------------
-mylist_named <- list(letters = c("A", "b", "c"), 
-                     numbers = c(1,2,3), 
-                     one_matrix = matrix(1:4, ncol = 2))
-mylist_named
 
 
 ## -----------------------------------------------------------------------------

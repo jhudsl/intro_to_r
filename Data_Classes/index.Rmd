@@ -42,6 +42,14 @@ class(c(1, 2, "tree"))
 class(c("1", "4", "7"))
 ```
 
+## Numeric Subclasses
+
+There are two major numeric subclasses
+
+1) Integer
+2) Double
+
+
 ## Integer
 
 `Integer` is a special subset of `numeric` that contains only whole numbers
@@ -54,8 +62,30 @@ x
 x = seq(1:5)
 x
 class(x)
+typeof(x)
 ```
 
+## Double
+
+`Double` is a special subset of `numeric` that contains fractional values.
+
+`Double` stands for [double-precision](https://en.wikipedia.org/wiki/Double-precision_floating-point_format)
+
+```{r double}
+y = c(1.1, 2.0, 3.2, 4.5, 5.6)
+y
+class(y)
+typeof(y)
+```
+
+## Checking double vs integar
+
+A `tibble` will show the difference (as does `glimpse()`)
+
+```{r}
+tibble(xvar = x, yvar = y)
+
+```
 
 ## Logical
 
@@ -102,6 +132,8 @@ In some cases the coercing is seamless
 as.character(c(1, 4, 7))
 as.numeric(c("1", "4", "7"))
 as.logical(c("TRUE", "FALSE", "FALSE"))
+as.integer(c(1.2, 3.7))
+as.double(c(1, 2, 3))
 ```
 
 ## General Class Information: coercing
@@ -152,13 +184,6 @@ as.character(x_fact)
 as.numeric(x_fact)
 ```
 
-## Factors
-
-Note that R: 
-
-- reads in character strings as `factor` class by default for some functions like `read.csv()` from base R
-
-- reads in character strings as `character` class by default for other functions like `read_csv()` from `readr` package
 
 ## Useful functions to create vectors 
 
@@ -190,6 +215,59 @@ seq(from = -5, to = 5, length.out = 10)
 
 Lab document: http://jhudatascience.org//intro_to_r/Data_Classes/lab/Data_Classes_Lab.Rmd
 
+
+
+# Two-dimensional data classes
+
+## Two-dimensional data classes
+
+Two-dimensional classes are those we would often use to store data read from a file 
+
+* a data frame (`data.frame` or `tibble` class)
+
+* a matrix (`matrix` class)
+
+    * also composed of rows and columns
+    * unlike `data.frame` or `tibble`, the entire matrix is composed of one R class
+    * for example: all entries are `numeric`, or all entries are `character`
+
+
+## Matrices
+
+```{r,}
+head(iris)
+class(iris)
+iris_mat <-head(tibble(select(iris, -Species)))
+as.matrix(iris_mat)
+matrix(1:4, ncol = 2)
+```
+
+
+## Lists
+
+* One other data type that is the most generic are `lists
+* Can be created using `list()`
+* Can hold vectors, strings, matrices, models, list of other list!
+
+```{r makeList}
+mylist <- list(c("A", "b", "c"), c(1,2,3), matrix(1:4, ncol = 2))
+mylist
+class(mylist)
+```
+
+## Lists
+
+List elements can be named
+
+```{r makeListv}
+mylist_named <- list(letters = c("A", "b", "c"), 
+                     numbers = c(1,2,3), 
+                     one_matrix = matrix(1:4, ncol = 2))
+mylist_named
+```
+
+
+
 ## Dates
 
 There are two most popular R classes used when working with dates and times: 
@@ -197,19 +275,9 @@ There are two most popular R classes used when working with dates and times:
 - `Date` class representing a calendar date
 - `POSIXct` class representing a calendar date with hours, minutes, seconds
 
-We convert data from character to `Date`/`POSIXct` to use functions to manipilate date/date and time
+We convert data from character to `Date`/`POSIXct` to use functions to manipulate date/date and time
 
 `lubridate` is a powerful, widely used R package from "tidyverse" family to work with `Date` / `POSIXct` class objects 
-
-
-## Creating `Date` class object  
-
-```{r, message = FALSE}
-class("2021-06-15")
-
-as.Date("2021-06-15")         # base R 
-class(as.Date("2021-06-15"))  # base R 
-```
 
 ## Creating `Date` class object  
 
@@ -224,6 +292,8 @@ class(ymd("2021-06-15"))      # lubridate package
 
 Note for  function `ymd`: **y**year **m**onth **d**ay  
 
+
+
 ## Creating `Date` class object 
 
 ```{r, error = TRUE}
@@ -233,6 +303,14 @@ mdy("06/15/21")
 ```
 
 Note for  function `mdy`: **m**onth **d**ay  **y**year
+
+
+## Lab Part 2
+
+Lab document: http://jhudatascience.org//intro_to_r/Data_Classes/lab/Data_Classes_Lab.Rmd
+
+
+# Extra Slides
 
 
 ## Creating `POSIXct` class object  
@@ -282,21 +360,7 @@ as.numeric(difftime(x2, x1, units = "weeks"))
 
 Similar can be done with time (e.g. difference in hours). 
 
-## Lab Part 2
-
-Lab document: http://jhudatascience.org//intro_to_r/Data_Classes/lab/Data_Classes_Lab.Rmd
-
-## Two-dimensional data classes
-
-Two-dimensional classes are those we would often use to store data read from a file 
-
-* a data frame (`data.frame` or `tibble` class)
-
-* a matrix (`matrix` class)
-
-    * also composed of rows and columns
-    * unlike `data.frame` or `tibble`, the entire matrix is composed of one R class
-    * for example: all entries are `numeric`, or all entries are `character`
+# Data Selection
 
 ## Matrices
 
@@ -337,28 +401,6 @@ mat[, 1]  # first column
 mat[c(1,2), c(2,3)]   # subset of original matrix: two rows and two columns
 ```
 
-## Lists
-
-* One other data type that is the most generic are `lists
-* Can be created using `list()`
-* Can hold vectors, strings, matrices, models, list of other list!
-
-```{r makeList}
-mylist <- list(c("A", "b", "c"), c(1,2,3), matrix(1:4, ncol = 2))
-mylist
-class(mylist)
-```
-
-## Lists
-
-List elements can be named
-
-```{r makeListv}
-mylist_named <- list(letters = c("A", "b", "c"), 
-                     numbers = c(1,2,3), 
-                     one_matrix = matrix(1:4, ncol = 2))
-mylist_named
-```
 
 ## Lists: data selection
 
@@ -370,6 +412,3 @@ mylist_named[["letters"]]     # works only for a list with elements' names
 mylist_named$letters          # works only for a list with elements' names 
 ```
 
-## Lab Part 3
-
-Lab document: http://jhudatascience.org//intro_to_r/Data_Classes/lab/Data_Classes_Lab.Rmd

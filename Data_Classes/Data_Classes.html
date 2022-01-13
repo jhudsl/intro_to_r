@@ -202,6 +202,15 @@ slide:not(.current) .plotly.html-widget{
 
 <pre >## [1] &quot;character&quot;</pre>
 
+</article></slide><slide class=""><hgroup><h2>Numeric Subclasses</h2></hgroup><article  id="numeric-subclasses">
+
+<p>There are two major numeric subclasses</p>
+
+<ol>
+<li>Integer</li>
+<li>Double</li>
+</ol>
+
 </article></slide><slide class=""><hgroup><h2>Integer</h2></hgroup><article  id="integer">
 
 <p><code>Integer</code> is a special subset of <code>numeric</code> that contains only whole numbers</p>
@@ -221,6 +230,44 @@ x</pre>
 <pre class = 'prettyprint lang-r'>class(x)</pre>
 
 <pre >## [1] &quot;integer&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>typeof(x)</pre>
+
+<pre >## [1] &quot;integer&quot;</pre>
+
+</article></slide><slide class=""><hgroup><h2>Double</h2></hgroup><article  id="double">
+
+<p><code>Double</code> is a special subset of <code>numeric</code> that contains fractional values.</p>
+
+<p><code>Double</code> stands for <a href='https://en.wikipedia.org/wiki/Double-precision_floating-point_format' title=''>double-precision</a></p>
+
+<pre class = 'prettyprint lang-r'>y = c(1.1, 2.0, 3.2, 4.5, 5.6)
+y</pre>
+
+<pre >## [1] 1.1 2.0 3.2 4.5 5.6</pre>
+
+<pre class = 'prettyprint lang-r'>class(y)</pre>
+
+<pre >## [1] &quot;numeric&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>typeof(y)</pre>
+
+<pre >## [1] &quot;double&quot;</pre>
+
+</article></slide><slide class=""><hgroup><h2>Checking double vs integar</h2></hgroup><article  id="checking-double-vs-integar">
+
+<p>A <code>tibble</code> will show the difference (as does <code>glimpse()</code>)</p>
+
+<pre class = 'prettyprint lang-r'>tibble(xvar = x, yvar = y)</pre>
+
+<pre >## # A tibble: 5 × 2
+##    xvar  yvar
+##   &lt;int&gt; &lt;dbl&gt;
+## 1     1   1.1
+## 2     2   2  
+## 3     3   3.2
+## 4     4   4.5
+## 5     5   5.6</pre>
 
 </article></slide><slide class=""><hgroup><h2>Logical</h2></hgroup><article  id="logical">
 
@@ -280,6 +327,14 @@ class(z)</pre>
 <pre class = 'prettyprint lang-r'>as.logical(c(&quot;TRUE&quot;, &quot;FALSE&quot;, &quot;FALSE&quot;))</pre>
 
 <pre >## [1]  TRUE FALSE FALSE</pre>
+
+<pre class = 'prettyprint lang-r'>as.integer(c(1.2, 3.7))</pre>
+
+<pre >## [1] 1 3</pre>
+
+<pre class = 'prettyprint lang-r'>as.double(c(1, 2, 3))</pre>
+
+<pre >## [1] 1 2 3</pre>
 
 </article></slide><slide class=""><hgroup><h2>General Class Information: coercing</h2></hgroup><article  id="general-class-information-coercing-1">
 
@@ -347,15 +402,6 @@ class(x_fact)</pre>
 
 <pre >## [1] 4 2 1 3 1</pre>
 
-</article></slide><slide class=""><hgroup><h2>Factors</h2></hgroup><article  id="factors-3">
-
-<p>Note that R:</p>
-
-<ul>
-<li><p>reads in character strings as <code>factor</code> class by default for some functions like <code>read.csv()</code> from base R</p></li>
-<li><p>reads in character strings as <code>character</code> class by default for other functions like <code>read_csv()</code> from <code>readr</code> package</p></li>
-</ul>
-
 </article></slide><slide class=""><hgroup><h2>Useful functions to create vectors</h2></hgroup><article  id="useful-functions-to-create-vectors">
 
 <p>For character: <code>rep()</code> can create very long vectors.</p>
@@ -391,6 +437,102 @@ class(x_fact)</pre>
 
 <p>Lab document: <a href='http://jhudatascience.org//intro_to_r/Data_Classes/lab/Data_Classes_Lab.Rmd' title=''>http://jhudatascience.org//intro_to_r/Data_Classes/lab/Data_Classes_Lab.Rmd</a></p>
 
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Two-dimensional data classes</h2></hgroup><article  id="two-dimensional-data-classes">
+
+</article></slide><slide class=""><hgroup><h2>Two-dimensional data classes</h2></hgroup><article  id="two-dimensional-data-classes-1">
+
+<p>Two-dimensional classes are those we would often use to store data read from a file</p>
+
+<ul>
+<li><p>a data frame (<code>data.frame</code> or <code>tibble</code> class)</p></li>
+<li><p>a matrix (<code>matrix</code> class)</p>
+
+<ul>
+<li>also composed of rows and columns</li>
+<li>unlike <code>data.frame</code> or <code>tibble</code>, the entire matrix is composed of one R class</li>
+<li>for example: all entries are <code>numeric</code>, or all entries are <code>character</code></li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Matrices</h2></hgroup><article  id="matrices">
+
+<pre class = 'prettyprint lang-r'>head(iris)</pre>
+
+<pre >##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa</pre>
+
+<pre class = 'prettyprint lang-r'>class(iris)</pre>
+
+<pre >## [1] &quot;data.frame&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>iris_mat &lt;-head(tibble(select(iris, -Species)))
+as.matrix(iris_mat)</pre>
+
+<pre >##      Sepal.Length Sepal.Width Petal.Length Petal.Width
+## [1,]          5.1         3.5          1.4         0.2
+## [2,]          4.9         3.0          1.4         0.2
+## [3,]          4.7         3.2          1.3         0.2
+## [4,]          4.6         3.1          1.5         0.2
+## [5,]          5.0         3.6          1.4         0.2
+## [6,]          5.4         3.9          1.7         0.4</pre>
+
+<pre class = 'prettyprint lang-r'>matrix(1:4, ncol = 2)</pre>
+
+<pre >##      [,1] [,2]
+## [1,]    1    3
+## [2,]    2    4</pre>
+
+</article></slide><slide class=""><hgroup><h2>Lists</h2></hgroup><article  id="lists">
+
+<ul>
+<li>One other data type that is the most generic are `lists</li>
+<li>Can be created using <code>list()</code></li>
+<li>Can hold vectors, strings, matrices, models, list of other list!</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>mylist &lt;- list(c(&quot;A&quot;, &quot;b&quot;, &quot;c&quot;), c(1,2,3), matrix(1:4, ncol = 2))
+mylist</pre>
+
+<pre >## [[1]]
+## [1] &quot;A&quot; &quot;b&quot; &quot;c&quot;
+## 
+## [[2]]
+## [1] 1 2 3
+## 
+## [[3]]
+##      [,1] [,2]
+## [1,]    1    3
+## [2,]    2    4</pre>
+
+<pre class = 'prettyprint lang-r'>class(mylist)</pre>
+
+<pre >## [1] &quot;list&quot;</pre>
+
+</article></slide><slide class=""><hgroup><h2>Lists</h2></hgroup><article  id="lists-1">
+
+<p>List elements can be named</p>
+
+<pre class = 'prettyprint lang-r'>mylist_named &lt;- list(letters = c(&quot;A&quot;, &quot;b&quot;, &quot;c&quot;), 
+                     numbers = c(1,2,3), 
+                     one_matrix = matrix(1:4, ncol = 2))
+mylist_named</pre>
+
+<pre >## $letters
+## [1] &quot;A&quot; &quot;b&quot; &quot;c&quot;
+## 
+## $numbers
+## [1] 1 2 3
+## 
+## $one_matrix
+##      [,1] [,2]
+## [1,]    1    3
+## [2,]    2    4</pre>
+
 </article></slide><slide class=""><hgroup><h2>Dates</h2></hgroup><article  id="dates">
 
 <p>There are two most popular R classes used when working with dates and times:</p>
@@ -400,25 +542,11 @@ class(x_fact)</pre>
 <li><code>POSIXct</code> class representing a calendar date with hours, minutes, seconds</li>
 </ul>
 
-<p>We convert data from character to <code>Date</code>/<code>POSIXct</code> to use functions to manipilate date/date and time</p>
+<p>We convert data from character to <code>Date</code>/<code>POSIXct</code> to use functions to manipulate date/date and time</p>
 
 <p><code>lubridate</code> is a powerful, widely used R package from &ldquo;tidyverse&rdquo; family to work with <code>Date</code> / <code>POSIXct</code> class objects</p>
 
 </article></slide><slide class=""><hgroup><h2>Creating <code>Date</code> class object</h2></hgroup><article  id="creating-date-class-object">
-
-<pre class = 'prettyprint lang-r'>class(&quot;2021-06-15&quot;)</pre>
-
-<pre >## [1] &quot;character&quot;</pre>
-
-<pre class = 'prettyprint lang-r'>as.Date(&quot;2021-06-15&quot;)         # base R </pre>
-
-<pre >## [1] &quot;2021-06-15&quot;</pre>
-
-<pre class = 'prettyprint lang-r'>class(as.Date(&quot;2021-06-15&quot;))  # base R </pre>
-
-<pre >## [1] &quot;Date&quot;</pre>
-
-</article></slide><slide class=""><hgroup><h2>Creating <code>Date</code> class object</h2></hgroup><article  id="creating-date-class-object-1">
 
 <pre class = 'prettyprint lang-r'>class(&quot;2021-06-15&quot;)</pre>
 
@@ -436,7 +564,7 @@ ymd(&quot;2021-06-15&quot;)             # lubridate package         </pre>
 
 <p>Note for function <code>ymd</code>: <strong>y</strong>year <strong>m</strong>onth <strong>d</strong>ay</p>
 
-</article></slide><slide class=""><hgroup><h2>Creating <code>Date</code> class object</h2></hgroup><article  id="creating-date-class-object-2">
+</article></slide><slide class=""><hgroup><h2>Creating <code>Date</code> class object</h2></hgroup><article  id="creating-date-class-object-1">
 
 <pre class = 'prettyprint lang-r'>mdy(&quot;06/15/2021&quot;)  </pre>
 
@@ -447,6 +575,12 @@ ymd(&quot;2021-06-15&quot;)             # lubridate package         </pre>
 <pre >## [1] &quot;2021-06-15&quot;</pre>
 
 <p>Note for function <code>mdy</code>: <strong>m</strong>onth <strong>d</strong>ay <strong>y</strong>year</p>
+
+</article></slide><slide class=""><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
+
+<p>Lab document: <a href='http://jhudatascience.org//intro_to_r/Data_Classes/lab/Data_Classes_Lab.Rmd' title=''>http://jhudatascience.org//intro_to_r/Data_Classes/lab/Data_Classes_Lab.Rmd</a></p>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Extra Slides</h2></hgroup><article  id="extra-slides">
 
 </article></slide><slide class=""><hgroup><h2>Creating <code>POSIXct</code> class object</h2></hgroup><article  id="creating-posixct-class-object">
 
@@ -526,26 +660,9 @@ difftime(x2, x1, units = &quot;weeks&quot;)</pre>
 
 <p>Similar can be done with time (e.g. difference in hours).</p>
 
-</article></slide><slide class=""><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Data Selection</h2></hgroup><article  id="data-selection">
 
-<p>Lab document: <a href='http://jhudatascience.org//intro_to_r/Data_Classes/lab/Data_Classes_Lab.Rmd' title=''>http://jhudatascience.org//intro_to_r/Data_Classes/lab/Data_Classes_Lab.Rmd</a></p>
-
-</article></slide><slide class=""><hgroup><h2>Two-dimensional data classes</h2></hgroup><article  id="two-dimensional-data-classes">
-
-<p>Two-dimensional classes are those we would often use to store data read from a file</p>
-
-<ul>
-<li><p>a data frame (<code>data.frame</code> or <code>tibble</code> class)</p></li>
-<li><p>a matrix (<code>matrix</code> class)</p>
-
-<ul>
-<li>also composed of rows and columns</li>
-<li>unlike <code>data.frame</code> or <code>tibble</code>, the entire matrix is composed of one R class</li>
-<li>for example: all entries are <code>numeric</code>, or all entries are <code>character</code></li>
-</ul></li>
-</ul>
-
-</article></slide><slide class=""><hgroup><h2>Matrices</h2></hgroup><article  id="matrices">
+</article></slide><slide class=""><hgroup><h2>Matrices</h2></hgroup><article  id="matrices-1">
 
 <pre class = 'prettyprint lang-r'>n = 1:9 
 n</pre>
@@ -615,52 +732,6 @@ x</pre>
 ## [1,]    4    7
 ## [2,]    5    8</pre>
 
-</article></slide><slide class=""><hgroup><h2>Lists</h2></hgroup><article  id="lists">
-
-<ul>
-<li>One other data type that is the most generic are `lists</li>
-<li>Can be created using <code>list()</code></li>
-<li>Can hold vectors, strings, matrices, models, list of other list!</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>mylist &lt;- list(c(&quot;A&quot;, &quot;b&quot;, &quot;c&quot;), c(1,2,3), matrix(1:4, ncol = 2))
-mylist</pre>
-
-<pre >## [[1]]
-## [1] &quot;A&quot; &quot;b&quot; &quot;c&quot;
-## 
-## [[2]]
-## [1] 1 2 3
-## 
-## [[3]]
-##      [,1] [,2]
-## [1,]    1    3
-## [2,]    2    4</pre>
-
-<pre class = 'prettyprint lang-r'>class(mylist)</pre>
-
-<pre >## [1] &quot;list&quot;</pre>
-
-</article></slide><slide class=""><hgroup><h2>Lists</h2></hgroup><article  id="lists-1">
-
-<p>List elements can be named</p>
-
-<pre class = 'prettyprint lang-r'>mylist_named &lt;- list(letters = c(&quot;A&quot;, &quot;b&quot;, &quot;c&quot;), 
-                     numbers = c(1,2,3), 
-                     one_matrix = matrix(1:4, ncol = 2))
-mylist_named</pre>
-
-<pre >## $letters
-## [1] &quot;A&quot; &quot;b&quot; &quot;c&quot;
-## 
-## $numbers
-## [1] 1 2 3
-## 
-## $one_matrix
-##      [,1] [,2]
-## [1,]    1    3
-## [2,]    2    4</pre>
-
 </article></slide><slide class=""><hgroup><h2>Lists: data selection</h2></hgroup><article  id="lists-data-selection">
 
 <p>You can reference data from list using <code>$</code> (if elements are named) or using <code>[[ ]]</code></p>
@@ -675,11 +746,7 @@ mylist_named</pre>
 
 <pre class = 'prettyprint lang-r'>mylist_named$letters          # works only for a list with elements&#39; names </pre>
 
-<pre >## [1] &quot;A&quot; &quot;b&quot; &quot;c&quot;</pre>
-
-</article></slide><slide class=""><hgroup><h2>Lab Part 3</h2></hgroup><article  id="lab-part-3">
-
-<p>Lab document: <a href='http://jhudatascience.org//intro_to_r/Data_Classes/lab/Data_Classes_Lab.Rmd' title=''>http://jhudatascience.org//intro_to_r/Data_Classes/lab/Data_Classes_Lab.Rmd</a></p></article></slide>
+<pre >## [1] &quot;A&quot; &quot;b&quot; &quot;c&quot;</pre></article></slide>
 
 
   <slide class="backdrop"></slide>

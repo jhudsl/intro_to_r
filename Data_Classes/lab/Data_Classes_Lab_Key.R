@@ -7,9 +7,15 @@ library(jhur)
 
 
 ## -----------------------------------------------------------------------------
-set.seed(1234)
 int_vect <- rep(seq(1, 10), 3)
+
+
+## -----------------------------------------------------------------------------
+set.seed(1234)
 rand_vect <- sample( 1:30, size = 30, replace = TRUE)
+
+
+## -----------------------------------------------------------------------------
 TF_vect <- rep(c(TRUE, TRUE, FALSE), times = 10)
 TF_vect2 <- rep(c("TRUE", "TRUE", "FALSE"), times = 10)
 
@@ -35,48 +41,43 @@ vect_data
 
 
 ## -----------------------------------------------------------------------------
-levels(vect_data$type_fact)
-
-
-## -----------------------------------------------------------------------------
 circ = read_circulator()
 str(circ)
 
 
 ## -----------------------------------------------------------------------------
-circ = mutate(circ, date_formatted = mdy(date))
+circ <- mutate(circ, date_formatted = mdy(date))
 
 
 ## -----------------------------------------------------------------------------
-str(circ)
+circ <- circ %>% relocate(date_formatted, .before = date)
+glimpse(circ)
+
+
+## -----------------------------------------------------------------------------
+classes_data <-list(vect_data, circ)
+glimpse(classes_data)
 
 
 ## -----------------------------------------------------------------------------
 range(circ$date_formatted)
+range(circ$date)
 
 
 ## -----------------------------------------------------------------------------
-circ = mutate(circ, date_year = year(date_formatted))
+circ  %>%
+  group_by(day) %>% 
+  summarize(n = sum(orangeBoardings, na.rm = TRUE))
 
+circ  %>%
+  group_by(day) %>% 
+  summarize(n = sum(purpleBoardings, na.rm = TRUE))
 
-## -----------------------------------------------------------------------------
-table(circ$date_year)
+circ  %>%
+  group_by(day) %>% 
+  summarize(n = sum(greenBoardings, na.rm = TRUE))
 
-
-## -----------------------------------------------------------------------------
-vals <- seq(from = 1, to = 16)
-vals
-
-
-## -----------------------------------------------------------------------------
-mat <- matrix(vals, nrow = 4)
-mat
-
-
-## -----------------------------------------------------------------------------
-mat + 100
-
-
-## -----------------------------------------------------------------------------
-mat + mat
+circ  %>%
+  group_by(day) %>% 
+  summarize(n = sum(bannerBoardings, na.rm = TRUE))
 

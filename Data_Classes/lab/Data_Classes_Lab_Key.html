@@ -168,8 +168,6 @@ pre code {
 </div>
 
 
-<p>Dataset used is the Bike Lanes Dataset: BikeBaltimore is the Department of Transportation’s bike program.</p>
-<p>The data is from <a href="http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms" class="uri">http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms</a></p>
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
 <ol start="0" style="list-style-type: decimal">
@@ -177,22 +175,14 @@ pre code {
 </ol>
 <pre class="r"><code>library(readr)
 library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ─────────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
-<pre><code>## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.5     ✓ dplyr   1.0.7
 ## ✓ tibble  3.1.6     ✓ stringr 1.4.0
-## ✓ tidyr   1.1.4     ✓ forcats 0.5.1</code></pre>
-<pre><code>## ── Conflicts ────────────────────────────────────────────── tidyverse_conflicts() ──
-## x dplyr::arrange()   masks plyr::arrange()
-## x purrr::compact()   masks plyr::compact()
-## x dplyr::count()     masks plyr::count()
-## x dplyr::failwith()  masks plyr::failwith()
-## x dplyr::filter()    masks stats::filter()
-## x dplyr::id()        masks plyr::id()
-## x dplyr::lag()       masks stats::lag()
-## x dplyr::mutate()    masks plyr::mutate()
-## x dplyr::rename()    masks plyr::rename()
-## x dplyr::summarise() masks plyr::summarise()
-## x dplyr::summarize() masks plyr::summarize()</code></pre>
+## ✓ tidyr   1.1.4     ✓ forcats 0.5.1
+## ✓ purrr   0.3.4</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(dplyr)
 library(lubridate)</code></pre>
 <pre><code>## 
@@ -202,17 +192,24 @@ library(lubridate)</code></pre>
 ##     date, intersect, setdiff, union</code></pre>
 <pre class="r"><code>library(jhur)</code></pre>
 <ol style="list-style-type: decimal">
-<li>Create some data to work with. First, create a vector that has class integer called <code>int_vect</code> that starts at 1 and goes up to 10 and repeats this sequence 3 times using <code>rep</code> (hint use <code>seq()</code>). Next, create a random vector of integers from 1 to 30 called <code>rand_vect</code> (hint use <code>sample()</code>). Create a vector that repeats <code>c(TRUE, TRUE, FALSE)</code> 10 times called <code>TF_vect</code>. Create a vector that repeats <code>c(&quot;TRUE&quot;, &quot;TRUE&quot;, &quot;FALSE&quot;)</code> 10 times called <code>TF_vect2</code>.</li>
+<li>Create some data to work with.</li>
 </ol>
-<p>Because we are using a random vector let’s use the <code>set.seed()</code> function to make sure we all have the same result - this code will already be in the code chunk for you. Simply create the vectors below the <code>set.seed</code> line.</p>
-<pre class="r"><code>set.seed(1234)
-int_vect &lt;- rep(seq(1, 10), 3)
-rand_vect &lt;- sample( 1:30, size = 30, replace = TRUE)
-TF_vect &lt;- rep(c(TRUE, TRUE, FALSE), times = 10)
-TF_vect2 &lt;- rep(c(&quot;TRUE&quot;, &quot;TRUE&quot;, &quot;FALSE&quot;), times = 10)</code></pre>
-<p>Create a tibble combining these vectors together called vect_data using the following code.</p>
-<pre class="r"><code>vect_data &lt;- tibble(int_vect, rand_vect, TF_vect, TF_vect2)</code></pre>
+<p>First, create a vector that has class integer called <code>int_vect</code> that starts at 1 and goes up to 10 and repeats this sequence 3 times using <code>rep</code> (hint use <code>seq()</code>).</p>
+<pre class="r"><code>int_vect &lt;- rep(seq(1, 10), 3)</code></pre>
 <ol start="2" style="list-style-type: decimal">
+<li>Next, create a random vector of integers from 1 to 30 called <code>rand_vect</code> (hint use <code>sample()</code>).</li>
+</ol>
+<p>Because we are using a random vector let’s use the <code>set.seed()</code> function to make sure we all have the same result - this code is already be in the code chunk for you. Simply create the vector below the <code>set.seed</code> line.</p>
+<pre class="r"><code>set.seed(1234)
+rand_vect &lt;- sample( 1:30, size = 30, replace = TRUE)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Create a vector that repeats <code>c(TRUE, TRUE, FALSE)</code> 10 times called <code>TF_vect</code>. Also create a vector that repeats <code>c(&quot;TRUE&quot;, &quot;TRUE&quot;, &quot;FALSE&quot;)</code> 10 times called <code>TF_vect2</code>.</li>
+</ol>
+<pre class="r"><code>TF_vect &lt;- rep(c(TRUE, TRUE, FALSE), times = 10)
+TF_vect2 &lt;- rep(c(&quot;TRUE&quot;, &quot;TRUE&quot;, &quot;FALSE&quot;), times = 10)</code></pre>
+<p>Create a tibble combining these vectors together called <code>vect_data</code> using the following code.</p>
+<pre class="r"><code>vect_data &lt;- tibble(int_vect, rand_vect, TF_vect, TF_vect2)</code></pre>
+<ol start="4" style="list-style-type: decimal">
 <li>Take a look at 5 random rows using the <code>slice_sample()</code> function. Try this a few times to see how the results change.</li>
 </ol>
 <pre class="r"><code>slice_sample(vect_data, n = 5)</code></pre>
@@ -242,7 +239,7 @@ TF_vect2 &lt;- rep(c(&quot;TRUE&quot;, &quot;TRUE&quot;, &quot;FALSE&quot;), tim
 ## 3        3        26 FALSE   FALSE   
 ## 4        3        24 TRUE    TRUE    
 ## 5        9         5 FALSE   FALSE</code></pre>
-<ol start="3" style="list-style-type: decimal">
+<ol start="5" style="list-style-type: decimal">
 <li>Check to see if the <code>TF_vect</code> is logical. Check to see if <code>TF_vect2</code> is logical. Why are the results what they are?</li>
 </ol>
 <pre class="r"><code>is.logical(TF_vect)</code></pre>
@@ -250,7 +247,7 @@ TF_vect2 &lt;- rep(c(&quot;TRUE&quot;, &quot;TRUE&quot;, &quot;FALSE&quot;), tim
 <pre class="r"><code>is.logical(TF_vect2)</code></pre>
 <pre><code>## [1] FALSE</code></pre>
 <p>Logical vectors do not have quotes around <code>TRUE</code> and <code>FALSE</code> values.</p>
-<ol start="4" style="list-style-type: decimal">
+<ol start="6" style="list-style-type: decimal">
 <li>Use <code>mutate()</code> function to create a new variable in the data set named <code>type_fact</code> that is of class <code>factor</code> made from the <code>int_vect</code> variable. Take a look at the data.</li>
 </ol>
 <pre class="r"><code>vect_data &lt;- mutate(vect_data, type_fact = factor(int_vect))
@@ -269,11 +266,6 @@ vect_data</code></pre>
 ##  9        9         5 FALSE   FALSE    9        
 ## 10       10         6 TRUE    TRUE     10       
 ## # … with 20 more rows</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>Use <code>levels()</code> function on <code>type_fact</code> variable to display levels of <code>type_fact</code> variable. Hint: recall you can use <code>data$variable_name</code> to access variable of interest.</li>
-</ol>
-<pre class="r"><code>levels(vect_data$type_fact)</code></pre>
-<pre><code>##  [1] &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot;  &quot;6&quot;  &quot;7&quot;  &quot;8&quot;  &quot;9&quot;  &quot;10&quot;</code></pre>
 </div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
@@ -282,7 +274,7 @@ vect_data</code></pre>
 </ol>
 <pre class="r"><code>circ = read_circulator()</code></pre>
 <pre><code>## Rows: 1146 Columns: 15</code></pre>
-<pre><code>## ── Column specification ────────────────────────────────────────────────────────────
+<pre><code>## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## chr  (2): day, date
 ## dbl (13): orangeBoardings, orangeAlightings, orangeAverage, purpleBoardings,...</code></pre>
@@ -328,100 +320,118 @@ vect_data</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Use <code>mutate()</code> function to create a new column named <code>date_formatted</code> that is of <code>Date</code> class. The new variable is created from <code>date</code> column. Hint: use <code>mdy()</code> function.</li>
 </ol>
-<pre class="r"><code>circ = mutate(circ, date_formatted = mdy(date))</code></pre>
+<pre class="r"><code>circ &lt;- mutate(circ, date_formatted = mdy(date))</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li>Use <code>str()</code> function again. Note the difference between <code>date</code> and <code>date_formatted</code> columns.</li>
+<li>Move the <code>date_formatted</code> variable to be before <code>date</code> using the <code>relocate</code> function. Take a lookat the data using <code>glimpse()</code>. Note the difference between <code>date</code> and <code>date_formatted</code> columns.</li>
 </ol>
-<pre class="r"><code>str(circ)</code></pre>
-<pre><code>## spec_tbl_df [1,146 × 16] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
-##  $ day             : chr [1:1146] &quot;Monday&quot; &quot;Tuesday&quot; &quot;Wednesday&quot; &quot;Thursday&quot; ...
-##  $ date            : chr [1:1146] &quot;01/11/2010&quot; &quot;01/12/2010&quot; &quot;01/13/2010&quot; &quot;01/14/2010&quot; ...
-##  $ orangeBoardings : num [1:1146] 877 777 1203 1194 1645 ...
-##  $ orangeAlightings: num [1:1146] 1027 815 1220 1233 1643 ...
-##  $ orangeAverage   : num [1:1146] 952 796 1212 1214 1644 ...
-##  $ purpleBoardings : num [1:1146] NA NA NA NA NA NA NA NA NA NA ...
-##  $ purpleAlightings: num [1:1146] NA NA NA NA NA NA NA NA NA NA ...
-##  $ purpleAverage   : num [1:1146] NA NA NA NA NA NA NA NA NA NA ...
-##  $ greenBoardings  : num [1:1146] NA NA NA NA NA NA NA NA NA NA ...
-##  $ greenAlightings : num [1:1146] NA NA NA NA NA NA NA NA NA NA ...
-##  $ greenAverage    : num [1:1146] NA NA NA NA NA NA NA NA NA NA ...
-##  $ bannerBoardings : num [1:1146] NA NA NA NA NA NA NA NA NA NA ...
-##  $ bannerAlightings: num [1:1146] NA NA NA NA NA NA NA NA NA NA ...
-##  $ bannerAverage   : num [1:1146] NA NA NA NA NA NA NA NA NA NA ...
-##  $ daily           : num [1:1146] 952 796 1212 1214 1644 ...
-##  $ date_formatted  : Date[1:1146], format: &quot;2010-01-11&quot; &quot;2010-01-12&quot; ...
-##  - attr(*, &quot;spec&quot;)=
-##   .. cols(
-##   ..   day = col_character(),
-##   ..   date = col_character(),
-##   ..   orangeBoardings = col_double(),
-##   ..   orangeAlightings = col_double(),
-##   ..   orangeAverage = col_double(),
-##   ..   purpleBoardings = col_double(),
-##   ..   purpleAlightings = col_double(),
-##   ..   purpleAverage = col_double(),
-##   ..   greenBoardings = col_double(),
-##   ..   greenAlightings = col_double(),
-##   ..   greenAverage = col_double(),
-##   ..   bannerBoardings = col_double(),
-##   ..   bannerAlightings = col_double(),
-##   ..   bannerAverage = col_double(),
-##   ..   daily = col_double()
-##   .. )
-##  - attr(*, &quot;problems&quot;)=&lt;externalptr&gt;</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>Use <code>range()</code> function on <code>date_formatted</code> variable to display the range of dates in the data set.</li>
+<pre class="r"><code>circ &lt;- circ %&gt;% relocate(date_formatted, .before = date)
+glimpse(circ)</code></pre>
+<pre><code>## Rows: 1,146
+## Columns: 16
+## $ day              &lt;chr&gt; &quot;Monday&quot;, &quot;Tuesday&quot;, &quot;Wednesday&quot;, &quot;Thursday&quot;, &quot;Friday…
+## $ date_formatted   &lt;date&gt; 2010-01-11, 2010-01-12, 2010-01-13, 2010-01-14, 2010…
+## $ date             &lt;chr&gt; &quot;01/11/2010&quot;, &quot;01/12/2010&quot;, &quot;01/13/2010&quot;, &quot;01/14/2010…
+## $ orangeBoardings  &lt;dbl&gt; 877, 777, 1203, 1194, 1645, 1457, 839, 999, 1023, 137…
+## $ orangeAlightings &lt;dbl&gt; 1027, 815, 1220, 1233, 1643, 1524, 938, 1000, 1047, 1…
+## $ orangeAverage    &lt;dbl&gt; 952.0, 796.0, 1211.5, 1213.5, 1644.0, 1490.5, 888.5, …
+## $ purpleBoardings  &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+## $ purpleAlightings &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+## $ purpleAverage    &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+## $ greenBoardings   &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+## $ greenAlightings  &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+## $ greenAverage     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+## $ bannerBoardings  &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+## $ bannerAlightings &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+## $ bannerAverage    &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+## $ daily            &lt;dbl&gt; 952.0, 796.0, 1211.5, 1213.5, 1644.0, 1490.5, 888.5, …</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Create a list data object called <code>classes_data</code> that combines the <code>vect_data</code> from the first part of the lab and <code>circ</code>. Use <code>glimpse()</code> to look at the data.</li>
 </ol>
+<pre class="r"><code>classes_data &lt;-list(vect_data, circ)
+glimpse(classes_data)</code></pre>
+<pre><code>## List of 2
+##  $ : tibble [30 × 5] (S3: tbl_df/tbl/data.frame)
+##   ..$ int_vect : int [1:30] 1 2 3 4 5 6 7 8 9 10 ...
+##   ..$ rand_vect: int [1:30] 28 16 26 22 5 12 15 9 5 6 ...
+##   ..$ TF_vect  : logi [1:30] TRUE TRUE FALSE TRUE TRUE FALSE ...
+##   ..$ TF_vect2 : chr [1:30] &quot;TRUE&quot; &quot;TRUE&quot; &quot;FALSE&quot; &quot;TRUE&quot; ...
+##   ..$ type_fact: Factor w/ 10 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,..: 1 2 3 4 5 6 7 8 9 10 ...
+##  $ : tibble [1,146 × 16] (S3: tbl_df/tbl/data.frame)
+##   ..$ day             : chr [1:1146] &quot;Monday&quot; &quot;Tuesday&quot; &quot;Wednesday&quot; &quot;Thursday&quot; ...
+##   ..$ date_formatted  : Date[1:1146], format: &quot;2010-01-11&quot; &quot;2010-01-12&quot; ...
+##   ..$ date            : chr [1:1146] &quot;01/11/2010&quot; &quot;01/12/2010&quot; &quot;01/13/2010&quot; &quot;01/14/2010&quot; ...
+##   ..$ orangeBoardings : num [1:1146] 877 777 1203 1194 1645 ...
+##   ..$ orangeAlightings: num [1:1146] 1027 815 1220 1233 1643 ...
+##   ..$ orangeAverage   : num [1:1146] 952 796 1212 1214 1644 ...
+##   ..$ purpleBoardings : num [1:1146] NA NA NA NA NA NA NA NA NA NA ...
+##   ..$ purpleAlightings: num [1:1146] NA NA NA NA NA NA NA NA NA NA ...
+##   ..$ purpleAverage   : num [1:1146] NA NA NA NA NA NA NA NA NA NA ...
+##   ..$ greenBoardings  : num [1:1146] NA NA NA NA NA NA NA NA NA NA ...
+##   ..$ greenAlightings : num [1:1146] NA NA NA NA NA NA NA NA NA NA ...
+##   ..$ greenAverage    : num [1:1146] NA NA NA NA NA NA NA NA NA NA ...
+##   ..$ bannerBoardings : num [1:1146] NA NA NA NA NA NA NA NA NA NA ...
+##   ..$ bannerAlightings: num [1:1146] NA NA NA NA NA NA NA NA NA NA ...
+##   ..$ bannerAverage   : num [1:1146] NA NA NA NA NA NA NA NA NA NA ...
+##   ..$ daily           : num [1:1146] 952 796 1212 1214 1644 ...</code></pre>
+<p>Bonus: Use <code>range()</code> function on <code>date_formatted</code> variable to display the range of dates in the data set. How does this compare to that of <code>date</code>? Why?</p>
 <pre class="r"><code>range(circ$date_formatted)</code></pre>
 <pre><code>## [1] &quot;2010-01-11&quot; &quot;2013-03-01&quot;</code></pre>
-<ol start="6" style="list-style-type: decimal">
-<li>Use <code>mutate()</code> function to create a new column named <code>date_year</code> that represents year of the calendar date. The new variable is created from <code>date_formatted</code> column. Hint: use <code>year()</code> function.</li>
-</ol>
-<pre class="r"><code>circ = mutate(circ, date_year = year(date_formatted))</code></pre>
-<ol start="7" style="list-style-type: decimal">
-<li>Use <code>table()</code> function on <code>date_year</code> variable to display the count of observations with each calendar year.</li>
-</ol>
-<pre class="r"><code>table(circ$date_year)</code></pre>
-<pre><code>## 
-## 2010 2011 2012 2013 
-##  355  365  366   60</code></pre>
-</div>
-<div id="part-3" class="section level1">
-<h1>Part 3</h1>
-<ol style="list-style-type: decimal">
-<li>Use function <code>seq()</code> to generate 16 numeric values ranging from 1 to 16 Assign them to a variable named <code>vals</code>.</li>
-</ol>
-<pre class="r"><code>vals &lt;- seq(from = 1, to = 16)
-vals</code></pre>
-<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Use values from the <code>vals</code> vector to create 4x4 matrix. Assign the matrix to variable named <code>mat</code>.</li>
-</ol>
-<pre class="r"><code>mat &lt;- matrix(vals, nrow = 4)
-mat</code></pre>
-<pre><code>##      [,1] [,2] [,3] [,4]
-## [1,]    1    5    9   13
-## [2,]    2    6   10   14
-## [3,]    3    7   11   15
-## [4,]    4    8   12   16</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>What happens when you type <code>mat + 100</code>?</li>
-</ol>
-<pre class="r"><code>mat + 100</code></pre>
-<pre><code>##      [,1] [,2] [,3] [,4]
-## [1,]  101  105  109  113
-## [2,]  102  106  110  114
-## [3,]  103  107  111  115
-## [4,]  104  108  112  116</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>What happens when you type <code>mat + mat</code>?</li>
-</ol>
-<pre class="r"><code>mat + mat</code></pre>
-<pre><code>##      [,1] [,2] [,3] [,4]
-## [1,]    2   10   18   26
-## [2,]    4   12   20   28
-## [3,]    6   14   22   30
-## [4,]    8   16   24   32</code></pre>
+<pre class="r"><code>range(circ$date)</code></pre>
+<pre><code>## [1] &quot;01/01/2011&quot; &quot;12/31/2012&quot;</code></pre>
+<p>The max of range(circ$date) is numerical not based on date.</p>
+<p>Bonus: Use <code>table()</code> function on <code>day</code> variable to display the count of <code>orangeBoardings</code> observations with each day. Which day had the most boardings? Is this true for the other routes (<code>purpleBoardings</code>, <code>greenBoardings</code>, <code>bannerBoardings</code>)?</p>
+<pre class="r"><code>circ  %&gt;%
+  group_by(day) %&gt;% 
+  summarize(n = sum(orangeBoardings, na.rm = TRUE))</code></pre>
+<pre><code>## # A tibble: 7 × 2
+##   day            n
+##   &lt;chr&gt;      &lt;dbl&gt;
+## 1 Friday    584070
+## 2 Monday    479914
+## 3 Saturday  437682
+## 4 Sunday    283648
+## 5 Thursday  495142
+## 6 Tuesday   488682
+## 7 Wednesday 501440</code></pre>
+<pre class="r"><code>circ  %&gt;%
+  group_by(day) %&gt;% 
+  summarize(n = sum(purpleBoardings, na.rm = TRUE))</code></pre>
+<pre><code>## # A tibble: 7 × 2
+##   day            n
+##   &lt;chr&gt;      &lt;dbl&gt;
+## 1 Friday    698199
+## 2 Monday    561344
+## 3 Saturday  501958
+## 4 Sunday    333439
+## 5 Thursday  590142
+## 6 Tuesday   576164
+## 7 Wednesday 601997</code></pre>
+<pre class="r"><code>circ  %&gt;%
+  group_by(day) %&gt;% 
+  summarize(n = sum(greenBoardings, na.rm = TRUE))</code></pre>
+<pre><code>## # A tibble: 7 × 2
+##   day            n
+##   &lt;chr&gt;      &lt;dbl&gt;
+## 1 Friday    162829
+## 2 Monday    136575
+## 3 Saturday  109121
+## 4 Sunday     81044
+## 5 Thursday  145750
+## 6 Tuesday   148742
+## 7 Wednesday 151503</code></pre>
+<pre class="r"><code>circ  %&gt;%
+  group_by(day) %&gt;% 
+  summarize(n = sum(bannerBoardings, na.rm = TRUE))</code></pre>
+<pre><code>## # A tibble: 7 × 2
+##   day           n
+##   &lt;chr&gt;     &lt;dbl&gt;
+## 1 Friday    39530
+## 2 Monday    28953
+## 3 Saturday  35957
+## 4 Sunday    25950
+## 5 Thursday  32561
+## 6 Tuesday   29231
+## 7 Wednesday 31809</code></pre>
 </div>
 
 
