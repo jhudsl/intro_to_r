@@ -215,9 +215,9 @@ bike &lt;- jhur::read_bike()</code></pre>
 bike %&gt;% pull(dateInstalled) %&gt;% is.na() %&gt;% any()</code></pre>
 <pre><code>## [1] FALSE</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Filter rows of bike that are NOT missing using <code>filter(!is.na(route))</code> for the <code>route</code> variable, assign this to the object <code>have_route.</code> What happens when you try using <code>!= &quot;NA&quot;</code></li>
+<li>Filter rows of bike that are NOT missing using <code>drop_na</code> for the <code>route</code> variable, assign this to the object <code>have_route.</code></li>
 </ol>
-<pre class="r"><code>bike %&gt;%  filter(!is.na(route))</code></pre>
+<pre class="r"><code>bike %&gt;%  drop_na(route)</code></pre>
 <pre><code>## # A tibble: 362 × 9
 ##    subType name    block    type   numLanes project   route length dateInstalled
 ##    &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;  &lt;dbl&gt;         &lt;dbl&gt;

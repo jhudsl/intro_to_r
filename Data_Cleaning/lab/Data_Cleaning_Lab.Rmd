@@ -38,7 +38,7 @@ bike <- jhur::read_bike()
 
 
 
-2.  Filter rows of bike that are NOT missing using `filter(!is.na(route))` for the `route` variable, assign this to the object `have_route.` 
+2.  Filter rows of bike that are NOT missing using `drop_na` for the `route` variable, assign this to the object `have_route.` 
 
 ```{r}
 
