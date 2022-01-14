@@ -197,6 +197,17 @@ df
 df %>% filter(Dog < 3)
 ```
 
+## to filter out NAs for one variable
+```{R}
+df %>% filter(!is.na(Dog))
+```
+
+!NA` does not work as you might expect because you can't tell if something is not actually `NA` - R doesn't ever assume to know what the value of `NA` is 
+
+```{r}
+NA == NA
+NA != NA
+```
 
 
 
@@ -208,6 +219,7 @@ This function will drop rows with **any** missing data in **any** column.
 df
 drop_na(df)
 ```
+
 
 ## Think about `NA`
 
@@ -604,24 +616,13 @@ head(df_united, 4)
 
 The `stringr` package:
 
-* Makes string manipulation more intuitive
+* Modifying or finding **part** or all of a character string
 * We will not cover `grep` or `gsub` - base R functions
     - are used on forums for answers
 * Almost all functions start with `str_*`
 
 
-
-## Lab Part 2
-
-[lab part 2](http://jhudatascience.org/intro_to_R_class/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd)
-
-[Website](http://jhudatascience.org/intro_to_R_class/index.html)
-
-# Extra Slides
-
-
-
-## 'Find' functions: `stringr`
+##  `stringr`
 
 `str_detect`, and `str_replace` search for matches to argument pattern within each element of a character vector (not data frame or tibble!).
 
@@ -681,7 +682,13 @@ head(Sal)
 Sal %>% filter(str_detect(name, "Rawlings"))
 ```
 
+## Lab Part 2
 
+[lab part 2](http://jhudatascience.org/intro_to_R_class/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd)
+
+[Website](http://jhudatascience.org/intro_to_R_class/index.html)
+
+# Extra Slides
 
 ##  String Splitting
 
