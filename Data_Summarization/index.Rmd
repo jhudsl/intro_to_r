@@ -62,6 +62,20 @@ quantile(x)
 quantile(x, na.rm = TRUE)
 ```
 
+## Statistical summarization{.codesmall}
+
+We will talk more about data types later, but you can only do summarization on numeric or logical types. Not characters or factors.
+
+```{r error = TRUE}
+x <- c(1, 5, 7, 4, 2, 8)
+sum(x)
+y <- c(TRUE, FALSE, FALSE, TRUE) # FALSE == 0 and TRUE == 1
+sum(y)
+z <- c("TRUE", "FALSE", "FALSE", "TRUE")
+sum(z)
+mean(z)
+```
+
 ## Some examples
 
 We can use the `jhu_cars` to explore different ways of summarizing data.  The `head` command displays the first rows of an object:
