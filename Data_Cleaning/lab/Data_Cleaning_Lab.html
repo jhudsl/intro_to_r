@@ -208,7 +208,7 @@ bike &lt;- jhur::read_bike()</code></pre>
 <h1>Part 1</h1>
 <ol style="list-style-type: decimal">
 <li><p>Use the <code>is.na()</code> and <code>any()</code> functions to check if the bike <code>dateInstalled</code> variable has any <code>NA</code> values.</p></li>
-<li><p>Filter rows of bike that are NOT missing using <code>filter(!is.na(route))</code> for the <code>route</code> variable, assign this to the object <code>have_route.</code></p></li>
+<li><p>Filter rows of bike that are NOT missing using <code>drop_na</code> for the <code>route</code> variable, assign this to the object <code>have_route.</code></p></li>
 <li><p>Use <code>naniar</code> to make a visual of the amount of data missing for each variable of <code>bike</code> (use <code>naniar::gg_miss_var()</code>). Check out more about this package here: <a href="https://www.njtierney.com/post/2018/06/12/naniar-on-cran/" class="uri">https://www.njtierney.com/post/2018/06/12/naniar-on-cran/</a></p></li>
 <li><p>What is the percent complete for <code>subType</code> of <code>bike</code> ? Hint: use another <code>naniar</code> function.</p></li>
 </ol>

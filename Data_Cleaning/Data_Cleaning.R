@@ -74,7 +74,7 @@ df %>% filter(Dog < 3)
 
 
 ## -----------------------------------------------------------------------------
-df %>% filter(!is.na(Dog))
+df %>% drop_na(Dog)
 
 
 ## -----------------------------------------------------------------------------
@@ -105,7 +105,6 @@ red_blue %>% mutate(percent =
 bike <-jhur::read_bike()
 
 bike %>% count(subType)
-bike %>% pull(subType) %>% unique()
 
 
 
@@ -161,7 +160,7 @@ data_diet %>%
 ## ---- eval = FALSE------------------------------------------------------------
 ## # General Format - this is not code!
 ## {data_input} %>%
-##   mutate({variable_to_fix} = case_when{Variable_fixing}/condition/
+##   mutate({variable_to_fix} = case_when{Variable_fixing}condition
 ##                                               ~ {value_for_cond}))
 ## 
 
@@ -187,11 +186,11 @@ data_diet <-data_diet %>%
                                 Weight_change == 0 ~ "Same",
                                 Weight_change < 0 ~ "Decrease"))
 
-data_diet
+head(data_diet)
 
 
 
-## -----------------------------------------------------------------------------
+## ---- echo= FALSE-------------------------------------------------------------
 data_diet %>% 
   count(Diet, Effect)
 
@@ -242,7 +241,7 @@ df_united <- df %>% unite(col = "unique_id", id, visit, sep = "_")
 head(df_united, 4)
 
 
-## ----readSal, echo = TRUE, eval = TRUE, message=FALSE-------------------------
+## ----readSal, echo = TRUE, eval = TRUE, message=FALSE, warning=FALSE----------
 Sal = jhur::read_salaries() # or
 
 
@@ -252,6 +251,15 @@ head(Sal)
 
 ## -----------------------------------------------------------------------------
 Sal %>% filter(str_detect(name, "Rawlings"))
+
+
+## ---- warning = FALSE---------------------------------------------------------
+head(pull(Sal, JobTitle))
+head(str_replace(pull(Sal, JobTitle), "II", "2"))
+
+
+## -----------------------------------------------------------------------------
+head(str_replace_all(pull(Sal, name), "a", "j"), 2)
 
 
 ## ----str_split_orig-----------------------------------------------------------
@@ -267,15 +275,6 @@ length(y)
 str_split("I.like.strings", ".")
 str_split("I.like.strings", fixed("."))
 str_split("I.like.strings", "\\.")
-
-
-## -----------------------------------------------------------------------------
-head(Sal$Name, 2)
-head(str_replace(Sal$name, "a", "j"),2)
-
-
-## -----------------------------------------------------------------------------
-head(str_replace_all(Sal$name, "a", "j"), 2)
 
 
 ## ----Paste--------------------------------------------------------------------

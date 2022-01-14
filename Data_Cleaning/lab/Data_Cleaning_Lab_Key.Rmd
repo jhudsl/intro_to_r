@@ -39,10 +39,10 @@ bike %>% pull(dateInstalled) %>% is.na() %>% any()
 
 
 
-2.  Filter rows of bike that are NOT missing using `filter(!is.na(route))` for the `route` variable, assign this to the object `have_route.` What happens when you try using `!= "NA"`
+2.  Filter rows of bike that are NOT missing using `drop_na` for the `route` variable, assign this to the object `have_route.`
 
 ```{r}
-bike %>%  filter(!is.na(route))
+bike %>%  drop_na(route)
 ```
 
 3.  Use `naniar` to make a visual of the amount of data missing for each variable of `bike` (use `naniar::gg_miss_var()`). Check out more about this package here: https://www.njtierney.com/post/2018/06/12/naniar-on-cran/

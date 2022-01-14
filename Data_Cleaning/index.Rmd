@@ -197,9 +197,12 @@ df
 df %>% filter(Dog < 3)
 ```
 
-## to filter out NAs for one variable
+## to remove rows with NAs for one variable use `drop_na()`
+
+Avoid using filter for NA values. Instead use `drop_na()`
+
 ```{R}
-df %>% filter(!is.na(Dog))
+df %>% drop_na(Dog)
 ```
 
 !NA` does not work as you might expect because you can't tell if something is not actually `NA` - R doesn't ever assume to know what the value of `NA` is 
@@ -213,7 +216,7 @@ NA != NA
 
 ## tidyr::drop_na{.codesmall}
 
-This function will drop rows with **any** missing data in **any** column.
+This function will drop rows with **any** missing data in **any** column when used on a df.
 
 ```{r}
 df
@@ -286,7 +289,6 @@ Check if rare values make sense
 bike <-jhur::read_bike()
 
 bike %>% count(subType)
-bike %>% pull(subType) %>% unique()
 
 ```
 
@@ -470,7 +472,7 @@ The `case_when()` function of `dplyr` can help us to do this as well.
 ```{r, eval = FALSE}
 # General Format - this is not code!
 {data_input} %>%
-  mutate({variable_to_fix} = case_when{Variable_fixing}/condition/ 
+  mutate({variable_to_fix} = case_when{Variable_fixing}condition 
                                               ~ {value_for_cond}))
 
 ```
@@ -507,12 +509,12 @@ data_diet <-data_diet %>%
                                 Weight_change == 0 ~ "Same",
                                 Weight_change < 0 ~ "Decrease"))
 
-data_diet
+head(data_diet)
 
 ```
 
 
-```{r}
+```{r, echo= FALSE}
 data_diet %>% 
   count(Diet, Effect)
 ```
@@ -638,7 +640,7 @@ From https://data.baltimorecity.gov/City-Government/Baltimore-City-Employee-Sala
 
 Read the CSV into R `Sal`:
 
-```{r readSal, echo = TRUE, eval = TRUE, message=FALSE}
+```{r readSal, echo = TRUE, eval = TRUE, message=FALSE, warning=FALSE}
 Sal = jhur::read_salaries() # or
 ```
 
@@ -676,11 +678,28 @@ head(Sal)
 <!-- str_subset(Sal$Name, "Rawlings") -->
 
 
-## 'Find' functions: finding values: `stringr` 
+## 'Find'`str_detect()` function: finding values: `stringr` 
 
 ```{r}
 Sal %>% filter(str_detect(name, "Rawlings"))
 ```
+
+
+
+## Showing differnce in `str_replace` and  `str_replace_all`
+
+`str_replace` replaces only the first instance.
+
+```{r, warning = FALSE}
+head(pull(Sal, JobTitle))
+head(str_replace(pull(Sal, JobTitle), "II", "2"))
+```
+
+`str_replace` replaces all instances.
+```{r}
+head(str_replace_all(pull(Sal, name), "a", "j"), 2)
+```
+
 
 ## Lab Part 2
 
@@ -781,20 +800,6 @@ str_split("I.like.strings", "\\.")
 <!-- head(str_extract(Sal$AgencyID, "\\d")) -->
 <!-- head(str_extract_all(Sal$AgencyID, "\\d"), 2) -->
 <!-- ``` -->
-
-## Showing differnce in `str_replace` and  `str_replace_all`
-
-`str_replace` replaces only the first instance.
-
-```{r}
-head(Sal$Name, 2)
-head(str_replace(Sal$name, "a", "j"),2)
-```
-
-`str_replace` replaces all instances.
-```{r}
-head(str_replace_all(Sal$name, "a", "j"), 2)
-```
 
 
 <!-- ## Replace -->
