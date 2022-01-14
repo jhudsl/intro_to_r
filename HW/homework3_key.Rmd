@@ -1,19 +1,15 @@
 ---
 title: '**KEY** Introduction to R: Homework 3'
-author: "Originally authored by [Andrew Jaffe](http://aejaffe.com/) and [John Muschelli](https://johnmuschelli.com/)"
-date: "11 June 2020"
 output:
   html_document: default
 ---
 
 ### **Instructions**
-1. You must submit both the RMD and "knitted" HTML files as one compressed .zip to the Homework 3 Drop Box on CoursePlus.<br />
-2. All assignments are due by the end of the grading period for this term (25 June 2021).
 
-### **Getting Started**
-In this assignment, we will be working with the child mortality data set, found here: https://jhudatascience.org/intro_to_R_class/data/mortality.csv.<br />
+1. Please submit your filled out `.Rmd` file to the assignment drop box on CoursePlus: https://courseplus.jhu.edu/core/index.cfm/go/db:assignment.submit/assignmentID/40988/coID/16733/ 
 
-The packages listed below are simply suggestions, but please edit this list as you see fit.
+2. All assignments are due by the end of the grading period for this term (Wednesday, Jan 26, 2022 at 11:59pm EST). Please reach out to us if you need help before this time!
+
 ```{r initiatePackages, message=FALSE}
 ## you can add more, or change...these are suggestions
 library(tidyverse)
