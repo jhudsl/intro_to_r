@@ -92,7 +92,7 @@ rowMeans(tb_2, na.rm = TRUE)
 
 ## -----------------------------------------------------------------------------
 colMeans(tb_2, na.rm = TRUE)
-tb %>% 
+tb_2 %>% 
   summarize(across( colnames(tb_2), ~ mean(.x, na.rm = TRUE)))
 
 

@@ -664,15 +664,15 @@ Saint Vincent and the Grenadines                            Samoa
     2006     2007 
 134.6106 133.3865 </pre>
 
-<pre class = 'prettyprint lang-r'>tb %&gt;% 
+<pre class = 'prettyprint lang-r'>tb_2 %&gt;% 
   summarize(across( colnames(tb_2), ~ mean(.x, na.rm = TRUE)))</pre>
 
-<pre ># A tibble: 1 x 18
-  `1990` `1991` `1992` `1993` `1994` `1995` `1996` `1997` `1998` `1999` `2000`
-   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-1   106.   108.   108.   110.   112.   114.   115.   119.   122.   125.   128.
-# … with 7 more variables: 2001 &lt;dbl&gt;, 2002 &lt;dbl&gt;, 2003 &lt;dbl&gt;, 2004 &lt;dbl&gt;,
-#   2005 &lt;dbl&gt;, 2006 &lt;dbl&gt;, 2007 &lt;dbl&gt;</pre>
+<pre >      1990     1991    1992     1993     1994     1995     1996     1997
+1 105.5797 107.6715 108.314 110.3188 111.9662 114.1981 115.3527 118.8792
+      1998     1999     2000     2001     2002     2003     2004     2005
+1 121.5169 125.0435 127.8454 130.7488 136.1739 136.1932 136.9662 135.6683
+      2006     2007
+1 134.6106 133.3865</pre>
 
 </article></slide><slide class=""><hgroup><h2><code>summary</code> Function</h2></hgroup><article  id="summary-function">
 
