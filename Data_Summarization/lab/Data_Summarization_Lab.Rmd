@@ -16,7 +16,7 @@ The data is from http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gy
 
 You can Download as a CSV in your current working directory.  Note its also available at: 	http://jhudatascience.org/intro_to_R_class/data/Bike_Lanes.csv 
 
-```{r}
+```{r, echo = TRUE, message=FALSE, error = FALSE}
 library(readr)
 library(dplyr)
 library(tidyverse)
@@ -62,7 +62,15 @@ bike <- read_bike()
 
 ```
 
-5. Which bike lane`type` has (a) the most number of and (b) longest average bike lane length? (Hint: `group_by` and `summarize`)
+5. Which bike lane`type` has (a) the most number of and (b) longest average bike lane length? (Hint: `group_by` and `summarize`). In your summarized output, make sure you call the new summarized average bike lane length variable (column name) "mean". In other words, the head of your output should look like:
+
+```
+# A tibble: 
+  type            number_of_rows  mean
+  <chr>                    <int> <dbl>
+1 BIKE BOULEVARD              49  197.
+...
+```
 
 ```{r}
 # ??? %>% 
@@ -71,7 +79,10 @@ bike <- read_bike()
 
 ```
 
-6. Take your code from the above question, adding another pipe (`%>%`) and `arrange()` to sort the output by `mean`.
+6. Take your code from the above question and do the following:
+
+- Add another pipe (`%>%`)
+- Add the `arrange()` to sort the output by the summarized column "mean".
 
 ```{r}
 
