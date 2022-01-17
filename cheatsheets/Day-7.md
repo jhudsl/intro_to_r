@@ -23,4 +23,5 @@
 | `ggplot2`| [`ggsave()`](https://www.rdocumentation.org/packages/ggplot2/versions/3.3.0/topics/ggsave)  | GG Save   | Saves the last plot in working directory.|
 | `ggplot2`| [`last_plot()`](https://www.rdocumentation.org/packages/ggplot2/versions/3.3.0/topics/last_plot)| Last plot | Returns the last plot produced.     |  
 
+
 \* This format was adapted from the [cheatsheet format from AlexsLemonade](https://github.com/AlexsLemonade/training-modules/tree/master/module-cheatsheets).
