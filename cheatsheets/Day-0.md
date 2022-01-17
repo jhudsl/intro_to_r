@@ -49,21 +49,28 @@ output.
 | Base `R`| [`head()`](https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/head)|`head(mtcars)`| Returns the top 6 rows of an object in the environment by default. You can specify how many rows you want by including the `n = `argument.|
 | Base `R`| [`tail()`](https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/head)|`tail(mtcars)`| Returns the bottom 6 rows of an object in the environment by default. You can specify how many rows you want by including the `n =` argument.|
 
+<div style="page-break-after: always;"></div>
 
-## RStudio
+## Reproducibility
 
 ### Major concepts
 
 - **Reproducibility** - A different analyst re-performs the analysis with the same code and the same data and obtains the same
 result.
-
+- **Repeatable** - keeping everything the same but repeating the analysis - do we get the same results
+- **Reproducible** - using the same data and analysis but in the hands of another researcher - do we get the same results?
+- **Replicable** - with new data do we obtain the same inferences?
 
 ### Functions
 |Library/Package|Piece of code|Example of usage|What it does|
 |---------------|-------------|----------------|-------------|
 | Base `R`| [`sessionInfo()`](https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/sessionInfo) |`sessionInfo()`| Returns the R version information, the OS, and the attached packages in the current R session.|
 
-
+### More resources
+- [The RMarkdown book](https://bookdown.org/yihui/rmarkdown/)
+- [Jenny Bryan's organizational strategies](https://www.stat.ubc.ca/~jenny/STAT545A/block19_codeFormattingOrganization.html).
+- [Write efficient R code for science](https://www.earthdatascience.org/courses/earth-analytics/automate-science-workflows/write-efficient-code-for-science-r/).
+- [Reproducibility in Cancer Informatics course](https://jhudatascience.org/Reproducibility_in_Cancer_Informatics/introduction.html)
 
 
 \* This format was adapted from the [cheatsheet format from AlexsLemonade](https://github.com/AlexsLemonade/training-modules/tree/master/module-cheatsheets).
