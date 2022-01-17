@@ -1,7 +1,8 @@
-# Day 4 Cheatsheet
+# Day 5 Cheatsheet
 
-## Data Summarization
+## Data Cleaning
 
+### Major concepts
 
 - **Most important rule of data handling - Always be looking at your data!**
 

@@ -1,4 +1,4 @@
-# Day 4 Cheatsheet
+# Day 6 Cheatsheet
 
 ## Data Manipulation
 
@@ -16,7 +16,7 @@
 | `tidyr`| [`pivot_wider()`](https://tidyr.tidyverse.org/reference/pivot_wider.html)| `df %>% pivot_wider(names_from = "col_with_names", values_from = "col_with_values")`| Widens a data frame by decreasing the number of rows and increasing the number of columns.|
 | `dplyr`| [`?_join()`](https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/join) | `inner_join(x, y)`| Joins data from two data frames. <br> **inner_join** - only rows that match for x and y are kept. <br> **full_join** - all rows of x and y are kept. <br> **left_join** - all rows of x are kept even if not merged with y. <br> **right_join** - all rows of y are kept even if not merged with x. <br> **anti_join** - all rows from x not in y keeping just columns from x. |
 |Base `R`| [`duplicated()`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/duplicated)| `duplicated(x)`| Determines and removes duplicate elements from `x`.|
-| Base `R`| [`t()`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/t) | Transpose       | Returns the transpose of a matrix or data frame. If given a data frame, returns a matrix.| 
+| Base `R`| [`t()`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/t) | Transpose       | Returns the transpose of a matrix or data frame. If given a data frame, returns a matrix.|
 
 
 \* This format was adapted from the [cheatsheet format from AlexsLemonade](https://github.com/AlexsLemonade/training-modules/tree/master/module-cheatsheets).
