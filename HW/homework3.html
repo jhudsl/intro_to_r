@@ -184,7 +184,7 @@ library(tidyr)</code></pre>
 <div id="problem-set" class="section level3">
 <h3><strong>Problem Set</strong></h3>
 <p>1. Bring the dataset into R. The dataset is located at: <a href="https://jhudatascience.org/intro_to_R_class/data/mortality.csv" class="uri">https://jhudatascience.org/intro_to_R_class/data/mortality.csv</a>. You can use the link, download it, or use whatever method you like for getting the file. Once you get the file, read the dataset in using <code>read_csv()</code> and assign it the name “mort”.</p>
-<p>2. Rename the first column of “mort” to “country” using the <code>rename()</code> function in <code>dplyr</code>.</p>
+<p>2. Run the <code>colnames()</code> function to take a look at the dataset column names. You should see that there was no name for the first column and that R replaced it with “…1”. Rename the first column of “mort” to “country” using the <code>rename()</code> function in <code>dplyr</code>.</p>
 <p>3. Select only the numeric type columns (<code>select()</code>). Then, create the variable “year” from column names by using the <code>colnames()</code> function to extract them.</p>
 <p>4. What is the <code>typeof()</code> for “year”? If it’s not an integer, turn it into integer form with <code>as.integer()</code>.</p>
 <p>5. Use the <code>pct_complete()</code> function in the <code>naniar</code> package to determine the percent missing data in “mort”. You might need to load and install <code>naniar</code>!</p>
