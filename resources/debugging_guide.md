@@ -1,4 +1,9 @@
+
+<p><img style = "padding: 0 15px; float: left;" src = "screenshots/jhudsl.png" width = "125"></p>
+<p style="margin-top: 20px;"> </p>
+
 # An Introductory Guide to Troubleshooting Errors
+_by Candace Savonen -- adapted from [AlexsLemonade](https://github.com/AlexsLemonade/training-modules/blob/master/intro-to-R-tidyverse/00b-debugging_resources.md)_
 
 This guide gives you tips and approaches for fixing errors that will arise. We also go through some of the most common errors that you will encounter and what they mean.
 
@@ -135,5 +140,3 @@ This generally means that you are using an argument that the function is not bui
 - [Sorting Dataframes](https://stackoverflow.com/questions/1296646/how-to-sort-a-dataframe-by-multiple-columns)
 - [Difference between `<-` and `=`](https://stackoverflow.com/questions/1741820/what-are-the-differences-between-and-in-r)
 - [How to merge data.frames](https://stackoverflow.com/questions/1299871/how-to-join-merge-data-frames-inner-outer-left-right)
-
-\* This guide was adapted from the [AlexsLemonade](https://github.com/AlexsLemonade/training-modules/).

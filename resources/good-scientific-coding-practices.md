@@ -1,4 +1,9 @@
+<p><img style = "padding: 0 15px; float: left;" src = "screenshots/jhudsl.png" width = "125"></p>
+<p style="margin-top: 20px;"> </p>
+
 ## Tips for good scientific coding practices
+
+_by Candace Savonen -- adapted from [AlexsLemonade](https://github.com/AlexsLemonade/training-modules/blob/master/intro-to-R-tidyverse/00c-good-scientific-coding-practices.md)_
 
 ### Style guides help people read your code
 
