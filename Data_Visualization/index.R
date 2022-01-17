@@ -26,13 +26,6 @@ plot(x = var_1, y = var_2)
 
 
 ## ---- fig.width=4, fig.height=3-----------------------------------------------
-plot(x = var_1, y = var_2, 
-     type = "l", 
-     xlab = "My variable 1", ylab = "My variable 2", 
-     main = "Title of my plot")
-
-
-## ---- fig.width=4, fig.height=3-----------------------------------------------
 # creating a data frame from the vectors we had 
 my_data = data.frame(var_1, var_2)
 my_data
@@ -57,7 +50,12 @@ ggplot(my_data, aes(x = var_1, y = var_2)) +
 
 
 ## ---- fig.width=4, fig.height=3, eval = FALSE---------------------------------
-## ggplot(my_data, aes(x = var_1, y = var_2)) +
+## ggplot(my_data, mapping = aes(x = var_1, y = var_2)) +
+##   geom_point()
+
+
+## ---- fig.width=4, fig.height=3, eval = FALSE---------------------------------
+## ggplot(my_data, mapping = aes(x = var_1, y = var_2)) +
 ##   geom_point()
 
 

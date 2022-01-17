@@ -53,18 +53,18 @@ var_2 <- rnorm(30)
 plot(x = var_1, y = var_2)
 ```
 
-## Making plots with base R
+<!-- ## Making plots with base R -->
 
-You can change **plot type** (default are points) other elements by modifying other arguments.
+<!-- You can change **plot type** (default are points) other elements by modifying other arguments. -->
 
-- Google, *"r base graphics change plot title*" 
+<!-- - Google, *"r base graphics change plot title*"  -->
 
-```{r, fig.width=4, fig.height=3}
-plot(x = var_1, y = var_2, 
-     type = "l", 
-     xlab = "My variable 1", ylab = "My variable 2", 
-     main = "Title of my plot")
-```
+<!-- ```{r, fig.width=4, fig.height=3} -->
+<!-- plot(x = var_1, y = var_2,  -->
+<!--      type = "l",  -->
+<!--      xlab = "My variable 1", ylab = "My variable 2",  -->
+<!--      main = "Title of my plot") -->
+<!-- ``` -->
 
 ## Making plots with base R
 
@@ -99,7 +99,7 @@ boxplot(x = my_data$var_1)
 
 ## ggplot2
 
-- A package for producing graphic 
+- A package for producing graphics - gg = Grammar of graphics 
 
 - Created by Hadley Wickham in 2005
 
@@ -107,11 +107,17 @@ boxplot(x = my_data$var_1)
 
 - *"Make a ggplot"* = Make a plot with the use of ggplot2 package
 
+- based on the idea of **layering** plot objects on top of one another
+
+## ggplot2
+
 - Pros: extremely powerful/flexible -- allows combining multiple plot elements together, allows high customization of a look, many resources online
 
 - Cons: ggplot2-specific "grammar of graphic" of constructing a plot
 
 - [ggplot2 gallery](https://www.google.com/search?q=ggplot2+gallery&tbm=isch&ved=2ahUKEwir2NjN_ZzxAhUVA1kFHdraAZoQ2-cCegQIABAA&oq=ggplot2+gallery&gs_lcp=CgNpbWcQAzICCAAyBggAEAcQHjIECAAQGFCxiAFYsYgBYI2TAWgAcAB4AIABN4gBN5IBATGYAQCgAQGqAQtnd3Mtd2l6LWltZ8ABAQ&sclient=img&ei=iF3KYKv0JpWG5NoP2rWH0Ak&bih=859&biw=1474)
+
+
 
 ## Tidy data 
 
@@ -142,6 +148,8 @@ Column headers are values, not variable names
 
 Read more about tidy data and see other examples: [Tidy Data](https://vita.had.co.nz/papers/tidy-data.pdf) tutorial by Hadley Wickham
 
+ It's also helpful to have data in long format!!!
+
 ## First plot with `ggplot2` package 
 
 ```{r, fig.width=4, fig.height=3}
@@ -156,15 +164,23 @@ ggplot(my_data, aes(x = var_1, y = var_2)) +
 ## First plot with `ggplot2` package: unpacking  
 
 ```{r, fig.width=4, fig.height=3, eval = FALSE}
-ggplot(my_data, aes(x = var_1, y = var_2)) + 
+ggplot(my_data, mapping = aes(x = var_1, y = var_2)) + 
   geom_point() 
 ```
 In the code first line, we use `ggplot()` function. It takes two arguments:
   
 * **Data frame** (here: `my_data`)
-* **Aesthetic mapping** (here: `aes(x = var_1, y = var_2)`) that describes how variables in our data are mapped to elements of the plot 
+* **Aesthetic mapping** (here: `mapping = aes(x = var_1, y = var_2)`) that describes how variables in our data are mapped to elements of the plot 
 
     Here, can read: *take variable named `var_1` from a data frame `my_data` and use it for `x` axis; take variable named `var_2` from a data frame `my_data` and use it for `y` axis*
+
+
+## First plot with `ggplot2` package: unpacking  
+
+```{r, fig.width=4, fig.height=3, eval = FALSE}
+ggplot(my_data, mapping = aes(x = var_1, y = var_2)) + 
+  geom_point() 
+```
 
 In the code second line, we have definition of a **layer** of a plot. There is only one layer here, `+ geom_point()`
 
@@ -179,6 +195,7 @@ There are many to choose from, to list just a few:
 - `geom_boxplot()`
 - `geom_histogram()`
 - `geom_bar()`
+- `geom_col()`
 - `geom_errorbar()`
 - `geom_density()`
 - `geom_tile()` -- blocks filled with color
