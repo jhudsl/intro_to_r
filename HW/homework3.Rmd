@@ -27,7 +27,7 @@ library(tidyr)
 
 ```
 
-2\. Run the `colnames()` function to take a look at the dataset column names. You should see that there was no name for the first column and that R replaced it with "...1". Rename the first column of "mort" to "country" using the `rename()` function in `dplyr`.  
+2\. Run the `colnames()` function to take a look at the dataset column names. You should see that there was originally no name for the first column and that R replaced it with "...1". Rename the first column of "mort" to "country" using the `rename()` function in `dplyr`. 
 
 ```{r}
 
