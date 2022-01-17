@@ -173,35 +173,12 @@ pre code {
 <p>Bike Lanes Dataset: BikeBaltimore is the Department of Transportation’s bike program. The data is from <a href="http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms" class="uri">http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms</a></p>
 <p>You can Download as a CSV in your current working directory. Note its also available at: <a href="http://jhudatascience.org/intro_to_R_class/data/Bike_Lanes.csv" class="uri">http://jhudatascience.org/intro_to_R_class/data/Bike_Lanes.csv</a></p>
 <pre class="r"><code>library(readr)
-library(dplyr)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
-<pre><code>## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
-## ✓ tibble  3.1.2     ✓ stringr 1.4.0
-## ✓ tidyr   1.1.3     ✓ forcats 0.5.1</code></pre>
-<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>library(jhur)
+library(dplyr)
+library(tidyverse)
+library(jhur)
 
 bike = read_csv(
   &quot;http://jhudatascience.org/intro_to_R_class/data/Bike_Lanes.csv&quot;)</code></pre>
-<pre><code>## Rows: 1631 Columns: 9</code></pre>
-<pre><code>## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: &quot;,&quot;
-## chr (6): subType, name, block, type, project, route
-## dbl (3): numLanes, length, dateInstalled</code></pre>
-<pre><code>## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <p>or use</p>
 <pre class="r"><code>library(jhur)
 bike &lt;- read_bike()</code></pre>
@@ -301,8 +278,13 @@ bike %&gt;% count(type)</code></pre>
 ## 7 SIGNED ROUTE      304
 ## 8 &lt;NA&gt;                9</code></pre>
 <ol start="5" style="list-style-type: decimal">
-<li>Which bike lane<code>type</code> has (a) the most number of and (b) longest average bike lane length? (Hint: <code>group_by</code> and <code>summarize</code>)</li>
+<li>Which bike lane<code>type</code> has (a) the most number of and (b) longest average bike lane length? (Hint: <code>group_by</code> and <code>summarize</code>). In your summarized output, make sure you call the new summarized average bike lane length variable (column name) “mean”. In other words, the head of your output should look like:</li>
 </ol>
+<pre><code># A tibble: 
+  type            number_of_rows  mean
+  &lt;chr&gt;                    &lt;int&gt; &lt;dbl&gt;
+1 BIKE BOULEVARD              49  197.
+...</code></pre>
 <pre class="r"><code>bike %&gt;% 
   group_by(type) %&gt;% 
   summarize(number_of_rows = n(),
@@ -319,8 +301,12 @@ bike %&gt;% count(type)</code></pre>
 ## 7 SIGNED ROUTE               304  264.
 ## 8 &lt;NA&gt;                         9  260.</code></pre>
 <ol start="6" style="list-style-type: decimal">
-<li>Take your code from the above question, adding another pipe (<code>%&gt;%</code>) and <code>arrange()</code> to sort the output by <code>mean</code>.</li>
+<li>Take your code from the above question and do the following:</li>
 </ol>
+<ul>
+<li>Add another pipe (<code>%&gt;%</code>)</li>
+<li>Add the <code>arrange()</code> to sort the output by the summarized column “mean”.</li>
+</ul>
 <pre class="r"><code>bike %&gt;% 
   group_by(type) %&gt;% 
   summarize(number_of_rows = n(),

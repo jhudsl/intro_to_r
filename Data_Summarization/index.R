@@ -22,6 +22,16 @@ quantile(x)
 quantile(x, na.rm = TRUE)
 
 
+## ----error = TRUE-------------------------------------------------------------
+x <- c(1, 5, 7, 4, 2, 8)
+sum(x)
+y <- c(TRUE, FALSE, FALSE, TRUE) # FALSE == 0 and TRUE == 1
+sum(y)
+z <- c("TRUE", "FALSE", "FALSE", "TRUE")
+sum(z)
+mean(z)
+
+
 ## -----------------------------------------------------------------------------
 library(jhur)
 head(jhu_cars)
