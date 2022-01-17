@@ -24,10 +24,9 @@ that can be loaded together for easy repeated use or for sharing with others.
 | Base `R`| [`print(x)`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/print)|`print(x)`| Prints out contents of `x`.|
 | Base `R`| [`length(x)`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/length)|`length(x)`| Returns how long the object `x` is. |
 
-
 <div style="page-break-after: always;"></div>
 
-## Data IO
+## Data Input/Output
 
 ### Major concepts
 
@@ -43,6 +42,8 @@ look at the help file for that function.
 | `readr`| [`read_csv()`](https://www.rdocumentation.org/packages/readr/versions/1.3.0/topics/read_delim)| `df <- read_csv("http://jhudatascience.org/intro_to_R_class/data/Youth_Tobacco_Survey_YTS_Data.csv")`| Reads in a TSV file from a specified file path. This function can be tailored to read in other common types of files. i.e. read_csv(), read_rds(), etc.|
 |TSA| [`spec()`](https://www.rdocumentation.org/packages/TSA/versions/1.3/topics/spec)`| `spec(mtcars)`| Gives specification of column types|
 |`readxl`| [`read_excel()`](https://www.rdocumentation.org/packages/readxl/versions/1.3.1/topics/read_excel)| `read_excel("dataset.xlsx")`| Read in an excel file.|
+| Base `R`| [`getwd()`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/getwd)| `getwd()`| Finds the current working directory.|
+| Base `R`| [`setwd()`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/getwd)| `setwd("Desktop")`| Changes the current working directory.|
 
 
 \* This format was adapted from the [cheatsheet format from AlexsLemonade](https://github.com/AlexsLemonade/training-modules/tree/master/module-cheatsheets).
