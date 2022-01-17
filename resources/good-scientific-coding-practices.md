@@ -2,8 +2,7 @@
 
 ### Style guides help people read your code
 
-Just how incorrect punctuation and grammar can distract a reader from the message in your writing, code that doesn't follow a style can be difficult for others to understand and use.
-Your code is not as useful if it isn't easily readable, which is why naming conventions, code style, and consistency are important.
+Just how incorrect punctuation and grammar can distract a reader from the message in your writing, code that doesn't follow a style can be difficult for others to understand and use. Your code is not as useful if it isn't easily readable, which is why naming conventions, code style, and consistency are important.
 
 We suggest following a style guide like one of these:  
 - [Hadley Wickham's R Style Guide](http://adv-r.had.co.nz/Style.html)  
@@ -33,8 +32,7 @@ Output: `[1]  4  7  2 10  6`
 
 #### Test this out
 
-If you run your analyses again, and still have the seed set to the same number, you will get exactly the same results.
-But if you change the number, the results will also change.
+If you run your analyses again, and still have the seed set to the same number, you will get exactly the same results. But if you change the number, the results will also change.
 
 ```
 set.seed(54321)
@@ -66,14 +64,9 @@ We suggest running a step, script, or notebook multiple times in different sessi
 
 ### R Notebooks are helpful for documenting your science
 
-We use R Markdown throughout our training workshop.
 R Markdown documents are helpful for scientific code by allowing you to keep detailed notes, code, and output in one place.
 
-They also have the added benefit of having HTML file output that is styled and easy to read.
-Saving your R Markdown will create an HTML file containing the code and output to be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file).
-The preview shows you a rendered HTML copy of the contents of the editor.
-Consequently, unlike *Knit*, *Preview* does not run any R code chunks.
-Instead, the output of the chunk when it was last run in the editor is displayed.
+They also have the added benefit of having HTML file output that is styled and easy to read. Saving your R Markdown will create an HTML file containing the code and output to be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
 
 ### `sessionInfo` tells people what packages you used
 
