@@ -50,7 +50,7 @@ As we discussed in [`intro_to_R` notebook](https://alexslemonade.github.io/train
 
 Here's a screenshot from the help window in RStudio. Note that here we searched for the `levels` function. R documentation includes information about what the expected arguments are as well as examples of how to use a function. Note here that this documentation tells us that the input for `x` is probably a factor.
 
-![search_bar](screenshots/r_search_bar.png)
+<img src="screenshots/r_search_bar.png" width = 350>
 
 #### For Bioconductor package functions, look at their page on bioconductor.org
 
