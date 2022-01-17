@@ -35,6 +35,8 @@ that can be loaded together for easy repeated use or for sharing with others.
 - **File path** - where a file lives on your computer (or on the internet) - [File paths can be relative or absolute](https://en.wikipedia.org/wiki/Path_(computing)#Absolute_and_relative_paths).
 - **Getting help** - For any function, you can write `?FUNCTION_NAME`, or `help("FUNCTION_NAME")` to
 look at the help file for that function.
+- [**R Projects**](https://support.rstudio.com/hc/en-us/articles/200526207-Using-RStudio-Projects) set the working directory where the .Rproj file is.
+- [**R Markdown**](https://bookdown.org/yihui/rmarkdown-cookbook/working-directory.html) files look for file paths relative to where the `.Rmd` file is located
 
 ### Functions
 |Library/Package|Piece of code|Example of usage|What it does|
