@@ -7,7 +7,7 @@ library(jhur)
 
 
 ## ---- fig.alt="dplyr", out.width = "25%", echo = FALSE, fig.align='center'----
-knitr::include_graphics("https://dplyr.tidyverse.org/logo.png")
+knitr::include_graphics("https://tidyverse.tidyverse.org/logo.png")
 
 
 ## ---- fig.alt="dplyr", out.width = "100%", echo = FALSE, fig.align='center'----
@@ -21,6 +21,22 @@ library(tidyverse) # loads dplyr and other packages!
 ## -----------------------------------------------------------------------------
 df <- mtcars # df is a copy of mtcars
 head(df) # changing df does **not** change mtcars!
+
+
+## -----------------------------------------------------------------------------
+dim(df) # rows, columns
+nrow(df) # number of rows
+ncol(df) # number of columns
+
+
+## -----------------------------------------------------------------------------
+glimpse(df)
+
+
+## -----------------------------------------------------------------------------
+slice_sample(df, n = 3)
+slice_sample(df, prop = .2)
+
 
 
 ## -----------------------------------------------------------------------------
@@ -38,12 +54,8 @@ df<-data.frame(df)
 ## df_example_readr <- read.csv("documents/data_analysis/data_file.csv")
 
 
-## ---- fig.alt="dplyr", out.width = "25%", echo = FALSE, fig.align='center'----
-knitr::include_graphics("https://github.com/tidyverse/tibble/raw/main/man/figures/logo.png")
-
-
 ## -----------------------------------------------------------------------------
-tbl <- as_tibble(df) 
+tbl <- dplyr::tibble(df) 
 tbl
 
 
@@ -54,12 +66,12 @@ tbl
 
 ## -----------------------------------------------------------------------------
 head(df, 2)
-head(as_tibble(df), 2)
+head(tibble(df), 2)
 
 
 ## ---- size = "tiny"-----------------------------------------------------------
 head(rownames_to_column(df, var = "car"),  2)
-head(as_tibble(rownames_to_column(df, var = "car")),  2)
+head(tibble(rownames_to_column(df, var = "car")),  2)
 
 
 ## ---- eval = FALSE------------------------------------------------------------
@@ -74,12 +86,12 @@ head(df)
 
 
 ## -----------------------------------------------------------------------------
-df_upper = dplyr::rename_all(df, toupper)
+df_upper <- dplyr::rename_all(df, toupper)
 head(df_upper, 3)
 
 
 ## -----------------------------------------------------------------------------
-df = dplyr::rename_all(df, tolower)
+df <- dplyr::rename_all(df, tolower)
 head(df, 3)
 
 
@@ -116,7 +128,7 @@ select(df, starts_with("c"))
 
 
 ## ---- eval = FALSE------------------------------------------------------------
-## ??tidyselect::select_helpers
+## tidyslect::
 
 
 ## -----------------------------------------------------------------------------
@@ -142,8 +154,8 @@ select(filter(df, mpg > 20 & cyl == 4), cyl, hp)
 
 
 ## -----------------------------------------------------------------------------
-df2 = filter(df, mpg > 20 & cyl == 4)
-df2 = select(df2, cyl, hp)
+df2 <- filter(df, mpg > 20 & cyl == 4)
+df2 <- select(df2, cyl, hp)
 
 head(df2,4)
 
@@ -153,7 +165,7 @@ df %>% filter(mpg > 20 & cyl == 4) %>% select(cyl, hp)
 
 
 ## -----------------------------------------------------------------------------
-df$newcol = df$wt/2.2
+df$newcol <- df$wt/2.2
 head(df,3)
 
 
@@ -164,19 +176,15 @@ head(df,3)
 
 
 ## -----------------------------------------------------------------------------
-df = mutate(df, newcol = wt/2.2)
-
-
-## ---- echo = FALSE------------------------------------------------------------
-print(head({df = mutate(df, newcol = wt/2.2)}, 2))
+df <- mutate(df, newcol = wt/2.2)
 
 
 ## ---- eval = FALSE------------------------------------------------------------
-## df$newcol = NULL
+## df$newcol <- NULL
 
 
 ## ---- eval = FALSE------------------------------------------------------------
-## select(df, -newcol)
+## select(df, - newcol)
 
 
 ## ---- echo = FALSE------------------------------------------------------------
@@ -221,7 +229,7 @@ df$disp
 
 ## -----------------------------------------------------------------------------
 #ifelse(test, yes, no)
-ifelse(df$disp<=200, "low", "high")
+ifelse(df$disp <= 200, "low", "high")
 
 
 ## -----------------------------------------------------------------------------

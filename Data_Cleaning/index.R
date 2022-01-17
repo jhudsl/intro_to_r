@@ -13,26 +13,41 @@ any(is.na(A)) # are there any NAs - YES/TRUE
 any(is.na(B)) # are there any NAs- NO/FALSE
 
 
-## ----all----------------------------------------------------------------------
-A = c(1, 2, 4, NA)
-B = c(1, 2, 3, 4)
-all(is.na(A)) # are all values NA - NO/FALSE
-all(!is.na(B)) # are all values not NA - YES/TRUE
-
-
-## -----------------------------------------------------------------------------
-complete.cases(mtcars)
-
-
 ## ---- error=FALSE-------------------------------------------------------------
-#install.packageS(naniar)
+#install.packages("naniar")
 library(naniar)
 x = c(0, NA, 2, 3, 4, -0.5, 0.2)
 naniar::pct_complete(x)
 
 
+## ---- message=FALSE-----------------------------------------------------------
+?airquality # use this to find out more about the data
+airqual <-tibble(airquality)
+airqual
+
+
 ## -----------------------------------------------------------------------------
-naniar::gg_miss_var(iris)
+pct_complete(airquality)
+
+
+## ---- fig.height=4, warning=FALSE, fig.align='center'-------------------------
+naniar::gg_miss_var(airqual)
+
+
+## ---- fig.height=4, warning=FALSE, fig.align='center'-------------------------
+naniar::gg_miss_var(airqual, facet = Month)
+
+
+## -----------------------------------------------------------------------------
+sum(c(1,2,3,NA))
+mean(c(2,4,NA))
+median(c(1,2,3,NA))
+
+
+## ---- echo = FALSE------------------------------------------------------------
+red_blue <- tibble(color = rep(c("red", "blue", NA), 3))
+red_blue <- red_blue %>% count(color)
+red_blue <- rename(red_blue, col_count = n)
 
 
 ## -----------------------------------------------------------------------------
@@ -47,35 +62,173 @@ x %in% c(0, 2) | is.na(x) # do this
 
 
 
+## ---- echo = FALSE------------------------------------------------------------
+df <-tibble(Dog = c(0, NA, 2, 3, 1, 1), 
+            Cat= c(NA, 8, 6, NA, 2, NA))
+
+
 ## -----------------------------------------------------------------------------
-df <-tibble(x = c(0, NA, 2, 0.2), 
-            y = c(NA, 1, 6, NA))
+df
+
+df %>% filter(Dog < 3)
+
+
+## -----------------------------------------------------------------------------
+df %>% drop_na(Dog)
+
+
+## -----------------------------------------------------------------------------
+NA == NA
+NA != NA
+
+
+## -----------------------------------------------------------------------------
 df
 drop_na(df)
 
 
-## ----table--------------------------------------------------------------------
-z = c("A", "B", "A", "B")
-table(z, useNA = "ifany")
-table(z, useNA = "always")
+## -----------------------------------------------------------------------------
+red_blue
+red_blue %>% mutate(percent = 
+                      col_count/sum(pull(red_blue, col_count)))
+
+
+## -----------------------------------------------------------------------------
+red_blue %>% mutate(percent = 
+                      col_count/sum(pull(drop_na(red_blue), col_count)))
+
+# Should you be dividing by 9 or 6? It depends on your data
+# Pay attention to your data and your NAs!
+
+
+## ---- message=FALSE-----------------------------------------------------------
+bike <-jhur::read_bike()
+
+bike %>% count(subType)
+
+
+
+## ---- echo=FALSE--------------------------------------------------------------
+data_diet <- tibble(Diet = rep(c("A", "B", "B"),
+                               times = 4), 
+                    Gender = c("Male", 
+                               "m",
+                               "Other",
+                               "F", 
+                               "Female",
+                               "M", 
+                               "f",
+                               "O", 
+                               "Man",
+                               "f",
+                               "F",
+                               "O"), 
+                    Weight_start = sample(100:250, size = 12),
+                    Weight_change = sample(-10:20, size = 12))
+
+
+
+## -----------------------------------------------------------------------------
+data_diet
+
+
+## -----------------------------------------------------------------------------
+data_diet %>%
+  count(Gender, Diet)
 
 
 ## ---- eval = FALSE------------------------------------------------------------
-## data = data %>%
-##   mutate(gender = recode(gender, M = "Male", m = "Male", Man = "Male"))
+## # General Format - this is not code!
+## {data_input} %>%
+##   mutate({variable_to_fix} = {Variable_fixing, {old_value} = {new_value},
+##                                        {another_old_value} = {new_value})
+## 
 
 
-## ----separate_df--------------------------------------------------------------
-df = tibble(x = c("I really", "like writing", "R code programs"))
+## ---- eval = FALSE------------------------------------------------------------
+## 
+## data_diet %>%
+##   mutate(Gender = recode(Gender, M = "Male",
+##                                  m = "Male",
+##                                Man = "Male",
+##                                  O = "Other",
+##                                  f = "Female",
+##                                  F = "Female")) %>%
+##   count(Gender, Diet)
+
+
+## ---- eval = FALSE------------------------------------------------------------
+## # General Format - this is not code!
+## {data_input} %>%
+##   mutate({variable_to_fix} = case_when{Variable_fixing}condition
+##                                               ~ {value_for_cond}))
+## 
 
 
 ## -----------------------------------------------------------------------------
-df %>% separate(x, into = c("first", "second", "third"))
+data_diet %>% 
+  mutate(Gender = case_when(Gender =="M" ~ "Male"))
 
 
 ## -----------------------------------------------------------------------------
-df %>% separate(x, into = c("first", "second", "third"), 
-                extra = "merge", sep = " ")
+data_diet %>% 
+  mutate(Gender = case_when(
+    Gender %in% c("M", "male", "Man", "m", "Male") ~ "Male",
+    Gender %in% c("F", "Female", "f", "female")~ "Female",
+    Gender %in% c("O", "Other") ~ "Other"))
+
+
+
+## -----------------------------------------------------------------------------
+
+data_diet <-data_diet %>% 
+      mutate(Effect = case_when(Weight_change > 0 ~ "Increase",
+                                Weight_change == 0 ~ "Same",
+                                Weight_change < 0 ~ "Decrease"))
+
+head(data_diet)
+
+
+
+## ---- echo= FALSE-------------------------------------------------------------
+data_diet %>% 
+  count(Diet, Effect)
+
+
+## ---- echo = FALSE------------------------------------------------------------
+diet_effect <-data_diet %>% 
+  count(Diet, Effect)
+
+data_diet %>% 
+  count(Diet, Effect)%>%
+  ggplot(aes(x = Effect,y = n, fill = Diet)) + 
+  geom_col(position = position_dodge()) +
+  labs(y = "Individuals", 
+       title = "Effect of diet A & B on participants")
+
+
+
+
+## ---- echo = FALSE------------------------------------------------------------
+diet_comb<-diet_effect %>% unite("change" , Diet:Effect, remove = TRUE)
+
+
+## -----------------------------------------------------------------------------
+diet_comb
+
+
+## -----------------------------------------------------------------------------
+diet_comb %>% 
+  separate(change, into = c("Diet", "Change"))
+
+
+## ---- echo = FALSE------------------------------------------------------------
+diet_comb<-diet_effect %>% unite("change" , Diet:Effect, remove = TRUE, sep = "_diet ")
+
+
+## -----------------------------------------------------------------------------
+diet_comb %>% 
+  separate(change, into = c("Diet", "Change"), sep = " ")
 
 
 ## ----unite_df-----------------------------------------------------------------
@@ -86,6 +239,27 @@ head(df, 4)
 ## -----------------------------------------------------------------------------
 df_united <- df %>% unite(col = "unique_id", id, visit, sep = "_")
 head(df_united, 4)
+
+
+## ----readSal, echo = TRUE, eval = TRUE, message=FALSE, warning=FALSE----------
+Sal = jhur::read_salaries() # or
+
+
+## -----------------------------------------------------------------------------
+head(Sal)
+
+
+## -----------------------------------------------------------------------------
+Sal %>% filter(str_detect(name, "Rawlings"))
+
+
+## ---- warning = FALSE---------------------------------------------------------
+head(pull(Sal, JobTitle))
+head(str_replace(pull(Sal, JobTitle), "II", "2"))
+
+
+## -----------------------------------------------------------------------------
+head(str_replace_all(pull(Sal, name), "a", "j"), 2)
 
 
 ## ----str_split_orig-----------------------------------------------------------
@@ -101,26 +275,6 @@ length(y)
 str_split("I.like.strings", ".")
 str_split("I.like.strings", fixed("."))
 str_split("I.like.strings", "\\.")
-
-
-## ----readSal, echo = TRUE, eval = TRUE, message=FALSE-------------------------
-Sal = jhur::read_salaries() # or
-
-## -----------------------------------------------------------------------------
-head(Sal)
-
-
-## -----------------------------------------------------------------------------
-Sal %>% filter(str_detect(name, "Rawlings"))
-
-
-## -----------------------------------------------------------------------------
-head(Sal$Name, 2)
-head(str_replace(Sal$name, "a", "j"),2)
-
-
-## -----------------------------------------------------------------------------
-head(str_replace_all(Sal$name, "a", "j"), 2)
 
 
 ## ----Paste--------------------------------------------------------------------

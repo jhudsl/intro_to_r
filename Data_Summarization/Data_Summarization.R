@@ -8,6 +8,21 @@ library(jhur)
 
 
 ## -----------------------------------------------------------------------------
+x <- c(1, 5, 7, 4, 2, 8)
+mean(x)
+range(x)
+sum(x)
+
+
+## ----error = TRUE-------------------------------------------------------------
+x <- c(1, 5, 7, 4, 2, 8, NA)
+mean(x)
+mean(x, na.rm = TRUE)
+quantile(x)
+quantile(x, na.rm = TRUE)
+
+
+## -----------------------------------------------------------------------------
 library(jhur)
 head(jhu_cars)
 
@@ -18,69 +33,89 @@ quantile(jhu_cars$hp)
 
 
 ## -----------------------------------------------------------------------------
-median(jhu_cars$wt)
-quantile(jhu_cars$wt, probs = 0.6)
+jhu_cars %>% pull(hp) %>% mean() # alt: pull(jhu_cars, hp) %>% mean()
+jhu_cars %>% pull(hp) %>% quantile()
 
 
 ## -----------------------------------------------------------------------------
-x = c(1,5,7,NA,4,2, 8,10,45,42)
-mean(x)
-mean(x, na.rm = TRUE)
-quantile(x, na.rm = TRUE)
+jhu_cars %>% pull(wt) %>% median()
+jhu_cars %>% pull(wt) %>% quantile(probs = 0.6)
 
 
 ## -----------------------------------------------------------------------------
-library(readxl)
-# tb <- read_excel("http://jhudatascience.org/intro_to_R_class/data/tb_incidence.xlsx")
-tb = jhur::read_tb()
+tb <- jhur::read_tb()
+
+
+## -----------------------------------------------------------------------------
+head(tb)
 colnames(tb)
 
 
 ## -----------------------------------------------------------------------------
 library(dplyr)
-tb = tb %>% rename(country = `TB incidence, all forms (per 100 000 population per year)`)
+tb <- tb %>% rename(country = `TB incidence, all forms (per 100 000 population per year)`)
 
 
 ## -----------------------------------------------------------------------------
 colnames(tb)
 
 
+## ---- eval = FALSE------------------------------------------------------------
+## # General format - Not the code!
+## {data object to update} <- {data to use} %>%
+##                           summarize({summary column name} = {operator(source column)})
+
+
+## -----------------------------------------------------------------------------
+tb %>% summarize(mean_2006 = mean(`2006`, na.rm = TRUE))
+
+
 ## -----------------------------------------------------------------------------
 tb %>% 
   summarize(mean_2006 = mean(`2006`, na.rm = TRUE),
-            media_2007 = median(`2007`, na.rm = TRUE),
+            median_2007 = median(`2007`, na.rm = TRUE),
             median(`2004`, na.rm = TRUE))
 
 
-## ----colMeans-----------------------------------------------------------------
-avgs = select(tb, starts_with("1"))
-colMeans(avgs, na.rm = TRUE)
+## -----------------------------------------------------------------------------
+tb %>% 
+  summarize(across( c(`1990`, `1991`, `1992`, `1993`), ~ sum(.x, na.rm = TRUE)))
+tb %>% 
+  summarize(across( starts_with("2"), ~ range(.x, na.rm = TRUE)))
 
 
 ## -----------------------------------------------------------------------------
-tb$before_2000_avg = rowMeans(avgs, na.rm = TRUE)
-head(tb[, c("country", "before_2000_avg")])
+tb_2 <- column_to_rownames(tb, "country") # opposite of rownames_to_column() !
+head(tb_2, 2)
+rowMeans(tb_2, na.rm = TRUE)
 
 
-## ----summary1-----------------------------------------------------------------
+## -----------------------------------------------------------------------------
+colMeans(tb_2, na.rm = TRUE)
+tb_2 %>% 
+  summarize(across( colnames(tb_2), ~ mean(.x, na.rm = TRUE)))
+
+
+## -----------------------------------------------------------------------------
 summary(tb)
 
 
 ## -----------------------------------------------------------------------------
-yts = jhur::read_yts()
+yts <- jhur::read_yts()
 head(yts)
 
 
 ## ---- message = FALSE---------------------------------------------------------
-head(unique(yts$LocationDesc), 10)
+locations <- yts %>% pull(LocationDesc)
+unique(locations) %>% head()
 
 
 ## -----------------------------------------------------------------------------
-length(unique(yts$LocationDesc))
+length(unique(locations))
 
 
 ## ---- message = FALSE---------------------------------------------------------
-head(table(yts$LocationDesc))
+table(locations)
 
 
 ## ---- message = FALSE---------------------------------------------------------
@@ -91,121 +126,62 @@ yts %>% count(LocationDesc)
 yts %>% count(LocationDesc, TopicDesc)
 
 
-## ---- message=FALSE-----------------------------------------------------------
-library(dplyr)
-sub_yts = filter(yts, MeasureDesc == "Smoking Status",
-                 Gender == "Overall", Response == "Current",
-                 Education == "Middle School")
-sub_yts = select(sub_yts, YEAR, LocationDesc, Data_Value, Data_Value_Unit)
-head(sub_yts, 4)
+## -----------------------------------------------------------------------------
+#
+yts
 
 
 ## -----------------------------------------------------------------------------
-sub_yts = group_by(sub_yts, YEAR)
-head(sub_yts)
+yts <- yts %>% group_by(Response)
+yts
 
 
 ## -----------------------------------------------------------------------------
-sub_yts %>% summarize(year_avg = mean(Data_Value, na.rm = TRUE))
+yts %>% summarize(avg_percent = mean(Data_Value, na.rm = TRUE))
 
 
 ## -----------------------------------------------------------------------------
-yts_avgs = sub_yts %>% 
-  group_by(YEAR) %>% 
-  summarize(year_avg = mean(Data_Value, na.rm = TRUE),
-            year_median = median(Data_Value, na.rm = TRUE))
-head(yts_avgs)
+yts %>%
+  group_by(Response) %>%
+  summarize(avg_percent = mean(Data_Value, na.rm = TRUE),
+            max_percent = max(Data_Value, na.rm = TRUE))
 
 
 ## -----------------------------------------------------------------------------
-sub_yts = ungroup(sub_yts)
-sub_yts
+yts = ungroup(yts)
+yts
 
 
 ## -----------------------------------------------------------------------------
-sub_yts %>% 
-  group_by(YEAR) %>% 
-  mutate(year_avg = mean(Data_Value, na.rm = TRUE)) %>% 
-  arrange(LocationDesc, YEAR) # look at year 2000 value
+yts %>%
+  group_by(YEAR) %>%
+  mutate(year_avg = mean(Data_Value, na.rm = TRUE)) %>%
+  select(LocationDesc, Data_Value, year_avg)
 
 
 ## -----------------------------------------------------------------------------
-sub_yts %>% 
-  group_by(YEAR) %>% 
+yts %>%
+  group_by(YEAR) %>%
   summarize(n = n(),
-            mean = mean(Data_Value, na.rm = TRUE)) %>% 
-  head
-
-
-## ---- eval = FALSE------------------------------------------------------------
-## qplot
-
-## ---- echo = FALSE------------------------------------------------------------
-args(qplot)
+            mean = mean(Data_Value, na.rm = TRUE))
 
 
 ## -----------------------------------------------------------------------------
-library(ggplot2)
-qplot(x = disp, y = mpg, data = jhu_cars)
+plot( pull(jhu_cars,hp), pull(jhu_cars,mpg) ) # alt: plot(jhu_cars$hp, jhu_cars$mpg)
 
 
 ## -----------------------------------------------------------------------------
-qplot(x = before_2000_avg, data = tb, geom = "histogram")
+boxplot( pull(jhu_cars,hp) ~ pull(jhu_cars,cyl) )
 
 
 ## -----------------------------------------------------------------------------
-qplot(x = YEAR, y = year_avg, data = yts_avgs, geom = "line")
+hist(pull(jhu_cars,mpg))
 
 
 ## -----------------------------------------------------------------------------
-qplot(x = Data_Value, data = sub_yts, geom = "density")
+hist(pull(jhu_cars,mpg), breaks = 10)
 
 
 ## -----------------------------------------------------------------------------
-qplot(x = LocationDesc, y = Data_Value, data = sub_yts, geom = "boxplot") 
-
-
-## -----------------------------------------------------------------------------
-qplot(x = LocationDesc, y = Data_Value, 
-      data = sub_yts, geom = "boxplot") + coord_flip()
-
-
-## ----ggally_pairs, warning=FALSE, echo = FALSE--------------------------------
-library(GGally)
-# ggpairs(avgs)
-
-
-## ----scatter1-----------------------------------------------------------------
-plot(jhu_cars$mpg, jhu_cars$disp)
-
-
-## ----hist1--------------------------------------------------------------------
-hist(tb$before_2000_avg)
-
-
-## ----hist_date----------------------------------------------------------------
-plot(yts_avgs$YEAR, yts_avgs$year_avg, type = "l")
-
-
-## ----dens1,fig.width=5,fig.height=5-------------------------------------------
-plot(density(sub_yts$Data_Value))
-
-
-## ----box1---------------------------------------------------------------------
-boxplot(sub_yts$Data_Value ~ sub_yts$LocationDesc)
-
-
-## ----box2---------------------------------------------------------------------
-boxplot(Data_Value ~ LocationDesc, data = sub_yts)
-
-
-## ----matplot2-----------------------------------------------------------------
-pairs(avgs)
-
-
-## ----apply1-------------------------------------------------------------------
-apply(avgs,2,mean, na.rm=TRUE) # column means
-head(apply(avgs,1,mean, na.rm=TRUE)) # row means
-apply(avgs,2,sd, na.rm=TRUE) # columns sds
-apply(avgs,2,max, na.rm=TRUE) # column maxs
+plot(density(pull(jhu_cars,mpg)))
 

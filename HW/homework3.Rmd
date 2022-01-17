@@ -1,18 +1,15 @@
 ---
-title: 'Introduction to R: Homework 3'
-author: "Originally authored by [Andrew Jaffe](http://aejaffe.com/) and [John Muschelli](https://johnmuschelli.com/)"
+title: '**KEY** Introduction to R: Homework 3'
 output:
   html_document: default
 ---
 
 ### **Instructions**
-1. You must submit both the RMD and "knitted" HTML files as one compressed .zip to the Homework 3 Drop Box on CoursePlus.<br />
-2. All assignments are due by the end of the grading period for this term (25 June 2021).
 
-### **Getting Started**
-In this assignment, we will be working with the child mortality data set, found here: https://jhudatascience.org/intro_to_R_class/data/mortality.csv.<br />
+1. Please submit your filled out `.Rmd` file to the assignment drop box on CoursePlus: https://courseplus.jhu.edu/core/index.cfm/go/db:assignment.submit/assignmentID/40988/coID/16733/ 
 
-The packages listed below are simply suggestions, but please edit this list as you see fit.
+2. All assignments are due by the end of the grading period for this term (Wednesday, Jan 26, 2022 at 11:59pm EST). Please reach out to us if you need help before this time!
+
 ```{r initiatePackages, message=FALSE}
 ## you can add more, or change...these are suggestions
 library(tidyverse)
@@ -24,62 +21,102 @@ library(tidyr)
 
 ### **Problem Set**
 
-1.	Read the data using `read_csv()` and name it `mort`. Rename the first column to `country` using the `rename()` command in `dplyr`.  Create an object `year` variable by extracting column names (using `colnames()`) and make it to an integer `as.integer()` ), excluding the first column either with string manipulations or bracket subsetting or subsetting with `is.na()`. 
-
-```{r, dataImport}
-
-```
-
-2.	Reshape the data so that there is a variable named `year` corresponding to `year` (names) and a column of the mortalities named `mortality` (values), using the `tidyr` package and its `pivot_longer()` function. Name the output `long` and make `year` a numeric variable.<br />**Hint:** remember that !COLUMN_NAME removes that column, pivot all the columns but country.  
-
-```{r, question2}
-
-```
-
-
-3.	Read in this the tab-delim file and call it `pop`: https://jhudatascience.org/intro_to_R_class/data/country_pop.txt.
-The file contains population information on each country. Rename the second column to `"Country"` and the column `"% of world population"`, to `percent`.<br />**Hint:** use `read_tsv()`
-
-```{r, question3}
-
-
-```
-
-4.	Determine the population of each country in `pop` using `arrange()`. Get the order of the countries based on this (first is the highest population), and extract that column and call it `pop_levels`.  Make a variable in the `long` data set named `sorted` that is the `country` variable coded as a factor based on `pop_levels`.
-
-```{r, question4}
-
-
-```
-
-
-5.	Parts a, b, and c below are only broken up here for clarity, but all three components can be addressed in one chunk of code/as one function, using `%>%` as necessary.<br />
-
-    **a.** Subset `long` based on years 1975-2010, including 1975 and 2010 and call this `long_sub` using `&` or the `between()` function.<br />
-    **b.** Further subset `long_sub` for the following countries using `dplyr::filter()` and the `%in%` operator on the sorted country factor (`sorted`):`c("Venezuela", "Bahrain", "Estonia", "Iran", "Thailand", "Chile",  "Western Sahara", "Azerbaijan", "Argentina", "Haiti")`.<br />
-    **c.** Lastly, remove missing rows for `mortality` using `filter()` and `is.na()`.<br />
-
-    **Hint:** Be sure to assign your final object created from a through c as `long_sub` so you can use it in questions 6 and 7.
-
-```{r, question5}
-
-
-```
-
-
-6.  Plotting: create "spaghetti"/line plots for the countries in `long_sub`, using different colors for different countries, using `sorted`. The x-axis should be `year`, and the y-axis should be `mortality`. Make the plot using `ggplot`.
+1\. Bring the dataset into R. The dataset is located at: https://jhudatascience.org/intro_to_R_class/data/mortality.csv. You can use the link, download it, or use whatever method you like for getting the file. Once you get the file, read the dataset in using `read_csv()` and assign it the name "mort".
 
 ```{r}
 
-
 ```
 
-
-7.  **Bonus:** load the `plotly` package (`library(plotly)`) and assign the plot from question 6 to `g` and run `ggplotly(g)`.
+2\. Run the `colnames()` function to take a look at the dataset column names. You should see that there was originally no name for the first column and that R replaced it with "...1". Rename the first column of "mort" to "country" using the `rename()` function in `dplyr`. 
 
 ```{r}
 
+```
+
+3\. Select only the numeric type columns (`select()`). Then, create the variable "year" from column names by using the `colnames()` function to extract them. 
+
+```{r}
 
 ```
 
+4\. What is the `typeof()` for "year"? If it's not an integer, turn it into integer form with `as.integer()`.
 
+```{r}
+
+```
+
+5\. Use the `pct_complete()` function in the `naniar` package to determine the percent missing data in "mort". You might need to load and install `naniar`!
+
+```{r}
+
+```
+
+6\. Are there any countries that have a complete record in "mort" across all years? **Hint:** look for complete records by dropping all NAs from the dataset using `drop_na()`.
+
+```{r}
+
+```
+
+7\. Reshape the "complete" data to long form. 
+
+- There should be a column for country ("country"), a column for year ("year"), and a column for the mortality value ("mortality"). 
+- Use `pivot_longer()`. 
+- You should pivot all columns except "country". 
+- **Hint:** listing `!COLUMN` or `-COLUMN` means everything except COLUMN. 
+- Assign the reshaped data to "long".
+
+```{r}
+
+```
+
+8\. Bring an additional dataset into R. The dataset is tab-delimited and located at: https://jhudatascience.org/intro_to_R_class/data/country_pop.txt. You can use the link, download it, or use whatever method you like for getting the file. Once you get the file, read the dataset in using `read_tsv()` and assign it the name "pop".
+
+```{r}
+
+```
+
+9\. Rename the second column in "pop" to "country" and the column "% of world population", to "percent". Use the `rename()` function. Don't forget to reassign the renamed data to "pop".
+
+```{r}
+
+```
+
+10\. Sort the data in "pop" by "Population" from largest to smalled using `arrange()` and `desc()`. After sorting, `select()` "country" to create an one-column tibble of countries ordered by population. Assign this data the name "country_ordered".
+
+```{r}
+
+```
+
+11\. Subset "long"  based on years 2000-2010, including 2000 and 2010 and call this "long_sub" using `&` or the `between()` function. Confirm your filtering worked by looking at the range of "year". If you're getting a strange error, make sure you created the "year" column in problem #7.
+
+```{r}
+
+```
+
+12\. Further subset `long_sub`. You will filter for specific countries using `filter()` and the `%in%` operator. Only include countries in this list: `c("Venezuela", "Bahrain", "Estonia", "Iran", "Thailand", "Canada")`. 
+
+```{r}
+
+```
+
+13\. Use `pivot_wider()` to turn the "year" column of "long_sub" into multiple columns, each representing a different year. Fill values (`values_from=`) with "mortality". Assign this pivoted dataset the name "mort_sub".
+
+```{r}
+
+```
+
+14\. Using "country_ordered" and "mort_sub", `right_join()` the two datasets by "country". Use the pipe `%>%` to join this dataset to "pop", keeping only the data on the lefthand side of the join. Call this "joined".
+
+```{r}
+
+```
+
+15\. The values in the table are percentages of the total population (not proportion). Create a new column called "mort_count" that estimates the total number of child deaths per year based on the total population. You can use any year, or an average of all of them, to make your calculation. Whatever you choose, justify your choice. Finally, `select()` only "country", "Population", and "mort_count" and view the data.
+
+```{r}
+
+```
+
+### **Bonus Practice**
+
+Please check back soon!
