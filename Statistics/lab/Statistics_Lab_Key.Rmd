@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Part 1
 
-1. Load the libraries needed in this lab. Read in the following child mortality data using `read_mortality()` function from `jhur` package. Assign it to the "mort" variable. Change its first column name from `...1` into `country`. You can also find the data here: https://jhudatascience.org/intro_to_R_class/data/mortality.csv
+1. Load the libraries needed in this lab. Then, read in the following child mortality data using `read_mortality()` function from `jhur` package. Assign it to the "mort" variable. Change its first column name from `...1` into `country`. You can also find the data here: https://jhudatascience.org/intro_to_R_class/data/mortality.csv
 
 ```{r}
 # library(tidyverse)
@@ -47,36 +47,40 @@ cor(mort_sub, use = "complete.obs")
 
 # Part 2
 
-1. Read in the Kaggle cars auction dataset from "http://jhudatascience.org/intro_to_R_class/data/kaggleCarAuction.csv" with the argument `col_types = cols(VehBCost = col_double())`:
+
+
+# Part 3
+
+4. Read in the Kaggle cars auction dataset using `read_kaggle()` from the `jhur` package.  Assign it to the "cars" variable. You can also find the data here:  http://jhudatascience.org/intro_to_R_class/data/kaggleCarAuction.csv.
 
 ```{r}
-cars = read_csv("http://jhudatascience.org/intro_to_R_class/data/kaggleCarAuction.csv",
-                col_types = cols(VehBCost = col_double()))
-
+cars <- read_kaggle()
 ```
 
-2. Fit a linear regression model with vehicle cost (`VehBCost`) as the outcome and 
-vehicle age (`VehicleAge`) and whether it's an online sale (`IsOnlineSale`) as predictors.  
-
-Save the model fit in an object called `lmfit_cars` and display the summary table.
+5. Fit a linear regression model with vehicle cost ("VehBCost") as the outcome and whether it's an online sale ("IsOnlineSale") as the predictor. Save the model fit in an object called "lmfit_cars" and display the summary table.
 
 ```{r}
-lmfit_cars = lm(VehBCost ~ VehicleAge + IsOnlineSale, data = cars)
+lmfit_cars <- lm(VehBCost ~ IsOnlineSale, data = cars)
 summary(lmfit_cars)
 ```
 
-3. Fit a linear regression model with vehicle cost (`VehBCost`) as the outcome predictors:  
-vehicle age (`VehicleAge`), whether it's an online sale (`IsOnlineSale`), and interaction between `VehicleAge` and `IsOnlineSale`.
-
-To specify interaction, use `VehicleAge * IsOnlineSale` in the formula. 
-
-Save the model fit in an object called `lmfit_cars_2` and display the summary table.
+2. Fit a linear regression model with vehicle cost ("VehBCost") as the outcome and vehicle age ("VehicleAge") and whether it's an online sale ("IsOnlineSale") as predictors.  Save the model fit in an object called "lmfit_cars_2" and display the summary table.
 
 ```{r}
-lmfit_cars_2 = lm(VehBCost ~ VehicleAge * IsOnlineSale, data = cars)
+lmfit_cars_2 <- lm(VehBCost ~ VehicleAge + IsOnlineSale, data = cars)
 summary(lmfit_cars_2)
 ```
 
+3. Fit a linear regression model with vehicle cost ("VehBCost") as the outcome with predictors: (1) vehicle age ("VehicleAge"), (2) whether it's an online sale ("IsOnlineSale"), and interaction between "VehicleAge" and "IsOnlineSale".
+
+To include the interaction, use `VehicleAge * IsOnlineSale` in the formula. 
+
+Save the model fit in an object called `lmfit_cars_3` and display the summary table.
+
+```{r}
+lmfit_cars_3 <- lm(VehBCost ~ VehicleAge * IsOnlineSale, data = cars)
+summary(lmfit_cars_3)
+```
 
 # Part 3
 
