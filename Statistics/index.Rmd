@@ -16,7 +16,7 @@ opts_chunk$set(echo = TRUE,
                comment = "")
 library(dplyr)
 options(scipen=999)
-
+library(readr)
 ```
 
 ## Overview
@@ -48,12 +48,12 @@ To use:
 
 By default, Pearson correlation coefficient is computed. 
 
-## Correlation 
+## Correlation {.small}
+
+https://jhudatascience.org/intro_to_R_class/data/Charm_City_Circulator_Ridership.csv
 
 ```{r cor1, comment="", message = FALSE}
-library(readr)
-circ <- read_csv(paste0("https://jhudatascience.org/intro_to_R_class/data",
-                       "/Charm_City_Circulator_Ridership.csv"))
+circ <- jhur::read_circulator()
 head(circ)
 ```
 
