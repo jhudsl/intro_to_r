@@ -1,5 +1,5 @@
 ---
-title: "Manipulating Data in R Lab"
+title: "Manipulating Data in R Lab Key"
 output: html_document
 editor_options: 
   chunk_output_type: console
@@ -9,9 +9,9 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Data in this lab comes from the CDC (https://covid.cdc.gov/covid-data-tracker/#vaccinations_vacc-total-admin-rate-total) and the Bureau of Economic Analysis (https://www.bea.gov/data/income-saving/personal-income-by-state).
+Data in this lab comes from the CDC (https://covid.cdc.gov/covid-data-tracker/#vaccinations_vacc-total-admin-rate-total - current as of January 12, 2022!) and the Bureau of Economic Analysis (https://www.bea.gov/data/income-saving/personal-income-by-state).
 
-```{r}
+```{r message=FALSE}
 library(readr)
 library(dplyr)
 library(tidyr)
@@ -19,19 +19,19 @@ library(tidyr)
 
 # Part 1
 
-1. Read in the SARS-CoV-2 Vaccination data from http://jhudatascience.org/intro_to_R_class/data/USA_covid19_vaccinations.csv. Assign the data the name "vacc". This data is current as of January 12, 2022! We will be reviewing new concepts here and incorporating some from week 1.
+1. Read in the SARS-CoV-2 Vaccination data from http://jhudatascience.org/intro_to_R_class/data/USA_covid19_vaccinations.csv. Assign the data the name "vacc". We will be reviewing new concepts here and incorporating some from week 1.
 
 ```{r}
-# vacc <- read_csv("http://jhudatascience.org/intro_to_R_class/data/USA_covid19_vaccinations.csv")
+vacc <- read_csv("http://jhudatascience.org/intro_to_R_class/data/USA_covid19_vaccinations.csv")
 # If downloaded
-vacc <- read_csv("USA_covid19_vaccinations.csv")
+# vacc <- read_csv("USA_covid19_vaccinations.csv")
 ```
 
 2. Look at the column names using `colnames` - do you notice any patterns?
 
 ```{r}
 colnames(vacc)
-# Looks like many start with "percent" and some start with "total" - this indicates there are different units of measure for these different variables!
+# Looks like many start with "Percent" and some start with "Total" - this indicates there are different units of measure for these different variables!
 ```
 
 3. Let's rename the column "State/Territory/Federal Entity" in "vacc" to "Entity" using `rename`.
@@ -40,7 +40,7 @@ colnames(vacc)
 vacc <- vacc %>% rename(Entity = `State/Territory/Federal Entity`)
 ```
 
-4. Create a new dataset "vacc_long" that does `pivot_longer` on all columns starting with "Percent". Use `starts_with("Percent")` for the `cols` argument. Use "Measure" for the `names_to` argument. Use "Percent" for the `values_to` argument.
+4. Create a new dataset "vacc_long" that does `pivot_longer` on all columns that start with the word "Percent". Use `starts_with("Percent")` for the `cols` argument. Use "Measure" for the `names_to` argument. Use "Percent" for the `values_to` argument.
 
 ```{r}
 # ??? <- ??? %>% pivot_longer(cols = ???,
@@ -51,7 +51,7 @@ vacc_long <- vacc %>% pivot_longer( cols = starts_with("Percent"),
                                     values_to = "Percent")
 ```
 
-5. Select only the columns "Entity", "Measure", and "Percent" from this new dataset. Use `select`. Filter "Entity" so it only includes values in the following list: "Maryland","Virginia","Florida","Massachusetts", "United States". **Hint**: use `filter` and `%in%`
+5. Select only the columns "Entity", "Measure", and "Percent" from "vacc_long". Use `select`. Filter "Entity" so it only includes values in the following list: "Maryland","Virginia","Florida","Massachusetts", "United States". **Hint**: use `filter` and `%in%`.
 
 ```{r}
 vacc_long <- vacc_long %>% select(Entity, Measure, Percent) %>% 
@@ -74,9 +74,9 @@ vacc_wide <- vacc_long %>%
 7. Read in the GDP and Personal Income Data from http://jhudatascience.org/intro_to_R_class/data/gdp_personal_income.csv. Call it "gdp". 
 
 ```{r}
-# gdp <- read_csv("http://jhudatascience.org/intro_to_R_class/data/gdp_personal_income.csv")
+gdp <- read_csv("http://jhudatascience.org/intro_to_R_class/data/gdp_personal_income.csv")
 # If downloaded
-gdp <- read_csv("gdp_personal_income.csv")
+# gdp <- read_csv("gdp_personal_income.csv")
 ```
 
 8. Use `pivot_wider` to reshape "gdp". Use "Description" for the `names_from` argument. Use "`2020`" for the `values_from` argument. Reassign this data to "gdp".
@@ -87,7 +87,7 @@ gdp <- gdp %>%
               values_from = `2020`)
 ```
 
-9. Join the data so that you only retain data in both "vacc" and "gdp". What happens when you join without using `by` argument? Try merging using `by = c("Entity" = "GeoName")`. Call the output "merged". How many observations are there?
+9. Join the data so that you only retain data in both "vacc" and "gdp". First, try merging without using the `by` argument - what happens? Next, try merging using `by = c("Entity" = "GeoName")`. Call the output "merged". How many observations are there?
 
 ```{r}
 # merged <- inner_join(vacc, gdp) does not work!
@@ -95,28 +95,28 @@ merged <- inner_join(vacc, gdp, by = c("Entity" = "GeoName"))
 nrow(merged)
 ```
 
-8. Join the data using a `full_join.` Call the output "full". How many observations are there?
+10. Join the data using a `full_join.` Call the output "full". How many observations are there?
 
 ```{r}
 full <- full_join(vacc, gdp, by = c("Entity" = "GeoName"))
 nrow(full)
 ```
 
-9. Do a left join of "vacc" and "gdp". How many observations are there?
+11. Do a left join of "vacc" and "gdp". How many observations are there?
 
 ```{r}
 left <- left_join(vacc, gdp, by = c("Entity" = "GeoName"))
 nrow(left)
 ```
 
-10. Repeat above with a `right_join` with the same order of the arguments. How many observations are there?
+12. Repeat above with a `right_join` with the same order of the arguments. How many observations are there?
 
 ```{r}
 right <- right_join(vacc, gdp, by = c("Entity" = "GeoName"))
 nrow(right)
 ```
 
-11. Perform a `setdiff` on "vacc" and "gdp" to determine what Entities are missing from the GDP data and which are missing from the vaccine data.
+13. Perform a `setdiff` on "vacc" and "gdp" to determine what Entities are missing from the GDP data and which are missing from the vaccine data.
 
 ```{r}
 setdiff(vacc %>% pull(Entity), gdp %>% pull(GeoName))
@@ -125,7 +125,7 @@ setdiff(gdp %>% pull(GeoName), vacc %>% pull(Entity))
 
 **Bonus**
 
-11. Repeat #4 - #6 but instead look for columns that start with "Total" and select different states/Entities to compare. Also try combining all functions in one long block using the pipe `%>%`.
+14. Repeat #4 - #6 but instead look for columns that start with "Total" and select different states/Entities to compare. Also try combining all functions in one long block using the pipe `%>%`.
 
 ```{r}
 vacc_wide <-
