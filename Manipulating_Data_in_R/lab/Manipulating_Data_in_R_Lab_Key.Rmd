@@ -9,6 +9,7 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+Data in this lab comes from the CDC (https://covid.cdc.gov/covid-data-tracker/#vaccinations_vacc-total-admin-rate-total) and the Bureau of Economic Analysis (https://www.bea.gov/data/income-saving/personal-income-by-state).
 
 ```{r}
 library(readr)
@@ -20,7 +21,7 @@ library(stringr)
 
 # Part 1
 
-1. Read in the SARS-CoV-2 Vaccination data. Assign the data the name "vacc". This data is current as of January 12, 2022! We will be reviewing new concepts here and incorporating some from week 1.
+1. Read in the SARS-CoV-2 Vaccination data from http://jhudatascience.org/intro_to_R_class/data/USA_covid19_vaccinations.csv. Assign the data the name "vacc". This data is current as of January 12, 2022! We will be reviewing new concepts here and incorporating some from week 1.
 
 ```{r}
 # vacc <- read_csv("http://jhudatascience.org/intro_to_R_class/data/USA_covid19_vaccinations.csv")
@@ -66,51 +67,61 @@ vacc_wide <- vacc_long %>%
 
 # Part 2
 
-Use this code if you need to reload libraries and the data on day 2:
+7. Read in the GDP and Personal Income Data from http://jhudatascience.org/intro_to_R_class/data/gdp_personal_income.csv. Call it "gdp". 
 
 ```{r}
-library(readr)
-library(dplyr)
-library(ggplot2)
-library(tidyr)
-library(stringr)
-
-crash = read_csv("http://jhudatascience.org/intro_to_R_class/Manipulating_Data_in_R/lab/crashes.csv")
-road = read_csv("http://jhudatascience.org/intro_to_R_class/Manipulating_Data_in_R/lab/roads.csv")
+# gdp <- read_csv("http://jhudatascience.org/intro_to_R_class/data/gdp_personal_income.csv")
+# If downloaded
+gdp <- read_csv("gdp_personal_income.csv")
 ```
 
-7. Join data to retain only complete data, (using an inner join) e.g. those observations with road lengths and districts.  Merge without using `by` argument, then merge using `by = "Road"`. call the output `merged.`  How many observations are there?
+8. Use `pivot_wider` to reshape "gdp". Use "Description" for the `names_from` argument. Use "`2020`" for the `values_from` argument. Reassign this data to "gdp".
 
 ```{r}
-merged = inner_join(crash, road)
-merged = inner_join(crash, road, by = "Road")
+gdp <- gdp %>% 
+  pivot_wider(names_from = Description,
+              values_from = `2020`)
+```
+
+9. Join the data so that you only retain data in both "vacc" and "gdp". What happens when you join without using `by` argument? Try merging using `by = c("Entity" = "GeoName")`. Call the output "merged". How many observations are there?
+
+```{r}
+# merged <- inner_join(vacc, gdp) does not work!
+merged <- inner_join(vacc, gdp, by = c("Entity" = "GeoName"))
 nrow(merged)
 ```
 
-8. Join data using a `full_join.`  Call the output `full.`   How many observations are there?
+8. Join the data using a `full_join.` Call the output "full". How many observations are there?
 
 ```{r}
-full = full_join(crash, road)
+full <- full_join(vacc, gdp, by = c("Entity" = "GeoName"))
 nrow(full)
 ```
 
-9. Do a left join of the `road` and `crash`.  ORDER matters here!  How many observations are there?
+9. Do a left join of "vacc" and "gdp". How many observations are there?
 
 ```{r}
-left = left_join(road, crash)
+left = left_join(vacc, gdp, by = c("Entity" = "GeoName"))
 nrow(left)
 ```
 
 10. Repeat above with a `right_join` with the same order of the arguments. How many observations are there?
 
 ```{r}
-right = right_join(road, crash)
+right = right_join(vacc, gdp, by = c("Entity" = "GeoName"))
 nrow(right)
+```
+
+11. Perform a `setdiff` on "vacc" and "gdp" to determine what Entities are missing from the GDP data and which are missing from the vaccine data.
+
+```{r}
+setdiff(vacc %>% pull(Entity), gdp %>% pull(GeoName))
+setdiff(gdp %>% pull(GeoName), vacc %>% pull(Entity))
 ```
 
 **Bonus**
 
-Repeat #4 - #6 but instead look for columns that start with "Total" and select different states/Entities to compare. Also try combining all functions in one long block using the pipe `%>%`.
+11. Repeat #4 - #6 but instead look for columns that start with "Total" and select different states/Entities to compare. Also try combining all functions in one long block using the pipe `%>%`.
 
 ```{r}
 vacc_wide <-
@@ -119,6 +130,4 @@ vacc_wide <-
   select(Entity, Measure, Total) %>%
   filter(Entity %in% c("Alaska", "Kansas", "California", "United States")) %>%
   pivot_wider(names_from = Entity, values_from = Total)
-  
 ```
-
