@@ -1,91 +1,73 @@
-## ----setup, include=FALSE---------------------------------------------
+## ----setup, include=FALSE-----------------------------------------------------
 knitr::opts_chunk$set(echo = TRUE)
 
 
-## ---- message=FALSE---------------------------------------------------
+## ---- message=FALSE-----------------------------------------------------------
 library(readr)
 library(ggplot2)
-library(tidyr)
 library(dplyr)
-library(lubridate)
-library(stringr)
 library(jhur)
 
 
-## ---------------------------------------------------------------------
-circ = read_csv("http://johnmuschelli.com/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
-# covert dates
-circ = mutate(circ, date = mdy(date))
-# change colnames for reshaping
-colnames(circ) =  colnames(circ) %>% 
-  str_replace("Board", ".Board") %>% 
-  str_replace("Alight", ".Alight") %>% 
-  str_replace("Average", ".Average") 
+## -----------------------------------------------------------------------------
+bike = read_bike()
 
-# make long
-long = pivot_longer(circ, 
-                    starts_with(c("orange","purple","green","banner")),
-                    names_to = "var", values_to = "number")
-# separate
-long = separate(long, var, into = c("route", "type"), 
-	sep = "[.]")
+bike_agg <- 
+  bike %>%
+  # filter data to keep only these observations for which year is non-0
+  filter(dateInstalled != 0) %>%
+  group_by(dateInstalled) %>%
+  summarise(lane_avg_length = mean(length)) 
 
-
-## ---------------------------------------------------------------------
-long = read_circulator_long() %>% 
-  rename(route = line)
-
-
-## ---------------------------------------------------------------------
-## take just average ridership per day
-avg = filter(long, type == "Average")
-avg = filter(avg, !is.na(number))
-
-# separate
-type_wide = pivot_wider(long, 
-                        names_from = "type", values_from = "number")
-head(type_wide)
-
-
-## ---------------------------------------------------------------------
+bike_agg
 
 
 
-## ---------------------------------------------------------------------
+## -----------------------------------------------------------------------------
+##ggplot(???, aes(x = ???, y = ???)) + 
+  #??? + 
+  #???
 
 
 
-
-## ---------------------------------------------------------------------
-
-
-
-## ---------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 
 
 
 
 
-## ---------------------------------------------------------------------
-pal = c("blue", "darkgreen","orange","purple")
+## -----------------------------------------------------------------------------
+##  my_plot + 
+  # scale_x_continuous(?????) + 
+  # scale_y_continuous(????)  # force y-axis to start from 0, do not force upper bound 
+  
+
+
+
+## -----------------------------------------------------------------------------
+#my_plot + theme_bw()
+
+
+
+## -----------------------------------------------------------------------------
+bike_agg_2 <- 
+  bike %>%
+  filter(dateInstalled != 0) %>%
+  group_by(dateInstalled, type) %>%
+  summarise(lane_count = n())
+
+bike_agg_2
+
+
+## -----------------------------------------------------------------------------
 
 
 
 
-## ---------------------------------------------------------------------
 
 
+## -----------------------------------------------------------------------------
 
 
-## ---------------------------------------------------------------------
-
-
-
-
-## ---------------------------------------------------------------------
-
-
-
-## ---------------------------------------------------------------------
 
 

@@ -25,7 +25,7 @@ library(jhur)
 Then, use the provided code to compute a data frame `bike_agg` with aggregate summary of bike lanes: average length of lanes (`lane_avg_length`) for each year (`dateInstalled`). 
 
 ```{r}
-bike = read_bike()
+bike <- read_bike()
 
 bike_agg <- 
   bike %>%
