@@ -25,7 +25,7 @@ mort <- mort %>%
   rename(country = `...1`)
 ```
 
-2. Compute the correlation between the `2006` and `2007` mortality variables. (No need to save this in an object. Just display the result to the screen.) Use `pull()` function to first extract these columns. To use a column name in `pull()` that starts with a number, surround it with backticks (\`). Then, use the `cor` function.
+2. Compute the correlation between the `2006` and `2007` mortality variables. (No need to save this in an object. Just display the result to the screen.) Use the `pull()` function to first extract these columns. To use a column name in `pull()` that starts with a number, surround it with backticks (\`). Then, use the `cor` function.
 
 ```{r}
 x <- pull(mort, `2006`)
@@ -47,75 +47,63 @@ cor(mort_sub, use = "complete.obs")
 
 # Part 2
 
+4. Perform a t-test to determine if there is evidence of a difference between child mortality in `1987` versus `2007`. Use the `pull()` function to extract these columns. Print the results using the `tidy` function. 
 
+```{r}
+x <- pull(mort, `1987`)
+y <- pull(mort, `2007`)
+
+t.test(x, y)
+tidy( t.test(x, y) )
+```
+
+5. Perform a t-test to determine if there is evidence of a difference between child mortality in `2006` versus `2007`. Use the `pull()` function to extract these columns. Print the results using the `tidy` function. How do these results compare to those in #4?
+
+```{r}
+x <- pull(mort, `2006`)
+y <- pull(mort, `2007`)
+
+t.test(x, y)
+tidy( t.test(x, y) )
+```
 
 # Part 3
 
-4. Read in the Kaggle cars auction dataset using `read_kaggle()` from the `jhur` package.  Assign it to the "cars" variable. You can also find the data here:  http://jhudatascience.org/intro_to_R_class/data/kaggleCarAuction.csv.
+6. Read in the Kaggle cars auction dataset using `read_kaggle()` from the `jhur` package.  Assign it to the "cars" variable. You can also find the data here:  http://jhudatascience.org/intro_to_R_class/data/kaggleCarAuction.csv.
 
 ```{r}
 cars <- read_kaggle()
 ```
 
-5. Fit a linear regression model with vehicle cost ("VehBCost") as the outcome and whether it's an online sale ("IsOnlineSale") as the predictor. Save the model fit in an object called "lmfit_cars" and display the summary table.
+7. Fit a linear regression model with vehicle cost ("VehBCost") as the outcome and whether it's an online sale ("IsOnlineSale") as the predictor. Save the model fit in an object called "lmfit_cars" and display the summary table.
 
 ```{r}
 lmfit_cars <- lm(VehBCost ~ IsOnlineSale, data = cars)
 summary(lmfit_cars)
 ```
 
-2. Fit a linear regression model with vehicle cost ("VehBCost") as the outcome and vehicle age ("VehicleAge") and whether it's an online sale ("IsOnlineSale") as predictors.  Save the model fit in an object called "lmfit_cars_2" and display the summary table.
+8. Fit a linear regression model with vehicle cost ("VehBCost") as the outcome and vehicle age ("VehicleAge") and whether it's an online sale ("IsOnlineSale") as predictors.  Save the model fit in an object called "lmfit_cars_2" and display the summary table.
 
 ```{r}
 lmfit_cars_2 <- lm(VehBCost ~ VehicleAge + IsOnlineSale, data = cars)
 summary(lmfit_cars_2)
 ```
 
-3. Fit a linear regression model with vehicle cost ("VehBCost") as the outcome with predictors: (1) vehicle age ("VehicleAge"), (2) whether it's an online sale ("IsOnlineSale"), and interaction between "VehicleAge" and "IsOnlineSale".
+9. Fit a linear regression model with vehicle cost ("VehBCost") as the outcome with predictors: (1) vehicle age ("VehicleAge"), (2) whether it's an online sale ("IsOnlineSale"), and interaction between "VehicleAge" and "IsOnlineSale".
 
-To include the interaction, use `VehicleAge * IsOnlineSale` in the formula. 
-
-Save the model fit in an object called `lmfit_cars_3` and display the summary table.
+- To include the interaction, use `VehicleAge * IsOnlineSale` in the formula. 
+- Save the model fit in an object called "lmfit_cars_3" and display the summary table.
 
 ```{r}
 lmfit_cars_3 <- lm(VehBCost ~ VehicleAge * IsOnlineSale, data = cars)
 summary(lmfit_cars_3)
 ```
 
-# Part 3
+10. Fit a logistic regression model where the outcome is "bad buy" ("IsBadBuy") status and predictors are the cost ("VehBCost") and vehicle age ("VehicleAge").
 
-1. Fit a logistic regression model where the outcome is "bad buy" status and predictors are the cost (`VehBCost`) and vehicle age (`VehicleAge`).
-
-Save the model fit in an object called `logfit_cars` and display the summary table.
-
-Use `summary()` or `tidy(logfit_cars, conf.int = TRUE, exponentiate = TRUE)`
-or `tidy(logfit_cars, conf.int = TRUE, exponentiate = FALSE)` for log odds ratios.  
+Save the model fit in an object called "logfit_cars" and display the summary table.
 
 ```{r}
-logfit_cars = glm(IsBadBuy ~ VehBCost + VehicleAge, data = cars, family = binomial())
+logfit_cars <- glm(IsBadBuy ~ VehBCost + VehicleAge, data = cars, family = binomial())
 summary(logfit_cars)
-
-tidy(logfit_cars, conf.int = TRUE, exponentiate = TRUE)
-tidy(logfit_cars, conf.int = TRUE, exponentiate = FALSE)
-```
-
-2. Randomly sample `10,000` observations (rows) with replacement from the `cars` dataset and store this new dataset in an object called `cars_subsample`.  Hint: `sample_n` function
-
-```{r}
-set.seed(1)
-cars_subsample = cars %>% 
-  sample_n(size = 10000)
-```
-
-3. Fit the same logistic regression model as in problem 1. above  with this sample and display the summary. Call this model `logfit_cars_sub`. 
-
-How do the results compare?  
-
-```{r}
-logfit_cars_sub = glm(IsBadBuy ~ VehBCost + VehicleAge, data = cars_subsample, 
-                      family = binomial())
-
-summary(logfit_cars_sub)
-tidy(logfit_cars_sub, conf.int = TRUE, exponentiate = TRUE)
-tidy(logfit_cars, conf.int = TRUE, exponentiate = FALSE)
 ```
