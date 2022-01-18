@@ -53,7 +53,7 @@ By default, Pearson correlation coefficient is computed.
 
 ```{r cor1, comment="", message = FALSE}
 library(readr)
-circ = read_csv(paste0("https://jhudatascience.org/intro_to_R_class/data",
+circ <- read_csv(paste0("https://jhudatascience.org/intro_to_R_class/data",
                        "/Charm_City_Circulator_Ridership.csv"))
 head(circ)
 ```
@@ -75,7 +75,7 @@ cor(circ$orangeAverage, circ$purpleAverage, use = "complete.obs")
 Note that you can add the correlation value to a plot, via the `annotate()`. 
 
 ```{r, fig.width=3, fig.height=3}
-cor_val = cor(circ$orangeAverage, circ$purpleAverage, use = "complete.obs")
+cor_val <- cor(circ$orangeAverage, circ$purpleAverage, use = "complete.obs")
 cor_val_label <- paste0("r = ", round(cor_val, 3))
 
 library(ggplot2)
@@ -271,7 +271,7 @@ In practice, `y` and `x1`, `x2`, `x3` are replaced with the **names of columns f
 We will use `kaggleCarAuction.csv` dataset from one of the Kaggle competitons. 
 
 ```{r}
-cars = read_csv(
+cars <- read_csv(
   paste0("https://jhudatascience.org/intro_to_R_class/data/", 
          "kaggleCarAuction.csv"),   
   col_types = cols(VehBCost = col_double()))
@@ -284,7 +284,7 @@ head(cars)
 We fit linear regression model with  vehicles odometer (distance traveled by a vehicle; `VehOdo`) as an outcome and vehicle (`VehicleAge`) age as a predictor. 
 
 ```{r}
-fit = lm(VehOdo ~ VehicleAge, data = cars)
+fit <- lm(VehOdo ~ VehicleAge, data = cars)
 print(fit)
 ```
 
@@ -293,7 +293,7 @@ print(fit)
 The `summary()` command returns a list that shows us some more detail
 
 ```{r}
-sfit = summary(fit)
+sfit <- summary(fit)
 print(sfit)
 ```
 
@@ -311,7 +311,7 @@ sfit$r.squared
 Let's try adding another explanatory variable to our model, Warranty price (`WarrantyCost`) 
 
 ```{r}
-fit_2 = lm(VehOdo ~ VehicleAge + WarrantyCost, data = cars)
+fit_2 <- lm(VehOdo ~ VehicleAge + WarrantyCost, data = cars)
 summary(fit_2)
 ```
 
@@ -328,7 +328,7 @@ table(cars$TopThreeAmericanName)
 ## Linear regression: factors {.smaller}
 
 ```{r regress6, comment="", fig.height=4,fig.width=8}
-fit_3 = lm(VehOdo ~ factor(TopThreeAmericanName), data = cars)
+fit_3 <- lm(VehOdo ~ factor(TopThreeAmericanName), data = cars)
 summary(fit_3)
 ```
 
@@ -336,7 +336,7 @@ summary(fit_3)
 
 ```{r, comment="", fig.height=4,fig.width=8}
 # tidy() is a function from broom package
-fit_3_tidy = tidy(fit_3)
+fit_3_tidy <- tidy(fit_3)
 fit_3_tidy
 ```
 
@@ -363,7 +363,7 @@ See `?family` documentation for details of family functions.
 `IsBadBuy` is a 0/1-valued variable stating "if the kicked vehicle was an avoidable purchase". 
 
 ```{r regress7, comment="", fig.height=4,fig.width=8}
-glm_fit = glm(IsBadBuy ~ VehOdo + VehicleAge, data = cars, family = binomial())
+glm_fit <- glm(IsBadBuy ~ VehOdo + VehicleAge, data = cars, family = binomial())
 summary(glm_fit)  
 ```
 
