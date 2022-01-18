@@ -6,14 +6,12 @@ output:
     widescreen: yes
 ---
 
-
 ```{r, echo = FALSE, include=FALSE}
 library(knitr)
 library(readr)
 opts_chunk$set(comment = "")
 library(tidyverse)
 ```
-
 
 ## Reshaping Data 
 
@@ -26,29 +24,34 @@ In this module, we will show you how to:
 1. Reshape data from wide (fat) to long (tall)
 2. Reshape data from long (tall) to wide (fat)
 3. Merge Data/Joins
-4. Perform operations by a grouping variable
 
-<!-- ## Setup -->
+## Cheatsheet
 
-<!-- We will show you how to do each operation in base R then show you how to use the `dplyr` or `tidyr` package to do the same operation (if applicable).   -->
+https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf
 
-<!-- See the "Data Wrangling Cheat Sheet using `dplyr` and `tidyr`": -->
+```{r, fig.alt="A preview of the Data transformation cheatsheet produced by RStudio.", out.width = "80%", echo = FALSE, align = "center"}
+knitr::include_graphics("../images/Manip_cheatsheet.png")
+```
 
-<!-- * https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf -->
+## What is wide/long data?
 
-<!-- See http://www.cookbook-r.com/Manipulating_data/Converting_data_between_wide_and_long_format/ -->
+https://github.com/gadenbuie/tidyexplain/blob/main/images/tidyr-pivoting.gif
+
+```{r, fig.alt="A gif visualization of data going from wide to long form.", out.width = "40%", echo = FALSE, align = "center"}
+knitr::include_graphics("../images/tidyr_pivoting.gif")
+```
 
 ## What is wide/long data?
 
 Data is stored *differently* in the tibble.
 
 ```{r, echo = FALSE}
-ex_wide = tibble(State = "Alabama",
+ex_wide <- tibble(State = "Alabama",
                  June_vacc_rate = "37.2%",
                  May_vacc_rate = "36.0%",
                  April_vacc_rate = "32.4%"
                      )
-ex_long = pivot_longer(ex_wide, cols = c(June_vacc_rate, May_vacc_rate, April_vacc_rate))
+ex_long <- pivot_longer(ex_wide, cols = !State)
 ```
 
 Wide: has many columns
@@ -56,7 +59,9 @@ Wide: has many columns
 ```{r, echo = FALSE}
 ex_wide
 ```
+
 Long: column names become data
+
 ```{r, echo = FALSE}
 ex_long
 ```
@@ -64,20 +69,22 @@ ex_long
 ## What is wide/long data?
 
 ```{r, echo = FALSE}
-ex_wide = tibble(State = c("Alabama", "Alaska"),
+ex_wide <- tibble(State = c("Alabama", "Alaska"),
                  June_vacc_rate = c("37.2%", "47.5%"),
                  May_vacc_rate = c("36.0%", "46.2%"),
                  April_vacc_rate = c("32.4%", "41.7%")
                      )
-ex_long = pivot_longer(ex_wide, cols = c(June_vacc_rate, May_vacc_rate, April_vacc_rate))
+ex_long <- pivot_longer(ex_wide, cols = !State)
 ```
 
 Wide: multiple columns per individual, values spread across multiple columns 
+
 ```{r, echo = FALSE}
 ex_wide
 ```
 
 Long: multiple rows per observation, a single column contains the values
+
 ```{r, echo = FALSE}
 ex_long
 ```
@@ -95,40 +102,16 @@ knitr::include_graphics("../images/pivot.jpg")
 ## Why do we need to switch between wide/long data?
 
 Wide: **Easier for humans to read**
+
 ```{r, echo = FALSE}
 ex_wide
 ```
 
 Long: **Easier for R to make plots & do analysis**
+
 ```{r, echo = FALSE}
 ex_long
 ```
-
-## Data used: Charm City Circulator
-
-http://jhudatascience.org/intro_to_R_class/data/Charm_City_Circulator_Ridership.csv
-
-```{r, message = FALSE}
-circ = read_csv(
-  paste0("http://jhudatascience.org/intro_to_R_class/",
-         "data/Charm_City_Circulator_Ridership.csv"))
-head(circ, 5)
-```
-
-<!-- ## Creating a Date class from a character date -->
-
-<!-- ```{r, message = FALSE} -->
-<!-- library(lubridate) # great for dates! -->
-<!-- ``` -->
-
-<!-- ```{r, message= FALSE} -->
-<!-- sum(is.na(circ$date)) -->
-<!-- sum( circ$date == "") -->
-<!-- circ = mutate(circ, date = mdy(date)) -->
-<!-- sum( is.na(circ$date) ) # all converted correctly -->
-<!-- head(circ$date, 3) -->
-<!-- class(circ$date) -->
-<!-- ``` -->
 
 ## tidyr package
 
@@ -136,12 +119,13 @@ head(circ, 5)
 
 - `pivot_longer` - make multiple columns into variables, (wide to long)
 - `pivot_wider` - make a variable into multiple columns, (long to wide)
-- `separate` - string into multiple columns
-- `unite` - multiple columns into one string
+- `separate` - string into multiple columns (review)
 
 The `reshape` command exists.  It is a **confusing** function.  Don't use it.
 
-## Reshaping data from wide (fat) to long (tall): tidyr 
+# `pivot_longer`...
+
+## Reshaping data from wide (fat) to long (tall): tidyr {.codesmall} 
 
 `tidyr::pivot_longer` - puts column data into rows.
 
@@ -149,21 +133,56 @@ The `reshape` command exists.  It is a **confusing** function.  Don't use it.
 - `names_to =` gives a new name to the pivoted columns
 - `values_to =` gives a new name to the values that used to be in those columns
 
-```{r}
-long = circ %>% 
-  pivot_longer(starts_with(c("orange","purple","green","banner")),
-               names_to = "var", values_to = "number")
-long
+```{r, eval=FALSE}
+{long_data} <- {wide_data} %>% pivot_longer(cols = {columns to pivot},
+                                        names_to = {New column name: contains old column names},
+                                        values_to = {New column name: contains cell values})
 ```
-
 
 ## Reshaping data from wide (fat) to long (tall): tidyr 
 
-We have many columns here, so we could instead use the `!` to say which columns we *don't* want to pivot.  
+```{r, echo = FALSE}
+wide_data <- tibble(June_vacc_rate = "37.2%",
+                 May_vacc_rate = "36.0%",
+                 April_vacc_rate = "32.4%")
+```
 
 ```{r}
-long = circ %>% pivot_longer(!c(day, date, daily),
-                    names_to = "var", values_to = "number")
+wide_data
+long_data <- wide_data %>% pivot_longer(cols = everything(),
+                                        names_to = "Month",
+                                        values_to = "Rate")
+long_data
+```
+
+## Data used: Charm City Circulator
+
+http://jhudatascience.org/intro_to_R_class/data/Charm_City_Circulator_Ridership.csv
+
+```{r, message = FALSE}
+circ <- jhur::read_circulator()
+head(circ, 5)
+```
+
+## Reshaping data from wide (fat) to long (tall): tidyr
+
+```{r}
+long <- circ %>% 
+  pivot_longer(starts_with(c("orange","purple","green","banner")),
+               names_to = "var", 
+               values_to = "number")
+long
+```
+
+## Reshaping data from wide (fat) to long (tall): tidyr 
+
+There are many ways to select the columns we want. Use `?tidyr_tidy_select` to look at more column selection options.
+
+```{r}
+long <- circ %>% 
+  pivot_longer( !c(day, date, daily),
+               names_to = "var", 
+               values_to = "number")
 long
 ```
 
@@ -173,12 +192,12 @@ long
 long %>% count(var)
 ```
 
-## Making a separator
+## Cleaning up long data
 
 We will use `str_replace` from the `stringr` package to put `_` in the names
 
 ```{r}
-long = long %>% mutate(
+long <- long %>% mutate(
   var = str_replace(var, "Board", "_Board"),
   var = str_replace(var, "Alight", "_Alight"),
   var = str_replace(var, "Average", "_Average") 
@@ -186,57 +205,50 @@ long = long %>% mutate(
 long
 ```
 
-## Reshaping data from wide (fat) to long (tall): tidyr
+## Cleaning up long data
 
 Now each `var` is Boardings, Averages, or Alightings.  We use "`into =`" to name the new columns and "`sep =`" to show where the separation should happen.
 
 ```{r}
-long = 
-  long %>% 
+long <- long %>% 
   separate(var, into = c("line", "type"), sep = "_")
 long
 ```
 
-## Re-uniting all the lines
+# `pivot_wider`...
 
-If we had the opposite problem, we could use the `unite` function:
+## ## Reshaping data from long (tall) to wide (fat): tidyr
 
-```{r}
-reunited = long %>% 
-  unite(var, line, type, sep = "_")  
-reunited
+`tidyr::pivot_wider` - spreads row data into columns.
+
+- `names_from =` the old column whose contents will be spread into multiple new column names.
+- `values_from =` the old column whose contents will fill in the values of those new columns.
+
+```{r, eval=FALSE}
+{wide_data} <- {long_data} %>% 
+  pivot_wider(names_from = {Old column name: contains new column names},
+              values_from = {Old column name: contains new cell values})
 ```
-<!-- We could also use `paste`/`paste0`. -->
-
-
-<!-- ## Making column names a little more separated -->
-
-<!-- Alternative: We could have replaced the column names first **then** reshaped: -->
-
-<!-- ```{r, eval = FALSE} -->
-<!-- cn = colnames(circ) -->
-<!-- cn = cn %>%  -->
-<!--   str_replace("Board", ".Board") %>%  -->
-<!--   str_replace("Alight", ".Alight") %>%  -->
-<!--   str_replace("Average", ".Average")  -->
-<!-- colnames(circ) = cn # then reshape using gather! -->
-<!-- ``` -->
-
-<!-- or (with some string working (see data cleaning)): -->
-
-<!-- ```{r, eval = FALSE} -->
-<!-- circ = circ %>%  -->
-<!--   rename_all(.funs = str_replace, -->
-<!--             pattern = "(orange|purple|green|banner)", -->
-<!--             replacement = "\\1.") -->
-<!-- ``` -->
 
 ## Reshaping data from long (tall) to wide (fat): tidyr
 
-In `tidyr`, the `pivot_wider` function spreads rows into columns.  Now we have a long data set, but we want to separate the Average, Alightings and Boardings into different columns:
+```{r}
+long_data
+wide_data <- long_data %>% pivot_wider(names_from = "Month", 
+                                       values_from = "Rate") 
+wide_data
+```
+
+## Reshaping Charm City Circulator
 
 ```{r}
-wide = long %>% pivot_wider(names_from = "type", 
+long
+```
+
+## Reshaping Charm City Circulator
+
+```{r}
+wide <- long %>% pivot_wider(names_from = "type", 
                             values_from = "number") 
 wide
 ```
@@ -249,7 +261,6 @@ wide
 
 * Merging/joining data sets together - usually on key variables, usually "id"
 * `?join` - see different types of joining for `dplyr`
-<!-- * Let's look at https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf -->
 * `inner_join(x, y)` - only rows that match for `x` and `y` are kept
 * `full_join(x, y)` - all rows of `x` and `y` are kept 
 * `left_join(x, y)` - all rows of `x` are kept even if not merged with `y`
@@ -258,240 +269,202 @@ wide
 
 ## Merging: Simple Data
 
-`base` has baseline data for ids `1` to `10` and Age
-
-```{r merging}
-base <- tibble(id = 1:10, Age = seq(55,60, length=10))
-head(base, 2)
+```{r echo=FALSE}
+data_As <- tibble(State = c("Alabama", "Alaska"),
+                 June_vacc_rate = c("37.2%", "47.5%"),
+                 May_vacc_rate = c("36.0%", "46.2%"))
+data_cold <- tibble(State = c("Maine", "Alaska"),
+                    April_vacc_rate = c("32.4%", "41.7%"))
 ```
-`visits` has ids `2` to `11`, 3 different visits, and an outcome
 
 ```{r}
-visits <- tibble(id = rep(2:11, 3), visit= rep(1:3, 10),
-                    Outcome = seq(10,50, length=30))
-head(visits, 2)
+data_As
+data_cold
+```
+
+## Inner Join
+
+https://github.com/gadenbuie/tidyexplain/blob/main/images/inner-join.gif
+
+```{r, fig.alt="A gif showing the inner joining of two simple datasets.", out.width = "70%", echo = FALSE, align = "center"}
+knitr::include_graphics("../images/inner_join.gif")
 ```
 
 ## Inner Join
 
 ```{r inner_join}
-ij = inner_join(base, visits)
-dim(ij)
-head(ij)
+ij = inner_join(data_As, data_cold)
+ij
 ```
 
+## Left Join
+
+https://raw.githubusercontent.com/gadenbuie/tidyexplain/main/images/left-join.gif
+
+```{r, fig.alt="A gif showing the left joining of two simple datasets.", out.width = "70%", echo = FALSE, align = "center"}
+knitr::include_graphics("../images/left_join.gif")
+```
 
 ## Left Join
 
 ```{r left_join}
-lj = left_join(base, visits)
-dim(lj)
-head(lj)
+lj = left_join(data_As, data_cold)
+lj
 ```
 
 ## Install `tidylog` package to log outputs
 
 ```{r, include=FALSE}
+# install.packages("tidylog")
 library(tidylog)
 ```
 
 ```{r left_join_log}
 # install.packages("tidylog")
 library(tidylog)
-left_join(base, visits)
+left_join(data_As, data_cold)
+```
+
+## Right Join
+
+https://raw.githubusercontent.com/gadenbuie/tidyexplain/main/images/right-join.gif
+
+```{r, fig.alt="A gif showing the right joining of two simple datasets.", out.width = "70%", echo = FALSE, align = "center"}
+knitr::include_graphics("../images/right_join.gif")
 ```
 
 ## Right Join
 
 ```{r right_join}
-rj = right_join(base, visits)
+rj <- right_join(data_As, data_cold)
+rj
 ```
-
 
 ## Left Join: Switching arguments
 
 ```{r right_join2}
-lj2 = left_join(visits, base)
-```
-
-<!-- ```{r right_join_arrange, echo = FALSE} -->
-<!-- rj2 = arrange(rj2, id, visit) %>% select(id, visit, Outcome, Age) -->
-<!-- lj = arrange(lj, id, visit) %>% select(id, visit, Outcome, Age) -->
-<!-- ``` -->
-
-<!-- ```{r right_join_arrange_out} -->
-<!-- identical(rj2, lj) ## after some rearranging -->
-<!-- ``` -->
-
-## Full Join
-
-```{r full_join}
-fj = full_join(base, visits)
+lj2 <- left_join(data_cold, data_As)
+lj2
 ```
 
 ## Full Join
 
-Note what tidylog means by `includes duplicates`. Data from `base` is being duplicated.
+https://raw.githubusercontent.com/gadenbuie/tidyexplain/main/images/full-join.gif
+
+```{r, fig.alt="A gif showing the full joining of two simple datasets.", out.width = "70%", echo = FALSE, align = "center"}
+knitr::include_graphics("../images/full_join.gif")
+```
+
+## Full Join
 
 ```{r}
-# fj = full_join(base, visits)
-head(fj, 10)
+fj <- full_join(data_As, data_cold)
 ```
 
-```{r include=FALSE}
+## Full Join
+
+```{r}
+fj
+```
+
+## Watch out for "`includes duplicates`"
+
+```{r echo=FALSE}
+data_As <- tibble(State = c("Alabama", "Alaska"),
+                 state_bird = c("wild turkey", "williow ptarmigan"))
+data_cold <- tibble(State = c("Maine", "Alaska", "Alaska"),
+                    vacc_rate = c("32.4%", "41.7%", "46.2%"),
+                    month = c("April", "April", "May"))
+```
+
+```{r}
+data_As
+data_cold
+```
+
+## Watch out for "`includes duplicates`"
+
+```{r}
+lj <- left_join(data_As, data_cold)
+```
+
+## Watch out for "`includes duplicates`"
+
+Data including the joining column ("State") has been duplicated.
+
+```{r}
+lj
+```
+
+<br>
+
+Note that "Alaska willow ptarmigan" appears twice.
+
+## Watch out for "`includes duplicates`"
+
+https://github.com/gadenbuie/tidyexplain/blob/main/images/left-join-extra.gif
+
+```{r, fig.alt="A gif showing how data can be duplicated from one dataset when joining two simple datasets.", out.width = "70%", echo = FALSE, align = "center"}
+knitr::include_graphics("../images/left_join_extra.gif")
+```
+
+## Stop `tidylog`
+
+```{r}
 unloadNamespace("tidylog")
 ```
 
 ## Duplicated
 
-- The `duplicated` command can give you indications if there are duplications in a **vector**:
+- The `duplicated` function can give you indications if there are duplicates in a **vector**:
 
 ```{r}
 duplicated(1:5)
 duplicated(c(1:5, 1))
-fj %>% mutate(dup_id = duplicated(id))
+lj %>% mutate(dup_State = duplicated(State))
 ```
 
 ## Using the `by` argument
 
-By default - uses intersection of column names.  If `by` specified, then uses that.
+By default joins use the intersection of column names. If `by` is specified, it uses that.
 
 ```{r use_by}
-# for multiple, by = c(col1, col2)
-head(full_join(base, visits, by = "id"))
+full_join(data_As, data_cold, by = "State")
+```
+
+## Using the `by` argument
+
+You can join based on multiple columns by using something like `by = c(col1, col2)`.
+
+If the datasets have two different names for the same data, use:
+
+```{r eval=FALSE}
+full_join(data_As, data_cold, by = c("a" = "b"))
+```
+
+## Using "`setdiff`"
+
+We might want to determine what indexes ARE in the first dataset that AREN'T in the second:
+
+```{r}
+data_As
+data_cold
+```
+
+## Using "`setdiff`"
+
+Use `setdiff` to determine what indexes ARE in the first dataset that AREN'T in the second:
+
+```{r}
+A_states <- data_As %>% pull(State)
+cold_states <- data_cold %>% pull(State)
+```
+
+```{r}
+setdiff(A_states, cold_states)
+setdiff(cold_states, A_states)
 ```
 
 ## Lab Part 2
 
 [Website](http://jhudatascience.org/intro_to_R_class/index.html)
-
-<!-- ## Finding the First (or Last) record -->
-
-<!-- `pivot_longer` and `pivot_wider` are new (as of 2019) `tidyr` functions. -->
-
-<!-- See link below: -->
-
-<!-- https://tidyr.tidyverse.org/dev/articles/pivot.html -->
-
-
-
-# Other `tidy` topics (not covered)
-
-- Using `rowSums()` to get rid of missing data (`NA`s)
-- Finding the first and last record using `slice()`
-
-## Reshaping data from long (tall) to wide (fat): tidyr
-
-We can use `rowSums` to see if any values in the row is `NA` and keep if the row, which is a combination of date and line type has any non-missing data.
-
-```{r}
-head(wide, 3)
-not_namat = wide %>% select(Alightings, Average, Boardings)
-not_namat = !is.na(not_namat)
-head(not_namat, 2)
-wide$good = rowSums(not_namat) > 0
-```
-
-## Reshaping data from long (tall) to wide (fat): tidyr
-
-Now we can filter only the good rows and delete the `good` column.
-```{r}
-wide = wide %>% filter(good) %>% select(-good)
-head(wide)
-```
-
-
-## Finding the First (or Last) record
-
-- `slice` allows you to select **records** (compared to first/last on a **vector**)
-
-```{r}
-long = long %>% filter(!is.na(number) & number > 0)
-first_and_last = long %>% arrange(date) %>% # arrange by date
-  filter(type == "Boardings") %>% # keep boardings only
-  group_by(line) %>% # group by line
-  slice( c(1, n())) # select ("slice") first and last (n() command) lines
-first_and_last %>%  head(4)
-```
-
-
-
-# Merging in base R (not covered)
-
-## Data Merging/Append in Base R
-
-* `merge()` is the most common way to do this with data sets
-    - we will use the "join" functions from `dplyr`
-* `rbind`/`cbind` - row/column bind, respectively
-    * `rbind` is the equivalent of "appending" in Stata or "setting" in SAS
-    * `cbind` allows you to add columns in addition to the previous ways
-* `t()` can transpose data but doesn't make it a `data.frame`
-
-## Merging 
-
-```{r merging2}
-merged.data <- merge(base, visits, by = "id")
-head(merged.data, 5)
-dim(merged.data)
-```
-
-
-## Merging 
-
-```{r mergeall}
-all.data <- merge(base, visits, by = "id", all = TRUE)
-tail(all.data)
-dim(all.data)
-```
-
-<!-- # Bonus slides - explore after visualization!  -->
-
-<!-- ## Perform Operations By Multiple Groups: dplyr {.smaller} -->
-
-<!-- We can then easily plot each day over time: -->
-
-<!-- ```{r} -->
-<!-- library(ggplot2) -->
-<!-- ggplot(aes(x = date, y = Average, colour = line), data = wide) + geom_line() -->
-<!-- ``` -->
-
-<!-- ## ggplot2 with piping -->
-
-<!-- ```{r} -->
-<!-- wide %>%  -->
-<!--   ggplot(aes(x = date, y = Average, colour = line)) + geom_line() -->
-<!-- ``` -->
-
-<!-- ## Perform Operations By Multiple Groups: dplyr -->
-
-<!-- Let's create the middle of the month (the 15th for example), and name it -->
-<!-- mon. -->
-
-<!-- ```{r} -->
-<!-- mon = wide %>%  -->
-<!--   mutate(month = month(date), year = year(date)) %>%    -->
-<!--   dplyr::group_by(line, month, year) %>% -->
-<!--   dplyr::summarise(mean_avg = mean(Average)) -->
-<!-- mon = mutate(mon, mid_month = dmy(paste0("15-", month, "-", year))) -->
-<!-- head(mon) -->
-<!-- ``` -->
-
-
-<!-- ## Perform Operations By Multiple Groups: dplyr {.smaller} -->
-
-<!-- We can then easily plot the mean of each month to see a smoother output: -->
-
-<!-- ```{r} -->
-<!-- ggplot(aes(x = mid_month, -->
-<!--                y = mean_avg,  -->
-<!--                colour = line), data = mon) + geom_line() -->
-<!-- ``` -->
-
-
-
-<!-- ## Bonus! Points with a smoother! {.smaller} -->
-<!-- ```{r} -->
-<!-- ggplot(aes(x = date, y = Average, colour = line),  -->
-<!--            data = wide) + geom_smooth(se = FALSE) +  -->
-<!--   geom_point(size = .5) -->
-<!-- ``` -->
