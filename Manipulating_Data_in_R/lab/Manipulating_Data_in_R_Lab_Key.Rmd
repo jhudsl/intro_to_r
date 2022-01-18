@@ -20,58 +20,49 @@ library(stringr)
 
 # Part 1
 
-1.  Read in the Wide Bike lanes data: http://jhudatascience.org/intro_to_R_class/data/Bike_Lanes_Wide.csv .  Name the data set `wide`. Note the `NA`s here!
+1. Read in the SARS-CoV-2 Vaccination data. Assign the data the name "vacc". This data is current as of January 12, 2022! We will be reviewing new concepts here and incorporating some from week 1.
 
 ```{r}
-wide = read_csv("http://jhudatascience.org/intro_to_R_class/data/Bike_Lanes_Wide.csv")
+# vacc <- read_csv("http://jhudatascience.org/intro_to_R_class/data/USA_covid19_vaccinations.csv")
+# If downloaded
+vacc <- read_csv("USA_covid19_vaccinations.csv")
 ```
 
-2. Reshape `wide` using `pivot_longer.`  Call this data `long.`  Make the `names_to`
-`lanetype`, and the values `the_length.`  Make sure we pivot all columns **but**
-`name`, using `!name`. Note the `NA`s here:
+2. Look at the column names using `colnames` - do you notice any patterns?
 
 ```{r}
-long = wide %>% 
-  pivot_longer(!name,
-               names_to = "lanetype", values_to = "the_length")
-head(long)
+colnames(vacc)
+# Looks like many start with "percent" and some start with "total" - this indicates there are different units of measure for these different variables!
 ```
 
-3. read in the roads and crashes CSVs.  Call them `crash` and `road`
-`crash`: http://jhudatascience.org/intro_to_R_class/Manipulating_Data_in_R/lab/crashes.csv
-`road`: http://jhudatascience.org/intro_to_R_class/Manipulating_Data_in_R/lab/roads.csv
-
-(This exercise is motivated by https://anythingbutrbitrary.blogspot.com/2012/08/manipulating-data-frames-using-sqldf.html)
+3. Let's rename the column "State/Territory/Federal Entity" in "vacc" to "Entity" using `rename`.
 
 ```{r}
-crash = read_csv("http://jhudatascience.org/intro_to_R_class/Manipulating_Data_in_R/lab/crashes.csv")
-road = read_csv("http://jhudatascience.org/intro_to_R_class/Manipulating_Data_in_R/lab/roads.csv")
-head(crash)
-head(road)
+vacc <- vacc %>% rename(Entity = `State/Territory/Federal Entity`)
 ```
 
-4.  Replace (using `str_replace`) any hyphens (`-`) with a space in the `Road` column. Call this data `crash2`. Use `table()` to look at the `Road` column.  
-```{r}
-crash2 = crash %>% 
-  mutate(Road = str_replace(Road, "-", " "))
-table(crash2$Road)
-```
-
-5. How many observations are in each dataset?
-```{r}
-dim(crash)
-dim(road)
-```
-
-6. Select all the columns from `crash2` except `Volume` using the `!` and `select()`. Then use `pivot_wider()` to make the dataset wide, turning the column `Year` into many columns. The data in these new columns should come from `N_Crashes`. Call the new data `wide_crash2`. What are the column names now?
+4. Create a new dataset "vacc_long" that does `pivot_longer` on all columns starting with "Percent". Use `starts_with("Percent")` for the `cols` argument. Use "Measure" for the `names_to` argument. Use "Percent" for the `values_to` argument.
 
 ```{r}
-wide_crash2 = crash2 %>%
-  select(!Volume) %>%
-  pivot_wider(names_from = "Year", values_from = N_Crashes)
-colnames(wide_crash2)
+vacc_long <- vacc %>% pivot_longer( starts_with("Percent"),
+                                    names_to = "Measure",
+                                    values_to = "Percent")
 ```
 
+5. Select only the columns "Entity", "Measure", and "Percent" from this new dataset. Use `select`. Filter "Entity" so it only includes values in the following list: "Maryland","Virginia","Florida","Massachusetts", "United States". **Hint**: use `filter` and `%in%`
+
+```{r}
+vacc_long <- vacc_long %>% select(Entity, Measure, Percent) %>% 
+  filter(Entity %in% c("Maryland","Virginia","Florida","Massachusetts", "United States"))
+```
+
+6. Use `pivot_wider` to reshape "vacc_long". Use "Entity" for the `names_from` argument. Use "Percent" for the `values_from` argument.
+
+```{r}
+vacc_wide <- vacc_long %>% 
+  pivot_wider(names_from = Entity,
+              values_from = Percent)
+```
 
 # Part 2
 
@@ -116,3 +107,18 @@ nrow(left)
 right = right_join(road, crash)
 nrow(right)
 ```
+
+**Bonus**
+
+Repeat #4 - #6 but instead look for columns that start with "Total" and select different states/Entities to compare. Also try combining all functions in one long block using the pipe `%>%`.
+
+```{r}
+vacc_wide <-
+  vacc %>%
+  pivot_longer(starts_with("Total"), names_to = "Measure", values_to = "Total") %>%
+  select(Entity, Measure, Total) %>%
+  filter(Entity %in% c("Alaska", "Kansas", "California", "United States")) %>%
+  pivot_wider(names_from = Entity, values_from = Total)
+  
+```
+
