@@ -17,6 +17,7 @@ opts_chunk$set(echo = TRUE,
 library(dplyr)
 options(scipen=999)
 library(readr)
+library(ggplot2)
 ```
 
 ## Overview
@@ -31,6 +32,8 @@ We will cover how to use R to compute some of basic statistics and fit some basi
 **DISCLAIMER**: We will focus on how to use R software to do these. We will be glossing over the statistical theory and "formulas" for these tests. Moreover, we do not claim the data we use for demonstration meet assumptions of the methods. 
 
 There are plenty of resources online for learning more about these methods, as well as dedicated Biostatistics series (at different advancement levels) at the JHU School of Public Health.
+
+# Correlation
 
 ## Correlation 
 
@@ -64,8 +67,13 @@ First, we compute correlation by providing two vectors.
 Like other functions, if there are `NA`s, you get `NA` as the result.  But if you specify use only the complete observations, then it will give you correlation using the non-missing data. 
 
 ```{r}
-cor(circ$orangeAverage, circ$purpleAverage)
-cor(circ$orangeAverage, circ$purpleAverage, use = "complete.obs")
+x <- pull(circ, orangeAverage)
+y <- pull(circ, purpleAverage)
+```
+
+```{r}
+cor(x, y)
+cor(x, y, use = "complete.obs")
 ```
 
 ## Correlation for two vectors with plot
@@ -73,12 +81,12 @@ cor(circ$orangeAverage, circ$purpleAverage, use = "complete.obs")
 Note that you can add the correlation value to a plot, via the `annotate()`. 
 
 ```{r, fig.width=3, fig.height=3}
-cor_val <- cor(circ$orangeAverage, circ$purpleAverage, use = "complete.obs")
+cor_val <- cor(x, y, use = "complete.obs")
 cor_val_label <- paste0("r = ", round(cor_val, 3))
 
-library(ggplot2)
-ggplot(circ, aes(x = orangeAverage, y = purpleAverage)) + 
-  geom_point(size = 0.3) + 
+circ %>%
+  ggplot(aes(x = orangeAverage, y = purpleAverage)) +
+  geom_point(size = 0.3) +
   annotate("text", x = 2000, y = 7500, label = cor_val_label, size = 5)
 ```
 
@@ -107,7 +115,9 @@ corrplot(cor_mat, type = "upper", order = "hclust")
 
 ## Lab Part 1
 
-Lab document: http://jhudatascience.org//intro_to_r/Statistics/lab/Statistics_Lab.Rmd
+[Website](http://jhudatascience.org/intro_to_R_class/index.html)
+
+# T-test
 
 ## T-test
 
@@ -134,10 +144,11 @@ It tests mean of a variable in one group. By default (i.e., without us explicitl
 - returns result assuming confidence level 0.95 (`conf.level = 0.95`)
 
 ```{r}
-t.test(circ$orangeAverage)
+x <- pull(circ, orangeAverage)
+t.test(x)
 ```
 
-## Running two-sample t-test
+## Running two-sample t-test{.small}
 
 It tests test difference in means of a variable between two groups. By default:
 
@@ -148,15 +159,17 @@ It tests test difference in means of a variable between two groups. By default:
 - assumes true variance in the two groups is not equal (`var.equal = FALSE`)
 
 ```{r}
-t.test(circ$orangeAverage, circ$purpleAverage)
+x <- pull(circ, orangeAverage)
+y <- pull(circ, purpleAverage)
+t.test(x, y)
 ```
 
 ## T-test: retrieving information from the result 
 
-Object returned from `t.test()` function is a named list. We can use it to access test result elements 
+Object returned from `t.test()` function is a named list. We can use it to access test result elements. The easiest way to do this is to use base R (`$` notation).
 
 ```{r}
-result <- t.test(circ$orangeAverage, circ$purpleAverage)
+result <- t.test(x, y)
 is.list(result)
 names(result)
 result$statistic
@@ -165,10 +178,12 @@ result$p.value
 
 ## T-test: retrieving information from the result with `broom` package 
 
-The `broom` package has a `tidy()` function that can put many objects into data frame so that they are easily manipulated (or nicely printed)
+The `broom` package has a `tidy()` function that can organize results into a data frame so that they are easily manipulated (or nicely printed)
 
 ```{r broom, comment=""}
 library(broom)
+
+result <- t.test(x, y)
 result_tidy <- tidy(result)
 result_tidy
 ```
@@ -183,7 +198,7 @@ result_tidy
 
 ## Lab Part 2
 
-Lab document: http://jhudatascience.org//intro_to_r/Statistics/lab/Statistics_Lab.Rmd
+[Website](http://jhudatascience.org/intro_to_R_class/index.html)
 
 ## Linear regression
 
@@ -264,13 +279,12 @@ In practice, `y` and `x1`, `x2`, `x3` are replaced with the **names of columns f
 
 ## Linear regression 
 
-We will use `kaggleCarAuction.csv` dataset from one of the Kaggle competitons. 
+We will use `kaggleCarAuction.csv` dataset from one of the Kaggle competitions. 
+
+https://jhudatascience.org/intro_to_R_class/data/kaggleCarAuction.csv
 
 ```{r}
-cars <- read_csv(
-  paste0("https://jhudatascience.org/intro_to_R_class/data/", 
-         "kaggleCarAuction.csv"),   
-  col_types = cols(VehBCost = col_double()))
+cars <- jhur::read_kaggle()
 head(cars)
 ```
 
@@ -292,12 +306,21 @@ sfit <- summary(fit)
 print(sfit)
 ```
 
-## Linear regression: model summary
+## Linear regression: retrieving information with `broom` package 
 
-Model summary is a named list and we can access its specific elements 
+Use `tidy` to create a tibble with the coefficient estimates.
 
 ```{r}
-sfit$coefficients
+# tidy() is a function from the broom package
+tidy(sfit)
+```
+
+## Linear regression: model summary
+
+Model summary is a named list and we can access its specific elements. Again, we should use base R (`$` notation).
+
+```{r}
+names(sfit)
 sfit$r.squared
 ```
 
@@ -317,7 +340,8 @@ Factors get special treatment in regression models - lowest level of the factor 
 `TopThreeAmericanName` states if the manufacturer is one of the top three American manufacturers.
 
 ```{r}
-table(cars$TopThreeAmericanName)
+top_3 <- pull(cars, TopThreeAmericanName)
+table(top_3)
 ```
 
 ## Linear regression: factors {.smaller}
@@ -330,14 +354,12 @@ summary(fit_3)
 ## Linear regression: retrieving information with `broom` package 
 
 ```{r, comment="", fig.height=4,fig.width=8}
-# tidy() is a function from broom package
-fit_3_tidy <- tidy(fit_3)
-fit_3_tidy
+tidy(fit_3)
 ```
 
 ## Lab Part 3
 
-Lab document: http://jhudatascience.org//intro_to_r/Statistics/lab/Statistics_Lab.Rmd
+[Website](http://jhudatascience.org/intro_to_R_class/index.html)
 
 ## Generalized Linear Models (GLMs)
 
@@ -371,4 +393,4 @@ Some final notes:
 
 ## Lab Part 4
 
-Lab document: http://jhudatascience.org//intro_to_r/Statistics/lab/Statistics_Lab.Rmd
+[Website](http://jhudatascience.org/intro_to_R_class/index.html)
