@@ -5,11 +5,9 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Part 1
-
 0. Load all the libraries we will use in this lab. 
 
-```{r}
+```{r message=FALSE}
 library(dplyr)
 library(ggplot2)
 ```
@@ -65,8 +63,7 @@ yts_fct <- yts_fct %>% mutate(LocationAbbr = factor(LocationAbbr))
 
 - Using the "yts_fct" data, `group_by` "LocationAbbr". 
 - Then, use `mutate` to create a new column "med_sample_size" that is the median "Sample_Size". 
-
-**Hint**: Since you have already done `group_by`, a median "Sample_Size" will automatically be created for each unique level in "LocationAbbr". Use the `median` function with `na.rm = TRUE`.
+- **Hint**: Since you have already done `group_by`, a median "Sample_Size" will automatically be created for each unique level in "LocationAbbr". Use the `median` function with `na.rm = TRUE`.
 
 ```{r}
 yts_fct <- yts_fct %>% group_by(LocationAbbr) %>% mutate(med_sample_size = median(Sample_Size, na.rm = TRUE))
