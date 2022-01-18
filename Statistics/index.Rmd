@@ -172,7 +172,7 @@ The `broom` package has a `tidy()` function that can put many objects into data 
 
 ```{r broom, comment=""}
 library(broom)
-result_tidy = tidy(result)
+result_tidy <- tidy(result)
 result_tidy
 ```
 
