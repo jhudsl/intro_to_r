@@ -32,7 +32,6 @@ We will cover how to use R to compute some of basic statistics and fit some basi
 
 There are plenty of resources online for learning more about these methods, as well as dedicated Biostatistics series (at different advancement levels) at the JHU School of Public Health.
 
-
 ## Correlation 
 
 Function `cor()` computes correlation in R
@@ -68,7 +67,6 @@ Like other functions, if there are `NA`s, you get `NA` as the result.  But if yo
 cor(circ$orangeAverage, circ$purpleAverage)
 cor(circ$orangeAverage, circ$purpleAverage, use = "complete.obs")
 ```
-
 
 ## Correlation for two vectors with plot
 
@@ -110,7 +108,6 @@ corrplot(cor_mat, type = "upper", order = "hclust")
 ## Lab Part 1
 
 Lab document: http://jhudatascience.org//intro_to_r/Statistics/lab/Statistics_Lab.Rmd
-
 
 ## T-test
 
@@ -187,7 +184,6 @@ result_tidy
 ## Lab Part 1
 
 Lab document: http://jhudatascience.org//intro_to_r/Statistics/lab/Statistics_Lab.Rmd
-
 
 ## Linear regression
 
@@ -278,7 +274,6 @@ cars <- read_csv(
 head(cars)
 ```
 
-
 ## Linear regression: model fitting 
 
 We fit linear regression model with  vehicles odometer (distance traveled by a vehicle; `VehOdo`) as an outcome and vehicle (`VehicleAge`) age as a predictor. 
@@ -344,7 +339,6 @@ fit_3_tidy
 
 Lab document: http://jhudatascience.org//intro_to_r/Statistics/lab/Statistics_Lab.Rmd
 
-
 ## Generalized Linear Models (GLMs)
 
 Generalized Linear Models (GLMs) allow for fitting regressions for  non-continuous/normal outcomes. Examples include: logistic regression, Poisson regression. 
@@ -378,8 +372,3 @@ Some final notes:
 ## Lab Part 3
 
 Lab document: http://jhudatascience.org//intro_to_r/Statistics/lab/Statistics_Lab.Rmd
-
-
-
-
-
