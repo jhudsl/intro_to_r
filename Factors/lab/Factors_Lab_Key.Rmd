@@ -10,13 +10,16 @@ editor_options:
 0. Load all the libraries we will use in this lab. 
 
 ```{r}
-
+library(dplyr)
+library(ggplot2)
 ```
 
 1. Load the Youth Tobacco Survey data (using `jhur::read_yts()`) and name it "yts". `select` "Sample_Size" and "Education".
 
 ```{r}
 yts <- jhur::read_yts() %>% select(Sample_Size, Education, LocationAbbr)
+# Alt:
+# yts <- read_csv("http://jhudatascience.org/intro_to_R_class/data/Youth_Tobacco_Survey_YTS_Data.csv")
 ```
 
 2. Create a boxplot showing the difference in "Sample_Size" between Middle School and High School "Education". **Hint**: Use `aes(x = Education, y = Sample_Size)` and `geom_boxplot()`.
