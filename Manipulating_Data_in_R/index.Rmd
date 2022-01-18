@@ -6,6 +6,10 @@ output:
     widescreen: yes
 ---
 
+<!-- # Todo 
+- add image of sandwich to first lab page
+- correct import of data in the lab 
+- restart and remove excess packages -->
 
 ```{r, echo = FALSE, include=FALSE}
 library(knitr)
@@ -25,7 +29,6 @@ In this module, we will show you how to:
 1. Reshape data from wide (fat) to long (tall)
 2. Reshape data from long (tall) to wide (fat)
 3. Merge Data/Joins
-4. Perform operations by a grouping variable
 
 ## Cheatsheet
 
@@ -33,6 +36,14 @@ https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.p
 
 ```{r, fig.alt="A preview of the Data transformation cheatsheet produced by RStudio.", out.width = "80%", echo = FALSE, align = "center"}
 knitr::include_graphics("../images/Manip_cheatsheet.png")
+```
+
+## What is wide/long data?
+
+https://github.com/gadenbuie/tidyexplain/blob/main/images/tidyr-pivoting.gif
+
+```{r, fig.alt="A gif visualization of data going from wide to long form.", out.width = "40%", echo = FALSE, align = "center"}
+knitr::include_graphics("../images/tidyr_pivoting.gif")
 ```
 
 ## What is wide/long data?
@@ -117,7 +128,7 @@ ex_long
 
 The `reshape` command exists.  It is a **confusing** function.  Don't use it.
 
-# `pivot_longer`
+# `pivot_longer`...
 
 ## Reshaping data from wide (fat) to long (tall): tidyr {.codesmall} 
 
@@ -209,7 +220,7 @@ long <- long %>%
 long
 ```
 
-# `pivot_wider`
+# `pivot_wider`...
 
 ## ## Reshaping data from long (tall) to wide (fat): tidyr
 
@@ -255,7 +266,6 @@ wide
 
 * Merging/joining data sets together - usually on key variables, usually "id"
 * `?join` - see different types of joining for `dplyr`
-<!-- * Let's look at https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf -->
 * `inner_join(x, y)` - only rows that match for `x` and `y` are kept
 * `full_join(x, y)` - all rows of `x` and `y` are kept 
 * `left_join(x, y)` - all rows of `x` are kept even if not merged with `y`
@@ -264,87 +274,142 @@ wide
 
 ## Merging: Simple Data
 
-`base` has baseline data for ids `1` to `10` and Age
-
-```{r merging}
-base <- tibble(id = 1:10, Age = seq(55,60, length=10))
-head(base, 2)
+```{r echo=FALSE}
+data_As <- tibble(State = c("Alabama", "Alaska"),
+                 June_vacc_rate = c("37.2%", "47.5%"),
+                 May_vacc_rate = c("36.0%", "46.2%"))
+data_cold <- tibble(State = c("Maine", "Alaska"),
+                    April_vacc_rate = c("32.4%", "41.7%"))
 ```
-`visits` has ids `2` to `11`, 3 different visits, and an outcome
 
 ```{r}
-visits <- tibble(id = rep(2:11, 3), visit= rep(1:3, 10),
-                    Outcome = seq(10,50, length=30))
-head(visits, 2)
+data_As
+data_cold
+```
+
+## Inner Join
+
+https://github.com/gadenbuie/tidyexplain/blob/main/images/inner-join.gif
+
+```{r, fig.alt="A gif showing the inner joining of two simple datasets.", out.width = "70%", echo = FALSE, align = "center"}
+knitr::include_graphics("../images/inner_join.gif")
 ```
 
 ## Inner Join
 
 ```{r inner_join}
-ij = inner_join(base, visits)
-dim(ij)
-head(ij)
+ij = inner_join(data_As, data_cold)
+ij
 ```
 
+## Left Join
+
+https://raw.githubusercontent.com/gadenbuie/tidyexplain/main/images/left-join.gif
+
+```{r, fig.alt="A gif showing the left joining of two simple datasets.", out.width = "70%", echo = FALSE, align = "center"}
+knitr::include_graphics("../images/left_join.gif")
+```
 
 ## Left Join
 
 ```{r left_join}
-lj = left_join(base, visits)
-dim(lj)
-head(lj)
+lj = left_join(data_As, data_cold)
+lj
 ```
 
 ## Install `tidylog` package to log outputs
 
 ```{r, include=FALSE}
+# install.packages("tidylog")
 library(tidylog)
 ```
 
 ```{r left_join_log}
 # install.packages("tidylog")
 library(tidylog)
-left_join(base, visits)
+left_join(data_As, data_cold)
+```
+
+## Right Join
+
+https://raw.githubusercontent.com/gadenbuie/tidyexplain/main/images/right-join.gif
+
+```{r, fig.alt="A gif showing the right joining of two simple datasets.", out.width = "70%", echo = FALSE, align = "center"}
+knitr::include_graphics("../images/right_join.gif")
 ```
 
 ## Right Join
 
 ```{r right_join}
-rj = right_join(base, visits)
+rj <- right_join(data_As, data_cold)
+rj
 ```
-
 
 ## Left Join: Switching arguments
 
 ```{r right_join2}
-lj2 = left_join(visits, base)
+lj2 <- left_join(data_cold, data_As)
+lj2
 ```
 
-<!-- ```{r right_join_arrange, echo = FALSE} -->
-<!-- rj2 = arrange(rj2, id, visit) %>% select(id, visit, Outcome, Age) -->
-<!-- lj = arrange(lj, id, visit) %>% select(id, visit, Outcome, Age) -->
-<!-- ``` -->
+## Full Join
 
-<!-- ```{r right_join_arrange_out} -->
-<!-- identical(rj2, lj) ## after some rearranging -->
-<!-- ``` -->
+https://raw.githubusercontent.com/gadenbuie/tidyexplain/main/images/full-join.gif
+
+```{r, fig.alt="A gif showing the full joining of two simple datasets.", out.width = "70%", echo = FALSE, align = "center"}
+knitr::include_graphics("../images/full_join.gif")
+```
 
 ## Full Join
 
 ```{r full_join}
-fj = full_join(base, visits)
+fj <- full_join(data_As, rbind(data_cold, data_cold))
 ```
 
-## Full Join
+## Watch out for "`includes duplicates`"
 
-Note what tidylog means by `includes duplicates`. Data from `base` is being duplicated.
+```{r echo=FALSE}
+data_As <- tibble(State = c("Alabama", "Alaska"),
+                 state_bird = c("wild turkey", "williow ptarmigan"))
+data_cold <- tibble(State = c("Maine", "Alaska", "Alaska"),
+                    vacc_rate = c("32.4%", "41.7%", "46.2%"),
+                    month = c("April", "April", "May"))
+```
 
 ```{r}
-# fj = full_join(base, visits)
-head(fj, 10)
+data_As
+data_cold
 ```
 
-```{r include=FALSE}
+## Watch out for "`includes duplicates`"
+
+```{r}
+lj <- left_join(data_As, data_cold)
+```
+
+## Watch out for "`includes duplicates`"
+
+Data including the joining column ("State") has been duplicated.
+
+```{r}
+lj
+```
+
+<br>
+
+Note that "Alaska willow ptarmigan" appears twice.
+
+## Watch out for "`includes duplicates`"
+
+https://github.com/gadenbuie/tidyexplain/blob/main/images/left-join-extra.gif
+
+```{r, fig.alt="A gif showing how data can be duplicated from one dataset when joining two simple datasets.", out.width = "70%", echo = FALSE, align = "center"}
+knitr::include_graphics("../images/left_join_extra.gif")
+```
+
+## Stop `tidylog`
+
+```{r}
 unloadNamespace("tidylog")
 ```
 
@@ -355,21 +420,48 @@ unloadNamespace("tidylog")
 ```{r}
 duplicated(1:5)
 duplicated(c(1:5, 1))
-fj %>% mutate(dup_id = duplicated(id))
+fj %>% mutate(dup_State = duplicated(State))
 ```
 
 ## Using the `by` argument
 
-By default - uses intersection of column names.  If `by` specified, then uses that.
+By default joins use the intersection of column names. If `by` is specified, it uses that.
+
+You can join based on multiple columns by using something like `by = c(col1, col2)`.
 
 ```{r use_by}
-# for multiple, by = c(col1, col2)
-head(full_join(base, visits, by = "id"))
+full_join(data_As, data_cold, by = "State")
+```
+
+If the datasets have two different names for the same data, use:
+
+```{r eval=FALSE}
+full_join(data_As, data_cold, by = c("a" = "b"))
+```
+
+## Using "`setdiff`"
+
+We might want to determine what indexes ARE in the first dataset that AREN'T in the second:
+
+```{r}
+data_As
+data_cold
+```
+
+## Using "`setdiff`"
+
+Use `setdiff` to determine what indexes ARE in the first dataset that AREN'T in the second:
+
+```{r}
+A_states <- data_As %>% pull(State)
+cold_states <- data_cold %>% pull(State)
+```
+
+```{r}
+setdiff(A_states, cold_states)
+setdiff(cold_states, A_states)
 ```
 
 ## Lab Part 2
 
 [Website](http://jhudatascience.org/intro_to_R_class/index.html)
-
-
-<!-- perform operations by a grouping variable in r?? -->
