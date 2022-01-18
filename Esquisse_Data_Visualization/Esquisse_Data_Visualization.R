@@ -16,7 +16,7 @@ knitr::include_graphics("https://media.giphy.com/media/xUOxf7XfmpxuSode1O/giphy.
 ## esquisser(mtcars)
 
 
-## ---- fig.alt="starting a plot", out.width = "100%", echo = FALSE, fig.align='center'----
+## ---- fig.alt="starting a plot", out.width = "90%", echo = FALSE, fig.align='center'----
 knitr::include_graphics("images/start_a_plot.png")
 
 
