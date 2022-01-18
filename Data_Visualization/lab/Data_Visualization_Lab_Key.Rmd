@@ -38,16 +38,7 @@ bike_agg
 
 ```
 
-1. Use base R graphic to make plot of average length of lanes (`lane_avg_length`; y-axis) for each year (`dateInstalled`; x-axis).
-
-Try using point plot type (default) and line type  (use argument `type = "l`). 
-
-```{r}
-plot(x = bike_agg$dateInstalled, y = bike_agg$lane_avg_length)
-plot(x = bike_agg$dateInstalled, y = bike_agg$lane_avg_length, type = "l")
-```
-
-2. Use `ggplot2` package make plot of average length of lanes (`lane_avg_length`; y-axis) for each year (`dateInstalled`; x-axis). You can use lines layer (`+ geom_line()`) or points layer (`+ geom_point()`), or both!
+1. Use `ggplot2` package make plot of average length of lanes (`lane_avg_length`; y-axis) for each year (`dateInstalled`; x-axis). You can use lines layer (`+ geom_line()`) or points layer (`+ geom_point()`), or both!
 
 Assign the plot to variable `my_plot`. Type `my_plot` in the console to have it displayed 
 
@@ -64,7 +55,7 @@ my_plot <-
 my_plot
 ```
 
-3. "Update" your plot by adding additional elements, e.g. plot labels. 
+2. "Update" your plot by adding a title and changing the x and y axis titles. 
 
 ```{r}
 my_plot <- 
@@ -76,7 +67,7 @@ my_plot <-
 my_plot
 ```
 
-4. You can use `scale_x_continuous()` function and its arguments to modify x-axis look. You can use `scale_y_continuous()` function and its arguments to modify y-axis look. 
+3. Use the `scale_x_continuous()` function and its arguments to modify x-axis look. Use `scale_y_continuous()` function and its arguments to modify the y-axis. 
 
 ```{r}
 my_plot <- 
@@ -88,7 +79,7 @@ my_plot
 ```
 
 
-5. Observe different versions of the plot by displaying `my_plot` while adding different "theme" to it  
+4. Observe several different versions of the plot by displaying `my_plot` while adding a different "theme" to it. 
 
 ```{r}
 my_plot + theme_bw()
