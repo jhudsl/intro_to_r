@@ -5,9 +5,67 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Part 1
-
 0. Load all the libraries we will use in this lab. 
+
+```{r message=FALSE}
+library(dplyr)
+library(ggplot2)
+```
+
+1. Load the Youth Tobacco Survey data (using `jhur::read_yts()`). `select` "Sample_Size",  "Education", and "LocationAbbr". Name this data "yts". 
+
+```{r}
+
+```
+
+2. Create a boxplot showing the difference in "Sample_Size" between Middle School and High School "Education". **Hint**: Use `aes(x = Education, y = Sample_Size)` and `geom_boxplot()`.
+
+```{r}
+
+```
+
+3. Use `group_by` and `tally` to count up the number of lines of data for each "Education" group.
+
+```{r}
+
+```
+
+4. Make "Education" a factor using the `mutate` and `factor` functions. Use the `levels` argument inside `factor` to reorder "Education". Reorder this variable so that "Middle School" comes before "High School". Assign the output the name "yts_fct".
+
+```{r}
+
+```
+
+5. Repeat #2 and #3 using the "yts_fct" data. You should see different ordering in the plot and `tally` table.
+
+```{r}
+
+```
+
+**BONUS**
+
+6. Convert "LocationAbbr" (state) in "yts_fct" into a factor using the `mutate` and `factor` functions. Do not add a `levels =` argument.
+
+```{r}
+
+```
+
+7. We want to create a new column that contains the group-level median sample size. 
+
+- Using the "yts_fct" data, `group_by` "LocationAbbr". 
+- Then, use `mutate` to create a new column "med_sample_size" that is the median "Sample_Size". 
+- **Hint**: Since you have already done `group_by`, a median "Sample_Size" will automatically be created for each unique level in "LocationAbbr". Use the `median` function with `na.rm = TRUE`.
+
+```{r}
+
+```
+
+8. We want to plot the "LocationAbbr" (state) by the "med_sample_size" colum we created above. Using the `forcats` package, create a plot that:
+
+- Has "LocationAbbr" on the x-axis
+- Uses the `mapping` argument and the `fct_reorder` function to order the x-axis by "med_sample_size"
+- Has "Sample_Size" on the y-axis
+- Is a boxplot (`geom_boxplot`)
 
 ```{r}
 
