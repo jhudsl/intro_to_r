@@ -1,0 +1,47 @@
+---
+title: "Esquisse Data Visualization Lab Key"
+output: html_document
+---
+
+First, make sure you install and load the `esquisse` package using `install.packages` and `library`:
+
+```{r, eval = FALSE}
+install.packages("esquisse")
+install.packages("ggplot2")
+```
+
+```{r, comment = FALSE}
+library(esquisse)
+library(ggplot2)
+```
+
+
+Now try creating a plot using the `Orange` data that automatically comes with R using the `esquisse` package. Drag and drop the `age` variable to be plotted on the x-axis. Drag and drop the `circumference` variable to be plotted on the y-axis. What happens when you drag `tree` to the facet region of the esquisse GUI? What happens if you move this to color? Copy and paste the code from both options into the chunk below:
+
+```{r}
+#esquisser(Orange)
+ggplot(Orange) +
+  aes(x = age, y = circumference) +
+  geom_point(shape = "circle", size = 1.5, colour = "#112446") +
+  theme_minimal() +
+  facet_wrap(vars(Tree))
+
+ggplot(Orange) +
+  aes(x = age, y = circumference, colour = Tree) +
+  geom_point(shape = "circle", size = 1.5) +
+  scale_color_hue(direction = 1) +
+  theme_minimal()
+```
+
+Bonus: Click where it says "point" (may say "auto" depending on how you did the last question) on the far left side and change the plot to a different type of plot? Copy and paste the code into the chunk below.
+
+```{r}
+ggplot(Orange) +
+  aes(x = age, y = circumference, colour = Tree) +
+  geom_line(size = 0.5) +
+  scale_color_hue(direction = 1) +
+  theme_minimal()
+
+```
+
+
