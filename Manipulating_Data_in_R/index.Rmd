@@ -6,11 +6,6 @@ output:
     widescreen: yes
 ---
 
-<!-- # Todo 
-- add image of sandwich to first lab page
-- correct import of data in the lab 
-- restart and remove excess packages -->
-
 ```{r, echo = FALSE, include=FALSE}
 library(knitr)
 library(readr)
@@ -362,8 +357,14 @@ knitr::include_graphics("../images/full_join.gif")
 
 ## Full Join
 
-```{r full_join}
-fj <- full_join(data_As, rbind(data_cold, data_cold))
+```{r}
+fj <- full_join(data_As, data_cold)
+```
+
+## Full Join
+
+```{r}
+fj
 ```
 
 ## Watch out for "`includes duplicates`"
@@ -415,23 +416,25 @@ unloadNamespace("tidylog")
 
 ## Duplicated
 
-- The `duplicated` command can give you indications if there are duplications in a **vector**:
+- The `duplicated` function can give you indications if there are duplicates in a **vector**:
 
 ```{r}
 duplicated(1:5)
 duplicated(c(1:5, 1))
-fj %>% mutate(dup_State = duplicated(State))
+lj %>% mutate(dup_State = duplicated(State))
 ```
 
 ## Using the `by` argument
 
 By default joins use the intersection of column names. If `by` is specified, it uses that.
 
-You can join based on multiple columns by using something like `by = c(col1, col2)`.
-
 ```{r use_by}
 full_join(data_As, data_cold, by = "State")
 ```
+
+## Using the `by` argument
+
+You can join based on multiple columns by using something like `by = c(col1, col2)`.
 
 If the datasets have two different names for the same data, use:
 
