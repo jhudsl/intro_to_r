@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Day 6 Cheatsheet
 
 ## Data Manipulation
@@ -18,5 +23,17 @@
 |Base `R`| [`duplicated()`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/duplicated)| `duplicated(x)`| Determines and removes duplicate elements from `x`.|
 | Base `R`| [`t()`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/t) | Transpose       | Returns the transpose of a matrix or data frame. If given a data frame, returns a matrix.|
 
+<div style="page-break-after: always;"></div>
+
+## Data Visualization with `esquisse`
+
+### Major concepts
+
+- The `esquisse` package can help you to test out plots and get familiar with the syntax required to make plots
+
+### Functions
+|Library/Package|Piece of code|Example of usage|What it does|
+|---------------|-------------|----------------|-------------|
+| `esquisse`| [`esquisser()`](https://cran.r-project.org/web/packages/esquisse/vignettes/get-started.html)| `esquisser(Orange)`| Start an `esquisse` interactive session to create a plot of the given `data.frame` or `tibble`|
 
 \* This format was adapted from the [cheatsheet format from AlexsLemonade](https://github.com/AlexsLemonade/training-modules/tree/master/module-cheatsheets).
