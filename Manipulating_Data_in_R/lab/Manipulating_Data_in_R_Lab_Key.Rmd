@@ -14,9 +14,7 @@ Data in this lab comes from the CDC (https://covid.cdc.gov/covid-data-tracker/#v
 ```{r}
 library(readr)
 library(dplyr)
-library(ggplot2)
 library(tidyr)
-library(stringr)
 ```
 
 # Part 1
@@ -45,7 +43,10 @@ vacc <- vacc %>% rename(Entity = `State/Territory/Federal Entity`)
 4. Create a new dataset "vacc_long" that does `pivot_longer` on all columns starting with "Percent". Use `starts_with("Percent")` for the `cols` argument. Use "Measure" for the `names_to` argument. Use "Percent" for the `values_to` argument.
 
 ```{r}
-vacc_long <- vacc %>% pivot_longer( starts_with("Percent"),
+# ??? <- ??? %>% pivot_longer(cols = ???,
+#                             names_to = ???,
+#                             values_to = ???)
+vacc_long <- vacc %>% pivot_longer( cols = starts_with("Percent"),
                                     names_to = "Measure",
                                     values_to = "Percent")
 ```
@@ -60,6 +61,9 @@ vacc_long <- vacc_long %>% select(Entity, Measure, Percent) %>%
 6. Use `pivot_wider` to reshape "vacc_long". Use "Entity" for the `names_from` argument. Use "Percent" for the `values_from` argument.
 
 ```{r}
+# ??? <- ??? %>% 
+#   pivot_wider(names_from = ???,
+#               values_from = ???)
 vacc_wide <- vacc_long %>% 
   pivot_wider(names_from = Entity,
               values_from = Percent)
@@ -101,14 +105,14 @@ nrow(full)
 9. Do a left join of "vacc" and "gdp". How many observations are there?
 
 ```{r}
-left = left_join(vacc, gdp, by = c("Entity" = "GeoName"))
+left <- left_join(vacc, gdp, by = c("Entity" = "GeoName"))
 nrow(left)
 ```
 
 10. Repeat above with a `right_join` with the same order of the arguments. How many observations are there?
 
 ```{r}
-right = right_join(vacc, gdp, by = c("Entity" = "GeoName"))
+right <- right_join(vacc, gdp, by = c("Entity" = "GeoName"))
 nrow(right)
 ```
 
