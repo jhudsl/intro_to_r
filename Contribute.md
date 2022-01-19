@@ -72,12 +72,35 @@ This can be applied to a slide by putting {.codesmall} next to a slide title lik
 ## Add color to slide text
 
 ```
-:::{style=“color: red;”}
+:::{style="color: red;""}
 RED STUFF!
 :::
 ```
 
-Additional [help](https://bookdown.org/yihui/rmarkdown/ioslides-presentation.html) for style.
+
+## Add background color to code chunk describe general syntax for code
+
+In the `styles.css` file is the following:
+
+
+```
+.codeexample pre{
+  background-color: lightgreen;
+}
+```
+
+To add this to a chunk use this in the Rmd file before and after the chunk:
+
+````
+<div class = "codeexample">
+```{r}
+#some code
+```
+</div>
+````
+
+Additional [help](https://bookdown.org/yihui/rmarkdown/ioslides-presentation.html)
+
 
 ## Create gifs
 
@@ -90,4 +113,5 @@ To create video gifs first [record your screen](https://www.hellotech.com/guide/
 Next convert the video to a gif using https://ezgif.com/video-to-gif.
 
 Be sure that you select gif as the output.
+
 
