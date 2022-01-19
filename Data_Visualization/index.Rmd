@@ -32,78 +32,6 @@ knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/2c6239d311be6d037
 
 
 
-<!-- ## Overview -->
-
-<!-- - Making plots with base R -->
-
-<!-- - Making plots with `ggplot2` package  -->
-
-<!--   - Main concept: "linking" data with the plot elements -->
-<!--   - First plot  -->
-<!--   - Specifying plot layers: line, point, boxplot, ... -->
-<!--   - Customizing plot look: title, axis labels, background colors, ... -->
-<!--   - Combining multiple plots -->
-<!--   - Saving a plot to file -->
-
-<!-- ## Making plots with base R -->
-
-<!-- - Pros: the fastest way to make a plot  -->
-<!-- - Cons: limits for plot customization  -->
-
-<!-- ```{r, echo = FALSE} -->
-<!-- set.seed(1) -->
-<!-- ``` -->
-
-<!-- ```{r, fig.width=4, fig.height=3} -->
-<!-- var_1 <- seq(from = 1, to = 30) -->
-<!-- var_2 <- rnorm(30) -->
-
-<!-- plot(x = var_1, y = var_2) -->
-<!-- ``` -->
-
-<!-- <!-- ## Making plots with base R --> -->
-
-<!-- <!-- You can change **plot type** (default are points) other elements by modifying other arguments. --> -->
-
-<!-- <!-- - Google, *"r base graphics change plot title*"  --> -->
-
-<!-- <!-- ```{r, fig.width=4, fig.height=3} --> -->
-<!-- <!-- plot(x = var_1, y = var_2,  --> -->
-<!-- <!--      type = "l",  --> -->
-<!-- <!--      xlab = "My variable 1", ylab = "My variable 2",  --> -->
-<!-- <!--      main = "Title of my plot") --> -->
-<!-- <!-- ``` --> -->
-
-<!-- ## Making plots with base R -->
-
-<!-- Often, you want to plot the data straight from a data frame  -->
-
-<!-- ```{r, fig.width=4, fig.height=3} -->
-<!-- # creating a data frame from the vectors we had  -->
-<!-- my_data = data.frame(var_1, var_2) -->
-<!-- my_data -->
-<!-- ``` -->
-
-<!-- ## Making plots with base R -->
-
-<!-- Often, you want to plot the data straight from a data frame  -->
-
-<!-- ```{r, fig.width=5, fig.height=4} -->
-<!-- # use $ to access column from a data set  -->
-<!-- plot(x = my_data$var_1, y = my_data$var_2) -->
-<!-- ``` -->
-
-
-<!-- ## Making plots with base R -->
-
-<!-- `plot()` is one of the functions from base R to produce a graphic.  -->
-
-<!-- We also have `hist()`, `boxplot()` and many others. They may vary in usage, e.g. in number of arguments we typically need to supply  -->
-
-<!-- ```{r, fig.width=5, fig.height=4} -->
-<!-- # use $ to access column from a data set  -->
-<!-- boxplot(x = my_data$var_1) -->
-<!-- ``` -->
 
 ## Why learn ggplot2?
 
@@ -420,7 +348,7 @@ head(Orange, 3)
 
 If specifying position - use: "top", "bottom", "right", "left", "none"
 
-```{r, fig.width=3, fig.height=2, fig.align='center'}
+```{r, fig.width=4, fig.height=3, fig.align='center'}
 ggplot(Orange, aes(x = Tree, y = circumference, fill = Tree)) + 
   geom_boxplot() +
   theme(legend.position = "none")
