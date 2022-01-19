@@ -55,7 +55,11 @@ Faster (eventually)
 
 - *"Make a ggplot"* = Make a plot with the use of ggplot2 package
 
+Resources:
 
+- https://ggplot2-book.org/
+
+- https://www.opencasestudies.org/
 
 ## ggplot2
 
@@ -496,7 +500,7 @@ ggplot(food, aes(x = item_ID,
 
 ## Tips - plus sign `+` can't come at start of a new line
 
-This will not work!
+This will not work! Also don't use pipes instead of `+`!
 
 ```{r, fig.width=6 , fig.height=4 * 0.8, eval = FALSE}
 ggplot(food, aes(x = item_ID, 
