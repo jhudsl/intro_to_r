@@ -430,114 +430,232 @@ First, we will generate some data frame for the purpose of demonstration.
 
 ```{r}
 # create 4 vectors: 2x character class and 2x numeric class
-item_categ <- as.vector(sapply(1:20, function(i) rep(sample(c("pasta", "rice"), 1), 100)))
-item_ID  <- rep(seq(from = 1, to = 20), each = 100)
+item_categ <- rep(c("pasta", "rice"),each = 20)
+item_ID  <- rep(seq(from = 1, to = 4), each = 10)
 item_ID <- paste0("ID_", item_ID)
-observation_time  <- rep(seq(from = 1, to = 100), times = 20)
-item_price <- as.vector(replicate(20, cumsum(rnorm(100))))
-item_price <- item_price + abs(min(item_price)) + 1
-
+observation_time  <- rep(seq(from = 1, to = 10), times = 4)
+item_price_change <- c(sample(0.5:2.5, size = 10, replace = TRUE),
+                       sample(0:1, size = 10, replace = TRUE),
+                       sample(2:5, size = 10, replace = TRUE),
+                       sample(6:9, size = 10, replace = TRUE))
 # use 4 vectors to create data frame with 4 columns
-df  <- data.frame(item_ID, item_categ, observation_time, item_price) 
+food  <- tibble(item_ID, item_categ, observation_time, item_price_change) 
 ```
 
 ## Group and/or color by variable's values 
 
 ```{r}
-head(df, 3)
-tail(df, 3)
-str(df)
+food
 ```
 
 ## Group and/or color by variable's values 
 
-You can use `group` element in a mapping to indicate that each `item_ID` will have a separate price line (more generally: a separate layer element)
+You can use `group` element in a mapping to indicate that each `item_ID` will have a separate price line.
 
 ```{r, fig.width=6, fig.height=4}
-ggplot(df, aes(x = observation_time, y = item_price, group = item_ID)) + 
-  geom_line(size = 0.3) 
+
+ggplot(food, aes(x = observation_time, 
+                 y = item_price_change)) + 
+  geom_line() 
 ```
-
-## Group and/or color by variable's values 
-
-You can use `color` element in a mapping to indicate that each `item_categ` will have different color used. 
-
-Colors palette is selected by default (and can be modified). Legend position, legend title etc. have a default look (and can be modified).
-
-```{r, fig.width=6 , fig.height=4 * 0.8}
-ggplot(df, aes(x = observation_time, y = item_price, group = item_ID,
-               color = item_categ)) + 
-  geom_line(size = 0.3) 
-```
-
-
-## Group and/or color by variable's values
-
-Here, we use boxplot instead of lines. 
-
-Note how aesthetic mappings are defined now: `aes(x = item_ID, y = item_price)`. 
-
-```{r, fig.width=6 , fig.height=4 * 0.8}
-ggplot(df, aes(x = item_ID, y = item_price)) + 
-  geom_boxplot() + 
-  labs(x = "Item ID", y = "Item prices") + 
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
-```
-
-
-## Group and/or color by variable's values
-
-We use `color` element in mappings to indicate that each `item_categ` will have different **color of boxplot box** used.
-
-We also use `color = "Item\ncategory"` to change name of legend. 
-
-```{r, fig.width=7, fig.height=4 * 0.8}
-ggplot(df, aes(x = item_ID, y = item_price, color = item_categ)) + 
-  geom_boxplot() + 
-  labs(x = "Item ID", y = "Item prices", color = "Item\ncategory") + 
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
-```
-
-## Group and/or color by variable's values
-
-We use `fill` element in mappings to indicate that each `item_categ` will have different **color of boxplot filling** used.
-
-We also use `fill = "Item\ncategory"` to change name of legend. 
-
-```{r, fig.width=7, fig.height=4 * 0.8}
-ggplot(df, aes(x = item_ID, y = item_price, fill = item_categ)) + 
-  geom_boxplot() + 
-  labs(x = "Item ID", y = "Item prices", fill = "Item\ncategory") + 
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
-```
-
-## Group and/or color by variable's values 
-
-Let's make some tweaks to item ID (`item_ID`) ordering by creating a factor version with a certain order of factor levels 
 
 ```{r}
-item_ID_levels <- 
-  df %>% 
-  group_by(item_ID) %>% 
-  summarise(item_price_median = median(item_price)) %>%
-  arrange(item_price_median) %>%
-  pull(item_ID)
-
-df <- 
-  df %>%
-  mutate(item_ID_factor = factor(item_ID, levels = item_ID_levels))
+ggplot(food, aes(x = observation_time, 
+                 y = item_price_change, 
+                 group = item_ID)) + 
+  geom_line() 
 ```
 
-## Group and/or color by variable's values
+## Adding color will automatically group the data
 
-Same as 2 slides ago, but we replaced `item_ID` with `item_ID_factor` in mappings definition (`aes()`). 
+```{r}
+ggplot(food, aes(x = observation_time, 
+                 y = item_price_change,
+                color = item_ID)) + 
+  geom_line() 
+```
+## Adding color will automatically group the data
+
+```{r}
+ggplot(food, aes(x = observation_time, 
+                 y = item_price_change,
+                color = item_categ)) + 
+  geom_line() 
+```
+## Sometimes you need group and color
+
+```{r}
+ggplot(food, aes(x = observation_time, 
+                 y = item_price_change,
+                 group = item_ID,
+                color = item_categ)) + 
+  geom_line() 
+```
+
+## Adding a facet can help make it easier to see what is happening
+
+Two options:
+`facet_grid()`- creates a grid shape
+`facet_wrap()` -more flexible
+
+Need to specify how you are faceting with the `~` sign.
+```{r}
+ggplot(food, aes(x = observation_time, 
+                 y = item_price_change,
+                color = item_ID)) + 
+  geom_line()  +facet_grid(~item_categ)
+```
+## Adding a facet can help make it easier to see what is happening
+
+Two options:
+`facet_grid()`- creates a grid shape
+`facet_wrap()`- more flexible - arguments `ncol` and `nrow` can specify layout
+              - can have different scales for axes using 
+              `scales = "free_x"`, `scales = "free_y"`, or `scales = "free"`
+
+Need to specify how you are faceting with the `~` sign.
+```{r}
+ggplot(food, aes(x = observation_time, 
+                 y = item_price_change,
+                color = item_ID)) + 
+  geom_line()  +
+  geom_point()
+  facet_wrap(~item_categ, ncol = 1, scales = "free")
+```
+
+
+## Tips - Color vs Fill
+
+NOTE: color is needed for points and lines, fill generally needed for boxes and bars
 
 ```{r, fig.width=6 , fig.height=4 * 0.8}
-ggplot(df, aes(x = item_ID_factor, y = item_price, fill = item_categ)) + 
-  geom_boxplot() + 
-  labs(x = "Item ID", y = "Item prices", fill = "Item\ncategory") + 
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+ggplot(food, aes(x = item_ID, 
+                 y = item_price_change, 
+                 color = item_categ)) + 
+  geom_boxplot() 
+
+ggplot(food, aes(x = item_ID, 
+                 y = item_price_change, 
+                 fill = item_categ)) + 
+  geom_boxplot() 
 ```
+
+## Tips - plus sign `+` can't come at start of a new line
+
+This will not work!
+
+```{r, fig.width=6 , fig.height=4 * 0.8, eval = FALSE}
+ggplot(food, aes(x = item_ID, 
+                 y = item_price_change, 
+                 fill = item_categ))  
+ + geom_boxplot()
+```
+
+## Tip - Good idea to add jitter to top of box plots
+
+Can add `width` argument to make the jitter more narrow.
+
+```{r, fig.width=6 , fig.height=4 * 0.8, eval = FALSE}
+ggplot(food, aes(x = item_ID, 
+                 y = item_price_change, 
+                 fill = item_categ)) + 
+  geom_boxplot() +
+  geom_jitter(width = .06)
+```
+
+## Tip - be careful about colors for colorblindess
+
+`scale_fill_viridis_d()` for discrete /categorical data
+`scale_fill_viridis_c()` for continuous data
+
+```{r, fig.width=6 , fig.height=4 * 0.8, eval = FALSE}
+ggplot(food, aes(x = item_ID, 
+                 y = item_price_change, 
+                 fill = item_categ)) + 
+  geom_boxplot() +
+  geom_jitter(width = .06) +
+  scale_fill_viridis_d()
+```
+
+## Tip - col vs bar
+
+`geom_bar()` can only one `aes` mapping
+`geom_col()` can have two
+```{r, fig.width=6 , fig.height=4 * 0.8, eval = FALSE}
+ggplot(food, aes(x = item_ID, 
+                 y = item_price_change, 
+                 fill = item_categ)) + 
+  geom_col(color = "black" ) +
+  scale_fill_viridis_d()
+```
+# Tip -  color outside of `aes()`
+
+# Tip - make sure labels aren't too small
+# Extensions
+
+labels
+
+plotly
+
+<!-- ## Group and/or color by variable's values -->
+
+<!-- We use `color` element in mappings to indicate that each `item_categ` will have different **color of boxplot box** used. -->
+
+<!-- We also use `color = "Item\ncategory"` to change name of legend.  -->
+
+<!-- ```{r, fig.width=7, fig.height=4 * 0.8} -->
+<!-- ggplot(food, aes(x = observation_time,  -->
+<!--                  y = item_price,  -->
+<!--                  group = item_categ, -->
+<!--                  fill = item_categ)) +  -->
+<!--   geom_boxplot() +labs(x = "Item ID", y = "Item prices", fill = "Item\ncategory") -->
+<!-- ``` -->
+
+<!-- ## Group and/or color by variable's values -->
+
+<!-- We use `fill` element in mappings to indicate that each `item_ID` will have different **color of boxplot filling** used. -->
+
+<!-- We also use `fill = "Item\ncategory"` to change name of legend.  -->
+
+<!-- ```{r, fig.width=7, fig.height=4 * 0.8} -->
+<!-- ggplot(food, aes(x = item_ID,  -->
+<!--                  y = item_price,  -->
+<!--                  group = item_ID, -->
+<!--                  fill = item_ID)) +  -->
+<!--   geom_boxplot() +labs(x = "Time", y = "Item prices", fill = "Item\ncategory") -->
+<!-- ``` -->
+
+<!-- ## Group and/or color by variable's values  -->
+
+<!-- Let's make some tweaks to item ID (`item_ID`) ordering by creating a factor version with a certain order of factor levels  -->
+
+<!-- ```{r} -->
+<!-- item_ID_levels <-  -->
+<!--   df %>%  -->
+<!--   group_by(item_ID) %>%  -->
+<!--   summarise(item_price_median = median(item_price)) %>% -->
+<!--   arrange(item_price_median) %>% -->
+<!--   pull(item_ID) -->
+
+<!-- df <-  -->
+<!--   df %>% -->
+<!--   mutate(item_ID_factor = factor(item_ID, levels = item_ID_levels)) -->
+<!-- ``` -->
+
+<!-- ## Group and/or color by variable's values -->
+
+<!-- Same as 2 slides ago, but we replaced `item_ID` with `item_ID_factor` in mappings definition (`aes()`).  -->
+
+<!-- ```{r, fig.width=6 , fig.height=4 * 0.8} -->
+<!-- ggplot(df, aes(x = item_ID_factor, y = item_price, fill = item_categ)) +  -->
+<!--   geom_boxplot() +  -->
+<!--   labs(x = "Item ID", y = "Item prices", fill = "Item\ncategory") +  -->
+<!--   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) -->
+<!-- ``` -->
+
+
+
+
 
 ## Split plot into panels by variable's values 
 
