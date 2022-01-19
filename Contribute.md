@@ -99,3 +99,15 @@ To add this to a chunk use this in the Rmd file before and after the chunk:
 ````
 
 Additional [help](https://bookdown.org/yihui/rmarkdown/ioslides-presentation.html)
+
+## Create gifs
+
+To create video gifs first [record your screen](https://www.hellotech.com/guide/for/how-to-screen-record-on-mac) like so (note this is for Mac users): 
+
+1) Command + Shift + 5 
+2) Select either entire screen - or more likely a portion of the screen button
+3) Click record
+
+Next convert the video to a gif using https://ezgif.com/video-to-gif.
+
+Be sure that you select gif as the output.
