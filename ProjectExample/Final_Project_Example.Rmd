@@ -120,9 +120,9 @@ ggplot(data = top5,
 I felt that this plot could be improved. So first I used I made `Country_name` a factor and then reordered it by the `Happiness_score` variable. 
 
 ```{r}
-
-top5 <- top5 %>% mutate(Country_name = as_factor(Country_name))
-top5 <- top5 %>% mutate(Country_name = fct_reorder(Country_name, Happiness_score))
+top5 <- top5 %>% 
+  mutate(Country_name = as_factor(Country_name),
+         Country_name = fct_reorder(Country_name, Happiness_score))
 
 ggplot(data = top5, 
        aes(x = Country_name, 
@@ -139,8 +139,8 @@ I then decided to make a plot of a few countries of interest. Since I again want
 
 
 Happiness <- Happiness %>%
-  mutate(Country_name = as_factor(Country_name)) %>%
-  mutate(Country_name = fct_reorder(Country_name, Happiness_score))
+  mutate(Country_name = as_factor(Country_name),
+         Country_name = fct_reorder(Country_name, Happiness_score))
 
 ```
 
@@ -229,17 +229,22 @@ There appears to be no significant difference according to the p-value for `Soci
 
 Disclaimer - this was intended to demonstrate how one might perform such an analysis. We are not claiming that there is a difference or is not a difference in social support or healthy life expectancy between the countries in these two regions. 
 
+```{r}
+sessionInfo()
+```
+
 ## How this might get evaluated
 According to the guidelines: 
 
-1. The student described where the data came from including how the instructor could access the data. 
-2. The student described information about the data (what the variables mean) and how the data was originally created. 
-3. The student performed more than 3 data wrangling methods described in the course, such as arranging data, filtering data, renaming variables, and creating a new variable (`rank`). 
-4. The student described what steps they did to wrangle the data and why. 
-5. The student made two different kinds of visualizations (scatter/point and boxplot). 
-6. The student performed a simple analysis on the data to compare two regions with a t-test.  
-7. The student provided some interpretation of the results.
-8. The student made sure that the document knit to create an html file.
+1. The student described **where** the data came from including how the instructor could access the data. (0.5 / 0.5 points)
+2. The student described information about the data (what the variables mean) and how the data was originally created. (0.5 / 0.5 points)
+3. The student performed more than 3 data wrangling methods described in the course, such as arranging data, filtering data, renaming variables, and creating a new variable (`rank`). (3 / 3 points)
+4. The student described what steps they did to wrangle the data and why.  (0.5/ 0.5 points)
+5. The student made two different kinds of visualizations (scatter/point and boxplot). (2 / 2 points)
+6. The student performed a simple analysis on the data to compare two regions with a t-test.  (2 / 2  points)
+7. The student described the analysis and provided some interpretation of the results. (1 / 1 points)
+8. The student had `session_info()` print at the end of the analysis (0.5 / 0.5 points)
+9. The student made sure that the document knit to create an html file.
 Bonus: A function was also created, but this is not required.
 
-Thus student would get full points. The extra points from the bonus would not be used to account for less points for other aspects of the project, as the student fulfilled all the other aspects required.
+Thus student would get full points (10 out of 10). The extra points from the bonus would not be used to account for less points for other aspects of the project, as the student fulfilled all the other aspects required.
