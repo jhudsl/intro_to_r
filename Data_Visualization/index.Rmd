@@ -348,7 +348,7 @@ head(Orange, 3)
 
 If specifying position - use: "top", "bottom", "right", "left", "none"
 
-```{r, fig.width=4, fig.height=3, fig.align='center'}
+```{r, fig.width=3.5, fig.height=2.5, fig.align='center'}
 ggplot(Orange, aes(x = Tree, y = circumference, fill = Tree)) + 
   geom_boxplot() +
   theme(legend.position = "none")

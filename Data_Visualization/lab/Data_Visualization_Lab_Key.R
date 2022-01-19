@@ -74,14 +74,29 @@ bike_agg_2
 
 
 ## -----------------------------------------------------------------------------
-ggplot(bike_agg_2, aes(x = dateInstalled, y = lane_count, group = type, color = type)) + 
+ggplot(bike_agg_2, aes(x = dateInstalled, 
+                       y = lane_count, 
+                       color = type)) + 
   geom_line() + 
   geom_point()
 
 
 ## -----------------------------------------------------------------------------
-ggplot(bike_agg_2, aes(x = dateInstalled, y = lane_count, group = type, color = type)) + 
+facet_plot <- ggplot(bike_agg_2, 
+                   aes(x = dateInstalled, 
+                       y = lane_count, 
+                       color = type)) + 
   geom_line() +
   geom_point() +
   facet_wrap(~ type, ncol = 3)
+
+facet_plot
+
+
+## -----------------------------------------------------------------------------
+facet_plot <- facet_plot +
+  theme(legend.position = "none") +
+  labs(x = "Number of bike lanes",
+       y = "Date bike lane was installed")
+facet_plot
 
