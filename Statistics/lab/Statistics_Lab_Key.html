@@ -171,42 +171,28 @@ pre code {
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
 <ol style="list-style-type: decimal">
-<li>Load the libraries needed in this lab. Read in the following child mortality data using <code>read_mortality()</code> function from <code>jhur</code> package. Assign it to <code>mort</code> variable. Change its first column name <code>X1</code> into <code>country</code></li>
+<li>Load the libraries needed in this lab. Then, read in the following child mortality data using <code>read_mortality()</code> function from <code>jhur</code> package. Assign it to the “mort” variable. Change its first column name from <code>...1</code> into <code>country</code>. You can also find the data here: <a href="https://jhudatascience.org/intro_to_R_class/data/mortality.csv" class="uri">https://jhudatascience.org/intro_to_R_class/data/mortality.csv</a></li>
 </ol>
-<p><a href="https://jhudatascience.org/intro_to_R_class/data/mortality.csv" class="uri">https://jhudatascience.org/intro_to_R_class/data/mortality.csv</a></p>
-<pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
-<pre><code>## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
-## ✓ tibble  3.1.1     ✓ dplyr   1.0.5
-## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
-## ✓ readr   1.4.0     ✓ forcats 0.5.1</code></pre>
-<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>library(broom)
+<pre class="r"><code>library(dplyr)
 library(jhur)
-library(psych)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;psych&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:ggplot2&#39;:
-## 
-##     %+%, alpha</code></pre>
-<pre class="r"><code>mort = read_mortality()</code></pre>
-<pre><code>## Warning: Missing column names filled in: &#39;X1&#39; [1]</code></pre>
-<pre><code>## 
-## ── Column specification ────────────────────────────────────────────────────────
-## cols(
-##   .default = col_double(),
-##   X1 = col_character()
-## )
-## ℹ Use `spec()` for the full column specifications.</code></pre>
-<pre class="r"><code>mort = mort %&gt;% 
-  rename(country = X1)</code></pre>
+library(broom)
+
+mort &lt;- read_mortality()
+
+mort &lt;- mort %&gt;% 
+  rename(country = `...1`)</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Compute the correlation between the <code>1980</code>, <code>1990</code>, <code>2000</code>, and <code>2010</code> mortality variables. (No need to save this in an object. Just display the result to the screen.)</li>
+<li>Compute the correlation between the <code>2006</code> and <code>2007</code> mortality variables. (No need to save this in an object. Just display the result to the screen.) Use the <code>pull()</code> function to first extract these columns. To use a column name in <code>pull()</code> that starts with a number, surround it with backticks (`). Then, use the <code>cor</code> function.</li>
 </ol>
-<p>Hint: you can use <code>select()</code> function to first subset the data frame to keep the four columns only. Hint 2: to use column name in <code>select()</code> that starts with a number, surround it with back quotes.</p>
-<pre class="r"><code>mort_sub = 
+<pre class="r"><code>x &lt;- pull(mort, `2006`)
+y &lt;- pull(mort, `2007`)
+
+cor(x, y)</code></pre>
+<pre><code>## [1] 0.9995124</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Compute the correlation between the <code>1980</code>, <code>1990</code>, <code>2000</code>, and <code>2010</code> mortality variables. (No need to save this in an object. Just display the result to the screen.) Use <code>select()</code> function to first subset the data frame to keep the four columns only. To use a column name in <code>select()</code> that starts with a number, surround it with backticks (`).</li>
+</ol>
+<pre class="r"><code>mort_sub &lt;- 
   mort %&gt;% 
   select(`1980`, `1990`, `2000`, `2010`)
 
@@ -222,52 +208,92 @@ cor(mort_sub)</code></pre>
 ## 1990 0.9596846 1.0000000 0.9610269 0.9247192
 ## 2000 0.8877433 0.9610269 1.0000000 0.9862345
 ## 2010 0.8468284 0.9247192 0.9862345 1.0000000</code></pre>
-<pre class="r"><code># alternatively
-mort_sub = mort[, c(&quot;1980&quot;, &quot;1990&quot;, &quot;2000&quot;, &quot;2010&quot;)]
-cor(mort_sub, use = &quot;complete.obs&quot;)</code></pre>
-<pre><code>##           1980      1990      2000      2010
-## 1980 1.0000000 0.9596846 0.8877433 0.8468284
-## 1990 0.9596846 1.0000000 0.9610269 0.9247192
-## 2000 0.8877433 0.9610269 1.0000000 0.9862345
-## 2010 0.8468284 0.9247192 0.9862345 1.0000000</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>BONUS. Compute the correlation between the <code>Myanmar</code>, <code>China</code>, and <code>United States</code> mortality data over the years.</li>
-</ol>
-<p>Note: column names are in 1st column of <code>mort</code> data frame.</p>
-<pre class="r"><code># make data frame that has data from the three countries only
-mort_sub_contry = mort %&gt;% 
-  filter(country %in% c( &quot;China&quot;, &quot;Myanmar&quot;, &quot;United States&quot;)) 
-
-# remove country column
-mortality_only &lt;- 
-  mort_sub_contry %&gt;%
-  select(!country)
-
-# transpose and rename 
-mortality_only_transposed &lt;- as.data.frame(t(mortality_only))
-colnames(mortality_only_transposed) &lt;- c( &quot;China&quot;, &quot;Myanmar&quot;, &quot;United States&quot;)
-
-# compute correlation matrix
-country_cor &lt;- cor(mortality_only_transposed, use = &quot;complete.obs&quot;)
-country_cor</code></pre>
-<pre><code>##                   China   Myanmar United States
-## China         1.0000000 0.9743646     0.6909263
-## Myanmar       0.9743646 1.0000000     0.6292625
-## United States 0.6909263 0.6292625     1.0000000</code></pre>
 </div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
-<ol style="list-style-type: decimal">
-<li>Read in the Kaggle cars auction dataset from “<a href="http://jhudatascience.org/intro_to_R_class/data/kaggleCarAuction.csv" class="uri">http://jhudatascience.org/intro_to_R_class/data/kaggleCarAuction.csv</a>” with the argument <code>col_types = cols(VehBCost = col_double())</code>:</li>
+<ol start="4" style="list-style-type: decimal">
+<li>Perform a t-test to determine if there is evidence of a difference between child mortality in <code>1987</code> versus <code>2007</code>. Use the <code>pull()</code> function to extract these columns. Print the results using the <code>tidy</code> function.</li>
 </ol>
-<pre class="r"><code>cars = read_csv(&quot;http://jhudatascience.org/intro_to_R_class/data/kaggleCarAuction.csv&quot;,
-                col_types = cols(VehBCost = col_double()))</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Fit a linear regression model with vehicle cost (<code>VehBCost</code>) as the outcome and vehicle age (<code>VehicleAge</code>) and whether it’s an online sale (<code>IsOnlineSale</code>) as predictors.</li>
+<pre class="r"><code>x &lt;- pull(mort, `1987`)
+y &lt;- pull(mort, `2007`)
+
+t.test(x, y)</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  x and y
+## t = 4.8283, df = 348.16, p-value = 2.065e-06
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  0.1991780 0.4729767
+## sample estimates:
+## mean of x mean of y 
+## 0.7700633 0.4339860</code></pre>
+<pre class="r"><code>tidy( t.test(x, y) )</code></pre>
+<pre><code>## # A tibble: 1 x 10
+##   estimate estimate1 estimate2 statistic    p.value parameter conf.low conf.high
+##      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+## 1    0.336     0.770     0.434      4.83 0.00000207      348.    0.199     0.473
+## # … with 2 more variables: method &lt;chr&gt;, alternative &lt;chr&gt;</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Perform a t-test to determine if there is evidence of a difference between child mortality in <code>2006</code> versus <code>2007</code>. Use the <code>pull()</code> function to extract these columns. Print the results using the <code>tidy</code> function. How do these results compare to those in #4?</li>
 </ol>
-<p>Save the model fit in an object called <code>lmfit_cars</code> and display the summary table.</p>
-<pre class="r"><code>lmfit_cars = lm(VehBCost ~ VehicleAge + IsOnlineSale, data = cars)
+<pre class="r"><code>x &lt;- pull(mort, `2006`)
+y &lt;- pull(mort, `2007`)
+
+t.test(x, y)</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  x and y
+## t = 0.30527, df = 391.32, p-value = 0.7603
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.09485069  0.12972006
+## sample estimates:
+## mean of x mean of y 
+## 0.4514207 0.4339860</code></pre>
+<pre class="r"><code>tidy( t.test(x, y) )</code></pre>
+<pre><code>## # A tibble: 1 x 10
+##   estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high
+##      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+## 1   0.0174     0.451     0.434     0.305   0.760      391.  -0.0949     0.130
+## # … with 2 more variables: method &lt;chr&gt;, alternative &lt;chr&gt;</code></pre>
+</div>
+<div id="part-3" class="section level1">
+<h1>Part 3</h1>
+<ol start="6" style="list-style-type: decimal">
+<li>Read in the Kaggle cars auction dataset using <code>read_kaggle()</code> from the <code>jhur</code> package. Assign it to the “cars” variable. You can also find the data here: <a href="http://jhudatascience.org/intro_to_R_class/data/kaggleCarAuction.csv" class="uri">http://jhudatascience.org/intro_to_R_class/data/kaggleCarAuction.csv</a>.</li>
+</ol>
+<pre class="r"><code>cars &lt;- read_kaggle()</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>Fit a linear regression model with vehicle cost (“VehBCost”) as the outcome and whether it’s an online sale (“IsOnlineSale”) as the predictor. Save the model fit in an object called “lmfit_cars” and display the summary table.</li>
+</ol>
+<pre class="r"><code>lmfit_cars &lt;- lm(VehBCost ~ IsOnlineSale, data = cars)
 summary(lmfit_cars)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = VehBCost ~ IsOnlineSale, data = cars)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+##  -6720  -1296    -21   1179  38748 
+## 
+## Coefficients:
+##              Estimate Std. Error  t value Pr(&gt;|t|)    
+## (Intercept)  6721.220      6.624 1014.622   &lt;2e-16 ***
+## IsOnlineSale  384.260     41.664    9.223   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1767 on 72981 degrees of freedom
+## Multiple R-squared:  0.001164,   Adjusted R-squared:  0.00115 
+## F-statistic: 85.06 on 1 and 72981 DF,  p-value: &lt; 2.2e-16</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li>Fit a linear regression model with vehicle cost (“VehBCost”) as the outcome and vehicle age (“VehicleAge”) and whether it’s an online sale (“IsOnlineSale”) as predictors. Save the model fit in an object called “lmfit_cars_2” and display the summary table.</li>
+</ol>
+<pre class="r"><code>lmfit_cars_2 &lt;- lm(VehBCost ~ VehicleAge + IsOnlineSale, data = cars)
+summary(lmfit_cars_2)</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = VehBCost ~ VehicleAge + IsOnlineSale, data = cars)
@@ -287,14 +313,15 @@ summary(lmfit_cars)</code></pre>
 ## Residual standard error: 1679 on 72980 degrees of freedom
 ## Multiple R-squared:  0.09825,    Adjusted R-squared:  0.09822 
 ## F-statistic:  3976 on 2 and 72980 DF,  p-value: &lt; 2.2e-16</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Fit a linear regression model with vehicle cost (<code>VehBCost</code>) as the outcome predictors:<br />
-vehicle age (<code>VehicleAge</code>), whether it’s an online sale (<code>IsOnlineSale</code>), and interaction between <code>VehicleAge</code> and <code>IsOnlineSale</code>.</li>
+<ol start="9" style="list-style-type: decimal">
+<li>Fit a linear regression model with vehicle cost (“VehBCost”) as the outcome with predictors: (1) vehicle age (“VehicleAge”), (2) whether it’s an online sale (“IsOnlineSale”), and interaction between “VehicleAge” and “IsOnlineSale”.</li>
 </ol>
-<p>To specify interaction, use <code>VehicleAge * IsOnlineSale</code> in the formula.</p>
-<p>Save the model fit in an object called <code>lmfit_cars_2</code> and display the summary table.</p>
-<pre class="r"><code>lmfit_cars_2 = lm(VehBCost ~ VehicleAge * IsOnlineSale, data = cars)
-summary(lmfit_cars_2)</code></pre>
+<ul>
+<li>To include the interaction, use <code>VehicleAge * IsOnlineSale</code> in the formula.</li>
+<li>Save the model fit in an object called “lmfit_cars_3” and display the summary table.</li>
+</ul>
+<pre class="r"><code>lmfit_cars_3 &lt;- lm(VehBCost ~ VehicleAge * IsOnlineSale, data = cars)
+summary(lmfit_cars_3)</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = VehBCost ~ VehicleAge * IsOnlineSale, data = cars)
@@ -315,15 +342,13 @@ summary(lmfit_cars_2)</code></pre>
 ## Residual standard error: 1679 on 72979 degrees of freedom
 ## Multiple R-squared:  0.0983, Adjusted R-squared:  0.09827 
 ## F-statistic:  2652 on 3 and 72979 DF,  p-value: &lt; 2.2e-16</code></pre>
-</div>
-<div id="part-3" class="section level1">
-<h1>Part 3</h1>
-<ol style="list-style-type: decimal">
-<li>Fit a logistic regression model where the outcome is “bad buy” status and predictors are the cost (<code>VehBCost</code>) and vehicle age (<code>VehicleAge</code>).</li>
+<ol start="10" style="list-style-type: decimal">
+<li>Fit a logistic regression model where the outcome is “bad buy” (“IsBadBuy”) status and predictors are the cost (“VehBCost”) and vehicle age (“VehicleAge”).</li>
 </ol>
-<p>Save the model fit in an object called <code>logfit_cars</code> and display the summary table.</p>
-<p>Use <code>summary()</code> or <code>tidy(logfit_cars, conf.int = TRUE, exponentiate = TRUE)</code> or <code>tidy(logfit_cars, conf.int = TRUE, exponentiate = FALSE)</code> for log odds ratios.</p>
-<pre class="r"><code>logfit_cars = glm(IsBadBuy ~ VehBCost + VehicleAge, data = cars, family = binomial())
+<ul>
+<li>Save the model fit in an object called “logfit_cars” and display the summary table.</li>
+</ul>
+<pre class="r"><code>logfit_cars &lt;- glm(IsBadBuy ~ VehBCost + VehicleAge, data = cars, family = binomial())
 summary(logfit_cars)</code></pre>
 <pre><code>## 
 ## Call:
@@ -349,72 +374,6 @@ summary(logfit_cars)</code></pre>
 ## AIC: 52270
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
-<pre class="r"><code>tidy(logfit_cars, conf.int = TRUE, exponentiate = TRUE)</code></pre>
-<pre><code>## # A tibble: 3 x 7
-##   term        estimate  std.error statistic   p.value conf.low conf.high
-##   &lt;chr&gt;          &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-## 1 (Intercept)   0.0801 0.0638         -39.6 0           0.0707    0.0907
-## 2 VehBCost      1.00   0.00000688     -13.2 6.73e- 40   1.00      1.00  
-## 3 VehicleAge    1.29   0.00687         37.4 2.97e-306   1.28      1.31</code></pre>
-<pre class="r"><code>tidy(logfit_cars, conf.int = TRUE, exponentiate = FALSE)</code></pre>
-<pre><code>## # A tibble: 3 x 7
-##   term          estimate  std.error statistic   p.value  conf.low  conf.high
-##   &lt;chr&gt;            &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
-## 1 (Intercept) -2.52      0.0638         -39.6 0         -2.65     -2.40     
-## 2 VehBCost    -0.0000909 0.00000688     -13.2 6.73e- 40 -0.000104 -0.0000775
-## 3 VehicleAge   0.257     0.00687         37.4 2.97e-306  0.243     0.270</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Randomly sample <code>10,000</code> observations (rows) with replacement from the <code>cars</code> dataset and store this new dataset in an object called <code>cars_subsample</code>. Hint: <code>sample_n</code> function</li>
-</ol>
-<pre class="r"><code>set.seed(1)
-cars_subsample = cars %&gt;% 
-  sample_n(size = 10000)</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Fit the same logistic regression model as in problem 1. above with this sample and display the summary. Call this model <code>logfit_cars_sub</code>.</li>
-</ol>
-<p>How do the results compare?</p>
-<pre class="r"><code>logfit_cars_sub = glm(IsBadBuy ~ VehBCost + VehicleAge, data = cars_subsample, 
-                      family = binomial())
-
-summary(logfit_cars_sub)</code></pre>
-<pre><code>## 
-## Call:
-## glm(formula = IsBadBuy ~ VehBCost + VehicleAge, family = binomial(), 
-##     data = cars_subsample)
-## 
-## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -0.9709  -0.5335  -0.4462  -0.3675   2.7130  
-## 
-## Coefficients:
-##               Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept) -2.569e+00  1.757e-01 -14.622  &lt; 2e-16 ***
-## VehBCost    -8.753e-05  1.890e-05  -4.631 3.64e-06 ***
-## VehicleAge   2.534e-01  1.876e-02  13.504  &lt; 2e-16 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## (Dispersion parameter for binomial family taken to be 1)
-## 
-##     Null deviance: 7318.6  on 9999  degrees of freedom
-## Residual deviance: 7034.8  on 9997  degrees of freedom
-## AIC: 7040.8
-## 
-## Number of Fisher Scoring iterations: 5</code></pre>
-<pre class="r"><code>tidy(logfit_cars_sub, conf.int = TRUE, exponentiate = TRUE)</code></pre>
-<pre><code>## # A tibble: 3 x 7
-##   term        estimate std.error statistic  p.value conf.low conf.high
-##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-## 1 (Intercept)   0.0766 0.176        -14.6  2.03e-48   0.0543     0.108
-## 2 VehBCost      1.00   0.0000189     -4.63 3.64e- 6   1.00       1.00 
-## 3 VehicleAge    1.29   0.0188        13.5  1.49e-41   1.24       1.34</code></pre>
-<pre class="r"><code>tidy(logfit_cars, conf.int = TRUE, exponentiate = FALSE)</code></pre>
-<pre><code>## # A tibble: 3 x 7
-##   term          estimate  std.error statistic   p.value  conf.low  conf.high
-##   &lt;chr&gt;            &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
-## 1 (Intercept) -2.52      0.0638         -39.6 0         -2.65     -2.40     
-## 2 VehBCost    -0.0000909 0.00000688     -13.2 6.73e- 40 -0.000104 -0.0000775
-## 3 VehicleAge   0.257     0.00687         37.4 2.97e-306  0.243     0.270</code></pre>
 </div>
 
 

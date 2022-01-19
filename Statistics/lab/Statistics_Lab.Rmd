@@ -11,125 +11,75 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Part 1
 
-1. Load the libraries needed in this lab. Read in the following child mortality data using `read_mortality()` function from `jhur` package. Assign it to `mort` variable. Change its first column name `X1` into `country`
+1. Load the libraries needed in this lab. Then, read in the following child mortality data using `read_mortality()` function from `jhur` package. Assign it to the "mort" variable. Change its first column name from `...1` into `country`. You can also find the data here: https://jhudatascience.org/intro_to_R_class/data/mortality.csv
 
-https://jhudatascience.org/intro_to_R_class/data/mortality.csv
-```{r}
-library(tidyverse)
-library(broom)
+```{r message = FALSE}
+library(dplyr)
 library(jhur)
-library(psych)
+library(broom)
 
-mort = read_mortality()
 
-# mort = mort %>% 
-#   rename(???<new_name> = ???<old_name>)
 ```
 
-2. Compute the correlation between the `1980`, `1990`, `2000`, and `2010` mortality variables.
-(No need to save this in an object. Just display the result to the screen.) 
-
-Hint: you can use `select()` function to first subset the data frame to keep the four columns only. Hint 2: to use column name in `select()` that starts with a number, surround it with back quotes. 
+2. Compute the correlation between the `2006` and `2007` mortality variables. (No need to save this in an object. Just display the result to the screen.) Use the `pull()` function to first extract these columns. To use a column name in `pull()` that starts with a number, surround it with backticks (\`). Then, use the `cor` function.
 
 ```{r}
-# mort_sub = 
-#   mort %>% 
-#   ???
 
-# cor(???)
-# cor(???, use = ???)
 ```
 
-3. BONUS. Compute the correlation between the `Myanmar`, `China`, and `United States` mortality data over the years. 
-
-Note: column names are in 1st column of `mort` data frame.
+3. Compute the correlation between the `1980`, `1990`, `2000`, and `2010` mortality variables. (No need to save this in an object. Just display the result to the screen.) Use `select()` function to first subset the data frame to keep the four columns only. To use a column name in `select()` that starts with a number, surround it with backticks (\`). 
 
 ```{r}
-# make data frame that has data from the three countries only
-# mort_sub_contry = mort %>% 
-#   filter(??? %in% ???) 
 
-# remove country column
-# mortality_only <- 
-#   mort_sub_contry %>%
-#   select(???)
-
-# transpose and rename 
-# mortality_only_transposed <- as.data.frame(t(mortality_only))
-# colnames(mortality_only_transposed) <- c( "China", "Myanmar", "United States")
-
-# compute correlation matrix
-# country_cor <- cor(???, use = ???)
-# country_cor
 ```
 
 # Part 2
 
-1. Read in the Kaggle cars auction dataset from "http://jhudatascience.org/intro_to_R_class/data/kaggleCarAuction.csv" with the argument `col_types = cols(VehBCost = col_double())`:
+4. Perform a t-test to determine if there is evidence of a difference between child mortality in `1987` versus `2007`. Use the `pull()` function to extract these columns. Print the results using the `tidy` function. 
 
 ```{r}
-cars = read_csv("http://jhudatascience.org/intro_to_R_class/data/kaggleCarAuction.csv",
-                col_types = cols(VehBCost = col_double()))
 
 ```
 
-2. Fit a linear regression model with vehicle cost (`VehBCost`) as the outcome and 
-vehicle age (`VehicleAge`) and whether it's an online sale (`IsOnlineSale`) as predictors.  
-
-Save the model fit in an object called `lmfit_cars` and display the summary table.
+5. Perform a t-test to determine if there is evidence of a difference between child mortality in `2006` versus `2007`. Use the `pull()` function to extract these columns. Print the results using the `tidy` function. How do these results compare to those in #4?
 
 ```{r}
-# lmfit_cars = lm(???, data = ???)
-# summary(???)
+
 ```
-
-3. Fit a linear regression model with vehicle cost (`VehBCost`) as the outcome predictors:  
-vehicle age (`VehicleAge`), whether it's an online sale (`IsOnlineSale`), and interaction between `VehicleAge` and `IsOnlineSale`.
-
-To specify interaction, use `VehicleAge * IsOnlineSale` in the formula. 
-
-Save the model fit in an object called `lmfit_cars_2` and display the summary table.
-
-```{r}
-# lmfit_cars_2 = lm(???, data = ???)
-# summary(???)
-```
-
 
 # Part 3
 
-1. Fit a logistic regression model where the outcome is "bad buy" status and predictors are the cost (`VehBCost`) and vehicle age (`VehicleAge`).
-
-Save the model fit in an object called `logfit_cars` and display the summary table.
-
-Use `summary()` or `tidy(logfit_cars, conf.int = TRUE, exponentiate = TRUE)`
-or `tidy(logfit_cars, conf.int = TRUE, exponentiate = FALSE)` for log odds ratios.  
+6. Read in the Kaggle cars auction dataset using `read_kaggle()` from the `jhur` package.  Assign it to the "cars" variable. You can also find the data here:  http://jhudatascience.org/intro_to_R_class/data/kaggleCarAuction.csv.
 
 ```{r}
-# logfit_cars = glm(???, data = ???, family = ???)
-# summary(???)
 
-# tidy(???, conf.int = TRUE, exponentiate = TRUE)
-# tidy(???, conf.int = TRUE, exponentiate = FALSE)
 ```
 
-2. Randomly sample `10,000` observations (rows) with replacement from the `cars` dataset and store this new dataset in an object called `cars_subsample`.  Hint: `sample_n` function
+7. Fit a linear regression model with vehicle cost ("VehBCost") as the outcome and whether it's an online sale ("IsOnlineSale") as the predictor. Save the model fit in an object called "lmfit_cars" and display the summary table.
 
 ```{r}
-set.seed(1)
-cars_subsample = cars %>% 
-  sample_n(size = 10000)
+
 ```
 
-3. Fit the same logistic regression model as in problem 1. above  with this sample and display the summary. Call this model `logfit_cars_sub`. 
-
-How do the results compare?  
+8. Fit a linear regression model with vehicle cost ("VehBCost") as the outcome and vehicle age ("VehicleAge") and whether it's an online sale ("IsOnlineSale") as predictors.  Save the model fit in an object called "lmfit_cars_2" and display the summary table.
 
 ```{r}
-# logfit_cars_sub = glm(???, data = ???, 
-#                       family = ???)
 
-# summary(???)
-# tidy(???, conf.int = TRUE, exponentiate = TRUE)
-# tidy(???, conf.int = TRUE, exponentiate = FALSE)
+```
+
+9. Fit a linear regression model with vehicle cost ("VehBCost") as the outcome with predictors: (1) vehicle age ("VehicleAge"), (2) whether it's an online sale ("IsOnlineSale"), and interaction between "VehicleAge" and "IsOnlineSale".
+
+- To include the interaction, use `VehicleAge * IsOnlineSale` in the formula. 
+- Save the model fit in an object called "lmfit_cars_3" and display the summary table.
+
+```{r}
+
+```
+
+10. Fit a logistic regression model where the outcome is "bad buy" ("IsBadBuy") status and predictors are the cost ("VehBCost") and vehicle age ("VehicleAge").
+
+- Save the model fit in an object called "logfit_cars" and display the summary table.
+
+```{r}
+
 ```

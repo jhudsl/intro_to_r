@@ -22,15 +22,15 @@ library(tidyverse)
 
 **Day/Time:** Jan 10 - 21: 8:30AM-11:50AM on Zoom
 
-**Instructors:** Carrie Wright (cwrigh60@jhu.edu), Ava Hoffman (ava.hoffman@jhu.edu), and Candace Savonen (csavone1@jhu.edu) 
+**Instructors:** Carrie Wright (cwrigh60@jhu.edu), Ava Hoffman (ava.hoffman@jhu.edu), and Candace Savonen (csavone1@jhu.edu)
 
 **TAs:**  Grant Schumock (gschumo1@jhmi.edu) and Qier Meng(qmeng11@jhmi.edu)
 
 **Communication will mainly occur through Slack and we will email you about how to connect to slack.**
 
 **Overview:** This course will provide **"hands-on" training** for learning how to analyze data in the R statistical software package. We will cover data input/output, data management and manipulation, and how to make useful and informative graphics
- 
-**Course Format:** Each class will consist of 2 or 3 hour-long modules: each module features a lecture and an R programming lab, where students apply the skills taught in the modules to real data. 
+
+**Course Format:** Each class will consist of 2 or 3 hour-long modules: each module features a lecture and an R programming lab, where students apply the skills taught in the modules to real data.
 
 By the end of the course, students should be comfortable:
 
@@ -55,6 +55,7 @@ By the end of the course, students should be comfortable:
 | 10:50am - 11:50am | Session 3 |
 
 ```{r, child="_child_schedule.Rmd"}
+
 ```
 
 ```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
@@ -85,14 +86,13 @@ pander::pandoc.table(
 ## [Day 1](https://jhudatascience.org/intro_to_R_class/Syllabus/module_details/day1.html)
 
 - Introduction 
-- RStudio 
-- Reproducible Research 
-
+- RStudio
+- Reproducible Research
 
 ## [Day 2](https://jhudatascience.org/intro_to_R_class/Syllabus/module_details/day2.html)
 
 - Basic R: Variables/Objects in R
-- Data Input/Output 
+- Data Input/Output
 
 
 ## [Day 3](https://jhudatascience.org/intro_to_R_class/Syllabus/module_details/day3.html)
@@ -103,7 +103,7 @@ pander::pandoc.table(
 
 ## [Day 4](https://jhudatascience.org/intro_to_R_class/Syllabus/module_details/day4.html)
 
-- Summarization 
+- Summarization
 - Data Classes
 
 
@@ -117,11 +117,12 @@ pander::pandoc.table(
 ## [Day 6](https://jhudatascience.org/intro_to_R_class/Syllabus/module_details/day6.html)
 
 - Data Manipulation
+- Data Visualization with Esquisse
 
 
 ## [Day 7](https://jhudatascience.org/intro_to_R_class/Syllabus/module_details/day7.html)
 
-- Data Visualization
+- Data Visualization Continued
 - Factors
 
 ## [Day 8](https://jhudatascience.org/intro_to_R_class/Syllabus/module_details/day8.html)
@@ -134,4 +135,3 @@ pander::pandoc.table(
 
 - Functions
 - Work on Final Project
-
