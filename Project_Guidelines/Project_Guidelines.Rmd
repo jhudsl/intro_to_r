@@ -23,7 +23,7 @@ You are not limited to these options for finding your data.
 
 2) Please **describe** what your data looks like and **where** you got it. Identify what the variables and samples are. Describe how the data was originally created. 
 
-(1 points total - 0.5 points for describing data, 0.5 points for describing where you got your data)
+(.5 points total - 0.25 points for describing data, 0.25 points for describing where you got your data)
 
 3) Perform at least **three** **different** data subsetting, cleaning, or manipulation methods that were described in this course on your data. Examples are: renaming the columns, recoding values, reshaping the data, filtering the data etc. 
 
@@ -31,11 +31,11 @@ You are not limited to these options for finding your data.
 
 4) Please **describe**  what you did to clean/subset/wrangle/manipulate your data and why. 
 
-(0.5 points)
+(1 point)
 
 5) Make **two** **different** kinds of visualizations of your data.
 
-(2 points total: 1 points if at least an attempt; 1 point for each of 2 **different** kinds of plots completed)
+(2 points total:  1 point for each of 2 **different** kinds of plots completed)
 
 6) Perform a **simple analysis** of your data. This can involve summarizing the data to describe aspects about it (quartiles, means, range etc.) or you may perform a simple statistical test. 
 
@@ -45,7 +45,9 @@ You are not limited to these options for finding your data.
 
 (1 point total - 0.5 points for describing analysis, 0.5 points for interpretation)
 
-8) Add `sessionInfo()` to the end of your analysis so that you and others can see what version of R and packages you used. (0.5 points)
+8) Add `sessionInfo()` to the end of your analysis so that you and others can see what version of R and packages you used. 
+
+(0.5 points)
 
 9) All steps and descriptions should be written in an RMarkdown file that is rendered to an html file. Code should be included in code chunks. Please make sure that your file knits properly to create an html file. Submit the Rmarkdown (.Rmd) file. 
 
@@ -54,3 +56,19 @@ Please see the project example on our website for an example project: Source cod
 Bonus: Create a function as part of your analysis. If you do this correctly, it can make up for lost points on other sections. (1.5 points)
 
 10 points total plus bonus
+
+
+Grading Rubric:
+
+| Item                                                                                         | Description                                                                                                                                                                                                                                 | points    |
+| -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
+| Describe Data Source                                                                         | Describe what your data looks like. Identify what the variables and samples are. Describe how the data was originally created.                                                                                                              | 0.25      |
+| Describe Data                                                                                | Describe where you got your data                                                                                                                                                                                                            | 0.25      |
+| Wrangling - cleaning, subsetting, manipulation (ex renaming, recoding, reshaping, filtering) | Perform at least three different methods                                                                                                                                                                                                    | 3         |
+| Describe wrangling and reason                                                                | Please describe what you did to clean/subset/wrangle/manipulate your data and why.                                                                                                                                                          | 1         |
+| Data Viz                                                                                     | Make 2 different kinds of plots                                                                                                                                                                                                             | 2         |
+| Data Analysis                                                                                | Perform a simple analysis of your data. This can involve summarizing the data to describe aspects about it (quartiles, means, range etc.) or you may perform a simple statistical test.                                                     | 2         |
+| Describe Analysis                                                                            | Describe what analysis you performed and why.                                                                                                                                                                                               | 0.5       |
+| Interpret Analysis                                                                           | Provide some simple interpretation about what your analysis might indicate about your data. You will not be graded based on the validity of your statistical interpretation, but rather the implementation and description of what you did. | 0.5       |
+| Session info                                                                                 | Need to have session info                                                                                                                                                                                                                   | 0.5       |
+| Bonus                                                                                        | Create a function as part of your analysis. If you do this correctly, it can make up for lost points on other sections. (1.5 points)                                                                                                        | 1.5 extra |
