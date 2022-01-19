@@ -188,7 +188,7 @@ pre code {
 <ol start="2" style="list-style-type: decimal">
 <li>Please <strong>describe</strong> what your data looks like and <strong>where</strong> you got it. Identify what the variables and samples are. Describe how the data was originally created.</li>
 </ol>
-<p>(0.25 points for describing data, 0.25 points for describing where you got your data)</p>
+<p>(.5 points total - 0.25 points for describing data, 0.25 points for describing where you got your data)</p>
 <ol start="3" style="list-style-type: decimal">
 <li>Perform at least <strong>three</strong> <strong>different</strong> data subsetting, cleaning, or manipulation methods that were described in this course on your data. Examples are: renaming the columns, recoding values, reshaping the data, filtering the data etc.</li>
 </ol>
@@ -196,11 +196,11 @@ pre code {
 <ol start="4" style="list-style-type: decimal">
 <li>Please <strong>describe</strong> what you did to clean/subset/wrangle/manipulate your data and why.</li>
 </ol>
-<p>(0.5 points)</p>
+<p>(1 point)</p>
 <ol start="5" style="list-style-type: decimal">
 <li>Make <strong>two</strong> <strong>different</strong> kinds of visualizations of your data.</li>
 </ol>
-<p>(1 points if at least an attempt; 1 point for each of 2 <strong>different</strong> kinds of plots completed)</p>
+<p>(2 points total: 1 point for each of 2 <strong>different</strong> kinds of plots completed)</p>
 <ol start="6" style="list-style-type: decimal">
 <li>Perform a <strong>simple analysis</strong> of your data. This can involve summarizing the data to describe aspects about it (quartiles, means, range etc.) or you may perform a simple statistical test.</li>
 </ol>
@@ -210,11 +210,82 @@ pre code {
 </ol>
 <p>(1 point total - 0.5 points for describing analysis, 0.5 points for interpretation)</p>
 <ol start="8" style="list-style-type: decimal">
+<li>Add <code>sessionInfo()</code> to the end of your analysis so that you and others can see what version of R and packages you used.</li>
+</ol>
+<p>(0.5 points)</p>
+<ol start="9" style="list-style-type: decimal">
 <li>All steps and descriptions should be written in an RMarkdown file that is rendered to an html file. Code should be included in code chunks. Please make sure that your file knits properly to create an html file. Submit the Rmarkdown (.Rmd) file.</li>
 </ol>
 <p>Please see the project example on our website for an example project: Source code <a href="ProjectExample/Final_Project_Example.Rmd">Rmd</a> and the output <a href="ProjectExample/Final_Project_Example.html">html</a>.</p>
 <p>Bonus: Create a function as part of your analysis. If you do this correctly, it can make up for lost points on other sections. (1.5 points)</p>
 <p>10 points total plus bonus</p>
+<p>Grading Rubric:</p>
+<table>
+<colgroup>
+<col width="27%" />
+<col width="69%" />
+<col width="2%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>Description</th>
+<th>points</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Describe Data Source</td>
+<td>Describe what your data looks like. Identify what the variables and samples are. Describe how the data was originally created.</td>
+<td>0.25</td>
+</tr>
+<tr class="even">
+<td>Describe Data</td>
+<td>Describe where you got your data</td>
+<td>0.25</td>
+</tr>
+<tr class="odd">
+<td>Wrangling - cleaning, subsetting, manipulation (ex renaming, recoding, reshaping, filtering)</td>
+<td>Perform at least three different methods</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>Describe wrangling and reason</td>
+<td>Please describe what you did to clean/subset/wrangle/manipulate your data and why.</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Data Viz</td>
+<td>Make 2 different kinds of plots</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>Data Analysis</td>
+<td>Perform a simple analysis of your data. This can involve summarizing the data to describe aspects about it (quartiles, means, range etc.) or you may perform a simple statistical test.</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>Describe Analysis</td>
+<td>Describe what analysis you performed and why.</td>
+<td>0.5</td>
+</tr>
+<tr class="even">
+<td>Interpret Analysis</td>
+<td>Provide some simple interpretation about what your analysis might indicate about your data. You will not be graded based on the validity of your statistical interpretation, but rather the implementation and description of what you did.</td>
+<td>0.5</td>
+</tr>
+<tr class="odd">
+<td>Session info</td>
+<td>Need to have session info</td>
+<td>0.5</td>
+</tr>
+<tr class="even">
+<td>Bonus</td>
+<td>Create a function as part of your analysis. If you do this correctly, it can make up for lost points on other sections. (1.5 points)</td>
+<td>1.5 extra</td>
+</tr>
+</tbody>
+</table>
 </div>
 
 
