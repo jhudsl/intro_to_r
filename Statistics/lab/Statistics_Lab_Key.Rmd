@@ -13,11 +13,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 1. Load the libraries needed in this lab. Then, read in the following child mortality data using `read_mortality()` function from `jhur` package. Assign it to the "mort" variable. Change its first column name from `...1` into `country`. You can also find the data here: https://jhudatascience.org/intro_to_R_class/data/mortality.csv
 
-```{r}
-# library(tidyverse)
-# library(broom)
+```{r message = FALSE}
+library(dplyr)
 library(jhur)
-# library(psych)
+library(broom)
 
 mort <- read_mortality()
 
@@ -101,7 +100,7 @@ summary(lmfit_cars_3)
 
 10. Fit a logistic regression model where the outcome is "bad buy" ("IsBadBuy") status and predictors are the cost ("VehBCost") and vehicle age ("VehicleAge").
 
-Save the model fit in an object called "logfit_cars" and display the summary table.
+- Save the model fit in an object called "logfit_cars" and display the summary table.
 
 ```{r}
 logfit_cars <- glm(IsBadBuy ~ VehBCost + VehicleAge, data = cars, family = binomial())
