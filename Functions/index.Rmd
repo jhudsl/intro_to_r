@@ -7,6 +7,13 @@ output:
     widescreen: yes
 ---
 
+```{r, echo = FALSE, message = FALSE}
+library(dplyr)
+library(jhur)
+library(knitr)
+opts_chunk$set(comment = "")
+```
+
 ## Writing your own functions
 
 So far we've seen many functions, like `c()`, `class()`, `filter()`, `dim()` ...
@@ -20,39 +27,39 @@ So far we've seen many functions, like `c()`, `class()`, `filter()`, `dim()` ...
 
 ## Writing your own functions
 
-Here we will write a function that returns the second element of a vector:
+Here we will write a function that multiplies some number (x) by 2:
 
-```{r return2a, comment=""}
-return2a = function(x) x[2]
+```{r comment=""}
+times_2 <- function(x) x * 2
 ```
 
 When you run the line of code above, you make it ready to use (no output yet!). Let's test it!
 
-```{r return2a2, comment=""}
-return2a(x = c(1,4,5,76))
+```{r comment=""}
+times_2(x = 10)
 ```
 
-## Writing your own functions
+## Writing your own functions: `{ }`
 
 Adding the curly brackets - `{}` - allows you to use functions spanning multiple lines:
 
-```{r return2b, comment=""}
-return2b = function(x) {
-  x[2]
+```{r comment=""}
+times_2 <- function(x) {
+  x * 2
 }
-return2b(x = c(1,4,5,76))
+times_2(x = 10)
 ```
 
-## Writing your own functions
+## Writing your own functions: `return`
 
 If we want something specific for the function's output, we use `return()`:
 
-```{r return2c, comment=""}
-return2c = function(x) {
-  output = x[2]
+```{r comment=""}
+times_2 <- function(x) {
+  output <- x * 2
   return(output)
 }
-return2c(x = c(1,4,5,76))
+times_2(x = 10)
 ```
 
 ## Writing your own functions
@@ -66,25 +73,25 @@ return(value)
 }
 ```
 
-## Writing your own functions
+## Writing your own functions: multiple inputs
 
-Functions can take multiple inputs. Maybe you want users to select which element to extract:
+Functions can take multiple inputs.
 
-```{r return_n, comment=""}
-return_n = function(x, n) x[n]
-return_n(x = c(1,4,5,76), n = 3)
+```{r comment=""}
+times_2_plus_y <- function(x, y) x * 2 + y
+times_2_plus_y(x = 10, y = 3)
 ```
 
-## Writing your own functions
+## Writing your own functions: defaults
 
 Functions can have "default" arguments. This lets us use the function without using an argument later.
 
-```{r return_n2, comment=""}
-return_n2 = function(x = c(1,2,3), n = 2) x[n]
-return_n2()
+```{r comment=""}
+times_2_plus_y <- function(x = 10, y = 3) x * 2 + y
+times_2_plus_y()
 ```
 
-## Writing a simple function
+## Writing another simple function
 
 Let's write a function, `sqdif`, that:
 
@@ -93,47 +100,74 @@ Let's write a function, `sqdif`, that:
 3. squares this difference
 4. then returns the final value 
 
-## Writing a simple function
+## Writing another simple function
 
 ```{r sqdif, comment=""}
-sqdif <- function(x=2,y=3) (x-y)^2
+sqdif <- function(x = 2, y = 3) (x - y) ^ 2
 
 sqdif()
-sqdif(x=10,y=5)
-sqdif(10,5)
+sqdif(x = 10, y = 5)
+sqdif(10, 5)
 ```
 
-## Writing your own functions
+## Functions for tibbles
 
-Try to write a function called `top()` that takes a `tibble`, and returns the first `n` rows and columns, with the default value of `n=5`.
+We can use `filter(row_number()==n)` to extract a row of a tibble.
 
-## Writing your own functions
+```{r message=FALSE}
+bike <- read_bike()
 
-Try to write a function called `top()` that takes a `tibble`, and returns the first `n` rows and columns
+get_row <- function(dat, row) dat %>% filter(row_number()==row)
 
-```{r top, message=FALSE}
-top = function(df, n=5) df[1:n, 1:n]
-bike = jhur::read_bike()
-```
-```{r, comment=""}
-top(bike) # Note that we are using the default value for n 
+get_row(dat = bike, row = 10)
 ```
 
-## Custom functions in `apply`
+## Functions for tibbles
+
+`select(n)` will choose column `n`.
+
+```{r message=FALSE}
+get_index <- function(dat, row, col){
+ dat %>% filter(row_number()==row) %>% select(col) 
+}
+
+get_index(dat = bike, row = 10, col = 8)
+```
+
+## Functions for tibbles
+
+Inlcuding default values for arguments:
+
+```{r message=FALSE}
+get_top <- function(dat, row = 1, col = 1){
+ dat %>% filter(row_number()==row) %>% select(col) 
+}
+
+get_top(dat = bike)
+```
+
+## Using your custom functions: `sapply()`
 
 You can also "apply" functions easily with `sapply()`.
 
 These functions take the form:
 
 ```
-sapply(???, some_function) # No parentheses on the function
+sapply(a vector or list, some_function) # No parentheses on the function!!
 ```
 
-## Custom functions in `apply`
+## Using your custom functions: `sapply()`
 
 ```{r sapply1, comment=""}
 sapply(bike, class)
-sapply(bike$length, log)
+sapply(pull(bike, length), log)
+```
+
+## Using your custom functions: `sapply()`
+
+```{r}
+bike %>% 
+  mutate(len_2_5 = sapply(pull(bike, length), times_2_plus_y))
 ```
 
 
