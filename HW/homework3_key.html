@@ -240,7 +240,7 @@ year &lt;- mort %&gt;% select( where(is.numeric) ) %&gt;% colnames()</code></pre
 pct_complete(mort)</code></pre>
 <pre><code>## [1] 66.95332</code></pre>
 <p><span style="color:red"> “mort” is 66.9533194 percent complete. </span></p>
-<p>6. Are there any countries that have a complete record in “mort” across all years? <strong>Hint:</strong> look for complete records by dropping all NAs from the dataset using <code>drop_na()</code>.</p>
+<p>6. Are there any countries that have a complete record in “mort” across all years? Just look at the putput here, don’t reassign it. <strong>Hint:</strong> look for complete records by dropping all NAs from the dataset using <code>drop_na()</code>.</p>
 <pre class="r"><code>drop_na(mort)</code></pre>
 <pre><code>## # A tibble: 2 x 255
 ##   country  `1760` `1761` `1762` `1763` `1764` `1765` `1766` `1767` `1768` `1769`
@@ -302,7 +302,7 @@ long &lt;-
 <pre class="r"><code>long_sub &lt;- long %&gt;% filter(year &gt;= 2000 &amp; year &lt;= 2010)
 long_sub %&gt;% pull(year) %&gt;% range() # confirm it worked </code></pre>
 <pre><code>## [1] &quot;2000&quot; &quot;2010&quot;</code></pre>
-<p>12. Further subset <code>long_sub</code>. You will filter for specific countries using <code>filter()</code> and the <code>%in%</code> operator. Only include countries in this list: <code>c(&quot;Venezuela&quot;, &quot;Bahrain&quot;, &quot;Estonia&quot;, &quot;Iran&quot;, &quot;Thailand&quot;, &quot;Canada&quot;)</code>.</p>
+<p>12. Further subset <code>long_sub</code>. You will filter for specific countries using <code>filter()</code> and the <code>%in%</code> operator. Only include countries in this list: <code>c(&quot;Venezuela&quot;, &quot;Bahrain&quot;, &quot;Estonia&quot;, &quot;Iran&quot;, &quot;Thailand&quot;, &quot;Canada&quot;)</code>. Make sure to reassign to “long_sub”.</p>
 <pre class="r"><code>long_sub &lt;- long_sub %&gt;% 
   filter(country %in% c(&quot;Venezuela&quot;, &quot;Bahrain&quot;, &quot;Estonia&quot;, &quot;Iran&quot;, &quot;Thailand&quot;, &quot;Canada&quot;))</code></pre>
 <p>13. Use <code>pivot_wider()</code> to turn the “year” column of “long_sub” into multiple columns, each representing a different year. Fill values (<code>values_from=</code>) with “mortality”. Assign this pivoted dataset the name “mort_sub”.</p>

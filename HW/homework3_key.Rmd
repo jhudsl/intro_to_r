@@ -62,7 +62,7 @@ pct_complete(mort)
 
 <span style="color:red"> "mort" is `r pct_complete(mort)` percent complete. </span>
 
-6\. Are there any countries that have a complete record in "mort" across all years? **Hint:** look for complete records by dropping all NAs from the dataset using `drop_na()`.
+6\. Are there any countries that have a complete record in "mort" across all years? Just look at the putput here, don't reassign it. **Hint:** look for complete records by dropping all NAs from the dataset using `drop_na()`.
 
 ```{r}
 drop_na(mort)
@@ -116,7 +116,7 @@ long_sub <- long %>% filter(year >= 2000 & year <= 2010)
 long_sub %>% pull(year) %>% range() # confirm it worked 
 ```
 
-12\. Further subset `long_sub`. You will filter for specific countries using `filter()` and the `%in%` operator. Only include countries in this list: `c("Venezuela", "Bahrain", "Estonia", "Iran", "Thailand", "Canada")`. 
+12\. Further subset `long_sub`. You will filter for specific countries using `filter()` and the `%in%` operator. Only include countries in this list: `c("Venezuela", "Bahrain", "Estonia", "Iran", "Thailand", "Canada")`. Make sure to reassign to "long_sub".
 
 ```{r}
 long_sub <- long_sub %>% 
