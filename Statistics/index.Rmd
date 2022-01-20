@@ -219,6 +219,8 @@ where:
 * $x_i$ is the predictor for person i
 * $\varepsilon_i$ is the residual variation for person i
 
+## Linear regression
+
 ```{r,echo=FALSE}
 coefs=lm(data=iris,Petal.Width~Petal.Length) %>%  coef
 
@@ -236,8 +238,6 @@ print(ggplot(data=iris,aes(x=Petal.Length,y=Petal.Width))+geom_point()+geom_line
     theme(legend.position="none",text=element_text(size=20)))
 
 ```
-
-
 
 ## Linear regression
 
