@@ -232,7 +232,7 @@ print(ggplot(data=iris,aes(x=Petal.Length,y=Petal.Width))+geom_point()+geom_line
     geom_line(data=riserun_df,aes(x=x,y=y,color="orange",size=1.4))+
     geom_line(data=residual_df,aes(x=x,y=y,color="blue",size=1.4))+
     geom_label(data=labels_df,aes(x=x,y=y,label=labels,size=2),parse=TRUE)+
-    theme_bw()+ylab(expression(y[i]))+xlab(expression(x[i]))+
+    theme_bw()+ylab(expression(y))+xlab(expression(x))+
     theme(legend.position="none",text=element_text(size=20)))
 
 ```
