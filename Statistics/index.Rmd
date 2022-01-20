@@ -219,6 +219,26 @@ where:
 * $x_i$ is the predictor for person i
 * $\varepsilon_i$ is the residual variation for person i
 
+```{r,echo=FALSE}
+coefs=lm(data=iris,Petal.Width~Petal.Length) %>%  coef
+
+line_df=data.frame(x=c(0,7),y=c(coefs[1],(coefs[2]*7+coefs[1])))
+riserun_df=data.frame(x=c(2.1,2.9,2.9),y=c((coefs[1]+coefs[2]*2.1),(coefs[1]+coefs[2]*2.1),(coefs[1]+coefs[2]*2.9)))
+residual_df=data.frame(x=c(3,3),y=c(1.1,(coefs[1]+coefs[2]*3)))
+labels_df=data.frame(x=c(0.5,3.2,2.7),y=c(coefs[1],0.65,1),labels=c("alpha","beta","epsilon[i]"))   
+ 
+print(ggplot(data=iris,aes(x=Petal.Length,y=Petal.Width))+geom_point()+geom_line(data=line_df,aes(x=x,y=y))+
+    geom_point(data=line_df[1,],aes(x=x,y=y,color="red",size=1.5))+
+    geom_line(data=riserun_df,aes(x=x,y=y,color="orange",size=1.4))+
+    geom_line(data=residual_df,aes(x=x,y=y,color="blue",size=1.4))+
+    geom_label(data=labels_df,aes(x=x,y=y,label=labels,size=2),parse=TRUE)+
+    theme_bw()+ylab(expression(y[i]))+xlab(expression(x[i]))+
+    theme(legend.position="none",text=element_text(size=20)))
+
+```
+
+
+
 ## Linear regression
 
 Linear regression is a method to model the relationship between a response and one or more explanatory variables. 
