@@ -277,7 +277,7 @@ sqdif()</pre>
   output &lt;- rep( toupper(word), 5)
   return(output)
 }
-loud(&quot;hooray!&quot;)</pre>
+loud(word = &quot;hooray!&quot;)</pre>
 
 <pre >[1] &quot;HOORAY!&quot; &quot;HOORAY!&quot; &quot;HOORAY!&quot; &quot;HOORAY!&quot; &quot;HOORAY!&quot;</pre>
 
@@ -18920,30 +18920,29 @@ MMRAcquisitionAuctionAveragePrice   MMRAcquisitionAuctionCleanPrice
 [72973]  69.941  68.127  93.744  74.407  82.563  65.399  45.234  71.759  88.500
 [72982]  79.554  66.855</pre>
 
-</article></slide><slide class=""><hgroup><h2>Using your custom functions: <code>sapply()</code>.</h2></hgroup><article  class="codesmall" id="using-your-custom-functions-sapply.">
+</article></slide><slide class=""><hgroup><h2>Using your custom functions: <code>sapply()</code>.</h2></hgroup><article  id="using-your-custom-functions-sapply." class="codesmall">
 
 <pre class = 'prettyprint lang-r'>cars_dbl &lt;- cars %&gt;% select(Make, Model, where(is.double))
 
 Odo_updated &lt;- sapply(pull(cars_dbl, VehOdo), times_2_plus_y)
 
 cars_dbl %&gt;% 
-  mutate(Odo_2_y = Odo_updated)</pre>
+  mutate(Odo_2_y = Odo_updated) %&gt;% select(c(1:2,7:13))</pre>
 
-<pre ># A tibble: 72,983 x 13
-   Make   Model   RefId IsBadBuy VehYear VehicleAge VehOdo BYRNO VNZIP1 VehBCost
-   &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
- 1 MAZDA  MAZDA3      1        0    2006          3  89046 21973  33619     7100
- 2 DODGE  1500 R…     2        0    2004          5  93593 19638  33619     7600
- 3 DODGE  STRATU…     3        0    2005          4  73807 19638  33619     4900
- 4 DODGE  NEON        4        0    2004          5  65617 19638  33619     4100
- 5 FORD   FOCUS       5        0    2005          4  69367 19638  33619     4000
- 6 MITSU… GALANT…     6        0    2004          5  81054 19638  33619     5600
- 7 KIA    SPECTRA     7        0    2004          5  65328 19638  33619     4200
- 8 FORD   TAURUS      8        0    2005          4  65805 19638  33619     4500
- 9 KIA    SPECTRA     9        0    2007          2  49921 21973  33619     5600
-10 FORD   FIVE H…    10        0    2007          2  84872 21973  33619     7700
-# … with 72,973 more rows, and 3 more variables: IsOnlineSale &lt;dbl&gt;,
-#   WarrantyCost &lt;dbl&gt;, Odo_2_y &lt;dbl&gt;</pre>
+<pre ># A tibble: 72,983 x 9
+   Make   Model   VehOdo BYRNO VNZIP1 VehBCost IsOnlineSale WarrantyCost Odo_2_y
+   &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;   &lt;dbl&gt;
+ 1 MAZDA  MAZDA3   89046 21973  33619     7100            0         1113  178095
+ 2 DODGE  1500 R…  93593 19638  33619     7600            0         1053  187189
+ 3 DODGE  STRATU…  73807 19638  33619     4900            0         1389  147617
+ 4 DODGE  NEON     65617 19638  33619     4100            0          630  131237
+ 5 FORD   FOCUS    69367 19638  33619     4000            0         1020  138737
+ 6 MITSU… GALANT…  81054 19638  33619     5600            0          594  162111
+ 7 KIA    SPECTRA  65328 19638  33619     4200            0          533  130659
+ 8 FORD   TAURUS   65805 19638  33619     4500            0          825  131613
+ 9 KIA    SPECTRA  49921 21973  33619     5600            0          482   99845
+10 FORD   FIVE H…  84872 21973  33619     7700            0         1633  169747
+# … with 72,973 more rows</pre>
 
 </article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code></h2></hgroup><article  id="applying-functions-with-across-from-dplyr">
 
@@ -18957,7 +18956,7 @@ cars_dbl %&gt;%
 <li>Then list any arguments for the function</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code>.</h2></hgroup><article  class="codesmall" id="applying-functions-with-across-from-dplyr.">
+</article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code>.</h2></hgroup><article  id="applying-functions-with-across-from-dplyr." class="codesmall">
 
 <p>Combining with <code>summarize()</code>:</p>
 
@@ -18981,7 +18980,7 @@ cars_dbl %&gt;%
 # … with 23 more rows, and 2 more variables: IsOnlineSale &lt;dbl&gt;,
 #   WarrantyCost &lt;dbl&gt;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code>.</h2></hgroup><article  class="codesmall" id="applying-functions-with-across-from-dplyr.-1">
+</article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code>.</h2></hgroup><article  id="applying-functions-with-across-from-dplyr.-1" class="codesmall">
 
 <p>Adding arguments to the function (<code>quantile()</code>) at the end:</p>
 
@@ -19005,7 +19004,7 @@ cars_dbl %&gt;%
 # … with 23 more rows, and 2 more variables: IsOnlineSale &lt;dbl&gt;,
 #   WarrantyCost &lt;dbl&gt;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code>.</h2></hgroup><article  class="codesmall" id="applying-functions-with-across-from-dplyr.-2">
+</article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code>.</h2></hgroup><article  id="applying-functions-with-across-from-dplyr.-2" class="codesmall">
 
 <p>Using different <code>tidyselect()</code> options:</p>
 
@@ -19028,7 +19027,7 @@ cars_dbl %&gt;%
 10 HUMMER      2006        3    70809    11920 
 # … with 23 more rows</pre>
 
-</article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code>.</h2></hgroup><article  class="codesmall" id="applying-functions-with-across-from-dplyr.-3">
+</article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code>.</h2></hgroup><article  id="applying-functions-with-across-from-dplyr.-3" class="codesmall">
 
 <p>Combining with <code>mutate()</code>:</p>
 
@@ -19051,7 +19050,7 @@ cars_dbl %&gt;%
 # … with 72,973 more rows, and 2 more variables: IsOnlineSale &lt;dbl&gt;,
 #   WarrantyCost &lt;dbl&gt;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code>.</h2></hgroup><article  class="codesmall" id="applying-functions-with-across-from-dplyr.-4">
+</article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code>.</h2></hgroup><article  id="applying-functions-with-across-from-dplyr.-4" class="codesmall">
 
 <p>Combining with <code>mutate()</code>:</p>
 
@@ -19077,7 +19076,7 @@ cars_dbl %&gt;%
 # … with 72,973 more rows, and 2 more variables: IsOnlineSale &lt;chr&gt;,
 #   WarrantyCost &lt;chr&gt;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code>.</h2></hgroup><article  class="codesmall" id="applying-functions-with-across-from-dplyr.-5">
+</article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code>.</h2></hgroup><article  id="applying-functions-with-across-from-dplyr.-5" class="codesmall">
 
 <p>Combining with <code>mutate()</code>:</p>
 

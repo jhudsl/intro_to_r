@@ -54,7 +54,7 @@ loud <- function(word) {
   output <- rep( toupper(word), 5)
   return(output)
 }
-loud("hooray!")
+loud(word = "hooray!")
 
 
 ## ----message=FALSE------------------------------------------------------------
@@ -108,7 +108,7 @@ cars_dbl <- cars %>% select(Make, Model, where(is.double))
 Odo_updated <- sapply(pull(cars_dbl, VehOdo), times_2_plus_y)
 
 cars_dbl %>% 
-  mutate(Odo_2_y = Odo_updated)
+  mutate(Odo_2_y = Odo_updated) %>% select(c(1:2,7:13))
 
 
 ## ----warning=FALSE------------------------------------------------------------
