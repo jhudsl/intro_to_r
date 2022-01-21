@@ -1,0 +1,100 @@
+---
+title: "Factors Lab Key"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+0. Load all the libraries we will use in this lab. 
+
+```{r message=FALSE}
+library(readr)
+library(dplyr)
+library(ggplot2)
+```
+
+1. Create a function that takes one argument, a vector, and returns the sum of the vector squared. Call it "sum_squared". Test your function on the vector `c(2,7,21,30,90)` - you should get the answer 22500.
+
+```{r}
+x <- c(2,7,21,30,90)
+
+sum_squared <- function(x) sum(x) ^ 2
+sum_squared(x)
+
+sum_squared <- function(x) {
+  out <- sum(x) ^ 2
+  return(out)
+}
+sum_squared(x)
+```
+
+2. Create a function that takes two arguments, (1) a vector and (2) a numeric value, and tests whether the number is in the vector. Call it "has_n". Test your function on the vector `c(2,7,21,30,90)` and number `21` - you should get the answer TRUE.
+
+```{r}
+x <- c(2,7,21,30,90)
+n <- 21
+
+has_n <- function(x, n) n %in% x
+has_n(x, n)
+```
+
+3. Amend the function "has_n" from #2 so that it takes a default value of `21` for the numeric argument.
+
+```{r}
+x <- c(2,7,21,30,90)
+n <- 21
+
+has_n <- function(x, n = 21) n %in% x
+has_n(x)
+```
+
+4. Read in the SARS-CoV-2 Vaccination data from http://jhudatascience.org/intro_to_R_class/data/USA_covid19_vaccinations.csv. Assign the data the name "vacc".
+
+```{r message=FALSE}
+vacc <- read_csv("http://jhudatascience.org/intro_to_R_class/data/USA_covid19_vaccinations.csv")
+# If downloaded
+# vacc <- read_csv("USA_covid19_vaccinations.csv")
+```
+
+5. Use `across` inside `summarize` to get the sum total number vaccine doses for any category containing the word "Moderna" or starting with "Total". **Hint**: use `matches()` AND `starts_with()` to select the right columns inside `across`. Keep in mind that this includes the United States as a whole and so is not totally accurate!
+
+```{r}
+vacc %>% 
+  summarize(across(matches("Moderna") & starts_with("Total"), sum))
+vacc %>% 
+  summarize(across(matches("Moderna") & starts_with("Total"), sum, na.rm = TRUE))
+```
+
+6. Use `across` and `mutate` to convert all columns containing the word "Percent" into proportions (i.e., divide that value by 100). **Hint**: use `matches()` to select the right columns. Use a "function on the fly" to divide by 100. It will also be easier to check your work if you `select()` columns also matching the same criteria.
+
+```{r}
+vacc %>% 
+  mutate(across(matches("Percent"), function(x) x / 100)) %>% 
+  select(matches("Percent"))
+```
+
+7. Use `across` and `mutate` to convert all columns starting with the word "Total" into a binary variable: TRUE if the value is greater than 10,000,000 and FALSE if less than or equal to 10,000,000. **Hint**: use `starts_with()` to select the columns starting with "Total". Use a "function on the fly" to do a logical test if the value is greater than 10,000,000.
+
+```{r}
+vacc %>% 
+  mutate(across(starts_with("Total"), function(x) x > 10000000)) 
+```
+
+## BONUS
+
+7. Take your code from #7 and assign it to the variable "vacc_dat". 
+
+- Filter out the "United States" from `State/Territory/Federal Entity`. Make sure to reassign this to "vacc_dat"
+- Create a ggplot boxplot (`geom_boxplot()`) where (1) the x-axis is `Total Doses Delivered` and (2) the y-axis is `Percent of fully vaccinated people with booster doses`.
+- You change the `labs()` layer so that the x-axis is "Total Doses Delivered: Greater than 10,000,000"
+
+```{r}
+vacc_dat <- 
+  vacc %>% 
+  mutate(across(starts_with("Total"), function(x) x > 10000000)) %>% 
+  filter(`State/Territory/Federal Entity` != "United States") 
+
+ggplot(vacc_dat) +
+  geom_boxplot(aes(x = `Total Doses Delivered`, y = `Percent of fully vaccinated people with booster doses`)) +
+  labs(x = "Total Doses Delivered: Greater than 10,000,000")
+```
