@@ -112,6 +112,18 @@ sqdif(x = 10, y = 5)
 sqdif(10, 5)
 ```
 
+## Writing your own functions: characters
+
+Functions can have any kind of input. Here is a function with characters `return()`:
+
+```{r comment=""}
+loud <- function(word) {
+  output <- rep( toupper(word), 5)
+  return(output)
+}
+loud("hooray!")
+```
+
 ## Functions for tibbles
 
 We can use `filter(row_number()==n)` to extract a row of a tibble.
@@ -166,7 +178,7 @@ You can also "apply" functions easily with `sapply()`.
 
 These functions take the form:
 
-```
+```   
 sapply(<a vector or list>, some_function)
 ```
 <br>
@@ -177,6 +189,12 @@ sapply(<a vector or list>, some_function)
 ```{r comment=""}
 sapply(cars, class)
 sapply(pull(cars, VehOdo), log)
+```
+
+## Using your custom functions "on the fly" to iterate
+
+```{r comment=""}
+sapply(pull(cars, VehOdo), function(x) x / 1000)
 ```
 
 ## Using your custom functions: `sapply()`.{.codesmall}
