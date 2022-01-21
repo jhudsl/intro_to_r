@@ -69,7 +69,7 @@ times_2(x = 10)
 **Review**: The syntax for a function is: 
 
 ```
-functionName = function(inputs) {
+functionName <- function(inputs) {
  <function body>
 return(value)
 }
@@ -77,7 +77,7 @@ return(value)
 
 ## Writing your own functions: multiple inputs
 
-Functions can take multiple inputs.
+Functions can take multiple inputs:
 
 ```{r comment=""}
 times_2_plus_y <- function(x, y) x * 2 + y
@@ -86,7 +86,7 @@ times_2_plus_y(x = 10, y = 3)
 
 ## Writing your own functions: defaults
 
-Functions can have "default" arguments. This lets us use the function without using an argument later.
+Functions can have "default" arguments. This lets us use the function without using an argument later:
 
 ```{r comment=""}
 times_2_plus_y <- function(x = 10, y = 3) x * 2 + y
@@ -114,7 +114,7 @@ sqdif(10, 5)
 
 ## Writing your own functions: characters
 
-Functions can have any kind of input. Here is a function with characters `return()`:
+Functions can have any kind of input. Here is a function with characters:
 
 ```{r comment=""}
 loud <- function(word) {
@@ -126,7 +126,7 @@ loud("hooray!")
 
 ## Functions for tibbles
 
-We can use `filter(row_number()==n)` to extract a row of a tibble.
+We can use `filter(row_number()==n)` to extract a row of a tibble:
 
 ```{r message=FALSE}
 cars <- read_kaggle()
@@ -150,7 +150,7 @@ cars <- read_kaggle()
 
 ## Functions for tibbles
 
-`select(n)` will choose column `n`.
+`select(n)` will choose column `n`:
 
 ```{r message=FALSE}
 get_index <- function(dat, row, col){
@@ -174,17 +174,17 @@ get_top(dat = cars)
 
 ## Using your custom functions: `sapply()`
 
-You can also "apply" functions easily with `sapply()`.
+Now that you've made a function... You can "apply" functions easily with `sapply()`!
 
 These functions take the form:
 
 ```   
 sapply(<a vector or list>, some_function)
 ```
-<br>
-`r emo::ji("rotating_light")` There are no parentheses on the functions! `r emo::ji("rotating_light")`
 
 ## Using your custom functions: `sapply()`
+
+`r emo::ji("rotating_light")` There are no parentheses on the functions! `r emo::ji("rotating_light")`
 
 ```{r comment=""}
 sapply(cars, class)
