@@ -219,14 +219,14 @@ times_2(x = 10)</pre>
 
 <p><strong>Review</strong>: The syntax for a function is:</p>
 
-<pre >functionName = function(inputs) {
+<pre >functionName &lt;- function(inputs) {
  &lt;function body&gt;
 return(value)
 }</pre>
 
 </article></slide><slide class=""><hgroup><h2>Writing your own functions: multiple inputs</h2></hgroup><article  id="writing-your-own-functions-multiple-inputs">
 
-<p>Functions can take multiple inputs.</p>
+<p>Functions can take multiple inputs:</p>
 
 <pre class = 'prettyprint lang-r'>times_2_plus_y &lt;- function(x, y) x * 2 + y
 times_2_plus_y(x = 10, y = 3)</pre>
@@ -235,7 +235,7 @@ times_2_plus_y(x = 10, y = 3)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Writing your own functions: defaults</h2></hgroup><article  id="writing-your-own-functions-defaults">
 
-<p>Functions can have &ldquo;default&rdquo; arguments. This lets us use the function without using an argument later.</p>
+<p>Functions can have &ldquo;default&rdquo; arguments. This lets us use the function without using an argument later:</p>
 
 <pre class = 'prettyprint lang-r'>times_2_plus_y &lt;- function(x = 10, y = 3) x * 2 + y
 times_2_plus_y()</pre>
@@ -271,7 +271,7 @@ sqdif()</pre>
 
 </article></slide><slide class=""><hgroup><h2>Writing your own functions: characters</h2></hgroup><article  id="writing-your-own-functions-characters">
 
-<p>Functions can have any kind of input. Here is a function with characters <code>return()</code>:</p>
+<p>Functions can have any kind of input. Here is a function with characters:</p>
 
 <pre class = 'prettyprint lang-r'>loud &lt;- function(word) {
   output &lt;- rep( toupper(word), 5)
@@ -283,7 +283,7 @@ loud(&quot;hooray!&quot;)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Functions for tibbles</h2></hgroup><article  id="functions-for-tibbles">
 
-<p>We can use <code>filter(row_number()==n)</code> to extract a row of a tibble.</p>
+<p>We can use <code>filter(row_number()==n)</code> to extract a row of a tibble:</p>
 
 <pre class = 'prettyprint lang-r'>cars &lt;- read_kaggle()
 
@@ -298,7 +298,7 @@ get_row &lt;- function(dat, row) dat %&gt;% filter(row_number()==row)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Functions for tibbles</h2></hgroup><article  id="functions-for-tibbles-1">
 
-<p><code>select(n)</code> will choose column <code>n</code>.</p>
+<p><code>select(n)</code> will choose column <code>n</code>:</p>
 
 <pre class = 'prettyprint lang-r'>get_index &lt;- function(dat, row, col){
  dat %&gt;% filter(row_number()==row) %&gt;% select(col) 
@@ -328,15 +328,15 @@ get_top(dat = cars)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Using your custom functions: <code>sapply()</code></h2></hgroup><article  id="using-your-custom-functions-sapply">
 
-<p>You can also &ldquo;apply&rdquo; functions easily with <code>sapply()</code>.</p>
+<p>Now that you’ve made a function… You can &ldquo;apply&rdquo; functions easily with <code>sapply()</code>!</p>
 
 <p>These functions take the form:</p>
 
 <pre >sapply(&lt;a vector or list&gt;, some_function)</pre>
 
-<p><br> 🚨 There are no parentheses on the functions! 🚨</p>
-
 </article></slide><slide class=""><hgroup><h2>Using your custom functions: <code>sapply()</code></h2></hgroup><article  id="using-your-custom-functions-sapply-1">
+
+<p>🚨 There are no parentheses on the functions! 🚨</p>
 
 <pre class = 'prettyprint lang-r'>sapply(cars, class)</pre>
 
@@ -18920,7 +18920,7 @@ MMRAcquisitionAuctionAveragePrice   MMRAcquisitionAuctionCleanPrice
 [72973]  69.941  68.127  93.744  74.407  82.563  65.399  45.234  71.759  88.500
 [72982]  79.554  66.855</pre>
 
-</article></slide><slide class=""><hgroup><h2>Using your custom functions: <code>sapply()</code>.</h2></hgroup><article  id="using-your-custom-functions-sapply." class="codesmall">
+</article></slide><slide class=""><hgroup><h2>Using your custom functions: <code>sapply()</code>.</h2></hgroup><article  class="codesmall" id="using-your-custom-functions-sapply.">
 
 <pre class = 'prettyprint lang-r'>cars_dbl &lt;- cars %&gt;% select(Make, Model, where(is.double))
 
@@ -18957,7 +18957,7 @@ cars_dbl %&gt;%
 <li>Then list any arguments for the function</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code>.</h2></hgroup><article  id="applying-functions-with-across-from-dplyr." class="codesmall">
+</article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code>.</h2></hgroup><article  class="codesmall" id="applying-functions-with-across-from-dplyr.">
 
 <p>Combining with <code>summarize()</code>:</p>
 
@@ -18981,7 +18981,7 @@ cars_dbl %&gt;%
 # … with 23 more rows, and 2 more variables: IsOnlineSale &lt;dbl&gt;,
 #   WarrantyCost &lt;dbl&gt;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code>.</h2></hgroup><article  id="applying-functions-with-across-from-dplyr.-1" class="codesmall">
+</article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code>.</h2></hgroup><article  class="codesmall" id="applying-functions-with-across-from-dplyr.-1">
 
 <p>Adding arguments to the function (<code>quantile()</code>) at the end:</p>
 
@@ -19005,7 +19005,7 @@ cars_dbl %&gt;%
 # … with 23 more rows, and 2 more variables: IsOnlineSale &lt;dbl&gt;,
 #   WarrantyCost &lt;dbl&gt;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code>.</h2></hgroup><article  id="applying-functions-with-across-from-dplyr.-2" class="codesmall">
+</article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code>.</h2></hgroup><article  class="codesmall" id="applying-functions-with-across-from-dplyr.-2">
 
 <p>Using different <code>tidyselect()</code> options:</p>
 
@@ -19028,7 +19028,7 @@ cars_dbl %&gt;%
 10 HUMMER      2006        3    70809    11920 
 # … with 23 more rows</pre>
 
-</article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code>.</h2></hgroup><article  id="applying-functions-with-across-from-dplyr.-3" class="codesmall">
+</article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code>.</h2></hgroup><article  class="codesmall" id="applying-functions-with-across-from-dplyr.-3">
 
 <p>Combining with <code>mutate()</code>:</p>
 
@@ -19051,7 +19051,7 @@ cars_dbl %&gt;%
 # … with 72,973 more rows, and 2 more variables: IsOnlineSale &lt;dbl&gt;,
 #   WarrantyCost &lt;dbl&gt;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code>.</h2></hgroup><article  id="applying-functions-with-across-from-dplyr.-4" class="codesmall">
+</article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code>.</h2></hgroup><article  class="codesmall" id="applying-functions-with-across-from-dplyr.-4">
 
 <p>Combining with <code>mutate()</code>:</p>
 
@@ -19077,7 +19077,7 @@ cars_dbl %&gt;%
 # … with 72,973 more rows, and 2 more variables: IsOnlineSale &lt;chr&gt;,
 #   WarrantyCost &lt;chr&gt;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code>.</h2></hgroup><article  id="applying-functions-with-across-from-dplyr.-5" class="codesmall">
+</article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code>.</h2></hgroup><article  class="codesmall" id="applying-functions-with-across-from-dplyr.-5">
 
 <p>Combining with <code>mutate()</code>:</p>
 
