@@ -60,16 +60,20 @@ vacc <- read_csv("http://jhudatascience.org/intro_to_R_class/data/USA_covid19_va
 
 ```{r}
 vacc %>% 
-  summarize(across(matches("Moderna") & starts_with("Total"), sum))
+  summarize(across(.cols = matches("Moderna") & starts_with("Total"), 
+                   .fns = sum))
 vacc %>% 
-  summarize(across(matches("Moderna") & starts_with("Total"), sum, na.rm = TRUE))
+  summarize(across(.cols = matches("Moderna") & starts_with("Total"), 
+                   .fns = sum,
+                   na.rm = TRUE))
 ```
 
 6. Use `across` and `mutate` to convert all columns containing the word "Percent" into proportions (i.e., divide that value by 100). **Hint**: use `matches()` to select the right columns. Use a "function on the fly" to divide by 100. It will also be easier to check your work if you `select()` columns also matching the same criteria.
 
 ```{r}
 vacc %>% 
-  mutate(across(matches("Percent"), function(x) x / 100)) %>% 
+  mutate(across(.cols = matches("Percent"), 
+                .fns = function(x) x / 100)) %>% 
   select(matches("Percent"))
 ```
 
@@ -77,7 +81,8 @@ vacc %>%
 
 ```{r}
 vacc %>% 
-  mutate(across(starts_with("Total"), function(x) x > 10000000)) 
+  mutate(across(.cols = starts_with("Total"), 
+                .fns = function(x) x > 10000000)) 
 ```
 
 ## BONUS
@@ -91,7 +96,8 @@ vacc %>%
 ```{r}
 vacc_dat <- 
   vacc %>% 
-  mutate(across(starts_with("Total"), function(x) x > 10000000)) %>% 
+  mutate(across(.cols = starts_with("Total"), 
+                .fns = function(x) x > 10000000)) %>% 
   filter(`State/Territory/Federal Entity` != "United States") 
 
 ggplot(vacc_dat) +
