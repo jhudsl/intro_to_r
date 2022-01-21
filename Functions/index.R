@@ -1,53 +1,154 @@
-## ----return2a, comment=""-----------------------------------------------------
-return2a = function(x) x[2]
+## ---- echo = FALSE, message = FALSE-------------------------------------------
+library(dplyr)
+library(jhur)
+library(knitr)
+library(stringr)
+library(tidyr)
+library(emo)
+opts_chunk$set(comment = "")
 
 
-## ----return2a2, comment=""----------------------------------------------------
-return2a(x = c(1,4,5,76))
+## ----comment=""---------------------------------------------------------------
+times_2 <- function(x) x * 2
 
 
-## ----return2b, comment=""-----------------------------------------------------
-return2b = function(x) {
-  x[2]
+## ----comment=""---------------------------------------------------------------
+times_2(x = 10)
+
+
+## ----comment=""---------------------------------------------------------------
+times_2 <- function(x) {
+  x * 2
 }
-return2b(x = c(1,4,5,76))
+times_2(x = 10)
 
 
-## ----return2c, comment=""-----------------------------------------------------
-return2c = function(x) {
-  output = x[2]
+## ----comment=""---------------------------------------------------------------
+times_2 <- function(x) {
+  output <- x * 2
   return(output)
 }
-return2c(x = c(1,4,5,76))
+times_2(x = 10)
 
 
-## ----return_n, comment=""-----------------------------------------------------
-return_n = function(x, n) x[n]
-return_n(x = c(1,4,5,76), n = 3)
+## ----comment=""---------------------------------------------------------------
+times_2_plus_y <- function(x, y) x * 2 + y
+times_2_plus_y(x = 10, y = 3)
 
 
-## ----return_n2, comment=""----------------------------------------------------
-return_n2 = function(x = c(1,2,3), n = 2) x[n]
-return_n2()
+## ----comment=""---------------------------------------------------------------
+times_2_plus_y <- function(x = 10, y = 3) x * 2 + y
+times_2_plus_y()
 
 
-## ----sqdif, comment=""--------------------------------------------------------
-sqdif <- function(x=2,y=3) (x-y)^2
+## ----comment=""---------------------------------------------------------------
+sqdif <- function(x = 2, y = 3) (x - y) ^ 2
 
 sqdif()
-sqdif(x=10,y=5)
-sqdif(10,5)
+sqdif(x = 10, y = 5)
+sqdif(10, 5)
 
 
-## ----top, message=FALSE-------------------------------------------------------
-top = function(df, n=5) df[1:n, 1:n]
-bike = jhur::read_bike()
+## ----comment=""---------------------------------------------------------------
+loud <- function(word) {
+  output <- rep( toupper(word), 5)
+  return(output)
+}
+loud("hooray!")
 
-## ---- comment=""--------------------------------------------------------------
-top(bike) # Note that we are using the default value for n 
+
+## ----message=FALSE------------------------------------------------------------
+cars <- read_kaggle()
+
+get_row <- function(dat, row) dat %>% filter(row_number()==row)
 
 
-## ----sapply1, comment=""------------------------------------------------------
-sapply(bike, class)
-sapply(bike$length, log)
+## ----echo=FALSE---------------------------------------------------------------
+# So extra columns don't clutter the slide
+cars <- cars %>% select(1:10)
+
+
+## -----------------------------------------------------------------------------
+get_row(dat = cars, row = 10)
+
+
+## ----echo=FALSE---------------------------------------------------------------
+# Restore dataset
+cars <- read_kaggle()
+
+
+## ----message=FALSE------------------------------------------------------------
+get_index <- function(dat, row, col){
+ dat %>% filter(row_number()==row) %>% select(col) 
+}
+
+get_index(dat = cars, row = 10, col = 8)
+
+
+## ----message=FALSE------------------------------------------------------------
+get_top <- function(dat, row = 1, col = 1){
+ dat %>% filter(row_number()==row) %>% select(col) 
+}
+
+get_top(dat = cars)
+
+
+## ----comment=""---------------------------------------------------------------
+sapply(cars, class)
+sapply(pull(cars, VehOdo), log)
+
+
+## ----comment=""---------------------------------------------------------------
+sapply(pull(cars, VehOdo), function(x) x / 1000)
+
+
+## -----------------------------------------------------------------------------
+cars_dbl <- cars %>% select(Make, Model, where(is.double))
+
+Odo_updated <- sapply(pull(cars_dbl, VehOdo), times_2_plus_y)
+
+cars_dbl %>% 
+  mutate(Odo_2_y = Odo_updated)
+
+
+## ----warning=FALSE------------------------------------------------------------
+cars_dbl %>% 
+  group_by(Make) %>%
+  summarize(across(.cols = everything(), .fns = mean))
+
+
+## ----warning=FALSE------------------------------------------------------------
+cars_dbl %>% 
+  group_by(Make) %>%
+  summarize(across(.cols = where(is.double), .fns = quantile, probs = 0.95))
+
+
+## ----warning=FALSE------------------------------------------------------------
+cars_dbl %>% 
+  group_by(Make) %>%
+  summarize(across(.cols = starts_with("Veh"), .fns = mean))
+
+
+## -----------------------------------------------------------------------------
+cars_dbl %>% 
+  mutate(across(.cols = starts_with("Veh"), .fns = round, digits = -3))
+
+
+## -----------------------------------------------------------------------------
+cars_dbl %>% 
+  mutate(across(.cols = everything(), 
+                .fns = str_replace_all, 
+                pattern = "A",
+                replacement = "a"))
+
+
+## ----warning=FALSE, message=FALSE---------------------------------------------
+# Child mortality data
+mort <- read_mortality() %>% rename(country = `...1`)
+
+mort %>% 
+  select(country, starts_with("194")) %>% 
+  mutate(across(.cols = c(`1943`, `1944`, `1945`),
+                .fns = replace_na,
+                replace = 0))
 
