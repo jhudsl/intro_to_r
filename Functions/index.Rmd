@@ -1,6 +1,5 @@
 ---
 title: "Functions"
-author: "Introduction to R for Public Health Researchers"
 output:
   ioslides_presentation:
     css: ../styles.css
@@ -11,6 +10,9 @@ output:
 library(dplyr)
 library(jhur)
 library(knitr)
+library(stringr)
+library(tidyr)
+library(emo)
 opts_chunk$set(comment = "")
 ```
 
@@ -102,7 +104,7 @@ Let's write a function, `sqdif`, that:
 
 ## Writing another simple function
 
-```{r sqdif, comment=""}
+```{r comment=""}
 sqdif <- function(x = 2, y = 3) (x - y) ^ 2
 
 sqdif()
@@ -115,11 +117,23 @@ sqdif(10, 5)
 We can use `filter(row_number()==n)` to extract a row of a tibble.
 
 ```{r message=FALSE}
-bike <- read_bike()
+cars <- read_kaggle()
 
 get_row <- function(dat, row) dat %>% filter(row_number()==row)
+```
 
-get_row(dat = bike, row = 10)
+```{r echo=FALSE}
+# So extra columns don't clutter the slide
+cars <- cars %>% select(1:10)
+```
+
+```{r}
+get_row(dat = cars, row = 10)
+```
+
+```{r echo=FALSE}
+# Restore dataset
+cars <- read_kaggle()
 ```
 
 ## Functions for tibbles
@@ -131,19 +145,19 @@ get_index <- function(dat, row, col){
  dat %>% filter(row_number()==row) %>% select(col) 
 }
 
-get_index(dat = bike, row = 10, col = 8)
+get_index(dat = cars, row = 10, col = 8)
 ```
 
 ## Functions for tibbles
 
-Inlcuding default values for arguments:
+Including default values for arguments:
 
 ```{r message=FALSE}
 get_top <- function(dat, row = 1, col = 1){
  dat %>% filter(row_number()==row) %>% select(col) 
 }
 
-get_top(dat = bike)
+get_top(dat = cars)
 ```
 
 ## Using your custom functions: `sapply()`
@@ -153,24 +167,106 @@ You can also "apply" functions easily with `sapply()`.
 These functions take the form:
 
 ```
-sapply(a vector or list, some_function) # No parentheses on the function!!
+sapply(<a vector or list>, some_function)
 ```
+<br>
+`r emo::ji("rotating_light")` There are no parentheses on the functions! `r emo::ji("rotating_light")`
 
 ## Using your custom functions: `sapply()`
 
-```{r sapply1, comment=""}
-sapply(bike, class)
-sapply(pull(bike, length), log)
+```{r comment=""}
+sapply(cars, class)
+sapply(pull(cars, VehOdo), log)
 ```
 
-## Using your custom functions: `sapply()`
+## Using your custom functions: `sapply()`.{.codesmall}
 
 ```{r}
-bike %>% 
-  mutate(len_2_5 = sapply(pull(bike, length), times_2_plus_y))
+cars_dbl <- cars %>% select(Make, Model, where(is.double))
+
+Odo_updated <- sapply(pull(cars_dbl, VehOdo), times_2_plus_y)
+
+cars_dbl %>% 
+  mutate(Odo_2_y = Odo_updated)
 ```
 
+## Applying functions with `across` from `dplyr`
 
+`across()` makes it easy to apply the same transformation to multiple columns, allowing you to use select() semantics inside functions like `summarize()` and `mutate()`.
+
+```
+across( .cols = <columns>, .fns = function, ... )
+```
+
+- List columns first : `.cols = `
+- List function next: `.fns = `
+- Then list any arguments for the function
+
+## Applying functions with `across` from `dplyr`.{.codesmall}
+
+Combining with `summarize()`:
+
+```{r warning=FALSE}
+cars_dbl %>% 
+  group_by(Make) %>%
+  summarize(across(.cols = everything(), .fns = mean))
+```
+
+## Applying functions with `across` from `dplyr`.{.codesmall}
+
+Adding arguments to the function (`quantile()`) at the end:
+
+```{r warning=FALSE}
+cars_dbl %>% 
+  group_by(Make) %>%
+  summarize(across(.cols = where(is.double), .fns = quantile, probs = 0.95))
+```
+
+## Applying functions with `across` from `dplyr`.{.codesmall}
+
+Using different `tidyselect()` options:
+
+```{r warning=FALSE}
+cars_dbl %>% 
+  group_by(Make) %>%
+  summarize(across(.cols = starts_with("Veh"), .fns = mean))
+```
+
+## Applying functions with `across` from `dplyr`.{.codesmall}
+
+Combining with `mutate()`:
+
+```{r}
+cars_dbl %>% 
+  mutate(across(.cols = starts_with("Veh"), .fns = round, digits = -3))
+```
+
+## Applying functions with `across` from `dplyr`.{.codesmall}
+
+Combining with `mutate()`:
+
+```{r}
+cars_dbl %>% 
+  mutate(across(.cols = everything(), 
+                .fns = str_replace_all, 
+                pattern = "A",
+                replacement = "a"))
+```
+
+## Applying functions with `across` from `dplyr`.{.codesmall}
+
+Combining with `mutate()`:
+
+```{r warning=FALSE, message=FALSE}
+# Child mortality data
+mort <- read_mortality() %>% rename(country = `...1`)
+
+mort %>% 
+  select(country, starts_with("194")) %>% 
+  mutate(across(.cols = c(`1943`, `1944`, `1945`),
+                .fns = replace_na,
+                replace = 0))
+```
 
 ## Website
 
