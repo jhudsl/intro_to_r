@@ -142,7 +142,7 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 
 ```
 
-18\. How many vehicles were red and have fewer than 30,000 miles? use:
+18\. How many vehicles were red and have fewer than 30,000 miles? To determine the column that corresponds to mileage (odometer reading), check the "key" corresponding to the data dictionary that you imported above. use:
 
 - `filter()` and `count()`
 - `filter()` and `tally()` or
