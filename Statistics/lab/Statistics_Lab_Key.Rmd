@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Part 1
 
-1. Load the libraries needed in this lab. Then, read in the following child mortality data using `read_mortality()` function from `jhur` package. Assign it to the "mort" variable. Change its first column name from `...1` into `country`. You can also find the data here: https://jhudatascience.org/intro_to_R_class/data/mortality.csv
+1. Load the libraries needed in this lab. Then, read in the following child mortality data using `read_mortality()` function from `jhur` package. Assign it to the "mort" variable. Change its first column name from `...1` into `country`. You can also find the data here: https://jhudatascience.org/intro_to_r/data/mortality.csv
 
 ```{r message = FALSE}
 library(dplyr)
@@ -68,7 +68,7 @@ tidy( t.test(x, y) )
 
 # Part 3
 
-6. Read in the Kaggle cars auction dataset using `read_kaggle()` from the `jhur` package.  Assign it to the "cars" variable. You can also find the data here:  http://jhudatascience.org/intro_to_R_class/data/kaggleCarAuction.csv.
+6. Read in the Kaggle cars auction dataset using `read_kaggle()` from the `jhur` package.  Assign it to the "cars" variable. You can also find the data here:  http://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv.
 
 ```{r}
 cars <- read_kaggle()

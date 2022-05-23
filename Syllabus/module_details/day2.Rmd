@@ -34,7 +34,7 @@ Lecture recording links will be emailed directly to students.
 pander::pandoc.table(
   schedule  %>%
     mutate(across(
-      .fns = ~ str_replace_all(., "\\./", "https://jhudatascience.org/intro_to_R_class/")
+      .fns = ~ str_replace_all(., "\\./", "https://jhudatascience.org/intro_to_r/")
     )) %>%
     filter(
       row_number() >= which(str_detect(schedule$`**Day**`, "\\[Day 2\\]")) &

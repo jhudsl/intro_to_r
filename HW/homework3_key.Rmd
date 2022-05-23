@@ -21,10 +21,10 @@ library(tidyr)
 
 ### **Problem Set**
 
-1\. Bring the dataset into R. The dataset is located at: https://jhudatascience.org/intro_to_R_class/data/mortality.csv. You can use the link, download it, or use whatever method you like for getting the file. Once you get the file, read the dataset in using `read_csv()` and assign it the name "mort".
+1\. Bring the dataset into R. The dataset is located at: https://jhudatascience.org/intro_to_r/data/mortality.csv. You can use the link, download it, or use whatever method you like for getting the file. Once you get the file, read the dataset in using `read_csv()` and assign it the name "mort".
 
 ```{r}
-mort <- read_csv("https://jhudatascience.org/intro_to_R_class/data/mortality.csv")
+mort <- read_csv("https://jhudatascience.org/intro_to_r/data/mortality.csv")
 ```
 
 2\. Run the `colnames()` function to take a look at the dataset column names. You should see that there was originally no name for the first column and that R replaced it with "...1". Rename the first column of "mort" to "country" using the `rename()` function in `dplyr`.  
@@ -87,10 +87,10 @@ long <-
   pivot_longer(mort, starts_with( c("1", "2") ), names_to = "year", values_to = "mortality")
 ```
 
-8\. Bring an additional dataset into R. The dataset is tab-delimited and located at: https://jhudatascience.org/intro_to_R_class/data/country_pop.txt. You can use the link, download it, or use whatever method you like for getting the file. Once you get the file, read the dataset in using `read_tsv()` and assign it the name "pop".
+8\. Bring an additional dataset into R. The dataset is tab-delimited and located at: https://jhudatascience.org/intro_to_r/data/country_pop.txt. You can use the link, download it, or use whatever method you like for getting the file. Once you get the file, read the dataset in using `read_tsv()` and assign it the name "pop".
 
 ```{r}
-pop <- read_tsv("https://jhudatascience.org/intro_to_R_class/data/country_pop.txt")
+pop <- read_tsv("https://jhudatascience.org/intro_to_r/data/country_pop.txt")
 ```
 
 9\. Rename the second column in "pop" to "country" and the column "% of world population", to "percent". Use the `rename()` function. Don't forget to reassign the renamed data to "pop".

@@ -31,10 +31,10 @@ library(ggplot2)
 
 ```
 
-4. Read in the SARS-CoV-2 Vaccination data from http://jhudatascience.org/intro_to_R_class/data/USA_covid19_vaccinations.csv. Assign the data the name "vacc".
+4. Read in the SARS-CoV-2 Vaccination data from http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv. Assign the data the name "vacc".
 
 ```{r message=FALSE}
-vacc <- read_csv("http://jhudatascience.org/intro_to_R_class/data/USA_covid19_vaccinations.csv")
+vacc <- read_csv("http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv")
 # If downloaded
 # vacc <- read_csv("USA_covid19_vaccinations.csv")
 ```

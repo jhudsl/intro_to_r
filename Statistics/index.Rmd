@@ -53,7 +53,7 @@ By default, Pearson correlation coefficient is computed.
 
 ## Correlation {.small}
 
-https://jhudatascience.org/intro_to_R_class/data/Charm_City_Circulator_Ridership.csv
+https://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv
 
 ```{r cor1, comment="", message = FALSE}
 circ <- jhur::read_circulator()
@@ -115,7 +115,7 @@ corrplot(cor_mat, type = "upper", order = "hclust")
 
 ## Lab Part 1
 
-[Website](http://jhudatascience.org/intro_to_R_class/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)
 
 # T-test
 
@@ -198,7 +198,7 @@ result_tidy
 
 ## Lab Part 2
 
-[Website](http://jhudatascience.org/intro_to_R_class/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)
 
 # Regression
 
@@ -303,7 +303,7 @@ In practice, `y` and `x1`, `x2`, `x3` are replaced with the **names of columns f
 
 We will use `kaggleCarAuction.csv` dataset from one of the Kaggle competitions. 
 
-https://jhudatascience.org/intro_to_R_class/data/kaggleCarAuction.csv
+https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv
 
 ```{r}
 cars <- jhur::read_kaggle()
@@ -411,4 +411,4 @@ Some final notes:
 
 ## Lab Part 3
 
-[Website](http://jhudatascience.org/intro_to_R_class/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)

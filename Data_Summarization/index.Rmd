@@ -130,7 +130,7 @@ tb <- jhur::read_tb()
 ```
 
 <br>
-If not, download the `xlsx` file from this link and read it in using `read_csv()`: http://jhudatascience.org/intro_to_R_class/data/tb_incidence.xlsx
+If not, download the `xlsx` file from this link and read it in using `read_csv()`: http://jhudatascience.org/intro_to_r/data/tb_incidence.xlsx
 
 ## TB Incidence 
 
@@ -230,12 +230,12 @@ summary(tb)
 
 ## Lab Part 1
 
-[Website](http://jhudatascience.org/intro_to_R_class/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)
 
 ## Youth Tobacco Survey
 
 Here we will be using the Youth Tobacco Survey data:
-http://jhudatascience.org/intro_to_R_class/data/Youth_Tobacco_Survey_YTS_Data.csv
+http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv
 
 ```{r}
 yts <- jhur::read_yts()
@@ -353,7 +353,7 @@ yts %>%
 
 ## Lab Part 2
 
-[Website](http://jhudatascience.org/intro_to_R_class/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)
 
 # Preview: plotting
 
@@ -401,4 +401,4 @@ plot(density(pull(jhu_cars,mpg)))
 
 ## Lab Part 3
 
-[Website](http://jhudatascience.org/intro_to_R_class/index.html)
+[Website](http://jhudatascience.org/intro_to_r/index.html)
