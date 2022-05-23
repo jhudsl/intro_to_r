@@ -19,87 +19,35 @@ library(jhur)
 ```
 
 
-```{r seed, comment="",echo=FALSE, }
-set.seed(3) 
+## `esquisse` and `ggplot2`
+
+```{r, fig.alt="esquisse", out.width = "28%", echo = FALSE, fig.show='hold',fig.align='center'}
+knitr::include_graphics("https://pbs.twimg.com/media/DoaBCAwWsAEaz-y.png")
+```
+
+```{r, fig.alt="ggplot2", out.width = "19%", echo = FALSE, fig.show='hold',fig.align='center'}
+knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/2c6239d311be6d037c251c71c3902792f8c4ddd2/12f67/css/images/hex/ggplot2.png")
+
 ```
 
 
-## Overview
-
-- Making plots with base R
-
-- Making plots with `ggplot2` package 
-
-  - Main concept: "linking" data with the plot elements
-  - First plot 
-  - Specifying plot layers: line, point, boxplot, ...
-  - Customizing plot look: title, axis labels, background colors, ...
-  - Combining multiple plots
-  - Saving a plot to file
-
-## Making plots with base R
-
-- Pros: the fastest way to make a plot 
-- Cons: limits for plot customization 
-
-```{r, echo = FALSE}
-set.seed(1)
-```
-
-```{r, fig.width=4, fig.height=3}
-var_1 <- seq(from = 1, to = 30)
-var_2 <- rnorm(30)
-
-plot(x = var_1, y = var_2)
-```
-
-## Making plots with base R
-
-You can change **plot type** (default are points) other elements by modifying other arguments.
-
-- Google, *"r base graphics change plot title*" 
-
-```{r, fig.width=4, fig.height=3}
-plot(x = var_1, y = var_2, 
-     type = "l", 
-     xlab = "My variable 1", ylab = "My variable 2", 
-     main = "Title of my plot")
-```
-
-## Making plots with base R
-
-Often, you want to plot the data straight from a data frame 
-
-```{r, fig.width=4, fig.height=3}
-# creating a data frame from the vectors we had 
-my_data = data.frame(var_1, var_2)
-my_data
-```
-
-## Making plots with base R
-
-Often, you want to plot the data straight from a data frame 
-
-```{r, fig.width=5, fig.height=4}
-# use $ to access column from a data set 
-plot(x = my_data$var_1, y = my_data$var_2)
-```
 
 
-## Making plots with base R
+## Why learn ggplot2?
 
-`plot()` is one of the functions from base R to produce a graphic. 
+More customization:
 
-We also have `hist()`, `boxplot()` and many others. They may vary in usage, e.g. in number of arguments we typically need to supply 
+- branding
+- making plots interactive
+- combining plots
 
-```{r, fig.width=5, fig.height=4}
-# use $ to access column from a data set 
-boxplot(x = my_data$var_1)
-```
+Easier plot automation (creating plots in scripts)
+
+Faster (eventually)
 
 ## ggplot2
 
-- A package for producing graphic 
+- A package for producing graphics - gg = *Grammar of Graphics*
 
 - Created by Hadley Wickham in 2005
 
@@ -107,11 +55,40 @@ boxplot(x = my_data$var_1)
 
 - *"Make a ggplot"* = Make a plot with the use of ggplot2 package
 
+Resources:
+
+- https://ggplot2-book.org/
+
+- https://www.opencasestudies.org/
+
+## ggplot2
+
+Based on the idea of:
+
+:::{style="color: red;"}
+layering
+:::
+plot objects are placed on top of each other with `+`
+
+```{r, echo = FALSE}
+set.seed(456)
+emo::ji("graph")  
+emo::ji("plus") 
+emo::ji("graph")
+
+```
+
+
+
+## ggplot2
+
 - Pros: extremely powerful/flexible -- allows combining multiple plot elements together, allows high customization of a look, many resources online
 
 - Cons: ggplot2-specific "grammar of graphic" of constructing a plot
 
-- [ggplot2 gallery](https://www.google.com/search?q=ggplot2+gallery&tbm=isch&ved=2ahUKEwir2NjN_ZzxAhUVA1kFHdraAZoQ2-cCegQIABAA&oq=ggplot2+gallery&gs_lcp=CgNpbWcQAzICCAAyBggAEAcQHjIECAAQGFCxiAFYsYgBYI2TAWgAcAB4AIABN4gBN5IBATGYAQCgAQGqAQtnd3Mtd2l6LWltZ8ABAQ&sclient=img&ei=iF3KYKv0JpWG5NoP2rWH0Ak&bih=859&biw=1474)
+- [ggplot2 gallery](https://www.r-graph-gallery.com/ggplot2-package.html)
+
+
 
 ## Tidy data 
 
@@ -132,45 +109,57 @@ Messy data:
 
 Each variable forms a column. Each observation forms a row.
 
-![](img/tidy_data_ex1.png)
+```{r, echo = FALSE, fig.align='center'}
+include_graphics("img/tidy_data_ex1.png")
+```
+
 
 ## Messy data: example 
 
 Column headers are values, not variable names
 
-![](img/messy_data_ex1.png){width=80%}
+```{r, echo = FALSE, fig.align='center', out.width="80%"}
+include_graphics("img/messy_data_ex1.png")
+```
+
 
 Read more about tidy data and see other examples: [Tidy Data](https://vita.had.co.nz/papers/tidy-data.pdf) tutorial by Hadley Wickham
 
-## First plot with `ggplot2` package 
-
-```{r, fig.width=4, fig.height=3}
-head(my_data, 3)   # to recall how "my_data" data frame looks like
-library(ggplot2)
-
-ggplot(my_data, aes(x = var_1, y = var_2)) + 
-  geom_point() 
+ It's also helpful to have data in long format!!!
+ 
+ 
+## Making data to plot
+```{r seed }
+set.seed(3) 
+var_1 <- seq(from = 1, to = 30)
+var_2 <- rnorm(30)
+my_data = tibble(var_1, var_2)
+my_data
 ```
 
+# First plot with `ggplot2` package 
 
-## First plot with `ggplot2` package: unpacking  
 
-```{r, fig.width=4, fig.height=3, eval = FALSE}
-ggplot(my_data, aes(x = var_1, y = var_2)) + 
-  geom_point() 
+## First layer of code with `ggplot2` package
+
+Will set up the plot - it will be empty!
+
+* **Aesthetic mapping** `(mapping= aes(x= , y =))` describes how variables in our data are mapped to elements of the plot 
+
+<div class = "codeexample">
+```{r, eval = FALSE, class.source = "codeexample"}
+library(ggplot2) # don't forget to load ggplot2
+# This is not code but shows the general format
+ggplot({data_to plot},  mapping = aes(x = {var in data to plot},
+                                      y = {var in data to plot}))
 ```
-In the code first line, we use `ggplot()` function. It takes two arguments:
-  
-* **Data frame** (here: `my_data`)
-* **Aesthetic mapping** (here: `aes(x = var_1, y = var_2)`) that describes how variables in our data are mapped to elements of the plot 
+</div>
 
-    Here, can read: *take variable named `var_1` from a data frame `my_data` and use it for `x` axis; take variable named `var_2` from a data frame `my_data` and use it for `y` axis*
+```{r, fig.width=3, fig.height=2.5, fig.align='center', class.source = "codereg"}
+ggplot(my_data, mapping = aes(x = var_1, y = var_2))
+```
 
-In the code second line, we have definition of a **layer** of a plot. There is only one layer here, `+ geom_point()`
-
-* Here, can read: *add points to the plot (use data as provided by the aesthetic mapping)*
-    
-## Specifying plot layers
+## Next layer code with `ggplot2` package 
 
 There are many to choose from, to list just a few:  
 
@@ -179,13 +168,35 @@ There are many to choose from, to list just a few:
 - `geom_boxplot()`
 - `geom_histogram()`
 - `geom_bar()`
+- `geom_col()`
 - `geom_errorbar()`
 - `geom_density()`
 - `geom_tile()` -- blocks filled with color
 
-## Specifying plot layers: examples
+## Next layer code with `ggplot2` package 
 
-```{r, fig.width=4, fig.height=3}
+Need the `+` sign to add the next layer to specify the type of plot
+<div class = "codeexample">
+```{r, eval = FALSE, class.source = "codeexample"}
+
+ggplot({data_to plot},  mapping = aes(x = {var in data to plot},
+                                      y = {var in data to plot})) +
+  geom_{type of plot}</div>
+```
+</div>
+
+```{r, fig.width=4, fig.height=3, fig.align='center'}
+
+ggplot(my_data, mapping = aes(x = var_1, y = var_2)) + 
+  geom_point() 
+```
+
+Read as: *add points to the plot (use data as provided by the aesthetic mapping)*
+    
+
+## Specifying plot layers: examples{.mall}
+
+```{r, fig.width=3, fig.height=2.5}
 plt1 <- 
   ggplot(my_data, aes(x = var_1, y = var_2)) + 
   geom_point()
@@ -197,23 +208,26 @@ plt2 <-
 plt1; plt2 # to have 2 plots printed next to each other on a slide
 ```
 
-## Specifying plot layers: examples
+Also check out the [`patchwork` package](https://patchwork.data-imaginist.com/)
 
-```{r, fig.width=4, fig.height=3}
-plt3 <- 
-  ggplot(my_data, aes(y = var_2)) + 
-  geom_boxplot()
+<!-- ## Specifying plot layers: combining multiple layers -->
 
-plt4 <- 
-  ggplot(my_data, aes(x = var_2)) + 
-  geom_histogram()
+<!-- ```{r, fig.width=4, fig.height=3} -->
+<!-- plt3 <-  -->
+<!--   ggplot(my_data, aes(y = var_2)) +  -->
+<!--   geom_boxplot() -->
 
-plt3; plt4 # to have 2 plots printed next to each other on a slide
-```
+<!-- plt4 <-  -->
+<!--   ggplot(my_data, aes(x = var_2)) +  -->
+<!--   geom_histogram() -->
+
+<!-- ``` -->
 
 ## Specifying plot layers: combining multiple layers
 
-```{r, fig.width=5, fig.height=3}
+Layer a plot on top of another plot with `+`
+
+```{r, fig.width=4, fig.height=3, fig.align='center'}
 ggplot(my_data, aes(x = var_1, y = var_2)) + 
   geom_point() + 
   geom_line()
@@ -223,172 +237,386 @@ ggplot(my_data, aes(x = var_1, y = var_2)) +
 
 You can change look of each layer separately. 
 
-```{r, fig.width=5, fig.height=3}
+```{r, fig.width=5, fig.height=3, fig.align='center'}
 ggplot(my_data, aes(x = var_1, y = var_2)) + 
   geom_point(size = 5, color = "red", alpha = 0.5) + 
-  geom_line(size = 0.8, color = "brown", linetype = 2)
+  geom_line(size = 0.8, color = "black", linetype = 2)
+```
+
+## Customize the look of the plot{.codesmall}
+
+ You can change the look of whole plot using [`theme_*()` functions](https://ggplot2.tidyverse.org/reference/ggtheme.html). 
+
+```{r, fig.width=5, fig.height=3, fig.align='center'}
+ggplot(my_data, aes(x = var_1, y = var_2)) + 
+  geom_point(size = 5, color = "red", alpha = 0.5) + 
+  geom_line(size = 0.8, color = "brown", linetype = 2) + 
+  theme_dark()
 ```
 
 ## Customize the look of the plot
 
-You can change look of each layer separately. You can change the look of whole plot-specific elements, too. 
+You can change the look of whole plot - **specific elements, too** - like changing [font](http://www.cookbook-r.com/Graphs/Fonts/) and font size - or even more [fonts](https://blog.revolutionanalytics.com/2012/09/how-to-use-your-favorite-fonts-in-r-charts.html)
 
-```{r, fig.width=5, fig.height=3}
+```{r, fig.width=5, fig.height=3, fig.align='center'}
 ggplot(my_data, aes(x = var_1, y = var_2)) + 
   geom_point(size = 5, color = "red", alpha = 0.5) + 
   geom_line(size = 0.8, color = "brown", linetype = 2) + 
-  labs(x = "My variable 1", y = "My variable 2",
-       title = "My plot title") + 
-  theme_bw(base_size = 12, base_family = "Times New Roman")
+  theme_bw(base_size = 20, base_family = "Comic Sans MS")
+```
+
+## Adding labels
+
+The `labs()` function can help you add or modify titles on your plot.
+
+```{r, fig.width=5, fig.height=3, fig.align='center'}
+ggplot(my_data, aes(x = var_1, y = var_2)) + 
+  geom_point(size = 5, color = "red", alpha = 0.5) + 
+  geom_line(size = 0.8, color = "brown", linetype = 2) + 
+  labs(title = "My plot of var1 vs var2",
+           x = "Variable 1",
+           y = "Variable 2")
+```
+
+## Changing axis
+`xlim()` and `ylim()` can specify the limits for each axis
+```{r, fig.width=5, fig.height=3, fig.align='center'}
+
+ggplot(my_data, aes(x = var_1, y = var_2)) + 
+  geom_point(size = 5, color = "red", alpha = 0.5) + 
+  geom_line(size = 0.8, color = "brown", linetype = 2) + 
+  labs(title = "My plot of var1 vs var2") + 
+  xlim(0,40)
+  
+```
+
+
+## Changing axis{.small}
+
+`scale_x_continuous()` and `scale_y_continuous()` can change how the axis is plotted. Can use the `breaks` argument to specify how you want the axis ticks to be.
+```{r, fig.width=5, fig.height=3, fig.align='center'}
+seq(from = 0, to = 30, by = 5)
+ggplot(my_data, aes(x = var_1, y = var_2)) + 
+  geom_point(size = 5, color = "red", alpha = 0.5) + 
+  geom_line(size = 0.8, color = "brown", linetype = 2) + 
+  scale_x_continuous(breaks = seq(from = 0, to = 30, by = 5))
 ```
 
 ## Lab 1
 
-Lab document: http://jhudatascience.org//intro_to_r/Data_Visualization/lab/Data_Visualization_Lab.Rmd
+[Lab document](http://jhudatascience.org//intro_to_r/Data_Visualization/lab/Data_Visualization_Lab.Rmd)
+
+
+## theme() function 
+
+The `theme()` function can help you modify various elements of your plot.
+Here we will adjust the horizontal justification (`hjust`) of the plot title.
+
+```{r, fig.width=5, fig.height=3, fig.align='center'}
+ggplot(my_data, aes(x = var_1, y = var_2)) + 
+  geom_point(size = 5, color = "red", alpha = 0.5) + 
+  geom_line(size = 0.8, color = "brown", linetype = 2) + 
+  labs(title = "My plot of var1 vs var2") + 
+  theme(plot.title = element_text(hjust = 0.5, size = 20))
+
+```
+
+## theme() function 
+
+The `theme()` function always takes:
+
+1. an object to change (use `?theme()` to see - `plot.title`, `axis.title`, `axis.ticks` etc.)
+2. the aspect you are changing about this: `element_text()`, `element_line()`, `element_rect()`, `element_blank()`
+3. what you are changing:
+      * text: `size`, `color`, `fill`, `face`, `alpha`, `angle` 
+      * position: `"top"`, `"bottom"`, `"right"`, `"left"`, `"none"`
+      * rectangle: `size`, `color`, `fill`, `linetype`
+      * line:  `size`, `color`, `linetype`
+
+## theme() function
+
+```{r, fig.width=5, fig.height=3, fig.align='center'}
+ggplot(my_data, aes(x = var_1, y = var_2)) + 
+  geom_point(size = 5, color = "red", alpha = 0.5) + 
+  labs(title = "My plot of var1 vs var2", x = "Variable 1") +
+  theme(plot.title = element_text(hjust = 0.5, size = 20),
+        axis.title.x = element_text(size = 16))
+```
+
+
+## theme() function{.codesmall} 
+
+```{r}
+head(Orange, 3)
+```
+
+If specifying position - use: "top", "bottom", "right", "left", "none"
+
+```{r, fig.width=3.5, fig.height=2.5, fig.align='center'}
+ggplot(Orange, aes(x = Tree, y = circumference, fill = Tree)) + 
+  geom_boxplot() +
+  theme(legend.position = "none")
+```
+
+## Can make your own theme to use on plots!
+
+Guide on how to: https://rpubs.com/mclaire19/ggplot2-custom-themes 
+
 
 ## Group and/or color by variable's values 
 
-We generate some data frame for the purpose of demonstration 
+First, we will generate some data frame for the purpose of demonstration. 
 
-- 20 different items (e.g. products in a store) 
-- of 2 different categories (e.g. pasta, rice)
-- 100 price values collected over time for each item 
+- 2 different categories (e.g. pasta, rice)
+- 4 different items (e.g. 2 of each category) 
+- 10 price values changes collected over time for each item 
 
 ```{r}
 # create 4 vectors: 2x character class and 2x numeric class
-item_categ <- as.vector(sapply(1:20, function(i) rep(sample(c("pasta", "rice"), 1), 100)))
-item_ID  <- rep(seq(from = 1, to = 20), each = 100)
+item_categ <- rep(c("pasta", "rice"),each = 20)
+item_ID  <- rep(seq(from = 1, to = 4), each = 10)
 item_ID <- paste0("ID_", item_ID)
-observation_time  <- rep(seq(from = 1, to = 100), times = 20)
-item_price <- as.vector(replicate(20, cumsum(rnorm(100))))
-item_price <- item_price + abs(min(item_price)) + 1
-
+observation_time  <- rep(seq(from = 1, to = 10), times = 4)
+item_price_change <- c(sample(0.5:2.5, size = 10, replace = TRUE),
+                       sample(0:1, size = 10, replace = TRUE),
+                       sample(2:5, size = 10, replace = TRUE),
+                       sample(6:9, size = 10, replace = TRUE))
 # use 4 vectors to create data frame with 4 columns
-df  <- data.frame(item_ID, item_categ, observation_time, item_price) 
+food  <- tibble(item_ID, item_categ, observation_time, item_price_change) 
 ```
 
 ## Group and/or color by variable's values 
 
 ```{r}
-head(df, 3)
-tail(df, 3)
-str(df)
+food
 ```
 
-## Group and/or color by variable's values 
+## Starting a plot
 
-You can use `group` element in a mapping to indicate that each `item_ID` will have a separate price line (more generally: a separate layer element)
 
-```{r, fig.width=6, fig.height=4}
-ggplot(df, aes(x = observation_time, y = item_price, group = item_ID)) + 
-  geom_line(size = 0.3) 
+
+```{r, fig.width=5, fig.height=3, fig.align='center'}
+
+ggplot(food, aes(x = observation_time, 
+                 y = item_price_change)) + 
+  geom_line() 
 ```
 
-## Group and/or color by variable's values 
+## Using `group` in plots
 
-You can use `color` element in a mapping to indicate that each `item_categ` will have different color used. 
+You can use `group` element in a mapping to indicate that each `item_ID` will have a separate price line.
 
-Colors palette is selected by default (and can be modified). Legend position, legend title etc. have a default look (and can be modified).
+```{r, fig.width=5, fig.height=3, fig.align='center'}
+ggplot(food, aes(x = observation_time, 
+                 y = item_price_change, 
+                 group = item_ID)) + 
+  geom_line() 
+```
 
-```{r, fig.width=6 , fig.height=4 * 0.8}
-ggplot(df, aes(x = observation_time, y = item_price, group = item_ID,
-               color = item_categ)) + 
-  geom_line(size = 0.3) 
+## Adding color will automatically group the data
+
+```{r, fig.width=5, fig.height=3, fig.align='center'}
+ggplot(food, aes(x = observation_time, 
+                 y = item_price_change,
+                color = item_ID)) + 
+  geom_line() 
+```
+
+## Adding color will automatically group the data
+
+```{r, fig.width=5, fig.height=3, fig.align='center'}
+ggplot(food, aes(x = observation_time, 
+                 y = item_price_change,
+                color = item_categ)) + 
+  geom_line() 
+```
+
+## Sometimes you need group and color
+
+```{r, fig.width=5, fig.height=3, fig.align='center'}
+ggplot(food, aes(x = observation_time, 
+                 y = item_price_change,
+                 group = item_ID,
+                color = item_categ)) + 
+            geom_line() 
+
+```
+
+## Adding a facet can help make it easier to see what is happening
+
+Two options:
+`facet_grid()`- creates a grid shape
+`facet_wrap()` -more flexible
+
+Need to specify how you are faceting with the `~` sign.
+
+```{r, fig.width=4, fig.height=3, fig.align='center'}
+ggplot(food, aes(x = observation_time, 
+                 y = item_price_change,
+                 color = item_ID)) + 
+  geom_line() +
+  facet_grid( ~ item_categ)
+```
+
+## facet_wrap(){.codesmall}
+
+  - more flexible - arguments `ncol` and `nrow` can specify layout
+  - can have different scales for axes using 
+              `scales = "free_x"`, `scales = "free_y"`, or `scales = "free"`
+
+```{r, fig.width=4, fig.height=2.7, fig.align='center'}
+rp_fac_plot <- ggplot(food, aes(x = observation_time, 
+                                y = item_price_change,
+                                color = item_ID)) + 
+                  geom_line()  +
+                  geom_point() +
+                  facet_wrap( ~ item_categ, ncol = 1, scales = "free")
+
+rp_fac_plot
 ```
 
 
-## Group and/or color by variable's values
+## Tips - Color vs Fill{.codesmall}
 
-Here, we use boxplot instead of lines. 
+NOTE: color is needed for points and lines, fill generally needed for boxes and bars
 
-Note how aesthetic mappings are defined now: `aes(x = item_ID, y = item_price)`. 
+```{r, fig.width=5 , fig.height=3, fig.align='center'}
+ggplot(food, aes(x = item_ID, 
+                 y = item_price_change, 
+                 color = item_categ)) + 
+  geom_boxplot() 
+```
 
-```{r, fig.width=6 , fig.height=4 * 0.8}
-ggplot(df, aes(x = item_ID, y = item_price)) + 
-  geom_boxplot() + 
-  labs(x = "Item ID", y = "Item prices") + 
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+## Tips - Color vs Fill{.codesmall}
+
+NOTE: color is needed for points and lines, fill generally needed for boxes and bars
+```{r, fig.width=5 , fig.height=3, fig.align='center'}
+ggplot(food, aes(x = item_ID, 
+                 y = item_price_change, 
+                 fill = item_categ)) + 
+  geom_boxplot() 
 ```
 
 
-## Group and/or color by variable's values
+## Tips - plus sign `+` can't come at start of a new line
 
-We use `color` element in mappings to indicate that each `item_categ` will have different **color of boxplot box** used.
+This will not work! Also don't use pipes instead of `+`!
 
-We also use `color = "Item\ncategory"` to change name of legend. 
-
-```{r, fig.width=7, fig.height=4 * 0.8}
-ggplot(df, aes(x = item_ID, y = item_price, color = item_categ)) + 
-  geom_boxplot() + 
-  labs(x = "Item ID", y = "Item prices", color = "Item\ncategory") + 
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+```{r, fig.width=6 , fig.height=4 * 0.8, eval = FALSE}
+ggplot(food, aes(x = item_ID, 
+                 y = item_price_change, 
+                 fill = item_categ))  
+ + geom_boxplot()
 ```
 
-## Group and/or color by variable's values
+## Tip - Good idea to add jitter to top of box plots
 
-We use `fill` element in mappings to indicate that each `item_categ` will have different **color of boxplot filling** used.
+Can add `width` argument to make the jitter more narrow.
 
-We also use `fill = "Item\ncategory"` to change name of legend. 
-
-```{r, fig.width=7, fig.height=4 * 0.8}
-ggplot(df, aes(x = item_ID, y = item_price, fill = item_categ)) + 
-  geom_boxplot() + 
-  labs(x = "Item ID", y = "Item prices", fill = "Item\ncategory") + 
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+```{r, fig.width=5 , fig.height=3, fig.align='center'}
+ggplot(food, aes(x = item_ID, 
+                 y = item_price_change, 
+                 fill = item_categ)) + 
+  geom_boxplot() +
+  geom_jitter(width = .06)
 ```
 
-## Group and/or color by variable's values 
+## Tip - be careful about colors for colorblindess
 
-Let's make some tweaks to item ID (`item_ID`) ordering by creating a factor version with a certain order of factor levels 
+`scale_fill_viridis_d()` for discrete /categorical data
+`scale_fill_viridis_c()` for continuous data
+
+```{r, fig.width=5 , fig.height=3, fig.align='center'}
+ggplot(food, aes(x = item_ID, 
+                 y = item_price_change, 
+                 fill = item_categ)) + 
+  geom_boxplot() +
+  geom_jitter(width = .06) +
+  scale_fill_viridis_d()
+```
+
+
+
+## Tip - can pipe data after wrangling into ggplot()
+
+```{r, fig.width=5 , fig.height=3, fig.align='center'}
+
+food_bar <-food %>% 
+  group_by(item_categ) %>%
+  summarize("max_price_change" = max(item_price_change)) %>%
+  ggplot(aes(x = item_categ, 
+             y = max_price_change,
+             fill = item_categ)) + 
+  scale_fill_viridis_d()+
+  geom_col() +
+  theme(legend.position = "none")
+
+food_bar
+```
+
+
+## Tip -  color outside of `aes()`
+
+Can be used to add an outline around column/bar plots.
+
+```{r, fig.width=5 , fig.height=3, fig.align='center'}
+food_bar +
+   geom_col(color = "black") 
+```
+
+## Tip - col vs bar{.codesmall}
+
+`geom_bar()` can only one `aes` mapping & `geom_col()` can have two
+
+`r emo::ji("eyes")`May not be plotting what you think you are...
+
+```{r, fig.width=5 , fig.height=3, fig.align='center'}
+ggplot(food, aes(x = item_ID, 
+                 y = item_price_change, 
+                 fill = item_categ)) + 
+  geom_col()
+```
+
+## What did we plot?
 
 ```{r}
-item_ID_levels <- 
-  df %>% 
-  group_by(item_ID) %>% 
-  summarise(item_price_median = median(item_price)) %>%
-  arrange(item_price_median) %>%
-  pull(item_ID)
+head(food)
 
-df <- 
-  df %>%
-  mutate(item_ID_factor = factor(item_ID, levels = item_ID_levels))
+food %>% group_by(item_ID) %>%
+  summarize(sum = sum(item_price_change))
 ```
 
-## Group and/or color by variable's values
+## Tip - make sure labels aren't too small
 
-Same as 2 slides ago, but we replaced `item_ID` with `item_ID_factor` in mappings definition (`aes()`). 
+```{r, fig.width=5 , fig.height=3, fig.align='center'}
+food_bar +
+  theme(text = element_text(size = 20))
 
-```{r, fig.width=6 , fig.height=4 * 0.8}
-ggplot(df, aes(x = item_ID_factor, y = item_price, fill = item_categ)) + 
-  geom_boxplot() + 
-  labs(x = "Item ID", y = "Item prices", fill = "Item\ncategory") + 
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
 ```
 
-## Split plot into panels by variable's values 
+# Extensions
 
-We define data subset to keep only 4 (out of 20) item IDs. We use `facet_grid(. ~ item_ID)` to split the plot into panels where each product ID has a separate panel
+## `directlabels` package
 
-```{r, fig.width=8, fig.height=2.7}
-df_subset <- df %>% 
-  filter(item_ID %in% c("ID_1", "ID_2", "ID_3", "ID_4"))
+Great for adding labels directly onto plots
 
-ggplot(df_subset, aes(x = observation_time, y = item_price)) + 
-  geom_line() + 
-  labs(x = "Observation time", y = "Item prices") + 
-  facet_grid(. ~ item_ID) 
+https://www.opencasestudies.org/ocs-bp-co2-emissions/ 
+
+```{r}
+#install.packages("directlabels")
+library(directlabels)
+direct.label(rp_fac_plot, method = list("angled.boxes"))
 ```
 
-## Split plot into panels by variable's values 
+## plotly
 
-We define data subset to keep only 4 (out of 20) item IDs. We use `facet_grid(item_ID ~ .)` to split the plot into panels where each product ID has a separate panel
-
-```{r, fig.width=4, fig.height=3}
-ggplot(df_subset, aes(x = item_price)) + 
-  geom_histogram(fill = "yellow", color = "brown", alpha = 0.5) + 
-  labs(x = "Item prices", y = "Observations count") + 
-  facet_grid(item_ID ~ .) 
+```{r}
+#install.packages("plotly")
+library("plotly")
+ggplotly(rp_fac_plot)
 ```
+
+Also check out the [`ggiraph` package](https://www.rdocumentation.org/packages/ggiraph/versions/0.6.1)
 
 ## Saving a ggplot to file 
 
@@ -398,18 +626,11 @@ A few options:
 - RStudio > Plots > Zoom > [right mouse click on the plot] > Save image as
 - In the code
 
-```{r}
-plot_FINAL <- 
-  ggplot(df_subset, aes(x = item_price)) + 
-  geom_histogram(fill = "yellow", color = "brown", alpha = 0.5) + 
-  labs(x = "Item prices", y = "Observations count") + 
-  facet_grid(item_ID ~ .)  
-
-ggsave(filename = "very_important_plot.png",  # will save in working directory
-       plot = plot_FINAL, 
+```{r, eval = FALSE}
+ggsave(filename = "saved_plot.png",  # will save in working directory
+       plot = rp_fac_plot, 
        width = 6, height = 3.5)               # by default in inch
 ```
 
 ## Lab 2
-
-Lab document: http://jhudatascience.org//intro_to_r/Data_Visualization/lab/Data_Visualization_Lab.Rmd
+[Lab document](http://jhudatascience.org//intro_to_r/Data_Visualization/lab/Data_Visualization_Lab.Rmd)

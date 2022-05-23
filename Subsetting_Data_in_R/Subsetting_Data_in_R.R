@@ -6,39 +6,92 @@ library(dplyr)
 library(jhur)
 
 
-## -----------------------------------------------------------------------------
-library(tidyverse)# loads dplyr and other packages!
+## ---- fig.alt="dplyr", out.width = "25%", echo = FALSE, fig.align='center'----
+knitr::include_graphics("https://tidyverse.tidyverse.org/logo.png")
+
+
+## ---- fig.alt="dplyr", out.width = "100%", echo = FALSE, fig.align='center'----
+knitr::include_graphics("images/dplyr.png")
 
 
 ## -----------------------------------------------------------------------------
-library(jhur)
-data(jhu_cars)
-df = jhu_cars # df is a copy of jhu_cars
-head(df) # changing df does **not** change jhu_cars
+library(tidyverse) # loads dplyr and other packages!
 
 
 ## -----------------------------------------------------------------------------
-tbl = as_tibble(df) 
+df <- mtcars # df is a copy of mtcars
+head(df) # changing df does **not** change mtcars!
+
+
+## -----------------------------------------------------------------------------
+dim(df) # rows, columns
+nrow(df) # number of rows
+ncol(df) # number of columns
+
+
+## -----------------------------------------------------------------------------
+glimpse(df)
+
+
+## -----------------------------------------------------------------------------
+slice_sample(df, n = 3)
+slice_sample(df, prop = .2)
+
+
+
+## -----------------------------------------------------------------------------
+data.frame(df)
+
+
+## -----------------------------------------------------------------------------
+df_updated <-data.frame(df)
+# this would overwrite the existing df object
+df<-data.frame(df) 
+
+
+## ---- eval = FALSE------------------------------------------------------------
+## # function comes from base R - no package loading required
+## df_example_readr <- read.csv("documents/data_analysis/data_file.csv")
+
+
+## -----------------------------------------------------------------------------
+tbl <- dplyr::tibble(df) 
 tbl
 
 
-## -----------------------------------------------------------------------------
-head(mtcars, 2)
-head(as_tibble(mtcars), 2)
+## ---- eval = FALSE------------------------------------------------------------
+## 
+## df_example_readr <- read_csv("documents/data_analysis/data_file.csv")
 
 
 ## -----------------------------------------------------------------------------
-df = dplyr::rename(df, MPG = mpg)
+head(df, 2)
+head(tibble(df), 2)
+
+
+## ---- size = "tiny"-----------------------------------------------------------
+head(rownames_to_column(df, var = "car"),  2)
+head(tibble(rownames_to_column(df, var = "car")),  2)
+
+
+## ---- eval = FALSE------------------------------------------------------------
+## # general format! not code!
+## {data you are creating or changing} <- rename({data you are using},
+##                                         {New Name} = {Old name})
+
+
+## -----------------------------------------------------------------------------
+df <- dplyr::rename(df, MPG = mpg)
 head(df)
 
 
 ## -----------------------------------------------------------------------------
-df_upper = dplyr::rename_all(df, toupper)
+df_upper <- dplyr::rename_all(df, toupper)
 head(df_upper, 3)
 
 
 ## -----------------------------------------------------------------------------
-df = dplyr::rename_all(df, tolower)
+df <- dplyr::rename_all(df, tolower)
 head(df, 3)
 
 
@@ -75,7 +128,7 @@ select(df, starts_with("c"))
 
 
 ## ---- eval = FALSE------------------------------------------------------------
-## ??tidyselect::select_helpers
+## tidyslect::
 
 
 ## -----------------------------------------------------------------------------
@@ -101,8 +154,8 @@ select(filter(df, mpg > 20 & cyl == 4), cyl, hp)
 
 
 ## -----------------------------------------------------------------------------
-df2 = filter(df, mpg > 20 & cyl == 4)
-df2 = select(df2, cyl, hp)
+df2 <- filter(df, mpg > 20 & cyl == 4)
+df2 <- select(df2, cyl, hp)
 
 head(df2,4)
 
@@ -112,24 +165,26 @@ df %>% filter(mpg > 20 & cyl == 4) %>% select(cyl, hp)
 
 
 ## -----------------------------------------------------------------------------
-df$newcol = df$wt/2.2
+df$newcol <- df$wt/2.2
 head(df,3)
 
 
+## ---- eval = FALSE------------------------------------------------------------
+## # General format - Not the code!
+## {data object to update} <- mutate({data to use},
+##                                 {new variable name} = {new variable source})
+
+
 ## -----------------------------------------------------------------------------
-df = mutate(df, newcol = wt/2.2)
-
-
-## ---- echo = FALSE------------------------------------------------------------
-print(head({df = mutate(df, newcol = wt/2.2)}, 2))
+df <- mutate(df, newcol = wt/2.2)
 
 
 ## ---- eval = FALSE------------------------------------------------------------
-## df$newcol = NULL
+## df$newcol <- NULL
 
 
 ## ---- eval = FALSE------------------------------------------------------------
-## select(df, -newcol)
+## select(df, - newcol)
 
 
 ## ---- echo = FALSE------------------------------------------------------------
@@ -147,6 +202,16 @@ select(df, -c("newcol", "drat"))
 
 
 ## -----------------------------------------------------------------------------
+
+head(df)
+
+df_carb <- relocate(.data = df, wt,
+                       .before = mpg)
+
+df_carb
+
+
+## -----------------------------------------------------------------------------
 arrange(df, mpg)
 
 
@@ -160,8 +225,11 @@ arrange(df, mpg, desc(hp))
 
 ## -----------------------------------------------------------------------------
 df$disp
+
+
+## -----------------------------------------------------------------------------
 #ifelse(test, yes, no)
-ifelse(df$disp<=200, "low", "high")
+ifelse(df$disp <= 200, "low", "high")
 
 
 ## -----------------------------------------------------------------------------
@@ -214,9 +282,4 @@ df[, 1, drop = FALSE]
 
 ## -----------------------------------------------------------------------------
 df[, c("mpg", "cyl")]
-
-
-## -----------------------------------------------------------------------------
-head(rownames_to_column(mtcars, var = "car"),  2)
-head(as_tibble(rownames_to_column(mtcars, var = "car")),  2)
 

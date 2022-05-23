@@ -9,13 +9,21 @@ library(tidyverse)
 library(tidyverse)
 
 
+## ---- fig.alt="A preview of the Data transformation cheatsheet produced by RStudio.", out.width = "80%", echo = FALSE, align = "center"----
+knitr::include_graphics("../images/Manip_cheatsheet.png")
+
+
+## ---- fig.alt="A gif visualization of data going from wide to long form.", out.width = "40%", echo = FALSE, align = "center"----
+knitr::include_graphics("../images/tidyr_pivoting.gif")
+
+
 ## ---- echo = FALSE------------------------------------------------------------
-ex_wide = tibble(State = "Alabama",
+ex_wide <- tibble(State = "Alabama",
                  June_vacc_rate = "37.2%",
                  May_vacc_rate = "36.0%",
                  April_vacc_rate = "32.4%"
                      )
-ex_long = pivot_longer(ex_wide, cols = c(June_vacc_rate, May_vacc_rate, April_vacc_rate))
+ex_long <- pivot_longer(ex_wide, cols = !State)
 
 
 ## ---- echo = FALSE------------------------------------------------------------
@@ -27,12 +35,12 @@ ex_long
 
 
 ## ---- echo = FALSE------------------------------------------------------------
-ex_wide = tibble(State = c("Alabama", "Alaska"),
+ex_wide <- tibble(State = c("Alabama", "Alaska"),
                  June_vacc_rate = c("37.2%", "47.5%"),
                  May_vacc_rate = c("36.0%", "46.2%"),
                  April_vacc_rate = c("32.4%", "41.7%")
                      )
-ex_long = pivot_longer(ex_wide, cols = c(June_vacc_rate, May_vacc_rate, April_vacc_rate))
+ex_long <- pivot_longer(ex_wide, cols = !State)
 
 
 ## ---- echo = FALSE------------------------------------------------------------
@@ -55,23 +63,44 @@ ex_wide
 ex_long
 
 
+## ---- eval=FALSE--------------------------------------------------------------
+## {long_data} <- {wide_data} %>% pivot_longer(cols = {columns to pivot},
+##                                         names_to = {New column name: contains old column names},
+##                                         values_to = {New column name: contains cell values})
+
+
+## ---- echo = FALSE------------------------------------------------------------
+wide_data <- tibble(June_vacc_rate = "37.2%",
+                 May_vacc_rate = "36.0%",
+                 April_vacc_rate = "32.4%")
+
+
+## -----------------------------------------------------------------------------
+wide_data
+long_data <- wide_data %>% pivot_longer(cols = everything(),
+                                        names_to = "Month",
+                                        values_to = "Rate")
+long_data
+
+
 ## ---- message = FALSE---------------------------------------------------------
-circ = read_csv(
-  paste0("http://jhudatascience.org/intro_to_r/",
-         "data/Charm_City_Circulator_Ridership.csv"))
+circ <- jhur::read_circulator()
 head(circ, 5)
 
 
 ## -----------------------------------------------------------------------------
-long = circ %>% 
+long <- circ %>% 
   pivot_longer(starts_with(c("orange","purple","green","banner")),
-               names_to = "var", values_to = "number")
+               names_to = "var", 
+               values_to = "number")
 long
 
 
 ## -----------------------------------------------------------------------------
-long = circ %>% pivot_longer(!c(day, date, daily),
-                    names_to = "var", values_to = "number")
+long <- circ %>% 
+  pivot_longer( !c(day, date, daily),
+               names_to = "var", 
+               values_to = "number")
 long
 
 
@@ -80,7 +109,7 @@ long %>% count(var)
 
 
 ## -----------------------------------------------------------------------------
-long = long %>% mutate(
+long <- long %>% mutate(
   var = str_replace(var, "Board", "_Board"),
   var = str_replace(var, "Alight", "_Alight"),
   var = str_replace(var, "Average", "_Average") 
@@ -89,119 +118,156 @@ long
 
 
 ## -----------------------------------------------------------------------------
-long = 
-  long %>% 
+long <- long %>% 
   separate(var, into = c("line", "type"), sep = "_")
 long
 
 
-## -----------------------------------------------------------------------------
-reunited = long %>% 
-  unite(var, line, type, sep = "_")  
-reunited
+## ---- eval=FALSE--------------------------------------------------------------
+## {wide_data} <- {long_data} %>%
+##   pivot_wider(names_from = {Old column name: contains new column names},
+##               values_from = {Old column name: contains new cell values})
 
 
 ## -----------------------------------------------------------------------------
-wide = long %>% pivot_wider(names_from = "type", 
+long_data
+wide_data <- long_data %>% pivot_wider(names_from = "Month", 
+                                       values_from = "Rate") 
+wide_data
+
+
+## -----------------------------------------------------------------------------
+long
+
+
+## -----------------------------------------------------------------------------
+wide <- long %>% pivot_wider(names_from = "type", 
                             values_from = "number") 
 wide
 
 
-## ----merging------------------------------------------------------------------
-base <- tibble(id = 1:10, Age = seq(55,60, length=10))
-head(base, 2)
+## ----echo=FALSE---------------------------------------------------------------
+data_As <- tibble(State = c("Alabama", "Alaska"),
+                 June_vacc_rate = c("37.2%", "47.5%"),
+                 May_vacc_rate = c("36.0%", "46.2%"))
+data_cold <- tibble(State = c("Maine", "Alaska"),
+                    April_vacc_rate = c("32.4%", "41.7%"))
 
 
 ## -----------------------------------------------------------------------------
-visits <- tibble(id = rep(2:11, 3), visit= rep(1:3, 10),
-                    Outcome = seq(10,50, length=30))
-head(visits, 2)
+data_As
+data_cold
+
+
+## ---- fig.alt="A gif showing the inner joining of two simple datasets.", out.width = "70%", echo = FALSE, align = "center"----
+knitr::include_graphics("../images/inner_join.gif")
 
 
 ## ----inner_join---------------------------------------------------------------
-ij = inner_join(base, visits)
-dim(ij)
-head(ij)
+ij = inner_join(data_As, data_cold)
+ij
+
+
+## ---- fig.alt="A gif showing the left joining of two simple datasets.", out.width = "70%", echo = FALSE, align = "center"----
+knitr::include_graphics("../images/left_join.gif")
 
 
 ## ----left_join----------------------------------------------------------------
-lj = left_join(base, visits)
-dim(lj)
-head(lj)
+lj = left_join(data_As, data_cold)
+lj
 
 
 ## ---- include=FALSE-----------------------------------------------------------
+# install.packages("tidylog")
 library(tidylog)
 
 
 ## ----left_join_log------------------------------------------------------------
 # install.packages("tidylog")
 library(tidylog)
-left_join(base, visits)
+left_join(data_As, data_cold)
+
+
+## ---- fig.alt="A gif showing the right joining of two simple datasets.", out.width = "70%", echo = FALSE, align = "center"----
+knitr::include_graphics("../images/right_join.gif")
 
 
 ## ----right_join---------------------------------------------------------------
-rj = right_join(base, visits)
+rj <- right_join(data_As, data_cold)
+rj
 
 
 ## ----right_join2--------------------------------------------------------------
-lj2 = left_join(visits, base)
+lj2 <- left_join(data_cold, data_As)
+lj2
 
 
-## ----full_join----------------------------------------------------------------
-fj = full_join(base, visits)
+## ---- fig.alt="A gif showing the full joining of two simple datasets.", out.width = "70%", echo = FALSE, align = "center"----
+knitr::include_graphics("../images/full_join.gif")
 
 
 ## -----------------------------------------------------------------------------
-# fj = full_join(base, visits)
-head(fj, 10)
+fj <- full_join(data_As, data_cold)
 
 
-## ----include=FALSE------------------------------------------------------------
+## -----------------------------------------------------------------------------
+fj
+
+
+## ----echo=FALSE---------------------------------------------------------------
+data_As <- tibble(State = c("Alabama", "Alaska"),
+                 state_bird = c("wild turkey", "williow ptarmigan"))
+data_cold <- tibble(State = c("Maine", "Alaska", "Alaska"),
+                    vacc_rate = c("32.4%", "41.7%", "46.2%"),
+                    month = c("April", "April", "May"))
+
+
+## -----------------------------------------------------------------------------
+data_As
+data_cold
+
+
+## -----------------------------------------------------------------------------
+lj <- left_join(data_As, data_cold)
+
+
+## -----------------------------------------------------------------------------
+lj
+
+
+## ---- fig.alt="A gif showing how data can be duplicated from one dataset when joining two simple datasets.", out.width = "70%", echo = FALSE, align = "center"----
+knitr::include_graphics("../images/left_join_extra.gif")
+
+
+## -----------------------------------------------------------------------------
 unloadNamespace("tidylog")
 
 
 ## -----------------------------------------------------------------------------
 duplicated(1:5)
 duplicated(c(1:5, 1))
-fj %>% mutate(dup_id = duplicated(id))
+lj %>% mutate(dup_State = duplicated(State))
 
 
 ## ----use_by-------------------------------------------------------------------
-# for multiple, by = c(col1, col2)
-head(full_join(base, visits, by = "id"))
+full_join(data_As, data_cold, by = "State")
+
+
+## ----eval=FALSE---------------------------------------------------------------
+## full_join(data_As, data_cold, by = c("a" = "b"))
 
 
 ## -----------------------------------------------------------------------------
-head(wide, 3)
-not_namat = wide %>% select(Alightings, Average, Boardings)
-not_namat = !is.na(not_namat)
-head(not_namat, 2)
-wide$good = rowSums(not_namat) > 0
+data_As
+data_cold
 
 
 ## -----------------------------------------------------------------------------
-wide = wide %>% filter(good) %>% select(-good)
-head(wide)
+A_states <- data_As %>% pull(State)
+cold_states <- data_cold %>% pull(State)
 
 
 ## -----------------------------------------------------------------------------
-long = long %>% filter(!is.na(number) & number > 0)
-first_and_last = long %>% arrange(date) %>% # arrange by date
-  filter(type == "Boardings") %>% # keep boardings only
-  group_by(line) %>% # group by line
-  slice( c(1, n())) # select ("slice") first and last (n() command) lines
-first_and_last %>%  head(4)
-
-
-## ----merging2-----------------------------------------------------------------
-merged.data <- merge(base, visits, by = "id")
-head(merged.data, 5)
-dim(merged.data)
-
-
-## ----mergeall-----------------------------------------------------------------
-all.data <- merge(base, visits, by = "id", all = TRUE)
-tail(all.data)
-dim(all.data)
+setdiff(A_states, cold_states)
+setdiff(cold_states, A_states)
 

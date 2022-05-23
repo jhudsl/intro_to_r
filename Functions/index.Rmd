@@ -1,11 +1,20 @@
 ---
 title: "Functions"
-author: "Introduction to R for Public Health Researchers"
 output:
   ioslides_presentation:
     css: ../styles.css
     widescreen: yes
 ---
+
+```{r, echo = FALSE, message = FALSE}
+library(dplyr)
+library(jhur)
+library(knitr)
+library(stringr)
+library(tidyr)
+library(emo)
+opts_chunk$set(comment = "")
+```
 
 ## Writing your own functions
 
@@ -20,39 +29,39 @@ So far we've seen many functions, like `c()`, `class()`, `filter()`, `dim()` ...
 
 ## Writing your own functions
 
-Here we will write a function that returns the second element of a vector:
+Here we will write a function that multiplies some number (x) by 2:
 
-```{r return2a, comment=""}
-return2a = function(x) x[2]
+```{r comment=""}
+times_2 <- function(x) x * 2
 ```
 
 When you run the line of code above, you make it ready to use (no output yet!). Let's test it!
 
-```{r return2a2, comment=""}
-return2a(x = c(1,4,5,76))
+```{r comment=""}
+times_2(x = 10)
 ```
 
-## Writing your own functions
+## Writing your own functions: `{ }`
 
 Adding the curly brackets - `{}` - allows you to use functions spanning multiple lines:
 
-```{r return2b, comment=""}
-return2b = function(x) {
-  x[2]
+```{r comment=""}
+times_2 <- function(x) {
+  x * 2
 }
-return2b(x = c(1,4,5,76))
+times_2(x = 10)
 ```
 
-## Writing your own functions
+## Writing your own functions: `return`
 
 If we want something specific for the function's output, we use `return()`:
 
-```{r return2c, comment=""}
-return2c = function(x) {
-  output = x[2]
+```{r comment=""}
+times_2 <- function(x) {
+  output <- x * 2
   return(output)
 }
-return2c(x = c(1,4,5,76))
+times_2(x = 10)
 ```
 
 ## Writing your own functions
@@ -60,31 +69,31 @@ return2c(x = c(1,4,5,76))
 **Review**: The syntax for a function is: 
 
 ```
-functionName = function(inputs) {
+functionName <- function(inputs) {
  <function body>
 return(value)
 }
 ```
 
-## Writing your own functions
+## Writing your own functions: multiple inputs
 
-Functions can take multiple inputs. Maybe you want users to select which element to extract:
+Functions can take multiple inputs:
 
-```{r return_n, comment=""}
-return_n = function(x, n) x[n]
-return_n(x = c(1,4,5,76), n = 3)
+```{r comment=""}
+times_2_plus_y <- function(x, y) x * 2 + y
+times_2_plus_y(x = 10, y = 3)
 ```
 
-## Writing your own functions
+## Writing your own functions: defaults
 
-Functions can have "default" arguments. This lets us use the function without using an argument later.
+Functions can have "default" arguments. This lets us use the function without using an argument later:
 
-```{r return_n2, comment=""}
-return_n2 = function(x = c(1,2,3), n = 2) x[n]
-return_n2()
+```{r comment=""}
+times_2_plus_y <- function(x = 10, y = 3) x * 2 + y
+times_2_plus_y()
 ```
 
-## Writing a simple function
+## Writing another simple function
 
 Let's write a function, `sqdif`, that:
 
@@ -93,51 +102,190 @@ Let's write a function, `sqdif`, that:
 3. squares this difference
 4. then returns the final value 
 
-## Writing a simple function
+## Writing another simple function
 
-```{r sqdif, comment=""}
-sqdif <- function(x=2,y=3) (x-y)^2
+```{r comment=""}
+sqdif <- function(x = 2, y = 3) (x - y) ^ 2
 
 sqdif()
-sqdif(x=10,y=5)
-sqdif(10,5)
+sqdif(x = 10, y = 5)
+sqdif(10, 5)
 ```
 
-## Writing your own functions
+## Writing your own functions: characters
 
-Try to write a function called `top()` that takes a `tibble`, and returns the first `n` rows and columns, with the default value of `n=5`.
+Functions can have any kind of input. Here is a function with characters:
 
-## Writing your own functions
-
-Try to write a function called `top()` that takes a `tibble`, and returns the first `n` rows and columns
-
-```{r top, message=FALSE}
-top = function(df, n=5) df[1:n, 1:n]
-bike = jhur::read_bike()
-```
-```{r, comment=""}
-top(bike) # Note that we are using the default value for n 
+```{r comment=""}
+loud <- function(word) {
+  output <- rep( toupper(word), 5)
+  return(output)
+}
+loud(word = "hooray!")
 ```
 
-## Custom functions in `apply`
+## Functions for tibbles
 
-You can also "apply" functions easily with `sapply()`.
+We can use `filter(row_number()==n)` to extract a row of a tibble:
+
+```{r message=FALSE}
+cars <- read_kaggle()
+
+get_row <- function(dat, row) dat %>% filter(row_number()==row)
+```
+
+```{r echo=FALSE}
+# So extra columns don't clutter the slide
+cars <- cars %>% select(1:10)
+```
+
+```{r}
+get_row(dat = cars, row = 10)
+```
+
+```{r echo=FALSE}
+# Restore dataset
+cars <- read_kaggle()
+```
+
+## Functions for tibbles
+
+`select(n)` will choose column `n`:
+
+```{r message=FALSE}
+get_index <- function(dat, row, col){
+ dat %>% filter(row_number()==row) %>% select(col) 
+}
+
+get_index(dat = cars, row = 10, col = 8)
+```
+
+## Functions for tibbles
+
+Including default values for arguments:
+
+```{r message=FALSE}
+get_top <- function(dat, row = 1, col = 1){
+ dat %>% filter(row_number()==row) %>% select(col) 
+}
+
+get_top(dat = cars)
+```
+
+## Using your custom functions: `sapply()`
+
+Now that you've made a function... You can "apply" functions easily with `sapply()`!
 
 These functions take the form:
 
-```
-sapply(???, some_function) # No parentheses on the function
-```
-
-## Custom functions in `apply`
-
-```{r sapply1, comment=""}
-sapply(bike, class)
-sapply(bike$length, log)
+```   
+sapply(<a vector or list>, some_function)
 ```
 
+## Using your custom functions: `sapply()`
 
+`r emo::ji("rotating_light")` There are no parentheses on the functions! `r emo::ji("rotating_light")`
+
+```{r comment=""}
+sapply(cars, class)
+sapply(pull(cars, VehOdo), log)
+```
+
+## Using your custom functions "on the fly" to iterate
+
+```{r comment=""}
+sapply(pull(cars, VehOdo), function(x) x / 1000)
+```
+
+## Using your custom functions: `sapply()`.{.codesmall}
+
+```{r}
+cars_dbl <- cars %>% select(Make, Model, where(is.double))
+
+Odo_updated <- sapply(pull(cars_dbl, VehOdo), times_2_plus_y)
+
+cars_dbl %>% 
+  mutate(Odo_2_y = Odo_updated) %>% select(c(1:2,7:13))
+```
+
+## Applying functions with `across` from `dplyr`
+
+`across()` makes it easy to apply the same transformation to multiple columns, allowing you to use select() semantics inside functions like `summarize()` and `mutate()`.
+
+```
+across( .cols = <columns>, .fns = function, ... )
+```
+
+- List columns first : `.cols = `
+- List function next: `.fns = `
+- Then list any arguments for the function
+
+## Applying functions with `across` from `dplyr`.{.codesmall}
+
+Combining with `summarize()`:
+
+```{r warning=FALSE}
+cars_dbl %>% 
+  group_by(Make) %>%
+  summarize(across(.cols = everything(), .fns = mean))
+```
+
+## Applying functions with `across` from `dplyr`.{.codesmall}
+
+Adding arguments to the function (`quantile()`) at the end:
+
+```{r warning=FALSE}
+cars_dbl %>% 
+  group_by(Make) %>%
+  summarize(across(.cols = where(is.double), .fns = quantile, probs = 0.95))
+```
+
+## Applying functions with `across` from `dplyr`.{.codesmall}
+
+Using different `tidyselect()` options:
+
+```{r warning=FALSE}
+cars_dbl %>% 
+  group_by(Make) %>%
+  summarize(across(.cols = starts_with("Veh"), .fns = mean))
+```
+
+## Applying functions with `across` from `dplyr`.{.codesmall}
+
+Combining with `mutate()`:
+
+```{r}
+cars_dbl %>% 
+  mutate(across(.cols = starts_with("Veh"), .fns = round, digits = -3))
+```
+
+## Applying functions with `across` from `dplyr`.{.codesmall}
+
+Combining with `mutate()`:
+
+```{r}
+cars_dbl %>% 
+  mutate(across(.cols = everything(), 
+                .fns = str_replace_all, 
+                pattern = "A",
+                replacement = "a"))
+```
+
+## Applying functions with `across` from `dplyr`.{.codesmall}
+
+Combining with `mutate()`:
+
+```{r warning=FALSE, message=FALSE}
+# Child mortality data
+mort <- read_mortality() %>% rename(country = `...1`)
+
+mort %>% 
+  select(country, starts_with("194")) %>% 
+  mutate(across(.cols = c(`1943`, `1944`, `1945`),
+                .fns = replace_na,
+                replace = 0))
+```
 
 ## Website
 
-[Website](http://jhudatascience.org/intro_to_r/index.html)
+[Website](http://jhudatascience.org/intro_to_R_class/index.html)

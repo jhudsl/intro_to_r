@@ -1,100 +1,146 @@
-## ----setup, include=FALSE---------------------------------------------
+## ----setup, include=FALSE-----------------------------------------------------
 knitr::opts_chunk$set(echo = TRUE)
 
 
-## ---- message = FALSE-------------------------------------------------
+## ---- message = FALSE---------------------------------------------------------
+# don't forget to load the packages that you will need!
 library(dplyr)
 library(tidyverse)
 library(jhur)
 
 
-## ---------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 mtcars
 
 
-## ---------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 class(mtcars)
 
 
-## ---------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 dim(mtcars)
 nrow(mtcars)
 ncol(mtcars)
-glimpse(mtcars)
 
 
-## ---------------------------------------------------------------------
-cars = mtcars
-cars = rename(cars, MPG = mpg)
-head(cars)
+## -----------------------------------------------------------------------------
+cars_mt_copy <- mtcars
+cars_mt_copy <- rename(cars_mt_copy, MPG = mpg)
+head(cars_mt_copy)
 
 
-## ---------------------------------------------------------------------
-cars = rename_all(cars, toupper)
-head(cars)
+## -----------------------------------------------------------------------------
+cars_mt_copy <- rename_all(cars_mt_copy, toupper)
+head(cars_mt_copy)
+dim(cars_mt_copy)
 
 
-## ----alternative------------------------------------------------------
-cars = mtcars
-cn = colnames(cars) # extract column names
-cn = toupper(cn) # make them uppercase
-colnames(cars) = cn # reassign
-head(cars)
+## -----------------------------------------------------------------------------
+head(cars_mt_copy, 3)
+tail(cars_mt_copy, 3)
 
 
-## ---------------------------------------------------------------------
-cars = rownames_to_column(mtcars, var = "car")
+## -----------------------------------------------------------------------------
+cars_mt_copy <- rownames_to_column(cars_mt_copy, var = "CAR")
+head(cars_mt_copy)
+cars_mt_copy <-tibble(cars_mt_copy)
+cars_mt_copy
 
 
-## ---------------------------------------------------------------------
-pvars = select(cars, car, ends_with("p"))
+## -----------------------------------------------------------------------------
+pvars <- select(cars_mt_copy, CAR, ends_with("P"))
+pvars
 
 
-## ---------------------------------------------------------------------
-carsSub = select(cars, car, wt, qsec, hp)
-dim(carsSub)
+## -----------------------------------------------------------------------------
+carsSub <- select(cars_mt_copy,CAR, WT, QSEC, HP)
+carsSub
 
 
-## ---------------------------------------------------------------------
-carsSub = rename_all(carsSub, toupper)
+
+## -----------------------------------------------------------------------------
+carsSub <- rename_all(carsSub, tolower)
+carsSub
 
 
-## ---------------------------------------------------------------------
-cars_mpg = filter(cars, mpg > 20)
+
+## -----------------------------------------------------------------------------
+pull(carsSub, car)
+select(carsSub, car)
+
+
+## -----------------------------------------------------------------------------
+select(cars_mt_copy, contains("a"))
+
+
+## -----------------------------------------------------------------------------
+cars_mpg <- filter(cars_mt_copy, MPG > 20)
 dim(cars_mpg)
 nrow(cars_mpg)
-glimpse(cars_mpg)
-# filter(cars, mpg > 20)
+cars_mpg
 
 
-## ---------------------------------------------------------------------
-cars %>% filter(mpg > 20) %>% nrow()
-filter(cars, mpg > 20) %>% nrow()
+## -----------------------------------------------------------------------------
+filter(cars_mt_copy, MPG < 16 & HP > 150)
+nrow(filter(cars_mt_copy, MPG < 16 & HP > 150))
+nrow(filter(cars_mt_copy, MPG < 16, HP >  150))
+cars_mt_copy %>% filter(MPG < 16, HP >  150) %>% nrow()
 
 
+## -----------------------------------------------------------------------------
+filter(cars_mt_copy, MPG < 16 & HP >= 150)
+nrow(filter(cars_mt_copy, MPG < 16 & HP >= 150))
+nrow(filter(cars_mt_copy, MPG < 16, HP >=  150))
+cars_mt_copy %>% filter(MPG < 16, HP >=  150) %>% nrow()
 
-## ---------------------------------------------------------------------
-filter(cars, mpg < 16 & hp > 100)
-nrow(filter(cars, mpg < 16 & hp > 100))
-nrow(filter(cars, mpg < 16, hp > 100))
-cars %>% filter(mpg < 16, hp > 100) %>% nrow()
+
+## -----------------------------------------------------------------------------
+filter(cars_mt_copy, CYL == 4 | WT < 1.9)
+nrow(filter(cars_mt_copy, CYL == 4 & WT < 1.9))
 
 
-## ---------------------------------------------------------------------
-carsSub = filter(cars, cyl == 8) 
-carsSub = select(carsSub, wt, qsec, hp, car)
+## -----------------------------------------------------------------------------
+carsSub <- filter(cars_mt_copy, CYL == 8) 
+carsSub <- select(carsSub, CAR, WT, QSEC, HP)
+carsSub # can get dimensions just from viewing the tibble
+dim(carsSub) # alternatively can use dim() function
+
+
+## -----------------------------------------------------------------------------
+carsSub <- cars_mt_copy %>% 
+  filter(CYL == 8) %>% 
+  select(CAR, WT, QSEC, HP)
+carsSub
 dim(carsSub)
-carsSub = cars %>% 
-  filter(cyl == 8) %>% 
-  select(wt, qsec, hp, car)
-dim(carsSub)
 
 
-## ---------------------------------------------------------------------
-carsSub = arrange(carsSub, wt)
+## ---- eval = FALSE------------------------------------------------------------
+## carsSub <- cars_mt_copy %>%
+##   select(CAR, WT, QSEC, HP) %>%
+##   filter(CYL == 8)
+## 
 
 
-## ---------------------------------------------------------------------
-carsSub %>% mutate(wt2 = wt^2)
-carsSub = carsSub %>% mutate(wt2 = wt^2)
+## -----------------------------------------------------------------------------
+carsSub <- arrange(carsSub, WT)
+carsSub
+pull(carsSub, CAR) %>% last()
+last(carsSub$CAR) # alternatively without pipes
+
+
+## -----------------------------------------------------------------------------
+carsSub <- carsSub %>% mutate(WT2 = WT^2)
+
+
+## -----------------------------------------------------------------------------
+
+carsSub <- carsSub %>% relocate(WT2, .before = CAR)
+carsSub
+
+
+## -----------------------------------------------------------------------------
+carsSub %>% 
+  filter(CAR == "Cadillac Fleetwood") %>%
+  select(WT2)
+
 

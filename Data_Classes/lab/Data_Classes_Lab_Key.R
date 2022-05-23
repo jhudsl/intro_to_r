@@ -1,119 +1,83 @@
-## ---------------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 library(readr)
 library(tidyverse)
 library(dplyr)
 library(lubridate)
 library(jhur)
 
-bike = read_csv(
-  "http://johnmuschelli.com/intro_to_r/data/Bike_Lanes.csv")
+
+## -----------------------------------------------------------------------------
+int_vect <- rep(seq(1, 10), 3)
 
 
-## ---------------------------------------------------------------------------------
-library(jhur)
-bike = read_bike()
+## -----------------------------------------------------------------------------
+set.seed(1234)
+rand_vect <- sample( 1:30, size = 30, replace = TRUE)
 
 
-## ----q1---------------------------------------------------------------------------
-head(factor(bike$type))
-
-btypes = sort(unique(bike$type))
-x = c("SIDEPATH","BIKE BOULEVARD", "BIKE LANE", "CONTRAFLOW",
-        "SHARED BUS BIKE",  "SHARROW",  "SIGNED ROUTE")
-dput(btypes)
-dput(btypes)[c(6,1:5,7)]
-dput(btypes[c(6,1:5,7)])
-
-lev = c( "SIDEPATH", "BIKE BOULEVARD", "BIKE LANE", "CONTRAFLOW", "SHARED BUS BIKE", 
-        "SHARROW", "SIGNED ROUTE")
+## -----------------------------------------------------------------------------
+TF_vect <- rep(c(TRUE, TRUE, FALSE), times = 10)
+TF_vect2 <- rep(c("TRUE", "TRUE", "FALSE"), times = 10)
 
 
-## ----q2---------------------------------------------------------------------------
-bike$type = factor(bike$type)
-bike$type = relevel(bike$type, "SIDEPATH")
-bike$type = factor(bike$type,
-          levels = dput(btypes[c(6,1:5,7)]))
-bike = bike %>% mutate(type = factor(type, 
-                levels = dput(btypes[c(6,1:5,7)])))
-
-table(bike$type)
+## -----------------------------------------------------------------------------
+vect_data <- tibble(int_vect, rand_vect, TF_vect, TF_vect2)
 
 
-## ----q3---------------------------------------------------------------------------
-bike = bike %>% 
-  mutate(type2 = factor(type, 
-             levels = c( "SIDEPATH", "BIKE BOULEVARD", 
-                         "BIKE LANE") ) )
-table(bike$type)
-table(bike$type2)
-table(bike$type2, useNA = "always")
+## -----------------------------------------------------------------------------
+slice_sample(vect_data, n = 5)
+slice_sample(vect_data, n = 5)
+slice_sample(vect_data, n = 5)
 
 
-## ----q4a--------------------------------------------------------------------------
-bike = bike %>% 
-  mutate(dateInstalled = 
-           as.character(dateInstalled)
-  )
-head(bike$dateInstalled)
+## -----------------------------------------------------------------------------
+is.logical(TF_vect)
+is.logical(TF_vect2)
 
 
-## ----q4b--------------------------------------------------------------------------
-bike = bike %>% 
-  mutate(dateInstalled = 
-           factor(dateInstalled)
-  )
-head(bike$dateInstalled)
-
-table(factor(bike$dateInstalled, levels = 2005:2017))
-table(factor(bike$dateInstalled, levels = 2005:2017), 
-        useNA="ifany")
+## -----------------------------------------------------------------------------
+vect_data <- mutate(vect_data, type_fact = factor(int_vect))
+vect_data
 
 
-## ----q4c--------------------------------------------------------------------------
-head(as.numeric(bike$dateInstalled)) 
+## -----------------------------------------------------------------------------
+circ = read_circulator()
+str(circ)
 
 
-## ----q4d--------------------------------------------------------------------------
-head(as.numeric(as.character(
-    bike$dateInstalled)))
+## -----------------------------------------------------------------------------
+circ <- mutate(circ, date_formatted = mdy(date))
 
 
-## ----q5---------------------------------------------------------------------------
- 
-bike = bike %>% mutate(
-    type = as.character(type),
-    type2 = ifelse(type %in% c("CONTRAFLOW", "SHARED BUS BIKE", 
-                               "SHARROW", "SIGNED ROUTE"), "OTHER", type),
-    type2 = factor(type2, levels = c( "SIDEPATH", "BIKE BOULEVARD", 
-                               "BIKE LANE", "OTHER") ))
-
-table(bike$type2)
-
-bike2 = bike %>% 
-  mutate(
-    type = factor(type,
-                  levels = c( "SIDEPATH", "BIKE BOULEVARD", 
-                              "BIKE LANE", "CONTRAFLOW", 
-                              "SHARED BUS BIKE", 
-                              "SHARROW", "SIGNED ROUTE")
-                  ),
-    type2 = recode_factor(type, 
-                          "CONTRAFLOW" = "OTHER",
-                          "SHARED BUS BIKE" = "OTHER",
-                          "SHARROW" = "OTHER",
-                          "SIGNED ROUTE" = "OTHER")
-  )
-table(bike2$type2)
+## -----------------------------------------------------------------------------
+circ <- circ %>% relocate(date_formatted, .before = date)
+glimpse(circ)
 
 
-## ----q6a--------------------------------------------------------------------------
-ymd("2014/02-14")
+## -----------------------------------------------------------------------------
+classes_data <-list(vect_data, circ)
+glimpse(classes_data)
 
 
-## ----q6b--------------------------------------------------------------------------
-mdy_hm("04/22/14 03:20")
+## -----------------------------------------------------------------------------
+range(circ$date_formatted)
+range(circ$date)
 
 
-## ----q6c--------------------------------------------------------------------------
-mdy_hms("4/5/2016 03:2:22")
+## -----------------------------------------------------------------------------
+circ  %>%
+  group_by(day) %>% 
+  summarize(n = sum(orangeBoardings, na.rm = TRUE))
+
+circ  %>%
+  group_by(day) %>% 
+  summarize(n = sum(purpleBoardings, na.rm = TRUE))
+
+circ  %>%
+  group_by(day) %>% 
+  summarize(n = sum(greenBoardings, na.rm = TRUE))
+
+circ  %>%
+  group_by(day) %>% 
+  summarize(n = sum(bannerBoardings, na.rm = TRUE))
 

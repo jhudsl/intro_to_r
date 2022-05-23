@@ -16,11 +16,13 @@ library(tidyverse)
 ```
 
 
-## Data Cleaning
+## Data Cleaning{.emphasized}
 
 In general, data cleaning is a process of investigating your data for inaccuracies, or recoding it in a way that makes it more manageable.
 
-MOST IMPORTANT RULE - LOOK AT YOUR DATA!
+::: {style="color: red;"}
+`r emo::ji("warning")` MOST IMPORTANT RULE - LOOK `r emo::ji("look")` AT YOUR DATA! `r emo::ji("warning")`
+:::
 
 
 # Dealing with Missing Data
@@ -41,16 +43,13 @@ Each missing data type has a function that returns `TRUE` if the data is missing
 * `NA` - `is.na`
 * `NaN` - `is.nan`
 * `Inf` and `-Inf` - `is.infinite`
-* `is.finite` returns `FALSE` for all missing data and `TRUE` for non-missing
 
-## Useful checking functions
+## Useful checking functions{.small}
 
 - `is.na` - is `TRUE` if the data is `FALSE` otherwise
 - `!` - negation (NOT) 
     - if `is.na(x)` is `TRUE`, then `!is.na(x)` is `FALSE`
 
-- `all` takes in a `logical` and will be `TRUE` if ALL are `TRUE`
-    - `all(!is.na(x))` - are all values of `x` NOT NA
 - `any` will be `TRUE` if ANY are true
     - `any(is.na(x))` - do we have any `NA`'s in `x`?
 
@@ -62,49 +61,93 @@ any(is.na(B)) # are there any NAs- NO/FALSE
 ```
 
 
-```{r all}
-A = c(1, 2, 4, NA)
-B = c(1, 2, 3, 4)
-all(is.na(A)) # are all values NA - NO/FALSE
-all(!is.na(B)) # are all values not NA - YES/TRUE
-```
+<!-- ## Complete.cases -->
 
-## Complete.cases
+<!-- `complete.cases` - returns `TRUE` if EVERY value of a row is NOT `NA` -->
+<!--     - very stringent condition  -->
+<!--     - `FALSE` missing one value (even if not important) -->
 
-`complete.cases` - returns `TRUE` if EVERY value of a row is NOT `NA`
-    - very stringent condition 
-    - `FALSE` missing one value (even if not important)
-   
 
-```{r}
-complete.cases(mtcars)
-```
+<!-- ```{r} -->
+<!-- complete.cases(mtcars) -->
+<!-- ``` -->
+
+
 
 ## naniar
-Sometimes you need to look at lots of data though... the `naniar` package is a good option.
+Sometimes you need to look at lots of data though... the [`naniar` package](https://cran.r-project.org/web/packages/naniar/vignettes/getting-started-w-naniar.html) is a good option.
+
+The `pct_complete()` function shows the percentage that is complete for a given data object.
 
 ```{r, error=FALSE}
-#install.packageS(naniar)
+#install.packages("naniar")
 library(naniar)
 x = c(0, NA, 2, 3, 4, -0.5, 0.2)
 naniar::pct_complete(x)
 ```
 
-## Naniar plots
-```{r}
-naniar::gg_miss_var(iris)
+## Air quality data
+
+The airquality dataset comes with R about air quality in New York in 1973.
+
+```{r, message=FALSE}
+?airquality # use this to find out more about the data
+airqual <-tibble(airquality)
+airqual
 ```
 
-## Missing Data with Logicals
+## naniar: `pct_complete()`{.small}
 
-Recall that mathematical operations with `NA` will result in `NA`s
+```{R}
+pct_complete(airquality)
+```
 
-This is also true for logicals.  This is a good thing. The NA data could be `> 2` or not, we don't know, 
+## Naniar plots
+
+The `gg_miss_var()` function creates a nice plot about the number of missing values for each variable.
+
+```{r, fig.height=4, warning=FALSE, fig.align='center'}
+naniar::gg_miss_var(airqual)
+```
+
+
+## Naniar plots
+
+We can use the `facet` argument to make more plots about a specific variable.
+
+```{r, fig.height=4, warning=FALSE, fig.align='center'}
+naniar::gg_miss_var(airqual, facet = Month)
+```
+
+## Missing Data Issues
+
+Recall that mathematical operations with `NA` often result in `NA`s.
+```{r}
+sum(c(1,2,3,NA))
+mean(c(2,4,NA))
+median(c(1,2,3,NA))
+```
+
+```{r, echo = FALSE}
+red_blue <- tibble(color = rep(c("red", "blue", NA), 3))
+red_blue <- red_blue %>% count(color)
+red_blue <- rename(red_blue, col_count = n)
+```
+
+
+
+
+## Missing Data Issues
+
+This is also true for logicals.  This is a good thing. The NA data could be `> 2` or not, we don't know,
 so `R` says there is no `TRUE` or `FALSE`, so that is missing.
 ```{r}
 x = c(0, NA, 2, 3, 4, -0.5, 0.2)
 x > 2
 ```
+
+
+
 
 <!-- ## Missing Data with Logicals -->
 
@@ -131,8 +174,8 @@ x > 2
 
 Be careful with missing data using subsetting: 
 
-filter() removes missing values by default.
-To keep them need to add is.na():
+`filter()` removes missing values by default.
+To keep them need to add `is.na()`:
 
 ```{r}
 x # looks like the 1st and 3rd element should be TRUE
@@ -141,17 +184,84 @@ x %in% c(0, 2) | is.na(x) # do this
 
 ```
 
-## tidyr::drop_na
-This function will drop rows with **any** missing data in **any** column.
+
+## filter() and missing data{.codesmall}
+```{r, echo = FALSE}
+df <-tibble(Dog = c(0, NA, 2, 3, 1, 1), 
+            Cat= c(NA, 8, 6, NA, 2, NA))
+```
 
 ```{r}
-df <-tibble(x = c(0, NA, 2, 0.2), 
-            y = c(NA, 1, 6, NA))
+df
+
+df %>% filter(Dog < 3)
+```
+
+## to remove rows with NAs for one variable use `drop_na()`
+
+Avoid using filter for NA values. Instead use `drop_na()`
+
+```{R}
+df %>% drop_na(Dog)
+```
+
+!NA` does not work as you might expect because you can't tell if something is not actually `NA` - R doesn't ever assume to know what the value of `NA` is 
+
+```{r}
+NA == NA
+NA != NA
+```
+
+
+
+## tidyr::drop_na{.codesmall}
+
+This function will drop rows with **any** missing data in **any** column when used on a df.
+
+```{r}
 df
 drop_na(df)
 ```
 
+
+## Think about `NA`
+
+Sometimes removing `NA` values leads to distorted math - be careful! 
+Think about what your `NA` means for your data (are you sure ?).
+
+Is an `NA` for values so low they could not be reported?
+Or is it this and also if there was a different issue? 
+
+## Think about `NA`
+
+If it is something more like a zero then you might want it included in your data like a zero.
+
+Example:
+- survey reports NA if student has never tried cigarettes
+- survey reports 0 if student has tried cigarettes but did not smoke that week
+
+
+You might want to keep the NA values so that you know the original sample size.
+
  
+## Word of caution{.codesmall}
+
+Calculating percentages will give you a different result depending on your choice to include NA values.
+
+```{r}
+red_blue
+red_blue %>% mutate(percent = 
+                      col_count/sum(pull(red_blue, col_count)))
+```
+
+## Word of caution{.codesmall}
+```{r}
+red_blue %>% mutate(percent = 
+                      col_count/sum(pull(drop_na(red_blue), col_count)))
+
+# Should you be dividing by 9 or 6? It depends on your data
+# Pay attention to your data and your NAs!
+```
 
 <!-- ## Missing Data with Operations -->
 
@@ -164,20 +274,38 @@ drop_na(df)
 <!-- ``` -->
 
 
-# Missing data with Tables and Tabulations
+## Check values{.codesmall}
 
-## Useful checking functions
+Check the values for your variables, are they what you expect?
 
-  - `table(x, useNA = "ifany")` - will have row NA if there are NA values
-  - `table(x, useNA = "always")` - will have row NA even if there are no NA values
+`count()` is a great option because it gives tells you:
 
-Here we will use `table` to make tabulations of the data.   Look at `?table` to see options for missing data.
+1) The unique values
+2) the amount of these values
 
-```{r table}
-z = c("A", "B", "A", "B")
-table(z, useNA = "ifany")
-table(z, useNA = "always")
+Check if rare values make sense
+
+```{r, message=FALSE}
+bike <-jhur::read_bike()
+
+bike %>% count(subType)
+
 ```
+
+
+
+<!-- ## Useful checking functions -->
+
+<!--   - `table(x, useNA = "ifany")` - will have row NA if there are NA values -->
+<!--   - `table(x, useNA = "always")` - will have row NA even if there are no NA values -->
+
+<!-- Here we will use `table` to make tabulations of the data.   Look at `?table` to see options for missing data. -->
+
+<!-- ```{r table} -->
+<!-- z = c("A", "B", "A", "B") -->
+<!-- table(z, useNA = "ifany") -->
+<!-- table(z, useNA = "always") -->
+<!-- ``` -->
 
 
 <!-- ## Creating One-way Tables  -->
@@ -237,16 +365,16 @@ table(z, useNA = "always")
 
 ## Lab Part 1
 
-[lab part 1](http://jhudatascience.org/intro_to_r/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd)
+[lab part 1](http://jhudatascience.org/intro_to_R_class/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd)
 
-[Website](http://jhudatascience.org/intro_to_r/index.html)
+[Website](http://jhudatascience.org/intro_to_R_class/index.html)
 
 
 
 
 
 <!-- ```{r readSal_csv, echo= FALSE, eval = TRUE} -->
-<!-- Sal = read_csv("https://jhudatascience.org/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv", col_types = cols( -->
+<!-- Sal = read_csv("https://jhudatascience.org/intro_to_R_class/data/Baltimore_City_Employee_Salaries_FY2015.csv", col_types = cols( -->
 <!--   name = col_character(), -->
 <!--   JobTitle = col_character(), -->
 <!--   AgencyID = col_character(), -->
@@ -272,24 +400,148 @@ table(z, useNA = "always")
 
 ## Example of Recoding
 
-Let's say gender was coded as Male, M, m, Female, F, f.  Using Excel to find all of these would be a matter of filtering and changing all by hand or using if statements. This can be hectic!
+```{r, echo=FALSE}
+data_diet <- tibble(Diet = rep(c("A", "B", "B"),
+                               times = 4), 
+                    Gender = c("Male", 
+                               "m",
+                               "Other",
+                               "F", 
+                               "Female",
+                               "M", 
+                               "f",
+                               "O", 
+                               "Man",
+                               "f",
+                               "F",
+                               "O"), 
+                    Weight_start = sample(100:250, size = 12),
+                    Weight_change = sample(-10:20, size = 12))
 
-In `dplyr` you can use the `recode` function:
-
-```{r, eval = FALSE}
-data = data %>% 
-  mutate(gender = recode(gender, M = "Male", m = "Male", Man = "Male"))
 ```
 
-Or use `ifelse()` or `case_when()`.
+Say we have some data about samples in a diet study:
 
-<!-- # ```{r, eval = FALSE} -->
-<!-- # data %>%  -->
-<!-- #   mutate(gender = ifelse(gender %in% c("Male", "M", "m"), -->
-<!-- #                          "Male", gender)) -->
-<!-- # ``` -->
+```{r}
+data_diet
+```
+
+## Oh dear...
+
+This needs lots of recoding.
+
+```{r}
+data_diet %>%
+  count(Gender, Diet)
+```
+
+## `dplyr` can help!
+
+Using Excel to find all of the different ways `gender` has been coded, would be a matter of filtering and changing all by hand or using if statements. This can be hectic!
+
+In `dplyr` you can use the `recode` function (need `mutate` here too!):
 
 
+```{r, eval = FALSE}
+# General Format - this is not code!
+{data_input} %>%
+  mutate({variable_to_fix} = {Variable_fixing, {old_value} = {new_value},
+                                       {another_old_value} = {new_value})
+
+```
+
+
+
+```{r, eval = FALSE}
+
+data_diet %>% 
+  mutate(Gender = recode(Gender, M = "Male", 
+                                 m = "Male", 
+                               Man = "Male",
+                                 O = "Other",
+                                 f = "Female",
+                                 F = "Female")) %>%
+  count(Gender, Diet)
+```
+
+## Or you can use `case_when()`. 
+
+
+The `case_when()` function of `dplyr` can help us to do this as well.
+
+```{r, eval = FALSE}
+# General Format - this is not code!
+{data_input} %>%
+  mutate({variable_to_fix} = case_when{Variable_fixing}condition 
+                                              ~ {value_for_cond}))
+
+```
+
+Note that automatically values not reassigned explicitly by case_when will be `NA`.
+
+
+## Use of `case_when()`
+```{r}
+data_diet %>% 
+  mutate(Gender = case_when(Gender =="M" ~ "Male"))
+```
+
+
+## More complicated case_when()
+
+```{r}
+data_diet %>% 
+  mutate(Gender = case_when(
+    Gender %in% c("M", "male", "Man", "m", "Male") ~ "Male",
+    Gender %in% c("F", "Female", "f", "female")~ "Female",
+    Gender %in% c("O", "Other") ~ "Other"))
+
+```
+
+## Another reason for `case_when()`
+
+`case_when` can do very sophisticated comparisons
+
+```{r}
+
+data_diet <-data_diet %>% 
+      mutate(Effect = case_when(Weight_change > 0 ~ "Increase",
+                                Weight_change == 0 ~ "Same",
+                                Weight_change < 0 ~ "Decrease"))
+
+head(data_diet)
+
+```
+
+
+```{r, echo= FALSE}
+data_diet %>% 
+  count(Diet, Effect)
+```
+
+```{r, echo = FALSE}
+diet_effect <-data_diet %>% 
+  count(Diet, Effect)
+
+data_diet %>% 
+  count(Diet, Effect)%>%
+  ggplot(aes(x = Effect,y = n, fill = Diet)) + 
+  geom_col(position = position_dodge()) +
+  labs(y = "Individuals", 
+       title = "Effect of diet A & B on participants")
+
+
+```
+
+## What if our data looked like this?
+
+```{r, echo = FALSE}
+diet_comb<-diet_effect %>% unite("change" , Diet:Effect, remove = TRUE)
+```
+
+```{r}
+diet_comb
+```
 
 <!-- ## Example of Cleaning: more complicated -->
 
@@ -322,21 +574,21 @@ Or use `ifelse()` or `case_when()`.
 
 * From `tidyr`, you can split a data set into multiple columns:
 
-```{r separate_df}
-df = tibble(x = c("I really", "like writing", "R code programs"))
-```
-
 ```{r}
-df %>% separate(x, into = c("first", "second", "third"))
+diet_comb %>% 
+  separate(change, into = c("Diet", "Change"))
 ```
 
 ## Separating columns based on a separator 
 You can specify the separator with `sep`.
-* `extra = "merge"` will not drop data.  
+
+```{r, echo = FALSE}
+diet_comb<-diet_effect %>% unite("change" , Diet:Effect, remove = TRUE, sep = "_diet ")
+``` 
 
 ```{r}
-df %>% separate(x, into = c("first", "second", "third"), 
-                extra = "merge", sep = " ")
+diet_comb %>% 
+  separate(change, into = c("Diet", "Change"), sep = " ")
 ```
 
 ## Uniting columns based on a separator 
@@ -366,11 +618,96 @@ head(df_united, 4)
 
 The `stringr` package:
 
-* Makes string manipulation more intuitive
+* Modifying or finding **part** or all of a character string
 * We will not cover `grep` or `gsub` - base R functions
     - are used on forums for answers
 * Almost all functions start with `str_*`
 
+
+##  `stringr`
+
+`str_detect`, and `str_replace` search for matches to argument pattern within each element of a character vector (not data frame or tibble!).
+
+* `str_detect` - returns `TRUE` if `pattern` is found
+<!-- * `str_subset` - returns only the strings which pattern were detected -->
+<!--     * convenient wrapper around `x[str_detect(x, pattern)]` -->
+<!-- * `str_extract` - returns only strings which pattern were detected, but ONLY the pattern -->
+* `str_replace` - replaces `pattern` with `replacement` 
+
+## Download Salary FY2014 Data
+
+From https://data.baltimorecity.gov/City-Government/Baltimore-City-Employee-Salaries-FY2015/nsfe-bg53, from  https://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv
+
+Read the CSV into R `Sal`:
+
+```{r readSal, echo = TRUE, eval = TRUE, message=FALSE, warning=FALSE}
+Sal = jhur::read_salaries() # or
+```
+
+```{r}
+head(Sal)
+```
+
+
+<!-- ## 'Find' functions: Finding Logicals -->
+
+<!-- These are the indices where the pattern match occurs: -->
+
+<!-- ```{r RawlMatch_log} -->
+<!-- head(str_detect(Sal$name, "Rawlings")) -->
+<!-- ``` -->
+
+<!-- ## 'Find' functions: Finding Indices -->
+
+<!-- These are the indices where the pattern match occurs: -->
+
+<!-- ```{r RawlMatch} -->
+<!-- which(str_detect(Sal$Name, "Rawlings")) -->
+<!-- ``` -->
+
+<!-- ## Showing difference in `str_extract` -->
+
+<!-- `str_extract` extracts just the matched string -->
+
+<!-- ```{r ggrep2} -->
+<!-- ss = str_extract(Sal$Name, "Rawling") -->
+<!-- head(ss) -->
+<!-- ss[ !is.na(ss)] -->
+<!-- ``` -->
+
+<!-- str_subset(Sal$Name, "Rawlings") -->
+
+
+## 'Find'`str_detect()` function: finding values: `stringr` 
+
+```{r}
+Sal %>% filter(str_detect(name, "Rawlings"))
+```
+
+
+
+## Showing differnce in `str_replace` and  `str_replace_all`
+
+`str_replace` replaces only the first instance.
+
+```{r, warning = FALSE}
+head(pull(Sal, JobTitle))
+head(str_replace(pull(Sal, JobTitle), "II", "2"))
+```
+
+`str_replace` replaces all instances.
+```{r}
+head(str_replace_all(pull(Sal, name), "a", "j"), 2)
+```
+
+
+## Lab Part 2
+
+[lab part 2](http://jhudatascience.org/intro_to_R_class/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd)
+
+[Website](http://jhudatascience.org/intro_to_R_class/index.html)
+
+# Extra Slides
 
 ##  String Splitting
 
@@ -453,66 +790,6 @@ str_split("I.like.strings", "\\.")
 
 
 
-## 'Find' functions: `stringr`
-
-`str_detect`, and `str_replace` search for matches to argument pattern within each element of a character vector (not data frame or tibble!).
-
-* `str_detect` - returns `TRUE` if `pattern` is found
-<!-- * `str_subset` - returns only the strings which pattern were detected -->
-<!--     * convenient wrapper around `x[str_detect(x, pattern)]` -->
-<!-- * `str_extract` - returns only strings which pattern were detected, but ONLY the pattern -->
-* `str_replace` - replaces `pattern` with `replacement` 
-
-## Download Salary FY2014 Data
-
-From https://data.baltimorecity.gov/City-Government/Baltimore-City-Employee-Salaries-FY2015/nsfe-bg53, from  https://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv
-
-Read the CSV into R `Sal`:
-
-```{r readSal, echo = TRUE, eval = TRUE, message=FALSE}
-Sal = jhur::read_salaries() # or
-```
-```{r}
-head(Sal)
-```
-
-
-<!-- ## 'Find' functions: Finding Logicals -->
-
-<!-- These are the indices where the pattern match occurs: -->
-
-<!-- ```{r RawlMatch_log} -->
-<!-- head(str_detect(Sal$name, "Rawlings")) -->
-<!-- ``` -->
-
-<!-- ## 'Find' functions: Finding Indices -->
-
-<!-- These are the indices where the pattern match occurs: -->
-
-<!-- ```{r RawlMatch} -->
-<!-- which(str_detect(Sal$Name, "Rawlings")) -->
-<!-- ``` -->
-
-<!-- ## Showing difference in `str_extract` -->
-
-<!-- `str_extract` extracts just the matched string -->
-
-<!-- ```{r ggrep2} -->
-<!-- ss = str_extract(Sal$Name, "Rawling") -->
-<!-- head(ss) -->
-<!-- ss[ !is.na(ss)] -->
-<!-- ``` -->
-
-<!-- str_subset(Sal$Name, "Rawlings") -->
-
-
-## 'Find' functions: finding values: `stringr` 
-
-```{r}
-Sal %>% filter(str_detect(name, "Rawlings"))
-```
-
-
 
 <!-- ## Showing differnce in `str_extract` and  `str_extract_all` -->
 
@@ -523,20 +800,6 @@ Sal %>% filter(str_detect(name, "Rawlings"))
 <!-- head(str_extract(Sal$AgencyID, "\\d")) -->
 <!-- head(str_extract_all(Sal$AgencyID, "\\d"), 2) -->
 <!-- ``` -->
-
-## Showing differnce in `str_replace` and  `str_replace_all`
-
-`str_replace` replaces only the first instance.
-
-```{r}
-head(Sal$Name, 2)
-head(str_replace(Sal$name, "a", "j"),2)
-```
-
-`str_replace` replaces all instances.
-```{r}
-head(str_replace_all(Sal$name, "a", "j"), 2)
-```
 
 
 <!-- ## Replace -->
@@ -587,15 +850,8 @@ paste0("Visit",1:5) # no space!
 <!-- paste0("Visit",1:5) # no space! -->
 <!-- ``` -->
 
-## Lab Part 2
-
-[lab part 2](http://jhudatascience.org/intro_to_r/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd)
-
-[Website](http://jhudatascience.org/intro_to_r/index.html)
 
 
-
-# Extra Slides
 
 !-- # Before Cleaning - Subsetting with Brackets -->
 

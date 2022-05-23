@@ -25,7 +25,7 @@ library(jhur)
 Then, use the provided code to compute a data frame `bike_agg` with aggregate summary of bike lanes: average length of lanes (`lane_avg_length`) for each year (`dateInstalled`). 
 
 ```{r}
-bike = read_bike()
+bike <- read_bike()
 
 bike_agg <- 
   bike %>%
@@ -38,16 +38,7 @@ bike_agg
 
 ```
 
-1. Use base R graphic to make plot of average length of lanes (`lane_avg_length`; y-axis) for each year (`dateInstalled`; x-axis).
-
-Try using point plot type (default) and line type  (use argument `type = "l`). 
-
-```{r}
-plot(x = bike_agg$dateInstalled, y = bike_agg$lane_avg_length)
-plot(x = bike_agg$dateInstalled, y = bike_agg$lane_avg_length, type = "l")
-```
-
-2. Use `ggplot2` package make plot of average length of lanes (`lane_avg_length`; y-axis) for each year (`dateInstalled`; x-axis). You can use lines layer (`+ geom_line()`) or points layer (`+ geom_point()`), or both!
+1. Use `ggplot2` package make plot of average length of lanes (`lane_avg_length`; y-axis) for each year (`dateInstalled`; x-axis). You can use lines layer (`+ geom_line()`) or points layer (`+ geom_point()`), or both!
 
 Assign the plot to variable `my_plot`. Type `my_plot` in the console to have it displayed 
 
@@ -64,7 +55,7 @@ my_plot <-
 my_plot
 ```
 
-3. "Update" your plot by adding additional elements, e.g. plot labels. 
+2. "Update" your plot by adding a title and changing the x and y axis titles. 
 
 ```{r}
 my_plot <- 
@@ -76,7 +67,7 @@ my_plot <-
 my_plot
 ```
 
-4. You can use `scale_x_continuous()` function and its arguments to modify x-axis look. You can use `scale_y_continuous()` function and its arguments to modify y-axis look. 
+3. Use the `scale_x_continuous()` function and its arguments to modify x-axis look. Use `scale_y_continuous()` function and its arguments to modify the y-axis. 
 
 ```{r}
 my_plot <- 
@@ -88,7 +79,7 @@ my_plot
 ```
 
 
-5. Observe different versions of the plot by displaying `my_plot` while adding different "theme" to it  
+4. Observe several different versions of the plot by displaying `my_plot` while adding a different "theme" to it. 
 
 ```{r}
 my_plot + theme_bw()
@@ -114,10 +105,12 @@ bike_agg_2
 ```
 
 
-2.  Use `ggplot2` package to make a plot showing trajectories of number of lanes (`lane_count`; y-axis) over year (`dateInstalled`; x-axis), where each bike line type has a different line (hint: use `group = type` in mapping) and a different color (hint: use `color = type` in mapping). 
+2.  Use `ggplot2` package to make a plot showing trajectories of number of lanes (`lane_count`; y-axis) over year (`dateInstalled`; x-axis), where each bike line type has a different line with a different color (hint: use `color = type` in mapping). 
 
 ```{r}
-ggplot(bike_agg_2, aes(x = dateInstalled, y = lane_count, group = type, color = type)) + 
+ggplot(bike_agg_2, aes(x = dateInstalled, 
+                       y = lane_count, 
+                       color = type)) + 
   geom_line() + 
   geom_point()
 ```
@@ -125,10 +118,27 @@ ggplot(bike_agg_2, aes(x = dateInstalled, y = lane_count, group = type, color = 
 3. Redo the above plot by adding a faceting  (`+ facet_wrap(~ type, ncol = 3)`) to have data for each bike line type in a separate plot panel. 
 
 (You may see `geom_path: Each group consists of only one observation. Do you need to adjust the group aesthetic?` warning as some bike lane types will have only 1 point plotted while trying to plot a line).
+Save the new plot as an object called `facet_plot`.
 
 ```{r}
-ggplot(bike_agg_2, aes(x = dateInstalled, y = lane_count, group = type, color = type)) + 
+facet_plot <- ggplot(bike_agg_2, 
+                   aes(x = dateInstalled, 
+                       y = lane_count, 
+                       color = type)) + 
   geom_line() +
   geom_point() +
   facet_wrap(~ type, ncol = 3)
+
+facet_plot
 ```
+
+Bonus: Modify `facet_plot` to remove the legend and change the names of the axis titles to be "Number of bike lanes" for the x axis and "Date bike lane was installed" for the y axis. 
+
+```{r}
+facet_plot <- facet_plot +
+  theme(legend.position = "none") +
+  labs(x = "Number of bike lanes",
+       y = "Date bike lane was installed")
+facet_plot
+```
+
