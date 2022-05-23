@@ -174,12 +174,12 @@ better %>% filter(term == "SIDEPATH")
 write.csv(better, file = "Best_Model_Coefficients.csv")
 ```
 
-BUT I NEEEEEED an XLSX!  The `xlsx` package can do it, but I still tend to use CSVs.  May need to look at [this post](https://stackoverflow.com/questions/30738974/rjava-load-error-in-rstudio-r-after-upgrading-to-osx-yosemite) if getting "Reason: image not found" error.
+BUT I NEEEEEED an XLSX!  The `xlsx` package can do it, but I still tend to use CSVs.
 
 
 ```{r}
-library(xlsx) # may need to run sudo R CMD javareconf
-write.xlsx(better, file = "Best_Model_Coefficients.xlsx")
+library(writexl)
+write_xlsx(better, path = "Best_Model_Coefficients.xlsx")
 ```
 
 ### Testing Nested Models
