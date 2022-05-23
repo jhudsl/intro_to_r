@@ -107,7 +107,7 @@ Youth Tobacco Survey (YTS) dataset:
 
 ## Data Input: Dataset Location
 
-Dataset is located at http://jhudatascience.org/intro_to_R_class/data/Youth_Tobacco_Survey_YTS_Data.csv
+Dataset is located at http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv
 
 * Download data by clicking the above link
     
@@ -119,7 +119,7 @@ Dataset is located at http://jhudatascience.org/intro_to_R_class/data/Youth_Toba
 ```{r read_url, message = FALSE}
 # load library `readr` that contains function `read_csv`
 library(readr)
-dat <- read_csv("http://jhudatascience.org/intro_to_R_class/data/Youth_Tobacco_Survey_YTS_Data.csv")
+dat <- read_csv("http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
 
 # `head` displays first few rows of a data frame 
 head(dat, 5)
@@ -182,7 +182,7 @@ Luckily, we already set up an R Project!
 knitr::include_graphics("../images/Data_IO_file_move.png")
 ```
 
-If we add the Youth_Tobacco_Survey_YTS_Data.csv file to the intro_to_r_class folder, we can use the relative path:
+If we add the Youth_Tobacco_Survey_YTS_Data.csv file to the intro_to_r folder, we can use the relative path:
 
 ```{r, eval = FALSE}
 dat <- read_csv("Youth_Tobacco_Survey_YTS_Data.csv")
@@ -351,9 +351,9 @@ However, while many online resources use the base R tools, the latest version of
 
 ## Lab Part 1
 
-Lab file: http://jhudatascience.org/intro_to_r_class/Data_IO/lab/Data_IO_Lab.Rmd
+Lab file: http://jhudatascience.org/intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd
 
-[Website](http://jhudatascience.org/intro_to_R_class/)
+[Website](http://jhudatascience.org/intro_to_r/)
 
 
 ## Working Directories
@@ -388,7 +388,7 @@ R uses working directory as a starting place when searching for files:
 
 Setting up an R Project can avoid headaches by telling R that the working directory is wherever the `.Rproj` file is.
 
-```{r, fig.alt="Image showing the RStudio console. There is an arrow pointing to the .Rproj file. The top right corner shows that the 'Intro_to_r_class' project has been selected.", out.width = "80%", echo = FALSE, align = "center"}
+```{r, fig.alt="Image showing the RStudio console. There is an arrow pointing to the .Rproj file. The top right corner shows that the 'Intro_to_r' project has been selected.", out.width = "80%", echo = FALSE, align = "center"}
 knitr::include_graphics("../images/Data_IO_Rproj_file.png")
 ```
 
@@ -456,8 +456,8 @@ x2
 
 ## Lab Part 2
 
-Lab file: http://jhudatascience.org/intro_to_r_class/Data_IO/lab/Data_IO_Lab.Rmd
+Lab file: http://jhudatascience.org/intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd
 
-[Website](http://jhudatascience.org/intro_to_R_class/)
+[Website](http://jhudatascience.org/intro_to_r/)
 
 

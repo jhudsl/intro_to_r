@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 Bike Lanes Dataset: BikeBaltimore is the Department of Transportation's bike program. 
 The data is from http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms
 
-You can Download as a CSV in your current working directory.  Note its also available at: 	http://jhudatascience.org/intro_to_R_class/data/Bike_Lanes.csv 
+You can Download as a CSV in your current working directory.  Note its also available at: 	http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv 
 
 ```{r, echo = TRUE, message=FALSE, error = FALSE}
 library(readr)
@@ -23,7 +23,7 @@ library(tidyverse)
 library(jhur)
 
 bike = read_csv(
-  "http://jhudatascience.org/intro_to_R_class/data/Bike_Lanes.csv")
+  "http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv")
 ```
 
 or use 
