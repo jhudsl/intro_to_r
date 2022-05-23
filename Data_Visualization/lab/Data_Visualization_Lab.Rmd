@@ -1,5 +1,5 @@
 ---
-title: "Data Visualization Lab Key"
+title: "Data Visualization Lab"
 output: html_document
 editor_options: 
   chunk_output_type: console
@@ -8,9 +8,6 @@ editor_options:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
-
-
 
 # Part 1
 
@@ -41,62 +38,47 @@ bike_agg
 
 ```
 
-1. Use base R graphic to make plot of average length of lanes (`lane_avg_length`; y-axis) for each year (`dateInstalled`; x-axis).
-
-Try using point plot type (default) and line type  (use argument `type = "l`). 
-
-```{r}
-
-```
-
-2. Use `ggplot2` package make plot of average length of lanes (`lane_avg_length`; y-axis) for each year (`dateInstalled`; x-axis). You can use lines layer (`+ geom_line()`) or points layer (`+ geom_point()`), or both!
+1. Use `ggplot2` package make plot of average length of lanes (`lane_avg_length`; y-axis) for each year (`dateInstalled`; x-axis). You can use lines layer (`+ geom_line()`) or points layer (`+ geom_point()`), or both!
 
 Assign the plot to variable `my_plot`. Type `my_plot` in the console to have it displayed 
 
 ```{r}
-# ggplot(???, aes(x = ???, y = ???)) + 
-#   geom_???() + 
-#   geom_???()
+##ggplot(???, aes(x = ???, y = ???)) + 
+  #??? + 
+  #???
 
-# my_plot <- ???
 ```
 
-3. "Update" your plot by adding additional elements, e.g. plot labels. 
+2. "Update" your plot by adding a title and changing the x and y axis titles. 
 
 ```{r}
-# my_plot <- 
-#   my_plot + 
-#   labs(???)
-# 
-# my_plot
+
+
+
 ```
 
-4. You can use `scale_x_continuous()` function and its arguments to modify x-axis look. You can use `scale_y_continuous()` function and its arguments to modify y-axis look. Test this code out!
+3. Use the `scale_x_continuous()` function and its arguments to modify x-axis look. Use `scale_y_continuous()` function and its arguments to modify the y-axis. 
 
 ```{r}
-# my_plot <- 
-#   my_plot + 
-#   scale_x_continuous(breaks = c(2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013)) + 
-#   scale_y_continuous(limits = c(0, NA))  # force y-axis to start from 0, do not force upper bound 
-#   
-# my_plot
+##  my_plot + 
+  # scale_x_continuous(?????) + 
+  # scale_y_continuous(????)  # force y-axis to start from 0, do not force upper bound 
+  
+
 ```
 
 
-5. Observe different versions of the plot by displaying `my_plot` while adding a different "theme" to it. Test this code out!
+4. Observe several different versions of the plot by displaying `my_plot` while adding a different "theme" to it.
 
 ```{r}
-# my_plot + theme_bw()
-# my_plot + theme_classic()
-# my_plot + theme_dark()
-# my_plot + theme_gray()
-# my_plot + theme_void()
+#my_plot + theme_bw()
+
 ```
 
 
 # Part 2
 
-Use the provided code to compute a data frame `bike_agg_2` with aggregate summary of bike lanes: number of lanes (`lane_count`) -- separately for each year (`dateInstalled`) and for each lane type. 
+1. Use the provided code to compute a data frame `bike_agg_2` with aggregate summary of bike lanes: number of lanes (`lane_count`) -- separately for each year (`dateInstalled`) and for each lane type. 
 
 ```{r}
 bike_agg_2 <- 
@@ -109,18 +91,27 @@ bike_agg_2
 ```
 
 
-1.  Use `ggplot2` package to make a plot showing trajectories of number of lanes (`lane_count`; y-axis) over year (`dateInstalled`; x-axis), where each bike line type has a different line (hint: use `group = type` in mapping) and a different color (hint: use `color = type` in mapping). 
+2.  Use `ggplot2` package to make a plot showing trajectories of number of lanes (`lane_count`; y-axis) over year (`dateInstalled`; x-axis), where each bike line type has a different line (hint: use `group = type` in mapping) and a different color (hint: use `color = type` in mapping). 
 
 ```{r}
-# ggplot(???, aes(x = ???, y = ???, group = ???, color = ???)) + 
-#   ???
+
+
+
+
 ```
 
-2. Redo the above plot by adding a faceting  (`+ facet_wrap(~ type, ncol = 3)`) to have data for each bike line type in a separate plot panel. 
+3. Redo the above plot by adding a faceting  (`+ facet_wrap(~ type, ncol = 3)`) to have data for each bike line type in a separate plot panel. 
 
 (You may see `geom_path: Each group consists of only one observation. Do you need to adjust the group aesthetic?` warning as some bike lane types will have only 1 point plotted while trying to plot a line).
 
 ```{r}
-# ggplot(???, aes(x = ???, y = ???, group = ???, color = ???)) + 
-#   ???
+
+
+
+```
+
+Bonus: Modify `facet_plot` to remove the legend and change the names of the axis titles to be "Number of bike lanes" for the x axis and "Date bike lane was installed" for the y axis.  
+
+```{r}
+
 ```

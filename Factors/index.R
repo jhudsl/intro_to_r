@@ -7,7 +7,7 @@ library(tidyverse)
 x <- c("red", "red", "blue", "yellow", "blue")
 class(x)
 
-x_fact = factor(x)  # factor() is a function
+x_fact = factor(x) # factor() is a function
 class(x_fact)
 x_fact
 
@@ -23,12 +23,12 @@ knitr::include_graphics("https://github.com/tidyverse/forcats/raw/main/man/figur
 ## -----------------------------------------------------------------------------
 set.seed(123)
 data_highschool <- tibble(absences = 
-                            sample(0:7, size = 32, replace = TRUE), 
-                          grade = 
-                            rep(c("Sophomore",
-                                  "Freshman", 
-                                  "Junior", 
-                                  "Senior"), 8))
+  sample(0:7, size = 32, replace = TRUE), 
+    grade = 
+      rep(c("Sophomore",
+            "Freshman", 
+             "Junior", 
+             "Senior"), 8))
 
 
 ## -----------------------------------------------------------------------------
@@ -44,9 +44,11 @@ data_highschool %>%
 ## -----------------------------------------------------------------------------
 class(data_highschool$grade)
 data_highschool_fct <- data_highschool %>% 
-  mutate(grade = factor(grade, levels = 
-                          c("Freshman", "Sophomore", 
-                            "Junior", "Senior")))
+ mutate(grade = factor(grade, levels = 
+              c("Freshman", 
+                "Sophomore", 
+                "Junior", 
+                "Senior")))
 head(data_highschool_fct)
 
 
@@ -84,17 +86,17 @@ data_highschool_fct %>% group_by(grade) %>% summarise(mean = mean(absences))
 library(forcats)
 
 data_highschool_fct %>%
-  ggplot(mapping = aes(x = grade, y = absences)) +
-  geom_boxplot()
+ ggplot(mapping = aes(x = grade, y = absences)) +
+ geom_boxplot()
 
 
 ## ---- fig.height= 3-----------------------------------------------------------
 library(forcats)
 
 data_highschool_fct %>%
-  ggplot(mapping = aes(x = forcats::fct_reorder(grade, absences), 
-                       y = absences)) +
-  geom_boxplot()
+ ggplot(mapping = aes(x = forcats::fct_reorder(grade, absences), 
+  y = absences)) +
+ geom_boxplot()
 
 
 ## -----------------------------------------------------------------------------
@@ -109,14 +111,14 @@ data_highschool_fct
 ## ---- echo = FALSE------------------------------------------------------------
 
 absences<- data_highschool_fct %>%
-  ggplot(mapping = aes(x = forcats::fct_reorder(grade, absences), 
-                       y = absences)) +
+   ggplot(mapping = aes(x = forcats::fct_reorder(grade, absences), 
+   y = absences)) +
   geom_boxplot(fill = "lightgreen")
 
 
 tardy<- data_highschool_fct %>%
   ggplot(mapping = aes(x = forcats::fct_reorder(grade, tardy), 
-                       y = tardy)) +
+       y = tardy)) +
   geom_boxplot(fill = "violet")
 
 library(patchwork)
@@ -127,15 +129,15 @@ absences + tardy
 ## ---- echo = FALSE------------------------------------------------------------
 
 absences<- data_highschool_fct %>%
-  ggplot(mapping = aes(x = forcats::fct_reorder(grade, absences), 
-                       y = absences)) +
-  geom_boxplot(fill = "lightgreen")
+ ggplot(mapping = aes(x = forcats::fct_reorder(grade, absences), 
+   y = absences)) +
+ geom_boxplot(fill = "lightgreen")
 
 
 tardy<- data_highschool_fct %>%
-  ggplot(mapping = aes(x = forcats::fct_reorder(grade, absences), 
-                       y = tardy)) +
-  geom_boxplot(fill = "violet")
+ggplot(mapping = aes(x = forcats::fct_reorder(grade, absences), 
+    y = tardy)) +
+geom_boxplot(fill = "violet")
 
 library(patchwork)
 absences + tardy

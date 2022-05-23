@@ -16,7 +16,8 @@ opts_chunk$set(echo = TRUE,
                comment = "")
 library(dplyr)
 options(scipen=999)
-
+library(readr)
+library(ggplot2)
 ```
 
 ## Overview
@@ -28,10 +29,11 @@ We will cover how to use R to compute some of basic statistics and fit some basi
 * Linear Regression
 * Logistic Regression
 
-**DISCLAIMER**: We will focus on how to use R software to do these. We will be glossing over the statistical theory and "formulas" for these tests. Moreover, we do not claim the data we use for demonstration meet assumptions of the methods 
+**DISCLAIMER**: We will focus on how to use R software to do these. We will be glossing over the statistical theory and "formulas" for these tests. Moreover, we do not claim the data we use for demonstration meet assumptions of the methods. 
 
 There are plenty of resources online for learning more about these methods, as well as dedicated Biostatistics series (at different advancement levels) at the JHU School of Public Health.
 
+# Correlation
 
 ## Correlation 
 
@@ -49,12 +51,12 @@ To use:
 
 By default, Pearson correlation coefficient is computed. 
 
-## Correlation 
+## Correlation {.small}
+
+https://jhudatascience.org/intro_to_R_class/data/Charm_City_Circulator_Ridership.csv
 
 ```{r cor1, comment="", message = FALSE}
-library(readr)
-circ = read_csv(paste0("https://jhudatascience.org/intro_to_r/data",
-                       "/Charm_City_Circulator_Ridership.csv"))
+circ <- jhur::read_circulator()
 head(circ)
 ```
 
@@ -65,22 +67,26 @@ First, we compute correlation by providing two vectors.
 Like other functions, if there are `NA`s, you get `NA` as the result.  But if you specify use only the complete observations, then it will give you correlation using the non-missing data. 
 
 ```{r}
-cor(circ$orangeAverage, circ$purpleAverage)
-cor(circ$orangeAverage, circ$purpleAverage, use = "complete.obs")
+x <- pull(circ, orangeAverage)
+y <- pull(circ, purpleAverage)
 ```
 
+```{r}
+cor(x, y)
+cor(x, y, use = "complete.obs")
+```
 
 ## Correlation for two vectors with plot
 
 Note that you can add the correlation value to a plot, via the `annotate()`. 
 
 ```{r, fig.width=3, fig.height=3}
-cor_val = cor(circ$orangeAverage, circ$purpleAverage, use = "complete.obs")
+cor_val <- cor(x, y, use = "complete.obs")
 cor_val_label <- paste0("r = ", round(cor_val, 3))
 
-library(ggplot2)
-ggplot(circ, aes(x = orangeAverage, y = purpleAverage)) + 
-  geom_point(size = 0.3) + 
+circ %>%
+  ggplot(aes(x = orangeAverage, y = purpleAverage)) +
+  geom_point(size = 0.3) +
   annotate("text", x = 2000, y = 7500, label = cor_val_label, size = 5)
 ```
 
@@ -109,8 +115,9 @@ corrplot(cor_mat, type = "upper", order = "hclust")
 
 ## Lab Part 1
 
-Lab document: http://jhudatascience.org//intro_to_r/Statistics/lab/Statistics_Lab.Rmd
+[Website](http://jhudatascience.org/intro_to_R_class/index.html)
 
+# T-test
 
 ## T-test
 
@@ -137,10 +144,11 @@ It tests mean of a variable in one group. By default (i.e., without us explicitl
 - returns result assuming confidence level 0.95 (`conf.level = 0.95`)
 
 ```{r}
-t.test(circ$orangeAverage)
+x <- pull(circ, orangeAverage)
+t.test(x)
 ```
 
-## Running two-sample t-test
+## Running two-sample t-test{.small}
 
 It tests test difference in means of a variable between two groups. By default:
 
@@ -151,15 +159,17 @@ It tests test difference in means of a variable between two groups. By default:
 - assumes true variance in the two groups is not equal (`var.equal = FALSE`)
 
 ```{r}
-t.test(circ$orangeAverage, circ$purpleAverage)
+x <- pull(circ, orangeAverage)
+y <- pull(circ, purpleAverage)
+t.test(x, y)
 ```
 
 ## T-test: retrieving information from the result 
 
-Object returned from `t.test()` function is a named list. We can use it to access test result elements 
+Object returned from `t.test()` function is a named list. We can use it to access test result elements. The easiest way to do this is to use base R (`$` notation).
 
 ```{r}
-result <- t.test(circ$orangeAverage, circ$purpleAverage)
+result <- t.test(x, y)
 is.list(result)
 names(result)
 result$statistic
@@ -168,11 +178,13 @@ result$p.value
 
 ## T-test: retrieving information from the result with `broom` package 
 
-The `broom` package has a `tidy()` function that can put many objects into data frame so that they are easily manipulated (or nicely printed)
+The `broom` package has a `tidy()` function that can organize results into a data frame so that they are easily manipulated (or nicely printed)
 
 ```{r broom, comment=""}
 library(broom)
-result_tidy = tidy(result)
+
+result <- t.test(x, y)
+result_tidy <- tidy(result)
 result_tidy
 ```
 
@@ -184,10 +196,11 @@ result_tidy
 - `var.test()`-- Fisher’s F-Test
 - `chisq.test()` -- Chi-squared test
 
-## Lab Part 1
+## Lab Part 2
 
-Lab document: http://jhudatascience.org//intro_to_r/Statistics/lab/Statistics_Lab.Rmd
+[Website](http://jhudatascience.org/intro_to_R_class/index.html)
 
+# Regression
 
 ## Linear regression
 
@@ -205,6 +218,26 @@ where:
 * $\beta$ is the slope 
 * $x_i$ is the predictor for person i
 * $\varepsilon_i$ is the residual variation for person i
+
+## Linear regression
+
+```{r,echo=FALSE}
+coefs=lm(data=iris,Petal.Width~Petal.Length) %>%  coef
+
+line_df=data.frame(x=c(0,7),y=c(coefs[1],(coefs[2]*7+coefs[1])))
+riserun_df=data.frame(x=c(2.1,2.9,2.9),y=c((coefs[1]+coefs[2]*2.1),(coefs[1]+coefs[2]*2.1),(coefs[1]+coefs[2]*2.9)))
+residual_df=data.frame(x=c(3,3),y=c(1.1,(coefs[1]+coefs[2]*3)))
+labels_df=data.frame(x=c(0.5,3.2,2.7),y=c(coefs[1],0.65,1),labels=c("alpha","beta","epsilon[i]"))   
+ 
+print(ggplot(data=iris,aes(x=Petal.Length,y=Petal.Width))+geom_point()+geom_line(data=line_df,aes(x=x,y=y))+
+    geom_point(data=line_df[1,],aes(x=x,y=y,color="red",size=1.5))+
+    geom_line(data=riserun_df,aes(x=x,y=y,color="orange",size=1.4))+
+    geom_line(data=residual_df,aes(x=x,y=y,color="blue",size=1.4))+
+    geom_label(data=labels_df,aes(x=x,y=y,label=labels,size=2),parse=TRUE)+
+    theme_bw()+ylab(expression(y))+xlab(expression(x))+
+    theme(legend.position="none",text=element_text(size=20)))
+
+```
 
 ## Linear regression
 
@@ -268,23 +301,21 @@ In practice, `y` and `x1`, `x2`, `x3` are replaced with the **names of columns f
 
 ## Linear regression 
 
-We will use `kaggleCarAuction.csv` dataset from one of the Kaggle competitons. 
+We will use `kaggleCarAuction.csv` dataset from one of the Kaggle competitions. 
+
+https://jhudatascience.org/intro_to_R_class/data/kaggleCarAuction.csv
 
 ```{r}
-cars = read_csv(
-  paste0("https://jhudatascience.org/intro_to_r/data/", 
-         "kaggleCarAuction.csv"),   
-  col_types = cols(VehBCost = col_double()))
+cars <- jhur::read_kaggle()
 head(cars)
 ```
-
 
 ## Linear regression: model fitting 
 
 We fit linear regression model with  vehicles odometer (distance traveled by a vehicle; `VehOdo`) as an outcome and vehicle (`VehicleAge`) age as a predictor. 
 
 ```{r}
-fit = lm(VehOdo ~ VehicleAge, data = cars)
+fit <- lm(VehOdo ~ VehicleAge, data = cars)
 print(fit)
 ```
 
@@ -293,16 +324,25 @@ print(fit)
 The `summary()` command returns a list that shows us some more detail
 
 ```{r}
-sfit = summary(fit)
+sfit <- summary(fit)
 print(sfit)
+```
+
+## Linear regression: retrieving information with `broom` package 
+
+Use `tidy` to create a tibble with the coefficient estimates.
+
+```{r}
+# tidy() is a function from the broom package
+tidy(sfit)
 ```
 
 ## Linear regression: model summary
 
-Model summary is a named list and we can access its specific elements 
+Model summary is a named list and we can access its specific elements. Again, we should use base R (`$` notation).
 
 ```{r}
-sfit$coefficients
+names(sfit)
 sfit$r.squared
 ```
 
@@ -311,7 +351,7 @@ sfit$r.squared
 Let's try adding another explanatory variable to our model, Warranty price (`WarrantyCost`) 
 
 ```{r}
-fit_2 = lm(VehOdo ~ VehicleAge + WarrantyCost, data = cars)
+fit_2 <- lm(VehOdo ~ VehicleAge + WarrantyCost, data = cars)
 summary(fit_2)
 ```
 
@@ -322,28 +362,22 @@ Factors get special treatment in regression models - lowest level of the factor 
 `TopThreeAmericanName` states if the manufacturer is one of the top three American manufacturers.
 
 ```{r}
-table(cars$TopThreeAmericanName)
+top_3 <- pull(cars, TopThreeAmericanName)
+table(top_3)
 ```
 
 ## Linear regression: factors {.smaller}
 
 ```{r regress6, comment="", fig.height=4,fig.width=8}
-fit_3 = lm(VehOdo ~ factor(TopThreeAmericanName), data = cars)
+fit_3 <- lm(VehOdo ~ factor(TopThreeAmericanName), data = cars)
 summary(fit_3)
 ```
 
 ## Linear regression: retrieving information with `broom` package 
 
 ```{r, comment="", fig.height=4,fig.width=8}
-# tidy() is a function from broom package
-fit_3_tidy = tidy(fit_3)
-fit_3_tidy
+tidy(fit_3)
 ```
-
-## Lab Part 2
-
-Lab document: http://jhudatascience.org//intro_to_r/Statistics/lab/Statistics_Lab.Rmd
-
 
 ## Generalized Linear Models (GLMs)
 
@@ -363,7 +397,7 @@ See `?family` documentation for details of family functions.
 `IsBadBuy` is a 0/1-valued variable stating "if the kicked vehicle was an avoidable purchase". 
 
 ```{r regress7, comment="", fig.height=4,fig.width=8}
-glm_fit = glm(IsBadBuy ~ VehOdo + VehicleAge, data = cars, family = binomial())
+glm_fit <- glm(IsBadBuy ~ VehOdo + VehicleAge, data = cars, family = binomial())
 summary(glm_fit)  
 ```
 
@@ -377,9 +411,4 @@ Some final notes:
 
 ## Lab Part 3
 
-Lab document: http://jhudatascience.org//intro_to_r/Statistics/lab/Statistics_Lab.Rmd
-
-
-
-
-
+[Website](http://jhudatascience.org/intro_to_R_class/index.html)
