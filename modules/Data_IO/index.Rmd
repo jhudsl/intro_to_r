@@ -35,7 +35,7 @@ Let's make an R Project so we can stay organized in the next steps.
 Click the new R Project button at the top left of RStudio:
 
 ```{r, fig.alt="The New R Project button is highlighted.", out.width = "40%", echo = FALSE, align = "center"}
-knitr::include_graphics("../images/Data_IO_Rproject.png")
+knitr::include_graphics("images/Data_IO_Rproject.png")
 ```
 
 
@@ -44,7 +44,7 @@ knitr::include_graphics("../images/Data_IO_Rproject.png")
 In the New Project Wizard, click "New Directory":
 
 ```{r, fig.alt="In the New Project Wizard, the 'New Directory' option is highlighted.", out.width = "60%", echo = FALSE, align = "center"}
-knitr::include_graphics("../images/Data_IO_new_directory.png")
+knitr::include_graphics("images/Data_IO_new_directory.png")
 ```
 
 
@@ -53,7 +53,7 @@ knitr::include_graphics("../images/Data_IO_new_directory.png")
 Click "New Project":
 
 ```{r, fig.alt="In the New Project Wizard, the 'New Project' option is highlighted.", out.width = "60%", echo = FALSE, align = "center"}
-knitr::include_graphics("../images/Data_IO_new_project.png")
+knitr::include_graphics("images/Data_IO_new_project.png")
 ```
 
 
@@ -64,7 +64,7 @@ Type in a name for your new folder.
 Store it somewhere easy to find, such as your Desktop:
 
 ```{r, fig.alt="In the New Project Wizard, the new project has been given a name and is going to be stored in the Desktop directory. The 'Create Project' button is highlighted.", out.width = "60%", echo = FALSE, align = "center"}
-knitr::include_graphics("../images/Data_IO_new_project_details.png")
+knitr::include_graphics("images/Data_IO_new_project_details.png")
 ```
 
 
@@ -75,7 +75,7 @@ You now have a new R Project folder on your Desktop!
 Make sure you add any scripts or data files to this folder as we go through today's lesson. This will make sure R is able to "find" your files.
 
 ```{r, fig.alt="The image shows an image of an arrow pointing to the newly created R project repository.", out.width = "60%", echo = FALSE, align = "center"}
-knitr::include_graphics("../images/Data_IO_new_desktop.png")
+knitr::include_graphics("images/Data_IO_new_desktop.png")
 ```
 
 
@@ -170,7 +170,7 @@ dat <- read_csv("www.someurl.com/table1.csv")
 Great, but what is my "path"?
 
 ```{r, fig.alt="GIF with text. PC: *autosaves file* Me: Cool, so where did the file save? PC: shows image of Power Rangers shrugging.", out.width = "40%", echo = FALSE, align = "center"}
-knitr::include_graphics("../images/Data_IO_where_are_the_files.gif")
+knitr::include_graphics("images/Data_IO_where_are_the_files.gif")
 ```
 
 
@@ -179,7 +179,7 @@ knitr::include_graphics("../images/Data_IO_where_are_the_files.gif")
 Luckily, we already set up an R Project! 
 
 ```{r, fig.alt="Image showing the csv dataset being moved to the R Project directory created earlier.", out.width = "40%", echo = FALSE, align = "center"}
-knitr::include_graphics("../images/Data_IO_file_move.png")
+knitr::include_graphics("images/Data_IO_file_move.png")
 ```
 
 If we add the Youth_Tobacco_Survey_YTS_Data.csv file to the intro_to_r folder, we can use the relative path:
@@ -289,7 +289,7 @@ help("read_delim")
 ```
 
 ```{r, fig.alt="Screenshot of the RStudio console. '?read_delim' has been typed and the help page has appeared in the help pane on the right.", out.width = "60%", echo = FALSE, align = "center"}
-knitr::include_graphics("../images/Data_IO_read_delim.png")
+knitr::include_graphics("images/Data_IO_read_delim.png")
 ```
 
 
@@ -305,7 +305,7 @@ After importing a datatset, you get (printed in the R console) the corresponding
 ## Data Input: Read in From RStudio Toolbar
 
 ```{r, fig.alt="Gif showing the process of importing a dataset via readr.", out.width = "80%", echo = FALSE, align = "center"}
-knitr::include_graphics("../images/Data_IO_import_dataset.gif")
+knitr::include_graphics("images/Data_IO_import_dataset.gif")
 ```
 
 
@@ -389,7 +389,7 @@ R uses working directory as a starting place when searching for files:
 Setting up an R Project can avoid headaches by telling R that the working directory is wherever the `.Rproj` file is.
 
 ```{r, fig.alt="Image showing the RStudio console. There is an arrow pointing to the .Rproj file. The top right corner shows that the 'Intro_to_r' project has been selected.", out.width = "80%", echo = FALSE, align = "center"}
-knitr::include_graphics("../images/Data_IO_Rproj_file.png")
+knitr::include_graphics("images/Data_IO_Rproj_file.png")
 ```
 
 
