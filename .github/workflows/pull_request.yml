@@ -300,7 +300,7 @@ jobs:
 
       # We want a fresh run of the renders each time - so first delete old html files
       - name: Delete old *.html
-        run: Rscript -e "rmarkdown::clean_site(preview = FALSE)"
+        run: Rscript -e "rmarkdown::clean_site('docs', preview = FALSE)"
         
       # Install necessary stuff
       - name: Install packages
@@ -309,7 +309,7 @@ jobs:
        # Now we want to render all the html files from the Rmd files
       - name: Run render html
         id: site
-        run: Rscript -e "rmarkdown::render_site()"
+        run: Rscript -e "rmarkdown::render_site('docs')"
 
       # We may have html files that we want to render to add as links on the pages -these will be stored in a dir called subdir_html
       - name: Render subdir_html
@@ -349,7 +349,7 @@ jobs:
         id: build-components
         run: |
           course_name=$(head -n 1 _website.yml | cut -d'"' -f 2| tr " " "-")
-          website_link=$(echo "https://htmlpreview.github.io/?https://raw.githubusercontent.com/$GITHUB_REPOSITORY/preview-${{ github.event.pull_request.number }}/index.html")
+          website_link=$(echo "https://htmlpreview.github.io/?https://raw.githubusercontent.com/$GITHUB_REPOSITORY/preview-${{ github.event.pull_request.number }}/docs/index.html")
           echo ::set-output name=website_link::$website_link
           echo ::set-output name=time::$(date +'%Y-%m-%d')
           echo ::set-output name=commit_id::$GITHUB_SHA
