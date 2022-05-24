@@ -388,8 +388,8 @@ jobs:
           edit-mode: replace
 
   render-pdf-lectures:
-    name: Render pdf versions of lecture slides
-    needs: yaml-check
+    name: Render pdf lecture slides
+    needs: render-preview
     runs-on: ubuntu-latest
     container:
       image: jhudsl/course_template:main
