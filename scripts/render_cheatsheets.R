@@ -10,7 +10,7 @@ cheatsheet_files <- files[grepl("cheatsheets", files)]
 if (length(cheatsheet_files) != 0) {
   for (file in cheatsheet_files) {
     rmarkdown::render(file,
-                      output_dir = "docs/modules/cheatsheets",
+                      output_dir = "modules/cheatsheets",
                       output_format = "pdf_document")
   }
 }
