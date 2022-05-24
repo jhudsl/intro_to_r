@@ -45,7 +45,6 @@ RUN Rscript -e "options(warn = 2); install.packages('remotes'); remotes::install
 # R packages
 RUN Rscript -e  "options(warn = 2);install.packages( \
     c('bookdown', \
-      'esquisse', \
       'here', \
       'kableExtra', \
       'naniar', \
@@ -54,6 +53,7 @@ RUN Rscript -e  "options(warn = 2);install.packages( \
 
 # Other packages
 RUN Rscript -e  "devtools::install_github('hadley/emo')"
+RUN Rscript -e  "install.packages('esquisse')"
 
 # Copy over git token
 COPY git_token.txt .
