@@ -42,9 +42,10 @@ RUN apt-get -y --no-install-recommends install \
 # JHUR package
 RUN Rscript -e "options(warn = 2); install.packages('remotes'); remotes::install_github('muschellij2/jhur')"
 
-# Commonly used R packages
+# R packages
 RUN Rscript -e  "options(warn = 2);install.packages( \
     c('bookdown', \
+      'esquisse', \
       'here', \
       'kableExtra', \
       'naniar', \
