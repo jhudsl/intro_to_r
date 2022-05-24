@@ -277,7 +277,7 @@ jobs:
     needs: yaml-check
     runs-on: ubuntu-latest
     container:
-      image: jhudsl/course_template:main
+      image: jhudsl/intro_to_r:1.0
     if: ${{needs.yaml-check.outputs.toggle_render_preview == 'yes'}}
     
     steps:
@@ -302,13 +302,13 @@ jobs:
       - name: Delete old *.html
         run: Rscript -e "rmarkdown::clean_site('docs', preview = FALSE)"
         
-      # Install necessary stuff
-      - name: Install packages
-        env:
-          GITHUB_PAT: ${{ secrets.GH_PAT }}
-        run: |
-          Rscript -e "install.packages('remotes'); remotes::install_github('muschellij2/jhur')"
-          Rscript -e "install.packages(readLines(con = 'resources/all_the_packages2.txt'), repos = 'http://cran.us.r-project.org')"
+      # # Install necessary stuff
+      # - name: Install packages
+      #   env:
+      #     GITHUB_PAT: ${{ secrets.GH_PAT }}
+      #   run: |
+      #     Rscript -e "install.packages('remotes'); remotes::install_github('muschellij2/jhur')"
+      #     Rscript -e "install.packages(readLines(con = 'resources/all_the_packages2.txt'), repos = 'http://cran.us.r-project.org')"
 
        # Now we want to render all the html files from the Rmd files
       - name: Run render html
