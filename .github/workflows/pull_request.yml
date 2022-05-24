@@ -281,7 +281,7 @@ jobs:
     if: ${{needs.yaml-check.outputs.toggle_render_preview == 'yes'}}
     strategy:
       matrix:
-        modulenames: [Data_Classes]
+        modulenames: [Basic_R, Data_Classes]
     
     steps:
       - name: Checkout files

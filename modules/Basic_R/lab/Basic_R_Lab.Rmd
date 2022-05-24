@@ -1,0 +1,106 @@
+---
+title: "Basic R Lab"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+In this lab you can use the interactive console to explore or **Knit** the document. 
+Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-X) or Ctrl-Enter (Windows/Linux) in an R code chunk.
+
+
+# Part 1
+
+1. Create a new variable called `my.num` that contains 6 numbers.
+```{r}
+# my.num <- ???
+
+```
+
+
+2. Multiply `my.num` by 4.
+```{r}
+
+```
+
+
+3. Create a second variable called `my.char` that contains 5 character strings.
+```{r}
+# my.char <- ???
+
+```
+
+
+4. Combine the two variables `my.num` and `my.char` into a variable called `both`.
+```{r}
+
+```
+
+
+5. What is the length of `both`?
+```{r}
+
+```
+
+
+6. What class is `both`?
+```{r}
+
+```
+
+
+# Part 2
+
+7. Divide `both` by 3, what happens?
+```{r, error=TRUE}
+
+```
+
+
+8. Create a vector with elements 1 2 3 4 5 6 and call it `x`.
+```{r}
+
+```
+
+
+9. Create another vector with elements 10 20 30 40 50 60 and call it `y`.
+```{r}
+
+```
+
+
+10. The code `z <- y[1:5]` saves the first five items in `y` as the new variable `z`. Print `z`.
+```{r}
+z <- y[1:5]
+# ???
+
+```
+
+
+11. What happens when you add `x` and `z` together? How is this different from #10 ?
+```{r}
+
+```
+
+
+12. Append the value 100 onto the vector `z` (hint: you can use the c() function).
+```{r}
+# ? <- c(?, ???)
+```
+
+
+13. Add `x` and `z` together.
+```{r}
+
+```
+
+
+14. Multiply `x` and `z` together. How is this similar to the way R performs addition in #13 ?
+```{r}
+
+```
