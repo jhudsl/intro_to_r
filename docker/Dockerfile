@@ -56,6 +56,7 @@ RUN Rscript -e  "devtools::install_github('hadley/emo')"
 RUN Rscript -e  "install.packages('esquisse')"
 RUN Rscript -e  "install.packages('directlabels')"
 RUN Rscript -e  "install.packages('plotly')"
+RUN Rscript -e  "install.packages('tidylog')"
 
 # Copy over git token
 COPY git_token.txt .
