@@ -328,6 +328,11 @@ jobs:
       - name: Run render html of modules
         run: Rscript "scripts/render_modules.R"
 
+       # Render the cheatsheets
+      - name: Render Cheatsheet pdfs
+        id: site
+        run: Rscript "scripts/render_cheatsheets.R" 
+
       # This checks on the steps before it and makes sure that they completed.
       # If the renders didn't complete we don't want to commit the file changes
       - name: Check on render steps
