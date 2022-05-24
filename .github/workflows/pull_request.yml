@@ -324,7 +324,7 @@ jobs:
         uses: fifsky/html-to-pdf-action@master
         strategy:
           matrix:
-          modulenames: [Basic_R, Data_Classes]
+            modulenames: [Basic_R, Data_Classes]
         with:
           htmlFile: docs/modules/${{ matrix.modulenames }}/index.html
           outputFile: docs/modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
