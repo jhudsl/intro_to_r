@@ -11,6 +11,8 @@ output:
 library(pander)
 library(kableExtra)
 library(tidyverse)
+
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
 <a href="http://www.jhsph.edu/"><img alt = "JHSPH" align="right" src="../images/bloomberg.logo.small.horizontal.blue.png" style="width:40%"/></a>
@@ -28,7 +30,7 @@ This course is for students who have little to no familiarity with the R program
 
 The course will provide students with **“hands-on” training** for analyzing data with the R programming language for statistical computing, a popular open-source solution for data analysis and visualization.  
 
-#### Instructors
+### Instructors
 
 * [Carrie Wright](https://carriewright11.github.io/): cwrigh60 at jhu.edu
 
@@ -36,7 +38,7 @@ The course will provide students with **“hands-on” training** for analyzing 
 
 * [Candace Savonen](https://www.cansavvy.com/): csavone1 at jhu.edu
 
-#### TAs
+### TAs
 
 * Yuji Chen: ychen463 at jhu.edu
 
