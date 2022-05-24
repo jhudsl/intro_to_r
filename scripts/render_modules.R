@@ -4,6 +4,8 @@
 files <- dir(pattern = '[.]Rmd$', recursive = TRUE)
 
 # Find only the Rmds that have been updated since last rendering
+last_rendered <- readr::read_rds(file = "docs/last_rendered_timestamp.rds")
+print(paste0("Last module rmarkdown render time was ", last_rendered))
 files <-
   dplyr::filter(file.info(files), mtime > readr::read_rds(file = "docs/last_rendered_timestamp.rds"))
 filenames <- rownames(files)
@@ -32,6 +34,6 @@ try(for (i in 1:length(lecture_files)) {
   rmarkdown::render(lecture_files[i], output_dir = paste0("docs/modules/", module_name))
 }, TRUE)
 
-# Save timestamp to avoid rerendering all files next time
+# Save timestamp to avoid re-rendering all files next time
 last_rendered <- Sys.time()
 write_rds(last_rendered, file = "docs/last_rendered_timestamp.rds")
