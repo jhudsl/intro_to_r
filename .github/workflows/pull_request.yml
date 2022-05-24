@@ -310,6 +310,11 @@ jobs:
       - name: Run render html
         id: site
         run: Rscript -e "rmarkdown::render_site('docs')"
+        
+       # Render all module files
+      - name: Run render html + pdf of modules
+        id: site
+        run: Rscript "scripts/render_modules.R"
 
       # We may have html files that we want to render to add as links on the pages -these will be stored in a dir called subdir_html
       - name: Render subdir_html
