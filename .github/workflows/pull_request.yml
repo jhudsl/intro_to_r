@@ -279,7 +279,10 @@ jobs:
     container:
       image: jhudsl/course_template:main
     if: ${{needs.yaml-check.outputs.toggle_render_preview == 'yes'}}
-
+    strategy:
+      matrix:
+        modulenames: [Data_Classes]
+    
     steps:
       - name: Checkout files
         uses: actions/checkout@v2
@@ -316,8 +319,15 @@ jobs:
         run: Rscript -e "rmarkdown::render_site('docs')"
         
        # Render all module files
-      - name: Run render html + pdf of modules
+      - name: Run render html of modules
         run: Rscript "scripts/render_modules.R"
+        
+      # Render pdfs
+      - name: Render pdfs of lectures
+        uses: fifsky/html-to-pdf-action@master
+        with:
+          htmlFile: docs/modules/${{ matrix.modulenames }}/index.html
+          outputFile: docs/modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
 
       # We may have html files that we want to render to add as links on the pages -these will be stored in a dir called subdir_html
       - name: Render subdir_html
