@@ -26,9 +26,9 @@ In recognition of [Juneteenth](https://en.wikipedia.org/wiki/Juneteenth), there 
 
 ```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
 # The str_replace_all creates an absolute url to linked documents since there are word and pdf rendered versions of the syllabus
-source("../scripts/utils.R")
+source("scripts/utils.R")
 pander::pandoc.table(
-  read_markdown("_schedule_table.Rmd")  %>%
+  read_markdown("docs/_schedule_table.Rmd")  %>%
     mutate(across(
       .fns = ~ str_replace_all(., "\\./", "https://jhudatascience.org/intro_to_r/")
     )),
