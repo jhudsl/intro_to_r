@@ -4,9 +4,12 @@ output:
   html_document
 ---
 
-In recognition of [Martin Luther King Jr. Day](https://en.wikipedia.org/wiki/Martin_Luther_King_Jr._Day), there will be no class on Monday January 17th 2022. There is an assignment due before class to [install software](https://courseplus.jhu.edu/fileDepot/onlineLibrary/1280/R_and_RStudio_installation.html) and we recommend completing HW 1 (uploading a screenshot showing that you finished the Dataquest module indicated below) before class, but all other assignments will be due January 26th. You are welcome to turn assignments in earlier if you wish.
+In recognition of [Juneteenth](https://en.wikipedia.org/wiki/Juneteenth), there will be no class on Monday June 20th 2022. There is an assignment due before class to [install software](https://courseplus.jhu.edu/fileDepot/onlineLibrary/1280/R_and_RStudio_installation.html) and we recommend completing HW 1 (uploading a screenshot showing that you finished the Dataquest module indicated below) before class, but all other assignments will be due July 1st. You are welcome to turn assignments in earlier if you wish.
 
-### Day Overview
+<br>
+
+## Day Overview
+***
 
 | Time (EST)        | Content   |
 |-------------------|-----------|
@@ -16,7 +19,10 @@ In recognition of [Martin Luther King Jr. Day](https://en.wikipedia.org/wiki/Mar
 | 10:40am - 10:50am | Break     |
 | 10:50am - 11:50am | Session 3 |
 
-### Detailed Schedule + Materials
+<br>
+
+## Detailed Schedule + Materials
+***
 
 ```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
 # The str_replace_all creates an absolute url to linked documents since there are word and pdf rendered versions of the syllabus
@@ -34,58 +40,58 @@ pander::pandoc.table(
 
 ### Module Details
 
-## [Day 0 (before the first session)](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day0.html)
+[Day 0 (before the first session)](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day0.html)
  - Homework 1
 
-## [Day 1](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day1.html)
+[Day 1](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day1.html)
 
 - Introduction 
 - RStudio
 - Reproducible Research
 
-## [Day 2](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day2.html)
+[Day 2](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day2.html)
 
 - Basic R: Variables/Objects in R
 - Data Input/Output
 
 
-## [Day 3](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day3.html)
+[Day 3](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day3.html)
 
 - Subsetting Data
 - Discuss Homework 2 - work on Homework 2 in class if there is time
 
 
-## [Day 4](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day4.html)
+[Day 4](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day4.html)
 
 - Summarization
 - Data Classes
 
 
-## [Day 5](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day5.html)
+[Day 5](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day5.html)
 
 
 - Data Cleaning
 - Discuss Homework 3 - work on Homework 3 in class if there is time
 
 
-## [Day 6](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day6.html)
+[Day 6](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day6.html)
 
 - Data Manipulation
 - Data Visualization with Esquisse
 
 
-## [Day 7](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day7.html)
+[Day 7](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day7.html)
 
 - Data Visualization Continued
 - Factors
 
-## [Day 8](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day8.html)
+[Day 8](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day8.html)
 
 - Statistics
 - Discuss and work on Final Project
 
 
-## [Day 9](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day9.html)
+[Day 9](https://jhudatascience.org/intro_to_r/Syllabus/module_details/day9.html)
 
 - Functions
 - Work on Final Project
