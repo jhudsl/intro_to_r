@@ -4,13 +4,13 @@ navbar:
   title: Intro to R
   left:
   - text: Home
-    href: docs/index.html
+    href: index.html
   - text: Syllabus
-    href: docs/syllabus.html
+    href: syllabus.html
   - text: Materials + Schedule
-    href: docs/materials_schedule.html
+    href: materials_schedule.html
   - text: Resources
-    href: docs/resources.html
+    href: resources.html
 
 
 output:
@@ -19,6 +19,6 @@ output:
     lib_dir: site_libs
     self_contained: no
     highlight: textmate
-    css: styles.css
+    css: docs/styles.css
     # includes:
     #   in_header: resources/header.html
