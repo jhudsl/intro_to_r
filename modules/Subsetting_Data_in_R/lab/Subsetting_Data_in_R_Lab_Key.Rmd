@@ -1,0 +1,224 @@
+---
+title: "Subsetting Data in R - Lab"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this lab you can use the interactive console to explore but please record your commands here.  Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-X) or Cntr-Enter (Windows/Linux) (But only inside the code chunks designated with the ```{r}``` areas).
+
+```{r, message = FALSE}
+# don't forget to load the packages that you will need!
+library(dplyr)
+library(tidyverse)
+library(jhur)
+```
+
+# Part 1
+
+1. Check to see if you have the `mtcars` dataset 
+```{r}
+mtcars
+```
+
+2. What class is `mtcars`?
+```{r}
+class(mtcars)
+```
+
+3. How many observations (rows) and variables (columns) are in the `mtcars` dataset - try the `dim()` function?
+
+```{r}
+dim(mtcars)
+nrow(mtcars)
+ncol(mtcars)
+```
+
+4. Copy mtcars into an object called `cars_mt_copy`. Next, rename `mpg` in `cars_mt_copy` to `MPG` (hint - use `rename()`).
+
+```{r}
+cars_mt_copy <- mtcars
+cars_mt_copy <- rename(cars_mt_copy, MPG = mpg)
+head(cars_mt_copy)
+```
+
+5. Convert the column names of `cars_mt_copy` to all upper case. Use `rename_all()`, and the `toupper` command.
+
+```{r}
+cars_mt_copy <- rename_all(cars_mt_copy, toupper)
+head(cars_mt_copy)
+dim(cars_mt_copy)
+```
+
+Bonus: How can you print the first 3 rows and the last 3 rows of `cars_mt_copy`?
+
+```{r}
+head(cars_mt_copy, 3)
+tail(cars_mt_copy, 3)
+```
+
+# Part 2
+
+1. Using `cars_mt_copy`  create a column called `CAR` using the `rownames_to_column` function. Next, create a tibble from the data called `cars_mt_copy`.  Take a look at your data to check it. How many dimensions does it have?
+
+```{r}
+cars_mt_copy <- rownames_to_column(cars_mt_copy, var = "CAR")
+head(cars_mt_copy)
+cars_mt_copy <-tibble(cars_mt_copy)
+cars_mt_copy
+```
+
+2. Subset both the column `CAR` that you just created and the columns from `cars_mt_copy` that end in `"P"` and call it `pvars`. Hint: use `ends_with()`. Again take a look at the data.
+
+```{r}
+pvars <- select(cars_mt_copy, CAR, ends_with("P"))
+pvars
+```
+
+3. Create a subset of the `cars_mt_copy` that only contains the columns: `CAR`, `WT`, `QSEC`, and `HP` and assign this object to `carsSub` - what are the dimensions of this dataset? Use `select()`:
+
+```{r}
+carsSub <- select(cars_mt_copy,CAR, WT, QSEC, HP)
+carsSub
+
+```
+
+4. Convert the column names of `carsSub` to all lower case. Take a look at the data.
+
+```{r}
+carsSub <- rename_all(carsSub, tolower)
+carsSub
+
+```
+
+Bonus: Pull the variable `car` from `carsSub`. How does this differ form selecting it?
+
+```{r}
+pull(carsSub, car)
+select(carsSub, car)
+```
+
+Bonus: select the variables that contain the letter a from `cars_mt_copy`
+
+```{r}
+select(cars_mt_copy, contains("a"))
+```
+
+# Part 3
+
+1. Subset the rows of `cars_mt_copy` that get more than 20 miles per gallon (`MPG`) of fuel efficiency - how many are there? Use `filter()`.
+
+```{r}
+cars_mpg <- filter(cars_mt_copy, MPG > 20)
+dim(cars_mpg)
+nrow(cars_mpg)
+cars_mpg
+```
+
+There are `r nrow(cars_mpg)` cars. 
+There are `nrow(cars_mpg)` cars. 
+
+
+2. Subset the rows of `cars_mt_copy` that get less than 16 miles per gallon (`MPG`) of fuel efficiency and greater than 150 horsepower (`HP`) - how many are there?
+
+```{r}
+filter(cars_mt_copy, MPG < 16 & HP > 150)
+nrow(filter(cars_mt_copy, MPG < 16 & HP > 150))
+nrow(filter(cars_mt_copy, MPG < 16, HP >  150))
+cars_mt_copy %>% filter(MPG < 16, HP >  150) %>% nrow()
+```
+
+
+3. Subset the rows of `cars_mt_copy` that get less than 16 miles per gallon (`MPG`) of fuel efficiency and greater than or equal to 150 horsepower (`HP`) - how many are there?
+
+```{r}
+filter(cars_mt_copy, MPG < 16 & HP >= 150)
+nrow(filter(cars_mt_copy, MPG < 16 & HP >= 150))
+nrow(filter(cars_mt_copy, MPG < 16, HP >=  150))
+cars_mt_copy %>% filter(MPG < 16, HP >=  150) %>% nrow()
+```
+
+4. Why do the answers for 2 and 3 differ?
+
+They differ because there are two cars with HP values that are exactly 150.
+
+Bonus:
+
+Subset the rows of `cars_mt_copy` for cars that have 4 `CYL`,  or less than 1.9 WT.
+How many cars have both?
+
+```{r}
+filter(cars_mt_copy, CYL == 4 | WT < 1.9)
+nrow(filter(cars_mt_copy, CYL == 4 & WT < 1.9))
+```
+
+
+# Part 4
+
+1. Create a subset called `carsSub`from the `cars_mt_copy` data that only contains the columns:
+`CAR`,	`WT`, `QSEC`, and `HP` for only the cars with 8 cylinders (`CYL`).
+	What are the dimensions of this dataset? don't use pipes (`%>%`).
+
+```{r}
+carsSub <- filter(cars_mt_copy, CYL == 8) 
+carsSub <- select(carsSub, CAR, WT, QSEC, HP)
+carsSub # can get dimensions just from viewing the tibble
+dim(carsSub) # alternatively can use dim() function
+```
+
+2. Try the same thing again with pipes `%>%`.
+
+```{r}
+carsSub <- cars_mt_copy %>% 
+  filter(CYL == 8) %>% 
+  select(CAR, WT, QSEC, HP)
+carsSub
+dim(carsSub)
+```
+
+Bonus: What happens if you do the steps in a different order? Why?
+
+```{r, eval = FALSE}
+carsSub <- cars_mt_copy %>% 
+  select(CAR, WT, QSEC, HP) %>%
+  filter(CYL == 8)
+
+```
+
+3. Re-order the rows of `carsSub` by weight (`WT`) in increasing order. Use `arrange()`. What is the heaviest car?
+
+```{r}
+carsSub <- arrange(carsSub, WT)
+carsSub
+pull(carsSub, CAR) %>% last()
+last(carsSub$CAR) # alternatively without pipes
+```
+
+
+4. Create a new variable in `carsSub` called `WT2`, which  is equal to `WT^2`, using `mutate()`(don't forget to reassign `carsSub`). Use piping `%>%`:
+
+```{r}
+carsSub <- carsSub %>% mutate(WT2 = WT^2)
+```
+
+
+5. Move the `WT2` column to be first. Use `relocate`.
+
+```{r}
+
+carsSub <- carsSub %>% relocate(WT2, .before = CAR)
+carsSub
+```
+
+BONUS: How can you find the value of `WT2` for the Cadillac Fleetwood without looking at the data?
+`
+```{r}
+carsSub %>% 
+  filter(CAR == "Cadillac Fleetwood") %>%
+  select(WT2)
+
+```

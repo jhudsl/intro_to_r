@@ -313,7 +313,7 @@ jobs:
       - name: Print files with updates
         run: |
           echo ${{steps.file_changes.outputs.files_modified}}
-          echo ${{steps.file_changes.outputs.files_added}}
+          echo ${{steps.file_changes.outputs.files_added}} 
 
       # We want a fresh run of the renders each time - so first delete old html files
       - name: Delete old *.html
