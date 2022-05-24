@@ -21,7 +21,7 @@ jobs:
       - name: Load environment from YAML
         uses: doughepi/yaml-env-action@v1.0.0
         with:
-            files: config_automation.yml # Pass a space-separated list of configuration files. Rightmost files take precedence.
+            files: docs/config_automation.yml # Pass a space-separated list of configuration files. Rightmost files take precedence.
 
       - name: Make branch if it doesn't exist
         run: |
@@ -306,7 +306,7 @@ jobs:
       - name: Install packages
         run: |
           Rscript -e "install.packages(readLines(con = 'resources/all_the_packages2.txt'), repos = 'http://cran.us.r-project.org')"
-          Rscript -e "install.packages('remotes'); remotes::install_github("muschellij2/jhur")"
+          Rscript -e "install.packages('remotes'); remotes::install_github('muschellij2/jhur')"
 
        # Now we want to render all the html files from the Rmd files
       - name: Run render html
