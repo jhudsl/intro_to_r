@@ -1,0 +1,62 @@
+---
+title: "Starting with R and RMarkdown"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(jhur)
+library(ggplot2)
+library(dplyr)
+
+long = read_circulator_long()
+## take just average ridership per day
+avg = long %>% 
+  filter(type == "Average")
+# keep non-missing data
+avg = avg %>% 
+  filter(!is.na(number))
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+The way you can create a file like this in RStudio is: File → New File → R Markdown and then using the default or using a template.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+## Plotting some data
+
+Here is code that will make a plot of the average daily ridership in Baltimore City for the Charm City Circulator: https://www.charmcitycirculator.com/.  
+
+
+Here we plot a few days:
+
+```{r plot_circ, out.width = "100%"}
+# keep only some days
+avg = avg %>% 
+  filter(day %in% c("Monday", "Tuesday", "Friday", "Saturday"))
+
+palette = c(
+  banner = "blue", 
+  green = "darkgreen",
+  orange = "orange",
+  purple = "purple")
+
+ggplot(aes(x = date, y = number, colour = line), data= avg) + 
+  geom_line() + 
+  facet_wrap( ~day) + 
+  scale_colour_manual(values = palette)
+```
+
+## Exercise 
+
+Here are a few changes that will show you how to change small things in `R` code and the output it makes.  After each change, hit the **Knit** button again.
+
+1.  Go through and change the colors in `palette` to something other than what they originally were.    See http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf for a large list of colors.
+2. Change the days you are keeping to show `"Sunday"` instead of `"Saturday"`.
+3. Change the word `geom_line()` to `geom_point()`.
+4. Create another RMarkdown Document from RStudio dropdowns.

@@ -3,6 +3,8 @@
 # Find anything ending in Rmd
 files <- dir(pattern = '[.]Rmd$', recursive = TRUE)
 
+print(file.info(files))
+
 # Find only the Rmds that have been updated since last rendering
 last_rendered <- readr::read_rds(file = "docs/last_rendered_timestamp.rds")
 print(paste0("Last module rmarkdown render time was ", last_rendered))
