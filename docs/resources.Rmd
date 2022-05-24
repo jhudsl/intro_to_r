@@ -80,13 +80,11 @@ knitr::kable(mat, format = "html") %>%
 
 - [What is the Tidyverse?](https://www.tidyverse.org/packages/)
 
-- [R Markdown formatting example](Examples/example_knitr.Rmd) and [html output](Examples/example_knitr.html)
-
 -  Animations of join functions:
-[`full-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/full-join.gif)
-[`inner_join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/inner-join.gif)
-[`left-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/left-join.gif)
-[`right-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/right-join.gif)
+    [`full-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/full-join.gif)
+    [`inner_join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/inner-join.gif)
+    [`left-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/left-join.gif)
+    [`right-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/right-join.gif)
 
 - PC users who want to see how to move files around (especially from downloads), check out this video:   https://youtu.be/we6vwB7DsNU
 
@@ -129,13 +127,3 @@ Check out Candace's courses:
  (This package is super useful for reading and writing files so that they are compatible across Stata, SPSS, SAS, and R) 
 - [R vs Stata](https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf)  
 (See page 505)
-
-**DHS Related things**
-
-- [Example Script Reading in Stata DHS Data](dhs/example_dhs_reading.R)
-
-DHS package: 
-
-```r
-devtools::install_github("muschellij2/dhs")
-```

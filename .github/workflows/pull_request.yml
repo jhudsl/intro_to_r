@@ -335,6 +335,10 @@ jobs:
        # Render the cheatsheets
       - name: Render Cheatsheet pdfs
         run: Rscript "scripts/render_cheatsheets.R" 
+        
+       # Render resource pdfs
+      - name: Render Resource pdfs
+        run: Rscript "scripts/render_resources.R" 
 
       # This checks on the steps before it and makes sure that they completed.
       # If the renders didn't complete we don't want to commit the file changes

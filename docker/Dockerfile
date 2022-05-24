@@ -62,7 +62,8 @@ RUN Rscript -e  "install.packages('corrplot')"
 RUN Rscript -e  "install.packages('broom')"
 
 # Install pdflatex
-RUN apt-get install -y texlive-latex-base
+RUN apt-get install -y texlive-latex-base texlive-latex-extra
+RUN apt-get install -y texlive-fonts-recommended texlive-latex-recommended
 
 # Copy over git token
 COPY git_token.txt .
