@@ -23,7 +23,7 @@ if (length(lab_files) != 0) {
 
 # loop thru and render all lecture files to html
 # Specific module name will be pulled out based on the dir name in modules/
-if (length(lab_files) != 0) {
+if (length(lecture_files) != 0) {
   for (i in 1:length(lecture_files)) {
     module_name <-
       stringr::str_split(lecture_files, pattern = '/')[[i]][2]
