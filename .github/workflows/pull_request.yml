@@ -330,7 +330,6 @@ jobs:
 
        # Render the cheatsheets
       - name: Render Cheatsheet pdfs
-        id: site
         run: Rscript "scripts/render_cheatsheets.R" 
 
       # This checks on the steps before it and makes sure that they completed.
