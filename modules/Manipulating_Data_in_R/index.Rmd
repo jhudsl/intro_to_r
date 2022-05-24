@@ -2,7 +2,7 @@
 title: "Manipulating Data in R"
 output:
   ioslides_presentation:
-    css: ../styles.css
+    css: ../../docs/styles.css
     widescreen: yes
 ---
 
@@ -30,7 +30,7 @@ In this module, we will show you how to:
 https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf
 
 ```{r, fig.alt="A preview of the Data transformation cheatsheet produced by RStudio.", out.width = "80%", echo = FALSE, align = "center"}
-knitr::include_graphics("../images/Manip_cheatsheet.png")
+knitr::include_graphics("images/Manip_cheatsheet.png")
 ```
 
 ## What is wide/long data?
@@ -38,7 +38,7 @@ knitr::include_graphics("../images/Manip_cheatsheet.png")
 https://github.com/gadenbuie/tidyexplain/blob/main/images/tidyr-pivoting.gif
 
 ```{r, fig.alt="A gif visualization of data going from wide to long form.", out.width = "40%", echo = FALSE, align = "center"}
-knitr::include_graphics("../images/tidyr_pivoting.gif")
+knitr::include_graphics("images/tidyr_pivoting.gif")
 ```
 
 ## What is wide/long data?
@@ -96,7 +96,7 @@ Data is wide or long **with respect** to certain variables.
 </div>
 
 ```{r, fig.alt="Wide versus long data rearanges the position of column names and row content.", out.width = "60%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("../images/pivot.jpg")
+knitr::include_graphics("images/pivot.jpg")
 ```
 
 ## Why do we need to switch between wide/long data?
@@ -287,7 +287,7 @@ data_cold
 https://github.com/gadenbuie/tidyexplain/blob/main/images/inner-join.gif
 
 ```{r, fig.alt="A gif showing the inner joining of two simple datasets.", out.width = "70%", echo = FALSE, align = "center"}
-knitr::include_graphics("../images/inner_join.gif")
+knitr::include_graphics("images/inner_join.gif")
 ```
 
 ## Inner Join
@@ -302,7 +302,7 @@ ij
 https://raw.githubusercontent.com/gadenbuie/tidyexplain/main/images/left-join.gif
 
 ```{r, fig.alt="A gif showing the left joining of two simple datasets.", out.width = "70%", echo = FALSE, align = "center"}
-knitr::include_graphics("../images/left_join.gif")
+knitr::include_graphics("images/left_join.gif")
 ```
 
 ## Left Join
@@ -330,7 +330,7 @@ left_join(data_As, data_cold)
 https://raw.githubusercontent.com/gadenbuie/tidyexplain/main/images/right-join.gif
 
 ```{r, fig.alt="A gif showing the right joining of two simple datasets.", out.width = "70%", echo = FALSE, align = "center"}
-knitr::include_graphics("../images/right_join.gif")
+knitr::include_graphics("images/right_join.gif")
 ```
 
 ## Right Join
@@ -352,7 +352,7 @@ lj2
 https://raw.githubusercontent.com/gadenbuie/tidyexplain/main/images/full-join.gif
 
 ```{r, fig.alt="A gif showing the full joining of two simple datasets.", out.width = "70%", echo = FALSE, align = "center"}
-knitr::include_graphics("../images/full_join.gif")
+knitr::include_graphics("images/full_join.gif")
 ```
 
 ## Full Join
@@ -405,7 +405,7 @@ Note that "Alaska willow ptarmigan" appears twice.
 https://github.com/gadenbuie/tidyexplain/blob/main/images/left-join-extra.gif
 
 ```{r, fig.alt="A gif showing how data can be duplicated from one dataset when joining two simple datasets.", out.width = "70%", echo = FALSE, align = "center"}
-knitr::include_graphics("../images/left_join_extra.gif")
+knitr::include_graphics("images/left_join_extra.gif")
 ```
 
 ## Stop `tidylog`
