@@ -5,7 +5,7 @@ files <- dir(pattern = '[.]Rmd$', recursive = TRUE)
 
 # Find only the Rmds that have been updated since last rendering
 files <-
-  dplyr::filter(file.info(files), mtime > read_rds(file = "docs/last_rendered_timestamp.rds"))
+  dplyr::filter(file.info(files), mtime > readr::read_rds(file = "docs/last_rendered_timestamp.rds"))
 filenames <- rownames(files)
 
 # Lab files should be in a /lab subdirectory within modules/
