@@ -6,7 +6,7 @@ output:
 ## Online Videos of Lectures
 ***
 
-#### From Summer Institute 2021
+### From Summer Institute 2021
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}
 mat = matrix(c(
@@ -29,7 +29,7 @@ knitr::kable(mat, format = "html") %>%
   kable_styling() 
 ```
 
-#### From Winter Institute 2020
+### From Winter Institute 2020
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}
 mat = matrix(c(
@@ -48,7 +48,7 @@ knitr::kable(mat, format = "html") %>%
   kable_styling() 
 ```
 
-#### From Summer Institute 1 2017
+### From Summer Institute 1 2017
 
 ```{r videos, echo = FALSE, message = FALSE, results='asis'}
 mat = matrix(c(
@@ -64,6 +64,7 @@ knitr::kable(mat, format = "html") %>%
 ```
 
 <br>
+
 ## Additional Resources
 ***
 
@@ -124,15 +125,14 @@ Check out Candace's courses:
 
 **R for Stata, SPSS, and SAS files**
 
- - The [Haven](https://haven.tidyverse.org/) package  
+- The [Haven](https://haven.tidyverse.org/) package  
  (This package is super useful for reading and writing files so that they are compatible across Stata, SPSS, SAS, and R) 
 - [R vs Stata](https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf)  
 (See page 505)
 
+**DHS Related things**
 
-#### DHS Related things 
-
-[Example Script Reading in Stata DHS Data](dhs/example_dhs_reading.R)
+- [Example Script Reading in Stata DHS Data](dhs/example_dhs_reading.R)
 
 DHS package: 
 
