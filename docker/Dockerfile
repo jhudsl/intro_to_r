@@ -60,6 +60,7 @@ RUN Rscript -e  "install.packages('tidylog')"
 RUN Rscript -e  "install.packages('patchwork')"
 RUN Rscript -e  "install.packages('corrplot')"
 RUN Rscript -e  "install.packages('broom')"
+RUN Rscript -e  "install.packages('pdflatex')"
 
 # Copy over git token
 COPY git_token.txt .
