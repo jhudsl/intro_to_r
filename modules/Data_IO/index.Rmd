@@ -219,7 +219,7 @@ dat <- read_delim("www.someurl.com/table1.txt", delim = "\t")
 ## Data Input: Read in Directly From File Path
 
 ```{r readCSV2}
-dat <- read_csv("../data/Youth_Tobacco_Survey_YTS_Data.csv")
+dat <- read_csv("data/Youth_Tobacco_Survey_YTS_Data.csv")
 ```
 
 The data is now successfully read into your R workspace. Colum specification of first few columns is printed to the console. 
@@ -240,7 +240,7 @@ The data is now successfully read into your R workspace. Colum specification of 
 The `spec()` function shows you the specification of how the data was read in. 
 
 ```{r stop_problems}
-# dat <- read_csv("../data/Youth_Tobacco_Survey_YTS_Data.csv")
+# dat <- read_csv("data/Youth_Tobacco_Survey_YTS_Data.csv")
 spec(dat)
 ```
 
