@@ -51,6 +51,9 @@ RUN Rscript -e  "options(warn = 2);install.packages( \
       'pander'), \
       repos = 'https://cloud.r-project.org/')"
 
+# Other packages
+RUN Rscript -e  "devtools::install_github('hadley/emo')"
+
 # Copy over git token
 COPY git_token.txt .
   
