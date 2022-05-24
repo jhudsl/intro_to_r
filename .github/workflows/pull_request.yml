@@ -320,12 +320,16 @@ jobs:
         run: Rscript -e "rmarkdown::clean_site('docs', preview = FALSE)"
         
        # Now we want to render all the html files from the Rmd files
-      - name: Run render html
+      - name: Run render html for the main site
         id: site
         run: Rscript -e "rmarkdown::render_site('docs')" 
         
+       # Render module details for syllabus
+      - name: Render module details for syllabus
+        run: Rscript "scripts/render_module_details_for_syllabus.R"
+        
        # Render all module files
-      - name: Run render html of modules
+      - name: Render html of modules
         run: Rscript "scripts/render_modules.R"
 
        # Render the cheatsheets
