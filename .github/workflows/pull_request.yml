@@ -307,8 +307,8 @@ jobs:
       - name: Gather files with updates
         id: file_changes
         uses: trilom/file-changes-action@v1.2.3
-        with:
-          githubToken: $${{ secrets.GH_PAT }}
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
 
       - name: Print files with updates
         run: |
