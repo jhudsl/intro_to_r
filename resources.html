@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>resources.knit</title>
+
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="docs/styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Intro to R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+<li>
+  <a href="materials_schedule.html">Materials + Schedule</a>
+</li>
+<li>
+  <a href="resources.html">Resources</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+
+</div>
+
+
+<div id="online-videos-of-lectures" class="section level2">
+<h2>Online Videos of Lectures</h2>
+<hr />
+<div id="from-summer-institute-2021" class="section level3">
+<h3>From Summer Institute 2021</h3>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Day
+</th>
+<th style="text-align:left;">
+Link to Video
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+RStudio
+</td>
+<td style="text-align:left;">
+<a href="https://youtu.be/zpAQrglIJb0" class="uri">https://youtu.be/zpAQrglIJb0</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Basic R
+</td>
+<td style="text-align:left;">
+<a href="https://youtu.be/md30mwFJ2_Q" class="uri">https://youtu.be/md30mwFJ2_Q</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Data IO
+</td>
+<td style="text-align:left;">
+<a href="https://youtu.be/6xNyETqIqZU" class="uri">https://youtu.be/6xNyETqIqZU</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Subsetting Data
+</td>
+<td style="text-align:left;">
+<a href="https://youtu.be/YeBSc2YXr4U" class="uri">https://youtu.be/YeBSc2YXr4U</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Data Summarization Part 1 + 2
+</td>
+<td style="text-align:left;">
+<a href="https://youtu.be/yL3BGDWtVC4" class="uri">https://youtu.be/yL3BGDWtVC4</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Data Classes
+</td>
+<td style="text-align:left;">
+<a href="https://youtu.be/zBCvbikMTAc" class="uri">https://youtu.be/zBCvbikMTAc</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Data Cleaning
+</td>
+<td style="text-align:left;">
+<a href="https://youtu.be/TaREvr5evwk" class="uri">https://youtu.be/TaREvr5evwk</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Data Manipulation
+</td>
+<td style="text-align:left;">
+<a href="https://youtu.be/-039V99I-PE" class="uri">https://youtu.be/-039V99I-PE</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Reproducibility
+</td>
+<td style="text-align:left;">
+<a href="https://youtu.be/ui9dJLqtdCs" class="uri">https://youtu.be/ui9dJLqtdCs</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Statistics
+</td>
+<td style="text-align:left;">
+<a href="https://youtu.be/EJwlBoBHoz4" class="uri">https://youtu.be/EJwlBoBHoz4</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Data Visualization
+</td>
+<td style="text-align:left;">
+<a href="https://youtu.be/ngQX9khx7UQ" class="uri">https://youtu.be/ngQX9khx7UQ</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Functions
+</td>
+<td style="text-align:left;">
+<a href="https://youtu.be/epIujSKgNi4" class="uri">https://youtu.be/epIujSKgNi4</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="from-winter-institute-2020" class="section level3">
+<h3>From Winter Institute 2020</h3>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Day
+</th>
+<th style="text-align:left;">
+Link to Video
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+RStudio and Data Classes
+</td>
+<td style="text-align:left;">
+<a href="https://youtu.be/vyIsDnsq5jY" class="uri">https://youtu.be/vyIsDnsq5jY</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Subsetting Data
+</td>
+<td style="text-align:left;">
+<a href="https://youtu.be/mT8lSagYbjM" class="uri">https://youtu.be/mT8lSagYbjM</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Data Summarization Part 1
+</td>
+<td style="text-align:left;">
+<a href="https://youtu.be/SZYpzt9zy0g" class="uri">https://youtu.be/SZYpzt9zy0g</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Data Classes
+</td>
+<td style="text-align:left;">
+<a href="https://youtu.be/82zSA1N0mnA" class="uri">https://youtu.be/82zSA1N0mnA</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Data Cleaning
+</td>
+<td style="text-align:left;">
+<a href="https://youtu.be/G3V2YPaQN34" class="uri">https://youtu.be/G3V2YPaQN34</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Data Manipulation
+</td>
+<td style="text-align:left;">
+<a href="https://youtu.be/43MPdw5bf4o" class="uri">https://youtu.be/43MPdw5bf4o</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Statistics 1
+</td>
+<td style="text-align:left;">
+<a href="https://youtu.be/Jr4ljyzrr4U" class="uri">https://youtu.be/Jr4ljyzrr4U</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Statistics 2
+</td>
+<td style="text-align:left;">
+<a href="https://youtu.be/ub2BSbK9lMM" class="uri">https://youtu.be/ub2BSbK9lMM</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="from-summer-institute-1-2017" class="section level3">
+<h3>From Summer Institute 1 2017</h3>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Day
+</th>
+<th style="text-align:left;">
+Link to Video
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Day 1
+</td>
+<td style="text-align:left;">
+<a href="https://youtu.be/Xi-wsACc7p0" class="uri">https://youtu.be/Xi-wsACc7p0</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Day 2
+</td>
+<td style="text-align:left;">
+<a href="https://youtu.be/u1FQt9Hr8iw" class="uri">https://youtu.be/u1FQt9Hr8iw</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Day 3
+</td>
+<td style="text-align:left;">
+<a href="https://youtu.be/woc7AGJTzZw" class="uri">https://youtu.be/woc7AGJTzZw</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Day 4
+</td>
+<td style="text-align:left;">
+<a href="https://youtu.be/RZ7eVIMPIes" class="uri">https://youtu.be/RZ7eVIMPIes</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Day 5
+</td>
+<td style="text-align:left;">
+<a href="https://youtu.be/e8cFV8wluC0" class="uri">https://youtu.be/e8cFV8wluC0</a>
+</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+</div>
+</div>
+<div id="additional-resources" class="section level2">
+<h2>Additional Resources</h2>
+<hr />
+<p><strong>Need help?</strong></p>
+<ul>
+<li><p><a href="https://www.rstudio.com/resources/cheatsheets/">Various “Cheat Sheets”</a></p></li>
+<li><p><a href="http://cran.r-project.org/doc/contrib/Short-refcard.pdf">R reference card</a></p></li>
+<li><p><a href="https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf">R jargon</a></p></li>
+<li><p><a href="https://cran.r-project.org/doc/manuals/r-release/R-lang.pdf">R terminology</a></p></li>
+<li><p><a href="https://www.tidyverse.org/packages/">What is the Tidyverse?</a></p></li>
+<li><p>Animations of join functions: <a href="https://github.com/gadenbuie/tidyexplain/blob/master/images/full-join.gif"><code>full-join()</code></a> <a href="https://github.com/gadenbuie/tidyexplain/blob/master/images/inner-join.gif"><code>inner_join()</code></a> <a href="https://github.com/gadenbuie/tidyexplain/blob/master/images/left-join.gif"><code>left-join()</code></a> <a href="https://github.com/gadenbuie/tidyexplain/blob/master/images/right-join.gif"><code>right-join()</code></a></p></li>
+<li><p>PC users who want to see how to move files around (especially from downloads), check out this video: <a href="https://youtu.be/we6vwB7DsNU" class="uri">https://youtu.be/we6vwB7DsNU</a></p></li>
+<li><p>Mac users who want to see how to move files around (especially from downloads), check out this video: <a href="https://www.youtube.com/watch?v=Ao9e0cDzMrE" class="uri">https://www.youtube.com/watch?v=Ao9e0cDzMrE</a></p></li>
+</ul>
+<p><strong>Want more?</strong></p>
+<ul>
+<li><p><a href="https://jhudatascience.org/tidyversecourse/">Tidyverse Skills for Data Science Book</a><br />
+(more about the tidyverse, some modeling, and machine learning)</p></li>
+<li><p><a href="https://www.coursera.org/specializations/tidyverse-data-science-r">Tidyverse Skills for Data Science Course</a><br />
+(same content with quizzes, can get certificate with $)</p></li>
+<li><p><a href="http://r4ds.had.co.nz/">R for Data Science</a><br />
+(great general information)</p></li>
+<li><p><a href="https://www.opencasestudies.org/">Open Case Studies</a><br />
+(resource for specific public health cases with statistical implementation and interpretation)</p></li>
+<li><p><a href="https://www.dataquest.io/">Dataquest</a><br />
+(general interactive resource)</p></li>
+<li><p><a href="http://statmethods.net/">Quick R Guide</a><br />
+(nice free general resource)</p></li>
+<li><p><a href="https://hopstat.wordpress.com/2016/02/18/how-i-build-up-a-ggplot2-figure/">Building up a <code>ggplot2</code> figure</a><br />
+(guide to making plots)</p></li>
+</ul>
+<p><strong>Interested in Reproducibility?</strong></p>
+<p>Check out Candace’s courses:</p>
+<ul>
+<li><p><a href="https://jhudatascience.org/Reproducibility_in_Cancer_Informatics/">Introduction</a></p></li>
+<li><p><a href="https://jhudatascience.org/Adv_Reproducibility_in_Cancer_Informatics/">Advanced</a></p></li>
+</ul>
+<p><strong>R for Stata, SPSS, and SAS files</strong></p>
+<ul>
+<li>The <a href="https://haven.tidyverse.org/">Haven</a> package<br />
+(This package is super useful for reading and writing files so that they are compatible across Stata, SPSS, SAS, and R)</li>
+<li><a href="https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf">R vs Stata</a><br />
+(See page 505)</li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
