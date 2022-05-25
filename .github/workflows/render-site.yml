@@ -11,14 +11,6 @@ on:
   workflow_dispatch:
   push:
     branches: [ main ]
-    paths:
-      - '**.Rmd'
-      - styles.css
-      - _site.yml
-      - subdir_html/*.Rmd
-      - resources/images/*.png
-      - resources/images/favicon.ico
-      - site_libs/*
 
 jobs:
   # This workflow contains a single job called "build-all"
@@ -28,9 +20,15 @@ jobs:
           # remotes::install_cran("rmarkdown")
           # remotes::install_deps(dependencies = TRUE)
     container:
-      image: jhudsl/course_template
+      image: jhudsl/intro_to_r:1.0
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      # Give permission to access the repo
+      - name: safelist repository
+        run: |
+          repo_name='${{ github.event.repository.name }}'
+          git config --global --add safe.directory /__w/$repo_name/$repo_name
+    
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: checkout
         uses: actions/checkout@v2
@@ -43,17 +41,28 @@ jobs:
       # We want a fresh run of the renders each time - so first delete old html files
       - name: Delete old *.html
         run: Rscript -e "rmarkdown::clean_site(preview = FALSE)"
-
+        
        # Now we want to render all the html files from the Rmd files
-      - name: Run render html
+      - name: Run render html for the main site
         id: site
-        run: Rscript -e "rmarkdown::render_site()"
+        run: Rscript -e "rmarkdown::render_site()" 
+        
+       # Render module details for syllabus
+      - name: Render module details for syllabus
+        run: Rscript "scripts/render_module_details_for_syllabus.R"
+        
+       # Render all module files
+      - name: Render html of modules
+        run: Rscript "scripts/render_modules.R"
 
-      # We may have html files that we want to render to add as links on the pages -these will be stored in a dir called subdir_html
-      - name: Render subdir_html
-        id: subdir_html
-        run: Rscript -e "for (i in list.files(path = './subdir_html', pattern = 'Rmd$', recursive = TRUE, full.names = TRUE)){rmarkdown::render(i)}"
-
+       # Render the cheatsheets
+      - name: Render Cheatsheet pdfs
+        run: Rscript "scripts/render_cheatsheets.R" 
+        
+       # Render resource pdfs
+      - name: Render Resource pdfs
+        run: Rscript "scripts/render_resources.R" 
+        
       # This checks on the steps before it and makes sure that they completed.
       # If the renders didn't complete we don't want to commit the file changes
       - name: Check on render steps
@@ -62,13 +71,45 @@ jobs:
           echo site status ${{steps.site.outcome}}
           exit 1
 
-# Commit the rendered site files - html files and site_libs files
+      # Commit the rendered site files - html files and site_libs files
       - name: Commit rendered site files
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
           git add --force *.html
-          git add --force subdir_html/*.html
+          git add --force site_libs/*
+          git commit -m 'Render site' || echo "No changes to commit"
+          git push origin main || echo "No changes to push"
+
+  render-pdf-lectures:
+    name: Render pdf lecture slides
+    needs: render-main
+    runs-on: ubuntu-latest
+    container:
+      image: jhudsl/course_template:main
+    strategy:
+      matrix:
+        modulenames: [Intro, RStudio, Reproducibility, Basic_R, Data_IO, Subsetting_Data_in_R, Data_Summarization, Data_Classes, Data_Cleaning, Manipulating_Data_in_R, Esquisse_Data_Visualization, Data_Visualization, Factors, Statistics, Functions]
+    
+    steps:
+      - name: Checkout files
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+        
+      # Render pdfs
+      - name: Render pdfs of lectures
+        uses: fifsky/html-to-pdf-action@master
+        with:
+          htmlFile: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
+          outputFile: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
+          
+      # Commit the rendered site files - html files and site_libs files
+      - name: Commit pdfs
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add --force *.html
           git add --force site_libs/*
           git commit -m 'Render site' || echo "No changes to commit"
           git push origin main || echo "No changes to push"
