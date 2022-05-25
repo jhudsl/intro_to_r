@@ -8,7 +8,7 @@ res_files_md <- files[grepl("resources", files)]
 files <- dir(pattern = '[.]Rmd$', recursive = TRUE)
 res_files_Rmd <- files[grepl("resources", files)]
 
-res_files <- c(res_files_md, res_files_Rmd[res_files_Rmd != "docs/resources.Rmd"])
+res_files <- c(res_files_md, res_files_Rmd[res_files_Rmd != "resources.Rmd"])
 
 # loop thru and render all resources files to pdf
 if (length(res_files) != 0) {
