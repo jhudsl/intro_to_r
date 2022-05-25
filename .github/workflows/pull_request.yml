@@ -440,10 +440,12 @@ jobs:
           outputFile: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
           
       # Commit the rendered website files
-      - name: Commit rendered pdfs to preview branch
-        id: commit
+      - name: Commit rendered website files to preview branch
+        id: commit_pdfs
         run: |
           branch_name='preview-${{ github.event.pull_request.number }}'
+          git diff origin/main -- '*.html' >/dev/null && changes=true || changes=false
+          echo ::set-output name=changes::$changes
           git add . --force
           git commit -m 'Render preview' || echo "No changes to commit"
           git pull --set-upstream origin $branch_name --allow-unrelated-histories --strategy-option=ours
