@@ -436,7 +436,7 @@ jobs:
       - name: Render pdfs of lectures
         uses: fifsky/html-to-pdf-action@master
         with:
-          htmlFile: modules/${{ matrix.modulenames }}/index.html
+          htmlFile: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
           outputFile: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
           
       # Commit the rendered website files
