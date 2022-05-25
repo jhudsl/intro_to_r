@@ -1,0 +1,24 @@
+name: Introduction to R for Public Health Researchers
+output_dir: '.'
+navbar:
+  title: Intro to R
+  left:
+  - text: Home
+    href: index.html
+  - text: Syllabus
+    href: syllabus.html
+  - text: Materials + Schedule
+    href: materials_schedule.html
+  - text: Resources
+    href: resources.html
+
+
+output:
+  html_document:
+    theme: cosmo
+    lib_dir: site_libs
+    self_contained: no
+    highlight: textmate
+    css: docs/styles.css
+    # includes:
+    #   in_header: resources/header.html

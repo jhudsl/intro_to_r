@@ -1,0 +1,431 @@
+---
+title: ""
+output:
+  ioslides_presentation:
+    css: ../../docs/styles.css
+    widescreen: yes
+--- 
+
+```{r, echo = FALSE}
+library(knitr)
+opts_chunk$set(comment = "")
+```
+
+## Welcome to class!
+
+1. Introductions
+2. Class overview
+3. Getting R up and running
+
+
+```{r, fig.alt="Welcome!", out.width = "60%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/welcome.jpg")
+```
+
+
+<sub>[Photo by <a href="https://unsplash.com/@bel2000a?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Belinda Fewings</a> on <a href="https://unsplash.com/s/photos/welcome?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>]</sub>
+  
+  
+## About Us
+
+**Carrie Wright** 
+
+Assistant Scientist, Department of Biostatistics, JHSPH
+
+PhD in Biomedical Sciences
+
+Email: cwrigh60@jhu.edu
+
+Website: https://carriewright11.github.io
+
+```{r, fig.alt="Carrie's picture", out.width = "30%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://ca.slack-edge.com/T023TPZA8LF-U024F9G49S8-9861ddd543db-192")
+```
+
+
+## About Us
+
+**Ava Hoffman**
+
+Research Associate, Department of Biostatistics, JHSPH
+
+PhD in Ecology
+
+Email: ava.hoffman@jhu.edu
+
+Website: https://avahoffman.com
+
+```{r, fig.alt="Ava's picture", out.width = "30%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://ca.slack-edge.com/T023TPZA8LF-U0248RUHRC2-0ac3f9608641-512")
+```
+
+## About Us
+
+**Candace Savonen**
+
+Research Associate, Department of Biostatistics, JHSPH
+
+Masters in Neuroscience  
+
+Former Data Analyst for [Childhood Cancer Data Lab](https://www.ccdatalab.org/)
+
+Email: csavone1@jhu.edu
+
+Website: https://www.cansavvy.com/
+
+```{r, fig.alt="Candace's picture", out.width = "25%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://coursera-instructor-photos.s3.amazonaws.com/3d/20b2387e1f494290006afaddce852a/Candace_Savonen.jpg?auto=format%2Ccompress&dpr=2&w=112&h=112&q=40&fit=crop")
+```
+
+## About Us - TAs
+
+**Grant Schumock**
+
+PhD Candidate, Department of Biostatistics, JHSPH
+
+BS in Nuclear Engineering
+
+Email: gschumo1@jhmi.edu  
+
+```{r, fig.alt="Grant's picture", out.width = "30%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://ca.slack-edge.com/T9HRLUCSW-UHLJ37F7U-c7982c75f1d0-512")
+```
+
+
+## About Us - TAs
+
+**Qier Meng**
+
+ScM Student, Department of Biostatistics, JHSPH
+
+Bachelor's Degree in Mathematics  
+
+Bachelor's Degree in Neuroscience
+
+Email: qmeng11@jhmi.edu
+
+
+```{r, fig.alt="Qier's picture", out.width = "30%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://ca.slack-edge.com/T9HRLUCSW-U017Y4E376F-afced08ed082-192")
+```
+
+
+## What is R?
+
+- R is a language and environment for statistical computing and graphics
+
+- R is the open source implementation of the [S language](https://en.wikipedia.org/wiki/S_(programming_language)), which was developed by [Bell laboratories](https://ca.slack-edge.com/T023TPZA8LF-U024EN26Q0L-113294823b2c-512) in the 70s.
+
+- The aim of the S language, as expressed by John Chambers, is "to turn ideas into software, quickly and faithfully"
+
+```{r, fig.alt="Bell Labs old logo", out.width = "40%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Bell_Laboratories_logo.svg/2880px-Bell_Laboratories_logo.svg.png")
+```
+
+
+<sub>[source: http://www.r-project.org/, https://en.wikipedia.org/wiki/S_(programming_language), https://en.wikipedia.org/wiki/Bell_Labs)] </sub>
+
+## What is R?
+
+- In 1991 **R**oss Ihaka and **R**obert Gentleman at the University of Auckland, New Zealand began developing R
+
+- R is named partly after the first names of the first two authors and  a play on the name of S.
+
+- R is both [open source](https://en.wikipedia.org/wiki/Open_source) and [open development](https://en.wikipedia.org/wiki/Open-source_software_development)
+
+```{r, fig.alt="R logo", out.width = "20%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://www.r-project.org/Rlogo.png")
+```
+
+
+<sub>[source: http://www.r-project.org/, https://en.wikipedia.org/wiki/R_(programming_language)]</sub>
+
+## Why R?
+
+* High level language designed for statistical computing
+
+* Powerful and flexible - especially for data wrangling and visualization
+
+* Free (open source)
+
+* Extensive add-on software (packages)
+
+* Strong community 
+
+```{r, fig.alt="R-Ladies - a non-profit civil society community", out.width = "25%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://rladies-baltimore.github.io/img/R-LadiesGlobal_RBG_online_LogoOnly.png")
+```
+<sub>[source: https://rladies-baltimore.github.io/]</sub>
+
+## Why not R?
+
+    
+* Little centralized support, relies on online community and package developers
+
+* Annoying to update
+
+* Slower, and more memory intensive, than the more traditional programming languages (C, Java, Perl, Python)
+
+```{r, fig.alt="tortoise and hare", out.width = "40%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/tortoise_hare.jpg")
+```
+
+<sub>[[source -School vector created by nizovatina - www.freepik.com](https://www.freepik.com/vectors/school)]</sub>
+
+
+## Introductions
+
+What do you hope to get out of the class?
+
+Why do you want to use R?
+
+```{r, fig.alt="image of rocks with word hope painted on", out.width = "60%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/hope.jpg")
+``` 
+<sub>[Photo by <a href="https://unsplash.com/@jannerboy62?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Nick Fewings</a> on <a href="https://unsplash.com/s/photos/hope?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>]</sub>
+  
+
+## Course Website
+
+http://jhudatascience.org/intro_to_r
+
+Materials will be uploaded the night before class
+
+```{r, fig.alt="Intro to R course logo", out.width = "60%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("../../docs/images/Intro_to_R.png")
+```
+
+## Learning Objectives
+
+- Understanding basic programming syntax
+- Reading data into R
+- Recoding and manipulating data
+- Using add-on packages (more on what this is soon!)
+- Making exploratory plots
+- Performing basic statistical tests
+- Writing R functions
+
+## Course Format
+
+ * Lecture with slides (possibly "Interactive")
+ * Lab/Practical experience
+ * Two 10 min breaks each day - timing may vary
+ * Jan 10-21, 2022, 8:30AM-11:50AM on Zoom
+ * No class on Jan 17th for Martin Luther King Jr. Day
+ 
+## CoursePlus
+ 
+https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/16733/
+
+- Surveys throughout the class for the instructors
+- Upload homework
+
+End of class Survey - link in email.
+
+```{r, fig.alt="Surveys count", out.width = "50%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/feedback-illustration.jpeg")
+```
+
+<sub>[[source - Banner vector created by pch.vector - www.freepik.com]("https://www.freepik.com/vectors/banner")]</sub>
+
+## Grading
+
+ 1. Attendance/Participation: 20% - this can be asynchronous - just some sort of interaction with the instructors/TAs (turning in assignments, emailing etc.)
+ 2. Homework: 3 x 15%
+ 3. Final "Project": 35%
+ 
+Homeworks and Final Project due by **Wednesday, Jan 26, 2022 at 11:59pm EST**.
+
+If you turn homework in earlier this can allow us to potentially give you feedback earlier.
+ 
+ Note: Only people taking the course for credit must turn in the assignments. However, we will evaluate all submitted assignments in case others would like feedback on their work.
+
+<!-- ## Grading -->
+
+<!-- * **Homework 1**: Due Tuesday by class -->
+
+<!-- * **Homework 2**: Due Thursday by class -->
+
+<!-- * **Homework 3**: Due Friday by class -->
+
+<!-- * **Project**: Due 2 weeks after class ends -->
+
+## Installing R
+
+* Install the latest version from: [http://cran.r-project.org/](http://cran.r-project.org/ )
+
+* [Install RStudio](https://www.rstudio.com/products/rstudio/download/)
+
+RStudio is an integrated development environment (IDE) that makes it easier to work with R.
+
+More on that soon!
+
+## Getting files from downloads
+
+This course will involve moving files around on your computer and downloading files.
+
+If you are new to this - check out these videos
+
+If you have a PC: https://youtu.be/we6vwB7DsNU
+
+If you have a Mac: https://www.youtube.com/watch?v=Ao9e0cDzMrE
+
+
+## Basic terms
+
+R jargon: https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf
+
+**Package** - a package in R is a bundle or "package" of code (and or possibly data) that can be loaded together for easy repeated use or for **sharing** with others.
+
+Packages are sort of analogous to a software application like Microsoft Word on your computer. Your operating system allows you to use it, just like having R installed (and other required packages) allows you to use packages.
+
+```{r, fig.alt="R hex stickers for packages", out.width = "35%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/hex.png")
+```
+
+## Basic terms
+
+
+**Function** - a function is a particular piece of code that allows you to do something in R. You can write your own, use functions that come directly from installing R, or use functions from additional packages.
+
+A function might help you add numbers together, create a plot, or organize your data. More on that soon!
+
+```{r}
+sum(1, 20234)
+```
+
+
+## Basic terms
+
+ **Argument** - what you pass to a function
+
+- can be data like the number 1 or 20234 
+
+```{r}
+sum(1, 20234)
+```
+
+- can be options about how you want the function to work
+
+```{r}
+round(0.627, digits = 2)
+round(0.627, digits = 1)
+```
+
+
+## Basic terms
+
+
+**Object** - an object is something that can be worked with in R - can be lots of different things!
+
+- a matrix of numbers
+- a plot
+- a function
+
+... many more
+
+## Variable and Sample
+
+- **Variable**: something measured or counted that is a characteristic about a sample
+
+examples: temperature, length, count, color, category
+
+- **Sample**: individuals that you have data about -
+
+examples: people, houses, viruses etc.
+
+```{r}
+head(iris)
+```
+
+
+## Columns and Rows
+
+```{r, fig.alt="R hex stickers for packages", out.width = "50%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://keydifferences.com/wp-content/uploads/2016/09/rows-vs-column.jpg")
+```
+[[source](https://keydifferences.com/difference-between-rows-and-columns.html)]
+
+Sample = Row  
+Variable = Column
+
+Data objects that looks like this is often called a **data frame**.
+
+Fancier versions from the tidyverse are called **tibbles** (more on that soon!).
+
+## Tidyverse and Base R
+
+We will mostly show you how to use tidyverse packages and functions. 
+
+This is a newer set of packages designed for data science that can make your code more **intuitive** as compared to the original older Base R.
+
+**Tidyverse advantages**:  
+ - **consistent structure** - making it easier to learn how to use different packages  
+ - particularly good for **wrangling** (manipulating, cleaning, joining) data  
+ - more flexible for **visualizing** data  
+
+Packages for the tidyverse are managed by a team of respected data scientists at RStudio.
+
+```{r, fig.alt="Tidyverse hex sticker", out.width = "10%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://tidyverse.tidyverse.org/logo.png")
+```
+
+See this [article](https://tidyverse.tidyverse.org/articles/paper.html) for more info.
+
+## Collection of R packages
+
+We have an R package called jhur that will make sure all the packages are installed.
+
+You can just copy and paste the below code into your console - we'll explain what it all means in the next day or two
+
+```{r, packageInstall, eval=FALSE}
+install.packages("remotes")
+remotes::install_github("muschellij2/jhur")
+```
+
+Note it may take ~5-10 minutes to run.
+
+## Useful (+ mostly Free) Resources
+
+**Want more?**  
+
+- Tidyverse Skills for Data Science Book: https://jhudatascience.org/tidyversecourse/ 
+(more about the tidyverse, some modeling, and machine learning)
+
+- Tidyverse Skills for Data Science Course: https://www.coursera.org/specializations/tidyverse-data-science-r  
+(same content with quizzes, can get certificate with $)
+
+- R for Data Science: http://r4ds.had.co.nz/  
+(great general information)
+ 
+- Open Case Studies: https://www.opencasestudies.org/  
+(resource for specific public health cases with statistical implementation and interpretation)
+
+- Dataquest: https://www.dataquest.io/  
+(general interactive resource)
+
+## Useful (+ mostly Free) Resources
+
+**Need help?** 
+
+- Various "Cheat Sheets": https://www.rstudio.com/resources/cheatsheets/   
+
+- R reference card: http://cran.r-project.org/doc/contrib/Short-refcard.pdf  
+
+- R jargon: https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf  
+
+- R vs Stata: https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf  
+
+- R terminology: https://cran.r-project.org/doc/manuals/r-release/R-lang.pdf
+
+## Useful (+ mostly Free) Resources
+
+**Interested in Reproducibility?**
+
+Check out Candace's courses:
+
+- Introduction: https://jhudatascience.org/Reproducibility_in_Cancer_Informatics/
+
+- Advanced: https://jhudatascience.org/Adv_Reproducibility_in_Cancer_Informatics/
+
+

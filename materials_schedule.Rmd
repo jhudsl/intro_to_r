@@ -1,0 +1,97 @@
+---
+title: "Materials + Schedule"
+output:
+  html_document
+---
+
+In recognition of [Juneteenth](https://en.wikipedia.org/wiki/Juneteenth), there will be no class on Monday June 20th 2022. There is an assignment due before class to [install software](https://courseplus.jhu.edu/fileDepot/onlineLibrary/1280/R_and_RStudio_installation.html) and we recommend completing HW 1 (uploading a screenshot showing that you finished the Dataquest module indicated below) before class, but all other assignments will be due July 1st. You are welcome to turn assignments in earlier if you wish.
+
+<br>
+
+## Day Overview
+***
+
+| Time (EST)        | Content   |
+|-------------------|-----------|
+| 8:30am - 9:30am   | Session 1 |
+| 9:30am - 9:40am   | Break     |
+| 9:40am - 10:40am  | Session 2 |
+| 10:40am - 10:50am | Break     |
+| 10:50am - 11:50am | Session 3 |
+
+<br>
+
+## Detailed Schedule + Materials
+***
+
+```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
+# The str_replace_all creates an absolute url to linked documents since there are word and pdf rendered versions of the syllabus
+source("scripts/utils.R")
+pander::pandoc.table(
+  read_markdown("docs/_schedule_table.Rmd")  %>%
+    mutate(across(
+      .fns = ~ str_replace_all(., "\\./", "https://jhudatascience.org/intro_to_r/")
+    )),
+  missing = "",
+  split.tables = Inf,
+  style = "rmarkdown"
+)
+```
+
+### Module Details
+
+[Day 0 (before the first session)](docs/module_details/day0.html)
+ - Homework 1
+
+[Day 1](docs/module_details/day1.html)
+
+- Introduction 
+- RStudio
+- Reproducible Research
+
+[Day 2](docs/module_details/day2.html)
+
+- Basic R: Variables/Objects in R
+- Data Input/Output
+
+
+[Day 3](docs/module_details/day3.html)
+
+- Subsetting Data
+- Discuss Homework 2 - work on Homework 2 in class if there is time
+
+
+[Day 4](docs/module_details/day4.html)
+
+- Summarization
+- Data Classes
+
+
+[Day 5](docs/module_details/day5.html)
+
+
+- Data Cleaning
+- Discuss Homework 3 - work on Homework 3 in class if there is time
+
+
+[Day 6](docs/module_details/day6.html)
+
+- Data Manipulation
+- Data Visualization with Esquisse
+
+
+[Day 7](docs/module_details/day7.html)
+
+- Data Visualization Continued
+- Factors
+
+[Day 8](docs/module_details/day8.html)
+
+- Statistics
+- Discuss and work on Final Project
+
+
+[Day 9](docs/module_details/day9.html)
+
+- Functions
+- Work on Final Project

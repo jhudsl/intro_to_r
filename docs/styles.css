@@ -1,0 +1,39 @@
+
+/* To add some space below the navigation bar */
+
+ body {
+  margin-top: 100px;
+}
+
+
+/* add some color - if you want color behind a major point on your website */
+
+.banner_color {
+  background-color: lightblue;
+  font-weight:bold;
+
+}
+
+/* Style buttons - if you want some text centered and bolded */
+
+.center {
+  font-weight:bold;
+  text-align: center;
+}
+
+/* Style buttons - if you want to have a button */
+.btn {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 8px 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: RoyalBlue;
+}
+
+

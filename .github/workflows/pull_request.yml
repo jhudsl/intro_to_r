@@ -21,7 +21,7 @@ jobs:
       - name: Load environment from YAML
         uses: doughepi/yaml-env-action@v1.0.0
         with:
-            files: config_automation.yml # Pass a space-separated list of configuration files. Rightmost files take precedence.
+            files: docs/config_automation.yml # Pass a space-separated list of configuration files. Rightmost files take precedence.
 
       - name: Make branch if it doesn't exist
         run: |
@@ -277,10 +277,16 @@ jobs:
     needs: yaml-check
     runs-on: ubuntu-latest
     container:
-      image: jhudsl/course_template:main
+      image: jhudsl/intro_to_r:1.0
     if: ${{needs.yaml-check.outputs.toggle_render_preview == 'yes'}}
-
+    
     steps:
+      # Give permission to access the repo
+      - name: safelist repository
+        run: |
+          repo_name='${{ github.event.repository.name }}'
+          git config --global --add safe.directory /__w/$repo_name/$repo_name
+    
       - name: Checkout files
         uses: actions/checkout@v2
         with:
@@ -297,20 +303,42 @@ jobs:
           git checkout $branch_name
           git merge -s recursive --strategy-option=theirs origin/${{ github.head_ref }} --allow-unrelated-histories
         shell: bash
+        
+      - name: Gather files with updates
+        id: file_changes
+        uses: trilom/file-changes-action@v1.2.4
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+
+      - name: Print files with updates
+        run: |
+          echo ${{steps.file_changes.outputs.files_modified}}
+          echo ${{steps.file_changes.outputs.files_added}} 
 
       # We want a fresh run of the renders each time - so first delete old html files
       - name: Delete old *.html
         run: Rscript -e "rmarkdown::clean_site(preview = FALSE)"
-
+        
        # Now we want to render all the html files from the Rmd files
-      - name: Run render html
+      - name: Run render html for the main site
         id: site
-        run: Rscript -e "rmarkdown::render_site()"
+        run: Rscript -e "rmarkdown::render_site()" 
+        
+       # Render module details for syllabus
+      - name: Render module details for syllabus
+        run: Rscript "scripts/render_module_details_for_syllabus.R"
+        
+       # Render all module files
+      - name: Render html of modules
+        run: Rscript "scripts/render_modules.R"
 
-      # We may have html files that we want to render to add as links on the pages -these will be stored in a dir called subdir_html
-      - name: Render subdir_html
-        id: subdir_html
-        run: Rscript -e "for (i in list.files(path = './subdir_html', pattern = 'Rmd$', recursive = TRUE, full.names = TRUE)){rmarkdown::render(i)}"
+       # Render the cheatsheets
+      - name: Render Cheatsheet pdfs
+        run: Rscript "scripts/render_cheatsheets.R" 
+        
+       # Render resource pdfs
+      - name: Render Resource pdfs
+        run: Rscript "scripts/render_resources.R" 
 
       # This checks on the steps before it and makes sure that they completed.
       # If the renders didn't complete we don't want to commit the file changes
@@ -345,7 +373,7 @@ jobs:
         id: build-components
         run: |
           course_name=$(head -n 1 _website.yml | cut -d'"' -f 2| tr " " "-")
-          website_link=$(echo "https://htmlpreview.github.io/?https://raw.githubusercontent.com/$GITHUB_REPOSITORY/preview-${{ github.event.pull_request.number }}/index.html")
+          website_link=$(echo "https://htmlpreview.github.io/?https://raw.githubusercontent.com/$GITHUB_REPOSITORY/preview-${{ github.event.pull_request.number }}/docs/index.html")
           echo ::set-output name=website_link::$website_link
           echo ::set-output name=time::$(date +'%Y-%m-%d')
           echo ::set-output name=commit_id::$GITHUB_SHA
@@ -374,3 +402,52 @@ jobs:
 
             _Updated at ${{ steps.build-components.outputs.time }} with changes from ${{ steps.build-components.outputs.commit_id }}_
           edit-mode: replace
+
+  render-pdf-lectures:
+    name: Render pdf lecture slides
+    needs: render-preview
+    runs-on: ubuntu-latest
+    container:
+      image: jhudsl/course_template:main
+    if: ${{needs.yaml-check.outputs.toggle_render_preview == 'yes'}}
+    strategy:
+      matrix:
+        modulenames: [Intro, RStudio, Reproducibility, Basic_R, Data_IO, Subsetting_Data_in_R, Data_Summarization, Data_Classes, Data_Cleaning, Manipulating_Data_in_R, Esquisse_Data_Visualization, Data_Visualization, Factors, Statistics, Functions]
+    
+    steps:
+      - name: Checkout files
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # Set up git checkout
+      - name: Set up git checkout
+        run: |
+          git config --local user.email "itcrtrainingnetwork@gmail.com"
+          git config --local user.name "jhudsl-robot"
+
+          branch_name='preview-${{ github.event.pull_request.number }}'
+          git fetch --all
+          git checkout $branch_name
+          git merge -s recursive --strategy-option=theirs origin/${{ github.head_ref }} --allow-unrelated-histories
+        shell: bash
+        
+      # Render pdfs
+      - name: Render pdfs of lectures
+        uses: fifsky/html-to-pdf-action@master
+        with:
+          htmlFile: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
+          outputFile: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
+          
+      # Commit the rendered website files
+      - name: Commit rendered website files to preview branch
+        id: commit_pdfs
+        run: |
+          branch_name='preview-${{ github.event.pull_request.number }}'
+          git diff origin/main -- '*.html' >/dev/null && changes=true || changes=false
+          echo ::set-output name=changes::$changes
+          git add . --force
+          git commit -m 'Render preview' || echo "No changes to commit"
+          git pull --set-upstream origin $branch_name --allow-unrelated-histories --strategy-option=ours
+          git push --force || echo "No changes to commit"
+        shell: bash
