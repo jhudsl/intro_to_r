@@ -1,0 +1,129 @@
+---
+output:
+  html_document
+---
+
+## Online Videos of Lectures
+***
+
+### From Summer Institute 2021
+
+```{r, echo = FALSE, message = FALSE, results='asis'}
+mat = matrix(c(
+  "RStudio", "https://youtu.be/zpAQrglIJb0",
+  "Basic R", "https://youtu.be/md30mwFJ2_Q",
+  "Data IO", "https://youtu.be/6xNyETqIqZU",
+  "Subsetting Data", "https://youtu.be/YeBSc2YXr4U",
+  "Data Summarization Part 1 + 2", "https://youtu.be/yL3BGDWtVC4",
+  "Data Classes", "https://youtu.be/zBCvbikMTAc",
+  "Data Cleaning", "https://youtu.be/TaREvr5evwk",
+  "Data Manipulation", "https://youtu.be/-039V99I-PE",
+  "Reproducibility", "https://youtu.be/ui9dJLqtdCs",
+  "Statistics", "https://youtu.be/EJwlBoBHoz4",
+  "Data Visualization", "https://youtu.be/ngQX9khx7UQ",
+  "Functions", "https://youtu.be/epIujSKgNi4"
+  ), ncol = 2, byrow = TRUE)
+mat = data.frame(mat, stringsAsFactors = FALSE)
+colnames(mat) = c("Day", "Link to Video")
+knitr::kable(mat, format = "html") %>% 
+  kable_styling() 
+```
+
+### From Winter Institute 2020
+
+```{r, echo = FALSE, message = FALSE, results='asis'}
+mat = matrix(c(
+  "RStudio and Data Classes", "https://youtu.be/vyIsDnsq5jY",
+  "Subsetting Data", "https://youtu.be/mT8lSagYbjM",
+  "Data Summarization Part 1", "https://youtu.be/SZYpzt9zy0g",
+  "Data Classes", "https://youtu.be/82zSA1N0mnA",
+  "Data Cleaning", "https://youtu.be/G3V2YPaQN34",
+  "Data Manipulation", "https://youtu.be/43MPdw5bf4o",
+  "Statistics 1", "https://youtu.be/Jr4ljyzrr4U",
+  "Statistics 2", "https://youtu.be/ub2BSbK9lMM"
+  ), ncol = 2, byrow = TRUE)
+mat = data.frame(mat, stringsAsFactors = FALSE)
+colnames(mat) = c("Day", "Link to Video")
+knitr::kable(mat, format = "html") %>% 
+  kable_styling() 
+```
+
+### From Summer Institute 1 2017
+
+```{r videos, echo = FALSE, message = FALSE, results='asis'}
+mat = matrix(c(
+  "Day 1", "https://youtu.be/Xi-wsACc7p0",
+"Day 2", "https://youtu.be/u1FQt9Hr8iw",
+"Day 3", "https://youtu.be/woc7AGJTzZw",
+"Day 4", "https://youtu.be/RZ7eVIMPIes",
+"Day 5", "https://youtu.be/e8cFV8wluC0"), ncol = 2, byrow = TRUE)
+mat = data.frame(mat, stringsAsFactors = FALSE)
+colnames(mat) = c("Day", "Link to Video")
+knitr::kable(mat, format = "html") %>% 
+  kable_styling() 
+```
+
+<br>
+
+## Additional Resources
+***
+
+**Need help?** 
+
+- [Various "Cheat Sheets"](https://www.rstudio.com/resources/cheatsheets/)   
+
+- [R reference card](http://cran.r-project.org/doc/contrib/Short-refcard.pdf) 
+
+- [R jargon](https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf)  
+
+- [R terminology](https://cran.r-project.org/doc/manuals/r-release/R-lang.pdf)
+
+- [What is the Tidyverse?](https://www.tidyverse.org/packages/)
+
+-  Animations of join functions:
+    [`full-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/full-join.gif)
+    [`inner_join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/inner-join.gif)
+    [`left-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/left-join.gif)
+    [`right-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/right-join.gif)
+
+- PC users who want to see how to move files around (especially from downloads), check out this video:   https://youtu.be/we6vwB7DsNU
+
+- Mac users who want to see how to move files around (especially from downloads), check out this video:   https://www.youtube.com/watch?v=Ao9e0cDzMrE
+
+**Want more?**  
+
+- [Tidyverse Skills for Data Science Book](https://jhudatascience.org/tidyversecourse/)  
+(more about the tidyverse, some modeling, and machine learning)
+
+- [Tidyverse Skills for Data Science Course](https://www.coursera.org/specializations/tidyverse-data-science-r)  
+(same content with quizzes, can get certificate with $)
+
+- [R for Data Science](http://r4ds.had.co.nz/)  
+(great general information)
+ 
+- [Open Case Studies](https://www.opencasestudies.org/)  
+(resource for specific public health cases with statistical implementation and interpretation)
+
+- [Dataquest](https://www.dataquest.io/)  
+(general interactive resource)
+
+- [Quick R Guide]( http://statmethods.net/)  
+(nice free general resource)
+
+- [Building up a `ggplot2` figure](https://hopstat.wordpress.com/2016/02/18/how-i-build-up-a-ggplot2-figure/)  
+(guide to making plots)
+
+**Interested in Reproducibility?**
+
+Check out Candace's courses:
+
+- [Introduction](https://jhudatascience.org/Reproducibility_in_Cancer_Informatics/)
+
+- [Advanced](https://jhudatascience.org/Adv_Reproducibility_in_Cancer_Informatics/)
+
+**R for Stata, SPSS, and SAS files**
+
+- The [Haven](https://haven.tidyverse.org/) package  
+ (This package is super useful for reading and writing files so that they are compatible across Stata, SPSS, SAS, and R) 
+- [R vs Stata](https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf)  
+(See page 505)

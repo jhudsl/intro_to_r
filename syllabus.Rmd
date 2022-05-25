@@ -1,0 +1,160 @@
+---
+title: "Syllabus"
+output:
+  html_document
+---
+
+```{r setup, echo = FALSE, message = FALSE}
+library(tidyverse)
+```
+
+**Epi/Biostats Winter Institute - Introduction to R for Public Health Researchers
+140.604.73**
+
+**Class Website:** http://jhudatascience.org/intro_to_r/   
+**CoursePlus:** https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/18000/
+
+**Zoom link will be emailed to students.**
+
+**Day/Time:** June 13 - 24: 8:30AM-11:50AM on Zoom
+
+**Instructors:** Carrie Wright (cwrigh60@jhu.edu), Ava Hoffman (ava.hoffman@jhu.edu), and Candace Savonen (csavone1@jhu.edu)
+
+**TAs:**  Yuji Chen (ychen463@jhu.edu), Alex Newman (anewma28@jhu.edu)
+
+**Communication will mainly occur through Slack and we will email you about how to connect to Slack.**
+
+**Overview:** This course will provide **"hands-on" training** for learning how to analyze data in the R statistical software package. We will cover data input/output, data management and manipulation, and how to make useful and informative graphics
+
+**Course Format:** Each class will consist of 2 or 3 hour-long modules: each module features a lecture and an R programming lab, where students apply the skills taught in the modules to real data.
+
+By the end of the course, students should be comfortable:
+
+- Reading data into R
+- Recoding and manipulating data
+- Using R add-on packages
+- Making exploratory plots
+- Performing basic statistical tests
+- Understanding basic programming syntax
+- Creating reproducible R documents
+
+<br>
+
+## Zoom
+***
+
+* Zoom link will be emailed to students
+* Class sessions will be recorded and later posted
+* We will have lectures as well as breakout room sessions to work on labs
+* Please be aware that there is the option to use closed captioning:
+
+![closed captioning on zoom](docs/images/CC.png)
+
+* During lectures you can indicate how you feel about the pace of the course like so:
+
+![reactions about pace](docs/images/slow_fast_reactions.png)
+
+* In breakout room sessions you can ask for help like so:
+
+![ask for help](docs/images/help.png)
+
+* If you have a question based on our labs or homework (or not covered during lecture time), we ask that you post it on slack (which will be our main communication method - the link will be emailed). This allows for questions to be seen by everyone, not just the students in your breakout room. If another student does not answer your question (which we encourage!), we will try to answer it within 24 hours. If you feel uncomfortable posting a question publicly, let a TA or instructor know your question and we will post it for you anonymously. 
+
+<br>
+
+## Grading
+***
+
+1. Attendance/Participation: 20% (Please let the instructors know if attendance will be difficult for you.)
+2. Homework: 3 x 15%
+3. Final "Project": 35%
+
+All assignments are due Friday, July 1st, 2022 at 11:59pm EST.
+
+**Note**: only people taking the course for credit must turn in the assignments. However, we will evaluate all submitted assignments in case others would like feedback on their work.
+
+<br>
+
+## Submitting Assignments
+***
+
+Submit each assignment to the designated [Drop Box on CoursePlus](https://courseplus.jhu.edu/core/index.cfm/go/db:main/coID/18000/).
+
+You should complete the following:
+
+1. [Data Quest: Introduction to Programming in R](https://app.dataquest.io/m/499/introduction-to-programming-in-r)
+2. Homework 2 Problem Set: 
+   - [Questions (Rmd)](modules/HW/homework2.Rmd), [Questions (HTML)](modules/HW/homework2.html)         
+   - [Key (Rmd)](modules/HW/homework2_key.Rmd), [Key (HTML)](modules/HW/homework2_key.html)
+3. Homework 3 Problem Set:
+   - [Questions (Rmd)](modules/HW/homework3.Rmd), [Questions (HTML)](modules/HW/homework3.html)         
+   - [Key (Rmd)](modules/HW/homework3_key.Rmd), [Key (HTML)](modules/HW/homework3_key.html)
+4. Final Project (see below)
+
+<br>
+
+## Final Projects 
+***
+
+This project should entail:
+
+- reading in a dataset of your choosing
+- doing some light data cleaning
+- performing some data summarization
+- creating a couple of visualizations
+- doing some very light statistical analysis, like regression or t-tests 
+
+You may use one of these public datasets, a different public dataset, or your own data for the project. If using your own dataset, be sure any sensitive information is protected.
+
+- https://www.data.gov/
+- https://data.baltimorecity.gov/
+- https://github.com/awesomedata/awesome-public-datasets
+
+Example projects can be found with the source code: [Rmd](modules/Project_Example/Project_Example.Rmd), and the output [html](modules/Project_Example/Project_Example.html) here.
+
+See the [guidelines/instructions](modules/Project_Guidelines/Project_Guidelines.html) for final projects.
+
+<br>
+
+## Code of Conduct
+***
+
+We would like to create an open, safe, welcoming, diverse, inclusive, intellectually stimulating, and hopefully fun class experience. 
+
+We strive to be a space in which individual differences are respected, so that each individual can reach their fullest potential.
+
+#### Guidelines
+
+- Demonstrating empathy and kindness toward other people
+- Giving and gracefully accepting constructive feedback
+- Avoiding making assumptions about others
+- Being respectful of differing opinions, viewpoints, and experiences
+- Take the time to consider how your speech and actions may influence others
+- Actively seek to acknowledge and respect the boundaries of other members
+- Demonstrating academic integrity 
+    - Students can work together, but assignments must show unique contributions from the student who turns in the assignment
+    - Students can use online resources for help, but assignments must show unique contributions from the student who turns in the assignment - plagiarism is not allowed
+    - If students are struggling, reach out to instructors or TAs as early as possible
+
+
+This applies to emails, surveys, Slack, Zoom, office hours, meetings with other students, instructors, or TAs.
+
+ **Please reach out to a TA or instructor if you witness or experience a violation of the class guidelines or other JHU codes of conduct.**
+
+- **JHU Student Code of Conduct:**   
+https://studentaffairs.jhu.edu/policies-guidelines/student-code/  
+- **Hopkins School of Medicine:**  
+https://www.hopkinsmedicine.org/research/resources/offices-policies/OPC/Research_Integrity/som_code_of_conduct_04302020.pdf   
+- **JHSPH Academic Ethics Code:**   
+https://www.jhsph.edu/offices-and-services/student-affairs/resources/student-policies/_documents/academic-ethics-code.pdf 
+
+**The University has developed avenues for reporting and for seeking help including:** 
+
+● JHU Sexual Assault Helpline, 410-516-7333 (confidential) 
+● Campus Safety and Security, 410-516-7777 
+● University Sexual Assault Response and Prevention website 
+● Johns Hopkins Compliance Hotline, 844-SPEAK2US (844-733-2528) 
+● JHU Office of Institutional Equity 410-516-8075 (nonconfidential) 
+● Johns Hopkins Student Assistance Program (JHSAP), 443-287-7000 
+● University Health Services - Mental Health (UHS-MS), 410-955-1892 
+● The Faculty and Staff Assistance Program (FASAP), 443-997-7000 

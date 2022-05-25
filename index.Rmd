@@ -1,33 +1,27 @@
 ---
 title: |
-  ![](images/Intro_to_R.png){width=120px align=left style="padding-right: 20px"}
+  ![](docs/images/Intro_to_R.png){width=120px align=left style="padding-right: 20px"}
   Introduction to R for Public Health Researchers
   <br>
 output:
-  html_document:
-    theme: spacelab
-    toc: false
-    toc_depth: 4
-    fig_caption: false
+  html_document
 ---
-
-***
 
 ```{r setup, echo = FALSE, message = FALSE}
 library(pander)
 library(kableExtra)
 library(tidyverse)
+
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
-<style>#forkongithub a{background:#000;color:#fff;text-decoration:none;font-family:arial,sans-serif;text-align:center;font-weight:bold;padding:5px 40px;font-size:1rem;line-height:2rem;position:relative;transition:0.5s;}#forkongithub a:hover{background:#c11;color:#fff;}#forkongithub a::before,#forkongithub a::after{content:"";width:100%;display:block;position:absolute;top:1px;left:0;height:1px;background:#fff;}#forkongithub a::after{bottom:1px;top:auto;}@media screen and (min-width:800px){#forkongithub{position:fixed;display:block;top:0;right:0;width:200px;overflow:hidden;height:200px;z-index:9999;}#forkongithub a{width:200px;position:absolute;top:60px;right:-60px;transform:rotate(45deg);-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);-moz-transform:rotate(45deg);-o-transform:rotate(45deg);box-shadow:4px 4px 10px rgba(0,0,0,0.8);}}</style><span id="forkongithub"><a href="https://github.com/jhudsl/intro_to_r">Fork me on GitHub</a></span>
-
-
-
-<a href="http://www.jhsph.edu/"><img alt = "JHSPH" align="right" src="./images/bloomberg.logo.small.horizontal.blue.png" style="width:40%"/></a>
+<a href="http://www.jhsph.edu/"><img alt = "JHSPH" align="right" src="docs/images/bloomberg.logo.small.horizontal.blue.png" style="width:40%"/></a>
 <br>
 <br>
 
-## Overview: 
+<br>
+
+## Overview
 ***
 
 **Welcome to Introduction to R for Public Health Researchers!**  
@@ -36,8 +30,7 @@ This course is for students who have little to no familiarity with the R program
 
 The course will provide students with **“hands-on” training** for analyzing data with the R programming language for statistical computing, a popular open-source solution for data analysis and visualization.  
 
-## Instructors:
-***
+### Instructors
 
 * [Carrie Wright](https://carriewright11.github.io/): cwrigh60 at jhu.edu
 
@@ -45,259 +38,32 @@ The course will provide students with **“hands-on” training** for analyzing 
 
 * [Candace Savonen](https://www.cansavvy.com/): csavone1 at jhu.edu
 
-## TAs
+### TAs
+
+* Yuji Chen: ychen463 at jhu.edu
+
+* Alex Newman: anewma28 at jhu.edu
+
+<br>
+
+## Class
 ***
 
-* Grant Schumock - gschumo1 at jhmi.edu
-* Qier Meng - qmeng11 at jhmi.edu
-
-## Class:
-***
-
-* Jan 10-21, 2022, 8:30AM-11:50AM on Zoom  - No class on Jan 17th for Martin Luther King Jr. Day.
-* CoursePlus: https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/16733/ 
-* [Syllabus](Syllabus/syllabus.html)
-* [Syllabus (Word Document)](Syllabus/syllabus.docx)
-
-## Zoom:
-***
-
-* Zoom link will be emailed to students
-* Class sessions will be recorded and later posted
-* We will have lectures as well as breakout room sessions to work on labs
-* Please be aware that there is the option to use closed captioning:
-
-![closed captioning on zoom](images/CC.png)
-
-* During lectures you can indicate how you feel about the pace of the course like so:
-
-![reactions about pace](images/slow_fast_reactions.png)
-
-* In breakout room sessions you can ask for help like so:
-
-![ask for help](images/help.png)
-
-* If you have a question based on our labs or homework (or not covered during lecture time), we ask that you post it on slack (which will be our main communication method - the link will be emailed). This allows for questions to be seen by everyone, not just the students in your breakout room. If another student does not answer your question (which we encourage!), we will try to answer it within 24 hours. If you feel uncomfortable posting a question publicly, let a TA or instructor know your question and we will post it for you anonymously. 
-
-```{r, child=c("Syllabus/_child_assignments.Rmd")}
-```
-
-
-
-```{r, child=c("Syllabus/_child_code_of_coduct.Rmd")}
-```
-
-## All the Requirements in this Course
-***
-
-#### Packages 
-
-We have an `R` package called `jhur` that will make sure all the packages are installed.
-
-```r
-install.packages("remotes")
-remotes::install_github("muschellij2/jhur")
-```
-
-#### Data
-All the data used that are not **specifically** to be downloaded from the web are located in [this zip file](data.zip), but we will show you how to read data from the internet as well.
-
-
-
-## Schedule
-***
-
-```{r, child=c("Syllabus/_child_schedule.Rmd")}
-```
-
-```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
-source("scripts/utils.R")
-pander::pandoc.table(
-  read_markdown("Syllabus/_schedule_table.Rmd"),
-  missing = "",
-  split.tables = Inf,
-  style = "rmarkdown"
-)
-```
-
-## Additional Resources
-***
-
-**Need help?** 
-
-- [Various "Cheat Sheets"](https://www.rstudio.com/resources/cheatsheets/)   
-
-- [R reference card](http://cran.r-project.org/doc/contrib/Short-refcard.pdf) 
-
-- [R jargon](https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf)  
-
-- [R terminology](https://cran.r-project.org/doc/manuals/r-release/R-lang.pdf)
-
-- [What is the Tidyverse?](https://www.tidyverse.org/packages/)
-
-- [R Markdown formatting example](Examples/example_knitr.Rmd) and [html output](Examples/example_knitr.html)
-
--  Animations of join functions:
-[`full-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/full-join.gif)
-[`inner_join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/inner-join.gif)
-[`left-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/left-join.gif)
-[`right-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/right-join.gif)
-
-- PC users who want to see how to move files around (especially from downloads), check out this video:   https://youtu.be/we6vwB7DsNU
-
-- Mac users who want to see how to move files around (especially from downloads), check out this video:   https://www.youtube.com/watch?v=Ao9e0cDzMrE
-
-**Want more?**  
-
-- [Tidyverse Skills for Data Science Book](https://jhudatascience.org/tidyversecourse/)  
-(more about the tidyverse, some modeling, and machine learning)
-
-- [Tidyverse Skills for Data Science Course](https://www.coursera.org/specializations/tidyverse-data-science-r)  
-(same content with quizzes, can get certificate with $)
-
-- [R for Data Science](http://r4ds.had.co.nz/)  
-(great general information)
- 
-- [Open Case Studies](https://www.opencasestudies.org/)  
-(resource for specific public health cases with statistical implementation and interpretation)
-
-- [Dataquest](https://www.dataquest.io/)  
-(general interactive resource)
-
-- [Quick R Guide]( http://statmethods.net/)  
-(nice free general resource)
-
-- [Building up a `ggplot2` figure](https://hopstat.wordpress.com/2016/02/18/how-i-build-up-a-ggplot2-figure/)  
-(guide to making plots)
-
-**Interested in Reproducibility?**
-
-Check out Candace's courses:
-
-- [Introduction](https://jhudatascience.org/Reproducibility_in_Cancer_Informatics/)
-
-- [Advanced](https://jhudatascience.org/Adv_Reproducibility_in_Cancer_Informatics/)
-
-**R for Stata, SPSS, and SAS files**
-
- - The [Haven](https://haven.tidyverse.org/) package  
- (This package is super useful for reading and writing files so that they are compatible across Stata, SPSS, SAS, and R) 
-- [R vs Stata](https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf)  
-(See page 505)
-
-
-## Online Videos of Lectures
-***
-
-#### From Summer Institute 2021
-
-```{r, echo = FALSE, message = FALSE, results='asis'}
-mat = matrix(c(
-  "RStudio", "https://youtu.be/zpAQrglIJb0",
-  "Basic R", "https://youtu.be/md30mwFJ2_Q",
-  "Data IO", "https://youtu.be/6xNyETqIqZU",
-  "Subsetting Data", "https://youtu.be/YeBSc2YXr4U",
-  "Data Summarization Part 1 + 2", "https://youtu.be/yL3BGDWtVC4",
-  "Data Classes", "https://youtu.be/zBCvbikMTAc",
-  "Data Cleaning", "https://youtu.be/TaREvr5evwk",
-  "Data Manipulation", "https://youtu.be/-039V99I-PE",
-  "Reproducibility", "https://youtu.be/ui9dJLqtdCs",
-  "Statistics", "https://youtu.be/EJwlBoBHoz4",
-  "Data Visualization", "https://youtu.be/ngQX9khx7UQ",
-  "Functions", "https://youtu.be/epIujSKgNi4"
-  ), ncol = 2, byrow = TRUE)
-mat = data.frame(mat, stringsAsFactors = FALSE)
-colnames(mat) = c("Day", "Link to Video")
-knitr::kable(mat, format = "html") %>% 
-  kable_styling() 
-```
-
-
-#### From Winter Institute 2020
-
-```{r, echo = FALSE, message = FALSE, results='asis'}
-mat = matrix(c(
-  "RStudio and Data Classes", "https://youtu.be/vyIsDnsq5jY",
-  "Subsetting Data", "https://youtu.be/mT8lSagYbjM",
-  "Data Summarization Part 1", "https://youtu.be/SZYpzt9zy0g",
-  "Data Classes", "https://youtu.be/82zSA1N0mnA",
-  "Data Cleaning", "https://youtu.be/G3V2YPaQN34",
-  "Data Manipulation", "https://youtu.be/43MPdw5bf4o",
-  "Statistics 1", "https://youtu.be/Jr4ljyzrr4U",
-  "Statistics 2", "https://youtu.be/ub2BSbK9lMM"
-  ), ncol = 2, byrow = TRUE)
-mat = data.frame(mat, stringsAsFactors = FALSE)
-colnames(mat) = c("Day", "Link to Video")
-knitr::kable(mat, format = "html") %>% 
-  kable_styling() 
-```
-
-
-
-
-#### From Summer Institute 1 2017
-
-```{r videos, echo = FALSE, message = FALSE, results='asis'}
-mat = matrix(c(
-  "Day 1", "https://youtu.be/Xi-wsACc7p0",
-"Day 2", "https://youtu.be/u1FQt9Hr8iw",
-"Day 3", "https://youtu.be/woc7AGJTzZw",
-"Day 4", "https://youtu.be/RZ7eVIMPIes",
-"Day 5", "https://youtu.be/e8cFV8wluC0"), ncol = 2, byrow = TRUE)
-mat = data.frame(mat, stringsAsFactors = FALSE)
-colnames(mat) = c("Day", "Link to Video")
-knitr::kable(mat, format = "html") %>% 
-  kable_styling() 
-```
-
-
-
-
-## DHS Related things 
-***
-[Example Script Reading in Stata DHS Data](dhs/example_dhs_reading.R)
-
-DHS package: 
-
-```r
-devtools::install_github("muschellij2/dhs")
-```
-
-
-<!-- ## How do I have `tidyverse` always loaded? -->
-
-<!-- In `R`, if you have never set an `Renviron` before, you can make `tidyverse` load whenever you start `R` as follows: -->
-
-<!-- ```{r, eval = FALSE} -->
-<!-- filename = "~/.Renviron" -->
-<!-- x = "" -->
-<!-- if (file.exists(filename)) { -->
-<!--   x = readLines(filename) -->
-<!-- }  -->
-<!-- have_r_pack = grepl("R_DEFAULT_PACKAGES", x) -->
-<!-- if (any(have_r_pack)) { -->
-<!--   stop("add R_DEFAULT_PACKAGES to .Renviron manually!") -->
-<!-- } else { -->
-<!--   x = c('R_DEFAULT_PACKAGES="tidyverse"', x) -->
-<!--   writeLines(x, con = filename) -->
-<!-- } -->
-<!-- ``` -->
-
-<!-- ### Why NOT do this? -->
-
-<!-- For reproducibility, you should still have `library(tidyverse)` at the top of your scripts so that if someone else (or you if you change computers) try to run the code, the code should still work.  If you forget that, then the code is not reproducible and can be quite difficult to find this as the source of the problem. -->
-
+* June 13 - 24, 2022, 8:30AM-11:50AM on Zoom  - No class on June 20th for Juneteenth.
+* Zoom link will be emailed prior to the first class.
+* Slack Workspace invitation will be sent directly via email.
+* CoursePlus: https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/18000/
+* [Syllabus](syllabus.html)
+* [Materials + Schedule](materials_schedule.html)
+* [Resources](resources.html)
+
+<br>
 
 ## Find an Error!?
 ***
 
 Feel free to submit typos/errors/etc via the github repository associated with the class: 
-https://github.com/jhudsl/intro_to_r_class
-
-```{r, eval = FALSE, echo = FALSE}
-## Render this file:
-rmarkdown::render('index.Rmd')
-```
+https://github.com/jhudsl/intro_to_r
 
 This page was last updated on `r Sys.Date()`.
 

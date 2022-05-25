@@ -1,0 +1,72 @@
+---
+output:
+  html_document:
+    fig_caption: false
+---
+
+```{r setup, echo = FALSE, message = FALSE, warning=FALSE}
+library(tidyverse)
+source("../../scripts/utils.R")
+schedule <- read_markdown("../_schedule_table.Rmd")
+```
+
+# Day 0
+
+## Objectives
+
+Upon completion of this session, you will be able to do the following:
+
+1. Successfully install R and RStudio.
+2. Install your first R packages.
+
+## Material
+
+```{r, results='asis', echo = FALSE, message=FALSE, warning=FALSE}
+# The str_replace_all creates an absolute url to linked documents. Important because there are word and pdf rendered versions of the syllabus.
+# The filter() step removes all dates but this date to make a smaller table.
+pander::pandoc.table(
+  schedule  %>%
+    mutate(across(
+      .fns = ~ str_replace_all(., "\\./", "https://jhudatascience.org/intro_to_r/")
+    )) %>%
+    filter(
+      row_number() >= which(str_detect(schedule$`**Day**`, "\\[Day 0\\]")) &
+        row_number() < which(str_detect(schedule$`**Day**`, "\\[Day 1\\]"))
+    ),
+  missing = "",
+  split.tables = Inf,
+  style = "rmarkdown"
+)
+``` 
+
+
+## Instructions
+
+- Install the latest version of R (4.1.0 as of May 28, 2021)
+  - For Mac users: http://lib.stat.cmu.edu/R/CRAN/bin/macosx/base/R-4.1.0.pkg (may need to copy-paste the link to the browser)
+  - For Windows users: http://lib.stat.cmu.edu/R/CRAN/bin/windows/base/R-4.1.0-win.exe (may need to copy-paste the link to the browser)
+  - For other operating systems, or if you prefer to access the download link from the official website, visit: http://cran.us.r-project.org
+
+- Install the latest version of RStudio (Desktop): https://www.rstudio.com/products/RStudio/#Desktop
+  - A more detailed walk-through of the steps above is provided in [R_and_RStudio_installation](../../resources/R_and_RStudio_installation.html)    .
+
+- **Homework 1 (Due Friday, July 1 - but we strongly suggest you complete it before the course starts)**: 
+  - Complete the free lessons for Introduction to R on DataQuest. An image of the lessons in the module is shown below. Please complete all free exercises in "Introduction to Programming in R," starting with "1. Introduction" through "12. Takeaways."
+  - Upload a screenshot of the completion page to the Drop Box link below.
+    
+![Screenshot of the Dataquest module completion page](../images/dataquest.jpg)    
+    
+Additional video lecture explanations can be found on this playlist: https://www.youtube.com/playlist?list=PLk3B5c8iCV-SudBed68HeqXauaoEywpT_
+
+
+## Homework
+
+`r emo::ji("pencil")` **HOMEWORK 1**: [Dataquest](https://app.dataquest.io/login?target-url=%2Fm%2F499%2Fintroduction-to-programming-in-r) 
+
+
+## Drop Boxes
+
+[Homework 1 Drop Box](fix this link)
+
+**Note**: only people taking the course for credit must turn in the assignments. However, we will evaluate all submitted assignments in case others would like feedback on their work.
+

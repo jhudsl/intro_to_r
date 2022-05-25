@@ -1,0 +1,404 @@
+---
+title: "Data Summarization"
+output:
+  ioslides_presentation:
+    css: ../../docs/styles.css
+    widescreen: yes
+---
+
+
+```{r, echo = FALSE, message=FALSE, error = FALSE}
+library(knitr)
+opts_chunk$set(comment = "", message = FALSE)
+suppressWarnings({library(dplyr)})
+library(readr)
+library(tidyverse)
+library(jhur)
+```
+
+<style type="text/css">
+pre { /* Code block - slightly smaller in this lecture */
+    font-size: 20px;
+}
+</style>
+
+## Data Summarization
+
+* Basic statistical summarization
+    * `mean(x)`: takes the mean of x
+    * `sd(x)`: takes the standard deviation of x
+    * `median(x)`: takes the median of x
+    * `quantile(x)`: displays sample quantiles of x. Default is min, IQR, max
+    * `range(x)`: displays the range. Same as `c(min(x), max(x))`
+    * `sum(x)`: sum of x
+    * `max(x)`: maximum value in x
+    * `min(x)`: minimum value in x
+    * **all have a **`na.rm` for missing data 
+* Transformations
+    * `log` - log (base `e`) transformation
+    * `log10` - log base 10 transform
+    * `sqrt` - square root
+
+## Statistical summarization
+
+The vector getting summarized goes inside the parentheses:
+
+```{r}
+x <- c(1, 5, 7, 4, 2, 8)
+mean(x)
+range(x)
+sum(x)
+```
+
+## Statistical summarization
+
+Note that many of these functions have additional inputs regarding missing data, typically requiring the `na.rm` argument ("remove NAs"). 
+
+```{r error = TRUE}
+x <- c(1, 5, 7, 4, 2, 8, NA)
+mean(x)
+mean(x, na.rm = TRUE)
+quantile(x)
+quantile(x, na.rm = TRUE)
+```
+
+## Statistical summarization{.codesmall}
+
+We will talk more about data types later, but you can only do summarization on numeric or logical types. Not characters or factors.
+
+```{r error = TRUE}
+x <- c(1, 5, 7, 4, 2, 8)
+sum(x)
+y <- c(TRUE, FALSE, FALSE, TRUE) # FALSE == 0 and TRUE == 1
+sum(y)
+z <- c("TRUE", "FALSE", "FALSE", "TRUE")
+sum(z)
+mean(z)
+```
+
+## Some examples
+
+We can use the `jhu_cars` to explore different ways of summarizing data.  The `head` command displays the first rows of an object:
+
+```{r}
+library(jhur)
+head(jhu_cars)
+```
+
+## Statistical summarization
+
+Note - the `$` references/selects columns from a `data.frame`/`tibble`:
+
+```{r}
+mean(jhu_cars$hp)
+quantile(jhu_cars$hp)
+```
+
+## Statistical summarization
+
+The "tidy" way:
+
+```{r}
+jhu_cars %>% pull(hp) %>% mean() # alt: pull(jhu_cars, hp) %>% mean()
+jhu_cars %>% pull(hp) %>% quantile()
+```
+
+## Statistical summarization
+
+```{r}
+jhu_cars %>% pull(wt) %>% median()
+jhu_cars %>% pull(wt) %>% quantile(probs = 0.6)
+```
+
+## Data Summarization on data frames
+
+* Basic statistical summarization
+    * `rowMeans(x)`: takes the means of each row of x
+    * `colMeans(x)`: takes the means of each column of x
+    * `rowSums(x)`: takes the sum of each row of x
+    * `colSums(x)`: takes the sum of each column of x
+    * `summary(x)`: for data frames, displays the quantile information
+
+## TB Incidence 
+
+Let's read in a `tibble` of values from TB incidence.
+
+If you have the `jhur` package installed successfully:
+
+```{r}
+tb <- jhur::read_tb()
+```
+
+<br>
+If not, download the `xlsx` file from this link and read it in using `read_csv()`: http://jhudatascience.org/intro_to_r/data/tb_incidence.xlsx
+
+## TB Incidence 
+
+Check out the data:
+
+```{r}
+head(tb)
+colnames(tb)
+```
+
+## Indicator of TB
+
+Before we go further, let's rename the first column to be the country measured using the `rename` function in `dplyr`.
+
+In this case, we have to use the backticks (\`) because there are spaces and funky characters in the name:
+
+```{r}
+library(dplyr)
+tb <- tb %>% rename(country = `TB incidence, all forms (per 100 000 population per year)`)
+```
+
+<br>
+
+`colnames` will show us the column names and show that country is renamed:
+```{r}
+colnames(tb)
+```
+
+## Summarize the data: `dplyr` `summarize` function
+
+`dplyr::summarize` will allow you to summarize data. Format is `new = SUMMARY`. 
+
+```{r, eval = FALSE}
+# General format - Not the code!
+{data object to update} <- {data to use} %>% 
+                          summarize({summary column name} = {operator(source column)}) 
+```
+
+```{r}
+tb %>% summarize(mean_2006 = mean(`2006`, na.rm = TRUE))
+```
+
+## Summarize the data: `dplyr` `summarize` function
+
+`summarize` can do multiple operations at once. Just separate by a comma.
+
+```{r}
+tb %>% 
+  summarize(mean_2006 = mean(`2006`, na.rm = TRUE),
+            median_2007 = median(`2007`, na.rm = TRUE),
+            median(`2004`, na.rm = TRUE))
+```
+
+<br>
+Notice how when we forget to provide a new name, output is still provided, but the column name is messy.
+
+## Iterative summaries: `dplyr` `summarize` and `across` functions
+
+Use the [`across`](https://dplyr.tidyverse.org/reference/across.html) function with `summarize` to summarize across multiple columns of your data.
+
+```{r}
+tb %>% 
+  summarize(across( c(`1990`, `1991`, `1992`, `1993`), ~ sum(.x, na.rm = TRUE)))
+tb %>% 
+  summarize(across( starts_with("2"), ~ range(.x, na.rm = TRUE)))
+```
+
+## Row means
+
+`colMeans` and `rowMeans` require **all numeric data**. 
+
+Let's see what the mean is across each row (country):
+
+```{r}
+tb_2 <- column_to_rownames(tb, "country") # opposite of rownames_to_column() !
+head(tb_2, 2)
+rowMeans(tb_2, na.rm = TRUE)
+```
+
+## Row means
+
+`colMeans` gives you very similar output to functions we've seen previously in this lecture (`summarize` and `across`).
+
+```{r}
+colMeans(tb_2, na.rm = TRUE)
+tb_2 %>% 
+  summarize(across( colnames(tb_2), ~ mean(.x, na.rm = TRUE)))
+```
+
+## `summary` Function
+
+Using `summary` can give you rough snapshots of each column, but you would likely use `mean`, `min`, `max`, and `quantile` when necessary (and number of NAs):
+
+```{r}
+summary(tb)
+```
+
+## Lab Part 1
+
+[Website](http://jhudatascience.org/intro_to_r/index.html)
+
+## Youth Tobacco Survey
+
+Here we will be using the Youth Tobacco Survey data:
+http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv
+
+```{r}
+yts <- jhur::read_yts()
+head(yts)
+```
+
+## Length and unique
+
+`unique(x)` will return the unique elements of `x`
+
+```{r, message = FALSE}
+locations <- yts %>% pull(LocationDesc)
+unique(locations) %>% head()
+```
+
+`length` will tell you the length of a vector. Combined with `unique`, tells you the number of unique elements:
+
+```{r}
+length(unique(locations))
+```
+
+## `table` and `dplyr`: `count` 
+
+`table(x)` will return a frequency table of unique elements of `x`
+
+```{r, message = FALSE}
+table(locations)
+```
+
+## `table` and `dplyr`: `count` 
+
+Use `count` directly on a data.frame and column without needing to use `pull`.
+
+```{r, message = FALSE}
+yts %>% count(LocationDesc)
+```
+
+## `table` and `dplyr`: `count` 
+
+Multiple columns listed further subdivides the count.
+
+```{r, message = FALSE}
+yts %>% count(LocationDesc, TopicDesc)
+```
+
+# Grouping
+
+## Perform Operations By Groups: dplyr
+
+`group_by` allows you group the data set by grouping variables:
+
+```{r}
+#
+yts
+```
+
+## Perform Operations By Groups: dplyr
+
+`group_by` allows you group the data set by grouping variables:
+
+```{r}
+yts <- yts %>% group_by(Response)
+yts
+```
+
+## Summarize the grouped data
+
+It's grouped! Grouping doesn't change the data in any way, but how **functions operate on it**. Now we can summarize `Data_Value` (percent of respondents) by group:
+
+```{r}
+yts %>% summarize(avg_percent = mean(Data_Value, na.rm = TRUE))
+```
+
+## Using the `pipe` to connect these
+
+Pipe `yts` into `group_by`, then pipe that into `summarize`:
+
+```{r}
+yts %>%
+  group_by(Response) %>%
+  summarize(avg_percent = mean(Data_Value, na.rm = TRUE),
+            max_percent = max(Data_Value, na.rm = TRUE))
+```
+
+## Ungroup the data
+
+The `ungroup` function will allow you to clear the groups from the data. You can also overwrite the first `group_by` with a new one.
+
+```{r}
+yts = ungroup(yts)
+yts
+```
+
+## `group_by` with `mutate` - just add data
+
+We can also use `mutate` to calculate the mean value for each year and add it as a column:
+
+```{r}
+yts %>%
+  group_by(YEAR) %>%
+  mutate(year_avg = mean(Data_Value, na.rm = TRUE)) %>%
+  select(LocationDesc, Data_Value, year_avg)
+```
+
+## Counting
+
+There are other functions, such as `n()` count the number of observations.
+
+```{r}
+yts %>%
+  group_by(YEAR) %>%
+  summarize(n = n(),
+            mean = mean(Data_Value, na.rm = TRUE))
+```
+
+## Lab Part 2
+
+[Website](http://jhudatascience.org/intro_to_r/index.html)
+
+# Preview: plotting
+
+## Basic Plots
+
+Plotting is an important component of exploratory data analysis. These are some rough one-line plots that you can use in realtime while exploring your data. We will go over formatting and making plots look nicer in additional lectures.
+
+* Basic summarization plots: 
+    * `plot(x,y)`: scatterplot of x and y
+    * `boxplot(y~x)`: boxplot of y against levels of x
+    * `hist(x)`: histogram of x
+    * `plot(density(x))`: kernel density plot of x
+
+## Scatterplot
+
+```{r}
+plot( pull(jhu_cars,hp), pull(jhu_cars,mpg) ) # alt: plot(jhu_cars$hp, jhu_cars$mpg)
+```
+
+## Boxplot
+
+```{r}
+boxplot( pull(jhu_cars,hp) ~ pull(jhu_cars,cyl) )
+```
+
+## Histogram
+
+```{r}
+hist(pull(jhu_cars,mpg))
+```
+
+## Histogram
+
+Use the `breaks =` argument to tweak the resolution:
+
+```{r}
+hist(pull(jhu_cars,mpg), breaks = 10)
+```
+
+## Density
+
+```{r}
+plot(density(pull(jhu_cars,mpg)))
+```
+
+## Lab Part 3
+
+[Website](http://jhudatascience.org/intro_to_r/index.html)
