@@ -76,8 +76,7 @@ jobs:
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          git add --force *.html
-          git add --force site_libs/*
+          git add . --force
           git commit -m 'Render site' || echo "No changes to commit"
           git push origin main || echo "No changes to push"
 
@@ -109,7 +108,6 @@ jobs:
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          git add --force *.html
-          git add --force site_libs/*
+          git add . --force
           git commit -m 'Render site' || echo "No changes to commit"
           git push origin main || echo "No changes to push"
