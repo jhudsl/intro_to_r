@@ -1,16 +1,13 @@
+# Personal files
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
-
-*/index_cache/*
-*/index_files/figure-beamer/*
-*/index.pdf
-*/lecture.zip
-
-Data_Cleaning/lab/Data_Cleaning_Lab_Key_files/
-Data_Visualization/lab/Data_Visualization_Lab_Key_files/
-Data_IO/lab/monuments.rds
-
 .DS_Store
+
+# Rendered files
+*.html
+*.pdf
+
+# Docker token
 docker/git_token.txt
