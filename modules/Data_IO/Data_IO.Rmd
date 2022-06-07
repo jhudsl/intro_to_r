@@ -193,7 +193,7 @@ dat <- read_csv("Youth_Tobacco_Survey_YTS_Data.csv")
 
 `read_csv()` is a special case of `read_delim()` -- a general function to read a delimited file into a data frame  
 
-`read_delim()` needs path to your file and fileds delimiter, will return a tibble
+`read_delim()` needs path to your file and file's delimiter, will return a tibble
 
 ```
 read_delim(file, delim, quote = "\"", escape_backslash = FALSE, 
@@ -223,7 +223,7 @@ dat <- read_csv("data/Youth_Tobacco_Survey_YTS_Data.csv")
 dat <- read_csv("../../data/Youth_Tobacco_Survey_YTS_Data.csv")
 ```
 
-The data is now successfully read into your R workspace. Colum specification of first few columns is printed to the console. 
+The data is now successfully read into your R workspace. Column specification of first few columns is printed to the console. 
 
 
 ## Common new user mistakes we have seen
@@ -300,7 +300,7 @@ R Studio features some nice "drop-down" support, where you can run some tasks by
 
 For example, you can easily import text datasets using the `File --> Import Dataset --> From Text (readr)` command. Selecting this will bring up a new screen that lets you specify the formatting of your text file. 
 
-After importing a datatset, you get (printed in the R console) the corresponding R command that you can enter in the console if you want to re-import data.
+After importing a dataset, you get (printed in the R console) the corresponding R command that you can enter in the console if you want to re-import data.
 
 
 ## Data Input: Read in From RStudio Toolbar

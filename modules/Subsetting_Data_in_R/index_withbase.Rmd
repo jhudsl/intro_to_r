@@ -268,7 +268,7 @@ df[ df$mpg > 20 | df$mpg < 14, ]
 
 ## Subset rows of a `data.frame`: 
 
-We can subset both rows and colums at the same time:
+We can subset both rows and columns at the same time:
 
 ```{r}
 df[  df$mpg > 20 | df$mpg < 14, c("cyl", "hp")]
@@ -343,7 +343,7 @@ You can remove a column by assigning to `NULL`:
 ```{r}
 df$newcol = NULL
 ```
-or selecing only the columns that were not `newcol`:
+or selecting only the columns that were not `newcol`:
 ```{r}
 df = df[, colnames(df) != "newcol"]
 head(df,3)

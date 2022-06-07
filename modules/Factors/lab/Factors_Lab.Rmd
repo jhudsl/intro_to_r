@@ -60,7 +60,7 @@ library(ggplot2)
 
 ```
 
-8. We want to plot the "LocationAbbr" (state) by the "med_sample_size" colum we created above. Using the `forcats` package, create a plot that:
+8. We want to plot the "LocationAbbr" (state) by the "med_sample_size" column we created above. Using the `forcats` package, create a plot that:
 
 - Has "LocationAbbr" on the x-axis
 - Uses the `mapping` argument and the `fct_reorder` function to order the x-axis by "med_sample_size"

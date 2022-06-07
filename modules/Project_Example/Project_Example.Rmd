@@ -223,7 +223,7 @@ test_reg_diff(aspect = c("Social support"))
 test_reg_diff(aspect = c("Healthy life expectancy"))
 ```
 
-This tests if there is a colum name that is the same as what is supplied as `aspect`. This then gets pulled from each dataset for the t test.
+This tests if there is a column name that is the same as what is supplied as `aspect`. This then gets pulled from each dataset for the t test.
 
 There appears to be no significant difference according to the p-value for `Social Support` or `Healthy life expectancy`, as they are less than 0.5.
 
