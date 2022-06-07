@@ -69,7 +69,7 @@ yts_fct <- yts_fct %>% mutate(LocationAbbr = factor(LocationAbbr))
 yts_fct <- yts_fct %>% group_by(LocationAbbr) %>% mutate(med_sample_size = median(Sample_Size, na.rm = TRUE))
 ```
 
-8. We want to plot the "LocationAbbr" (state) by the "med_sample_size" colum we created above. Using the `forcats` package, create a plot that:
+8. We want to plot the "LocationAbbr" (state) by the "med_sample_size" column we created above. Using the `forcats` package, create a plot that:
 
 - Has "LocationAbbr" on the x-axis
 - Uses the `mapping` argument and the `fct_reorder` function to order the x-axis by "med_sample_size"

@@ -686,7 +686,7 @@ Sal %>% filter(str_detect(name, "Rawlings"))
 
 
 
-## Showing differnce in `str_replace` and  `str_replace_all`
+## Showing difference in `str_replace` and  `str_replace_all`
 
 `str_replace` replaces only the first instance.
 
@@ -1123,7 +1123,7 @@ Sal[grep("Rawlings",Sal$Name),]
 
 
 
-## Showing differnce in `str_extract`
+## Showing difference in `str_extract`
 
 `str_extract` extracts just the matched string
 
@@ -1133,7 +1133,7 @@ head(ss)
 ss[ !is.na(ss)]
 ```
 
-## Showing differnce in `str_extract` and  `str_extract_all`
+## Showing difference in `str_extract` and  `str_extract_all`
 
 `str_extract_all` extracts all the matched strings
 

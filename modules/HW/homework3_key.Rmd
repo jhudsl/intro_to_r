@@ -62,7 +62,7 @@ pct_complete(mort)
 
 <span style="color:red"> "mort" is `r pct_complete(mort)` percent complete. </span>
 
-6\. Are there any countries that have a complete record in "mort" across all years? Just look at the putput here, don't reassign it. **Hint:** look for complete records by dropping all NAs from the dataset using `drop_na()`.
+6\. Are there any countries that have a complete record in "mort" across all years? Just look at the output here, don't reassign it. **Hint:** look for complete records by dropping all NAs from the dataset using `drop_na()`.
 
 ```{r}
 drop_na(mort)
@@ -101,7 +101,7 @@ pop <- pop %>%
          percent = `% of world population`)
 ```
 
-10\. Sort the data in "pop" by "Population" from largest to smalled using `arrange()` and `desc()`. After sorting, `select()` "country" to create an one-column tibble of countries ordered by population. Assign this data the name "country_ordered".
+10\. Sort the data in "pop" by "Population" from largest to smallest using `arrange()` and `desc()`. After sorting, `select()` "country" to create an one-column tibble of countries ordered by population. Assign this data the name "country_ordered".
 
 ```{r}
 country_ordered <- pop %>% 
