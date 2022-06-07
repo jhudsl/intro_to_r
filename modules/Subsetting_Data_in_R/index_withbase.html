@@ -366,7 +366,7 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</pre>
 {
     UseMethod(&quot;filter&quot;)
 }
-&lt;bytecode: 0x55653c949360&gt;
+&lt;bytecode: 0x55e6ef4df470&gt;
 &lt;environment: namespace:dplyr&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Renaming Columns of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="renaming-columns-of-a-data.frame-dplyr-2">
@@ -705,7 +705,7 @@ Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</pre>
 
 </article></slide><slide class=""><hgroup><h2>Subset rows of a <code>data.frame</code>:</h2></hgroup><article  id="subset-rows-of-a-data.frame-1">
 
-<p>We can subset both rows and colums at the same time:</p>
+<p>We can subset both rows and columns at the same time:</p>
 
 <pre class = 'prettyprint lang-r'>df[  df$mpg &gt; 20 | df$mpg &lt; 14, c(&quot;cyl&quot;, &quot;hp&quot;)]</pre>
 
@@ -860,7 +860,7 @@ Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1 1.054545</pre>
 
 <pre class = 'prettyprint lang-r'>df$newcol = NULL</pre>
 
-<p>or selecing only the columns that were not <code>newcol</code>:</p>
+<p>or selecting only the columns that were not <code>newcol</code>:</p>
 
 <pre class = 'prettyprint lang-r'>df = df[, colnames(df) != &quot;newcol&quot;]
 head(df,3)</pre>

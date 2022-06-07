@@ -234,7 +234,7 @@ library(ggplot2)</code></pre>
 </ul>
 <pre class="r"><code>yts_fct &lt;- yts_fct %&gt;% group_by(LocationAbbr) %&gt;% mutate(med_sample_size = median(Sample_Size, na.rm = TRUE))</code></pre>
 <ol start="8" style="list-style-type: decimal">
-<li>We want to plot the “LocationAbbr” (state) by the “med_sample_size” colum we created above. Using the <code>forcats</code> package, create a plot that:</li>
+<li>We want to plot the “LocationAbbr” (state) by the “med_sample_size” column we created above. Using the <code>forcats</code> package, create a plot that:</li>
 </ol>
 <ul>
 <li>Has “LocationAbbr” on the x-axis</li>

@@ -192,7 +192,7 @@ library(tidyr)</code></pre>
 <p>3. Select only the numeric type columns (<code>select()</code>). Then, create the variable “year” from column names by using the <code>colnames()</code> function to extract them.</p>
 <p>4. What is the <code>typeof()</code> for “year”? If it’s not an integer, turn it into integer form with <code>as.integer()</code>.</p>
 <p>5. Use the <code>pct_complete()</code> function in the <code>naniar</code> package to determine the percent missing data in “mort”. You might need to load and install <code>naniar</code>!</p>
-<p>6. Are there any countries that have a complete record in “mort” across all years? Just look at the putput here, don’t reassign it. <strong>Hint:</strong> look for complete records by dropping all NAs from the dataset using <code>drop_na()</code>.</p>
+<p>6. Are there any countries that have a complete record in “mort” across all years? Just look at the output here, don’t reassign it. <strong>Hint:</strong> look for complete records by dropping all NAs from the dataset using <code>drop_na()</code>.</p>
 <p>7. Reshape the “complete” data to long form.</p>
 <ul>
 <li>There should be a column for country (“country”), a column for year (“year”), and a column for the mortality value (“mortality”).</li>
@@ -203,7 +203,7 @@ library(tidyr)</code></pre>
 </ul>
 <p>8. Bring an additional dataset into R. The dataset is tab-delimited and located at: <a href="https://jhudatascience.org/intro_to_r/data/country_pop.txt" class="uri">https://jhudatascience.org/intro_to_r/data/country_pop.txt</a>. You can use the link, download it, or use whatever method you like for getting the file. Once you get the file, read the dataset in using <code>read_tsv()</code> and assign it the name “pop”.</p>
 <p>9. Rename the second column in “pop” to “country” and the column “% of world population”, to “percent”. Use the <code>rename()</code> function. Don’t forget to reassign the renamed data to “pop”.</p>
-<p>10. Sort the data in “pop” by “Population” from largest to smalled using <code>arrange()</code> and <code>desc()</code>. After sorting, <code>select()</code> “country” to create an one-column tibble of countries ordered by population. Assign this data the name “country_ordered”.</p>
+<p>10. Sort the data in “pop” by “Population” from largest to smallest using <code>arrange()</code> and <code>desc()</code>. After sorting, <code>select()</code> “country” to create an one-column tibble of countries ordered by population. Assign this data the name “country_ordered”.</p>
 <p>11. Subset “long” based on years 2000-2010, including 2000 and 2010 and call this “long_sub” using <code>&amp;</code> or the <code>between()</code> function. Confirm your filtering worked by looking at the range of “year”. If you’re getting a strange error, make sure you created the “year” column in problem #7.</p>
 <p>12. Further subset <code>long_sub</code>. You will filter for specific countries using <code>filter()</code> and the <code>%in%</code> operator. Only include countries in this list: <code>c(&quot;Venezuela&quot;, &quot;Bahrain&quot;, &quot;Estonia&quot;, &quot;Iran&quot;, &quot;Thailand&quot;, &quot;Canada&quot;)</code>. Make sure to reassign to “long_sub”.</p>
 <p>13. Use <code>pivot_wider()</code> to turn the “year” column of “long_sub” into multiple columns, each representing a different year. Fill values (<code>values_from=</code>) with “mortality”. Assign this pivoted dataset the name “mort_sub”.</p>

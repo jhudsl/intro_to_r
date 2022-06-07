@@ -243,7 +243,7 @@ year &lt;- mort %&gt;% select( where(is.numeric) ) %&gt;% colnames()</code></pre
 pct_complete(mort)</code></pre>
 <pre><code>## [1] 66.95332</code></pre>
 <p><span style="color:red"> “mort” is 66.9533194 percent complete. </span></p>
-<p>6. Are there any countries that have a complete record in “mort” across all years? Just look at the putput here, don’t reassign it. <strong>Hint:</strong> look for complete records by dropping all NAs from the dataset using <code>drop_na()</code>.</p>
+<p>6. Are there any countries that have a complete record in “mort” across all years? Just look at the output here, don’t reassign it. <strong>Hint:</strong> look for complete records by dropping all NAs from the dataset using <code>drop_na()</code>.</p>
 <pre class="r"><code>drop_na(mort)</code></pre>
 <pre><code>## # A tibble: 2 × 255
 ##   country  `1760` `1761` `1762` `1763` `1764` `1765` `1766` `1767` `1768` `1769`
@@ -287,7 +287,7 @@ long &lt;-
 <pre class="r"><code>pop &lt;- pop %&gt;% 
   rename(country = `Country (or dependent territory)`,
          percent = `% of world population`)</code></pre>
-<p>10. Sort the data in “pop” by “Population” from largest to smalled using <code>arrange()</code> and <code>desc()</code>. After sorting, <code>select()</code> “country” to create an one-column tibble of countries ordered by population. Assign this data the name “country_ordered”.</p>
+<p>10. Sort the data in “pop” by “Population” from largest to smallest using <code>arrange()</code> and <code>desc()</code>. After sorting, <code>select()</code> “country” to create an one-column tibble of countries ordered by population. Assign this data the name “country_ordered”.</p>
 <pre class="r"><code>country_ordered &lt;- pop %&gt;% 
   arrange(desc(Population)) %&gt;% 
   select(country)</code></pre>
