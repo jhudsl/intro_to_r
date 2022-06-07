@@ -56,6 +56,7 @@ jobs:
     outputs:
       public_repository: "${{ steps.public_repository.outputs.public }}"
       toggle_spell_check: "${{ env.SPELL_CHECK }}"
+      toggle_style_code: "${{ env.STYLE_CODE }}"
       toggle_url_check: "${{ env.URL_CHECKER }}"
       toggle_render_preview: "${{ env.RENDER_PREVIEW }}"
 
@@ -102,7 +103,8 @@ jobs:
           branch_name='preview-${{ github.event.pull_request.number }}'
           git add --force check_reports/spell_check_results.tsv || echo "No changes to commit"
           git commit -m 'Add spell check file' || echo "No changes to commit"
-          git pull --set-upstream origin $branch_name --allow-unrelated-histories --strategy-option=ours
+          git fetch
+          git merge -s recursive --strategy-option=theirs origin/${{ github.head_ref }} --allow-unrelated-histories
           git push --force origin $branch_name || echo "No changes to commit"
 
       - name: Build components of the spell check comment
@@ -111,12 +113,7 @@ jobs:
           GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           branch_name='preview-${{ github.event.pull_request.number }}'
-          if ${{ needs.yaml-check.outputs.public_repository }} == 'true'
-          then
-            sp_error_url=https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/$branch_name/check_reports/spell_check_results.tsv
-          else
-            sp_error_url=https://github.com/${GITHUB_REPOSITORY}/blob/$branch_name/check_reports/spell_check_results.tsv
-          fi
+          sp_error_url=https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/$branch_name/check_reports/spell_check_results.tsv
           echo ::set-output name=time::$(date +'%Y-%m-%d')
           echo ::set-output name=commit_id::$GITHUB_SHA
           echo ::set-output name=sp_error_url::$sp_error_url
@@ -156,6 +153,29 @@ jobs:
             No spelling errors! :tada:
             _Comment updated at ${{ steps.build-components.outputs.time }} with changes from ${{ steps.build-components.outputs.commit_id }}_
           edit-mode: replace
+  
+  style-code:
+    name: Style code
+    needs: yaml-check
+    runs-on: ubuntu-latest
+    if: ${{needs.yaml-check.outputs.toggle_style_code == 'yes'}}
+    container:
+      image: jhudsl/course_template:main
+
+    steps:
+      - name: Checkout files
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Run styler
+        run: Rscript -e "styler::style_file(list.files(pattern = 'Rmd$', recursive = TRUE, full.names = TRUE));warnings()"
+
+      - name: Commit styled files
+        run: |
+          git add \*.Rmd
+          git commit -m 'Style Rmds' || echo "No changes to commit"
+          git push origin || echo "No changes to commit"
 
   url-check:
     name: Check URLs
