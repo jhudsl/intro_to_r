@@ -205,7 +205,7 @@ library(lubridate)</code></pre>
 </ol>
 <p>Because we are using a random vector let’s use the <code>set.seed()</code> function to make sure we all have the same result - this code is already be in the code chunk for you. Simply create the vector below the <code>set.seed</code> line.</p>
 <pre class="r"><code>set.seed(1234)
-rand_vect &lt;- sample( 1:30, size = 30, replace = TRUE)</code></pre>
+rand_vect &lt;- sample(1:30, size = 30, replace = TRUE)</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Create a vector that repeats <code>c(TRUE, TRUE, FALSE)</code> 10 times called <code>TF_vect</code>. Also create a vector that repeats <code>c(&quot;TRUE&quot;, &quot;TRUE&quot;, &quot;FALSE&quot;)</code> 10 times called <code>TF_vect2</code>.</li>
 </ol>
@@ -351,7 +351,7 @@ glimpse(circ)</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Create a list data object called <code>classes_data</code> that combines the <code>vect_data</code> from the first part of the lab and <code>circ</code>. Use <code>glimpse()</code> to look at the data.</li>
 </ol>
-<pre class="r"><code>classes_data &lt;-list(vect_data, circ)
+<pre class="r"><code>classes_data &lt;- list(vect_data, circ)
 glimpse(classes_data)</code></pre>
 <pre><code>## List of 2
 ##  $ : tibble [30 × 5] (S3: tbl_df/tbl/data.frame)
@@ -384,8 +384,8 @@ glimpse(classes_data)</code></pre>
 <pre><code>## [1] &quot;01/01/2011&quot; &quot;12/31/2012&quot;</code></pre>
 <p>The max of range(circ$date) is numerical not based on date.</p>
 <p>Bonus: Use <code>table()</code> function on <code>day</code> variable to display the count of <code>orangeBoardings</code> observations with each day. Which day had the most boardings? Is this true for the other routes (<code>purpleBoardings</code>, <code>greenBoardings</code>, <code>bannerBoardings</code>)?</p>
-<pre class="r"><code>circ  %&gt;%
-  group_by(day) %&gt;% 
+<pre class="r"><code>circ %&gt;%
+  group_by(day) %&gt;%
   summarize(n = sum(orangeBoardings, na.rm = TRUE))</code></pre>
 <pre><code>## # A tibble: 7 × 2
 ##   day            n
@@ -397,8 +397,8 @@ glimpse(classes_data)</code></pre>
 ## 5 Thursday  495142
 ## 6 Tuesday   488682
 ## 7 Wednesday 501440</code></pre>
-<pre class="r"><code>circ  %&gt;%
-  group_by(day) %&gt;% 
+<pre class="r"><code>circ %&gt;%
+  group_by(day) %&gt;%
   summarize(n = sum(purpleBoardings, na.rm = TRUE))</code></pre>
 <pre><code>## # A tibble: 7 × 2
 ##   day            n
@@ -410,8 +410,8 @@ glimpse(classes_data)</code></pre>
 ## 5 Thursday  590142
 ## 6 Tuesday   576164
 ## 7 Wednesday 601997</code></pre>
-<pre class="r"><code>circ  %&gt;%
-  group_by(day) %&gt;% 
+<pre class="r"><code>circ %&gt;%
+  group_by(day) %&gt;%
   summarize(n = sum(greenBoardings, na.rm = TRUE))</code></pre>
 <pre><code>## # A tibble: 7 × 2
 ##   day            n
@@ -423,8 +423,8 @@ glimpse(classes_data)</code></pre>
 ## 5 Thursday  145750
 ## 6 Tuesday   148742
 ## 7 Wednesday 151503</code></pre>
-<pre class="r"><code>circ  %&gt;%
-  group_by(day) %&gt;% 
+<pre class="r"><code>circ %&gt;%
+  group_by(day) %&gt;%
   summarize(n = sum(bannerBoardings, na.rm = TRUE))</code></pre>
 <pre><code>## # A tibble: 7 × 2
 ##   day           n

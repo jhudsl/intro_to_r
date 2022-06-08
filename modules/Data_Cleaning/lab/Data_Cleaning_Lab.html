@@ -208,16 +208,24 @@ bike &lt;- jhur::read_bike()</code></pre>
 <h1>Part 2</h1>
 <p><strong>New Data set</strong> Now imagine we work in a clinic and we are trying to understand more about blood types of patients.</p>
 <p>Let’s say we the data like so:</p>
-<pre class="r"><code>BloodType &lt;- tibble(gender = 
-                    c(&quot;M&quot;, &quot;Male&quot;, &quot;Female&quot;, &quot;F&quot;, &quot;M&quot;, 
-                      &quot;Male&quot;, &quot;Other&quot;, &quot;M&quot;, &quot;F&quot;, &quot;Other&quot;, 
-                      &quot;F&quot;, &quot;Male&quot;, NA, &quot;Male&quot;, &quot;Female&quot;), 
-                    type = c(&quot;A.-&quot;, &quot;AB.+&quot;, &quot;O.-&quot;, &quot;O.+&quot;, &quot;AB.-&quot;,
-                               &quot;B.+&quot;, &quot;B.-&quot;, &quot;o.-&quot;, &quot;O.+&quot;, &quot;A.-&quot;,
-                              &quot;A.+&quot;, &quot;O.-&quot;, &quot;B.-&quot;, &quot;o.+&quot;, &quot;AB.-&quot;),
-                    infection = c(&quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;No&quot;,
-                                  &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;,
-                                  &quot;No&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;NotSure&quot;))
+<pre class="r"><code>BloodType &lt;- tibble(
+  gender =
+    c(
+      &quot;M&quot;, &quot;Male&quot;, &quot;Female&quot;, &quot;F&quot;, &quot;M&quot;,
+      &quot;Male&quot;, &quot;Other&quot;, &quot;M&quot;, &quot;F&quot;, &quot;Other&quot;,
+      &quot;F&quot;, &quot;Male&quot;, NA, &quot;Male&quot;, &quot;Female&quot;
+    ),
+  type = c(
+    &quot;A.-&quot;, &quot;AB.+&quot;, &quot;O.-&quot;, &quot;O.+&quot;, &quot;AB.-&quot;,
+    &quot;B.+&quot;, &quot;B.-&quot;, &quot;o.-&quot;, &quot;O.+&quot;, &quot;A.-&quot;,
+    &quot;A.+&quot;, &quot;O.-&quot;, &quot;B.-&quot;, &quot;o.+&quot;, &quot;AB.-&quot;
+  ),
+  infection = c(
+    &quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;No&quot;,
+    &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;,
+    &quot;No&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;NotSure&quot;
+  )
+)
 
 BloodType</code></pre>
 <pre><code>## # A tibble: 15 × 3
@@ -250,8 +258,8 @@ BloodType</code></pre>
 <li><p>Check to see that <code>type</code> only has these possible values: “A.-”,“A.+”, “AB.-”, “AB.+”, “B-”,“B+”, “O.-”, “O.+”</p></li>
 <li><p>Make a new tibble of <code>BloodType</code> called <code>Bloodtype_split</code> that splits the <code>type</code> variable into two called <code>blood_type</code> and <code>Rhfactor</code>. Note: periods are special characters that generally are interpreted as wild cards thus we need <code>\\</code> to tell R that we want it to be interpreted as a period.</p></li>
 </ol>
-<pre class="r"><code>##______________ &lt;- ________ %&gt;% 
-#________(____, ____ = c(__________, __________), sep = &quot;\\.&quot;)</code></pre>
+<pre class="r"><code>## ______________ &lt;- ________ %&gt;%
+# ________(____, ____ = c(__________, __________), sep = &quot;\\.&quot;)</code></pre>
 <p>Bonus: How many observations are there for each <code>Rhfactor</code>:</p>
 <p>Bonus: Filtering for patients with type O, how many had the infection?</p>
 </div>

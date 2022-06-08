@@ -228,11 +228,17 @@ library(tidyr)</code></pre>
 ## [251] &quot;2009&quot; &quot;2010&quot; &quot;2030&quot; &quot;2050&quot; &quot;2099&quot;</code></pre>
 <pre class="r"><code>mort &lt;- mort %&gt;% rename(country = `...1`)</code></pre>
 <p>3. Select only the numeric type columns (<code>select()</code>). Then, create the variable “year” from column names by using the <code>colnames()</code> function to extract them.</p>
-<pre class="r"><code>year &lt;- mort %&gt;% select( -country ) %&gt;% colnames()
-# OR 
-year &lt;- mort %&gt;% select( starts_with( c(&quot;1&quot;, &quot;2&quot;) ) ) %&gt;% colnames()
-# OR 
-year &lt;- mort %&gt;% select( where(is.numeric) ) %&gt;% colnames()</code></pre>
+<pre class="r"><code>year &lt;- mort %&gt;%
+  select(-country) %&gt;%
+  colnames()
+# OR
+year &lt;- mort %&gt;%
+  select(starts_with(c(&quot;1&quot;, &quot;2&quot;))) %&gt;%
+  colnames()
+# OR
+year &lt;- mort %&gt;%
+  select(where(is.numeric)) %&gt;%
+  colnames()</code></pre>
 <p>4. What is the <code>typeof()</code> for “year”? If it’s not an integer, turn it into integer form with <code>as.integer()</code>.</p>
 <pre class="r"><code>typeof(year)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
@@ -265,14 +271,14 @@ pct_complete(mort)</code></pre>
 <li><strong>Hint:</strong> listing <code>!COLUMN</code> or <code>-COLUMN</code> means everything except COLUMN.</li>
 <li>Assign the reshaped data to “long”.</li>
 </ul>
-<pre class="r"><code>long &lt;- 
+<pre class="r"><code>long &lt;-
   pivot_longer(mort, -country, names_to = &quot;year&quot;, values_to = &quot;mortality&quot;)
 # OR
-long &lt;- 
+long &lt;-
   pivot_longer(mort, !country, names_to = &quot;year&quot;, values_to = &quot;mortality&quot;)
 # OR
-long &lt;- 
-  pivot_longer(mort, starts_with( c(&quot;1&quot;, &quot;2&quot;) ), names_to = &quot;year&quot;, values_to = &quot;mortality&quot;)</code></pre>
+long &lt;-
+  pivot_longer(mort, starts_with(c(&quot;1&quot;, &quot;2&quot;)), names_to = &quot;year&quot;, values_to = &quot;mortality&quot;)</code></pre>
 <p>8. Bring an additional dataset into R. The dataset is tab-delimited and located at: <a href="https://jhudatascience.org/intro_to_r/data/country_pop.txt" class="uri">https://jhudatascience.org/intro_to_r/data/country_pop.txt</a>. You can use the link, download it, or use whatever method you like for getting the file. Once you get the file, read the dataset in using <code>read_tsv()</code> and assign it the name “pop”.</p>
 <pre class="r"><code>pop &lt;- read_tsv(&quot;https://jhudatascience.org/intro_to_r/data/country_pop.txt&quot;)</code></pre>
 <pre><code>## Rows: 242 Columns: 6
@@ -284,32 +290,38 @@ long &lt;-
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <p>9. Rename the second column in “pop” to “country” and the column “% of world population”, to “percent”. Use the <code>rename()</code> function. Don’t forget to reassign the renamed data to “pop”.</p>
-<pre class="r"><code>pop &lt;- pop %&gt;% 
-  rename(country = `Country (or dependent territory)`,
-         percent = `% of world population`)</code></pre>
+<pre class="r"><code>pop &lt;- pop %&gt;%
+  rename(
+    country = `Country (or dependent territory)`,
+    percent = `% of world population`
+  )</code></pre>
 <p>10. Sort the data in “pop” by “Population” from largest to smallest using <code>arrange()</code> and <code>desc()</code>. After sorting, <code>select()</code> “country” to create an one-column tibble of countries ordered by population. Assign this data the name “country_ordered”.</p>
-<pre class="r"><code>country_ordered &lt;- pop %&gt;% 
-  arrange(desc(Population)) %&gt;% 
+<pre class="r"><code>country_ordered &lt;- pop %&gt;%
+  arrange(desc(Population)) %&gt;%
   select(country)</code></pre>
 <p>11. Subset “long” based on years 2000-2010, including 2000 and 2010 and call this “long_sub” using <code>&amp;</code> or the <code>between()</code> function. Confirm your filtering worked by looking at the range of “year”. If you’re getting a strange error, make sure you created the “year” column in problem #7.</p>
 <pre class="r"><code>long_sub &lt;- long %&gt;% filter(year &gt;= 2000 &amp; year &lt;= 2010)
-long_sub %&gt;% pull(year) %&gt;% range() # confirm it worked </code></pre>
+long_sub %&gt;%
+  pull(year) %&gt;%
+  range() # confirm it worked</code></pre>
 <pre><code>## [1] &quot;2000&quot; &quot;2010&quot;</code></pre>
 <p>12. Further subset <code>long_sub</code>. You will filter for specific countries using <code>filter()</code> and the <code>%in%</code> operator. Only include countries in this list: <code>c(&quot;Venezuela&quot;, &quot;Bahrain&quot;, &quot;Estonia&quot;, &quot;Iran&quot;, &quot;Thailand&quot;, &quot;Canada&quot;)</code>. Make sure to reassign to “long_sub”.</p>
-<pre class="r"><code>long_sub &lt;- long_sub %&gt;% 
+<pre class="r"><code>long_sub &lt;- long_sub %&gt;%
   filter(country %in% c(&quot;Venezuela&quot;, &quot;Bahrain&quot;, &quot;Estonia&quot;, &quot;Iran&quot;, &quot;Thailand&quot;, &quot;Canada&quot;))</code></pre>
 <p>13. Use <code>pivot_wider()</code> to turn the “year” column of “long_sub” into multiple columns, each representing a different year. Fill values (<code>values_from=</code>) with “mortality”. Assign this pivoted dataset the name “mort_sub”.</p>
-<pre class="r"><code>mort_sub &lt;- long_sub %&gt;% 
+<pre class="r"><code>mort_sub &lt;- long_sub %&gt;%
   pivot_wider(id_cols = country, names_from = year, values_from = mortality)</code></pre>
 <p>14. Using “country_ordered” and “mort_sub”, <code>right_join()</code> the two datasets by “country”. Use the pipe <code>%&gt;%</code> to join this dataset to “pop”, keeping only the data on the lefthand side of the join. Call this “joined”.</p>
-<pre class="r"><code>joined &lt;- country_ordered %&gt;% 
-  right_join(mort_sub, by = &quot;country&quot;) %&gt;% 
+<pre class="r"><code>joined &lt;- country_ordered %&gt;%
+  right_join(mort_sub, by = &quot;country&quot;) %&gt;%
   left_join(pop, by = &quot;country&quot;)</code></pre>
 <p>15. The values in the table are percentages of the total population (not proportion). Create a new column called “mort_count” that estimates the total number of child deaths per year based on the total population. You can use any year, or an average of all of them, to make your calculation. Whatever you choose, justify your choice. Finally, <code>select()</code> only “country”, “Population”, and “mort_count” and view the data.</p>
 <pre class="r"><code># Justification is just for fun. The main point is that decisions in your analysis should depend on your reasoning not how many lines of code it takes :)
 
 # Use 2010: There appears to be a downward trend in mortality rates, so using 2010 could be the most accurate for future years.
-joined %&gt;% mutate( mort_count = Population * `2010` / 100) %&gt;% select(country, Population, mort_count)</code></pre>
+joined %&gt;%
+  mutate(mort_count = Population * `2010` / 100) %&gt;%
+  select(country, Population, mort_count)</code></pre>
 <pre><code>## # A tibble: 6 × 3
 ##   country   Population mort_count
 ##   &lt;chr&gt;          &lt;dbl&gt;      &lt;dbl&gt;
@@ -322,9 +334,11 @@ joined %&gt;% mutate( mort_count = Population * `2010` / 100) %&gt;% select(coun
 <pre class="r"><code># OR
 
 # Use an average 2000-2010: Using the average is more robust to fluctuations and uncertainty in the coming years.
-avg_mort &lt;- rowMeans(joined %&gt;% select( starts_with(&quot;2&quot;) ))
+avg_mort &lt;- rowMeans(joined %&gt;% select(starts_with(&quot;2&quot;)))
 joined &lt;- joined %&gt;% mutate(avg_pct_2000 = avg_mort)
-joined %&gt;% mutate( mort_count = Population * avg_pct_2000 / 100) %&gt;% select(country, Population, mort_count)</code></pre>
+joined %&gt;%
+  mutate(mort_count = Population * avg_pct_2000 / 100) %&gt;%
+  select(country, Population, mort_count)</code></pre>
 <pre><code>## # A tibble: 6 × 3
 ##   country   Population mort_count
 ##   &lt;chr&gt;          &lt;dbl&gt;      &lt;dbl&gt;

@@ -181,8 +181,9 @@ library(dplyr)
 library(tidyverse)
 library(jhur)
 
-bike = read_csv(
-  &quot;http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv&quot;)</code></pre>
+bike &lt;- read_csv(
+  &quot;http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv&quot;
+)</code></pre>
 <p>or use</p>
 <pre class="r"><code>library(jhur)
 bike &lt;- read_bike()</code></pre>
@@ -216,8 +217,8 @@ bike &lt;- read_bike()</code></pre>
   &lt;chr&gt;                    &lt;int&gt; &lt;dbl&gt;
 1 BIKE BOULEVARD              49  197.
 ...</code></pre>
-<pre class="r"><code># ??? %&gt;% 
-#   group_by(???) %&gt;% 
+<pre class="r"><code># ??? %&gt;%
+#   group_by(???) %&gt;%
 #   summarize(???)</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>Take your code from the above question and do the following:</li>
@@ -229,8 +230,8 @@ bike &lt;- read_bike()</code></pre>
 <ol start="7" style="list-style-type: decimal">
 <li>Make a new column using <code>mutate</code>. This new column should be different for each year (<code>dateInstalled</code>), and indicate the total sum number of lanes (<code>numLanes</code>) built in that year. Call this new column <code>year_total</code> and make sure to reassign the dataset. (hint: use <code>group_by</code> first)</li>
 </ol>
-<pre class="r"><code># ??? &lt;- ??? %&gt;% 
-#   group_by(???) %&gt;% 
+<pre class="r"><code># ??? &lt;- ??? %&gt;%
+#   group_by(???) %&gt;%
 #   mutate(???)</code></pre>
 <ol start="8" style="list-style-type: decimal">
 <li>How does your data from above change if you also group by <code>type</code>? Ungroup your data when you are done.</li>

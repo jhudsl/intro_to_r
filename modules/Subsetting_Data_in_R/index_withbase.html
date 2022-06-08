@@ -213,7 +213,7 @@ slide:not(.current) .plotly.html-widget{
 
 <p>For example, <code>x</code> is a vector of numbers and we can select the second element of <code>x</code> using the brackets and an index (2):</p>
 
-<pre class = 'prettyprint lang-r'>x = c(1, 4, 2, 8, 10)
+<pre class = 'prettyprint lang-r'>x &lt;- c(1, 4, 2, 8, 10)
 x[2]</pre>
 
 <pre >[1] 4</pre>
@@ -222,12 +222,12 @@ x[2]</pre>
 
 <p>We can select the fifth or second AND fifth elements below:</p>
 
-<pre class = 'prettyprint lang-r'>x = c(1, 2, 4, 8, 10)
+<pre class = 'prettyprint lang-r'>x &lt;- c(1, 2, 4, 8, 10)
 x[5]</pre>
 
 <pre >[1] 10</pre>
 
-<pre class = 'prettyprint lang-r'>x[c(2,5)]</pre>
+<pre class = 'prettyprint lang-r'>x[c(2, 5)]</pre>
 
 <pre >[1]  2 10</pre>
 
@@ -241,7 +241,7 @@ x[5]</pre>
 
 <p>Note that you have to be careful with this syntax when dropping more than 1 element:</p>
 
-<pre class = 'prettyprint lang-r'>x[-c(1,2,3)] # drop first 3</pre>
+<pre class = 'prettyprint lang-r'>x[-c(1, 2, 3)] # drop first 3</pre>
 
 <pre >[1]  8 10</pre>
 
@@ -262,7 +262,7 @@ x[-(1:3)] # needs parentheses</pre>
 
 <pre >[1] FALSE FALSE  TRUE  TRUE  TRUE</pre>
 
-<pre class = 'prettyprint lang-r'>x[ x &gt; 2 ]</pre>
+<pre class = 'prettyprint lang-r'>x[x &gt; 2]</pre>
 
 <pre >[1]  4  8 10</pre>
 
@@ -275,11 +275,11 @@ x[-(1:3)] # needs parentheses</pre>
 <li><code>|</code> : OR</li>
 </ul>
 
-<pre class = 'prettyprint lang-r'>x[ x &gt; 2 &amp; x &lt; 5 ]</pre>
+<pre class = 'prettyprint lang-r'>x[x &gt; 2 &amp; x &lt; 5]</pre>
 
 <pre >[1] 4</pre>
 
-<pre class = 'prettyprint lang-r'>x[ x &gt; 5 | x == 2 ]</pre>
+<pre class = 'prettyprint lang-r'>x[x &gt; 5 | x == 2]</pre>
 
 <pre >[1]  2  8 10</pre>
 
@@ -291,11 +291,11 @@ x[-(1:3)] # needs parentheses</pre>
 
 <pre >[1] 2 4 5</pre>
 
-<pre class = 'prettyprint lang-r'>x[ which(x &gt; 5 | x == 2) ]</pre>
+<pre class = 'prettyprint lang-r'>x[which(x &gt; 5 | x == 2)]</pre>
 
 <pre >[1]  2  8 10</pre>
 
-<pre class = 'prettyprint lang-r'>x[ x &gt; 5 | x == 2 ]</pre>
+<pre class = 'prettyprint lang-r'>x[x &gt; 5 | x == 2]</pre>
 
 <pre >[1]  2  8 10</pre>
 
@@ -304,8 +304,8 @@ x[-(1:3)] # needs parentheses</pre>
 <p>Here we use one of the datasets that comes with R called <code>mtcars</code> create a toy data.frame named <code>df</code> using random data:</p>
 
 <pre class = 'prettyprint lang-r'>data(mtcars)
-df = mtcars
-tbl = as.tbl(df)</pre>
+df &lt;- mtcars
+tbl &lt;- as.tbl(df)</pre>
 
 <pre >Warning: `as.tbl()` was deprecated in dplyr 1.0.0.
 Please use `tibble::as_tibble()` instead.
@@ -318,7 +318,7 @@ Call `lifecycle::last_lifecycle_warnings()` to see where this warning was genera
 
 <p>We can use the <code>colnames</code> function to directly reassign column names of <code>df</code>:</p>
 
-<pre class = 'prettyprint lang-r'>colnames(df)[1:3] = c(&quot;MPG&quot;, &quot;CYL&quot;, &quot;DISP&quot;)
+<pre class = 'prettyprint lang-r'>colnames(df)[1:3] &lt;- c(&quot;MPG&quot;, &quot;CYL&quot;, &quot;DISP&quot;)
 head(df)</pre>
 
 <pre >                   MPG CYL DISP  hp drat    wt  qsec vs am gear carb
@@ -329,15 +329,15 @@ Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
 Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</pre>
 
-<pre class = 'prettyprint lang-r'>colnames(df)[1:3] = c(&quot;mpg&quot;, &quot;cyl&quot;, &quot;disp&quot;) #reset</pre>
+<pre class = 'prettyprint lang-r'>colnames(df)[1:3] &lt;- c(&quot;mpg&quot;, &quot;cyl&quot;, &quot;disp&quot;) # reset</pre>
 
 </article></slide><slide class=""><hgroup><h2>Renaming Columns of a <code>data.frame</code>: base R</h2></hgroup><article  id="renaming-columns-of-a-data.frame-base-r-1">
 
 <p>We can assign the column names, change the ones we want, and then re-assign the column names:</p>
 
-<pre class = 'prettyprint lang-r'>cn = colnames(df)
-cn[ cn == &quot;drat&quot;] = &quot;DRAT&quot;
-colnames(df) = cn
+<pre class = 'prettyprint lang-r'>cn &lt;- colnames(df)
+cn[cn == &quot;drat&quot;] &lt;- &quot;DRAT&quot;
+colnames(df) &lt;- cn
 head(df)</pre>
 
 <pre >                   mpg cyl disp  hp DRAT    wt  qsec vs am gear carb
@@ -348,7 +348,7 @@ Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
 Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</pre>
 
-<pre class = 'prettyprint lang-r'>colnames(df)[ colnames(df) == &quot;DRAT&quot;] = &quot;drat&quot; #reset</pre>
+<pre class = 'prettyprint lang-r'>colnames(df)[colnames(df) == &quot;DRAT&quot;] &lt;- &quot;drat&quot; # reset</pre>
 
 </article></slide><slide class=""><hgroup><h2>Renaming Columns of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="renaming-columns-of-a-data.frame-dplyr">
 
@@ -366,14 +366,14 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</pre>
 {
     UseMethod(&quot;filter&quot;)
 }
-&lt;bytecode: 0x55d8b14c24e0&gt;
+&lt;bytecode: 0x55ebdd095dd0&gt;
 &lt;environment: namespace:dplyr&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Renaming Columns of a <code>data.frame</code>: dplyr</h2></hgroup><article  id="renaming-columns-of-a-data.frame-dplyr-2">
 
 <p>A <code>filter</code> function exists by default in the <code>stats</code> package, however. If you want to make sure you use that one, you use <code>PackageName::Function</code> with the colon-colon (&ldquo;<code>::</code>&rdquo;) operator.</p>
 
-<pre class = 'prettyprint lang-r'>head(stats::filter,2)</pre>
+<pre class = 'prettyprint lang-r'>head(stats::filter, 2)</pre>
 
 <pre >                                                               
 1 function (x, filter, method = c(&quot;convolution&quot;, &quot;recursive&quot;), 
@@ -385,7 +385,7 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</pre>
 
 <p>To rename columns in <code>dplyr</code>, you use the <code>rename</code> command</p>
 
-<pre class = 'prettyprint lang-r'>df = dplyr::rename(df, MPG = mpg)
+<pre class = 'prettyprint lang-r'>df &lt;- dplyr::rename(df, MPG = mpg)
 head(df)</pre>
 
 <pre >                   MPG cyl disp  hp drat    wt  qsec vs am gear carb
@@ -396,7 +396,7 @@ Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
 Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</pre>
 
-<pre class = 'prettyprint lang-r'>df = dplyr::rename(df, mpg = MPG) # reset</pre>
+<pre class = 'prettyprint lang-r'>df &lt;- dplyr::rename(df, mpg = MPG) # reset</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 1</h2></hgroup><article  id="lab-part-1">
 
@@ -672,7 +672,7 @@ Volvo 142E            4    2</pre>
 
 <p>Let’s select <strong>rows</strong> 1 and 3 from <code>df</code> using brackets:</p>
 
-<pre class = 'prettyprint lang-r'>df[ c(1, 3), ]</pre>
+<pre class = 'prettyprint lang-r'>df[c(1, 3), ]</pre>
 
 <pre >            mpg cyl disp  hp drat   wt  qsec vs am gear carb
 Mazda RX4  21.0   6  160 110 3.90 2.62 16.46  0  1    4    4
@@ -682,7 +682,7 @@ Datsun 710 22.8   4  108  93 3.85 2.32 18.61  1  1    4    1</pre>
 
 <p>Let’s select the rows of <code>df</code> where the <code>mpg</code> column is greater than 20 or is less than 14. Without any index for columns, all columns are returned:</p>
 
-<pre class = 'prettyprint lang-r'>df[ df$mpg &gt; 20 | df$mpg &lt; 14, ]</pre>
+<pre class = 'prettyprint lang-r'>df[df$mpg &gt; 20 | df$mpg &lt; 14, ]</pre>
 
 <pre >                     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
 Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
@@ -707,7 +707,7 @@ Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</pre>
 
 <p>We can subset both rows and columns at the same time:</p>
 
-<pre class = 'prettyprint lang-r'>df[  df$mpg &gt; 20 | df$mpg &lt; 14, c(&quot;cyl&quot;, &quot;hp&quot;)]</pre>
+<pre class = 'prettyprint lang-r'>df[df$mpg &gt; 20 | df$mpg &lt; 14, c(&quot;cyl&quot;, &quot;hp&quot;)]</pre>
 
 <pre >                    cyl  hp
 Mazda RX4             6 110
@@ -818,14 +818,16 @@ Volvo 142E       4 109</pre>
 
 <p>One can also create temporary objects and reassign them:</p>
 
-<pre class = 'prettyprint lang-r'>df2 = filter(df, mpg &gt; 20 &amp; cyl == 4)
-df2 = select(df2, cyl, hp)</pre>
+<pre class = 'prettyprint lang-r'>df2 &lt;- filter(df, mpg &gt; 20 &amp; cyl == 4)
+df2 &lt;- select(df2, cyl, hp)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Using the <code>pipe</code> (comes with <code>dplyr</code>):</h2></hgroup><article  id="using-the-pipe-comes-with-dplyr">
 
 <p>Recently, the pipe <code>%&gt;%</code> makes things such as this much more readable. It reads left side &ldquo;pipes&rdquo; into right side. RStudio <code>CMD/Ctrl + Shift + M</code> shortcut. Pipe <code>df</code> into <code>filter</code>, then pipe that into <code>select</code>:</p>
 
-<pre class = 'prettyprint lang-r'>df %&gt;% filter(mpg &gt; 20 &amp; cyl == 4) %&gt;% select(cyl, hp)</pre>
+<pre class = 'prettyprint lang-r'>df %&gt;%
+  filter(mpg &gt; 20 &amp; cyl == 4) %&gt;%
+  select(cyl, hp)</pre>
 
 <pre >               cyl  hp
 Datsun 710       4  93
@@ -846,8 +848,8 @@ Volvo 142E       4 109</pre>
 
 <p>You can add a new column, called <code>newcol</code> to <code>df</code>, using the <code>$</code> operator:</p>
 
-<pre class = 'prettyprint lang-r'>df$newcol = df$wt/2.2
-head(df,3)</pre>
+<pre class = 'prettyprint lang-r'>df$newcol &lt;- df$wt / 2.2
+head(df, 3)</pre>
 
 <pre >               mpg cyl disp  hp drat    wt  qsec vs am gear carb   newcol
 Mazda RX4     21.0   6  160 110 3.90 2.620 16.46  0  1    4    4 1.190909
@@ -858,12 +860,12 @@ Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1 1.054545</pre>
 
 <p>You can remove a column by assigning to <code>NULL</code>:</p>
 
-<pre class = 'prettyprint lang-r'>df$newcol = NULL</pre>
+<pre class = 'prettyprint lang-r'>df$newcol &lt;- NULL</pre>
 
 <p>or selecting only the columns that were not <code>newcol</code>:</p>
 
-<pre class = 'prettyprint lang-r'>df = df[, colnames(df) != &quot;newcol&quot;]
-head(df,3)</pre>
+<pre class = 'prettyprint lang-r'>df &lt;- df[, colnames(df) != &quot;newcol&quot;]
+head(df, 3)</pre>
 
 <pre >               mpg cyl disp  hp drat    wt  qsec vs am gear carb
 Mazda RX4     21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
@@ -874,7 +876,7 @@ Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</pre>
 
 <p>You can also &ldquo;<strong>c</strong>olumn <strong>bind</strong>&rdquo; a <code>data.frame</code> with a vector (or series of vectors), using the <code>cbind</code> command:</p>
 
-<pre class = 'prettyprint lang-r'>cbind(df, newcol = df$wt/2.2)</pre>
+<pre class = 'prettyprint lang-r'>cbind(df, newcol = df$wt / 2.2)</pre>
 
 <pre >                     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
 Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
@@ -947,7 +949,7 @@ Volvo 142E          1.2636364</pre>
 
 <p>The <code>mutate</code> function in <code>dplyr</code> allows you to add or replace columns of a <code>data.frame</code>:</p>
 
-<pre class = 'prettyprint lang-r'>df = mutate(df, newcol = wt/2.2)</pre>
+<pre class = 'prettyprint lang-r'>df &lt;- mutate(df, newcol = wt / 2.2)</pre>
 
 <pre >                     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
 Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
@@ -1104,8 +1106,8 @@ Volvo 142E          21.4   4 121.0 109 2.780 18.60  1  1    4    2</pre>
 
 <p>We can use the <code>colnames</code> function to get the column names of <code>df</code> and then put <code>newcol</code> first by subsetting <code>df</code> using brackets:</p>
 
-<pre class = 'prettyprint lang-r'>cn = colnames(df)
-df[, c(&quot;newcol&quot;, cn[cn != &quot;newcol&quot;]) ]</pre>
+<pre class = 'prettyprint lang-r'>cn &lt;- colnames(df)
+df[, c(&quot;newcol&quot;, cn[cn != &quot;newcol&quot;])]</pre>
 
 <pre >                       newcol  mpg cyl  disp  hp drat    wt  qsec vs am gear
 Mazda RX4           1.1909091 21.0   6 160.0 110 3.90 2.620 16.46  0  1    4
@@ -1253,7 +1255,7 @@ Volvo 142E             2</pre>
 
 <p>We use the <code>order</code> function on a vector or set of vectors, in increasing order:</p>
 
-<pre class = 'prettyprint lang-r'>df[ order(df$mpg), ]</pre>
+<pre class = 'prettyprint lang-r'>df[order(df$mpg), ]</pre>
 
 <pre >                     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
 Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
@@ -1326,7 +1328,7 @@ Toyota Corolla      0.8340909</pre>
 
 <p>The <code>decreasing</code> argument will order it in decreasing order:</p>
 
-<pre class = 'prettyprint lang-r'>df[ order(df$mpg, decreasing = TRUE), ]</pre>
+<pre class = 'prettyprint lang-r'>df[order(df$mpg, decreasing = TRUE), ]</pre>
 
 <pre >                     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
 Toyota Corolla      33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
@@ -1399,7 +1401,7 @@ Lincoln Continental 2.4654545</pre>
 
 <p>You can pass multiple vectors, and must use the negative (using <code>-</code>) to mix decreasing and increasing orderings (sort increasing on <code>x</code> and decreasing on <code>y</code>):</p>
 
-<pre class = 'prettyprint lang-r'>df[ order(df$mpg, -df$hp), ]</pre>
+<pre class = 'prettyprint lang-r'>df[order(df$mpg, -df$hp), ]</pre>
 
 <pre >                     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
 Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
@@ -1691,7 +1693,7 @@ Toyota Corolla      0.8340909</pre>
 
 <p>The <code>transmute</code> function in <code>dplyr</code> combines both the <code>mutate</code> and <code>select</code> functions. One can create new columns and keep the only the columns wanted:</p>
 
-<pre class = 'prettyprint lang-r'>transmute(df, newcol2 = wt/2.2, mpg, hp)</pre>
+<pre class = 'prettyprint lang-r'>transmute(df, newcol2 = wt / 2.2, mpg, hp)</pre>
 
 <pre >                      newcol2  mpg  hp
 Mazda RX4           1.1909091 21.0 110

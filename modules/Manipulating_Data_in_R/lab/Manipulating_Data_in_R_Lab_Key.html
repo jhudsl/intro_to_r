@@ -333,23 +333,28 @@ library(tidyr)</code></pre>
 <pre class="r"><code># ??? &lt;- ??? %&gt;% pivot_longer(cols = ???,
 #                             names_to = ???,
 #                             values_to = ???)
-vacc_long &lt;- vacc %&gt;% pivot_longer( cols = starts_with(&quot;Percent&quot;),
-                                    names_to = &quot;Measure&quot;,
-                                    values_to = &quot;Percent&quot;)</code></pre>
+vacc_long &lt;- vacc %&gt;% pivot_longer(
+  cols = starts_with(&quot;Percent&quot;),
+  names_to = &quot;Measure&quot;,
+  values_to = &quot;Percent&quot;
+)</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Select only the columns “Entity”, “Measure”, and “Percent” from “vacc_long”. Use <code>select</code>. Filter “Entity” so it only includes values in the following list: “Maryland”,“Virginia”,“Florida”,“Massachusetts”, “United States”. <strong>Hint</strong>: use <code>filter</code> and <code>%in%</code>.</li>
 </ol>
-<pre class="r"><code>vacc_long &lt;- vacc_long %&gt;% select(Entity, Measure, Percent) %&gt;% 
-  filter(Entity %in% c(&quot;Maryland&quot;,&quot;Virginia&quot;,&quot;Florida&quot;,&quot;Massachusetts&quot;, &quot;United States&quot;))</code></pre>
+<pre class="r"><code>vacc_long &lt;- vacc_long %&gt;%
+  select(Entity, Measure, Percent) %&gt;%
+  filter(Entity %in% c(&quot;Maryland&quot;, &quot;Virginia&quot;, &quot;Florida&quot;, &quot;Massachusetts&quot;, &quot;United States&quot;))</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>Use <code>pivot_wider</code> to reshape “vacc_long”. Use “Entity” for the <code>names_from</code> argument. Use “Percent” for the <code>values_from</code> argument.</li>
 </ol>
-<pre class="r"><code># ??? &lt;- ??? %&gt;% 
+<pre class="r"><code># ??? &lt;- ??? %&gt;%
 #   pivot_wider(names_from = ???,
 #               values_from = ???)
-vacc_wide &lt;- vacc_long %&gt;% 
-  pivot_wider(names_from = Entity,
-              values_from = Percent)</code></pre>
+vacc_wide &lt;- vacc_long %&gt;%
+  pivot_wider(
+    names_from = Entity,
+    values_from = Percent
+  )</code></pre>
 </div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
@@ -370,9 +375,11 @@ vacc_wide &lt;- vacc_long %&gt;%
 <ol start="8" style="list-style-type: decimal">
 <li>Use <code>pivot_wider</code> to reshape “gdp”. Use “Description” for the <code>names_from</code> argument. Use “<code>2020</code>” for the <code>values_from</code> argument. Reassign this data to “gdp”.</li>
 </ol>
-<pre class="r"><code>gdp &lt;- gdp %&gt;% 
-  pivot_wider(names_from = Description,
-              values_from = `2020`)</code></pre>
+<pre class="r"><code>gdp &lt;- gdp %&gt;%
+  pivot_wider(
+    names_from = Description,
+    values_from = `2020`
+  )</code></pre>
 <ol start="9" style="list-style-type: decimal">
 <li>Join the data so that you only retain data in both “vacc” and “gdp”. First, try merging without using the <code>by</code> argument - what happens? Next, try merging using <code>by = c(&quot;Entity&quot; = &quot;GeoName&quot;)</code>. Call the output “merged”. How many observations are there?</li>
 </ol>

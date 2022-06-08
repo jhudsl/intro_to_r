@@ -183,7 +183,7 @@ library(broom)
 
 mort &lt;- read_mortality()
 
-mort &lt;- mort %&gt;% 
+mort &lt;- mort %&gt;%
   rename(country = `...1`)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Compute the correlation between the <code>2006</code> and <code>2007</code> mortality variables. (No need to save this in an object. Just display the result to the screen.) Use the <code>pull()</code> function to first extract these columns. To use a column name in <code>pull()</code> that starts with a number, surround it with backticks (`). Then, use the <code>cor</code> function.</li>
@@ -196,8 +196,8 @@ cor(x, y)</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Compute the correlation between the <code>1980</code>, <code>1990</code>, <code>2000</code>, and <code>2010</code> mortality variables. (No need to save this in an object. Just display the result to the screen.) Use <code>select()</code> function to first subset the data frame to keep the four columns only. To use a column name in <code>select()</code> that starts with a number, surround it with backticks (`).</li>
 </ol>
-<pre class="r"><code>mort_sub &lt;- 
-  mort %&gt;% 
+<pre class="r"><code>mort_sub &lt;-
+  mort %&gt;%
   select(`1980`, `1990`, `2000`, `2010`)
 
 cor(mort_sub)</code></pre>
@@ -233,7 +233,7 @@ t.test(x, y)</code></pre>
 ## sample estimates:
 ## mean of x mean of y 
 ## 0.7700633 0.4339860</code></pre>
-<pre class="r"><code>tidy( t.test(x, y) )</code></pre>
+<pre class="r"><code>tidy(t.test(x, y))</code></pre>
 <pre><code>## # A tibble: 1 × 10
 ##   estimate estimate1 estimate2 statistic    p.value parameter conf.low conf.high
 ##      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
@@ -257,7 +257,7 @@ t.test(x, y)</code></pre>
 ## sample estimates:
 ## mean of x mean of y 
 ## 0.4514207 0.4339860</code></pre>
-<pre class="r"><code>tidy( t.test(x, y) )</code></pre>
+<pre class="r"><code>tidy(t.test(x, y))</code></pre>
 <pre><code>## # A tibble: 1 × 10
 ##   estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high
 ##      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;

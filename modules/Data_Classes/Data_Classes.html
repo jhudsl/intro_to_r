@@ -221,12 +221,12 @@ slide:not(.current) .plotly.html-widget{
 
 <p>A sequence of numbers is an example of the integer type. You can use the <code>seq()</code> function to create a sequence of integers.</p>
 
-<pre class = 'prettyprint lang-r'>x = c(1, 2, 3, 4, 5)
+<pre class = 'prettyprint lang-r'>x &lt;- c(1, 2, 3, 4, 5)
 x</pre>
 
 <pre >## [1] 1 2 3 4 5</pre>
 
-<pre class = 'prettyprint lang-r'>x = seq(1:5)
+<pre class = 'prettyprint lang-r'>x &lt;- seq(1:5)
 x</pre>
 
 <pre >## [1] 1 2 3 4 5</pre>
@@ -245,7 +245,7 @@ x</pre>
 
 <p><code>Double</code> stands for <a href='https://en.wikipedia.org/wiki/Double-precision_floating-point_format' title=''>double-precision</a></p>
 
-<pre class = 'prettyprint lang-r'>y = c(1.1, 2.0, 3.2, 4.5, 5.6)
+<pre class = 'prettyprint lang-r'>y &lt;- c(1.1, 2.0, 3.2, 4.5, 5.6)
 y</pre>
 
 <pre >## [1] 1.1 2.0 3.2 4.5 5.6</pre>
@@ -277,14 +277,14 @@ y</pre>
 
 <p><code>logical</code> is a type that only has two possible elements: <code>TRUE</code> and <code>FALSE</code></p>
 
-<pre class = 'prettyprint lang-r'>x = c(TRUE, FALSE, TRUE, TRUE, FALSE)
+<pre class = 'prettyprint lang-r'>x &lt;- c(TRUE, FALSE, TRUE, TRUE, FALSE)
 class(x)</pre>
 
 <pre >## [1] &quot;logical&quot;</pre>
 
 <p>Note that <code>logical</code> elements are NOT in quotes.</p>
 
-<pre class = 'prettyprint lang-r'>z = c(&quot;TRUE&quot;, &quot;FALSE&quot;, &quot;TRUE&quot;, &quot;FALSE&quot;)
+<pre class = 'prettyprint lang-r'>z &lt;- c(&quot;TRUE&quot;, &quot;FALSE&quot;, &quot;TRUE&quot;, &quot;FALSE&quot;)
 class(z)</pre>
 
 <pre >## [1] &quot;character&quot;</pre>
@@ -367,7 +367,7 @@ class(x)</pre>
 
 <pre >## [1] &quot;character&quot;</pre>
 
-<pre class = 'prettyprint lang-r'>x_fact = factor(x)  # factor() is a function
+<pre class = 'prettyprint lang-r'>x_fact &lt;- factor(x) # factor() is a function
 class(x_fact)</pre>
 
 <pre >## [1] &quot;factor&quot;</pre>
@@ -474,7 +474,7 @@ class(x_fact)</pre>
 
 <pre >## [1] &quot;data.frame&quot;</pre>
 
-<pre class = 'prettyprint lang-r'>iris_mat &lt;-head(tibble(select(iris, -Species)))
+<pre class = 'prettyprint lang-r'>iris_mat &lt;- head(tibble(select(iris, -Species)))
 as.matrix(iris_mat)</pre>
 
 <pre >##      Sepal.Length Sepal.Width Petal.Length Petal.Width
@@ -499,7 +499,7 @@ as.matrix(iris_mat)</pre>
 <li>Can hold vectors, strings, matrices, models, list of other list!</li>
 </ul>
 
-<pre class = 'prettyprint lang-r'>mylist &lt;- list(c(&quot;A&quot;, &quot;b&quot;, &quot;c&quot;), c(1,2,3), matrix(1:4, ncol = 2))
+<pre class = 'prettyprint lang-r'>mylist &lt;- list(c(&quot;A&quot;, &quot;b&quot;, &quot;c&quot;), c(1, 2, 3), matrix(1:4, ncol = 2))
 mylist</pre>
 
 <pre >## [[1]]
@@ -521,9 +521,11 @@ mylist</pre>
 
 <p>List elements can be named</p>
 
-<pre class = 'prettyprint lang-r'>mylist_named &lt;- list(letters = c(&quot;A&quot;, &quot;b&quot;, &quot;c&quot;), 
-                     numbers = c(1,2,3), 
-                     one_matrix = matrix(1:4, ncol = 2))
+<pre class = 'prettyprint lang-r'>mylist_named &lt;- list(
+  letters = c(&quot;A&quot;, &quot;b&quot;, &quot;c&quot;),
+  numbers = c(1, 2, 3),
+  one_matrix = matrix(1:4, ncol = 2)
+)
 mylist_named</pre>
 
 <pre >## $letters
@@ -558,11 +560,11 @@ mylist_named</pre>
 
 <pre class = 'prettyprint lang-r'>library(lubridate)
 
-ymd(&quot;2021-06-15&quot;)             # lubridate package         </pre>
+ymd(&quot;2021-06-15&quot;) # lubridate package</pre>
 
 <pre >## [1] &quot;2021-06-15&quot;</pre>
 
-<pre class = 'prettyprint lang-r'>class(ymd(&quot;2021-06-15&quot;))      # lubridate package    </pre>
+<pre class = 'prettyprint lang-r'>class(ymd(&quot;2021-06-15&quot;)) # lubridate package</pre>
 
 <pre >## [1] &quot;Date&quot;</pre>
 
@@ -570,11 +572,11 @@ ymd(&quot;2021-06-15&quot;)             # lubridate package         </pre>
 
 </article></slide><slide class=""><hgroup><h2>Creating <code>Date</code> class object</h2></hgroup><article  id="creating-date-class-object-1">
 
-<pre class = 'prettyprint lang-r'>mdy(&quot;06/15/2021&quot;)  </pre>
+<pre class = 'prettyprint lang-r'>mdy(&quot;06/15/2021&quot;)</pre>
 
 <pre >## [1] &quot;2021-06-15&quot;</pre>
 
-<pre class = 'prettyprint lang-r'>mdy(&quot;06/15/21&quot;)  </pre>
+<pre class = 'prettyprint lang-r'>mdy(&quot;06/15/21&quot;)</pre>
 
 <pre >## [1] &quot;2021-06-15&quot;</pre>
 
@@ -592,11 +594,11 @@ ymd(&quot;2021-06-15&quot;)             # lubridate package         </pre>
 
 <pre >## [1] &quot;character&quot;</pre>
 
-<pre class = 'prettyprint lang-r'>ymd_hms(&quot;2013-01-24 19:39:07&quot;)             # lubridate package </pre>
+<pre class = 'prettyprint lang-r'>ymd_hms(&quot;2013-01-24 19:39:07&quot;) # lubridate package</pre>
 
 <pre >## [1] &quot;2013-01-24 19:39:07 UTC&quot;</pre>
 
-<pre class = 'prettyprint lang-r'>class(ymd_hms(&quot;2013-01-24 19:39:07&quot;))      # lubridate package </pre>
+<pre class = 'prettyprint lang-r'>class(ymd_hms(&quot;2013-01-24 19:39:07&quot;)) # lubridate package</pre>
 
 <pre >## [1] &quot;POSIXct&quot; &quot;POSIXt&quot;</pre>
 
@@ -613,7 +615,7 @@ x</pre>
 
 <pre >## [1] &quot;2021-06-15&quot; &quot;2021-07-15&quot;</pre>
 
-<pre class = 'prettyprint lang-r'>day(x)   # see also: month(x) , year(x)</pre>
+<pre class = 'prettyprint lang-r'>day(x) # see also: month(x) , year(x)</pre>
 
 <pre >## [1] 15 15</pre>
 
@@ -645,7 +647,7 @@ x</pre>
 
 <pre >## [1] &quot;2013-01-24 22:39:07 UTC&quot;</pre>
 
-<pre class = 'prettyprint lang-r'>floor_date(x, &quot;1 hour&quot;)  # see also: ceiling_date()</pre>
+<pre class = 'prettyprint lang-r'>floor_date(x, &quot;1 hour&quot;) # see also: ceiling_date()</pre>
 
 <pre >## [1] &quot;2013-01-24 19:00:00 UTC&quot;</pre>
 
@@ -668,12 +670,12 @@ difftime(x2, x1, units = &quot;weeks&quot;)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Matrices</h2></hgroup><article  id="matrices-1">
 
-<pre class = 'prettyprint lang-r'>n = 1:9 
+<pre class = 'prettyprint lang-r'>n &lt;- 1:9
 n</pre>
 
 <pre >## [1] 1 2 3 4 5 6 7 8 9</pre>
 
-<pre class = 'prettyprint lang-r'>mat = matrix(n, nrow = 3)
+<pre class = 'prettyprint lang-r'>mat &lt;- matrix(n, nrow = 3)
 mat</pre>
 
 <pre >##      [,1] [,2] [,3]
@@ -722,15 +724,15 @@ x</pre>
 
 <pre >## [1] 4</pre>
 
-<pre class = 'prettyprint lang-r'>mat[1, ]  # first row</pre>
+<pre class = 'prettyprint lang-r'>mat[1, ] # first row</pre>
 
 <pre >## [1] 1 4 7</pre>
 
-<pre class = 'prettyprint lang-r'>mat[, 1]  # first column</pre>
+<pre class = 'prettyprint lang-r'>mat[, 1] # first column</pre>
 
 <pre >## [1] 1 2 3</pre>
 
-<pre class = 'prettyprint lang-r'>mat[c(1,2), c(2,3)]   # subset of original matrix: two rows and two columns</pre>
+<pre class = 'prettyprint lang-r'>mat[c(1, 2), c(2, 3)] # subset of original matrix: two rows and two columns</pre>
 
 <pre >##      [,1] [,2]
 ## [1,]    4    7
@@ -744,11 +746,11 @@ x</pre>
 
 <pre >## [1] &quot;A&quot; &quot;b&quot; &quot;c&quot;</pre>
 
-<pre class = 'prettyprint lang-r'>mylist_named[[&quot;letters&quot;]]     # works only for a list with elements&#39; names </pre>
+<pre class = 'prettyprint lang-r'>mylist_named[[&quot;letters&quot;]] # works only for a list with elements&#39; names</pre>
 
 <pre >## [1] &quot;A&quot; &quot;b&quot; &quot;c&quot;</pre>
 
-<pre class = 'prettyprint lang-r'>mylist_named$letters          # works only for a list with elements&#39; names </pre>
+<pre class = 'prettyprint lang-r'>mylist_named$letters # works only for a list with elements&#39; names</pre>
 
 <pre >## [1] &quot;A&quot; &quot;b&quot; &quot;c&quot;</pre></article></slide>
 

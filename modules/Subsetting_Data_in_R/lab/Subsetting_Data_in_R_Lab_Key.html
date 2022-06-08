@@ -283,7 +283,7 @@ head(cars_mt_copy)</code></pre>
 ## 4    Hornet 4 Drive 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
 ## 5 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
 ## 6           Valiant 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
-<pre class="r"><code>cars_mt_copy &lt;-tibble(cars_mt_copy)
+<pre class="r"><code>cars_mt_copy &lt;- tibble(cars_mt_copy)
 cars_mt_copy</code></pre>
 <pre><code>## # A tibble: 32 × 12
 ##    CAR           MPG   CYL  DISP    HP  DRAT    WT  QSEC    VS    AM  GEAR  CARB
@@ -321,7 +321,7 @@ pvars</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Create a subset of the <code>cars_mt_copy</code> that only contains the columns: <code>CAR</code>, <code>WT</code>, <code>QSEC</code>, and <code>HP</code> and assign this object to <code>carsSub</code> - what are the dimensions of this dataset? Use <code>select()</code>:</li>
 </ol>
-<pre class="r"><code>carsSub &lt;- select(cars_mt_copy,CAR, WT, QSEC, HP)
+<pre class="r"><code>carsSub &lt;- select(cars_mt_copy, CAR, WT, QSEC, HP)
 carsSub</code></pre>
 <pre><code>## # A tibble: 32 × 4
 ##    CAR                  WT  QSEC    HP
@@ -447,9 +447,11 @@ dim(cars_mpg)</code></pre>
 ## 8 Maserati Bo…  15       8  301    335  3.54  3.57  14.6     0     1     5     8</code></pre>
 <pre class="r"><code>nrow(filter(cars_mt_copy, MPG &lt; 16 &amp; HP &gt; 150))</code></pre>
 <pre><code>## [1] 8</code></pre>
-<pre class="r"><code>nrow(filter(cars_mt_copy, MPG &lt; 16, HP &gt;  150))</code></pre>
+<pre class="r"><code>nrow(filter(cars_mt_copy, MPG &lt; 16, HP &gt; 150))</code></pre>
 <pre><code>## [1] 8</code></pre>
-<pre class="r"><code>cars_mt_copy %&gt;% filter(MPG &lt; 16, HP &gt;  150) %&gt;% nrow()</code></pre>
+<pre class="r"><code>cars_mt_copy %&gt;%
+  filter(MPG &lt; 16, HP &gt; 150) %&gt;%
+  nrow()</code></pre>
 <pre><code>## [1] 8</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Subset the rows of <code>cars_mt_copy</code> that get less than 16 miles per gallon (<code>MPG</code>) of fuel efficiency and greater than or equal to 150 horsepower (<code>HP</code>) - how many are there?</li>
@@ -470,9 +472,11 @@ dim(cars_mpg)</code></pre>
 ## 10 Maserati B…  15       8  301    335  3.54  3.57  14.6     0     1     5     8</code></pre>
 <pre class="r"><code>nrow(filter(cars_mt_copy, MPG &lt; 16 &amp; HP &gt;= 150))</code></pre>
 <pre><code>## [1] 10</code></pre>
-<pre class="r"><code>nrow(filter(cars_mt_copy, MPG &lt; 16, HP &gt;=  150))</code></pre>
+<pre class="r"><code>nrow(filter(cars_mt_copy, MPG &lt; 16, HP &gt;= 150))</code></pre>
 <pre><code>## [1] 10</code></pre>
-<pre class="r"><code>cars_mt_copy %&gt;% filter(MPG &lt; 16, HP &gt;=  150) %&gt;% nrow()</code></pre>
+<pre class="r"><code>cars_mt_copy %&gt;%
+  filter(MPG &lt; 16, HP &gt;= 150) %&gt;%
+  nrow()</code></pre>
 <pre><code>## [1] 10</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Why do the answers for 2 and 3 differ?</li>
@@ -503,7 +507,7 @@ dim(cars_mpg)</code></pre>
 <ol style="list-style-type: decimal">
 <li>Create a subset called <code>carsSub</code>from the <code>cars_mt_copy</code> data that only contains the columns: <code>CAR</code>, <code>WT</code>, <code>QSEC</code>, and <code>HP</code> for only the cars with 8 cylinders (<code>CYL</code>). What are the dimensions of this dataset? don’t use pipes (<code>%&gt;%</code>).</li>
 </ol>
-<pre class="r"><code>carsSub &lt;- filter(cars_mt_copy, CYL == 8) 
+<pre class="r"><code>carsSub &lt;- filter(cars_mt_copy, CYL == 8)
 carsSub &lt;- select(carsSub, CAR, WT, QSEC, HP)
 carsSub # can get dimensions just from viewing the tibble</code></pre>
 <pre><code>## # A tibble: 14 × 4
@@ -528,8 +532,8 @@ carsSub # can get dimensions just from viewing the tibble</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Try the same thing again with pipes <code>%&gt;%</code>.</li>
 </ol>
-<pre class="r"><code>carsSub &lt;- cars_mt_copy %&gt;% 
-  filter(CYL == 8) %&gt;% 
+<pre class="r"><code>carsSub &lt;- cars_mt_copy %&gt;%
+  filter(CYL == 8) %&gt;%
   select(CAR, WT, QSEC, HP)
 carsSub</code></pre>
 <pre><code>## # A tibble: 14 × 4
@@ -552,7 +556,7 @@ carsSub</code></pre>
 <pre class="r"><code>dim(carsSub)</code></pre>
 <pre><code>## [1] 14  4</code></pre>
 <p>Bonus: What happens if you do the steps in a different order? Why?</p>
-<pre class="r"><code>carsSub &lt;- cars_mt_copy %&gt;% 
+<pre class="r"><code>carsSub &lt;- cars_mt_copy %&gt;%
   select(CAR, WT, QSEC, HP) %&gt;%
   filter(CYL == 8)</code></pre>
 <ol start="3" style="list-style-type: decimal">
@@ -608,7 +612,7 @@ carsSub</code></pre>
 ## 13  28.6 Chrysler Imperial    5.34  17.4   230
 ## 14  29.4 Lincoln Continental  5.42  17.8   215</code></pre>
 <p>BONUS: How can you find the value of <code>WT2</code> for the Cadillac Fleetwood without looking at the data? `</p>
-<pre class="r"><code>carsSub %&gt;% 
+<pre class="r"><code>carsSub %&gt;%
   filter(CAR == &quot;Cadillac Fleetwood&quot;) %&gt;%
   select(WT2)</code></pre>
 <pre><code>## # A tibble: 1 × 1

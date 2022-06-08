@@ -178,7 +178,7 @@ install.packages(&quot;ggplot2&quot;)</code></pre>
 <pre class="r"><code>library(esquisse)
 library(ggplot2)</code></pre>
 <p>Now try creating a plot using the <code>Orange</code> data that automatically comes with R using the <code>esquisse</code> package. Drag and drop the <code>age</code> variable to be plotted on the x-axis. Drag and drop the <code>circumference</code> variable to be plotted on the y-axis. What happens when you drag <code>tree</code> to the facet region of the esquisse GUI? What happens if you move this to color? Copy and paste the code from both options into the chunk below:</p>
-<pre class="r"><code>#esquisser(Orange)
+<pre class="r"><code># esquisser(Orange)
 ggplot(Orange) +
   aes(x = age, y = circumference) +
   geom_point(shape = &quot;circle&quot;, size = 1.5, colour = &quot;#112446&quot;) +
