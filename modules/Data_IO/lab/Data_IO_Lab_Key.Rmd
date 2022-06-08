@@ -43,9 +43,10 @@ library(readxl)
 
 ```{r}
 download.file("http://jhudatascience.org/intro_to_r/data/Monuments.xlsx",
-              destfile = "Monuments.xlsx",
-              overwrite = TRUE, 
-              mode = "wb")
+  destfile = "Monuments.xlsx",
+  overwrite = TRUE,
+  mode = "wb"
+)
 ```
 
 6. Use the `read_excel()` function in the `readxl` package to read the `Monuments.xlsx` file and call the output `mon`. 

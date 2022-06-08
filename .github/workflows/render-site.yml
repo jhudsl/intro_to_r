@@ -10,11 +10,52 @@ name: Render html
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [ main, staging ]
 
 jobs:
-  # This workflow contains a single job called "build-all"
+
+  yaml-check:
+    name: Load user automation choices
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+        # Use the yaml-env-action action.
+      - name: Load environment from YAML
+        uses: doughepi/yaml-env-action@v1.0.0
+        with:
+            files: docs/config_automation.yml # Pass a space-separated list of configuration files. Rightmost files take precedence.
+    outputs:
+      toggle_style_code: "${{ env.STYLE_CODE }}"
+      
+  style-code:
+    name: Style code
+    needs: yaml-check
+    runs-on: ubuntu-latest
+    if: ${{needs.yaml-check.outputs.toggle_style_code == 'yes'}}
+    container:
+      image: jhudsl/course_template:main
+
+    steps:
+      - name: Checkout files
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Run styler
+        run: Rscript -e "styler::style_file(list.files(pattern = 'Rmd$', recursive = TRUE, full.names = TRUE));warnings()"
+
+      - name: Commit styled files
+        run: |
+          git config --local user.email "itcrtrainingnetwork@gmail.com"
+          git config --local user.name "jhudsl-robot"
+          git add \*.Rmd
+          git commit -m 'Style Rmds' || echo "No changes to commit"
+          git push origin || echo "No changes to commit"
+      
   render-main:
+    needs: [yaml-check, style-code]
     runs-on: ubuntu-latest
           # install.packages("remotes") # in case we decide not to go with the container...
           # remotes::install_cran("rmarkdown")
@@ -82,7 +123,7 @@ jobs:
 
   render-pdf-lectures:
     name: Render pdf lecture slides
-    needs: render-main
+    needs: [yaml-check, style-code, render-main]
     runs-on: ubuntu-latest
     container:
       image: jhudsl/course_template:main

@@ -22,8 +22,9 @@ library(dplyr)
 library(tidyverse)
 library(jhur)
 
-bike = read_csv(
-  "http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv")
+bike <- read_csv(
+  "http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv"
+)
 ```
 
 or use 
@@ -51,7 +52,6 @@ bike <- read_bike()
 ```{r}
 # ??? %>% summarize(??? = max(???),
 #                   ??? = min(???))
-
 ```
 
 # Part 2
@@ -73,10 +73,9 @@ bike <- read_bike()
 ```
 
 ```{r}
-# ??? %>% 
-#   group_by(???) %>% 
+# ??? %>%
+#   group_by(???) %>%
 #   summarize(???)
-
 ```
 
 6. Take your code from the above question and do the following:
@@ -91,10 +90,9 @@ bike <- read_bike()
 7. Make a new column using `mutate`. This new column should be different for each year (`dateInstalled`), and indicate the total sum number of lanes (`numLanes`) built in that year. Call this new column `year_total` and make sure to reassign the dataset. (hint: use `group_by` first)
 
 ```{r}
-# ??? <- ??? %>% 
-#   group_by(???) %>% 
+# ??? <- ??? %>%
+#   group_by(???) %>%
 #   mutate(???)
-
 ```
 
 8. How does your data from above change if you also group by `type`? Ungroup your data when you are done.
@@ -109,14 +107,12 @@ bike <- read_bike()
 
 ```{r}
 # hist(???)
-
 ```
 
 10. Create a scatterplot with `dateInstalled` on the x axis and `length` on the y axis.
 
 ```{r}
 # plot(???)
-
 ```
 
 **Bonus**

@@ -19,7 +19,7 @@ library(ggplot2)
 Now try creating a plot using the `Orange` data that automatically comes with R using the `esquisse` package. Drag and drop the `age` variable to be plotted on the x-axis. Drag and drop the `circumference` variable to be plotted on the y-axis. What happens when you drag `tree` to the facet region of the esquisse GUI? What happens if you move this to color? Copy and paste the code from both options into the chunk below:
 
 ```{r}
-#esquisser(Orange)
+# esquisser(Orange)
 ggplot(Orange) +
   aes(x = age, y = circumference) +
   geom_point(shape = "circle", size = 1.5, colour = "#112446") +
@@ -41,7 +41,6 @@ ggplot(Orange) +
   geom_line(size = 0.5) +
   scale_color_hue(direction = 1) +
   theme_minimal()
-
 ```
 
 

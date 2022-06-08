@@ -9,7 +9,7 @@ output:
 ### From Winter Institute 2022
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}
-mat = matrix(c(
+mat <- matrix(c(
   "RStudio", "https://youtu.be/zpAQrglIJb0",
   "Basic R", "https://youtu.be/_8ZG0G1nNlA",
   "Reproducibility", "https://youtu.be/ChFTiZ7Clo4",
@@ -24,17 +24,17 @@ mat = matrix(c(
   "Factors", "https://youtu.be/Co4l0YhuYSk",
   "Statistics", "https://youtu.be/3nSIN1mu8uw",
   "Functions", "https://youtu.be/XUKJtUYU1Ic"
-  ), ncol = 2, byrow = TRUE)
-mat = data.frame(mat, stringsAsFactors = FALSE)
-colnames(mat) = c("Day", "Link to Video")
-knitr::kable(mat, format = "html") %>% 
-  kable_styling() 
+), ncol = 2, byrow = TRUE)
+mat <- data.frame(mat, stringsAsFactors = FALSE)
+colnames(mat) <- c("Day", "Link to Video")
+knitr::kable(mat, format = "html") %>%
+  kable_styling()
 ```
 
 ### From Summer Institute 2021
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}
-mat = matrix(c(
+mat <- matrix(c(
   "RStudio", "https://youtu.be/zpAQrglIJb0",
   "Basic R", "https://youtu.be/md30mwFJ2_Q",
   "Data IO", "https://youtu.be/6xNyETqIqZU",
@@ -47,17 +47,17 @@ mat = matrix(c(
   "Statistics", "https://youtu.be/EJwlBoBHoz4",
   "Data Visualization", "https://youtu.be/ngQX9khx7UQ",
   "Functions", "https://youtu.be/epIujSKgNi4"
-  ), ncol = 2, byrow = TRUE)
-mat = data.frame(mat, stringsAsFactors = FALSE)
-colnames(mat) = c("Day", "Link to Video")
-knitr::kable(mat, format = "html") %>% 
-  kable_styling() 
+), ncol = 2, byrow = TRUE)
+mat <- data.frame(mat, stringsAsFactors = FALSE)
+colnames(mat) <- c("Day", "Link to Video")
+knitr::kable(mat, format = "html") %>%
+  kable_styling()
 ```
 
 ### From Winter Institute 2020
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}
-mat = matrix(c(
+mat <- matrix(c(
   "RStudio and Data Classes", "https://youtu.be/vyIsDnsq5jY",
   "Subsetting Data", "https://youtu.be/mT8lSagYbjM",
   "Data Summarization Part 1", "https://youtu.be/SZYpzt9zy0g",
@@ -66,26 +66,27 @@ mat = matrix(c(
   "Data Manipulation", "https://youtu.be/43MPdw5bf4o",
   "Statistics 1", "https://youtu.be/Jr4ljyzrr4U",
   "Statistics 2", "https://youtu.be/ub2BSbK9lMM"
-  ), ncol = 2, byrow = TRUE)
-mat = data.frame(mat, stringsAsFactors = FALSE)
-colnames(mat) = c("Day", "Link to Video")
-knitr::kable(mat, format = "html") %>% 
-  kable_styling() 
+), ncol = 2, byrow = TRUE)
+mat <- data.frame(mat, stringsAsFactors = FALSE)
+colnames(mat) <- c("Day", "Link to Video")
+knitr::kable(mat, format = "html") %>%
+  kable_styling()
 ```
 
 ### From Summer Institute 1 2017
 
 ```{r videos, echo = FALSE, message = FALSE, results='asis'}
-mat = matrix(c(
+mat <- matrix(c(
   "Day 1", "https://youtu.be/Xi-wsACc7p0",
-"Day 2", "https://youtu.be/u1FQt9Hr8iw",
-"Day 3", "https://youtu.be/woc7AGJTzZw",
-"Day 4", "https://youtu.be/RZ7eVIMPIes",
-"Day 5", "https://youtu.be/e8cFV8wluC0"), ncol = 2, byrow = TRUE)
-mat = data.frame(mat, stringsAsFactors = FALSE)
-colnames(mat) = c("Day", "Link to Video")
-knitr::kable(mat, format = "html") %>% 
-  kable_styling() 
+  "Day 2", "https://youtu.be/u1FQt9Hr8iw",
+  "Day 3", "https://youtu.be/woc7AGJTzZw",
+  "Day 4", "https://youtu.be/RZ7eVIMPIes",
+  "Day 5", "https://youtu.be/e8cFV8wluC0"
+), ncol = 2, byrow = TRUE)
+mat <- data.frame(mat, stringsAsFactors = FALSE)
+colnames(mat) <- c("Day", "Link to Video")
+knitr::kable(mat, format = "html") %>%
+  kable_styling()
 ```
 
 <br>

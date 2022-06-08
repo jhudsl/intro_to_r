@@ -45,7 +45,7 @@ Often you only want to look at subsets of a data set at any given time. As a rev
 For example, `x` is a vector of numbers and we can select the second element of `x` using the brackets and an index (2):
 
 ```{r}
-x = c(1, 4, 2, 8, 10)
+x <- c(1, 4, 2, 8, 10)
 x[2]
 ```
 
@@ -54,9 +54,9 @@ x[2]
 We can select the fifth or second AND fifth elements below:
 
 ```{r}
-x = c(1, 2, 4, 8, 10)
+x <- c(1, 2, 4, 8, 10)
 x[5]
-x[c(2,5)]
+x[c(2, 5)]
 ```
 
 ## Subsetting by deletion of entries
@@ -69,7 +69,7 @@ x[-2] # all but the second
 Note that you have to be careful with this syntax when dropping more than 1 element:
 
 ```{r negativeIndex2}
-x[-c(1,2,3)] # drop first 3
+x[-c(1, 2, 3)] # drop first 3
 # x[-1:3] # shorthand. R sees as -1 to 3
 x[-(1:3)] # needs parentheses
 ```
@@ -81,7 +81,7 @@ What about selecting rows based on the values of two variables? We use logical s
 ```{r}
 x
 x > 2
-x[ x > 2 ]
+x[x > 2]
 ```
 
 ## Select specific elements using logical operators
@@ -91,8 +91,8 @@ You can have multiple logical conditions using the following:
 * `|` : OR
 
 ```{r}
-x[ x > 2 & x < 5 ]
-x[ x > 5 | x == 2 ]
+x[x > 2 & x < 5]
+x[x > 5 | x == 2]
 ```
 
 
@@ -102,8 +102,8 @@ The `which` functions takes in logical vectors and returns the index for the ele
 
 ```{r}
 which(x > 5 | x == 2) # returns index
-x[ which(x > 5 | x == 2) ]
-x[ x > 5 | x == 2 ]
+x[which(x > 5 | x == 2)]
+x[x > 5 | x == 2]
 ```
 
 
@@ -112,8 +112,8 @@ x[ x > 5 | x == 2 ]
 Here we use one of the datasets that comes with R called `mtcars` create a toy data.frame named `df` using random data:
 ```{r}
 data(mtcars)
-df = mtcars
-tbl = as.tbl(df)
+df <- mtcars
+tbl <- as.tbl(df)
 ```
 
 
@@ -123,9 +123,9 @@ tbl = as.tbl(df)
 
 We can use the `colnames` function to directly reassign column names of `df`:
 ```{r}
-colnames(df)[1:3] = c("MPG", "CYL", "DISP")
+colnames(df)[1:3] <- c("MPG", "CYL", "DISP")
 head(df)
-colnames(df)[1:3] = c("mpg", "cyl", "disp") #reset
+colnames(df)[1:3] <- c("mpg", "cyl", "disp") # reset
 ```
 
 ## Renaming Columns of a `data.frame`: base R
@@ -133,11 +133,11 @@ colnames(df)[1:3] = c("mpg", "cyl", "disp") #reset
 We can assign the column names, change the ones we want, and then re-assign
 the column names:
 ```{r}
-cn = colnames(df)
-cn[ cn == "drat"] = "DRAT"
-colnames(df) = cn
+cn <- colnames(df)
+cn[cn == "drat"] <- "DRAT"
+colnames(df) <- cn
 head(df)
-colnames(df)[ colnames(df) == "DRAT"] = "drat" #reset
+colnames(df)[colnames(df) == "DRAT"] <- "drat" # reset
 ```
 
 ## Renaming Columns of a `data.frame`: dplyr
@@ -165,7 +165,7 @@ to make sure you use that one, you use `PackageName::Function` with the colon-co
 ("`::`") operator. 
 
 ```{r}
-head(stats::filter,2)
+head(stats::filter, 2)
 ```
 
 This is important when loading many packages, and you may have
@@ -176,9 +176,9 @@ some conflicts/masking:
 To rename columns in `dplyr`, you use the `rename` command
 
 ```{r}
-df = dplyr::rename(df, MPG = mpg)
+df <- dplyr::rename(df, MPG = mpg)
 head(df)
-df = dplyr::rename(df, mpg = MPG) # reset
+df <- dplyr::rename(df, mpg = MPG) # reset
 ```
 
 
@@ -255,7 +255,7 @@ select(df, starts_with("c"))
 Let's select **rows** 1 and 3 from `df` using brackets:
 
 ```{r}
-df[ c(1, 3), ]
+df[c(1, 3), ]
 ```
 
 ## Subset rows of a `data.frame`: 
@@ -263,7 +263,7 @@ df[ c(1, 3), ]
 Let's select the rows of `df` where the `mpg` column is greater than 20 or is less than 14.  Without any index for columns, all columns are returned:
 
 ```{r}
-df[ df$mpg > 20 | df$mpg < 14, ]
+df[df$mpg > 20 | df$mpg < 14, ]
 ```
 
 ## Subset rows of a `data.frame`: 
@@ -271,7 +271,7 @@ df[ df$mpg > 20 | df$mpg < 14, ]
 We can subset both rows and columns at the same time:
 
 ```{r}
-df[  df$mpg > 20 | df$mpg < 14, c("cyl", "hp")]
+df[df$mpg > 20 | df$mpg < 14, c("cyl", "hp")]
 ```
 
 
@@ -313,8 +313,8 @@ In `R`, the common way to perform multiple operations is to wrap functions aroun
 One can also create temporary objects and reassign them:
 
 ```{r}
-df2 = filter(df, mpg > 20 & cyl == 4)
-df2 = select(df2, cyl, hp)
+df2 <- filter(df, mpg > 20 & cyl == 4)
+df2 <- select(df2, cyl, hp)
 ```
 
 ## Using the `pipe` (comes with `dplyr`):
@@ -323,7 +323,9 @@ Recently, the pipe `%>%` makes things such as this much more readable.  It reads
 
 
 ```{r}
-df %>% filter(mpg > 20 & cyl == 4) %>% select(cyl, hp)
+df %>%
+  filter(mpg > 20 & cyl == 4) %>%
+  select(cyl, hp)
 ```
 
 
@@ -333,27 +335,27 @@ df %>% filter(mpg > 20 & cyl == 4) %>% select(cyl, hp)
 
 You can add a new column, called `newcol` to `df`, using the `$` operator:
 ```{r}
-df$newcol = df$wt/2.2
-head(df,3)
+df$newcol <- df$wt / 2.2
+head(df, 3)
 ```
 
 ## Removing columns to a `data.frame`: base R
 
 You can remove a column by assigning to `NULL`:
 ```{r}
-df$newcol = NULL
+df$newcol <- NULL
 ```
 or selecting only the columns that were not `newcol`:
 ```{r}
-df = df[, colnames(df) != "newcol"]
-head(df,3)
+df <- df[, colnames(df) != "newcol"]
+head(df, 3)
 ```
 
 ## Adding new columns to a `data.frame`: base R
 
 You can also "**c**olumn **bind**" a `data.frame` with a vector (or series of vectors), using the `cbind` command:
 ```{r}
-cbind(df, newcol = df$wt/2.2)
+cbind(df, newcol = df$wt / 2.2)
 ```
 
 
@@ -361,11 +363,13 @@ cbind(df, newcol = df$wt/2.2)
 
 The `mutate` function in `dplyr` allows you to add or replace columns of a `data.frame`:
 ```{r}
-df = mutate(df, newcol = wt/2.2)
+df <- mutate(df, newcol = wt / 2.2)
 ```
 
 ```{r, echo = FALSE}
-print({df = mutate(df, newcol = wt/2.2)})
+print({
+  df <- mutate(df, newcol = wt / 2.2)
+})
 ```
 
 ## Removing columns to a `data.frame`: dplyr
@@ -391,8 +395,8 @@ select(df, -one_of("newcol", "drat"))
 We can use the `colnames` function to get the column names of `df` and then put `newcol` first by subsetting `df` using brackets:
 
 ```{r}
-cn = colnames(df)
-df[, c("newcol", cn[cn != "newcol"]) ]
+cn <- colnames(df)
+df[, c("newcol", cn[cn != "newcol"])]
 ```
 
 ## Ordering the columns of a `data.frame`: dplyr
@@ -409,21 +413,21 @@ select(df, newcol, everything())
 We use the `order` function on a vector or set of vectors, in increasing order:
 
 ```{r}
-df[ order(df$mpg), ]
+df[order(df$mpg), ]
 ```
 
 ## Ordering the rows of a `data.frame`: base R
 
 The `decreasing` argument will order it in decreasing order:
 ```{r}
-df[ order(df$mpg, decreasing = TRUE), ]
+df[order(df$mpg, decreasing = TRUE), ]
 ```
 
 ## Ordering the rows of a `data.frame`: base R
 
 You can pass multiple vectors, and must use the negative (using `-`) to mix decreasing and increasing orderings (sort increasing on `x` and decreasing on `y`):
 ```{r}
-df[ order(df$mpg, -df$hp), ]
+df[order(df$mpg, -df$hp), ]
 ```
 
 ## Ordering the rows of a `data.frame`: dplyr
@@ -450,7 +454,7 @@ arrange(df, mpg, desc(hp))
 The `transmute` function in `dplyr` combines both the `mutate` and `select` functions. One can create new columns and keep the only the columns wanted:
 
 ```{r}
-transmute(df, newcol2 = wt/2.2, mpg, hp)
+transmute(df, newcol2 = wt / 2.2, mpg, hp)
 ```
 
 ## Lab Part 4

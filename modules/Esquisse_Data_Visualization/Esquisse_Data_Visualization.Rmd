@@ -15,7 +15,7 @@ library(here)
 ## Esquisse Package
 
 ```{r esquisse}
-#install.packages("esquisse")
+# install.packages("esquisse")
 library(esquisse)
 ```
 
@@ -48,8 +48,7 @@ knitr::include_graphics("images/start_a_plot.png")
 To select variables you can drag and drop variables to the respective axis that you would like the variable to be plotted on.
 
 ```{r, fig.alt="select variables", out.width = "100%", echo = FALSE, fig.align='center'}
-  knitr::include_graphics("images/variables.gif")
-
+knitr::include_graphics("images/variables.gif")
 ```
 
 ## Find code
@@ -57,7 +56,7 @@ To select variables you can drag and drop variables to the respective axis that 
 To select variables you can drag and drop variables to the respective axis that you would like the variable to be plotted on.
 
 ```{r, fig.alt="select variables", out.width = "100%", echo = FALSE, fig.align='center'}
-  knitr::include_graphics("images/get_code.gif")
+knitr::include_graphics("images/get_code.gif")
 ```
 
 
@@ -66,7 +65,7 @@ To select variables you can drag and drop variables to the respective axis that 
 `esquisse` automatically assumes a plot type, but you might want to change this.
 
 ```{r, fig.alt="change plot type", out.width = "100%", echo = FALSE, fig.align='center'}
-  knitr::include_graphics("images/change_type_short.gif")
+knitr::include_graphics("images/change_type_short.gif")
 ```
 
 ## Add Facets
@@ -74,7 +73,7 @@ To select variables you can drag and drop variables to the respective axis that 
 Facets create multiple plots based on the different values of a variable.
 
 ```{r, fig.alt="add facets", out.width = "100%", echo = FALSE, fig.align='center'}
-  knitr::include_graphics("images/facet.gif")
+knitr::include_graphics("images/facet.gif")
 ```
 
 
@@ -83,7 +82,7 @@ Facets create multiple plots based on the different values of a variable.
 Sometimes it is useful to change the way points are plotted so that size represents a variable. This can especially be helpful if you need your plot to be black and white.
 
 ```{r, fig.alt="add color", out.width = "100%", echo = FALSE, fig.align='center'}
-  knitr::include_graphics("images/size.gif")
+knitr::include_graphics("images/size.gif")
 ```
 
 ## Add color
@@ -92,7 +91,7 @@ For plots with points use the color region to change coloring according to a var
 (use "fill" for bar plots)
 
 ```{r, fig.alt="add color", out.width = "100%", echo = FALSE, fig.align='center'}
-  knitr::include_graphics("images/color.gif")
+knitr::include_graphics("images/color.gif")
 ```
 
 
@@ -103,7 +102,7 @@ For plots with points use the color region to change coloring according to a var
 You can change the overall appearance with the appearance tab.
 
 ```{r, fig.alt="change overall appearance", out.width = "100%", echo = FALSE, fig.align='center'}
-  knitr::include_graphics("images/appearance.gif")
+knitr::include_graphics("images/appearance.gif")
 ```
 
 ## Smooth Lines
@@ -111,8 +110,7 @@ You can change the overall appearance with the appearance tab.
 Especially when you have a scatter plot, it can be helpful to add a smooth/trend line. 
 
 ```{r, fig.alt="add smooth line", out.width = "100%", echo = FALSE, fig.align='center'}
-  knitr::include_graphics("images/smooth.gif")
-
+knitr::include_graphics("images/smooth.gif")
 ```
 
 ## Change titles
@@ -120,7 +118,7 @@ Especially when you have a scatter plot, it can be helpful to add a smooth/trend
 To change titles on your plot, use the titles tab.
 
 ```{r, fig.alt="change titles", out.width = "100%", echo = FALSE, fig.align='center'}
-  knitr::include_graphics("images/titles.gif")
+knitr::include_graphics("images/titles.gif")
 ```
 
 

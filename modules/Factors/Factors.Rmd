@@ -19,7 +19,7 @@ A `factor` is a special `character` vector where the elements have pre-defined g
 x <- c("red", "red", "blue", "yellow", "blue")
 class(x)
 
-x_fact = factor(x) # factor() is a function
+x_fact <- factor(x) # factor() is a function
 class(x_fact)
 x_fact
 ```
@@ -48,13 +48,17 @@ First we will create some data about absences of students. Each row is a differe
 
 ```{r}
 set.seed(123)
-data_highschool <- tibble(absences = 
-  sample(0:7, size = 32, replace = TRUE), 
-    grade = 
-      rep(c("Sophomore",
-            "Freshman", 
-             "Junior", 
-             "Senior"), 8))
+data_highschool <- tibble(
+  absences =
+    sample(0:7, size = 32, replace = TRUE),
+  grade =
+    rep(c(
+      "Sophomore",
+      "Freshman",
+      "Junior",
+      "Senior"
+    ), 8)
+)
 ```
 
 ## The data
@@ -90,12 +94,16 @@ Currently `grade` is class `character` but let's change that to class `factor` w
 
 ```{r}
 class(data_highschool$grade)
-data_highschool_fct <- data_highschool %>% 
- mutate(grade = factor(grade, levels = 
-              c("Freshman", 
-                "Sophomore", 
-                "Junior", 
-                "Senior")))
+data_highschool_fct <- data_highschool %>%
+  mutate(grade = factor(grade,
+    levels =
+      c(
+        "Freshman",
+        "Sophomore",
+        "Junior",
+        "Senior"
+      )
+  ))
 head(data_highschool_fct)
 ```
 
@@ -117,7 +125,9 @@ Now that's more like it! Notice how the data is automatically plotted in the ord
 What about if we arrange the two versions of our data by grade?
 
 ```{r, size="tiny"}
-data_highschool %>% arrange(grade) %>% head(19)
+data_highschool %>%
+  arrange(grade) %>%
+  head(19)
 ```
 
 Notice that the order is not what we would hope for!
@@ -125,7 +135,9 @@ Notice that the order is not what we would hope for!
 ## Arranging Factors{.smaller}
 
 ```{r, size = 'tiny'}
-data_highschool_fct %>% arrange(grade) %>% head(19)
+data_highschool_fct %>%
+  arrange(grade) %>%
+  head(19)
 ```
 
 Nice! Now this is what we would want!
@@ -133,11 +145,15 @@ Nice! Now this is what we would want!
 ## Making tables
 
 ```{r}
-data_highschool %>% group_by(grade) %>% tally(absences)
+data_highschool %>%
+  group_by(grade) %>%
+  tally(absences)
 ```
 
 ```{r}
-data_highschool_fct %>% group_by(grade) %>% tally(absences)
+data_highschool_fct %>%
+  group_by(grade) %>%
+  tally(absences)
 ```
 
 ## Calculations{.smaller}
@@ -145,11 +161,15 @@ data_highschool_fct %>% group_by(grade) %>% tally(absences)
 Now what about results from some calculations.
 
 ```{r}
-data_highschool %>% group_by(grade) %>% summarise(mean = mean(absences))
+data_highschool %>%
+  group_by(grade) %>%
+  summarise(mean = mean(absences))
 ```
 
 ```{r}
-data_highschool_fct %>% group_by(grade) %>% summarise(mean = mean(absences))
+data_highschool_fct %>%
+  group_by(grade) %>%
+  summarise(mean = mean(absences))
 ```
 
 Here we see that the mean is calculated in the order we would like only for the version of the data that has absences coded as a factor!
@@ -161,8 +181,8 @@ What if we wanted to order `grade` by the amount of `absences`?
 library(forcats)
 
 data_highschool_fct %>%
- ggplot(mapping = aes(x = grade, y = absences)) +
- geom_boxplot()
+  ggplot(mapping = aes(x = grade, y = absences)) +
+  geom_boxplot()
 ```
 
 This would be useful for identifying easily which grade to focus on.
@@ -175,8 +195,10 @@ We can order a factor by another variable by using the `fct_reorder()` function 
 library(forcats)
 
 data_highschool_fct %>%
-  ggplot(mapping = aes(x = forcats::fct_reorder(grade, absences),
-                       y = absences)) +
+  ggplot(mapping = aes(
+    x = forcats::fct_reorder(grade, absences),
+    y = absences
+  )) +
   geom_boxplot()
 ```
 
@@ -186,8 +208,8 @@ Let's say that we also want to assess which grade has the most incidences of bei
 
 ```{r}
 set.seed(1956)
-data_highschool_fct <- 
-  data_highschool_fct %>% 
+data_highschool_fct <-
+  data_highschool_fct %>%
   mutate("tardy" = sample(0:7, size = 32, replace = TRUE))
 
 data_highschool_fct
@@ -201,20 +223,23 @@ Now let's plot each of our variables of interest (absences and tardy) on the y a
 
 ```{r, echo = FALSE}
 
-absences<- data_highschool_fct %>%
-   ggplot(mapping = aes(x = forcats::fct_reorder(grade, absences), 
-   y = absences)) +
+absences <- data_highschool_fct %>%
+  ggplot(mapping = aes(
+    x = forcats::fct_reorder(grade, absences),
+    y = absences
+  )) +
   geom_boxplot(fill = "lightgreen")
 
 
-tardy<- data_highschool_fct %>%
-  ggplot(mapping = aes(x = forcats::fct_reorder(grade, tardy), 
-       y = tardy)) +
+tardy <- data_highschool_fct %>%
+  ggplot(mapping = aes(
+    x = forcats::fct_reorder(grade, tardy),
+    y = tardy
+  )) +
   geom_boxplot(fill = "violet")
 
 library(patchwork)
 absences + tardy
-
 ```
 
 ## Plot with more reordering
@@ -223,26 +248,29 @@ The last plot is informative, but what if we are mostly interested in absences a
 
 ```{r, echo = FALSE}
 
-absences<- data_highschool_fct %>%
- ggplot(mapping = aes(x = forcats::fct_reorder(grade, absences), 
-   y = absences)) +
- geom_boxplot(fill = "lightgreen")
+absences <- data_highschool_fct %>%
+  ggplot(mapping = aes(
+    x = forcats::fct_reorder(grade, absences),
+    y = absences
+  )) +
+  geom_boxplot(fill = "lightgreen")
 
 
-tardy<- data_highschool_fct %>%
-ggplot(mapping = aes(x = forcats::fct_reorder(grade, absences), 
-    y = tardy)) +
-geom_boxplot(fill = "violet")
+tardy <- data_highschool_fct %>%
+  ggplot(mapping = aes(
+    x = forcats::fct_reorder(grade, absences),
+    y = tardy
+  )) +
+  geom_boxplot(fill = "violet")
 
 library(patchwork)
 absences + tardy
-
-
 ```
 
 ## fct_count
 
 ```{r}
-data_highschool_fct %>% pull(grade) %>% fct_count(prop= TRUE)
-
+data_highschool_fct %>%
+  pull(grade) %>%
+  fct_count(prop = TRUE)
 ```

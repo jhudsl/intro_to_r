@@ -31,7 +31,9 @@ yts %>%
 3. Use `group_by` and `tally` to count up the number of lines of data for each "Education" group.
 
 ```{r}
-yts %>% group_by(Education) %>% tally()
+yts %>%
+  group_by(Education) %>%
+  tally()
 ```
 
 4. Make "Education" a factor using the `mutate` and `factor` functions. Use the `levels` argument inside `factor` to reorder "Education". Reorder this variable so that "Middle School" comes before "High School". Assign the output the name "yts_fct".
@@ -48,7 +50,9 @@ yts_fct %>%
   ggplot(aes(x = Education, y = Sample_Size)) +
   geom_boxplot()
 
-yts_fct %>% group_by(Education) %>% tally()
+yts_fct %>%
+  group_by(Education) %>%
+  tally()
 ```
 
 **BONUS**
@@ -66,7 +70,9 @@ yts_fct <- yts_fct %>% mutate(LocationAbbr = factor(LocationAbbr))
 - **Hint**: Since you have already done `group_by`, a median "Sample_Size" will automatically be created for each unique level in "LocationAbbr". Use the `median` function with `na.rm = TRUE`.
 
 ```{r}
-yts_fct <- yts_fct %>% group_by(LocationAbbr) %>% mutate(med_sample_size = median(Sample_Size, na.rm = TRUE))
+yts_fct <- yts_fct %>%
+  group_by(LocationAbbr) %>%
+  mutate(med_sample_size = median(Sample_Size, na.rm = TRUE))
 ```
 
 8. We want to plot the "LocationAbbr" (state) by the "med_sample_size" column we created above. Using the `forcats` package, create a plot that:
@@ -80,7 +86,9 @@ yts_fct <- yts_fct %>% group_by(LocationAbbr) %>% mutate(med_sample_size = media
 library(forcats)
 
 yts_fct %>%
-  ggplot(mapping = aes(x = fct_reorder(LocationAbbr, med_sample_size),
-                       y = Sample_Size)) +
+  ggplot(mapping = aes(
+    x = fct_reorder(LocationAbbr, med_sample_size),
+    y = Sample_Size
+  )) +
   geom_boxplot()
 ```

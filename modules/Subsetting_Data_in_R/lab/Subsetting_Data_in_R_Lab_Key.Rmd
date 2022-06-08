@@ -68,7 +68,7 @@ tail(cars_mt_copy, 3)
 ```{r}
 cars_mt_copy <- rownames_to_column(cars_mt_copy, var = "CAR")
 head(cars_mt_copy)
-cars_mt_copy <-tibble(cars_mt_copy)
+cars_mt_copy <- tibble(cars_mt_copy)
 cars_mt_copy
 ```
 
@@ -82,9 +82,8 @@ pvars
 3. Create a subset of the `cars_mt_copy` that only contains the columns: `CAR`, `WT`, `QSEC`, and `HP` and assign this object to `carsSub` - what are the dimensions of this dataset? Use `select()`:
 
 ```{r}
-carsSub <- select(cars_mt_copy,CAR, WT, QSEC, HP)
+carsSub <- select(cars_mt_copy, CAR, WT, QSEC, HP)
 carsSub
-
 ```
 
 4. Convert the column names of `carsSub` to all lower case. Take a look at the data.
@@ -92,7 +91,6 @@ carsSub
 ```{r}
 carsSub <- rename_all(carsSub, tolower)
 carsSub
-
 ```
 
 Bonus: Pull the variable `car` from `carsSub`. How does this differ form selecting it?
@@ -128,8 +126,10 @@ There are `nrow(cars_mpg)` cars.
 ```{r}
 filter(cars_mt_copy, MPG < 16 & HP > 150)
 nrow(filter(cars_mt_copy, MPG < 16 & HP > 150))
-nrow(filter(cars_mt_copy, MPG < 16, HP >  150))
-cars_mt_copy %>% filter(MPG < 16, HP >  150) %>% nrow()
+nrow(filter(cars_mt_copy, MPG < 16, HP > 150))
+cars_mt_copy %>%
+  filter(MPG < 16, HP > 150) %>%
+  nrow()
 ```
 
 
@@ -138,8 +138,10 @@ cars_mt_copy %>% filter(MPG < 16, HP >  150) %>% nrow()
 ```{r}
 filter(cars_mt_copy, MPG < 16 & HP >= 150)
 nrow(filter(cars_mt_copy, MPG < 16 & HP >= 150))
-nrow(filter(cars_mt_copy, MPG < 16, HP >=  150))
-cars_mt_copy %>% filter(MPG < 16, HP >=  150) %>% nrow()
+nrow(filter(cars_mt_copy, MPG < 16, HP >= 150))
+cars_mt_copy %>%
+  filter(MPG < 16, HP >= 150) %>%
+  nrow()
 ```
 
 4. Why do the answers for 2 and 3 differ?
@@ -164,7 +166,7 @@ nrow(filter(cars_mt_copy, CYL == 4 & WT < 1.9))
 	What are the dimensions of this dataset? don't use pipes (`%>%`).
 
 ```{r}
-carsSub <- filter(cars_mt_copy, CYL == 8) 
+carsSub <- filter(cars_mt_copy, CYL == 8)
 carsSub <- select(carsSub, CAR, WT, QSEC, HP)
 carsSub # can get dimensions just from viewing the tibble
 dim(carsSub) # alternatively can use dim() function
@@ -173,8 +175,8 @@ dim(carsSub) # alternatively can use dim() function
 2. Try the same thing again with pipes `%>%`.
 
 ```{r}
-carsSub <- cars_mt_copy %>% 
-  filter(CYL == 8) %>% 
+carsSub <- cars_mt_copy %>%
+  filter(CYL == 8) %>%
   select(CAR, WT, QSEC, HP)
 carsSub
 dim(carsSub)
@@ -183,10 +185,9 @@ dim(carsSub)
 Bonus: What happens if you do the steps in a different order? Why?
 
 ```{r, eval = FALSE}
-carsSub <- cars_mt_copy %>% 
+carsSub <- cars_mt_copy %>%
   select(CAR, WT, QSEC, HP) %>%
   filter(CYL == 8)
-
 ```
 
 3. Re-order the rows of `carsSub` by weight (`WT`) in increasing order. Use `arrange()`. What is the heaviest car?
@@ -217,8 +218,7 @@ carsSub
 BONUS: How can you find the value of `WT2` for the Cadillac Fleetwood without looking at the data?
 `
 ```{r}
-carsSub %>% 
+carsSub %>%
   filter(CAR == "Cadillac Fleetwood") %>%
   select(WT2)
-
 ```

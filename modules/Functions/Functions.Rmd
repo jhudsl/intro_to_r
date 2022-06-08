@@ -105,7 +105,7 @@ Let's write a function, `sqdif`, that:
 ## Writing another simple function
 
 ```{r comment=""}
-sqdif <- function(x = 2, y = 3) (x - y) ^ 2
+sqdif <- function(x = 2, y = 3) (x - y)^2
 
 sqdif()
 sqdif(x = 10, y = 5)
@@ -118,7 +118,7 @@ Functions can have any kind of input. Here is a function with characters:
 
 ```{r comment=""}
 loud <- function(word) {
-  output <- rep( toupper(word), 5)
+  output <- rep(toupper(word), 5)
   return(output)
 }
 loud(word = "hooray!")
@@ -131,7 +131,7 @@ We can use `filter(row_number()==n)` to extract a row of a tibble:
 ```{r message=FALSE}
 cars <- read_kaggle()
 
-get_row <- function(dat, row) dat %>% filter(row_number()==row)
+get_row <- function(dat, row) dat %>% filter(row_number() == row)
 ```
 
 ```{r echo=FALSE}
@@ -153,8 +153,10 @@ cars <- read_kaggle()
 `select(n)` will choose column `n`:
 
 ```{r message=FALSE}
-get_index <- function(dat, row, col){
- dat %>% filter(row_number()==row) %>% select(col) 
+get_index <- function(dat, row, col) {
+  dat %>%
+    filter(row_number() == row) %>%
+    select(col)
 }
 
 get_index(dat = cars, row = 10, col = 8)
@@ -165,8 +167,10 @@ get_index(dat = cars, row = 10, col = 8)
 Including default values for arguments:
 
 ```{r message=FALSE}
-get_top <- function(dat, row = 1, col = 1){
- dat %>% filter(row_number()==row) %>% select(col) 
+get_top <- function(dat, row = 1, col = 1) {
+  dat %>%
+    filter(row_number() == row) %>%
+    select(col)
 }
 
 get_top(dat = cars)
@@ -204,8 +208,9 @@ cars_dbl <- cars %>% select(Make, Model, where(is.double))
 
 Odo_updated <- sapply(pull(cars_dbl, VehOdo), times_2_plus_y)
 
-cars_dbl %>% 
-  mutate(Odo_2_y = Odo_updated) %>% select(c(1:2,7:13))
+cars_dbl %>%
+  mutate(Odo_2_y = Odo_updated) %>%
+  select(c(1:2, 7:13))
 ```
 
 ## Applying functions with `across` from `dplyr`
@@ -225,7 +230,7 @@ across( .cols = <columns>, .fns = function, ... )
 Combining with `summarize()`:
 
 ```{r warning=FALSE}
-cars_dbl %>% 
+cars_dbl %>%
   group_by(Make) %>%
   summarize(across(.cols = everything(), .fns = mean))
 ```
@@ -235,7 +240,7 @@ cars_dbl %>%
 Adding arguments to the function (`quantile()`) at the end:
 
 ```{r warning=FALSE}
-cars_dbl %>% 
+cars_dbl %>%
   group_by(Make) %>%
   summarize(across(.cols = where(is.double), .fns = quantile, probs = 0.95))
 ```
@@ -245,7 +250,7 @@ cars_dbl %>%
 Using different `tidyselect()` options:
 
 ```{r warning=FALSE}
-cars_dbl %>% 
+cars_dbl %>%
   group_by(Make) %>%
   summarize(across(.cols = starts_with("Veh"), .fns = mean))
 ```
@@ -255,7 +260,7 @@ cars_dbl %>%
 Combining with `mutate()`:
 
 ```{r}
-cars_dbl %>% 
+cars_dbl %>%
   mutate(across(.cols = starts_with("Veh"), .fns = round, digits = -3))
 ```
 
@@ -264,11 +269,13 @@ cars_dbl %>%
 Combining with `mutate()`:
 
 ```{r}
-cars_dbl %>% 
-  mutate(across(.cols = everything(), 
-                .fns = str_replace_all, 
-                pattern = "A",
-                replacement = "a"))
+cars_dbl %>%
+  mutate(across(
+    .cols = everything(),
+    .fns = str_replace_all,
+    pattern = "A",
+    replacement = "a"
+  ))
 ```
 
 ## Applying functions with `across` from `dplyr`.{.codesmall}
@@ -279,11 +286,13 @@ Combining with `mutate()`:
 # Child mortality data
 mort <- read_mortality() %>% rename(country = `...1`)
 
-mort %>% 
-  select(country, starts_with("194")) %>% 
-  mutate(across(.cols = c(`1943`, `1944`, `1945`),
-                .fns = replace_na,
-                replace = 0))
+mort %>%
+  select(country, starts_with("194")) %>%
+  mutate(across(
+    .cols = c(`1943`, `1944`, `1945`),
+    .fns = replace_na,
+    replace = 0
+  ))
 ```
 
 ## Website

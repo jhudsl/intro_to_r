@@ -121,7 +121,7 @@ Dataset is located at http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Su
 library(readr)
 dat <- read_csv("http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
 
-# `head` displays first few rows of a data frame 
+# `head` displays first few rows of a data frame
 head(dat, 5)
 ```
 
@@ -155,7 +155,7 @@ read_csv(file, col_names = TRUE, col_types = NULL,
 - can be path to a file on a website
 
 ```{r, eval = FALSE}
-## Examples 
+## Examples
 
 dat <- read_csv("/Users/avahoffman/Downloads/Youth_Tobacco_Survey_YTS_Data.csv")
 
@@ -209,7 +209,7 @@ read_delim(file, delim, quote = "\"", escape_backslash = FALSE,
 - `delim` is what separates the fields within a record 
 
 ```{r, eval = FALSE}
-## Examples 
+## Examples
 dat <- read_delim("Youth_Tobacco_Survey_YTS_Data.csv", delim = ",")
 
 dat <- read_delim("www.someurl.com/table1.txt", delim = "\t")
@@ -382,7 +382,7 @@ Working directory is a directory that R assumes "you are working in". It's where
 getwd()
 
 # set the working directory
-setwd("/Users/avahoffman/Desktop") 
+setwd("/Users/avahoffman/Desktop")
 ```
 
 R uses working directory as a starting place when searching for files.
@@ -439,7 +439,7 @@ write_csv(x, file,
 * a file name only (which writes the file to your working directory)
 
 ```{r, eval = FALSE}
-# Examples 
+# Examples
 
 write_csv(dat, file = "YouthTobacco_newNames.csv")
 
@@ -456,11 +456,11 @@ write_delim(dat, file = "YouthTobacco_newNames.csv", delim = ",")
 Saving datasets in `.rds` format can save time if you have to read it back in later.
 
 ```{r}
-# write a variable: a data frame "dat" 
+# write a variable: a data frame "dat"
 write_rds(dat, file = "yts_dataset.rds")
 
 # write a variable: vector "x"
-x <- c(1,3,3)
+x <- c(1, 3, 3)
 write_rds(x, file = "my_vector.rds")
 
 # read a variable from file and assign to a new variable named "y"
