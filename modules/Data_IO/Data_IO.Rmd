@@ -342,13 +342,27 @@ However, while many online resources use the base R tools, the latest version of
   - others 
   
 * For reading Excel files, you can do one of: 
-  - open in Excel, "Save as" a sheet as a .csv file, and open using `read_csv()`
   - use `read_excel()` function from `readxl` package
   - use other packages: `xlsx`, `openxlsx`
 
+
+## Data input: other file types
+
 * `haven` package has functions to read SAS, SPSS, Stata formats
 
-* `sas7bdat` has functions to read SAS formats
+```{r, eval = FALSE}
+library(haven)
+
+# SAS
+read_sas("mtcars.sas7bdat")
+
+# SPSS
+read_sav("mtcars.sav")
+
+# Stata
+read_dta("mtcars.dta")
+```
+
 
 ## Lab Part 1
 
