@@ -6,6 +6,31 @@ output:
 ## Online Videos of Lectures
 ***
 
+### From Winter Institute 2022
+
+```{r, echo = FALSE, message = FALSE, results='asis'}
+mat = matrix(c(
+  "RStudio", "https://youtu.be/zpAQrglIJb0",
+  "Basic R", "https://youtu.be/_8ZG0G1nNlA",
+  "Reproducibility", "https://youtu.be/ChFTiZ7Clo4",
+  "Data IO", "https://youtu.be/bnYN7AfYGNM",
+  "Subsetting Data", "https://youtu.be/kPU3dl25ox8",
+  "Data Summarization", "https://youtu.be/C_a8bGGdrIA",
+  "Data Classes", "https://youtu.be/ZCe30kIJ0Xc",
+  "Data Cleaning", "https://youtu.be/siFL49CCsJg",
+  "Data Manipulation", "https://youtu.be/7M81XUIY5SE",
+  "Intro to Data Visualization", "https://youtu.be/Md46muvSrYE",
+  "Data Visualization", "https://youtu.be/YjDT3ZUSiR4",
+  "Factors", "https://youtu.be/Co4l0YhuYSk",
+  "Statistics", "https://youtu.be/3nSIN1mu8uw",
+  "Functions", "https://youtu.be/XUKJtUYU1Ic"
+  ), ncol = 2, byrow = TRUE)
+mat = data.frame(mat, stringsAsFactors = FALSE)
+colnames(mat) = c("Day", "Link to Video")
+knitr::kable(mat, format = "html") %>% 
+  kable_styling() 
+```
+
 ### From Summer Institute 2021
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}
