@@ -57,9 +57,9 @@ There are two major numeric subclasses
 A sequence of numbers is an example of the integer type. You can use the `seq()` function to create a sequence of integers.
 
 ```{r seq}
-x = c(1, 2, 3, 4, 5)
+x <- c(1, 2, 3, 4, 5)
 x
-x = seq(1:5)
+x <- seq(1:5)
 x
 class(x)
 typeof(x)
@@ -72,7 +72,7 @@ typeof(x)
 `Double` stands for [double-precision](https://en.wikipedia.org/wiki/Double-precision_floating-point_format)
 
 ```{r double}
-y = c(1.1, 2.0, 3.2, 4.5, 5.6)
+y <- c(1.1, 2.0, 3.2, 4.5, 5.6)
 y
 class(y)
 typeof(y)
@@ -84,7 +84,6 @@ A `tibble` will show the difference (as does `glimpse()`)
 
 ```{r}
 tibble(xvar = x, yvar = y)
-
 ```
 
 ## Logical
@@ -92,13 +91,13 @@ tibble(xvar = x, yvar = y)
 `logical` is a type that only has two possible elements: `TRUE` and `FALSE`
 
 ```{r logical1}
-x = c(TRUE, FALSE, TRUE, TRUE, FALSE)
+x <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
 class(x)
 ```
 
 Note that `logical` elements are NOT in quotes. 
 ```{r logical2}
-z = c("TRUE", "FALSE", "TRUE", "FALSE")
+z <- c("TRUE", "FALSE", "TRUE", "FALSE")
 class(z)
 ```
 
@@ -155,7 +154,7 @@ A `factor` is a special `character` vector where the elements have pre-defined g
 x <- c("small", "mediam", "large", "medium", "large")
 class(x)
 
-x_fact = factor(x)  # factor() is a function
+x_fact <- factor(x) # factor() is a function
 class(x_fact)
 x_fact
 ```
@@ -237,7 +236,7 @@ Two-dimensional classes are those we would often use to store data read from a f
 ```{r,}
 head(iris)
 class(iris)
-iris_mat <-head(tibble(select(iris, -Species)))
+iris_mat <- head(tibble(select(iris, -Species)))
 as.matrix(iris_mat)
 matrix(1:4, ncol = 2)
 ```
@@ -250,7 +249,7 @@ matrix(1:4, ncol = 2)
 * Can hold vectors, strings, matrices, models, list of other list!
 
 ```{r makeList}
-mylist <- list(c("A", "b", "c"), c(1,2,3), matrix(1:4, ncol = 2))
+mylist <- list(c("A", "b", "c"), c(1, 2, 3), matrix(1:4, ncol = 2))
 mylist
 class(mylist)
 ```
@@ -260,9 +259,11 @@ class(mylist)
 List elements can be named
 
 ```{r makeListv}
-mylist_named <- list(letters = c("A", "b", "c"), 
-                     numbers = c(1,2,3), 
-                     one_matrix = matrix(1:4, ncol = 2))
+mylist_named <- list(
+  letters = c("A", "b", "c"),
+  numbers = c(1, 2, 3),
+  one_matrix = matrix(1:4, ncol = 2)
+)
 mylist_named
 ```
 
@@ -286,8 +287,8 @@ class("2021-06-15")
 
 library(lubridate)
 
-ymd("2021-06-15")             # lubridate package         
-class(ymd("2021-06-15"))      # lubridate package    
+ymd("2021-06-15") # lubridate package
+class(ymd("2021-06-15")) # lubridate package
 ```
 
 Note for  function `ymd`: **y**year **m**onth **d**ay  
@@ -297,9 +298,9 @@ Note for  function `ymd`: **y**year **m**onth **d**ay
 ## Creating `Date` class object 
 
 ```{r, error = TRUE}
-mdy("06/15/2021")  
+mdy("06/15/2021")
 
-mdy("06/15/21")  
+mdy("06/15/21")
 ```
 
 Note for  function `mdy`: **m**onth **d**ay  **y**year
@@ -317,8 +318,8 @@ Lab document: http://jhudatascience.org//intro_to_r/Data_Classes/lab/Data_Classe
 
 ```{r}
 class("2013-01-24 19:39:07")
-ymd_hms("2013-01-24 19:39:07")             # lubridate package 
-class(ymd_hms("2013-01-24 19:39:07"))      # lubridate package 
+ymd_hms("2013-01-24 19:39:07") # lubridate package
+class(ymd_hms("2013-01-24 19:39:07")) # lubridate package
 ```
 
 UTC represents time zone, by default: Coordinated Universal Time
@@ -332,7 +333,7 @@ There are functions in case your data have only date, hour and minute (`ymd_hm()
 ```{r}
 x <- ymd(c("2021-06-15", "2021-07-15"))
 x
-day(x)   # see also: month(x) , year(x)
+day(x) # see also: month(x) , year(x)
 x + days(10)
 x + months(1) + days(10)
 wday(x, label = TRUE)
@@ -345,7 +346,7 @@ x <- ymd_hms("2013-01-24 19:39:07")
 x
 date(x)
 x + hours(3)
-floor_date(x, "1 hour")  # see also: ceiling_date()
+floor_date(x, "1 hour") # see also: ceiling_date()
 ```
 
 ## Differences in dates 
@@ -365,9 +366,9 @@ Similar can be done with time (e.g. difference in hours).
 ## Matrices
 
 ```{r matrix}
-n = 1:9 
+n <- 1:9
 n
-mat = matrix(n, nrow = 3)
+mat <- matrix(n, nrow = 3)
 mat
 ```
 
@@ -395,10 +396,10 @@ Note you cannot use `dplyr` functions (like `select`) on matrices. To subset mat
 mat
 mat[1, 1] # individual entry: row 1, column 1
 mat[1, 2] # individual entry: row 1, column 2
-mat[1, ]  # first row
-mat[, 1]  # first column
+mat[1, ] # first row
+mat[, 1] # first column
 
-mat[c(1,2), c(2,3)]   # subset of original matrix: two rows and two columns
+mat[c(1, 2), c(2, 3)] # subset of original matrix: two rows and two columns
 ```
 
 
@@ -408,7 +409,7 @@ You can reference data from list using `$` (if elements are named) or using `[[ 
 
 ```{r}
 mylist_named[[1]]
-mylist_named[["letters"]]     # works only for a list with elements' names 
-mylist_named$letters          # works only for a list with elements' names 
+mylist_named[["letters"]] # works only for a list with elements' names
+mylist_named$letters # works only for a list with elements' names
 ```
 

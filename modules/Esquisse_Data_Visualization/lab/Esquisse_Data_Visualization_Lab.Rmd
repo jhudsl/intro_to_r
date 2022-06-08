@@ -7,8 +7,8 @@ output: html_document
 First, make sure you install and load the `esquisse` and `ggplot2` packages using `install.packages` and `library`:
 
 ```{r, eval = FALSE}
-#install.packages("esquisse")
-#install.packages("ggplot2")
+# install.packages("esquisse")
+# install.packages("ggplot2")
 ```
 
 ```{r, comment = FALSE}
@@ -20,7 +20,7 @@ library(ggplot2)
 Now try creating a plot using the `Orange` data that automatically comes with R using the `esquisser` function of the `esquisse` package. Drag and drop the `age` variable to be plotted on the x-axis. Drag and drop the `circumfrance` variable to be plotted on the y-axis. What happens when you drag `tree` to the facet region of the esquisse GUI? What happens if you move this to color? Copy and paste the code from both options into the chunk below:
 
 ```{r}
-#esquisser(Orange) delete this line of code when rendering but keep the code that you copy and paste here from running esquisser to create the two plots.
+# esquisser(Orange) delete this line of code when rendering but keep the code that you copy and paste here from running esquisser to create the two plots.
 ```
 
 Can you think of another way to plot this data?

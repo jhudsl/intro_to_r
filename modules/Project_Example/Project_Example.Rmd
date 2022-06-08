@@ -31,7 +31,7 @@ library(tidyverse)
 I will then import my data by using the `read_csv()` function of the readr package as the data is in csv format. I will name the data Happiness.
 
 ```{r}
-Happiness <-read_csv("world-happiness-report-2021.csv")
+Happiness <- read_csv("world-happiness-report-2021.csv")
 ```
 
 I then take a look at my data using the `head()` function. I use the `dim()` function to see how many rows/columns there are.
@@ -44,7 +44,9 @@ dim(Happiness)
 To determine how many unique countries there are I used the `unqiue()` function and the `length()` function.
 
 ```{r}
-pull(Happiness, "Country name") %>% unique() %>% length()
+pull(Happiness, "Country name") %>%
+  unique() %>%
+  length()
 ```
 
 This shows that there are 149 Countries.
@@ -56,8 +58,8 @@ I decided to rename the first variable called `Country name` so that it would no
 
 ```{r}
 
-Happiness  <- Happiness %>% 
-                rename("Country_name" ="Country name")
+Happiness <- Happiness %>%
+  rename("Country_name" = "Country name")
 colnames(Happiness)
 ```
 
@@ -65,9 +67,9 @@ I can see that this column is renamed, but I then realized that many columns hav
 
 
 ```{r}
-  Happiness  <- Happiness %>% 
-                rename("Happiness_score" ="Ladder score")
-colnames(Happiness) 
+Happiness <- Happiness %>%
+  rename("Happiness_score" = "Ladder score")
+colnames(Happiness)
 ```
 
 I then decided to arrange the data by `Happiness_score` using the `arrange()` function with the largest score shown first, thus I needed to use `desc()`.
@@ -99,7 +101,9 @@ Happiness$rank
 I then looked again at the US using `filter()`. I used the `pull()` function to get the rank for the US.
 
 ```{r}
-Happiness %>% filter(Country_name == "United States") %>% pull(rank)
+Happiness %>%
+  filter(Country_name == "United States") %>%
+  pull(rank)
 ```
 
 The US ranked 19 in 2021 for happiness out of the 149 countries.
@@ -110,24 +114,34 @@ I decided to make a plot of the top 5 countries using `geom_point()` and `ggplot
 First I created a new dataset of just the top 5 ranking countries using the `filter()` function to filter for countries with a `rank` of less than 5.
 
 ```{r}
-top5 <- Happiness %>% filter(rank<5)
+top5 <- Happiness %>% filter(rank < 5)
 
-ggplot(data = top5, 
-       aes(x = Country_name, 
-           y = Happiness_score )) +
-    geom_point()
+ggplot(
+  data = top5,
+  aes(
+    x = Country_name,
+    y = Happiness_score
+  )
+) +
+  geom_point()
 ```
 I felt that this plot could be improved. So first I used I made `Country_name` a factor and then reordered it by the `Happiness_score` variable. 
 
 ```{r}
-top5 <- top5 %>% 
-  mutate(Country_name = as_factor(Country_name),
-         Country_name = fct_reorder(Country_name, Happiness_score))
+top5 <- top5 %>%
+  mutate(
+    Country_name = as_factor(Country_name),
+    Country_name = fct_reorder(Country_name, Happiness_score)
+  )
 
-ggplot(data = top5, 
-       aes(x = Country_name, 
-           y = Happiness_score )) +
-    geom_point()
+ggplot(
+  data = top5,
+  aes(
+    x = Country_name,
+    y = Happiness_score
+  )
+) +
+  geom_point()
 ```
 
 
@@ -139,20 +153,25 @@ I then decided to make a plot of a few countries of interest. Since I again want
 
 
 Happiness <- Happiness %>%
-  mutate(Country_name = as_factor(Country_name),
-         Country_name = fct_reorder(Country_name, Happiness_score))
-
+  mutate(
+    Country_name = as_factor(Country_name),
+    Country_name = fct_reorder(Country_name, Happiness_score)
+  )
 ```
 
 Now I check out these other countries that I was interested in by filtering for them from the  `Happiness` data set and creating another plot.
 
 ```{r}
-int_Country<- Happiness %>% filter(Country_name %in% c("China", "United States", "India", "Mexico"))
+int_Country <- Happiness %>% filter(Country_name %in% c("China", "United States", "India", "Mexico"))
 
-ggplot(data = int_Country, 
-       aes(x = Country_name, 
-           y = Happiness_score ), 
-           group = Country_name) +
+ggplot(
+  data = int_Country,
+  aes(
+    x = Country_name,
+    y = Happiness_score
+  ),
+  group = Country_name
+) +
   geom_point()
 ```
 
@@ -171,14 +190,18 @@ I then used `ggplot()`  and `geom_boxplot()` to create a boxplot of the happines
 
 ```{r}
 
-ggplot(data = Happiness, 
-          aes(x = `Regional indicator` , 
-              y = Happiness_score, 
-              fill =`Regional indicator`)) +
-          geom_boxplot() +
-          theme_linedraw() +
-          theme(legend.position = "none") +
-          coord_flip()
+ggplot(
+  data = Happiness,
+  aes(
+    x = `Regional indicator`,
+    y = Happiness_score,
+    fill = `Regional indicator`
+  )
+) +
+  geom_boxplot() +
+  theme_linedraw() +
+  theme(legend.position = "none") +
+  coord_flip()
 ```
 
 
@@ -189,14 +212,16 @@ I then decided to perform a simple analysis to compare countries in different re
 I first filtered the data to create two new data sets for these regions only and then performed a t test without assuming equal variance between the scores for the countries for each region.
 
 ```{r}
-West_Eur <- Happiness %>% 
+West_Eur <- Happiness %>%
   filter(`Regional indicator` == "Western Europe")
-NAmer <-Happiness %>% 
+NAmer <- Happiness %>%
   filter(`Regional indicator` == "North America and ANZ")
 
-t.test(x = pull(West_Eur, Happiness_score),
-       y = pull(NAmer, Happiness_score), 
-       var.equal = FALSE)
+t.test(
+  x = pull(West_Eur, Happiness_score),
+  y = pull(NAmer, Happiness_score),
+  var.equal = FALSE
+)
 ```
 
 The p-value was greater than 0.05, suggesting that there might not be a difference in happiness scores between Western Europe and North America. 
@@ -208,12 +233,13 @@ Disclaimer - this was intended to demonstrate how one might perform such an anal
 If I wanted to perform this analysis on multiple aspects about my data more simply, I might think about making a function like the following:
 
 ```{r}
-test_reg_diff <- function(aspect){
-
-t.test(x = pull(West_Eur, aspect),
-       y = pull(NAmer,aspect), 
-       var.equal = FALSE)
-  }
+test_reg_diff <- function(aspect) {
+  t.test(
+    x = pull(West_Eur, aspect),
+    y = pull(NAmer, aspect),
+    var.equal = FALSE
+  )
+}
 ```
 
 This allows me to just specify what aspect (or variable) I would like to compare between the two regions. I can apply it by supplying the name of the column to pull from the datasets.

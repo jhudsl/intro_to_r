@@ -43,7 +43,6 @@ library(tidyr)
 # ??? <- ??? %>% pivot_longer(cols = ???,
 #                             names_to = ???,
 #                             values_to = ???)
-
 ```
 
 5. Select only the columns "Entity", "Measure", and "Percent" from "vacc_long". Use `select`. Filter "Entity" so it only includes values in the following list: "Maryland","Virginia","Florida","Massachusetts", "United States". **Hint**: use `filter` and `%in%`.
@@ -55,10 +54,9 @@ library(tidyr)
 6. Use `pivot_wider` to reshape "vacc_long". Use "Entity" for the `names_from` argument. Use "Percent" for the `values_from` argument.
 
 ```{r}
-# ??? <- ??? %>% 
+# ??? <- ??? %>%
 #   pivot_wider(names_from = ???,
 #               values_from = ???)
-
 ```
 
 # Part 2

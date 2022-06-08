@@ -61,9 +61,10 @@ url <- "https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv"
 cars <- read_csv(url)
 # OR
 download.file("https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv",
-              destfile = "cars_data.csv",
-              overwrite = TRUE, 
-              mode = "wb")
+  destfile = "cars_data.csv",
+  overwrite = TRUE,
+  mode = "wb"
+)
 cars <- read_csv("cars_data.csv")
 ```
 
@@ -73,9 +74,10 @@ cars <- read_csv("cars_data.csv")
 key <- read_tsv("https://jhudatascience.org/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt")
 # OR
 download.file("https://jhudatascience.org/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt",
-              destfile = "dict.txt",
-              overwrite = TRUE, 
-              mode = "wb")
+  destfile = "dict.txt",
+  overwrite = TRUE,
+  mode = "wb"
+)
 key <- read_tsv("dict.txt")
 ```
 
@@ -134,7 +136,7 @@ colnames(cars)
 12\. What is the range of the manufacture year ("VehYear") of the vehicles?
 
 ```{r}
-range( cars %>% pull(VehYear) )
+range(cars %>% pull(VehYear))
 # OR
 car_range <- pull(cars, VehYear)
 range(car_range)
@@ -153,12 +155,14 @@ table(cars$VehYear)
 
 ```{r}
 # How many cars were from before 2004?
-nrow(cars %>% filter(VehYear < 2004)) 
+nrow(cars %>% filter(VehYear < 2004))
 # OR
-cars %>% group_by(VehYear < 2004) %>% summarize(total = n())
+cars %>%
+  group_by(VehYear < 2004) %>%
+  summarize(total = n())
 # OR
 sum(cars$VehYear < 2004)
-# OR 
+# OR
 table(cars$VehYear < 2004)
 # what percent/proportion do these represent?
 nrow(cars %>% filter(VehYear < 2004)) / nrow(cars)
@@ -173,7 +177,10 @@ mean(cars$VehYear < 2004)
 **Hint:** use `length()` with `unique()` or `table()`. Remember to `pull()` the right column.
 
 ```{r}
-cars %>% pull(Make) %>% unique() %>% length()
+cars %>%
+  pull(Make) %>%
+  unique() %>%
+  length()
 # OR
 length(unique(cars %>% pull(Make)))
 # OR
@@ -187,7 +194,10 @@ length(table(cars$Make))
 15\. How many different vehicle models ("Model") are there?
 
 ```{r}
-cars %>% pull(Model) %>% unique() %>% length()
+cars %>%
+  pull(Model) %>%
+  unique() %>%
+  length()
 ```
 
 <span style="color:red"> `r length(unique(cars$Model))` unique models. </span>
@@ -197,15 +207,17 @@ cars %>% pull(Model) %>% unique() %>% length()
 **Hint:** Use  `group_by()` with `summarize()`. To determine the column that corresponds to "acquisition cost paid for the vehicle at time of purchase", check the "key" corresponding to the data dictionary that you imported above.
 
 ```{r}
-cars %>% group_by(Color) %>% 
+cars %>%
+  group_by(Color) %>%
   summarize(mean = mean(VehBCost))
 ```
 
 17\. Extend on the code you wrote for question 16. Use the `arrange()` function to sort the output by mean acquisition cost.
 
 ```{r}
-cars %>% group_by(Color) %>% 
-  summarize(mean = mean(VehBCost)) %>% 
+cars %>%
+  group_by(Color) %>%
+  summarize(mean = mean(VehBCost)) %>%
   arrange(desc(mean))
 ```
 
@@ -216,9 +228,13 @@ cars %>% group_by(Color) %>%
 - `sum()`
 
 ```{r}
-cars %>% filter(Color == "RED" & VehOdo < 30000) %>% tally()
+cars %>%
+  filter(Color == "RED" & VehOdo < 30000) %>%
+  tally()
 # OR
-cars %>% filter(Color == "RED" & VehOdo < 30000) %>% count()
+cars %>%
+  filter(Color == "RED" & VehOdo < 30000) %>%
+  count()
 # OR
 sum(cars$Color == "RED" & cars$VehOdo < 30000)
 ```
@@ -232,13 +248,17 @@ sum(cars$Color == "RED" & cars$VehOdo < 30000)
 - `sum()`
 
 ```{r}
-cars %>% filter(Color == "BLUE" | Color == "RED" ) %>% count()
+cars %>%
+  filter(Color == "BLUE" | Color == "RED") %>%
+  count()
 # OR
-cars %>% filter(Color %in% c("BLUE","RED")) %>% count()
+cars %>%
+  filter(Color %in% c("BLUE", "RED")) %>%
+  count()
 # OR
-sum(cars$Color == "BLUE" | cars$Color == "RED" )
+sum(cars$Color == "BLUE" | cars$Color == "RED")
 # OR
-sum(cars$Color %in% c("BLUE","RED"))
+sum(cars$Color %in% c("BLUE", "RED"))
 ```
 
 <span style="color:red"> A total of `r sum(cars$Color %in% c("BLUE","RED"))` cars. </span>
@@ -246,7 +266,9 @@ sum(cars$Color %in% c("BLUE","RED"))
 20\. Select all columns in "cars" where the column names starts with "Veh" (using `select()` and `starts_with()`. Then, use `colMeans()` to summarize across these columns.
 
 ```{r}
-cars %>% select( starts_with("Veh") ) %>% colMeans()
+cars %>%
+  select(starts_with("Veh")) %>%
+  colMeans()
 ```
 
 ### **Bonus Practice**
@@ -260,13 +282,15 @@ cars <- cars %>% mutate(is_automatic = (Transmission == "AUTO"))
 B\. What is the average vehicle odometer reading for cars that are both RED and NISSANs? How does this compare with vehicles that do NOT fit this criteria?
 
 ```{r}
-mean_red_nissan <- cars %>% 
+mean_red_nissan <- cars %>%
   filter(Color == "RED" & Make == "NISSAN") %>%
-  summarize(mean = mean(VehOdo)) %>% pull()
+  summarize(mean = mean(VehOdo)) %>%
+  pull()
 
-mean_not_red_nissan <- cars %>% 
-  filter(Color != "RED" | Make != "NISSAN") %>% 
-  summarize(mean = mean(VehOdo)) %>% pull()
+mean_not_red_nissan <- cars %>%
+  filter(Color != "RED" | Make != "NISSAN") %>%
+  summarize(mean = mean(VehOdo)) %>%
+  pull()
 ```
 
 <span style="color:red"> Red Nissans have an average odometer of `r mean_red_nissan` while cars not fitting this criteria are `r mean_not_red_nissan` </span>
@@ -275,23 +299,32 @@ C\. Among red Nissans, what is the distribution of vehicle ages?
 
 ```{r}
 red_nissan <- cars %>% filter(Color == "RED" & Make == "NISSAN")
-red_nissan %>% group_by(VehicleAge) %>% select(VehicleAge) %>% table()
+red_nissan %>%
+  group_by(VehicleAge) %>%
+  select(VehicleAge) %>%
+  table()
 # OR
 red_nissan <- cars %>% filter(Color == "RED" & Make == "NISSAN")
-red_nissan %>% group_by(VehicleAge) %>%  count()
+red_nissan %>%
+  group_by(VehicleAge) %>%
+  count()
 # OR
 red_nissan <- cars %>% filter(Color == "RED" & Make == "NISSAN")
-red_nissan %>% group_by(VehicleAge) %>% tally()
+red_nissan %>%
+  group_by(VehicleAge) %>%
+  tally()
 ```
 
 D\. How many vehicles (using `filter()` or `sum()` ) are made by Chrysler or Nissan and are white or silver?
 
 ```{r}
-sum((cars$Make == "CHRYSLER" | cars$Make=="NISSAN") & (cars$Color == "WHITE" | cars$Color == "SILVER" ))
+sum((cars$Make == "CHRYSLER" | cars$Make == "NISSAN") & (cars$Color == "WHITE" | cars$Color == "SILVER"))
 # OR
-sum(cars$Make %in% c("CHRYSLER","NISSAN") & cars$Color %in% c("WHITE","SILVER" ))
+sum(cars$Make %in% c("CHRYSLER", "NISSAN") & cars$Color %in% c("WHITE", "SILVER"))
 # OR
-cars %>% filter(Make %in% c("CHRYSLER","NISSAN") & cars$Color %in% c("WHITE","SILVER" )) %>% count()
+cars %>%
+  filter(Make %in% c("CHRYSLER", "NISSAN") & cars$Color %in% c("WHITE", "SILVER")) %>%
+  count()
 ```
 
 <span style="color:red"> A total of `r sum((cars$Make == "CHRYSLER" | cars$Make=="NISSAN") & (cars$Color == "WHITE" | cars$Color == "SILVER" ))` cars. </span>
@@ -299,7 +332,7 @@ cars %>% filter(Make %in% c("CHRYSLER","NISSAN") & cars$Color %in% c("WHITE","SI
 E\. Make a boxplot (`boxplot()`) that looks at vehicle age ("VehicleAge") on the x-axis and odometer reading ("VehOdo") on the y-axis.
 
 ```{r}
-boxplot( cars %>% pull(VehOdo) ~ cars %>% pull(VehicleAge) )
+boxplot(cars %>% pull(VehOdo) ~ cars %>% pull(VehicleAge))
 ```
 
 F\. Knit your document into a report.

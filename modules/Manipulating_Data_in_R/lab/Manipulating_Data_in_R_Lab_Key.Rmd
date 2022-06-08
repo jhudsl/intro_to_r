@@ -46,27 +46,32 @@ vacc <- vacc %>% rename(Entity = `State/Territory/Federal Entity`)
 # ??? <- ??? %>% pivot_longer(cols = ???,
 #                             names_to = ???,
 #                             values_to = ???)
-vacc_long <- vacc %>% pivot_longer( cols = starts_with("Percent"),
-                                    names_to = "Measure",
-                                    values_to = "Percent")
+vacc_long <- vacc %>% pivot_longer(
+  cols = starts_with("Percent"),
+  names_to = "Measure",
+  values_to = "Percent"
+)
 ```
 
 5. Select only the columns "Entity", "Measure", and "Percent" from "vacc_long". Use `select`. Filter "Entity" so it only includes values in the following list: "Maryland","Virginia","Florida","Massachusetts", "United States". **Hint**: use `filter` and `%in%`.
 
 ```{r}
-vacc_long <- vacc_long %>% select(Entity, Measure, Percent) %>% 
-  filter(Entity %in% c("Maryland","Virginia","Florida","Massachusetts", "United States"))
+vacc_long <- vacc_long %>%
+  select(Entity, Measure, Percent) %>%
+  filter(Entity %in% c("Maryland", "Virginia", "Florida", "Massachusetts", "United States"))
 ```
 
 6. Use `pivot_wider` to reshape "vacc_long". Use "Entity" for the `names_from` argument. Use "Percent" for the `values_from` argument.
 
 ```{r}
-# ??? <- ??? %>% 
+# ??? <- ??? %>%
 #   pivot_wider(names_from = ???,
 #               values_from = ???)
-vacc_wide <- vacc_long %>% 
-  pivot_wider(names_from = Entity,
-              values_from = Percent)
+vacc_wide <- vacc_long %>%
+  pivot_wider(
+    names_from = Entity,
+    values_from = Percent
+  )
 ```
 
 # Part 2
@@ -82,9 +87,11 @@ gdp <- read_csv("http://jhudatascience.org/intro_to_r/data/gdp_personal_income.c
 8. Use `pivot_wider` to reshape "gdp". Use "Description" for the `names_from` argument. Use "`2020`" for the `values_from` argument. Reassign this data to "gdp".
 
 ```{r}
-gdp <- gdp %>% 
-  pivot_wider(names_from = Description,
-              values_from = `2020`)
+gdp <- gdp %>%
+  pivot_wider(
+    names_from = Description,
+    values_from = `2020`
+  )
 ```
 
 9. Join the data so that you only retain data in both "vacc" and "gdp". First, try merging without using the `by` argument - what happens? Next, try merging using `by = c("Entity" = "GeoName")`. Call the output "merged". How many observations are there?

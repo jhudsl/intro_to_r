@@ -66,7 +66,7 @@ So `print("I'm code")` is the code chunk and [1] "I'm code" is the output.
 ```{r calcDemo}
 2 + 2
 2 * 4
-2 ^ 3
+2^3
 ```
 
 Note, when you type your command, R inherently thinks you want to print the result. 
@@ -117,7 +117,6 @@ Try evaluating the following:
 ### you can use many #'s as you want
 
 1 + 2 # Can be the right of code
-
 ```
 
 
@@ -184,7 +183,7 @@ Try assigning your first and last name as 2 separate character strings into a si
 Try assigning your first and last name as 2 separate character strings into a length-2 vector called `name2`
 
 ```{r myName2}
-name2 <- c("Ava","Hoffman")
+name2 <- c("Ava", "Hoffman")
 name2
 ```
 
@@ -243,7 +242,7 @@ Save these modified vectors as a new vector.
 
 ```{r assign5}
 y <- x + c(1, 2, 3, 4)
-y 
+y
 ```
 
 Note that the R object `y` is no longer "Hello  World!" - It has effectively been overwritten by assigning new data to the variable

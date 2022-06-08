@@ -17,8 +17,6 @@ knitr::opts_chunk$set(echo = TRUE)
 library(dplyr)
 library(jhur)
 library(broom)
-
-
 ```
 
 2. Compute the correlation between the `2006` and `2007` mortality variables. (No need to save this in an object. Just display the result to the screen.) Use the `pull()` function to first extract these columns. To use a column name in `pull()` that starts with a number, surround it with backticks (\`). Then, use the `cor` function.

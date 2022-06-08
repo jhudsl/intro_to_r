@@ -32,7 +32,7 @@ Because we are using a random vector let's use the `set.seed()` function to make
 
 ```{r}
 set.seed(1234)
-rand_vect <- sample( 1:30, size = 30, replace = TRUE)
+rand_vect <- sample(1:30, size = 30, replace = TRUE)
 ```
 
 3. Create a vector that repeats `c(TRUE, TRUE, FALSE)` 10 times called `TF_vect`. Also create a vector that repeats `c("TRUE", "TRUE", "FALSE")` 10 times called `TF_vect2`.
@@ -98,7 +98,7 @@ glimpse(circ)
 4. Create a list data object called `classes_data` that combines the `vect_data` from the first part of the lab and `circ`. Use `glimpse()` to look at the data.
 
 ```{r}
-classes_data <-list(vect_data, circ)
+classes_data <- list(vect_data, circ)
 glimpse(classes_data)
 ```
 
@@ -114,20 +114,20 @@ The max of range(circ$date) is numerical not based on date.
 Bonus: Use `table()` function on `day` variable to display the count of `orangeBoardings` observations with each day. Which day had the most boardings? Is this true for the other routes (`purpleBoardings`, `greenBoardings`, `bannerBoardings`)?
 
 ```{r}
-circ  %>%
-  group_by(day) %>% 
+circ %>%
+  group_by(day) %>%
   summarize(n = sum(orangeBoardings, na.rm = TRUE))
 
-circ  %>%
-  group_by(day) %>% 
+circ %>%
+  group_by(day) %>%
   summarize(n = sum(purpleBoardings, na.rm = TRUE))
 
-circ  %>%
-  group_by(day) %>% 
+circ %>%
+  group_by(day) %>%
   summarize(n = sum(greenBoardings, na.rm = TRUE))
 
-circ  %>%
-  group_by(day) %>% 
+circ %>%
+  group_by(day) %>%
   summarize(n = sum(bannerBoardings, na.rm = TRUE))
 ```
  

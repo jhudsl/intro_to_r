@@ -66,16 +66,24 @@ Now imagine we work in a clinic and we are trying to understand more about blood
 Let's say we the data like so:
 
 ```{r}
-BloodType <- tibble(gender = 
-                    c("M", "Male", "Female", "F", "M", 
-                      "Male", "Other", "M", "F", "Other", 
-                      "F", "Male", NA, "Male", "Female"), 
-                    type = c("A.-", "AB.+", "O.-", "O.+", "AB.-",
-                               "B.+", "B.-", "o.-", "O.+", "A.-",
-                              "A.+", "O.-", "B.-", "o.+", "AB.-"),
-                    infection = c("Yes", "No", "Yes", "No", "No",
-                                  "No", "Yes", "No", "Yes", "No",
-                                  "No", "Yes", "Yes", "Yes", "NotSure"))
+BloodType <- tibble(
+  gender =
+    c(
+      "M", "Male", "Female", "F", "M",
+      "Male", "Other", "M", "F", "Other",
+      "F", "Male", NA, "Male", "Female"
+    ),
+  type = c(
+    "A.-", "AB.+", "O.-", "O.+", "AB.-",
+    "B.+", "B.-", "o.-", "O.+", "A.-",
+    "A.+", "O.-", "B.-", "o.+", "AB.-"
+  ),
+  infection = c(
+    "Yes", "No", "Yes", "No", "No",
+    "No", "Yes", "No", "Yes", "No",
+    "No", "Yes", "Yes", "Yes", "NotSure"
+  )
+)
 
 BloodType
 ```
@@ -118,9 +126,8 @@ Check to see how many values `gender` has for each category (hint: use `count`).
 6. Make a new tibble of `BloodType` called `Bloodtype_split` that splits the `type` variable into two called `blood_type` and  `Rhfactor`. Note: periods are special characters that generally are interpreted as wild cards thus we need `\\` to tell R that we want it to be interpreted as a period.
 
 ```{r}
-##______________ <- ________ %>% 
-#________(____, ____ = c(__________, __________), sep = "\\.")
-
+## ______________ <- ________ %>%
+# ________(____, ____ = c(__________, __________), sep = "\\.")
 ```
 
 Bonus: How many observations are there for each `Rhfactor`:
