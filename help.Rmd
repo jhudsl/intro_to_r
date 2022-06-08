@@ -1,0 +1,133 @@
+---
+title: "Frequently Code Issues"
+output: html_document
+---
+
+Here are some common code issues that can cause trouble.
+
+## **Forgetting to assign your data to an object**
+
+Often we are just printing our data and not either reassigning an existing object or creating a new object.
+
+Here we are creating a new object from an existing one:
+
+```{r}
+new_tree <- trees
+```
+
+
+If we want to modify `new_tree` and save that modified version, then we need to reassign `new_tree` like so:
+
+```{r}
+new_tree <- new_tree + 1
+```
+
+Using just this will only print the result and not actually change `new_tree`:
+
+```{r}
+new_tree + 1
+```
+
+If we forget to reassign this can cause subsequent steps to not work as expected because we will not be working with the data that has been modified.
+
+***
+
+
+## **Forgetting to assign an object to start with**
+
+If you never created trees2 and try to modify it like so:
+```{r, eval = FALSE}
+trees2 +1
+```
+
+You will get the error:
+`Error: object 'trees2' not found`
+
+***
+
+
+## **Trouble with parentheses**
+
+- You may get a `+`  sign instead of the cursor `>` in the console suggesting that you have not closed an open parnetheses. Each instance of `(` should be followed by `)`. This can also result in different errors like so:
+
+```{r, eval = FALSE}
+library(dplyr)
+all_equal((trees+1, new_tree)
+# should be all_equal((trees+1), new_tree)
+```
+ which will result in this error:
+ `Error: unexpected ',' in "all_equal((trees+1,"`
+ 
+You will also often get this error if your parentheses are in the wrong place.
+
+```{r, eval = FALSE}
+library(dplyr)
+all_equal((trees+1, new_tree))
+# correct number of parentheses but wrong placement
+# should be all_equal((trees+1), new_tree)
+```
+ 
+- If you have too many parentheses like this (the last one is extra)... you will get this error:
+```{r, eval = FALSE}
+all_equal((tress+1), new_tree))
+```
+`Error: unexpected ')' in "all_equal((trees+1), new_tree))"`
+
+***
+
+## **Not using Quotes or backticks when needed**  
+
+You will need to use quotes for variable names that have spaces or unusual punctuation. It is best to avoid these and rename variables if a variable name has spaces.
+
+```{r, echo = FALSE}
+library(tibble)
+df_quotes <- tibble("The Values" = c(1,2,3), "names" = c("A", "B", "C"))
+```
+
+```{r}
+df_quotes
+
+```
+If we want to specifically pull out the column with the variable named `The Values` we need to use quotes or back ticks.
+
+```{r, eval = FALSE}
+df_quotes %>% pull(names) # this works fine! no spaces in `names`
+df_quotes %>% pull(The Values) # this does not work!
+df_quotes %>% pull("The Values") # this works
+df_quotes %>% pull(`The Values`) # this works
+```
+***
+
+## **Copy pasting quotation marks**
+
+If you copy paste code form somewhere with curly quotation marks, it will not work.
+
+```{r, eval = FALSE}
+df_quotes %>% pull("The Values") # this works
+df_quotes %>% pull(“The Values”) # this doesn't work
+```
+
+***
+
+## **Forgetting to load a library or misspelling a function or package**
+
+
+If you get an error like:
+`Error in BLANK : could not find function "BLANK"`
+
+Then you likely forgot to load the package that the function is from or the function is misspelled. 
+
+This will result in an error if we don't also run `library(tidyverse)` (which contains `stringr`) or `library(stringr)`. 
+
+```{r}
+library(tidyverse) # need this!
+df_quotes %>% pull(names) %>% str_detect("A")
+```
+
+This will not work because `str_detect` is missing a `t` at the end:
+
+```{r, eval = FALSE}
+libary(tidyverse) # need this! This can be at the top of your file
+df_quotes %>% pull(names) %>% str_detec("A")
+```
+
