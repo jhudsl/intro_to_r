@@ -121,7 +121,7 @@ jobs:
 
   render-pdf-lectures:
     name: Render pdf lecture slides
-    needs: needs: [yaml-check, style-code, render-main]
+    needs: [yaml-check, style-code, render-main]
     runs-on: ubuntu-latest
     container:
       image: jhudsl/course_template:main
