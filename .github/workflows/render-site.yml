@@ -25,7 +25,7 @@ jobs:
       - name: Load environment from YAML
         uses: doughepi/yaml-env-action@v1.0.0
         with:
-            files: config_automation.yml # Pass a space-separated list of configuration files. Rightmost files take precedence.
+            files: docs/config_automation.yml # Pass a space-separated list of configuration files. Rightmost files take precedence.
     outputs:
       toggle_style_code: "${{ env.STYLE_CODE }}"
       
