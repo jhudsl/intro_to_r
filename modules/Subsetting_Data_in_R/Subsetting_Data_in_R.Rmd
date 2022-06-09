@@ -251,7 +251,7 @@ select(df, mpg)
 
 ## Subset columns of a data frame: dplyr
 
-Note that if you want a single vector (not a `tibble`), use `pull` or `$`:
+Note that if you want a single vector (not a `tibble`), use `pull` (or `$` if you were using base R):
 ```{r}
 pull(df, mpg)
 
@@ -301,7 +301,7 @@ The command in `dplyr` for subsetting rows is `filter`.
 filter(df, mpg > 20)
 ```
 
-Note, no `$` or subsetting is necessary.  R "knows" `mpg` refers to a column of `df`.
+Note, no subsetting is necessary.  R "knows" `mpg` refers to a column of `df`.
 
 
 ## Subset rows of a data frame: dplyr
@@ -341,7 +341,14 @@ filter(df, mpg > 20 | cyl == 4)
 
 ```
 
+## `which()` function 
 
+Instead of removing rows like filter, `which()` simply shows where the values occur if they pass a specific condition. We will see that this can be helpful later when we want to select and filter in more complicated ways.
+
+```{r}
+which(select(df,carb) == 4)
+select(df,carb) == 4
+```
 
 ## Lab Part 3
 
