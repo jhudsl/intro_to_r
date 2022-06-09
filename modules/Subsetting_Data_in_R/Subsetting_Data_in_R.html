@@ -527,7 +527,7 @@ Volvo 142E          21.4</pre>
 
 </article></slide><slide class=""><hgroup><h2>Subset columns of a data frame: dplyr</h2></hgroup><article  id="subset-columns-of-a-data-frame-dplyr-1">
 
-<p>Note that if you want a single vector (not a <code>tibble</code>), use <code>pull</code> or <code>$</code>:</p>
+<p>Note that if you want a single vector (not a <code>tibble</code>), use <code>pull</code> (or <code>$</code> if you were using base R):</p>
 
 <pre class = 'prettyprint lang-r'>pull(df, mpg)</pre>
 
@@ -660,7 +660,7 @@ Porsche 914-2  26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
 Lotus Europa   30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
 Volvo 142E     21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</pre>
 
-<p>Note, no <code>$</code> or subsetting is necessary. R &ldquo;knows&rdquo; <code>mpg</code> refers to a column of <code>df</code>.</p>
+<p>Note, no subsetting is necessary. R &ldquo;knows&rdquo; <code>mpg</code> refers to a column of <code>df</code>.</p>
 
 </article></slide><slide class=""><hgroup><h2>Subset rows of a data frame: dplyr</h2></hgroup><article  id="subset-rows-of-a-data-frame-dplyr-1">
 
@@ -740,6 +740,50 @@ Fiat X1-9      27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
 Porsche 914-2  26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
 Lotus Europa   30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
 Volvo 142E     21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</pre>
+
+</article></slide><slide class=""><hgroup><h2><code>which()</code> function</h2></hgroup><article  id="which-function">
+
+<p>Instead of removing rows like filter, <code>which()</code> simply shows where the values occur if they pass a specific condition. We will see that this can be helpful later when we want to select and filter in more complicated ways.</p>
+
+<pre class = 'prettyprint lang-r'>which(select(df,carb) == 4)</pre>
+
+<pre > [1]  1  2  7 10 11 15 16 17 24 29</pre>
+
+<pre class = 'prettyprint lang-r'>select(df,carb) == 4</pre>
+
+<pre >                     carb
+Mazda RX4            TRUE
+Mazda RX4 Wag        TRUE
+Datsun 710          FALSE
+Hornet 4 Drive      FALSE
+Hornet Sportabout   FALSE
+Valiant             FALSE
+Duster 360           TRUE
+Merc 240D           FALSE
+Merc 230            FALSE
+Merc 280             TRUE
+Merc 280C            TRUE
+Merc 450SE          FALSE
+Merc 450SL          FALSE
+Merc 450SLC         FALSE
+Cadillac Fleetwood   TRUE
+Lincoln Continental  TRUE
+Chrysler Imperial    TRUE
+Fiat 128            FALSE
+Honda Civic         FALSE
+Toyota Corolla      FALSE
+Toyota Corona       FALSE
+Dodge Challenger    FALSE
+AMC Javelin         FALSE
+Camaro Z28           TRUE
+Pontiac Firebird    FALSE
+Fiat X1-9           FALSE
+Porsche 914-2       FALSE
+Lotus Europa        FALSE
+Ford Pantera L       TRUE
+Ferrari Dino        FALSE
+Maserati Bora       FALSE
+Volvo 142E          FALSE</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 3</h2></hgroup><article  id="lab-part-3">
 
