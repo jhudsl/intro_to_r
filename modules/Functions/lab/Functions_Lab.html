@@ -182,7 +182,7 @@ library(ggplot2)</code></pre>
 <li><p>Create a function that takes one argument, a vector, and returns the sum of the vector squared. Call it “sum_squared”. Test your function on the vector <code>c(2,7,21,30,90)</code> - you should get the answer 22500.</p></li>
 <li><p>Create a function that takes two arguments, (1) a vector and (2) a numeric value. This function tests whether the number (2) is contained within the vector (1). Call it “has_n”. Test your function on the vector <code>c(2,7,21,30,90)</code> and number <code>21</code> - you should get the answer TRUE.</p></li>
 <li><p>Amend the function “has_n” from #2 so that it takes a default value of <code>21</code> for the numeric argument.</p></li>
-<li><p>Read in the SARS-CoV-2 Vaccination data from <a href="http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv" class="uri">http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv</a>. Assign the data the name “vacc”.</p></li>
+<li><p>Read in the SARS-CoV-2 Vaccination data from <a href="http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv" class="uri">http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv</a>. Assign the data the name <code>&quot;vacc&quot;</code>.</p></li>
 </ol>
 <pre class="r"><code>vacc &lt;- read_csv(&quot;http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv&quot;)
 # If downloaded
@@ -195,10 +195,10 @@ library(ggplot2)</code></pre>
 <div id="bonus" class="section level2">
 <h2>BONUS</h2>
 <ol start="7" style="list-style-type: decimal">
-<li>Take your code from #7 and assign it to the variable “vacc_dat”.</li>
+<li>Take your code from #7 and assign it to the variable <code>vacc_dat</code>.</li>
 </ol>
 <ul>
-<li>Filter out the “United States” from <code>State/Territory/Federal Entity</code>. Make sure to reassign this to “vacc_dat”</li>
+<li>Filter out the “United States” from <code>State/Territory/Federal Entity</code>. Make sure to reassign this to <code>vacc_dat</code>.</li>
 <li>Create a ggplot boxplot (<code>geom_boxplot()</code>) where (1) the x-axis is <code>Total Doses Delivered</code> and (2) the y-axis is <code>Percent of fully vaccinated people with booster doses</code>.</li>
 <li>You change the <code>labs()</code> layer so that the x-axis is “Total Doses Delivered: Greater than 10,000,000”</li>
 </ul>
