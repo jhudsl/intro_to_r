@@ -32,9 +32,7 @@ Lecture recording links will be emailed directly to students.
 # The filter() step removes all dates but this date to make a smaller table.
 pander::pandoc.table(
   schedule %>%
-    mutate(across(
-      .fns = ~ str_replace_all(., "\\./", "https://jhudatascience.org/intro_to_r/")
-    )) %>%
+    urls_for_module_details() %>% 
     filter(
       row_number() >= which(str_detect(schedule$`**Day**`, "\\[Day 7\\]")) &
         row_number() < which(str_detect(schedule$`**Day**`, "\\[Day 8\\]"))
