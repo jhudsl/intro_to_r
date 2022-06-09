@@ -74,7 +74,7 @@ any(is.na(B)) # are there any NAs- NO/FALSE
 
 
 
-## naniar
+## `naniar`
 Sometimes you need to look at lots of data though... the [`naniar` package](https://cran.r-project.org/web/packages/naniar/vignettes/getting-started-w-naniar.html) is a good option.
 
 The `pct_complete()` function shows the percentage that is complete for a given data object.
@@ -88,7 +88,7 @@ naniar::pct_complete(x)
 
 ## Air quality data
 
-The airquality dataset comes with R about air quality in New York in 1973.
+The `airquality` dataset comes with R about air quality in New York in 1973.
 
 ```{r, message=FALSE}
 ?airquality # use this to find out more about the data
@@ -102,7 +102,7 @@ airqual
 pct_complete(airquality)
 ```
 
-## Naniar plots
+## `naniar` plots
 
 The `gg_miss_var()` function creates a nice plot about the number of missing values for each variable.
 
@@ -111,7 +111,7 @@ naniar::gg_miss_var(airqual)
 ```
 
 
-## Naniar plots
+## `naniar` plots
 
 We can use the `facet` argument to make more plots about a specific variable.
 

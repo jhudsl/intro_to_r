@@ -521,7 +521,7 @@ ggplot(food, aes(x = item_ID,
   geom_jitter(width = .06)
 ```
 
-## Tip - be careful about colors for colorblindess
+## Tip - be careful about colors for color blindness
 
 `scale_fill_viridis_d()` for discrete /categorical data
 `scale_fill_viridis_c()` for continuous data
