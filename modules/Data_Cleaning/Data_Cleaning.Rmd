@@ -223,6 +223,19 @@ df
 drop_na(df)
 ```
 
+## Removing all columns with any missing row values
+
+```{r}
+mort %>% select(!miss_var_which(.))
+
+```
+
+
+## Removing columns with threshold of percent missing row values
+
+```{r}
+mort %>% select(which(colMeans(is.na(mort)) < 0.2))
+```
 
 ## Think about `NA`
 
