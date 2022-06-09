@@ -343,7 +343,7 @@ filter(df, mpg > 20 | cyl == 4)
 
 ## `which()` function 
 
-Instead of removing rows like filter, `which()` simply shows where the values occur if they pass a specific condition. We will see that this can be helpful later in more complicated situations.
+Instead of removing rows like filter, `which()` simply shows where the values occur if they pass a specific condition. We will see that this can be helpful later when we want to select and filter in more complicated ways.
 
 ```{r}
 which(select(df,carb) == 4)
