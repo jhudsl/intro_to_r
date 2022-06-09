@@ -1,11 +1,14 @@
 ---
-title: "Frequently Code Issues"
+title: "Frequent Code Issues"
 output: html_document
 ---
 
 Here are some common code issues that can cause trouble.
 
-## **Forgetting to assign your data to an object**
+<br>
+<br>
+
+## **Why are my changes not taking effect? It's making my results look weird!: Forgetting to assign your data to an object**
 
 Often we are just printing our data and not either reassigning an existing object or creating a new object.
 
@@ -33,9 +36,10 @@ If we forget to reassign this can cause subsequent steps to not work as expected
 ***
 
 
-## **Forgetting to assign an object to start with**
+## **`Error: object 'X' not found`: Forgetting to assign an object to start with**
 
-If you never created trees2 and try to modify it like so:
+This error is usually caused by forgetting to assign an object to start with, or not running the piece of code that assigns an object. If you never created trees2 and try to modify it like so:
+
 ```{r, eval = FALSE}
 trees2 +1
 ```
@@ -43,12 +47,27 @@ trees2 +1
 You will get the error:
 `Error: object 'trees2' not found`
 
+Make sure you run something like this, with the `<-` operator:
+
+```{r, eval = FALSE}
+trees2 <- new_tree + 1
+```
+
 ***
 
 
-## **Trouble with parentheses**
+## **Why do I have a `+`  sign instead of the cursor `>` in the console?: Trouble with parentheses**
 
-- You may get a `+`  sign instead of the cursor `>` in the console suggesting that you have not closed an open parnetheses. Each instance of `(` should be followed by `)`. This can also result in different errors like so:
+You may get a `+`  sign instead of the cursor `>` in the console suggesting that you have not closed an open parentheses. Each instance of `(` should be followed by `)`. 
+
+Hit the "esc" key to restore your `>`, then fix/rerun your code.
+
+***
+
+
+## **`Error: unexpected ',' in ...`, `Error: unexpected ')' in ...`, `Error: unexpected 'X' in ...`: Trouble with parentheses**
+
+This error can be caused by missing parentheses. Such as:
 
 ```{r, eval = FALSE}
 library(dplyr)
@@ -67,7 +86,7 @@ all_equal((trees+1, new_tree))
 # should be all_equal((trees+1), new_tree)
 ```
  
-- If you have too many parentheses like this (the last one is extra)... you will get this error:
+If you have too many parentheses like this (the last one is extra)... you will get this error:
 ```{r, eval = FALSE}
 all_equal((tress+1), new_tree))
 ```
@@ -75,7 +94,7 @@ all_equal((tress+1), new_tree))
 
 ***
 
-## **Not using Quotes or backticks when needed**  
+## **`Error: unexpected symbol in "x"`: Not using quotes or backticks when needed**  
 
 You will need to use quotes for variable names that have spaces or unusual punctuation. It is best to avoid these and rename variables if a variable name has spaces.
 
@@ -98,7 +117,7 @@ df_quotes %>% pull(`The Values`) # this works
 ```
 ***
 
-## **Copy pasting quotation marks**
+## **`Error: unexpected input in "x"`: Copy+pasting quotation marks**
 
 If you copy paste code form somewhere with curly quotation marks, it will not work.
 
@@ -109,7 +128,7 @@ df_quotes %>% pull(“The Values”) # this doesn't work
 
 ***
 
-## **Forgetting to load a library or misspelling a function or package**
+## **`Error in x : could not find function "y"`: Forgetting to load a library or misspelling a function or package**
 
 
 If you get an error like:
@@ -127,7 +146,13 @@ df_quotes %>% pull(names) %>% str_detect("A")
 This will not work because `str_detect` is missing a `t` at the end:
 
 ```{r, eval = FALSE}
-libary(tidyverse) # need this! This can be at the top of your file
+library(tidyverse) # need this! This can be at the top of your file
 df_quotes %>% pull(names) %>% str_detec("A")
 ```
 
+This will not work because `library()` is misspelled:
+
+```{r, eval = FALSE}
+libary(tidyverse)
+df_quotes %>% pull(names) %>% str_detec("A")
+```
