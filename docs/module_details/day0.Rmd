@@ -26,7 +26,7 @@ Upon completion of this session, you will be able to do the following:
 # The filter() step removes all dates but this date to make a smaller table.
 pander::pandoc.table(
   schedule %>%
-    urls_for_module_details() %>% 
+    urls_for_module_details() %>%
     filter(
       row_number() >= which(str_detect(schedule$`**Day**`, "\\[Day 0\\]")) &
         row_number() < which(str_detect(schedule$`**Day**`, "\\[Day 1\\]"))
