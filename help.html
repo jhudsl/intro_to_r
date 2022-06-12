@@ -32,6 +32,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link rel="shortcut icon" href="resources/images/favicon.ico" />
+ <!--- go to https://favicon.io/favicon-converter/ to upload an image to make a new favicon.io. You will need to replace the current favicon.io image with the one in the downloaded directory from the website. The current image is in the resources/images/ directory --->
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -277,6 +279,21 @@ $(document).ready(function () {
 
 <p>Here are some common code issues that can cause trouble.</p>
 <p><br> <br></p>
+<div id="error-in-x-could-not-find-function-y-forgetting-to-load-a-library-or-misspelling-a-function-or-package" class="section level2">
+<h2><strong><code>Error in x : could not find function "y"</code>: Forgetting to load a library or misspelling a function or package</strong></h2>
+<p>If you get an error like: <code>Error in BLANK : could not find function "BLANK"</code></p>
+<p>Then you likely forgot to load the package that the function is from or the function is misspelled.</p>
+<p>This will result in an error if we don’t also run <code>library(tidyverse)</code> (which contains <code>stringr</code>) or <code>library(stringr)</code>.</p>
+<pre class="r"><code>library(tidyverse) # need this!
+iris %&gt;% pull(Species) </code></pre>
+<p>This will not work because <code>str_detect</code> is missing a <code>t</code> at the end:</p>
+<pre class="r"><code>library(tidyverse) # need this! This can be at the top of your file
+iris %&gt;% pull(Species) %&gt;% str_detec(&quot;setosa&quot;)</code></pre>
+<p>This will not work because <code>library()</code> is misspelled:</p>
+<pre class="r"><code>libary(tidyverse)
+iris %&gt;% pull(Species) %&gt;% str_detect(&quot;setosa&quot;)</code></pre>
+<hr />
+</div>
 <div id="why-are-my-changes-not-taking-effect-its-making-my-results-look-weird-forgetting-to-assign-your-data-to-an-object" class="section level2">
 <h2><strong>Why are my changes not taking effect? It’s making my results look weird!: Forgetting to assign your data to an object</strong></h2>
 <p>Often we are just printing our data and not either reassigning an existing object or creating a new object.</p>
@@ -377,28 +394,24 @@ df_quotes %&gt;% pull(`The Values`) # this works</code></pre>
 df_quotes %&gt;% pull(“The Values”) # this doesn&#39;t work</code></pre>
 <hr />
 </div>
-<div id="error-in-x-could-not-find-function-y-forgetting-to-load-a-library-or-misspelling-a-function-or-package" class="section level2">
-<h2><strong><code>Error in x : could not find function "y"</code>: Forgetting to load a library or misspelling a function or package</strong></h2>
-<p>If you get an error like: <code>Error in BLANK : could not find function "BLANK"</code></p>
-<p>Then you likely forgot to load the package that the function is from or the function is misspelled.</p>
-<p>This will result in an error if we don’t also run <code>library(tidyverse)</code> (which contains <code>stringr</code>) or <code>library(stringr)</code>.</p>
-<pre class="r"><code>library(tidyverse) # need this!</code></pre>
-<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
-<pre><code>## ✔ ggplot2 3.3.6     ✔ dplyr   1.0.9
-## ✔ tidyr   1.2.0     ✔ stringr 1.4.0
-## ✔ readr   2.1.2     ✔ forcats 0.5.1
-## ✔ purrr   0.3.4</code></pre>
-<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>df_quotes %&gt;% pull(names) %&gt;% str_detect(&quot;A&quot;)</code></pre>
-<pre><code>## [1]  TRUE FALSE FALSE</code></pre>
-<p>This will not work because <code>str_detect</code> is missing a <code>t</code> at the end:</p>
-<pre class="r"><code>library(tidyverse) # need this! This can be at the top of your file
-df_quotes %&gt;% pull(names) %&gt;% str_detec(&quot;A&quot;)</code></pre>
-<p>This will not work because <code>library()</code> is misspelled:</p>
-<pre class="r"><code>libary(tidyverse)
-df_quotes %&gt;% pull(names) %&gt;% str_detec(&quot;A&quot;)</code></pre>
+<div id="error-invalidate_mappingmappingmust-be-created-byaes-forgetting-to-useto-addggplot2-layers" class="section level2">
+<h2><strong><code>Error in</code>validate_mapping()<code></code>mapping<code>must be created by</code>aes()<code>:: Forgetting to use</code>+<code>to add</code>ggplot2` layers</strong></h2>
+<p>This will not work:</p>
+<pre class="r"><code>ggplot(data = iris, aes(x = Species, y = Petal.Length)) %&gt;%
+  geom_boxplot()</code></pre>
+<p>This will work:</p>
+<pre class="r"><code>ggplot(data = iris, aes(x = Species, y = Petal.Length)) +
+  geom_boxplot()</code></pre>
+<hr />
+</div>
+<div id="error-in.gg-cannot-use.ggwith-a-single-argument.-usingat-the-start-of-a-line-not-the-end-of-the-previous-line-to-addggplot2-layers" class="section level2">
+<h2><strong><code>Error in</code>+.gg<code>! Cannot use</code>+.gg()<code>with a single argument. : Using</code>+<code>at the start of a line  not the end of the previous line to add</code>ggplot2` layers</strong></h2>
+<p>This will not work:</p>
+<pre class="r"><code>ggplot(data = iris, aes(x = Species, y = Petal.Length))
+ +  geom_boxplot()</code></pre>
+<p>This will work:</p>
+<pre class="r"><code>ggplot(data = iris, aes(x = Species, y = Petal.Length)) +
+  geom_boxplot()</code></pre>
 </div>
 
 

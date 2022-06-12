@@ -171,7 +171,7 @@ slide:not(.current) .plotly.html-widget{
           </hgroup>
   </slide>
 
-<slide class=""><hgroup><h2>Data Cleaning</h2></hgroup><article  id="data-cleaning" class="emphasized">
+<slide class=""><hgroup><h2>Data Cleaning</h2></hgroup><article  class="emphasized" id="data-cleaning">
 
 <p>In general, data cleaning is a process of investigating your data for inaccuracies, or recoding it in a way that makes it more manageable.</p>
 
@@ -202,7 +202,7 @@ slide:not(.current) .plotly.html-widget{
 <li><code>Inf</code> and <code>-Inf</code> - <code>is.infinite</code></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Useful checking functions</h2></hgroup><article  id="useful-checking-functions" class="small">
+</article></slide><slide class=""><hgroup><h2>Useful checking functions</h2></hgroup><article  class="small" id="useful-checking-functions">
 
 <ul>
 <li><code>is.na</code> - is <code>TRUE</code> if the data is <code>FALSE</code> otherwise</li>
@@ -371,7 +371,7 @@ x &gt; 2</pre>
 
 <pre >[1]  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE</pre>
 
-</article></slide><slide class=""><hgroup><h2>filter() and missing data</h2></hgroup><article  id="filter-and-missing-data-1" class="codesmall">
+</article></slide><slide class=""><hgroup><h2>filter() and missing data</h2></hgroup><article  class="codesmall" id="filter-and-missing-data-1">
 
 <pre class = 'prettyprint lang-r'>df</pre>
 
@@ -420,7 +420,7 @@ x &gt; 2</pre>
 
 <pre >[1] NA</pre>
 
-</article></slide><slide class=""><hgroup><h2>tidyr::drop_na</h2></hgroup><article  id="tidyrdrop_na" class="codesmall">
+</article></slide><slide class=""><hgroup><h2>tidyr::drop_na</h2></hgroup><article  class="codesmall" id="tidyrdrop_na">
 
 <p>This function will drop rows with <strong>any</strong> missing data in <strong>any</strong> column when used on a df.</p>
 
@@ -536,7 +536,7 @@ miss_var_which(df)</pre>
 
 <p>You might want to keep the NA values so that you know the original sample size.</p>
 
-</article></slide><slide class=""><hgroup><h2>Word of caution</h2></hgroup><article  id="word-of-caution" class="codesmall">
+</article></slide><slide class=""><hgroup><h2>Word of caution</h2></hgroup><article  class="codesmall" id="word-of-caution">
 
 <p>Calculating percentages will give you a different result depending on your choice to include NA values.</p>
 
@@ -559,7 +559,7 @@ miss_var_which(df)</pre>
 2 red           3   0.333
 3 &lt;NA&gt;          3   0.333</pre>
 
-</article></slide><slide class=""><hgroup><h2>Word of caution</h2></hgroup><article  id="word-of-caution-1" class="codesmall">
+</article></slide><slide class=""><hgroup><h2>Word of caution</h2></hgroup><article  class="codesmall" id="word-of-caution-1">
 
 <pre class = 'prettyprint lang-r'>red_blue %&gt;% mutate(percent = 
                       col_count/sum(pull(drop_na(red_blue), col_count)))</pre>
@@ -588,7 +588,7 @@ miss_var_which(df)</pre>
 
 <!-- ``` -->
 
-</article></slide><slide class=""><hgroup><h2>Check values</h2></hgroup><article  id="check-values" class="codesmall">
+</article></slide><slide class=""><hgroup><h2>Check values</h2></hgroup><article  class="codesmall" id="check-values">
 
 <p>Check the values for your variables, are they what you expect?</p>
 
