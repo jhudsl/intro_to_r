@@ -107,34 +107,7 @@ knitr::include_graphics("images/rstudio_sheet.png")
 
 
 
-## More on Functions and Packages
 
-* R revolves around **functions**
-    * Commands that take input, performs computations, and returns results  
-
-* Functions are enclosed in **packages** 
-    * When you download R, it has a "base" set of functions/packages (**base R**)  
-    * You can install additional packages for your uses from [CRAN](https://cran.r-project.org/) or [GitHub](https://github.com/) 
-    * These additional packages are written by RStudio or R users/developers (like us)  
-    * Think of them as "R Extensions"  
-    
-```{r, fig.alt="Picture of R package stickers", out.width = "30%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("../Intro/images/hex.png")
-```
-    
-## Using Packages
-
-* We will focus on newer and **more intuitive** ways to do things (tidyverse), not in base R
-* RStudio (the company) makes a lot of great packages
-* Not all packages available on CRAN or GitHub are trustworthy
-* Who wrote it? **Hadley Wickham** is a major authority on R (Employee and Developer at RStudio)
-* How to [trust](http://simplystatistics.org/2015/11/06/how-i-decide-when-to-trust-an-r-package/) an R package
-
-
-```{r, fig.alt="Picture of Hadley Wickham", out.width = "20%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("https://pbs.twimg.com/profile_images/905186381995147264/7zKAG5sY_400x400.jpg")
-```
-(source: https://twitter.com/hadleywickham)
 
 # Let's take a look at R Studio ourselves!
 
