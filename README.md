@@ -1,6 +1,6 @@
 # Introduction to R for Public Health Researchers
 
-This 2-week intensive course introduces R to public health scientists with little to no R experience. The course website is located here: https://jhudatascience.org/intro_to_R/.
+This 2-week intensive course introduces R to public health scientists with little to no R experience. The course website is located here: https://jhudatascience.org/intro_to_r/.
 
 ## Contributing to this Course
 
