@@ -359,6 +359,32 @@ Data objects that looks like this is often called a **data frame**.
 
 Fancier versions from the tidyverse are called **tibbles** (more on that soon!).
 
+
+## More on Functions and Packages
+
+* When you download R, it has a "base" set of functions/packages (**base R**)  
+    * You can install additional packages for your uses from [CRAN](https://cran.r-project.org/) or [GitHub](https://github.com/) 
+    * These additional packages are written by RStudio or R users/developers (like us)  
+    
+    
+```{r, fig.alt="Picture of R package stickers", out.width = "30%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("../Intro/images/hex.png")
+```
+
+
+## Using Packages
+
+* Not all packages available on CRAN or GitHub are trustworthy
+* RStudio (the company) makes a lot of great packages
+* Who wrote it? **Hadley Wickham** is a major authority on R (Employee and Developer at RStudio)
+* How to [trust](http://simplystatistics.org/2015/11/06/how-i-decide-when-to-trust-an-r-package/) an R package
+
+
+```{r, fig.alt="Picture of Hadley Wickham", out.width = "20%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://pbs.twimg.com/profile_images/905186381995147264/7zKAG5sY_400x400.jpg")
+```
+(source: https://twitter.com/hadleywickham)
+
 ## Tidyverse and Base R
 
 We will mostly show you how to use tidyverse packages and functions. 
@@ -377,6 +403,7 @@ knitr::include_graphics("https://tidyverse.tidyverse.org/logo.png")
 ```
 
 See this [article](https://tidyverse.tidyverse.org/articles/paper.html) for more info.
+
 
 ## Collection of R packages
 

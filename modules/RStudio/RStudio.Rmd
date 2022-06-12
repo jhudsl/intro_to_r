@@ -38,7 +38,7 @@ Easier working with R
 More information
 
 * Workspace browser and data viewer
-* Plot history, zooming, and flexible image and PDF export
+* Plot history, zooming, and flexible image and file export
 * Integrated R help and documentation
 * Searchable command history
 
@@ -62,12 +62,12 @@ knitr::include_graphics("images/both.png")
 
 1) The **Source/Editor**: "Analysis" Script + Interactive Exploration
     * Static copy of what you did (reproducibility)
-    * Try things out interactively, then add to your script
+    * Top by default
     
 2) The **R Console**: "interprets" whatever you type
     * Calculator
-    * Creating variables
-    * Applying functions
+    * Try things out interactively, then add to your editor
+    * Bottom by default
 
 
 
@@ -124,12 +124,11 @@ knitr::include_graphics("../Intro/images/hex.png")
     
 ## Using Packages
 
-* It helps to be somewhat familiar with base R - answers on Google commonly use it
 * We will focus on newer and **more intuitive** ways to do things (tidyverse), not in base R
 * RStudio (the company) makes a lot of great packages
 * Not all packages available on CRAN or GitHub are trustworthy
 * Who wrote it? **Hadley Wickham** is a major authority on R (Employee and Developer at RStudio)
-* How to trust an R package: http://simplystatistics.org/2015/11/06/how-i-decide-when-to-trust-an-r-package/
+* How to [trust](http://simplystatistics.org/2015/11/06/how-i-decide-when-to-trust-an-r-package/) an R package
 
 
 ```{r, fig.alt="Picture of Hadley Wickham", out.width = "20%", echo = FALSE, fig.align='center'}
