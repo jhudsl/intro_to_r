@@ -3,7 +3,93 @@ output:
   html_document
 ---
 
-## Online Videos of Lectures
+```{r, include = FALSE}
+library(dplyr)
+library(kableExtra)
+```
+
+## Additional Resources
+***
+
+**Need to review?**
+
+- [Day 1 - RStudio & Reproducibility Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-1.pdf)
+- [Day 2 - Basic R & Data Input/Output Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-2.pdf)
+- [Day 3 - Data Subsetting  Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-3.pdf)
+- [Day 4 - Data Summarization & Data Classes Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-4.pdf)
+- [Day 5 - Data Cleaning Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-5.pdf)
+- [Day 6 - Data Manipulation & Data Visualization `esquisse` Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-6.pdf)
+- [Day 7 - Data Visualization `ggplot2` & Factors Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-7.pdf)
+- [Day 8 - Statistics Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-8.pdf)
+- [Day 9 - Functions Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-9.pdf)
+
+
+**Need help?** 
+
+- [Various RStudio "Cheatsheets"](https://www.rstudio.com/resources/cheatsheets/)   
+
+- [R reference card](http://cran.r-project.org/doc/contrib/Short-refcard.pdf) 
+
+- [R jargon](https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf)  
+
+- [R terminology](https://cran.r-project.org/doc/manuals/r-release/R-lang.pdf)
+
+- [What is the Tidyverse?](https://www.tidyverse.org/packages/)
+
+-  Animations of join functions:
+    [`full-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/full-join.gif)
+    [`inner_join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/inner-join.gif)
+    [`left-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/left-join.gif)
+    [`right-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/right-join.gif)
+
+- PC users who want to see how to move files around (especially from downloads), check out this video:   https://youtu.be/we6vwB7DsNU
+
+- Mac users who want to see how to move files around (especially from downloads), check out this video:   https://www.youtube.com/watch?v=Ao9e0cDzMrE
+
+**Want more?**  
+
+- [Tidyverse Skills for Data Science Book](https://jhudatascience.org/tidyversecourse/)  
+(more about the tidyverse, some modeling, and machine learning)
+
+- [Tidyverse Skills for Data Science Course](https://www.coursera.org/specializations/tidyverse-data-science-r)  
+(same content with quizzes, can get certificate with $)
+
+- [R for Data Science](http://r4ds.had.co.nz/)  
+(great general information)
+
+- [R basics chapter of Introduction to Data Science by Rafael A. Irizarry](https://rafalab.github.io/dsbook/r-basics.html)
+(great general information)
+ 
+- [Open Case Studies](https://www.opencasestudies.org/)  
+(resource for specific public health cases with statistical implementation and interpretation)
+
+- [Dataquest](https://www.dataquest.io/)  
+(general interactive resource)
+
+- [Quick R Guide]( http://statmethods.net/)  
+(nice free general resource)
+
+- [Building up a `ggplot2` figure](https://hopstat.wordpress.com/2016/02/18/how-i-build-up-a-ggplot2-figure/)  
+(guide to making plots)
+
+**Interested in Reproducibility?**
+
+Check out Candace's courses:
+
+- [Introduction](https://jhudatascience.org/Reproducibility_in_Cancer_Informatics/)
+
+- [Advanced](https://jhudatascience.org/Adv_Reproducibility_in_Cancer_Informatics/)
+
+**R for Stata, SPSS, and SAS files**
+
+- The [Haven](https://haven.tidyverse.org/) package  
+ (This package is super useful for reading and writing files so that they are compatible across Stata, SPSS, SAS, and R) 
+- [R vs Stata](https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf)  
+(See page 505)
+
+<br>
+
+## Videos of Previous Online Lectures
 ***
 
 ### From Winter Institute 2022
@@ -73,7 +159,7 @@ knitr::kable(mat, format = "html") %>%
   kable_styling()
 ```
 
-### From Summer Institute 1 2017
+### From Summer Institute 2017
 
 ```{r videos, echo = FALSE, message = FALSE, results='asis'}
 mat <- matrix(c(
@@ -91,65 +177,3 @@ knitr::kable(mat, format = "html") %>%
 
 <br>
 
-## Additional Resources
-***
-
-**Need help?** 
-
-- [Various "Cheat Sheets"](https://www.rstudio.com/resources/cheatsheets/)   
-
-- [R reference card](http://cran.r-project.org/doc/contrib/Short-refcard.pdf) 
-
-- [R jargon](https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf)  
-
-- [R terminology](https://cran.r-project.org/doc/manuals/r-release/R-lang.pdf)
-
-- [What is the Tidyverse?](https://www.tidyverse.org/packages/)
-
--  Animations of join functions:
-    [`full-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/full-join.gif)
-    [`inner_join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/inner-join.gif)
-    [`left-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/left-join.gif)
-    [`right-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/right-join.gif)
-
-- PC users who want to see how to move files around (especially from downloads), check out this video:   https://youtu.be/we6vwB7DsNU
-
-- Mac users who want to see how to move files around (especially from downloads), check out this video:   https://www.youtube.com/watch?v=Ao9e0cDzMrE
-
-**Want more?**  
-
-- [Tidyverse Skills for Data Science Book](https://jhudatascience.org/tidyversecourse/)  
-(more about the tidyverse, some modeling, and machine learning)
-
-- [Tidyverse Skills for Data Science Course](https://www.coursera.org/specializations/tidyverse-data-science-r)  
-(same content with quizzes, can get certificate with $)
-
-- [R for Data Science](http://r4ds.had.co.nz/)  
-(great general information)
- 
-- [Open Case Studies](https://www.opencasestudies.org/)  
-(resource for specific public health cases with statistical implementation and interpretation)
-
-- [Dataquest](https://www.dataquest.io/)  
-(general interactive resource)
-
-- [Quick R Guide]( http://statmethods.net/)  
-(nice free general resource)
-
-- [Building up a `ggplot2` figure](https://hopstat.wordpress.com/2016/02/18/how-i-build-up-a-ggplot2-figure/)  
-(guide to making plots)
-
-**Interested in Reproducibility?**
-
-Check out Candace's courses:
-
-- [Introduction](https://jhudatascience.org/Reproducibility_in_Cancer_Informatics/)
-
-- [Advanced](https://jhudatascience.org/Adv_Reproducibility_in_Cancer_Informatics/)
-
-**R for Stata, SPSS, and SAS files**
-
-- The [Haven](https://haven.tidyverse.org/) package  
- (This package is super useful for reading and writing files so that they are compatible across Stata, SPSS, SAS, and R) 
-- [R vs Stata](https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf)  
-(See page 505)
