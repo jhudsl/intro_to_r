@@ -146,6 +146,7 @@ df_quotes %>% pull(The Values) # this does not work!
 df_quotes %>% pull("The Values") # this works
 df_quotes %>% pull(`The Values`) # this works
 ```
+
 ***
 
 ## **`Error: unexpected input in "x"`: Copy+pasting quotation marks**
@@ -160,7 +161,7 @@ df_quotes %>% pull(“The Values”) # this doesn't work
 ***
 
 
-## **`Error in `validate_mapping()` `mapping` must be created by `aes()`:: Forgetting to use `+` to add `ggplot2` layers**
+## **`Error in `validate_mapping()`: Forgetting to use `+` to add `ggplot2` layers**
 
 This will not work:
 ```{r, eval=FALSE}
@@ -176,7 +177,7 @@ ggplot(data = iris, aes(x = Species, y = Petal.Length)) +
 
 ***
 
-## **`Error in `+.gg`! Cannot use `+.gg()` with a single argument. : Using `+` at the start of a line  not the end of the previous line to add `ggplot2` layers**
+## **`Error in `+.gg`!: Using `+` at the start of a line, not the end of the previous line to add `ggplot2` layers**
 
 This will not work:
 

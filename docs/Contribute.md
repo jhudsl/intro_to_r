@@ -18,8 +18,11 @@ To render labs and lectures to just have code to create a .R file use:
 We will work on the old `makefiles` and perhaps use GitHub actions to make this more automated.
 
 ## Emojis
+There are two ways to use emojis.
 
-If you want to add emojis to your lectures use [this package](https://github.com/hadley/emo). 
+One way is to copy paste from [here](https://gist.github.com/rxaviers/7360908).
+
+Or you can use [this package](https://github.com/hadley/emo). 
 
 This is currently installed like:
 ```{r}

@@ -39,8 +39,10 @@ Email: cwrigh60@jhu.edu
 Website: https://carriewright11.github.io
 
 ```{r, fig.alt="Carrie's picture", out.width = "30%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("https://ca.slack-edge.com/T023TPZA8LF-U024F9G49S8-9861ddd543db-192")
+# knitr::include_graphics("https://ca.slack-edge.com/T023TPZA8LF-U024F9G49S8-9861ddd543db-192")
+knitr::include_graphics(here::here("modules", "Intro", "images", "carrie.png"))
 ```
+
 
 
 ## About Us
@@ -114,7 +116,7 @@ knitr::include_graphics(here::here("modules", "Intro", "images", "Frances.jpg"))
 
 ## What is R?
 
-- R is a language and environment for statistical computing and graphics
+- R is a language and environment for statistical computing and graphics developed in 1991
 
 - R is the open source implementation of the [S language](https://en.wikipedia.org/wiki/S_(programming_language)), which was developed by [Bell laboratories](https://ca.slack-edge.com/T023TPZA8LF-U024EN26Q0L-113294823b2c-512) in the 70s.
 
@@ -129,9 +131,8 @@ knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/thumb/9/
 
 ## What is R?
 
-- In 1991 **R**oss Ihaka and **R**obert Gentleman at the University of Auckland, New Zealand began developing R
+- **R**oss Ihaka and **R**obert Gentleman at the University of Auckland, New Zealand developed R
 
-- R is named partly after the first names of the first two authors and  a play on the name of S.
 
 - R is both [open source](https://en.wikipedia.org/wiki/Open_source) and [open development](https://en.wikipedia.org/wiki/Open-source_software_development)
 
@@ -144,17 +145,17 @@ knitr::include_graphics("https://www.r-project.org/Rlogo.png")
 
 ## Why R?
 
+* Free (open source)
+
 * High level language designed for statistical computing
 
 * Powerful and flexible - especially for data wrangling and visualization
-
-* Free (open source)
 
 * Extensive add-on software (packages)
 
 * Strong community 
 
-```{r, fig.alt="R-Ladies - a non-profit civil society community", out.width = "25%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="R-Ladies - a non-profit civil society community", out.width = "20%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("https://rladies-baltimore.github.io/img/R-LadiesGlobal_RBG_online_LogoOnly.png")
 ```
 <sub>[source: https://rladies-baltimore.github.io/]</sub>
@@ -166,7 +167,7 @@ knitr::include_graphics("https://rladies-baltimore.github.io/img/R-LadiesGlobal_
 
 * Annoying to update
 
-* Slower, and more memory intensive, than the more traditional programming languages (C, Java, Perl, Python)
+* Slower, and more memory intensive, than the more traditional programming languages (C, Perl, Python)
 
 ```{r, fig.alt="tortoise and hare", out.width = "40%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/tortoise_hare.jpg")
@@ -191,7 +192,9 @@ knitr::include_graphics("images/hope.jpg")
 
 http://jhudatascience.org/intro_to_r
 
-Materials will be uploaded the night before class
+Materials will be uploaded the night before class.
+We are constantly trying to improve content!
+Please refresh/download materials before class.
 
 ```{r, fig.alt="Intro to R course logo", out.width = "60%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("../../docs/images/Intro_to_R.png")
@@ -212,8 +215,9 @@ knitr::include_graphics("../../docs/images/Intro_to_R.png")
  * Lecture with slides (possibly "Interactive")
  * Lab/Practical experience
  * Two 10 min breaks each day - timing may vary
- * Jan 10-21, 2022, 8:30AM-11:50AM on Zoom
- * No class on Jan 17th for Martin Luther King Jr. Day
+ * June 13-24, 2022, 8:30AM-11:50AM on Zoom
+ * No class on June 20th for [Juneteenth](https://en.wikipedia.org/wiki/Juneteenth)
+ * Last two classes will focus on final project
  
 ## CoursePlus
  
@@ -224,7 +228,7 @@ https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/18000/
 
 End of class Survey - link in email.
 
-```{r, fig.alt="Surveys count", out.width = "50%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="Surveys count", out.width = "40%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/feedback-illustration.jpeg")
 ```
 
@@ -236,7 +240,7 @@ knitr::include_graphics("images/feedback-illustration.jpeg")
  2. Homework: 3 x 15%
  3. Final "Project": 35%
  
-Homework and Final Project due by **Wednesday, Jan 26, 2022 at 11:59pm EST**.
+Homework and Final Project due by **Friday, July 1, 2022 at 11:59pm EST**.
 
 If you turn homework in earlier this can allow us to potentially give you feedback earlier.
  
@@ -262,7 +266,7 @@ If you can, we suggest working virtually with a **large monitor or two screens**
 
 * [Install RStudio](https://www.rstudio.com/products/rstudio/download/)
 
-RStudio is an integrated development environment (IDE) that makes it easier to work with R.
+RStudio is an **integrated development environment** (IDE) that makes it easier to work with R.
 
 More on that soon!
 
@@ -270,7 +274,7 @@ More on that soon!
 
 This course will involve moving files around on your computer and downloading files.
 
-If you are new to this - check out these videos
+If you are new to this - check out these videos.
 
 If you have a PC: https://youtu.be/we6vwB7DsNU
 
@@ -311,7 +315,7 @@ sum(1, 20234)
 sum(1, 20234)
 ```
 
-- can be options about how you want the function to work
+- can be options about how you want the function to work such as `digits`
 
 ```{r}
 round(0.627, digits = 2)
@@ -420,6 +424,14 @@ Note it may take ~5-10 minutes to run.
 
 ## Useful (+ mostly Free) Resources
 
+Found on our website under the `Resources` tab:
+https://jhudatascience.org/intro_to_r/resources.html
+
+-  videos from previous offerings of the class
+-  cheatsheets from the class 
+
+## Useful (+ mostly Free) Resources
+
 **Want more?**  
 
 - Tidyverse Skills for Data Science Book: https://jhudatascience.org/tidyversecourse/ 
@@ -464,4 +476,15 @@ Check out Candace's courses:
 
 - Advanced: https://jhudatascience.org/Adv_Reproducibility_in_Cancer_Informatics/
 
+## Summary
 
+- R is a powerful data visualization and analysis software language
+- We will focus on **packages** (code shared among people) of the `tidyverse`, which helps make R more intuitive.
+- We will also talk a bit about **base R** because some resources online and R users will use this.
+- **Functions** perform specific tasks in R and are found within packages.
+- **Arguments** within functions specify how a function is to be performed.
+- Materials will be updated frequently as we improve it.
+- Class **surveys** are available on CoursePlus so you can provide feedback!
+- Lots of **resources** can be found on the website.
+
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
