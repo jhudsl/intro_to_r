@@ -60,7 +60,7 @@ if (window.hljs) {
 
 
 
-<link rel="stylesheet" href="docs/styles.css" type="text/css" />
+<link rel="stylesheet" href="docs/web_styles.css" type="text/css" />
 
 
 
@@ -394,8 +394,8 @@ df_quotes %&gt;% pull(`The Values`) # this works</code></pre>
 df_quotes %&gt;% pull(“The Values”) # this doesn&#39;t work</code></pre>
 <hr />
 </div>
-<div id="error-invalidate_mappingmappingmust-be-created-byaes-forgetting-to-useto-addggplot2-layers" class="section level2">
-<h2><strong><code>Error in</code>validate_mapping()<code></code>mapping<code>must be created by</code>aes()<code>:: Forgetting to use</code>+<code>to add</code>ggplot2` layers</strong></h2>
+<div id="error-invalidate_mapping-forgetting-to-useto-addggplot2-layers" class="section level2">
+<h2><strong><code>Error in</code>validate_mapping()<code>: Forgetting to use</code>+<code>to add</code>ggplot2` layers</strong></h2>
 <p>This will not work:</p>
 <pre class="r"><code>ggplot(data = iris, aes(x = Species, y = Petal.Length)) %&gt;%
   geom_boxplot()</code></pre>
@@ -404,8 +404,8 @@ df_quotes %&gt;% pull(“The Values”) # this doesn&#39;t work</code></pre>
   geom_boxplot()</code></pre>
 <hr />
 </div>
-<div id="error-in.gg-cannot-use.ggwith-a-single-argument.-usingat-the-start-of-a-line-not-the-end-of-the-previous-line-to-addggplot2-layers" class="section level2">
-<h2><strong><code>Error in</code>+.gg<code>! Cannot use</code>+.gg()<code>with a single argument. : Using</code>+<code>at the start of a line  not the end of the previous line to add</code>ggplot2` layers</strong></h2>
+<div id="error-in.gg-usingat-the-start-of-a-line-not-the-end-of-the-previous-line-to-addggplot2-layers" class="section level2">
+<h2><strong><code>Error in</code>+.gg<code>!: Using</code>+<code>at the start of a line, not the end of the previous line to add</code>ggplot2` layers</strong></h2>
 <p>This will not work:</p>
 <pre class="r"><code>ggplot(data = iris, aes(x = Species, y = Petal.Length))
  +  geom_boxplot()</code></pre>
