@@ -198,8 +198,8 @@ head(tibble(df), 2)
 If you run into losing a variable contained in your row names, you can also use `rownames_to_column` to add it before turning it into a `tibble` to keep them:
 
 ```{r, size = "tiny"}
-head(rownames_to_column(df, var = "car"),  2)
-head(tibble(rownames_to_column(df, var = "car")),  2)
+head(rownames_to_column(df, "car"),  2)
+head(tibble(rownames_to_column(df, "car")),  2)
 ```
 
 
@@ -263,7 +263,7 @@ df$carb
 
 To grab the `carb` column the `tidyverse` way we can use the `pull` function:
 ```{r}
-pull(df, var = carb)
+pull(df, carb)
 ```
 
 
@@ -278,11 +278,11 @@ select(df, mpg)
 
 Note that if you want the values (not a `tibble`), use `pull` (or `$` if you were using base R):
 ```{r}
-pull(df, var = mpg)
+pull(df, mpg)
 
 # pull with select works too!
 
-pull(select(df, var = mpg))
+pull(select(df, mpg))
 ```
 
 ## Select columns of a data frame: dplyr
