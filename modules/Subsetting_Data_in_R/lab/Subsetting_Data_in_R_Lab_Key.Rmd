@@ -89,7 +89,7 @@ carsSub
 Bonus: Convert the column names of `carsSub` to all lower case. Take a look at the data.
 
 ```{r}
-carsSub <- rename_with(.tbl = carsSub, .funs = tolower)
+carsSub <- rename_with(carsSub, tolower)
 carsSub
 ```
 
