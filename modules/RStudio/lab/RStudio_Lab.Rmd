@@ -60,7 +60,7 @@ ggplot(aes(x = date, y = number, colour = line), data = avg) +
 Here is another code chunk for our exercises. 
 
 ```{r}
-x <- c(1,2,3)
+x <- c(1, 2, 3)
 ```
 
 1.  Go through and change the colors in `palette` to something other than what they originally were.    See http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf for a large list of colors. For example, you could replace blue with red.
