@@ -42,7 +42,7 @@ ncol(mtcars)
 
 ```{r}
 cars_mt_copy <- mtcars
-cars_mt_copy <- rename(.data = cars_mt_copy, MPG = mpg)
+cars_mt_copy <- rename(cars_mt_copy, MPG = mpg)
 head(cars_mt_copy)
 ```
 
@@ -66,7 +66,7 @@ tail(cars_mt_copy, 3)
 1. Using `cars_mt_copy` create a column called `CAR` using the `rownames_to_column` function. Next, create a tibble from the data called `cars_mt_copy`.  Take a look at your data to check it. How many dimensions does it have?
 
 ```{r}
-cars_mt_copy <- rownames_to_column(.data = cars_mt_copy, var = "CAR")
+cars_mt_copy <- rownames_to_column(cars_mt_copy, var = "CAR")
 head(cars_mt_copy)
 cars_mt_copy <- tibble(cars_mt_copy)
 cars_mt_copy
@@ -75,14 +75,14 @@ cars_mt_copy
 2. Subset both the column `CAR` that you just created and the columns from `cars_mt_copy` that end in `"P"` and call it `pvars`. Hint: use `ends_with()`. Again take a look at the data.
 
 ```{r}
-pvars <- select(.data = cars_mt_copy, CAR, ends_with("P"))
+pvars <- select(cars_mt_copy, CAR, ends_with("P"))
 pvars
 ```
 
 3. Create a subset of the `cars_mt_copy` that only contains the columns: `CAR`, `WT`, `QSEC`, and `HP` and assign this object to `carsSub` - what are the dimensions of this dataset? Use `select()`:
 
 ```{r}
-carsSub <- select(.data = cars_mt_copy, CAR, WT, QSEC, HP)
+carsSub <- select(cars_mt_copy, CAR, WT, QSEC, HP)
 carsSub
 ```
 

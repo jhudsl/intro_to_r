@@ -127,7 +127,7 @@ data.frame(df)
 
 Need to assign the output of the function to keep the result!
 ```{R}
-df_updated <-data.frame(df)
+df_updated <- data.frame(df)
 # this would overwrite the existing df object
 df<-data.frame(df) 
 ```
@@ -213,7 +213,7 @@ For example, let's rename mpg to MPG. Notice the new name is listed **first**!
 
 ```{r, eval = FALSE}
 # general format! not code!
-{data you are creating or changing} <- rename({data you are using}, 
+{data you are creating or changing} <- rename( {data you are using}, 
                                         {New Name} = {Old name})
 ```
 
@@ -227,12 +227,12 @@ head(df)
 To rename all columns you use the `rename_with()`. In this case we will use `toupper()` to make all letters upper case. Could also use `tolower()` function.
 
 ```{r}
-df_upper <- dplyr::rename_with(.data = df, .fn = toupper)
+df_upper <- dplyr::rename_with(df, .fn = toupper)
 head(df_upper, 3)
 ```
 
 ```{r}
-df <- dplyr::rename_with(.data = df, .fn = tolower)
+df <- dplyr::rename_with(df, .fn = tolower)
 head(df, 3)
 ```
 
@@ -263,7 +263,7 @@ df$carb
 
 To grab the `carb` column the `tidyverse` way we can use the `pull` function:
 ```{r}
-pull(df, carb)
+pull(df, var = carb)
 ```
 
 
@@ -278,11 +278,11 @@ select(df, mpg)
 
 Note that if you want the values (not a `tibble`), use `pull` (or `$` if you were using base R):
 ```{r}
-pull(df, mpg)
+pull(df, var = mpg)
 
 # pull with select works too!
 
-pull(select(df,mpg))
+pull(select(df, var = mpg))
 ```
 
 ## Select columns of a data frame: dplyr
@@ -512,7 +512,7 @@ For example, let say we just wanted `wt` to be first.
 
 head(df)
 
-df_carb <- relocate(.data = df, wt,
+df_carb <- relocate(df, wt,
                        .before = mpg)
 
 df_carb
