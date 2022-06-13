@@ -13,6 +13,8 @@ opts_chunk$set(comment = "")
 library(readr)
 suppressPackageStartupMessages(library(dplyr))
 library(tidyverse)
+library(devtools)
+install_github("jhudsl/ottrpal")
 library(ottrpal)
 ```
 
