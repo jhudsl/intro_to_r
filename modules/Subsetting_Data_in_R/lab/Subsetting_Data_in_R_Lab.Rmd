@@ -20,13 +20,14 @@ library(jhur)
 
 # Part 1
 
-1. Check to see if you have the `mtcars` dataset. 
+1. Check to see if you have the `mtcars` dataset by running this chunk.
 ```{r}
 mtcars
 ```
 
 
 2. What class is `mtcars`?
+
 ```{r}
 
 ```
@@ -37,7 +38,7 @@ mtcars
 
 ```
 
-4. Copy mtcars into an object called `cars_mt_copy`. Next, rename `mpg` in `cars_mt_copy` to `MPG` (hint - use `rename()`).
+4. Copy mtcars into an object called `cars_mt_copy` using the code supplied on line 44. Next, rename `mpg` in `cars_mt_copy` to `MPG` (hint - use `rename()`).
 
 ```{r}
 cars_mt_copy <- mtcars
@@ -58,7 +59,7 @@ Bonus: How can you print the first 3 rows and the last 3 rows of `cars_mt_copy`?
 
 # Part 2
 
-1. Using `cars_mt_copy`  create a column called `CAR` using the `rownames_to_column` function. Then create a tibble from the data called `cars_mt_copy`.  Take a look at your data to check it. How many dimensions does it have?
+1. Using `cars_mt_copy` create a column called `CAR` using the `rownames_to_column` function. Then create a tibble from the data called `cars_mt_copy`.  Take a look at your data to check it. How many dimensions does it have?
 
 ```{r}
 
@@ -90,7 +91,7 @@ Bonus: Pull the variable `car` from `carsSub`. How does this differ form selecti
 
 ```
 
-Bonus: select the variables that contain the letter a from `cars_mt_copy`
+Bonus: Select the variables that contain the letter a from `cars_mt_copy`.
 
 ```{r}
 
@@ -107,12 +108,14 @@ Bonus: select the variables that contain the letter a from `cars_mt_copy`
 
 
 2. Subset the rows of `cars_mt_copy` that get less than 16 miles per gallon (`MPG`) of fuel efficiency and greater than 150 horsepower (`HP`) - how many are there?
+
 ```{r}
 
 ```
 
 
 3. Subset the rows of `cars_mt_copy` that get less than 16 miles per gallon (`MPG`) of fuel efficiency and greater than or equal to 150 horsepower (`HP`) - how many are there?
+
 ```{r}
 
 ```
@@ -130,7 +133,7 @@ How many cars have both?
 
 # Part 4
 
-1. Create a subset called `carsSub`from the `cars_mt_copy` data that only contains the columns:
+1. Create a subset called `carsSub` from the `cars_mt_copy` data that only contains the columns:
 `CAR`,	`WT`, `QSEC`, and `HP` for only the cars with 8 cylinders (`CYL`).
 	What are the dimensions of this dataset? Don't use pipes (`%>%`).
 
@@ -154,7 +157,7 @@ Bonus: What happens if you do the steps in a different order? Why?
 ```
 
 
-4. Create a new variable in `carsSub` called `WT2`, which  is equal to `WT^2`, using `mutate()`(don't forget to reassign `carsSub`). Use piping `%>%`:
+4. Create a new variable in `carsSub` called `WT2`, which  is equal to `WT^2`, using `mutate()`(don't forget to reassign `carsSub`). Use pipes `%>%`:
 
 ```{r}
 
