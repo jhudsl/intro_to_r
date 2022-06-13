@@ -224,15 +224,15 @@ head(df)
 
 ## Renaming All Columns of a data frame: dplyr
 
-To rename all columns you use the `rename_all()`. In this case we will use `toupper()` to make all letters upper case. Could also use `tolower()` function.
+To rename all columns you use the `rename_with()`. In this case we will use `toupper()` to make all letters upper case. Could also use `tolower()` function.
 
 ```{r}
-df_upper <- dplyr::rename_all(df, toupper)
+df_upper <- dplyr::rename_with(.data = df, .fn = toupper)
 head(df_upper, 3)
 ```
 
 ```{r}
-df <- dplyr::rename_all(df, tolower)
+df <- dplyr::rename_with(.data = df, .fn = tolower)
 head(df, 3)
 ```
 
