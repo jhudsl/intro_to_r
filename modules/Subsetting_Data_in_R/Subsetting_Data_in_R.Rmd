@@ -138,7 +138,7 @@ Or directly when reading in a csv with the `read.csv()` function (also base R)
 
 ```{r, eval = FALSE}
 # function comes from base R - no package loading required
-df_example_readr <- read.csv("documents/data_analysis/data_file.csv")
+df_example_readr <- read.csv(file = "documents/data_analysis/data_file.csv")
 ```
 
 
@@ -166,7 +166,7 @@ Alternatively we can read data files using the tidyverse with the `read_csv()` f
 
 ```{r, eval = FALSE}
 
-df_example_readr <- read_csv("documents/data_analysis/data_file.csv")
+df_example_readr <- read_csv(file = "documents/data_analysis/data_file.csv")
 ```
 
 You may start to notice how the tidyverse package work well together!
@@ -183,11 +183,11 @@ We generally recommend using tibbles, but you can do a lot with data frames too.
 
 ## Data frames vs tibbles
  
-In the "tidy" data format, rownames are removed.  For example, `df` has each car name as a row name. Here we use the `head()` function to see the first 2 rows of each. In this case we would want to make the rownames a new column first before making into a tibble.
+In the "tidy" data format, rownames are removed.  For example, `df` has each car name as a row name. Here we use the `head()` function to see the first 2 rows of each using the `n` argument. In this case we would want to make the rownames a new column first before making into a tibble.
 
 ```{r}
-head(df, 2)
-head(tibble(df), 2)
+head(df, n = 2)
+head(tibble(df), n = 2)
 ```
 
 
@@ -198,8 +198,8 @@ head(tibble(df), 2)
 If you run into losing a variable contained in your row names, you can also use `rownames_to_column` to add it before turning it into a `tibble` to keep them:
 
 ```{r, size = "tiny"}
-head(rownames_to_column(df, "car"),  2)
-head(tibble(rownames_to_column(df, "car")),  2)
+head(rownames_to_column(df, "car"),  n = 2)
+head(tibble(rownames_to_column(df, "car")),  n = 2)
 ```
 
 
@@ -227,12 +227,12 @@ head(df)
 To rename all columns you use the `rename_with()`. In this case we will use `toupper()` to make all letters upper case. Could also use `tolower()` function.
 
 ```{r}
-df_upper <- dplyr::rename_with(df, .fn = toupper)
+df_upper <- dplyr::rename_with(df, toupper)
 head(df_upper, 3)
 ```
 
 ```{r}
-df <- dplyr::rename_with(df, .fn = tolower)
+df <- dplyr::rename_with(df, tolower)
 head(df, 3)
 ```
 
@@ -381,7 +381,7 @@ Instead of removing rows like filter, `which()` simply shows where the values oc
 
 ```{r}
 which(select(df,carb) == 4)
-select(df,carb) == 4
+select(df, carb) == 4
 ```
 
 
