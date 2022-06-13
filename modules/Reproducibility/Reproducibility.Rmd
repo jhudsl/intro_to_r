@@ -1,13 +1,10 @@
 ---
 title: "Reproducibility"
 output:
-  html_document:
-    df_print: paged
   ioslides_presentation:
     css: ../../docs/styles.css
     widescreen: yes
-  pdf_document: default
----
+--- 
 
 
 ```{r, echo = FALSE, message = FALSE}
@@ -18,13 +15,36 @@ suppressPackageStartupMessages(library(dplyr))
 library(tidyverse)
 ```
 
-## Reproducibility
-What's reproducibility?
+## What's Reproducibility
 
-A different analyst re-performs the analysis with
-the same code and
-the same data and obtains
-the same result.
+```{r, fig.alt="session info", out.width = "80%", echo = FALSE, fig.align='center'}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1-cauITbscmnDEDt5IqrZOLlCjyhzEOZY5fqwVY7l8tQ/edit#slide=id.gf1accd298e_0_146")
+```
+
+##
+
+```{r, fig.alt="session info", out.width = "80%", echo = FALSE, fig.align='center'}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1-cauITbscmnDEDt5IqrZOLlCjyhzEOZY5fqwVY7l8tQ/edit#slide=id.gf1accd298e_0_0")
+
+```
+
+##
+
+```{r, fig.alt="session info", out.width = "80%", echo = FALSE, fig.align='center'}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1-cauITbscmnDEDt5IqrZOLlCjyhzEOZY5fqwVY7l8tQ/edit#slide=id.gf1accd298e_0_413")
+```
+
+## 
+
+```{r, fig.alt="session info", out.width = "80%", echo = FALSE, fig.align='center'}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1-cauITbscmnDEDt5IqrZOLlCjyhzEOZY5fqwVY7l8tQ/edit#slide=id.gf1accd298e_0_368")
+```
+
+## 
+
+```{r, fig.alt="session info", out.width = "80%", echo = FALSE, fig.align='center'}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1-cauITbscmnDEDt5IqrZOLlCjyhzEOZY5fqwVY7l8tQ/edit#slide=id.gf1accd298e_0_464")
+```
 
 ## Reproducibility vs Repeatability vs Replicability
 
@@ -32,39 +52,83 @@ the same result.
 knitr::include_graphics("images/reproducibility.png")
 ```
 
-## Reproducibility
-- Clean your environment regularly
-- Use RMarkdown
-- Check the knit of your RMarkdown regularly
-- Tell your future self and others what you did!
-- Print session info!
+## Why Reproducibility is important...
 
-## RMarkdown
+```{r, fig.alt="session info", out.width = "80%", echo = FALSE, fig.align='center'}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1-cauITbscmnDEDt5IqrZOLlCjyhzEOZY5fqwVY7l8tQ/edit#slide=id.gf1accd298e_0_673")
+```
 
-Clicking the knit button, will knit your document to create different types of reports. The default is html.
+## It's worth the wait
 
-```{r, fig.alt="How to knit an Rmd", out.width = "60%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="session info", out.width = "80%", echo = FALSE, fig.align='center'}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1-cauITbscmnDEDt5IqrZOLlCjyhzEOZY5fqwVY7l8tQ/edit#slide=id.gf7bed24491_1_38")
+```
+
+
+## Reproducibility can also be for your future self!
+
+```{r, fig.alt="session info", out.width = "80%", echo = FALSE, fig.align='center'}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1-cauITbscmnDEDt5IqrZOLlCjyhzEOZY5fqwVY7l8tQ/edit#slide=id.gf1cd772e00_0_330")
+```
+
+## The process
+
+```{r, fig.alt="session info", out.width = "80%", echo = FALSE, fig.align='center'}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1-cauITbscmnDEDt5IqrZOLlCjyhzEOZY5fqwVY7l8tQ/edit#slide=id.g10ab57f2c44_0_221")
+```
+
+## R Markdown
+
+```{r, fig.alt="session info", out.width = "80%", echo = FALSE, fig.align='center'}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1-cauITbscmnDEDt5IqrZOLlCjyhzEOZY5fqwVY7l8tQ/edit#slide=id.g10ab57f2c44_0_0")
+```
+
+## R Markdown lets you test your work
+
+```{r, fig.alt="session info", out.width = "80%", echo = FALSE, fig.align='center'}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1-cauITbscmnDEDt5IqrZOLlCjyhzEOZY5fqwVY7l8tQ/edit#slide=id.gf8f405fdab_0_186")
+```
+
+## R Markdown allows you to more clearly show what you did
+
+```{r, fig.alt="session info", out.width = "80%", echo = FALSE, fig.align='center'}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1-cauITbscmnDEDt5IqrZOLlCjyhzEOZY5fqwVY7l8tQ/edit#slide=id.gf8f405fdab_0_102")
+```
+
+## R Markdown makes it easier to update code and see results
+
+```{r, fig.alt="session info", out.width = "80%", echo = FALSE, fig.align='center'}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1-cauITbscmnDEDt5IqrZOLlCjyhzEOZY5fqwVY7l8tQ/edit#slide=id.gf9440130d0_0_0")
+```
+
+
+
+## Clean your enviornment
+
+Regularly cleaning your environment and trying your code again, can help ensure that your code is running as expected.
+
+Occasionally we might forget to save a step of our code in our R Markdown file that we ran only in the console. This will help us figure that out.
+
+```{r, fig.alt="session info", out.width = "60%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/clean.png")
+```
+
+## Check if your file knits regularly
+
+Regularly checking if your file knits will help you spot a missing step or error earlier when you have less code to try to identify where your code might have gone wrong.
+
+```{r, fig.alt="session info", out.width = "40%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/knit.png")
 ```
 
-## Code Chunks
-```{r, fig.alt="Options for code chunks", out.width = "30%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("images/chunks.png")
-```
+## Tell your future self and others what you did!
 
-After knitting:  
-1) **echo** - determines if your code should be shown or not  
-    - TRUE = code is **shown** (default)  
-    - FALSE = code is not shown (but might be run...depends on eval)  
-2) **eval** - determines if your code should be evaluated (run) or not  
-    - TRUE = code is **run** (default)  
-    - FALSE = code is not run (but might be shown...depends on echo)  
-3) **message** = FALSE -suppresses messages when your run your code  
+Provide sufficient detail so that you can understand what you did.
 
-## RMarkdown syntax
+## R Markdown syntax
 
 Before:
-```{r, fig.alt="Markdown sytax before rendering", out.width = "80%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="Markdown sytax before rendering", out.width = "60%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/original.png")
 ```
 
@@ -73,42 +137,48 @@ After knit:
 knitr::include_graphics("images/rendered.png")
 ```
 
-## RMarkdown syntax
+## R Markdown syntax
 
-Go to File > Help > Cheatsheets > R Markdown Cheatsheet
+Go to Help > Cheatsheets > R Markdown Cheatsheet or our website!
 
-## Final Project
 
-Specific guidelines and example on website  
+## Versions matter
 
-Turn in through CoursePlus:  
-1) RMarkdown file    
-2) html file  
+```{r, fig.alt="session info", out.width = "80%", echo = FALSE, fig.align='center'}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1-cauITbscmnDEDt5IqrZOLlCjyhzEOZY5fqwVY7l8tQ/edit#slide=id.gf62875ddf7_0_404")
+```
 
-## Session Info
+## Session info can help
+
+```{r, eval = FALSE}
+sessionInfo()
+```
+
 
 ```{r, fig.alt="session info", out.width = "60%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/session_info.png")
 ```
 
-Session info helps
-
-```{r}
-sessionInfo()
-```
-
-## DRY code
-
-[DRY](https://web.archive.org/web/20131204221336/http://programmer.97things.oreilly.com/wiki/index.php/Don't_Repeat_Yourself) is an acronym: "Don't repeat yourself" [@Smith2013].
-
-> "I hate code, and I want as little of it as possible in our product."
-> - Jack Diedrich
 
 ## More resources
 
 These are just some quick tips, for more information:
 
+- [Reproducibility in Cancer Informatics course](https://jhudatascience.org/Reproducibility_in_Cancer_Informatics/)
+- [Advanced Reproducibility in Cancer Informatics course](https://jhudatascience.org/Adv_Reproducibility_in_Cancer_Informatics)
 - [The RMarkdown book](https://bookdown.org/yihui/rmarkdown/)
 - [Jenny Bryan's organizational strategies](https://www.stat.ubc.ca/~jenny/STAT545A/block19_codeFormattingOrganization.html).
 - [Write efficient R code for science](https://www.earthdatascience.org/courses/earth-analytics/automate-science-workflows/write-efficient-code-for-science-r/).
-- [Reproducibility in Cancer Informatics course](https://jhudatascience.org/Reproducibility_in_Cancer_Informatics/introduction.html)
+
+## Summary
+
+To help make your work more reproducible:
+
+- Use RMarkdown
+- Clean your environment regularly
+- Check the knit of your RMarkdown regularly
+- Tell your future self and others what you did!
+- Print session info!
+
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
+
