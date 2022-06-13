@@ -45,7 +45,7 @@ cars_mt_copy <- mtcars
 
 ```
 
-5. Convert the column names of `cars_mt_copy` to all upper case. Use `rename_all()`, and the `toupper` command.
+5. Convert the column names of `cars_mt_copy` to all upper case. Use `rename_with()`, and the `toupper` command.
 
 ```{r}
 
