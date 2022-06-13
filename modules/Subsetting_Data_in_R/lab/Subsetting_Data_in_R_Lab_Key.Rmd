@@ -20,7 +20,7 @@ library(jhur)
 
 # Part 1
 
-1. Check to see if you have the `mtcars` dataset 
+1. Check to see if you have the `mtcars` dataset by running this chunk.
 ```{r}
 mtcars
 ```
@@ -38,7 +38,7 @@ nrow(mtcars)
 ncol(mtcars)
 ```
 
-4. Copy mtcars into an object called `cars_mt_copy`. Next, rename `mpg` in `cars_mt_copy` to `MPG` (hint - use `rename()`).
+4. Copy mtcars into an object called `cars_mt_copy` using the code supplied on line 44. Next, rename `mpg` in `cars_mt_copy` to `MPG` (hint - use `rename()`). 
 
 ```{r}
 cars_mt_copy <- mtcars
@@ -63,7 +63,7 @@ tail(cars_mt_copy, 3)
 
 # Part 2
 
-1. Using `cars_mt_copy`  create a column called `CAR` using the `rownames_to_column` function. Next, create a tibble from the data called `cars_mt_copy`.  Take a look at your data to check it. How many dimensions does it have?
+1. Using `cars_mt_copy` create a column called `CAR` using the `rownames_to_column` function. Next, create a tibble from the data called `cars_mt_copy`.  Take a look at your data to check it. How many dimensions does it have?
 
 ```{r}
 cars_mt_copy <- rownames_to_column(cars_mt_copy, var = "CAR")
@@ -100,7 +100,7 @@ pull(carsSub, car)
 select(carsSub, car)
 ```
 
-Bonus: select the variables that contain the letter a from `cars_mt_copy`
+Bonus: Select the variables that contain the letter a from `cars_mt_copy`.
 
 ```{r}
 select(cars_mt_copy, contains("a"))
@@ -200,7 +200,7 @@ last(carsSub$CAR) # alternatively without pipes
 ```
 
 
-4. Create a new variable in `carsSub` called `WT2`, which  is equal to `WT^2`, using `mutate()`(don't forget to reassign `carsSub`). Use piping `%>%`:
+4. Create a new variable in `carsSub` called `WT2`, which  is equal to `WT^2`, using `mutate()`(don't forget to reassign `carsSub`). Use pipes `%>%`:
 
 ```{r}
 carsSub <- carsSub %>% mutate(WT2 = WT^2)
