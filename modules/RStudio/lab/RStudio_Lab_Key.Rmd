@@ -6,10 +6,13 @@ editor_options:
 ---
 ## R Markdown
 
+Please read through everything and then try the exercises.
+
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
 The way you can create a file like this in RStudio is: File → New File → R Markdown and then using the default or using a template.
 
+This is a code chunk that will set up our packages and data. 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -44,7 +47,7 @@ palette <- c(
   banner = "red",
   green = "darkgreen",
   orange = "orange",
-  purple = "yellow"
+  purple = "purple"
 )
 
 ggplot(aes(x = date, y = number, colour = line), data = avg) +
@@ -57,15 +60,25 @@ ggplot(aes(x = date, y = number, colour = line), data = avg) +
 
 Here are a few changes that will show you how to change small things in `R` code and the output it makes.  After each change, hit the **Knit** button again.
 
-1.  Go through and change the colors in `palette` to something other than what they originally were.    See http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf for a large list of colors.
-2. Change the days you are keeping to show `"Sunday"` instead of `"Saturday"`.
-3. Add a new R chunk with the following code `x <- c(1,2,3)` below the bonus instructions. Make sure you press knit after this to see what the new chunk looks like.
-4. Update the options of the R chunk you just made so that the output option is `show output only`. How does the chunk look now?
+Here is another code chunk for our exercises. 
+
+```{r}
+x <- c(1,2,3)
+```
+
+
+1.  Go through and change the colors in `palette` to something other than what they originally were.    See http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf for a large list of colors. For example, you could replace blue with red.
+
+2. Add a new R chunk below the bonus instructions.You can use the insert chunk button or copy paste an existing code chunk. Include a lowercase x inside the chunk as the code. Thus it should look like the chunk above but without `<- c(1,2,3)`. Make sure you press the knit button after this to see what the new chunk looks like.
+
 
 Bonus:
-1. Create another RMarkdown Document from RStudio dropdowns: File → New File → R Markdown.
+1. Change the days you are keeping to show `"Sunday"` instead of `"Saturday"`.
+2. Update the options of the R chunk you just made (with the lowercase x in it) so that the output option is `show output only`. How does the chunk look now?
+3. Create another  R Markdown Document from RStudio dropdowns: File → New File → R Markdown.
+
 
 
 ```{r echo=FALSE}
-x <- c(1, 2, 3)
+x
 ```
