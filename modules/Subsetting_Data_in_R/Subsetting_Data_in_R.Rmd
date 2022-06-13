@@ -104,6 +104,17 @@ slice_sample(df, prop = .2)
 
 ```
 
+## Skimr package
+
+```{r, eval = FALSE}
+library(skimr)
+skim(df)
+
+```
+
+```{r, fig.alt="dplyr", out.width = "90%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/skim.png")
+```
 
 # Making data frames(base R) and tibbles (tidyverse)
 ## Creating data frames using base R data frame function
