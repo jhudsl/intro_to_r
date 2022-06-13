@@ -57,6 +57,8 @@ ggplot(aes(x = date, y = number, colour = line), data = avg) +
   scale_colour_manual(values = palette)
 ```
 
+Here is another code chunk for our exercises. 
+
 ```{r}
 x <- c(1,2,3)
 ```

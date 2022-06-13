@@ -60,6 +60,8 @@ ggplot(aes(x = date, y = number, colour = line), data = avg) +
 
 Here are a few changes that will show you how to change small things in `R` code and the output it makes.  After each change, hit the **Knit** button again.
 
+Here is another code chunk for our exercises. 
+
 ```{r}
 x <- c(1,2,3)
 ```
