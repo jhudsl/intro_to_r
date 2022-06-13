@@ -1,39 +1,85 @@
+pre {
+  font-family: 'Source Code Pro', 'Courier New', monospace;
+  font-size: 24px;
+  line-height: 24px;
+  padding: 10px 0 10px 60px;
+  letter-spacing: -1px;
+  margin-bottom: 8px;
+  width: 106%;
+  left: -60px;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  /*overflow: hidden;*/
+}
 
-/* To add some space below the navigation bar */
+/* Whole document: */
+body{
+  font-family: Helvetica;
+  font-size: 16pt;
+}
 
- body {
-  margin-top: 100px;
+/* Headers */
+h1{
+  font-size: 28pt;
+}
+h2{
+  font-size: 24pt;
+}
+h3{
+  font-size: 20pt;
 }
 
 
-/* add some color - if you want color behind a major point on your website */
-
-.banner_color {
-  background-color: lightblue;
-  font-weight:bold;
-
+.emphasized {
+   font-size: 1.2em;
 }
 
-/* Style buttons - if you want some text centered and bolded */
-
-.center {
-  font-weight:bold;
-  text-align: center;
+.small {
+   font-size: 0.8em;
 }
 
-/* Style buttons - if you want to have a button */
-.btn {
-  background-color: DodgerBlue;
-  border: none;
-  color: white;
-  padding: 8px 20px;
-  cursor: pointer;
-  font-size: 14px;
+strong { 
+    font-weight: bold;
+    color: black;
 }
 
-/* Darker background on mouse-over */
-.btn:hover {
-  background-color: RoyalBlue;
+/*
+slides > slide {
+  padding: 10px 60px;
+}
+*/
+slides > slide > hgroup + article {
+    margin-top: 5px;
 }
 
+.left_col {
+   float:left;
+   width:48%;
+}
+.right_col {
+   float:right;
+   width:48%;
+}
 
+slides>slide.title-slide {
+    background-image: url('images/Intro_to_R.png');
+    background-size: 100% 100%;
+}
+
+.codesmall pre {
+    font-size: 16px;
+}
+© 2022 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
