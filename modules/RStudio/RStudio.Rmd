@@ -258,24 +258,13 @@ knitr::include_graphics("images/knit.png")
 
 ## Useful R Studio Shortcuts
 
--   `Ctrl + Enter` (`Cmd + Enter` on OS X) in your script evaluates that line of code
+-   `Ctrl + Enter` in your script evaluates that line of code
     -   It's like copying and pasting the code into the console for it to run.
 -   `Ctrl+1` takes you to the script page
 -   `Ctrl+2` takes you to the console
 -   <http://www.rstudio.com/ide/docs/using/keyboard_shortcuts>
 
-## Viewing data
 
-The `View` command allows you to view data in a spreadsheet format.
-
-```{r, eval = FALSE}
-View(mtcars)
-```
-
-```{r}
-head(mtcars)
-tail(mtcars)
-```
 
 ## Summary
 
