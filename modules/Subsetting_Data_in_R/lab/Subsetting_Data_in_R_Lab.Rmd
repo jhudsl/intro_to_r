@@ -51,7 +51,7 @@ cars_mt_copy <- mtcars
 
 ```
 
-Bonus: How can you print the first 3 rows and the last 3 rows of `cars_mt_copy`?
+Bonus: How can you print the first 3 rows and the last 3 rows of `cars_mt_copy` (in two lines of code)?
 
 ```{r}
 
@@ -59,7 +59,7 @@ Bonus: How can you print the first 3 rows and the last 3 rows of `cars_mt_copy`?
 
 # Part 2
 
-1. Using `cars_mt_copy` create a column called `CAR` using the `rownames_to_column` function. Then create a tibble from the data called `cars_mt_copy`.  Take a look at your data to check it. How many dimensions does it have?
+1. Using `cars_mt_copy` create a column called `CAR` using the `rownames_to_column()` function. Then create a tibble from the data called `cars_mt_copy`.  Take a look at your data to check it. How many dimensions does it have?
 
 ```{r}
 
@@ -78,7 +78,7 @@ Bonus: How can you print the first 3 rows and the last 3 rows of `cars_mt_copy`?
 
 ```
 
-4. Convert the column names of `carsSub` to all lower case. Take a look at the data.
+Bonus: Convert the column names of `carsSub` to all lower case. Take a look at the data.
 
 ```{r}
 
@@ -99,7 +99,7 @@ Bonus: Select the variables that contain the letter a from `cars_mt_copy`.
 
 # Part 3
 
-1. Subset the rows of `cars_mt_copy` that get more than 20 miles per gallon (`MPG`) of fuel efficiency - how many are there? Use `filter()`.
+1. Subset the rows of `cars_mt_copy` that get **more** than 20 miles per gallon (`MPG`) of fuel efficiency - how many are there? Use `filter()`.
 
 ```{r}
 
@@ -107,14 +107,14 @@ Bonus: Select the variables that contain the letter a from `cars_mt_copy`.
 
 
 
-2. Subset the rows of `cars_mt_copy` that get less than 16 miles per gallon (`MPG`) of fuel efficiency and greater than 150 horsepower (`HP`) - how many are there?
+2. Subset the rows of `cars_mt_copy` that get **less** than 16 miles per gallon (`MPG`) of fuel efficiency and **more** than 150 horsepower (`HP`) - how many are there?
 
 ```{r}
 
 ```
 
 
-3. Subset the rows of `cars_mt_copy` that get less than 16 miles per gallon (`MPG`) of fuel efficiency and greater than or equal to 150 horsepower (`HP`) - how many are there?
+3. Subset the rows of `cars_mt_copy` that get **less** than 16 miles per gallon (`MPG`) of fuel efficiency and greater than **or** equal to 150 horsepower (`HP`) - how many are there?
 
 ```{r}
 
@@ -147,7 +147,7 @@ How many cars have both?
 
 ```
 
-Bonus: What happens if you do the steps in a different order? Why?
+What happens if you do the steps in a different order? Why?
 
 
 3. Re-order the rows of `carsSub` by weight (`WT`) in increasing order. Use `arrange()`. What is the heaviest car?
@@ -164,15 +164,16 @@ Bonus: What happens if you do the steps in a different order? Why?
 ```
 
 
-5. Move the `WT2` column to be first. Use `relocate`.
+Bonus: Move the `WT2` column to be first. Use `relocate`.
 
 ```{r}
 
 ```
 
 
-BONUS: How can you find the value of `WT2` for the Cadillac Fleetwood without looking at the data?
-`
+BONUS: How can you find the value of `WT2` for the Cadillac Fleetwood without just looking at the data manually and instead use functions we learned today?
+
+
 ```{r}
 
 
