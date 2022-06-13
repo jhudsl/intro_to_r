@@ -17,7 +17,7 @@ suppressPackageStartupMessages(library(dplyr))
 library(tidyverse)
 library(devtools)
 library(remotes)
-remotes::install_github("jhudsl/ottrpal")
+install.packages("ottrpal")
 library(ottrpal)
 ```
 
