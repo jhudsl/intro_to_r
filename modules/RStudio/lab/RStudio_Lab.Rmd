@@ -53,7 +53,7 @@ palette <- c(
 
 ggplot(aes(x = date, y = number, colour = line), data = avg) +
   geom_line() +
-  facet_wrap(~day) +
+  facet_wrap(~ day) +
   scale_colour_manual(values = palette)
 ```
 

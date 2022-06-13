@@ -54,6 +54,11 @@ The `dplyr` package is one of the most helpful packages for altering your data t
 
 So you can imagine using pliers on your data. 
 
+```{r, fig.alt="dplyr", out.width = "20%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/621a9c8c5d7b47c4b6d72e8f01f28d14310e8370/193fc/css/images/hex/dplyr.png")
+```
+
+
 ## Loading in dplyr and tidyverse
 
 See this website for a list of the packages included in the `tidyverse`: https://www.tidyverse.org/packages/
@@ -99,6 +104,17 @@ slice_sample(df, prop = .2)
 
 ```
 
+## `skimr` package
+
+```{r, eval = FALSE}
+library(skimr)
+skim(df)
+
+```
+
+```{r, fig.alt="dplyr", out.width = "90%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/skim.png")
+```
 
 # Making data frames(base R) and tibbles (tidyverse)
 ## Creating data frames using base R data frame function
@@ -111,7 +127,7 @@ data.frame(df)
 
 Need to assign the output of the function to keep the result!
 ```{R}
-df_updated <-data.frame(df)
+df_updated <- data.frame(df)
 # this would overwrite the existing df object
 df<-data.frame(df) 
 ```
@@ -122,7 +138,7 @@ Or directly when reading in a csv with the `read.csv()` function (also base R)
 
 ```{r, eval = FALSE}
 # function comes from base R - no package loading required
-df_example_readr <- read.csv("documents/data_analysis/data_file.csv")
+df_example_readr <- read.csv(file = "documents/data_analysis/data_file.csv")
 ```
 
 
@@ -150,7 +166,7 @@ Alternatively we can read data files using the tidyverse with the `read_csv()` f
 
 ```{r, eval = FALSE}
 
-df_example_readr <- read_csv("documents/data_analysis/data_file.csv")
+df_example_readr <- read_csv(file = "documents/data_analysis/data_file.csv")
 ```
 
 You may start to notice how the tidyverse package work well together!
@@ -163,15 +179,15 @@ Using `read.csv()` and `data.frame()` you can make data frames
 **Tidyverse (fancier version):**  
 Using `read_csv()` and `tibble()` you can make tibbles 
 
-We generally recommend using tibbles, but you can do a lot with tibbles too.
+We generally recommend using tibbles, but you can do a lot with data frames too.
 
 ## Data frames vs tibbles
  
-In the "tidy" data format, rownames are removed.  For example, `df` has each car name as a row name. Here we use the `head()` function to see the first 2 rows of each. In this case we would want to make the rownames a new column first before making into a tibble.
+In the "tidy" data format, rownames are removed.  For example, `df` has each car name as a row name. Here we use the `head()` function to see the first 2 rows of each using the `n` argument. In this case we would want to make the rownames a new column first before making into a tibble.
 
 ```{r}
-head(df, 2)
-head(tibble(df), 2)
+head(df, n = 2)
+head(tibble(df), n = 2)
 ```
 
 
@@ -182,8 +198,8 @@ head(tibble(df), 2)
 If you run into losing a variable contained in your row names, you can also use `rownames_to_column` to add it before turning it into a `tibble` to keep them:
 
 ```{r, size = "tiny"}
-head(rownames_to_column(df, var = "car"),  2)
-head(tibble(rownames_to_column(df, var = "car")),  2)
+head(rownames_to_column(df, "car"),  n = 2)
+head(tibble(rownames_to_column(df, "car")),  n = 2)
 ```
 
 
@@ -197,7 +213,7 @@ For example, let's rename mpg to MPG. Notice the new name is listed **first**!
 
 ```{r, eval = FALSE}
 # general format! not code!
-{data you are creating or changing} <- rename({data you are using}, 
+{data you are creating or changing} <- rename( {data you are using}, 
                                         {New Name} = {Old name})
 ```
 
@@ -208,21 +224,30 @@ head(df)
 
 ## Renaming All Columns of a data frame: dplyr
 
-To rename all columns you use the `rename_all()`. In this case we will use `toupper()` to make all letters upper case. Could also use `tolower()` function.
+To rename all columns you use the `rename_with()`. In this case we will use `toupper()` to make all letters upper case. Could also use `tolower()` function.
 
 ```{r}
-df_upper <- dplyr::rename_all(df, toupper)
+df_upper <- dplyr::rename_with(df, toupper)
 head(df_upper, 3)
 ```
 
 ```{r}
-df <- dplyr::rename_all(df, tolower)
+df <- dplyr::rename_with(df, tolower)
 head(df, 3)
 ```
 
+## Summary
+
+- data frames are simpler version of a data table
+- tibbles are fancier `tidyverse version
+- data frames are made with `data.frames()` and `read.csv()`
+- tibbles are made with `tibble()` and `read_csv()` from `readr`
+- the `rename()` function of `dplyr` can help you rename columns
+
 ## Lab Part 1
 
-[Website](http://https://jhudatascience.org/intro_to_r/index.html)
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
+💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab.Rmd)
 
 # Subsetting Columns
 
@@ -251,13 +276,13 @@ select(df, mpg)
 
 ## Subset columns of a data frame: dplyr
 
-Note that if you want a single vector (not a `tibble`), use `pull` (or `$` if you were using base R):
+Note that if you want the values (not a `tibble`), use `pull` (or `$` if you were using base R):
 ```{r}
 pull(df, mpg)
 
 # pull with select works too!
 
-pull(select(df,mpg))
+pull(select(df, mpg))
 ```
 
 ## Select columns of a data frame: dplyr
@@ -286,10 +311,19 @@ tidyslect::
 ```
 
 
+## Summary
+
+- the `$` is used base R to get the values of a column from a data frame or tibble
+- `pull()` is the `tidyverse` way
+- `select()` is the `tidyverse` way to get a tibble with only certain columns
+- you can `select()` based on patterns in the column names
+
+
 
 ## Lab Part 2
 
-[Website](http://https://jhudatascience.org/intro_to_r/index.html)
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
+💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab.Rmd)
 
 # Subsetting Rows
 
@@ -347,12 +381,22 @@ Instead of removing rows like filter, `which()` simply shows where the values oc
 
 ```{r}
 which(select(df,carb) == 4)
-select(df,carb) == 4
+select(df, carb) == 4
 ```
+
+
+## Summary
+
+- `filter()` can be used to filter out rows based on logical conditions
+- `==` is the same as equivalent to
+- `&` means both conditions must be met to remain after `filter()`
+- `|` means either conditions needs to be met to remain after `filter()`
+- `which()` shows you where values meet a condition
 
 ## Lab Part 3
 
-[Website](http://https://jhudatascience.org/intro_to_r/index.html)
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
+💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab.Rmd)
 
 ## Combining `filter` and `select`
 
@@ -468,7 +512,7 @@ For example, let say we just wanted `wt` to be first.
 
 head(df)
 
-df_carb <- relocate(.data = df, wt,
+df_carb <- relocate(df, wt,
                        .before = mpg)
 
 df_carb
@@ -535,12 +579,42 @@ arrange(df, mpg, desc(hp))
 <!-- transmute(df, newcol2 = wt/2.2, mpg, hp) -->
 <!-- ``` -->
 
+## Summary
 
+- `select()` and `filter()` can be combined together
+- you can do sequential steps in a few ways:
+    1. nesting them inside one another using parentheses `()`
+    2. creating intermediate data objects in between
+    3. using pipes `%>%`
+- `arrange()` can be used to reorder rows
+- `select()` and `relocate()` can be used to reorder columns
+-  can remove a column by:  
+    1. assigning a column to `NULL`  
+    2. using `select()` with negative sign in front of column name(s)  
+    3. not selecting it (without negative sign)  
+- recall that `filter()` is how you remove rows
+- `mutate()` can be used to create new variables or modify them
+
+## Summary cont...
+
+- `mutate()` can be used to create new variables or modify them
+
+```{r, eval = FALSE}
+# General format - Not the code!
+{data object to update} <- mutate({data to use}, 
+                                {new variable name} = {new variable source}) 
+```
+
+```{r, eval = FALSE}
+df <- mutate(df, newcol = wt/2.2)
+```
 
 
 ## Lab Part 4
 
-[Website](http://https://jhudatascience.org/intro_to_r/index.html)
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
+💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab.Rmd)
+
 
 
 # Extra Slides
@@ -577,7 +651,7 @@ ifelse(df$disp <= 200, "low", "high")
 Combined with `ifelse(condition, TRUE, FALSE)`, it can give you:
 
 ```{r}
-df = mutate(df, 
+df <- mutate(df, 
             disp_cat = ifelse(disp <= 200, "Low","High")
             )
 
@@ -589,7 +663,7 @@ head(df,2)
 Alternatively, `case_when` provides a clean syntax as well:
 
 ```{r}
-df = mutate(df, 
+df <- mutate(df, 
             disp_cat2 = case_when(
               disp <= 200 ~ "Low",
               disp > 200 ~ "High",
@@ -605,9 +679,9 @@ We can use the `colnames` function to extract and/or directly reassign column na
 
 ```{r}
 colnames(df) # just prints
-colnames(df)[1:3] = c("MPG", "CYL", "DISP") # reassigns
+colnames(df)[1:3] <- c("MPG", "CYL", "DISP") # reassigns
 head(df)
-colnames(df)[1:3] = c("mpg", "cyl", "disp") #reset - just to keep consistent
+colnames(df)[1:3] <- c("mpg", "cyl", "disp") #reset - just to keep consistent
 ```
 
 ## Renaming Columns of a data frame: base R
@@ -615,11 +689,11 @@ colnames(df)[1:3] = c("mpg", "cyl", "disp") #reset - just to keep consistent
 We can assign the column names, change the ones we want, and then re-assign
 the column names:
 ```{r}
-cn = colnames(df)
-cn[ cn == "drat"] = "DRAT"
-colnames(df) = cn
+cn <- colnames(df)
+cn[ cn == "drat"] <-"DRAT"
+colnames(df) <- cn
 head(df)
-colnames(df)[ colnames(df) == "DRAT"] = "drat" #reset
+colnames(df)[ colnames(df) == "DRAT"] <- "drat" #reset
 ```
 
 ## Subset rows of a data frame with indices: 
@@ -643,7 +717,7 @@ df[, "carb"]
 
 ## Biggest difference between `tbl` and data frame: 
 
-Mostly, `tbl` (tibbles) are the same as data frames, except they don't print all lines.  When subsetting only one column using brackets, a data frame will return a vector, but a `tbl` will return a `tbl`
+Mostly, `tbl` (tibbles) are the same as data frames, except they don't print all lines.  When subsetting only one column using brackets, a data frame will return the values, but a `tbl` will return a `tbl`
 
 ```{r}
 df[, 1]
