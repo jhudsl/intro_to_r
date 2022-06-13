@@ -246,7 +246,8 @@ head(df, 3)
 
 ## Lab Part 1
 
-[Website](http://https://jhudatascience.org/intro_to_r/index.html)
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
+💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab.Rmd)
 
 # Subsetting Columns
 
@@ -275,7 +276,7 @@ select(df, mpg)
 
 ## Subset columns of a data frame: dplyr
 
-Note that if you want a single vector (not a `tibble`), use `pull` (or `$` if you were using base R):
+Note that if you want the values (not a `tibble`), use `pull` (or `$` if you were using base R):
 ```{r}
 pull(df, mpg)
 
@@ -312,7 +313,7 @@ tidyslect::
 
 ## Summary
 
-- the `$` is used base R to get a "vector" form of a column from a data frame or tibble
+- the `$` is used base R to get the values of a column from a data frame or tibble
 - `pull()` is the `tidyverse` way
 - `select()` is the `tidyverse` way to get a tibble with only certain columns
 - you can `select()` based on patterns in the column names
@@ -321,7 +322,8 @@ tidyslect::
 
 ## Lab Part 2
 
-[Website](http://https://jhudatascience.org/intro_to_r/index.html)
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
+💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab.Rmd)
 
 # Subsetting Rows
 
@@ -393,7 +395,8 @@ select(df,carb) == 4
 
 ## Lab Part 3
 
-[Website](http://https://jhudatascience.org/intro_to_r/index.html)
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
+💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab.Rmd)
 
 ## Combining `filter` and `select`
 
@@ -609,7 +612,8 @@ df <- mutate(df, newcol = wt/2.2)
 
 ## Lab Part 4
 
-[Website](http://https://jhudatascience.org/intro_to_r/index.html)
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
+💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab.Rmd)
 
 
 
@@ -713,7 +717,7 @@ df[, "carb"]
 
 ## Biggest difference between `tbl` and data frame: 
 
-Mostly, `tbl` (tibbles) are the same as data frames, except they don't print all lines.  When subsetting only one column using brackets, a data frame will return a vector, but a `tbl` will return a `tbl`
+Mostly, `tbl` (tibbles) are the same as data frames, except they don't print all lines.  When subsetting only one column using brackets, a data frame will return the values, but a `tbl` will return a `tbl`
 
 ```{r}
 df[, 1]
