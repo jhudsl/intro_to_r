@@ -43,7 +43,8 @@ If it is not installed, install it via: `RStudio --> Tools --> Install Packages`
 5. Download the dataset of monuments from: http://jhudatascience.org/intro_to_r/data/Monuments.xlsx file to `Monuments.xlsx`. 
 
 ```{r}
-download.file("http://jhudatascience.org/intro_to_r/data/Monuments.xlsx",
+download.file(
+  url = "http://jhudatascience.org/intro_to_r/data/Monuments.xlsx",
   destfile = "Monuments.xlsx",
   overwrite = TRUE,
   mode = "wb"
@@ -51,6 +52,19 @@ download.file("http://jhudatascience.org/intro_to_r/data/Monuments.xlsx",
 ```
 
 6. Use the `read_excel()` function in the `readxl` package to read the `Monuments.xlsx` file and call the output `mon`. 
+
+```{r}
+
+```
+
+Bonus: Run the following code - is there a problem? How do you know?
+
+```{r}
+read_delim(file = "http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv", delim = '\t')
+
+```
+
+Bonus: Install and load the `haven` package. Look at the help page for `read_dta()` function, and scroll to the very bottom of the page. Try running some of the examples provided.
 
 ```{r}
 
@@ -71,10 +85,7 @@ download.file("http://jhudatascience.org/intro_to_r/data/Monuments.xlsx",
 
 ```
 
-
-# Bonus
-
-9. Write one of the variables from the Basic R lab to your working directory in `rds` format. Call the file `my_variable.rds`.
+Bonus: Write one of the variables from the Basic R lab to your working directory in `rds` format. Call the file `my_variable.rds`.
 
 ```{r}
 

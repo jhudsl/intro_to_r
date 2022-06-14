@@ -16,7 +16,7 @@ and assign it to a variable named `youth`.
 
 ```{r}
 library(readr)
-youth <- read_csv("http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
+youth <- read_csv(file = "http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
 ```
 
 2. Use `head()` to display the first few rows of the data frame. 
@@ -42,7 +42,8 @@ library(readxl)
 5. Download the dataset of monuments from: http://jhudatascience.org/intro_to_r/data/Monuments.xlsx file to `Monuments.xlsx`.
 
 ```{r}
-download.file("http://jhudatascience.org/intro_to_r/data/Monuments.xlsx",
+download.file(
+  url = "http://jhudatascience.org/intro_to_r/data/Monuments.xlsx",
   destfile = "Monuments.xlsx",
   overwrite = TRUE,
   mode = "wb"
@@ -52,9 +53,26 @@ download.file("http://jhudatascience.org/intro_to_r/data/Monuments.xlsx",
 6. Use the `read_excel()` function in the `readxl` package to read the `Monuments.xlsx` file and call the output `mon`. 
 
 ```{r}
-mon <- read_excel("Monuments.xlsx")
+mon <- read_excel(file = "Monuments.xlsx")
 ```
 
+Bonus: Run the following code - is there a problem? How do you know?
+```{r}
+read_delim(file = "http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv", delim = '\t')
+# It should be a red flag to see that there is only one column that looks like: "YEAR,LocationAbbr,LocationDesc,TopicType,TopicDesc,MeasureDesc..." 
+# This file is comma delimited not tab delimited!
+```
+
+Bonus: Install and load the `haven` package. Look at the help page for `read_dta()` function, and scroll to the very bottom of the page. Try running some of the examples provided.
+
+```{r eval = FALSE}
+install.packages("haven")
+library(haven)
+?read_dta
+
+path <- system.file("examples", "iris.dta", package = "haven")
+read_dta(path)
+```
 
 # Part 2
 
@@ -67,7 +85,7 @@ getwd()
 8. Write out the `mon` object as a CSV file calling it "monuments.csv", using `write_csv()`. Where is the file now?
 
 ```{r}
-write_csv(mon, "monuments.csv")
+write_csv(mon, file = "monuments.csv")
 ```
 
 
@@ -77,5 +95,5 @@ write_csv(mon, "monuments.csv")
 
 ```{r}
 y <- c(10, 20, 30, 40, 50, 60)
-write_rds(y, "my_variable.rds")
+write_rds(y, file = "my_variable.rds")
 ```
