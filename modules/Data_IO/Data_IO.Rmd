@@ -119,10 +119,10 @@ Dataset is located at http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Su
 ```{r read_url, message = FALSE}
 # load library `readr` that contains function `read_csv`
 library(readr)
-dat <- read_csv("http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
+dat <- read_csv(file = "http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
 
 # `head` displays first few rows of a data frame
-head(dat, 5)
+head(dat, n = 5)
 ```
 
 
@@ -157,11 +157,11 @@ read_csv(file, col_names = TRUE, col_types = NULL,
 ```{r, eval = FALSE}
 ## Examples
 
-dat <- read_csv("/Users/avahoffman/Downloads/Youth_Tobacco_Survey_YTS_Data.csv")
+dat <- read_csv(file = "/Users/avahoffman/Downloads/Youth_Tobacco_Survey_YTS_Data.csv")
 
-dat <- read_csv("Youth_Tobacco_Survey_YTS_Data.csv")
+dat <- read_csv(file = "Youth_Tobacco_Survey_YTS_Data.csv")
 
-dat <- read_csv("www.someurl.com/table1.csv")
+dat <- read_csv(file = "www.someurl.com/table1.csv")
 ```
 
 
@@ -185,7 +185,7 @@ knitr::include_graphics("images/Data_IO_file_move.png")
 If we add the Youth_Tobacco_Survey_YTS_Data.csv file to the intro_to_r folder, we can use the relative path:
 
 ```{r, eval = FALSE}
-dat <- read_csv("Youth_Tobacco_Survey_YTS_Data.csv")
+dat <- read_csv(file = "Youth_Tobacco_Survey_YTS_Data.csv")
 ```
 
 
@@ -210,17 +210,16 @@ read_delim(file, delim, quote = "\"", escape_backslash = FALSE,
 
 ```{r, eval = FALSE}
 ## Examples
-dat <- read_delim("Youth_Tobacco_Survey_YTS_Data.csv", delim = ",")
+dat <- read_delim(file = "Youth_Tobacco_Survey_YTS_Data.csv", delim = ",")
 
-dat <- read_delim("www.someurl.com/table1.txt", delim = "\t")
+dat <- read_delim(file = "www.someurl.com/table1.txt", delim = "\t")
 ```
 
 
 ## Data Input: Read in Directly From File Path
 
 ```{r readCSV2}
-dat <- read_csv("data/Youth_Tobacco_Survey_YTS_Data.csv")
-dat <- read_csv("../../data/Youth_Tobacco_Survey_YTS_Data.csv")
+dat <- read_csv(file = "data/Youth_Tobacco_Survey_YTS_Data.csv")
 ```
 
 The data is now successfully read into your R workspace. Column specification of first few columns is printed to the console. 
@@ -230,6 +229,7 @@ The data is now successfully read into your R workspace. Column specification of
 
 1.  **Working directory problems: trying to read files that R "can't find"**
     - Path misspecification 
+    - more on this shortly!
 2.  Typos (R is **case sensitive**, `x` and `X` are different)
     - RStudio helps with "tab completion"
 3.  Data type problems (is that a string or a number?)
@@ -262,21 +262,10 @@ problems(dat)
 `dat` looks good so far. What do you see on a messy dataset?
 
 ```{r stop_problems2.1, message = FALSE, warning = FALSE}
-ufo_data <- read_csv("https://github.com/SISBID/Data-Wrangling/blob/gh-pages/data/ufo/ufo_data_complete.csv")
+ufo_data <- read_csv(file = "https://github.com/SISBID/Data-Wrangling/blob/gh-pages/data/ufo/ufo_data_complete.csv")
 ```
 ```{r stop_problems2.2}
 problems(ufo_data)
-```
-
-
-## Data Input: Checking for problems
-
-The `stop_for_problems()` function will stop if your data had any problem when reading in (even if that problem did not cause the data reading to fail).  
-
-- Particularly useful to put after the data reading code e.g. in some automated R script that should not proceed in case some data "weirdness" occurred. 
-
-```{r stop_problems3, error = TRUE}
-stop_for_problems(ufo_data)
 ```
 
 
@@ -300,7 +289,7 @@ R Studio features some nice "drop-down" support, where you can run some tasks by
 
 For example, you can easily import text datasets using the `File --> Import Dataset --> From Text (readr)` command. Selecting this will bring up a new screen that lets you specify the formatting of your text file. 
 
-After importing a dataset, you get (printed in the R console) the corresponding R command that you can enter in the console if you want to re-import data.
+After importing a dataset, the corresponding R command appears in the console.
 
 
 ## Data Input: Read in From RStudio Toolbar
@@ -319,9 +308,7 @@ These functions have slightly different syntax for reading in data (e.g. `header
 However, while many online resources use the base R tools, the latest version of RStudio switched to use these new `readr` data import tools, so we will use them in the class for slides. They are also up to two times faster for reading in large datasets, and have a progress bar which is nice. 
 
 
-## Revision
-
-- Data importing functions provided in base R: `read.delim()`, `read.csv()`
+## Data input: `readr` highlights
 
 - Modern, improved tools from `readr` R package: `read_delim()`, `read_csv()`
   - needs a file path to be provided 
@@ -356,21 +343,19 @@ However, while many online resources use the base R tools, the latest version of
 library(haven)
 
 # SAS
-read_sas("mtcars.sas7bdat")
+read_sas(file = "mtcars.sas7bdat")
 
 # SPSS
-read_sav("mtcars.sav")
+read_sav(file = "mtcars.sav")
 
 # Stata
-read_dta("mtcars.dta")
+read_dta(file = "mtcars.dta")
 ```
 
 
 ## Lab Part 1
 
-Lab file: http://jhudatascience.org/intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd
-
-[Website](http://jhudatascience.org/intro_to_r/)
+💻 [Data I/O Lab](https://jhudatascience.org/intro_to_r/modules/Data_IO/lab/Data_IO_Lab.Rmd)
 
 
 ## Working Directories
@@ -466,15 +451,20 @@ x <- c(1, 3, 3)
 write_rds(x, file = "my_vector.rds")
 
 # read a variable from file and assign to a new variable named "y"
-x2 <- read_rds("my_vector.rds")
+x2 <- read_rds(file = "my_vector.rds")
 x2
 ```
 
 
-## Lab Part 2
+## Summary
 
-Lab file: http://jhudatascience.org/intro_to_r/Data_IO/lab/Data_IO_Lab.Rmd
+- R Projects are a good way to keep your files organized and reduce headaches
+- Use `read_csv()` and `read_delim()` from the `readr` package to read in your data
+- Don't forget to use `<-` to assign your data to an object!
+- Use `spec()` to understand variables
+- Use `head()` and `tail()` to preview the first and last lines of the data
+- Use `write_csv()` and `write_delim()` from the `readr` package to write your (modified) data
 
-[Website](http://jhudatascience.org/intro_to_r/)
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
 
-
+💻 [Data I/O Lab](https://jhudatascience.org/intro_to_r/modules/Data_IO/lab/Data_IO_Lab.Rmd)

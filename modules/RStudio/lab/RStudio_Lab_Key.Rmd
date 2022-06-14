@@ -52,7 +52,7 @@ palette <- c(
 
 ggplot(aes(x = date, y = number, colour = line), data = avg) +
   geom_line() +
-  facet_wrap(~ day) +
+  facet_wrap(~day) +
   scale_colour_manual(values = palette)
 ```
 
@@ -63,7 +63,7 @@ Here are a few changes that will show you how to change small things in `R` code
 Here is another code chunk for our exercises. 
 
 ```{r}
-x <- c(1,2,3)
+x <- c(1, 2, 3)
 ```
 
 

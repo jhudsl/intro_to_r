@@ -202,6 +202,13 @@ pre code {
 </ol>
 <pre class="r"><code>class(both)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
+<p>Bonus: Create a vector that contains 4 sets of the numbers 1, 2, 3, and 4.</p>
+<pre class="r"><code>vec_1 &lt;- c(1, 2, 3, 4)
+vec_2 &lt;- c(vec_1, vec_1, vec_1, vec_1)
+
+# OR!
+rep(vec_1, 4)</code></pre>
+<pre><code>##  [1] 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4</code></pre>
 </div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
@@ -215,38 +222,30 @@ pre code {
 </ol>
 <pre class="r"><code>x &lt;- c(1, 2, 3, 4, 5, 6)</code></pre>
 <ol start="9" style="list-style-type: decimal">
-<li>Create another vector with elements 10 20 30 40 50 60 and call it <code>y</code>.</li>
+<li>Create another vector with elements 10 20 30 40 50 and call it <code>y</code>.</li>
 </ol>
-<pre class="r"><code>y &lt;- c(10, 20, 30, 40, 50, 60)</code></pre>
+<pre class="r"><code>y &lt;- c(10, 20, 30, 40, 50)</code></pre>
 <ol start="10" style="list-style-type: decimal">
-<li>The code <code>z &lt;- y[1:5]</code> saves the first five items in <code>y</code> as the new variable <code>z</code>. Print <code>z</code>.</li>
+<li>What happens when you add <code>x</code> and <code>y</code> together?</li>
 </ol>
-<pre class="r"><code>z &lt;- y[1:5]
-print(z)</code></pre>
-<pre><code>## [1] 10 20 30 40 50</code></pre>
-<ol start="11" style="list-style-type: decimal">
-<li>What happens when you add <code>x</code> and <code>z</code> together? How is this different from #10 ?</li>
-</ol>
-<pre class="r"><code>x + z</code></pre>
-<pre><code>## Warning in x + z: longer object length is not a multiple of shorter object
+<pre class="r"><code>x + y</code></pre>
+<pre><code>## Warning in x + y: longer object length is not a multiple of shorter object
 ## length</code></pre>
 <pre><code>## [1] 11 22 33 44 55 16</code></pre>
 <pre class="r"><code># R &quot;auto replicates&quot; the shorter vector when the vectors aren&#39;t the same length - this is not what we want!
 # In this case, it reads y as c(10, 20, 30, 40, 50, 10)!</code></pre>
 <ol start="12" style="list-style-type: decimal">
-<li>Append the value 100 onto the vector <code>z</code> (hint: you can use the c() function).</li>
+<li>Append the value 60 onto the vector <code>y</code> (hint: you can use the c() function).</li>
 </ol>
-<pre class="r"><code>z &lt;- c(z, 100)</code></pre>
+<pre class="r"><code>y &lt;- c(y, 60)</code></pre>
 <ol start="13" style="list-style-type: decimal">
-<li>Add <code>x</code> and <code>z</code> together.</li>
+<li>Add <code>x</code> and <code>y</code> together.</li>
 </ol>
-<pre class="r"><code>x + z</code></pre>
-<pre><code>## [1]  11  22  33  44  55 106</code></pre>
-<ol start="14" style="list-style-type: decimal">
-<li>Multiply <code>x</code> and <code>z</code> together. How is this similar to the way R performs addition in #13 ?</li>
-</ol>
-<pre class="r"><code>x * z</code></pre>
-<pre><code>## [1]  10  40  90 160 250 600</code></pre>
+<pre class="r"><code>x + y</code></pre>
+<pre><code>## [1] 11 22 33 44 55 66</code></pre>
+<p>Bonus: Multiply <code>x</code> and <code>y</code> together. How is this similar to the way R performs addition in #13 ?</p>
+<pre class="r"><code>x * y</code></pre>
+<pre><code>## [1]  10  40  90 160 250 360</code></pre>
 <pre class="r"><code># R adds together the first element of each vector, then the second, and so on. This order also applies when multiplying!</code></pre>
 </div>
 

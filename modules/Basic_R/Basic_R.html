@@ -190,49 +190,6 @@ slide:not(.current) .plotly.html-widget{
 </ul></li>
 </ol>
 
-<!-- ## Getting Started -->
-
-<!-- * You should have the latest version of R installed! -->
-
-<!-- * Open RStudio -->
-
-<!-- * Files → New → R Script →
-<!-- * Save the blank R script in a directory of your choosing -->
-
-<!-- * Add a comment header -->
-
-<!-- ## Commenting in Scripts -->
-
-<!-- Add a comment header to day1.R :`#` is the comment symbol -->
-
-<!-- ```{r} -->
-
-<!-- ################# -->
-
-<!-- # Title: Demo R Script -->
-
-<!-- # Author: John Muschelli -->
-
-<!-- # Purpose: Demonstrate comments in R -->
-
-<!-- ################### -->
-
-<!-- # nothing to its right is evaluated -->
-
-<!-- # this # is still a comment -->
-
-<!-- ### you can use many #'s as you want -->
-
-<!-- # sometimes you have a really long comment, -->
-
-<!-- #    like explaining what you are doing  -->
-
-<!-- #    for a step in analysis.  -->
-
-<!-- # Take it to another line -->
-
-<!-- ``` -->
-
 </article></slide><slide class=""><hgroup><h2>Explaining output on slides</h2></hgroup><article  id="explaining-output-on-slides">
 
 <p>In slides, a command (we’ll also call them code or a code chunk) will look like this</p>
@@ -257,7 +214,7 @@ slide:not(.current) .plotly.html-widget{
 
 <pre >[1] 8</pre>
 
-<p>Note, when you type your command, R inherently thinks you want to print the result.</p>
+<p>Note: when you type your command, R inherently thinks you want to print the result.</p>
 
 </article></slide><slide class=""><hgroup><h2>R as a calculator</h2></hgroup><article  id="r-as-a-calculator-1">
 
@@ -303,7 +260,7 @@ slide:not(.current) .plotly.html-widget{
 
 </article></slide><slide class=""><hgroup><h2>Commenting in Scripts</h2></hgroup><article  id="commenting-in-scripts">
 
-<p><code>#</code> is the comment symbol</p>
+<p><code>#</code> creates a comment in R code</p>
 
 <pre class = 'prettyprint lang-r'># this is a comment
 
@@ -316,12 +273,14 @@ slide:not(.current) .plotly.html-widget{
 
 <pre >[1] 3</pre>
 
-</article></slide><slide class=""><hgroup><h2>R variables</h2></hgroup><article  id="r-variables">
+<p>In an <code>.Rmd</code> file, you can write notes outside the R chunks.</p>
+
+</article></slide><slide class=""><hgroup><h2>Assigning values to objects</h2></hgroup><article  id="assigning-values-to-objects">
 
 <ul>
-<li>You can create variables from within the R environment and from files on your computer</li>
-<li>R uses &ldquo;&lt;-&rdquo; to assign values to a variable name (you can also use &ldquo;=&rdquo; but this is less accepted)</li>
-<li>Variable names are case-sensitive, i.e. X and x are different</li>
+<li>You can create objects from within the R environment and from files on your computer</li>
+<li>R uses <code>&lt;-</code> to assign values to an object name (you might also see <code>=</code> used, but this is not best practice)</li>
+<li>Object names are case-sensitive, i.e. X and x are different</li>
 </ul>
 
 <pre class = 'prettyprint lang-r'>x &lt;- 2
@@ -337,17 +296,17 @@ x</pre>
 
 <pre >[1] 4</pre>
 
-</article></slide><slide class=""><hgroup><h2>R variables</h2></hgroup><article  id="r-variables-1">
+</article></slide><slide class=""><hgroup><h2>Assigning values to objects</h2></hgroup><article  id="assigning-values-to-objects-1">
 
 <ul>
 <li>The most comfortable and familiar class/data type for many of you will be <code>data.frame</code></li>
 <li>You can think of these as essentially spreadsheets with rows (usually subjects or observations) and columns (usually variables)</li>
+<li><code>data.frame</code>s are somewhat advanced objects in R; we will start with simpler objects</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>R variables</h2></hgroup><article  id="r-variables-2">
+</article></slide><slide class=""><hgroup><h2>Assigning values to objects</h2></hgroup><article  id="assigning-values-to-objects-2">
 
 <ul>
-<li><code>data.frame</code>s are somewhat advanced objects in R; we will start with simpler objects;</li>
 <li>Here we introduce &ldquo;1 dimensional&rdquo; classes; often referred to as &lsquo;vectors&rsquo;</li>
 <li>Vectors can have multiple sets of observations, but each observation has to be the same class.</li>
 </ul>
@@ -365,13 +324,13 @@ print(y)</pre>
 
 <pre >[1] &quot;character&quot;</pre>
 
-</article></slide><slide class=""><hgroup><h2>R variables</h2></hgroup><article  id="r-variables-3">
+</article></slide><slide class=""><hgroup><h2>Simple object practice</h2></hgroup><article  id="simple-object-practice">
 
-<p>Try assigning your full name to an R variable called <code>name</code></p>
+<p>Try assigning your full name to an R object called <code>name</code></p>
 
-</article></slide><slide class=""><hgroup><h2>R variables</h2></hgroup><article  id="r-variables-4">
+</article></slide><slide class=""><hgroup><h2>Simple object practice</h2></hgroup><article  id="simple-object-practice-1">
 
-<p>Try assigning your full name to an R variable called <code>name</code></p>
+<p>Try assigning your full name to an R object called <code>name</code></p>
 
 <pre class = 'prettyprint lang-r'>name &lt;- &quot;Ava Hoffman&quot;
 name</pre>
@@ -404,7 +363,21 @@ name2</pre>
 
 <pre >[1] &quot;Ava&quot;     &quot;Hoffman&quot;</pre>
 
-</article></slide><slide class=""><hgroup><h2>R variables</h2></hgroup><article  id="r-variables-5">
+</article></slide><slide class=""><hgroup><h2>Arguments inside R functions</h2></hgroup><article  id="arguments-inside-r-functions">
+
+<ul>
+<li>The contents you give to an R function are called &ldquo;arguments&rdquo;</li>
+<li>Here, R assumes all arguments should be objects contained in the vector</li>
+<li>We will talk more about arguments as we use more complicated functions!</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>name2 &lt;- c(&quot;Ava&quot;, &quot;Hoffman&quot;)
+# Arg 1    ^^^^^</pre>
+
+<pre class = 'prettyprint lang-r'>name2 &lt;- c(&quot;Ava&quot;, &quot;Hoffman&quot;)
+# Arg 2           ^^^^^^^^^</pre>
+
+</article></slide><slide class=""><hgroup><h2><code>length</code> of R objects</h2></hgroup><article  id="length-of-r-objects">
 
 <p><code>length()</code>: Get or set the length of vectors (including lists) and factors, and of any other R object for which a method has been defined.</p>
 
@@ -420,13 +393,13 @@ name2</pre>
 
 <pre >[1] 1</pre>
 
-</article></slide><slide class=""><hgroup><h2>R variables</h2></hgroup><article  id="r-variables-6">
+</article></slide><slide class=""><hgroup><h2><code>length</code> of R objects</h2></hgroup><article  id="length-of-r-objects-1">
 
 <p>What do you expect for the length of the <code>name</code> variable? What about the <code>name2</code> variable?</p>
 
 <p>What are the lengths of each?</p>
 
-</article></slide><slide class=""><hgroup><h2>R variables</h2></hgroup><article  id="r-variables-7">
+</article></slide><slide class=""><hgroup><h2><code>length</code> of R objects</h2></hgroup><article  id="length-of-r-objects-2">
 
 <p>What do you expect for the length of the <code>name</code> variable? What about the <code>name2</code> variable?</p>
 
@@ -440,7 +413,7 @@ name2</pre>
 
 <pre >[1] 2</pre>
 
-</article></slide><slide class=""><hgroup><h2>R variables</h2></hgroup><article  id="r-variables-8">
+</article></slide><slide class=""><hgroup><h2>Math + vector objects</h2></hgroup><article  id="math-vector-objects">
 
 <p>You can perform functions to entire vectors of numbers very easily.</p>
 
@@ -458,9 +431,9 @@ name2</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 1</h2></hgroup><article  id="lab-part-1">
 
-<p><a href='http://jhudatascience.org/intro_to_r/index.html' title=''>Website</a></p>
+<p>💻 <a href='https://jhudatascience.org/intro_to_r/modules/Basic_R/lab/Basic_R_Lab.Rmd' title=''>Lab</a></p>
 
-</article></slide><slide class=""><hgroup><h2>R variables</h2></hgroup><article  id="r-variables-9">
+</article></slide><slide class=""><hgroup><h2>Math + vector objects</h2></hgroup><article  id="math-vector-objects-1">
 
 <p>But things like algebra can only be performed on numbers.</p>
 
@@ -468,20 +441,33 @@ name2</pre>
 
 <pre >Error in name2 + 4: non-numeric argument to binary operator</pre>
 
-</article></slide><slide class=""><hgroup><h2>R variables</h2></hgroup><article  id="r-variables-10">
+</article></slide><slide class=""><hgroup><h2>Reassigning to a new object</h2></hgroup><article  id="reassigning-to-a-new-object">
 
-<p>Save these modified vectors as a new vector.</p>
+<p>Save these modified vectors as a new vector called <code>y</code>.</p>
 
 <pre class = 'prettyprint lang-r'>y &lt;- x + c(1, 2, 3, 4)
 y</pre>
 
 <pre >[1]  2  6  9 12</pre>
 
-<p>Note that the R object <code>y</code> is no longer &ldquo;Hello World!&rdquo; - It has effectively been overwritten by assigning new data to the variable</p>
+<p>Note that the R object <code>y</code> is no longer &ldquo;hello world!&rdquo; - It has been overwritten by assigning new data to the same name.</p>
 
-</article></slide><slide class=""><hgroup><h2>R variables</h2></hgroup><article  id="r-variables-11">
+</article></slide><slide class=""><hgroup><h2>Reassigning to a new object</h2></hgroup><article  id="reassigning-to-a-new-object-1">
 
-<p>You can get more attributes than just class. The function <code>str</code> gives you the structure of the object.</p>
+<p>Reassigning allows you to make changes &ldquo;in place&rdquo;</p>
+
+<pre class = 'prettyprint lang-r'># results not stored:
+x + c(1, 2, 3, 4)
+
+# x remains unchanged, results stored in `y`:
+y &lt;- x + c(1, 2, 3, 4)
+
+# replace `x` in place
+x &lt;- x + c(1, 2, 3, 4)</pre>
+
+</article></slide><slide class=""><hgroup><h2>R variables</h2></hgroup><article  id="r-variables">
+
+<p>You can get more attributes than just class. The function <code>str()</code> gives you the structure of the object.</p>
 
 <pre class = 'prettyprint lang-r'>str(x)</pre>
 
@@ -493,18 +479,26 @@ y</pre>
 
 <p>This tells you that <code>x</code> is a numeric vector and tells you the length.</p>
 
-</article></slide><slide class=""><hgroup><h2>Review</h2></hgroup><article  id="review">
+</article></slide><slide class=""><hgroup><h2>R variables</h2></hgroup><article  id="r-variables-1">
+
+<p>This is handy when we start dealing with bigger / more complex objects.</p>
+
+<pre class = 'prettyprint lang-r'>str(z)</pre>
+
+<pre > num [1:100] 12 12 6 6 2 12 9 2 2 6 ...</pre>
+
+</article></slide><slide class=""><hgroup><h2>Summary</h2></hgroup><article  id="summary">
 
 <ul>
-<li>Creating a new script</li>
-<li>Using R as a calculator</li>
-<li>Assigning values to variables</li>
-<li>Performing algebra on numeric variables</li>
+<li>R functions as a calculator</li>
+<li>Use <code>&lt;-</code> to save (assign) values to objects</li>
+<li>Use <code>c()</code> to <strong>combine</strong> vectors</li>
+<li><code>length()</code>, <code>class()</code>, and <code>str()</code> tell you information about an object</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
+<p>🏠 <a href='https://jhudatascience.org/intro_to_r/' title=''>Class Website</a></p>
 
-<p><a href='http://jhudatascience.org/intro_to_r/index.html' title=''>Website</a></p></article></slide>
+<p>💻 <a href='https://jhudatascience.org/intro_to_r/modules/Basic_R/lab/Basic_R_Lab.Rmd' title=''>Basic R Lab</a></p></article></slide>
 
 
   <slide class="backdrop"></slide>
