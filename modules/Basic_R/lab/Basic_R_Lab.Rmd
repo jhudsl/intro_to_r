@@ -52,6 +52,11 @@ Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-
 ```
 
 
+Bonus: Create a vector that contains 4 sets of the numbers 1, 2, 3, and 4.
+```{r}
+
+```
+
 # Part 2
 
 7. Divide `both` by 3, what happens?
@@ -72,32 +77,25 @@ Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-
 ```
 
 
-10. The code `z <- y[1:5]` saves the first five items in `y` as the new variable `z`. Print `z`.
-```{r}
-z <- y[1:5]
-# ???
-```
-
-
-11. What happens when you add `x` and `z` together? How is this different from #10 ?
+10. What happens when you add `x` and `y` together?
 ```{r}
 
 ```
 
 
-12. Append the value 100 onto the vector `z` (hint: you can use the c() function).
-```{r}
-# ? <- c(?, ???)
-```
-
-
-13. Add `x` and `z` together.
+12. Append the value 60 onto the vector `y` (hint: you can use the c() function).
 ```{r}
 
 ```
 
 
-14. Multiply `x` and `z` together. How is this similar to the way R performs addition in #13 ?
+13. Add `x` and `y` together.
+```{r}
+
+```
+
+
+Bonus: Multiply `x` and `y` together. How is this similar to the way R performs addition in #13 ?
 ```{r}
 
 ```
