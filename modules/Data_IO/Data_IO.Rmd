@@ -236,6 +236,21 @@ The data is now successfully read into your R workspace. Column specification of
 4.  Open ended quotes, parentheses, and brackets     
 5.  Different versions of software
 
+
+## Data Input: Checking the data
+
+- the `View()` function shows your data in a new tab, in spreadsheet format
+- be careful if your data is big!
+
+```{r eval = FALSE}
+View(dat)
+```
+
+```{r, fig.alt="Screenshot of the RStudio console. 'View(dat)' has been typed and the data appears in table format.", out.width = "80%", echo = FALSE, align = "center"}
+knitr::include_graphics("images/Data_IO_View_data.png")
+```
+
+
 ## Data Input: Checking for problems
 
 The `spec()` function shows you the specification of how the data was read in. 
@@ -318,7 +333,7 @@ However, while many online resources use the base R tools, the latest version of
 - Some functions to look at a data frame: 
   - `head()` shows first few rows
   - `tail()` shows the last few rows
-  - `view()` shows the data as a spreadsheet
+  - `View()` shows the data as a spreadsheet
   - `spec()` gives  specification of column types
 
 
