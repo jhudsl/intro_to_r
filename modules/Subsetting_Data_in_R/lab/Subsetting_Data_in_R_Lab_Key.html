@@ -180,7 +180,7 @@ library(jhur)</code></pre>
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
 <ol style="list-style-type: decimal">
-<li>Check to see if you have the <code>mtcars</code> dataset</li>
+<li>Check to see if you have the <code>mtcars</code> dataset by running this chunk.</li>
 </ol>
 <pre class="r"><code>mtcars</code></pre>
 <pre><code>##                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb
@@ -231,7 +231,7 @@ library(jhur)</code></pre>
 <pre class="r"><code>ncol(mtcars)</code></pre>
 <pre><code>## [1] 11</code></pre>
 <ol start="4" style="list-style-type: decimal">
-<li>Copy mtcars into an object called <code>cars_mt_copy</code>. Next, rename <code>mpg</code> in <code>cars_mt_copy</code> to <code>MPG</code> (hint - use <code>rename()</code>).</li>
+<li>Copy mtcars into an object called <code>cars_mt_copy</code> using the code supplied on line 44. Next, rename <code>mpg</code> in <code>cars_mt_copy</code> to <code>MPG</code> (hint - use <code>rename()</code>).</li>
 </ol>
 <pre class="r"><code>cars_mt_copy &lt;- mtcars
 cars_mt_copy &lt;- rename(cars_mt_copy, MPG = mpg)
@@ -244,9 +244,9 @@ head(cars_mt_copy)</code></pre>
 ## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
 ## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
 <ol start="5" style="list-style-type: decimal">
-<li>Convert the column names of <code>cars_mt_copy</code> to all upper case. Use <code>rename_all()</code>, and the <code>toupper</code> command.</li>
+<li>Convert the column names of <code>cars_mt_copy</code> to all upper case. Use <code>rename_with()</code>, and the <code>toupper</code> command.</li>
 </ol>
-<pre class="r"><code>cars_mt_copy &lt;- rename_all(cars_mt_copy, toupper)
+<pre class="r"><code>cars_mt_copy &lt;- rename_with(cars_mt_copy, toupper)
 head(cars_mt_copy)</code></pre>
 <pre><code>##                    MPG CYL DISP  HP DRAT    WT  QSEC VS AM GEAR CARB
 ## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
@@ -257,7 +257,7 @@ head(cars_mt_copy)</code></pre>
 ## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
 <pre class="r"><code>dim(cars_mt_copy)</code></pre>
 <pre><code>## [1] 32 11</code></pre>
-<p>Bonus: How can you print the first 3 rows and the last 3 rows of <code>cars_mt_copy</code>?</p>
+<p>Bonus: How can you print the first 3 rows and the last 3 rows of <code>cars_mt_copy</code> (in two lines of code)?</p>
 <pre class="r"><code>head(cars_mt_copy, 3)</code></pre>
 <pre><code>##                MPG CYL DISP  HP DRAT    WT  QSEC VS AM GEAR CARB
 ## Mazda RX4     21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
@@ -272,9 +272,9 @@ head(cars_mt_copy)</code></pre>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
 <ol style="list-style-type: decimal">
-<li>Using <code>cars_mt_copy</code> create a column called <code>CAR</code> using the <code>rownames_to_column</code> function. Next, create a tibble from the data called <code>cars_mt_copy</code>. Take a look at your data to check it. How many dimensions does it have?</li>
+<li>Using <code>cars_mt_copy</code> create a column called <code>CAR</code> using the <code>rownames_to_column()</code> function. Next, create a tibble from the data called <code>cars_mt_copy</code>. Take a look at your data to check it. How many dimensions does it have?</li>
 </ol>
-<pre class="r"><code>cars_mt_copy &lt;- rownames_to_column(cars_mt_copy, var = &quot;CAR&quot;)
+<pre class="r"><code>cars_mt_copy &lt;- rownames_to_column(cars_mt_copy, &quot;CAR&quot;)
 head(cars_mt_copy)</code></pre>
 <pre><code>##                 CAR  MPG CYL DISP  HP DRAT    WT  QSEC VS AM GEAR CARB
 ## 1         Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
@@ -337,10 +337,8 @@ carsSub</code></pre>
 ##  9 Merc 230           3.15  22.9    95
 ## 10 Merc 280           3.44  18.3   123
 ## # … with 22 more rows</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>Convert the column names of <code>carsSub</code> to all lower case. Take a look at the data.</li>
-</ol>
-<pre class="r"><code>carsSub &lt;- rename_all(carsSub, tolower)
+<p>Bonus: Convert the column names of <code>carsSub</code> to all lower case. Take a look at the data.</p>
+<pre class="r"><code>carsSub &lt;- rename_with(carsSub, tolower)
 carsSub</code></pre>
 <pre><code>## # A tibble: 32 × 4
 ##    car                  wt  qsec    hp
@@ -384,7 +382,7 @@ carsSub</code></pre>
 ##  9 Merc 230         
 ## 10 Merc 280         
 ## # … with 22 more rows</code></pre>
-<p>Bonus: select the variables that contain the letter a from <code>cars_mt_copy</code></p>
+<p>Bonus: Select the variables that contain the letter a from <code>cars_mt_copy</code>.</p>
 <pre class="r"><code>select(cars_mt_copy, contains(&quot;a&quot;))</code></pre>
 <pre><code>## # A tibble: 32 × 5
 ##    CAR                DRAT    AM  GEAR  CARB
@@ -404,7 +402,7 @@ carsSub</code></pre>
 <div id="part-3" class="section level1">
 <h1>Part 3</h1>
 <ol style="list-style-type: decimal">
-<li>Subset the rows of <code>cars_mt_copy</code> that get more than 20 miles per gallon (<code>MPG</code>) of fuel efficiency - how many are there? Use <code>filter()</code>.</li>
+<li>Subset the rows of <code>cars_mt_copy</code> that get <strong>more</strong> than 20 miles per gallon (<code>MPG</code>) of fuel efficiency - how many are there? Use <code>filter()</code>.</li>
 </ol>
 <pre class="r"><code>cars_mpg &lt;- filter(cars_mt_copy, MPG &gt; 20)
 dim(cars_mpg)</code></pre>
@@ -431,7 +429,7 @@ dim(cars_mpg)</code></pre>
 ## 14 Volvo 142E   21.4     4 121     109  4.11  2.78  18.6     1     1     4     2</code></pre>
 <p>There are 14 cars. There are <code>nrow(cars_mpg)</code> cars.</p>
 <ol start="2" style="list-style-type: decimal">
-<li>Subset the rows of <code>cars_mt_copy</code> that get less than 16 miles per gallon (<code>MPG</code>) of fuel efficiency and greater than 150 horsepower (<code>HP</code>) - how many are there?</li>
+<li>Subset the rows of <code>cars_mt_copy</code> that get <strong>less</strong> than 16 miles per gallon (<code>MPG</code>) of fuel efficiency and <strong>more</strong> than 150 horsepower (<code>HP</code>) - how many are there?</li>
 </ol>
 <pre class="r"><code>filter(cars_mt_copy, MPG &lt; 16 &amp; HP &gt; 150)</code></pre>
 <pre><code>## # A tibble: 8 × 12
@@ -454,7 +452,7 @@ dim(cars_mpg)</code></pre>
   nrow()</code></pre>
 <pre><code>## [1] 8</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li>Subset the rows of <code>cars_mt_copy</code> that get less than 16 miles per gallon (<code>MPG</code>) of fuel efficiency and greater than or equal to 150 horsepower (<code>HP</code>) - how many are there?</li>
+<li>Subset the rows of <code>cars_mt_copy</code> that get <strong>less</strong> than 16 miles per gallon (<code>MPG</code>) of fuel efficiency and greater than <strong>or</strong> equal to 150 horsepower (<code>HP</code>) - how many are there?</li>
 </ol>
 <pre class="r"><code>filter(cars_mt_copy, MPG &lt; 16 &amp; HP &gt;= 150)</code></pre>
 <pre><code>## # A tibble: 10 × 12
@@ -555,7 +553,7 @@ carsSub</code></pre>
 ## 14 Maserati Bora        3.57  14.6   335</code></pre>
 <pre class="r"><code>dim(carsSub)</code></pre>
 <pre><code>## [1] 14  4</code></pre>
-<p>Bonus: What happens if you do the steps in a different order? Why?</p>
+<p>What happens if you do the steps in a different order? Why?</p>
 <pre class="r"><code>carsSub &lt;- cars_mt_copy %&gt;%
   select(CAR, WT, QSEC, HP) %&gt;%
   filter(CYL == 8)</code></pre>
@@ -586,12 +584,10 @@ carsSub</code></pre>
 <pre class="r"><code>last(carsSub$CAR) # alternatively without pipes</code></pre>
 <pre><code>## [1] &quot;Lincoln Continental&quot;</code></pre>
 <ol start="4" style="list-style-type: decimal">
-<li>Create a new variable in <code>carsSub</code> called <code>WT2</code>, which is equal to <code>WT^2</code>, using <code>mutate()</code>(don’t forget to reassign <code>carsSub</code>). Use piping <code>%&gt;%</code>:</li>
+<li>Create a new variable in <code>carsSub</code> called <code>WT2</code>, which is equal to <code>WT^2</code>, using <code>mutate()</code>(don’t forget to reassign <code>carsSub</code>). Use pipes <code>%&gt;%</code>:</li>
 </ol>
 <pre class="r"><code>carsSub &lt;- carsSub %&gt;% mutate(WT2 = WT^2)</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>Move the <code>WT2</code> column to be first. Use <code>relocate</code>.</li>
-</ol>
+<p>Bonus: Move the <code>WT2</code> column to be first. Use <code>relocate</code>.</p>
 <pre class="r"><code>carsSub &lt;- carsSub %&gt;% relocate(WT2, .before = CAR)
 carsSub</code></pre>
 <pre><code>## # A tibble: 14 × 5
@@ -611,7 +607,7 @@ carsSub</code></pre>
 ## 12  27.6 Cadillac Fleetwood   5.25  18.0   205
 ## 13  28.6 Chrysler Imperial    5.34  17.4   230
 ## 14  29.4 Lincoln Continental  5.42  17.8   215</code></pre>
-<p>BONUS: How can you find the value of <code>WT2</code> for the Cadillac Fleetwood without looking at the data? `</p>
+<p>BONUS: How can you find the value of <code>WT2</code> for the Cadillac Fleetwood without just looking at the data manually and instead use functions we learned today?</p>
 <pre class="r"><code>carsSub %&gt;%
   filter(CAR == &quot;Cadillac Fleetwood&quot;) %&gt;%
   select(WT2)</code></pre>
