@@ -58,8 +58,8 @@ mon <- read_excel(path = "Monuments.xlsx")
 
 Bonus: Run the following code - is there a problem? How do you know?
 ```{r}
-read_delim(file = "http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv", delim = '\t')
-# It should be a red flag to see that there is only one column that looks like: "YEAR,LocationAbbr,LocationDesc,TopicType,TopicDesc,MeasureDesc..." 
+read_delim(file = "http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv", delim = "\t")
+# It should be a red flag to see that there is only one column that looks like: "YEAR,LocationAbbr,LocationDesc,TopicType,TopicDesc,MeasureDesc..."
 # This file is comma delimited not tab delimited!
 ```
 

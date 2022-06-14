@@ -60,8 +60,7 @@ download.file(
 Bonus: Run the following code - is there a problem? How do you know?
 
 ```{r}
-read_delim(file = "http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv", delim = '\t')
-
+read_delim(file = "http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv", delim = "\t")
 ```
 
 Bonus: Install and load the `haven` package. Look at the help page for `read_dta()` function, and scroll to the very bottom of the page. Try running some of the examples provided.
