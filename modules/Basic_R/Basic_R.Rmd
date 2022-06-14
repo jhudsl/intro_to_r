@@ -188,13 +188,13 @@ length(y)
 
 ## `length` of R objects
 
-What do you expect for the length of the `name` variable? What about the `name2` variable?
+What do you expect for the length of the `name` object? What about the `name2` object?
 
 What are the lengths of each?
 
 ##  `length` of R objects
 
-What do you expect for the length of the `name` variable? What about the `name2` variable?
+What do you expect for the length of the `name` object? What about the `name2` object?
 
 What are the lengths of each?
 
@@ -251,7 +251,7 @@ y <- x + c(1, 2, 3, 4)
 x <- x + c(1, 2, 3, 4)
 ```
 
-## R variables
+## R objects
 
 You can get more attributes than just class. The function `str()` gives you the structure of the object.
 
@@ -262,7 +262,7 @@ str(y)
 
 This tells you that `x` is a numeric vector and tells you the length.
 
-## R variables
+## R objects
 
 This is handy when we start dealing with bigger / more complex objects.
 
