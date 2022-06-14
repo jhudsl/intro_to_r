@@ -53,7 +53,7 @@ download.file(
 6. Use the `read_excel()` function in the `readxl` package to read the `Monuments.xlsx` file and call the output `mon`. 
 
 ```{r}
-mon <- read_excel(file = "Monuments.xlsx")
+mon <- read_excel(path = "Monuments.xlsx")
 ```
 
 Bonus: Run the following code - is there a problem? How do you know?
