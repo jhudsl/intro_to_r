@@ -53,6 +53,16 @@ class(both)
 ```
 
 
+Bonus: Create a vector that contains 4 sets of the numbers 1, 2, 3, and 4.
+```{r}
+vec_1 <- c(1, 2, 3, 4)
+vec_2 <- c(vec_1, vec_1, vec_1, vec_1)
+
+# OR!
+rep(vec_1, 4)
+```
+
+
 # Part 2
 
 7. Divide `both` by 3, what happens?
@@ -67,41 +77,34 @@ x <- c(1, 2, 3, 4, 5, 6)
 ```
 
 
-9. Create another vector with elements 10 20 30 40 50 60 and call it `y`.
+9. Create another vector with elements 10 20 30 40 50 and call it `y`.
 ```{r}
-y <- c(10, 20, 30, 40, 50, 60)
+y <- c(10, 20, 30, 40, 50)
 ```
 
 
-10. The code `z <- y[1:5]` saves the first five items in `y` as the new variable `z`. Print `z`.
+10. What happens when you add `x` and `y` together?
 ```{r}
-z <- y[1:5]
-print(z)
-```
-
-
-11. What happens when you add `x` and `z` together? How is this different from #10 ?
-```{r}
-x + z
+x + y
 # R "auto replicates" the shorter vector when the vectors aren't the same length - this is not what we want!
 # In this case, it reads y as c(10, 20, 30, 40, 50, 10)!
 ```
 
 
-12. Append the value 100 onto the vector `z` (hint: you can use the c() function).
+12. Append the value 60 onto the vector `y` (hint: you can use the c() function).
 ```{r}
-z <- c(z, 100)
+y <- c(y, 60)
 ```
 
 
-13. Add `x` and `z` together.
+13. Add `x` and `y` together.
 ```{r}
-x + z
+x + y
 ```
 
 
-14. Multiply `x` and `z` together. How is this similar to the way R performs addition in #13 ?
+Bonus: Multiply `x` and `y` together. How is this similar to the way R performs addition in #13 ?
 ```{r}
-x * z
+x * y
 # R adds together the first element of each vector, then the second, and so on. This order also applies when multiplying!
 ```
