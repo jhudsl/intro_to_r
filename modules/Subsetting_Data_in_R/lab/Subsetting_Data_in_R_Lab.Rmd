@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 In this lab you can use the interactive console to explore but please record your commands here.  Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-X) or Ctrl-Enter (Windows/Linux) (But only inside the code chunks designated with the ```{r}``` areas).
 
 ```{r, message = FALSE}
-# don't forget to load the packages that you will need!
+# don't forget to load the packages that you will need!!
 library(dplyr)
 library(tidyverse)
 library(jhur)
@@ -20,32 +20,33 @@ library(jhur)
 
 # Part 1
 
-1. Check to see if you have the `mtcars` dataset by running this chunk.
+First check to see if you have the `mtcars` dataset by running this chunk.Remember that code is denoted with backticks "`" around it in the main text, but do not copy backticks when you paste code elements into code chunks (like the gray section below). 
+
 ```{r}
 mtcars
 ```
 
 
-2. What class is `mtcars`?
+1. What class is `mtcars`?
 
 ```{r}
 
 ```
 
-3. How many observations (rows) and variables (columns) are in the `mtcars` dataset - try the `dim()` function?
+2. How many observations (rows) and variables (columns) are in the `mtcars` dataset - try the `dim()` function?
 
 ```{r}
 
 ```
 
-4. Copy mtcars into an object called `cars_mt_copy` using the code supplied on line 44. Next, rename `mpg` in `cars_mt_copy` to `MPG` (hint - use `rename()`).
+3. Copy mtcars into an object called `cars_mt_copy` using the code supplied in the chunk below. Next, rename the column `mpg` in `cars_mt_copy` to `MPG` (hint - use `rename()`).
 
 ```{r}
 cars_mt_copy <- mtcars
 
 ```
 
-5. Convert the column names of `cars_mt_copy` to all upper case. Use `rename_with()`, and the `toupper` command.
+4. Convert the column names of `cars_mt_copy` to all upper case. Use `rename_with()`, and the `toupper` command.
 
 ```{r}
 
@@ -59,19 +60,19 @@ Bonus: How can you print the first 3 rows and the last 3 rows of `cars_mt_copy` 
 
 # Part 2
 
-1. Using `cars_mt_copy` create a column called `CAR` using the `rownames_to_column()` function. Then create a tibble from the data called `cars_mt_copy`.  Take a look at your data to check it. How many dimensions does it have?
+1. Using `cars_mt_copy` create a column called `CAR` using the `rownames_to_column()` function. Create a tibble from the data called `cars_mt_copy`.  Take a look at your data to check it. How many dimensions does it have?
 
 ```{r}
 
 ```
 
-2. Subset both the column `CAR` that you just created and the columns from `cars_mt_copy` that end in `"P"` and call it `pvars`. Hint: use `ends_with()`. Again take a look at the data.
+2. Subset both the column `CAR` that you just created and the columns from `cars_mt_copy` that end in `"P"` and call it `pvars`. Hint: use `ends_with()` and `select()`. Again take a look at the data.
 
 ```{r}
 
 ```
 
-3. Create a subset of the `cars_mt_copy` that only contains the columns: `CAR`, `WT`, `QSEC`, and `HP` and assign this object to `carsSub` - what are the dimensions of this dataset? Use `select()`:
+3. Create a subset of the `cars_mt_copy` that only contains the columns: `CAR`, `WT`, `QSEC`, and `HP` and assign this object to `carsSub` - what are the dimensions of this dataset?
 
 ```{r}
 
@@ -114,7 +115,7 @@ Bonus: Select the variables that contain the letter a from `cars_mt_copy`.
 ```
 
 
-3. Subset the rows of `cars_mt_copy` that get **less** than 16 miles per gallon (`MPG`) of fuel efficiency and greater than **or** equal to 150 horsepower (`HP`) - how many are there?
+3. Subset the rows of `cars_mt_copy` that get **less** than 16 miles per gallon (`MPG`) of fuel efficiency **and** **greater than or equal** to 150 horsepower (`HP`) - how many are there?
 
 ```{r}
 
@@ -125,7 +126,7 @@ Bonus: Select the variables that contain the letter a from `cars_mt_copy`.
 
 Bonus:
 
-Subset the rows of `cars_mt_copy` for cars that have 4 `CYL`,  or less than 1.9 WT.
+Subset the rows of `cars_mt_copy` for cars that have 4 `CYL`,  **or** **less** than 1.9 WT.
 How many cars have both?
 
 
@@ -164,7 +165,7 @@ What happens if you do the steps in a different order? Why?
 ```
 
 
-Bonus: Move the `WT2` column to be first. Use `relocate`.
+Bonus: Move the `WT2` column to be first. Use `relocate()`.
 
 ```{r}
 
@@ -172,7 +173,6 @@ Bonus: Move the `WT2` column to be first. Use `relocate`.
 
 
 BONUS: How can you find the value of `WT2` for the Cadillac Fleetwood without just looking at the data manually and instead use functions we learned today?
-
 
 ```{r}
 
