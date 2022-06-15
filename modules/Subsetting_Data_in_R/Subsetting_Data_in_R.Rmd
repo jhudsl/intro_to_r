@@ -16,6 +16,20 @@ library(dplyr)
 library(jhur)
 ```
 
+## Recap
+- R functions as a calculator
+- Use `c()` to **combine** vectors
+- Use `<-` to save (assign) values to objects
+- if you don't use `<-` to reassign objects that you want to modify, they will stay the same
+- `length()`, `class()`, and `str()` tell you information about an object
+- `head()` and `tail()` can also help you inspect an object
+- `spec` can help you check data read into R with `readr`
+- `readr`has helpful functions like `read_csv()` that can help you import data into R
+- `readr` also has helpful functions like `write_rds()` to create files that can be double clicked from the file pane to load into your RStudio environment
+
+📃[Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-2.pdf)
+
+
 ## Overview
 
 In this module, we will show you how to:
@@ -29,6 +43,7 @@ In this module, we will show you how to:
 7. Add/remove new columns to a data frame
 8. Order the columns of a data frame
 9. Order the rows of a data frame
+
 
 ## Setup
 
@@ -161,7 +176,7 @@ Note don't necessarily need to use `head()`- tibbles conveniently print a portio
 
 ## tibbles form read_csv()
 
-Alternatively we can read data files using the tidyverse with the `read_csv()` function of the `readr` package from the `tidyverse` to make a tibble.
+Alternatively we can read data files using the `tidyverse` with the `read_csv()` function of the `readr` package from the `tidyverse` to make a tibble.
 
 
 ```{r, eval = FALSE}
@@ -239,14 +254,14 @@ head(df, 3)
 ## Summary
 
 - data frames are simpler version of a data table
-- tibbles are fancier `tidyverse version
+- tibbles are fancier `tidyverse` version
 - data frames are made with `data.frames()` and `read.csv()`
 - tibbles are made with `tibble()` and `read_csv()` from `readr`
 - the `rename()` function of `dplyr` can help you rename columns
 
 ## Lab Part 1
 
-🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)    
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab.Rmd)
 
 # Subsetting Columns
@@ -287,9 +302,9 @@ pull(select(df, mpg))
 
 ## Select columns of a data frame: dplyr
 
-The `select` command from `dplyr` allows you to subset columns matching strings:
+The `select` command from `dplyr` allows you to subset columns matching patterns:
 ```{r}
-select(df, mpg, cyl)
+head(df, 2)
 select(df, starts_with("c"))
 ```
 
@@ -304,12 +319,11 @@ ends_with()
 contains() # like searching
 ```
 
-Type `tidyselect::` in the console and see what RStudio suggests:
+Type `tidyselect::` in the **console** and see what RStudio suggests:
 
-```{r, eval = FALSE}
-tidyslect:: 
+```{r, fig.alt="dplyr", out.width = "80%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/tidyselect.png")
 ```
-
 
 ## Summary
 
@@ -322,7 +336,7 @@ tidyslect::
 
 ## Lab Part 2
 
-🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)    
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab.Rmd)
 
 # Subsetting Rows
@@ -588,12 +602,11 @@ arrange(df, mpg, desc(hp))
     3. using pipes `%>%`
 - `arrange()` can be used to reorder rows
 - `select()` and `relocate()` can be used to reorder columns
--  can remove a column by:  
+- can remove rows with `filter()`
+- can remove a column in a few ways:  
     1. assigning a column to `NULL`  
     2. using `select()` with negative sign in front of column name(s)  
     3. not selecting it (without negative sign)  
-- recall that `filter()` is how you remove rows
-- `mutate()` can be used to create new variables or modify them
 
 ## Summary cont...
 
