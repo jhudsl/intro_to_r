@@ -17,6 +17,7 @@ library(forcats)
 # One dimensional types ("vectors")
 
 ## Data Types
+
     * Character: strings or individual characters, quoted
     * Numeric: any real number(s)
     * Integer: any integer(s)/whole numbers
@@ -52,7 +53,7 @@ There are two major numeric subclasses
 
 ## Integer
 
-`Integer` is a special subset of `numeric` that contains only whole numbers
+`Integer` is a special subset of `numeric` that contains only <span style="color: red;">whole numbers</span>.
 
 A sequence of numbers is an example of the integer type. You can use the `seq()` function to create a sequence of integers.
 
@@ -67,7 +68,7 @@ typeof(x)
 
 ## Double
 
-`Double` is a special subset of `numeric` that contains fractional values.
+`Double` is a special subset of `numeric` that contains <span style="color: red;">fractional values</span>.
 
 `Double` stands for [double-precision](https://en.wikipedia.org/wiki/Double-precision_floating-point_format)
 
@@ -125,7 +126,7 @@ is.numeric(c("tree", "cloud"))
 
 ## General Class Information: coercing
 
-In some cases the coercing is seamless 
+In some cases the coercing is seamless: 
 
 ```{r logical_coercion3s}
 as.character(c(1, 4, 7))
@@ -174,7 +175,7 @@ More on how to change the levels ordering in a lecture coming up!
 
 ## Factors
 
-Factors can be converted to `numeric` or `character` very easily
+Factors can be converted to `numeric` or `character` very easily.
 
 ```{r factor3}
 x_fact
@@ -199,10 +200,10 @@ rep(c("black", "white"), each = 2, times = 2)
 
 ## Useful functions to create vectors 
 
-For numeric: `seq()` can be very useful.
-The `from` argument says what number to start on.
-The `to` argument says what number to not go above.
-The `by` argument says how much to increment by.
+For numeric: `seq()` can be very useful.   
+The `from` argument says what number to start on.    
+The `to` argument says what number to not go above.   
+The `by` argument says how much to increment by.    
 The `length.out` argument says how long the vector should be overall.
 
 ```{r}
@@ -210,11 +211,23 @@ seq(from = 0, to = 1, by = 0.2)
 seq(from = -5, to = 5, length.out = 10)
 ```
 
+
+## Summary
+
+- There are two types of numeric class objects: integer and double
+- Logic class objects only have `TRUE` or `False` (without quotes)
+- is.CLASS_NAME(x) can be used to test the class of an object x
+- as.CLASS_NAME(x) cab be used to change the class of an object x
+- Factors are a special character class that has levels - more on that soon!
+- The repeat `rep()` function helps you create vectors with the `to` and `from` arguments
+- The sequence `seq()` function helps you create numeric vectors (`from`,`to`, `by`, and `length.out` arguments)
+- `seq()` can be used for integers or double numberic vectors
+- tibbles show column classes!
+
 ## Lab Part 1
 
-Lab document: http://jhudatascience.org//intro_to_r/Data_Classes/lab/Data_Classes_Lab.Rmd
-
-
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)    
+💻 [Lab](https://jhudatascience.org/intro_to_r/modules//Data_Classes/lab/Data_Classes_Lab.Rmd)
 
 # Two-dimensional data classes
 
@@ -268,6 +281,7 @@ mylist_named
 ```
 
 
+# Special data classes
 
 ## Dates
 
@@ -289,30 +303,34 @@ library(lubridate)
 
 ymd("2021-06-15") # lubridate package
 class(ymd("2021-06-15")) # lubridate package
+class(date("2021-06-15")) # lubridate package
 ```
 
 Note for  function `ymd`: **y**year **m**onth **d**ay  
 
+## dates
+
+```{r}
+a <- ymd("2021-06-15")
+b <- ymd("2021-06-18")
+a-b
+```
 
 
 ## Creating `Date` class object 
+This will not work:
+`date()` is picky...
+```{r, eval = FALSE}
+date("06/15/2021")
+```
+This works though!
 
 ```{r, error = TRUE}
 mdy("06/15/2021")
-
 mdy("06/15/21")
 ```
 
 Note for  function `mdy`: **m**onth **d**ay  **y**year
-
-
-## Lab Part 2
-
-Lab document: http://jhudatascience.org//intro_to_r/Data_Classes/lab/Data_Classes_Lab.Rmd
-
-
-# Extra Slides
-
 
 ## Creating `POSIXct` class object  
 
@@ -326,7 +344,26 @@ UTC represents time zone, by default: Coordinated Universal Time
 
 Note for  function `ymd_hms`: **y**year **m**onth **d**ay **h**our **m**inute **s**econd. 
 
-There are functions in case your data have only date, hour and minute (`ymd_hm()`) or only  date and hour (`ymd_h()`). 
+There are functions in case your data have only date, hour and minute (`ymd_hm()`) or only date and hour (`ymd_h()`). 
+
+
+## Summary
+
+ - two dimensional object classes include: data frames, tibbles, matrices, and lists
+ - matrix has columns and rows but  is all one data class
+     - can create a matrix with `matrix()` from scratch or `as.matrix()` from something
+ - lists can contain multiples of any other class of data including lists!
+     - can create lists with `list()`
+ - calendar dates can be represented with the `Date` class using `ymd()`, `mdy()` functions from `lubridate` package 
+- `POSIXct` class representing a calendar date with hours, minutes, seconds. Can use `ymd_hms()` or `ymd_hm()` or `ymd_h()`functions from the `lubridate` package
+
+## Lab Part 2
+
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)    
+💻 [Lab](https://jhudatascience.org/intro_to_r/modules//Data_Classes/lab/Data_Classes_Lab.Rmd)
+
+# Extra Slides
+
 
 ## Some useful functions from `lubridate` to manipulate `Date` objects
 
