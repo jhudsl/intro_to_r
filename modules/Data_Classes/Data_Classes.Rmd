@@ -57,7 +57,7 @@ There are two major numeric subclasses
 
 
 ```{r seq}
-x <- c(1,2,3,4,5)
+x <- c(1, 2, 3, 4, 5)
 class(x)
 typeof(x)
 ```
@@ -221,9 +221,8 @@ seq(from = -5, to = 5, length.out = 10)
 ```{r}
 seq_hun <- seq(from = 0, to = 100, by = 1)
 seq_hun
-y <-sample(x = seq_hun, size = 5, replace = TRUE)
+y <- sample(x = seq_hun, size = 5, replace = TRUE)
 y
-
 ``` 
 ## Summary
 
@@ -330,7 +329,7 @@ Note for  function `ymd`: **y**year **m**onth **d**ay
 ```{r}
 a <- ymd("2021-06-15")
 b <- ymd("2021-06-18")
-a-b
+a - b
 ```
 
 
