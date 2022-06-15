@@ -79,7 +79,9 @@ This can be applied to a slide by putting {.codesmall} next to a slide title lik
 RED STUFF!
 :::
 ```
-
+ or like this:
+ 
+`Integer` is a special subset of `numeric` that contains only <span style="color: red;">whole numbers.</span>
 
 ## Add background color to code chunk describe general syntax for code
 
