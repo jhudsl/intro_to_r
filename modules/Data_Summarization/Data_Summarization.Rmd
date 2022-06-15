@@ -22,6 +22,18 @@ pre { /* Code block - slightly smaller in this lecture */
 }
 </style>
 
+## Recap
+
+- `arrange()`: reorder rows
+- `select()`: subset and/or reorder columns
+- `filter()`: remove rows
+- remove a column: `select()` with negative sign (`-col_name`)
+- `mutate()`: create new variables or modify them
+- `select()` and `filter()` can be combined together
+- you can do sequential steps: especially using pipes `%>%`
+
+📃[Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-3.pdf)
+
 ## Data Summarization
 
 * Basic statistical summarization
@@ -161,13 +173,15 @@ colnames(tb)
 
 ## Summarize the data: `dplyr` `summarize` function
 
-`dplyr::summarize` will allow you to summarize data. Format is `new = SUMMARY`. 
+`summarize` creates a summary table of a column you're interested in.
 
+<div class = "codeexample">
 ```{r, eval = FALSE}
 # General format - Not the code!
 {data object to update} <- {data to use} %>% 
                           summarize({summary column name} = {operator(source column)}) 
 ```
+</div>
 
 ```{r}
 tb %>% summarize(mean_2006 = mean(`2006`, na.rm = TRUE))
@@ -205,8 +219,8 @@ tb %>%
 Let's see what the mean is across each row (country):
 
 ```{r}
-tb_2 <- column_to_rownames(tb, "country") # opposite of rownames_to_column() !
-head(tb_2, 2)
+tb_2 <- column_to_rownames(tb, var = "country") # opposite of rownames_to_column() !
+head(tb_2, n = 2)
 rowMeans(tb_2, na.rm = TRUE)
 ```
 
@@ -230,7 +244,9 @@ summary(tb)
 
 ## Lab Part 1
 
-[Website](http://jhudatascience.org/intro_to_r/index.html)
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
+
+💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Data_Summarization/lab/Data_Summarization_Lab.Rmd)
 
 ## Youth Tobacco Survey
 
@@ -285,7 +301,7 @@ yts %>% count(LocationDesc, TopicDesc)
 
 ## Perform Operations By Groups: dplyr
 
-`group_by` allows you group the data set by grouping variables:
+`group_by` allows you group the data set by variables you specify:
 
 ```{r}
 #
@@ -294,7 +310,7 @@ yts
 
 ## Perform Operations By Groups: dplyr
 
-`group_by` allows you group the data set by grouping variables:
+`group_by` allows you group the data set by variables you specify:
 
 ```{r}
 yts <- yts %>% group_by(Response)
@@ -353,36 +369,26 @@ yts %>%
 
 ## Lab Part 2
 
-[Website](http://jhudatascience.org/intro_to_r/index.html)
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
+
+💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Data_Summarization/lab/Data_Summarization_Lab.Rmd)
 
 # Preview: plotting
 
 ## Basic Plots
 
-Plotting is an important component of exploratory data analysis. These are some rough one-line plots that you can use in real time while exploring your data. We will go over formatting and making plots look nicer in additional lectures.
+Plotting is an important component of exploratory data analysis. These are some rough plots that you can use in real time while exploring your data. We will go over formatting and making plots look nicer in additional lectures.
 
 * Basic summarization plots: 
+    * `hist(x)`: histogram of x
     * `plot(x,y)`: scatterplot of x and y
     * `boxplot(y~x)`: boxplot of y against levels of x
-    * `hist(x)`: histogram of x
-    * `plot(density(x))`: kernel density plot of x
-
-## Scatterplot
-
-```{r}
-plot( pull(jhu_cars,hp), pull(jhu_cars,mpg) ) # alt: plot(jhu_cars$hp, jhu_cars$mpg)
-```
-
-## Boxplot
-
-```{r}
-boxplot( pull(jhu_cars,hp) ~ pull(jhu_cars,cyl) )
-```
 
 ## Histogram
 
 ```{r}
-hist(pull(jhu_cars,mpg))
+mpg <- jhu_cars %>% pull(mpg)
+hist(x = mpg)
 ```
 
 ## Histogram
@@ -390,15 +396,41 @@ hist(pull(jhu_cars,mpg))
 Use the `breaks =` argument to tweak the resolution:
 
 ```{r}
-hist(pull(jhu_cars,mpg), breaks = 10)
+hist(x = mpg, breaks = 10)
 ```
 
-## Density
+## Scatterplot
 
 ```{r}
-plot(density(pull(jhu_cars,mpg)))
+mpg <- jhu_cars %>% pull(mpg)
+hp <- jhu_cars %>% pull(hp)
+plot(x = hp, y = mpg) # plot(hp, mpg)
 ```
+
+## Boxplot
+
+```{r}
+cyl <- jhu_cars %>% pull(cyl)
+hp <- jhu_cars %>% pull(hp)
+boxplot(formula = hp ~ cyl)
+```
+
+## Summary
+
+- summary stats (`mean()`) work with `pull()`
+- `summary(x)`: quantile information
+- `summarize`: creates a summary table of columns of interest
+  - combine with `across()` to programmatically select columns
+- `count(x)`: what unique values do you have? 
+  - `pull()` + `table()`
+  - `unique()` combined with `length()`
+- `group_by()`: changes all subsequent functions
+  - combine with `summarize()` to get statistics per group
+- `plot()` and `hist()` are great for a **quick snapshot** of the data
 
 ## Lab Part 3
 
-[Website](http://jhudatascience.org/intro_to_r/index.html)
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
+
+💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Data_Summarization/lab/Data_Summarization_Lab.Rmd)
+
