@@ -174,9 +174,7 @@ pre code {
 
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
-<ol start="0" style="list-style-type: decimal">
-<li>Load all the libraries we will use in this lab.</li>
-</ol>
+<p>Load all the libraries we will use in this lab.</p>
 <pre class="r"><code>library(readr)
 library(tidyverse)</code></pre>
 <pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
@@ -383,7 +381,7 @@ glimpse(classes_data)</code></pre>
 <pre class="r"><code>range(circ$date)</code></pre>
 <pre><code>## [1] &quot;01/01/2011&quot; &quot;12/31/2012&quot;</code></pre>
 <p>The max of range(circ$date) is numerical not based on date.</p>
-<p>Bonus: Use <code>table()</code> function on <code>day</code> variable to display the count of <code>orangeBoardings</code> observations with each day. Which day had the most boardings? Is this true for the other routes (<code>purpleBoardings</code>, <code>greenBoardings</code>, <code>bannerBoardings</code>)?</p>
+<p>Bonus: Use the <code>group_by</code> function on <code>day</code> variable with the <code>summarize()</code> function, to display the count of <code>orangeBoardings</code> observations with each day. Which day had the most boardings? Is this true for the other routes (<code>purpleBoardings</code>, <code>greenBoardings</code>, <code>bannerBoardings</code>)?</p>
 <pre class="r"><code>circ %&gt;%
   group_by(day) %&gt;%
   summarize(n = sum(orangeBoardings, na.rm = TRUE))</code></pre>

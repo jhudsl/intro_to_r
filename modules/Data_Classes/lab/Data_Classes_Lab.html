@@ -174,9 +174,7 @@ pre code {
 
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
-<ol start="0" style="list-style-type: decimal">
-<li>Load all the libraries we will use in this lab.</li>
-</ol>
+<p>Load all the libraries we will use in this lab.</p>
 <pre class="r"><code>library(readr)
 library(tidyverse)
 library(dplyr)
@@ -222,7 +220,7 @@ library(jhur)</code></pre>
 <li><p>Create a list data object called <code>classes_data</code> that combines the <code>vect_data</code> from the first part of the lab and <code>circ</code>. Use <code>glimpse()</code> to look at the data.</p></li>
 </ol>
 <p>Bonus: Use <code>range()</code> function on <code>date_formatted</code> variable to display the range of dates in the data set. How does this compare to that of <code>date</code>? Why?</p>
-<p>Bonus: Use <code>table()</code> function on <code>day</code> variable to display the count of <code>orangeBoardings</code> observations with each day. Which day had the most boardings? Is this true for the other routes (<code>purpleBoardings</code>, <code>greenBoardings</code>, <code>bannerBoardings</code>)?</p>
+<p>Bonus: Use the <code>group_by</code> function on <code>day</code> variable with the <code>summarize()</code> function, to display the count of <code>orangeBoardings</code> observations with each day. Which day had the most boardings? Is this true for the other routes (<code>purpleBoardings</code>, <code>greenBoardings</code>, <code>bannerBoardings</code>)?</p>
 </div>
 
 

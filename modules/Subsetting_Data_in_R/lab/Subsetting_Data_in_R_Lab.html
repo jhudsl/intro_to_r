@@ -173,15 +173,13 @@ pre code {
 
 
 <p>In this lab you can use the interactive console to explore but please record your commands here. Remember anything you type here can be “sent” to the console with Cmd-Enter (OS-X) or Ctrl-Enter (Windows/Linux) (But only inside the code chunks designated with the <code>{r}</code> areas).</p>
-<pre class="r"><code># don&#39;t forget to load the packages that you will need!
+<pre class="r"><code># don&#39;t forget to load the packages that you will need!!
 library(dplyr)
 library(tidyverse)
 library(jhur)</code></pre>
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
-<ol style="list-style-type: decimal">
-<li>Check to see if you have the <code>mtcars</code> dataset by running this chunk.</li>
-</ol>
+<p>First check to see if you have the <code>mtcars</code> dataset by running this chunk.Remember that code is denoted with backticks “`” around it in the main text, but do not copy backticks when you paste code elements into code chunks (like the gray section below).</p>
 <pre class="r"><code>mtcars</code></pre>
 <pre><code>##                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb
 ## Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
@@ -216,13 +214,13 @@ library(jhur)</code></pre>
 ## Ferrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
 ## Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
 ## Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
-<ol start="2" style="list-style-type: decimal">
+<ol style="list-style-type: decimal">
 <li><p>What class is <code>mtcars</code>?</p></li>
 <li><p>How many observations (rows) and variables (columns) are in the <code>mtcars</code> dataset - try the <code>dim()</code> function?</p></li>
-<li><p>Copy mtcars into an object called <code>cars_mt_copy</code> using the code supplied on line 44. Next, rename <code>mpg</code> in <code>cars_mt_copy</code> to <code>MPG</code> (hint - use <code>rename()</code>).</p></li>
+<li><p>Copy mtcars into an object called <code>cars_mt_copy</code> using the code supplied in the chunk below. Next, rename the column <code>mpg</code> in <code>cars_mt_copy</code> to <code>MPG</code> (hint - use <code>rename()</code>).</p></li>
 </ol>
 <pre class="r"><code>cars_mt_copy &lt;- mtcars</code></pre>
-<ol start="5" style="list-style-type: decimal">
+<ol start="4" style="list-style-type: decimal">
 <li>Convert the column names of <code>cars_mt_copy</code> to all upper case. Use <code>rename_with()</code>, and the <code>toupper</code> command.</li>
 </ol>
 <p>Bonus: How can you print the first 3 rows and the last 3 rows of <code>cars_mt_copy</code> (in two lines of code)?</p>
@@ -230,9 +228,9 @@ library(jhur)</code></pre>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
 <ol style="list-style-type: decimal">
-<li><p>Using <code>cars_mt_copy</code> create a column called <code>CAR</code> using the <code>rownames_to_column()</code> function. Then create a tibble from the data called <code>cars_mt_copy</code>. Take a look at your data to check it. How many dimensions does it have?</p></li>
-<li><p>Subset both the column <code>CAR</code> that you just created and the columns from <code>cars_mt_copy</code> that end in <code>&quot;P&quot;</code> and call it <code>pvars</code>. Hint: use <code>ends_with()</code>. Again take a look at the data.</p></li>
-<li><p>Create a subset of the <code>cars_mt_copy</code> that only contains the columns: <code>CAR</code>, <code>WT</code>, <code>QSEC</code>, and <code>HP</code> and assign this object to <code>carsSub</code> - what are the dimensions of this dataset? Use <code>select()</code>:</p></li>
+<li><p>Using <code>cars_mt_copy</code> create a column called <code>CAR</code> using the <code>rownames_to_column()</code> function. Create a tibble from the data called <code>cars_mt_copy</code>. Take a look at your data to check it. How many dimensions does it have?</p></li>
+<li><p>Subset both the column <code>CAR</code> that you just created and the columns from <code>cars_mt_copy</code> that end in <code>&quot;P&quot;</code> and call it <code>pvars</code>. Hint: use <code>ends_with()</code> and <code>select()</code>. Again take a look at the data.</p></li>
+<li><p>Create a subset of the <code>cars_mt_copy</code> that only contains the columns: <code>CAR</code>, <code>WT</code>, <code>QSEC</code>, and <code>HP</code> and assign this object to <code>carsSub</code> - what are the dimensions of this dataset?</p></li>
 </ol>
 <p>Bonus: Convert the column names of <code>carsSub</code> to all lower case. Take a look at the data.</p>
 <p>Bonus: Pull the variable <code>car</code> from <code>carsSub</code>. How does this differ form selecting it?</p>
@@ -243,11 +241,11 @@ library(jhur)</code></pre>
 <ol style="list-style-type: decimal">
 <li><p>Subset the rows of <code>cars_mt_copy</code> that get <strong>more</strong> than 20 miles per gallon (<code>MPG</code>) of fuel efficiency - how many are there? Use <code>filter()</code>.</p></li>
 <li><p>Subset the rows of <code>cars_mt_copy</code> that get <strong>less</strong> than 16 miles per gallon (<code>MPG</code>) of fuel efficiency and <strong>more</strong> than 150 horsepower (<code>HP</code>) - how many are there?</p></li>
-<li><p>Subset the rows of <code>cars_mt_copy</code> that get <strong>less</strong> than 16 miles per gallon (<code>MPG</code>) of fuel efficiency and greater than <strong>or</strong> equal to 150 horsepower (<code>HP</code>) - how many are there?</p></li>
+<li><p>Subset the rows of <code>cars_mt_copy</code> that get <strong>less</strong> than 16 miles per gallon (<code>MPG</code>) of fuel efficiency <strong>and</strong> <strong>greater than or equal</strong> to 150 horsepower (<code>HP</code>) - how many are there?</p></li>
 <li><p>Why do the answers for 2 and 3 differ?</p></li>
 </ol>
 <p>Bonus:</p>
-<p>Subset the rows of <code>cars_mt_copy</code> for cars that have 4 <code>CYL</code>, or less than 1.9 WT. How many cars have both?</p>
+<p>Subset the rows of <code>cars_mt_copy</code> for cars that have 4 <code>CYL</code>, <strong>or</strong> <strong>less</strong> than 1.9 WT. How many cars have both?</p>
 </div>
 <div id="part-4" class="section level1">
 <h1>Part 4</h1>
@@ -260,7 +258,7 @@ library(jhur)</code></pre>
 <li><p>Re-order the rows of <code>carsSub</code> by weight (<code>WT</code>) in increasing order. Use <code>arrange()</code>. What is the heaviest car?</p></li>
 <li><p>Create a new variable in <code>carsSub</code> called <code>WT2</code>, which is equal to <code>WT^2</code>, using <code>mutate()</code>(don’t forget to reassign <code>carsSub</code>). Use pipes <code>%&gt;%</code>:</p></li>
 </ol>
-<p>Bonus: Move the <code>WT2</code> column to be first. Use <code>relocate</code>.</p>
+<p>Bonus: Move the <code>WT2</code> column to be first. Use <code>relocate()</code>.</p>
 <p>BONUS: How can you find the value of <code>WT2</code> for the Cadillac Fleetwood without just looking at the data manually and instead use functions we learned today?</p>
 </div>
 
