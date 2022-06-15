@@ -211,11 +211,13 @@ To rename columns in `dplyr`, you can use the `rename` function.
 
 For example, let's rename mpg to MPG. Notice the new name is listed **first**!
 
+<div class = "codeexample">
 ```{r, eval = FALSE}
 # general format! not code!
-{data you are creating or changing} <- rename( {data you are using}, 
-                                        {New Name} = {Old name})
+{data you are creating or changing} <- rename({data you are using}, 
+                                          {New Name} = {Old name})
 ```
+</div>
 
 ```{r}
 df <- dplyr::rename(df, MPG = mpg)
@@ -446,11 +448,13 @@ The `$` method is very common.
 
 The `mutate` function in `dplyr` allows you to add or modify columns of a data frame.
 
+<div class = "codeexample">
 ```{r, eval = FALSE}
 # General format - Not the code!
 {data object to update} <- mutate({data to use}, 
-                                {new variable name} = {new variable source}) 
+                           {new variable name} = {new variable source}) 
 ```
+</div>
 
 ```{r}
 df <- mutate(df, newcol = wt/2.2)
