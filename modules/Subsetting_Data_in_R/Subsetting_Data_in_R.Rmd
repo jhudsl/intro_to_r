@@ -616,11 +616,13 @@ arrange(df, mpg, desc(hp))
 
 - `mutate()` can be used to create new variables or modify them
 
+<div class = "codeexample">
 ```{r, eval = FALSE}
 # General format - Not the code!
 {data object to update} <- mutate({data to use}, 
                                 {new variable name} = {new variable source}) 
 ```
+</div>
 
 ```{r, eval = FALSE}
 df <- mutate(df, newcol = wt/2.2)
