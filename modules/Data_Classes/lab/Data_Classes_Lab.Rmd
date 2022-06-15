@@ -7,7 +7,7 @@ editor_options:
 
 # Part 1
 
-0. Load all the libraries we will use in this lab. 
+Load all the libraries we will use in this lab. 
 
 ```{r}
 library(readr)
@@ -114,7 +114,7 @@ Bonus: Use `range()` function on `date_formatted` variable to display the range 
 ```
  
 
-Bonus: Use `table()` function on `day` variable to display the count of `orangeBoardings` observations with each day. Which day had the most boardings? Is this true for the other routes (`purpleBoardings`, `greenBoardings`, `bannerBoardings`)?
+Bonus: Use the `group_by` function on `day` variable with the `summarize()` function, to display the count of `orangeBoardings` observations with each day. Which day had the most boardings? Is this true for the other routes (`purpleBoardings`, `greenBoardings`, `bannerBoardings`)?
 
 ```{r}
 
