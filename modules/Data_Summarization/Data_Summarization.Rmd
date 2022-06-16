@@ -24,12 +24,12 @@ pre { /* Code block - slightly smaller in this lecture */
 
 ## Recap
 
-- `arrange()`: reorder rows
 - `select()`: subset and/or reorder columns
 - `filter()`: remove rows
-- remove a column: `select()` with negative sign (`-col_name`)
-- `mutate()`: create new variables or modify them
+- `arrange()`: reorder rows
+- `mutate()`: create new columns or modify them
 - `select()` and `filter()` can be combined together
+- remove a column: `select()` with negative sign (`-col_name`)
 - you can do sequential steps: especially using pipes `%>%`
 
 📃[Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-3.pdf)
@@ -45,11 +45,8 @@ pre { /* Code block - slightly smaller in this lecture */
     * `sum(x)`: sum of x
     * `max(x)`: maximum value in x
     * `min(x)`: minimum value in x
-    * **all have a **`na.rm` for missing data 
-* Transformations
-    * `log` - log (base `e`) transformation
-    * `log10` - log base 10 transform
-    * `sqrt` - square root
+    
+* **all have the ** `na.rm =` **argument for missing data**
 
 ## Statistical summarization
 
@@ -76,7 +73,7 @@ quantile(x, na.rm = TRUE)
 
 ## Statistical summarization{.codesmall}
 
-We will talk more about data types later, but you can only do summarization on numeric or logical types. Not characters or factors.
+We will talk more about data types later, but you can only do summarization on numeric or logical types. Not characters.
 
 ```{r error = TRUE}
 x <- c(1, 5, 7, 4, 2, 8)
@@ -85,7 +82,6 @@ y <- c(TRUE, FALSE, FALSE, TRUE) # FALSE == 0 and TRUE == 1
 sum(y)
 z <- c("TRUE", "FALSE", "FALSE", "TRUE")
 sum(z)
-mean(z)
 ```
 
 ## Some examples
@@ -99,7 +95,7 @@ head(jhu_cars)
 
 ## Statistical summarization
 
-Note - the `$` references/selects columns from a `data.frame`/`tibble`:
+You might see base R `$` to reference/select columns from a `data.frame`/`tibble`:
 
 ```{r}
 mean(jhu_cars$hp)
@@ -150,12 +146,19 @@ Check out the data:
 
 ```{r}
 head(tb)
-colnames(tb)
+```
+
+## TB Incidence 
+
+Check out the data:
+
+```{r}
+str(tb)
 ```
 
 ## Indicator of TB
 
-Before we go further, let's rename the first column to be the country measured using the `rename` function in `dplyr`.
+Before we go further, let's rename the first column using the `rename()` function in `dplyr`.
 
 In this case, we have to use the backticks (\`) because there are spaces and funky characters in the name:
 
@@ -164,32 +167,34 @@ library(dplyr)
 tb <- tb %>% rename(country = `TB incidence, all forms (per 100 000 population per year)`)
 ```
 
-<br>
+## Indicator of TB
 
-`colnames` will show us the column names and show that country is renamed:
+`colnames()` will show us the column names and show that country is renamed:
+
 ```{r}
 colnames(tb)
 ```
 
-## Summarize the data: `dplyr` `summarize` function
+## Summarize the data: `dplyr` `summarize()` function
 
 `summarize` creates a summary table of a column you're interested in.
 
 <div class = "codeexample">
 ```{r, eval = FALSE}
 # General format - Not the code!
-{data object to update} <- {data to use} %>% 
-                          summarize({summary column name} = {operator(source column)}) 
+{data to use} %>% 
+   summarize({summary column name} = {operator(source column)}) 
 ```
 </div>
 
 ```{r}
-tb %>% summarize(mean_2006 = mean(`2006`, na.rm = TRUE))
+tb %>% 
+  summarize(mean_2006 = mean(`2006`, na.rm = TRUE))
 ```
 
-## Summarize the data: `dplyr` `summarize` function
+## Summarize the data: `dplyr` `summarize()` function
 
-`summarize` can do multiple operations at once. Just separate by a comma.
+`summarize()` can do multiple operations at once. Just separate by a comma.
 
 ```{r}
 tb %>% 
@@ -201,20 +206,46 @@ tb %>%
 <br>
 Notice how when we forget to provide a new name, output is still provided, but the column name is messy.
 
-## Iterative summaries: `dplyr` `summarize` and `across` functions
+## Summarize the data: `dplyr` `summarize()` function
 
-Use the [`across`](https://dplyr.tidyverse.org/reference/across.html) function with `summarize` to summarize across multiple columns of your data.
+This looks better.
+
+```{r}
+tb %>% 
+  summarize(mean_2006 = mean(`2006`, na.rm = TRUE),
+            median_2007 = median(`2007`, na.rm = TRUE),
+            median_2004 = median(`2004`, na.rm = TRUE))
+```
+
+## Iterative summaries: `dplyr` `summarize()` and `across()` functions
+
+Use the [`across`](https://dplyr.tidyverse.org/reference/across.html) function with `summarize()` to summarize across multiple columns of your data.
+
+<div class = "codeexample">
+```{r, eval = FALSE}
+# General format - Not the code!
+across({ columns to go across }, ~ { summarization_function(.x, na.rm = ..) }) 
+```
+</div>
 
 ```{r}
 tb %>% 
   summarize(across( c(`1990`, `1991`, `1992`, `1993`), ~ sum(.x, na.rm = TRUE)))
+```
+
+## Iterative summaries: `dplyr` `summarize()` and `across()` functions
+
+Another example using select helpers:
+
+```{r}
 tb %>% 
   summarize(across( starts_with("2"), ~ range(.x, na.rm = TRUE)))
 ```
 
+
 ## Row means
 
-`colMeans` and `rowMeans` require **all numeric data**. 
+`colMeans()` and `rowMeans()` require **all numeric data**. 
 
 Let's see what the mean is across each row (country):
 
@@ -226,7 +257,7 @@ rowMeans(tb_2, na.rm = TRUE)
 
 ## Row means
 
-`colMeans` gives you very similar output to functions we've seen previously in this lecture (`summarize` and `across`).
+`colMeans()` gives you very similar output to functions we've seen previously in this lecture (`summarize()` and `across()`).
 
 ```{r}
 colMeans(tb_2, na.rm = TRUE)
@@ -234,9 +265,9 @@ tb_2 %>%
   summarize(across( colnames(tb_2), ~ mean(.x, na.rm = TRUE)))
 ```
 
-## `summary` Function
+## `summary()` Function
 
-Using `summary` can give you rough snapshots of each column, but you would likely use `mean`, `min`, `max`, and `quantile` when necessary (and number of NAs):
+Using `summary()` can give you rough snapshots of each numeric column (character columns are skipped):
 
 ```{r}
 summary(tb)
@@ -258,14 +289,24 @@ yts <- jhur::read_yts()
 head(yts)
 ```
 
+## Column to vector
+
+Let's work with one column as a vector using `pull()`.
+
+```{r, message = FALSE}
+locations <- yts %>% pull(LocationDesc)
+locations
+```
+
 ## Length and unique
 
 `unique(x)` will return the unique elements of `x`
 
 ```{r, message = FALSE}
-locations <- yts %>% pull(LocationDesc)
-unique(locations) %>% head()
+unique(locations)
 ```
+
+## Length and unique
 
 `length` will tell you the length of a vector. Combined with `unique`, tells you the number of unique elements:
 
@@ -283,7 +324,7 @@ table(locations)
 
 ## `table` and `dplyr`: `count` 
 
-Use `count` directly on a data.frame and column without needing to use `pull`.
+Use `count` directly on a data.frame and column without needing to use `pull()`.
 
 ```{r, message = FALSE}
 yts %>% count(LocationDesc)
@@ -297,24 +338,37 @@ Multiple columns listed further subdivides the count.
 yts %>% count(LocationDesc, TopicDesc)
 ```
 
+## `table` and `dplyr`: `count` 
+
+Multiple columns listed further subdivides the count.
+
+```{r, message = FALSE}
+yts %>% count(LocationDesc, TopicDesc)
+```
+
+<br>
+
+**Note:** `count()` includes NAs but `table()` does not
+
+
 # Grouping
 
 ## Perform Operations By Groups: dplyr
 
-`group_by` allows you group the data set by variables you specify:
+`group_by` allows you group the data set by variables/columns you specify:
 
 ```{r}
-#
+# Regular data
 yts
 ```
 
 ## Perform Operations By Groups: dplyr
 
-`group_by` allows you group the data set by variables you specify:
+`group_by` allows you group the data set by variables/columns you specify:
 
 ```{r}
-yts <- yts %>% group_by(Response)
-yts
+yts_grouped <- yts %>% group_by(Response)
+yts_grouped
 ```
 
 ## Summarize the grouped data
@@ -322,10 +376,10 @@ yts
 It's grouped! Grouping doesn't change the data in any way, but how **functions operate on it**. Now we can summarize `Data_Value` (percent of respondents) by group:
 
 ```{r}
-yts %>% summarize(avg_percent = mean(Data_Value, na.rm = TRUE))
+yts_grouped %>% summarize(avg_percent = mean(Data_Value, na.rm = TRUE))
 ```
 
-## Using the `pipe` to connect these
+## Use the `pipe` to string these together!
 
 Pipe `yts` into `group_by`, then pipe that into `summarize`:
 
