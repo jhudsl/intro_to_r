@@ -572,7 +572,7 @@ df_carb
 
 ## Ordering the rows of a data frame: dplyr
 
-The `arrange` function can reorder rows  By default, `arrange` orders in ascending order:
+The `arrange` function can reorder rows  By default, `arrange` orders in increasing order:
 ```{r}
 arrange(df, mpg)
 ```
