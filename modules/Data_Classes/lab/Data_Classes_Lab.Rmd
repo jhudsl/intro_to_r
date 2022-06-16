@@ -56,7 +56,7 @@ vect_data <- tibble(int_vect, rand_vect, TF_vect, TF_vect2)
 
 ```
 
-5. Take a look at 5 random rows using the `slice_sample()` function again but this time with `set.seed(1234)` before each time`. Try this a few times to see the results. (Don't forget to not copy the backticks.)
+5. Take a look at 5 random rows using the `slice_sample()` function again but this time with `set.seed(1234)` as the first line of the chunk. Try this a few times to see the results. (Don't forget to not copy the backticks.)
 
 ```{r}
 
