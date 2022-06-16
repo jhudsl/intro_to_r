@@ -168,7 +168,7 @@ We can create a **fancier** version of the previous data frame which can be real
 If we would like to create a `tibble` ("fancy" data frame), we can using the  `tibble()` function.  
 
 ```{r}
-tbl <- dplyr::tibble(df) 
+tbl <- tibble(df) 
 tbl
 ```
 
@@ -210,7 +210,7 @@ head(tibble(df), n = 2)
 
 ## rownames_to_column function
 
-If you run into losing a variable contained in your row names, you can also use `rownames_to_column` to add it before turning it into a `tibble` to keep them:
+If you run into losing a variable contained in your row names, you can also use `rownames_to_column` (of `tibble` package) to add it before turning it into a `tibble` to keep them:
 
 ```{r, size = "tiny"}
 head(rownames_to_column(df, "car"),  n = 2)
@@ -233,7 +233,7 @@ For example, let's rename mpg to MPG. Notice the new name is listed **first**!
 ```
 
 ```{r}
-df <- dplyr::rename(df, MPG = mpg)
+df <- rename(df, MPG = mpg)
 head(df)
 ```
 
@@ -242,12 +242,12 @@ head(df)
 To rename all columns you use the `rename_with()`. In this case we will use `toupper()` to make all letters upper case. Could also use `tolower()` function.
 
 ```{r}
-df_upper <- dplyr::rename_with(df, toupper)
+df_upper <- rename_with(df, toupper)
 head(df_upper, 3)
 ```
 
 ```{r}
-df <- dplyr::rename_with(df, tolower)
+df <- rename_with(df, tolower)
 head(df, 3)
 ```
 
