@@ -32,8 +32,10 @@ Because we are using a random vector let's use the `set.seed()` function to make
 
 ```{r}
 set.seed(1234)
-rand_vect <- sample(x = seq(from = 1, to = 30, by = 1), 
-                    size = 30, replace = TRUE)
+rand_vect <- sample(
+  x = seq(from = 1, to = 30, by = 1),
+  size = 30, replace = TRUE
+)
 
 # this also works... need to set the seed right before
 set.seed(1234)
