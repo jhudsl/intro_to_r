@@ -90,7 +90,8 @@ BloodType
 
 There are some issues with this data that we need to figure out!
 
-1. Determine how many NA values there are for gender.
+1. Determine how many `NA` values there are for `gender`.
+.
 ```{r}
 
 ```
@@ -124,6 +125,8 @@ Check to see how many values `gender` has for each category (hint: use `count`).
 ```
 
 6. Make a new tibble of `BloodType` called `Bloodtype_split` that splits the `type` variable into two called `blood_type` and  `Rhfactor`. Note: periods are special characters that generally are interpreted as wild cards thus we need `\\` to tell R that we want it to be interpreted as a period.
+
+The following can be used as a guide to help you, be sure to remove any remaining underscores (`_`)or pound signs (also called hashtags) (`#`).
 
 ```{r}
 ## ______________ <- ________ %>%
