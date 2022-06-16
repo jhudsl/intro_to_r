@@ -199,7 +199,7 @@ rep(c("black", "white"), each = 2, times = 2)
 
 ## Useful functions to create vectors `seq()`
 
-For numeric: `seq()` can be very useful- both integar and double.   
+For numeric: `seq()` can be very useful- both integer and double.   
 The `from` argument says what number to start on.    
 The `to` argument says what number to not go above.   
 The `by` argument says how much to increment by.    
@@ -211,7 +211,7 @@ seq(from = 0, to = 10, by = 1)
 seq(from = -5, to = 5, length.out = 10)
 ```
 
-## Creating numberic vectors `sample()`
+## Creating numeric vectors `sample()`
 
  You can use the `sample()` function to make a random sequence.
  The `x` argument specifies what you are sampling from.

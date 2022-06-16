@@ -1,5 +1,5 @@
 ---
-title: "Data Summarization Lab Key"
+title: "Data Summarization Lab"
 output: html_document
 editor_options: 
   chunk_output_type: console
@@ -22,9 +22,7 @@ library(dplyr)
 library(tidyverse)
 library(jhur)
 
-bike <- read_csv(
-  "http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv"
-)
+bike <- read_csv(file = "http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv")
 ```
 
 or use 
@@ -37,7 +35,7 @@ bike <- read_bike()
 
 1. How many bike "lanes" are currently in Baltimore?  You can assume each observation/row is a different bike "lane".  (hint: how do you get the number of rows of a data set? You can use `dim()` or `nrow()` or another function).
 
-```{r q1}
+```{r}
 
 ```
 
@@ -49,10 +47,40 @@ bike <- read_bike()
 
 3. Summarize the data to get the `max` and `min` of `length` using the `summarize` function.
 
-```{r}
-# ??? %>% summarize(??? = max(???),
-#                   ??? = min(???))
 ```
+# General format 
+{data to use} %>% 
+    summarize({summary column name} = {operator(source column)})
+```
+
+```{r}
+
+```
+
+**Bonus / Optional:**
+
+A. Summarize the `bike` data to get the mean of `length` and `dateInstalled`. Do this three ways: 1) with `summarize`, 2) with `summarize` and `across`, and 3) with `colMeans()`.
+
+```{r}
+
+```
+
+You should have gotten a mean date sometime in the 1800s - that doesn't make much sense! Hypothesize why the average date is a date from before bike lanes were being built in Baltimore.
+
+> _Answer here_
+
+B. Filter any zeros out of `bike` `dateInstalled`. Use `filter()`. Assign this "cleaned" dataset object the name `bike_2`.
+
+```{r}
+
+```
+
+* Sometimes it's not a good idea to drop data! You can also change any zeros in `bike` `dateInstalled` to `NA` using `mutate` and `ifelse()`. `ifelse()` in R works takes the same arguments as the "IF" function in Excel, and can come in handy here: `ifelse(condition, yes = VAL_IF_TRUE, no = VAL_IF_FALSE)`.
+
+```{r}
+
+```
+
 
 # Part 2
 
@@ -71,11 +99,15 @@ bike <- read_bike()
 1 BIKE BOULEVARD              49  197.
 ...
 ```
+```
+# General format 
+{data to use} %>% 
+    group_by({grouping column name}) %>% 
+    summarize({summary column name} = {operator(source column)})
+```
 
 ```{r}
-# ??? %>%
-#   group_by(???) %>%
-#   summarize(???)
+
 ```
 
 6. Take your code from the above question and do the following:
@@ -87,12 +119,10 @@ bike <- read_bike()
 
 ```
 
-7. Make a new column using `mutate`. This new column should be different for each year (`dateInstalled`), and indicate the total sum number of lanes (`numLanes`) built in that year. Call this new column `year_total` and make sure to reassign the dataset. (hint: use `group_by` first)
+7. Make a new column using `mutate`. This new column should be different for each year (`dateInstalled`), and indicate the total sum number of lanes (`numLanes`) built in that year. Call this new column `year_total` and make sure to reassign the dataset to `bike`. (hint: use `group_by` first)
 
 ```{r}
-# ??? <- ??? %>%
-#   group_by(???) %>%
-#   mutate(???)
+
 ```
 
 8. How does your data from above change if you also group by `type`? Ungroup your data when you are done.
@@ -101,49 +131,32 @@ bike <- read_bike()
 
 ```
 
-# Part 2
+**Bonus / Optional:**
 
-9. Create a histogram for the `length` variable in the `bike` dataset. Try playing with the `breaks=` argument.
+C. Using `bike_2` from Part 1 above, what was the average bike lane length grouped by `dateInstalled`? Remove `NA`s with `na.rm = TRUE`.
 
 ```{r}
-# hist(???)
+
+```
+
+
+# Part 3
+
+9. Create a histogram for the `length` column in the `bike` dataset. Try playing with the `breaks =` argument.
+
+```{r}
+
 ```
 
 10. Create a scatterplot with `dateInstalled` on the x axis and `length` on the y axis.
 
 ```{r}
-# plot(???)
-```
-
-**Bonus**
-
-A. Summarize the `bike` data to get the mean of `length` and `dateInstalled`. Do this three ways: 1) with `summarize`, 2) with `summarize` and `across`, and 3) with `colMeans()`.
-
-```{r}
 
 ```
 
-You should have gotten a mean date sometime in the 1800s - that doesn't make much sense! Hypothesize why the average date is a date from before bike lanes were being built in Baltimore.
+**Bonus / Optional:**
 
-> _Answer here_
-
-B. Change any zeros in `bike$dateInstalled` to `NA` using `mutate`. For the curious,`ifelse()` in R works takes the same arguments as the "IF" function in Excel!
-
-```{r}
-
-```
-
-What is another way to remove zeros from the data?
-
-> _Answer here_
-
-C. What was the average bike lane length grouped by `dateInstalled`? Remove `NA`s with `na.rm = TRUE`.
-
-```{r}
-
-```
-
-D. Does the plot from question 10 improve if you remove the zeros?
+D. Does the plot from question 10 improve if you use the `bike_2` dataset?
 
 ```{r}
 
