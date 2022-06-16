@@ -415,7 +415,7 @@ red_blue %>% mutate(percent =
 
 -  `is.na()`,`any(is.na())`, `count()`, and functions from `naniar` like `gg_miss_var()` can help determine if we have `NA` values
 - `filter()` automatically removes `NA` values - can't confirm or deny if condition is met (need `| is.na()` to keep them)
-- `drop_na()` can help you remove `NA` values - avoid filtering specifically for `NA` values
+- `drop_na()` can help you remove `NA` values from a variable or an entire data frame- avoid filtering specifically for `NA` values
 - `NA` values can change your calculation results
 - think about what `NA` values represent
 
@@ -492,7 +492,7 @@ data_diet %>%
 
 ## `dplyr` can help!
 
-Using Excel to find all of the different ways `gender` has been coded, would be a matter of filtering and changing all by hand or using if statements. This can be hectic!
+Using Excel to find all of the different ways `gender` has been coded, could be hectic!
 
 In `dplyr` you can use the `recode` function (need `mutate` here too!):
 
@@ -500,7 +500,7 @@ In `dplyr` you can use the `recode` function (need `mutate` here too!):
 ```{r, eval = FALSE}
 # General Format - this is not code!
 {data_input} %>%
-  mutate({variable_to_fix} = {Variable_fixing, {old_value} = {new_value},
+  mutate({variable_to_fix} = {Variable_fixing}, {old_value} = {new_value},
                                        {another_old_value} = {new_value})
 
 ```
@@ -529,12 +529,12 @@ The `case_when()` function of `dplyr` can help us to do this as well.
 # General Format - this is not code!
 {data_input} %>%
   mutate({variable_to_fix} = case_when({Variable_fixing}   
-             condition (==x, >2 ,etc.) ~ {value_for_con})
+                                /some condition/  ~ {value_for_con})
 
 ```
 </div>
 
-**Note that automatically values not reassigned explicitly by case_when will be `NA` unless otherwise specified**
+**Note that automatically values not reassigned explicitly by `case_when()` will be `NA` unless otherwise specified**
 
 
 ## Use of `case_when()`
@@ -549,14 +549,16 @@ data_diet %>%
 # General Format - this is not code!
 {data_input} %>%
   mutate({variable_to_fix} = case_when({Variable_fixing}   
-             condition (==x, >2 ,etc.) ~ {value_for_con},
-              TRUE ~ {value_for_not_meeting_condition})
+             /some condition/ ~ {value_for_con},
+                         TRUE ~ {value_for_not_meeting_condition})
 
 ```
 </div>
 
 
 ## Use of `case_when()`
+
+Here we use the original values of `Gender` to replace all values of `Gender` that do not meet the condition `== "M"`.
 ```{r}
 data_diet %>% 
   mutate(Gender = case_when(Gender == "M" ~ "Male",
