@@ -15,13 +15,34 @@ suppressPackageStartupMessages(library(dplyr))
 library(tidyverse)
 ```
 
+## Recap on summarization
+- `summary(x)`: quantile information
+- `summarize`: creates a summary table of columns of interest
+  - combine with `across()` to programmatically select columns
+- `count(variable)`: how manu of each unique value do you have
+- `group_by()`: changes all subsequent functions
+  - combine with `summarize()` to get statistics per group
+- `plot()` and `hist()` are great for a **quick snapshot** of the data
+
+📃[Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-4.pdf)
+
+## Recap on data classes
+- tibbles show column classes!
+- `as.CLASS_NAME(x)` can be used to change the class of an object x
+- Logic class objects only have `TRUE` or `False` (without quotes)
+- The repeat `rep()` and `seq()` functions help you create vectors with `to` and `from` arguments (and others)
+- `sample()` makes random vectors. Can be used for integers or double depending on what it is sampling from.
+ - matrix has columns and rows but  is all one data class
+ - lists can contain multiples of any other class of data including lists!
+ - The `lubridate` package  is helpful for dates and times    
+📃[Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-4.pdf)
 
 ## Data Cleaning{.emphasized}
 
 In general, data cleaning is a process of investigating your data for inaccuracies, or recoding it in a way that makes it more manageable.
 
 ::: {style="color: red;"}
-`r emo::ji("warning")` MOST IMPORTANT RULE - LOOK `r emo::ji("look")` AT YOUR DATA! `r emo::ji("warning")`
+⚠️ MOST IMPORTANT RULE - LOOK 👀 AT YOUR DATA! ⚠️
 :::
 
 
@@ -60,260 +81,14 @@ any(is.na(A)) # are there any NAs - YES/TRUE
 any(is.na(B)) # are there any NAs- NO/FALSE
 ```
 
-
-<!-- ## Complete.cases -->
-
-<!-- `complete.cases` - returns `TRUE` if EVERY value of a row is NOT `NA` -->
-<!--     - very stringent condition  -->
-<!--     - `FALSE` missing one value (even if not important) -->
-
-
-<!-- ```{r} -->
-<!-- complete.cases(mtcars) -->
-<!-- ``` -->
-
-
-
-## `naniar`
-Sometimes you need to look at lots of data though... the [`naniar` package](https://cran.r-project.org/web/packages/naniar/vignettes/getting-started-w-naniar.html) is a good option.
-
-The `pct_complete()` function shows the percentage that is complete for a given data object.
-
-```{r, error=FALSE}
-#install.packages("naniar")
-library(naniar)
-x = c(0, NA, 2, 3, 4, -0.5, 0.2)
-naniar::pct_complete(x)
-```
-
-## Air quality data
-
-The `airquality` dataset comes with R about air quality in New York in 1973.
-
-```{r, message=FALSE}
-?airquality # use this to find out more about the data
-airqual <-tibble(airquality)
-airqual
-```
-
-## naniar: `pct_complete()`{.small}
-
-```{R}
-pct_complete(airquality)
-```
-
-## `naniar` plots
-
-The `gg_miss_var()` function creates a nice plot about the number of missing values for each variable.
-
-```{r, fig.height=4, warning=FALSE, fig.align='center'}
-naniar::gg_miss_var(airqual)
-```
-
-
-## `naniar` plots
-
-We can use the `facet` argument to make more plots about a specific variable.
-
-```{r, fig.height=4, warning=FALSE, fig.align='center'}
-naniar::gg_miss_var(airqual, facet = Month)
-```
-
-## Missing Data Issues
-
-Recall that mathematical operations with `NA` often result in `NA`s.
-```{r}
-sum(c(1,2,3,NA))
-mean(c(2,4,NA))
-median(c(1,2,3,NA))
-```
-
-```{r, echo = FALSE}
-red_blue <- tibble(color = rep(c("red", "blue", NA), 3))
-red_blue <- red_blue %>% count(color)
-red_blue <- rename(red_blue, col_count = n)
-```
-
-
-
-
-## Missing Data Issues
-
-This is also true for logicals.  This is a good thing. The NA data could be `> 2` or not, we don't know,
-so `R` says there is no `TRUE` or `FALSE`, so that is missing.
-```{r}
-x = c(0, NA, 2, 3, 4, -0.5, 0.2)
-x > 2
-```
-
-
-
-
-<!-- ## Missing Data with Logicals -->
-
-<!-- What to do?  What if we want if `x > 2` and `x` isn't `NA`? -->
-<!-- Don't do `x != NA`, do `x > 2` and `x` is NOT `NA`: -->
-
-<!-- ```{r} -->
-<!-- x > 2 & x != NA -->
-<!-- x > 2 & !is.na(x) -->
-<!-- ``` -->
-
-<!-- ## Missing Data with Logicals -->
-
-<!-- What about seeing if a value is equal to multiple values?  You can do `(x == 1 | x == 2) & !is.na(x)`, but that is not efficient.   -->
-
-<!-- ```{r} -->
-<!-- (x == 0 | x == 2) # has NA -->
-<!-- (x == 0 | x == 2) & !is.na(x) # No NA -->
-<!-- ``` -->
-
-<!-- what to do? -->
-
-## filter() and missing data
-
-Be careful with missing data using subsetting: 
-
-`filter()` removes missing values by default.
-To keep them need to add `is.na()`:
-
-```{r}
-x # looks like the 1st and 3rd element should be TRUE
-x %in% c(0, 2) # uh oh - not good!
-x %in% c(0, 2) | is.na(x) # do this
-
-```
-
-
-## filter() and missing data{.codesmall}
-```{r, echo = FALSE}
-df <-tibble(Dog = c(0, NA, 2, 3, 1, 1), 
-            Cat= c(NA, 8, 6, NA, 2, NA))
-```
-
-```{r}
-df
-
-df %>% filter(Dog < 3)
-```
-
-## to remove rows with NAs for one variable use `drop_na()`
-
-Avoid using filter for NA values. Instead use `drop_na()`
-
-```{R}
-df %>% drop_na(Dog)
-```
-
-!NA` does not work as you might expect because you can't tell if something is not actually `NA` - R doesn't ever assume to know what the value of `NA` is 
-
-```{r}
-NA == NA
-NA != NA
-```
-
-
-
-## tidyr::drop_na{.codesmall}
-
-This function will drop rows with **any** missing data in **any** column when used on a df.
-
-```{r}
-df
-drop_na(df)
-```
-
-
-## Drop columns with any missing values
-
-```{r}
-df<-df %>% mutate(test =c(1,2,3,4,5,6))
-miss_var_which(df)
-df %>% select(!miss_var_which(df))
-
-```
-
-
-## Removing columns with threshold of percent missing row values
-
-```{r}
-is.na(df)
-colMeans(is.na(df))
-df %>% select(which(colMeans(is.na(df)) < 0.2))
-```
-
-## Change a value to be `NA`
-
-The `na_if()` function of `dplyr` can be helpful for this.
-Let's say we think that all 0 values should be `NA`.
-
-na_if(vector to change, value to replace with NA)
-```{r}
-df %>% select(Dog) %>% na_if(0)
-
-df %>% mutate(Dog = na_if(Dog,0))
-```
-
-
-
-## Think about `NA`
-
-Sometimes removing `NA` values leads to distorted math - be careful! 
-Think about what your `NA` means for your data (are you sure ?).
-
-Is an `NA` for values so low they could not be reported?
-Or is it this and also if there was a different issue? 
-
-## Think about `NA`
-
-If it is something more like a zero then you might want it included in your data like a zero.
-
-Example:
-- survey reports NA if student has never tried cigarettes
-- survey reports 0 if student has tried cigarettes but did not smoke that week
-
-
-You might want to keep the NA values so that you know the original sample size.
-
- 
-## Word of caution{.codesmall}
-
-Calculating percentages will give you a different result depending on your choice to include NA values.
-
-```{r}
-red_blue
-red_blue %>% mutate(percent = 
-                      col_count/sum(pull(red_blue, col_count)))
-```
-
-## Word of caution{.codesmall}
-```{r}
-red_blue %>% mutate(percent = 
-                      col_count/sum(pull(drop_na(red_blue), col_count)))
-
-# Should you be dividing by 9 or 6? It depends on your data
-# Pay attention to your data and your NAs!
-```
-
-<!-- ## Missing Data with Operations -->
-
-<!-- Similarly with logicals, operations/arithmetic with `NA` will result in `NA`s: -->
-
-<!-- ```{r} -->
-<!-- x = c(0, NA, 2, 3, 4, -0.5, 0.2) -->
-<!-- x + 2 -->
-<!-- x * 2 -->
-<!-- ``` -->
-
-
-## Check values{.codesmall}
+## Fining `NA` values with `count()`{.codesmall}
 
 Check the values for your variables, are they what you expect?
 
 `count()` is a great option because it gives tells you:
 
 1) The unique values
-2) the amount of these values
+2) The amount of these values
 
 Check if rare values make sense
 
@@ -395,11 +170,259 @@ bike %>% count(subType)
 <!-- prop.table(tab,1) * 100 -->
 <!-- ``` -->
 
+
+<!-- ## Complete.cases -->
+
+<!-- `complete.cases` - returns `TRUE` if EVERY value of a row is NOT `NA` -->
+<!--     - very stringent condition  -->
+<!--     - `FALSE` missing one value (even if not important) -->
+
+
+<!-- ```{r} -->
+<!-- complete.cases(mtcars) -->
+<!-- ``` -->
+
+
+
+## `naniar`
+Sometimes you need to look at lots of data though... the [`naniar` package](https://cran.r-project.org/web/packages/naniar/vignettes/getting-started-w-naniar.html) is a good option.
+
+The `pct_complete()` function shows the percentage that is complete for a given data object.
+
+```{r, error=FALSE}
+#install.packages("naniar")
+library(naniar)
+x = c(0, NA, 2, 3, 4, -0.5, 0.2)
+naniar::pct_complete(x)
+```
+
+## Air quality data
+
+The `airquality` dataset comes with R about air quality in New York in 1973.
+
+```{r, message=FALSE}
+?airquality # use this to find out more about the data
+airqual <-tibble(airquality)
+airqual
+```
+
+## naniar: `pct_complete()`{.small}
+
+```{R}
+pct_complete(airquality)
+```
+
+## `naniar` plots
+
+The `gg_miss_var()` function creates a nice plot about the number of missing values for each variable.
+
+```{r, fig.height=4, warning=FALSE, fig.align='center'}
+naniar::gg_miss_var(airqual)
+```
+
+
+## `naniar` plots
+
+We can use the `facet` argument to make more plots about a specific variable.
+
+```{r, fig.height=4, warning=FALSE, fig.align='center'}
+naniar::gg_miss_var(airqual, facet = Month)
+```
+
+## Missing Data Issues
+
+Recall that mathematical operations with `NA` often result in `NA`s.
+```{r}
+sum(c(1,2,3,NA))
+mean(c(2,4,NA))
+median(c(1,2,3,NA))
+```
+
+```{r, echo = FALSE}
+red_blue <- tibble(color = rep(c("red", "blue", NA), 3))
+red_blue <- red_blue %>% count(color)
+red_blue <- rename(red_blue, col_count = n)
+```
+
+
+
+
+## Missing Data Issues
+
+This is also true for logicals.
+The NA data could be `> 2` or not, we don't know,so `R` says there is no `TRUE` or `FALSE`, so that is missing.
+```{r}
+x = c(0, NA, 2, 3, 4, -0.5, 0.2)
+x > 2
+```
+
+
+
+
+<!-- ## Missing Data with Logicals -->
+
+<!-- What to do?  What if we want if `x > 2` and `x` isn't `NA`? -->
+<!-- Don't do `x != NA`, do `x > 2` and `x` is NOT `NA`: -->
+
+<!-- ```{r} -->
+<!-- x > 2 & x != NA -->
+<!-- x > 2 & !is.na(x) -->
+<!-- ``` -->
+
+<!-- ## Missing Data with Logicals -->
+
+<!-- What about seeing if a value is equal to multiple values?  You can do `(x == 1 | x == 2) & !is.na(x)`, but that is not efficient.   -->
+
+<!-- ```{r} -->
+<!-- (x == 0 | x == 2) # has NA -->
+<!-- (x == 0 | x == 2) & !is.na(x) # No NA -->
+<!-- ``` -->
+
+<!-- what to do? -->
+
+## filter() and missing data
+
+Be careful with missing data using subsetting: 
+
+**`filter()` removes missing values by default.**
+Because R can't tell for sure if an NA value meets the condition.
+To keep them need to add `is.na()` conditional.
+
+## filter() and missing data{.codesmall}
+```{r, echo = FALSE}
+df <-tibble(Dog = c(0, NA, 2, 3, 1, 1), 
+            Cat= c(NA, 8, 6, NA, 2, NA))
+```
+
+```{r}
+df
+
+df %>% filter(Dog < 3)
+df %>% filter(Dog < 3 | is.na(Dog))
+```
+
+## to remove rows with NAs for a variable use `drop_na()`
+
+Avoid using filter for NA values. Instead use `drop_na()`
+
+```{R}
+df %>% drop_na(Dog)
+```
+
+<!-- !NA` does not work as you might expect because you can't tell if something is not actually `NA` - R doesn't ever assume to know what the value of `NA` is  -->
+
+<!-- ```{r} -->
+<!-- NA == NA -->
+<!-- NA != NA -->
+<!-- ``` -->
+
+
+
+## tidyr::drop_na{.codesmall}
+
+This function will drop rows with **any** missing data in **any** column when used on a df.
+
+```{r}
+df
+drop_na(df)
+df %>% drop_na()
+```
+
+
+## Drop **columns** with any missing values
+
+```{r}
+df<-df %>% mutate(test =c(1,2,3,4,5,6))
+miss_var_which(df) # which columns have missing values
+df %>% select(!miss_var_which(df))
+
+```
+
+
+## Removing columns with threshold of percent missing row values
+
+```{r}
+is.na(df)
+colMeans(is.na(df))#TRUE and FALSE treated like 0 and 1
+df %>% select(which(colMeans(is.na(df)) < 0.2))
+```
+
+## Change a value to be `NA`
+
+The `na_if()` function of `dplyr` can be helpful for this.
+Let's say we think that all 0 values should be `NA`.
+
+```{r}
+df %>% select(Dog) %>% na_if(0)
+
+df %>% mutate(Dog = na_if(Dog,0))
+```
+
+
+
+## Think about `NA`
+
+Sometimes removing `NA` values leads to distorted math - be careful! 
+Think about what your `NA` means for your data (are you sure ?).
+
+Is an `NA` for values so low they could not be reported?
+Or is it this and also if there was a different issue? 
+
+## Think about `NA`
+
+If it is something more like a zero then you might want it included in your data like a zero.
+
+Example:
+- survey reports NA if student has never tried cigarettes
+- survey reports 0 if student has tried cigarettes but did not smoke that week
+
+
+You might want to keep the NA values so that you know the original sample size.
+
+ 
+## Word of caution{.codesmall}
+
+Calculating percentages will give you a different result depending on your choice to include NA values.
+
+```{r}
+red_blue
+red_blue %>% mutate(percent = 
+                      col_count/sum(pull(red_blue, col_count)))
+```
+
+## Word of caution{.codesmall}
+```{r}
+red_blue %>% mutate(percent = 
+                      col_count/sum(pull(drop_na(red_blue), col_count)))
+
+# Should you be dividing by 9 or 6? It depends on your data
+# Pay attention to your data and your NAs!
+```
+
+<!-- ## Missing Data with Operations -->
+
+<!-- Similarly with logicals, operations/arithmetic with `NA` will result in `NA`s: -->
+
+<!-- ```{r} -->
+<!-- x = c(0, NA, 2, 3, 4, -0.5, 0.2) -->
+<!-- x + 2 -->
+<!-- x * 2 -->
+<!-- ``` -->
+
+
+
+## Summary
+
+-  `is.na()`,`any(is.na())`, `count()`, and functions from `naniar` like `gg_miss_var()` can help determine if we have `NA` values
+- `filter()` automatically removes `NA` values - can't confirm or deny if condition is met (need `| is.na()` to keep them)
+- `drop_na()` can help you remove `NA` values - avoid filtering specifically for `NA` values
+- `NA` values can change your calculation results
+- think about what `NA` values represent
+
 ## Lab Part 1
 
-[lab part 1](http://jhudatascience.org/intro_to_r/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd)
-
-[Website](http://jhudatascience.org/intro_to_r/index.html)
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
+💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd)
 
 
 
@@ -464,7 +487,7 @@ This needs lots of recoding.
 
 ```{r}
 data_diet %>%
-  count(Gender, Diet)
+  count(Gender)
 ```
 
 ## `dplyr` can help!
@@ -473,7 +496,7 @@ Using Excel to find all of the different ways `gender` has been coded, would be 
 
 In `dplyr` you can use the `recode` function (need `mutate` here too!):
 
-
+<div class = "codeexample">
 ```{r, eval = FALSE}
 # General Format - this is not code!
 {data_input} %>%
@@ -481,7 +504,7 @@ In `dplyr` you can use the `recode` function (need `mutate` here too!):
                                        {another_old_value} = {new_value})
 
 ```
-
+</div>
 
 
 ```{r, eval = FALSE}
@@ -501,23 +524,44 @@ data_diet %>%
 
 The `case_when()` function of `dplyr` can help us to do this as well.
 
+<div class = "codeexample">
 ```{r, eval = FALSE}
 # General Format - this is not code!
 {data_input} %>%
-  mutate({variable_to_fix} = case_when{Variable_fixing}condition 
-                                              ~ {value_for_cond}))
+  mutate({variable_to_fix} = case_when({Variable_fixing}   
+             condition (==x, >2 ,etc.) ~ {value_for_con})
 
 ```
+</div>
 
-Note that automatically values not reassigned explicitly by case_when will be `NA`.
+**Note that automatically values not reassigned explicitly by case_when will be `NA` unless otherwise specified**
 
 
 ## Use of `case_when()`
 ```{r}
 data_diet %>% 
-  mutate(Gender = case_when(Gender =="M" ~ "Male"))
+  mutate(Gender = case_when(Gender == "M" ~ "Male"))
 ```
 
+
+<div class = "codeexample">
+```{r, eval = FALSE}
+# General Format - this is not code!
+{data_input} %>%
+  mutate({variable_to_fix} = case_when({Variable_fixing}   
+             condition (==x, >2 ,etc.) ~ {value_for_con},
+              TRUE ~ {value_for_not_meeting_condition})
+
+```
+</div>
+
+
+## Use of `case_when()`
+```{r}
+data_diet %>% 
+  mutate(Gender = case_when(Gender == "M" ~ "Male",
+                                     TRUE ~ Gender))
+```
 
 ## More complicated case_when()
 
@@ -732,12 +776,19 @@ head(str_replace(pull(Sal, JobTitle), "II", "2"))
 head(str_replace_all(pull(Sal, name), "a", "j"), 2)
 ```
 
+## Summary
+
+- `recode()` can help with simple recoding (not based on condition but simple swap)
+- `case_when()` can recode based on conditions
+    - remember `case_when()` needs `TRUE ~ varaible` to keep values that aren't specified by conditions, otherwise will be `NA`
+- `stringr` package has great functions for looking for specific parts of values especially `filter()` and `str_detect()` combined
+    - also has other useful string manipulation functions like `str_replace()` or `str_extract()`
+
 
 ## Lab Part 2
 
-[lab part 2](http://jhudatascience.org/intro_to_r/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd)
-
-[Website](http://jhudatascience.org/intro_to_r/index.html)
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
+💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd)
 
 # Extra Slides
 
