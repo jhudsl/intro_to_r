@@ -295,7 +295,7 @@ head(data_highschool_fct)</pre>
 
 <p>Now that’s more like it! Notice how the data is automatically plotted in the order we would like.</p>
 
-</article></slide><slide class=""><hgroup><h2>Arranging Characters</h2></hgroup><article  id="arranging-characters" class="smaller">
+</article></slide><slide class=""><hgroup><h2>Arranging Characters</h2></hgroup><article  class="smaller" id="arranging-characters">
 
 <p>What about if we arrange the two versions of our data by grade?</p>
 
@@ -328,7 +328,7 @@ head(data_highschool_fct)</pre>
 
 <p>Notice that the order is not what we would hope for!</p>
 
-</article></slide><slide class=""><hgroup><h2>Arranging Factors</h2></hgroup><article  id="arranging-factors" class="smaller">
+</article></slide><slide class=""><hgroup><h2>Arranging Factors</h2></hgroup><article  class="smaller" id="arranging-factors">
 
 <pre class = 'prettyprint lang-r'>data_highschool_fct %&gt;%
   arrange(grade) %&gt;%
@@ -385,7 +385,7 @@ head(data_highschool_fct)</pre>
 ## 3 Junior       16
 ## 4 Senior       25</pre>
 
-</article></slide><slide class=""><hgroup><h2>Calculations</h2></hgroup><article  id="calculations" class="smaller">
+</article></slide><slide class=""><hgroup><h2>Calculations</h2></hgroup><article  class="smaller" id="calculations">
 
 <p>Now what about results from some calculations.</p>
 
@@ -415,7 +415,7 @@ head(data_highschool_fct)</pre>
 
 <p>Here we see that the mean is calculated in the order we would like only for the version of the data that has absences coded as a factor!</p>
 
-</article></slide><slide class=""><hgroup><h2>forcats for ordering</h2></hgroup><article  id="forcats-for-ordering" class="smaller">
+</article></slide><slide class=""><hgroup><h2>forcats for ordering</h2></hgroup><article  class="smaller" id="forcats-for-ordering">
 
 <p>What if we wanted to order <code>grade</code> by the amount of <code>absences</code>?</p>
 
@@ -429,7 +429,7 @@ data_highschool_fct %&gt;%
 
 <p>This would be useful for identifying easily which grade to focus on.</p>
 
-</article></slide><slide class=""><hgroup><h2>forcats for ordering</h2></hgroup><article  id="forcats-for-ordering-1" class="smaller">
+</article></slide><slide class=""><hgroup><h2>forcats for ordering</h2></hgroup><article  class="smaller" id="forcats-for-ordering-1">
 
 <p>We can order a factor by another variable by using the <code>fct_reorder()</code> function of the <code>forcats</code> package.</p>
 
