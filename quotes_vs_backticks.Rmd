@@ -27,23 +27,27 @@ library(tidyverse)
 
 # the preferred method
 
-ex_data <- tibble(`Number!` = seq(from = 1, to = 5),
-                  `Var with space` = c("A", "B", "C", "D", "E"),
-                  `2022` = sample(seq(from = 1, to = 5), size = 5),
-                  `2021` = sample(seq(from = 1, to = 5), size = 5),
-                  typical = seq(from = 1, to = 5),
-                  `typical2` = seq(from = 1, to = 5))
+ex_data <- tibble(
+  `Number!` = seq(from = 1, to = 5),
+  `Var with space` = c("A", "B", "C", "D", "E"),
+  `2022` = sample(seq(from = 1, to = 5), size = 5),
+  `2021` = sample(seq(from = 1, to = 5), size = 5),
+  typical = seq(from = 1, to = 5),
+  `typical2` = seq(from = 1, to = 5)
+)
 
 ex_data
 
 # this works
 
-ex_data <- tibble("Number!" = seq(from = 1, to = 5),
-                  "Var with space" = c("A", "B", "C", "D", "E"),
-                  "2022" = sample(seq(from = 1, to = 5), size = 5),
-                  "2021" = sample(seq(from = 1, to = 5), size = 5),
-                   typical = seq(from = 1, to = 5),
-                  "typical2"= seq(from = 1, to = 5))
+ex_data <- tibble(
+  "Number!" = seq(from = 1, to = 5),
+  "Var with space" = c("A", "B", "C", "D", "E"),
+  "2022" = sample(seq(from = 1, to = 5), size = 5),
+  "2021" = sample(seq(from = 1, to = 5), size = 5),
+  typical = seq(from = 1, to = 5),
+  "typical2" = seq(from = 1, to = 5)
+)
 ex_data
 ```
 
