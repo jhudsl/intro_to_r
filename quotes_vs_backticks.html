@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Quotes vs backticks</title>
+
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link rel="shortcut icon" href="resources/images/favicon.ico" />
+ <!--- go to https://favicon.io/favicon-converter/ to upload an image to make a new favicon.io. You will need to replace the current favicon.io image with the one in the downloaded directory from the website. The current image is in the resources/images/ directory --->
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="docs/web_styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Intro to R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+<li>
+  <a href="materials_schedule.html">Materials + Schedule</a>
+</li>
+<li>
+  <a href="resources.html">Resources</a>
+</li>
+<li>
+  <a href="help.html">Help</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Quotes vs backticks</h1>
+
+</div>
+
+
+<p>When do you use quotes, backticks, or nothing in R?</p>
+<div id="tibble-for-naming-variables" class="section level2">
+<h2><code>tibble()</code> for naming variables</h2>
+<ul>
+<li>backticks are typically for nonstandard variable names:
+<ul>
+<li>those with spaces</li>
+<li>those with punctuation</li>
+<li>those that are just numbers</li>
+<li>those that start with numbers</li>
+</ul></li>
+<li>single or double quotes are typically used for character
+strings</li>
+</ul>
+<p>In the <code>tibble()</code> function when specifying names we need
+to backticks when we have spaces or punctuation or variable names that
+are just numeric characters (this also works with single quotes or
+double quotes, but backticks are more common practice).</p>
+<p>This is not required if we have a typical type of name without spaces
+or punctuation. However if we do use quotes on such a name is is not a
+problem either.</p>
+<pre class="r"><code># the preferred method
+
+ex_data &lt;- tibble(`Number!` = seq(from = 1, to = 5),
+                  `Var with space` = c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;E&quot;),
+                  `2022` = sample(seq(from = 1, to = 5), size = 5),
+                  `2021` = sample(seq(from = 1, to = 5), size = 5),
+                  typical = seq(from = 1, to = 5),
+                  `typical2` = seq(from = 1, to = 5))
+
+ex_data</code></pre>
+<pre><code>## # A tibble: 5 × 6
+##   `Number!` `Var with space` `2022` `2021` typical typical2
+##       &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
+## 1         1 A                     4      3       1        1
+## 2         2 B                     1      5       2        2
+## 3         3 C                     2      1       3        3
+## 4         4 D                     5      4       4        4
+## 5         5 E                     3      2       5        5</code></pre>
+<pre class="r"><code># this works
+
+ex_data &lt;- tibble(&quot;Number!&quot; = seq(from = 1, to = 5),
+                  &quot;Var with space&quot; = c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;E&quot;),
+                  &quot;2022&quot; = sample(seq(from = 1, to = 5), size = 5),
+                  &quot;2021&quot; = sample(seq(from = 1, to = 5), size = 5),
+                   typical = seq(from = 1, to = 5),
+                  &quot;typical2&quot;= seq(from = 1, to = 5))
+ex_data</code></pre>
+<pre><code>## # A tibble: 5 × 6
+##   `Number!` `Var with space` `2022` `2021` typical typical2
+##       &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
+## 1         1 A                     4      3       1        1
+## 2         2 B                     2      1       2        2
+## 3         3 C                     1      4       3        3
+## 4         4 D                     5      5       4        4
+## 5         5 E                     3      2       5        5</code></pre>
+</div>
+<div id="rename" class="section level2">
+<h2><code>rename()</code></h2>
+<p>same thing here…</p>
+<pre class="r"><code>ex_data %&gt;%
+  rename(Number = `Number!`)</code></pre>
+<pre><code>## # A tibble: 5 × 6
+##   Number `Var with space` `2022` `2021` typical typical2
+##    &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
+## 1      1 A                     4      3       1        1
+## 2      2 B                     2      1       2        2
+## 3      3 C                     1      4       3        3
+## 4      4 D                     5      5       4        4
+## 5      5 E                     3      2       5        5</code></pre>
+<pre class="r"><code>ex_data %&gt;%
+  rename(Number = &quot;Number!&quot;)</code></pre>
+<pre><code>## # A tibble: 5 × 6
+##   Number `Var with space` `2022` `2021` typical typical2
+##    &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
+## 1      1 A                     4      3       1        1
+## 2      2 B                     2      1       2        2
+## 3      3 C                     1      4       3        3
+## 4      4 D                     5      5       4        4
+## 5      5 E                     3      2       5        5</code></pre>
+<pre class="r"><code># not necessary but not probematic to put new typical name in quotes
+ex_data %&gt;%
+  rename(&quot;Number&quot; = &quot;Number!&quot;)</code></pre>
+<pre><code>## # A tibble: 5 × 6
+##   Number `Var with space` `2022` `2021` typical typical2
+##    &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
+## 1      1 A                     4      3       1        1
+## 2      2 B                     2      1       2        2
+## 3      3 C                     1      4       3        3
+## 4      4 D                     5      5       4        4
+## 5      5 E                     3      2       5        5</code></pre>
+</div>
+<div id="summarize" class="section level2">
+<h2><code>summarize()</code></h2>
+<p>Only backticks will work here. Otherwise, the variable gets
+interpreted as a character string.</p>
+<pre class="r"><code>ex_data %&gt;%
+  summarize(mean = mean(`2022`))</code></pre>
+<pre><code>## # A tibble: 1 × 1
+##    mean
+##   &lt;dbl&gt;
+## 1     3</code></pre>
+<pre class="r"><code># will not work
+# ex_data %&gt;%
+#   summarize(mean = mean(&quot;2022&quot;))
+
+# will not work
+# ex_data %&gt;%
+#   summarize(mean = mean(&quot;Number!&quot;))</code></pre>
+</div>
+<div id="mutate" class="section level2">
+<h2><code>mutate()</code></h2>
+<p>Only these work…</p>
+<pre class="r"><code>ex_data %&gt;% mutate(`Number!` = `Number!` + 2)</code></pre>
+<pre><code>## # A tibble: 5 × 6
+##   `Number!` `Var with space` `2022` `2021` typical typical2
+##       &lt;dbl&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
+## 1         3 A                     4      3       1        1
+## 2         4 B                     2      1       2        2
+## 3         5 C                     1      4       3        3
+## 4         6 D                     5      5       4        4
+## 5         7 E                     3      2       5        5</code></pre>
+<pre class="r"><code>ex_data %&gt;% mutate(&quot;Number!&quot; = `Number!` + 2)</code></pre>
+<pre><code>## # A tibble: 5 × 6
+##   `Number!` `Var with space` `2022` `2021` typical typical2
+##       &lt;dbl&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
+## 1         3 A                     4      3       1        1
+## 2         4 B                     2      1       2        2
+## 3         5 C                     1      4       3        3
+## 4         6 D                     5      5       4        4
+## 5         7 E                     3      2       5        5</code></pre>
+<pre class="r"><code>ex_data %&gt;% mutate(Typical = `Number!` + 2)</code></pre>
+<pre><code>## # A tibble: 5 × 7
+##   `Number!` `Var with space` `2022` `2021` typical typical2 Typical
+##       &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;   &lt;dbl&gt;
+## 1         1 A                     4      3       1        1       3
+## 2         2 B                     2      1       2        2       4
+## 3         3 C                     1      4       3        3       5
+## 4         4 D                     5      5       4        4       6
+## 5         5 E                     3      2       5        5       7</code></pre>
+</div>
+<div id="stringr-functions" class="section level2">
+<h2><code>stringr</code> functions</h2>
+<p>When working with strings we need to use quotes.</p>
+<pre class="r"><code>x &lt;- c(&quot;cat&quot;, &quot;dog&quot;, &quot;mouse&quot;)
+# this will not work:
+# x &lt;- c(`cat`, `dog`, `mouse`)</code></pre>
+<p>When looking for patterns we need to use quotes because we are using
+it as a character string and quotes designate this. Backticks will not
+work.</p>
+<pre class="r"><code>x &lt;- c(&quot;cat&quot;, &quot;dog&quot;, &quot;mouse&quot;)
+# this will not work:
+# x &lt;- c(`cat`, `dog`, `mouse`)
+str_detect(pattern = &quot;t&quot;, string = x)</code></pre>
+<pre><code>## [1]  TRUE FALSE FALSE</code></pre>
+<pre class="r"><code># this will not work:
+# str_detect(pattern = `t`, string = x)</code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

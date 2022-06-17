@@ -1016,25 +1016,7 @@ str_split("I.like.strings", "\\.")
 
 <!-- ``` -->
 
-<!-- ## Separating columns based on a separator  -->
 
-<!-- * From `tidyr`, you can split a data set into multiple columns: -->
-
-<!-- ```{r separate_df2_for_easy} -->
-
-<!-- df = tibble(x = c("I really", "like writing", "R code programs")) -->
-
-<!-- ``` -->
-
-<!-- ```{r} -->
-
-<!-- df %>% separate(x, into = c("first", "second")) -->
-
-<!-- ``` -->
-
-<!-- ## Separating columns based on a separator  -->
-
-<!-- * `extra = "merge"` will not drop data.  Also, you can specify the separator -->
 
 <!-- ```{r separate_df2} -->
 
