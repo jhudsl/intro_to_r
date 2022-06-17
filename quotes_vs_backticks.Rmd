@@ -1,0 +1,114 @@
+---
+title: "Quotes vs backticks"
+output: html_document
+---
+
+When do you use quotes, backticks, or nothing in R?
+
+## `tibble()` for naming variables
+
+- backticks are typically for nonstandard variable names:
+  - those with spaces
+  - those with punctuation
+  - those that are just numbers
+  - those that start with numbers
+  
+- single or double quotes are typically used for character strings
+
+In the `tibble()` function when specifying names we need to backticks when we have spaces or punctuation or variable names that are just numeric characters (this also works with single quotes or double quotes, but backticks are more common practice). 
+
+This is not required if we have a typical type of name without spaces or punctuation. However if we do use quotes on such a name is is not a problem either. 
+
+```{r, include = FALSE}
+library(tidyverse)
+```
+
+```{r}
+
+# the preferred method
+
+ex_data <- tibble(
+  `Number!` = seq(from = 1, to = 5),
+  `Var with space` = c("A", "B", "C", "D", "E"),
+  `2022` = sample(seq(from = 1, to = 5), size = 5),
+  `2021` = sample(seq(from = 1, to = 5), size = 5),
+  typical = seq(from = 1, to = 5),
+  `typical2` = seq(from = 1, to = 5)
+)
+
+ex_data
+
+# this works
+
+ex_data <- tibble(
+  "Number!" = seq(from = 1, to = 5),
+  "Var with space" = c("A", "B", "C", "D", "E"),
+  "2022" = sample(seq(from = 1, to = 5), size = 5),
+  "2021" = sample(seq(from = 1, to = 5), size = 5),
+  typical = seq(from = 1, to = 5),
+  "typical2" = seq(from = 1, to = 5)
+)
+ex_data
+```
+
+## `rename()`
+
+same thing here...
+
+```{r}
+ex_data %>%
+  rename(Number = `Number!`)
+
+ex_data %>%
+  rename(Number = "Number!")
+
+# not necessary but not probematic to put new typical name in quotes
+ex_data %>%
+  rename("Number" = "Number!")
+```
+## `summarize()`
+
+Only backticks will work here. Otherwise, the variable gets interpreted as a character string.
+```{r}
+ex_data %>%
+  summarize(mean = mean(`2022`))
+
+# will not work
+# ex_data %>%
+#   summarize(mean = mean("2022"))
+
+# will not work
+# ex_data %>%
+#   summarize(mean = mean("Number!"))
+```
+
+## `mutate()`
+
+Only these work... 
+
+```{r}
+ex_data %>% mutate(`Number!` = `Number!` + 2)
+ex_data %>% mutate("Number!" = `Number!` + 2)
+
+ex_data %>% mutate(Typical = `Number!` + 2)
+```
+## `stringr` functions
+
+When working with strings we need to use quotes.
+
+```{r}
+x <- c("cat", "dog", "mouse")
+# this will not work:
+# x <- c(`cat`, `dog`, `mouse`)
+```
+
+When looking for patterns we need to use quotes because we are using it as a character string and quotes designate this. Backticks will not work.
+
+```{r}
+x <- c("cat", "dog", "mouse")
+# this will not work:
+# x <- c(`cat`, `dog`, `mouse`)
+str_detect(pattern = "t", string = x)
+# this will not work:
+# str_detect(pattern = `t`, string = x)
+```

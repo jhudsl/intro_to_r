@@ -373,7 +373,7 @@ df_example_readr &lt;- read.csv(file = &quot;documents/data_analysis/data_file.c
 
 <p>If we would like to create a <code>tibble</code> (&ldquo;fancy&rdquo; data frame), we can using the <code>tibble()</code> function.</p>
 
-<pre class = 'prettyprint lang-r'>tbl &lt;- dplyr::tibble(df) 
+<pre class = 'prettyprint lang-r'>tbl &lt;- tibble(df) 
 tbl</pre>
 
 <pre ># A tibble: 32 × 11
@@ -429,7 +429,7 @@ Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4</pre>
 
 </article></slide><slide class=""><hgroup><h2>rownames_to_column function</h2></hgroup><article  id="rownames_to_column-function">
 
-<p>If you run into losing a variable contained in your row names, you can also use <code>rownames_to_column</code> to add it before turning it into a <code>tibble</code> to keep them:</p>
+<p>If you run into losing a variable contained in your row names, you can also use <code>rownames_to_column</code> (of <code>tibble</code> package) to add it before turning it into a <code>tibble</code> to keep them:</p>
 
 <pre class = 'prettyprint lang-r'>head(rownames_to_column(df, &quot;car&quot;),  n = 2)</pre>
 
@@ -458,7 +458,7 @@ Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4</pre>
 {data you are creating or changing} &lt;- rename({data you are using}, 
                                           {New Name} = {Old name})</pre></div>
 
-<pre class = 'prettyprint lang-r'>df &lt;- dplyr::rename(df, MPG = mpg)
+<pre class = 'prettyprint lang-r'>df &lt;- rename(df, MPG = mpg)
 head(df)</pre>
 
 <pre >                   MPG cyl disp  hp drat    wt  qsec vs am gear carb
@@ -473,7 +473,7 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</pre>
 
 <p>To rename all columns you use the <code>rename_with()</code>. In this case we will use <code>toupper()</code> to make all letters upper case. Could also use <code>tolower()</code> function.</p>
 
-<pre class = 'prettyprint lang-r'>df_upper &lt;- dplyr::rename_with(df, toupper)
+<pre class = 'prettyprint lang-r'>df_upper &lt;- rename_with(df, toupper)
 head(df_upper, 3)</pre>
 
 <pre >               MPG CYL DISP  HP DRAT    WT  QSEC VS AM GEAR CARB
@@ -481,7 +481,7 @@ Mazda RX4     21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
 Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
 Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</pre>
 
-<pre class = 'prettyprint lang-r'>df &lt;- dplyr::rename_with(df, tolower)
+<pre class = 'prettyprint lang-r'>df &lt;- rename_with(df, tolower)
 head(df, 3)</pre>
 
 <pre >               mpg cyl disp  hp drat    wt  qsec vs am gear carb
@@ -1108,7 +1108,7 @@ Volvo 142E          1.2636364</pre>
 
 </article></slide><slide class=""><hgroup><h2>Ordering the rows of a data frame: dplyr</h2></hgroup><article  id="ordering-the-rows-of-a-data-frame-dplyr">
 
-<p>The <code>arrange</code> function can reorder rows By default, <code>arrange</code> orders in ascending order:</p>
+<p>The <code>arrange</code> function can reorder rows By default, <code>arrange</code> orders in increasing order:</p>
 
 <pre class = 'prettyprint lang-r'>arrange(df, mpg)</pre>
 

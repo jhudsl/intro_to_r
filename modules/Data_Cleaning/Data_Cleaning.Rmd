@@ -490,8 +490,8 @@ Pay attention to your data and your `NA` values!
 
 ## Lab Part 1
 
-🏠 [Class Website](https://jhudatascience.org/intro_to_r/) 💻
-[Lab](https://jhudatascience.org/intro_to_r/modules/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd)
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)    
+💻[Lab](https://jhudatascience.org/intro_to_r/modules/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd)
 
 <!-- ```{r readSal_csv, echo= FALSE, eval = TRUE} -->
 
@@ -738,8 +738,8 @@ within each element of a character vector (not data frame or tibble!).
 
 ## `str_detect()`
 
-`string` argument specifies what to check    
-`pattern` argument specifies what to check for    
+The `string` argument specifies what to check    
+The `pattern` argument specifies what to check for    
 
 ```{r}
 x<-c("cat", "dog", "mouse")
@@ -748,9 +748,9 @@ str_detect(string = x, pattern = "d")
 
 ## `str_replace()`
 
-`string` argument specifies what to check    
-`pattern` argument specifies what to check for    
-`replacement` argument specifies what to replace the pattern with    
+The `string` argument specifies what to check    
+The `pattern` argument specifies what to check for    
+The `replacement` argument specifies what to replace the pattern with    
 ```{r}
 x<-c("cat", "dog", "mouse")
 str_replace(string = x, pattern = "d", replacement = "D")
@@ -759,9 +759,8 @@ str_replace(string = x, pattern = "d", replacement = "D")
 ## Subsetting part of a string
 
 `str_sub()` allows you to subset part of a string   
-* `string` argument specifies what strings to work with    
-* `start` argument specifies position of where to start    
-*`start` argument specifies position of where to end    
+The `string` argument specifies what strings to work with     The `start` argument specifies position of where to start    
+The `start` argument specifies position of where to end    
 
 ```{r}
 x<-c("cat", "dog", "mouse")
@@ -865,9 +864,9 @@ diet_comb
 ## Separating columns based on a separator
 
 The `separate()` function from `tidyr` can split a column into multiple columns.   
-* `col` argument specifies what column to work with      
-* `into` argument specifies names of new columns   
-* `sep` argument specifies what to separate by
+The `col` argument specifies what column to work with      
+The `into` argument specifies names of new columns   
+The `sep` argument specifies what to separate by
 ```{r}
 diet_comb %>% 
   separate(col = change, into = c("Diet", "Change"), sep = "_" )
@@ -890,8 +889,8 @@ diet_comb %>%
 ## Uniting columns 
 
 The `unite()` function can instead help combine columns.    
-*`col` argument specifies new column name    
-*`sep` argument specifies what separator to use when combining    
+The `col` argument specifies new column name    
+The `sep` argument specifies what separator to use when combining    
 ```{r unite_df, echo = FALSE}
 df = tibble(id = rep(1:5, 3), visit = rep(1:3, each = 5))
 head(df, 4)
@@ -953,8 +952,8 @@ head(df_united, 4)
 
 ## Lab Part 2
 
-🏠 [Class Website](https://jhudatascience.org/intro_to_r/) 💻
-[Lab](https://jhudatascience.org/intro_to_r/modules/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd)
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)    
+💻[Lab](https://jhudatascience.org/intro_to_r/modules/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd)
 
 # Extra Slides
 
