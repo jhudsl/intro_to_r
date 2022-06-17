@@ -4,8 +4,10 @@ output:
   ioslides_presentation:
     css: ../../docs/styles.css
     widescreen: yes
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
- 
 
 ```{r, echo = FALSE, message = FALSE}
 library(knitr)
@@ -16,63 +18,74 @@ library(tidyverse)
 ```
 
 ## Recap on summarization
-- `summary(x)`: quantile information
-- `summarize`: creates a summary table of columns of interest
-  - combine with `across()` to programmatically select columns
-- `count(variable)`: how many of each unique value do you have
-- `group_by()`: changes all subsequent functions
-  - combine with `summarize()` to get statistics per group
-- `plot()` and `hist()` are great for a **quick snapshot** of the data
+
+-   `summary(x)`: quantile information
+-   `summarize`: creates a summary table of columns of interest
+    -   combine with `across()` to programmatically select columns
+-   `count(variable)`: how many of each unique value do you have
+-   `group_by()`: changes all subsequent functions
+    -   combine with `summarize()` to get statistics per group
+-   `plot()` and `hist()` are great for a **quick snapshot** of the data
 
 📃[Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-4.pdf)
 
 ## Recap on data classes
-- tibbles show column classes!
-- `as.CLASS_NAME(x)` can be used to change the class of an object x
-- Logic class objects only have `TRUE` or `False` (without quotes)
-- The repeat `rep()` and `seq()` functions help you create vectors with `to` and `from` arguments (and others)
-- `sample()` makes random vectors. Can be used for integers or double depending on what it is sampling from.
- - matrix has columns and rows but  is all one data class
- - lists can contain multiples of any other class of data including lists!
- - The `lubridate` package  is helpful for dates and times    
-📃[Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-4.pdf)
 
-## Data Cleaning{.emphasized}
+-   tibbles show column classes!
+-   `as.CLASS_NAME(x)` can be used to change the class of an object x
+-   Logic class objects only have `TRUE` or `False` (without quotes)
+-   The repeat `rep()` and `seq()` functions help you create vectors
+    with `to` and `from` arguments (and others)
+-   `sample()` makes random vectors. Can be used for integers or double
+    depending on what it is sampling from.
+-   matrix has columns and rows but is all one data class
+-   lists can contain multiples of any other class of data including
+    lists!
+-   The `lubridate` package is helpful for dates and times\
+    📃[Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-4.pdf)
 
-In general, data cleaning is a process of investigating your data for inaccuracies, or recoding it in a way that makes it more manageable.
+## Data Cleaning {.emphasized}
+
+In general, data cleaning is a process of investigating your data for
+inaccuracies, or recoding it in a way that makes it more manageable.
 
 ::: {style="color: red;"}
 ⚠️ MOST IMPORTANT RULE - LOOK 👀 AT YOUR DATA! ⚠️
 :::
 
-
 # Dealing with Missing Data
 
 ## Missing data types
-One of the most important aspects of data cleaning is missing values.  
+
+One of the most important aspects of data cleaning is missing values.
 
 Types of "missing" data:
 
-* `NA` - general missing data
-* `NaN` - stands for "**N**ot **a** **N**umber", happens when you do 0/0.
-* `Inf` and `-Inf` - Infinity, happens when you take a positive number (or negative number) by 0.
+-   `NA` - general missing data
+-   `NaN` - stands for "**N**ot **a** **N**umber", happens when you do
+    0/0.
+-   `Inf` and `-Inf` - Infinity, happens when you divide a positive
+    number (or negative number) by 0.
 
-## Finding Missing data
+## Finding Missing data {.small}
 
-Each missing data type has a function that returns `TRUE` if the data is missing:
+-   `is.na` - looks for `NAN` and `NA`
+-   `is.nan`- looks for `NAN`
+-   `is.infinite` - looks for Inf or -Inf
 
-* `NA` - `is.na`
-* `NaN` - `is.nan`
-* `Inf` and `-Inf` - `is.infinite`
+```{r}
+test<-c(0,NA, -1)
+test/0
+test <-test/0
+is.na(test)
+is.nan(test)
+is.infinite(test)
+```
 
-## Useful checking functions{.small}
+## Useful checking functions {.small}
 
-- `is.na` - is `TRUE` if the data is `FALSE` otherwise
-- `!` - negation (NOT) 
-    - if `is.na(x)` is `TRUE`, then `!is.na(x)` is `FALSE`
-
-- `any` will be `TRUE` if ANY are true
-    - `any(is.na(x))` - do we have any `NA`'s in `x`?
+-   `any` will be `TRUE` if ANY are true
+    -   `any(is.na(x))` - do we have any `NA`'s in `x`?
 
 ```{r isna}
 A = c(1, 2, 4, NA)
@@ -85,12 +98,12 @@ any(is.na(B)) # are there any NAs- NO/FALSE
 
 Check the values for your variables, are they what you expect?
 
-`count()` is a great option because it gives tells you:
+`count()` is a great option because it gives you:
 
-1) The unique values
-2) The amount of these values
+1)  The unique values
+2)  The amount of these values
 
-Check if rare values make sense
+Check if rare values make sense.
 
 ```{r, message=FALSE}
 bike <-jhur::read_bike()
@@ -99,66 +112,88 @@ bike %>% count(subType)
 
 ```
 
-
-
 <!-- ## Useful checking functions -->
 
 <!--   - `table(x, useNA = "ifany")` - will have row NA if there are NA values -->
+
 <!--   - `table(x, useNA = "always")` - will have row NA even if there are no NA values -->
 
 <!-- Here we will use `table` to make tabulations of the data.   Look at `?table` to see options for missing data. -->
 
 <!-- ```{r table} -->
-<!-- z = c("A", "B", "A", "B") -->
-<!-- table(z, useNA = "ifany") -->
-<!-- table(z, useNA = "always") -->
-<!-- ``` -->
 
+<!-- z = c("A", "B", "A", "B") -->
+
+<!-- table(z, useNA = "ifany") -->
+
+<!-- table(z, useNA = "always") -->
+
+<!-- ``` -->
 
 <!-- ## Creating One-way Tables  -->
 
 <!-- `useNA = "ifany"` will not have NA in table heading if no `NA`: -->
+
 <!-- ```{r onetab_ifany} -->
+
 <!-- table(c(0, 1, 2, 3, 2, 3, 3, 2, 2, 3),  -->
+
 <!--         useNA = "ifany") -->
+
 <!-- tibble(x = c(0, 1, 2, 3, 2, 3, 3, 2, 2, 3)) %>%  count(x) -->
+
 <!-- ``` -->
 
 <!-- ## Creating One-way Tables  -->
 
 <!-- You can set `useNA = "always"` to have it always have a column for `NA` -->
+
 <!-- ```{r onetab} -->
+
 <!-- table(c(0, 1, 2, 3, 2, 3, 3, 2, 2, 3),  -->
+
 <!--         useNA = "always") -->
+
 <!-- ``` -->
 
 <!-- ## Tables with Factors  -->
 
 <!-- If you use a `factor`, all levels will be given even if no exist!  -->
+
 <!--   - (May be wanted or not): -->
 
 <!-- ```{r onetab_fact, error = TRUE} -->
-<!-- fac = factor(c(0, 1, 2, 3, 2, 3, 3, 2,2, 3), -->
-<!--              levels = 1:4) -->
-<!-- tab = table(fac) -->
-<!-- tab -->
-<!-- tab[ tab > 0 ] -->
-<!-- ``` -->
 
+<!-- fac = factor(c(0, 1, 2, 3, 2, 3, 3, 2,2, 3), -->
+
+<!--              levels = 1:4) -->
+
+<!-- tab = table(fac) -->
+
+<!-- tab -->
+
+<!-- tab[ tab > 0 ] -->
+
+<!-- ``` -->
 
 <!-- ## Factors cont -->
-<!-- ```{r} -->
-<!-- tibble(x = fac) %>% count(x) -->
-<!-- ``` -->
 
+<!-- ```{r} -->
+
+<!-- tibble(x = fac) %>% count(x) -->
+
+<!-- ``` -->
 
 <!-- ## Finding Row or Column Totals -->
 
 <!-- `margin.table` finds the marginal sums of the table.  `margin` is 1 for rows, 2 for columns in general in `R`.  Here is the column sums of the table: -->
 
 <!-- ```{r margin} -->
+
 <!-- tab -->
+
 <!-- margin.table(tab, 2) -->
+
 <!-- ``` -->
 
 <!-- ## Proportion Tables  -->
@@ -166,39 +201,49 @@ bike %>% count(subType)
 <!-- `prop.table` finds the marginal proportions of the table. Think of it dividing the table by it's respective marginal totals.  If `margin` not set, divides by overall total. -->
 
 <!-- ```{r table2} -->
-<!-- prop.table(tab) -->
-<!-- prop.table(tab,1) * 100 -->
-<!-- ``` -->
 
+<!-- prop.table(tab) -->
+
+<!-- prop.table(tab,1) * 100 -->
+
+<!-- ``` -->
 
 <!-- ## Complete.cases -->
 
 <!-- `complete.cases` - returns `TRUE` if EVERY value of a row is NOT `NA` -->
+
 <!--     - very stringent condition  -->
+
 <!--     - `FALSE` missing one value (even if not important) -->
 
-
 <!-- ```{r} -->
+
 <!-- complete.cases(mtcars) -->
+
 <!-- ``` -->
 
-
-
 ## `naniar`
-Sometimes you need to look at lots of data though... the [`naniar` package](https://cran.r-project.org/web/packages/naniar/vignettes/getting-started-w-naniar.html) is a good option.
 
-The `pct_complete()` function shows the percentage that is complete for a given data object.
+Sometimes you need to look at lots of data though... the [`naniar`
+package](https://cran.r-project.org/web/packages/naniar/vignettes/getting-started-w-naniar.html)
+is a good option.
+
+The `pct_complete()` function shows the percentage that is complete for
+a given data object.
 
 ```{r, error=FALSE}
 #install.packages("naniar")
 library(naniar)
 x = c(0, NA, 2, 3, 4, -0.5, 0.2)
 naniar::pct_complete(x)
+test
+naniar::pct_complete(test) # doesn't count infinite values as missing
 ```
 
 ## Air quality data
 
-The `airquality` dataset comes with R about air quality in New York in 1973.
+The `airquality` dataset comes with R about air quality in New York in
+1973.
 
 ```{r, message=FALSE}
 ?airquality # use this to find out more about the data
@@ -214,24 +259,27 @@ pct_complete(airquality)
 
 ## `naniar` plots
 
-The `gg_miss_var()` function creates a nice plot about the number of missing values for each variable.
+The `gg_miss_var()` function creates a nice plot about the number of
+missing values for each variable.
 
 ```{r, fig.height=4, warning=FALSE, fig.align='center'}
 naniar::gg_miss_var(airqual)
 ```
 
+<!-- ## `naniar` plots -->
 
-## `naniar` plots
+<!-- We can use the `facet` argument to make more plots about a specific variable. -->
 
-We can use the `facet` argument to make more plots about a specific variable.
+<!-- ```{r, fig.height=4, warning=FALSE, fig.align='center'} -->
 
-```{r, fig.height=4, warning=FALSE, fig.align='center'}
-naniar::gg_miss_var(airqual, facet = Month)
-```
+<!-- naniar::gg_miss_var(airqual, facet = Month) -->
+
+<!-- ``` -->
 
 ## Missing Data Issues
 
 Recall that mathematical operations with `NA` often result in `NA`s.
+
 ```{r}
 sum(c(1,2,3,NA))
 mean(c(2,4,NA))
@@ -244,29 +292,29 @@ red_blue <- red_blue %>% count(color)
 red_blue <- rename(red_blue, col_count = n)
 ```
 
-
-
-
 ## Missing Data Issues
 
-This is also true for logicals.
-The NA data could be `> 2` or not, we don't know,so `R` says there is no `TRUE` or `FALSE`, so that is missing.
+This is also true for logical data. Recall that `TRUE` is evaluated as 1
+and `FALSE` is evaluated as 0.
+
 ```{r}
-x = c(0, NA, 2, 3, 4, -0.5, 0.2)
-x > 2
+x = c(TRUE, TRUE, TRUE, TRUE, FALSE, NA)
+sum(x)
+sum(x, na.rm = TRUE)
 ```
-
-
-
 
 <!-- ## Missing Data with Logicals -->
 
 <!-- What to do?  What if we want if `x > 2` and `x` isn't `NA`? -->
+
 <!-- Don't do `x != NA`, do `x > 2` and `x` is NOT `NA`: -->
 
 <!-- ```{r} -->
+
 <!-- x > 2 & x != NA -->
+
 <!-- x > 2 & !is.na(x) -->
+
 <!-- ``` -->
 
 <!-- ## Missing Data with Logicals -->
@@ -274,21 +322,25 @@ x > 2
 <!-- What about seeing if a value is equal to multiple values?  You can do `(x == 1 | x == 2) & !is.na(x)`, but that is not efficient.   -->
 
 <!-- ```{r} -->
+
 <!-- (x == 0 | x == 2) # has NA -->
+
 <!-- (x == 0 | x == 2) & !is.na(x) # No NA -->
+
 <!-- ``` -->
 
 <!-- what to do? -->
 
 ## filter() and missing data
 
-Be careful with missing data using subsetting: 
+Be careful with missing data using subsetting:
 
-**`filter()` removes missing values by default.**
-Because R can't tell for sure if an NA value meets the condition.
-To keep them need to add `is.na()` conditional.
+**`filter()` removes missing values by default.** Because R can't tell
+for sure if an `NA` value meets the condition. To keep them need to add
+`is.na()` conditional.
 
-## filter() and missing data{.codesmall}
+## filter() and missing data {.codesmall}
+
 ```{r, echo = FALSE}
 df <-tibble(Dog = c(0, NA, 2, 3, 1, 1), 
             Cat= c(NA, 8, 6, NA, 2, NA))
@@ -296,93 +348,103 @@ df <-tibble(Dog = c(0, NA, 2, 3, 1, 1),
 
 ```{r}
 df
-
 df %>% filter(Dog < 3)
+```
+
+## filter() and missing data 
+
+```{r}
 df %>% filter(Dog < 3 | is.na(Dog))
 ```
 
-## to remove rows with NAs for a variable use `drop_na()`
+## To remove rows with `NA` values for a variable use `drop_na()`
 
-Avoid using filter for NA values. Instead use `drop_na()`
+A function from the `tidyr` package.
 
-```{R}
+```{r}
 df %>% drop_na(Dog)
 ```
 
 <!-- !NA` does not work as you might expect because you can't tell if something is not actually `NA` - R doesn't ever assume to know what the value of `NA` is  -->
 
 <!-- ```{r} -->
+
 <!-- NA == NA -->
+
 <!-- NA != NA -->
+
 <!-- ``` -->
 
+## To remove rows with `NA` values for a data frame use `drop_na()`
 
-
-## tidyr::drop_na{.codesmall}
-
-This function will drop rows with **any** missing data in **any** column when used on a df.
+This function of the `tidyr` package drops rows with **any** missing data in **any** column when used on a df.
 
 ```{r}
-df
-drop_na(df)
 df %>% drop_na()
 ```
 
+## Drop **columns** with any missing values{.codesmall}
 
-## Drop **columns** with any missing values
+Use the `miss_var_which()` function from `naniar`
 
 ```{r}
 df<-df %>% mutate(test =c(1,2,3,4,5,6))
+df
 miss_var_which(df) # which columns have missing values
+```
+
+## Drop **columns** with any missing values{.codesmall}
+
+
+```{r}
+
 df %>% select(!miss_var_which(df))
 
 ```
 
-
-## Removing columns with threshold of percent missing row values
+## Removing columns with threshold of percent missing row values{.codesmall}
 
 ```{r}
-is.na(df)
+is.na(df) %>% head(n = 3)
 colMeans(is.na(df))#TRUE and FALSE treated like 0 and 1
-df %>% select(which(colMeans(is.na(df)) < 0.2))
+df %>% select(which(colMeans(is.na(df)) < 0.2))# remove if over 20% missing
 ```
 
-## Change a value to be `NA`
+## Change a value to be `NA`{.codesmall}
 
-The `na_if()` function of `dplyr` can be helpful for this.
-Let's say we think that all 0 values should be `NA`.
+The `na_if()` function of `dplyr` can be helpful for this. Let's say we
+think that all 0 values should be `NA`.
 
 ```{r}
-df %>% select(Dog) %>% na_if(0)
+df %>% head(n = 3)
 
-df %>% mutate(Dog = na_if(Dog,0))
+df %>% mutate(Dog = na_if(Dog, 0))
 ```
-
-
 
 ## Think about `NA`
 
-Sometimes removing `NA` values leads to distorted math - be careful! 
+Sometimes removing `NA` values leads to distorted math - be careful!
 Think about what your `NA` means for your data (are you sure ?).
 
-Is an `NA` for values so low they could not be reported?
-Or is it this and also if there was a different issue? 
+Is an `NA` for values so low they could not be reported? Or is it this
+and also if there was a different issue?
 
 ## Think about `NA`
 
-If it is something more like a zero then you might want it included in your data like a zero.
+If it is something more like a zero then you might want it included in
+your data like a zero.
 
-Example:
-- survey reports NA if student has never tried cigarettes
-- survey reports 0 if student has tried cigarettes but did not smoke that week
+Example: - survey reports `NA` if student has never tried cigarettes -
+survey reports 0 if student has tried cigarettes but did not smoke that
+week
 
+You might want to keep the `NA` values so that you know the original
+sample size.
 
-You might want to keep the NA values so that you know the original sample size.
+## Word of caution {.codesmall}
 
- 
-## Word of caution{.codesmall}
-
-Calculating percentages will give you a different result depending on your choice to include NA values.
+Calculating percentages will give you a different result depending on
+your choice to include NA values.
 
 ```{r}
 red_blue
@@ -390,65 +452,83 @@ red_blue %>% mutate(percent =
                       col_count/sum(pull(red_blue, col_count)))
 ```
 
-## Word of caution{.codesmall}
+## Word of caution
+
 ```{r}
 red_blue %>% mutate(percent = 
                       col_count/sum(pull(drop_na(red_blue), col_count)))
 
-# Should you be dividing by 9 or 6? It depends on your data
-# Pay attention to your data and your NAs!
 ```
 
+Should you be dividing by 9 or 6?   
+It depends on your data and what `NA` might mean.   
+Pay attention to your data and your `NA` values!
 <!-- ## Missing Data with Operations -->
 
 <!-- Similarly with logicals, operations/arithmetic with `NA` will result in `NA`s: -->
 
 <!-- ```{r} -->
+
 <!-- x = c(0, NA, 2, 3, 4, -0.5, 0.2) -->
+
 <!-- x + 2 -->
+
 <!-- x * 2 -->
+
 <!-- ``` -->
-
-
 
 ## Summary
 
--  `is.na()`,`any(is.na())`, `count()`, and functions from `naniar` like `gg_miss_var()` can help determine if we have `NA` values
-- `filter()` automatically removes `NA` values - can't confirm or deny if condition is met (need `| is.na()` to keep them)
-- `drop_na()` can help you remove `NA` values - avoid filtering specifically for `NA` values
-- `NA` values can change your calculation results
-- think about what `NA` values represent
+-   `is.na()`,`any(is.na())`, `count()`, and functions from `naniar`
+    like `gg_miss_var()` can help determine if we have `NA` values
+-   `filter()` automatically removes `NA` values - can't confirm or deny
+    if condition is met (need `| is.na()` to keep them)
+-   `drop_na()` can help you remove `NA` values from a variable or an
+    entire data frame
+-   `NA` values can change your calculation results
+-   think about what `NA` values represent
 
 ## Lab Part 1
 
-🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
-💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd)
-
-
-
-
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/) 💻
+[Lab](https://jhudatascience.org/intro_to_r/modules/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd)
 
 <!-- ```{r readSal_csv, echo= FALSE, eval = TRUE} -->
+
 <!-- Sal = read_csv("https://jhudatascience.org/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv", col_types = cols( -->
+
 <!--   name = col_character(), -->
+
 <!--   JobTitle = col_character(), -->
+
 <!--   AgencyID = col_character(), -->
+
 <!--   Agency = col_character(), -->
+
 <!--   HireDate = col_character(), -->
+
 <!--   AnnualSalary = col_character(), -->
+
 <!--   GrossPay = col_character() -->
+
 <!-- )) -->
+
 <!-- Sal = rename(Sal, Name = name) -->
+
 <!-- ``` -->
 
 <!-- ## Checking for logical conditions  -->
 
 <!-- * `any()` - checks if there are any `TRUE`s -->
+
 <!-- * `all()` - checks if ALL are true -->
 
 <!-- ```{r isna} -->
+
 <!-- head(Sal,2) -->
+
 <!-- any(is.na(Sal$Name)) # are there any NAs? -->
+
 <!-- ``` -->
 
 # Recoding Variables
@@ -492,20 +572,20 @@ data_diet %>%
 
 ## `dplyr` can help!
 
-Using Excel to find all of the different ways `gender` has been coded, would be a matter of filtering and changing all by hand or using if statements. This can be hectic!
+Using Excel to find all of the different ways `gender` has been coded,
+could be hectic!
 
 In `dplyr` you can use the `recode` function (need `mutate` here too!):
 
-<div class = "codeexample">
+::: codeexample
 ```{r, eval = FALSE}
 # General Format - this is not code!
 {data_input} %>%
-  mutate({variable_to_fix} = {Variable_fixing, {old_value} = {new_value},
+  mutate({variable_to_fix} = {Variable_fixing}, {old_value} = {new_value},
                                        {another_old_value} = {new_value})
 
 ```
-</div>
-
+:::
 
 ```{r, eval = FALSE}
 
@@ -519,49 +599,63 @@ data_diet %>%
   count(Gender, Diet)
 ```
 
-## Or you can use `case_when()`. 
+## `recode()`
 
+```{r, eval = TRUE}
+
+data_diet %>% 
+  mutate(Gender = recode(Gender, M = "Male", 
+                                 m = "Male", 
+                               Man = "Male",
+                                 O = "Other",
+                                 f = "Female",
+                                 F = "Female")) %>%
+  count(Gender, Diet)
+```
+
+## Or you can use `case_when()`
 
 The `case_when()` function of `dplyr` can help us to do this as well.
 
-<div class = "codeexample">
+::: codeexample
 ```{r, eval = FALSE}
 # General Format - this is not code!
 {data_input} %>%
   mutate({variable_to_fix} = case_when({Variable_fixing}   
-             condition (==x, >2 ,etc.) ~ {value_for_con})
+                                /some condition/  ~ {value_for_con})
 
 ```
-</div>
+:::
 
-**Note that automatically values not reassigned explicitly by case_when will be `NA` unless otherwise specified**
+Note that automatically values not reassigned explicitly by
+`case_when()` will be `NA` unless otherwise specified.
 
-
-## Use of `case_when()`
-```{r}
+```{r, eval = TRUE}
 data_diet %>% 
   mutate(Gender = case_when(Gender == "M" ~ "Male"))
 ```
 
 
-<div class = "codeexample">
+## Use of `case_when()` without automatic `NA`
+::: codeexample
 ```{r, eval = FALSE}
 # General Format - this is not code!
 {data_input} %>%
   mutate({variable_to_fix} = case_when({Variable_fixing}   
-             condition (==x, >2 ,etc.) ~ {value_for_con},
-              TRUE ~ {value_for_not_meeting_condition})
+             /some condition/ ~ {value_for_con},
+                         TRUE ~ {value_for_not_meeting_condition})
 
 ```
-</div>
+:::
 
+Here we use the original values of `Gender` to replace all values of `Gender` that do not meet the condition `== "M"`.
 
-## Use of `case_when()`
 ```{r}
 data_diet %>% 
   mutate(Gender = case_when(Gender == "M" ~ "Male",
                                      TRUE ~ Gender))
 ```
+
 
 ## More complicated case_when()
 
@@ -573,6 +667,8 @@ data_diet %>%
     Gender %in% c("O", "Other") ~ "Other"))
 
 ```
+
+
 
 ## Another reason for `case_when()`
 
@@ -588,7 +684,6 @@ data_diet <-data_diet %>%
 head(data_diet)
 
 ```
-
 
 ```{r, echo= FALSE}
 data_diet %>% 
@@ -609,6 +704,152 @@ data_diet %>%
 
 ```
 
+
+# Working with strings
+
+## Strings in R
+
+-   R can do much more than find exact matches for a whole string!
+
+```{r, echo = FALSE, out.width="30%", fig.align = "center"}
+include_graphics("https://swag.rstudio.com/uploads/1/3/1/3/131335021/s815253891256106552_p45_i1_w935.png")
+```
+
+## The `stringr` package
+
+The `stringr` package:
+
+-   Modifying or finding **part** or all of a character string
+-   We will not cover `grep` or `gsub` - base R functions
+    -   are used on forums for answers
+-   Almost all functions start with `str_*`
+
+## `stringr`
+
+`str_detect`, and `str_replace` search for matches to argument pattern
+within each element of a character vector (not data frame or tibble!).
+
+-   `str_detect` - returns `TRUE` if `pattern` is found
+    <!-- * `str_subset` - returns only the strings which pattern were detected -->
+    <!--     * convenient wrapper around `x[str_detect(x, pattern)]` -->
+    <!-- * `str_extract` - returns only strings which pattern were detected, but ONLY the pattern -->
+-   `str_replace` - replaces `pattern` with `replacement`
+
+
+## `str_detect()`
+
+`string` argument specifies what to check    
+`pattern` argument specifies what to check for    
+
+```{r}
+x<-c("cat", "dog", "mouse")
+str_detect(string = x, pattern = "d")
+```
+
+## `str_replace()`
+
+`string` argument specifies what to check    
+`pattern` argument specifies what to check for    
+`replacement` argument specifies what to replace the pattern with    
+```{r}
+x<-c("cat", "dog", "mouse")
+str_replace(string = x, pattern = "d", replacement = "D")
+```
+
+## Subsetting part of a string
+
+`str_sub()` allows you to subset part of a string   
+* `string` argument specifies what strings to work with    
+* `start` argument specifies position of where to start    
+*`start` argument specifies position of where to end    
+
+```{r}
+x<-c("cat", "dog", "mouse")
+str_sub(string = x, start = 1, end = 2)
+```
+
+## `filter` and `stringr` functions
+
+```{r}
+head(data_diet,n = 4)
+data_diet %>% 
+  filter(str_detect(string = Gender,
+                    pattern = "M"))
+```
+
+
+<!-- ## Download Salary FY2014 Data -->
+
+<!-- From -->
+<!-- <https://data.baltimorecity.gov/City-Government/Baltimore-City-Employee-Salaries-FY2015/nsfe-bg53>, -->
+<!-- from <https://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv> -->
+
+<!-- Read the CSV into R `Sal`: -->
+
+<!-- ```{r , echo = TRUE, eval = TRUE, message=FALSE, warning=FALSE} -->
+<!-- Sal = jhur::read_salaries() # or -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- head(Sal) -->
+<!-- ``` -->
+
+
+<!-- ## 'Find'`str_detect()` function: finding values: `stringr` -->
+
+<!-- ```{r} -->
+<!-- Sal %>% filter(str_detect(name, "Rawlings")) -->
+<!-- ``` -->
+
+<!-- ## Showing difference in `str_replace` and `str_replace_all` -->
+
+<!-- `str_replace` replaces only the first instance. -->
+
+<!-- ```{r, warning = FALSE} -->
+<!-- head(pull(Sal, JobTitle)) -->
+<!-- head(str_replace(pull(Sal, JobTitle), "II", "2")) -->
+<!-- ``` -->
+
+<!-- `str_replace` replaces all instances. -->
+
+<!-- ```{r} -->
+<!-- head(str_replace_all(pull(Sal, name), "a", "j"), 2) -->
+<!-- ``` -->
+
+
+## `case_when()` improved with `stringr`
+```{r}
+count(data_diet, Gender)
+```
+
+```{r, eval = FALSE}
+data_diet %>% 
+  mutate(Gender = case_when(
+    Gender %in% c("M", "male", "Man", "m", "Male") ~ "Male",
+    Gender %in% c("F", "Female", "f", "female")~ "Female",
+    Gender %in% c("O", "Other") ~ "Other"))
+```
+
+## `case_when()` improved with `stringr`
+`^` indicates the beginning of a character string
+`$` indicates the end
+
+```{r}
+data_diet %>% 
+  mutate(Gender = case_when(
+    str_detect(string = Gender, pattern = "^m|^M") ~ "Male",
+    str_detect(string = Gender, pattern = "^f|^F") ~ "Female",
+    str_detect(string = Gender, pattern = "^o|^O") ~ "Other")) %>%
+  count(Gender)
+```
+
+
+```{r, echo = FALSE, fig.align='center', out.width= "30%"}
+knitr::include_graphics("https://media1.giphy.com/media/S9ZK4mmi3u3jdc5dek/200w.webp?cid=ecf05e47h7myga959jwvek6s9x1tkog135g7pxu8vvjz2yqb&rid=200w.webp&ct=g")
+```
+
+# Separating and uniting data
+
 ## What if our data looked like this?
 
 ```{r, echo = FALSE}
@@ -619,109 +860,46 @@ diet_comb<-diet_effect %>% unite("change" , Diet:Effect, remove = TRUE)
 diet_comb
 ```
 
-<!-- ## Example of Cleaning: more complicated -->
-
-<!-- Sometimes though, it's not so simple.  That's where functions that find patterns come in very useful. -->
-
-<!-- ```{r gender, echo=FALSE} -->
-<!-- set.seed(4) # random sample below - make sure same every time -->
-<!-- gender <- sample(c("Male", "mAle", "MaLe", "M", "MALE", "Ma", "FeMAle", "F", "Woman", "Man", "Fm", "FEMALE"), 1000, replace = TRUE) -->
-<!-- ``` -->
-
-<!-- ```{r gentab} -->
-<!-- table(gender) -->
-<!-- ``` -->
 
 
-<!-- ## Example of Cleaning: more complicated -->
+## Separating columns based on a separator
 
-<!-- ```{r gender2, echo=FALSE} -->
-<!-- gender = gender %>%  -->
-<!--   tolower %>%  -->
-<!--   recode(m = "Male", f = "Female", ma = "Male", -->
-<!--          woman = "Female", man = "Male") -->
-<!-- ``` -->
-
-<!-- ```{r gentab2} -->
-<!-- table(gender) -->
-<!-- ``` -->
-
-## Separating columns based on a separator 
-
-* From `tidyr`, you can split a data set into multiple columns:
-
+The `separate()` function from `tidyr` can split a column into multiple columns.   
+* `col` argument specifies what column to work with      
+* `into` argument specifies names of new columns   
+* `sep` argument specifies what to separate by
 ```{r}
 diet_comb %>% 
-  separate(change, into = c("Diet", "Change"))
+  separate(col = change, into = c("Diet", "Change"), sep = "_" )
 ```
 
-## Separating columns based on a separator 
-You can specify the separator with `sep`.
+<!-- ## Separating columns based on a separator -->
 
-```{r, echo = FALSE}
-diet_comb<-diet_effect %>% unite("change" , Diet:Effect, remove = TRUE, sep = "_diet ")
-``` 
+<!-- You can specify the separator with a more complicated `sep` argument. -->
 
-```{r}
-diet_comb %>% 
-  separate(change, into = c("Diet", "Change"), sep = " ")
-```
+<!-- ```{r, echo = FALSE} -->
+<!-- diet_comb<-diet_effect %>% unite("change" , Diet:Effect, remove = TRUE, sep = "_diet ") -->
+<!-- ``` -->
 
-## Uniting columns based on a separator 
+<!-- ```{r} -->
+<!-- diet_comb -->
+<!-- diet_comb %>%  -->
+<!--   separate(change, into = c("Diet", "Change"), sep = " ") -->
+<!-- ``` -->
 
-* From `tidyr`, you can unite:
+## Uniting columns 
 
-```{r unite_df}
+The `unite()` function can instead help combine columns.    
+*`col` argument specifies new column name    
+*`sep` argument specifies what separator to use when combining    
+```{r unite_df, echo = FALSE}
 df = tibble(id = rep(1:5, 3), visit = rep(1:3, each = 5))
 head(df, 4)
 ```
 
-
 ```{r}
 df_united <- df %>% unite(col = "unique_id", id, visit, sep = "_")
 head(df_united, 4)
-```
-
-
-
-# Strings functions
-## Splitting/Find/Replace and Regular Expressions
-
-* R can do much more than find exact matches for a whole string!
-
-
-## The `stringr` package
-
-The `stringr` package:
-
-* Modifying or finding **part** or all of a character string
-* We will not cover `grep` or `gsub` - base R functions
-    - are used on forums for answers
-* Almost all functions start with `str_*`
-
-
-##  `stringr`
-
-`str_detect`, and `str_replace` search for matches to argument pattern within each element of a character vector (not data frame or tibble!).
-
-* `str_detect` - returns `TRUE` if `pattern` is found
-<!-- * `str_subset` - returns only the strings which pattern were detected -->
-<!--     * convenient wrapper around `x[str_detect(x, pattern)]` -->
-<!-- * `str_extract` - returns only strings which pattern were detected, but ONLY the pattern -->
-* `str_replace` - replaces `pattern` with `replacement` 
-
-## Download Salary FY2014 Data
-
-From https://data.baltimorecity.gov/City-Government/Baltimore-City-Employee-Salaries-FY2015/nsfe-bg53, from  https://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv
-
-Read the CSV into R `Sal`:
-
-```{r readSal, echo = TRUE, eval = TRUE, message=FALSE, warning=FALSE}
-Sal = jhur::read_salaries() # or
-```
-
-```{r}
-head(Sal)
 ```
 
 
@@ -730,7 +908,9 @@ head(Sal)
 <!-- These are the indices where the pattern match occurs: -->
 
 <!-- ```{r RawlMatch_log} -->
+
 <!-- head(str_detect(Sal$name, "Rawlings")) -->
+
 <!-- ``` -->
 
 <!-- ## 'Find' functions: Finding Indices -->
@@ -738,7 +918,9 @@ head(Sal)
 <!-- These are the indices where the pattern match occurs: -->
 
 <!-- ```{r RawlMatch} -->
+
 <!-- which(str_detect(Sal$Name, "Rawlings")) -->
+
 <!-- ``` -->
 
 <!-- ## Showing difference in `str_extract` -->
@@ -746,55 +928,41 @@ head(Sal)
 <!-- `str_extract` extracts just the matched string -->
 
 <!-- ```{r ggrep2} -->
+
 <!-- ss = str_extract(Sal$Name, "Rawling") -->
+
 <!-- head(ss) -->
+
 <!-- ss[ !is.na(ss)] -->
+
 <!-- ``` -->
 
 <!-- str_subset(Sal$Name, "Rawlings") -->
 
 
-## 'Find'`str_detect()` function: finding values: `stringr` 
-
-```{r}
-Sal %>% filter(str_detect(name, "Rawlings"))
-```
-
-
-
-## Showing difference in `str_replace` and  `str_replace_all`
-
-`str_replace` replaces only the first instance.
-
-```{r, warning = FALSE}
-head(pull(Sal, JobTitle))
-head(str_replace(pull(Sal, JobTitle), "II", "2"))
-```
-
-`str_replace` replaces all instances.
-```{r}
-head(str_replace_all(pull(Sal, name), "a", "j"), 2)
-```
-
 ## Summary
 
-- `recode()` can help with simple recoding (not based on condition but simple swap)
-- `case_when()` can recode based on conditions
-    - remember `case_when()` needs `TRUE ~ varaible` to keep values that aren't specified by conditions, otherwise will be `NA`
-- `stringr` package has great functions for looking for specific parts of values especially `filter()` and `str_detect()` combined
-    - also has other useful string manipulation functions like `str_replace()` or `str_extract()`
+-   `recode()` can help with simple recoding (not based on condition but simple swap)
+-   `case_when()` can recode **entire values** based on conditions
+    -   remember `case_when()` needs `TRUE ~ varaible` to keep values that aren't specified by conditions, otherwise will be `NA`
+-   `stringr` package has great functions for looking for specific **parts of values** especially `filter()` and `str_detect()` combined
+    -   also has other useful string manipulation functions like `str_replace()` and more!
+    - `separate()` can split columns into additional columns
+    - `unite()` can combine columns
 
 
 ## Lab Part 2
 
-🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
-💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd)
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/) 💻
+[Lab](https://jhudatascience.org/intro_to_r/modules/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd)
 
 # Extra Slides
 
-##  String Splitting
 
-* `str_split(string, pattern)` - splits strings up - returns list!
+
+## String Splitting
+
+-   `str_split(string, pattern)` - splits strings up - returns list!
 
 ```{r str_split_orig}
 library(stringr)
@@ -807,25 +975,27 @@ length(y)
 
 ## A bit on Regular Expressions
 
-* http://www.regular-expressions.info/reference.html
-* They can use to match a large number of strings in one statement
-* `.` matches any single character
-* `*` means repeat as many (even if 0) more times the last character
-* `?` makes the last thing optional
-* `^` matches start of vector `^a` - starts with "a"
-* `$` matches end of vector `b$` - ends with "b"
+-   <http://www.regular-expressions.info/reference.html>
+-   They can use to match a large number of strings in one statement
+-   `.` matches any single character
+-   `*` means repeat as many (even if 0) more times the last character
+-   `?` makes the last thing optional
+-   `^` matches start of vector `^a` - starts with "a"
+-   `$` matches end of vector `b$` - ends with "b"
 
 ## Let's look at modifiers for `stringr`
 
 `?modifiers`
 
-* `fixed` - match everything exactly
-<!-- * `regex` - default - uses **reg**ular **exp**ressions -->
-* `ignore_case` is an option to not have to use `tolower`
+-   `fixed` - match everything exactly
+    <!-- * `regex` - default - uses **reg**ular **exp**ressions -->
+-   `ignore_case` is an option to not have to use `tolower`
 
 ## Using a fixed expression
 
-One example case is when you want to split on a period "`.`".  In regular expressions `.` means **ANY** character, so we need to specify that we want R to interpret "." as simply a period.
+One example case is when you want to split on a period "`.`". In regular
+expressions `.` means **ANY** character, so we need to specify that we
+want R to interpret "." as simply a period.
 
 ```{r}
 str_split("I.like.strings", ".")
@@ -836,66 +1006,79 @@ str_split("I.like.strings", "\\.")
 <!-- ## Let's extract from `y` -->
 
 <!-- ```{r stsplit2} -->
+
 <!-- y[[2]] -->
+
 <!-- # sapply(y, dplyr::first) # on the fly -->
+
 <!-- # sapply(y, nth, 2) # on the fly -->
+
 <!-- # sapply(y, last) # on the fly -->
+
 <!-- ``` -->
-
-
-
 
 <!-- ## Separating columns based on a separator  -->
 
 <!-- * From `tidyr`, you can split a data set into multiple columns: -->
 
 <!-- ```{r separate_df2_for_easy} -->
+
 <!-- df = tibble(x = c("I really", "like writing", "R code programs")) -->
+
 <!-- ``` -->
 
 <!-- ```{r} -->
-<!-- df %>% separate(x, into = c("first", "second")) -->
-<!-- ``` -->
 
+<!-- df %>% separate(x, into = c("first", "second")) -->
+
+<!-- ``` -->
 
 <!-- ## Separating columns based on a separator  -->
 
 <!-- * `extra = "merge"` will not drop data.  Also, you can specify the separator -->
 
 <!-- ```{r separate_df2} -->
-<!-- df = tibble(x = c("I really", "like. _writing R. But not", "R code programs")) -->
-<!-- ``` -->
 
+<!-- df = tibble(x = c("I really", "like. _writing R. But not", "R code programs")) -->
+
+<!-- ``` -->
 
 <!-- ```{r} -->
+
 <!-- df %>% separate(x, into = c("first", "second", "third"), extra = "merge") -->
+
 <!-- ``` -->
-
-
-
 
 <!-- ## Showing differnce in `str_extract` and  `str_extract_all` -->
 
 <!-- `str_extract_all` extracts all the matched strings -->
+
 <!-- - `\\d` searches for DIGITS/numbers -->
 
 <!-- ```{r } -->
-<!-- head(str_extract(Sal$AgencyID, "\\d")) -->
-<!-- head(str_extract_all(Sal$AgencyID, "\\d"), 2) -->
-<!-- ``` -->
 
+<!-- head(str_extract(Sal$AgencyID, "\\d")) -->
+
+<!-- head(str_extract_all(Sal$AgencyID, "\\d"), 2) -->
+
+<!-- ``` -->
 
 <!-- ## Replace -->
 
 <!-- Let's say we wanted to sort the data set by Annual Salary: -->
 
 <!-- ```{r classSal} -->
+
 <!-- class(Sal$AnnualSalary) -->
+
 <!-- ``` -->
 
 <!-- ```{r destringSal} -->
+
 <!-- head(Sal$AnnualSalary, 4) -->
+
 <!-- head(as.numeric(Sal$AnnualSalary), 4) -->
+
 <!-- ``` -->
 
 <!-- R didn't like the `$` so it thought turned them all to `NA`. -->
@@ -905,14 +1088,18 @@ str_split("I.like.strings", "\\.")
 <!-- Now we can replace the `$` with nothing (used `fixed("$")` because `$` means ending): -->
 
 <!-- ```{r orderSal} -->
+
 <!-- Sal = Sal %>% mutate( -->
+
 <!--   AnnualSalary = str_replace(AnnualSalary, fixed("$"), ""), -->
+
 <!--   AnnualSalary = as.numeric(AnnualSalary) -->
+
 <!--   ) %>%  -->
+
 <!--   arrange(desc(AnnualSalary)) -->
+
 <!-- ``` -->
-
-
 
 ## Pasting strings with `paste` and `paste0`
 
@@ -926,17 +1113,20 @@ paste0("Visit",1:5) # no space!
 ```
 
 <!-- ```{r } -->
+
 <!-- paste("Visit", 1:5, sep = "_") -->
+
 <!-- paste("Visit", 1:5, sep = "_", collapse = "_") -->
+
 <!-- paste("To", "is going be the ", "we go to the store!", sep = "day ") -->
+
 <!-- # and paste0 can be even simpler see ?paste0  -->
+
 <!-- paste0("Visit",1:5) # no space! -->
+
 <!-- ``` -->
 
-
-
-
-!-- # Before Cleaning - Subsetting with Brackets -->
+!-- \# Before Cleaning - Subsetting with Brackets --\>
 
 <!-- ## Select specific elements using an index -->
 
@@ -945,46 +1135,61 @@ paste0("Visit",1:5) # no space!
 <!-- For example, `x` is a vector of numbers and we can select the second element of `x` using the brackets and an index (2): -->
 
 <!-- ```{r} -->
+
 <!-- x = c(1, 4, 2, 8, 10) -->
+
 <!-- x[2] -->
+
 <!-- ``` -->
 
-<!-- <!-- `dplyr`: --> -->
+<!-- <!-- `dplyr`: -->
 
-<!-- <!-- ```{r} --> -->
-<!-- <!-- nth(x, n = 2) --> -->
-<!-- <!-- ``` --> -->
+--\>
+
+<!-- <!-- ```{r} -->
+
+--\> <!-- <!-- nth(x, n = 2) --> --\> <!-- <!-- ``` --> --\>
 
 <!-- ## Select specific elements using an index -->
 
 <!-- We can select the fifth or second AND fifth elements below: -->
 
 <!-- ```{r} -->
-<!-- x = c(1, 2, 4, 8, 10) -->
-<!-- x[5] -->
-<!-- x[c(2,5)] -->
-<!-- ``` -->
 
+<!-- x = c(1, 2, 4, 8, 10) -->
+
+<!-- x[5] -->
+
+<!-- x[c(2,5)] -->
+
+<!-- ``` -->
 
 <!-- ```{r, error=TRUE} -->
-<!-- nth(x, n = c(2, 5)) # nth only returns one number -->
-<!-- ``` -->
 
+<!-- nth(x, n = c(2, 5)) # nth only returns one number -->
+
+<!-- ``` -->
 
 <!-- ## Subsetting by deletion of entries -->
 
 <!-- You can put a minus (`-`) before integers inside brackets to remove these indices from the data. -->
 
 <!-- ```{r negativeIndex} -->
+
 <!-- x[-2] # all but the second -->
+
 <!-- ``` -->
 
 <!-- Note that you have to be careful with this syntax when dropping more than 1 element: -->
 
 <!-- ```{r negativeIndex2} -->
+
 <!-- x[-c(1,2,3)] # drop first 3 -->
+
 <!-- # x[-1:3] # shorthand. R sees as -1 to 3 -->
+
 <!-- x[-(1:3)] # needs parentheses -->
+
 <!-- ``` -->
 
 <!-- ## Select specific elements using logical operators -->
@@ -992,66 +1197,85 @@ paste0("Visit",1:5) # no space!
 <!-- What about selecting rows based on the values of two variables? We use logical statements.  Here we select only elements of `x` greater than 2: -->
 
 <!-- ```{r} -->
+
 <!-- x -->
+
 <!-- x > 2 -->
+
 <!-- x[ x > 2 ] -->
+
 <!-- ``` -->
 
 <!-- ## Select specific elements using logical operators -->
+
 <!-- You can have multiple logical conditions using the following: -->
 
 <!-- * `&` : AND -->
+
 <!-- * `|` : OR -->
 
 <!-- ```{r} -->
-<!-- x[ x > 2 & x < 5 ] -->
-<!-- x[ x > 5 | x == 2 ] -->
-<!-- ``` -->
 
+<!-- x[ x > 2 & x < 5 ] -->
+
+<!-- x[ x > 5 | x == 2 ] -->
+
+<!-- ``` -->
 
 <!-- ## which function -->
 
 <!-- The `which` functions takes in logical vectors and returns the index for the elements where the logical value is `TRUE`.   -->
 
 <!-- ```{r} -->
+
 <!-- which(x > 5 | x == 2) # returns index -->
+
 <!-- x[ which(x > 5 | x == 2) ] -->
+
 <!-- x[ x > 5 | x == 2 ] -->
+
 <!-- ``` -->
 
-## Using Regular Expressions
-* Look for any name that starts with:
-    * Payne at the beginning, 
-    * Leonard and then an S
-    * Spence then capital C
+<!-- ## Using Regular Expressions -->
 
-```{r grepstar_stringr}
-head(str_subset( Sal$name, "^Payne.*"), 3)
-```
+<!-- -   Look for any name that starts with: -->
+<!--     -   Payne at the beginning, -->
+<!--     -   Leonard and then an S -->
+<!--     -   Spence then capital C -->
 
-```{r grepstar2_stringr}
-head(str_subset( Sal$name, "Leonard.?S"))
-head(str_subset( Sal$name, "Spence.*C.*"))
-```
+<!-- ```{r grepstar_stringr} -->
+<!-- head(str_subset( Sal$name, "^Payne.*"), 3) -->
+<!-- ``` -->
 
+<!-- ```{r grepstar2_stringr} -->
+<!-- head(str_subset( Sal$name, "Leonard.?S")) -->
+<!-- head(str_subset( Sal$name, "Spence.*C.*")) -->
+<!-- ``` -->
 
 <!-- ## Uniting columns based on a separator  -->
 
 <!-- * From `tidyr`, you can unite: -->
 
 <!-- ```{r unite_df2} -->
+
 <!-- df = tibble(id = rep(1:5, 3), visit = rep(1:3, each = 5)) -->
+
 <!-- ``` -->
 
 <!-- ```{r} -->
+
 <!-- df %>% unite(col = "unique_id", id, visit, sep = "_", remove = FALSE) -->
+
 <!-- ``` -->
 
 <!-- ## Paste Depicting How Collapse Works -->
 
 <!-- ```{r Paste2} -->
+
 <!-- paste(1:5) -->
+
 <!-- paste(1:5, collapse = " ") -->
+
 <!-- ``` -->
 
 <!-- ## Useful String Functions -->
@@ -1059,54 +1283,38 @@ head(str_subset( Sal$name, "Spence.*C.*"))
 <!-- Useful String functions -->
 
 <!-- * `toupper()`, `tolower()` - uppercase or lowercase your data: -->
+
 <!-- * `str_trim()` (in the `stringr` package) or `trimws` in base  -->
+
 <!--     - will trim whitespace -->
+
 <!-- * `nchar` - get the number of characters in a string -->
-
-
 
 <!-- ## Sorting characters -->
 
 <!-- - `sort` - reorders the data - characters work, but not correctly -->
+
 <!-- - `rank` - gives the rank of the data - ties are split -->
+
 <!-- - `order` - gives the indices, if subset, would give the data sorted -->
+
 <!--     - `x[order(x)]` is the same as sorting -->
 
 <!-- ```{r orderrank} -->
+
 <!-- sort(c("1", "2", "10")) #  not sort correctly (order simply ranks the data) -->
+
 <!-- order(c("1", "2", "10")) -->
+
 <!-- x = rnorm(10) -->
+
 <!-- x[1] = x[2] # create a tie -->
+
 <!-- rank(x) -->
+
 <!-- ``` -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Comparison of `stringr` to base R - not covered
-
-
-
-
-
 
 # Splitting Strings
 
@@ -1115,8 +1323,8 @@ head(str_subset( Sal$name, "Spence.*C.*"))
 `stringr`
 
 <!-- * `str_sub(x, start, end)` - substrings from position start to position end -->
-* `str_split(string, pattern)` - splits strings up - returns list!
 
+-   `str_split(string, pattern)` - splits strings up - returns list!
 
 ## Splitting String:
 
@@ -1128,19 +1336,15 @@ y <- stringr::str_split(x, pattern =  " ") # returns a list
 y
 ```
 
+<!-- ## `str_extract` -->
 
+<!-- `str_extract` extracts matched strings - `\\d` searches for -->
+<!-- DIGITS/numbers -->
 
-## `str_extract`
-
-`str_extract` extracts  matched strings
-- `\\d` searches for DIGITS/numbers
-
-```{r}
-head(Sal$AgencyID)
-head(str_extract(Sal$AgencyID, "\\d"))
-```
-
-
+<!-- ```{r} -->
+<!-- head(Sal$AgencyID) -->
+<!-- head(str_extract(Sal$AgencyID, "\\d")) -->
+<!-- ``` -->
 
 <!-- ## 'Find' functions: base R -->
 
@@ -1154,57 +1358,61 @@ head(str_extract(Sal$AgencyID, "\\d"))
 
 <!-- * If fixed=TRUE, it will do exact matching for the phrase anywhere in the vector (regular find) -->
 
-
 ## 'Find' functions: stringr compared to base R
 
-Base R does not use these functions.  Here is a "translator" of the `stringr` function to base R functions
+Base R does not use these functions. Here is a "translator" of the
+`stringr` function to base R functions
 
-* `str_detect` - similar to `grepl` (return logical)
-* `grep(value = FALSE)` is similar to `which(str_detect())`
-* `str_subset` - similar to `grep(value = TRUE)` - return value of matched
-* `str_replace` - similar to `sub` - replace one time 
-* `str_replace_all` - similar to `gsub` - replace many times
+-   `str_detect` - similar to `grepl` (return logical)
+-   `grep(value = FALSE)` is similar to `which(str_detect())`
+-   `str_subset` - similar to `grep(value = TRUE)` - return value of
+    matched
+-   `str_replace` - similar to `sub` - replace one time
+-   `str_replace_all` - similar to `gsub` - replace many times
 
 ## Important Comparisons
 
 Base R:
 
-* Argument order is `(pattern, x)`
-* Uses option `(fixed = TRUE)`
+-   Argument order is `(pattern, x)`
+-   Uses option `(fixed = TRUE)`
 
 `stringr`
 
-* Argument order is `(string, pattern)` aka `(x, pattern)`
-* Uses function `fixed(pattern)`
+-   Argument order is `(string, pattern)` aka `(x, pattern)`
+-   Uses function `fixed(pattern)`
 
-## 'Find' functions: Finding Indices
+<!-- ## 'Find' functions: Finding Indices -->
 
-These are the indices where the pattern match occurs:
+<!-- These are the indices where the pattern match occurs: -->
 
-```{r}
-grep("Rawlings",Sal$Name)
-which(grepl("Rawlings", Sal$Name))
-which(str_detect(Sal$Name, "Rawlings"))
+<!-- ```{r} -->
+<!-- grep("Rawlings",Sal$Name) -->
+<!-- which(grepl("Rawlings", Sal$Name)) -->
+<!-- which(str_detect(Sal$Name, "Rawlings")) -->
+<!-- ``` -->
+
+<!-- ## 'Find' functions: Finding Logicals -->
+
+<!-- These are the indices where the pattern match occurs: -->
+
+<!-- ```{r} -->
+<!-- head(grepl("Rawlings",Sal$Name)) -->
+<!-- head(str_detect(Sal$Name, "Rawlings")) -->
+<!-- ``` -->
+
+<!-- ## 'Find' functions: finding values, base R -->
+
+<!-- ```{r} -->
+<!-- grep("Rawlings",Sal$Name,value=TRUE) -->
+<!-- Sal[grep("Rawlings",Sal$Name),] -->
+<!-- ``` -->
+
+## some data to work with
+
+```{r readSal, echo = TRUE, eval = TRUE, message=FALSE, warning=FALSE}
+Sal = jhur::read_salaries() # or
 ```
-
-## 'Find' functions: Finding Logicals
-
-These are the indices where the pattern match occurs:
-
-```{r}
-head(grepl("Rawlings",Sal$Name))
-head(str_detect(Sal$Name, "Rawlings"))
-```
-
-
-## 'Find' functions: finding values, base R 
-
-```{r}
-grep("Rawlings",Sal$Name,value=TRUE)
-Sal[grep("Rawlings",Sal$Name),]
-```
-
-
 
 ## Showing difference in `str_extract`
 
@@ -1216,7 +1424,7 @@ head(ss)
 ss[ !is.na(ss)]
 ```
 
-## Showing difference in `str_extract` and  `str_extract_all`
+## Showing difference in `str_extract` and `str_extract_all`
 
 `str_extract_all` extracts all the matched strings
 
@@ -1225,13 +1433,12 @@ head(str_extract(Sal$AgencyID, "\\d"))
 head(str_extract_all(Sal$AgencyID, "\\d"), 2)
 ```
 
-
-
 ## Using Regular Expressions
-* Look for any name that starts with:
-    * Payne at the beginning, 
-    * Leonard and then an S
-    * Spence then capital C
+
+-   Look for any name that starts with:
+    -   Payne at the beginning,
+    -   Leonard and then an S
+    -   Spence then capital C
 
 ```{r}
 head(grep("^Payne.*", x = Sal$name, value = TRUE), 3)
@@ -1242,9 +1449,8 @@ head(grep("Leonard.?S", x = Sal$name, value = TRUE))
 head(grep("Spence.*C.*", x = Sal$name, value = TRUE))
 ```
 
-
-
 ## Using Regular Expressions: `stringr`
+
 ```{r}
 head(str_subset( Sal$name, "^Payne.*"), 3)
 ```
@@ -1270,6 +1476,7 @@ order(c("1", "2", "10"))
 ## Replace
 
 So we must change the annual pay into a numeric:
+
 ```{r}
 head(Sal$AnnualSalary, 4)
 head(as.numeric(Sal$AnnualSalary), 4)
@@ -1279,9 +1486,10 @@ R didn't like the `$` so it thought turned them all to `NA`.
 
 `sub()` and `gsub()` can do the replacing part in base R.
 
-## Replacing and subbing 
+## Replacing and subbing
 
-Now we can replace the `$` with nothing (used `fixed=TRUE` because `$` means ending):
+Now we can replace the `$` with nothing (used `fixed=TRUE` because `$`
+means ending):
 
 ```{r}
 Sal$AnnualSalary <- as.numeric(gsub(pattern = "$", replacement="", 
@@ -1290,9 +1498,10 @@ Sal <- Sal[order(Sal$AnnualSalary, decreasing=TRUE), ]
 Sal[1:5, c("name", "AnnualSalary", "JobTitle")]
 ```
 
-## Replacing and subbing: `stringr` 
+## Replacing and subbing: `stringr`
 
 We can do the same thing (with 2 piping operations!) in dplyr
+
 ```{r}
 dplyr_sal = Sal
 dplyr_sal = dplyr_sal %>% mutate( 
@@ -1307,7 +1516,6 @@ rownames(check_Sal) = NULL
 all.equal(check_Sal, dplyr_sal)
 ```
 
-
 ## Website
 
 [Website](../index.html)
@@ -1316,7 +1524,8 @@ all.equal(check_Sal, dplyr_sal)
 
 ## Creating Two-way Tables
 
-A two-way table.  If you pass in 2 vectors, `table` creates a 2-dimensional table.
+A two-way table. If you pass in 2 vectors, `table` creates a
+2-dimensional table.
 
 ```{r}
 tab <- table(c(0, 1, 2, 3, 2, 3, 3, 2,2, 3),
@@ -1333,7 +1542,7 @@ tab_df = tibble(x = c(0, 1, 2, 3, 2, 3, 3, 2,2, 3),
 tab_df %>% count(x, y)
 ```
 
-## Creating Two-way Tables 
+## Creating Two-way Tables
 
 ```{r}
 tab_df %>% 
@@ -1341,7 +1550,7 @@ tab_df %>%
   group_by(x) %>% mutate(pct_x = n / sum(n))
 ```
 
-## Creating Two-way Tables 
+## Creating Two-way Tables
 
 ```{r, message = FALSE}
 library(scales)

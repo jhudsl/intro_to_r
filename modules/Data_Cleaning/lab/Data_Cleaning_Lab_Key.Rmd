@@ -41,10 +41,10 @@ bike %>%
 
 
 
-2.  Filter rows of bike that are NOT missing using `drop_na` for the `route` variable, assign this to the object `have_route.`
+2.  Filter rows of bike, so that only rows remain that do NOT have missing values  for the `route` variable,  using `drop_na`. Assign this to the object `have_route.`
 
 ```{r}
-bike %>% drop_na(route)
+have_rout <- bike %>% drop_na(route)
 ```
 
 3.  Use `naniar` to make a visual of the amount of data missing for each variable of `bike` (use `naniar::gg_miss_var()`). Check out more about this package here: https://www.njtierney.com/post/2018/06/12/naniar-on-cran/
@@ -54,7 +54,7 @@ naniar::gg_miss_var(bike)
 ```
 
 
-4. What is the percent complete for `subType` of `bike` ? Hint: use another `naniar` function.
+4. What percentage of the `subType` variable is complete of `bike` ? Hint: use another `naniar` function.
  
 ```{r}
 naniar::pct_complete(bike$subType) # this or..
@@ -93,7 +93,8 @@ BloodType
 
 There are some issues with this data that we need to figure out!
 
-1. Determine how many NA values there are for gender.
+1. Determine how many `NA` values there are for `gender`.
+
 ```{r}
 count(BloodType, gender)
 sum(is.na(pull(BloodType, gender)))
@@ -147,6 +148,8 @@ BloodType %>% count(type)
 
 6. Make a new tibble of `BloodType` called `Bloodtype_split` that splits the `type` variable into two called `blood_type` and  `Rhfactor`. Note: periods are special characters that generally are interpreted as wild cards thus we need `\\` to tell R that we want it to be interpreted as a period.
 
+The following commented code within the chunk (starts with `#`) can be used as a guide to help you. Type your code below this commented code. 
+
 ```{r}
 ## ______________ <- ________ %>%
 # ________(____, ____ = c(__________, __________), sep = "\\.")
@@ -156,7 +159,6 @@ BloodType_split <- BloodType %>% separate(type, into = c("blood_type", "Rhfactor
 
 Bonus: How many observations are there for each `Rhfactor`:
 ```{r}
-table(BloodType_split$Rhfactor) # base R
 count(BloodType_split, Rhfactor)
 ```
 
