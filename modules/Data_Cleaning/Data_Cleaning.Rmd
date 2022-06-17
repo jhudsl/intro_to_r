@@ -756,6 +756,18 @@ x<-c("cat", "dog", "mouse")
 str_replace(string = x, pattern = "d", replacement = "D")
 ```
 
+## Subsetting part of a string
+
+`str_sub()` allows you to subset part of a string   
+* `string` argument specifies what strings to work with    
+* `start` argument specifies position of where to start    
+*`start` argument specifies position of where to end    
+
+```{r}
+x<-c("cat", "dog", "mouse")
+str_sub(string = x, start = 1, end = 2)
+```
+
 ## `filter` and `stringr` functions
 
 ```{r}
