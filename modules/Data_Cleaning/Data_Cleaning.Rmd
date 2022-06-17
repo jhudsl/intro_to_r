@@ -348,12 +348,18 @@ df <-tibble(Dog = c(0, NA, 2, 3, 1, 1),
 
 ```{r}
 df
-
 df %>% filter(Dog < 3)
+```
+
+## filter() and missing data 
+
+```{r}
 df %>% filter(Dog < 3 | is.na(Dog))
 ```
 
 ## To remove rows with `NA` values for a variable use `drop_na()`
+
+A function fo the `tidyr` package.
 
 ```{r}
 df %>% drop_na(Dog)
@@ -369,43 +375,48 @@ df %>% drop_na(Dog)
 
 <!-- ``` -->
 
-## tidyr::drop_na {.codesmall}
+## To remove rows with `NA` values for a data farme use `drop_na()`
 
-This function will drop rows with **any** missing data in **any** column
-when used on a df.
+This function of the `tidyr` package drops rows with **any** missing data in **any** column when used on a df.
 
 ```{r}
-df
-drop_na(df)
 df %>% drop_na()
 ```
 
-## Drop **columns** with any missing values
+## Drop **columns** with any missing values{.codesmall}
 
 Use the `miss_var_which()` function from `naniar`
 
 ```{r}
 df<-df %>% mutate(test =c(1,2,3,4,5,6))
+df
 miss_var_which(df) # which columns have missing values
+```
+
+## Drop **columns** with any missing values{.codesmall}
+
+
+```{r}
+
 df %>% select(!miss_var_which(df))
 
 ```
 
-## Removing columns with threshold of percent missing row values
+## Removing columns with threshold of percent missing row values{.codesmall}
 
 ```{r}
-is.na(df)
+is.na(df) %>% head(n = 3)
 colMeans(is.na(df))#TRUE and FALSE treated like 0 and 1
-df %>% select(which(colMeans(is.na(df)) < 0.2))# remove over 20% missing
+df %>% select(which(colMeans(is.na(df)) < 0.2))# remove if over 20% missing
 ```
 
-## Change a value to be `NA`
+## Change a value to be `NA`{.codesmall}
 
 The `na_if()` function of `dplyr` can be helpful for this. Let's say we
 think that all 0 values should be `NA`.
 
 ```{r}
-df 
+df %>% head(n = 3)
 
 df %>% mutate(Dog = na_if(Dog, 0))
 ```
@@ -441,16 +452,17 @@ red_blue %>% mutate(percent =
                       col_count/sum(pull(red_blue, col_count)))
 ```
 
-## Word of caution {.codesmall}
+## Word of caution
 
 ```{r}
 red_blue %>% mutate(percent = 
                       col_count/sum(pull(drop_na(red_blue), col_count)))
 
-# Should you be dividing by 9 or 6? It depends on your data
-# Pay attention to your data and your NAs!
 ```
 
+Should you be dividing by 9 or 6?   
+It depends on your data and what `NA` might mean.   
+Pay attention to your data and your `NA` values!
 <!-- ## Missing Data with Operations -->
 
 <!-- Similarly with logicals, operations/arithmetic with `NA` will result in `NA`s: -->
@@ -587,6 +599,20 @@ data_diet %>%
   count(Gender, Diet)
 ```
 
+## `recode()`
+
+```{r, eval = TRUE}
+
+data_diet %>% 
+  mutate(Gender = recode(Gender, M = "Male", 
+                                 m = "Male", 
+                               Man = "Male",
+                                 O = "Other",
+                                 f = "Female",
+                                 F = "Female")) %>%
+  count(Gender, Diet)
+```
+
 ## Or you can use `case_when()`.
 
 The `case_when()` function of `dplyr` can help us to do this as well.
@@ -601,16 +627,15 @@ The `case_when()` function of `dplyr` can help us to do this as well.
 ```
 :::
 
-**Note that automatically values not reassigned explicitly by
-`case_when()` will be `NA` unless otherwise specified**
-
-## Use of `case_when()`
-
-```{r}
+```{r, eval = FALSE}
 data_diet %>% 
   mutate(Gender = case_when(Gender == "M" ~ "Male"))
 ```
 
+Note that automatically values not reassigned explicitly by
+`case_when()` will be `NA` unless otherwise specified.
+
+## Use of `case_when()` without automatic `NA`
 ::: codeexample
 ```{r, eval = FALSE}
 # General Format - this is not code!
@@ -622,16 +647,14 @@ data_diet %>%
 ```
 :::
 
-## Use of `case_when()`
-
-Here we use the original values of `Gender` to replace all values of
-`Gender` that do not meet the condition `== "M"`.
+Here we use the original values of `Gender` to replace all values of `Gender` that do not meet the condition `== "M"`.
 
 ```{r}
 data_diet %>% 
   mutate(Gender = case_when(Gender == "M" ~ "Male",
                                      TRUE ~ Gender))
 ```
+
 
 ## More complicated case_when()
 
@@ -643,6 +666,8 @@ data_diet %>%
     Gender %in% c("O", "Other") ~ "Other"))
 
 ```
+
+
 
 ## Another reason for `case_when()`
 
@@ -677,6 +702,124 @@ data_diet %>%
 
 
 ```
+
+
+# Strings functions
+
+## Splitting/Find/Replace and Regular Expressions
+
+-   R can do much more than find exact matches for a whole string!
+
+## The `stringr` package
+
+The `stringr` package:
+
+-   Modifying or finding **part** or all of a character string
+-   We will not cover `grep` or `gsub` - base R functions
+    -   are used on forums for answers
+-   Almost all functions start with `str_*`
+
+## `stringr`
+
+`str_detect`, and `str_replace` search for matches to argument pattern
+within each element of a character vector (not data frame or tibble!).
+
+-   `str_detect` - returns `TRUE` if `pattern` is found
+    <!-- * `str_subset` - returns only the strings which pattern were detected -->
+    <!--     * convenient wrapper around `x[str_detect(x, pattern)]` -->
+    <!-- * `str_extract` - returns only strings which pattern were detected, but ONLY the pattern -->
+-   `str_replace` - replaces `pattern` with `replacement`
+
+
+## `str_detect()`
+
+`string` argument specifies what to check
+`pattern` argument specifies what to check for
+
+```{r}
+x<-c("cat", "dog", "mouse")
+str_detect(string = x, pattern = "d")
+```
+
+## `str_replace()`
+
+`string` argument specifies what to check
+`pattern` argument specifies what to check for
+`replacement` argument specifies what to replace the pattern with
+```{r}
+x<-c("cat", "dog", "mouse")
+str_replace(string = x, pattern = "d", replacement = "D")
+```
+
+## `filter` and `stringr` functions
+
+```{r}
+head(data_diet,n = 4)
+data_diet %>% 
+  filter(str_detect(string = Gender,
+                    pattern = "M"))
+```
+
+
+<!-- ## Download Salary FY2014 Data -->
+
+<!-- From -->
+<!-- <https://data.baltimorecity.gov/City-Government/Baltimore-City-Employee-Salaries-FY2015/nsfe-bg53>, -->
+<!-- from <https://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv> -->
+
+<!-- Read the CSV into R `Sal`: -->
+
+<!-- ```{r , echo = TRUE, eval = TRUE, message=FALSE, warning=FALSE} -->
+<!-- Sal = jhur::read_salaries() # or -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- head(Sal) -->
+<!-- ``` -->
+
+
+<!-- ## 'Find'`str_detect()` function: finding values: `stringr` -->
+
+<!-- ```{r} -->
+<!-- Sal %>% filter(str_detect(name, "Rawlings")) -->
+<!-- ``` -->
+
+<!-- ## Showing difference in `str_replace` and `str_replace_all` -->
+
+<!-- `str_replace` replaces only the first instance. -->
+
+<!-- ```{r, warning = FALSE} -->
+<!-- head(pull(Sal, JobTitle)) -->
+<!-- head(str_replace(pull(Sal, JobTitle), "II", "2")) -->
+<!-- ``` -->
+
+<!-- `str_replace` replaces all instances. -->
+
+<!-- ```{r} -->
+<!-- head(str_replace_all(pull(Sal, name), "a", "j"), 2) -->
+<!-- ``` -->
+
+
+## `case_when()` improved with `stringr`
+
+`^` indicates the beginning of a character string
+`$` indicates the end
+
+```{r}
+data_diet %>% 
+  mutate(Gender = case_when(
+    str_detect(string = Gender, pattern = "^m|^M") ~ "Male",
+    str_detect(string = Gender, pattern = "^f|^F") ~ "Female",
+    str_detect(string = Gender, pattern = "^o|^O") ~ "Other")) %>%
+  count(Gender)
+```
+
+
+```{r, echo = FALSE, fig.align='center', out.width= "30%"}
+knitr::include_graphics("https://media1.giphy.com/media/S9ZK4mmi3u3jdc5dek/200w.webp?cid=ecf05e47h7myga959jwvek6s9x1tkog135g7pxu8vvjz2yqb&rid=200w.webp&ct=g")
+```
+
+# Separating and uniting data
 
 ## What if our data looked like this?
 
@@ -762,47 +905,6 @@ df_united <- df %>% unite(col = "unique_id", id, visit, sep = "_")
 head(df_united, 4)
 ```
 
-# Strings functions
-
-## Splitting/Find/Replace and Regular Expressions
-
--   R can do much more than find exact matches for a whole string!
-
-## The `stringr` package
-
-The `stringr` package:
-
--   Modifying or finding **part** or all of a character string
--   We will not cover `grep` or `gsub` - base R functions
-    -   are used on forums for answers
--   Almost all functions start with `str_*`
-
-## `stringr`
-
-`str_detect`, and `str_replace` search for matches to argument pattern
-within each element of a character vector (not data frame or tibble!).
-
--   `str_detect` - returns `TRUE` if `pattern` is found
-    <!-- * `str_subset` - returns only the strings which pattern were detected -->
-    <!--     * convenient wrapper around `x[str_detect(x, pattern)]` -->
-    <!-- * `str_extract` - returns only strings which pattern were detected, but ONLY the pattern -->
--   `str_replace` - replaces `pattern` with `replacement`
-
-## Download Salary FY2014 Data
-
-From
-<https://data.baltimorecity.gov/City-Government/Baltimore-City-Employee-Salaries-FY2015/nsfe-bg53>,
-from <https://data.baltimorecity.gov/api/views/nsfe-bg53/rows.csv>
-
-Read the CSV into R `Sal`:
-
-```{r readSal, echo = TRUE, eval = TRUE, message=FALSE, warning=FALSE}
-Sal = jhur::read_salaries() # or
-```
-
-```{r}
-head(Sal)
-```
 
 <!-- ## 'Find' functions: Finding Logicals -->
 
@@ -840,26 +942,6 @@ head(Sal)
 
 <!-- str_subset(Sal$Name, "Rawlings") -->
 
-## 'Find'`str_detect()` function: finding values: `stringr`
-
-```{r}
-Sal %>% filter(str_detect(name, "Rawlings"))
-```
-
-## Showing difference in `str_replace` and `str_replace_all`
-
-`str_replace` replaces only the first instance.
-
-```{r, warning = FALSE}
-head(pull(Sal, JobTitle))
-head(str_replace(pull(Sal, JobTitle), "II", "2"))
-```
-
-`str_replace` replaces all instances.
-
-```{r}
-head(str_replace_all(pull(Sal, name), "a", "j"), 2)
-```
 
 ## Summary
 
@@ -879,6 +961,8 @@ head(str_replace_all(pull(Sal, name), "a", "j"), 2)
 [Lab](https://jhudatascience.org/intro_to_r/modules/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd)
 
 # Extra Slides
+
+
 
 ## String Splitting
 
@@ -1156,21 +1240,21 @@ paste0("Visit",1:5) # no space!
 
 <!-- ``` -->
 
-## Using Regular Expressions
+<!-- ## Using Regular Expressions -->
 
--   Look for any name that starts with:
-    -   Payne at the beginning,
-    -   Leonard and then an S
-    -   Spence then capital C
+<!-- -   Look for any name that starts with: -->
+<!--     -   Payne at the beginning, -->
+<!--     -   Leonard and then an S -->
+<!--     -   Spence then capital C -->
 
-```{r grepstar_stringr}
-head(str_subset( Sal$name, "^Payne.*"), 3)
-```
+<!-- ```{r grepstar_stringr} -->
+<!-- head(str_subset( Sal$name, "^Payne.*"), 3) -->
+<!-- ``` -->
 
-```{r grepstar2_stringr}
-head(str_subset( Sal$name, "Leonard.?S"))
-head(str_subset( Sal$name, "Spence.*C.*"))
-```
+<!-- ```{r grepstar2_stringr} -->
+<!-- head(str_subset( Sal$name, "Leonard.?S")) -->
+<!-- head(str_subset( Sal$name, "Spence.*C.*")) -->
+<!-- ``` -->
 
 <!-- ## Uniting columns based on a separator  -->
 
@@ -1256,15 +1340,15 @@ y <- stringr::str_split(x, pattern =  " ") # returns a list
 y
 ```
 
-## `str_extract`
+<!-- ## `str_extract` -->
 
-`str_extract` extracts matched strings - `\\d` searches for
-DIGITS/numbers
+<!-- `str_extract` extracts matched strings - `\\d` searches for -->
+<!-- DIGITS/numbers -->
 
-```{r}
-head(Sal$AgencyID)
-head(str_extract(Sal$AgencyID, "\\d"))
-```
+<!-- ```{r} -->
+<!-- head(Sal$AgencyID) -->
+<!-- head(str_extract(Sal$AgencyID, "\\d")) -->
+<!-- ``` -->
 
 <!-- ## 'Find' functions: base R -->
 
@@ -1302,30 +1386,36 @@ Base R:
 -   Argument order is `(string, pattern)` aka `(x, pattern)`
 -   Uses function `fixed(pattern)`
 
-## 'Find' functions: Finding Indices
+<!-- ## 'Find' functions: Finding Indices -->
 
-These are the indices where the pattern match occurs:
+<!-- These are the indices where the pattern match occurs: -->
 
-```{r}
-grep("Rawlings",Sal$Name)
-which(grepl("Rawlings", Sal$Name))
-which(str_detect(Sal$Name, "Rawlings"))
-```
+<!-- ```{r} -->
+<!-- grep("Rawlings",Sal$Name) -->
+<!-- which(grepl("Rawlings", Sal$Name)) -->
+<!-- which(str_detect(Sal$Name, "Rawlings")) -->
+<!-- ``` -->
 
-## 'Find' functions: Finding Logicals
+<!-- ## 'Find' functions: Finding Logicals -->
 
-These are the indices where the pattern match occurs:
+<!-- These are the indices where the pattern match occurs: -->
 
-```{r}
-head(grepl("Rawlings",Sal$Name))
-head(str_detect(Sal$Name, "Rawlings"))
-```
+<!-- ```{r} -->
+<!-- head(grepl("Rawlings",Sal$Name)) -->
+<!-- head(str_detect(Sal$Name, "Rawlings")) -->
+<!-- ``` -->
 
-## 'Find' functions: finding values, base R
+<!-- ## 'Find' functions: finding values, base R -->
 
-```{r}
-grep("Rawlings",Sal$Name,value=TRUE)
-Sal[grep("Rawlings",Sal$Name),]
+<!-- ```{r} -->
+<!-- grep("Rawlings",Sal$Name,value=TRUE) -->
+<!-- Sal[grep("Rawlings",Sal$Name),] -->
+<!-- ``` -->
+
+## some data to work with
+
+```{r readSal, echo = TRUE, eval = TRUE, message=FALSE, warning=FALSE}
+Sal = jhur::read_salaries() # or
 ```
 
 ## Showing difference in `str_extract`
