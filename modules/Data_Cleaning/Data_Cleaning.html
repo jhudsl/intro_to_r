@@ -204,7 +204,7 @@ slide:not(.current) .plotly.html-widget{
 <li>The <code>lubridate</code> package is helpful for dates and times<br/>📃<a href='https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-4.pdf' title=''>Cheatsheet</a></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Data Cleaning</h2></hgroup><article  id="data-cleaning" class="emphasized">
+</article></slide><slide class=""><hgroup><h2>Data Cleaning</h2></hgroup><article  class="emphasized" id="data-cleaning">
 
 <p>In general, data cleaning is a process of investigating your data for inaccuracies, or recoding it in a way that makes it more manageable.</p>
 
@@ -225,7 +225,7 @@ slide:not(.current) .plotly.html-widget{
 <li><code>Inf</code> and <code>-Inf</code> - Infinity, happens when you divide a positive number (or negative number) by 0.</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Finding Missing data</h2></hgroup><article  id="finding-missing-data" class="small">
+</article></slide><slide class=""><hgroup><h2>Finding Missing data</h2></hgroup><article  class="small" id="finding-missing-data">
 
 <ul>
 <li><code>is.na</code> - looks for <code>NAN</code> and <code>NA</code></li>
@@ -251,7 +251,7 @@ is.na(test)</pre>
 
 <pre >[1] FALSE FALSE  TRUE</pre>
 
-</article></slide><slide class=""><hgroup><h2>Useful checking functions</h2></hgroup><article  id="useful-checking-functions" class="small">
+</article></slide><slide class=""><hgroup><h2>Useful checking functions</h2></hgroup><article  class="small" id="useful-checking-functions">
 
 <ul>
 <li><code>any</code> will be <code>TRUE</code> if ANY are true
@@ -537,7 +537,7 @@ sum(x)</pre>
 
 <p><strong><code>filter()</code> removes missing values by default.</strong> Because R can’t tell for sure if an <code>NA</code> value meets the condition. To keep them need to add <code>is.na()</code> conditional.</p>
 
-</article></slide><slide class=""><hgroup><h2>filter() and missing data</h2></hgroup><article  id="filter-and-missing-data-1" class="codesmall">
+</article></slide><slide class=""><hgroup><h2>filter() and missing data</h2></hgroup><article  class="codesmall" id="filter-and-missing-data-1">
 
 <pre class = 'prettyprint lang-r'>df</pre>
 
@@ -611,7 +611,7 @@ sum(x)</pre>
 1     2     6
 2     1     2</pre>
 
-</article></slide><slide class=""><hgroup><h2>Drop <strong>columns</strong> with any missing values</h2></hgroup><article  id="drop-columns-with-any-missing-values" class="codesmall">
+</article></slide><slide class=""><hgroup><h2>Drop <strong>columns</strong> with any missing values</h2></hgroup><article  class="codesmall" id="drop-columns-with-any-missing-values">
 
 <p>Use the <code>miss_var_which()</code> function from <code>naniar</code></p>
 
@@ -632,7 +632,7 @@ df</pre>
 
 <pre >[1] &quot;Dog&quot; &quot;Cat&quot;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Drop <strong>columns</strong> with any missing values</h2></hgroup><article  id="drop-columns-with-any-missing-values-1" class="codesmall">
+</article></slide><slide class=""><hgroup><h2>Drop <strong>columns</strong> with any missing values</h2></hgroup><article  class="codesmall" id="drop-columns-with-any-missing-values-1">
 
 <pre class = 'prettyprint lang-r'>df %&gt;% select(!miss_var_which(df))</pre>
 
@@ -646,7 +646,7 @@ df</pre>
 5     5
 6     6</pre>
 
-</article></slide><slide class=""><hgroup><h2>Removing columns with threshold of percent missing row values</h2></hgroup><article  id="removing-columns-with-threshold-of-percent-missing-row-values" class="codesmall">
+</article></slide><slide class=""><hgroup><h2>Removing columns with threshold of percent missing row values</h2></hgroup><article  class="codesmall" id="removing-columns-with-threshold-of-percent-missing-row-values">
 
 <pre class = 'prettyprint lang-r'>is.na(df) %&gt;% head(n = 3)</pre>
 
@@ -711,7 +711,7 @@ df</pre>
 
 <p>You might want to keep the <code>NA</code> values so that you know the original sample size.</p>
 
-</article></slide><slide class=""><hgroup><h2>Word of caution</h2></hgroup><article  id="word-of-caution" class="codesmall">
+</article></slide><slide class=""><hgroup><h2>Word of caution</h2></hgroup><article  class="codesmall" id="word-of-caution">
 
 <p>Calculating percentages will give you a different result depending on your choice to include NA values.</p>
 
@@ -772,7 +772,7 @@ df</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 1</h2></hgroup><article  id="lab-part-1">
 
-<p>🏠 <a href='https://jhudatascience.org/intro_to_r/' title=''>Class Website</a> 💻 <a href='https://jhudatascience.org/intro_to_r/modules/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd' title=''>Lab</a></p>
+<p>🏠 <a href='https://jhudatascience.org/intro_to_r/' title=''>Class Website</a><br/>💻<a href='https://jhudatascience.org/intro_to_r/modules/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd' title=''>Lab</a></p>
 
 <!-- ```{r readSal_csv, echo= FALSE, eval = TRUE} -->
 
@@ -1048,7 +1048,7 @@ head(data_diet)</pre>
 
 </article></slide><slide class=""><hgroup><h2><code>str_detect()</code></h2></hgroup><article  id="str_detect">
 
-<p><code>string</code> argument specifies what to check<br/><code>pattern</code> argument specifies what to check for</p>
+<p>The <code>string</code> argument specifies what to check<br/>The <code>pattern</code> argument specifies what to check for</p>
 
 <pre class = 'prettyprint lang-r'>x&lt;-c(&quot;cat&quot;, &quot;dog&quot;, &quot;mouse&quot;)
 str_detect(string = x, pattern = &quot;d&quot;)</pre>
@@ -1057,7 +1057,7 @@ str_detect(string = x, pattern = &quot;d&quot;)</pre>
 
 </article></slide><slide class=""><hgroup><h2><code>str_replace()</code></h2></hgroup><article  id="str_replace">
 
-<p><code>string</code> argument specifies what to check<br/><code>pattern</code> argument specifies what to check for<br/><code>replacement</code> argument specifies what to replace the pattern with</p>
+<p>The <code>string</code> argument specifies what to check<br/>The <code>pattern</code> argument specifies what to check for<br/>The <code>replacement</code> argument specifies what to replace the pattern with</p>
 
 <pre class = 'prettyprint lang-r'>x&lt;-c(&quot;cat&quot;, &quot;dog&quot;, &quot;mouse&quot;)
 str_replace(string = x, pattern = &quot;d&quot;, replacement = &quot;D&quot;)</pre>
@@ -1066,7 +1066,7 @@ str_replace(string = x, pattern = &quot;d&quot;, replacement = &quot;D&quot;)</p
 
 </article></slide><slide class=""><hgroup><h2>Subsetting part of a string</h2></hgroup><article  id="subsetting-part-of-a-string">
 
-<p><code>str_sub()</code> allows you to subset part of a string<br/>* <code>string</code> argument specifies what strings to work with<br/>* <code>start</code> argument specifies position of where to start<br/>*<code>start</code> argument specifies position of where to end</p>
+<p><code>str_sub()</code> allows you to subset part of a string<br/>The <code>string</code> argument specifies what strings to work with The <code>start</code> argument specifies position of where to start<br/>The <code>start</code> argument specifies position of where to end</p>
 
 <pre class = 'prettyprint lang-r'>x&lt;-c(&quot;cat&quot;, &quot;dog&quot;, &quot;mouse&quot;)
 str_sub(string = x, start = 1, end = 2)</pre>
@@ -1204,7 +1204,7 @@ str_sub(string = x, start = 1, end = 2)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Separating columns based on a separator</h2></hgroup><article  id="separating-columns-based-on-a-separator">
 
-<p>The <code>separate()</code> function from <code>tidyr</code> can split a column into multiple columns.<br/>* <code>col</code> argument specifies what column to work with<br/>* <code>into</code> argument specifies names of new columns<br/>* <code>sep</code> argument specifies what to separate by</p>
+<p>The <code>separate()</code> function from <code>tidyr</code> can split a column into multiple columns.<br/>The <code>col</code> argument specifies what column to work with<br/>The <code>into</code> argument specifies names of new columns<br/>The <code>sep</code> argument specifies what to separate by</p>
 
 <pre class = 'prettyprint lang-r'>diet_comb %&gt;% 
   separate(col = change, into = c(&quot;Diet&quot;, &quot;Change&quot;), sep = &quot;_&quot; )</pre>
@@ -1238,7 +1238,7 @@ str_sub(string = x, start = 1, end = 2)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Uniting columns</h2></hgroup><article  id="uniting-columns">
 
-<p>The <code>unite()</code> function can instead help combine columns.<br/><em><code>col</code> argument specifies new column name<br/></em><code>sep</code> argument specifies what separator to use when combining</p>
+<p>The <code>unite()</code> function can instead help combine columns.<br/>The <code>col</code> argument specifies new column name<br/>The <code>sep</code> argument specifies what separator to use when combining</p>
 
 <pre ># A tibble: 4 × 2
      id visit
@@ -1315,7 +1315,7 @@ head(df_united, 4)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
 
-<p>🏠 <a href='https://jhudatascience.org/intro_to_r/' title=''>Class Website</a> 💻 <a href='https://jhudatascience.org/intro_to_r/modules/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd' title=''>Lab</a></p>
+<p>🏠 <a href='https://jhudatascience.org/intro_to_r/' title=''>Class Website</a><br/>💻<a href='https://jhudatascience.org/intro_to_r/modules/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd' title=''>Lab</a></p>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Extra Slides</h2></hgroup><article  id="extra-slides">
 
@@ -1390,26 +1390,6 @@ y</pre>
 <!-- # sapply(y, last) # on the fly -->
 
 <!-- ``` -->
-
-<!-- ## Separating columns based on a separator  -->
-
-<!-- * From `tidyr`, you can split a data set into multiple columns: -->
-
-<!-- ```{r separate_df2_for_easy} -->
-
-<!-- df = tibble(x = c("I really", "like writing", "R code programs")) -->
-
-<!-- ``` -->
-
-<!-- ```{r} -->
-
-<!-- df %>% separate(x, into = c("first", "second")) -->
-
-<!-- ``` -->
-
-<!-- ## Separating columns based on a separator  -->
-
-<!-- * `extra = "merge"` will not drop data.  Also, you can specify the separator -->
 
 <!-- ```{r separate_df2} -->
 
