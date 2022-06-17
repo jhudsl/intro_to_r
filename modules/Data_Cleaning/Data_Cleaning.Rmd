@@ -359,7 +359,7 @@ df %>% filter(Dog < 3 | is.na(Dog))
 
 ## To remove rows with `NA` values for a variable use `drop_na()`
 
-A function fo the `tidyr` package.
+A function from the `tidyr` package.
 
 ```{r}
 df %>% drop_na(Dog)
@@ -375,7 +375,7 @@ df %>% drop_na(Dog)
 
 <!-- ``` -->
 
-## To remove rows with `NA` values for a data farme use `drop_na()`
+## To remove rows with `NA` values for a data frame use `drop_na()`
 
 This function of the `tidyr` package drops rows with **any** missing data in **any** column when used on a df.
 
@@ -867,7 +867,7 @@ diet_comb
 The `separate()` function from `tidyr` can split a column into multiple columns.   
 * `col` argument specifies what column to work with      
 * `into` argument specifies names of new columns   
-* `sep` argument specifice what to separate by
+* `sep` argument specifies what to separate by
 ```{r}
 diet_comb %>% 
   separate(col = change, into = c("Diet", "Change"), sep = "_" )
