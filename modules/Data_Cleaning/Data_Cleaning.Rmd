@@ -613,7 +613,7 @@ data_diet %>%
   count(Gender, Diet)
 ```
 
-## Or you can use `case_when()`.
+## Or you can use `case_when()`
 
 The `case_when()` function of `dplyr` can help us to do this as well.
 
@@ -627,13 +627,14 @@ The `case_when()` function of `dplyr` can help us to do this as well.
 ```
 :::
 
-```{r, eval = FALSE}
+Note that automatically values not reassigned explicitly by
+`case_when()` will be `NA` unless otherwise specified.
+
+```{r, eval = TRUE}
 data_diet %>% 
   mutate(Gender = case_when(Gender == "M" ~ "Male"))
 ```
 
-Note that automatically values not reassigned explicitly by
-`case_when()` will be `NA` unless otherwise specified.
 
 ## Use of `case_when()` without automatic `NA`
 ::: codeexample
@@ -704,11 +705,15 @@ data_diet %>%
 ```
 
 
-# Strings functions
+# Working with strings
 
-## Splitting/Find/Replace and Regular Expressions
+## Strings in R
 
 -   R can do much more than find exact matches for a whole string!
+
+```{r, echo = FALSE, out.width="30%", fig.align = "center"}
+include_graphics("https://swag.rstudio.com/uploads/1/3/1/3/131335021/s815253891256106552_p45_i1_w935.png")
+```
 
 ## The `stringr` package
 
@@ -733,8 +738,8 @@ within each element of a character vector (not data frame or tibble!).
 
 ## `str_detect()`
 
-`string` argument specifies what to check
-`pattern` argument specifies what to check for
+`string` argument specifies what to check    
+`pattern` argument specifies what to check for    
 
 ```{r}
 x<-c("cat", "dog", "mouse")
@@ -743,9 +748,9 @@ str_detect(string = x, pattern = "d")
 
 ## `str_replace()`
 
-`string` argument specifies what to check
-`pattern` argument specifies what to check for
-`replacement` argument specifies what to replace the pattern with
+`string` argument specifies what to check    
+`pattern` argument specifies what to check for    
+`replacement` argument specifies what to replace the pattern with    
 ```{r}
 x<-c("cat", "dog", "mouse")
 str_replace(string = x, pattern = "d", replacement = "D")
@@ -801,7 +806,19 @@ data_diet %>%
 
 
 ## `case_when()` improved with `stringr`
+```{r}
+count(data_diet, Gender)
+```
 
+```{r, eval = FALSE}
+data_diet %>% 
+  mutate(Gender = case_when(
+    Gender %in% c("M", "male", "Man", "m", "Male") ~ "Male",
+    Gender %in% c("F", "Female", "f", "female")~ "Female",
+    Gender %in% c("O", "Other") ~ "Other"))
+```
+
+## `case_when()` improved with `stringr`
 `^` indicates the beginning of a character string
 `$` indicates the end
 
@@ -831,71 +848,39 @@ diet_comb<-diet_effect %>% unite("change" , Diet:Effect, remove = TRUE)
 diet_comb
 ```
 
-<!-- ## Example of Cleaning: more complicated -->
 
-<!-- Sometimes though, it's not so simple.  That's where functions that find patterns come in very useful. -->
-
-<!-- ```{r gender, echo=FALSE} -->
-
-<!-- set.seed(4) # random sample below - make sure same every time -->
-
-<!-- gender <- sample(c("Male", "mAle", "MaLe", "M", "MALE", "Ma", "FeMAle", "F", "Woman", "Man", "Fm", "FEMALE"), 1000, replace = TRUE) -->
-
-<!-- ``` -->
-
-<!-- ```{r gentab} -->
-
-<!-- table(gender) -->
-
-<!-- ``` -->
-
-<!-- ## Example of Cleaning: more complicated -->
-
-<!-- ```{r gender2, echo=FALSE} -->
-
-<!-- gender = gender %>%  -->
-
-<!--   tolower %>%  -->
-
-<!--   recode(m = "Male", f = "Female", ma = "Male", -->
-
-<!--          woman = "Female", man = "Male") -->
-
-<!-- ``` -->
-
-<!-- ```{r gentab2} -->
-
-<!-- table(gender) -->
-
-<!-- ``` -->
 
 ## Separating columns based on a separator
 
--   From `tidyr`, you can split a data set into multiple columns:
-
+The `separate()` function from `tidyr` can split a column into multiple columns.   
+* `col` argument specifies what column to work with      
+* `into` argument specifies names of new columns   
+* `sep` argument specifice what to separate by
 ```{r}
 diet_comb %>% 
-  separate(change, into = c("Diet", "Change"))
+  separate(col = change, into = c("Diet", "Change"), sep = "_" )
 ```
 
-## Separating columns based on a separator
+<!-- ## Separating columns based on a separator -->
 
-You can specify the separator with `sep`.
+<!-- You can specify the separator with a more complicated `sep` argument. -->
 
-```{r, echo = FALSE}
-diet_comb<-diet_effect %>% unite("change" , Diet:Effect, remove = TRUE, sep = "_diet ")
-```
+<!-- ```{r, echo = FALSE} -->
+<!-- diet_comb<-diet_effect %>% unite("change" , Diet:Effect, remove = TRUE, sep = "_diet ") -->
+<!-- ``` -->
 
-```{r}
-diet_comb %>% 
-  separate(change, into = c("Diet", "Change"), sep = " ")
-```
+<!-- ```{r} -->
+<!-- diet_comb -->
+<!-- diet_comb %>%  -->
+<!--   separate(change, into = c("Diet", "Change"), sep = " ") -->
+<!-- ``` -->
 
-## Uniting columns based on a separator
+## Uniting columns 
 
--   From `tidyr`, you can unite:
-
-```{r unite_df}
+The `unite()` function can instead help combine columns.    
+*`col` argument specifies new column name    
+*`sep` argument specifies what separator to use when combining    
+```{r unite_df, echo = FALSE}
 df = tibble(id = rep(1:5, 3), visit = rep(1:3, each = 5))
 head(df, 4)
 ```
@@ -945,15 +930,14 @@ head(df_united, 4)
 
 ## Summary
 
--   `recode()` can help with simple recoding (not based on condition but
-    simple swap)
--   `case_when()` can recode based on conditions
-    -   remember `case_when()` needs `TRUE ~ varaible` to keep values
-        that aren't specified by conditions, otherwise will be `NA`
--   `stringr` package has great functions for looking for specific parts
-    of values especially `filter()` and `str_detect()` combined
-    -   also has other useful string manipulation functions like
-        `str_replace()` or `str_extract()`
+-   `recode()` can help with simple recoding (not based on condition but simple swap)
+-   `case_when()` can recode **entire values** based on conditions
+    -   remember `case_when()` needs `TRUE ~ varaible` to keep values that aren't specified by conditions, otherwise will be `NA`
+-   `stringr` package has great functions for looking for specific **parts of values** especially `filter()` and `str_detect()` combined
+    -   also has other useful string manipulation functions like `str_replace()` and more!
+    - `separate()` can split columns into additional columns
+    - `unite()` can combine columns
+
 
 ## Lab Part 2
 
