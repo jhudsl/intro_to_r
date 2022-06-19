@@ -25,7 +25,7 @@ First, create a vector that has class integer called `int_vect` that starts at 1
 
 ```
 
-2. Next, create a random vector of 30 values from a set of integers from 1 to 30 called `rand_vect` (hint use `sample()` and set the repeat argument to `TRUE`).
+2. Next, create a random vector of 30 values from a set of integers from 1 to 30 called `rand_vect` (hint use `sample()` and set the replace argument to `TRUE`).
 
 Because we are using a random vector let's use the `set.seed()` function to make sure we all have the same result - this code is already in the code chunk for you. Simply create the vector below the `set.seed` line.
 
