@@ -134,6 +134,7 @@ ex_long
 - `pivot_longer` - make multiple columns into variables, (wide to long)
 - `pivot_wider` - make a variable into multiple columns, (long to wide)
 - `separate` - string into multiple columns (review)
+- You might see old functions `gather` and `spread` when googling.
 
 The `reshape` command exists.  It is a **confusing** function.  Don't use it.
 
@@ -293,6 +294,15 @@ wide <- long %>% pivot_wider(names_from = "type",
                              values_from = "value") 
 wide
 ```
+
+## Summary
+
+- `tidyr` package helps us convert between wide and long data
+- `pivot_longer()` goes from wide -> long
+     - Specify columns you want to pivot
+     - Specify `names_to = ` and `values_to = ` for custom naming
+- `pivot_wider()` goes from long -> wide
+     - Specify `names_from =` and `values_from = `
 
 ## Lab Part 1
 
