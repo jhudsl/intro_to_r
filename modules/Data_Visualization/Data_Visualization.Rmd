@@ -25,12 +25,12 @@ library(jhur)
 - `pivot_wider()` helps us take our data from long to wide format    
     - `names_from` specifies the old column name that contains the new column names    
     - `values_from` specifies the old column name that contains new cell values    
-- to merge/join data sets together need a vairaible in common - usually "id"    
+- to merge/join data sets together need a variable in common - usually "id"    
     
 📃[Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-6.pdf)
 
 ## Recap continued
-- to merge/join data sets together need a vairaible in common - usually "id"
+- to merge/join data sets together need a variable in common - usually "id"
 - `?join` - see different types of joining for `dplyr`
 - `inner_join(x, y)` - only rows that match for `x` and `y` are kept
 - `full_join(x, y)` - all rows of `x` and `y` are kept 
@@ -253,7 +253,7 @@ ggplot(Orange, mapping = aes(x = circumference, y = age)) +
 
 You can change the look of whole plot - **specific elements, too** - like changing [font](http://www.cookbook-r.com/Graphs/Fonts/) and font size - or even more [fonts](https://blog.revolutionanalytics.com/2012/09/how-to-use-your-favorite-fonts-in-r-charts.html)
 
-```{r, fig.width=5, fig.height=3, fig.align='center'}
+```{r, fig.width=6, fig.height=3.5, fig.align='center'}
 ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
   geom_point(size = 5, color = "red", alpha = 0.5) + 
   geom_line(size = 0.8, color = "brown", linetype = 2) + 
@@ -274,7 +274,6 @@ plot_lab<-ggplot(Orange, mapping = aes(x = circumference, y = age)) +
             labs(title = "My plot of orange tree data",
               x = "Tree Circumference (mm)",
               y = "Tree Age (days since 12/31/1968)")
-
 plot_lab
 ```
 
@@ -286,7 +285,7 @@ Line breaks can be specified using `\n` within the `labs()` function to have a l
 plot_lab<-ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
             geom_point(size = 5, color = "red", alpha = 0.5) + 
             geom_line(size = 0.8, color = "brown", linetype = 2) + 
-            labs(title = "My plot of orange tree data from 1961: \n trunk circumference vs tree age",
+            labs(title = "Plot of orange tree data from 1968: \n trunk circumference vs tree age",
               x = "Tree Circumference (mm)",
               y = "Tree Age (days since 12/31/1968)")
 
@@ -295,7 +294,7 @@ plot_lab
 
 
 
-## Changing axis {.codesmall}
+## Changing axis: specifying axis scale {.codesmall}
 
 `scale_x_continuous()` and `scale_y_continuous()` can change how the axis is plotted. Can use the `breaks` argument to specify how you want the axis ticks to be.
 
@@ -308,7 +307,22 @@ plot_scale <-ggplot(Orange, mapping = aes(x = circumference, y = age)) +
                 scale_x_continuous(breaks = seq(from = 20,to = 240, by = 20)) +
                 scale_y_continuous(breaks = seq(from = 100,to = 1600, by = 200))
 ```
-## Changing axis
+## Changing axis: specifying axis scale
+
+```{r}
+plot_orange<-ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
+                geom_point(size = 5, color = "red", alpha = 0.5) + 
+                geom_line(size = 0.8, color = "brown", linetype = 2) + 
+                scale_x_continuous(breaks = seq(from = 20,to = 240, by = 20)) +
+                scale_y_continuous(breaks = seq(from = 100,to = 1600, by = 200))
+```
+
+```{r, fig.width=4, fig.height=2, fig.align='center'}
+plot_orange
+plot_scale 
+```
+
+## Changing axis: specifying axis limits
 
 `xlim()` and `ylim()` can specify the limits for each axis
 
