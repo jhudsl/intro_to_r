@@ -204,7 +204,7 @@ Read as: *add points to the plot (use data as provided by the aesthetic mapping)
 
 ## Plots can be assigned as an object {.mall}
 
-```{r, fig.width=3, fig.height=2.5}
+```{r, fig.width=4, fig.height=3, fig.align='center'}
 plt1 <- ggplot(Orange, aes(x = circumference, y = age)) + 
           geom_point()
 
@@ -219,6 +219,7 @@ plt1 <- ggplot(Orange, aes(x = circumference, y = age)) +
 
 plt2 <- ggplot(Orange, aes(x = circumference, y = age)) + 
           geom_line()
+
 plt1 # fig.show = "hold" makes plots appear 
 plt2 # next to one another in the chunk settings
 ```
@@ -233,7 +234,15 @@ ggplot(Orange, aes(x = circumference, y = age)) +
   geom_line()
 ```
 
-## Customize the look of the plot
+## Adding color - can map color to a variable
+
+```{r, fig.width=4, fig.height=3, fig.align='center'}
+ggplot(Orange, mapping = aes(x = circumference, y = age, color = Tree)) + 
+  geom_point() + 
+  geom_line()
+```
+
+## Adding color - or change the color of each plot layer
 
 You can change look of each layer separately.
 
@@ -383,17 +392,16 @@ ggplot(Orange, mapping = aes(x = circumference, y = age)) +
         axis.title.x = element_text(size = 16))
 ```
 
-## theme() function {.codesmall}
-
-```{r}
-head(Orange, 3)
-```
+## theme() function:moving (or removing) legend {.codesmall}
 
 If specifying position - use: "top", "bottom", "right", "left", "none"
 
-```{r, fig.width=3.5, fig.height=2.5, fig.align='center'}
-ggplot(Orange, mapping = aes(x = Tree, y = circumference, fill = Tree)) + 
-  geom_boxplot() +
+```{r, fig.show="hold", out.width="40%"}
+ggplot(Orange, mapping = aes(x = circumference, y = age, color = Tree)) + 
+  geom_line()
+
+ggplot(Orange, mapping = aes(x = circumference, y = age, color = Tree)) + 
+  geom_line() +
   theme(legend.position = "none")
 ```
 
@@ -437,6 +445,14 @@ ggplot(food, mapping = aes(x = observation_time,
                            y = item_price_change)) + 
   geom_line() 
 ```
+
+## If it looks confusing to you, try again
+    
+    
+```{r, echo = FALSE, fig.align='center', out.width= "30%"}
+knitr::include_graphics("https://media.giphy.com/media/xT0xeuOy2Fcl9vDGiA/giphy.gif")
+```
+
 
 ## Using `group` in plots
 
