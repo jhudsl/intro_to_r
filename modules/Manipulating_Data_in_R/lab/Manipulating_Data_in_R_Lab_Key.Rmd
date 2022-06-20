@@ -9,7 +9,7 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Data in this lab comes from the CDC (https://covid.cdc.gov/covid-data-tracker/#vaccinations_vacc-total-admin-rate-total - current as of January 12, 2022!) and the Bureau of Economic Analysis (https://www.bea.gov/data/income-saving/personal-income-by-state).
+Data in this lab comes from the CDC (https://covid.cdc.gov/covid-data-tracker/#vaccinations_vacc-total-admin-rate-total - snapshot from January 12, 2022) and the Bureau of Economic Analysis (https://www.bea.gov/data/income-saving/personal-income-by-state).
 
 ```{r message=FALSE}
 library(readr)
@@ -19,7 +19,7 @@ library(tidyr)
 
 # Part 1
 
-1. Read in the SARS-CoV-2 Vaccination data from http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv. Assign the data the name "vacc". We will be reviewing new concepts here and incorporating some from week 1.
+1. Read in the SARS-CoV-2 Vaccination data from http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv. Assign the data the name "vacc". We will be reviewing new concepts here and incorporating some from week 1. Remember to use `read_csv()` from the `readr` package.
 
 ```{r}
 vacc <- read_csv("http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv")
@@ -34,45 +34,90 @@ colnames(vacc)
 # Looks like many start with "Percent" and some start with "Total" - this indicates there are different units of measure for these different variables!
 ```
 
-3. Let's rename the column "State/Territory/Federal Entity" in "vacc" to "Entity" using `rename`.
+3. Let's rename the column "State/Territory/Federal Entity" in "vacc" to "Entity" using `rename`. Make sure to reassign to `vacc` here and in subsequent steps.
+
+```
+Usage: rename(newname = oldname)
+```
 
 ```{r}
 vacc <- vacc %>% rename(Entity = `State/Territory/Federal Entity`)
 ```
 
-4. Create a new dataset "vacc_long" that does `pivot_longer` on all columns that start with the word "Percent". Use `starts_with("Percent")` for the `cols` argument. Use "Measure" for the `names_to` argument. Use "Percent" for the `values_to` argument.
+4. Select only the columns "Entity", and those that start with "Percent". Use `select` and `starts_with("Percent")`. 
 
-```{r}
-# ??? <- ??? %>% pivot_longer(cols = ???,
-#                             names_to = ???,
-#                             values_to = ???)
-vacc_long <- vacc %>% pivot_longer(
-  cols = starts_with("Percent"),
-  names_to = "Measure",
-  values_to = "Percent"
-)
+```
+Usage: select(colname1, colname2, ...)
 ```
 
-5. Select only the columns "Entity", "Measure", and "Percent" from "vacc_long". Use `select`. Filter "Entity" so it only includes values in the following list: "Maryland","Virginia","Florida","Massachusetts", "United States". **Hint**: use `filter` and `%in%`.
+```{r}
+vacc <- vacc %>% select(Entity, starts_with("Percent"))
+```
+
+5. Create a new dataset "vacc_long" that does `pivot_longer()` on all columns except "Entity". Remember that `!Entity` means all columns except "Entity".
+
+```
+Usage: pivot_longer(cols = colname(s))
+```
+
+```{r}
+vacc_long <- vacc %>% pivot_longer(cols = !Entity)
+```
+
+6. Filter the "Entity" column so it only includes values in the following list: "Maryland","Virginia","Florida","Massachusetts", "United States". **Hint**: use `filter` and `%in%`.
+
+```
+Usage: filter(colname %in% c(1, 2, 3, ...))
+```
 
 ```{r}
 vacc_long <- vacc_long %>%
-  select(Entity, Measure, Percent) %>%
-  filter(Entity %in% c("Maryland", "Virginia", "Florida", "Massachusetts", "United States"))
+  filter(Entity %in% c("Maryland", "Virginia", "Mississippi", "Massachusetts", "United States"))
 ```
 
-6. Use `pivot_wider` to reshape "vacc_long". Use "Entity" for the `names_from` argument. Use "Percent" for the `values_from` argument.
+7. Use `pivot_wider` to reshape "vacc_long". Use "Entity" for the `names_from` argument. Use "value" for the `values_from` argument. Call this new data `vacc_wide`. Look at the data. How do these states compare to one another.
+
+```
+Usage: pivot_wider(names_from = ???, values_from = ???)
+```
 
 ```{r}
-# ??? <- ??? %>%
-#   pivot_wider(names_from = ???,
-#               values_from = ???)
 vacc_wide <- vacc_long %>%
   pivot_wider(
     names_from = Entity,
-    values_from = Percent
+    values_from = value
   )
+vacc_wide
 ```
+
+**Bonus / optional**
+
+Combine blocks 1 and 3-7 by chaining everything together using the pipe ` %>% `. Call your data `vacc_compare`.
+
+```{r}
+vacc_compare <-
+  read_csv("http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv") %>%
+  rename(Entity = `State/Territory/Federal Entity`) %>% 
+  select(Entity, starts_with("Percent")) %>% 
+  pivot_longer(cols = !Entity) %>% 
+  filter(Entity %in% c("Maryland", "Virginia", "Mississippi", "Massachusetts", "United States")) %>% 
+  pivot_wider(names_from = Entity, values_from = value)
+vacc_compare
+```
+
+Tweak the code in the block above to look for columns that start with "Total" and select different states/Entities to compare. 
+
+```{r}
+vacc_compare <-
+  read_csv("http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv") %>%
+  rename(Entity = `State/Territory/Federal Entity`) %>% 
+  select(Entity, starts_with("Total")) %>% 
+  pivot_longer(cols = !Entity) %>% 
+  filter(Entity %in% c("Maryland", "Virginia", "Mississippi", "Massachusetts", "United States")) %>% 
+  pivot_wider(names_from = Entity, values_from = value)
+vacc_compare
+```
+
 
 # Part 2
 
@@ -128,17 +173,4 @@ nrow(right)
 ```{r}
 setdiff(vacc %>% pull(Entity), gdp %>% pull(GeoName))
 setdiff(gdp %>% pull(GeoName), vacc %>% pull(Entity))
-```
-
-**Bonus**
-
-14. Repeat #4 - #6 but instead look for columns that start with "Total" and select different states/Entities to compare. Also try combining all functions in one long block using the pipe `%>%`.
-
-```{r}
-vacc_wide <-
-  vacc %>%
-  pivot_longer(starts_with("Total"), names_to = "Measure", values_to = "Total") %>%
-  select(Entity, Measure, Total) %>%
-  filter(Entity %in% c("Alaska", "Kansas", "California", "United States")) %>%
-  pivot_wider(names_from = Entity, values_from = Total)
 ```
