@@ -200,7 +200,28 @@ ggplot(Orange, mapping = aes(x = circumference, y = age)) +
   geom_point() 
 ```
 
-Read as: *add points to the plot (use data as provided by the aesthetic mapping)*
+Read as: *using Orange data, and provided aesthetic mapping, add points to the plot*
+
+## Tip - plus sign `+` must come at end of line
+
+Having the + sign at the beginning of a line will not work! 
+
+```{r, eval = FALSE}
+ggplot(food, mapping = aes(x = item_ID, 
+                           y = item_price_change, 
+                           fill = item_categ))  
+ + geom_boxplot()
+```
+
+Pipes will also not work in place of  `+`!
+
+```{r,eval = FALSE}
+ggplot(food, mapping = aes(x = item_ID, 
+                           y = item_price_change, 
+                           fill = item_categ))  %>%
+geom_boxplot()
+```
+
 
 ## Plots can be assigned as an object {.mall}
 
@@ -352,7 +373,7 @@ The `theme()` function can help you modify various elements of your plot. Here w
 ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
   geom_point(size = 5, color = "red", alpha = 0.5) + 
   geom_line(size = 0.8, color = "brown", linetype = 2) + 
-  labs(title = "My plot of var1 vs var2") + 
+  labs(title = "Circumference vs age") + 
   theme(plot.title = element_text(size = 20))
 
 ```
@@ -377,19 +398,20 @@ The `theme()` function can help you modify various elements of your plot. Here w
 ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
   geom_point(size = 5, color = "red", alpha = 0.5) + 
   geom_line(size = 0.8, color = "brown", linetype = 2) + 
-  labs(title = "My plot of var1 vs var2") + 
+  labs(title = "Circumference vs age") + 
   theme(plot.title = element_text(hjust = 0.5, size = 20))
 
 ```
 
-## theme() function: change title and x axis
+## theme() function: change title and axis format
 
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
 ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
   geom_point(size = 5, color = "red", alpha = 0.5) + 
-  labs(title = "My plot of var1 vs var2", x = "Variable 1") +
+  geom_line(size = 0.8, color = "brown", linetype = 2) + 
+  labs(title = "Circumference vs age") + 
   theme(plot.title = element_text(hjust = 0.5, size = 20),
-        axis.title.x = element_text(size = 16))
+        axis.title = element_text(size = 16))
 ```
 
 ## theme() function:moving (or removing) legend {.codesmall}
@@ -526,38 +548,26 @@ rp_fac_plot
 
 ## Tips - Color vs Fill {.codesmall}
 
-NOTE: color is needed for points and lines, fill generally needed for boxes and bars
+- `color` is needed for points and lines
+- `fill` is generally needed for boxes and bars
 
-```{r, fig.width=5 , fig.height=3, fig.align='center'}
+```{r, out.width="40%", fig.show='hold'}
+#color
 ggplot(food, mapping = aes(x = item_ID, 
                            y = item_price_change, 
                            color = item_categ)) + 
   geom_boxplot() 
-```
 
-## Tips - Color vs Fill {.codesmall}
-
-NOTE: color is needed for points and lines, fill generally needed for boxes and bars
-
-```{r, fig.width=5 , fig.height=3, fig.align='center'}
+#fill
 ggplot(food, mapping = aes(x = item_ID, 
                            y = item_price_change, 
                            fill = item_categ)) + 
   geom_boxplot() 
 ```
 
-## Tips - plus sign `+` can't come at start of a new line
 
-This will not work! Also don't use pipes instead of `+`!
 
-```{r, fig.width=6 , fig.height=4 * 0.8, eval = FALSE}
-ggplot(food, mapping = aes(x = item_ID, 
-                           y = item_price_change, 
-                           fill = item_categ))  
- + geom_boxplot()
-```
-
-## Tip - Good idea to add jitter to top of box plots
+## Tip - Good idea to add jitter layer to top of box plots
 
 Can add `width` argument to make the jitter more narrow.
 
