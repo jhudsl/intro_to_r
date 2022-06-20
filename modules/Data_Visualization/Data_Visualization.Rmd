@@ -634,9 +634,8 @@ food_bar +
 
 
 ## Tip - Check what you plot {.codesmall}
-::: {style="color: red;"}
-⚠️ May not be plotting what you think you are! ⚠️
-:::
+
+⚠️ <span style="color: red;">May not be plotting what you think you are!</span> ⚠️
 
 ```{r, fig.width=5 , fig.height=3, fig.align='center'}
 ggplot(food, mapping = aes(x = item_ID, 
