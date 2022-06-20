@@ -19,26 +19,28 @@ library(jhur)
 ```
 
 ## Recap
-- `pivot_longer()` helps us take our data from wide to long format    
-    - `names_to =` gives a new name to the pivoted columns    
-    - `values_to =` gives a new name to the values that used to be in those columns    
-- `pivot_wider()` helps us take our data from long to wide format    
-    - `names_from` specifies the old column name that contains the new column names    
-    - `values_from` specifies the old column name that contains new cell values    
-- to merge/join data sets together need a variable in common - usually "id"    
-    
+
+-   `pivot_longer()` helps us take our data from wide to long format
+    -   `names_to =` gives a new name to the pivoted columns\
+    -   `values_to =` gives a new name to the values that used to be in those columns\
+-   `pivot_wider()` helps us take our data from long to wide format
+    -   `names_from` specifies the old column name that contains the new column names\
+    -   `values_from` specifies the old column name that contains new cell values\
+-   to merge/join data sets together need a variable in common - usually "id"
+
 📃[Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-6.pdf)
 
 ## Recap continued
-- to merge/join data sets together need a variable in common - usually "id"
-- `?join` - see different types of joining for `dplyr`
-- `inner_join(x, y)` - only rows that match for `x` and `y` are kept
-- `full_join(x, y)` - all rows of `x` and `y` are kept 
-- `left_join(x, y)` - all rows of `x` are kept even if not merged with `y`
-- `right_join(x, y)` - all rows of `y` are kept even if not merged with `x`
-- `anti_join(x, y)` - all rows from `x` not in `y` keeping just columns from `x`.
-- `esquisser()` function of the `esquisse` package can help make plot sketches
-    
+
+-   to merge/join data sets together need a variable in common - usually "id"
+-   `?join` - see different types of joining for `dplyr`
+-   `inner_join(x, y)` - only rows that match for `x` and `y` are kept
+-   `full_join(x, y)` - all rows of `x` and `y` are kept
+-   `left_join(x, y)` - all rows of `x` are kept even if not merged with `y`
+-   `right_join(x, y)` - all rows of `y` are kept even if not merged with `x`
+-   `anti_join(x, y)` - all rows from `x` not in `y` keeping just columns from `x`.
+-   `esquisser()` function of the `esquisse` package can help make plot sketches
+
 📃[Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-6.pdf)
 
 ## `esquisse` and `ggplot2`
@@ -136,8 +138,8 @@ This is also called long format! More on that soon!
 
 Read more about tidy data and see other examples: [Tidy Data](https://vita.had.co.nz/papers/tidy-data.pdf) tutorial by Hadley Wickham
 
-
 ## Data to plot
+
 ?Orange
 
 ```{r}
@@ -200,23 +202,26 @@ ggplot(Orange, mapping = aes(x = circumference, y = age)) +
 
 Read as: *add points to the plot (use data as provided by the aesthetic mapping)*
 
-## Specifying plot layers: examples {.mall}
+## Plots can be assigned as an object {.mall}
 
 ```{r, fig.width=3, fig.height=2.5}
-plt1 <- 
-  ggplot(Orange, aes(x = circumference, y = age)) + 
-  geom_point()
+plt1 <- ggplot(Orange, aes(x = circumference, y = age)) + 
+          geom_point()
 
-plt2 <- 
-  ggplot(Orange, aes(x = circumference, y = age)) + 
-  geom_line()
+plt1
 ```
 
-```{r, echo = FALSE, fig.show="hold", out.width="40%"}
-plt1; plt2 # to have 2 plots printed next to each other on a slide
+## Examples of different geoms
+
+```{r, fig.show="hold", out.width="40%"}
+plt1 <- ggplot(Orange, aes(x = circumference, y = age)) + 
+          geom_point()
+
+plt2 <- ggplot(Orange, aes(x = circumference, y = age)) + 
+          geom_line()
+plt1 # fig.show = "hold" makes plots appear 
+plt2 # next to one another in the chunk settings
 ```
-
-
 
 ## Specifying plot layers: combining multiple layers
 
@@ -260,39 +265,31 @@ ggplot(Orange, mapping = aes(x = circumference, y = age)) +
   theme_bw(base_size = 20, base_family = "Comic Sans MS")
 ```
 
-## Adding labels{.codesmall}
+## Adding labels {.codesmall}
 
-The `labs()` function can help you add or modify titles on your plot.
-The `title` argument specifies the title.
-The `x` argument specifies the x axis label.
-The `y` argument specifies the x axis label.
+The `labs()` function can help you add or modify titles on your plot. The `title` argument specifies the title. The `x` argument specifies the x axis label. The `y` argument specifies the x axis label.
 
 ```{r, fig.width=4, fig.height=2.5, fig.align='center'}
-plot_lab<-ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
+ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
             geom_point(size = 5, color = "red", alpha = 0.5) + 
             geom_line(size = 0.8, color = "brown", linetype = 2) + 
             labs(title = "My plot of orange tree data",
               x = "Tree Circumference (mm)",
               y = "Tree Age (days since 12/31/1968)")
-plot_lab
 ```
 
-## Adding labels line break{.codesmall}
+## Adding labels line break {.codesmall}
 
 Line breaks can be specified using `\n` within the `labs()` function to have a label with multiple lines.
 
 ```{r, fig.width=4, fig.height=2.5, fig.align='center'}
-plot_lab<-ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
+ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
             geom_point(size = 5, color = "red", alpha = 0.5) + 
             geom_line(size = 0.8, color = "brown", linetype = 2) + 
             labs(title = "Plot of orange tree data from 1968: \n trunk circumference vs tree age",
               x = "Tree Circumference (mm)",
               y = "Tree Age (days since 12/31/1968)")
-
-plot_lab
 ```
-
-
 
 ## Changing axis: specifying axis scale {.codesmall}
 
@@ -307,19 +304,17 @@ plot_scale <-ggplot(Orange, mapping = aes(x = circumference, y = age)) +
                 scale_x_continuous(breaks = seq(from = 20,to = 240, by = 20)) +
                 scale_y_continuous(breaks = seq(from = 100,to = 1600, by = 200))
 ```
+
 ## Changing axis: specifying axis scale
 
-```{r}
-plot_orange<-ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
-                geom_point(size = 5, color = "red", alpha = 0.5) + 
-                geom_line(size = 0.8, color = "brown", linetype = 2) + 
-                scale_x_continuous(breaks = seq(from = 20,to = 240, by = 20)) +
-                scale_y_continuous(breaks = seq(from = 100,to = 1600, by = 200))
+```{r, fig.width=5, fig.height=3, fig.align='center'}
+plot_scale 
 ```
 
-```{r, fig.width=4, fig.height=2, fig.align='center'}
-plot_orange
-plot_scale 
+```{r, fig.width=5, fig.height=3, fig.align='center', echo = FALSE}
+ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
+                geom_point(size = 5, color = "red", alpha = 0.5) + 
+                geom_line(size = 0.8, color = "brown", linetype = 2)
 ```
 
 ## Changing axis: specifying axis limits
@@ -340,16 +335,16 @@ ggplot(Orange, mapping = aes(x = circumference, y = age)) +
 
 [Lab document](http://jhudatascience.org//intro_to_r/Data_Visualization/lab/Data_Visualization_Lab.Rmd)
 
-## theme() function
+## theme() function:
 
-The `theme()` function can help you modify various elements of your plot. Here we will adjust the horizontal justification (`hjust`) of the plot title.
+The `theme()` function can help you modify various elements of your plot. Here we will adjust the font size of the plot title.
 
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
 ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
   geom_point(size = 5, color = "red", alpha = 0.5) + 
   geom_line(size = 0.8, color = "brown", linetype = 2) + 
   labs(title = "My plot of var1 vs var2") + 
-  theme(plot.title = element_text(hjust = 0.5, size = 20))
+  theme(plot.title = element_text(size = 20))
 
 ```
 
@@ -365,7 +360,20 @@ The `theme()` function always takes:
     -   rectangle: `size`, `color`, `fill`, `linetype`
     -   line: `size`, `color`, `linetype`
 
-## theme() function
+## theme() function: center title and change size
+
+The `theme()` function can help you modify various elements of your plot. Here we will adjust the horizontal justification (`hjust`) of the plot title.
+
+```{r, fig.width=5, fig.height=3, fig.align='center'}
+ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
+  geom_point(size = 5, color = "red", alpha = 0.5) + 
+  geom_line(size = 0.8, color = "brown", linetype = 2) + 
+  labs(title = "My plot of var1 vs var2") + 
+  theme(plot.title = element_text(hjust = 0.5, size = 20))
+
+```
+
+## theme() function: change title and x axis
 
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
 ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
