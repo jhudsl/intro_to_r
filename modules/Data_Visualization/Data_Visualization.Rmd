@@ -70,15 +70,8 @@ layering
 :::
 plot objects are placed on top of each other with `+`
 
-```{r, echo = FALSE}
-set.seed(456)
-emo::ji("graph")  
-emo::ji("plus") 
-emo::ji("graph")
-
-```
-
-
+📉 +    
+📈
 
 ## ggplot2
 
@@ -107,25 +100,23 @@ Messy data:
 
 ## Tidy data: example 
 
-Each variable forms a column. Each observation forms a row.
+Ideally we want each variable to form a column and we want each observation in a row.
 
-```{r, echo = FALSE, fig.align='center'}
-include_graphics("img/tidy_data_ex1.png")
-```
-
-
-## Messy data: example 
-
-Column headers are values, not variable names
+Column headers are values, not variable names:
 
 ```{r, echo = FALSE, fig.align='center', out.width="80%"}
 include_graphics("img/messy_data_ex1.png")
 ```
 
+## Now the the data is "tidy"
+
+```{r, echo = FALSE, fig.align='center'}
+include_graphics("img/tidy_data_ex1.png")
+```
+ This is also called long format!!!
 
 Read more about tidy data and see other examples: [Tidy Data](https://vita.had.co.nz/papers/tidy-data.pdf) tutorial by Hadley Wickham
 
- It's also helpful to have data in long format!!!
  
  
 ## Making data to plot
@@ -568,7 +559,7 @@ food_bar +
 
 `geom_bar()` can only one `aes` mapping & `geom_col()` can have two
 
-`r emo::ji("eyes")`May not be plotting what you think you are...
+👀 May not be plotting what you think you are...
 
 ```{r, fig.width=5 , fig.height=3, fig.align='center'}
 ggplot(food, aes(x = item_ID, 
