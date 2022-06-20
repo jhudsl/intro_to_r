@@ -128,19 +128,19 @@ Column headers are values, not variable names:
 include_graphics("img/messy_data_ex1.png")
 ```
 
-## Now the the data is "tidy"
+## Now the the data is "tidy" and in long format
 
 ```{r, echo = FALSE, fig.align='center'}
 include_graphics("img/tidy_data_ex1.png")
 ```
 
-This is also called long format! More on that soon!
-
-Read more about tidy data and see other examples: [Tidy Data](https://vita.had.co.nz/papers/tidy-data.pdf) tutorial by Hadley Wickham
+Read more about tidy data and see other examples: [Tidy Data](https://vita.had.co.nz/papers/tidy-data.pdf) tutorial
 
 ## Data to plot
 
-?Orange
+ Type `?Orange` for more information.
+ 
+ Is the data in tidy? Is it in long format?
 
 ```{r}
 head(Orange)
@@ -652,8 +652,6 @@ head(food, n = 3)
 
 food %>% group_by(item_ID) %>%
   summarize(sum = sum(item_price_change))
-food %>% group_by(item_ID) %>%
-  summarize(mean = mean(item_price_change))
 ```
 ## Try that again{.codesmall}
 
@@ -696,11 +694,9 @@ library(patchwork)
 
 ## `directlabels` package
 
-Great for adding labels directly onto plots
+Great for adding labels directly onto plots <https://www.opencasestudies.org/ocs-bp-co2-emissions/>
 
-<https://www.opencasestudies.org/ocs-bp-co2-emissions/>
-
-```{r}
+```{r, out.width="50%", fig.align="center"}
 #install.packages("directlabels")
 library(directlabels)
 direct.label(rp_fac_plot, method = list("angled.boxes"))
@@ -710,11 +706,13 @@ direct.label(rp_fac_plot, method = list("angled.boxes"))
 
 ```{r}
 #install.packages("plotly")
-library("plotly")
+library("plotly") # creates interactive plots!
 ggplotly(rp_fac_plot)
 ```
 
 Also check out the [`ggiraph` package](https://www.rdocumentation.org/packages/ggiraph/versions/0.6.1)
+
+# Saving plots
 
 ## Saving a ggplot to file
 
@@ -727,7 +725,7 @@ A few options:
 ```{r, eval = FALSE}
 ggsave(filename = "saved_plot.png",  # will save in working directory
        plot = rp_fac_plot, 
-       width = 6, height = 3.5)               # by default in inch
+       width = 6, height = 3.5)               # by default in inches
 ```
 
 ## Summary
