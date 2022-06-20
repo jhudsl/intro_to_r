@@ -335,13 +335,13 @@ plot_scale <-ggplot(Orange, mapping = aes(x = circumference, y = age)) +
                 scale_y_continuous(breaks = seq(from = 100,to = 1600, by = 200))
 ```
 
-## Changing axis: specifying axis scale
+## Changing axis: specifying axis scale{.codesmall}
 
-```{r, fig.width=5, fig.height=3, fig.align='center'}
+```{r, fig.width=5, fig.height=1.8, fig.align='center'}
 plot_scale 
 ```
 
-```{r, fig.width=5, fig.height=3, fig.align='center', echo = FALSE}
+```{r, fig.width=5, fig.height=1.8, fig.align='center', echo = TRUE}
 ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
                 geom_point(size = 5, color = "red", alpha = 0.5) + 
                 geom_line(size = 0.8, color = "brown", linetype = 2)
@@ -361,9 +361,22 @@ ggplot(Orange, mapping = aes(x = circumference, y = age)) +
   
 ```
 
+## Summary
+
+- `ggplot()` specifies what data use and what variables will be mapped to where
+- inside `ggplot()`, `mapping = aes(x = , y = , color =)` specify what variables correspond to what aspects of the plot in general
+- layers of plots can be combined using the `+` at the **end** of lines
+- special [`theme_*()` functions](https://ggplot2.tidyverse.org/reference/ggtheme.html).functions can change the overall look
+- individual layers can be customized using arguments like:
+`size`, `color` `alpha` (more transparent is closer to 0), and `linetype`
+- labels can be added with the `labs()` function and `x`, `y`, `title` arguments - the `\n` can be used for line breaks
+-`xlim()` and `ylim()` can limit or expand the plot area
+- `scale_x_continuous()` and `scale_y_continuous()` can modify the scale of the axes
+
 ## Lab 1
 
-[Lab document](http://jhudatascience.org//intro_to_r/Data_Visualization/lab/Data_Visualization_Lab.Rmd)
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)    
+💻 [Lab](https://jhudatascience.org/intro_to_r/modules//Data_Visualization/lab/Data_Visualization_Lab.Rmd)
 
 ## theme() function:
 
@@ -516,7 +529,7 @@ ggplot(food, aes(x = observation_time,
 
 ```
 
-## Adding a facet can help make it easier to see what is happening
+## Adding a facet can help make it easier to see what is happening{.codesmall}
 
 Two options: `facet_grid()`- creates a grid shape `facet_wrap()` -more flexible
 
@@ -536,13 +549,10 @@ ggplot(food, mapping = aes(x = observation_time,
 -   can have different scales for axes using `scales = "free_x"`, `scales = "free_y"`, or `scales = "free"`
 
 ```{r, fig.width=4, fig.height=2.7, fig.align='center'}
-rp_fac_plot <- ggplot(food, mapping = aes(x = observation_time, 
-                                          y = item_price_change,
-                                          color = item_ID)) + 
+rp_fac_plot <- ggplot(food, mapping = aes(x = observation_time, y = item_price_change,color = item_ID)) + 
                   geom_line()  +
                   geom_point() +
                   facet_wrap( ~ item_categ, ncol = 1, scales = "free")
-
 rp_fac_plot
 ```
 
@@ -551,17 +561,16 @@ rp_fac_plot
 - `color` is needed for points and lines
 - `fill` is generally needed for boxes and bars
 
-```{r, out.width="40%", fig.show='hold'}
-#color
+```{r, out.width="30%", fig.show='hold'}
+
 ggplot(food, mapping = aes(x = item_ID, 
                            y = item_price_change, 
-                           color = item_categ)) + 
+                           color = item_categ)) + #color creates an outline
   geom_boxplot() 
 
-#fill
 ggplot(food, mapping = aes(x = item_ID, 
                            y = item_price_change, 
-                           fill = item_categ)) + 
+                           fill = item_categ)) + # fills the boxplot
   geom_boxplot() 
 ```
 
@@ -579,7 +588,7 @@ ggplot(food, mapping = aes(x = item_ID,
   geom_jitter(width = .06)
 ```
 
-## Tip - be careful about colors for color blindness
+## Tip - be careful about colors for color vision deficiency
 
 `scale_fill_viridis_d()` for discrete /categorical data `scale_fill_viridis_c()` for continuous data
 
@@ -594,7 +603,7 @@ ggplot(food, mapping = aes(x = item_ID,
 
 ## Tip - can pipe data after wrangling into ggplot()
 
-```{r, fig.width=5 , fig.height=3, fig.align='center'}
+```{r, fig.width=5 , fig.height=2.5, fig.align='center'}
 
 food_bar <-food %>% 
   group_by(item_categ) %>%
@@ -620,9 +629,14 @@ food_bar +
 
 ## Tip - col vs bar {.codesmall}
 
-`geom_bar()` can only one `aes` mapping & `geom_col()` can have two
+`geom_bar(x =)` can only use one `aes` mapping
+`geom_col(x = , y = )` can have two
 
-👀 May not be plotting what you think you are...
+
+## Tip - Check what you plot {.codesmall}
+::: {style="color: red;"}
+⚠️ May not be plotting what you think you are! ⚠️
+:::
 
 ```{r, fig.width=5 , fig.height=3, fig.align='center'}
 ggplot(food, mapping = aes(x = item_ID, 
@@ -631,13 +645,31 @@ ggplot(food, mapping = aes(x = item_ID,
   geom_col()
 ```
 
-## What did we plot?
+## What did we plot? Always good to check it is correct!{.codesmall}
 
 ```{r}
-head(food)
+head(food, n = 3)
 
 food %>% group_by(item_ID) %>%
   summarize(sum = sum(item_price_change))
+food %>% group_by(item_ID) %>%
+  summarize(mean = mean(item_price_change))
+```
+## Try that again{.codesmall}
+
+```{r, fig.width=5 , fig.height=3, fig.align='center'}
+food %>% group_by(item_categ, item_ID) %>%
+  summarize(mean_change = mean(item_price_change))
+```
+
+## Try that again{.codesmall}
+```{r}
+food %>% group_by(item_categ, item_ID) %>%
+  summarize(mean_change = mean(item_price_change)) %>%
+    ggplot(mapping = aes(x = item_ID,
+                         y = mean_change, 
+                         fill = item_categ)) + 
+  geom_col()
 ```
 
 ## Tip - make sure labels aren't too small
@@ -698,8 +730,24 @@ ggsave(filename = "saved_plot.png",  # will save in working directory
        width = 6, height = 3.5)               # by default in inch
 ```
 
+## Summary
+- The `theme()` function helps you specify aspects about your plot
+  - move or remove a legend with `theme(legend.position = "none")`
+  - change font aspects of individual text elements `theme(plot.title = element_text(size = 20))`
+  - center a title: `theme(plot.title = element_text(hjust = 0.5))`
+- sometimes you need to add a `group` element to `mapping = aes()` if your plot looks strange
+- make sure you are plotting what you think you are by checking the numbers!
+- `facet_grid(~ variable)` and `facet_wrap(~variable)` can be helpful to quickly split up your plot
+  - `facet_wrap()` allows for a `scales = "free"` argument so that you can have a different axis scale for different plots
+- use `fill` to fill in boxplots
+
+## Good practices for plots
+
+Check out this [guide](https://jhudatascience.org/tidyversecourse/dataviz.html#making-good-plots) for more information!
+
 ## Lab 2
 
-[Lab document](http://jhudatascience.org//intro_to_r/Data_Visualization/lab/Data_Visualization_Lab.Rmd)
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)    
+💻 [Lab](https://jhudatascience.org/intro_to_r/modules//Data_Visualization/lab/Data_Visualization_Lab.Rmd)
 
 The End
