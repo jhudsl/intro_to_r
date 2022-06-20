@@ -18,6 +18,29 @@ library(tidyverse)
 library(jhur)
 ```
 
+## Recap
+- `pivot_longer()` helps us take our data from wide to long format    
+    - `names_to =` gives a new name to the pivoted columns    
+    - `values_to =` gives a new name to the values that used to be in those columns    
+- `pivot_wider()` helps us take our data from long to wide format    
+    - `names_from` specifies the old column name that contains the new column names    
+    - `values_from` specifies the old column name that contains new cell values    
+- to merge/join data sets together need a vairaible in common - usually "id"    
+    
+📃[Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-6.pdf)
+
+## Recap continued
+- to merge/join data sets together need a vairaible in common - usually "id"
+- `?join` - see different types of joining for `dplyr`
+- `inner_join(x, y)` - only rows that match for `x` and `y` are kept
+- `full_join(x, y)` - all rows of `x` and `y` are kept 
+- `left_join(x, y)` - all rows of `x` are kept even if not merged with `y`
+- `right_join(x, y)` - all rows of `y` are kept even if not merged with `x`
+- `anti_join(x, y)` - all rows from `x` not in `y` keeping just columns from `x`.
+- `esquisser()` function of the `esquisse` package can help make plot sketches
+    
+📃[Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-6.pdf)
+
 ## `esquisse` and `ggplot2`
 
 ```{r, fig.alt="esquisse", out.width = "28%", echo = FALSE, fig.show='hold',fig.align='center'}
