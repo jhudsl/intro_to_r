@@ -262,6 +262,7 @@ data_highschool_fct %>%
 ## Summary
 - the factor class allows us to have a different order from alphanumeric for categorical data
 - we can change data to be a factor variable using `mutate` , the `as_factor()` (of `forcats` package) or `factor()` function and specifying the levels with the `levels` argument
+- the `fct_reorder({variable_to_reorder}, {variable_to_order_by})` helps us reorder a variable by the values of another variable
 - arranging, tabulating, and plotting the data will reflect the new order
 
 ## Lab
