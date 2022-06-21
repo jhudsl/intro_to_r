@@ -35,11 +35,7 @@ library(tidyverse)
     - `unite()` can combine columns
 - [Day 5 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-5.pdf)
 
-## Reshaping Data 
-
-```{r, echo = FALSE, message=FALSE}
-library(tidyverse)
-```
+## Manipulating Data 
 
 In this module, we will show you how to:
 
@@ -134,9 +130,10 @@ ex_long
 - `pivot_longer` - make multiple columns into variables, (wide to long)
 - `pivot_wider` - make a variable into multiple columns, (long to wide)
 - `separate` - string into multiple columns (review)
-- You might see old functions `gather` and `spread` when googling.
 
 The `reshape` command exists.  It is a **confusing** function.  Don't use it.
+
+You might see old functions `gather` and `spread` when googling. These are the old names for `pivot_longer` and `pivot_wider`, respectively.
 
 # `pivot_longer`...
 
@@ -412,11 +409,6 @@ knitr::include_graphics("images/full_join.gif")
 
 ```{r}
 fj <- full_join(data_As, data_cold)
-```
-
-## Full Join
-
-```{r}
 fj
 ```
 
@@ -424,7 +416,7 @@ fj
 
 ```{r echo=FALSE}
 data_As <- tibble(State = c("Alabama", "Alaska"),
-                 state_bird = c("wild turkey", "williow ptarmigan"))
+                 state_bird = c("wild turkey", "willow ptarmigan"))
 data_cold <- tibble(State = c("Maine", "Alaska", "Alaska"),
                     vacc_rate = c("32.4%", "41.7%", "46.2%"),
                     month = c("April", "April", "May"))
@@ -492,7 +484,7 @@ You can join based on multiple columns by using something like `by = c(col1, col
 If the datasets have two different names for the same data, use:
 
 ```{r eval=FALSE}
-full_join(data_As, data_cold, by = c("a" = "b"))
+full_join(x, y, by = c("a" = "b"))
 ```
 
 ## Using "`setdiff`"
@@ -517,6 +509,17 @@ cold_states <- data_cold %>% pull(State)
 setdiff(A_states, cold_states)
 setdiff(cold_states, A_states)
 ```
+
+## Summary
+
+* Merging/joining data sets together - assumes all column names that overlap
+     - use the `by = c("a" = "b")` if they differ
+* `inner_join(x, y)` - only rows that match for `x` and `y` are kept
+* `full_join(x, y)` - all rows of `x` and `y` are kept 
+* `left_join(x, y)` - all rows of `x` are kept even if not merged with `y`
+* `right_join(x, y)` - all rows of `y` are kept even if not merged with `x`
+* Use the `tidylog` package for a detailed summary
+* `setdiff(x, y)` shows what in `x` is missing from `y`
 
 ## Lab Part 2
 
