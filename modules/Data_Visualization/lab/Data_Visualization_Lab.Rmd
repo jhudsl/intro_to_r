@@ -60,7 +60,6 @@ The following code is intended to provide you help. Remove the `#` or type below
 ```{r}
 # my_plot<- my_plot +
 # scale_x_continuous(?????) +
-
 ```
 
 
@@ -73,9 +72,9 @@ The following code is intended to provide you help. Remove the `#` or type below
 Bonus/optional practice. Create a boxplot (with the `geom_boxplot()` function) using the `Orange` data, where `Tree` is plotted on the x axis and `circumference` is plotted on the y axis. 
 
 ```{r}
-Orange %>% 
-  ggplot(mapping = aes(x = Tree, y = circumference)) + geom_boxplot()
-
+Orange %>%
+  ggplot(mapping = aes(x = Tree, y = circumference)) +
+  geom_boxplot()
 ```
 
 Notice how the trees are ordered. We will learn more about this soon!
