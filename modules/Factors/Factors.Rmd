@@ -24,17 +24,17 @@ class(x_fact)
 x_fact
 ```
 
-Note that levels are, by default, in alphanumerical order.
+Note that levels are, by default, in **alphanumerical** order.
 
 ## Factors
 
 You can learn what are the unique levels of a `factor` vector
 
-```{r factor1b}
+```{r}
 levels(x_fact)
 ```
 
-A package called forcats is really helpful for working with factors.
+A package called `forcats` is really helpful for working with factors.
 
 ```{r, fig.alt="Forcats hex sticker", out.width = "30%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("https://github.com/tidyverse/forcats/raw/main/man/figures/logo.png")
@@ -43,22 +43,18 @@ knitr::include_graphics("https://github.com/tidyverse/forcats/raw/main/man/figur
 
 ## A Factor Example
 
-First we will create some data about absences of students. Each row is a different student. We have information about the number of days absent and the grade for the individual students. We will use the `tibble()` function to create the data. We will use the `sample()` function to create a random sequence of numbers from 0 to 7 with replacements for 32 hypothetical students. Since there are four grades and 8*4 is 32, we will repeat the grade values 8 times. We use the `set.seed()` function so that the random sample from 0 to 7 is the same each time the code is run.
+First we will create some data about absences of students. We will have information about the number of days absent and the grade for individual students. 
 
+- We will use the `tibble()` function to create the data.   
+- We will use the `sample()` function to create a random sequence of  integers from 0 to 7 (for a range of absence values) with replacements for 32 hypothetical students.   
+- Since there are four grades and 8*4 is 32, we will repeat the 4 grade values 8 times. 
+- We use the `set.seed()` function so that the random sample from 0 to 7 is the same each time the code is run.
 
 ```{r}
 set.seed(123)
 data_highschool <- tibble(
-  absences =
-    sample(0:7, size = 32, replace = TRUE),
-  grade =
-    rep(c(
-      "Sophomore",
-      "Freshman",
-      "Junior",
-      "Senior"
-    ), 8)
-)
+  absences = sample(0:7, size = 32, replace = TRUE),
+  grade = rep(c("Sophomore","Freshman","Junior","Senior"), 8))
 ```
 
 ## The data
@@ -67,7 +63,7 @@ data_highschool <- tibble(
 head(data_highschool)
 ```
 
-Notice that `grade` is a `chr` variable. This indicates that the values are character strings. 
+Notice that `grade` is a `chr` variable. This indicates that the values are **character** strings. 
 
 R does not realize that there is any order related to the `grade` values. It will assume that it is **alphabetical**. 
 
@@ -82,7 +78,8 @@ Let's make a plot first:
 ```{r, fig.height= 3}
 data_highschool %>%
   ggplot(mapping = aes(x = grade, y = absences)) +
-  geom_boxplot()
+  geom_boxplot() +
+  theme_bw(base_size = 16) # make all labels size 16
 ```
 
 
@@ -93,17 +90,18 @@ OK this is very useful, but it is a bit difficult to read. We expect the values 
 Currently `grade` is class `character` but let's change that to class `factor` which allows us to specify the levels or order of the values.
 
 ```{r}
-class(data_highschool$grade)
+levels(pull(data_highschool, grade))
+
 data_highschool_fct <- data_highschool %>%
   mutate(grade = factor(grade,
-    levels =
-      c(
-        "Freshman",
-        "Sophomore",
-        "Junior",
-        "Senior"
-      )
-  ))
+    levels =c("Freshman","Sophomore","Junior", "Senior")))
+
+levels(pull(data_highschool_fct, grade))
+```
+
+## Change to a factor
+
+```{r}
 head(data_highschool_fct)
 ```
 
@@ -114,20 +112,18 @@ Now let's make our plot again:
 ```{r, fig.height= 3}
 data_highschool_fct %>%
   ggplot(mapping = aes(x = grade, y = absences)) +
-  geom_boxplot()
+  geom_boxplot() +
+ theme_bw(base_size = 16)
 ```
 
 Now that's more like it! Notice how the data is automatically plotted in the order we would like.
 
 
-## Arranging Characters{.smaller}
-
-What about if we arrange the two versions of our data by grade?
-
+## What about if we arrange the data by grade ?{.smaller}
 ```{r, size="tiny"}
-data_highschool %>%
+data_highschool %>% # the data with the character version of grade
   arrange(grade) %>%
-  head(19)
+  head(n = 19) #print just enough to see the 1st three grades
 ```
 
 Notice that the order is not what we would hope for!
@@ -135,54 +131,39 @@ Notice that the order is not what we would hope for!
 ## Arranging Factors{.smaller}
 
 ```{r, size = 'tiny'}
-data_highschool_fct %>%
+data_highschool_fct %>% # the data with the factor version of grade
   arrange(grade) %>%
   head(19)
 ```
 
 Nice! Now this is what we would want!
 
-## Making tables
+## Making tables with characters
 
 ```{r}
 data_highschool %>%
   group_by(grade) %>%
-  tally(absences)
+  summarize(total_absences = sum(absences))
 ```
+## Making tables with factors
 
 ```{r}
 data_highschool_fct %>%
   group_by(grade) %>%
-  tally(absences)
+  summarize(total_absences = sum(absences))
 ```
 
-## Calculations{.smaller}
+Here we see that the sum is calculated in the order we would like only for the version of the data that has absences coded as a factor!
 
-Now what about results from some calculations.
-
-```{r}
-data_highschool %>%
-  group_by(grade) %>%
-  summarise(mean = mean(absences))
-```
-
-```{r}
-data_highschool_fct %>%
-  group_by(grade) %>%
-  summarise(mean = mean(absences))
-```
-
-Here we see that the mean is calculated in the order we would like only for the version of the data that has absences coded as a factor!
-
-## forcats for ordering{.smaller}
+## `forcats` for ordering{.smaller}
 What if we wanted to order `grade` by the amount of `absences`? 
-
 ```{r, fig.height= 3}
 library(forcats)
 
 data_highschool_fct %>%
   ggplot(mapping = aes(x = grade, y = absences)) +
-  geom_boxplot()
+  geom_boxplot() +
+  theme_bw(base_size = 16)
 ```
 
 This would be useful for identifying easily which grade to focus on.
@@ -195,16 +176,17 @@ We can order a factor by another variable by using the `fct_reorder()` function 
 library(forcats)
 
 data_highschool_fct %>%
-  ggplot(mapping = aes(
-    x = forcats::fct_reorder(grade, absences),
-    y = absences
-  )) +
-  geom_boxplot()
+  ggplot(mapping = aes(x = forcats::fct_reorder(grade, absences),y = absences)) +
+  geom_boxplot() +
+  labs(x = "Student Grade") +
+  theme_bw(base_size = 16) # make all labels size 16
 ```
 
 ## Adding another variable
 
-Let's say that we also want to assess which grade has the most incidences of being tardy (another word for late) to class. Now we will add another simulated variable of random values from 0 to 7 and of 32 values total. We set a seed again so that our results will be consistent each time we run this code.
+Let's say that we also want to assess which grade has the most incidences of being tardy (another word for late) to class. 
+ - Now we will add another simulated variable of random values from 0 to 7 and of 32 values total. 
+- We set a seed again so that our results will be consistent each time we run this code.
 
 ```{r}
 set.seed(1956)
@@ -212,7 +194,7 @@ data_highschool_fct <-
   data_highschool_fct %>%
   mutate("tardy" = sample(0:7, size = 32, replace = TRUE))
 
-data_highschool_fct
+head(data_highschool_fct)
 ```
 
 
@@ -228,15 +210,16 @@ absences <- data_highschool_fct %>%
     x = forcats::fct_reorder(grade, absences),
     y = absences
   )) +
-  geom_boxplot(fill = "lightgreen")
-
+  geom_boxplot(fill = "lightgreen") +
+  theme_bw(base_size = 13)
 
 tardy <- data_highschool_fct %>%
   ggplot(mapping = aes(
     x = forcats::fct_reorder(grade, tardy),
     y = tardy
   )) +
-  geom_boxplot(fill = "violet")
+  geom_boxplot(fill = "violet") +
+  theme_bw(base_size = 13) 
 
 library(patchwork)
 absences + tardy
@@ -263,11 +246,12 @@ tardy <- data_highschool_fct %>%
   )) +
   geom_boxplot(fill = "violet")
 
-library(patchwork)
 absences + tardy
 ```
 
 ## fct_count
+
+The `fct_count()` function of the `forcats` package is helpful for checking that the proportions of each level for a factor are similar. Need the `prop = TRUE` argument otherwise just counts are reported.
 
 ```{r}
 data_highschool_fct %>%
