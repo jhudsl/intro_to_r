@@ -13,25 +13,35 @@ opts_chunk$set(comment = "")
 library(tidyverse)
 ```
 
-## Reshaping Data 
+## Recap of Data Cleaning
 
-```{r, echo = FALSE, message=FALSE}
-library(tidyverse)
-```
+-   `is.na()`,`any(is.na())`, `count()`, and functions from `naniar`
+    like `gg_miss_var()` can help determine if we have `NA` values
+-   `filter()` automatically removes `NA` values - can't confirm or deny
+    if condition is met (need `| is.na()` to keep them)
+-   `drop_na()` can help you remove `NA` values from a variable or an
+    entire data frame
+-   `NA` values can change your calculation results
+-   think about what `NA` values represent
+
+## Recap of Data Cleaning
+
+-   `recode()` can help with simple recoding (not based on condition but simple swap)
+-   `case_when()` can recode **entire values** based on conditions
+    -   remember `case_when()` needs `TRUE ~ varaible` to keep values that aren't specified by conditions, otherwise will be `NA`
+-   `stringr` package has great functions for looking for specific **parts of values** especially `filter()` and `str_detect()` combined
+    -   also has other useful string manipulation functions like `str_replace()` and more!
+    - `separate()` can split columns into additional columns
+    - `unite()` can combine columns
+- [Day 5 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-5.pdf)
+
+## Manipulating Data 
 
 In this module, we will show you how to:
 
-1. Reshape data from wide (fat) to long (tall)
-2. Reshape data from long (tall) to wide (fat)
+1. Reshape data from wide to long
+2. Reshape data from long to wide
 3. Merge Data/Joins
-
-## Cheatsheet
-
-https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf
-
-```{r, fig.alt="A preview of the Data transformation cheatsheet produced by RStudio.", out.width = "80%", echo = FALSE, align = "center"}
-knitr::include_graphics("images/Manip_cheatsheet.png")
-```
 
 ## What is wide/long data?
 
@@ -113,7 +123,7 @@ Long: **Easier for R to make plots & do analysis**
 ex_long
 ```
 
-## tidyr package
+## Pivoting using `tidyr` package
 
 `tidyr` allows you to "tidy" your data.  We will be talking about:
 
@@ -123,23 +133,53 @@ ex_long
 
 The `reshape` command exists.  It is a **confusing** function.  Don't use it.
 
+You might see old functions `gather` and `spread` when googling. These are the old names for `pivot_longer` and `pivot_wider`, respectively.
+
 # `pivot_longer`...
 
-## Reshaping data from wide (fat) to long (tall): tidyr {.codesmall} 
+## Reshaping data from **wide to long** {.codesmall} 
 
-`tidyr::pivot_longer` - puts column data into rows.
+`pivot_longer()` - puts column data into rows (`tidyr` package)
+
+- First describe which columns we want to "pivot_longer"
+
+<div class = "codeexample">
+```{r, eval=FALSE}
+{long_data} <- {wide_data} %>% pivot_longer(cols = {columns to pivot})
+```
+</div>
+
+## Reshaping data from **wide to long**
+
+```{r, echo = FALSE}
+wide_data <- tibble(June_vacc_rate = "37.2%",
+                 May_vacc_rate = "36.0%",
+                 April_vacc_rate = "32.4%")
+```
+
+```{r}
+wide_data
+long_data <- wide_data %>% pivot_longer(cols = everything())
+long_data
+```
+
+## Reshaping data from **wide to long** {.codesmall} 
+
+`pivot_longer()` - puts column data into rows (`tidyr` package)
 
 - First describe which columns we want to "pivot_longer"
 - `names_to =` gives a new name to the pivoted columns
 - `values_to =` gives a new name to the values that used to be in those columns
 
+<div class = "codeexample">
 ```{r, eval=FALSE}
 {long_data} <- {wide_data} %>% pivot_longer(cols = {columns to pivot},
                                         names_to = {New column name: contains old column names},
                                         values_to = {New column name: contains cell values})
 ```
+</div>
 
-## Reshaping data from wide (fat) to long (tall): tidyr 
+## Reshaping data from **wide to long**
 
 ```{r, echo = FALSE}
 wide_data <- tibble(June_vacc_rate = "37.2%",
@@ -160,36 +200,33 @@ long_data
 http://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv
 
 ```{r, message = FALSE}
-circ <- jhur::read_circulator()
+library(jhur)
+circ <- read_circulator()
 head(circ, 5)
 ```
 
-## Reshaping data from wide (fat) to long (tall): tidyr
+## Reshaping data from **wide to long**
 
 ```{r}
 long <- circ %>% 
-  pivot_longer(starts_with(c("orange","purple","green","banner")),
-               names_to = "var", 
-               values_to = "number")
+  pivot_longer(starts_with(c("orange","purple","green","banner")))
 long
 ```
 
-## Reshaping data from wide (fat) to long (tall): tidyr 
+## Reshaping data from **wide to long**
 
 There are many ways to select the columns we want. Use `?tidyr_tidy_select` to look at more column selection options.
 
 ```{r}
 long <- circ %>% 
-  pivot_longer( !c(day, date, daily),
-               names_to = "var", 
-               values_to = "number")
+  pivot_longer( !c(day, date, daily))
 long
 ```
 
-## Reshaping data from wide (fat) to long (tall): tidyr 
+## Reshaping data from **wide to long**
 
 ```{r}
-long %>% count(var)
+long %>% count(name)
 ```
 
 ## Cleaning up long data
@@ -198,9 +235,9 @@ We will use `str_replace` from the `stringr` package to put `_` in the names
 
 ```{r}
 long <- long %>% mutate(
-  var = str_replace(var, "Board", "_Board"),
-  var = str_replace(var, "Alight", "_Alight"),
-  var = str_replace(var, "Average", "_Average") 
+  name = str_replace(name, "Board", "_Board"),
+  name = str_replace(name, "Alight", "_Alight"),
+  name = str_replace(name, "Average", "_Average") 
 )
 long
 ```
@@ -211,26 +248,28 @@ Now each `var` is Boardings, Averages, or Alightings.  We use "`into =`" to name
 
 ```{r}
 long <- long %>% 
-  separate(var, into = c("line", "type"), sep = "_")
+  separate(name, into = c("line", "type"), sep = "_")
 long
 ```
 
 # `pivot_wider`...
 
-## ## Reshaping data from long (tall) to wide (fat): tidyr
+## Reshaping data from **long to wide**
 
-`tidyr::pivot_wider` - spreads row data into columns.
+`pivot_wider()` - spreads row data into columns (`tidyr` package)
 
 - `names_from =` the old column whose contents will be spread into multiple new column names.
 - `values_from =` the old column whose contents will fill in the values of those new columns.
 
+<div class = "codeexample">
 ```{r, eval=FALSE}
 {wide_data} <- {long_data} %>% 
   pivot_wider(names_from = {Old column name: contains new column names},
               values_from = {Old column name: contains new cell values})
 ```
+</div>
 
-## Reshaping data from long (tall) to wide (fat): tidyr
+## Reshaping data from **long to wide**
 
 ```{r}
 long_data
@@ -249,13 +288,24 @@ long
 
 ```{r}
 wide <- long %>% pivot_wider(names_from = "type", 
-                            values_from = "number") 
+                             values_from = "value") 
 wide
 ```
 
+## Summary
+
+- `tidyr` package helps us convert between wide and long data
+- `pivot_longer()` goes from wide -> long
+     - Specify columns you want to pivot
+     - Specify `names_to = ` and `values_to = ` for custom naming
+- `pivot_wider()` goes from long -> wide
+     - Specify `names_from =` and `values_from = `
+
 ## Lab Part 1
 
-[Website](http://jhudatascience.org/intro_to_r/index.html)
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
+
+💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Manipulating_Data_in_R/lab/Manipulating_Data_in_R_Lab.Rmd)
 
 ## Joining in `dplyr`
 
@@ -359,11 +409,6 @@ knitr::include_graphics("images/full_join.gif")
 
 ```{r}
 fj <- full_join(data_As, data_cold)
-```
-
-## Full Join
-
-```{r}
 fj
 ```
 
@@ -371,7 +416,7 @@ fj
 
 ```{r echo=FALSE}
 data_As <- tibble(State = c("Alabama", "Alaska"),
-                 state_bird = c("wild turkey", "williow ptarmigan"))
+                 state_bird = c("wild turkey", "willow ptarmigan"))
 data_cold <- tibble(State = c("Maine", "Alaska", "Alaska"),
                     vacc_rate = c("32.4%", "41.7%", "46.2%"),
                     month = c("April", "April", "May"))
@@ -439,7 +484,7 @@ You can join based on multiple columns by using something like `by = c(col1, col
 If the datasets have two different names for the same data, use:
 
 ```{r eval=FALSE}
-full_join(data_As, data_cold, by = c("a" = "b"))
+full_join(x, y, by = c("a" = "b"))
 ```
 
 ## Using "`setdiff`"
@@ -465,6 +510,21 @@ setdiff(A_states, cold_states)
 setdiff(cold_states, A_states)
 ```
 
+## Summary
+
+* Merging/joining data sets together - assumes all column names that overlap
+     - use the `by = c("a" = "b")` if they differ
+* `inner_join(x, y)` - only rows that match for `x` and `y` are kept
+* `full_join(x, y)` - all rows of `x` and `y` are kept 
+* `left_join(x, y)` - all rows of `x` are kept even if not merged with `y`
+* `right_join(x, y)` - all rows of `y` are kept even if not merged with `x`
+* Use the `tidylog` package for a detailed summary
+* `setdiff(x, y)` shows what in `x` is missing from `y`
+
 ## Lab Part 2
 
-[Website](http://jhudatascience.org/intro_to_r/index.html)
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
+
+💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Manipulating_Data_in_R/lab/Manipulating_Data_in_R_Lab.Rmd)
+
+# The end!
