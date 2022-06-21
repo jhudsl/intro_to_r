@@ -82,7 +82,7 @@ my_plot + theme_gray()
 my_plot + theme_void()
 ```
 
-5. Create a boxplot (with the `geom_boxplot()` function) using the `Orange` data, where `Tree` is plotted on the x axis and `circumference` is plotted on the y axis. 
+Bonus/optional practice. Create a boxplot (with the `geom_boxplot()` function) using the `Orange` data, where `Tree` is plotted on the x axis and `circumference` is plotted on the y axis. 
 
 ```{r}
 Orange %>% 
@@ -90,6 +90,8 @@ Orange %>%
     geom_boxplot()
 
 ```
+
+Notice how the trees are ordered. We will learn more about this soon!
 
 # Part 2
 
@@ -132,7 +134,7 @@ facet_plot<- ggplot(bike_agg_2, mapping = aes(x = dateInstalled,
 facet_plot
 ```
 
-Bonus: Modify `facet_plot` to remove the legend (hint use `theme()`) and change the names of the axis titles to be "Number of bike lanes" for the x axis and "Date bike lane was installed" for the y axis. 
+Bonus/optional practice: Modify `facet_plot` to remove the legend (hint use `theme()`) and change the names of the axis titles to be "Number of bike lanes" for the x axis and "Date bike lane was installed" for the y axis. 
 
 ```{r}
 facet_plot <- facet_plot +
