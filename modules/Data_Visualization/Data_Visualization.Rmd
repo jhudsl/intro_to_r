@@ -331,8 +331,8 @@ range(pull(Orange, age))
 plot_scale <-ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
                 geom_point(size = 5, color = "red", alpha = 0.5) + 
                 geom_line(size = 0.8, color = "brown", linetype = 2) + 
-                scale_x_continuous(breaks = seq(from = 20,to = 240, by = 20)) +
-                scale_y_continuous(breaks = seq(from = 100,to = 1600, by = 200))
+                scale_x_continuous(breaks = seq(from = 20, to = 240, by = 20)) +
+                scale_y_continuous(breaks = seq(from = 100, to = 1600, by = 200))
 ```
 
 ## Changing axis: specifying axis scale{.codesmall}

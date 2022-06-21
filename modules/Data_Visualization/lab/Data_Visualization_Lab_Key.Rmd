@@ -27,12 +27,11 @@ Then, use the provided code to compute a data frame `bike_agg` with aggregate su
 ```{r}
 bike <- read_bike()
 
-bike_agg <-
-  bike %>%
+bike_agg <-bike %>%
   # filter data to keep only these observations for which year is non-0
-  filter(dateInstalled != 0) %>%
-  group_by(dateInstalled) %>%
-  summarise(lane_avg_length = mean(length))
+            filter(dateInstalled != 0) %>%
+            group_by(dateInstalled) %>%
+            summarise(lane_avg_length = mean(length))
 
 bike_agg
 ```
@@ -44,7 +43,7 @@ Assign the plot to variable `my_plot`. Type `my_plot` in the console to have it 
 ```{r}
 
 my_plot <-
-  ggplot(bike_agg, aes(x = dateInstalled, y = lane_avg_length)) +
+  ggplot(bike_agg, mapping = aes(x = dateInstalled, y = lane_avg_length)) +
   geom_line() +
   geom_point()
 
@@ -54,13 +53,10 @@ my_plot
 2. "Update" your plot by adding a title and changing the x and y axis titles. 
 
 ```{r}
-my_plot <-
-  my_plot +
-  labs(
-    x = "Year of bike lane installation",
-    y = "Average bike lane length",
-    title = "Average bike lane length 2006-2013"
-  )
+my_plot <- my_plot +
+              labs(x = "Year of bike lane installation",
+                   y = "Average bike lane length",
+                   title = "Average bike lane length 2006-2013")
 
 my_plot
 ```
@@ -68,9 +64,9 @@ my_plot
 3. Use the `scale_x_continuous()` function to plot the x axis with the following breaks `c(2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013)`. 
 
 ```{r}
-my_plot <-
-  my_plot +
-  scale_x_continuous(breaks = c(2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013))
+my_plot <- my_plot +
+            scale_x_continuous(
+              breaks = c(2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013))
 
 my_plot
 ```
@@ -90,7 +86,8 @@ my_plot + theme_void()
 
 ```{r}
 Orange %>% 
-  ggplot(mapping = aes(x = Tree, y = circumference)) + geom_boxplot()
+  ggplot(mapping = aes(x = Tree, y = circumference)) + 
+    geom_boxplot()
 
 ```
 
@@ -99,11 +96,10 @@ Orange %>%
 1. Use the provided code to compute a data frame `bike_agg_2` with aggregate summary of bike lanes: number of lanes (`lane_count`) -- separately for each year (`dateInstalled`) and for each lane type. 
 
 ```{r}
-bike_agg_2 <-
-  bike %>%
-  filter(dateInstalled != 0) %>%
-  group_by(dateInstalled, type) %>%
-  summarise(lane_count = n())
+bike_agg_2 <- bike %>%
+                filter(dateInstalled != 0) %>%
+                group_by(dateInstalled, type) %>%
+                summarise(lane_count = n())
 
 bike_agg_2
 ```
@@ -112,32 +108,26 @@ bike_agg_2
 2.  Use `ggplot2` package to make a plot showing trajectories of number of lanes (`lane_count`; y-axis) over year (`dateInstalled`; x-axis), where each bike line type has a different line with a different color (hint: use `color = type` in mapping). 
 
 ```{r}
-ggplot(bike_agg_2, aes(
-  x = dateInstalled,
-  y = lane_count,
-  color = type
-)) +
-  geom_line() +
-  geom_point()
+ggplot(bike_agg_2, mapping = aes(x = dateInstalled,
+                                 y = lane_count,
+                                 color = type)) +
+          geom_line() +
+          geom_point()
 ```
 
-3. Redo the above plot by adding a faceting  (`+ facet_wrap(~ type, ncol = 3)`) to have data for each bike line type in a separate plot panel. 
+3. Redo the above plot by adding a faceting  (`+ facet_wrap( ~ type, ncol = 3)`) to have data for each bike line type in a separate plot panel. 
 
 (You may see `geom_path: Each group consists of only one observation. Do you need to adjust the group aesthetic?` warning as some bike lane types will have only 1 point plotted while trying to plot a line).
 Assign the new plot as an object called `facet_plot`.
 
 ```{r}
-facet_plot <- ggplot(
-  bike_agg_2,
-  aes(
-    x = dateInstalled,
-    y = lane_count,
-    color = type
-  )
-) +
-  geom_line() +
-  geom_point() +
-  facet_wrap(~type, ncol = 3)
+
+facet_plot<- ggplot(bike_agg_2, mapping = aes(x = dateInstalled,
+                                 y = lane_count,
+                                 color = type)) +
+              geom_line() +
+              geom_point()+
+              facet_wrap(~ type, ncol = 3)
 
 facet_plot
 ```
@@ -146,11 +136,10 @@ Bonus: Modify `facet_plot` to remove the legend (hint use `theme()`) and change 
 
 ```{r}
 facet_plot <- facet_plot +
-  theme(legend.position = "none") +
-  labs(
-    x = "Number of bike lanes",
-    y = "Date bike lane was installed"
-  )
+                theme(legend.position = "none") +
+                  labs(x = "Number of bike lanes",
+                       y = "Date bike lane was installed")
+
 facet_plot
 ```
 
