@@ -258,3 +258,15 @@ data_highschool_fct %>%
   pull(grade) %>%
   fct_count(prop = TRUE)
 ```
+
+## Summary
+- the factor class allows us to have a different order from alphanumeric for categorical data
+- we can change data to be a factor variable using `mutate` , the `as_factor()` (of `forcats` package) or `factor()` function and specifying the levels with the `levels` argument
+- arranging, tabulating, and plotting the data will reflect the new order
+
+## Lab
+
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)    
+💻 [Lab](https://jhudatascience.org/intro_to_r/modules//Factors/lab/Factors_Lab.Rmd)
+
+The End
