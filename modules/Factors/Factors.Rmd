@@ -54,7 +54,8 @@ First we will create some data about absences of students. We will have informat
 set.seed(123)
 data_highschool <- tibble(
   absences = sample(0:7, size = 32, replace = TRUE),
-  grade = rep(c("Sophomore","Freshman","Junior","Senior"), 8))
+  grade = rep(c("Sophomore", "Freshman", "Junior", "Senior"), 8)
+)
 ```
 
 ## The data
@@ -94,7 +95,8 @@ levels(pull(data_highschool, grade))
 
 data_highschool_fct <- data_highschool %>%
   mutate(grade = factor(grade,
-    levels =c("Freshman","Sophomore","Junior", "Senior")))
+    levels = c("Freshman", "Sophomore", "Junior", "Senior")
+  ))
 
 levels(pull(data_highschool_fct, grade))
 ```
@@ -113,7 +115,7 @@ Now let's make our plot again:
 data_highschool_fct %>%
   ggplot(mapping = aes(x = grade, y = absences)) +
   geom_boxplot() +
- theme_bw(base_size = 16)
+  theme_bw(base_size = 16)
 ```
 
 Now that's more like it! Notice how the data is automatically plotted in the order we would like.
@@ -123,7 +125,7 @@ Now that's more like it! Notice how the data is automatically plotted in the ord
 ```{r, size="tiny"}
 data_highschool %>% # the data with the character version of grade
   arrange(grade) %>%
-  head(n = 19) #print just enough to see the 1st three grades
+  head(n = 19) # print just enough to see the 1st three grades
 ```
 
 Notice that the order is not what we would hope for!
@@ -176,7 +178,7 @@ We can order a factor by another variable by using the `fct_reorder()` function 
 library(forcats)
 
 data_highschool_fct %>%
-  ggplot(mapping = aes(x = forcats::fct_reorder(grade, absences),y = absences)) +
+  ggplot(mapping = aes(x = forcats::fct_reorder(grade, absences), y = absences)) +
   geom_boxplot() +
   labs(x = "Student Grade") +
   theme_bw(base_size = 16) # make all labels size 16
@@ -219,7 +221,7 @@ tardy <- data_highschool_fct %>%
     y = tardy
   )) +
   geom_boxplot(fill = "violet") +
-  theme_bw(base_size = 13) 
+  theme_bw(base_size = 13)
 
 library(patchwork)
 absences + tardy

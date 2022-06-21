@@ -32,15 +32,16 @@ yts %>%
 
 ```{r}
 yts %>%
-count(Education)
+  count(Education)
 ```
 
 3. Make "Education" a factor using the `mutate` and `factor` functions. Use the `levels` argument inside `factor` to reorder "Education". Reorder this variable so that "Middle School" comes before "High School". Assign the output the name "yts_fct".
 
 ```{r}
 yts_fct <-
-  yts %>% mutate(Education = factor(Education, 
-                                  levels = c("Middle School", "High School")))
+  yts %>% mutate(Education = factor(Education,
+    levels = c("Middle School", "High School")
+  ))
 ```
 
 4. Repeat #1 and #2 using the "yts_fct" data. You should see different ordering in the plot and `count` table.
@@ -90,14 +91,20 @@ Which state has the largest median sample size?
 ```{r}
 library(forcats)
 
-yts_fct_plot <-yts_fct %>% drop_na() %>%
-            ggplot(mapping = aes(x = fct_reorder(
-              LocationAbbr, med_sample_size),
-                                 y = Sample_Size)) +
-              geom_boxplot() +
-              labs(x = "State")
+yts_fct_plot <- yts_fct %>%
+  drop_na() %>%
+  ggplot(mapping = aes(
+    x = fct_reorder(
+      LocationAbbr, med_sample_size
+    ),
+    y = Sample_Size
+  )) +
+  geom_boxplot() +
+  labs(x = "State")
 
-ggsave(filename = "yts_fct.png",  # will save in working directory
-       plot = yts_fct_plot, 
-       width = 10, height = 3) 
+ggsave(
+  filename = "yts_fct.png", # will save in working directory
+  plot = yts_fct_plot,
+  width = 10, height = 3
+)
 ```
