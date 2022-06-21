@@ -172,14 +172,14 @@ pre code {
 </div>
 
 
-<p>Data in this lab comes from the CDC (<a href="https://covid.cdc.gov/covid-data-tracker/#vaccinations_vacc-total-admin-rate-total" class="uri">https://covid.cdc.gov/covid-data-tracker/#vaccinations_vacc-total-admin-rate-total</a> - current as of January 12, 2022!) and the Bureau of Economic Analysis (<a href="https://www.bea.gov/data/income-saving/personal-income-by-state" class="uri">https://www.bea.gov/data/income-saving/personal-income-by-state</a>).</p>
+<p>Data in this lab comes from the CDC (<a href="https://covid.cdc.gov/covid-data-tracker/#vaccinations_vacc-total-admin-rate-total" class="uri">https://covid.cdc.gov/covid-data-tracker/#vaccinations_vacc-total-admin-rate-total</a> - snapshot from January 12, 2022) and the Bureau of Economic Analysis (<a href="https://www.bea.gov/data/income-saving/personal-income-by-state" class="uri">https://www.bea.gov/data/income-saving/personal-income-by-state</a>).</p>
 <pre class="r"><code>library(readr)
 library(dplyr)
 library(tidyr)</code></pre>
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
 <ol style="list-style-type: decimal">
-<li>Read in the SARS-CoV-2 Vaccination data from <a href="http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv" class="uri">http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv</a>. Assign the data the name “vacc”. We will be reviewing new concepts here and incorporating some from week 1.</li>
+<li>Read in the SARS-CoV-2 Vaccination data from <a href="http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv" class="uri">http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv</a>. You can use the url or download the data. Assign the data the name “vacc”. We will be reviewing new concepts here and incorporating some from week 1. Remember to use <code>read_csv()</code> from the <code>readr</code> package.</li>
 </ol>
 <pre class="r"><code>vacc &lt;- read_csv(&quot;http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv&quot;)</code></pre>
 <pre><code>## Rows: 64 Columns: 125
@@ -324,42 +324,131 @@ library(tidyr)</code></pre>
 ## [125] &quot;Percent People Primary Other Booster Uknown&quot;</code></pre>
 <pre class="r"><code># Looks like many start with &quot;Percent&quot; and some start with &quot;Total&quot; - this indicates there are different units of measure for these different variables!</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li>Let’s rename the column “State/Territory/Federal Entity” in “vacc” to “Entity” using <code>rename</code>.</li>
+<li>Let’s rename the column “State/Territory/Federal Entity” in “vacc” to “Entity” using <code>rename</code>. Make sure to reassign to <code>vacc</code> here and in subsequent steps.</li>
 </ol>
+<pre><code>Usage: rename(newname = oldname)</code></pre>
 <pre class="r"><code>vacc &lt;- vacc %&gt;% rename(Entity = `State/Territory/Federal Entity`)</code></pre>
 <ol start="4" style="list-style-type: decimal">
-<li>Create a new dataset “vacc_long” that does <code>pivot_longer</code> on all columns that start with the word “Percent”. Use <code>starts_with(&quot;Percent&quot;)</code> for the <code>cols</code> argument. Use “Measure” for the <code>names_to</code> argument. Use “Percent” for the <code>values_to</code> argument.</li>
+<li>Select only the columns “Entity”, and those that start with “Percent”. Use <code>select</code> and <code>starts_with(&quot;Percent&quot;)</code>.</li>
 </ol>
-<pre class="r"><code># ??? &lt;- ??? %&gt;% pivot_longer(cols = ???,
-#                             names_to = ???,
-#                             values_to = ???)
-vacc_long &lt;- vacc %&gt;% pivot_longer(
-  cols = starts_with(&quot;Percent&quot;),
-  names_to = &quot;Measure&quot;,
-  values_to = &quot;Percent&quot;
-)</code></pre>
+<pre><code>Usage: select(colname1, colname2, ...)</code></pre>
+<pre class="r"><code>vacc &lt;- vacc %&gt;% select(Entity, starts_with(&quot;Percent&quot;))</code></pre>
 <ol start="5" style="list-style-type: decimal">
-<li>Select only the columns “Entity”, “Measure”, and “Percent” from “vacc_long”. Use <code>select</code>. Filter “Entity” so it only includes values in the following list: “Maryland”,“Virginia”,“Florida”,“Massachusetts”, “United States”. <strong>Hint</strong>: use <code>filter</code> and <code>%in%</code>.</li>
+<li>Create a new dataset “vacc_long” that does <code>pivot_longer()</code> on all columns except “Entity”. Remember that <code>!Entity</code> means all columns except “Entity”.</li>
 </ol>
-<pre class="r"><code>vacc_long &lt;- vacc_long %&gt;%
-  select(Entity, Measure, Percent) %&gt;%
-  filter(Entity %in% c(&quot;Maryland&quot;, &quot;Virginia&quot;, &quot;Florida&quot;, &quot;Massachusetts&quot;, &quot;United States&quot;))</code></pre>
+<pre><code>Usage: pivot_longer(cols = colname(s))</code></pre>
+<pre class="r"><code>vacc_long &lt;- vacc %&gt;% pivot_longer(cols = !Entity)</code></pre>
 <ol start="6" style="list-style-type: decimal">
-<li>Use <code>pivot_wider</code> to reshape “vacc_long”. Use “Entity” for the <code>names_from</code> argument. Use “Percent” for the <code>values_from</code> argument.</li>
+<li>Filter the “Entity” column so it only includes values in the following list: “Maryland”,“Virginia”,“Florida”,“Massachusetts”, “United States”. <strong>Hint</strong>: use <code>filter</code> and <code>%in%</code>.</li>
 </ol>
-<pre class="r"><code># ??? &lt;- ??? %&gt;%
-#   pivot_wider(names_from = ???,
-#               values_from = ???)
-vacc_wide &lt;- vacc_long %&gt;%
+<pre><code>Usage: filter(colname %in% c(1, 2, 3, ...))</code></pre>
+<pre class="r"><code>vacc_long &lt;- vacc_long %&gt;%
+  filter(Entity %in% c(&quot;Maryland&quot;, &quot;Virginia&quot;, &quot;Mississippi&quot;, &quot;Massachusetts&quot;, &quot;United States&quot;))</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>Use <code>pivot_wider</code> to reshape “vacc_long”. Use “Entity” for the <code>names_from</code> argument. Use “value” for the <code>values_from</code> argument. Call this new data <code>vacc_wide</code>. Look at the data. How do these states compare to one another.</li>
+</ol>
+<pre><code>Usage: pivot_wider(names_from = ???, values_from = ???)</code></pre>
+<pre class="r"><code>vacc_wide &lt;- vacc_long %&gt;%
   pivot_wider(
     names_from = Entity,
-    values_from = Percent
-  )</code></pre>
+    values_from = value
+  )
+vacc_wide</code></pre>
+<pre><code>## # A tibble: 34 × 6
+##    name              `United States` Massachusetts Maryland Mississippi Virginia
+##    &lt;chr&gt;                       &lt;dbl&gt;         &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;    &lt;dbl&gt;
+##  1 Percent of Total…            74.6          92.4     81.6        56.4     80.2
+##  2 Percent of 18+ P…            86.6          95       92.9        68.1     91.3
+##  3 Percent of Total…            62.7          75.3     71.1        48.8     68.7
+##  4 Percent of 18+ P…            73.4          84       81.6        59.5     78.5
+##  5 Percent of Total…            74.6          92.4     81.6        56.4     80.2
+##  6 Percent of 18+ P…            86.6          95       92.9        68.1     91.3
+##  7 Percent of Total…            59.1          71.9     68          46.7     65.4
+##  8 Percent of 18+ P…            68.7          79.7     77.6        56.7     74.3
+##  9 Percent of 65+ P…            95            95       95          89.8     95  
+## 10 Percent of 65+ P…            88            93       92.6        82.1     90.1
+## # … with 24 more rows</code></pre>
+<p><strong>Bonus / optional</strong></p>
+<p>Combine blocks 1 and 3-7 by chaining everything together using the pipe <code>%&gt;%</code>. Call your data <code>vacc_compare</code>.</p>
+<pre class="r"><code>vacc_compare &lt;-
+  read_csv(&quot;http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv&quot;) %&gt;%
+  rename(Entity = `State/Territory/Federal Entity`) %&gt;%
+  select(Entity, starts_with(&quot;Percent&quot;)) %&gt;%
+  pivot_longer(cols = !Entity) %&gt;%
+  filter(Entity %in% c(&quot;Maryland&quot;, &quot;Virginia&quot;, &quot;Mississippi&quot;, &quot;Massachusetts&quot;, &quot;United States&quot;)) %&gt;%
+  pivot_wider(names_from = Entity, values_from = value)</code></pre>
+<pre><code>## Rows: 64 Columns: 125
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr   (1): State/Territory/Federal Entity
+## dbl (121): Total Doses Delivered, Doses Delivered per 100K, 18+ Doses Delive...
+## lgl   (3): People with 2 Doses by State of Residence, People 18+ with 1+ Dos...
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>vacc_compare</code></pre>
+<pre><code>## # A tibble: 34 × 6
+##    name              `United States` Massachusetts Maryland Mississippi Virginia
+##    &lt;chr&gt;                       &lt;dbl&gt;         &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;    &lt;dbl&gt;
+##  1 Percent of Total…            74.6          92.4     81.6        56.4     80.2
+##  2 Percent of 18+ P…            86.6          95       92.9        68.1     91.3
+##  3 Percent of Total…            62.7          75.3     71.1        48.8     68.7
+##  4 Percent of 18+ P…            73.4          84       81.6        59.5     78.5
+##  5 Percent of Total…            74.6          92.4     81.6        56.4     80.2
+##  6 Percent of 18+ P…            86.6          95       92.9        68.1     91.3
+##  7 Percent of Total…            59.1          71.9     68          46.7     65.4
+##  8 Percent of 18+ P…            68.7          79.7     77.6        56.7     74.3
+##  9 Percent of 65+ P…            95            95       95          89.8     95  
+## 10 Percent of 65+ P…            88            93       92.6        82.1     90.1
+## # … with 24 more rows</code></pre>
+<p>Tweak the code in the block above to:</p>
+<ul>
+<li>look for columns that start with “Total” (instead of “Percent”) and</li>
+<li>select different states/Entities to compare</li>
+</ul>
+<pre class="r"><code>vacc_compare &lt;-
+  read_csv(&quot;http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv&quot;) %&gt;%
+  rename(Entity = `State/Territory/Federal Entity`) %&gt;%
+  select(Entity, starts_with(&quot;Total&quot;)) %&gt;%
+  pivot_longer(cols = !Entity) %&gt;%
+  filter(Entity %in% c(&quot;Alaska&quot;, &quot;Kansas&quot;, &quot;California&quot;, &quot;United States&quot;)) %&gt;%
+  pivot_wider(names_from = Entity, values_from = value)</code></pre>
+<pre><code>## Rows: 64 Columns: 125
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr   (1): State/Territory/Federal Entity
+## dbl (121): Total Doses Delivered, Doses Delivered per 100K, 18+ Doses Delive...
+## lgl   (3): People with 2 Doses by State of Residence, People 18+ with 1+ Dos...
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>vacc_compare</code></pre>
+<pre><code>## # A tibble: 18 × 5
+##    name                               `United States`  Alaska California  Kansas
+##    &lt;chr&gt;                                        &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
+##  1 Total Doses Delivered                    644652095 1357405   79693945 5368725
+##  2 Total Doses Administered by State…       522482674 1043804   67991446 4182762
+##  3 Total Number of Pfizer doses deli…       377143375  747845   47476225 3066565
+##  4 Total Number of Moderna doses del…       237709320  526160   28618920 2051060
+##  5 Total Number of Janssen doses del…        29799400   83400    3598800  251100
+##  6 Total Number of doses from Other …               0       0          0       0
+##  7 Total Number of Janssen doses adm…        17863666   41559    2230377  129839
+##  8 Total Number of Moderna doses adm…       198923979  405736   25742821 1607286
+##  9 Total Number of Pfizer doses admi…       305145563  595640   40002071 2442144
+## 10 Total Number of doses from Other …          549466     869      16177    3493
+## 11 Total Count People w/Booster Prim…        37991785      NA         NA      NA
+## 12 Total Count People w/Booster Prim…        29736587      NA         NA      NA
+## 13 Total Count People w/Booster Prim…         4007501      NA         NA      NA
+## 14 Total Count People w/Booster Prim…              NA      NA         NA      NA
+## 15 Total Count People w/Booster Boos…        38875578      NA         NA      NA
+## 16 Total Count People w/Booster Boos…        31851324      NA         NA      NA
+## 17 Total Count People w/Booster Boos…         1069038      NA         NA      NA
+## 18 Total Count People w/Booster Boos…           16852      NA         NA      NA</code></pre>
 </div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
-<ol start="7" style="list-style-type: decimal">
-<li>Read in the GDP and Personal Income Data from <a href="http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv" class="uri">http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv</a>. Call it “gdp”.</li>
+<ol start="8" style="list-style-type: decimal">
+<li>Read in the GDP and Personal Income Data from <a href="http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv" class="uri">http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv</a>. You can use the url or download the data. Call it “gdp”.</li>
 </ol>
 <pre class="r"><code>gdp &lt;- read_csv(&quot;http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv&quot;)</code></pre>
 <pre><code>## Rows: 180 Columns: 3
@@ -372,43 +461,48 @@ vacc_wide &lt;- vacc_long %&gt;%
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre class="r"><code># If downloaded
 # gdp &lt;- read_csv(&quot;gdp_personal_income.csv&quot;)</code></pre>
-<ol start="8" style="list-style-type: decimal">
+<ol start="9" style="list-style-type: decimal">
 <li>Use <code>pivot_wider</code> to reshape “gdp”. Use “Description” for the <code>names_from</code> argument. Use “<code>2020</code>” for the <code>values_from</code> argument. Reassign this data to “gdp”.</li>
 </ol>
+<pre><code>Usage: pivot_wider(names_from = ???, values_from = ???)</code></pre>
 <pre class="r"><code>gdp &lt;- gdp %&gt;%
   pivot_wider(
     names_from = Description,
     values_from = `2020`
   )</code></pre>
-<ol start="9" style="list-style-type: decimal">
-<li>Join the data so that you only retain data in both “vacc” and “gdp”. First, try merging without using the <code>by</code> argument - what happens? Next, try merging using <code>by = c(&quot;Entity&quot; = &quot;GeoName&quot;)</code>. Call the output “merged”. How many observations are there?</li>
+<ol start="10" style="list-style-type: decimal">
+<li>Join the data so that you only retain data in both “vacc” and “gdp”.</li>
 </ol>
+<ul>
+<li>First, try merging without using the <code>by</code> argument - what happens?</li>
+<li>Next, try merging using <code>by = c(&quot;Entity&quot; = &quot;GeoName&quot;)</code>.</li>
+<li>Call the output “merged”. How many observations are there?</li>
+</ul>
+<pre><code>Usage: inner_join(x, y, by = c(&quot;colname1&quot; = &quot;colname2&quot;))</code></pre>
 <pre class="r"><code># merged &lt;- inner_join(vacc, gdp) does not work!
 merged &lt;- inner_join(vacc, gdp, by = c(&quot;Entity&quot; = &quot;GeoName&quot;))
 nrow(merged)</code></pre>
 <pre><code>## [1] 51</code></pre>
-<ol start="10" style="list-style-type: decimal">
+<ol start="11" style="list-style-type: decimal">
 <li>Join the data using a <code>full_join.</code> Call the output “full”. How many observations are there?</li>
 </ol>
+<pre><code>Usage: full_join(x, y, by = c(&quot;colname1&quot; = &quot;colname2&quot;))</code></pre>
 <pre class="r"><code>full &lt;- full_join(vacc, gdp, by = c(&quot;Entity&quot; = &quot;GeoName&quot;))
 nrow(full)</code></pre>
 <pre><code>## [1] 73</code></pre>
-<ol start="11" style="list-style-type: decimal">
-<li>Do a left join of “vacc” and “gdp”. How many observations are there?</li>
-</ol>
+<p><strong>Bonus / optional</strong></p>
+<p>Do a left join of “vacc” and “gdp”. How many observations are there?</p>
 <pre class="r"><code>left &lt;- left_join(vacc, gdp, by = c(&quot;Entity&quot; = &quot;GeoName&quot;))
 nrow(left)</code></pre>
 <pre><code>## [1] 64</code></pre>
-<ol start="12" style="list-style-type: decimal">
-<li>Repeat above with a <code>right_join</code> with the same order of the arguments. How many observations are there?</li>
-</ol>
+<p>Repeat above with a <code>right_join</code> with the same order of the arguments. How many observations are there?</p>
 <pre class="r"><code>right &lt;- right_join(vacc, gdp, by = c(&quot;Entity&quot; = &quot;GeoName&quot;))
 nrow(right)</code></pre>
 <pre><code>## [1] 60</code></pre>
-<ol start="13" style="list-style-type: decimal">
-<li>Perform a <code>setdiff</code> on “vacc” and “gdp” to determine what Entities are missing from the GDP data and which are missing from the vaccine data.</li>
-</ol>
-<pre class="r"><code>setdiff(vacc %&gt;% pull(Entity), gdp %&gt;% pull(GeoName))</code></pre>
+<p>Perform a <code>setdiff</code> on “vacc” and “gdp” to determine what Entities are missing from the GDP data and which are missing from the vaccine data. Remember you need to <code>pull()</code> the columns you want to compare.</p>
+<pre class="r"><code>entity &lt;- vacc %&gt;% pull(Entity)
+geoname &lt;- gdp %&gt;% pull(GeoName)
+setdiff(entity, geoname)</code></pre>
 <pre><code>##  [1] &quot;American Samoa&quot;                 &quot;Bureau of Prisons&quot;             
 ##  [3] &quot;Dept of Defense&quot;                &quot;Federated States of Micronesia&quot;
 ##  [5] &quot;Guam&quot;                           &quot;Indian Health Svc&quot;             
@@ -416,20 +510,10 @@ nrow(right)</code></pre>
 ##  [9] &quot;New York State&quot;                 &quot;Puerto Rico&quot;                   
 ## [11] &quot;Republic of Palau&quot;              &quot;Veterans Health&quot;               
 ## [13] &quot;Virgin Islands&quot;</code></pre>
-<pre class="r"><code>setdiff(gdp %&gt;% pull(GeoName), vacc %&gt;% pull(Entity))</code></pre>
+<pre class="r"><code>setdiff(geoname, entity)</code></pre>
 <pre><code>## [1] &quot;New York&quot;       &quot;New England&quot;    &quot;Mideast&quot;        &quot;Great Lakes&quot;   
 ## [5] &quot;Plains&quot;         &quot;Southeast&quot;      &quot;Southwest&quot;      &quot;Rocky Mountain&quot;
 ## [9] &quot;Far West&quot;</code></pre>
-<p><strong>Bonus</strong></p>
-<ol start="14" style="list-style-type: decimal">
-<li>Repeat #4 - #6 but instead look for columns that start with “Total” and select different states/Entities to compare. Also try combining all functions in one long block using the pipe <code>%&gt;%</code>.</li>
-</ol>
-<pre class="r"><code>vacc_wide &lt;-
-  vacc %&gt;%
-  pivot_longer(starts_with(&quot;Total&quot;), names_to = &quot;Measure&quot;, values_to = &quot;Total&quot;) %&gt;%
-  select(Entity, Measure, Total) %&gt;%
-  filter(Entity %in% c(&quot;Alaska&quot;, &quot;Kansas&quot;, &quot;California&quot;, &quot;United States&quot;)) %&gt;%
-  pivot_wider(names_from = Entity, values_from = Total)</code></pre>
 </div>
 
 
