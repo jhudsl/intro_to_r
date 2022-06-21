@@ -97,10 +97,10 @@ Combine blocks 1 and 3-7 by chaining everything together using the pipe ` %>% `.
 ```{r}
 vacc_compare <-
   read_csv("http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv") %>%
-  rename(Entity = `State/Territory/Federal Entity`) %>% 
-  select(Entity, starts_with("Percent")) %>% 
-  pivot_longer(cols = !Entity) %>% 
-  filter(Entity %in% c("Maryland", "Virginia", "Mississippi", "Massachusetts", "United States")) %>% 
+  rename(Entity = `State/Territory/Federal Entity`) %>%
+  select(Entity, starts_with("Percent")) %>%
+  pivot_longer(cols = !Entity) %>%
+  filter(Entity %in% c("Maryland", "Virginia", "Mississippi", "Massachusetts", "United States")) %>%
   pivot_wider(names_from = Entity, values_from = value)
 vacc_compare
 ```
@@ -113,10 +113,10 @@ Tweak the code in the block above to:
 ```{r}
 vacc_compare <-
   read_csv("http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv") %>%
-  rename(Entity = `State/Territory/Federal Entity`) %>% 
-  select(Entity, starts_with("Total")) %>% 
-  pivot_longer(cols = !Entity) %>% 
-  filter(Entity %in% c("Alaska", "Kansas", "California", "United States")) %>% 
+  rename(Entity = `State/Territory/Federal Entity`) %>%
+  select(Entity, starts_with("Total")) %>%
+  pivot_longer(cols = !Entity) %>%
+  filter(Entity %in% c("Alaska", "Kansas", "California", "United States")) %>%
   pivot_wider(names_from = Entity, values_from = value)
 vacc_compare
 ```
