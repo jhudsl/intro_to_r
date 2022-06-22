@@ -28,10 +28,12 @@ We will cover how to use R to compute some of basic statistics and fit some basi
 
 * Correlation
 * T-test
-* Linear Regression
-* Logistic Regression
+* Odds Ratio
+* Linear Regression / Logistic Regression
 
+::: {style="color: red;"}
 **DISCLAIMER**: We will focus on how to use R software to do these. We will be glossing over the statistical theory and "formulas" for these tests. Moreover, we do not claim the data we use for demonstration meet assumptions of the methods. 
+:::
 
 There are plenty of resources online for learning more about these methods, as well as dedicated Biostatistics series (at different advancement levels) at the JHU School of Public Health.
 
@@ -45,20 +47,17 @@ Function `cor()` computes correlation in R
 cor(x, y = NULL, use = "everything",
     method = c("pearson", "kendall", "spearman"))
 ```
-
-To use: 
-
-- provide two numeric vectors (arguments `x`, `y`) to compute correlation between them, or
-- provide matrix or data frame (argument `x`) that has at least 2 columns (must be numeric) to compute correlation between all pairs 
-
-By default, Pearson correlation coefficient is computed. 
+- provide two numeric vectors (arguments `x`, `y`), or
+- provide a data.frame / tibble with numeric columns only
+- by default, Pearson correlation coefficient is computed
 
 ## Correlation {.small}
 
 https://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv
 
 ```{r cor1, comment="", message = FALSE}
-circ <- jhur::read_circulator()
+library(jhur)
+circ <- read_circulator()
 head(circ)
 ```
 
@@ -69,8 +68,8 @@ First, we compute correlation by providing two vectors.
 Like other functions, if there are `NA`s, you get `NA` as the result.  But if you specify use only the complete observations, then it will give you correlation using the non-missing data. 
 
 ```{r}
-x <- pull(circ, orangeAverage)
-y <- pull(circ, purpleAverage)
+x <- circ %>% pull(orangeAverage)
+y <- circ %>% pull(purpleAverage)
 ```
 
 ```{r}
@@ -80,16 +79,12 @@ cor(x, y, use = "complete.obs")
 
 ## Correlation for two vectors with plot
 
-Note that you can add the correlation value to a plot, via the `annotate()`. 
+In plot form... 
 
 ```{r, fig.width=3, fig.height=3}
-cor_val <- cor(x, y, use = "complete.obs")
-cor_val_label <- paste0("r = ", round(cor_val, 3))
-
 circ %>%
   ggplot(aes(x = orangeAverage, y = purpleAverage)) +
-  geom_point(size = 0.3) +
-  annotate("text", x = 2000, y = 7500, label = cor_val_label, size = 5)
+  geom_point(size = 0.3)
 ```
 
 ## Correlation for data frame columns
@@ -114,10 +109,6 @@ cor_mat
 library(corrplot)
 corrplot(cor_mat, type = "upper", order = "hclust")
 ```
-
-## Lab Part 1
-
-[Website](http://jhudatascience.org/intro_to_r/index.html)
 
 # T-test
 
@@ -146,7 +137,7 @@ It tests mean of a variable in one group. By default (i.e., without us explicitl
 - returns result assuming confidence level 0.95 (`conf.level = 0.95`)
 
 ```{r}
-x <- pull(circ, orangeAverage)
+x <- circ %>% pull(orangeAverage)
 t.test(x)
 ```
 
@@ -161,21 +152,9 @@ It tests test difference in means of a variable between two groups. By default:
 - assumes true variance in the two groups is not equal (`var.equal = FALSE`)
 
 ```{r}
-x <- pull(circ, orangeAverage)
-y <- pull(circ, purpleAverage)
+x <- circ %>% pull(orangeAverage)
+y <- circ %>% pull(purpleAverage)
 t.test(x, y)
-```
-
-## T-test: retrieving information from the result 
-
-Object returned from `t.test()` function is a named list. We can use it to access test result elements. The easiest way to do this is to use base R (`$` notation).
-
-```{r}
-result <- t.test(x, y)
-is.list(result)
-names(result)
-result$statistic
-result$p.value
 ```
 
 ## T-test: retrieving information from the result with `broom` package 
@@ -188,6 +167,18 @@ library(broom)
 result <- t.test(x, y)
 result_tidy <- tidy(result)
 result_tidy
+```
+
+## P-value adjustment
+
+You run an increased risk of Type I errors (a "false positive") when multiple hypotheses are tested simultaneously.
+
+Use the `p.adjust()` function on a vector of p values. Use `method = ` to specify the adjustment method:
+
+```{r}
+my_pvalues <- c(0.049, 0.001, 0.31, 0.00001)
+p.adjust(my_pvalues, method = "BH") # Benjamini Hochberg
+p.adjust(my_pvalues, method = "bonferroni")
 ```
 
 ## Some other statistical tests
@@ -417,3 +408,19 @@ Some final notes:
 ## Lab Part 3
 
 [Website](http://jhudatascience.org/intro_to_r/index.html)
+
+# Extra Slides
+
+## Adding correlation value to a plot
+
+Note that you can add the correlation value to a plot, via the `annotate()`. 
+
+```{r, fig.width=3, fig.height=3}
+cor_val <- cor(x, y, use = "complete.obs")
+cor_val_label <- paste0("r = ", round(cor_val, 3))
+
+circ %>%
+  ggplot(aes(x = orangeAverage, y = purpleAverage)) +
+  geom_point(size = 0.3) +
+  annotate("text", x = 2000, y = 7500, label = cor_val_label, size = 5)
+```
