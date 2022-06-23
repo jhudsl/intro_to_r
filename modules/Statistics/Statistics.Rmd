@@ -443,7 +443,9 @@ summary(binom_fit)
 library(epitools)
 data(oswego)
 ice_cream <-
-  oswego %>% select(ill, vanilla.ice.cream) %>% mutate(
+  oswego %>%
+  select(ill, vanilla.ice.cream) %>%
+  mutate(
     ill = recode(ill, "Y" = 1, "N" = 0),
     vanilla.ice.cream = recode(vanilla.ice.cream, "Y" = 1, "N" = 0)
   )

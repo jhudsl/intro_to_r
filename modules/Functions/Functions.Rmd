@@ -225,7 +225,7 @@ Combining with `summarize()`:
 ```{r warning=FALSE}
 cars_dbl <- cars %>% select(Make, Model, where(is.double))
 
-cars_dbl %>% 
+cars_dbl %>%
   group_by(Make) %>%
   summarize(across(.cols = everything(), .fns = mean))
 ```
@@ -237,7 +237,7 @@ Combining with `summarize()`:
 ```{r warning=FALSE}
 # Adding arguments to the end!
 #
-cars_dbl %>% 
+cars_dbl %>%
   group_by(Make) %>%
   summarize(across(.cols = everything(), .fns = mean, na.rm = TRUE))
 ```
@@ -247,7 +247,7 @@ cars_dbl %>%
 Using different `tidyselect()` options:
 
 ```{r warning=FALSE}
-cars_dbl %>% 
+cars_dbl %>%
   group_by(Make) %>%
   summarize(across(.cols = starts_with("Veh"), .fns = mean))
 ```
@@ -257,7 +257,7 @@ cars_dbl %>%
 Combining with `mutate()`:
 
 ```{r}
-cars_dbl %>% 
+cars_dbl %>%
   mutate(across(.cols = starts_with("Veh"), .fns = round, digits = -3))
 ```
 
@@ -266,7 +266,7 @@ cars_dbl %>%
 Combining with `mutate()`:
 
 ```{r}
-cars_dbl %>% 
+cars_dbl %>%
   mutate(across(
     .cols = everything(),
     .fns = str_replace_all,
