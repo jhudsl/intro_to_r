@@ -20,6 +20,7 @@ library(dplyr)
 options(scipen = 999)
 library(readr)
 library(ggplot2)
+library(emo)
 
 install.packages(c("faraway", "epitools"))
 ```
@@ -58,7 +59,7 @@ knitr::include_graphics("https://c.tenor.com/O3x8ywLm380AAAAd/chevy-chase.gif")
 ## Overview
 
 ::: {style="color: red;"}
-⚠️ We will focus on how to use R software to do these. We will be glossing over the statistical theory and "formulas" for these tests. Moreover, we do not claim the data we use for demonstration meet assumptions of the methods. ⚠️ 
+`r emo::ji("rotating_light")` We will focus on how to use R software to do these. We will be glossing over the statistical theory and "formulas" for these tests. Moreover, we do not claim the data we use for demonstration meet assumptions of the methods. `r emo::ji("rotating_light")`
 :::
 
 There are plenty of resources online for learning more about these methods, as well as dedicated Biostatistics series (at different advancement levels) at the JHU School of Public Health.
@@ -199,7 +200,7 @@ result_tidy
 
 ## P-value adjustment
 
-⚠️ You run an increased risk of Type I errors (a "false positive") when multiple hypotheses are tested simultaneously.
+`r emo::ji("rotating_light")` You run an increased risk of Type I errors (a "false positive") when multiple hypotheses are tested simultaneously.
 
 Use the `p.adjust()` function on a vector of p values. Use `method = ` to specify the adjustment method:
 
