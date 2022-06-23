@@ -29,22 +29,12 @@ library(ggplot2)
 - `ggplot()` specifies what data use and what variables will be mapped to where
 - inside `ggplot()`, `mapping = aes(x = , y = , color =)` specify what variables correspond to what aspects of the plot in general
 - layers of plots can be combined using the `+` at the **end** of lines
-- special [`theme_*()` functions](https://ggplot2.tidyverse.org/reference/ggtheme.html).functions can change the overall look
-- individual layers can be customized using arguments like:
-`size`, `color` `alpha` (more transparent is closer to 0), and `linetype`
-- labels can be added with the `labs()` function and `x`, `y`, `title` arguments - the `\n` can be used for line breaks
--`xlim()` and `ylim()` can limit or expand the plot area
-- `scale_x_continuous()` and `scale_y_continuous()` can modify the scale of the axes
-
-- The `theme()` function helps you specify aspects about your plot
-  - move or remove a legend with `theme(legend.position = "none")`
-  - change font aspects of individual text elements `theme(plot.title = element_text(size = 20))`
-  - center a title: `theme(plot.title = element_text(hjust = 0.5))`
+- use `geom_line()` and `geom_point()` to add lines and points
 - sometimes you need to add a `group` element to `mapping = aes()` if your plot looks strange
 - make sure you are plotting what you think you are by checking the numbers!
 - `facet_grid(~ variable)` and `facet_wrap(~variable)` can be helpful to quickly split up your plot
-  - `facet_wrap()` allows for a `scales = "free"` argument so that you can have a different axis scale for different plots
-- use `fill` to fill in boxplots
+
+## Summary
 
 - the factor class allows us to have a different order from alphanumeric for categorical data
 - we can change data to be a factor variable using `mutate` , the `as_factor()` (of `forcats` package) or `factor()` function and specifying the levels with the `levels` argument
@@ -484,11 +474,25 @@ Some final notes:
 
 - Researcher's responsibility to **understand the R software**  they use -- meaning of function's arguments and meaning of  function's output elements
 
+## Summary
+
+- Use `cor()` to calculate correlation between two vectors. `corrplot()` is nice for a quick visualization!
+- `t.test()` tests the difference in means between two vectors
+- `glm()` fits regression models:
+     - Use the `formula =` argument to specify the model (e.g., `y ~ x` or `y ~ x1 + x2` using column names)
+     - Use `data =` to indicate the dataset
+     - Use `family = binomial()` to do a logistic regression
+     - `summary()` gives useful statistics
+- `oddsratio()` from the `epitools` package can calculate odds ratios
+- this is just the tip of the iceberg!
+
 ## Lab Part 2
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)  
 
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Statistics/lab/Statistics_Lab.Rmd)
+
+The end!
 
 # Extra Slides
 
