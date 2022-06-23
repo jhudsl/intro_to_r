@@ -97,7 +97,7 @@ vacc %>%
 
 7. Take your code from #7 and assign it to the variable `vacc_dat`. 
 
-- Filter out the "United States" from `State/Territory/Federal Entity`. Make sure to reassign this to `vacc_dat`.
+- use `filter()` to drop any rows where "United States" appears in `State/Territory/Federal Entity`. Make sure to reassign this to `vacc_dat`.
 - Create a ggplot boxplot (`geom_boxplot()`) where (1) the x-axis is `Total Doses Delivered` and (2) the y-axis is `Percent of fully vaccinated people with booster doses`.
 - You change the `labs()` layer so that the x-axis is "Total Doses Delivered: Greater than 10,000,000"
 
