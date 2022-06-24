@@ -24,7 +24,7 @@ In recognition of [Juneteenth](https://en.wikipedia.org/wiki/Juneteenth), there 
 ## Detailed Schedule + Materials
 ***
 
-```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
+```{r, chunkname, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
 # The str_replace_all creates an absolute url to linked documents since there are word and pdf rendered versions of the syllabus
 source("scripts/utils.R")
 pander::pandoc.table(
