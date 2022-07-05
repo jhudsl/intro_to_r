@@ -39,10 +39,10 @@ bike_agg
 
 1. Use `ggplot2` package make plot of average length of lanes (`lane_avg_length`; y-axis) for each year (`dateInstalled`; x-axis). You can use lines layer (`+ geom_line()`) or points layer (`+ geom_point()`), or both!
 
-Assign the plot to variable `my_plot`. Type `my_plot` in the console to have it displayed 
+Assign the plot to variable `my_plot`. Type `my_plot` in the console to have it displayed The following code is intended to provide you help. Remove the `#` or type below the code. 
 
 ```{r}
-## ggplot(???, aes(x = ???, y = ???)) +
+## ggplot(???, mapping = aes(x = ???, y = ???)) +
 # ??? +
 # ???
 ```
@@ -55,21 +55,29 @@ Assign the plot to variable `my_plot`. Type `my_plot` in the console to have it 
 
 ```
 
-3. Use the `scale_x_continuous()` function and its arguments to modify x-axis look. Use `scale_y_continuous()` function and its arguments to modify the y-axis. 
-
+3. Use the `scale_x_continuous()` function to plot the x axis with the following breaks `c(2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013)`.  
+The following code is intended to provide you help. Remove the `#` or type below the code. 
 ```{r}
-##  my_plot +
+# my_plot<- my_plot +
 # scale_x_continuous(?????) +
-# scale_y_continuous(????)  # force y-axis to start from 0, do not force upper bound
 ```
 
 
-4. Observe several different versions of the plot by displaying `my_plot` while adding a different "theme" to it.
+4. Observe several different versions of the plot by displaying `my_plot` while adding a different "theme" to it.The following code is intended to provide you help. Remove the `#` or type below the code. 
 
 ```{r}
 # my_plot + theme_bw()
 ```
 
+Bonus/optional practice. Create a boxplot (with the `geom_boxplot()` function) using the `Orange` data, where `Tree` is plotted on the x axis and `circumference` is plotted on the y axis. 
+
+```{r}
+Orange %>%
+  ggplot(mapping = aes(x = Tree, y = circumference)) +
+  geom_boxplot()
+```
+
+Notice how the trees are ordered. We will learn more about this soon!
 
 # Part 2
 
@@ -99,13 +107,16 @@ bike_agg_2
 
 (You may see `geom_path: Each group consists of only one observation. Do you need to adjust the group aesthetic?` warning as some bike lane types will have only 1 point plotted while trying to plot a line).
 
+Assign the new plot as an object called `facet_plot`.
+
+
 ```{r}
 
 
 
 ```
 
-Bonus: Modify `facet_plot` to remove the legend and change the names of the axis titles to be "Number of bike lanes" for the x axis and "Date bike lane was installed" for the y axis.  
+Bonus/optional practice: Modify `facet_plot` to remove the legend (hint use `theme()`) and change the names of the axis titles to be "Number of bike lanes" for the x axis and "Date bike lane was installed" for the y axis.  
 
 ```{r}
 

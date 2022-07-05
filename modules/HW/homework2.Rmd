@@ -6,9 +6,9 @@ output:
 
 ### **Instructions**
 
-1. Please submit your filled out `.Rmd` file to the assignment drop box on CoursePlus: https://courseplus.jhu.edu/core/index.cfm/go/db:assignment.submit/assignmentID/40988/coID/16733/ 
+1. Please submit your filled out `.Rmd` file to the assignment drop box on CoursePlus: https://courseplus.jhu.edu/core/index.cfm/go/db:assignment.submit/assignmentID/44234/coID/18000/
 
-2. All assignments are due by the end of the grading period for this term (Wednesday, Jan 26, 2022 at 11:59pm EST). Please reach out to us if you need help before this time!
+2. All assignments are due by Friday, July 1, 2022 at 11:59pm EST. Please reach out to us if you need help before this time!
 
 ```{r initiatePackages, message=FALSE}
 ## you can add more, or change...these are suggestions
@@ -21,13 +21,13 @@ library(tidyr)
 
 ### **Problem Set**
 
-1\. (a) Make a variable "bday". Assign it your birthday in day-month format (1-Jan). (b) Make a variable "name". Assign it your name as a character string.
+1\. (a) Make an object "bday". Assign it your birthday in day-month format (1-Jan). (b) Make another object "name". Assign it your name. Make sure to use quotation marks for anything with text!
 
 ```{r}
 
 ```
 
-2\. Make a variable "me" that is "bday" and "name" combined.
+2\. Make an object "me" that is "bday" and "name" combined.
 
 ```{r}
 
@@ -61,7 +61,7 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 
 ```
 
-7\. R can save individual variables as `.rds` files that can be imported again later. Save the "cars" data in an .rds file using the `write_rds()` function.
+7\. R can save individual variables as `.rds` files that can be imported again later. Save the "cars" data in an .rds file using the `write_rds()` function. You can choose what the `file=` argument is.
 
 ```{r}
 

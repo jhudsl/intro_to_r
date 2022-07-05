@@ -172,15 +172,57 @@ pre code {
 </div>
 
 
-<p>First, make sure you install and load the <code>esquisse</code> and <code>ggplot2</code> packages using <code>install.packages</code> and <code>library</code>:</p>
-<pre class="r"><code># install.packages(&quot;esquisse&quot;)
-# install.packages(&quot;ggplot2&quot;)</code></pre>
+<p>First, make sure you install and load the <code>esquisse</code> package using <code>install.packages</code> and <code>library</code>:</p>
+<pre class="r"><code>install.packages(&quot;esquisse&quot;)
+install.packages(&quot;ggplot2&quot;)</code></pre>
 <pre class="r"><code>library(esquisse)
-library(ggplot2)</code></pre>
-<p>Now try creating a plot using the <code>Orange</code> data that automatically comes with R using the <code>esquisser</code> function of the <code>esquisse</code> package. Drag and drop the <code>age</code> variable to be plotted on the x-axis. Drag and drop the <code>circumfrance</code> variable to be plotted on the y-axis. What happens when you drag <code>tree</code> to the facet region of the esquisse GUI? What happens if you move this to color? Copy and paste the code from both options into the chunk below:</p>
-<pre class="r"><code># esquisser(Orange) delete this line of code when rendering but keep the code that you copy and paste here from running esquisser to create the two plots.</code></pre>
-<p>Can you think of another way to plot this data?</p>
-<p>Bonus: Click where it says “point” (may say “auto” depending on how you did the last question) on the far left side and change the plot to a different type of plot? Copy and paste the code into the chunk below.</p>
+library(ggplot2)
+library(jhur)</code></pre>
+<ol style="list-style-type: decimal">
+<li>Try creating a plot using the <code>Orange</code> data that automatically comes with R using the <code>esquisse</code> package.</li>
+</ol>
+<ul>
+<li>Drag and drop the <code>age</code> variable to be plotted on the x-axis.</li>
+<li>Drag and drop the <code>circumference</code> variable to be plotted on the y-axis.</li>
+<li>What happens when you drag <code>tree</code> to the facet region of the esquisse GUI?</li>
+<li>What happens if you move this to color?</li>
+<li>Copy and paste the code from both options into the chunk below:</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Click where it says “point” (may say “auto” depending on how you did the last question) on the far left side and change the plot to a different type of plot. Copy and paste the code into the chunk below. Close Esquisse and run the chunk below to generate a ggplot.</li>
+</ol>
+<p><strong>Bonus / optional:</strong></p>
+<p>Launch Esquisse on any selection of the following datasets we have worked with before and explore!</p>
+<pre class="r"><code>yts &lt;- read_yts()
+tb &lt;- read_tb()
+bike &lt;- read_bike()</code></pre>
+<pre><code>## Rows: 1631 Columns: 9
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (6): subType, name, block, type, project, route
+## dbl (3): numLanes, length, dateInstalled
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>circ &lt;- read_circulator()</code></pre>
+<pre><code>## Rows: 1146 Columns: 15
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr  (2): day, date
+## dbl (13): orangeBoardings, orangeAlightings, orangeAverage, purpleBoardings,...
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>vacc &lt;- read_csv(&quot;http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv&quot;)</code></pre>
+<pre><code>## Rows: 64 Columns: 125
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr   (1): State/Territory/Federal Entity
+## dbl (121): Total Doses Delivered, Doses Delivered per 100K, 18+ Doses Delive...
+## lgl   (3): People with 2 Doses by State of Residence, People 18+ with 1+ Dos...
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 
 
 

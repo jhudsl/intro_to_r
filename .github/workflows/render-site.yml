@@ -149,7 +149,7 @@ jobs:
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          git pull
           git add . --force
           git commit -m 'Render site' || echo "No changes to commit"
+          git pull --set-upstream origin main --allow-unrelated-histories --strategy-option=ours
           git push origin main || echo "No changes to push"

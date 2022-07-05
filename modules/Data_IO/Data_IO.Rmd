@@ -236,6 +236,21 @@ The data is now successfully read into your R workspace. Column specification of
 4.  Open ended quotes, parentheses, and brackets     
 5.  Different versions of software
 
+
+## Data Input: Checking the data
+
+- the `View()` function shows your data in a new tab, in spreadsheet format
+- be careful if your data is big!
+
+```{r eval = FALSE}
+View(dat)
+```
+
+```{r, fig.alt="Screenshot of the RStudio console. 'View(dat)' has been typed and the data appears in table format.", out.width = "80%", echo = FALSE, align = "center"}
+knitr::include_graphics("images/Data_IO_View_data.png")
+```
+
+
 ## Data Input: Checking for problems
 
 The `spec()` function shows you the specification of how the data was read in. 
@@ -318,7 +333,7 @@ However, while many online resources use the base R tools, the latest version of
 - Some functions to look at a data frame: 
   - `head()` shows first few rows
   - `tail()` shows the last few rows
-  - `view()` shows the data as a spreadsheet
+  - `View()` shows the data as a spreadsheet
   - `spec()` gives  specification of column types
 
 
@@ -438,19 +453,19 @@ write_delim(dat, file = "YouthTobacco_newNames.csv", delim = ",")
 
 `.rds` is an extension for R native file format.
 
-`write_rds()` and `read_rds()` from `readr` package can be used to write/read a single R variable to/from file.
+`write_rds()` and `read_rds()` from `readr` package can be used to write/read a single R object to/from file.
 
 Saving datasets in `.rds` format can save time if you have to read it back in later.
 
 ```{r}
-# write a variable: a data frame "dat"
+# write an object: a data frame "dat"
 write_rds(dat, file = "yts_dataset.rds")
 
-# write a variable: vector "x"
+# write an object: vector "x"
 x <- c(1, 3, 3)
 write_rds(x, file = "my_vector.rds")
 
-# read a variable from file and assign to a new variable named "y"
+# read an object from file and assign to a new object named "y"
 x2 <- read_rds(file = "my_vector.rds")
 x2
 ```
@@ -461,7 +476,7 @@ x2
 - R Projects are a good way to keep your files organized and reduce headaches
 - Use `read_csv()` and `read_delim()` from the `readr` package to read in your data
 - Don't forget to use `<-` to assign your data to an object!
-- Use `spec()` to understand variables
+- Use `spec()` to understand objects
 - Use `head()` and `tail()` to preview the first and last lines of the data
 - Use `write_csv()` and `write_delim()` from the `readr` package to write your (modified) data
 

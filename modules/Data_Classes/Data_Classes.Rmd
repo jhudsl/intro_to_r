@@ -57,7 +57,7 @@ There are two major numeric subclasses
 
 
 ```{r seq}
-x <- c(1,2,3,4,5)
+x <- c(1, 2, 3, 4, 5)
 class(x)
 typeof(x)
 ```
@@ -199,7 +199,7 @@ rep(c("black", "white"), each = 2, times = 2)
 
 ## Useful functions to create vectors `seq()`
 
-For numeric: `seq()` can be very useful- both integar and double.   
+For numeric: `seq()` can be very useful- both integer and double.   
 The `from` argument says what number to start on.    
 The `to` argument says what number to not go above.   
 The `by` argument says how much to increment by.    
@@ -211,7 +211,7 @@ seq(from = 0, to = 10, by = 1)
 seq(from = -5, to = 5, length.out = 10)
 ```
 
-## Creating numberic vectors `sample()`
+## Creating numeric vectors `sample()`
 
  You can use the `sample()` function to make a random sequence.
  The `x` argument specifies what you are sampling from.
@@ -221,16 +221,15 @@ seq(from = -5, to = 5, length.out = 10)
 ```{r}
 seq_hun <- seq(from = 0, to = 100, by = 1)
 seq_hun
-y <-sample(x = seq_hun, size = 5, replace = TRUE)
+y <- sample(x = seq_hun, size = 5, replace = TRUE)
 y
-
 ``` 
 ## Summary
 
 - There are two types of numeric class objects: integer and double
 - Logic class objects only have `TRUE` or `False` (without quotes)
 - is.CLASS_NAME(x) can be used to test the class of an object x
-- as.CLASS_NAME(x) cab be used to change the class of an object x
+- as.CLASS_NAME(x) can be used to change the class of an object x
 - Factors are a special character class that has levels - more on that soon!
 - The repeat `rep()` function helps you create vectors with the `to` and `from` arguments
 - The sequence `seq()` function helps you create numeric vectors (`from`,`to`, `by`, and `length.out` arguments)
@@ -330,7 +329,7 @@ Note for  function `ymd`: **y**year **m**onth **d**ay
 ```{r}
 a <- ymd("2021-06-15")
 b <- ymd("2021-06-18")
-a-b
+a - b
 ```
 
 

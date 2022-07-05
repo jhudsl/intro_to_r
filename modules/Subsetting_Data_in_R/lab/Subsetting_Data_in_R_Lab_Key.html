@@ -179,9 +179,7 @@ library(tidyverse)
 library(jhur)</code></pre>
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
-<ol style="list-style-type: decimal">
-<li>Check to see if you have the <code>mtcars</code> dataset by running this chunk.</li>
-</ol>
+<p>First check to see if you have the <code>mtcars</code> dataset by running this chunk. Remember that code is denoted with backticks “`” around it in the main text, but do not copy backticks when you paste code elements into code chunks (like the gray section below).</p>
 <pre class="r"><code>mtcars</code></pre>
 <pre><code>##                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb
 ## Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
@@ -216,12 +214,12 @@ library(jhur)</code></pre>
 ## Ferrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
 ## Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
 ## Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
-<ol start="2" style="list-style-type: decimal">
+<ol style="list-style-type: decimal">
 <li>What class is <code>mtcars</code>?</li>
 </ol>
 <pre class="r"><code>class(mtcars)</code></pre>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
-<ol start="3" style="list-style-type: decimal">
+<ol start="2" style="list-style-type: decimal">
 <li>How many observations (rows) and variables (columns) are in the <code>mtcars</code> dataset - try the <code>dim()</code> function?</li>
 </ol>
 <pre class="r"><code>dim(mtcars)</code></pre>
@@ -230,8 +228,8 @@ library(jhur)</code></pre>
 <pre><code>## [1] 32</code></pre>
 <pre class="r"><code>ncol(mtcars)</code></pre>
 <pre><code>## [1] 11</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>Copy mtcars into an object called <code>cars_mt_copy</code> using the code supplied on line 44. Next, rename <code>mpg</code> in <code>cars_mt_copy</code> to <code>MPG</code> (hint - use <code>rename()</code>).</li>
+<ol start="3" style="list-style-type: decimal">
+<li>Copy mtcars into an object called <code>cars_mt_copy</code> using the code supplied in the chunk below. Next, rename the column <code>mpg</code> in <code>cars_mt_copy</code> to <code>MPG</code> (hint - use <code>rename()</code>).</li>
 </ol>
 <pre class="r"><code>cars_mt_copy &lt;- mtcars
 cars_mt_copy &lt;- rename(cars_mt_copy, MPG = mpg)
@@ -243,7 +241,7 @@ head(cars_mt_copy)</code></pre>
 ## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
 ## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
 ## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
-<ol start="5" style="list-style-type: decimal">
+<ol start="4" style="list-style-type: decimal">
 <li>Convert the column names of <code>cars_mt_copy</code> to all upper case. Use <code>rename_with()</code>, and the <code>toupper</code> command.</li>
 </ol>
 <pre class="r"><code>cars_mt_copy &lt;- rename_with(cars_mt_copy, toupper)
@@ -272,7 +270,7 @@ head(cars_mt_copy)</code></pre>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
 <ol style="list-style-type: decimal">
-<li>Using <code>cars_mt_copy</code> create a column called <code>CAR</code> using the <code>rownames_to_column()</code> function. Next, create a tibble from the data called <code>cars_mt_copy</code>. Take a look at your data to check it. How many dimensions does it have?</li>
+<li>Using <code>cars_mt_copy</code> create a column called <code>CAR</code> using the <code>rownames_to_column()</code> function. Create a tibble from the data called <code>cars_mt_copy</code>. Take a look at your data to check it. How many dimensions does it have?</li>
 </ol>
 <pre class="r"><code>cars_mt_copy &lt;- rownames_to_column(cars_mt_copy, &quot;CAR&quot;)
 head(cars_mt_copy)</code></pre>
@@ -300,7 +298,7 @@ cars_mt_copy</code></pre>
 ## 10 Merc 280     19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4
 ## # … with 22 more rows</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Subset both the column <code>CAR</code> that you just created and the columns from <code>cars_mt_copy</code> that end in <code>&quot;P&quot;</code> and call it <code>pvars</code>. Hint: use <code>ends_with()</code>. Again take a look at the data.</li>
+<li>Subset both the column <code>CAR</code> that you just created and the columns from <code>cars_mt_copy</code> that end in <code>&quot;P&quot;</code> and call it <code>pvars</code>. Hint: use <code>ends_with()</code> and <code>select()</code>. Again take a look at the data.</li>
 </ol>
 <pre class="r"><code>pvars &lt;- select(cars_mt_copy, CAR, ends_with(&quot;P&quot;))
 pvars</code></pre>
@@ -319,7 +317,7 @@ pvars</code></pre>
 ## 10 Merc 280           168.   123
 ## # … with 22 more rows</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li>Create a subset of the <code>cars_mt_copy</code> that only contains the columns: <code>CAR</code>, <code>WT</code>, <code>QSEC</code>, and <code>HP</code> and assign this object to <code>carsSub</code> - what are the dimensions of this dataset? Use <code>select()</code>:</li>
+<li>Create a subset of the <code>cars_mt_copy</code> that only contains the columns: <code>CAR</code>, <code>WT</code>, <code>QSEC</code>, and <code>HP</code> and assign this object to <code>carsSub</code> - what are the dimensions of this dataset?</li>
 </ol>
 <pre class="r"><code>carsSub &lt;- select(cars_mt_copy, CAR, WT, QSEC, HP)
 carsSub</code></pre>
@@ -452,7 +450,7 @@ dim(cars_mpg)</code></pre>
   nrow()</code></pre>
 <pre><code>## [1] 8</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li>Subset the rows of <code>cars_mt_copy</code> that get <strong>less</strong> than 16 miles per gallon (<code>MPG</code>) of fuel efficiency and greater than <strong>or</strong> equal to 150 horsepower (<code>HP</code>) - how many are there?</li>
+<li>Subset the rows of <code>cars_mt_copy</code> that get <strong>less</strong> than 16 miles per gallon (<code>MPG</code>) of fuel efficiency <strong>and</strong> <strong>greater than or equal</strong> to 150 horsepower (<code>HP</code>) - how many are there?</li>
 </ol>
 <pre class="r"><code>filter(cars_mt_copy, MPG &lt; 16 &amp; HP &gt;= 150)</code></pre>
 <pre><code>## # A tibble: 10 × 12
@@ -481,7 +479,7 @@ dim(cars_mpg)</code></pre>
 </ol>
 <p>They differ because there are two cars with HP values that are exactly 150.</p>
 <p>Bonus:</p>
-<p>Subset the rows of <code>cars_mt_copy</code> for cars that have 4 <code>CYL</code>, or less than 1.9 WT. How many cars have both?</p>
+<p>Subset the rows of <code>cars_mt_copy</code> for cars that have 4 <code>CYL</code>, <strong>or</strong> <strong>less</strong> than 1.9 WT. How many cars have both?</p>
 <pre class="r"><code>filter(cars_mt_copy, CYL == 4 | WT &lt; 1.9)</code></pre>
 <pre><code>## # A tibble: 11 × 12
 ##    CAR           MPG   CYL  DISP    HP  DRAT    WT  QSEC    VS    AM  GEAR  CARB
@@ -503,7 +501,7 @@ dim(cars_mpg)</code></pre>
 <div id="part-4" class="section level1">
 <h1>Part 4</h1>
 <ol style="list-style-type: decimal">
-<li>Create a subset called <code>carsSub</code>from the <code>cars_mt_copy</code> data that only contains the columns: <code>CAR</code>, <code>WT</code>, <code>QSEC</code>, and <code>HP</code> for only the cars with 8 cylinders (<code>CYL</code>). What are the dimensions of this dataset? don’t use pipes (<code>%&gt;%</code>).</li>
+<li>Create a subset called <code>carsSub</code>from the <code>cars_mt_copy</code> data that only contains the columns: <code>CAR</code>, <code>WT</code>, <code>QSEC</code>, and <code>HP</code> for only the cars with 8 cylinders (<code>CYL</code>). What are the dimensions of this dataset? Don’t use pipes (<code>%&gt;%</code>).</li>
 </ol>
 <pre class="r"><code>carsSub &lt;- filter(cars_mt_copy, CYL == 8)
 carsSub &lt;- select(carsSub, CAR, WT, QSEC, HP)
@@ -587,7 +585,7 @@ carsSub</code></pre>
 <li>Create a new variable in <code>carsSub</code> called <code>WT2</code>, which is equal to <code>WT^2</code>, using <code>mutate()</code>(don’t forget to reassign <code>carsSub</code>). Use pipes <code>%&gt;%</code>:</li>
 </ol>
 <pre class="r"><code>carsSub &lt;- carsSub %&gt;% mutate(WT2 = WT^2)</code></pre>
-<p>Bonus: Move the <code>WT2</code> column to be first. Use <code>relocate</code>.</p>
+<p>Bonus: Move the <code>WT2</code> column to be first. Use <code>relocate()</code>.</p>
 <pre class="r"><code>carsSub &lt;- carsSub %&gt;% relocate(WT2, .before = CAR)
 carsSub</code></pre>
 <pre><code>## # A tibble: 14 × 5

@@ -66,7 +66,7 @@ times_2(x = 10)
 
 ## Writing your own functions
 
-**Review**: The syntax for a function is: 
+The general syntax for a function is: 
 
 ```
 functionName <- function(inputs) {
@@ -192,7 +192,12 @@ sapply(<a vector or list>, some_function)
 
 ```{r comment=""}
 sapply(cars, class)
-sapply(pull(cars, VehOdo), log)
+```
+
+## Using your custom functions: `sapply()`
+
+```{r}
+sapply(pull(cars, VehOdo), times_2_plus_y)
 ```
 
 ## Using your custom functions "on the fly" to iterate
@@ -201,21 +206,9 @@ sapply(pull(cars, VehOdo), log)
 sapply(pull(cars, VehOdo), function(x) x / 1000)
 ```
 
-## Using your custom functions: `sapply()`.{.codesmall}
-
-```{r}
-cars_dbl <- cars %>% select(Make, Model, where(is.double))
-
-Odo_updated <- sapply(pull(cars_dbl, VehOdo), times_2_plus_y)
-
-cars_dbl %>%
-  mutate(Odo_2_y = Odo_updated) %>%
-  select(c(1:2, 7:13))
-```
-
 ## Applying functions with `across` from `dplyr`
 
-`across()` makes it easy to apply the same transformation to multiple columns, allowing you to use select() semantics inside functions like `summarize()` and `mutate()`.
+`across()` makes it easy to apply the same transformation to multiple columns. Usually used with `summarize()`.
 
 ```
 across( .cols = <columns>, .fns = function, ... )
@@ -230,6 +223,8 @@ across( .cols = <columns>, .fns = function, ... )
 Combining with `summarize()`:
 
 ```{r warning=FALSE}
+cars_dbl <- cars %>% select(Make, Model, where(is.double))
+
 cars_dbl %>%
   group_by(Make) %>%
   summarize(across(.cols = everything(), .fns = mean))
@@ -237,12 +232,14 @@ cars_dbl %>%
 
 ## Applying functions with `across` from `dplyr`.{.codesmall}
 
-Adding arguments to the function (`quantile()`) at the end:
+Combining with `summarize()`:
 
 ```{r warning=FALSE}
+# Adding arguments to the end!
+#
 cars_dbl %>%
   group_by(Make) %>%
-  summarize(across(.cols = where(is.double), .fns = quantile, probs = 0.95))
+  summarize(across(.cols = everything(), .fns = mean, na.rm = TRUE))
 ```
 
 ## Applying functions with `across` from `dplyr`.{.codesmall}
@@ -295,6 +292,18 @@ mort %>%
   ))
 ```
 
+## Summary
+
+- Simple functions take the form:
+  - `NEW_FUNCTION <- function(x, y) x + y ..`
+  - Can specify defaults like `function(x = 1, y = 2)`
+- Apply your functions with `sapply(<a vector or list>, some_function)`
+- Use `across()` to apply functions across multiple columns of data
+
 ## Website
 
-[Website](http://jhudatascience.org/intro_to_r/index.html)
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)  
+
+💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Functions/lab/Functions_Lab.Rmd)
+
+The end!

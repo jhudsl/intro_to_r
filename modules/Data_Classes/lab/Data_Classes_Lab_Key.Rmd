@@ -25,15 +25,19 @@ First, create a vector that has class integer called `int_vect` that starts at 1
 int_vect <- rep(seq(from = 1, to = 10), times = 3)
 ```
 
+
 2. Next, create a random vector of 30 values from a set of integers from 1 to 30 called `rand_vect` (hint use `sample()` and set the replace argument to `TRUE`).
+
 
 Because we are using a random vector let's use the `set.seed()` function to make sure we all have the same result - this code is already in the code chunk for you. Simply create the vector below the `set.seed` line.
 
 
 ```{r}
 set.seed(1234)
-rand_vect <- sample(x = seq(from = 1, to = 30, by = 1), 
-                    size = 30, replace = TRUE)
+rand_vect <- sample(
+  x = seq(from = 1, to = 30, by = 1),
+  size = 30, replace = TRUE
+)
 
 # this also works... need to set the seed right before
 set.seed(1234)
