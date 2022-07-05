@@ -199,7 +199,7 @@ library(lubridate)</code></pre>
 <p>First, create a vector that has class integer called <code>int_vect</code> that starts at 1 and goes up to 10 and repeats this sequence 3 times using <code>rep</code> (hint use <code>seq()</code>).</p>
 <pre class="r"><code>int_vect &lt;- rep(seq(from = 1, to = 10), times = 3)</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Next, create a random vector of 30 values from a set of integers from 1 to 30 called <code>rand_vect</code> (hint use <code>sample()</code> and set the repeat argument to <code>TRUE</code>).</li>
+<li>Next, create a random vector of 30 values from a set of integers from 1 to 30 called <code>rand_vect</code> (hint use <code>sample()</code> and set the replace argument to <code>TRUE</code>).</li>
 </ol>
 <p>Because we are using a random vector let’s use the <code>set.seed()</code> function to make sure we all have the same result - this code is already in the code chunk for you. Simply create the vector below the <code>set.seed</code> line.</p>
 <pre class="r"><code>set.seed(1234)
@@ -249,7 +249,7 @@ TF_vect2 &lt;- rep(c(&quot;TRUE&quot;, &quot;TRUE&quot;, &quot;FALSE&quot;), tim
 ## 4        3        24 TRUE    TRUE    
 ## 5        9         5 FALSE   FALSE</code></pre>
 <ol start="5" style="list-style-type: decimal">
-<li>Take a look at 5 random rows using the <code>slice_sample()</code> function again but this time with <code>set.seed(1234)</code>before each time`. Try this a few times to see the results. (Don’t forget to not copy the backticks.)</li>
+<li>Take a look at 5 random rows using the <code>slice_sample()</code> function again but this time with <code>set.seed(1234)</code> as the first line of the chunk. Try this a few times to see the results. (Don’t forget to not copy the backticks.)</li>
 </ol>
 <pre class="r"><code>set.seed(1234)
 slice_sample(vect_data, n = 5)</code></pre>
@@ -261,26 +261,24 @@ slice_sample(vect_data, n = 5)</code></pre>
 ## 3        6         4 TRUE    TRUE    
 ## 4        2        30 TRUE    TRUE    
 ## 5        5         5 TRUE    TRUE</code></pre>
-<pre class="r"><code>set.seed(1234)
-slice_sample(vect_data, n = 5)</code></pre>
+<pre class="r"><code>slice_sample(vect_data, n = 5)</code></pre>
 <pre><code>## # A tibble: 5 × 4
 ##   int_vect rand_vect TF_vect TF_vect2
 ##      &lt;int&gt;     &lt;int&gt; &lt;lgl&gt;   &lt;chr&gt;   
-## 1        8         8 TRUE    TRUE    
-## 2        6        26 TRUE    TRUE    
-## 3        6         4 TRUE    TRUE    
-## 4        2        30 TRUE    TRUE    
-## 5        5         5 TRUE    TRUE</code></pre>
-<pre class="r"><code>set.seed(1234)
-slice_sample(vect_data, n = 5)</code></pre>
+## 1        2         4 FALSE   FALSE   
+## 2        5        22 FALSE   FALSE   
+## 3        9         5 FALSE   FALSE   
+## 4        5         5 TRUE    TRUE    
+## 5        6        12 FALSE   FALSE</code></pre>
+<pre class="r"><code>slice_sample(vect_data, n = 5)</code></pre>
 <pre><code>## # A tibble: 5 × 4
 ##   int_vect rand_vect TF_vect TF_vect2
 ##      &lt;int&gt;     &lt;int&gt; &lt;lgl&gt;   &lt;chr&gt;   
-## 1        8         8 TRUE    TRUE    
-## 2        6        26 TRUE    TRUE    
-## 3        6         4 TRUE    TRUE    
-## 4        2        30 TRUE    TRUE    
-## 5        5         5 TRUE    TRUE</code></pre>
+## 1        6        26 TRUE    TRUE    
+## 2        4        22 TRUE    TRUE    
+## 3        2        16 TRUE    TRUE    
+## 4        7        15 TRUE    TRUE    
+## 5        2        30 TRUE    TRUE</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>Check to see if the <code>TF_vect</code> is logical. Check to see if <code>TF_vect2</code> is logical. Why are the results what they are?</li>
 </ol>
