@@ -137,8 +137,7 @@ jobs:
         with:
           fetch-depth: 0
         
-      # Render pdfs
-      - name: Render pdfs of lectures
+      # Render pdfs of slides
       - name: Convert HTML to PDF
         uses: markwilson/html2pdf@v1.0
         with:
