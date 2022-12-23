@@ -140,7 +140,6 @@ jobs:
       # Render pdfs
       - name: Render pdfs of lectures
       - name: Convert HTML to PDF
-  uses: markwilson/html2pdf@v1.1
         uses: markwilson/html2pdf@v1.0
         with:
           htmlPath: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
