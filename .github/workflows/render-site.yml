@@ -6,7 +6,7 @@
 name: Render html
 
 # Controls when the action will run. Triggers the workflow on push
-# events only for the master branch
+# events only for the master branch 
 on:
   workflow_dispatch:
   push:
@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
         # Use the yaml-env-action action.
       - name: Load environment from YAML
@@ -39,7 +39,7 @@ jobs:
 
     steps:
       - name: Checkout files
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
@@ -72,7 +72,7 @@ jobs:
     
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           # get the full repo
           fetch-depth: 0
@@ -133,7 +133,7 @@ jobs:
     
     steps:
       - name: Checkout files
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
         
