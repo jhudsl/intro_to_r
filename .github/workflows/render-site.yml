@@ -13,8 +13,6 @@ on:
     branches: [ main, staging ]
 
 jobs:
-  run_if:
-    if: github.event_name == 'pull_request' || github.event.pull_request.merged == true
 
   yaml-check:
     name: Load user automation choices
@@ -59,6 +57,9 @@ jobs:
   render-main:
     needs: [yaml-check, style-code]
     runs-on: ubuntu-latest
+    run_if:
+      if: github.event_name == 'pull_request' || github.event.pull_request.merged == true
+    
           # install.packages("remotes") # in case we decide not to go with the container...
           # remotes::install_cran("rmarkdown")
           # remotes::install_deps(dependencies = TRUE)
@@ -127,6 +128,9 @@ jobs:
     name: Render pdf lecture slides
     needs: [yaml-check, style-code, render-main]
     runs-on: ubuntu-latest
+    run_if:
+      if: github.event_name == 'pull_request' || github.event.pull_request.merged == true
+    
     container:
       image: jhudsl/course_template:main
     strategy:
