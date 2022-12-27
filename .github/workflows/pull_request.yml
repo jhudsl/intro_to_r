@@ -423,12 +423,12 @@ jobs:
           git merge -s recursive --strategy-option=theirs origin/${{ github.head_ref }} --allow-unrelated-histories
         shell: bash
         
-      # Render pdfs
-      - name: Render pdfs of lectures
-        uses: fifsky/html-to-pdf-action@master
+      # Render pdfs of slides
+      - name: Convert HTML to PDF
+        uses: markwilson/html2pdf@v1.0
         with:
-          htmlFile: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
-          outputFile: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
+          htmlPath: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
+          pdfName: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
           
       # Commit the rendered website files
       - name: Commit rendered website files to preview branch
