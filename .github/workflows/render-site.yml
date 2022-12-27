@@ -57,7 +57,6 @@ jobs:
   render-main:
     needs: [yaml-check, style-code]
     runs-on: ubuntu-latest
-    run_if:
       if: github.event_name == 'pull_request' || github.event.pull_request.merged == true
     
           # install.packages("remotes") # in case we decide not to go with the container...
@@ -128,7 +127,6 @@ jobs:
     name: Render pdf lecture slides
     needs: [yaml-check, style-code, render-main]
     runs-on: ubuntu-latest
-    run_if:
       if: github.event_name == 'pull_request' || github.event.pull_request.merged == true
     
     container:
