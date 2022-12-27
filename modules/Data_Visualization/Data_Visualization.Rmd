@@ -183,6 +183,15 @@ There are many to choose from, to list just a few:
 
 ## Next layer code with `ggplot2` package
 
+When to use what plot? A few examples: 
+
+- a scatterplot (`geom_point()`): to examine the relationship between two sets of continuous numeric data
+- a barplot (`geom_bar()`): to compare the distribution of a quantitative variable (numeric) between groups or categories
+- a histogram (`geom_hist()`): to observe the overall distribution of numeric data
+- a boxplot (`geom_boxplot()`): to compare values between different factor levels or categories
+
+## Next layer code with `ggplot2` package
+
 Need the `+` sign to add the next layer to specify the type of plot
 
 ::: codeexample
@@ -292,12 +301,13 @@ You can change the look of whole plot - **specific elements, too** - like changi
 ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
   geom_point(size = 5, color = "red", alpha = 0.5) + 
   geom_line(size = 0.8, color = "brown", linetype = 2) + 
-  theme_bw(base_size = 20, base_family = "Comic Sans MS")
+  theme_bw() +
+  theme(text=element_text(size=16,  family="Comic Sans MS"))
 ```
 
 ## Adding labels {.codesmall}
 
-The `labs()` function can help you add or modify titles on your plot. The `title` argument specifies the title. The `x` argument specifies the x axis label. The `y` argument specifies the x axis label.
+The `labs()` function can help you add or modify titles on your plot. The `title` argument specifies the title. The `x` argument specifies the x axis label. The `y` argument specifies the y axis label.
 
 ```{r, fig.width=4, fig.height=2.5, fig.align='center'}
 ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
@@ -372,6 +382,8 @@ ggplot(Orange, mapping = aes(x = circumference, y = age)) +
 - labels can be added with the `labs()` function and `x`, `y`, `title` arguments - the `\n` can be used for line breaks
 -`xlim()` and `ylim()` can limit or expand the plot area
 - `scale_x_continuous()` and `scale_y_continuous()` can modify the scale of the axes
+- by default, `ggplot()` removes points with missing values from plots.
+
 
 ## Lab 1
 
@@ -699,6 +711,18 @@ Great for adding labels directly onto plots <https://www.opencasestudies.org/ocs
 #install.packages("directlabels")
 library(directlabels)
 direct.label(rp_fac_plot, method = list("angled.boxes"))
+```
+## `ggpubr` package
+
+Great for adding p-values and significance levels <https://cran.r-project.org/web/packages/ggpubr/ggpubr.pdf> 
+
+```{r, out.width="50%", fig.align="center"}
+#install.packages("ggpubr")
+library(ggpubr)
+data("ToothGrowth")
+ggboxplot(ToothGrowth, x = "dose", y = "len",
+          color = "dose", palette = "jco")+
+  stat_compare_means(method = "anova")
 ```
 
 ## plotly
