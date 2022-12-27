@@ -14,7 +14,7 @@ on:
 
 jobs:
   run_if:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    if: github.event_name == 'pull_request' || github.event.pull_request.merged == true
 
   yaml-check:
     name: Load user automation choices
