@@ -760,7 +760,7 @@ str_replace(string = x, pattern = "d", replacement = "D")
 
 `str_sub()` allows you to subset part of a string   
 The `string` argument specifies what strings to work with     The `start` argument specifies position of where to start    
-The `start` argument specifies position of where to end    
+The `end` argument specifies position of where to end    
 
 ```{r}
 x<-c("cat", "dog", "mouse")
