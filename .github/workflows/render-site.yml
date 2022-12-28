@@ -57,7 +57,6 @@ jobs:
   render-main:
     needs: [yaml-check, style-code]
     runs-on: ubuntu-latest
-    if: ${{github.event_name == 'pull_request' || github.event.pull_request.merged == true}}
 
 
           # install.packages("remotes") # in case we decide not to go with the container...
@@ -118,17 +117,18 @@ jobs:
       # Commit the rendered site files - html files and site_libs files
       - name: Commit rendered site files
         run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
+          git config --local user.email "itcrtrainingnetwork@gmail.com"
+          git config --local user.name "jhudsl-robot"
           git add . --force
           git commit -m 'Render site' || echo "No changes to commit"
+          git pull --set-upstream origin main --allow-unrelated-histories --strategy-option=ours
           git push origin main || echo "No changes to push"
+
 
   render-pdf-lectures:
     name: Render pdf lecture slides
     needs: [yaml-check, style-code, render-main]
     runs-on: ubuntu-latest
-    if: ${{github.event_name == 'pull_request' || github.event.pull_request.merged == true}}
 
     container:
       image: jhudsl/course_template:main
@@ -146,14 +146,15 @@ jobs:
       - name: Convert HTML to PDF
         uses: markwilson/html2pdf@v1.0
         with:
-          htmlPath: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
-          pdfName: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
-          
+          entryPoint: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
+          args: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
+
+
       # Commit the rendered site files - html files and site_libs files
       - name: Commit pdfs
         run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
+          git config --local user.email "itcrtrainingnetwork@gmail.com"
+          git config --local user.name "jhudsl-robot"
           git add . --force
           git commit -m 'Render site' || echo "No changes to commit"
           git pull --set-upstream origin main --allow-unrelated-histories --strategy-option=ours
