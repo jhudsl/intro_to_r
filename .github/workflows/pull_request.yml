@@ -70,7 +70,7 @@ jobs:
 
     steps:
       - name: Checkout files
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
@@ -164,7 +164,7 @@ jobs:
 
     steps:
       - name: Checkout files
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
@@ -187,7 +187,7 @@ jobs:
 
     steps:
     - name: checkout repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Configure git
       run: |
@@ -279,7 +279,7 @@ jobs:
           git config --global --add safe.directory /__w/$repo_name/$repo_name
     
       - name: Checkout files
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
@@ -407,7 +407,7 @@ jobs:
     
     steps:
       - name: Checkout files
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
