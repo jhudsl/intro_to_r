@@ -427,8 +427,8 @@ jobs:
       - name: Convert HTML to PDF
         uses: markwilson/html2pdf@v1.0
         with:
-          htmlPath: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
-          pdfName: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
+          entryPoint: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
+          args: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
           
       # Commit the rendered website files
       - name: Commit rendered website files to preview branch
