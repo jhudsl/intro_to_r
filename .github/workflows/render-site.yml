@@ -10,7 +10,7 @@ name: Render html
 on:
   workflow_dispatch:
   push:
-    branches: [ main, staging ]
+    branches: [ staging ]
 
 jobs:
 
