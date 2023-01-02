@@ -11,11 +11,13 @@ output:
 ```{r, echo = FALSE, message = FALSE}
 # from these slides: https://docs.google.com/presentation/d/1-cauITbscmnDEDt5IqrZOLlCjyhzEOZY5fqwVY7l8tQ/edit?usp=sharing
 library(knitr)
+opts_chunk$set(comment = "")
 library(readr)
 suppressPackageStartupMessages(library(dplyr))
 library(tidyverse)
 library(devtools)
 library(remotes)
+install.packages("ottrpal")
 library(ottrpal)
 ```
 
