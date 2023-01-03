@@ -336,6 +336,8 @@ jobs:
           branch_name='preview-${{ github.event.pull_request.number }}'
           git diff origin/main -- '*.html' >/dev/null && changes=true || changes=false
           echo ::set-output name=changes::$changes
+          echo "changes=$changes" >> $GITHUB_OUTPUT
+          echo "${{ output.changes }}"
           git add . --force
           git commit -m 'Render preview' || echo "No changes to commit"
           git pull --set-upstream origin $branch_name --allow-unrelated-histories --strategy-option=ours
@@ -393,7 +395,7 @@ jobs:
     if: ${{needs.yaml-check.outputs.toggle_render_preview == 'yes'}}
     strategy:
       matrix:
-        modulenames: ${{needs.yaml-check.outputs.module_pdfs}}
+        modulenames: "${{needs.yaml-check.outputs.module_pdfs}}"
         
     steps:
       - name: Checkout files
