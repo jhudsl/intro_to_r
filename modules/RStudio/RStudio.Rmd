@@ -88,7 +88,7 @@ knitr::include_graphics("images/rstudio_console.png")
 ```
 
 -   Where code is executed (where things happen)
--   You can type here for things interactively
+-   You can type here for things interactively to test code
 -   Code is **not saved** on your disk
 
 ## RStudio
@@ -265,6 +265,19 @@ Uncheck the following:
 knitr::include_graphics("images/options.png")
 ```
 
+
+## Recap of where code goes
+
+- you can test code in the console
+- you can save code in a chunk in the editor (Markdown file)
+
+Do not write code outside of chunks in the editor unless you are doing inline code (more on that soon)
+
+```{r, fig.alt="knit", out.width = "100%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/where_code.png")
+```
+
+
 ## Getting help from the preview 
 
 When you type in a function name, a pop up will preview documentation to help you. It also helps you remember the name of the function if you don't remember all of it!
@@ -315,7 +328,7 @@ knitr::include_graphics("images/double_question.png")
 -  the Editor is for static code like scripts or R Markdown documents
 -  The console is for testing code
 -  R markdown documents are really helpful for lots of reasons!
--  R code goes within what is called a chunk
+-  R code goes within what is called a chunk (the gray box with a green play button)
 -  Code chunks can be modified so that they show differently in reports
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
