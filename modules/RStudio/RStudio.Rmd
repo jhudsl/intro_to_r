@@ -153,7 +153,8 @@ knitr::include_graphics("images/rstudio_environment.png")
 To do this lab we need to:
 
 1)  Download the file at the link above by clicking on the link or typing in:
-`https://jhudatascience.org/intro_to_r/modules/RStudio/lab/RStudio_Lab.Rmd`
+<font size="5"> https://jhudatascience.org/intro_to_r/modules/RStudio/lab/RStudio_Lab.Rmd </font>
+
 (Also on the [website](https://jhudatascience.org/intro_to_r/materials_schedule.html) schedule page - Lab for day 1)
 2)  Find the downloaded file on your computer
 3)  Open the file in RStudio 
@@ -190,7 +191,7 @@ knitr::include_graphics("images/RMarkdown.png")
 
 Within R Markdown files are code "chunks"
 
-This is where you can type R code and run it!
+This is where you can type R code and run it! 
 
 ```{r, out.width = "80%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/chunk.png")
@@ -208,7 +209,7 @@ Copy paste an existing chunk in the R Markdown file and replace the code **OR**
 knitr::include_graphics("images/insert_chunk.png")
 ```
 
-2)  Select R as the language:
+2)  Select R (default) as the language:
 
 ```{r, out.width = "13%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/select_R.png")
@@ -251,6 +252,60 @@ knitr::include_graphics("images/knit.png")
 -   `Ctrl+1` takes you to the script page
 -   `Ctrl+2` takes you to the console
 -   <http://www.rstudio.com/ide/docs/using/keyboard_shortcuts>
+
+
+## If you get annoyed by inline code previews in Markdown files:
+
+In RStudio
+Click the Edit tab -->  scroll down to Preferences... --> R Markdown
+
+Uncheck the following:
+
+```{r, fig.alt="knit", out.width = "100%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/options.png")
+```
+
+## Getting help from the preview 
+
+When you type in a function name, a pop up will preview documentation to help you. It also helps you remember the name of the function if you don't remember all of it!
+
+```{r, fig.alt="preview a function", out.width = "80%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/preview1.png")
+```
+
+```{r, fig.alt="preview a function", out.width = "80%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/preview2.png")
+```
+
+
+## Get help with the help pane
+
+```{r, fig.alt="help_pane", out.width = "90%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/help_pane.png")
+```
+
+## Getting Help with `?`
+
+If you know the name of a package or function: 
+
+Type `?package_name` or `?function_name` in the console to get information about packages and functions.
+
+For example: `?readr` or `?read_csv`.
+
+```{r, fig.alt="getting help", out.width = "90%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/gettinghelp.png")
+```
+
+
+## Double Question Mark
+
+If you haven't loaded a package yet into R than you may get a response that there is no documentation.
+
+Typing in `??package_name` can show you packages that you haven't loaded yet.
+
+```{r, fig.alt="help_pane", out.width = "90%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/double_question.png")
+```
 
 
 
