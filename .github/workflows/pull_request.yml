@@ -65,7 +65,7 @@ jobs:
       toggle_style_code: "${{ env.STYLE_CODE }}"
       toggle_url_check: "${{ env.URL_CHECKER }}"
       toggle_render_preview: "${{ env.RENDER_PREVIEW }}"
-      module_pdfs: ${{env.MODULE_PDFS}}
+      module_pdfs: "${{env.MODULE_PDFS}}"
       
       
 # 
