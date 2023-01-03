@@ -430,7 +430,7 @@ jobs:
         
       # Render pdfs of slides
       - name: Convert HTML to PDF
-        uses: frnode/html-to-pdf-action@v1.0.1
+        uses: fifsky/html-to-pdf-action@v0.1.0
         with:
           htmlFile: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
           outputFile: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
