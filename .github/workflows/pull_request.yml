@@ -65,7 +65,7 @@ jobs:
       toggle_style_code: "${{ env.STYLE_CODE }}"
       toggle_url_check: "${{ env.URL_CHECKER }}"
       toggle_render_preview: "${{ env.RENDER_PREVIEW }}"
-      module_pdfs: $[ env.MODULE_PDFS ]
+      module_pdfs: ${{env.MODULE_PDFS}}
       
       
 
@@ -284,7 +284,7 @@ jobs:
       # DEBUG echo module names
       - name: Make branch if it doesn't exist
         run: |
-            echo [${{needs.yaml-check.outputs.module_pdfs}}]
+            echo "[${{needs.yaml-check.outputs.module_pdfs}}]"
         shell: bash
     
       # Give permission to access the repo
