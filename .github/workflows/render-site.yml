@@ -10,7 +10,7 @@ name: Render html
 on:
   workflow_dispatch:
   push:
-    branches: [ staging ]
+    branches: [ main, staging ]
 
 jobs:
 
@@ -129,7 +129,6 @@ jobs:
     name: Render pdf lecture slides
     needs: render-main
     runs-on: ubuntu-latest
-
     container:
       image: jhudsl/course_template:main
     strategy:
@@ -159,10 +158,10 @@ jobs:
         
       # Render pdfs of slides
       - name: Convert HTML to PDF
-        uses: markwilson/html2pdf@v1.0
+        uses: frnode/html-to-pdf-action@v1.0.1
         with:
-          htmlPath: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
-          pdfName: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
+          htmlFile: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
+          outputFile: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
 
 
       # Commit the rendered site files - html files and site_libs files

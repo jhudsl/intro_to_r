@@ -430,10 +430,10 @@ jobs:
         
       # Render pdfs of slides
       - name: Convert HTML to PDF
-        uses: markwilson/html2pdf@v1.1
+        uses: frnode/html-to-pdf-action@v1.0.1
         with:
-          htmlPath: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
-          pdfName: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
+          htmlFile: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
+          outputFile: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
           
       # Commit the rendered website files
       - name: Commit rendered website files to preview branch
