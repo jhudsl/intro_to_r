@@ -26,8 +26,7 @@ jobs:
       # DEBUG echo module names
       - name: Make branch if it doesn't exist
         run: |
-            echo ${{env.MODULE_PDFS}}
-            echo $[ env.MODULE_PDFS ]
+            echo [${{env.MODULE_PDFS}}]
         shell: bash
 
       - name: Make branch if it doesn't exist
@@ -282,6 +281,12 @@ jobs:
     if: ${{needs.yaml-check.outputs.toggle_render_preview == 'yes'}}
     
     steps:
+      # DEBUG echo module names
+      - name: Make branch if it doesn't exist
+        run: |
+            echo [${{needs.yaml-check.outputs.module_pdfs}}]
+        shell: bash
+    
       # Give permission to access the repo
       - name: safelist repository
         run: |
