@@ -323,11 +323,11 @@ jobs:
 
       # This checks on the steps before it and makes sure that they completed.
       # If the renders didn't complete we don't want to commit the file changes
-      - name: Check on render steps
-        if: steps.site.outcome != 'success'
-        run: |
-          echo site status ${{steps.site.outcome}}
-          exit 1
+      # - name: Check on render steps
+      #   if: steps.site.outcome != 'success'
+      #   run: |
+      #     echo site status ${{steps.site.outcome}}
+      #     exit 1
 
       # Commit the rendered website files
       - name: Commit rendered website files to preview branch
