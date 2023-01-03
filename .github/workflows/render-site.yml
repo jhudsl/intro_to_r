@@ -127,7 +127,7 @@ jobs:
 
   render-pdf-lectures:
     name: Render pdf lecture slides
-    needs: [render-main]
+    needs: render-main
     runs-on: ubuntu-latest
 
     container:
