@@ -10,7 +10,7 @@ name: Render html
 on:
   workflow_dispatch:
   push:
-    branches: [ staging ]
+    branches: [ main, staging ]
 
 jobs:
 
@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.6.0
+        uses: actions/checkout@v3
 
         # Use the yaml-env-action action.
       - name: Load environment from YAML
@@ -39,7 +39,7 @@ jobs:
 
     steps:
       - name: Checkout files
-        uses: actions/checkout@v2.6.0
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
@@ -74,7 +74,7 @@ jobs:
     
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: checkout
-        uses: actions/checkout@v2.6.0
+        uses: actions/checkout@v3
         with:
           # get the full repo
           fetch-depth: 0
@@ -129,7 +129,6 @@ jobs:
     name: Render pdf lecture slides
     needs: render-main
     runs-on: ubuntu-latest
-
     container:
       image: jhudsl/course_template:main
     strategy:
@@ -153,16 +152,16 @@ jobs:
           
     steps:
       - name: Checkout files
-        uses: actions/checkout@v2.6.0
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
         
       # Render pdfs of slides
       - name: Convert HTML to PDF
-        uses: markwilson/html2pdf@v1.0
+        uses: fifsky/html-to-pdf-action@v0.1.0
         with:
-          htmlPath: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
-          pdfName: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
+          htmlFile: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
+          outputFile: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
 
 
       # Commit the rendered site files - html files and site_libs files
