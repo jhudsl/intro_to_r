@@ -272,20 +272,20 @@ jobs:
 #           _Comment updated at ${{ steps.build-components.outputs.time }} with changes from ${{ steps.build-components.outputs.commit_id }}_
 #         edit-mode: replace
 # 
-#   render-preview:
-#     name: Render preview
-#     needs: yaml-check
-#     runs-on: ubuntu-latest
-#     container:
-#       image: jhudsl/intro_to_r:1.0
-#     if: ${{needs.yaml-check.outputs.toggle_render_preview == 'yes'}}
-#     
-#     steps:
-#       # DEBUG echo module names
-#       - name: Make branch if it doesn't exist
-#         run: |
-#             echo "[${{needs.yaml-check.outputs.module_pdfs}}]"
-#         shell: bash
+  render-preview:
+    name: Render preview
+    needs: yaml-check
+    runs-on: ubuntu-latest
+    container:
+      image: jhudsl/intro_to_r:1.0
+    if: ${{needs.yaml-check.outputs.toggle_render_preview == 'yes'}}
+
+    steps:
+      # DEBUG echo module names
+      - name: Make branch if it doesn't exist
+        run: |
+            echo "${{needs.yaml-check.outputs.module_pdfs}}"
+        shell: bash
 #     
 #       # Give permission to access the repo
 #       - name: safelist repository
@@ -410,7 +410,7 @@ jobs:
     #if: ${{needs.yaml-check.outputs.toggle_render_preview == 'yes'}}
     strategy:
       matrix:
-        modulenames: ${{ needs.yaml-check.outputs.module_pdfs }}
+        modulenames: ${{ [needs.yaml-check.outputs.module_pdfs] }}
         
     steps:
       - name: Checkout files
