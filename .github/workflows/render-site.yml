@@ -127,15 +127,30 @@ jobs:
 
   render-pdf-lectures:
     name: Render pdf lecture slides
-    needs: [yaml-check, style-code, render-main]
+    needs: [render-main]
     runs-on: ubuntu-latest
 
     container:
       image: jhudsl/course_template:main
     strategy:
       matrix:
-        modulenames: [Intro, RStudio, Reproducibility, Basic_R, Data_IO, Subsetting_Data_in_R, Data_Summarization, Data_Classes, Data_Cleaning, Manipulating_Data_in_R, Esquisse_Data_Visualization, Data_Visualization, Factors, Statistics, Functions]
-    
+        modulenames: 
+          - Intro
+          - RStudio
+          - Reproducibility
+          - Basic_R
+          - Data_IO
+          - Subsetting_Data_in_R
+          - Data_Summarization
+          - Data_Classes
+          - Data_Cleaning
+          - Manipulating_Data_in_R
+          - Esquisse_Data_Visualization
+          - Data_Visualization
+          - Factors
+          - Statistics
+          - Functions
+          
     steps:
       - name: Checkout files
         uses: actions/checkout@v2.6.0
