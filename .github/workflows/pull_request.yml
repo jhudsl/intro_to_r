@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2.6.0
         with:
           fetch-depth: 0
 
@@ -59,6 +59,7 @@ jobs:
       toggle_style_code: "${{ env.STYLE_CODE }}"
       toggle_url_check: "${{ env.URL_CHECKER }}"
       toggle_render_preview: "${{ env.RENDER_PREVIEW }}"
+      
 
   spell-check:
     name: Check spelling
@@ -70,7 +71,7 @@ jobs:
 
     steps:
       - name: Checkout files
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2.6.0
         with:
           fetch-depth: 0
 
@@ -93,7 +94,7 @@ jobs:
 
       - name: Archive spelling errors
         if: ${{ steps.spell_check_run.outputs.sp_chk_results > 0 }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3.1.1
         with:
           name: spell-check-results
           path: check_reports/spell_check_results.tsv
@@ -120,7 +121,7 @@ jobs:
 
       # Handle the commenting
       - name: Find Comment
-        uses: peter-evans/find-comment@v1
+        uses: peter-evans/find-comment@v2.2.0
         id: fc
         with:
           issue-number: ${{ github.event.pull_request.number }}
@@ -129,7 +130,7 @@ jobs:
 
       - name: Spelling errors!
         if: ${{ steps.spell_check_run.outputs.sp_chk_results >= 3 }}
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v2.1.0
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
@@ -145,7 +146,7 @@ jobs:
 
       - name: No spelling errors
         if: ${{ steps.spell_check_run.outputs.sp_chk_results < 3 }}
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v2.1.0
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
@@ -153,7 +154,7 @@ jobs:
             No spelling errors! :tada:
             _Comment updated at ${{ steps.build-components.outputs.time }} with changes from ${{ steps.build-components.outputs.commit_id }}_
           edit-mode: replace
-  
+
   style-code:
     name: Style code
     needs: yaml-check
@@ -164,7 +165,7 @@ jobs:
 
     steps:
       - name: Checkout files
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2.6.0
         with:
           fetch-depth: 0
 
@@ -187,7 +188,7 @@ jobs:
 
     steps:
     - name: checkout repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2.6.0
 
     - name: Configure git
       run: |
@@ -229,7 +230,7 @@ jobs:
 
     # Handle the commenting
     - name: Find Comment
-      uses: peter-evans/find-comment@v1
+      uses: peter-evans/find-comment@v2.2.0
       id: fc
       with:
         issue-number: ${{ github.event.pull_request.number }}
@@ -238,7 +239,7 @@ jobs:
 
     - name: URL errors!
       if: ${{ steps.url_errors.outputs.url_results > 0 }}
-      uses: peter-evans/create-or-update-comment@v1
+      uses: peter-evans/create-or-update-comment@v2.1.0
       with:
         comment-id: ${{ steps.fc.outputs.comment-id }}
         issue-number: ${{ github.event.pull_request.number }}
@@ -254,7 +255,7 @@ jobs:
 
     - name: No URL errors
       if: ${{ steps.url_errors.outputs.url_results == 0 }}
-      uses: peter-evans/create-or-update-comment@v1
+      uses: peter-evans/create-or-update-comment@v2.1.0
       with:
         comment-id: ${{ steps.fc.outputs.comment-id }}
         issue-number: ${{ github.event.pull_request.number }}
@@ -270,16 +271,16 @@ jobs:
     container:
       image: jhudsl/intro_to_r:1.0
     if: ${{needs.yaml-check.outputs.toggle_render_preview == 'yes'}}
-    
+  
     steps:
       # Give permission to access the repo
       - name: safelist repository
         run: |
           repo_name='${{ github.event.repository.name }}'
           git config --global --add safe.directory /__w/$repo_name/$repo_name
-    
+
       - name: Checkout files
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2.6.0
         with:
           fetch-depth: 0
 
@@ -294,42 +295,31 @@ jobs:
           git checkout $branch_name
           git merge -s recursive --strategy-option=theirs origin/${{ github.head_ref }} --allow-unrelated-histories
         shell: bash
-        
-      - name: Gather files with updates
-        id: file_changes
-        uses: trilom/file-changes-action@v1.2.4
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
-
-      - name: Print files with updates
-        run: |
-          echo ${{steps.file_changes.outputs.files_modified}}
-          echo ${{steps.file_changes.outputs.files_added}} 
 
       # We want a fresh run of the renders each time - so first delete old html files
       - name: Delete old *.html
         run: Rscript -e "rmarkdown::clean_site(preview = FALSE)"
-        
+
        # Now we want to render all the html files from the Rmd files
       - name: Run render html for the main site
         id: site
-        run: Rscript -e "rmarkdown::render_site()" 
-        
+        run: Rscript -e "rmarkdown::render_site()"
+
        # Render module details for syllabus
       - name: Render module details for syllabus
         run: Rscript "scripts/render_module_details_for_syllabus.R"
-        
+
        # Render all module files
       - name: Render html of modules
         run: Rscript "scripts/render_modules.R"
 
        # Render the cheatsheets
       - name: Render Cheatsheet pdfs
-        run: Rscript "scripts/render_cheatsheets.R" 
-        
+        run: Rscript "scripts/render_cheatsheets.R"
+
        # Render resource pdfs
       - name: Render Resource pdfs
-        run: Rscript "scripts/render_resources.R" 
+        run: Rscript "scripts/render_resources.R"
 
       # This checks on the steps before it and makes sure that they completed.
       # If the renders didn't complete we don't want to commit the file changes
@@ -346,6 +336,8 @@ jobs:
           branch_name='preview-${{ github.event.pull_request.number }}'
           git diff origin/main -- '*.html' >/dev/null && changes=true || changes=false
           echo ::set-output name=changes::$changes
+          echo "changes=$changes" >> $GITHUB_ENV
+          echo "${{ env.changes }}"
           git add . --force
           git commit -m 'Render preview' || echo "No changes to commit"
           git pull --set-upstream origin $branch_name --allow-unrelated-histories --strategy-option=ours
@@ -353,7 +345,7 @@ jobs:
         shell: bash
 
       - name: Find Comment
-        uses: peter-evans/find-comment@v1
+        uses: peter-evans/find-comment@v2.2.0
         id: fc
         with:
           issue-number: ${{ github.event.pull_request.number }}
@@ -372,7 +364,7 @@ jobs:
 
       - name: Create or update comment
         if: steps.commit.outputs.changes == 'true'
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v2.1.0
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
@@ -384,7 +376,7 @@ jobs:
 
       - name: No comment if no changes
         if: steps.commit.outputs.changes == 'false'
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v2.1.0
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
@@ -403,11 +395,26 @@ jobs:
     if: ${{needs.yaml-check.outputs.toggle_render_preview == 'yes'}}
     strategy:
       matrix:
-        modulenames: [Intro, RStudio, Reproducibility, Basic_R, Data_IO, Subsetting_Data_in_R, Data_Summarization, Data_Classes, Data_Cleaning, Manipulating_Data_in_R, Esquisse_Data_Visualization, Data_Visualization, Factors, Statistics, Functions]
-    
+        modulenames: 
+          - Intro
+          - RStudio
+          - Reproducibility
+          - Basic_R
+          - Data_IO
+          - Subsetting_Data_in_R
+          - Data_Summarization
+          - Data_Classes
+          - Data_Cleaning
+          - Manipulating_Data_in_R
+          - Esquisse_Data_Visualization
+          - Data_Visualization
+          - Factors
+          - Statistics
+          - Functions
+        
     steps:
       - name: Checkout files
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2.6.0
         with:
           fetch-depth: 0
 
@@ -425,7 +432,7 @@ jobs:
         
       # Render pdfs of slides
       - name: Convert HTML to PDF
-        uses: markwilson/html2pdf@v1.0
+        uses: markwilson/html2pdf@v1.1
         with:
           htmlPath: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
           pdfName: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf

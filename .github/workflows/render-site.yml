@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2.6.0
 
         # Use the yaml-env-action action.
       - name: Load environment from YAML
@@ -39,7 +39,7 @@ jobs:
 
     steps:
       - name: Checkout files
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2.6.0
         with:
           fetch-depth: 0
 
@@ -74,7 +74,7 @@ jobs:
     
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2.6.0
         with:
           # get the full repo
           fetch-depth: 0
@@ -127,18 +127,33 @@ jobs:
 
   render-pdf-lectures:
     name: Render pdf lecture slides
-    needs: [yaml-check, style-code, render-main]
+    needs: render-main
     runs-on: ubuntu-latest
 
     container:
       image: jhudsl/course_template:main
     strategy:
       matrix:
-        modulenames: [Intro, RStudio, Reproducibility, Basic_R, Data_IO, Subsetting_Data_in_R, Data_Summarization, Data_Classes, Data_Cleaning, Manipulating_Data_in_R, Esquisse_Data_Visualization, Data_Visualization, Factors, Statistics, Functions]
-    
+        modulenames: 
+          - Intro
+          - RStudio
+          - Reproducibility
+          - Basic_R
+          - Data_IO
+          - Subsetting_Data_in_R
+          - Data_Summarization
+          - Data_Classes
+          - Data_Cleaning
+          - Manipulating_Data_in_R
+          - Esquisse_Data_Visualization
+          - Data_Visualization
+          - Factors
+          - Statistics
+          - Functions
+          
     steps:
       - name: Checkout files
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2.6.0
         with:
           fetch-depth: 0
         
