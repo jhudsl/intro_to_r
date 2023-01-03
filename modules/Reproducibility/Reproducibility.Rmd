@@ -8,7 +8,7 @@ output:
 
 
 
-```{r, echo = FALSE, message = FALSE}
+```{r, echo = FALSE, message = FALSE, comment=FALSE}
 # from these slides: https://docs.google.com/presentation/d/1-cauITbscmnDEDt5IqrZOLlCjyhzEOZY5fqwVY7l8tQ/edit?usp=sharing
 library(knitr)
 opts_chunk$set(comment = "")
@@ -140,13 +140,21 @@ knitr::include_graphics("images/original.png")
 ```
 
 After knit:
-```{r, fig.alt="Result of markdown sytax after rendering", out.width = "80%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="Result of markdown sytax after rendering", out.width = "70%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/rendered.png")
 ```
 
 ## R Markdown syntax
 
-Go to Help > Cheatsheets > R Markdown Cheatsheet or our website!
+Go to Help > Cheat Sheets > R Markdown Cheat Sheet (which will download it)
+
+Or checkout Help > Cheat Sheets > R Markdown Reference Guide
+
+Or checkout the 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)!
+
+```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/markdown_cheatsheet.png")
+```
 
 
 ## Versions matter
