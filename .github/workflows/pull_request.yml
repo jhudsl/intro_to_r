@@ -264,15 +264,15 @@ jobs:
           _Comment updated at ${{ steps.build-components.outputs.time }} with changes from ${{ steps.build-components.outputs.commit_id }}_
         edit-mode: replace
 
-render-preview:
-  name: Render preview
-  needs: yaml-check
-  runs-on: ubuntu-latest
-  container:
-    image: jhudsl/intro_to_r:1.0
-  if: ${{needs.yaml-check.outputs.toggle_render_preview == 'yes'}}
-
-  steps:
+  render-preview:
+    name: Render preview
+    needs: yaml-check
+    runs-on: ubuntu-latest
+    container:
+      image: jhudsl/intro_to_r:1.0
+    if: ${{needs.yaml-check.outputs.toggle_render_preview == 'yes'}}
+  
+    steps:
       # Give permission to access the repo
       - name: safelist repository
         run: |
