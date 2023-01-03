@@ -22,6 +22,13 @@ jobs:
         uses: doughepi/yaml-env-action@v1.0.0
         with:
             files: docs/config_automation.yml # Pass a space-separated list of configuration files. Rightmost files take precedence.
+      
+      # DEBUG echo module names
+      - name: Make branch if it doesn't exist
+        run: |
+            echo ${{env.MODULE_PDFS}}
+            echo $[ env.MODULE_PDFS ]
+        shell: bash
 
       - name: Make branch if it doesn't exist
         run: |
@@ -60,6 +67,8 @@ jobs:
       toggle_url_check: "${{ env.URL_CHECKER }}"
       toggle_render_preview: "${{ env.RENDER_PREVIEW }}"
       module_pdfs: $[ env.MODULE_PDFS ]
+      
+      
 
   spell-check:
     name: Check spelling
