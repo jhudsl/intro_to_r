@@ -295,18 +295,6 @@ jobs:
           git checkout $branch_name
           git merge -s recursive --strategy-option=theirs origin/${{ github.head_ref }} --allow-unrelated-histories
         shell: bash
-        
-      # This is for debugging - which files were actually modified?
-      - name: Gather files with updates
-        id: file_changes
-        uses: trilom/file-changes-action@v1.2.4
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
-
-      - name: Print files with updates
-        run: |
-          echo ${{steps.file_changes.outputs.files_modified}}
-          echo ${{steps.file_changes.outputs.files_added}} 
 
       # # We want a fresh run of the renders each time - so first delete old html files
       # - name: Delete old *.html
