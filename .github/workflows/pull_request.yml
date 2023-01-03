@@ -26,7 +26,7 @@ jobs:
       # DEBUG echo module names
       - name: DEBUG
         run: |
-            echo "[${{env.MODULE_PDFS}}]"
+            echo "${{env.MODULE_PDFS}}"
         shell: bash
 
       - name: Make branch if it doesn't exist
@@ -410,7 +410,7 @@ jobs:
     #if: ${{needs.yaml-check.outputs.toggle_render_preview == 'yes'}}
     strategy:
       matrix:
-        modulenames: ${{needs.yaml-check.outputs.module_pdfs}}
+        modulenames: ${{ needs.yaml-check.outputs.module_pdfs }}
         
     steps:
       - name: Checkout files
