@@ -59,6 +59,7 @@ jobs:
       toggle_style_code: "${{ env.STYLE_CODE }}"
       toggle_url_check: "${{ env.URL_CHECKER }}"
       toggle_render_preview: "${{ env.RENDER_PREVIEW }}"
+      module_pdfs: "${{ env.MODULE_PDFS }}"
 
   spell-check:
     name: Check spelling
@@ -295,6 +296,7 @@ jobs:
           git merge -s recursive --strategy-option=theirs origin/${{ github.head_ref }} --allow-unrelated-histories
         shell: bash
         
+      # This is for debugging - which files were actually modified?
       - name: Gather files with updates
         id: file_changes
         uses: trilom/file-changes-action@v1.2.4
@@ -403,8 +405,8 @@ jobs:
     if: ${{needs.yaml-check.outputs.toggle_render_preview == 'yes'}}
     strategy:
       matrix:
-        modulenames: [Intro, RStudio, Reproducibility, Basic_R, Data_IO, Subsetting_Data_in_R, Data_Summarization, Data_Classes, Data_Cleaning, Manipulating_Data_in_R, Esquisse_Data_Visualization, Data_Visualization, Factors, Statistics, Functions]
-    
+        modulenames: ${{needs.yaml-check.outputs.module_pdfs}}
+        
     steps:
       - name: Checkout files
         uses: actions/checkout@v2.6.0
