@@ -269,11 +269,13 @@ knitr::include_graphics("images/options.png")
 ## Recap of where code goes
 
 - you can test code in the console
+```{r, fig.alt="knit", out.width = "90%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/where_code_console.png")
+```
+
 - you can save code in a chunk in the editor (Markdown file)
 
-Do not write code outside of chunks in the editor unless you are doing inline code (more on that soon)
-
-```{r, fig.alt="knit", out.width = "100%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="knit", out.width = "90%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/where_code.png")
 ```
 
