@@ -308,30 +308,30 @@ jobs:
           echo ${{steps.file_changes.outputs.files_modified}}
           echo ${{steps.file_changes.outputs.files_added}} 
 
-      # We want a fresh run of the renders each time - so first delete old html files
-      - name: Delete old *.html
-        run: Rscript -e "rmarkdown::clean_site(preview = FALSE)"
-        
-       # Now we want to render all the html files from the Rmd files
-      - name: Run render html for the main site
-        id: site
-        run: Rscript -e "rmarkdown::render_site()" 
-        
-       # Render module details for syllabus
-      - name: Render module details for syllabus
-        run: Rscript "scripts/render_module_details_for_syllabus.R"
-        
-       # Render all module files
-      - name: Render html of modules
-        run: Rscript "scripts/render_modules.R"
-
-       # Render the cheatsheets
-      - name: Render Cheatsheet pdfs
-        run: Rscript "scripts/render_cheatsheets.R" 
-        
-       # Render resource pdfs
-      - name: Render Resource pdfs
-        run: Rscript "scripts/render_resources.R" 
+      # # We want a fresh run of the renders each time - so first delete old html files
+      # - name: Delete old *.html
+      #   run: Rscript -e "rmarkdown::clean_site(preview = FALSE)"
+      #   
+      #  # Now we want to render all the html files from the Rmd files
+      # - name: Run render html for the main site
+      #   id: site
+      #   run: Rscript -e "rmarkdown::render_site()" 
+      #   
+      #  # Render module details for syllabus
+      # - name: Render module details for syllabus
+      #   run: Rscript "scripts/render_module_details_for_syllabus.R"
+      #   
+      #  # Render all module files
+      # - name: Render html of modules
+      #   run: Rscript "scripts/render_modules.R"
+      # 
+      #  # Render the cheatsheets
+      # - name: Render Cheatsheet pdfs
+      #   run: Rscript "scripts/render_cheatsheets.R" 
+      #   
+      #  # Render resource pdfs
+      # - name: Render Resource pdfs
+      #   run: Rscript "scripts/render_resources.R" 
 
       # This checks on the steps before it and makes sure that they completed.
       # If the renders didn't complete we don't want to commit the file changes
