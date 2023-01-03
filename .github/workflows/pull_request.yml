@@ -24,9 +24,9 @@ jobs:
             files: docs/config_automation.yml # Pass a space-separated list of configuration files. Rightmost files take precedence.
       
       # DEBUG echo module names
-      - name: Make branch if it doesn't exist
+      - name: DEBUG
         run: |
-            echo [${{env.MODULE_PDFS}}]
+            echo ${{[env.MODULE_PDFS]}}
         shell: bash
 
       - name: Make branch if it doesn't exist
