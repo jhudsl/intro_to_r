@@ -93,7 +93,7 @@ jobs:
 
       - name: Archive spelling errors
         if: ${{ steps.spell_check_run.outputs.sp_chk_results > 0 }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3.1.1
         with:
           name: spell-check-results
           path: check_reports/spell_check_results.tsv
@@ -120,7 +120,7 @@ jobs:
 
       # Handle the commenting
       - name: Find Comment
-        uses: peter-evans/find-comment@v1
+        uses: peter-evans/find-comment@v2.2.0
         id: fc
         with:
           issue-number: ${{ github.event.pull_request.number }}
@@ -129,7 +129,7 @@ jobs:
 
       - name: Spelling errors!
         if: ${{ steps.spell_check_run.outputs.sp_chk_results >= 3 }}
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v2.1.0
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
@@ -145,7 +145,7 @@ jobs:
 
       - name: No spelling errors
         if: ${{ steps.spell_check_run.outputs.sp_chk_results < 3 }}
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v2.1.0
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
@@ -229,7 +229,7 @@ jobs:
 
     # Handle the commenting
     - name: Find Comment
-      uses: peter-evans/find-comment@v1
+      uses: peter-evans/find-comment@v2.2.0
       id: fc
       with:
         issue-number: ${{ github.event.pull_request.number }}
@@ -238,7 +238,7 @@ jobs:
 
     - name: URL errors!
       if: ${{ steps.url_errors.outputs.url_results > 0 }}
-      uses: peter-evans/create-or-update-comment@v1
+      uses: peter-evans/create-or-update-comment@v2.1.0
       with:
         comment-id: ${{ steps.fc.outputs.comment-id }}
         issue-number: ${{ github.event.pull_request.number }}
@@ -254,7 +254,7 @@ jobs:
 
     - name: No URL errors
       if: ${{ steps.url_errors.outputs.url_results == 0 }}
-      uses: peter-evans/create-or-update-comment@v1
+      uses: peter-evans/create-or-update-comment@v2.1.0
       with:
         comment-id: ${{ steps.fc.outputs.comment-id }}
         issue-number: ${{ github.event.pull_request.number }}
@@ -353,7 +353,7 @@ jobs:
         shell: bash
 
       - name: Find Comment
-        uses: peter-evans/find-comment@v1
+        uses: peter-evans/find-comment@v2.2.0
         id: fc
         with:
           issue-number: ${{ github.event.pull_request.number }}
@@ -372,7 +372,7 @@ jobs:
 
       - name: Create or update comment
         if: steps.commit.outputs.changes == 'true'
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v2.1.0
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
@@ -384,7 +384,7 @@ jobs:
 
       - name: No comment if no changes
         if: steps.commit.outputs.changes == 'false'
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v2.1.0
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
@@ -425,7 +425,7 @@ jobs:
         
       # Render pdfs of slides
       - name: Convert HTML to PDF
-        uses: markwilson/html2pdf@v1.0
+        uses: markwilson/html2pdf@v1.1
         with:
           htmlPath: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
           pdfName: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
