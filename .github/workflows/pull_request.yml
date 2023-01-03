@@ -395,7 +395,7 @@ jobs:
     if: ${{needs.yaml-check.outputs.toggle_render_preview == 'yes'}}
     strategy:
       matrix:
-        modulenames: [ ${{needs.yaml-check.outputs.module_pdfs}} ]
+        modulenames: [ needs.yaml-check.outputs.module_pdfs ]
         
     steps:
       - name: Checkout files
