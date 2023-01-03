@@ -10,7 +10,7 @@ name: Render html
 on:
   workflow_dispatch:
   push:
-    branches: [ staging ]
+    branches: [ main, staging ]
 
 jobs:
 
@@ -127,15 +127,29 @@ jobs:
 
   render-pdf-lectures:
     name: Render pdf lecture slides
-    needs: [yaml-check, style-code, render-main]
+    needs: render-main
     runs-on: ubuntu-latest
-
     container:
       image: jhudsl/course_template:main
     strategy:
       matrix:
-        modulenames: [Intro, RStudio, Reproducibility, Basic_R, Data_IO, Subsetting_Data_in_R, Data_Summarization, Data_Classes, Data_Cleaning, Manipulating_Data_in_R, Esquisse_Data_Visualization, Data_Visualization, Factors, Statistics, Functions]
-    
+        modulenames: 
+          - Intro
+          - RStudio
+          - Reproducibility
+          - Basic_R
+          - Data_IO
+          - Subsetting_Data_in_R
+          - Data_Summarization
+          - Data_Classes
+          - Data_Cleaning
+          - Manipulating_Data_in_R
+          - Esquisse_Data_Visualization
+          - Data_Visualization
+          - Factors
+          - Statistics
+          - Functions
+          
     steps:
       - name: Checkout files
         uses: actions/checkout@v3
@@ -144,10 +158,10 @@ jobs:
         
       # Render pdfs of slides
       - name: Convert HTML to PDF
-        uses: markwilson/html2pdf@v1.0
+        uses: fifsky/html-to-pdf-action@v0.1.0
         with:
-          htmlPath: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
-          pdfName: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
+          htmlFile: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
+          outputFile: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
 
 
       # Commit the rendered site files - html files and site_libs files
