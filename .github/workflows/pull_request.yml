@@ -65,7 +65,6 @@ jobs:
       toggle_style_code: "${{ env.STYLE_CODE }}"
       toggle_url_check: "${{ env.URL_CHECKER }}"
       toggle_render_preview: "${{ env.RENDER_PREVIEW }}"
-      module_names: ${{ env.MODULENAMES }}
       
 # 
 #   spell-check:
@@ -408,11 +407,11 @@ jobs:
       image: jhudsl/course_template:main
     #if: ${{needs.yaml-check.outputs.toggle_render_preview == 'yes'}}
     strategy:
-      matrix: ${{needs.yaml-check.outputs.module_names}}
-        # modulenames: 
-        #   - Intro
-        #   - RStudio
-        #   - Basic_R
+      matrix:
+        modulenames: 
+          - Intro
+          - RStudio
+          - Basic_R
         
     steps:
       - name: Checkout files
@@ -436,8 +435,8 @@ jobs:
       - name: Convert HTML to PDF
         uses: markwilson/html2pdf@v1.1
         with:
-          htmlPath: modules/${{ needs.yaml-check.outputs.module_names }}/${{ needs.yaml-check.outputs.module_names }}.html
-          pdfName: modules/${{ needs.yaml-check.outputs.module_names }}/${{ needs.yaml-check.outputs.module_names }}.pdf
+          htmlPath: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
+          pdfName: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
           
       # Commit the rendered website files
       - name: Commit rendered website files to preview branch
