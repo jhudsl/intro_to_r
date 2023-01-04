@@ -17,9 +17,11 @@ title: "R and RStudio Installation"
 
 We recommend installing the most recent version or `R` (4.2.2 as of October 31, 2022). **If you have had installed `R` already some time ago, we recommend updating/reinstalling it to the most recent version.** Use a link below to launch download of `R` installers (if the download does not start, a fix may be to copy-paste the below link to your browser):
 
--   For Mac users: <https://cloud.r-project.org/bin/macosx/base/R-4.2.2.pkg>
+-   [Download For Mac users (M1 chip)](https://cloud.r-project.org/bin/macosx/big-sur-arm64/base/R-4.2.2-arm64.pkg)
 
--   For Windows users: <https://cloud.r-project.org/bin/windows/base/R-4.2.2-win.exe>
+-   [Download For Mac users (Intel chip)](https://cloud.r-project.org/bin/macosx/base/R-4.2.2.pkg)
+
+-   [Download For Windows users](https://cloud.r-project.org/bin/windows/base/R-4.2.2-win.exe)
 
 For other operating systems, or if you prefer to access the download link from the official website, visit <http://cran.us.r-project.org> and select `Download R for Linux`, `Download R for macOS` or `Download R for Windows` based on which device you have.
 
@@ -27,7 +29,13 @@ Once the proper installation package has been selected, run the package and foll
 
 # Installing `RStudio` {#installing-rstudio}
 
-To install `RStudio`, visit <http://www.rstudio.com>. Once on the website, select `DOWNLOAD` tab (upper left corner), scroll down and click `Download` under the `RStudio Desktop` -- `Free` version (1st out of 4 columns), and select the proper installation file for your platform (Windows or Mac).
+To install `RStudio`, visit <https://posit.co/download/rstudio-desktop/>. The website should look like this:
+
+![](images/RStudio_landing.png)
+
+Once on the website, scroll down and select the proper installation file for your platform (Windows, Mac, etc.). Open up the installer and follow the directions to install RStudio.
+
+![](images/RStudio_platforms.png)
 
 When you open up `RStudio`, it should look like this:
 
