@@ -8,19 +8,18 @@ output:
 library(tidyverse)
 ```
 
-**Epi/Biostats Winter Institute - Introduction to R for Public Health Researchers
-140.604.73**
+**`r config::get("course_name_long")`**
 
 **Class Website:** http://jhudatascience.org/intro_to_r/   
-**CoursePlus:** https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/17889/
+**CoursePlus:** `r config::get("courseplus_web")`
 
 **Zoom link will be emailed to students.**
 
-**Day/Time:** January 9 - 20: 1:30PM-4:50PM ET on Zoom (**No class on January 16th for Martin Luther King, Jr. Day**.)
+**Day/Time:** `r config::get("course_dates")`: 1:30PM-4:50PM ET on Zoom (**`r config::get("holiday")`**.)
 
-**Instructors:** Carrie Wright (cwrigh60@jhu.edu), Ava Hoffman (ava.hoffman@jhu.edu)
+**Instructors:** `r config::get("instructors")`
 
-**Teaching Assistants:** Padmashri Saravanan (psarava1@jhu.edu)
+**Teaching Assistants:** `r config::get("ta")`
 
 **Communication will mainly occur through Slack and we will email you about how to connect to Slack.**
 
@@ -80,7 +79,7 @@ All assignments are due Monday, January 25th, 2022 at 11:59pm EST. Note that we 
 ## Submitting Assignments
 ***
 
-Submit each assignment to the designated [Drop Box on CoursePlus](https://courseplus.jhu.edu/core/index.cfm/go/db:main/coID/17889/).
+Submit each assignment to the designated [Drop Box on CoursePlus](`r config::get("courseplus_dropboxes")`).
 
 You should complete the following:
 
@@ -100,7 +99,7 @@ You should complete the following:
 
 We know that you will try your best to submit assignments on time. However, we understand that life happens. We can accept late assignments with a deduction of 2% of your assignment score per day late.
 
-For example, if you scored 9/10 on an assignment (90%) but turned it in two days late, your score would be 8.6/10 (86%). Note that we must submit final grades by January 27th, so please turn in your assignments before this date, so that we can give you credit. 
+For example, if you scored 9/10 on an assignment (90%) but turned it in two days late, your score would be 8.6/10 (86%). Note that we must submit final grades by `r config::get("grades_due")`, so please turn in your assignments before this date, so that we can give you credit. 
 
 <br>
 
