@@ -22,11 +22,13 @@ pre { /* Code block - slightly smaller in this lecture */
 ## Outline 
 
 * Part 0: A little bit of set up!
-* Part 1: reading CSV file, common new user mistakes in data reading, checking for problems in the read data
+* Part 1: reading in manually (point and click)
+* Part 2: reading in directly
 * Part 2: data input overview, working directories, relative vs. absolute paths, reading XLSX file (Excel file), other data inputs
 * Part 3: writing CSV file
 * Part 4: reading and saving R objects
 
+# Part 0: Setup
 
 ## New R Project
 
@@ -79,11 +81,12 @@ knitr::include_graphics("images/Data_IO_new_desktop.png")
 ```
 
 
+# Part 1: Getting data into R (manual/point and click)
+
+
 ## Data We Use
 
-* Everything we do in class will be using real publicly available data - there are few 'toy' example datasets and 'simulated' data
-* Baltimore Open Data and Data.gov will be sources for the first few days
-* We have also added functionality to load these datasets directly in the `jhur` package
+* We have added functionality to load some datasets directly in the `jhur` package
 
 
 ## Data Input
@@ -112,6 +115,58 @@ Dataset is located at http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Su
 * Download data by clicking the above link
     
     * Safari - if a file loads in your browser, choose File --> Save As, select, Format "Page Source" and save
+
+
+## Import Dataset
+
+> File
+> Import Dataset
+> From Text (`readr`)
+> paste the url (http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv)
+> click "Update" and "Import"
+
+
+## What Just Happened?
+
+You see a preview of the data on the top left pane.
+
+```{r, fig.alt="The image shows an image of an arrow pointing to the newly created R project repository.", out.width = "60%", echo = FALSE, align = "center"}
+knitr::include_graphics("images/Data_IO_data_imported.png")
+```
+
+
+## What Just Happened?
+
+You see a new object called `Youth_Tobacco_Survey_YTS_Data` in your environment pane (top right). The table button opens the data for you to view.
+
+```{r, fig.alt="The image shows an image of an arrow pointing to the newly created R project repository.", out.width = "60%", echo = FALSE, align = "center"}
+knitr::include_graphics("images/Data_IO_data_imported.png")
+```
+
+
+## What Just Happened?
+
+R ran some code in the console (bottom left).
+
+```{r, fig.alt="The image shows an image of an arrow pointing to the newly created R project repository.", out.width = "60%", echo = FALSE, align = "center"}
+knitr::include_graphics("images/Data_IO_code_ran.png")
+```
+
+
+## Browsing for Data on Your Machine
+
+```{r, fig.alt="The image shows an image of an arrow pointing to the newly created R project repository.", out.width = "60%", echo = FALSE, align = "center"}
+knitr::include_graphics("images/Data_IO_browse.png")
+```
+
+
+## Manual Import: Pros and Cons
+
+Pros: easy!!
+Cons: obscures some of what's happening, others will have difficulty running your code
+
+
+# Part 2: Getting data into R (directly)
 
 
 ## Data Input: Read in Directly 
