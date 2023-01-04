@@ -287,9 +287,9 @@ The data is now successfully read into your R workspace. Column specification of
     - more on this shortly!
 2.  Typos (R is **case sensitive**, `x` and `X` are different)
     - RStudio helps with "tab completion"
-3.  Data type problems (is that a string or a number?)
-4.  Open ended quotes, parentheses, and brackets     
-5.  Different versions of software
+3.  Open ended quotes, parentheses, and brackets     
+4.  Different versions of software
+5.  Deleting part of the code chunk
 
 
 ## Data Input: Checking the data
@@ -306,36 +306,12 @@ knitr::include_graphics("images/Data_IO_View_data.png")
 ```
 
 
-## Data Input: Checking for problems
+## Data Input: Checking the data
 
-The `spec()` function shows you the specification of how the data was read in. 
+The `str()` function shows you the structure of the data (different variables and their classes - more on this later). 
 
-```{r stop_problems}
-# dat <- read_csv("data/Youth_Tobacco_Survey_YTS_Data.csv")
-spec(dat)
-```
-
-
-## Data Input: Checking for problems
-
-The `problems()` function shows you if there were any obvious issues when the data was read in.
-
-The output of `problems()` is a tibble showing each line with a concern.
-
-```{r stop_problems2}
-problems(dat)
-```
-
-
-## Data Input: Checking for problems
-
-`dat` looks good so far. What do you see on a messy dataset?
-
-```{r stop_problems2.1, message = FALSE, warning = FALSE}
-ufo_data <- read_csv(file = "https://github.com/SISBID/Data-Wrangling/blob/gh-pages/data/ufo/ufo_data_complete.csv")
-```
-```{r stop_problems2.2}
-problems(ufo_data)
+```{r}
+str(dat)
 ```
 
 
@@ -389,7 +365,7 @@ However, while many online resources use the base R tools, the latest version of
   - `head()` shows first few rows
   - `tail()` shows the last few rows
   - `View()` shows the data as a spreadsheet
-  - `spec()` gives  specification of column types
+  - `str()` tells you about column types
 
 
 ## Data input: other file types

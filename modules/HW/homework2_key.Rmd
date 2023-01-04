@@ -94,10 +94,14 @@ write_rds(cars, file = "kaggle.rds")
 8\. You should now be ready to work with the "cars" dataset.
 
 (a) Preview the data so that you can see the names of the columns. There are several possible functions to do this.
-(b) Determine the class of the first three columns using `spec()` or `typeof()`. Write your answer as a comment inside the R chunk below.
+(b) Determine the class of the first three columns using `str()`. Write your answer as a comment inside the R chunk below.
 
 ```{r}
-spec(cars)
+str(cars)
+#  $ RefId                            : num [1:72983] 1 2 3 4 5 6 7 8 9 10 ...
+#  $ IsBadBuy                         : num [1:72983] 0 0 0 0 0 0 0 0 0 0 ...
+#  $ PurchDate                        : chr [1:72983] "12/7/2009" "12/7/2009"
+# OR
 # RefId = col_double()
 # IsBadBuy = col_double()
 # PurchDate = col_character()

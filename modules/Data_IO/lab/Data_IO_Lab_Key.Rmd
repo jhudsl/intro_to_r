@@ -25,10 +25,10 @@ youth <- read_csv(file = "http://jhudatascience.org/intro_to_r/data/Youth_Tobacc
 head(youth)
 ```
 
-3. Use `spec()` to display the list of column names and their type specification. 
+3. Use `str()` to display the list of column names and their type specification. 
 
 ```{r}
-spec(youth)
+str(youth)
 ```
 
 4. Load the `readxl` package with the `library()` command. 
