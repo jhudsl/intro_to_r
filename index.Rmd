@@ -5,7 +5,6 @@ title: |
   <br>
 output:
   html_document
-course_dates: 'January 9-13 and 17-20, 2023'
 ---
 
 ```{r setup, echo = FALSE, message = FALSE}
@@ -46,10 +45,10 @@ The course will provide students with **“hands-on” training** for analyzing 
 ## Class
 ***
 
-* `r rmarkdown::metadata$course_dates` 1:30PM-4:50PM on Zoom  - **No class on January 16th for Martin Luther King, Jr. Day**.
+* `r config::get("course_dates")` 1:30PM-4:50PM on Zoom  - `r config::get("holiday")`
 * Zoom link will be emailed prior to the first class.
 * Slack Workspace invitation will be sent directly via email.
-* [CoursePlus Website](https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/17889/)
+* `r config::get("courseplus_web")`
 * [Syllabus](syllabus.html)
 * [Materials + Schedule](materials_schedule.html)
 * [Resources](resources.html)

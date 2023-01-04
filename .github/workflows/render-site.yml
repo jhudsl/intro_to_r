@@ -87,6 +87,10 @@ jobs:
       # We want a fresh run of the renders each time - so first delete old html files
       - name: Delete old *.html
         run: Rscript -e "rmarkdown::clean_site(preview = FALSE)"
+
+      # TODO: add this to docker
+      - name: Install config package
+        run: Rscript -e "install.packages('config')"
         
        # Now we want to render all the html files from the Rmd files
       - name: Run render html for the main site
