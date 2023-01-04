@@ -15,7 +15,7 @@ library(tidyverse)
 
 **Zoom link will be emailed to students.**
 
-**Day/Time:** `r config::get("course_dates")`: 1:30PM-4:50PM ET on Zoom (**`r config::get("holiday")`**.)
+**Day/Time:** `r config::get("course_dates")`: 1:30PM-4:50PM ET on Zoom (**`r config::get("holiday")`**)
 
 **Instructors:** `r config::get("instructors")`
 
@@ -70,7 +70,7 @@ By the end of the course, students should be comfortable:
 2. Homework: 3 x 15%
 3. Final "Project": 35%
 
-All assignments are due Monday, January 25th, 2022 at 11:59pm EST. Note that we must submit final grades by January 27th, so please turn in your assignments before this date so that we can give you credit for your efforts.
+All assignments are due `r config::get("final_due_date")`. Note that we must submit final grades by `r config::get("grades_due")`, so please turn in your assignments before this date so that we can give you credit for your efforts.
 
 **Note**: only people taking the course for credit must turn in the assignments. However, we will evaluate all submitted assignments in case others would like feedback on their work.
 
