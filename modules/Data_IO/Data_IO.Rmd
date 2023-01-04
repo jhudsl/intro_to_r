@@ -126,6 +126,12 @@ Dataset is located at http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Su
 > click "Update" and "Import"
 
 
+## Import Dataset
+
+```{r, fig.alt="Gif showing the process of importing a dataset via readr.", out.width = "100%", echo = FALSE, align = "center"}
+knitr::include_graphics("images/Data_IO_import_dataset.gif")
+```
+
 ## What Just Happened?
 
 You see a preview of the data on the top left pane.
@@ -326,22 +332,6 @@ help("read_delim")
 
 ```{r, fig.alt="Screenshot of the RStudio console. '?read_delim' has been typed and the help page has appeared in the help pane on the right.", out.width = "60%", echo = FALSE, align = "center"}
 knitr::include_graphics("images/Data_IO_read_delim.png")
-```
-
-
-## Data Input: Read in From RStudio Toolbar
-
-R Studio features some nice "drop-down" support, where you can run some tasks by selecting them from the toolbar.
-
-For example, you can easily import text datasets using the `File --> Import Dataset --> From Text (readr)` command. Selecting this will bring up a new screen that lets you specify the formatting of your text file. 
-
-After importing a dataset, the corresponding R command appears in the console.
-
-
-## Data Input: Read in From RStudio Toolbar
-
-```{r, fig.alt="Gif showing the process of importing a dataset via readr.", out.width = "80%", echo = FALSE, align = "center"}
-knitr::include_graphics("images/Data_IO_import_dataset.gif")
 ```
 
 
