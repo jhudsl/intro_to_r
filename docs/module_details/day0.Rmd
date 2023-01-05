@@ -11,8 +11,6 @@ source("../../scripts/utils.R")
 schedule <- read_markdown("../_schedule_table.Rmd")
 ```
 
-# Day 0
-
 ## Objectives
 
 Upon completion of this session, you will be able to do the following:
@@ -41,21 +39,35 @@ pander::pandoc.table(
 
 ## Instructions
 
-- Install the latest version of R (4.2.2 as of October 31, 2022)
-  - For Mac users: https://cloud.r-project.org/bin/macosx/base/R-4.2.2.pkg (may need to copy-paste the link to the browser)
-  - For Windows users: https://cloud.r-project.org/bin/windows/base/R-4.2.2-win.exe (may need to copy-paste the link to the browser)
-  - For other operating systems, or if you prefer to access the download link from the official website, visit: http://cran.us.r-project.org
+Install the latest version of R `r config::get("r_version")`
 
-- Install the latest version of RStudio (Desktop):
-  - For Mac users: https://download1.rstudio.org/electron/macos/RStudio-2022.12.0-353.dmg (may need to copy-paste the link to the browser)
-  - For Windows users: https://download1.rstudio.org/electron/windows/RStudio-2022.12.0-353.exe (may need to copy-paste the link to the browser and you will need Windows 10 or 11)
-  - A more detailed walk-through of the steps above is provided in [R_and_RStudio_installation](../../modules/Setup/R_and_RStudio_installation.html)    .
+-   [Download For Mac users (M1 chip)](`r config::get("r_dl_mac_m1")`) - (may need to copy-paste the link to the browser)
+
+-   [Download For Mac users (Intel chip)](`r config::get("r_dl_mac_intel")`) - (may need to copy-paste the link to the browser)
+
+-   [Download For Windows users](`r config::get("r_dl_windows")`) - (may need to copy-paste the link to the browser)
+
+For other operating systems, or if you prefer to access the download link from the official website, visit <http://cran.us.r-project.org> and select `Download R for Linux`, `Download R for macOS` or `Download R for Windows` based on which device you have.
+
+Install the latest version of RStudio (Desktop):
+
+-   [Download For Mac users](`r config::get("rstudio_dl_mac")`) - (may need to copy-paste the link to the browser)
+
+-   [Download For Windows users](`r config::get("rstudio_dl_windows")`) - (may need to copy-paste the link to the browser)
+
+-   A more detailed walk-through of the steps above is provided in [R_and_RStudio_installation](../../modules/Setup/R_and_RStudio_installation.html).
+
+You can also visit the `RStudio` website, <https://posit.co/download/rstudio-desktop/>.
 
 If you are using a computer issued from Hopkins, you may need to work with the IT department in advance to do these installations. 
 
-- **Homework 1 (Due Monday, January 30 at midnight ET - but we strongly suggest you complete it before the course starts)**: 
-  - Complete the free lessons for Introduction to R on Dataquest. An image of the lessons in the module is shown below. Please complete all free exercises in "Introduction to Programming in R," starting with "1. Introduction" through "12. Takeaways."
-  - Upload a screenshot of the completion page to the Drop Box link below.
+## Homework 1
+
+**(Due `r config::get("final_due_date")` - but we strongly suggest you complete it before the course starts)**: 
+
+-   Complete the free lessons for Introduction to R on Dataquest. An image of the lessons in the module is shown below. Please complete all free exercises in "Introduction to Programming in R," starting with "1. Introduction" through "12. Takeaways."
+
+-   Upload a screenshot of the completion page to the Drop Box link below.
     
 ![Screenshot of the Dataquest module completion page](../images/dataquest.jpg)    
     
@@ -67,7 +79,7 @@ If you are using a computer issued from Hopkins, you may need to work with the I
 
 ## Drop Boxes
 
-[Homework 1 Drop Box](https://courseplus.jhu.edu/core/index.cfm/go/db:main/coID/17889/)
+[Homework 1 Drop Box](`r config::get("courseplus_dropboxes")`)
 
 **Note**: only people taking the course for credit must turn in the assignments. However, we will evaluate all submitted assignments in case others would like feedback on their work.
 
