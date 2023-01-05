@@ -306,7 +306,9 @@ dat <- read_delim(file = "www.someurl.com/table1.txt", delim = "\t")
 
 ## Data Input: Read in Directly From File Path
 
-```{r readCSV2}
+Move the data to the data folder and change the relative path:
+
+```{r eval = FALSE}
 dat <- read_csv(file = "data/Youth_Tobacco_Survey_YTS_Data.csv")
 ```
 
