@@ -59,7 +59,7 @@ pander::pandoc.table(
 
 ## Drop Boxes
 
-[Assignment Drop Boxes](https://courseplus.jhu.edu/core/index.cfm/go/db:main/coID/17889/)
+[Assignment Drop Boxes](`r config::get("courseplus_dropboxes")`)
 
 **Note**: only people taking the course for credit must turn in the assignments. However, we will evaluate all submitted assignments in case others would like feedback on their work.
 
