@@ -41,7 +41,7 @@ pander::pandoc.table(
 
 ## Instructions
 
-- Install the latest version of R (4.2.2 as of October 31, 2022)
+- Install the latest version of R `r config::get("r_version")`
   - For Mac users: https://cloud.r-project.org/bin/macosx/base/R-4.2.2.pkg (may need to copy-paste the link to the browser)
   - For Windows users: https://cloud.r-project.org/bin/windows/base/R-4.2.2-win.exe (may need to copy-paste the link to the browser)
   - For other operating systems, or if you prefer to access the download link from the official website, visit: http://cran.us.r-project.org
