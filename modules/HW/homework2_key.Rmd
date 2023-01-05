@@ -6,9 +6,9 @@ output:
 
 ### **Instructions**
 
-1. Please submit your filled out `.Rmd` file to the assignment drop box on CoursePlus: https://courseplus.jhu.edu/core/index.cfm/go/db:assignment.submit/assignmentID/44234/coID/18000/
+1. Please submit your filled out `.Rmd` file to the assignment drop box on CoursePlus: (`r config::get("courseplus_dropboxes")`)
 
-2. All assignments are due by Wednesday, January 25th, 2023 at 11:59pm EST. Please reach out to us if you need help before this time!
+2. All assignments are due by `r config::get("final_due_date")`. Please reach out to us if you need help before this time!
 
 ```{r initiatePackages, message=FALSE}
 ## you can add more, or change...these are suggestions

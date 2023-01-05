@@ -15,13 +15,13 @@ title: "R and RStudio Installation"
 
 # Installing `R` {#installing-r}
 
-We recommend installing the most recent version or `R` (4.2.2 as of October 31, 2022). **If you have had installed `R` already some time ago, we recommend updating/reinstalling it to the most recent version.** Use a link below to launch download of `R` installers (if the download does not start, a fix may be to copy-paste the below link to your browser):
+We recommend installing the most recent version or `R` `r config::get("r_version")`. **If you have had installed `R` already some time ago, we recommend updating/reinstalling it to the most recent version.** Use a link below to launch download of `R` installers (if the download does not start, a fix may be to copy-paste the below link to your browser):
 
--   [Download For Mac users (M1 chip)](https://cloud.r-project.org/bin/macosx/big-sur-arm64/base/R-4.2.2-arm64.pkg)
+-   [Download For Mac users (M1 chip)](`r config::get("r_dl_mac_m1")`)
 
--   [Download For Mac users (Intel chip)](https://cloud.r-project.org/bin/macosx/base/R-4.2.2.pkg)
+-   [Download For Mac users (Intel chip)](`r config::get("r_dl_mac_intel")`)
 
--   [Download For Windows users](https://cloud.r-project.org/bin/windows/base/R-4.2.2-win.exe)
+-   [Download For Windows users](`r config::get("r_dl_windows")`)
 
 For other operating systems, or if you prefer to access the download link from the official website, visit <http://cran.us.r-project.org> and select `Download R for Linux`, `Download R for macOS` or `Download R for Windows` based on which device you have.
 
