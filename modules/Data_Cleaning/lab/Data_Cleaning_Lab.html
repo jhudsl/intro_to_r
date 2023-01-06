@@ -185,7 +185,7 @@ library(tidyverse)
 library(broom)
 library(naniar)
 
-bike &lt;- jhur::read_bike()</code></pre>
+bike &lt;- read_bike()</code></pre>
 <pre><code>## Rows: 1631 Columns: 9
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
@@ -200,7 +200,7 @@ bike &lt;- jhur::read_bike()</code></pre>
 <ol style="list-style-type: decimal">
 <li><p>Use the <code>is.na()</code> and <code>any()</code> functions to check if the bike <code>dateInstalled</code> variable has any <code>NA</code> values.</p></li>
 <li><p>Filter rows of bike, so that only rows remain that do NOT have missing values for the <code>route</code> variable, using <code>drop_na</code>. Assign this to the object <code>have_route.</code></p></li>
-<li><p>Use <code>naniar</code> to make a visual of the amount of data missing for each variable of <code>bike</code> (use <code>naniar::gg_miss_var()</code>). Check out more about this package here: <a href="https://www.njtierney.com/post/2018/06/12/naniar-on-cran/" class="uri">https://www.njtierney.com/post/2018/06/12/naniar-on-cran/</a></p></li>
+<li><p>Use <code>naniar</code> to make a visual of the amount of data missing for each variable of <code>bike</code> (use <code>gg_miss_var()</code>). Check out more about this package here: <a href="https://www.njtierney.com/post/2018/06/12/naniar-on-cran/" class="uri">https://www.njtierney.com/post/2018/06/12/naniar-on-cran/</a></p></li>
 <li><p>What percentage of the <code>subType</code> variable is complete of <code>bike</code> ? Hint: use another <code>naniar</code> function.</p></li>
 </ol>
 </div>
@@ -261,8 +261,8 @@ BloodType</code></pre>
 <p>The following commented code within the chunk (starts with <code>#</code>) can be used as a guide to help you. Type your code below this commented code.</p>
 <pre class="r"><code>## ______________ &lt;- ________ %&gt;%
 # ________(____, ____ = c(__________, __________), sep = &quot;\\.&quot;)</code></pre>
-<p>Bonus: How many observations are there for each <code>Rhfactor</code>:</p>
-<p>Bonus: Filtering for patients with type O, how many had the infection?</p>
+<p><strong>Bonus / Extra practice</strong>: How many observations are there for each <code>Rhfactor</code>:</p>
+<p><strong>Bonus / Extra practice</strong>: Filtering for patients with type O, how many had the infection?</p>
 </div>
 
 

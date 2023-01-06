@@ -60,7 +60,9 @@ bike %>% summarize(
 )
 ```
 
-**Bonus / Optional:**
+
+**Bonus / Extra practice**:
+
 A. Summarize the `bike` data to get the mean of `length` and `dateInstalled`. Do this three ways: 1) with `summarize`, 2) with `summarize` and `across`, and 3) with `colMeans()`.
 ```{r}
 bike %>% summarize(
@@ -171,7 +173,9 @@ bike %>%
 bike <- ungroup(bike)
 ```
 
-**Bonus / Optional:**
+
+**Bonus / Extra practice**:
+
 C. Using `bike_2` from Part 1 above, what was the average bike lane length grouped by `dateInstalled`? Remove `NA`s with `na.rm = TRUE`.
 ```{r}
 bike_2 %>%
@@ -192,7 +196,9 @@ hist(x = pull(bike, length), breaks = 100)
 plot(x = pull(bike, dateInstalled), y = pull(bike, length))
 ```
 
-**Bonus / Optional:**
+
+**Bonus / Extra practice**:
+
 D. Does the plot from question 10 improve if you use the `bike_2` dataset?
 ```{r}
 plot(x = pull(bike_2, dateInstalled), y = pull(bike_2, length))

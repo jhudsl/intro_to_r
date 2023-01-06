@@ -178,7 +178,7 @@ We can order a factor by another variable by using the `fct_reorder()` function 
 library(forcats)
 
 data_highschool_fct %>%
-  ggplot(mapping = aes(x = forcats::fct_reorder(grade, absences), y = absences)) +
+  ggplot(mapping = aes(x = fct_reorder(grade, absences), y = absences)) +
   geom_boxplot() +
   labs(x = "Student Grade") +
   theme_bw(base_size = 16) # make all labels size 16
@@ -209,7 +209,7 @@ Now let's plot each of our variables of interest (absences and tardy) on the y a
 
 absences <- data_highschool_fct %>%
   ggplot(mapping = aes(
-    x = forcats::fct_reorder(grade, absences),
+    x = fct_reorder(grade, absences),
     y = absences
   )) +
   geom_boxplot(fill = "lightgreen") +
@@ -217,7 +217,7 @@ absences <- data_highschool_fct %>%
 
 tardy <- data_highschool_fct %>%
   ggplot(mapping = aes(
-    x = forcats::fct_reorder(grade, tardy),
+    x = fct_reorder(grade, tardy),
     y = tardy
   )) +
   geom_boxplot(fill = "violet") +
@@ -235,7 +235,7 @@ The last plot is informative, but what if we are mostly interested in absences a
 
 absences <- data_highschool_fct %>%
   ggplot(mapping = aes(
-    x = forcats::fct_reorder(grade, absences),
+    x = fct_reorder(grade, absences),
     y = absences
   )) +
   geom_boxplot(fill = "lightgreen")
@@ -243,7 +243,7 @@ absences <- data_highschool_fct %>%
 
 tardy <- data_highschool_fct %>%
   ggplot(mapping = aes(
-    x = forcats::fct_reorder(grade, absences),
+    x = fct_reorder(grade, absences),
     y = tardy
   )) +
   geom_boxplot(fill = "violet")
