@@ -41,8 +41,7 @@ look at the help file for that function.
 ### Functions
 |Library/Package|Piece of code|Example of usage|What it does|
 |---------------|-------------|----------------|-------------|
-| `readr`| [`read_csv()`](https://www.rdocumentation.org/packages/readr/versions/1.3.0/topics/read_delim)| `df <- read_csv("http://jhudatascience.org/intro_to_R_class/data/Youth_Tobacco_Survey_YTS_Data.csv")`| Reads in a TSV file from a specified file path. This function can be tailored to read in other common types of files. i.e. read_csv(), read_rds(), etc.|
-|TSA| [`spec()`](https://www.rdocumentation.org/packages/TSA/versions/1.3/topics/spec)`| `spec(mtcars)`| Gives specification of column types|
+| `readr`| [`read_csv()`](https://www.rdocumentation.org/packages/readr/versions/1.3.0/topics/read_delim)| `df <- read_csv("<url>")`| Reads in a TSV file from a specified file path. This function can be tailored to read in other common types of files. i.e. read_csv(), read_rds(), etc.|
 |`readxl`| [`read_excel()`](https://www.rdocumentation.org/packages/readxl/versions/1.3.1/topics/read_excel)| `read_excel("dataset.xlsx")`| Read in an excel file.|
 | Base `R`| [`getwd()`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/getwd)| `getwd()`| Finds the current working directory.|
 | Base `R`| [`setwd()`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/getwd)| `setwd("Desktop")`| Changes the current working directory.|

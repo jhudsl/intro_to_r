@@ -635,7 +635,7 @@ food_bar +
 
 ## Tip - Check what you plot {.codesmall}
 
-⚠️ May not be plotting what you think you are! ⚠️
+`r emo::ji("warning")` May not be plotting what you think you are! `r emo::ji("warning")`
 
 ```{r, fig.width=5 , fig.height=3, fig.align='center'}
 ggplot(food, mapping = aes(x = item_ID, 

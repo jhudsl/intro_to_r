@@ -134,7 +134,8 @@ Let's read in a `tibble` of values from TB incidence.
 If you have the `jhur` package installed successfully:
 
 ```{r}
-tb <- jhur::read_tb()
+library(jhur)
+tb <- read_tb()
 ```
 
 <br>
@@ -285,7 +286,7 @@ Here we will be using the Youth Tobacco Survey data:
 http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv
 
 ```{r}
-yts <- jhur::read_yts()
+yts <- read_yts()
 head(yts)
 ```
 

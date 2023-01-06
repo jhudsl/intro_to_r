@@ -396,6 +396,7 @@ You can just copy and paste the below code into your console - we'll explain wha
 
 ```{r, packageInstall, eval=FALSE}
 install.packages("remotes")
+library(remotes)
 remotes::install_github("jhudsl/jhur")
 ```
 

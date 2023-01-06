@@ -200,7 +200,7 @@ library(tidyr)</code></pre>
 <li>Use <code>pivot_wider</code> to reshape “vacc_long”. Use “Entity” for the <code>names_from</code> argument. Use “value” for the <code>values_from</code> argument. Call this new data <code>vacc_wide</code>. Look at the data. How do these states compare to one another.</li>
 </ol>
 <pre><code>Usage: pivot_wider(names_from = ???, values_from = ???)</code></pre>
-<p><strong>Bonus / optional</strong></p>
+<p><strong>Bonus / Extra practice</strong>:</p>
 <p>Combine blocks 1 and 3-7 by chaining everything together using the pipe <code>%&gt;%</code>. Call your data <code>vacc_compare</code>.</p>
 <p>Tweak the code in the block above to:</p>
 <ul>
@@ -228,7 +228,7 @@ library(tidyr)</code></pre>
 <li>Join the data using a <code>full_join.</code> Call the output “full”. How many observations are there?</li>
 </ol>
 <pre><code>Usage: full_join(x, y, by = c(&quot;colname1&quot; = &quot;colname2&quot;))</code></pre>
-<p><strong>Bonus / optional</strong></p>
+<p><strong>Bonus / Extra practice</strong>:</p>
 <p>Do a left join of “vacc” and “gdp”. How many observations are there?</p>
 <p>Repeat above with a <code>right_join</code> with the same order of the arguments. How many observations are there?</p>
 <p>Perform a <code>setdiff</code> on “vacc” and “gdp” to determine what Entities are missing from the GDP data and which are missing from the vaccine data. Remember you need to <code>pull()</code> the columns you want to compare.</p>
