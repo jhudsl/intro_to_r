@@ -52,7 +52,7 @@ cars_mt_copy <- mtcars
 
 ```
 
-Bonus: How can you print the first 3 rows and the last 3 rows of `cars_mt_copy` (in two lines of code)?
+**Bonus / Extra practice**: How can you print the first 3 rows and the last 3 rows of `cars_mt_copy` (in two lines of code)?
 
 ```{r}
 
@@ -79,20 +79,20 @@ Bonus: How can you print the first 3 rows and the last 3 rows of `cars_mt_copy` 
 
 ```
 
-Bonus: Convert the column names of `carsSub` to all lower case. Take a look at the data.
+**Bonus / Extra practice**: Convert the column names of `carsSub` to all lower case. Take a look at the data.
 
 ```{r}
 
 
 ```
 
-Bonus: Pull the variable `car` from `carsSub`. How does this differ form selecting it?
+**Bonus / Extra practice**: Pull the variable `car` from `carsSub`. How does this differ form selecting it?
 
 ```{r}
 
 ```
 
-Bonus: Select the variables that contain the letter a from `cars_mt_copy`.
+**Bonus / Extra practice**: Select the variables that contain the letter a from `cars_mt_copy`.
 
 ```{r}
 
@@ -124,7 +124,7 @@ Bonus: Select the variables that contain the letter a from `cars_mt_copy`.
 4. Why do the answers for 2 and 3 differ?
 
 
-Bonus:
+**Bonus / Extra practice**:
 
 Subset the rows of `cars_mt_copy` for cars that have 4 `CYL`,  **or** **less** than 1.9 WT.
 How many cars have both?
@@ -165,14 +165,14 @@ What happens if you do the steps in a different order? Why?
 ```
 
 
-Bonus: Move the `WT2` column to be first. Use `relocate()`.
+**Bonus / Extra practice**: Move the `WT2` column to be first. Use `relocate()`.
 
 ```{r}
 
 ```
 
 
-BONUS: How can you find the value of `WT2` for the Cadillac Fleetwood without just looking at the data manually and instead use functions we learned today?
+**Bonus / Extra practice**: How can you find the value of `WT2` for the Cadillac Fleetwood without just looking at the data manually and instead use functions we learned today?
 
 ```{r}
 
