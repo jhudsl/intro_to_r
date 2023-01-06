@@ -108,3 +108,61 @@ x + y
 x * y
 # R adds together the first element of each vector, then the second, and so on. This order also applies when multiplying!
 ```
+
+
+# Part 3
+
+14. Create a vector object called `int_vect` that starts at 1 and goes up to 10. Use `seq()`.
+```
+# General format
+seq(from = NUMBER, to = NUMBER)
+```
+```{r}
+int_vect <- seq(from = 1, to = 10)
+```
+
+
+15. Repeat the `int_vect` object this sequence 3 times using `rep()` and store the new object as `int_vect_3`.
+```
+# General format - times and each are optional
+rep(x = OBJECT_TO_REPEAT, times = NUM_TIMES_TO_REPEAT, each = NUM_TIMES_TO_REPEAT_EACH_ELEMENT)
+```
+```{r}
+int_vect_3 <- rep(int_vect, times = 3)
+```
+
+
+16. What is the length of `int_vect_3`?
+```{r}
+length(int_vect_3)
+```
+
+
+17. Create a vector that takes the sequence "Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree" and repeats each element 10 times.
+```{r}
+my_seq <- c("Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree")
+rep(my_seq, each = 10)
+
+rep( c("Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"), each = 10 )
+```
+
+
+**Bonus / Extra practice**: "Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree" are often responses to surveys. Create a randomly sampled vector of 30 survey responses. (hint use `sample()` and set the replace argument to `TRUE`). Store the output as `my_responses`. Examine the data by typing the name in the Console using a function.
+```{r}
+my_responses <- sample(
+  x = c("Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"),
+  size = 30,
+  replace = TRUE
+)
+my_responses
+```
+
+
+**Bonus / Extra practice**: Let's say you change your survey so participants can rank their response 1-10 (inclusive). Create a randomly sampled vector of 30 survey responses. (hint use `seq()` and `sample()` and set the replace argument to `TRUE`). Store the output as `my_responses_2`. Examine the data by typing the name in the Console using a function.
+```{r}
+my_responses_2 <- sample(
+  x = seq(from = 1, to = 10),
+  size = 30,
+  replace = TRUE
+)
+```

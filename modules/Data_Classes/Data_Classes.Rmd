@@ -182,48 +182,6 @@ as.character(x_fact)
 as.numeric(x_fact)
 ```
 
-
-## Useful functions to create vectors `rep()`
-
-For character: `rep()` can create very long vectors. 
-Works for creating character and numeric vectors.
-
-The `each` argument specifies how many of each item you want repeated.
-The `times` argument specifies how many times you want the vector repeated.
-
-```{r}
-rep(c("black", "white"), each = 3)
-rep(c("black", "white"), times = 3)
-rep(c("black", "white"), each = 2, times = 2)
-```
-
-## Useful functions to create vectors `seq()`
-
-For numeric: `seq()` can be very useful- both integer and double.   
-The `from` argument says what number to start on.    
-The `to` argument says what number to not go above.   
-The `by` argument says how much to increment by.    
-The `length.out` argument says how long the vector should be overall.
-
-```{r}
-seq(from = 0, to = 1, by = 0.2)
-seq(from = 0, to = 10, by = 1)
-seq(from = -5, to = 5, length.out = 10)
-```
-
-## Creating numeric vectors `sample()`
-
- You can use the `sample()` function to make a random sequence.
- The `x` argument specifies what you are sampling from.
- The `size` argument specifies how many values there should be.
- The `replace` argument specifies if values should be replaced or not.
- 
-```{r}
-seq_hun <- seq(from = 0, to = 100, by = 1)
-seq_hun
-y <- sample(x = seq_hun, size = 5, replace = TRUE)
-y
-``` 
 ## Summary
 
 - There are two types of numeric class objects: integer and double
@@ -231,10 +189,6 @@ y
 - is.CLASS_NAME(x) can be used to test the class of an object x
 - as.CLASS_NAME(x) can be used to change the class of an object x
 - Factors are a special character class that has levels - more on that soon!
-- The repeat `rep()` function helps you create vectors with the `to` and `from` arguments
-- The sequence `seq()` function helps you create numeric vectors (`from`,`to`, `by`, and `length.out` arguments)
-- `seq()` can be used for integers or double numeric vectors (`by` argument)
-- `sample()` makes random vectors. Can be used for integers or double depending on what it is sampling from.
 - tibbles show column classes!
 
 ## Lab Part 1
