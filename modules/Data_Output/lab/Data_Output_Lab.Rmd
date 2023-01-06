@@ -23,6 +23,7 @@ library(readr)
 
 ```
 
+
 2. Filter the dataset so that the "Location" column is equal to "US" (aka the entire USA). Store the modified dataset as `vacc_filtered`.
 ```
 # General format
@@ -31,6 +32,7 @@ NEW_OBJECT <- OBJECT %>% filter(COLUMNNAME == CRITERIA)
 ```{r}
 
 ```
+
 
 3. Write out the `vacc_filtered` object as a CSV file calling it "vacc_filtered.csv", using `write_csv()`:
 ```{r}
@@ -42,6 +44,7 @@ NEW_OBJECT <- OBJECT %>% filter(COLUMNNAME == CRITERIA)
 ```{r eval = FALSE}
 
 ```
+
 
 **Bonus / Extra practice**: Write one of the variables in your Environment to your working directory in `rds` format. Call the file `my_variable.rds`.
 ```{r}
