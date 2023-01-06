@@ -178,10 +178,7 @@ pre code {
 <pre class="r"><code>library(dplyr)
 library(ggplot2)</code></pre>
 <ol start="0" style="list-style-type: decimal">
-<li>Load the Youth Tobacco Survey data (using <code>jhur::read_yts()</code>). <code>select</code> “Sample_Size”, “Education”, and “LocationAbbr”. Name this data “yts”.</li>
-</ol>
-<pre class="r"><code>yts &lt;- jhur::read_yts() %&gt;% select(Sample_Size, Education, LocationAbbr)</code></pre>
-<ol style="list-style-type: decimal">
+<li><p>Load the Youth Tobacco Survey data (using the <code>jhur</code> library function <code>read_yts()</code>). <code>select</code> “Sample_Size”, “Education”, and “LocationAbbr”. Name this data “yts”.</p></li>
 <li><p>Create a boxplot showing the difference in “Sample_Size” between Middle School and High School “Education”. <strong>Hint</strong>: Use <code>aes(x = Education, y = Sample_Size)</code> and <code>geom_boxplot()</code>.</p></li>
 <li><p>Use <code>count</code> to count up the number of observations of data for each “Education” group.</p></li>
 <li><p>Make “Education” a factor using the <code>mutate</code> and <code>factor</code> functions. Use the <code>levels</code> argument inside <code>factor</code> to reorder “Education”. Reorder this variable so that “Middle School” comes before “High School”. Assign the output the name “yts_fct”.</p></li>

@@ -178,9 +178,10 @@ pre code {
 <pre class="r"><code>library(dplyr)
 library(ggplot2)</code></pre>
 <ol start="0" style="list-style-type: decimal">
-<li>Load the Youth Tobacco Survey data (using <code>jhur::read_yts()</code>). <code>select</code> “Sample_Size”, “Education”, and “LocationAbbr”. Name this data “yts”.</li>
+<li>Load the Youth Tobacco Survey data (using the <code>jhur</code> library function <code>read_yts()</code>). <code>select</code> “Sample_Size”, “Education”, and “LocationAbbr”. Name this data “yts”.</li>
 </ol>
-<pre class="r"><code>yts &lt;- jhur::read_yts() %&gt;% select(Sample_Size, Education, LocationAbbr)
+<pre class="r"><code>library(jhur)
+yts &lt;- read_yts() %&gt;% select(Sample_Size, Education, LocationAbbr)
 # Alt:
 # yts &lt;- read_csv(&quot;http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv&quot;)</code></pre>
 <ol style="list-style-type: decimal">
