@@ -157,12 +157,12 @@ The following commented code within the chunk (starts with `#`) can be used as a
 BloodType_split <- BloodType %>% separate(type, into = c("blood_type", "Rhfactor"), sep = "\\.")
 ```
 
-Bonus: How many observations are there for each `Rhfactor`:
+**Bonus / Extra practice**: How many observations are there for each `Rhfactor`:
 ```{r}
 count(BloodType_split, Rhfactor)
 ```
 
-Bonus: Filtering for patients with type O, how many had the infection?
+**Bonus / Extra practice**: Filtering for patients with type O, how many had the infection?
 ```{r}
 BloodType_split %>%
   filter(blood_type == "O") %>%
