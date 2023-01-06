@@ -396,7 +396,7 @@ You can just copy and paste the below code into your console - we'll explain wha
 
 ```{r, packageInstall, eval=FALSE}
 install.packages("remotes")
-remotes::install_github("jhudsl/jhur")
+install_github("jhudsl/jhur")
 ```
 
 Note it may take ~5-10 minutes to run.
