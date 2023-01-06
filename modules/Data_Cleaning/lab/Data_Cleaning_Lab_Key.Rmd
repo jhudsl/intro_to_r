@@ -151,7 +151,7 @@ BloodType %>% count(type)
 ```
 # General format
 NEW_TIBBLE <- OLD_TIBBLE 
-    %>% separate(OLD_COLUMN, into = c("NEW_COLUMN1", "NEW_COLUMN2"), sep = "\\.")
+    %>% separate(OLD_COLUMN, into = c("NEW_COLUMN1", "NEW_COLUMN2"), sep = "SEPARATING_CHARACTER")
 ```
 
 ```{r}
