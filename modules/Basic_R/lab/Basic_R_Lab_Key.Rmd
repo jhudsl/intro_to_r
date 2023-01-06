@@ -53,13 +53,10 @@ class(both)
 ```
 
 
-Bonus: Create a vector that contains 4 sets of the numbers 1, 2, 3, and 4.
+Bonus: Create a vector that contains 4 sets of the numbers 1, 2, 3, 4. Use only the `c()` function.
 ```{r}
 vec_1 <- c(1, 2, 3, 4)
 vec_2 <- c(vec_1, vec_1, vec_1, vec_1)
-
-# OR!
-rep(vec_1, 4)
 ```
 
 
@@ -71,13 +68,13 @@ both / 3
 ```
 
 
-8. Create a vector with elements 1 2 3 4 5 6 and call it `x`.
+8. Create a vector with elements 1, 2, 3, 4, 5, 6 and call it `x`.
 ```{r}
 x <- c(1, 2, 3, 4, 5, 6)
 ```
 
 
-9. Create another vector with elements 10 20 30 40 50 and call it `y`.
+9. Create another vector with elements 10, 20, 30, 40, 50 and call it `y`.
 ```{r}
 y <- c(10, 20, 30, 40, 50)
 ```
@@ -119,6 +116,7 @@ seq(from = NUMBER, to = NUMBER)
 ```
 ```{r}
 int_vect <- seq(from = 1, to = 10)
+int_vect
 ```
 
 
@@ -129,6 +127,7 @@ rep(x = OBJECT_TO_REPEAT, times = NUM_TIMES_TO_REPEAT, each = NUM_TIMES_TO_REPEA
 ```
 ```{r}
 int_vect_3 <- rep(int_vect, times = 3)
+int_vect_3
 ```
 
 
