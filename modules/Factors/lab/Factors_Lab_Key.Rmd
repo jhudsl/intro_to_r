@@ -12,10 +12,11 @@ library(dplyr)
 library(ggplot2)
 ```
 
-0. Load the Youth Tobacco Survey data (using `jhur::read_yts()`). `select` "Sample_Size",  "Education", and "LocationAbbr". Name this data "yts". 
+0. Load the Youth Tobacco Survey data (using the `jhur` library function `read_yts()`). `select` "Sample_Size",  "Education", and "LocationAbbr". Name this data "yts". 
 
 ```{r}
-yts <- jhur::read_yts() %>% select(Sample_Size, Education, LocationAbbr)
+library(jhur)
+yts <- read_yts() %>% select(Sample_Size, Education, LocationAbbr)
 # Alt:
 # yts <- read_csv("http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
 ```
