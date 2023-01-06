@@ -17,73 +17,81 @@ Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-
 
 # Part 1
 
-1. Create a new object called `my.num` that contains 6 numbers.
+1\. Create a new object called `my.num` that contains 6 numbers.
+
 ```{r}
 my.num <- c(5, 4, 7, 8, 12, 14) # These can be any real numbers
 ```
 
 
-2. Multiply `my.num` by 4.
+2\. Multiply `my.num` by 4.
+
 ```{r}
 my.num * 4
 ```
 
 
-3. Create a second object called `my.char` that contains 5 character strings.
+3\. Create a second object called `my.char` that contains 5 character strings.
+
 ```{r}
 my.char <- c("banana", "garlic", "pickles", "hot chocolate", "7-Up") # Again,these can be anything
 ```
 
 
-4. Combine the two objects `my.num` and `my.char` into an object called `both`.
+4\. Combine the two objects `my.num` and `my.char` into an object called `both`.
+
 ```{r}
 both <- c(my.num, my.char)
 ```
 
 
-5. What is the length of `both`?
+5\. What is the length of `both`?
+
 ```{r}
 length(both)
 ```
 
 
-6. What class is `both`?
+6\. What class is `both`?
+
 ```{r}
 class(both)
 ```
 
 
 **Bonus / Extra practice**: Create a vector that contains 4 sets of the numbers 1, 2, 3, and 4.
+
 ```{r}
 vec_1 <- c(1, 2, 3, 4)
 vec_2 <- c(vec_1, vec_1, vec_1, vec_1)
-
-# OR!
-rep(vec_1, 4)
 ```
 
 
 # Part 2
 
-7. Divide `both` by 3, what happens?
+7\. Divide `both` by 3, what happens?
+
 ```{r, error=TRUE}
 both / 3
 ```
 
 
-8. Create a vector with elements 1 2 3 4 5 6 and call it `x`.
+8\. Create a vector with elements 1, 2, 3, 4, 5, 6 and call it `x`.
+
 ```{r}
 x <- c(1, 2, 3, 4, 5, 6)
 ```
 
 
-9. Create another vector with elements 10 20 30 40 50 and call it `y`.
+9\. Create another vector with elements 10, 20, 30, 40, 50 and call it `y`.
+
 ```{r}
 y <- c(10, 20, 30, 40, 50)
 ```
 
 
-10. What happens when you add `x` and `y` together?
+10\. What happens when you add `x` and `y` together?
+
 ```{r}
 x + y
 # R "auto replicates" the shorter vector when the vectors aren't the same length - this is not what we want!
@@ -91,19 +99,22 @@ x + y
 ```
 
 
-12. Append the value 60 onto the vector `y` (hint: you can use the c() function).
+12\. Append the value 60 onto the vector `y` (hint: you can use the c() function).
+
 ```{r}
 y <- c(y, 60)
 ```
 
 
-13. Add `x` and `y` together.
+13\. Add `x` and `y` together.
+
 ```{r}
 x + y
 ```
 
 
 **Bonus / Extra practice**: Multiply `x` and `y` together. How is this similar to the way R performs addition in #13 ?
+
 ```{r}
 x * y
 # R adds together the first element of each vector, then the second, and so on. This order also applies when multiplying!
@@ -112,33 +123,41 @@ x * y
 
 # Part 3
 
-14. Create a vector object called `int_vect` that starts at 1 and goes up to 10. Use `seq()`.
+14\. Create a vector object called `int_vect` that starts at 1 and goes up to 10. Use `seq()`.
+
 ```
 # General format
 seq(from = NUMBER, to = NUMBER)
 ```
+
 ```{r}
 int_vect <- seq(from = 1, to = 10)
+int_vect
 ```
 
 
-15. Repeat the `int_vect` object this sequence 3 times using `rep()` and store the new object as `int_vect_3`.
+15\. Repeat the `int_vect` object this sequence 3 times using `rep()` and store the new object as `int_vect_3`.
+
 ```
 # General format - times and each are optional
 rep(x = OBJECT_TO_REPEAT, times = NUM_TIMES_TO_REPEAT, each = NUM_TIMES_TO_REPEAT_EACH_ELEMENT)
 ```
+
 ```{r}
 int_vect_3 <- rep(int_vect, times = 3)
+int_vect_3
 ```
 
 
-16. What is the length of `int_vect_3`?
+16\. What is the length of `int_vect_3`?
+
 ```{r}
 length(int_vect_3)
 ```
 
 
-17. Create a vector that takes the sequence "Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree" and repeats each element 10 times.
+17\. Create a vector that takes the sequence "Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree" and repeats each element 10 times.
+
 ```{r}
 my_seq <- c("Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree")
 rep(my_seq, each = 10)
@@ -148,6 +167,7 @@ rep( c("Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"), e
 
 
 **Bonus / Extra practice**: "Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree" are often responses to surveys. Create a randomly sampled vector of 30 survey responses. (hint use `sample()` and set the replace argument to `TRUE`). Store the output as `my_responses`. Examine the data by typing the name in the Console using a function.
+
 ```{r}
 my_responses <- sample(
   x = c("Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"),
@@ -159,6 +179,7 @@ my_responses
 
 
 **Bonus / Extra practice**: Let's say you change your survey so participants can rank their response 1-10 (inclusive). Create a randomly sampled vector of 30 survey responses. (hint use `seq()` and `sample()` and set the replace argument to `TRUE`). Store the output as `my_responses_2`. Examine the data by typing the name in the Console using a function.
+
 ```{r}
 my_responses_2 <- sample(
   x = seq(from = 1, to = 10),
