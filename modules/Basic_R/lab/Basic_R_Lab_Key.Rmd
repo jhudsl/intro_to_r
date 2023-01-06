@@ -10,7 +10,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-
 In this lab you can use the interactive console to explore or **Knit** the document. 
 Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-X) or Ctrl-Enter (Windows/Linux) in an R code chunk.
 
@@ -18,6 +17,11 @@ Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-
 # Part 1
 
 1\. Create a new object called `my.num` that contains 6 numbers.
+
+```
+# General format
+my.num <- c(number1, number2, ...)
+```
 
 ```{r}
 my.num <- c(5, 4, 7, 8, 12, 14) # These can be any real numbers
@@ -33,6 +37,11 @@ my.num * 4
 
 3\. Create a second object called `my.char` that contains 5 character strings.
 
+```
+# General format
+my.char <- c("character1", "character2", ...)
+```
+
 ```{r}
 my.char <- c("banana", "garlic", "pickles", "hot chocolate", "7-Up") # Again,these can be anything
 ```
@@ -45,7 +54,7 @@ both <- c(my.num, my.char)
 ```
 
 
-5\. What is the length of `both`?
+5\. What is the length of `both`? Use the `length()` function.
 
 ```{r}
 length(both)
@@ -66,7 +75,6 @@ vec_1 <- c(1, 2, 3, 4)
 vec_2 <- c(vec_1, vec_1, vec_1, vec_1)
 ```
 
-
 # Part 2
 
 7\. Divide `both` by 3, what happens?
@@ -78,12 +86,22 @@ both / 3
 
 8\. Create a vector with elements 1, 2, 3, 4, 5, 6 and call it `x`.
 
+```
+# General format
+x <- c(...)
+```
+ 
 ```{r}
 x <- c(1, 2, 3, 4, 5, 6)
 ```
 
 
 9\. Create another vector with elements 10, 20, 30, 40, 50 and call it `y`.
+
+```
+# General format
+y <- c(...)
+```
 
 ```{r}
 y <- c(10, 20, 30, 40, 50)
@@ -99,7 +117,7 @@ x + y
 ```
 
 
-12\. Append the value 60 onto the vector `y` (hint: you can use the c() function).
+12\. Append the value 60 onto the vector `y` (hint: you can use the `c()` function).
 
 ```{r}
 y <- c(y, 60)

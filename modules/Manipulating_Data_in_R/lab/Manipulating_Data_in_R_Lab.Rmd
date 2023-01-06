@@ -34,7 +34,8 @@ library(tidyr)
 3. Let's rename the column "State/Territory/Federal Entity" in "vacc" to "Entity" using `rename`. Make sure to reassign to `vacc` here and in subsequent steps.
 
 ```
-Usage: rename(newname = oldname)
+# General format
+new_data <- old_data %>% rename(newname = oldname)
 ```
 
 ```{r}
@@ -44,7 +45,8 @@ Usage: rename(newname = oldname)
 4. Select only the columns "Entity", and those that start with "Percent". Use `select` and `starts_with("Percent")`. 
 
 ```
-Usage: select(colname1, colname2, ...)
+# General format
+new_data <- old_data %>% select(colname1, colname2, ...)
 ```
 
 ```{r}
@@ -54,7 +56,8 @@ Usage: select(colname1, colname2, ...)
 5. Create a new dataset "vacc_long" that does `pivot_longer()` on all columns except "Entity". Remember that `!Entity` means all columns except "Entity".
 
 ```
-Usage: pivot_longer(cols = colname(s))
+# General format
+new_data <- old_data %>% pivot_longer(cols = colname(s))
 ```
 
 ```{r}
@@ -64,7 +67,8 @@ Usage: pivot_longer(cols = colname(s))
 6. Filter the "Entity" column so it only includes values in the following list: "Maryland","Virginia","Florida","Massachusetts", "United States". **Hint**: use `filter` and `%in%`.
 
 ```
-Usage: filter(colname %in% c(1, 2, 3, ...))
+# General format
+new_data <- old_data %>% filter(colname %in% c(1, 2, 3, ...))
 ```
 
 ```{r}
@@ -74,7 +78,8 @@ Usage: filter(colname %in% c(1, 2, 3, ...))
 7. Use `pivot_wider` to reshape "vacc_long". Use "Entity" for the `names_from` argument. Use "value" for the `values_from` argument. Call this new data `vacc_wide`. Look at the data. How do these states compare to one another.
 
 ```
-Usage: pivot_wider(names_from = ???, values_from = ???)
+# General format
+new_data <- old_data %>% pivot_wider(names_from = column1, values_from = column2)
 ```
 
 ```{r}
@@ -110,7 +115,7 @@ Tweak the code in the block above to:
 9. Use `pivot_wider` to reshape "gdp". Use "Description" for the `names_from` argument. Use "`2020`" for the `values_from` argument. Reassign this data to "gdp".
 
 ```
-Usage: pivot_wider(names_from = ???, values_from = ???)
+new_data <- old_data %>% pivot_wider(names_from = column1, values_from = column2)
 ```
 
 ```{r}
@@ -124,7 +129,7 @@ Usage: pivot_wider(names_from = ???, values_from = ???)
 - Call the output "merged". How many observations are there?
 
 ```
-Usage: inner_join(x, y, by = c("colname1" = "colname2"))
+new_data <- inner_join(x, y, by = c("colname1" = "colname2"))
 ```
 
 ```{r}
@@ -134,7 +139,7 @@ Usage: inner_join(x, y, by = c("colname1" = "colname2"))
 11. Join the data using a `full_join.` Call the output "full". How many observations are there?
 
 ```
-Usage: full_join(x, y, by = c("colname1" = "colname2"))
+new_data <- full_join(x, y, by = c("colname1" = "colname2"))
 ```
 
 ```{r}

@@ -18,8 +18,13 @@ Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-
 
 1\. Create a new object called `my.num` that contains 6 numbers.
 
+```
+# General format
+my.num <- c(number1, number2, ...)
+```
+
 ```{r}
-# my.num <- ???
+
 ```
 
 
@@ -32,8 +37,13 @@ Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-
 
 3\. Create a second object called `my.char` that contains 5 character strings.
 
+```
+# General format
+my.char <- c("character1", "character2", ...)
+```
+
 ```{r}
-# my.char <- ???
+
 ```
 
 
@@ -44,7 +54,7 @@ Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-
 ```
 
 
-5\. What is the length of `both`?
+5\. What is the length of `both`? Use the `length()` function.
 
 ```{r}
 
@@ -75,12 +85,22 @@ Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-
 
 8\. Create a vector with elements 1, 2, 3, 4, 5, 6 and call it `x`.
 
+```
+# General format
+x <- c(...)
+```
+
 ```{r}
 
 ```
 
 
 9\. Create another vector with elements 10, 20, 30, 40, 50 and call it `y`.
+
+```
+# General format
+y <- c(...)
+```
 
 ```{r}
 
@@ -94,7 +114,7 @@ Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-
 ```
 
 
-12\. Append the value 60 onto the vector `y` (hint: you can use the c() function).
+12\. Append the value 60 onto the vector `y` (hint: you can use the `c()` function).
 
 ```{r}
 
