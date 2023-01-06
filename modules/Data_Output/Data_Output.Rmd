@@ -1,0 +1,100 @@
+---
+title: "Data Output"
+output:
+  ioslides_presentation:
+    css: ../../docs/styles.css
+    widescreen: yes
+---
+
+```{r, echo = FALSE}
+library(knitr)
+library(readr)
+opts_chunk$set(comment = "")
+```
+
+<style type="text/css">
+pre { /* Code block - slightly smaller in this lecture */
+    font-size: 20px;
+}
+</style>
+
+
+## Data Output
+
+While its nice to be able to read in a variety of data formats, it's equally important to be able to output data somewhere.
+
+The `readr` package provides data exporting functions which have the pattern `write_*`: 
+
+- `write_csv()`, 
+- `write_delim()`, others. 
+
+From `write_csv()` documentation:  
+
+```
+write_csv(x, file, 
+  na = "NA", append = FALSE, 
+  col_names = !append, quote_escape = "double",
+  eol = "\n", path = deprecated()
+)
+```
+
+```{r, echo = FALSE}
+dat <- read_csv("http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
+```
+
+## Data Output
+
+`x`: data frame you want to write
+
+`file`:  file path where you want to R object written; it can be: 
+
+* an absolute path, 
+* a relative path (relative to your working directory), 
+* a file name only (which writes the file to your working directory)
+
+```{r, eval = FALSE}
+# Examples
+
+write_csv(dat, file = "YouthTobacco_newNames.csv")
+
+write_delim(dat, file = "YouthTobacco_newNames.csv", delim = ",")
+```
+
+
+## R binary file
+
+`.rds` is an extension for R native file format.
+
+`write_rds()` and `read_rds()` from `readr` package can be used to write/read a single R object to/from file.
+
+Saving datasets in `.rds` format can save time if you have to read it back in later.
+
+```{r}
+# write an object: a data frame "dat"
+write_rds(dat, file = "yts_dataset.rds")
+
+# write an object: vector "x"
+x <- c(1, 3, 3)
+write_rds(x, file = "my_vector.rds")
+
+# read an object from file and assign to a new object named "y"
+x2 <- read_rds(file = "my_vector.rds")
+x2
+```
+
+
+## Summary
+
+- Use `write_csv()` and `write_delim()` from the `readr` package to write your (modified) data
+- `.rds` files can be handy for saving intermediate work
+
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
+
+💻 [Data Output Lab](https://jhudatascience.org/intro_to_r/modules/Data_Output/lab/Data_Output_Lab.Rmd)
+
+```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
+knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
+```
+
+Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
+
