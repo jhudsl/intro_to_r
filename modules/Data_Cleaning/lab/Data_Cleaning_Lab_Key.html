@@ -370,13 +370,13 @@ BloodType %&gt;% count(type)</code></pre>
 ## 7 O.-       3
 ## 8 O.+       3</code></pre>
 <ol start="6" style="list-style-type: decimal">
-<li>Make a new tibble of <code>BloodType</code> called <code>Bloodtype_split</code> that splits the <code>type</code> variable into two called <code>blood_type</code> and <code>Rhfactor</code>. Note: periods are special characters that generally are interpreted as wild cards thus we need <code>\\</code> to tell R that we want it to be interpreted as a period.</li>
+<li>Make a new tibble of <code>BloodType</code> called <code>Bloodtype_split</code> that splits the <code>type</code> variable into two called <code>blood_type</code> and <code>Rhfactor</code>. Note: periods are special characters that generally are interpreted as wild cards thus we need <code>\\.</code> instead of simply “.” to tell R that we want it to be interpreted as a period.</li>
 </ol>
-<p>The following commented code within the chunk (starts with <code>#</code>) can be used as a guide to help you. Type your code below this commented code.</p>
-<pre class="r"><code>## ______________ &lt;- ________ %&gt;%
-# ________(____, ____ = c(__________, __________), sep = &quot;\\.&quot;)
-
-BloodType_split &lt;- BloodType %&gt;% separate(type, into = c(&quot;blood_type&quot;, &quot;Rhfactor&quot;), sep = &quot;\\.&quot;)</code></pre>
+<pre><code># General format
+NEW_TIBBLE &lt;- OLD_TIBBLE 
+    %&gt;% separate(OLD_COLUMN, into = c(&quot;NEW_COLUMN1&quot;, &quot;NEW_COLUMN2&quot;), sep = &quot;SEPARATING_CHARACTER&quot;)</code></pre>
+<pre class="r"><code>BloodType_split &lt;- BloodType %&gt;% 
+  separate(type, into = c(&quot;blood_type&quot;, &quot;Rhfactor&quot;), sep = &quot;\\.&quot;)</code></pre>
 <p><strong>Bonus / Extra practice</strong>: How many observations are there for each <code>Rhfactor</code>:</p>
 <pre class="r"><code>count(BloodType_split, Rhfactor)</code></pre>
 <pre><code>## # A tibble: 2 × 2

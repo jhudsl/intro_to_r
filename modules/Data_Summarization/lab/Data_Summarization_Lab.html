@@ -202,14 +202,11 @@ bike &lt;- read_bike()</code></pre>
 <li><p>Summarize the data to get the <code>max</code> and <code>min</code> of <code>length</code> using the <code>summarize</code> function.</p></li>
 </ol>
 <pre><code># General format 
-{data to use} %&gt;% 
-    summarize({summary column name} = {operator(source column)})</code></pre>
+DATA_TIBBLE %&gt;% 
+    summarize(SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN))</code></pre>
 <p><strong>Bonus / Extra practice</strong>:</p>
 <p>A. Summarize the <code>bike</code> data to get the mean of <code>length</code> and <code>dateInstalled</code>. Do this three ways: 1) with <code>summarize</code>, 2) with <code>summarize</code> and <code>across</code>, and 3) with <code>colMeans()</code>.</p>
-<p>You should have gotten a mean date sometime in the 1800s - that doesn’t make much sense! Hypothesize why the average date is a date from before bike lanes were being built in Baltimore.</p>
-<blockquote>
-<p><em>Answer here</em></p>
-</blockquote>
+<p>You should have gotten a mean date sometime in the 1800s - that doesn’t make much sense! Hypothesize why the average date is a date from before bike lanes were being built in Baltimore. &gt; <em>Answer here</em></p>
 <p>B. Filter any zeros out of <code>bike</code> <code>dateInstalled</code>. Use <code>filter()</code>. Assign this “cleaned” dataset object the name <code>bike_2</code>.</p>
 <ul>
 <li>Sometimes it’s not a good idea to drop data! You can also change any zeros in <code>bike</code> <code>dateInstalled</code> to <code>NA</code> using <code>mutate</code> and <code>ifelse()</code>. <code>ifelse()</code> in R works takes the same arguments as the “IF” function in Excel, and can come in handy here: <code>ifelse(condition, yes = VAL_IF_TRUE, no = VAL_IF_FALSE)</code>.</li>
@@ -227,9 +224,9 @@ bike &lt;- read_bike()</code></pre>
 1 BIKE BOULEVARD              49  197.
 ...</code></pre>
 <pre><code># General format 
-{data to use} %&gt;% 
-    group_by({grouping column name}) %&gt;% 
-    summarize({summary column name} = {operator(source column)})</code></pre>
+DATA_TIBBLE %&gt;% 
+    group_by(GROUPING_COLUMN_NAME) %&gt;% 
+    summarize(SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN))</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>Take your code from the above question and do the following:</li>
 </ol>
@@ -248,17 +245,14 @@ bike &lt;- read_bike()</code></pre>
 <h1>Part 3</h1>
 <ol start="9" style="list-style-type: decimal">
 <li><p>Create a histogram for the <code>length</code> column in the <code>bike</code> dataset. Try playing with the <code>breaks =</code> argument.</p></li>
-<li><p>Create a scatterplot with <code>dateInstalled</code> on the x axis and <code>length</code> on the y axis.</p></li>
+<li><p>Create a scatterplot of the <code>bike</code> dataset with <code>dateInstalled</code> on the x axis and <code>length</code> on the y axis.</p></li>
 </ol>
 <p><strong>Bonus / Extra practice</strong>:</p>
 <p>D. Does the plot from question 10 improve if you use the <code>bike_2</code> dataset?</p>
 <blockquote>
 <p><em>Answer here</em></p>
 </blockquote>
-<p>E. What kind of plot would be better for showing the length by each year group? Make this plot.</p>
-<blockquote>
-<p><em>Answer here</em></p>
-</blockquote>
+<p>E. What kind of plot would be better for showing the length by each year group? Make this plot. &gt; <em>Answer here</em></p>
 </div>
 
 
