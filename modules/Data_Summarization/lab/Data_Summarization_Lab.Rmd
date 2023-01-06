@@ -57,7 +57,7 @@ bike <- read_bike()
 
 ```
 
-**Bonus / Optional:**
+**Bonus / Extra practice**:
 
 A. Summarize the `bike` data to get the mean of `length` and `dateInstalled`. Do this three ways: 1) with `summarize`, 2) with `summarize` and `across`, and 3) with `colMeans()`.
 
@@ -131,7 +131,7 @@ B. Filter any zeros out of `bike` `dateInstalled`. Use `filter()`. Assign this "
 
 ```
 
-**Bonus / Optional:**
+**Bonus / Extra practice**:
 
 C. Using `bike_2` from Part 1 above, what was the average bike lane length grouped by `dateInstalled`? Remove `NA`s with `na.rm = TRUE`.
 
@@ -154,7 +154,7 @@ C. Using `bike_2` from Part 1 above, what was the average bike lane length group
 
 ```
 
-**Bonus / Optional:**
+**Bonus / Extra practice**:
 
 D. Does the plot from question 10 improve if you use the `bike_2` dataset?
 

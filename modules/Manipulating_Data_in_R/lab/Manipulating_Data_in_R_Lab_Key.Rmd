@@ -90,7 +90,7 @@ vacc_wide <- vacc_long %>%
 vacc_wide
 ```
 
-**Bonus / optional**
+**Bonus / Extra practice**:
 
 Combine blocks 1 and 3-7 by chaining everything together using the pipe ` %>% `. Call your data `vacc_compare`.
 
@@ -173,7 +173,7 @@ full <- full_join(vacc, gdp, by = c("Entity" = "GeoName"))
 nrow(full)
 ```
 
-**Bonus / optional**
+**Bonus / Extra practice**:
 
 Do a left join of "vacc" and "gdp". How many observations are there?
 

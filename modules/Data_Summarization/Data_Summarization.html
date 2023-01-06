@@ -339,7 +339,8 @@ head(jhu_cars)</pre>
 
 <p>If you have the <code>jhur</code> package installed successfully:</p>
 
-<pre class = 'prettyprint lang-r'>tb &lt;- jhur::read_tb()</pre>
+<pre class = 'prettyprint lang-r'>library(jhur)
+tb &lt;- read_tb()</pre>
 
 <p><br> If not, download the <code>xlsx</code> file from this link and read it in using <code>read_csv()</code>: <a href='http://jhudatascience.org/intro_to_r/data/tb_incidence.xlsx' title=''>http://jhudatascience.org/intro_to_r/data/tb_incidence.xlsx</a></p>
 
@@ -791,7 +792,7 @@ Saint Vincent and the Grenadines                            Samoa
 
 <p>Here we will be using the Youth Tobacco Survey data: <a href='http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv' title=''>http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv</a></p>
 
-<pre class = 'prettyprint lang-r'>yts &lt;- jhur::read_yts()
+<pre class = 'prettyprint lang-r'>yts &lt;- read_yts()
 head(yts)</pre>
 
 <pre ># A tibble: 6 × 31

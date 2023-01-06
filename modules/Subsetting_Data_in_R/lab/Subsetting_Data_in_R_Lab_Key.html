@@ -255,7 +255,7 @@ head(cars_mt_copy)</code></pre>
 ## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
 <pre class="r"><code>dim(cars_mt_copy)</code></pre>
 <pre><code>## [1] 32 11</code></pre>
-<p>Bonus: How can you print the first 3 rows and the last 3 rows of <code>cars_mt_copy</code> (in two lines of code)?</p>
+<p><strong>Bonus / Extra practice</strong>: How can you print the first 3 rows and the last 3 rows of <code>cars_mt_copy</code> (in two lines of code)?</p>
 <pre class="r"><code>head(cars_mt_copy, 3)</code></pre>
 <pre><code>##                MPG CYL DISP  HP DRAT    WT  QSEC VS AM GEAR CARB
 ## Mazda RX4     21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
@@ -335,7 +335,7 @@ carsSub</code></pre>
 ##  9 Merc 230           3.15  22.9    95
 ## 10 Merc 280           3.44  18.3   123
 ## # … with 22 more rows</code></pre>
-<p>Bonus: Convert the column names of <code>carsSub</code> to all lower case. Take a look at the data.</p>
+<p><strong>Bonus / Extra practice</strong>: Convert the column names of <code>carsSub</code> to all lower case. Take a look at the data.</p>
 <pre class="r"><code>carsSub &lt;- rename_with(carsSub, tolower)
 carsSub</code></pre>
 <pre><code>## # A tibble: 32 × 4
@@ -352,7 +352,7 @@ carsSub</code></pre>
 ##  9 Merc 230           3.15  22.9    95
 ## 10 Merc 280           3.44  18.3   123
 ## # … with 22 more rows</code></pre>
-<p>Bonus: Pull the variable <code>car</code> from <code>carsSub</code>. How does this differ form selecting it?</p>
+<p><strong>Bonus / Extra practice</strong>: Pull the variable <code>car</code> from <code>carsSub</code>. How does this differ form selecting it?</p>
 <pre class="r"><code>pull(carsSub, car)</code></pre>
 <pre><code>##  [1] &quot;Mazda RX4&quot;           &quot;Mazda RX4 Wag&quot;       &quot;Datsun 710&quot;         
 ##  [4] &quot;Hornet 4 Drive&quot;      &quot;Hornet Sportabout&quot;   &quot;Valiant&quot;            
@@ -380,7 +380,7 @@ carsSub</code></pre>
 ##  9 Merc 230         
 ## 10 Merc 280         
 ## # … with 22 more rows</code></pre>
-<p>Bonus: Select the variables that contain the letter a from <code>cars_mt_copy</code>.</p>
+<p><strong>Bonus / Extra practice</strong>: Select the variables that contain the letter a from <code>cars_mt_copy</code>.</p>
 <pre class="r"><code>select(cars_mt_copy, contains(&quot;a&quot;))</code></pre>
 <pre><code>## # A tibble: 32 × 5
 ##    CAR                DRAT    AM  GEAR  CARB
@@ -478,7 +478,7 @@ dim(cars_mpg)</code></pre>
 <li>Why do the answers for 2 and 3 differ?</li>
 </ol>
 <p>They differ because there are two cars with HP values that are exactly 150.</p>
-<p>Bonus:</p>
+<p><strong>Bonus / Extra practice</strong>:</p>
 <p>Subset the rows of <code>cars_mt_copy</code> for cars that have 4 <code>CYL</code>, <strong>or</strong> <strong>less</strong> than 1.9 WT. How many cars have both?</p>
 <pre class="r"><code>filter(cars_mt_copy, CYL == 4 | WT &lt; 1.9)</code></pre>
 <pre><code>## # A tibble: 11 × 12
@@ -585,7 +585,7 @@ carsSub</code></pre>
 <li>Create a new variable in <code>carsSub</code> called <code>WT2</code>, which is equal to <code>WT^2</code>, using <code>mutate()</code>(don’t forget to reassign <code>carsSub</code>). Use pipes <code>%&gt;%</code>:</li>
 </ol>
 <pre class="r"><code>carsSub &lt;- carsSub %&gt;% mutate(WT2 = WT^2)</code></pre>
-<p>Bonus: Move the <code>WT2</code> column to be first. Use <code>relocate()</code>.</p>
+<p><strong>Bonus / Extra practice</strong>: Move the <code>WT2</code> column to be first. Use <code>relocate()</code>.</p>
 <pre class="r"><code>carsSub &lt;- carsSub %&gt;% relocate(WT2, .before = CAR)
 carsSub</code></pre>
 <pre><code>## # A tibble: 14 × 5
@@ -605,7 +605,7 @@ carsSub</code></pre>
 ## 12  27.6 Cadillac Fleetwood   5.25  18.0   205
 ## 13  28.6 Chrysler Imperial    5.34  17.4   230
 ## 14  29.4 Lincoln Continental  5.42  17.8   215</code></pre>
-<p>BONUS: How can you find the value of <code>WT2</code> for the Cadillac Fleetwood without just looking at the data manually and instead use functions we learned today?</p>
+<p><strong>Bonus / Extra practice</strong>: How can you find the value of <code>WT2</code> for the Cadillac Fleetwood without just looking at the data manually and instead use functions we learned today?</p>
 <pre class="r"><code>carsSub %&gt;%
   filter(CAR == &quot;Cadillac Fleetwood&quot;) %&gt;%
   select(WT2)</code></pre>
