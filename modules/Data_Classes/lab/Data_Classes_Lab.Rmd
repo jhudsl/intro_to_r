@@ -71,7 +71,7 @@ vect_data <- tibble(int_vect, rand_vect, TF_vect, TF_vect2)
 ```
 
 
-Bonus. Use `mutate()` function to create a new variable in `vect_data` named `type_fact` that is of class `factor` made from the `int_vect` variable. Take a look at the data and observe how the class is different for the new variable compared to `int_vect`.
+**Bonus / Extra practice**: Use `mutate()` function to create a new variable in `vect_data` named `type_fact` that is of class `factor` made from the `int_vect` variable. Take a look at the data and observe how the class is different for the new variable compared to `int_vect`.
 
 ```{r}
 
@@ -115,7 +115,7 @@ circ <- read_circulator()
 
 ```
 
-Bonus: Use `range()` function on `date_formatted` variable to display the range of dates in the data set. How does this compare to that of `date`? Why? (Hint: use the pull function first to pull the values.)
+**Bonus / Extra practice**: Use `range()` function on `date_formatted` variable to display the range of dates in the data set. How does this compare to that of `date`? Why? (Hint: use the pull function first to pull the values.)
 
 ```{r}
 
@@ -123,7 +123,7 @@ Bonus: Use `range()` function on `date_formatted` variable to display the range 
 ```
  
 
-Bonus: Use the `group_by` function on `day` variable with the `summarize()` function, to display the number of `orangeBoardings` observations with each day (hint: `use sum()`). Which day had the most boardings? Is this true for the other routes (`purpleBoardings`, `greenBoardings`, `bannerBoardings`)?
+**Bonus / Extra practice**: Use the `group_by` function on `day` variable with the `summarize()` function, to display the number of `orangeBoardings` observations with each day (hint: `use sum()`). Which day had the most boardings? Is this true for the other routes (`purpleBoardings`, `greenBoardings`, `bannerBoardings`)?
 
 ```{r}
 

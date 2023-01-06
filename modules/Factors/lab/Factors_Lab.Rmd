@@ -43,13 +43,13 @@ yts <- jhur::read_yts() %>% select(Sample_Size, Education, LocationAbbr)
 
 ```
 
-Bonus/optional practice. Convert "LocationAbbr" (state) in "yts_fct" into a factor using the `mutate` and `factor` functions. Do not add a `levels =` argument.
+**Bonus / Extra practice**: Convert "LocationAbbr" (state) in "yts_fct" into a factor using the `mutate` and `factor` functions. Do not add a `levels =` argument.
 
 ```{r}
 
 ```
 
-Bonus/optional practice. We want to create a new column that contains the group-level median sample size. 
+**Bonus / Extra practice**: We want to create a new column that contains the group-level median sample size. 
 
 - Using the "yts_fct" data, `group_by` "LocationAbbr". 
 - Then, use `mutate` to create a new column "med_sample_size" that is the median "Sample_Size". 
@@ -59,7 +59,7 @@ Bonus/optional practice. We want to create a new column that contains the group-
 
 ```
 
-Bonus/optional practice. We want to plot the "LocationAbbr" (state) by the "med_sample_size" column we created above. Using the `forcats` package, create a plot that:
+**Bonus / Extra practice**: We want to plot the "LocationAbbr" (state) by the "med_sample_size" column we created above. Using the `forcats` package, create a plot that:
 
 - Has "LocationAbbr" on the x-axis
 - Uses the `mapping` argument and the `fct_reorder` function to order the x-axis by "med_sample_size"
