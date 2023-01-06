@@ -1,14 +1,15 @@
 ---
-title: '**KEY** Introduction to R: Homework 2'
+title: 'Introduction to R: Homework 2'
 output:
   html_document: default
 ---
 
 ### **Instructions**
 
-1. Please submit your filled out `.Rmd` file to the assignment drop box on CoursePlus: (`r config::get("courseplus_dropboxes")`)
+Completed homework should be submitted on CoursePlus as an Rmd file. Please see the course website for more information about submitting assignments: https://jhudatascience.org/intro_to_r/syllabus.html#submitting-assignments.
 
-2. All assignments are due by `r config::get("final_due_date")`. Please reach out to us if you need help before this time!
+Homework will be graded for correct output, not code style. All assignments are due at the end of the course. Please see the course website for more information about grading: https://jhudatascience.org/intro_to_r/syllabus.html#grading.
+
 
 ```{r initiatePackages, message=FALSE}
 ## you can add more, or change...these are suggestions
@@ -19,31 +20,39 @@ library(ggplot2)
 library(tidyr)
 ```
 
+
 ### **Problem Set**
 
-1\. (a) Make an object "bday". Assign it your birthday in day-month format (1-Jan). (b) Make another object "name". Assign it your name. Make sure to use quotation marks for anything with text!
+1\. Create the following two objects.
+
+(a) Make an object "bday". Assign it your birthday in day-month format (1-Jan). 
+(b) Make another object "name". Assign it your name. Make sure to use quotation marks for anything with text!
 
 ```{r}
-
+#
 ```
+
 
 2\. Make an object "me" that is "bday" and "name" combined.
 
 ```{r}
-
+#
 ```
+
 
 3\. Determine the data class for "me".
 
 ```{r}
-
+#
 ```
+
 
 4\. If I want to do `me / 2` I get the following error: `Error in me/2 : non-numeric argument to binary operator`. Why? Write your answer as a comment inside the R chunk below.
 
 ```{r}
 #
 ```
+
 
 **The following questions involve an outside dataset.** 
 
@@ -52,20 +61,23 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 5\. Bring the dataset into R. The dataset is located at: https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv. You can use the link, download it, or use whatever method you like for getting the file. Once you get the file, read the dataset in using `read_csv()` and assign it the name "cars".
 
 ```{r}
-
+#
 ```
+
 
 6\. Import the data "dictionary" from https://jhudatascience.org/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt. Use the `read_tsv()` function and assign it the name "key". 
 
 ```{r}
-
+#
 ```
+
 
 7\. R can save individual variables as `.rds` files that can be imported again later. Save the "cars" data in an .rds file using the `write_rds()` function. You can choose what the `file=` argument is.
 
 ```{r}
-
+#
 ```
+
 
 8\. You should now be ready to work with the "cars" dataset.
 
@@ -73,36 +85,41 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 (b) Determine the class of the first three columns using `str()`. Write your answer as a comment inside the R chunk below.
 
 ```{r}
-
+#
 ```
+
 
 9\. How many cars (rows) are in the dataset? How many variables (columns) are recorded for each car? 
 
 ```{r}
-
+#
 ```
+
 
 10\. Filter out (i.e., remove) any vehicles that cost less than or equal to $5000 ("VehBCost") or that have missing values. Reassign the new filtered dataset to "cars". How many vehicles are left after filtering?
 
 **Hint:** The `filter()` function also removes missing values.
 
 ```{r}
-
+#
 ```
+
 
 11\. From this point on, work with the filtered "cars" dataset from the above question. Given the average car loan today is 70 months, create a new variable (column) called "MonthlyPrice" that shows the monthly cost for each car (Divide "VehBCost" by 70). Check to make sure the new column is there.
 
 **Hint:** use the `mutate()` function.
 
 ```{r}
-
+#
 ```
+
 
 12\. What is the range of the manufacture year ("VehYear") of the vehicles?
 
 ```{r}
-
+#
 ```
+
 
 13\. How many cars were from before 2004? What percent/proportion do these represent? Use:
 
@@ -111,36 +128,41 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 - `sum()`
 
 ```{r}
-
+#
 ```
+
 
 14\. How many different vehicle manufacturers/makes ("Make") are there?
 
 **Hint:** use `length()` with `unique()` or `table()`. Remember to `pull()` the right column.
 
 ```{r}
-
+#
 ```
+
 
 15\. How many different vehicle models ("Model") are there?
 
 ```{r}
-
+#
 ```
+
 
 16\. Which vehicle color group had the highest mean acquisition cost paid for the vehicle at time of purchase, and what was this cost?
 
 **Hint:** Use  `group_by()` with `summarize()`. To determine the column that corresponds to "acquisition cost paid for the vehicle at time of purchase", check the "key" corresponding to the data dictionary that you imported above.
 
 ```{r}
-
+#
 ```
+
 
 17\. Extend on the code you wrote for question 16. Use the `arrange()` function to sort the output by mean acquisition cost.
 
 ```{r}
-
+#
 ```
+
 
 18\. How many vehicles were red and have fewer than 30,000 miles? To determine the column that corresponds to mileage (odometer reading), check the "key" corresponding to the data dictionary that you imported above. use:
 
@@ -149,8 +171,9 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 - `sum()`
 
 ```{r}
-
+#
 ```
+
 
 19\. How many vehicles are blue or red? use:
 
@@ -159,47 +182,55 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 - `sum()`
 
 ```{r}
-
+#
 ```
+
 
 20\. Select all columns in "cars" where the column names starts with "Veh" (using `select()` and `starts_with()`. Then, use `colMeans()` to summarize across these columns.
 
 ```{r}
-
+#
 ```
 
-### **Bonus Practice**
+
+### **Bonus/Extra Practice**
 
 A\. Using "cars", create a new binary (TRUEs and FALSEs) column to indicate if the car has an automatic transmission. Call the new column "is_automatic".
 
 ```{r}
-
+#
 ```
+
 
 B\. What is the average vehicle odometer reading for cars that are both RED and NISSANs? How does this compare with vehicles that do NOT fit this criteria?
 
 ```{r}
-
+#
 ```
+
 
 C\. Among red Nissans, what is the distribution of vehicle ages?
 
 ```{r}
-
+#
 ```
+
 
 D\. How many vehicles (using `filter()` or `sum()` ) are made by Chrysler or Nissan and are white or silver?
 
 ```{r}
-
+#
 ```
+
 
 E\. Make a boxplot (`boxplot()`) that looks at vehicle age ("VehicleAge") on the x-axis and odometer reading ("VehOdo") on the y-axis.
 
 ```{r}
-
+#
 ```
+
 
 F\. Knit your document into a report.
 
 You use the knit button to do this. Make sure all your code is working first!
+
