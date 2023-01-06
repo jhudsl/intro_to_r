@@ -178,9 +178,10 @@ pre code {
 <pre class="r"><code>library(dplyr)
 library(ggplot2)</code></pre>
 <ol start="0" style="list-style-type: decimal">
-<li>Load the Youth Tobacco Survey data (using <code>jhur::read_yts()</code>). <code>select</code> “Sample_Size”, “Education”, and “LocationAbbr”. Name this data “yts”.</li>
+<li>Load the Youth Tobacco Survey data (using the <code>jhur</code> library function <code>read_yts()</code>). <code>select</code> “Sample_Size”, “Education”, and “LocationAbbr”. Name this data “yts”.</li>
 </ol>
-<pre class="r"><code>yts &lt;- jhur::read_yts() %&gt;% select(Sample_Size, Education, LocationAbbr)
+<pre class="r"><code>library(jhur)
+yts &lt;- read_yts() %&gt;% select(Sample_Size, Education, LocationAbbr)
 # Alt:
 # yts &lt;- read_csv(&quot;http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv&quot;)</code></pre>
 <ol style="list-style-type: decimal">
@@ -223,9 +224,9 @@ library(ggplot2)</code></pre>
 ##   &lt;fct&gt;         &lt;int&gt;
 ## 1 Middle School  5206
 ## 2 High School    4588</code></pre>
-<p>Bonus/optional practice. Convert “LocationAbbr” (state) in “yts_fct” into a factor using the <code>mutate</code> and <code>factor</code> functions. Do not add a <code>levels =</code> argument.</p>
+<p><strong>Bonus / Extra practice</strong>: Convert “LocationAbbr” (state) in “yts_fct” into a factor using the <code>mutate</code> and <code>factor</code> functions. Do not add a <code>levels =</code> argument.</p>
 <pre class="r"><code>yts_fct &lt;- yts_fct %&gt;% mutate(LocationAbbr = factor(LocationAbbr))</code></pre>
-<p>Bonus/optional practice. We want to create a new column that contains the group-level median sample size.</p>
+<p><strong>Bonus / Extra practice</strong>: We want to create a new column that contains the group-level median sample size.</p>
 <ul>
 <li>Using the “yts_fct” data, <code>group_by</code> “LocationAbbr”.</li>
 <li>Then, use <code>mutate</code> to create a new column “med_sample_size” that is the median “Sample_Size”.</li>
@@ -234,7 +235,7 @@ library(ggplot2)</code></pre>
 <pre class="r"><code>yts_fct &lt;- yts_fct %&gt;%
   group_by(LocationAbbr) %&gt;%
   mutate(med_sample_size = median(Sample_Size, na.rm = TRUE))</code></pre>
-<p>Bonus/optional practice. We want to plot the “LocationAbbr” (state) by the “med_sample_size” column we created above. Using the <code>forcats</code> package, create a plot that:</p>
+<p><strong>Bonus / Extra practice</strong>: We want to plot the “LocationAbbr” (state) by the “med_sample_size” column we created above. Using the <code>forcats</code> package, create a plot that:</p>
 <ul>
 <li>Has “LocationAbbr” on the x-axis</li>
 <li>Uses the <code>mapping</code> argument and the <code>fct_reorder</code> function to order the x-axis by “med_sample_size”</li>

@@ -204,7 +204,7 @@ bike &lt;- read_bike()</code></pre>
 <pre><code># General format 
 {data to use} %&gt;% 
     summarize({summary column name} = {operator(source column)})</code></pre>
-<p><strong>Bonus / Optional:</strong></p>
+<p><strong>Bonus / Extra practice</strong>:</p>
 <p>A. Summarize the <code>bike</code> data to get the mean of <code>length</code> and <code>dateInstalled</code>. Do this three ways: 1) with <code>summarize</code>, 2) with <code>summarize</code> and <code>across</code>, and 3) with <code>colMeans()</code>.</p>
 <p>You should have gotten a mean date sometime in the 1800s - that doesn’t make much sense! Hypothesize why the average date is a date from before bike lanes were being built in Baltimore.</p>
 <blockquote>
@@ -241,7 +241,7 @@ bike &lt;- read_bike()</code></pre>
 <li><p>Make a new column using <code>mutate</code>. This new column should be different for each year (<code>dateInstalled</code>), and indicate the total sum number of lanes (<code>numLanes</code>) built in that year. Call this new column <code>year_total</code> and make sure to reassign the dataset to <code>bike</code>. (hint: use <code>group_by</code> first)</p></li>
 <li><p>How does your data from above change if you also group by <code>type</code>? Ungroup your data when you are done.</p></li>
 </ol>
-<p><strong>Bonus / Optional:</strong></p>
+<p><strong>Bonus / Extra practice</strong>:</p>
 <p>C. Using <code>bike_2</code> from Part 1 above, what was the average bike lane length grouped by <code>dateInstalled</code>? Remove <code>NA</code>s with <code>na.rm = TRUE</code>.</p>
 </div>
 <div id="part-3" class="section level1">
@@ -250,7 +250,7 @@ bike &lt;- read_bike()</code></pre>
 <li><p>Create a histogram for the <code>length</code> column in the <code>bike</code> dataset. Try playing with the <code>breaks =</code> argument.</p></li>
 <li><p>Create a scatterplot with <code>dateInstalled</code> on the x axis and <code>length</code> on the y axis.</p></li>
 </ol>
-<p><strong>Bonus / Optional:</strong></p>
+<p><strong>Bonus / Extra practice</strong>:</p>
 <p>D. Does the plot from question 10 improve if you use the <code>bike_2</code> dataset?</p>
 <blockquote>
 <p><em>Answer here</em></p>

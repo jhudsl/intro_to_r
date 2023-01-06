@@ -55,7 +55,7 @@ head(cars_mt_copy)
 dim(cars_mt_copy)
 ```
 
-Bonus: How can you print the first 3 rows and the last 3 rows of `cars_mt_copy` (in two lines of code)?
+**Bonus / Extra practice**: How can you print the first 3 rows and the last 3 rows of `cars_mt_copy` (in two lines of code)?
 
 ```{r}
 head(cars_mt_copy, 3)
@@ -87,21 +87,21 @@ carsSub <- select(cars_mt_copy, CAR, WT, QSEC, HP)
 carsSub
 ```
 
-Bonus: Convert the column names of `carsSub` to all lower case. Take a look at the data.
+**Bonus / Extra practice**: Convert the column names of `carsSub` to all lower case. Take a look at the data.
 
 ```{r}
 carsSub <- rename_with(carsSub, tolower)
 carsSub
 ```
 
-Bonus: Pull the variable `car` from `carsSub`. How does this differ form selecting it?
+**Bonus / Extra practice**: Pull the variable `car` from `carsSub`. How does this differ form selecting it?
 
 ```{r}
 pull(carsSub, car)
 select(carsSub, car)
 ```
 
-Bonus: Select the variables that contain the letter a from `cars_mt_copy`.
+**Bonus / Extra practice**: Select the variables that contain the letter a from `cars_mt_copy`.
 
 ```{r}
 select(cars_mt_copy, contains("a"))
@@ -149,7 +149,7 @@ cars_mt_copy %>%
 
 They differ because there are two cars with HP values that are exactly 150.
 
-Bonus:
+**Bonus / Extra practice**:
 
 Subset the rows of `cars_mt_copy` for cars that have 4 `CYL`,  **or** **less** than 1.9 WT.
 How many cars have both?
@@ -208,7 +208,7 @@ carsSub <- carsSub %>% mutate(WT2 = WT^2)
 ```
 
 
-Bonus: Move the `WT2` column to be first. Use `relocate()`.
+**Bonus / Extra practice**: Move the `WT2` column to be first. Use `relocate()`.
 
 ```{r}
 
@@ -216,7 +216,7 @@ carsSub <- carsSub %>% relocate(WT2, .before = CAR)
 carsSub
 ```
 
-BONUS: How can you find the value of `WT2` for the Cadillac Fleetwood without just looking at the data manually and instead use functions we learned today?
+**Bonus / Extra practice**: How can you find the value of `WT2` for the Cadillac Fleetwood without just looking at the data manually and instead use functions we learned today?
 
 ```{r}
 carsSub %>%

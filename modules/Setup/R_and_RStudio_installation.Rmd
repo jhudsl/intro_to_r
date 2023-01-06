@@ -97,4 +97,5 @@ Use the above to install `knitr` package. Execute the `library(...)` command to 
     if (!requireNamespace("remotes", quietly = TRUE)) {
       install.packages("remotes")
     }
-    remotes::install_github("muschellij2/jhur")
+    library(remotes)
+    install_github("muschellij2/jhur")
