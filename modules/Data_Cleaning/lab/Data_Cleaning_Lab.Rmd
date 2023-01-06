@@ -22,7 +22,7 @@ library(tidyverse)
 library(broom)
 library(naniar)
 
-bike <- jhur::read_bike()
+bike <- read_bike()
 
 ```
 
@@ -44,7 +44,7 @@ bike <- jhur::read_bike()
 
 ```
 
-3.  Use `naniar` to make a visual of the amount of data missing for each variable of `bike` (use `naniar::gg_miss_var()`). Check out more about this package here: https://www.njtierney.com/post/2018/06/12/naniar-on-cran/
+3.  Use `naniar` to make a visual of the amount of data missing for each variable of `bike` (use `gg_miss_var()`). Check out more about this package here: https://www.njtierney.com/post/2018/06/12/naniar-on-cran/
 
 ```{r}
 
