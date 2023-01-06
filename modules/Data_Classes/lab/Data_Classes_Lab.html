@@ -199,7 +199,7 @@ library(jhur)</code></pre>
 <li><p>Take a look at 5 random rows using the <code>slice_sample()</code> function again but this time with <code>set.seed(1234)</code> as the first line of the chunk. Try this a few times to see the results. (Don’t forget to not copy the backticks.)</p></li>
 <li><p>Check to see if the <code>TF_vect</code> is logical. Check to see if <code>TF_vect2</code> is logical. Why are the results what they are?</p></li>
 </ol>
-<p>Bonus. Use <code>mutate()</code> function to create a new variable in <code>vect_data</code> named <code>type_fact</code> that is of class <code>factor</code> made from the <code>int_vect</code> variable. Take a look at the data and observe how the class is different for the new variable compared to <code>int_vect</code>.</p>
+<p><strong>Bonus / Extra practice</strong>: Use <code>mutate()</code> function to create a new variable in <code>vect_data</code> named <code>type_fact</code> that is of class <code>factor</code> made from the <code>int_vect</code> variable. Take a look at the data and observe how the class is different for the new variable compared to <code>int_vect</code>.</p>
 </div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
@@ -221,8 +221,8 @@ library(jhur)</code></pre>
 <li><p>Move the <code>date_formatted</code> variable to be before <code>date</code> using the <code>relocate</code> function. Take a look at the data using <code>glimpse()</code>. Note the difference between <code>date</code> and <code>date_formatted</code> columns.</p></li>
 <li><p>Create a list data object called <code>classes_data</code> that combines the <code>vect_data</code> from the first part of the lab and <code>circ</code>. Use <code>glimpse()</code> to look at the data.</p></li>
 </ol>
-<p>Bonus: Use <code>range()</code> function on <code>date_formatted</code> variable to display the range of dates in the data set. How does this compare to that of <code>date</code>? Why? (Hint: use the pull function first to pull the values.)</p>
-<p>Bonus: Use the <code>group_by</code> function on <code>day</code> variable with the <code>summarize()</code> function, to display the number of <code>orangeBoardings</code> observations with each day (hint: <code>use sum()</code>). Which day had the most boardings? Is this true for the other routes (<code>purpleBoardings</code>, <code>greenBoardings</code>, <code>bannerBoardings</code>)?</p>
+<p><strong>Bonus / Extra practice</strong>: Use <code>range()</code> function on <code>date_formatted</code> variable to display the range of dates in the data set. How does this compare to that of <code>date</code>? Why? (Hint: use the pull function first to pull the values.)</p>
+<p><strong>Bonus / Extra practice</strong>: Use the <code>group_by</code> function on <code>day</code> variable with the <code>summarize()</code> function, to display the number of <code>orangeBoardings</code> observations with each day (hint: <code>use sum()</code>). Which day had the most boardings? Is this true for the other routes (<code>purpleBoardings</code>, <code>greenBoardings</code>, <code>bannerBoardings</code>)?</p>
 </div>
 
 

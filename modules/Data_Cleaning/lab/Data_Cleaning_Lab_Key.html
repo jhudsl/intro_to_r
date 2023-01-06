@@ -377,14 +377,14 @@ BloodType %&gt;% count(type)</code></pre>
 # ________(____, ____ = c(__________, __________), sep = &quot;\\.&quot;)
 
 BloodType_split &lt;- BloodType %&gt;% separate(type, into = c(&quot;blood_type&quot;, &quot;Rhfactor&quot;), sep = &quot;\\.&quot;)</code></pre>
-<p>Bonus: How many observations are there for each <code>Rhfactor</code>:</p>
+<p><strong>Bonus / Extra practice</strong>: How many observations are there for each <code>Rhfactor</code>:</p>
 <pre class="r"><code>count(BloodType_split, Rhfactor)</code></pre>
 <pre><code>## # A tibble: 2 × 2
 ##   Rhfactor     n
 ##   &lt;chr&gt;    &lt;int&gt;
 ## 1 -            9
 ## 2 +            6</code></pre>
-<p>Bonus: Filtering for patients with type O, how many had the infection?</p>
+<p><strong>Bonus / Extra practice</strong>: Filtering for patients with type O, how many had the infection?</p>
 <pre class="r"><code>BloodType_split %&gt;%
   filter(blood_type == &quot;O&quot;) %&gt;%
   count(infection)</code></pre>

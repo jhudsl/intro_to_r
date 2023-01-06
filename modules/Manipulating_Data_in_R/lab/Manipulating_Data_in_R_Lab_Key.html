@@ -368,7 +368,7 @@ vacc_wide</code></pre>
 ##  9 Percent of 65+ P…            95            95       95          89.8     95  
 ## 10 Percent of 65+ P…            88            93       92.6        82.1     90.1
 ## # … with 24 more rows</code></pre>
-<p><strong>Bonus / optional</strong></p>
+<p><strong>Bonus / Extra practice</strong>:</p>
 <p>Combine blocks 1 and 3-7 by chaining everything together using the pipe <code>%&gt;%</code>. Call your data <code>vacc_compare</code>.</p>
 <pre class="r"><code>vacc_compare &lt;-
   read_csv(&quot;http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv&quot;) %&gt;%
@@ -490,7 +490,7 @@ nrow(merged)</code></pre>
 <pre class="r"><code>full &lt;- full_join(vacc, gdp, by = c(&quot;Entity&quot; = &quot;GeoName&quot;))
 nrow(full)</code></pre>
 <pre><code>## [1] 73</code></pre>
-<p><strong>Bonus / optional</strong></p>
+<p><strong>Bonus / Extra practice</strong>:</p>
 <p>Do a left join of “vacc” and “gdp”. How many observations are there?</p>
 <pre class="r"><code>left &lt;- left_join(vacc, gdp, by = c(&quot;Entity&quot; = &quot;GeoName&quot;))
 nrow(left)</code></pre>
