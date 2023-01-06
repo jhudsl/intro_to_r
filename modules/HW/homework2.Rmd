@@ -58,7 +58,7 @@ library(tidyr)
 
 We will be working with a dataset from the "Kaggle" website, which hosts competitions for prediction and machine learning. More details on this dataset are here: https://www.kaggle.com/c/DontGetKicked/overview/background.
 
-5\. Bring the dataset into R. The dataset is located at: https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv. You can use the link, download it, or use whatever method you like for getting the file. Once you get the file, read the dataset in using `read_csv()` and assign it the name "cars".
+5\. Bring the dataset into R. The dataset is located at: https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv. You can use the link, download it, or use whatever method you like for getting the file. Once you get the file, read the dataset in using `read_csv()` and assign it the name `cars`.
 
 ```{r}
 #
@@ -72,14 +72,7 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 ```
 
 
-7\. R can save individual variables as `.rds` files that can be imported again later. Save the "cars" data in an .rds file using the `write_rds()` function. You can choose what the `file=` argument is.
-
-```{r}
-#
-```
-
-
-8\. You should now be ready to work with the "cars" dataset.
+7\. You should now be ready to work with the "cars" dataset.
 
 (a) Preview the data so that you can see the names of the columns. There are several possible functions to do this.
 (b) Determine the class of the first three columns using `str()`. Write your answer as a comment inside the R chunk below.
@@ -89,14 +82,14 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 ```
 
 
-9\. How many cars (rows) are in the dataset? How many variables (columns) are recorded for each car? 
+8\. How many cars (rows) are in the dataset? How many variables (columns) are recorded for each car? 
 
 ```{r}
 #
 ```
 
 
-10\. Filter out (i.e., remove) any vehicles that cost less than or equal to $5000 ("VehBCost") or that have missing values. Reassign the new filtered dataset to "cars". How many vehicles are left after filtering?
+9\. Filter out (i.e., remove) any vehicles that cost less than or equal to $5000 ("VehBCost") or that have missing values. Replace the original "cars" object by reassigning the new filtered dataset to "cars". How many vehicles are left after filtering?
 
 **Hint:** The `filter()` function also removes missing values.
 
@@ -105,7 +98,7 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 ```
 
 
-11\. From this point on, work with the filtered "cars" dataset from the above question. Given the average car loan today is 70 months, create a new variable (column) called "MonthlyPrice" that shows the monthly cost for each car (Divide "VehBCost" by 70). Check to make sure the new column is there.
+10\. From this point on, work with the filtered "cars" dataset from the above question. Given the average car loan today is 70 months, create a new variable (column) called "MonthlyPrice" that shows the monthly cost for each car (Divide "VehBCost" by 70). Check to make sure the new column is there.
 
 **Hint:** use the `mutate()` function.
 
@@ -114,7 +107,14 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 ```
 
 
-12\. What is the range of the manufacture year ("VehYear") of the vehicles?
+11\. What is the range of the manufacture year ("VehYear") of the vehicles?
+
+```{r}
+#
+```
+
+
+12\. Create a random sample with of mileage (odometer reading) from `cars`. To determine the column that corresponds to mileage (The vehicle's odometer reading), check the "key" corresponding to the data dictionary that you imported above in question 6. Use `sample()` and `pull()`. Remember that by default random samples differ each time you run the code.
 
 ```{r}
 #
@@ -150,7 +150,7 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 
 16\. Which vehicle color group had the highest mean acquisition cost paid for the vehicle at time of purchase, and what was this cost?
 
-**Hint:** Use  `group_by()` with `summarize()`. To determine the column that corresponds to "acquisition cost paid for the vehicle at time of purchase", check the "key" corresponding to the data dictionary that you imported above.
+**Hint:** Use  `group_by()` with `summarize()`. To determine the column that corresponds to "acquisition cost paid for the vehicle at time of purchase", check the "key" corresponding to the data dictionary that you imported above in question 6.
 
 ```{r}
 #
@@ -164,7 +164,7 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 ```
 
 
-18\. How many vehicles were red and have fewer than 30,000 miles? To determine the column that corresponds to mileage (odometer reading), check the "key" corresponding to the data dictionary that you imported above. use:
+18\. How many vehicles were red and have fewer than 30,000 miles? To determine the column that corresponds to mileage (The vehicle's odometer reading), check the "key" corresponding to the data dictionary that you imported above in question 6. use:
 
 - `filter()` and `count()`
 - `filter()` and `tally()` or
@@ -193,7 +193,7 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 ```
 
 
-### **Bonus/Extra Practice**
+### **Bonus Practice**
 
 A\. Using "cars", create a new binary (TRUEs and FALSEs) column to indicate if the car has an automatic transmission. Call the new column "is_automatic".
 
@@ -233,4 +233,3 @@ E\. Make a boxplot (`boxplot()`) that looks at vehicle age ("VehicleAge") on the
 F\. Knit your document into a report.
 
 You use the knit button to do this. Make sure all your code is working first!
-
