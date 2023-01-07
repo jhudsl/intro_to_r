@@ -392,12 +392,12 @@ See this [article](https://tidyverse.tidyverse.org/articles/paper.html) for more
 
 We have an R package called jhur that will make sure all the packages are installed.
 
-You can just copy and paste the below code into your console - we'll explain what it all means in the next day or two.
+You can just copy and paste the code below into your RStudio console - we'll explain what it all means in the next day or two.
 
 ```{r, packageInstall, eval=FALSE}
 install.packages("remotes")
 library(remotes)
-install_github("muschellij2/jhur")
+install_github("jhudsl/jhur")
 ```
 
 Note it may take ~5-10 minutes to run.
