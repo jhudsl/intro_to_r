@@ -174,10 +174,8 @@ pre code {
 
 <div id="instructions" class="section level3">
 <h3><strong>Instructions</strong></h3>
-<ol style="list-style-type: decimal">
-<li><p>Please submit your filled out <code>.Rmd</code> file to the assignment drop box on CoursePlus: (<a href="https://courseplus.jhu.edu/core/index.cfm/go/db:main/coID/17889/" class="uri">https://courseplus.jhu.edu/core/index.cfm/go/db:main/coID/17889/</a>)</p></li>
-<li><p>All assignments are due by January 25th at 11:59pm EST. Please reach out to us if you need help before this time!</p></li>
-</ol>
+<p>Completed homework should be submitted on CoursePlus as an Rmd file. Please see the course website for more information about submitting assignments: <a href="https://jhudatascience.org/intro_to_r/syllabus.html#submitting-assignments" class="uri">https://jhudatascience.org/intro_to_r/syllabus.html#submitting-assignments</a>.</p>
+<p>Homework will be graded for correct output, not code style. All assignments are due at the end of the course. Please see the course website for more information about grading: <a href="https://jhudatascience.org/intro_to_r/syllabus.html#grading" class="uri">https://jhudatascience.org/intro_to_r/syllabus.html#grading</a>.</p>
 <pre class="r"><code>## you can add more, or change...these are suggestions
 library(tidyverse)
 library(readr)
@@ -187,7 +185,11 @@ library(tidyr)</code></pre>
 </div>
 <div id="problem-set" class="section level3">
 <h3><strong>Problem Set</strong></h3>
-<p>1. (a) Make an object “bday”. Assign it your birthday in day-month format (1-Jan). (b) Make another object “name”. Assign it your name. Make sure to use quotation marks for anything with text!</p>
+<p>1. Create the following two objects.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Make an object “bday”. Assign it your birthday in day-month format (1-Jan).</li>
+<li>Make another object “name”. Assign it your name. Make sure to use quotation marks for anything with text!</li>
+</ol>
 <pre class="r"><code>bday &lt;- &quot;19-Feb&quot;
 name &lt;- &quot;Bruce Wayne&quot;</code></pre>
 <p>2. Make an object “me” that is “bday” and “name” combined.</p>
@@ -200,7 +202,7 @@ name &lt;- &quot;Bruce Wayne&quot;</code></pre>
 <pre class="r"><code># R cannot perform math functions on character data classes (types).</code></pre>
 <p><strong>The following questions involve an outside dataset.</strong></p>
 <p>We will be working with a dataset from the “Kaggle” website, which hosts competitions for prediction and machine learning. More details on this dataset are here: <a href="https://www.kaggle.com/c/DontGetKicked/overview/background" class="uri">https://www.kaggle.com/c/DontGetKicked/overview/background</a>.</p>
-<p>5. Bring the dataset into R. The dataset is located at: <a href="https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv" class="uri">https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv</a>. You can use the link, download it, or use whatever method you like for getting the file. Once you get the file, read the dataset in using <code>read_csv()</code> and assign it the name “cars”.</p>
+<p>5. Bring the dataset into R. The dataset is located at: <a href="https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv" class="uri">https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv</a>. You can use the link, download it, or use whatever method you like for getting the file. Once you get the file, read the dataset in using <code>read_csv()</code> and assign it the name <code>cars</code>.</p>
 <pre class="r"><code>cars &lt;- read_csv(file = &quot;https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv&quot;)</code></pre>
 <pre><code>## Rows: 72983 Columns: 34
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -271,9 +273,7 @@ key &lt;- read_tsv(&quot;dict.txt&quot;)</code></pre>
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<p>7. R can save individual variables as <code>.rds</code> files that can be imported again later. Save the “cars” data in an .rds file using the <code>write_rds()</code> function. You can choose what the <code>file=</code> argument is.</p>
-<pre class="r"><code>write_rds(cars, file = &quot;kaggle.rds&quot;)</code></pre>
-<p>8. You should now be ready to work with the “cars” dataset.</p>
+<p>7. You should now be ready to work with the “cars” dataset.</p>
 <ol style="list-style-type: lower-alpha">
 <li>Preview the data so that you can see the names of the columns. There are several possible functions to do this.</li>
 <li>Determine the class of the first three columns using <code>str()</code>. Write your answer as a comment inside the R chunk below.</li>
@@ -359,13 +359,13 @@ key &lt;- read_tsv(&quot;dict.txt&quot;)</code></pre>
 # RefId = col_double()
 # IsBadBuy = col_double()
 # PurchDate = col_character()</code></pre>
-<p>9. How many cars (rows) are in the dataset? How many variables (columns) are recorded for each car?</p>
+<p>8. How many cars (rows) are in the dataset? How many variables (columns) are recorded for each car?</p>
 <pre class="r"><code>dim(cars)</code></pre>
 <pre><code>## [1] 72983    34</code></pre>
 <pre class="r"><code>nrow(cars)</code></pre>
 <pre><code>## [1] 72983</code></pre>
 <p><span style="color:red"> There are 72983 cars in the dataset and 34 variables. </span></p>
-<p>10. Filter out (i.e., remove) any vehicles that cost less than or equal to $5000 (“VehBCost”) or that have missing values. Reassign the new filtered dataset to “cars”. How many vehicles are left after filtering?</p>
+<p>9. Filter out (i.e., remove) any vehicles that cost less than or equal to $5000 (“VehBCost”) or that have missing values. Replace the original “cars” object by reassigning the new filtered dataset to “cars”. How many vehicles are left after filtering?</p>
 <p><strong>Hint:</strong> The <code>filter()</code> function also removes missing values.</p>
 <pre class="r"><code>cars &lt;- filter(cars, VehBCost &gt; 5000)
 nrow(cars)</code></pre>
@@ -375,7 +375,7 @@ cars &lt;- cars %&gt;% filter(VehBCost &gt; 5000)
 nrow(cars)</code></pre>
 <pre><code>## [1] 59957</code></pre>
 <p><span style="color:red"> There are 59957 cars after filtering by price. </span></p>
-<p>11. From this point on, work with the filtered “cars” dataset from the above question. Given the average car loan today is 70 months, create a new variable (column) called “MonthlyPrice” that shows the monthly cost for each car (Divide “VehBCost” by 70). Check to make sure the new column is there.</p>
+<p>10. From this point on, work with the filtered “cars” dataset from the above question. Given the average car loan today is 70 months, create a new variable (column) called “MonthlyPrice” that shows the monthly cost for each car (Divide “VehBCost” by 70). Check to make sure the new column is there.</p>
 <p><strong>Hint:</strong> use the <code>mutate()</code> function.</p>
 <pre class="r"><code>cars &lt;- cars %&gt;% mutate(MonthlyPrice = VehBCost / 70)
 # OR
@@ -399,7 +399,7 @@ colnames(cars)</code></pre>
 ## [31] &quot;VNST&quot;                              &quot;VehBCost&quot;                         
 ## [33] &quot;IsOnlineSale&quot;                      &quot;WarrantyCost&quot;                     
 ## [35] &quot;MonthlyPrice&quot;</code></pre>
-<p>12. What is the range of the manufacture year (“VehYear”) of the vehicles?</p>
+<p>11. What is the range of the manufacture year (“VehYear”) of the vehicles?</p>
 <pre class="r"><code>range(cars %&gt;% pull(VehYear))</code></pre>
 <pre><code>## [1] 2001 2010</code></pre>
 <pre class="r"><code># OR
@@ -414,6 +414,10 @@ range(cars$VehYear)</code></pre>
 ##  2001  2002  2003  2004  2005  2006  2007  2008  2009  2010 
 ##   532  1741  3859  7262 12296 15494 11079  6871   822     1</code></pre>
 <p><span style="color:red"> The range is 2001, 2010. </span></p>
+<p>12. Create a random sample with of mileage (odometer reading) from <code>cars</code>. To determine the column that corresponds to mileage (The vehicle’s odometer reading), check the “key” corresponding to the data dictionary that you imported above in question 6. Use <code>sample()</code> and <code>pull()</code>. Remember that by default random samples differ each time you run the code.</p>
+<pre class="r"><code>sample(pull(cars, VehOdo), size = 20)</code></pre>
+<pre><code>##  [1] 65188 71210 88046 73670 52685 41011 49242 49843 60947 43602 53921 59534
+## [13] 87435 67549 64279 64345 81672 82220 52045 64558</code></pre>
 <p>13. How many cars were from before 2004? What percent/proportion do these represent? Use:</p>
 <ul>
 <li><code>filter()</code> and <code>nrow()</code></li>
@@ -472,7 +476,7 @@ length(table(cars$Make))</code></pre>
 <pre><code>## [1] 985</code></pre>
 <p><span style="color:red"> 985 unique models. </span></p>
 <p>16. Which vehicle color group had the highest mean acquisition cost paid for the vehicle at time of purchase, and what was this cost?</p>
-<p><strong>Hint:</strong> Use <code>group_by()</code> with <code>summarize()</code>. To determine the column that corresponds to “acquisition cost paid for the vehicle at time of purchase”, check the “key” corresponding to the data dictionary that you imported above.</p>
+<p><strong>Hint:</strong> Use <code>group_by()</code> with <code>summarize()</code>. To determine the column that corresponds to “acquisition cost paid for the vehicle at time of purchase”, check the “key” corresponding to the data dictionary that you imported above in question 6.</p>
 <pre class="r"><code>cars %&gt;%
   group_by(Color) %&gt;%
   summarize(mean = mean(VehBCost))</code></pre>
@@ -521,7 +525,7 @@ length(table(cars$Make))</code></pre>
 ## 15 YELLOW    6922.
 ## 16 PURPLE    6889.
 ## 17 NULL      5860</code></pre>
-<p>18. How many vehicles were red and have fewer than 30,000 miles? To determine the column that corresponds to mileage (odometer reading), check the “key” corresponding to the data dictionary that you imported above. use:</p>
+<p>18. How many vehicles were red and have fewer than 30,000 miles? To determine the column that corresponds to mileage (The vehicle’s odometer reading), check the “key” corresponding to the data dictionary that you imported above in question 6. use:</p>
 <ul>
 <li><code>filter()</code> and <code>count()</code></li>
 <li><code>filter()</code> and <code>tally()</code> or</li>

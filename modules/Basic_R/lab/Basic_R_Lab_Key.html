@@ -175,78 +175,138 @@ pre code {
 <p>In this lab you can use the interactive console to explore or <strong>Knit</strong> the document. Remember anything you type here can be “sent” to the console with Cmd-Enter (OS-X) or Ctrl-Enter (Windows/Linux) in an R code chunk.</p>
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
-<ol style="list-style-type: decimal">
-<li>Create a new object called <code>my.num</code> that contains 6 numbers.</li>
-</ol>
+<p>1. Create a new object called <code>my.num</code> that contains 6 numbers.</p>
+<pre><code># General format
+my.num &lt;- c(number1, number2, ...)</code></pre>
 <pre class="r"><code>my.num &lt;- c(5, 4, 7, 8, 12, 14) # These can be any real numbers</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Multiply <code>my.num</code> by 4.</li>
-</ol>
+<p>2. Multiply <code>my.num</code> by 4.</p>
 <pre class="r"><code>my.num * 4</code></pre>
 <pre><code>## [1] 20 16 28 32 48 56</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Create a second object called <code>my.char</code> that contains 5 character strings.</li>
-</ol>
+<p>3. Create a second object called <code>my.char</code> that contains 5 character strings.</p>
+<pre><code># General format
+my.char &lt;- c(&quot;character1&quot;, &quot;character2&quot;, ...)</code></pre>
 <pre class="r"><code>my.char &lt;- c(&quot;banana&quot;, &quot;garlic&quot;, &quot;pickles&quot;, &quot;hot chocolate&quot;, &quot;7-Up&quot;) # Again,these can be anything</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>Combine the two objects <code>my.num</code> and <code>my.char</code> into an object called <code>both</code>.</li>
-</ol>
+<p>4. Combine the two objects <code>my.num</code> and <code>my.char</code> into an object called <code>both</code>.</p>
 <pre class="r"><code>both &lt;- c(my.num, my.char)</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>What is the length of <code>both</code>?</li>
-</ol>
+<p>5. What is the length of <code>both</code>? Use the <code>length()</code> function.</p>
 <pre class="r"><code>length(both)</code></pre>
 <pre><code>## [1] 11</code></pre>
-<ol start="6" style="list-style-type: decimal">
-<li>What class is <code>both</code>?</li>
-</ol>
+<p>6. What class is <code>both</code>?</p>
 <pre class="r"><code>class(both)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 <p><strong>Bonus / Extra practice</strong>: Create a vector that contains 4 sets of the numbers 1, 2, 3, and 4.</p>
 <pre class="r"><code>vec_1 &lt;- c(1, 2, 3, 4)
-vec_2 &lt;- c(vec_1, vec_1, vec_1, vec_1)
-
-# OR!
-rep(vec_1, 4)</code></pre>
-<pre><code>##  [1] 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4</code></pre>
+vec_2 &lt;- c(vec_1, vec_1, vec_1, vec_1)</code></pre>
 </div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
-<ol start="7" style="list-style-type: decimal">
-<li>Divide <code>both</code> by 3, what happens?</li>
-</ol>
+<p>7. Divide <code>both</code> by 3, what happens?</p>
 <pre class="r"><code>both / 3</code></pre>
 <pre><code>## Error in both/3: non-numeric argument to binary operator</code></pre>
-<ol start="8" style="list-style-type: decimal">
-<li>Create a vector with elements 1 2 3 4 5 6 and call it <code>x</code>.</li>
-</ol>
+<p>8. Create a vector with elements 1, 2, 3, 4, 5, 6 and call it <code>x</code>.</p>
+<pre><code># General format
+x &lt;- c(...)</code></pre>
 <pre class="r"><code>x &lt;- c(1, 2, 3, 4, 5, 6)</code></pre>
-<ol start="9" style="list-style-type: decimal">
-<li>Create another vector with elements 10 20 30 40 50 and call it <code>y</code>.</li>
-</ol>
+<p>9. Create another vector with elements 10, 20, 30, 40, 50 and call it <code>y</code>.</p>
+<pre><code># General format
+y &lt;- c(...)</code></pre>
 <pre class="r"><code>y &lt;- c(10, 20, 30, 40, 50)</code></pre>
-<ol start="10" style="list-style-type: decimal">
-<li>What happens when you add <code>x</code> and <code>y</code> together?</li>
-</ol>
+<p>10. What happens when you add <code>x</code> and <code>y</code> together?</p>
 <pre class="r"><code>x + y</code></pre>
 <pre><code>## Warning in x + y: longer object length is not a multiple of shorter object
 ## length</code></pre>
 <pre><code>## [1] 11 22 33 44 55 16</code></pre>
 <pre class="r"><code># R &quot;auto replicates&quot; the shorter vector when the vectors aren&#39;t the same length - this is not what we want!
 # In this case, it reads y as c(10, 20, 30, 40, 50, 10)!</code></pre>
-<ol start="12" style="list-style-type: decimal">
-<li>Append the value 60 onto the vector <code>y</code> (hint: you can use the c() function).</li>
-</ol>
+<p>12. Append the value 60 onto the vector <code>y</code> (hint: you can use the <code>c()</code> function).</p>
 <pre class="r"><code>y &lt;- c(y, 60)</code></pre>
-<ol start="13" style="list-style-type: decimal">
-<li>Add <code>x</code> and <code>y</code> together.</li>
-</ol>
+<p>13. Add <code>x</code> and <code>y</code> together.</p>
 <pre class="r"><code>x + y</code></pre>
 <pre><code>## [1] 11 22 33 44 55 66</code></pre>
 <p><strong>Bonus / Extra practice</strong>: Multiply <code>x</code> and <code>y</code> together. How is this similar to the way R performs addition in #13 ?</p>
 <pre class="r"><code>x * y</code></pre>
 <pre><code>## [1]  10  40  90 160 250 360</code></pre>
 <pre class="r"><code># R adds together the first element of each vector, then the second, and so on. This order also applies when multiplying!</code></pre>
+</div>
+<div id="part-3" class="section level1">
+<h1>Part 3</h1>
+<p>14. Create a vector object called <code>int_vect</code> that starts at 1 and goes up to 10. Use <code>seq()</code>.</p>
+<pre><code># General format
+seq(from = NUMBER, to = NUMBER)</code></pre>
+<pre class="r"><code>int_vect &lt;- seq(from = 1, to = 10)
+int_vect</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<p>15. Repeat the <code>int_vect</code> object this sequence 3 times using <code>rep()</code> and store the new object as <code>int_vect_3</code>.</p>
+<pre><code># General format - times and each are optional
+rep(x = OBJECT_TO_REPEAT, times = NUM_TIMES_TO_REPEAT, each = NUM_TIMES_TO_REPEAT_EACH_ELEMENT)</code></pre>
+<pre class="r"><code>int_vect_3 &lt;- rep(int_vect, times = 3)
+int_vect_3</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10  1  2  3  4  5  6  7  8  9 10  1  2  3  4  5
+## [26]  6  7  8  9 10</code></pre>
+<p>16. What is the length of <code>int_vect_3</code>?</p>
+<pre class="r"><code>length(int_vect_3)</code></pre>
+<pre><code>## [1] 30</code></pre>
+<p>17. Create a vector that takes the sequence “Strongly Agree”, “Agree”, “Neutral”, “Disagree”, “Strongly Disagree” and repeats each element 10 times.</p>
+<pre class="r"><code>my_seq &lt;- c(&quot;Strongly Agree&quot;, &quot;Agree&quot;, &quot;Neutral&quot;, &quot;Disagree&quot;, &quot;Strongly Disagree&quot;)
+rep(my_seq, each = 10)</code></pre>
+<pre><code>##  [1] &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;   
+##  [4] &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;   
+##  [7] &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;   
+## [10] &quot;Strongly Agree&quot;    &quot;Agree&quot;             &quot;Agree&quot;            
+## [13] &quot;Agree&quot;             &quot;Agree&quot;             &quot;Agree&quot;            
+## [16] &quot;Agree&quot;             &quot;Agree&quot;             &quot;Agree&quot;            
+## [19] &quot;Agree&quot;             &quot;Agree&quot;             &quot;Neutral&quot;          
+## [22] &quot;Neutral&quot;           &quot;Neutral&quot;           &quot;Neutral&quot;          
+## [25] &quot;Neutral&quot;           &quot;Neutral&quot;           &quot;Neutral&quot;          
+## [28] &quot;Neutral&quot;           &quot;Neutral&quot;           &quot;Neutral&quot;          
+## [31] &quot;Disagree&quot;          &quot;Disagree&quot;          &quot;Disagree&quot;         
+## [34] &quot;Disagree&quot;          &quot;Disagree&quot;          &quot;Disagree&quot;         
+## [37] &quot;Disagree&quot;          &quot;Disagree&quot;          &quot;Disagree&quot;         
+## [40] &quot;Disagree&quot;          &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot;
+## [43] &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot;
+## [46] &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot;
+## [49] &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot;</code></pre>
+<pre class="r"><code>rep( c(&quot;Strongly Agree&quot;, &quot;Agree&quot;, &quot;Neutral&quot;, &quot;Disagree&quot;, &quot;Strongly Disagree&quot;), each = 10 )</code></pre>
+<pre><code>##  [1] &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;   
+##  [4] &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;   
+##  [7] &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;   
+## [10] &quot;Strongly Agree&quot;    &quot;Agree&quot;             &quot;Agree&quot;            
+## [13] &quot;Agree&quot;             &quot;Agree&quot;             &quot;Agree&quot;            
+## [16] &quot;Agree&quot;             &quot;Agree&quot;             &quot;Agree&quot;            
+## [19] &quot;Agree&quot;             &quot;Agree&quot;             &quot;Neutral&quot;          
+## [22] &quot;Neutral&quot;           &quot;Neutral&quot;           &quot;Neutral&quot;          
+## [25] &quot;Neutral&quot;           &quot;Neutral&quot;           &quot;Neutral&quot;          
+## [28] &quot;Neutral&quot;           &quot;Neutral&quot;           &quot;Neutral&quot;          
+## [31] &quot;Disagree&quot;          &quot;Disagree&quot;          &quot;Disagree&quot;         
+## [34] &quot;Disagree&quot;          &quot;Disagree&quot;          &quot;Disagree&quot;         
+## [37] &quot;Disagree&quot;          &quot;Disagree&quot;          &quot;Disagree&quot;         
+## [40] &quot;Disagree&quot;          &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot;
+## [43] &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot;
+## [46] &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot;
+## [49] &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot;</code></pre>
+<p><strong>Bonus / Extra practice</strong>: “Strongly Agree”, “Agree”, “Neutral”, “Disagree”, “Strongly Disagree” are often responses to surveys. Create a randomly sampled vector of 30 survey responses. (hint use <code>sample()</code> and set the replace argument to <code>TRUE</code>). Store the output as <code>my_responses</code>. Examine the data by typing the name in the Console using a function.</p>
+<pre class="r"><code>my_responses &lt;- sample(
+  x = c(&quot;Strongly Agree&quot;, &quot;Agree&quot;, &quot;Neutral&quot;, &quot;Disagree&quot;, &quot;Strongly Disagree&quot;),
+  size = 30,
+  replace = TRUE
+)
+my_responses</code></pre>
+<pre><code>##  [1] &quot;Strongly Agree&quot;    &quot;Agree&quot;             &quot;Strongly Agree&quot;   
+##  [4] &quot;Agree&quot;             &quot;Strongly Agree&quot;    &quot;Strongly Disagree&quot;
+##  [7] &quot;Strongly Disagree&quot; &quot;Neutral&quot;           &quot;Neutral&quot;          
+## [10] &quot;Strongly Agree&quot;    &quot;Agree&quot;             &quot;Neutral&quot;          
+## [13] &quot;Disagree&quot;          &quot;Neutral&quot;           &quot;Strongly Disagree&quot;
+## [16] &quot;Strongly Agree&quot;    &quot;Neutral&quot;           &quot;Disagree&quot;         
+## [19] &quot;Agree&quot;             &quot;Disagree&quot;          &quot;Neutral&quot;          
+## [22] &quot;Agree&quot;             &quot;Disagree&quot;          &quot;Strongly Disagree&quot;
+## [25] &quot;Disagree&quot;          &quot;Agree&quot;             &quot;Neutral&quot;          
+## [28] &quot;Strongly Agree&quot;    &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot;</code></pre>
+<p><strong>Bonus / Extra practice</strong>: Let’s say you change your survey so participants can rank their response 1-10 (inclusive). Create a randomly sampled vector of 30 survey responses. (hint use <code>seq()</code> and <code>sample()</code> and set the replace argument to <code>TRUE</code>). Store the output as <code>my_responses_2</code>. Examine the data by typing the name in the Console using a function.</p>
+<pre class="r"><code>my_responses_2 &lt;- sample(
+  x = seq(from = 1, to = 10),
+  size = 30,
+  replace = TRUE
+)</code></pre>
 </div>
 
 

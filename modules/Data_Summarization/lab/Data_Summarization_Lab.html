@@ -196,20 +196,15 @@ bike &lt;- read_bike()</code></pre>
 </div>
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
-<ol style="list-style-type: decimal">
-<li><p>How many bike “lanes” are currently in Baltimore? You can assume each observation/row is a different bike “lane”. (hint: how do you get the number of rows of a data set? You can use <code>dim()</code> or <code>nrow()</code> or another function).</p></li>
-<li><p>How many feet of bike “lanes” are currently in Baltimore, based on the <code>length</code> column? (use <code>sum()</code>)</p></li>
-<li><p>Summarize the data to get the <code>max</code> and <code>min</code> of <code>length</code> using the <code>summarize</code> function.</p></li>
-</ol>
+<p>1. How many bike “lanes” are currently in Baltimore? You can assume each observation/row is a different bike “lane”. (hint: how do you get the number of rows of a data set? You can use <code>dim()</code> or <code>nrow()</code> or another function).</p>
+<p>2. How many feet of bike “lanes” are currently in Baltimore, based on the <code>length</code> column? (use <code>sum()</code>)</p>
+<p>3. Summarize the data to get the <code>max</code> and <code>min</code> of <code>length</code> using the <code>summarize</code> function.</p>
 <pre><code># General format 
-{data to use} %&gt;% 
-    summarize({summary column name} = {operator(source column)})</code></pre>
+DATA_TIBBLE %&gt;% 
+    summarize(SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN))</code></pre>
 <p><strong>Bonus / Extra practice</strong>:</p>
 <p>A. Summarize the <code>bike</code> data to get the mean of <code>length</code> and <code>dateInstalled</code>. Do this three ways: 1) with <code>summarize</code>, 2) with <code>summarize</code> and <code>across</code>, and 3) with <code>colMeans()</code>.</p>
-<p>You should have gotten a mean date sometime in the 1800s - that doesn’t make much sense! Hypothesize why the average date is a date from before bike lanes were being built in Baltimore.</p>
-<blockquote>
-<p><em>Answer here</em></p>
-</blockquote>
+<p>You should have gotten a mean date sometime in the 1800s - that doesn’t make much sense! Hypothesize why the average date is a date from before bike lanes were being built in Baltimore. &gt; <em>Answer here</em></p>
 <p>B. Filter any zeros out of <code>bike</code> <code>dateInstalled</code>. Use <code>filter()</code>. Assign this “cleaned” dataset object the name <code>bike_2</code>.</p>
 <ul>
 <li>Sometimes it’s not a good idea to drop data! You can also change any zeros in <code>bike</code> <code>dateInstalled</code> to <code>NA</code> using <code>mutate</code> and <code>ifelse()</code>. <code>ifelse()</code> in R works takes the same arguments as the “IF” function in Excel, and can come in handy here: <code>ifelse(condition, yes = VAL_IF_TRUE, no = VAL_IF_FALSE)</code>.</li>
@@ -217,39 +212,31 @@ bike &lt;- read_bike()</code></pre>
 </div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
-<ol start="4" style="list-style-type: decimal">
-<li><p>How many types of bike lanes are there? (Hints: <code>unique</code>, <code>table</code>, or <code>bike %&gt;% count()</code> on the column named <code>type</code>).</p></li>
-<li><p>Which bike lane<code>type</code> has (a) the most number of and (b) longest average bike lane length? (Hint: <code>group_by</code> and <code>summarize</code>). In your summarized output, make sure you call the new summarized average bike lane length variable (column name) “mean”. In other words, the head of your output should look like:</p></li>
-</ol>
+<p>4. How many types of bike lanes are there? (Hints: <code>unique</code>, <code>table</code>, or <code>bike %&gt;% count()</code> on the column named <code>type</code>).</p>
+<p>5. Which bike lane<code>type</code> has (a) the most number of and (b) longest average bike lane length? (Hint: <code>group_by</code> and <code>summarize</code>). In your summarized output, make sure you call the new summarized average bike lane length variable (column name) “mean”. In other words, the head of your output should look like:</p>
 <pre><code># A tibble: 
   type            number_of_rows  mean
   &lt;chr&gt;                    &lt;int&gt; &lt;dbl&gt;
 1 BIKE BOULEVARD              49  197.
 ...</code></pre>
 <pre><code># General format 
-{data to use} %&gt;% 
-    group_by({grouping column name}) %&gt;% 
-    summarize({summary column name} = {operator(source column)})</code></pre>
-<ol start="6" style="list-style-type: decimal">
-<li>Take your code from the above question and do the following:</li>
-</ol>
+DATA_TIBBLE %&gt;% 
+    group_by(GROUPING_COLUMN_NAME) %&gt;% 
+    summarize(SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN))</code></pre>
+<p>6. Take your code from the above question and do the following:</p>
 <ul>
 <li>Add another pipe (<code>%&gt;%</code>)</li>
 <li>Add the <code>arrange()</code> to sort the output by the summarized column “mean”.</li>
 </ul>
-<ol start="7" style="list-style-type: decimal">
-<li><p>Make a new column using <code>mutate</code>. This new column should be different for each year (<code>dateInstalled</code>), and indicate the total sum number of lanes (<code>numLanes</code>) built in that year. Call this new column <code>year_total</code> and make sure to reassign the dataset to <code>bike</code>. (hint: use <code>group_by</code> first)</p></li>
-<li><p>How does your data from above change if you also group by <code>type</code>? Ungroup your data when you are done.</p></li>
-</ol>
+<p>7. Make a new column using <code>mutate</code>. This new column should be different for each year (<code>dateInstalled</code>), and indicate the total sum number of lanes (<code>numLanes</code>) built in that year. Call this new column <code>year_total</code> and make sure to reassign the dataset to <code>bike</code>. (hint: use <code>group_by</code> first)</p>
+<p>8. How does your data from above change if you also group by <code>type</code>? Ungroup your data when you are done.</p>
 <p><strong>Bonus / Extra practice</strong>:</p>
 <p>C. Using <code>bike_2</code> from Part 1 above, what was the average bike lane length grouped by <code>dateInstalled</code>? Remove <code>NA</code>s with <code>na.rm = TRUE</code>.</p>
 </div>
 <div id="part-3" class="section level1">
 <h1>Part 3</h1>
-<ol start="9" style="list-style-type: decimal">
-<li><p>Create a histogram for the <code>length</code> column in the <code>bike</code> dataset. Try playing with the <code>breaks =</code> argument.</p></li>
-<li><p>Create a scatterplot with <code>dateInstalled</code> on the x axis and <code>length</code> on the y axis.</p></li>
-</ol>
+<p>9. Create a histogram for the <code>length</code> column in the <code>bike</code> dataset. Try playing with the <code>breaks =</code> argument.</p>
+<p>10. Create a scatterplot of the <code>bike</code> dataset with <code>dateInstalled</code> on the x axis and <code>length</code> on the y axis.</p>
 <p><strong>Bonus / Extra practice</strong>:</p>
 <p>D. Does the plot from question 10 improve if you use the <code>bike_2</code> dataset?</p>
 <blockquote>

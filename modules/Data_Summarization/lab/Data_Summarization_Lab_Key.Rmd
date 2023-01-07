@@ -26,14 +26,16 @@ bike <- read_csv(file = "http://jhudatascience.org/intro_to_r/data/Bike_Lanes.cs
 ```
 
 or use 
+
 ```{r}
 library(jhur)
 bike <- read_bike()
 ```
 
+
 # Part 1
 
-1. How many bike "lanes" are currently in Baltimore?  You can assume each observation/row is a different bike "lane".  (hint: how do you get the number of rows of a data set? You can use `dim()` or `nrow()` or another function).
+1\. How many bike "lanes" are currently in Baltimore?  You can assume each observation/row is a different bike "lane".  (hint: how do you get the number of rows of a data set? You can use `dim()` or `nrow()` or another function).
 
 ```{r}
 nrow(bike)
@@ -42,19 +44,21 @@ bike %>%
   nrow()
 ```
 
-2. How many feet of bike "lanes" are currently in Baltimore, based on the `length` column? (use `sum()`)
+
+2\. How many feet of bike "lanes" are currently in Baltimore, based on the `length` column? (use `sum()`)
 
 ```{r}
 sum(bike$length)
 sum(bike %>% pull(length))
 ```
 
-3. Summarize the data to get the `max` and `min` of `length` using the `summarize` function.
+
+3\. Summarize the data to get the `max` and `min` of `length` using the `summarize` function.
 
 ```
 # General format 
-{data to use} %>% 
-    summarize({summary column name} = {operator(source column)})
+DATA_TIBBLE %>% 
+    summarize(SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN))
 ```
 
 ```{r}
@@ -64,9 +68,10 @@ bike %>% summarize(
 )
 ```
 
+
 **Bonus / Extra practice**:
 
-A. Summarize the `bike` data to get the mean of `length` and `dateInstalled`. Do this three ways: 1) with `summarize`, 2) with `summarize` and `across`, and 3) with `colMeans()`.
+A\. Summarize the `bike` data to get the mean of `length` and `dateInstalled`. Do this three ways: 1) with `summarize`, 2) with `summarize` and `across`, and 3) with `colMeans()`.
 
 ```{r}
 bike %>% summarize(
@@ -82,10 +87,10 @@ bike %>%
 ```
 
 You should have gotten a mean date sometime in the 1800s - that doesn't make much sense! Hypothesize why the average date is a date from before bike lanes were being built in Baltimore.
-
 > There are probably some zeros or other incorrect low values in the data.
 
-B. Filter any zeros out of `bike` `dateInstalled`. Use `filter()`. Assign this "cleaned" dataset object the name `bike_2`.
+
+B\. Filter any zeros out of `bike` `dateInstalled`. Use `filter()`. Assign this "cleaned" dataset object the name `bike_2`.
 
 ```{r}
 bike_2 <- bike %>% filter(dateInstalled != 0)
@@ -105,8 +110,8 @@ bike_nas <- bike %>%
 
 # Part 2
 
-4. How many types of bike lanes are there?   (Hints: `unique`, `table`, or `bike %>% count()` on the column named `type`).
-   
+4\. How many types of bike lanes are there?   (Hints: `unique`, `table`, or `bike %>% count()` on the column named `type`).
+
 ```{r}
 # So many ways!!
 
@@ -129,7 +134,8 @@ bike %>%
   summarize(count = n())
 ```
 
-5. Which bike lane`type` has (a) the most number of and (b) longest average bike lane length? (Hint: `group_by` and `summarize`). In your summarized output, make sure you call the new summarized average bike lane length variable (column name) "mean". In other words, the head of your output should look like:
+
+5\. Which bike lane`type` has (a) the most number of and (b) longest average bike lane length? (Hint: `group_by` and `summarize`). In your summarized output, make sure you call the new summarized average bike lane length variable (column name) "mean". In other words, the head of your output should look like:
 
 ```
 # A tibble: 
@@ -137,6 +143,13 @@ bike %>%
   <chr>                    <int> <dbl>
 1 BIKE BOULEVARD              49  197.
 ...
+```
+
+```
+# General format 
+DATA_TIBBLE %>% 
+    group_by(GROUPING_COLUMN_NAME) %>% 
+    summarize(SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN))
 ```
 
 ```{r}
@@ -148,7 +161,8 @@ bike %>%
   )
 ```
 
-6. Take your code from the above question and do the following:
+
+6\. Take your code from the above question and do the following:
 
 - Add another pipe (`%>%`)
 - Add the `arrange()` to sort the output by the summarized column "mean".
@@ -163,7 +177,8 @@ bike %>%
   arrange(mean)
 ```
 
-7. Make a new column using `mutate`. This new column should be different for each year (`dateInstalled`), and indicate the total sum number of lanes (`numLanes`) built in that year. Call this new column `year_total` and make sure to reassign the dataset to `bike`. (hint: use `group_by` first)
+
+7\. Make a new column using `mutate`. This new column should be different for each year (`dateInstalled`), and indicate the total sum number of lanes (`numLanes`) built in that year. Call this new column `year_total` and make sure to reassign the dataset to `bike`. (hint: use `group_by` first)
 
 ```{r}
 bike <- bike %>%
@@ -171,7 +186,8 @@ bike <- bike %>%
   mutate(year_total = sum(numLanes, na.rm = TRUE))
 ```
 
-8. How does your data from above change if you also group by `type`? Ungroup your data when you are done.
+
+8\. How does your data from above change if you also group by `type`? Ungroup your data when you are done.
 
 ```{r}
 bike %>%
@@ -181,9 +197,10 @@ bike %>%
 bike <- ungroup(bike)
 ```
 
+
 **Bonus / Extra practice**:
 
-C. Using `bike_2` from Part 1 above, what was the average bike lane length grouped by `dateInstalled`? Remove `NA`s with `na.rm = TRUE`.
+C\. Using `bike_2` from Part 1 above, what was the average bike lane length grouped by `dateInstalled`? Remove `NA`s with `na.rm = TRUE`.
 
 ```{r}
 bike_2 %>%
@@ -194,32 +211,35 @@ bike_2 %>%
 
 # Part 3
 
-9. Create a histogram for the `length` column in the `bike` dataset. Try playing with the `breaks =` argument.
+9\. Create a histogram for the `length` column in the `bike` dataset. Try playing with the `breaks =` argument.
 
 ```{r}
 hist(x = pull(bike, length), breaks = 100)
 ```
 
-10. Create a scatterplot with `dateInstalled` on the x axis and `length` on the y axis.
+
+10\. Create a scatterplot of the `bike` dataset with `dateInstalled` on the x axis and `length` on the y axis.
 
 ```{r}
 plot(x = pull(bike, dateInstalled), y = pull(bike, length))
 ```
 
+
 **Bonus / Extra practice**:
 
-D. Does the plot from question 10 improve if you use the `bike_2` dataset?
+D\. Does the plot from question 10 improve if you use the `bike_2` dataset?
 
 ```{r}
 plot(x = pull(bike_2, dateInstalled), y = pull(bike_2, length))
 ```
-
 > Yes!
 
-E. What kind of plot would be better for showing the length by each year group? Make this plot.
+
+E\. What kind of plot would be better for showing the length by each year group? Make this plot.
 
 > A boxplot would be more appropriate since year behaves more as a category than a continuous number.
 
 ```{r}
 boxplot(pull(bike_2, length) ~ pull(bike_2, dateInstalled))
 ```
+

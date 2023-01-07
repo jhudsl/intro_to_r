@@ -175,21 +175,15 @@ pre code {
 <p>In this lab you can use the interactive console to explore or <strong>Knit</strong> the document. Remember anything you type here can be “sent” to the console with Cmd-Enter (OS-X) or Ctrl-Enter (Windows/Linux) in an R code chunk.</p>
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
-<ol style="list-style-type: decimal">
-<li><p>Use the manual import method (File &gt; Import Dataset &gt; From Text (<code>readr</code>)) to Read in SARS-CoV-2 vaccination data from URL <a href="http://jhudatascience.org/intro_to_r/data/vaccinations.csv" class="uri">http://jhudatascience.org/intro_to_r/data/vaccinations.csv</a>. You can learn more about how the data was collected here: <a href="https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-Jurisdi/unsk-b7fc" class="uri">https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-Jurisdi/unsk-b7fc</a></p></li>
-<li><p>What is the dataset object called? You can find this information in the Console or the Environment. Enter your answer as a comment using <code>#</code>.</p></li>
-</ol>
+<p>1. Use the manual import method (File &gt; Import Dataset &gt; From Text (<code>readr</code>)) to Read in SARS-CoV-2 vaccination data from URL <a href="http://jhudatascience.org/intro_to_r/data/vaccinations.csv" class="uri">http://jhudatascience.org/intro_to_r/data/vaccinations.csv</a>. You can learn more about how the data was collected here: <a href="https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-Jurisdi/unsk-b7fc" class="uri">https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-Jurisdi/unsk-b7fc</a></p>
+<p>2. What is the dataset object called? You can find this information in the Console or the Environment. Enter your answer as a comment using <code>#</code>.</p>
 <pre class="r"><code># vaccinations</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Preview the data by clicking the table button in the Environment. How many observations and variables are there? Enter your answer as a comment using <code>#</code>.</li>
-</ol>
+<p>3. Preview the data by clicking the table button in the Environment. How many observations and variables are there? Enter your answer as a comment using <code>#</code>.</p>
 <pre class="r"><code># 37272 obs. of 109 variables</code></pre>
 </div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
-<ol start="4" style="list-style-type: decimal">
-<li>Read in SARS-CoV-2 vaccination data from URL <a href="http://jhudatascience.org/intro_to_r/data/vaccinations.csv" class="uri">http://jhudatascience.org/intro_to_r/data/vaccinations.csv</a> and assign it to an object named <code>vacc</code>. Use the code structure below.</li>
-</ol>
+<p>4. Read in SARS-CoV-2 vaccination data from URL <a href="http://jhudatascience.org/intro_to_r/data/vaccinations.csv" class="uri">http://jhudatascience.org/intro_to_r/data/vaccinations.csv</a> and assign it to an object named <code>vacc</code>. Use the code structure below.</p>
 <pre><code># General format
 library(readr)
 # OBJECT &lt;- read_csv(FILE)</code></pre>
@@ -205,9 +199,7 @@ vacc &lt;- read_csv(file = &quot;http://jhudatascience.org/intro_to_r/data/vacci
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>Use <code>head()</code> to display the first few rows of the data frame.</li>
-</ol>
+<p>5. Use <code>head()</code> to display the first few rows of the data frame.</p>
 <pre class="r"><code>head(vacc)</code></pre>
 <pre><code>## # A tibble: 6 × 109
 ##   Date       MMWR_week Location Distributed Distributed_Janssen Distributed_Mod…
@@ -225,9 +217,7 @@ vacc &lt;- read_csv(file = &quot;http://jhudatascience.org/intro_to_r/data/vacci
 ## #   Distributed_Per_100k_65Plus &lt;dbl&gt;, Administered &lt;dbl&gt;,
 ## #   Administered_5Plus &lt;dbl&gt;, Administered_12Plus &lt;dbl&gt;,
 ## #   Administered_18Plus &lt;dbl&gt;, Administered_65Plus &lt;dbl&gt;, …</code></pre>
-<ol start="6" style="list-style-type: decimal">
-<li>Use <code>str()</code> to display the list of column names and their type specification.</li>
-</ol>
+<p>6. Use <code>str()</code> to display the list of column names and their type specification.</p>
 <pre class="r"><code>str(vacc)</code></pre>
 <pre><code>## spec_tbl_df [37,272 × 109] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
 ##  $ Date                                  : chr [1:37272] &quot;12/28/2022&quot; &quot;12/28/2022&quot; &quot;12/28/2022&quot; &quot;12/28/2022&quot; ...
@@ -443,27 +433,19 @@ vacc &lt;- read_csv(file = &quot;http://jhudatascience.org/intro_to_r/data/vacci
 ##   ..   Bivalent_Booster_65Plus_Pop_Pct = col_double()
 ##   .. )
 ##  - attr(*, &quot;problems&quot;)=&lt;externalptr&gt;</code></pre>
-<ol start="7" style="list-style-type: decimal">
-<li>Load the <code>readxl</code> package with the <code>library()</code> command.</li>
-</ol>
+<p>7. Load the <code>readxl</code> package with the <code>library()</code> command.</p>
 <p>If it is not installed, install it via: <code>RStudio --&gt; Tools --&gt; Install Packages</code>. You can also try <code>install.packages(&quot;readxl&quot;)</code>.</p>
 <pre class="r"><code>library(readxl)</code></pre>
-<ol start="8" style="list-style-type: decimal">
-<li>Download the dataset of asthma prevalence in the USA from: <a href="http://jhudatascience.org/intro_to_r/data/asthma.xlsx" class="uri">http://jhudatascience.org/intro_to_r/data/asthma.xlsx</a> file to <code>asthma.xlsx</code> by running the following code chunk. This only downloads the file, it does NOT bring the file into R.</li>
-</ol>
+<p>8. Download the dataset of asthma prevalence in the USA from: <a href="http://jhudatascience.org/intro_to_r/data/asthma.xlsx" class="uri">http://jhudatascience.org/intro_to_r/data/asthma.xlsx</a> file to <code>asthma.xlsx</code> by running the following code chunk. This only downloads the file, it does NOT bring the file into R.</p>
 <pre class="r"><code>download.file(
   url = &quot;http://jhudatascience.org/intro_to_r/data/asthma.xlsx&quot;,
   destfile = &quot;asthma.xlsx&quot;,
   overwrite = TRUE,
   mode = &quot;wb&quot;
 )</code></pre>
-<ol start="9" style="list-style-type: decimal">
-<li>Use the <code>read_excel()</code> function in the <code>readxl</code> package to read the <code>asthma.xlsx</code> file and call the output <code>asthma</code>.</li>
-</ol>
+<p>9. Use the <code>read_excel()</code> function in the <code>readxl</code> package to read the <code>asthma.xlsx</code> file and call the output <code>asthma</code>.</p>
 <pre class="r"><code>asthma &lt;- read_excel(path = &quot;asthma.xlsx&quot;)</code></pre>
-<ol start="10" style="list-style-type: decimal">
-<li>Use the <code>head()</code> and <code>str()</code> functions to inspect the data.</li>
-</ol>
+<p>10. Use the <code>head()</code> and <code>str()</code> functions to inspect the data.</p>
 <pre class="r"><code>head(asthma)</code></pre>
 <pre><code>## # A tibble: 3 × 3
 ##   Characteristic           `Weighted Number With Current Asthma` `Percent (SE)`
@@ -524,15 +506,11 @@ read_dta(path)</code></pre>
 </div>
 <div id="part-3" class="section level1">
 <h1>Part 3</h1>
-<ol start="11" style="list-style-type: decimal">
-<li>Learn your working directory by running <code>getwd()</code></li>
-</ol>
+<p>11. Learn your working directory by running <code>getwd()</code></p>
 <pre class="r"><code>getwd()</code></pre>
 <pre><code>## [1] &quot;/__w/intro_to_r/intro_to_r/modules/Data_Input/lab&quot;</code></pre>
-<ol start="12" style="list-style-type: decimal">
-<li><p>Create a folder in your R project called data. Move the “asthma.xlsx” file there.</p></li>
-<li><p>Modify the following code so that it finds “asthma.xlsx” in the “data” directory.</p></li>
-</ol>
+<p>12. Create a folder in your R project called data. Move the “asthma.xlsx” file there.</p>
+<p>13. Modify the following code so that it finds “asthma.xlsx” in the “data” directory.</p>
 <pre class="r"><code>asthma &lt;- read_excel(path = &quot;data/asthma.xlsx&quot;)</code></pre>
 <p><strong>Bonus / Extra practice</strong>: Practice importing a dataset of your choice, give it an object name, and use <code>head()</code> to preview the first few lines.</p>
 </div>

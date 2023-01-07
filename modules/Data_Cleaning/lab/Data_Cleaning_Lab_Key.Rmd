@@ -146,15 +146,17 @@ BloodType %>%
 BloodType %>% count(type)
 ```
 
-6. Make a new tibble of `BloodType` called `Bloodtype_split` that splits the `type` variable into two called `blood_type` and  `Rhfactor`. Note: periods are special characters that generally are interpreted as wild cards thus we need `\\` to tell R that we want it to be interpreted as a period.
+6. Make a new tibble of `BloodType` called `Bloodtype_split` that splits the `type` variable into two called `blood_type` and  `Rhfactor`. Note: periods are special characters that generally are interpreted as wild cards thus we need `\\.` instead of simply "." to tell R that we want it to be interpreted as a period.
 
-The following commented code within the chunk (starts with `#`) can be used as a guide to help you. Type your code below this commented code. 
+```
+# General format
+NEW_TIBBLE <- OLD_TIBBLE 
+    %>% separate(OLD_COLUMN, into = c("NEW_COLUMN1", "NEW_COLUMN2"), sep = "SEPARATING_CHARACTER")
+```
 
 ```{r}
-## ______________ <- ________ %>%
-# ________(____, ____ = c(__________, __________), sep = "\\.")
-
-BloodType_split <- BloodType %>% separate(type, into = c("blood_type", "Rhfactor"), sep = "\\.")
+BloodType_split <- BloodType %>% 
+  separate(type, into = c("blood_type", "Rhfactor"), sep = "\\.")
 ```
 
 **Bonus / Extra practice**: How many observations are there for each `Rhfactor`:

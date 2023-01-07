@@ -175,39 +175,29 @@ pre code {
 <p>In this lab you can use the interactive console to explore or <strong>Knit</strong> the document. Remember anything you type here can be “sent” to the console with Cmd-Enter (OS-X) or Ctrl-Enter (Windows/Linux) in an R code chunk.</p>
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
-<ol style="list-style-type: decimal">
-<li><p>Use the manual import method (File &gt; Import Dataset &gt; From Text (<code>readr</code>)) to Read in SARS-CoV-2 vaccination data from URL <a href="http://jhudatascience.org/intro_to_r/data/vaccinations.csv" class="uri">http://jhudatascience.org/intro_to_r/data/vaccinations.csv</a>. You can learn more about how the data was collected here: <a href="https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-Jurisdi/unsk-b7fc" class="uri">https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-Jurisdi/unsk-b7fc</a></p></li>
-<li><p>What is the dataset object called? You can find this information in the Console or the Environment. Enter your answer as a comment using <code>#</code>.</p></li>
-<li><p>Preview the data by clicking the table button in the Environment. How many observations and variables are there? Enter your answer as a comment using <code>#</code>.</p></li>
-</ol>
+<p>1. Use the manual import method (File &gt; Import Dataset &gt; From Text (<code>readr</code>)) to Read in SARS-CoV-2 vaccination data from URL <a href="http://jhudatascience.org/intro_to_r/data/vaccinations.csv" class="uri">http://jhudatascience.org/intro_to_r/data/vaccinations.csv</a>. You can learn more about how the data was collected here: <a href="https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-Jurisdi/unsk-b7fc" class="uri">https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-Jurisdi/unsk-b7fc</a></p>
+<p>2. What is the dataset object called? You can find this information in the Console or the Environment. Enter your answer as a comment using <code>#</code>.</p>
+<p>3. Preview the data by clicking the table button in the Environment. How many observations and variables are there? Enter your answer as a comment using <code>#</code>.</p>
 </div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
-<ol start="4" style="list-style-type: decimal">
-<li>Read in SARS-CoV-2 vaccination data from URL <a href="http://jhudatascience.org/intro_to_r/data/vaccinations.csv" class="uri">http://jhudatascience.org/intro_to_r/data/vaccinations.csv</a> and assign it to an object named <code>vacc</code>. Use the code structure below.</li>
-</ol>
+<p>4. Read in SARS-CoV-2 vaccination data from URL <a href="http://jhudatascience.org/intro_to_r/data/vaccinations.csv" class="uri">http://jhudatascience.org/intro_to_r/data/vaccinations.csv</a> and assign it to an object named <code>vacc</code>. Use the code structure below.</p>
 <pre><code># General format
 library(readr)
 # OBJECT &lt;- read_csv(FILE)</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li><p>Use <code>head()</code> to display the first few rows of the data frame.</p></li>
-<li><p>Use <code>str()</code> to display the list of column names and their type specification.</p></li>
-<li><p>Load the <code>readxl</code> package with the <code>library()</code> command.</p></li>
-</ol>
+<p>5. Use <code>head()</code> to display the first few rows of the data frame.</p>
+<p>6. Use <code>str()</code> to display the list of column names and their type specification.</p>
+<p>7. Load the <code>readxl</code> package with the <code>library()</code> command.</p>
 <p>If it is not installed, install it via: <code>RStudio --&gt; Tools --&gt; Install Packages</code>. You can also try <code>install.packages(&quot;readxl&quot;)</code>.</p>
-<ol start="8" style="list-style-type: decimal">
-<li>Download the dataset of asthma prevalence in the USA from: <a href="http://jhudatascience.org/intro_to_r/data/asthma.xlsx" class="uri">http://jhudatascience.org/intro_to_r/data/asthma.xlsx</a> file to <code>asthma.xlsx</code> by running the following code chunk. This only downloads the file, it does NOT bring the file into R.</li>
-</ol>
+<p>8. Download the dataset of asthma prevalence in the USA from: <a href="http://jhudatascience.org/intro_to_r/data/asthma.xlsx" class="uri">http://jhudatascience.org/intro_to_r/data/asthma.xlsx</a> file to <code>asthma.xlsx</code> by running the following code chunk. This only downloads the file, it does NOT bring the file into R.</p>
 <pre class="r"><code>download.file(
   url = &quot;http://jhudatascience.org/intro_to_r/data/asthma.xlsx&quot;,
   destfile = &quot;asthma.xlsx&quot;,
   overwrite = TRUE,
   mode = &quot;wb&quot;
 )</code></pre>
-<ol start="9" style="list-style-type: decimal">
-<li><p>Use the <code>read_excel()</code> function in the <code>readxl</code> package to read the <code>asthma.xlsx</code> file and call the output <code>asthma</code>.</p></li>
-<li><p>Use the <code>head()</code> and <code>str()</code> functions to inspect the data.</p></li>
-</ol>
+<p>9. Use the <code>read_excel()</code> function in the <code>readxl</code> package to read the <code>asthma.xlsx</code> file and call the output <code>asthma</code>.</p>
+<p>10. Use the <code>head()</code> and <code>str()</code> functions to inspect the data.</p>
 <p><strong>Bonus / Extra practice</strong>: Run the following code - is there a problem? How do you know?</p>
 <pre class="r"><code>yts &lt;- read_delim(&quot;http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv&quot;, delim = &quot;\t&quot;)</code></pre>
 <pre><code>## Rows: 9794 Columns: 1
@@ -237,11 +227,9 @@ library(readr)
 </div>
 <div id="part-3" class="section level1">
 <h1>Part 3</h1>
-<ol start="11" style="list-style-type: decimal">
-<li><p>Learn your working directory by running <code>getwd()</code></p></li>
-<li><p>Create a folder in your R project called data. Move the “asthma.xlsx” file there.</p></li>
-<li><p>Modify the following code so that it finds “asthma.xlsx” in the “data” directory.</p></li>
-</ol>
+<p>11. Learn your working directory by running <code>getwd()</code></p>
+<p>12. Create a folder in your R project called data. Move the “asthma.xlsx” file there.</p>
+<p>13. Modify the following code so that it finds “asthma.xlsx” in the “data” directory.</p>
 <pre class="r"><code>asthma &lt;- read_excel(path = &quot;asthma.xlsx&quot;)</code></pre>
 <p><strong>Bonus / Extra practice</strong>: Practice importing a dataset of your choice, give it an object name, and use <code>head()</code> to preview the first few lines.</p>
 </div>
