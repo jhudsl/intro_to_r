@@ -14,16 +14,18 @@ library(forcats)
 ```
 
 
-# One dimensional types ("vectors")
+# One dimensional vectors
 
-## Data Types
+## Data classes/types
 
     * Character: strings or individual characters, quoted
     * Numeric: any real number(s)
-    * Integer: any integer(s)/whole numbers
+    * Integer: any integer(s)/whole numbers (1,2,3)
+    * Double: any number with fractional values (1.2, 4.0)
     * Factor: categorical/qualitative variables
     * Logical: variables composed of TRUE or FALSE
     * Date/POSIXct: represents calendar dates and times
+    
 
 ## Character and numeric
 
@@ -43,47 +45,9 @@ class(c(1, 2, "tree"))
 class(c("1", "4", "7"))
 ```
 
-## Numeric Subclasses
-
-There are two major numeric subclasses
-
-1) Integer
-2) Double
-
-
-## Integer{.small}
-
-`Integer` is a special subset of `numeric` that contains only <span style="color: red;">whole numbers</span>.
-
-
-```{r seq}
-x <- c(1, 2, 3, 4, 5)
-class(x)
-typeof(x)
-```
-
-## Double
-
-`Double` is a special subset of `numeric` that contains <span style="color: red;">fractional values</span>.
-
-`Double` stands for [double-precision](https://en.wikipedia.org/wiki/Double-precision_floating-point_format)
-
-```{r double}
-y <- c(1.1, 2.0, 3.2, 4.5, 5.6)
-y
-class(y)
-typeof(y)
-```
 
 
 
-## Checking double vs integer
-
-A `tibble` will show the difference (as does `glimpse()`)
-
-```{r}
-tibble(xvar = x, yvar = y)
-```
 
 ## Logical
 
@@ -119,8 +83,6 @@ class(c("tree", "cloud"))
 class(c("tree", "cloud"))
 ```
 
-
-
 ## General Class Information: coercing
 
 In some cases the coercing is seamless: 
@@ -141,6 +103,57 @@ In some cases the coercing is not possible; if executed, will return `NA` (an R 
 as.numeric(c("1", "4", "7a"))
 as.logical(c("TRUE", "FALSE", "UNKNOWN"))
 as.Date(c("2021-06-15", "2021-06-32"))
+```
+
+## Numeric Subclasses
+
+There are two major numeric subclasses or types
+
+1) Double
+2) Integer
+
+
+
+
+
+## Double
+
+`Double` is a special subset of `numeric` that contains <span style="color: red;">fractional values</span>.
+
+`Double` stands for [double-precision](https://en.wikipedia.org/wiki/Double-precision_floating-point_format)
+
+```{r double}
+y <- c(1.1, 2.0, 3.2, 4.5, 5.6)
+y
+class(y)
+typeof(y)
+```
+
+
+## Integer{.small}
+
+`Integer` is a special subset of `numeric` that contains only <span style="color: red;">whole numbers</span>. Need to use `as.integer` to create integers (unless they are read in as integars).
+
+
+```{r seq}
+x <- c(1, 2, 3, 4, 5)
+class(x)
+typeof(x)
+y
+y_int <-as.integer(y)
+y_int
+class(y_int)
+typeof(y_int)
+
+```
+
+## Checking double vs integer
+
+A `tibble` will show the difference (as does `glimpse()`).
+
+```{r}
+tibble(double_var = y,  int_var = y_int)
+glimpse(tibble(double_var = y, int_var = y_int))
 ```
 
 
@@ -180,6 +193,16 @@ x_fact
 as.character(x_fact)
 as.numeric(x_fact)
 ```
+
+## Classes Overview
+
+| Example 	| Class 	| Type 	| Notes 	|
+|---	|---	|:---:	|---	|
+| 1.1 	| Numeric 	| double 	| default for numbers 	|
+| 1 	| integer 	| integer 	| Need to coerce to integer with as.integer() 	|
+| "FALSE", "Ball" 	| Character 	| Character 	| Need quotes 	|
+| FALSE, TRUE 	| logical 	| logical 	| No quotes 	|
+| "Small", "Large" 	| Factor 	| Factor 	| Need to coerce to factor with factor() 	|
 
 ## Summary
 
@@ -231,7 +254,8 @@ matrix(1:6, ncol = 2)
 * Lists are used when you need to do something iteratively across lots of data - for example wrangling several similar files at once
 * Lists are a bit more advanced but you may encounter them when you work with others or look up solutions
 
-## Lists
+## Making Lists
+
 * Can be created using `list()`
 ```{r makeList}
 mylist <- list(c("A", "b", "c"), c(1, 2, 3), matrix(1:4, ncol = 2))
