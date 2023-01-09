@@ -132,7 +132,7 @@ typeof(y)
 
 ## Integer{.small}
 
-`Integer` is a special subset of `numeric` that contains only <span style="color: red;">whole numbers</span>. Need to use `as.integer` to create integers (unless they are read in as integars or created as such with `seq` and `sample`). Otherwise, will be double by default.
+`Integer` is a special subset of `numeric` that contains only <span style="color: red;">whole numbers</span>. Need to use `as.integer` to create integers (unless they are read in as integers or created as such with `seq` and `sample`). Otherwise, will be double by default.
 
 
 ```{r seq}
@@ -251,7 +251,7 @@ matrix(1:6, ncol = 2)
 
 * One other data type that is the most generic are `lists`
 * Can hold vectors, strings, matrices, models, list of other list!
-* Lists are used when you need to do something iteratively across lots of data - for example wrangling several similar files at once
+* Lists are used when you need to do something repeatedly across lots of data - for example wrangling several similar files at once
 * Lists are a bit more advanced but you may encounter them when you work with others or look up solutions
 
 ## Making Lists
