@@ -438,7 +438,7 @@ jobs:
         uses: markwilson/html2pdf@v1.1
         with:
           htmlPath: 'modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html'
-          pdfName: 'modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}'
+          pdfName: '../modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}'
           
       # Commit the rendered website files
       - name: Commit rendered website files to preview branch
