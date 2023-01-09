@@ -284,6 +284,8 @@ knitr::include_graphics("images/hex.png")
 
 **Function** - a function is a particular piece of code that allows you to do something in R. You can write your own, use functions that come directly from installing R, or use functions from additional packages.
 
+You can think of a function as **verb** in R.
+
 A function might help you add numbers together, create a plot, or organize your data. More on that soon!
 
 ```{r}
@@ -312,11 +314,12 @@ round(0.627, digits = 1)
 ## Basic terms
 
 
-**Object** - an object is something that can be worked with in R - can be lots of different things!
+**Object** - an object is something that can be worked with or on in R - can be lots of different things! You can think of objects as **nouns** in R.
 
 - a matrix of numbers
 - a plot
 - a function
+- data
 
 ... many more
 
@@ -497,8 +500,9 @@ Check out Candace's courses:
 - R is a powerful data visualization and analysis software language
 - We will focus on **packages** (code shared among people) of the `tidyverse`, which helps make R more intuitive.
 - We will also talk a bit about **base R** because some resources online and R users will use this.
-- **Functions** perform specific tasks in R and are found within packages.
-- **Arguments** within functions specify how a function is to be performed.
+- **Functions** (like verbs) perform specific tasks in R and are found within **packages**.
+- **Arguments** within functions specify how a **function** is to be performed.
+- **Objects** (like nouns) are what we are working with or on in R to modify
 - Materials will be updated frequently as we improve it.
 - Class **surveys** are available on CoursePlus so you can provide feedback!
 - Lots of **resources** can be found on the website.
