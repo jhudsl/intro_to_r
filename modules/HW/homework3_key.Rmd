@@ -255,7 +255,13 @@ class(pull(asthma, SE))
 F\. Use `as.numeric()` to convert "percent" and "SE" to numeric class. Calculate the mean for both.
 
 ```{r}
-asthma %>% mutate(percent = as.numeric(percent)) %>% pull(percent) %>% mean()
-asthma %>% mutate(SE = as.numeric(SE)) %>% pull(SE) %>% mean()
+asthma %>%
+  mutate(percent = as.numeric(percent)) %>%
+  pull(percent) %>%
+  mean()
+asthma %>%
+  mutate(SE = as.numeric(SE)) %>%
+  pull(SE) %>%
+  mean()
 ```
 
