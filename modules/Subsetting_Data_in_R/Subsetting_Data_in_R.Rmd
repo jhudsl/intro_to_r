@@ -508,6 +508,38 @@ select(df, cyl, mpg, wt, car) %>%
 head()
 ```
 
+## Ordering the columns of a data frame: dplyr
+
+The `select` function can reorder columns.  Put `newcol` first, then select the rest of columns:
+```{r, eval = FALSE}
+select(df, newcol, everything())
+```
+
+```{r, echo = FALSE}
+head(select(df, newcol, everything()))
+```
+
+
+## Ordering the columns of a data frame: dplyr
+
+Put `newcol` at the end ("remove, everything, then add back in"):
+
+```{r, eval = FALSE}
+select(df, -newcol, everything(), newcol)
+```
+
+```{r, echo = FALSE}
+head(select(df, -newcol, everything(), newcol))
+```
+
+## Odering the colum names of a data frame: alphabetically
+Using the base R `order()` function.
+
+```{r}
+order(colnames(df))
+df %>% select(order(colnames(df)))
+```
+
 
 ## Ordering the columns of a data frame: dplyr
 
@@ -524,7 +556,6 @@ df_carb <- relocate(df, wt,
 
 df_carb
 ```
-
 
 
 
@@ -612,7 +643,7 @@ knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 
 Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
 
-# Extra Slides
+# Extra Slides - base R subsetting
 
 ## Subset columns of a data frame: 
 
@@ -684,33 +715,6 @@ We can select multiple columns using multiple column names:
 df[, c("mpg", "cyl")]
 ```
 
-## Ordering the columns of a data frame: dplyr
 
-The `select` function can reorder columns.  Put `newcol` first, then select the rest of columns:
-```{r, eval = FALSE}
-select(df, newcol, everything())
-```
 
-```{r, echo = FALSE}
-head(select(df, newcol, everything()))
-```
 
-## Ordering the columns of a data frame: dplyr
-
-Put `newcol` at the end ("remove, everything, then add back in"):
-
-```{r, eval = FALSE}
-select(df, -newcol, everything(), newcol)
-```
-
-```{r, echo = FALSE}
-head(select(df, -newcol, everything(), newcol))
-```
-
-## Odering the colum names of a data frame: alphabetically
-Using the base R `order()` function.
-
-```{r}
-order(colnames(df))
-df %>% select(order(colnames(df)))
-```
