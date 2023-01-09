@@ -389,6 +389,15 @@ which(select(df,carb) == 4)
 select(df, carb) == 4
 ```
 
+## `distinct()` function
+
+To filter for distinct values from a variable, multiple variables, or an entire tibble you can use the `distinct()` function from the `dplyr` package.
+
+```{r}
+distinct(df, cyl)
+
+distinct(df, cyl, gear)
+```
 
 ## Summary
 
