@@ -11,6 +11,7 @@ output:
 library(pander)
 library(kableExtra)
 library(tidyverse)
+library(config)
 
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
@@ -45,11 +46,13 @@ The course will provide students with **“hands-on” training** for analyzing 
 
 * `r config::get("course_dates")` 1:30PM-4:50PM on Zoom  - `r config::get("holiday")`
 * Zoom link will be emailed prior to the first class.
+* [Installation Instructions](https://jhudatascience.org/intro_to_r/modules/Setup/R_and_RStudio_installation.html) - This is **required** before the course, but we can help you on the first day (or before) if you have trouble.
 * Slack Workspace invitation will be sent directly via email.
 * [CoursePlus Website](`r config::get("courseplus_web")`)
 * [Syllabus](syllabus.html)
 * [Materials + Schedule](materials_schedule.html)
 * [Resources](resources.html)
+
 
 <br>
 
