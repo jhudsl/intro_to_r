@@ -212,6 +212,7 @@ head(tibble(df), n = 2)
 If you run into losing a variable contained in your row names, you can also use `rownames_to_column` (of `tibble` package) to add it before turning it into a `tibble` to keep them:
 
 ```{r, size = "tiny"}
+library(tibble)
 head(rownames_to_column(df, "car"),  n = 2)
 head(tibble(rownames_to_column(df, "car")),  n = 2)
 ```
@@ -592,7 +593,7 @@ arrange(df, mpg, desc(hp))
 
 <!-- ## Transmutation -->
 
-<!-- The `transmute` function in `dplyr` combines both the `mutate` and `select` functions. One can create new columns and keep the only the columns wanted: -->
+<!-- The `transmute` function in `dplyr` combines both the `mutate` and `select` functions. One can create new columns and keep only the columns wanted: -->
 
 <!-- ```{r} -->
 <!-- transmute(df, newcol2 = wt/2.2, mpg, hp) -->
