@@ -255,6 +255,14 @@ head(df_rename, 2)
 
 You will need to refer to a column like this with most functions.
 
+## Be careful about copy pasting code!
+
+Curly quotes will not work!
+
+```{r, eval = FALSE}
+df_rename <-rename(df, ‘MPG!’ = MPG) # this will cause an error!
+```
+
 ## Renaming All Columns of a data frame: dplyr
 
 To rename all columns you use the `rename_with()`. In this case we will use `toupper()` to make all letters upper case. Could also use `tolower()` function.
