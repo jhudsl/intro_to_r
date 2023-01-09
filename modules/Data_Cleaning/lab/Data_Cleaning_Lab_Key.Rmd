@@ -155,7 +155,7 @@ NEW_TIBBLE <- OLD_TIBBLE
 ```
 
 ```{r}
-BloodType_split <- BloodType %>% 
+BloodType_split <- BloodType %>%
   separate(type, into = c("blood_type", "Rhfactor"), sep = "\\.")
 ```
 
