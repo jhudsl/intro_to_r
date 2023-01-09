@@ -166,10 +166,10 @@ jobs:
         
       # Render pdfs of slides
       - name: Convert HTML to PDF
-        uses: fifsky/html-to-pdf-action@v0.1.0
+        uses: LukaszLapaj/html-to-pdf-action@master
         with:
-          htmlFile: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
-          outputFile: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
+          htmlFile: ./modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
+          outputFile: ./modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
 
 
       # Commit the rendered site files - html files and site_libs files
