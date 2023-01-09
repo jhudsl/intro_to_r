@@ -226,10 +226,13 @@ matrix(1:6, ncol = 2)
 
 ## Lists
 
-* One other data type that is the most generic are `lists
-* Can be created using `list()`
+* One other data type that is the most generic are `lists`
 * Can hold vectors, strings, matrices, models, list of other list!
+* Lists are used when you need to do something iteratively across lots of data - for example wrangling several similar files at once
+* Lists are a bit more advanced but you may encounter them when you work with others or look up solutions
 
+## Lists
+* Can be created using `list()`
 ```{r makeList}
 mylist <- list(c("A", "b", "c"), c(1, 2, 3), matrix(1:4, ncol = 2))
 mylist
