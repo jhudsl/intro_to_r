@@ -239,6 +239,22 @@ df <- rename(df, MPG = mpg)
 head(df)
 ```
 
+
+## Take Care with Column Names
+
+When you can, avoid spaces, special punctuation, or numbers in column names, as these require quotes to refer to them. See https://jhudatascience.org/intro_to_r/quotes_vs_backticks.html for more guidance.
+
+```{r, eval = FALSE}
+df <- rename(df, MPG! = MPG) # this will cause an error
+```
+
+```{r}
+df_rename <-rename(df, `MPG!` = MPG) # this will work
+head(df_rename, 2)
+```
+
+You will need to refer to a column like this with most functions.
+
 ## Renaming All Columns of a data frame: dplyr
 
 To rename all columns you use the `rename_with()`. In this case we will use `toupper()` to make all letters upper case. Could also use `tolower()` function.
