@@ -50,6 +50,7 @@ knitr::include_graphics("https://ayeimanolr.files.wordpress.com/2013/04/r-rstudi
 <!-- ## RStudio/R Console ![Console](images/r-rstudio-1-3-console.png) -->
 
 ## Getting the editor
+You must open a to save code to open the editor. These include for example R Scripts or R Markdown.
 
 ```{r, out.width = "90%", echo = FALSE}
 knitr::include_graphics("images/both.png")
@@ -101,9 +102,25 @@ knitr::include_graphics("images/rstudio_sheet.png")
 
 ## RStudio layout
 
+To make an R Markdown file:  click the green file button -> R Markdown. We will do this together soon! 
+It will look like this with text in it, unlike a script.
+
 ```{r, fig.alt="RStudio layout", out.width = "100%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/first_markdown.png")
 ```
+
+## Recall that a script was just empty
+
+```{r, out.width = "90%", echo = FALSE}
+knitr::include_graphics("images/rstudio_script.png")
+```
+
+## Scripts and R Markdown
+
+Although people will use scripts often, and they are good for more programmatic purposes, we generally don't recommend them for Public Health Researchers.
+
+For data analyses, R Markdown files are generally superior because they allow you to check your code and write more info about your code.
+
 
 ## RStudio Layout
 
@@ -179,9 +196,8 @@ R Markdown files (.Rmd) help generate reports that include your code and output.
 
 ## Create an R Markdown file
 
-Go to File → New File → R Markdown
+Go to File → New File → R Markdown or click the green add file button.
 
-Call your file "first_markdown"
 
 ```{r, out.width = "40%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/RMarkdown.png")
