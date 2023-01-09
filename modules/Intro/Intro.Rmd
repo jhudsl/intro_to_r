@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "Introduction"
 output:
   ioslides_presentation:
     css: ../../docs/styles.css
@@ -25,40 +25,41 @@ knitr::include_graphics("images/welcome.jpg")
 
 <sub>[Photo by <a href="https://unsplash.com/@bel2000a?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Belinda Fewings</a> on <a href="https://unsplash.com/s/photos/welcome?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>]</sub>
   
+## Before we start ..
+
+Poll: How are you feeling right now?
   
 ## About Us
 
 **Carrie Wright (she/her)** 
 
-Assistant Scientist, Department of Biostatistics, JHSPH
+Senior Staff Scientist, Fred Hutchinson Cancer Center
+
+Associate, Department of Biostatistics, JHSPH
 
 PhD in Biomedical Sciences
 
-Email: cwrigh60@jhu.edu
-
-Website: https://carriewright11.github.io
+Email: cwrigh60@jhu.edu  Web: https://carriewright11.github.io
 
 ```{r, fig.alt="Carrie's picture", out.width = "30%", echo = FALSE, fig.align='center'}
 # knitr::include_graphics("https://ca.slack-edge.com/T023TPZA8LF-U024F9G49S8-9861ddd543db-192")
 knitr::include_graphics(here::here("modules", "Intro", "images", "carrie.png"))
 ```
 
-
-
 ## About Us
 
 **Ava Hoffman (she/her)**
 
-Research Associate, Department of Biostatistics, JHSPH
+Senior Staff Scientist, Fred Hutchinson Cancer Center
+
+Associate, Department of Biostatistics, JHSPH
 
 PhD in Ecology
 
-Email: ava.hoffman@jhu.edu
-
-Website: https://avahoffman.com
+Email: ava.hoffman@jhu.edu  Web: https://avahoffman.com
 
 ```{r, fig.alt="Ava's picture", out.width = "30%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("https://ca.slack-edge.com/T023TPZA8LF-U0248RUHRC2-0ac3f9608641-512")
+knitr::include_graphics(here::here("modules", "Intro", "images", "ava.png"))
 ```
 
 ## About Us
@@ -92,6 +93,12 @@ Email: psarava1@jhu.edu
 ```{r, fig.alt="Padma's picture", out.width = "25%", echo = FALSE, fig.align='center'}
 knitr::include_graphics(here::here("modules", "Intro", "images", "Padma.jpg"))
 ```
+
+## About you!
+
+Please introduce yourself!
+
+Find the "introductions" channel on Slack: [`https://intro-to-r-jan2023.slack.com/`](https://intro-to-r-jan2023.slack.com/)
 
 ## What is R?
 
