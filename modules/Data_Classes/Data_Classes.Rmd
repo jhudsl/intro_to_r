@@ -103,9 +103,8 @@ class(z)
 
 ## General Class Information
 
-There are two useful functions associated with practically all R classes: 
+There is one useful functions associated with practically all R classes: 
 
-- `is.CLASS_NAME(x)` to **logically check** whether or not `x` is of certain  class 
 - `as.CLASS_NAME(x)` to **coerce between classes** `x` from current `x` class into a certain class 
 
 
@@ -114,10 +113,10 @@ There are two useful functions associated with practically all R classes:
 
 
 ```{r logical_coercion}
-is.character(c(1, 4, 7))
-is.numeric(c(1, 4, 7))
-is.character(c("tree", "cloud"))
-is.numeric(c("tree", "cloud"))
+class(c(1, 4, 7))
+class(c(1, 4, 7))
+class(c("tree", "cloud"))
+class(c("tree", "cloud"))
 ```
 
 
@@ -186,8 +185,8 @@ as.numeric(x_fact)
 
 - There are two types of numeric class objects: integer and double
 - Logic class objects only have `TRUE` or `FALSE` (without quotes)
-- is.CLASS_NAME(x) can be used to test the class of an object x
-- as.CLASS_NAME(x) can be used to change the class of an object x
+- `class()` can be used to test the class of an object x
+- `as.CLASS_NAME(x)` can be used to change the class of an object x
 - Factors are a special character class that has levels - more on that soon!
 - tibbles show column classes!
 
