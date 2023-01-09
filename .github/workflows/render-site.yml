@@ -180,4 +180,4 @@ jobs:
           git add . --force
           git commit -m 'Render site' || echo "No changes to commit"
           git pull --set-upstream origin main --allow-unrelated-histories --strategy-option=ours
-          git push origin main || echo "No changes to push"
+          git push origin main --force || echo "No changes to push"
