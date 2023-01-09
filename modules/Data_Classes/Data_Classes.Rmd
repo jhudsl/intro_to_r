@@ -132,7 +132,7 @@ typeof(y)
 
 ## Integer{.small}
 
-`Integer` is a special subset of `numeric` that contains only <span style="color: red;">whole numbers</span>. Need to use `as.integer` to create integers (unless they are read in as integars).
+`Integer` is a special subset of `numeric` that contains only <span style="color: red;">whole numbers</span>. Need to use `as.integer` to create integers (unless they are read in as integars or created as such with `seq` and `sample`). Otherwise, will be double by default.
 
 
 ```{r seq}
@@ -197,9 +197,9 @@ as.numeric(x_fact)
 ## Classes Overview
 
 | Example 	| Class 	| Type 	| Notes 	|
-|---	|---	|:---:	|---	|
+|:---:|:---:|:---:|---|
 | 1.1 	| Numeric 	| double 	| default for numbers 	|
-| 1 	| integer 	| integer 	| Need to coerce to integer with as.integer() 	|
+| 1 	| integer 	| integer 	| Need to coerce to integer with as.integer() or use sample() or seq() with whole numbers	|
 | "FALSE", "Ball" 	| Character 	| Character 	| Need quotes 	|
 | FALSE, TRUE 	| logical 	| logical 	| No quotes 	|
 | "Small", "Large" 	| Factor 	| Factor 	| Need to coerce to factor with factor() 	|
