@@ -150,7 +150,7 @@ as.Date(c("2021-06-15", "2021-06-32"))
 A `factor` is a special `character` vector where the elements have pre-defined groups or 'levels'. You can think of these as qualitative or categorical variables. Use the `factor()` function to create factors.
 
 ```{r factor1}
-x <- c("small", "mediam", "large", "medium", "large")
+x <- c("small", "medium", "large", "medium", "large")
 class(x)
 
 x_fact <- factor(x) # factor() is a function
