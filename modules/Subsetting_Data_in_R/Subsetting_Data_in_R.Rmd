@@ -23,7 +23,6 @@ library(jhur)
 - if you don't use `<-` to reassign objects that you want to modify, they will stay the same
 - `length()`, `class()`, and `str()` tell you information about an object
 - `head()` and `tail()` can also help you inspect an object
-- `spec` can help you check data read into R with `readr`
 - `readr`has helpful functions like `read_csv()` that can help you import data into R
 - `readr` also has helpful functions like `write_rds()` to create files that can be double clicked from the file pane to load into your RStudio environment
 
