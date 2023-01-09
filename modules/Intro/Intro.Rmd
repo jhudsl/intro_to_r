@@ -398,24 +398,15 @@ knitr::include_graphics("https://tidyverse.tidyverse.org/logo.png")
 
 See this [article](https://tidyverse.tidyverse.org/articles/paper.html) for more info.
 
+## Package Installation
 
-## Collection of R packages
+We will go through this in the lab, but you only have to do it **once** for each installation of R. 
+Depending on where the package comes from will change how you install the package. But typically for the tidyverse packages you will get them from CRAN.
 
-We have an R package called jhur that will make sure all the packages are installed.
-
-You can just copy and paste the code below into your RStudio console - we'll explain what it all means in the next day or two.
-
-```{r, packageInstall, eval=FALSE}
-install.packages("remotes")
-library(remotes)
-install_github("jhudsl/jhur")
-```
-
-Note it may take ~5-10 minutes to run.
 
 ## Generally Installing Packages
 
-You can typically install packages (which only needs to be done once) with each version installation of R using:
+You can  also  install packages from CRAN (not elsewhere as easily) using the tool menu in RStudio:
 
 tools > Install Packages
 
@@ -423,7 +414,8 @@ tools > Install Packages
 knitr::include_graphics("images/install_packages1.png")
 ```
 
-Be sure to use the pull down menu to select the right place where the package is coming from, such as Cran.
+Be sure to use the pull down menu to select the right place where the package is coming from, such as CRAN.
+
 ```{r, fig.alt="The End", out.width = "30%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/install_packages2.png")
 ```
