@@ -4,39 +4,31 @@ output: html_document
 editor_options: 
   chunk_output_type: console
 ---
-## R Markdown
-
 Please read through everything and then try the exercises.
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
 The way you can create a file like this in RStudio is: File → New File → R Markdown and then using the default or using a template.
 
-This is a code chunk that will set up our packages and data. 
+Now we will install some packages!
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(jhur)
-library(ggplot2)
-library(dplyr)
+1) First copy and paste the following code into the console (the lower left panel/pane): <br>
+`install.packages("remotes")`<br>
+This code will install a package from CRAN called "remotes". <br>
+You may be asked a question in the console when you do this. If so, answer by typing Yes into the console.
 
-long <- read_circulator_long()
-## take just average ridership per day
-avg <- long %>%
-  filter(type == "Average")
-# keep non-missing data
-avg <- avg %>%
-  filter(!is.na(number))
-```
+2) Next copy and paste the following code again into the console (the lower left panel/pane):  <br>
+`library(remotes)` <br>
+This code loads the remotes package into memory- in other words we can use the functions within the package.<br>
+You may be asked a question in the console when you do this. If so, answer by typing Yes into the console.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. 
-
-## Plotting some data
-
-Here is code that will make a plot of the average daily ridership in Baltimore City for the Charm City Circulator: https://www.charmcitycirculator.com/.  
+3) Now install a packge that the instructors made that is not on CRAN but on GitHub, by copy and pasting the code into the cosole. <br>
+`install_github("jhudsl/jhur")`<br>
+You may be asked a question in the console when you do this. If so, answer by typing Yes into the console.
 
 
-Here we plot a few days. You can embed an R code chunk like this:
+
+This is a code chunk that will set up our packages and data (this will not show up in the rendered report when we press knit):
 
 ```{r plot_circ, out.width = "100%"}
 # keep only some days
