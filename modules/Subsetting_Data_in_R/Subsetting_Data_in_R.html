@@ -180,7 +180,6 @@ slide:not(.current) .plotly.html-widget{
 <li>if you don’t use <code>&lt;-</code> to reassign objects that you want to modify, they will stay the same</li>
 <li><code>length()</code>, <code>class()</code>, and <code>str()</code> tell you information about an object</li>
 <li><code>head()</code> and <code>tail()</code> can also help you inspect an object</li>
-<li><code>spec</code> can help you check data read into R with <code>readr</code></li>
 <li><code>readr</code>has helpful functions like <code>read_csv()</code> that can help you import data into R</li>
 <li><code>readr</code> also has helpful functions like <code>write_rds()</code> to create files that can be double clicked from the file pane to load into your RStudio environment</li>
 </ul>
@@ -431,7 +430,8 @@ Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4</pre>
 
 <p>If you run into losing a variable contained in your row names, you can also use <code>rownames_to_column</code> (of <code>tibble</code> package) to add it before turning it into a <code>tibble</code> to keep them:</p>
 
-<pre class = 'prettyprint lang-r'>head(rownames_to_column(df, &quot;car&quot;),  n = 2)</pre>
+<pre class = 'prettyprint lang-r'>library(tibble)
+head(rownames_to_column(df, &quot;car&quot;),  n = 2)</pre>
 
 <pre >            car mpg cyl disp  hp drat    wt  qsec vs am gear carb
 1     Mazda RX4  21   6  160 110  3.9 2.620 16.46  0  1    4    4
@@ -469,6 +469,27 @@ Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
 Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</pre>
 
+</article></slide><slide class=""><hgroup><h2>Take Care with Column Names</h2></hgroup><article  id="take-care-with-column-names">
+
+<p>When you can, avoid spaces, special punctuation, or numbers in column names, as these require quotes to refer to them. See <a href='https://jhudatascience.org/intro_to_r/quotes_vs_backticks.html' title=''>https://jhudatascience.org/intro_to_r/quotes_vs_backticks.html</a> for more guidance.</p>
+
+<pre class = 'prettyprint lang-r'>df &lt;- rename(df, MPG! = MPG) # this will cause an error</pre>
+
+<pre class = 'prettyprint lang-r'>df_rename &lt;-rename(df, `MPG!` = MPG) # this will work
+head(df_rename, 2)</pre>
+
+<pre >              MPG! cyl disp  hp drat    wt  qsec vs am gear carb
+Mazda RX4       21   6  160 110  3.9 2.620 16.46  0  1    4    4
+Mazda RX4 Wag   21   6  160 110  3.9 2.875 17.02  0  1    4    4</pre>
+
+<p>You will need to refer to a column like this with most functions.</p>
+
+</article></slide><slide class=""><hgroup><h2>Be careful about copy pasting code!</h2></hgroup><article  id="be-careful-about-copy-pasting-code">
+
+<p>Curly quotes will not work!</p>
+
+<pre class = 'prettyprint lang-r'>df_rename &lt;-rename(df, ‘MPG!’ = MPG) # this will cause an error!</pre>
+
 </article></slide><slide class=""><hgroup><h2>Renaming All Columns of a data frame: dplyr</h2></hgroup><article  id="renaming-all-columns-of-a-data-frame-dplyr">
 
 <p>To rename all columns you use the <code>rename_with()</code>. In this case we will use <code>toupper()</code> to make all letters upper case. Could also use <code>tolower()</code> function.</p>
@@ -504,14 +525,6 @@ Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</pre>
 <p>🏠 <a href='https://jhudatascience.org/intro_to_r/' title=''>Class Website</a><br/>💻 <a href='https://jhudatascience.org/intro_to_r/modules/Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab.Rmd' title=''>Lab</a></p>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Subsetting Columns</h2></hgroup><article  id="subsetting-columns">
-
-</article></slide><slide class=""><hgroup><h2>Subset columns of a data frame:</h2></hgroup><article  id="subset-columns-of-a-data-frame">
-
-<p>We can grab the <code>carb</code> column using the <code>$</code> operator. This is the base R way to do this:</p>
-
-<pre class = 'prettyprint lang-r'>df$carb</pre>
-
-<pre > [1] 4 4 1 1 2 1 4 2 2 4 4 3 3 3 4 4 4 1 2 1 1 2 2 4 2 1 2 2 4 6 8 2</pre>
 
 </article></slide><slide class=""><hgroup><h2>Subset columns of a data frame - <code>tidyverse</code> way:</h2></hgroup><article  id="subset-columns-of-a-data-frame---tidyverse-way">
 
@@ -563,7 +576,7 @@ Volvo 142E          21.4</pre>
 
 </article></slide><slide class=""><hgroup><h2>Subset columns of a data frame: dplyr</h2></hgroup><article  id="subset-columns-of-a-data-frame-dplyr-1">
 
-<p>Note that if you want the values (not a <code>tibble</code>), use <code>pull</code> (or <code>$</code> if you were using base R):</p>
+<p>Note that if you want the values (not a <code>tibble</code>), use <code>pull</code>:</p>
 
 <pre class = 'prettyprint lang-r'>pull(df, mpg)</pre>
 
@@ -641,7 +654,6 @@ contains() # like searching</pre>
 </article></slide><slide class=""><hgroup><h2>Summary</h2></hgroup><article  id="summary-1">
 
 <ul>
-<li>the <code>$</code> is used base R to get the values of a column from a data frame or tibble</li>
 <li><code>pull()</code> is the <code>tidyverse</code> way</li>
 <li><code>select()</code> is the <code>tidyverse</code> way to get a tibble with only certain columns</li>
 <li>you can <code>select()</code> based on patterns in the column names</li>
@@ -800,6 +812,29 @@ Ferrari Dino        FALSE
 Maserati Bora       FALSE
 Volvo 142E          FALSE</pre>
 
+</article></slide><slide class=""><hgroup><h2><code>distinct()</code> function</h2></hgroup><article  id="distinct-function">
+
+<p>To filter for distinct values from a variable, multiple variables, or an entire tibble you can use the <code>distinct()</code> function from the <code>dplyr</code> package.</p>
+
+<pre class = 'prettyprint lang-r'>distinct(df, cyl)</pre>
+
+<pre >                  cyl
+Mazda RX4           6
+Datsun 710          4
+Hornet Sportabout   8</pre>
+
+<pre class = 'prettyprint lang-r'>distinct(df, cyl, gear)</pre>
+
+<pre >                  cyl gear
+Mazda RX4           6    4
+Datsun 710          4    4
+Hornet 4 Drive      6    3
+Hornet Sportabout   8    3
+Toyota Corona       4    3
+Porsche 914-2       4    5
+Ford Pantera L      8    5
+Ferrari Dino        6    5</pre>
+
 </article></slide><slide class=""><hgroup><h2>Summary</h2></hgroup><article  id="summary-2">
 
 <ul>
@@ -808,6 +843,7 @@ Volvo 142E          FALSE</pre>
 <li><code>&amp;</code> means both conditions must be met to remain after <code>filter()</code></li>
 <li><code>|</code> means either conditions needs to be met to remain after <code>filter()</code></li>
 <li><code>which()</code> shows you where values meet a condition</li>
+<li><code>distinct()</code> helps you filter for unique values</li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 3</h2></hgroup><article  id="lab-part-3">
@@ -920,7 +956,7 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</pre>
 
 <p><strong>Or, you can simply select the columns you want to keep, ignoring the ones you want to remove.</strong></p>
 
-</article></slide><slide class=""><hgroup><h2>Removing columns to a data frame: dplyr</h2></hgroup><article  id="removing-columns-to-a-data-frame-dplyr">
+</article></slide><slide class=""><hgroup><h2>Removing columns in a data frame: dplyr</h2></hgroup><article  id="removing-columns-in-a-data-frame-dplyr">
 
 <p>You can use <code>c()</code> to list the columns to remove.</p>
 
@@ -973,6 +1009,111 @@ select(df, cyl, mpg, wt, car) %&gt;%
 head()</pre>
 
 </article></slide><slide class=""><hgroup><h2>Ordering the columns of a data frame: dplyr</h2></hgroup><article  id="ordering-the-columns-of-a-data-frame-dplyr-1">
+
+<p>The <code>select</code> function can reorder columns. Put <code>newcol</code> first, then select the rest of columns:</p>
+
+<pre class = 'prettyprint lang-r'>select(df, newcol, everything())</pre>
+
+<pre >                    newcol  mpg cyl disp  hp drat    wt  qsec vs am gear carb
+Mazda RX4         1.190909 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+Mazda RX4 Wag     1.306818 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+Datsun 710        1.054545 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+Hornet 4 Drive    1.461364 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+Hornet Sportabout 1.563636 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+Valiant           1.572727 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</pre>
+
+</article></slide><slide class=""><hgroup><h2>Ordering the columns of a data frame: dplyr</h2></hgroup><article  id="ordering-the-columns-of-a-data-frame-dplyr-2">
+
+<p>Put <code>newcol</code> at the end (&ldquo;remove, everything, then add back in&rdquo;):</p>
+
+<pre class = 'prettyprint lang-r'>select(df, -newcol, everything(), newcol)</pre>
+
+<pre >                   mpg cyl disp  hp drat    wt  qsec vs am gear carb   newcol
+Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4 1.190909
+Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4 1.306818
+Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1 1.054545
+Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1 1.461364
+Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2 1.563636
+Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1 1.572727</pre>
+
+</article></slide><slide class=""><hgroup><h2>Odering the colum names of a data frame: alphabetically</h2></hgroup><article  id="odering-the-colum-names-of-a-data-frame-alphabetically">
+
+<p>Using the base R <code>order()</code> function.</p>
+
+<pre class = 'prettyprint lang-r'>order(colnames(df))</pre>
+
+<pre > [1]  9 11  2  3  5 10  4  1 12  7  8  6</pre>
+
+<pre class = 'prettyprint lang-r'>df %&gt;% select(order(colnames(df)))</pre>
+
+<pre >                    am carb cyl  disp drat gear  hp  mpg    newcol  qsec vs
+Mazda RX4            1    4   6 160.0 3.90    4 110 21.0 1.1909091 16.46  0
+Mazda RX4 Wag        1    4   6 160.0 3.90    4 110 21.0 1.3068182 17.02  0
+Datsun 710           1    1   4 108.0 3.85    4  93 22.8 1.0545455 18.61  1
+Hornet 4 Drive       0    1   6 258.0 3.08    3 110 21.4 1.4613636 19.44  1
+Hornet Sportabout    0    2   8 360.0 3.15    3 175 18.7 1.5636364 17.02  0
+Valiant              0    1   6 225.0 2.76    3 105 18.1 1.5727273 20.22  1
+Duster 360           0    4   8 360.0 3.21    3 245 14.3 1.6227273 15.84  0
+Merc 240D            0    2   4 146.7 3.69    4  62 24.4 1.4500000 20.00  1
+Merc 230             0    2   4 140.8 3.92    4  95 22.8 1.4318182 22.90  1
+Merc 280             0    4   6 167.6 3.92    4 123 19.2 1.5636364 18.30  1
+Merc 280C            0    4   6 167.6 3.92    4 123 17.8 1.5636364 18.90  1
+Merc 450SE           0    3   8 275.8 3.07    3 180 16.4 1.8500000 17.40  0
+Merc 450SL           0    3   8 275.8 3.07    3 180 17.3 1.6954545 17.60  0
+Merc 450SLC          0    3   8 275.8 3.07    3 180 15.2 1.7181818 18.00  0
+Cadillac Fleetwood   0    4   8 472.0 2.93    3 205 10.4 2.3863636 17.98  0
+Lincoln Continental  0    4   8 460.0 3.00    3 215 10.4 2.4654545 17.82  0
+Chrysler Imperial    0    4   8 440.0 3.23    3 230 14.7 2.4295455 17.42  0
+Fiat 128             1    1   4  78.7 4.08    4  66 32.4 1.0000000 19.47  1
+Honda Civic          1    2   4  75.7 4.93    4  52 30.4 0.7340909 18.52  1
+Toyota Corolla       1    1   4  71.1 4.22    4  65 33.9 0.8340909 19.90  1
+Toyota Corona        0    1   4 120.1 3.70    3  97 21.5 1.1204545 20.01  1
+Dodge Challenger     0    2   8 318.0 2.76    3 150 15.5 1.6000000 16.87  0
+AMC Javelin          0    2   8 304.0 3.15    3 150 15.2 1.5613636 17.30  0
+Camaro Z28           0    4   8 350.0 3.73    3 245 13.3 1.7454545 15.41  0
+Pontiac Firebird     0    2   8 400.0 3.08    3 175 19.2 1.7477273 17.05  0
+Fiat X1-9            1    1   4  79.0 4.08    4  66 27.3 0.8795455 18.90  1
+Porsche 914-2        1    2   4 120.3 4.43    5  91 26.0 0.9727273 16.70  0
+Lotus Europa         1    2   4  95.1 3.77    5 113 30.4 0.6877273 16.90  1
+Ford Pantera L       1    4   8 351.0 4.22    5 264 15.8 1.4409091 14.50  0
+Ferrari Dino         1    6   6 145.0 3.62    5 175 19.7 1.2590909 15.50  0
+Maserati Bora        1    8   8 301.0 3.54    5 335 15.0 1.6227273 14.60  0
+Volvo 142E           1    2   4 121.0 4.11    4 109 21.4 1.2636364 18.60  1
+                       wt
+Mazda RX4           2.620
+Mazda RX4 Wag       2.875
+Datsun 710          2.320
+Hornet 4 Drive      3.215
+Hornet Sportabout   3.440
+Valiant             3.460
+Duster 360          3.570
+Merc 240D           3.190
+Merc 230            3.150
+Merc 280            3.440
+Merc 280C           3.440
+Merc 450SE          4.070
+Merc 450SL          3.730
+Merc 450SLC         3.780
+Cadillac Fleetwood  5.250
+Lincoln Continental 5.424
+Chrysler Imperial   5.345
+Fiat 128            2.200
+Honda Civic         1.615
+Toyota Corolla      1.835
+Toyota Corona       2.465
+Dodge Challenger    3.520
+AMC Javelin         3.435
+Camaro Z28          3.840
+Pontiac Firebird    3.845
+Fiat X1-9           1.935
+Porsche 914-2       2.140
+Lotus Europa        1.513
+Ford Pantera L      3.170
+Ferrari Dino        2.770
+Maserati Bora       3.570
+Volvo 142E          2.780</pre>
+
+</article></slide><slide class=""><hgroup><h2>Ordering the columns of a data frame: dplyr</h2></hgroup><article  id="ordering-the-columns-of-a-data-frame-dplyr-3">
 
 <p>We can also use the <code>relocate()</code> function of dplyr to rearrange the columns.</p>
 
@@ -1059,50 +1200,6 @@ Ford Pantera L      1.4409091
 Ferrari Dino        1.2590909
 Maserati Bora       1.6227273
 Volvo 142E          1.2636364</pre>
-
-<!-- ## Ordering the columns of a data frame: dplyr -->
-
-<!-- The `select` function can reorder columns.  Put `newcol` first, then select the rest of columns: -->
-
-<!-- ```{r, eval = FALSE} -->
-
-<!-- select(df, newcol, everything()) -->
-
-<!-- ``` -->
-
-<!-- ```{r, echo = FALSE} -->
-
-<!-- head(select(df, newcol, everything())) -->
-
-<!-- ``` -->
-
-<!-- ## Ordering the columns of a data frame: dplyr -->
-
-<!-- Put `newcol` at the end ("remove, everything, then add back in"): -->
-
-<!-- ```{r, eval = FALSE} -->
-
-<!-- select(df, -newcol, everything(), newcol) -->
-
-<!-- ``` -->
-
-<!-- ```{r, echo = FALSE} -->
-
-<!-- head(select(df, -newcol, everything(), newcol)) -->
-
-<!-- ``` -->
-
-<!-- ## Odering the colunames of a data frame: alphabetically -->
-
-<!-- Using the base R `order()` function. -->
-
-<!-- ```{r} -->
-
-<!-- order(colnames(df)) -->
-
-<!-- df %>% select(order(colnames(df))) -->
-
-<!-- ``` -->
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Ordering rows</h2></hgroup><article  id="ordering-rows">
 
@@ -1327,7 +1424,7 @@ Toyota Corolla      0.8340909</pre>
 
 <!-- ## Transmutation -->
 
-<!-- The `transmute` function in `dplyr` combines both the `mutate` and `select` functions. One can create new columns and keep the only the columns wanted: -->
+<!-- The `transmute` function in `dplyr` combines both the `mutate` and `select` functions. One can create new columns and keep only the columns wanted: -->
 
 <!-- ```{r} -->
 
@@ -1371,6 +1468,16 @@ Toyota Corolla      0.8340909</pre>
 
 <pre class = 'prettyprint lang-r'>df &lt;- mutate(df, newcol = wt/2.2)</pre>
 
+</article></slide><slide class=""><hgroup><h2>A note about base R:</h2></hgroup><article  id="a-note-about-base-r">
+
+<p>The <code>$</code> operator is similar to <code>pull()</code>. This is the base R way to do this:</p>
+
+<pre class = 'prettyprint lang-r'>df$carb</pre>
+
+<pre > [1] 4 4 1 1 2 1 4 2 2 4 4 3 3 3 4 4 4 1 2 1 1 2 2 4 2 1 2 2 4 6 8 2</pre>
+
+<p>Although it is easier (for this one task), mixing and matching the <code>$</code> operator with tidyverse functions usually doesn’t work. Therefore, we want to let you know about it in case you see it, but we suggest that you try working with the tidyverse way.</p>
+
 </article></slide><slide class=""><hgroup><h2>Lab Part 4</h2></hgroup><article  id="lab-part-4">
 
 <p>🏠 <a href='https://jhudatascience.org/intro_to_r/' title=''>Class Website</a></p>
@@ -1381,68 +1488,15 @@ Toyota Corolla      0.8340909</pre>
 
 <p>Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a></p>
 
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Extra Slides</h2></hgroup><article  id="extra-slides">
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Extra Slides - base R subsetting</h2></hgroup><article  id="extra-slides---base-r-subsetting">
 
-</article></slide><slide class=""><hgroup><h2>Creating conditional variables</h2></hgroup><article  id="creating-conditional-variables">
+</article></slide><slide class=""><hgroup><h2>Subset columns of a data frame:</h2></hgroup><article  id="subset-columns-of-a-data-frame">
 
-<p>One frequently-used tool is creating variables with conditions.</p>
+<p>We can grab the <code>carb</code> column using the <code>$</code> operator. This is the base R way to do this:</p>
 
-<p>A general function for creating new variables based on existing variables is the <code>ifelse()</code> function, which &ldquo;returns a value depending on whether the element of test is <code>TRUE</code> or <code>FALSE</code>.&rdquo;</p>
+<pre class = 'prettyprint lang-r'>df$carb</pre>
 
-<pre >ifelse(test, yes, no)
-
-# test: an object which can be coerced
-    to logical mode.
-# yes: return values for true elements of test.
-# no: return values for false elements of test.</pre>
-
-</article></slide><slide class=""><hgroup><h2><code>ifelse</code> example</h2></hgroup><article  id="ifelse-example">
-
-<pre class = 'prettyprint lang-r'>df$disp</pre>
-
-<pre > [1] 160.0 160.0 108.0 258.0 360.0 225.0 360.0 146.7 140.8 167.6 167.6 275.8
-[13] 275.8 275.8 472.0 460.0 440.0  78.7  75.7  71.1 120.1 318.0 304.0 350.0
-[25] 400.0  79.0 120.3  95.1 351.0 145.0 301.0 121.0</pre>
-
-<p>Now with <code>ifelse</code>()</p>
-
-<pre class = 'prettyprint lang-r'>#ifelse(test, yes, no)
-ifelse(df$disp &lt;= 200, &quot;low&quot;, &quot;high&quot;)</pre>
-
-<pre > [1] &quot;low&quot;  &quot;low&quot;  &quot;low&quot;  &quot;high&quot; &quot;high&quot; &quot;high&quot; &quot;high&quot; &quot;low&quot;  &quot;low&quot;  &quot;low&quot; 
-[11] &quot;low&quot;  &quot;high&quot; &quot;high&quot; &quot;high&quot; &quot;high&quot; &quot;high&quot; &quot;high&quot; &quot;low&quot;  &quot;low&quot;  &quot;low&quot; 
-[21] &quot;low&quot;  &quot;high&quot; &quot;high&quot; &quot;high&quot; &quot;high&quot; &quot;low&quot;  &quot;low&quot;  &quot;low&quot;  &quot;high&quot; &quot;low&quot; 
-[31] &quot;high&quot; &quot;low&quot; </pre>
-
-</article></slide><slide class=""><hgroup><h2>Adding columns to a data frame: dplyr</h2></hgroup><article  id="adding-columns-to-a-data-frame-dplyr">
-
-<p>Combined with <code>ifelse(condition, TRUE, FALSE)</code>, it can give you:</p>
-
-<pre class = 'prettyprint lang-r'>df &lt;- mutate(df, 
-            disp_cat = ifelse(disp &lt;= 200, &quot;Low&quot;,&quot;High&quot;)
-            )
-
-head(df,2)</pre>
-
-<pre >              mpg cyl disp  hp drat    wt  qsec vs am gear carb   newcol
-Mazda RX4      21   6  160 110  3.9 2.620 16.46  0  1    4    4 1.190909
-Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4 1.306818
-              disp_cat
-Mazda RX4          Low
-Mazda RX4 Wag      Low</pre>
-
-</article></slide><slide class=""><hgroup><h2>Adding columns to a data frame: dplyr</h2></hgroup><article  id="adding-columns-to-a-data-frame-dplyr-1">
-
-<p>Alternatively, <code>case_when</code> provides a clean syntax as well:</p>
-
-<pre class = 'prettyprint lang-r'>df &lt;- mutate(df, 
-            disp_cat2 = case_when(
-              disp &lt;= 200 ~ &quot;Low&quot;,
-              disp &gt; 200 ~ &quot;High&quot;,
-            ))
-head(df$disp_cat2)</pre>
-
-<pre >[1] &quot;Low&quot;  &quot;Low&quot;  &quot;Low&quot;  &quot;High&quot; &quot;High&quot; &quot;High&quot;</pre>
+<pre > [1] 4 4 1 1 2 1 4 2 2 4 4 3 3 3 4 4 4 1 2 1 1 2 2 4 2 1 2 2 4 6 8 2</pre>
 
 </article></slide><slide class=""><hgroup><h2>Renaming Columns of a data frame: base R</h2></hgroup><article  id="renaming-columns-of-a-data-frame-base-r">
 
@@ -1450,9 +1504,8 @@ head(df$disp_cat2)</pre>
 
 <pre class = 'prettyprint lang-r'>colnames(df) # just prints</pre>
 
-<pre > [1] &quot;mpg&quot;       &quot;cyl&quot;       &quot;disp&quot;      &quot;hp&quot;        &quot;drat&quot;      &quot;wt&quot;       
- [7] &quot;qsec&quot;      &quot;vs&quot;        &quot;am&quot;        &quot;gear&quot;      &quot;carb&quot;      &quot;newcol&quot;   
-[13] &quot;disp_cat&quot;  &quot;disp_cat2&quot;</pre>
+<pre > [1] &quot;mpg&quot;    &quot;cyl&quot;    &quot;disp&quot;   &quot;hp&quot;     &quot;drat&quot;   &quot;wt&quot;     &quot;qsec&quot;   &quot;vs&quot;    
+ [9] &quot;am&quot;     &quot;gear&quot;   &quot;carb&quot;   &quot;newcol&quot;</pre>
 
 <pre class = 'prettyprint lang-r'>colnames(df)[1:3] &lt;- c(&quot;MPG&quot;, &quot;CYL&quot;, &quot;DISP&quot;) # reassigns
 head(df)</pre>
@@ -1463,14 +1516,7 @@ Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4 1.306818
 Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1 1.054545
 Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1 1.461364
 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2 1.563636
-Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1 1.572727
-                  disp_cat disp_cat2
-Mazda RX4              Low       Low
-Mazda RX4 Wag          Low       Low
-Datsun 710             Low       Low
-Hornet 4 Drive        High      High
-Hornet Sportabout     High      High
-Valiant               High      High</pre>
+Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1 1.572727</pre>
 
 <pre class = 'prettyprint lang-r'>colnames(df)[1:3] &lt;- c(&quot;mpg&quot;, &quot;cyl&quot;, &quot;disp&quot;) #reset - just to keep consistent</pre>
 
@@ -1489,14 +1535,7 @@ Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4 1.306818
 Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1 1.054545
 Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1 1.461364
 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2 1.563636
-Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1 1.572727
-                  disp_cat disp_cat2
-Mazda RX4              Low       Low
-Mazda RX4 Wag          Low       Low
-Datsun 710             Low       Low
-Hornet 4 Drive        High      High
-Hornet Sportabout     High      High
-Valiant               High      High</pre>
+Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1 1.572727</pre>
 
 <pre class = 'prettyprint lang-r'>colnames(df)[ colnames(df) == &quot;DRAT&quot;] &lt;- &quot;drat&quot; #reset</pre>
 
@@ -1506,12 +1545,9 @@ Valiant               High      High</pre>
 
 <pre class = 'prettyprint lang-r'>df[ c(1, 3), ]</pre>
 
-<pre >            mpg cyl disp  hp drat   wt  qsec vs am gear carb   newcol disp_cat
-Mazda RX4  21.0   6  160 110 3.90 2.62 16.46  0  1    4    4 1.190909      Low
-Datsun 710 22.8   4  108  93 3.85 2.32 18.61  1  1    4    1 1.054545      Low
-           disp_cat2
-Mazda RX4        Low
-Datsun 710       Low</pre>
+<pre >            mpg cyl disp  hp drat   wt  qsec vs am gear carb   newcol
+Mazda RX4  21.0   6  160 110 3.90 2.62 16.46  0  1    4    4 1.190909
+Datsun 710 22.8   4  108  93 3.85 2.32 18.61  1  1    4    1 1.054545</pre>
 
 </article></slide><slide class=""><hgroup><h2>Subset columns of a data frame:</h2></hgroup><article  id="subset-columns-of-a-data-frame-1">
 
