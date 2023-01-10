@@ -163,6 +163,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          token: ${{ secrets.GH_PAT }}
         
       # Render pdfs of slides
       - name: Convert HTML to PDF
@@ -174,8 +175,6 @@ jobs:
 
       # Commit the rendered site files - html files and site_libs files
       - name: Commit pdfs
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           git config --local user.email "itcrtrainingnetwork@gmail.com"
           git config --local user.name "jhudsl-robot"
