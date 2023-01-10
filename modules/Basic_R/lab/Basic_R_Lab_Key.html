@@ -266,7 +266,7 @@ rep(my_seq, each = 10)</code></pre>
 ## [43] &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot;
 ## [46] &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot;
 ## [49] &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot;</code></pre>
-<pre class="r"><code>rep( c(&quot;Strongly Agree&quot;, &quot;Agree&quot;, &quot;Neutral&quot;, &quot;Disagree&quot;, &quot;Strongly Disagree&quot;), each = 10 )</code></pre>
+<pre class="r"><code>rep(c(&quot;Strongly Agree&quot;, &quot;Agree&quot;, &quot;Neutral&quot;, &quot;Disagree&quot;, &quot;Strongly Disagree&quot;), each = 10)</code></pre>
 <pre><code>##  [1] &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;   
 ##  [4] &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;   
 ##  [7] &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;   
@@ -291,16 +291,16 @@ rep(my_seq, each = 10)</code></pre>
   replace = TRUE
 )
 my_responses</code></pre>
-<pre><code>##  [1] &quot;Disagree&quot;          &quot;Strongly Disagree&quot; &quot;Disagree&quot;         
-##  [4] &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;    &quot;Disagree&quot;         
-##  [7] &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;    &quot;Agree&quot;            
-## [10] &quot;Strongly Agree&quot;    &quot;Strongly Disagree&quot; &quot;Disagree&quot;         
-## [13] &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot; &quot;Agree&quot;            
-## [16] &quot;Neutral&quot;           &quot;Neutral&quot;           &quot;Neutral&quot;          
-## [19] &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;    &quot;Neutral&quot;          
-## [22] &quot;Agree&quot;             &quot;Disagree&quot;          &quot;Disagree&quot;         
-## [25] &quot;Agree&quot;             &quot;Agree&quot;             &quot;Strongly Agree&quot;   
-## [28] &quot;Agree&quot;             &quot;Strongly Agree&quot;    &quot;Agree&quot;</code></pre>
+<pre><code>##  [1] &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot; &quot;Agree&quot;            
+##  [4] &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;    &quot;Agree&quot;            
+##  [7] &quot;Disagree&quot;          &quot;Neutral&quot;           &quot;Agree&quot;            
+## [10] &quot;Strongly Agree&quot;    &quot;Strongly Disagree&quot; &quot;Neutral&quot;          
+## [13] &quot;Neutral&quot;           &quot;Neutral&quot;           &quot;Strongly Agree&quot;   
+## [16] &quot;Agree&quot;             &quot;Strongly Agree&quot;    &quot;Neutral&quot;          
+## [19] &quot;Agree&quot;             &quot;Disagree&quot;          &quot;Disagree&quot;         
+## [22] &quot;Strongly Agree&quot;    &quot;Agree&quot;             &quot;Strongly Agree&quot;   
+## [25] &quot;Agree&quot;             &quot;Disagree&quot;          &quot;Agree&quot;            
+## [28] &quot;Disagree&quot;          &quot;Strongly Disagree&quot; &quot;Neutral&quot;</code></pre>
 <p><strong>Bonus / Extra practice</strong>: Let’s say you change your survey so participants can rank their response 1-10 (inclusive). Create a randomly sampled vector of 30 survey responses. (hint use <code>seq()</code> and <code>sample()</code> and set the replace argument to <code>TRUE</code>). Store the output as <code>my_responses_2</code>. Examine the data by typing the name in the Console using a function.</p>
 <pre class="r"><code>my_responses_2 &lt;- sample(
   x = seq(from = 1, to = 10),

@@ -399,9 +399,15 @@ asthma &lt;- asthma %&gt;% mutate(SE = str_replace(pull(asthma, SE), pattern = &
 <p>No. Both are character type and math cannot be performed on characters.</p>
 </blockquote>
 <p>F. Use <code>as.numeric()</code> to convert “percent” and “SE” to numeric class. Calculate the mean for both.</p>
-<pre class="r"><code>asthma %&gt;% mutate(percent = as.numeric(percent)) %&gt;% pull(percent) %&gt;% mean()</code></pre>
+<pre class="r"><code>asthma %&gt;%
+  mutate(percent = as.numeric(percent)) %&gt;%
+  pull(percent) %&gt;%
+  mean()</code></pre>
 <pre><code>## [1] 7.771429</code></pre>
-<pre class="r"><code>asthma %&gt;% mutate(SE = as.numeric(SE)) %&gt;% pull(SE) %&gt;% mean()</code></pre>
+<pre class="r"><code>asthma %&gt;%
+  mutate(SE = as.numeric(SE)) %&gt;%
+  pull(SE) %&gt;%
+  mean()</code></pre>
 <pre><code>## [1] 0.655</code></pre>
 </div>
 
