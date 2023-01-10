@@ -154,8 +154,8 @@ x + y
 **Bonus / Extra practice**: Multiply the following `a` and `b` together. How is this similar to the way R performs addition in #10 ?
 
 ```{r}
-x <- c(1,2,3)
-y <- c(10,100,1000)
+x <- c(1, 2, 3)
+y <- c(10, 100, 1000)
 x * y
 # R adds together the first element of each vector, then the second, and so on. This order also applies when multiplying!
 ```
