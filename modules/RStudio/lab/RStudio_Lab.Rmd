@@ -52,14 +52,14 @@ Next we will show you some code - no worries about understanding it yet, we just
 
 When code is in an RMarkdown file chunk, it is saved to a file. When it is in the console, it is not saved. 
 
-The console is useful for installing packages like we just did, this is because sometimes we have to interact with R directly and answer questions. Another reason that it is a good idea to install packages in the console is we only need to do it once, so we don't usually need to save the code.
+The console is useful for installing packages like we just did, this is because we only need to do it once, so we don't usually need to save the code.
 
 ## Plotting some data
 
-Here is code that will make a plot of the average daily ridership in Baltimore City for the Charm City Circulator: https://www.charmcitycirculator.com/.  
+Here is code that will make a plot of the average daily ridership in Baltimore City for the Charm City Circulator: https://www.charmcitycirculator.com/ (again don't worry about the actually code much for now).  
 
 
-Here we plot a few days. You can embed an R code chunk like this:
+Here we plot a few days. You can embed an R code chunk like this: Try pressing the green play button to see what happens. Make sure you have run the previous code chunk first by pressing the green play button in that chunk.
 
 ```{r plot_circ, out.width = "100%"}
 # keep only some days
