@@ -227,6 +227,11 @@ x + c(1, 2, 3, 4)
 
 ## Lab Part 1
 
+- Assign values to objects with `<-` (new name on left side)
+- `class()` tells you the class (kind) of object
+- Use the `c()` function to combine text/numbers/etc. into a vector
+- Use the `length()` function to determine number of elements
+
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Basic_R/lab/Basic_R_Lab.Rmd)
 
 ## Math + vector objects
@@ -287,6 +292,10 @@ str(z)
 ```
 
 ## Lab Part 2
+
+- Reassigning allows you to make changes "in place"
+- `str()` tells you a lot of information about an object in your environment
+- `sample()` creates a random sample of values
 
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Basic_R/lab/Basic_R_Lab.Rmd)
 
