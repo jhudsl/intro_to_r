@@ -11,6 +11,17 @@ library(knitr)
 opts_chunk$set(comment = "")
 ```
 
+## Recap
+
+-  Reproducible science makes everyone's life easier!
+-  the Editor is for static code like scripts or R Markdown documents
+-  Send code to the Console to run it
+-  The Console can be used for quickly testing code on the fly
+-  R code goes within what is called a chunk (the gray box with a green play button)
+-  Code chunks can be modified so that they show differently in reports
+
+📃[RStudio Cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf)
+
 ## Common new users frustrations
 
 1.  **Different versions of software**
