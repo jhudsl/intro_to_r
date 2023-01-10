@@ -75,6 +75,7 @@ vec_1 <- c(1, 2, 3, 4)
 vec_2 <- c(vec_1, vec_1, vec_1, vec_1)
 ```
 
+
 # Part 2
 
 7\. Divide `both` by 3, what happens?
@@ -84,7 +85,7 @@ both / 3
 ```
 
 
-8\. Create a vector with elements 1, 2, 3, 4, 5, 6 and call it `x`.
+8\. Create a vector with elements 1, 2, 3, 4, 5 and call it `x`.
 
 ```
 # General format
@@ -92,7 +93,7 @@ x <- c(...)
 ```
  
 ```{r}
-x <- c(1, 2, 3, 4, 5, 6)
+x <- c(1, 2, 3, 4, 5)
 ```
 
 
@@ -108,32 +109,53 @@ y <- c(10, 20, 30, 40, 50)
 ```
 
 
-10\. What happens when you add `x` and `y` together?
+10\. Determine the length of `x` and `y`. Next, add them together.
 
 ```{r}
+length(x)
+length(y)
 x + y
-# R "auto replicates" the shorter vector when the vectors aren't the same length - this is not what we want!
-# In this case, it reads y as c(10, 20, 30, 40, 50, 10)!
+# [1] 11 22 33 44 55
 ```
 
 
-12\. Append the value 60 onto the vector `y` (hint: you can use the `c()` function).
+11\. Append the value 60 onto the vector `y` (hint: you can use the `c()` function).
+
+```
+# General format
+y <- c(y, ...)
+```
 
 ```{r}
 y <- c(y, 60)
 ```
 
 
-13\. Add `x` and `y` together.
+12\. Determine the length of `x` and `y`.
 
 ```{r}
-x + y
+length(x)
+length(y)
 ```
 
 
-**Bonus / Extra practice**: Multiply `x` and `y` together. How is this similar to the way R performs addition in #13 ?
+13\. Add `x` and `y` together. What happens?
 
 ```{r}
+x + y
+# [1] 11 22 33 44 55 61
+# Warning message:
+# In x + y : longer object length is not a multiple of shorter object length
+# R "auto replicates" the shorter vector when the vectors aren't the same length - this is not what we want!
+# In this case, it reads x as c(1, 2, 3, 4, 5, 1)!
+```
+
+
+**Bonus / Extra practice**: Multiply the following `a` and `b` together. How is this similar to the way R performs addition in #10 ?
+
+```{r}
+x <- c(1,2,3)
+y <- c(10,100,1000)
 x * y
 # R adds together the first element of each vector, then the second, and so on. This order also applies when multiplying!
 ```
