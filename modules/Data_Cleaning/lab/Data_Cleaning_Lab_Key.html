@@ -375,7 +375,7 @@ BloodType %&gt;% count(type)</code></pre>
 <pre><code># General format
 NEW_TIBBLE &lt;- OLD_TIBBLE 
     %&gt;% separate(OLD_COLUMN, into = c(&quot;NEW_COLUMN1&quot;, &quot;NEW_COLUMN2&quot;), sep = &quot;SEPARATING_CHARACTER&quot;)</code></pre>
-<pre class="r"><code>BloodType_split &lt;- BloodType %&gt;% 
+<pre class="r"><code>BloodType_split &lt;- BloodType %&gt;%
   separate(type, into = c(&quot;blood_type&quot;, &quot;Rhfactor&quot;), sep = &quot;\\.&quot;)</code></pre>
 <p><strong>Bonus / Extra practice</strong>: How many observations are there for each <code>Rhfactor</code>:</p>
 <pre class="r"><code>count(BloodType_split, Rhfactor)</code></pre>
