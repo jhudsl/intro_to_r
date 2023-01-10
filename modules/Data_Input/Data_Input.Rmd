@@ -171,25 +171,23 @@ knitr::include_graphics("images/Data_Input_browse.png")
 ## Manual Import: Pros and Cons
 
 Pros: easy!!
+
 Cons: obscures some of what's happening, others will have difficulty running your code
 
 
-## Summary - Part 1
+## Summary & Lab Part 1
 
 Review the process: [`https://youtu.be/LEkNfJgpunQ`](https://youtu.be/LEkNfJgpunQ)
 
-> File
-> Import Dataset
-> From Text (`readr`)
-> paste the url (http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv)
-> click "Update" and "Import"
-
-
-## Lab Part 1
+-  `>` File
+-  `>` Import Dataset
+-  `>` From Text (`readr`)
+-  `>` paste the url (http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv)
+-  `>` click "Update" and "Import"
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
 
-💻 [Data I/O Lab](https://jhudatascience.org/intro_to_r/modules/Data_Input/lab/Data_Input_Lab.Rmd)
+💻 [Data Input Lab](https://jhudatascience.org/intro_to_r/modules/Data_Input/lab/Data_Input_Lab.Rmd)
 
 
 # Part 2: Getting data into R (directly)
@@ -200,7 +198,9 @@ Review the process: [`https://youtu.be/LEkNfJgpunQ`](https://youtu.be/LEkNfJgpun
 ```{r message = FALSE}
 # load library `readr` that contains function `read_csv`
 library(readr)
-dat <- read_csv(file = "http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
+dat <- read_csv(
+  file = "http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv"
+  )
 
 # `head` displays first few rows of a data frame. `tail()` works the same way.
 head(dat, n = 5)
@@ -209,9 +209,13 @@ head(dat, n = 5)
 ## Data Input: Declaring Arguments
 
 ```{r message = FALSE}
-dat <- read_csv(file = "http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
+dat <- read_csv(
+  file = "http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv"
+  )
 # EQUIVALENT TO
-dat <- read_csv("http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
+dat <- read_csv(
+  "http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv"
+  )
 ```
 
 ## Data Input: Read in Directly 
@@ -422,7 +426,7 @@ read_dta(file = "mtcars.dta")
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
 
-💻 [Data I/O Lab](https://jhudatascience.org/intro_to_r/modules/Data_Input/lab/Data_Input_Lab.Rmd)
+💻 [Data Input Lab](https://jhudatascience.org/intro_to_r/modules/Data_Input/lab/Data_Input_Lab.Rmd)
 
 
 ## Working Directories
@@ -472,7 +476,7 @@ knitr::include_graphics("images/Data_Input_Rproj_file.png")
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
 
-💻 [Data I/O Lab](https://jhudatascience.org/intro_to_r/modules/Data_Input/lab/Data_Input_Lab.Rmd)
+💻 [Data Input Lab](https://jhudatascience.org/intro_to_r/modules/Data_Input/lab/Data_Input_Lab.Rmd)
 
 ```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
 knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
