@@ -271,7 +271,7 @@ jobs:
     container:
       image: jhudsl/intro_to_r:1.0
     if: ${{needs.yaml-check.outputs.toggle_render_preview == 'yes'}}
-  
+
     steps:
       # Give permission to access the repo
       - name: safelist repository
@@ -360,8 +360,8 @@ jobs:
           course_name=$(head -n 1 _website.yml | cut -d'"' -f 2| tr " " "-")
           website_link=$(echo "https://htmlpreview.github.io/?https://raw.githubusercontent.com/$GITHUB_REPOSITORY/preview-${{ github.event.pull_request.number }}/index.html")
           echo "website_link=$website_link" >> $GITHUB_OUTPUT
-          echo "time=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT 
-          echo "commit_id=$GITHUB_SHA" >> $GITHUB_OUTPUT 
+          echo "time=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+          echo "commit_id=$GITHUB_SHA" >> $GITHUB_OUTPUT
           echo ${{steps.commit.outputs.changes}}
 
       - name: Create or update comment
@@ -435,10 +435,10 @@ jobs:
         
       # Render pdfs of slides
       - name: Convert HTML to PDF
-        uses: fifsky/html-to-pdf-action@v0.1.0
+        uses: LukaszLapaj/html-to-pdf-action@master
         with:
-          htmlFile: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
-          outputFile: modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
+          htmlFile: ./modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
+          outputFile: ./modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
           
       # Commit the rendered website files
       - name: Commit rendered website files to preview branch
