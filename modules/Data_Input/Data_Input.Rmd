@@ -200,7 +200,7 @@ Review the process: [`https://youtu.be/LEkNfJgpunQ`](https://youtu.be/LEkNfJgpun
 library(readr)
 dat <- read_csv(
   file = "http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv"
-  )
+)
 
 # `head` displays first few rows of a data frame. `tail()` works the same way.
 head(dat, n = 5)
@@ -211,11 +211,11 @@ head(dat, n = 5)
 ```{r message = FALSE}
 dat <- read_csv(
   file = "http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv"
-  )
+)
 # EQUIVALENT TO
 dat <- read_csv(
   "http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv"
-  )
+)
 ```
 
 ## Data Input: Read in Directly 
