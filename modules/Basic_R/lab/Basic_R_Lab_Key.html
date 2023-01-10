@@ -203,29 +203,46 @@ vec_2 &lt;- c(vec_1, vec_1, vec_1, vec_1)</code></pre>
 <p>7. Divide <code>both</code> by 3, what happens?</p>
 <pre class="r"><code>both / 3</code></pre>
 <pre><code>## Error in both/3: non-numeric argument to binary operator</code></pre>
-<p>8. Create a vector with elements 1, 2, 3, 4, 5, 6 and call it <code>x</code>.</p>
+<p>8. Create a vector with elements 1, 2, 3, 4, 5 and call it <code>x</code>.</p>
 <pre><code># General format
 x &lt;- c(...)</code></pre>
-<pre class="r"><code>x &lt;- c(1, 2, 3, 4, 5, 6)</code></pre>
+<pre class="r"><code>x &lt;- c(1, 2, 3, 4, 5)</code></pre>
 <p>9. Create another vector with elements 10, 20, 30, 40, 50 and call it <code>y</code>.</p>
 <pre><code># General format
 y &lt;- c(...)</code></pre>
 <pre class="r"><code>y &lt;- c(10, 20, 30, 40, 50)</code></pre>
-<p>10. What happens when you add <code>x</code> and <code>y</code> together?</p>
+<p>10. Determine the length of <code>x</code> and <code>y</code>. Next, add them together.</p>
+<pre class="r"><code>length(x)</code></pre>
+<pre><code>## [1] 5</code></pre>
+<pre class="r"><code>length(y)</code></pre>
+<pre><code>## [1] 5</code></pre>
+<pre class="r"><code>x + y</code></pre>
+<pre><code>## [1] 11 22 33 44 55</code></pre>
+<pre class="r"><code># [1] 11 22 33 44 55</code></pre>
+<p>11. Append the value 60 onto the vector <code>y</code> (hint: you can use the <code>c()</code> function).</p>
+<pre><code># General format
+y &lt;- c(y, ...)</code></pre>
+<pre class="r"><code>y &lt;- c(y, 60)</code></pre>
+<p>12. Determine the length of <code>x</code> and <code>y</code>.</p>
+<pre class="r"><code>length(x)</code></pre>
+<pre><code>## [1] 5</code></pre>
+<pre class="r"><code>length(y)</code></pre>
+<pre><code>## [1] 6</code></pre>
+<p>13. Add <code>x</code> and <code>y</code> together. What happens?</p>
 <pre class="r"><code>x + y</code></pre>
 <pre><code>## Warning in x + y: longer object length is not a multiple of shorter object
 ## length</code></pre>
-<pre><code>## [1] 11 22 33 44 55 16</code></pre>
-<pre class="r"><code># R &quot;auto replicates&quot; the shorter vector when the vectors aren&#39;t the same length - this is not what we want!
-# In this case, it reads y as c(10, 20, 30, 40, 50, 10)!</code></pre>
-<p>12. Append the value 60 onto the vector <code>y</code> (hint: you can use the <code>c()</code> function).</p>
-<pre class="r"><code>y &lt;- c(y, 60)</code></pre>
-<p>13. Add <code>x</code> and <code>y</code> together.</p>
-<pre class="r"><code>x + y</code></pre>
-<pre><code>## [1] 11 22 33 44 55 66</code></pre>
-<p><strong>Bonus / Extra practice</strong>: Multiply <code>x</code> and <code>y</code> together. How is this similar to the way R performs addition in #13 ?</p>
-<pre class="r"><code>x * y</code></pre>
-<pre><code>## [1]  10  40  90 160 250 360</code></pre>
+<pre><code>## [1] 11 22 33 44 55 61</code></pre>
+<pre class="r"><code># [1] 11 22 33 44 55 61
+# Warning message:
+# In x + y : longer object length is not a multiple of shorter object length
+# R &quot;auto replicates&quot; the shorter vector when the vectors aren&#39;t the same length - this is not what we want!
+# In this case, it reads x as c(1, 2, 3, 4, 5, 1)!</code></pre>
+<p><strong>Bonus / Extra practice</strong>: Multiply the following <code>a</code> and <code>b</code> together. How is this similar to the way R performs addition in #10 ?</p>
+<pre class="r"><code>x &lt;- c(1,2,3)
+y &lt;- c(10,100,1000)
+x * y</code></pre>
+<pre><code>## [1]   10  200 3000</code></pre>
 <pre class="r"><code># R adds together the first element of each vector, then the second, and so on. This order also applies when multiplying!</code></pre>
 </div>
 <div id="part-3" class="section level1">
@@ -291,16 +308,16 @@ rep(my_seq, each = 10)</code></pre>
   replace = TRUE
 )
 my_responses</code></pre>
-<pre><code>##  [1] &quot;Strongly Disagree&quot; &quot;Neutral&quot;           &quot;Agree&quot;            
-##  [4] &quot;Strongly Agree&quot;    &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot;
-##  [7] &quot;Strongly Disagree&quot; &quot;Disagree&quot;          &quot;Strongly Disagree&quot;
-## [10] &quot;Strongly Disagree&quot; &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;   
-## [13] &quot;Disagree&quot;          &quot;Agree&quot;             &quot;Strongly Agree&quot;   
-## [16] &quot;Strongly Disagree&quot; &quot;Agree&quot;             &quot;Neutral&quot;          
-## [19] &quot;Disagree&quot;          &quot;Strongly Disagree&quot; &quot;Strongly Agree&quot;   
-## [22] &quot;Neutral&quot;           &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;   
-## [25] &quot;Strongly Agree&quot;    &quot;Disagree&quot;          &quot;Neutral&quot;          
-## [28] &quot;Strongly Agree&quot;    &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot;</code></pre>
+<pre><code>##  [1] &quot;Neutral&quot;           &quot;Strongly Agree&quot;    &quot;Agree&quot;            
+##  [4] &quot;Strongly Disagree&quot; &quot;Disagree&quot;          &quot;Disagree&quot;         
+##  [7] &quot;Disagree&quot;          &quot;Strongly Agree&quot;    &quot;Disagree&quot;         
+## [10] &quot;Agree&quot;             &quot;Strongly Agree&quot;    &quot;Strongly Disagree&quot;
+## [13] &quot;Strongly Disagree&quot; &quot;Agree&quot;             &quot;Neutral&quot;          
+## [16] &quot;Strongly Agree&quot;    &quot;Agree&quot;             &quot;Disagree&quot;         
+## [19] &quot;Disagree&quot;          &quot;Disagree&quot;          &quot;Agree&quot;            
+## [22] &quot;Strongly Disagree&quot; &quot;Disagree&quot;          &quot;Neutral&quot;          
+## [25] &quot;Agree&quot;             &quot;Neutral&quot;           &quot;Agree&quot;            
+## [28] &quot;Agree&quot;             &quot;Agree&quot;             &quot;Disagree&quot;</code></pre>
 <p><strong>Bonus / Extra practice</strong>: Let’s say you change your survey so participants can rank their response 1-10 (inclusive). Create a randomly sampled vector of 30 survey responses. (hint use <code>seq()</code> and <code>sample()</code> and set the replace argument to <code>TRUE</code>). Store the output as <code>my_responses_2</code>. Examine the data by typing the name in the Console using a function.</p>
 <pre class="r"><code>my_responses_2 &lt;- sample(
   x = seq(from = 1, to = 10),
