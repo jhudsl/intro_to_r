@@ -198,12 +198,9 @@ bike &lt;- read_bike()</code></pre>
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
 <ol style="list-style-type: decimal">
-<li>Use the <code>is.na()</code> and <code>any()</code> functions to check if the bike <code>dateInstalled</code> variable has any <code>NA</code> values.</li>
+<li>Use the <code>is.na()</code> and <code>any()</code> functions to check if the bike <code>dateInstalled</code> variable has any <code>NA</code> values. Hint: You first need to <code>pull</code> out the vector version of this variable to use the <code>is.na()</code> function.</li>
 </ol>
-<pre class="r"><code>any(is.na(bike$dateInstalled))</code></pre>
-<pre><code>## [1] FALSE</code></pre>
-<pre class="r"><code># or
-bike %&gt;%
+<pre class="r"><code>bike %&gt;%
   pull(dateInstalled) %&gt;%
   is.na() %&gt;%
   any()</code></pre>
@@ -273,7 +270,7 @@ BloodType</code></pre>
 <ol style="list-style-type: decimal">
 <li>Determine how many <code>NA</code> values there are for <code>gender</code>.</li>
 </ol>
-<pre class="r"><code>count(BloodType, gender)</code></pre>
+<pre class="r"><code>count(BloodType, gender) # the simple way</code></pre>
 <pre><code>## # A tibble: 6 × 2
 ##   gender     n
 ##   &lt;chr&gt;  &lt;int&gt;
@@ -283,9 +280,9 @@ BloodType</code></pre>
 ## 4 Male       4
 ## 5 Other      2
 ## 6 &lt;NA&gt;       1</code></pre>
-<pre class="r"><code>sum(is.na(pull(BloodType, gender)))</code></pre>
+<pre class="r"><code>sum(is.na(pull(BloodType, gender))) # another way</code></pre>
 <pre><code>## [1] 1</code></pre>
-<pre class="r"><code>BloodType %&gt;%
+<pre class="r"><code>BloodType %&gt;% # another way
   pull(gender) %&gt;%
   is.na() %&gt;%
   sum()</code></pre>
@@ -321,7 +318,7 @@ count(BloodType, gender)</code></pre>
 ## 3 Other      2
 ## 4 &lt;NA&gt;       1</code></pre>
 <ol start="4" style="list-style-type: decimal">
-<li>Recode the <code>type</code> variable of the <code>BloodType</code> data to be consistent. Use <code>recode</code>.</li>
+<li>Recode the <code>type</code> variable of the <code>BloodType</code> data to be consistent. Use <code>recode</code>. Hint: the inconsistency has to do with lower case <code>o</code> and capital <code>O</code>.</li>
 </ol>
 <pre class="r"><code>BloodType &lt;- BloodType %&gt;%
   mutate(type = recode(type,
@@ -377,7 +374,7 @@ NEW_TIBBLE &lt;- OLD_TIBBLE
     %&gt;% separate(OLD_COLUMN, into = c(&quot;NEW_COLUMN1&quot;, &quot;NEW_COLUMN2&quot;), sep = &quot;SEPARATING_CHARACTER&quot;)</code></pre>
 <pre class="r"><code>BloodType_split &lt;- BloodType %&gt;%
   separate(type, into = c(&quot;blood_type&quot;, &quot;Rhfactor&quot;), sep = &quot;\\.&quot;)</code></pre>
-<p><strong>Bonus / Extra practice</strong>: How many observations are there for each <code>Rhfactor</code>:</p>
+<p><strong>Bonus / Extra practice</strong>: How many observations are there for each <code>Rhfactor</code> in the data object you just made:</p>
 <pre class="r"><code>count(BloodType_split, Rhfactor)</code></pre>
 <pre><code>## # A tibble: 2 × 2
 ##   Rhfactor     n
