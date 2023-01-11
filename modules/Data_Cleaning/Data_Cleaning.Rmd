@@ -109,6 +109,7 @@ Check the values for your variables, are they what you expect?
 2)  The amount of these values
 
 Check if rare values make sense.
+(You need a data frame to use this)
 
 ```{r, message=FALSE}
 bike <-jhur::read_bike()
@@ -126,7 +127,7 @@ package](https://cran.r-project.org/web/packages/naniar/vignettes/getting-starte
 is a good option.
 
 The `pct_complete()` function shows the percentage that is complete for
-a given data object.
+a given data object, (vector or data frame).
 
 ```{r, error=FALSE}
 #install.packages("naniar")
@@ -139,8 +140,7 @@ naniar::pct_complete(test) # doesn't count infinite values as missing
 
 ## Air quality data
 
-The `airquality` dataset comes with R about air quality in New York in
-1973.
+The `airquality` dataset comes with R about air quality in New York in 1973.
 
 ```{r, message=FALSE}
 ?airquality # use this to find out more about the data
@@ -154,10 +154,16 @@ airqual
 pct_complete(airquality)
 ```
 
+```{R}
+airquality %>% 
+pct_complete(Ozone)
+```
+
+
 ## `naniar` plots
 
 The `gg_miss_var()` function creates a nice plot about the number of
-missing values for each variable.
+missing values for each variable, (need a data frame).
 
 ```{r, fig.height=4, warning=FALSE, fig.align='center'}
 naniar::gg_miss_var(airqual)
@@ -206,10 +212,13 @@ Think about if this is OK or not - it depends on your data!
 
 ## filter() and missing data {.codesmall}
 
-```{r, echo = FALSE}
+```{r}
 df <-tibble(Dog = c(0, NA, 2, 3, 1, 1), 
-            Cat= c(NA, 8, 6, NA, 2, NA))
+            Cat = c(NA, 8, 6, NA, 2, NA))
 ```
+
+
+## filter() and missing data {.codesmall}
 
 ```{r}
 df
@@ -222,9 +231,9 @@ df %>% filter(Dog < 3)
 df %>% filter(Dog < 3 | is.na(Dog))
 ```
 
-## To remove rows with `NA` values for a variable use `drop_na()`
+## To remove rows with `NA` values for a **variable** use `drop_na()`
 
-A function from the `tidyr` package.
+A function from the `tidyr` package. (Need a data frame to start!)
 
 Disclaimer: Don't do this unless you have thought about if dropping `NA` values makes sense based on knowing what these values mean in your data.
 
@@ -234,7 +243,7 @@ df %>% drop_na(Dog)
 
 
 
-## To remove rows with `NA` values for a data frame use `drop_na()`
+## To remove rows with `NA` values for a **data frame** use `drop_na()`
 
 This function of the `tidyr` package drops rows with **any** missing data in **any** column when used on a df.
 
@@ -247,19 +256,21 @@ df %>% drop_na()
 Use the `miss_var_which()` function from `naniar`
 
 ```{r}
-df<-df %>% mutate(test =c(1,2,3,4,5,6))
+df<-df %>% mutate(test = c(1,2,3,4,5,6))
 df
 miss_var_which(df) # which columns have missing values
 ```
 
-## Drop **columns** with any missing values{.codesmall}
+## Drop **columns** with any missing values {.codesmall}
 
+`miss_var_which` and  function from `naniar` (need a data frame)
 
 ```{r}
 
 df %>% select(!miss_var_which(df))
 
 ```
+
 
 ## Removing columns with threshold of percent missing row values{.codesmall}
 
