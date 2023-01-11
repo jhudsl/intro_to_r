@@ -373,7 +373,7 @@ Pay attention to your data and your `NA` values!
 
 ## Example of Recoding
 
-```{r, echo=FALSE}
+```{r}
 data_diet <- tibble(Diet = rep(c("A", "B", "B"),
                                times = 4), 
                     Gender = c("Male", 
@@ -393,7 +393,8 @@ data_diet <- tibble(Diet = rep(c("A", "B", "B"),
 
 ```
 
-Say we have some data about samples in a diet study:
+
+## Say we have some data about samples in a diet study:
 
 ```{r}
 data_diet
@@ -690,7 +691,7 @@ head(df_united, 4)
 
 ## Combining multiple columns next to one another
 
-```{r, echo = FALSE}
+```{r}
 museums <-tibble(
        name = c("Baltimore Museum of Art", "Walters Art Museum", 
                 "American Visionary Art Museum"),
@@ -701,6 +702,7 @@ museums <-tibble(
        )
 ```
 
+## Combining multiple columns next to one another
 
 ```{r}
 museums
