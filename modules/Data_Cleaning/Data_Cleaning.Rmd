@@ -463,7 +463,7 @@ data_diet %>%
                          TRUE ~ {value_for_not_meeting_condition})
 
 ```
-:::
+
 
 Here we use the original values of `Gender` to replace all values of `Gender` that do not meet the condition `== "M"`.
 
@@ -480,7 +480,7 @@ data_diet %>%
 data_diet %>% 
   mutate(Gender = case_when(
     Gender %in% c("M", "male", "Man", "m", "Male") ~ "Male",
-    Gender %in% c("F", "Female", "f", "female")~ "Female",
+    Gender %in% c("F", "Female", "f", "female") ~ "Female",
     Gender %in% c("O", "Other") ~ "Other"))
 
 ```
