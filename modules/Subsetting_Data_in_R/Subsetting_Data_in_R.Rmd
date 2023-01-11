@@ -212,10 +212,11 @@ head(tibble(df), n = 2)
 If you run into losing a variable contained in your row names, you can also use `rownames_to_column` (of `tibble` package) to add it before turning it into a `tibble` to keep them:
 
 <div class = "codeexample">
-```{r, eval = FALSE}
+```{r, eval = FALSE, size = "tiny"}
 # general format! not code!
-{data you are creating or changing} <- rownames_to_column({data you are using}, 
-                                          {Name of column you are making from rownames})
+{data you are creating or changing} <- # reassign if you want to keep changes
+      rownames_to_column({data you are using}, 
+                        {Name of column you are making from rownames})
 ```
 </div>
 
