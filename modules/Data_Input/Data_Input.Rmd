@@ -377,6 +377,18 @@ These functions have slightly different syntax for reading in data (e.g. `header
 However, while many online resources use the base R tools, the latest version of RStudio switched to use these new `readr` data import tools, so we will use them in the class for slides. They are also up to two times faster for reading in large datasets, and have a progress bar which is nice. 
 
 
+## Data Input: Excel files
+
+- You **cannot** read in an excel file from a URL.
+- Need to load the `readxl` package with `library()`.
+
+```{r, eval=FALSE}
+library(readxl)
+
+read_excel("mtcars.xlsx")
+```
+
+
 ## Data input: other file types
 
 * `haven` package has functions to read SAS, SPSS, Stata formats
@@ -445,6 +457,9 @@ setwd("/Users/avahoffman/Desktop")
 
 R uses working directory as a starting place when searching for files.
 
+```{r, fig.alt="The files are in the computer text overlaid on still shot of the movie Zoolander.", out.width = "60%", echo = FALSE, align = "center"}
+knitr::include_graphics("images/files.jpg")
+```
 
 ## Working Directories
 
