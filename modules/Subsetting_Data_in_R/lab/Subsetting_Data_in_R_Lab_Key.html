@@ -429,7 +429,7 @@ dim(cars_mpg)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Subset the rows of <code>cars_mt_copy</code> that get <strong>less</strong> than 16 miles per gallon (<code>MPG</code>) of fuel efficiency and <strong>more</strong> than 150 horsepower (<code>HP</code>) - how many are there?</li>
 </ol>
-<pre class="r"><code>filter(cars_mt_copy, MPG &lt; 16 &amp; HP &gt; 150)</code></pre>
+<pre class="r"><code>filter(cars_mt_copy, MPG &lt; 16 &amp; HP &gt; 150) # all of these options work</code></pre>
 <pre><code>## # A tibble: 8 × 12
 ##   CAR            MPG   CYL  DISP    HP  DRAT    WT  QSEC    VS    AM  GEAR  CARB
 ##   &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -452,7 +452,7 @@ dim(cars_mpg)</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Subset the rows of <code>cars_mt_copy</code> that get <strong>less</strong> than 16 miles per gallon (<code>MPG</code>) of fuel efficiency <strong>and</strong> <strong>greater than or equal</strong> to 150 horsepower (<code>HP</code>) - how many are there?</li>
 </ol>
-<pre class="r"><code>filter(cars_mt_copy, MPG &lt; 16 &amp; HP &gt;= 150)</code></pre>
+<pre class="r"><code>filter(cars_mt_copy, MPG &lt; 16 &amp; HP &gt;= 150) # all of these options work</code></pre>
 <pre><code>## # A tibble: 10 × 12
 ##    CAR           MPG   CYL  DISP    HP  DRAT    WT  QSEC    VS    AM  GEAR  CARB
 ##    &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
