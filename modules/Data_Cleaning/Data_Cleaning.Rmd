@@ -193,11 +193,13 @@ sum(x, na.rm = TRUE)
 
 ## filter() and missing data
 
-Be careful with missing data using subsetting:
+Be **careful** with missing data using subsetting!
 
 **`filter()` removes missing values by default.** Because R can't tell
 for sure if an `NA` value meets the condition. To keep them need to add
 `is.na()` conditional.
+
+Think about if this is OK or not - it depends on your data!
 
 ## filter() and missing data {.codesmall}
 
@@ -220,6 +222,8 @@ df %>% filter(Dog < 3 | is.na(Dog))
 ## To remove rows with `NA` values for a variable use `drop_na()`
 
 A function from the `tidyr` package.
+
+Disclaimer: Don't do this unless you have thought about if dropping `NA` values makes sense based on knowing what these values mean in your data.
 
 ```{r}
 df %>% drop_na(Dog)
@@ -288,15 +292,15 @@ and also if there was a different issue?
 ## Think about `NA`
 
 If it is something more like a zero then you might want it included in
-your data like a zero.
+your data like a zero instead of an `NA`.
 
 Example: - survey reports `NA` if student has never tried cigarettes -
 survey reports 0 if student has tried cigarettes but did not smoke that
 week
 
 ::: {style="color: red;"}
-⚠️You might want to keep the `NA` values so that you know the original
-sample size.⚠️
+⚠️ You might want to keep the `NA` values so that you know the original
+sample size. ⚠️
 :::
 
 ## Word of caution {.codesmall}
