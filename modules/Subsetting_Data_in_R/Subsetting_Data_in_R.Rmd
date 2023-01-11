@@ -380,8 +380,8 @@ select(df, starts_with("c"))
 Here are a few:
 
 ```{r, eval = FALSE}
-one_of() # if they exist
 last_col()
+starts_with()
 ends_with()
 contains() # like searching
 ```
