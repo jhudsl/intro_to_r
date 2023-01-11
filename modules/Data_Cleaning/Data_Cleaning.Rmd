@@ -15,6 +15,7 @@ opts_chunk$set(comment = "")
 library(readr)
 suppressPackageStartupMessages(library(dplyr))
 library(tidyverse)
+library(emoji)
 ```
 
 ## Recap on summarization
@@ -50,8 +51,10 @@ In general, data cleaning is a process of investigating your data for
 inaccuracies, or recoding it in a way that makes it more manageable.
 
 ::: {style="color: red;"}
-⚠️ MOST IMPORTANT RULE - LOOK 👀 AT YOUR DATA! ⚠️
+ MOST IMPORTANT RULE - LOOK 👀 AT YOUR DATA!
 :::
+
+
 
 # Dealing with Missing Data
 
@@ -280,14 +283,17 @@ df %>% mutate(Dog = na_if(Dog, 0))
 ## Think about `NA`
 
 ::: {style="color: red;"}
-⚠️ THINK ABOUT YOUR DATA FIRST! ⚠️
-:::
+ THINK ABOUT YOUR DATA FIRST! 
+::: 
 
-Sometimes removing `NA` values leads to distorted math - be careful!
-Think about what your `NA` means for your data (are you sure ?).
 
-Is an `NA` for values so low they could not be reported? Or is it this
-and also if there was a different issue?
+`r emoji("warning")` Sometimes removing `NA` values leads to distorted math - be careful!
+
+`r emoji("warning")` Think about what your `NA` means for your data (are you sure ?).
+
+`r emoji("warning")` Is an `NA` for values so low they could not be reported? 
+
+`r emoji("warning")` Or is it if it was too low and also if there was a different issue (like no one reported)?
 
 ## Think about `NA`
 
@@ -298,17 +304,16 @@ Example: - survey reports `NA` if student has never tried cigarettes -
 survey reports 0 if student has tried cigarettes but did not smoke that
 week
 
-::: {style="color: red;"}
-⚠️ You might want to keep the `NA` values so that you know the original
-sample size. ⚠️
-:::
+
+`r emoji("warning")` You might want to keep the `NA` values so that you know the original sample size. 
+
 
 ## Word of caution {.codesmall}
 
-::: {style="color: red;"}
-⚠️ Calculating percentages will give you a different result depending on
-your choice to include NA values.! ⚠️
-:::
+
+`r emoji("warning")` Calculating percentages will give you a different result depending on your choice to include NA values.!
+
+
 
 
 ```{r}
