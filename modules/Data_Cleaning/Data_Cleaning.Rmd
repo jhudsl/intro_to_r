@@ -335,7 +335,7 @@ Pay attention to your data and your `NA` values!
 -   `drop_na()` can help you remove `NA` values from a variable or an
     entire data frame
 -   `NA` values can change your calculation results
--   think about what `NA` values represent
+-   think about what `NA` values represent - don't drop them if you shouldn't
 
 ## Lab Part 1
 
@@ -633,6 +633,8 @@ diet_comb
 
 
 
+
+
 ## Separating columns based on a separator
 
 The `separate()` function from `tidyr` can split a column into multiple columns.   
@@ -661,8 +663,24 @@ df_united <- df %>% unite(col = "unique_id", id, visit, sep = "_")
 head(df_united, 4)
 ```
 
+## Combining multiple columns next to one another
+
+```{r, echo = FALSE}
+museums <-tibble(
+       name = c("Baltimore Museum of Art", "Walters Art Museum", 
+                "American Visionary Art Museum"),
+       street = c("10 Art Museum Dr", "600 N Charles St", "800 Key Hwy"),
+       city = c("Baltimore", "Baltimore", "Baltimore"), 
+       State = rep("MD", 3),
+       zip =  c(21218, 21201, 21230)
+       )
+```
 
 
+```{r}
+museums
+museums %>% unite(col = address, street:zip, sep = ", ")
+```
 
 ## Summary
 
