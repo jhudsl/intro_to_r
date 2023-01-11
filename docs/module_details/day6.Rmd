@@ -1,4 +1,5 @@
 ---
+title: "Day 6"
 output:
   html_document:
     fig_caption: false
@@ -9,8 +10,6 @@ library(tidyverse)
 source("../../scripts/utils.R")
 schedule <- read_markdown("../_schedule_table.Rmd")
 ```
-
-# Day 6
 
 ## Objectives
 
@@ -47,7 +46,7 @@ pander::pandoc.table(
 
 ## Homework
 
-`r emo::ji("rotating_light")` **SURVEY**: [Day 6 check-in](https://courseplus.jhu.edu/core/index.cfm/go/survey2:student.home/coid/18000/#!/surveyid/36573/surveyview)
+`r emo::ji("rotating_light")` **SURVEY**: [Day 6 check-in](`r config::get("courseplus_surveys")`)
 
 `r emo::ji("pencil")` **HOMEWORK 1**: [Dataquest](https://app.dataquest.io/login?target-url=%2Fm%2F499%2Fintroduction-to-programming-in-r) 
 
@@ -58,7 +57,7 @@ pander::pandoc.table(
 
 ## Drop Boxes
 
-[Assignment Drop Boxes](https://courseplus.jhu.edu/core/index.cfm/go/db:main/coid/18000/)
+[Assignment Drop Boxes](`r config::get("courseplus_dropboxes")`)
 
 **Note**: only people taking the course for credit must turn in the assignments. However, we will evaluate all submitted assignments in case others would like feedback on their work.
 

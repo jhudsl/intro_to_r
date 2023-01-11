@@ -8,21 +8,18 @@ output:
 library(tidyverse)
 ```
 
-**Epi/Biostats Winter Institute - Introduction to R for Public Health Researchers
-140.604.73**
+**`r config::get("course_name_long")`**
 
 **Class Website:** http://jhudatascience.org/intro_to_r/   
-**CoursePlus:** https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/18000/
+**CoursePlus:** `r config::get("courseplus_web")`
 
 **Zoom link will be emailed to students.**
 
-**Day/Time:** June 13 - 24: 8:30AM-11:50AM ET on Zoom
+**Day/Time:** `r config::get("course_dates")`: 1:30PM-4:50PM ET on Zoom (**`r config::get("holiday")`**)
 
-**Instructors:** Carrie Wright (cwrigh60@jhu.edu), Ava Hoffman (ava.hoffman@jhu.edu)
+**Instructors:** `r config::get("instructors")`
 
-**Guest Lecturer:** Candace Savonen (csavone1@jhu.edu)
-
-**TAs:** Alex Newman (anewma28@jhu.edu), Frances Wang (fwang41@jhmi.edu)
+**Teaching Assistants:** `r config::get("ta")`
 
 **Communication will mainly occur through Slack and we will email you about how to connect to Slack.**
 
@@ -73,7 +70,7 @@ By the end of the course, students should be comfortable:
 2. Homework: 3 x 15%
 3. Final "Project": 35%
 
-All assignments are due Friday, July 1st, 2022 at 11:59pm EST.
+All assignments are due `r config::get("final_due_date")`. Note that we must submit final grades by `r config::get("grades_due")`, so please turn in your assignments before this date so that we can give you credit for your efforts.
 
 **Note**: only people taking the course for credit must turn in the assignments. However, we will evaluate all submitted assignments in case others would like feedback on their work.
 
@@ -82,7 +79,7 @@ All assignments are due Friday, July 1st, 2022 at 11:59pm EST.
 ## Submitting Assignments
 ***
 
-Submit each assignment to the designated [Drop Box on CoursePlus](https://courseplus.jhu.edu/core/index.cfm/go/db:main/coID/18000/).
+Submit each assignment to the designated [Drop Box on CoursePlus](`r config::get("courseplus_dropboxes")`).
 
 You should complete the following:
 
@@ -94,6 +91,15 @@ You should complete the following:
    - [Questions (Rmd)](modules/HW/homework3.Rmd), [Questions (HTML)](modules/HW/homework3.html)         
    - [Key (Rmd)](modules/HW/homework3_key.Rmd), [Key (HTML)](modules/HW/homework3_key.html)
 4. Final Project (see below)
+
+<br>
+
+## Assignment Extensions
+***
+
+We know that you will try your best to submit assignments on time. However, we understand that life happens. We can accept late assignments with a deduction of 2% of your assignment score per day late.
+
+For example, if you scored 9/10 on an assignment (90%) but turned it in two days late, your score would be 8.6/10 (86%). Note that we must submit final grades by `r config::get("grades_due")`, so please turn in your assignments before this date, so that we can give you credit. 
 
 <br>
 

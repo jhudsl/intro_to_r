@@ -654,7 +654,7 @@ food_bar +
 
 ## Tip - Check what you plot {.codesmall}
 
-⚠️ May not be plotting what you think you are! ⚠️
+`r emo::ji("warning")` May not be plotting what you think you are! `r emo::ji("warning")`
 
 ```{r, fig.width=5 , fig.height=3, fig.align='center'}
 ggplot(food, mapping = aes(x = item_ID, 
@@ -778,4 +778,9 @@ Check out this [guide](https://jhudatascience.org/tidyversecourse/dataviz.html#m
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)    
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules//Data_Visualization/lab/Data_Visualization_Lab.Rmd)
 
-The End
+```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
+knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
+```
+
+Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
+

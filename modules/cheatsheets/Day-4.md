@@ -24,7 +24,7 @@
 | Base `R`| [`table()`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/table)| `table(x)`| Builds a contingency table of the counts at each combination of factor levels.|
 | `dplyr`| [`count()`](https://dplyr.tidyverse.org/reference/count.html)|`df %>% count(factor_name)`|Count the number of groups in a factor variable of a data frame or tibble|
 | `dplyr`| [`group_by()`](https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/group_by)|`df %>% count(factor_name)`| Groups data into rows that contain the same specified value(s)|
-| `dplyr`| [`ungroup()`](https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/group_by)|`df %>% count(factor_name)`| Undo a grouping that was done by `dplyr::group_by()`|
+| `dplyr`| [`ungroup()`](https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/group_by)|`df %>% count(factor_name)`| Undo a grouping that was done by `group_by()`|
 | Base `R`| [`plot()`](https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/plot)|`plot(x, y)`| Creates a scatterplot of x and y vector data|
 | Base `R`| [`boxplot()`](https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/boxplot)|`boxplot(x, y)`| Creates a boxplot of y against levels of x|
 | Base `R`| [`hist()`](https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/hist)|`hist(x)`| Creates a histogram of x|

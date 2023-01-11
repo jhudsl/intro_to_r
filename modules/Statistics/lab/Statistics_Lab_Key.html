@@ -194,7 +194,7 @@ y &lt;- pull(mort, `2007`)
 cor(x, y)</code></pre>
 <pre><code>## [1] 0.9995124</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li>Compute the correlation between the <code>1980</code>, <code>1990</code>, <code>2000</code>, and <code>2010</code> mortality variables. (No need to save this in an object. Just display the result to the screen.) Use <code>select()</code> function to first subset the data frame to keep the four columns only. To use a column name in <code>select()</code> that starts with a number, surround it with backticks (`).</li>
+<li>Compute the correlation between the <code>1980</code>, <code>1990</code>, <code>2000</code>, and <code>2010</code> mortality variables. (No need to save this in an object. Just display the result to the screen.) Use <code>select()</code> function to first subset the data frame to keep the four columns only. To use a column name in <code>select()</code> that starts with a number, surround it with backticks (`). How does this change when we use the <code>use = &quot;complete.obs&quot;</code> argument?</li>
 </ol>
 <pre class="r"><code>mort_sub &lt;-
   mort %&gt;%
@@ -212,11 +212,8 @@ cor(mort_sub)</code></pre>
 ## 1990 0.9596846 1.0000000 0.9610269 0.9247192
 ## 2000 0.8877433 0.9610269 1.0000000 0.9862345
 ## 2010 0.8468284 0.9247192 0.9862345 1.0000000</code></pre>
-</div>
-<div id="part-2" class="section level1">
-<h1>Part 2</h1>
 <ol start="4" style="list-style-type: decimal">
-<li>Perform a t-test to determine if there is evidence of a difference between child mortality in <code>1987</code> versus <code>2007</code>. Use the <code>pull()</code> function to extract these columns. Print the results using the <code>tidy</code> function.</li>
+<li>Perform a t-test to determine if there is evidence of a difference between child mortality in <code>1987</code> versus <code>2007</code>. Use the <code>pull()</code> function to extract these columns. Print the results using the <code>tidy</code> function from the <code>broom</code> package.</li>
 </ol>
 <pre class="r"><code>x &lt;- pull(mort, `1987`)
 y &lt;- pull(mort, `2007`)
@@ -239,9 +236,7 @@ t.test(x, y)</code></pre>
 ##      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
 ## 1    0.336     0.770     0.434      4.83 0.00000207      348.    0.199     0.473
 ## # … with 2 more variables: method &lt;chr&gt;, alternative &lt;chr&gt;</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>Perform a t-test to determine if there is evidence of a difference between child mortality in <code>2006</code> versus <code>2007</code>. Use the <code>pull()</code> function to extract these columns. Print the results using the <code>tidy</code> function. How do these results compare to those in #4?</li>
-</ol>
+<p><strong>Bonus / Extra practice</strong>: 5. Perform a t-test to determine if there is evidence of a difference between child mortality in <code>2006</code> versus <code>2007</code>. Use the <code>pull()</code> function to extract these columns. Print the results using the <code>tidy</code> function. How do these results compare to those in #4?</p>
 <pre class="r"><code>x &lt;- pull(mort, `2006`)
 y &lt;- pull(mort, `2007`)
 
@@ -264,8 +259,8 @@ t.test(x, y)</code></pre>
 ## 1   0.0174     0.451     0.434     0.305   0.760      391.  -0.0949     0.130
 ## # … with 2 more variables: method &lt;chr&gt;, alternative &lt;chr&gt;</code></pre>
 </div>
-<div id="part-3" class="section level1">
-<h1>Part 3</h1>
+<div id="part-2" class="section level1">
+<h1>Part 2</h1>
 <ol start="6" style="list-style-type: decimal">
 <li>Read in the Kaggle cars auction dataset using <code>read_kaggle()</code> from the <code>jhur</code> package. Assign it to the “cars” variable. You can also find the data here: <a href="http://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv" class="uri">http://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv</a>.</li>
 </ol>
@@ -273,15 +268,17 @@ t.test(x, y)</code></pre>
 <ol start="7" style="list-style-type: decimal">
 <li>Fit a linear regression model with vehicle cost (“VehBCost”) as the outcome and whether it’s an online sale (“IsOnlineSale”) as the predictor. Save the model fit in an object called “lmfit_cars” and display the summary table.</li>
 </ol>
-<pre class="r"><code>lmfit_cars &lt;- lm(VehBCost ~ IsOnlineSale, data = cars)
+<pre><code># General format
+glm(y ~ x, data = DATASET_NAME)</code></pre>
+<pre class="r"><code>lmfit_cars &lt;- glm(VehBCost ~ IsOnlineSale, data = cars)
 summary(lmfit_cars)</code></pre>
 <pre><code>## 
 ## Call:
-## lm(formula = VehBCost ~ IsOnlineSale, data = cars)
+## glm(formula = VehBCost ~ IsOnlineSale, data = cars)
 ## 
-## Residuals:
-##    Min     1Q Median     3Q    Max 
-##  -6720  -1296    -21   1179  38748 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+##  -6720   -1296     -21    1179   38748  
 ## 
 ## Coefficients:
 ##              Estimate Std. Error  t value Pr(&gt;|t|)    
@@ -290,21 +287,25 @@ summary(lmfit_cars)</code></pre>
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 1767 on 72981 degrees of freedom
-## Multiple R-squared:  0.001164,   Adjusted R-squared:  0.00115 
-## F-statistic: 85.06 on 1 and 72981 DF,  p-value: &lt; 2.2e-16</code></pre>
+## (Dispersion parameter for gaussian family taken to be 3121685)
+## 
+##     Null deviance: 2.2809e+11  on 72982  degrees of freedom
+## Residual deviance: 2.2782e+11  on 72981  degrees of freedom
+## AIC: 1298500
+## 
+## Number of Fisher Scoring iterations: 2</code></pre>
 <ol start="8" style="list-style-type: decimal">
 <li>Fit a linear regression model with vehicle cost (“VehBCost”) as the outcome and vehicle age (“VehicleAge”) and whether it’s an online sale (“IsOnlineSale”) as predictors. Save the model fit in an object called “lmfit_cars_2” and display the summary table.</li>
 </ol>
-<pre class="r"><code>lmfit_cars_2 &lt;- lm(VehBCost ~ VehicleAge + IsOnlineSale, data = cars)
+<pre class="r"><code>lmfit_cars_2 &lt;- glm(VehBCost ~ VehicleAge + IsOnlineSale, data = cars)
 summary(lmfit_cars_2)</code></pre>
 <pre><code>## 
 ## Call:
-## lm(formula = VehBCost ~ VehicleAge + IsOnlineSale, data = cars)
+## glm(formula = VehBCost ~ VehicleAge + IsOnlineSale, data = cars)
 ## 
-## Residuals:
-##    Min     1Q Median     3Q    Max 
-##  -6877  -1242   -139    998  38045 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+##  -6877   -1242    -139     998   38045  
 ## 
 ## Coefficients:
 ##              Estimate Std. Error t value Pr(&gt;|t|)    
@@ -314,25 +315,27 @@ summary(lmfit_cars_2)</code></pre>
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 1679 on 72980 degrees of freedom
-## Multiple R-squared:  0.09825,    Adjusted R-squared:  0.09822 
-## F-statistic:  3976 on 2 and 72980 DF,  p-value: &lt; 2.2e-16</code></pre>
-<ol start="9" style="list-style-type: decimal">
-<li>Fit a linear regression model with vehicle cost (“VehBCost”) as the outcome with predictors: (1) vehicle age (“VehicleAge”), (2) whether it’s an online sale (“IsOnlineSale”), and interaction between “VehicleAge” and “IsOnlineSale”.</li>
-</ol>
+## (Dispersion parameter for gaussian family taken to be 2818312)
+## 
+##     Null deviance: 2.2809e+11  on 72982  degrees of freedom
+## Residual deviance: 2.0568e+11  on 72980  degrees of freedom
+## AIC: 1291040
+## 
+## Number of Fisher Scoring iterations: 2</code></pre>
+<p><strong>Bonus / Extra practice</strong>: 9. Fit a linear regression model with vehicle cost (“VehBCost”) as the outcome with predictors: (1) vehicle age (“VehicleAge”), (2) whether it’s an online sale (“IsOnlineSale”), and interaction between “VehicleAge” and “IsOnlineSale”.</p>
 <ul>
 <li>To include the interaction, use <code>VehicleAge * IsOnlineSale</code> in the formula.</li>
 <li>Save the model fit in an object called “lmfit_cars_3” and display the summary table.</li>
 </ul>
-<pre class="r"><code>lmfit_cars_3 &lt;- lm(VehBCost ~ VehicleAge * IsOnlineSale, data = cars)
+<pre class="r"><code>lmfit_cars_3 &lt;- glm(VehBCost ~ VehicleAge * IsOnlineSale, data = cars)
 summary(lmfit_cars_3)</code></pre>
 <pre><code>## 
 ## Call:
-## lm(formula = VehBCost ~ VehicleAge * IsOnlineSale, data = cars)
+## glm(formula = VehBCost ~ VehicleAge * IsOnlineSale, data = cars)
 ## 
-## Residuals:
-##    Min     1Q Median     3Q    Max 
-##  -6876  -1241   -140    999  38048 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+##  -6876   -1241    -140     999   38048  
 ## 
 ## Coefficients:
 ##                         Estimate Std. Error t value Pr(&gt;|t|)    
@@ -343,15 +346,19 @@ summary(lmfit_cars_3)</code></pre>
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 1679 on 72979 degrees of freedom
-## Multiple R-squared:  0.0983, Adjusted R-squared:  0.09827 
-## F-statistic:  2652 on 3 and 72979 DF,  p-value: &lt; 2.2e-16</code></pre>
-<ol start="10" style="list-style-type: decimal">
-<li>Fit a logistic regression model where the outcome is “bad buy” (“IsBadBuy”) status and predictors are the cost (“VehBCost”) and vehicle age (“VehicleAge”).</li>
-</ol>
+## (Dispersion parameter for gaussian family taken to be 2818169)
+## 
+##     Null deviance: 2.2809e+11  on 72982  degrees of freedom
+## Residual deviance: 2.0567e+11  on 72979  degrees of freedom
+## AIC: 1291037
+## 
+## Number of Fisher Scoring iterations: 2</code></pre>
+<p><strong>Bonus / Extra practice</strong>: 10. Fit a logistic regression model where the outcome is “bad buy” (“IsBadBuy”) status and predictors are the cost (“VehBCost”) and vehicle age (“VehicleAge”).</p>
 <ul>
 <li>Save the model fit in an object called “logfit_cars” and display the summary table.</li>
 </ul>
+<pre><code># General format
+glm(y ~ x, data = DATASET_NAME, family = binomial())</code></pre>
 <pre class="r"><code>logfit_cars &lt;- glm(IsBadBuy ~ VehBCost + VehicleAge, data = cars, family = binomial())
 summary(logfit_cars)</code></pre>
 <pre><code>## 

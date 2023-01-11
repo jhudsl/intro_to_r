@@ -12,13 +12,13 @@ jobs:
     steps:
 
       # This is because if a PR is closed before a render finishes it won't find it.
-      - name: Sleep for 5 minutes
-        run: sleep 300s
+      - name: Sleep for 15 minutes
+        run: sleep 900s
         shell: bash
 
       # Check out current repository
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 

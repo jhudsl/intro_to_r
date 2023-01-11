@@ -1,4 +1,5 @@
 ---
+title: "Resources"
 output:
   html_document
 ---
@@ -27,63 +28,57 @@ If you need to check what packages are part of the `tidyverse`, you can do so at
 
 RStudio shortcuts can be found [here](<http://www.rstudio.com/ide/docs/using/keyboard_shortcuts>).
 
-Extra information about file paths can be found [here](https://docs.google.com/presentation/d/18u1Vhd3Uq-QprC0btpxS_-Ka-LKVUvncyoqdbGdb-g4/edit?usp=sharing).
+**Want background reading?**
 
+- [Lawlor et al. 2022](https://doi.org/10.1371/journal.pcbi.1010372): Ten simple rules for teaching yourself R 
 
 **Need help?** 
 
 - [Various RStudio "Cheatsheets"](https://www.rstudio.com/resources/cheatsheets/)   
-
 - [R reference card](http://cran.r-project.org/doc/contrib/Short-refcard.pdf) 
-
 - [R jargon](https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf)  
-
 - [R terminology](https://cran.r-project.org/doc/manuals/r-release/R-lang.pdf)
-
 - [What is the Tidyverse?](https://www.tidyverse.org/packages/)
-
+- [Video on Data import](https://youtu.be/LEkNfJgpunQ)
 -  Animations of join functions:
     [`full-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/full-join.gif)
     [`inner_join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/inner-join.gif)
     [`left-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/left-join.gif)
     [`right-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/right-join.gif)
+- [video](https://www.youtube.com/watch?v=we6vwB7DsNU) for PC users who want to see how to move files around (especially from downloads) 
+- [video](https://www.youtube.com/watch?v=Ao9e0cDzMrE) for Mac users who want to see how to move files around (especially from downloads)
+- [Extra information about file paths](https://docs.google.com/presentation/d/18u1Vhd3Uq-QprC0btpxS_-Ka-LKVUvncyoqdbGdb-g4/edit?usp=sharing)
+- [`ggplot2` gallery](https://r-graph-gallery.com/ggplot2-package.html) - See what is possible with `ggplot2` to create graphs in R
+- [Visualization best practices](https://jhudatascience.org/tidyversecourse/dataviz.html#making-good-plots)
+- [Guide on when to use which plot](https://infogram.com/page/choose-the-right-chart-data-visualization)
+- [Guide on when to use quotes or backticks](https://jhudatascience.org/intro_to_r/quotes_vs_backticks.html)
+- [Guide on when to use what stats test](https://www.scribbr.com/statistics/statistical-tests/)
+- [Modeling 101](https://jhudatascience.org/tidyversecourse/model.html#linear-modeling)
 
-- PC users who want to see how to move files around (especially from downloads), check out this video:   https://youtu.be/we6vwB7DsNU
-
-- Mac users who want to see how to move files around (especially from downloads), check out this video:   https://www.youtube.com/watch?v=Ao9e0cDzMrE
 
 **Want more?**  
 
-- [Tidyverse Skills for Data Science Book](https://jhudatascience.org/tidyversecourse/)  
-(more about the tidyverse, some modeling, and machine learning)
-
-- [Tidyverse Skills for Data Science Course](https://www.coursera.org/specializations/tidyverse-data-science-r)  
-(same content with quizzes, can get certificate with $)
-
-- [R for Data Science](http://r4ds.had.co.nz/)  
-(great general information)
-
-- [R basics chapter of Introduction to Data Science by Rafael A. Irizarry](https://rafalab.github.io/dsbook/r-basics.html)
-(great general information)
- 
+- [Tidyverse Skills for Data Science Book](https://jhudatascience.org/tidyversecourse/)  (**a great next step** to learn more about the tidyverse, some modeling, and machine learning)
+- [Tidyverse Skills for Data Science Course](https://www.coursera.org/specializations/tidyverse-data-science-r)  (same content with quizzes, can get certificate with $)
+- [R for Data Science](http://r4ds.had.co.nz/)  (great general information)
+- [R basics chapter of Introduction to Data Science by Rafael A. Irizarry](https://rafalab.github.io/dsbook/r-basics.html)(great general information)
 - [Open Case Studies](https://www.opencasestudies.org/)  
-(resource for specific public health cases with statistical implementation and interpretation)
+(resource for specific public health cases with statistical implementation and interpretation - **a great next step** for learning more about stats and wrangling!)
+- [Dataquest](https://www.dataquest.io/)  (general interactive resource)
+- [Quick R Guide]( http://statmethods.net/)  (nice free general resource)
+- [Building up a `ggplot2` figure](https://hopstat.wordpress.com/2016/02/18/how-i-build-up-a-ggplot2-figure/)  (guide to making plots)
 
-- [Dataquest](https://www.dataquest.io/)  
-(general interactive resource)
+**Interested in more stats classes at JHU?**
 
-- [Quick R Guide]( http://statmethods.net/)  
-(nice free general resource)
-
-- [Building up a `ggplot2` figure](https://hopstat.wordpress.com/2016/02/18/how-i-build-up-a-ggplot2-figure/)  
-(guide to making plots)
+- [PH.140.621, PH.140.622, PH.140.623, PH.140.62 - Statistical Methods in Public Health I, II, III, and IV](https://e-catalogue.jhu.edu/course-descriptions/biostatistics/) - The class is mostly taught in STATA, but you can also join a group of students working in R. The class covers many topics in statistical analysis for public health data.
+- [PH.140.778 - Statistical Computing, Algorithm, and Software Development](https://www.jhsph.edu/courses/course/36737/2022/140.778.01/statistical-computing-algorithm-and-software-devel) - A more advanced course for working with data in R.
+    - Content for similar topics as this course can also be found on [Leanpub](https://leanpub.com/advstatcomp).
 
 **Interested in Reproducibility?**
 
 Check out Candace's courses:
 
 - [Introduction](https://jhudatascience.org/Reproducibility_in_Cancer_Informatics/)
-
 - [Advanced](https://jhudatascience.org/Adv_Reproducibility_in_Cancer_Informatics/)
 
 **R for Stata, SPSS, and SAS files**
@@ -93,10 +88,41 @@ Check out Candace's courses:
 - [R vs Stata](https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf)  
 (See page 505)
 
+**Comparison of Python and R**
+- A helpful [blog post](https://www.ibm.com/cloud/blog/python-vs-r) about the difference between these two languages.
+
+**Interested in Conferences?**
+
+- The [RStudio/posit conference](https://posit.co/conference/) has lots of useful workshops! 
 <br>
 
 ## Videos of Previous Online Lectures
 ***
+
+### From Summer Institute 2022
+
+```{r, echo = FALSE, message = FALSE, results='asis'}
+mat <- matrix(c(
+  "RStudio and Reproducibility", "https://www.youtube.com/watch?v=eCsD0f0q6rY&t=9s",
+  "Basic R", "https://www.youtube.com/watch?v=2YRgDG3qsho",
+  "Data IO", "https://www.youtube.com/watch?v=ejnBAdA2N1c",
+  "Subsetting Data", "https://www.youtube.com/watch?v=GFa6dXAezJg",
+  "Data Summarization", "https://www.youtube.com/watch?v=kj_69maSANk",
+  "Data Classes", "https://www.youtube.com/watch?v=zoVciFJieLY&t=21s",
+  "Data Cleaning", "https://www.youtube.com/watch?v=GhK8xMUBNwg",
+  "Data Manipulation", "https://www.youtube.com/watch?v=qP73AWUjfAU",
+  "Intro to Data Visualization", "https://www.youtube.com/watch?v=OCVo6vWrKL4",
+  "Data Visualization", "https://www.youtube.com/watch?v=9UPlZqOfT_s",
+  "Factors", "https://www.youtube.com/watch?v=0fE756trEEE",
+  "Statistics", "https://www.youtube.com/watch?v=jZ5sskAdAJU&t=4s",
+  "Functions", "https://www.youtube.com/watch?v=dx-85RzN1G0"
+), ncol = 2, byrow = TRUE)
+mat <- data.frame(mat, stringsAsFactors = FALSE)
+colnames(mat) <- c("Day", "Link to Video")
+knitr::kable(mat, format = "html") %>%
+  kable_styling()
+```
+
 
 ### From Winter Institute 2022
 

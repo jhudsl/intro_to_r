@@ -177,32 +177,30 @@ pre code {
 </ol>
 <pre class="r"><code>library(dplyr)
 library(ggplot2)</code></pre>
-<ol style="list-style-type: decimal">
-<li><p>Load the Youth Tobacco Survey data (using <code>jhur::read_yts()</code>). <code>select</code> “Sample_Size”, “Education”, and “LocationAbbr”. Name this data “yts”.</p></li>
+<ol start="0" style="list-style-type: decimal">
+<li><p>Load the Youth Tobacco Survey data (using the <code>jhur</code> library function <code>read_yts()</code>). <code>select</code> “Sample_Size”, “Education”, and “LocationAbbr”. Name this data “yts”.</p></li>
 <li><p>Create a boxplot showing the difference in “Sample_Size” between Middle School and High School “Education”. <strong>Hint</strong>: Use <code>aes(x = Education, y = Sample_Size)</code> and <code>geom_boxplot()</code>.</p></li>
-<li><p>Use <code>group_by</code> and <code>tally</code> to count up the number of lines of data for each “Education” group.</p></li>
+<li><p>Use <code>count</code> to count up the number of observations of data for each “Education” group.</p></li>
 <li><p>Make “Education” a factor using the <code>mutate</code> and <code>factor</code> functions. Use the <code>levels</code> argument inside <code>factor</code> to reorder “Education”. Reorder this variable so that “Middle School” comes before “High School”. Assign the output the name “yts_fct”.</p></li>
-<li><p>Repeat #2 and #3 using the “yts_fct” data. You should see different ordering in the plot and <code>tally</code> table.</p></li>
+<li><p>Repeat #1 and #2 using the “yts_fct” data. You should see different ordering in the plot and <code>count</code> table.</p></li>
 </ol>
-<p><strong>BONUS</strong></p>
-<ol start="6" style="list-style-type: decimal">
-<li><p>Convert “LocationAbbr” (state) in “yts_fct” into a factor using the <code>mutate</code> and <code>factor</code> functions. Do not add a <code>levels =</code> argument.</p></li>
-<li><p>We want to create a new column that contains the group-level median sample size.</p></li>
-</ol>
+<p><strong>Bonus / Extra practice</strong>: Convert “LocationAbbr” (state) in “yts_fct” into a factor using the <code>mutate</code> and <code>factor</code> functions. Do not add a <code>levels =</code> argument.</p>
+<p><strong>Bonus / Extra practice</strong>: We want to create a new column that contains the group-level median sample size.</p>
 <ul>
 <li>Using the “yts_fct” data, <code>group_by</code> “LocationAbbr”.</li>
 <li>Then, use <code>mutate</code> to create a new column “med_sample_size” that is the median “Sample_Size”.</li>
 <li><strong>Hint</strong>: Since you have already done <code>group_by</code>, a median “Sample_Size” will automatically be created for each unique level in “LocationAbbr”. Use the <code>median</code> function with <code>na.rm = TRUE</code>.</li>
 </ul>
-<ol start="8" style="list-style-type: decimal">
-<li>We want to plot the “LocationAbbr” (state) by the “med_sample_size” column we created above. Using the <code>forcats</code> package, create a plot that:</li>
-</ol>
+<p><strong>Bonus / Extra practice</strong>: We want to plot the “LocationAbbr” (state) by the “med_sample_size” column we created above. Using the <code>forcats</code> package, create a plot that:</p>
 <ul>
 <li>Has “LocationAbbr” on the x-axis</li>
 <li>Uses the <code>mapping</code> argument and the <code>fct_reorder</code> function to order the x-axis by “med_sample_size”</li>
 <li>Has “Sample_Size” on the y-axis</li>
 <li>Is a boxplot (<code>geom_boxplot</code>)</li>
+<li>Has the x axis label of <code>State</code> (Don’t worry if you get a warning about not being able to plot <code>NA</code> values.)</li>
 </ul>
+<p>Save your plot using <code>ggsave()</code> with a width of 10 and height of 3.</p>
+<p>Which state has the largest median sample size?</p>
 
 
 

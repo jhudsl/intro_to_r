@@ -4,7 +4,7 @@ output:
   html_document
 ---
 
-In recognition of [Juneteenth](https://en.wikipedia.org/wiki/Juneteenth), there will be no class on Monday June 20th 2022. There is an assignment due before class to [install software](../../modules/Setup/R_and_RStudio_installation.html) and we recommend completing HW 1 (uploading a screenshot showing that you finished the Dataquest module indicated below) before class, but all other assignments will be due July 1st. You are welcome to turn assignments in earlier if you wish.
+`r config::get("holiday")` There is an assignment due before class to [install software](../../modules/Setup/R_and_RStudio_installation.html) and we recommend completing HW 1 (uploading a screenshot showing that you finished the Dataquest module indicated below) before class, but all other assignments will be due `r config::get("final_due_date")`. Note that we must turn in final grades by `r config::get("grades_due")`, so please turn your assignments in on time so that we can give you credit. You are welcome to turn assignments in earlier if you wish.
 
 <br>
 
@@ -13,11 +13,11 @@ In recognition of [Juneteenth](https://en.wikipedia.org/wiki/Juneteenth), there 
 
 | Time (EST)        | Content   |
 |-------------------|-----------|
-| 8:30am - 9:30am   | Session 1 |
-| 9:30am - 9:40am   | Break     |
-| 9:40am - 10:40am  | Session 2 |
-| 10:40am - 10:50am | Break     |
-| 10:50am - 11:50am | Session 3 |
+| 1:30pm - 2:30pm   | Session 1 |
+| 2:30pm - 2:40pm   | Break     |
+| 2:40pm - 3:40pm   | Session 2 |
+| 3:40pm - 3:50pm   | Break     |
+| 3:50pm - 4:50pm   | Session 3 |
 
 <br>
 
@@ -52,7 +52,7 @@ pander::pandoc.table(
 [Day 2](docs/module_details/day2.html)
 
 - Basic R: Variables/Objects in R
-- Data Input/Output
+- Data Input
 
 
 [Day 3](docs/module_details/day3.html)
@@ -88,6 +88,7 @@ pander::pandoc.table(
 [Day 8](docs/module_details/day8.html)
 
 - Statistics
+- Data Output
 - Discuss and work on Final Project
 
 

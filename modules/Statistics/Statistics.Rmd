@@ -20,7 +20,27 @@ library(dplyr)
 options(scipen = 999)
 library(readr)
 library(ggplot2)
+library(emo)
+
+install.packages(c("faraway", "epitools"))
 ```
+
+## Summary
+
+- `ggplot()` specifies what data use and what variables will be mapped to where
+- inside `ggplot()`, `mapping = aes(x = , y = , color =)` specify what variables correspond to what aspects of the plot in general
+- layers of plots can be combined using the `+` at the **end** of lines
+- use `geom_line()` and `geom_point()` to add lines and points
+- sometimes you need to add a `group` element to `mapping = aes()` if your plot looks strange
+- make sure you are plotting what you think you are by checking the numbers!
+- `facet_grid(~ variable)` and `facet_wrap(~variable)` can be helpful to quickly split up your plot
+
+## Summary
+
+- the factor class allows us to have a different order from alphanumeric for categorical data
+- we can change data to be a factor variable using `mutate` , the `as_factor()` (of `forcats` package) or `factor()` function and specifying the levels with the `levels` argument
+- the `fct_reorder({variable_to_reorder}, {variable_to_order_by})` helps us reorder a variable by the values of another variable
+- arranging, tabulating, and plotting the data will reflect the new order
 
 ## Overview
 
@@ -28,12 +48,23 @@ We will cover how to use R to compute some of basic statistics and fit some basi
 
 * Correlation
 * T-test
-* Linear Regression
-* Logistic Regression
+* Linear Regression / Logistic Regression
 
-**DISCLAIMER**: We will focus on how to use R software to do these. We will be glossing over the statistical theory and "formulas" for these tests. Moreover, we do not claim the data we use for demonstration meet assumptions of the methods. 
+<br>
+
+```{r, fig.alt="I was told there would be no math", out.width = "35%", echo = FALSE, fig.show='hold',fig.align='center'}
+knitr::include_graphics("https://c.tenor.com/O3x8ywLm380AAAAd/chevy-chase.gif")
+```
+
+## Overview
+
+::: {style="color: red;"}
+`r emo::ji("rotating_light")` We will focus on how to use R software to do these. We will be glossing over the statistical theory and "formulas" for these tests. Moreover, we do not claim the data we use for demonstration meet assumptions of the methods. `r emo::ji("rotating_light")`
+:::
 
 There are plenty of resources online for learning more about these methods, as well as dedicated Biostatistics series (at different advancement levels) at the JHU School of Public Health.
+
+Check out [www.opencasestudies.org](https://www.opencasestudies.org/) for deep dives on some of the concepts covered here.
 
 # Correlation
 
@@ -45,20 +76,17 @@ Function `cor()` computes correlation in R
 cor(x, y = NULL, use = "everything",
     method = c("pearson", "kendall", "spearman"))
 ```
-
-To use: 
-
-- provide two numeric vectors (arguments `x`, `y`) to compute correlation between them, or
-- provide matrix or data frame (argument `x`) that has at least 2 columns (must be numeric) to compute correlation between all pairs 
-
-By default, Pearson correlation coefficient is computed. 
+- provide two numeric vectors (arguments `x`, `y`), or
+- provide a data.frame / tibble with numeric columns only
+- by default, Pearson correlation coefficient is computed
 
 ## Correlation {.small}
 
 https://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv
 
 ```{r cor1, comment="", message = FALSE}
-circ <- jhur::read_circulator()
+library(jhur)
+circ <- read_circulator()
 head(circ)
 ```
 
@@ -69,8 +97,8 @@ First, we compute correlation by providing two vectors.
 Like other functions, if there are `NA`s, you get `NA` as the result.  But if you specify use only the complete observations, then it will give you correlation using the non-missing data. 
 
 ```{r}
-x <- pull(circ, orangeAverage)
-y <- pull(circ, purpleAverage)
+x <- circ %>% pull(orangeAverage)
+y <- circ %>% pull(purpleAverage)
 ```
 
 ```{r}
@@ -80,16 +108,12 @@ cor(x, y, use = "complete.obs")
 
 ## Correlation for two vectors with plot
 
-Note that you can add the correlation value to a plot, via the `annotate()`. 
+In plot form... 
 
 ```{r, fig.width=3, fig.height=3}
-cor_val <- cor(x, y, use = "complete.obs")
-cor_val_label <- paste0("r = ", round(cor_val, 3))
-
 circ %>%
   ggplot(aes(x = orangeAverage, y = purpleAverage)) +
-  geom_point(size = 0.3) +
-  annotate("text", x = 2000, y = 7500, label = cor_val_label, size = 5)
+  geom_point(size = 0.3)
 ```
 
 ## Correlation for data frame columns
@@ -114,10 +138,6 @@ cor_mat
 library(corrplot)
 corrplot(cor_mat, type = "upper", order = "hclust")
 ```
-
-## Lab Part 1
-
-[Website](http://jhudatascience.org/intro_to_r/index.html)
 
 # T-test
 
@@ -146,7 +166,7 @@ It tests mean of a variable in one group. By default (i.e., without us explicitl
 - returns result assuming confidence level 0.95 (`conf.level = 0.95`)
 
 ```{r}
-x <- pull(circ, orangeAverage)
+x <- circ %>% pull(orangeAverage)
 t.test(x)
 ```
 
@@ -161,21 +181,9 @@ It tests test difference in means of a variable between two groups. By default:
 - assumes true variance in the two groups is not equal (`var.equal = FALSE`)
 
 ```{r}
-x <- pull(circ, orangeAverage)
-y <- pull(circ, purpleAverage)
+x <- circ %>% pull(orangeAverage)
+y <- circ %>% pull(purpleAverage)
 t.test(x, y)
-```
-
-## T-test: retrieving information from the result 
-
-Object returned from `t.test()` function is a named list. We can use it to access test result elements. The easiest way to do this is to use base R (`$` notation).
-
-```{r}
-result <- t.test(x, y)
-is.list(result)
-names(result)
-result$statistic
-result$p.value
 ```
 
 ## T-test: retrieving information from the result with `broom` package 
@@ -190,6 +198,18 @@ result_tidy <- tidy(result)
 result_tidy
 ```
 
+## P-value adjustment
+
+`r emo::ji("rotating_light")` You run an increased risk of Type I errors (a "false positive") when multiple hypotheses are tested simultaneously.
+
+Use the `p.adjust()` function on a vector of p values. Use `method = ` to specify the adjustment method:
+
+```{r}
+my_pvalues <- c(0.049, 0.001, 0.31, 0.00001)
+p.adjust(my_pvalues, method = "BH") # Benjamini Hochberg
+p.adjust(my_pvalues, method = "bonferroni")
+```
+
 ## Some other statistical tests
 
 - `wilcox.test()` -- Wilcoxon signed rank test, Wilcoxon rank sum test
@@ -197,10 +217,13 @@ result_tidy
 - `ks.test()` -- Kolmogorov-Smirnov test 
 - `var.test()`-- Fisher’s F-Test
 - `chisq.test()` -- Chi-squared test
+- `aov()` -- Analysis of Variance (ANOVA)
 
-## Lab Part 2
+## Lab Part 1
 
-[Website](http://jhudatascience.org/intro_to_r/index.html)
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)  
+
+💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Statistics/lab/Statistics_Lab.Rmd)
 
 # Regression
 
@@ -263,13 +286,7 @@ where:
 
 ## Linear regression fit in R 
 
-To fit linear models in R, we use function `lm()`. 
-
-```
-lm(formula, data, subset, weights, na.action,
-   method = "qr", model = TRUE, x = FALSE, y = FALSE, qr = TRUE,
-   singular.ok = TRUE, contrasts = NULL, offset, ...)
-```
+To fit regression models in R, we use the function `glm()` (Generalized Linear Model). 
 
 We typically provide two arguments: 
 
@@ -282,13 +299,35 @@ Model formula
 $$
 y_i = \alpha + \beta x_{i} + \varepsilon_i 
 $$
-translates to `y ~ x` in R formula for this example. 
+In R translates to 
+
+```{r}
+
+```
+
+<p style="text-align: center;">
+`y ~ x`
+</p>
+
+## Linear regression fit in R: model formula 
+
+Model formula 
+$$
+y_i = \alpha + \beta x_{i} + \varepsilon_i 
+$$
+In R translates to 
+
+<p style="text-align: center;">
+`y ~ x`
+</p>
 
 In practice, `y` and `x` are replaced with the **names of columns from our data set**. 
 
-- For example, if we want to fit a regression model where outcome is `income` and predictor is `years_of_education`, our formula would be: 
+For example, if we want to fit a regression model where outcome is `income` and predictor is `years_of_education`, our formula would be: 
 
-  `income ~ years_of_education`
+<p style="text-align: center;">
+`income ~ years_of_education`
+</p>
 
 ## Linear regression fit in R: model formula 
 
@@ -296,101 +335,82 @@ Model formula
 $$
 y_i = \alpha + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_3 x_{i3} + \varepsilon_i 
 $$
-translates to `y ~ x1 + x2 + x3` in R formula for this example. 
+In R translates to 
+
+<p style="text-align: center;">
+`y ~ x1 + x2 + x3`
+</p>
 
 In practice, `y` and `x1`, `x2`, `x3` are replaced with the **names of columns from our data set**. 
 
-- For example, if we want to fit a regression model where outcome is `income` and predictors are `years_of_education`, `age`, `location` then our formula would be: 
+For example, if we want to fit a regression model where outcome is `income` and predictors are `years_of_education`, `age`, `location` then our formula would be: 
 
-  `income ~ years_of_education + age + location`
+<p style="text-align: center;">
+`income ~ years_of_education + age + location`
+</p>
 
 ## Linear regression 
 
-We will use `kaggleCarAuction.csv` dataset from one of the Kaggle competitions. 
+We will use data about emergency room doctor complaints. 
 
-https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv
+"Data was recorded on 44 doctors working in an emergency service at a hospital to study the factors affecting the number of complaints received."
 
 ```{r}
-cars <- jhur::read_kaggle()
-head(cars)
+# install.packages("faraway")
+library(faraway)
+
+data(esdcomp)
+esdcomp
 ```
 
 ## Linear regression: model fitting 
 
-We fit linear regression model with  vehicles odometer (distance traveled by a vehicle; `VehOdo`) as an outcome and vehicle (`VehicleAge`) age as a predictor. 
+We fit linear regression model with the number of patient visits (`visits`) as an outcome and total number of hours worked (`hours`) as a predictor. 
 
 ```{r}
-fit <- lm(VehOdo ~ VehicleAge, data = cars)
-print(fit)
+fit <- glm(visits ~ hours, data = esdcomp)
+fit
 ```
 
 ## Linear regression: model summary
 
-The `summary()` command returns a list that shows us some more detail
+The `summary()` function returns a list that shows us some more detail
 
 ```{r}
-sfit <- summary(fit)
-print(sfit)
-```
-
-## Linear regression: retrieving information with `broom` package 
-
-Use `tidy` to create a tibble with the coefficient estimates.
-
-```{r}
-# tidy() is a function from the broom package
-tidy(sfit)
-```
-
-## Linear regression: model summary
-
-Model summary is a named list and we can access its specific elements. Again, we should use base R (`$` notation).
-
-```{r}
-names(sfit)
-sfit$r.squared
+summary(fit)
 ```
 
 ## Linear regression: multiple predictors {.smaller}
 
-Let's try adding another explanatory variable to our model, Warranty price (`WarrantyCost`) 
+Let's try adding another explanatory variable to our model, dollars per hour earned by the doctor (`revenue``).
 
 ```{r}
-fit_2 <- lm(VehOdo ~ VehicleAge + WarrantyCost, data = cars)
-summary(fit_2)
+fit2 <- glm(visits ~ hours + revenue, data = esdcomp)
+summary(fit2)
 ```
 
 ## Linear regression: factors 
 
 Factors get special treatment in regression models - lowest level of the factor is the comparison group, and all other factors are relative to its values.
 
-`TopThreeAmericanName` states if the manufacturer is one of the top three American manufacturers.
+`residency` takes values Y or N to indicate whether the doctor is a resident.
 
 ```{r}
-top_3 <- pull(cars, TopThreeAmericanName)
-table(top_3)
+esdcomp %>% count(residency)
 ```
 
 ## Linear regression: factors {.smaller}
 
 ```{r regress6, comment="", fig.height=4,fig.width=8}
-fit_3 <- lm(VehOdo ~ factor(TopThreeAmericanName), data = cars)
+fit_3 <- glm(visits ~ residency, data = esdcomp)
 summary(fit_3)
-```
-
-## Linear regression: retrieving information with `broom` package 
-
-```{r, comment="", fig.height=4,fig.width=8}
-tidy(fit_3)
 ```
 
 ## Generalized Linear Models (GLMs)
 
-Generalized Linear Models (GLMs) allow for fitting regressions for  non-continuous/normal outcomes. Examples include: logistic regression, Poisson regression. 
+Generalized Linear Models (GLMs) allow for fitting regressions for non-continuous/normal outcomes. Examples include: logistic regression, Poisson regression. 
 
-We fit GLM with a `glm()` function that has a very similar syntax to the `lm()` function. 
-
-The primary difference is in `glm()`, we additionally specify the `family` argument -- a description of the error distribution and link function to be used in the model. These include: 
+Add the `family` argument -- a description of the error distribution and link function to be used in the model. These include: 
 
 - `binomial(link = "logit")`
 - `poisson(link = "log")`, and other.
@@ -399,11 +419,54 @@ See `?family` documentation for details of family functions.
 
 ## Logistic regression {.smaller}
 
-`IsBadBuy` is a 0/1-valued variable stating "if the kicked vehicle was an avoidable purchase". 
+We will use data about breast cancer tumors. 
+
+"The purpose of this study was to determine whether a new procedure called fine needle aspiration which draws only a small sample of tissue could be effective in determining tumor status."
+
+```{r}
+data(wbca)
+wbca
+```
+
+## Logistic regression {.smaller}
+
+`Class` is a 0/1-valued variable indicating if the tumor was malignant (0 if malignant, 1 if benign). 
 
 ```{r regress7, comment="", fig.height=4,fig.width=8}
-glm_fit <- glm(IsBadBuy ~ VehOdo + VehicleAge, data = cars, family = binomial())
-summary(glm_fit)
+binom_fit <- glm(Class ~ UShap + USize, data = wbca, family = binomial())
+summary(binom_fit)
+```
+
+## Odds ratios
+
+```{r echo = FALSE}
+library(epitools)
+data(oswego)
+ice_cream <-
+  oswego %>%
+  select(ill, vanilla.ice.cream) %>%
+  mutate(
+    ill = recode(ill, "Y" = 1, "N" = 0),
+    vanilla.ice.cream = recode(vanilla.ice.cream, "Y" = 1, "N" = 0)
+  )
+```
+
+This data shows whether people became ill after eating ice cream in the 1940s.
+
+```{r}
+head(ice_cream)
+ice_cream %>% count(ill, vanilla.ice.cream)
+```
+
+## Odds ratios
+
+Use `oddsratio(x, y)` from the `epitools()` package to calculate 
+
+```{r}
+library(epitools)
+response <- ice_cream %>% pull(ill)
+predictor <- ice_cream %>% pull(vanilla.ice.cream)
+oddsratio(predictor, response)
 ```
 
 ## Final note 
@@ -414,6 +477,43 @@ Some final notes:
 
 - Researcher's responsibility to **understand the R software**  they use -- meaning of function's arguments and meaning of  function's output elements
 
-## Lab Part 3
+## Summary
 
-[Website](http://jhudatascience.org/intro_to_r/index.html)
+- Use `cor()` to calculate correlation between two vectors. `corrplot()` is nice for a quick visualization!
+- `t.test()` tests the difference in means between two vectors
+- `glm()` fits regression models:
+     - Use the `formula =` argument to specify the model (e.g., `y ~ x` or `y ~ x1 + x2` using column names)
+     - Use `data =` to indicate the dataset
+     - Use `family = binomial()` to do a logistic regression
+     - `summary()` gives useful statistics
+- `oddsratio()` from the `epitools` package can calculate odds ratios
+- this is just the tip of the iceberg!
+
+## Lab Part 2
+
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)  
+
+💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Statistics/lab/Statistics_Lab.Rmd)
+
+```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
+knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
+```
+
+Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
+
+
+# Extra Slides
+
+## Adding correlation value to a plot
+
+Note that you can add the correlation value to a plot, via the `annotate()`. 
+
+```{r, fig.width=3, fig.height=3}
+cor_val <- cor(x, y, use = "complete.obs")
+cor_val_label <- paste0("r = ", round(cor_val, 3))
+
+circ %>%
+  ggplot(aes(x = orangeAverage, y = purpleAverage)) +
+  geom_point(size = 0.3) +
+  annotate("text", x = 2000, y = 7500, label = cor_val_label, size = 5)
+```

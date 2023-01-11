@@ -12,58 +12,59 @@ library(dplyr)
 library(ggplot2)
 ```
 
-1. Load the Youth Tobacco Survey data (using `jhur::read_yts()`). `select` "Sample_Size",  "Education", and "LocationAbbr". Name this data "yts". 
+0. Load the Youth Tobacco Survey data (using the `jhur` library function `read_yts()`). `select` "Sample_Size",  "Education", and "LocationAbbr". Name this data "yts". 
 
 ```{r}
-yts <- jhur::read_yts() %>% select(Sample_Size, Education, LocationAbbr)
+library(jhur)
+yts <- read_yts() %>% select(Sample_Size, Education, LocationAbbr)
 # Alt:
 # yts <- read_csv("http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
 ```
 
-2. Create a boxplot showing the difference in "Sample_Size" between Middle School and High School "Education". **Hint**: Use `aes(x = Education, y = Sample_Size)` and `geom_boxplot()`.
+1. Create a boxplot showing the difference in "Sample_Size" between Middle School and High School "Education". **Hint**: Use `aes(x = Education, y = Sample_Size)` and `geom_boxplot()`.
 
 ```{r}
 yts %>%
-  ggplot(aes(x = Education, y = Sample_Size)) +
+  ggplot(mapping = aes(x = Education, y = Sample_Size)) +
   geom_boxplot()
 ```
 
-3. Use `group_by` and `tally` to count up the number of lines of data for each "Education" group.
+2. Use `count` to count up the number of observations of data for each "Education" group.
 
 ```{r}
 yts %>%
-  group_by(Education) %>%
-  tally()
+  count(Education)
 ```
 
-4. Make "Education" a factor using the `mutate` and `factor` functions. Use the `levels` argument inside `factor` to reorder "Education". Reorder this variable so that "Middle School" comes before "High School". Assign the output the name "yts_fct".
+3. Make "Education" a factor using the `mutate` and `factor` functions. Use the `levels` argument inside `factor` to reorder "Education". Reorder this variable so that "Middle School" comes before "High School". Assign the output the name "yts_fct".
 
 ```{r}
 yts_fct <-
-  yts %>% mutate(Education = factor(Education, levels = c("Middle School", "High School")))
+  yts %>% mutate(Education = factor(Education,
+    levels = c("Middle School", "High School")
+  ))
 ```
 
-5. Repeat #2 and #3 using the "yts_fct" data. You should see different ordering in the plot and `tally` table.
+4. Repeat #1 and #2 using the "yts_fct" data. You should see different ordering in the plot and `count` table.
 
 ```{r}
 yts_fct %>%
-  ggplot(aes(x = Education, y = Sample_Size)) +
+  ggplot(mapping = aes(x = Education, y = Sample_Size)) +
   geom_boxplot()
 
 yts_fct %>%
-  group_by(Education) %>%
-  tally()
+  count(Education)
 ```
 
-**BONUS**
 
-6. Convert "LocationAbbr" (state) in "yts_fct" into a factor using the `mutate` and `factor` functions. Do not add a `levels =` argument.
+
+**Bonus / Extra practice**: Convert "LocationAbbr" (state) in "yts_fct" into a factor using the `mutate` and `factor` functions. Do not add a `levels =` argument.
 
 ```{r}
 yts_fct <- yts_fct %>% mutate(LocationAbbr = factor(LocationAbbr))
 ```
 
-7. We want to create a new column that contains the group-level median sample size. 
+**Bonus / Extra practice**: We want to create a new column that contains the group-level median sample size. 
 
 - Using the "yts_fct" data, `group_by` "LocationAbbr". 
 - Then, use `mutate` to create a new column "med_sample_size" that is the median "Sample_Size". 
@@ -75,20 +76,36 @@ yts_fct <- yts_fct %>%
   mutate(med_sample_size = median(Sample_Size, na.rm = TRUE))
 ```
 
-8. We want to plot the "LocationAbbr" (state) by the "med_sample_size" column we created above. Using the `forcats` package, create a plot that:
+**Bonus / Extra practice**: We want to plot the "LocationAbbr" (state) by the "med_sample_size" column we created above. Using the `forcats` package, create a plot that:
 
 - Has "LocationAbbr" on the x-axis
 - Uses the `mapping` argument and the `fct_reorder` function to order the x-axis by "med_sample_size"
 - Has "Sample_Size" on the y-axis
 - Is a boxplot (`geom_boxplot`)
+- Has the x axis label of `State`
+(Don't worry if you get a warning about not being able to plot `NA` values.)
+
+Save your plot using `ggsave()` with a width of 10 and height of 3.
+
+Which state has the largest median sample size?
 
 ```{r}
 library(forcats)
 
-yts_fct %>%
+yts_fct_plot <- yts_fct %>%
+  drop_na() %>%
   ggplot(mapping = aes(
-    x = fct_reorder(LocationAbbr, med_sample_size),
+    x = fct_reorder(
+      LocationAbbr, med_sample_size
+    ),
     y = Sample_Size
   )) +
-  geom_boxplot()
+  geom_boxplot() +
+  labs(x = "State")
+
+ggsave(
+  filename = "yts_fct.png", # will save in working directory
+  plot = yts_fct_plot,
+  width = 10, height = 3
+)
 ```

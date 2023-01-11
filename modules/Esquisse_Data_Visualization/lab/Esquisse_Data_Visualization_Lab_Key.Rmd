@@ -13,10 +13,16 @@ install.packages("ggplot2")
 ```{r, comment = FALSE}
 library(esquisse)
 library(ggplot2)
+library(jhur)
 ```
 
+1.  Try creating a plot using the `Orange` data that automatically comes with R using the `esquisse` package.
 
-Now try creating a plot using the `Orange` data that automatically comes with R using the `esquisse` package. Drag and drop the `age` variable to be plotted on the x-axis. Drag and drop the `circumference` variable to be plotted on the y-axis. What happens when you drag `tree` to the facet region of the esquisse GUI? What happens if you move this to color? Copy and paste the code from both options into the chunk below:
+-   Drag and drop the `age` variable to be plotted on the x-axis.
+-   Drag and drop the `circumference` variable to be plotted on the y-axis.
+-   What happens when you drag `tree` to the facet region of the esquisse GUI?
+-   What happens if you move this to color?
+-   Copy and paste the code from both options into the chunk below:
 
 ```{r}
 # esquisser(Orange)
@@ -33,7 +39,7 @@ ggplot(Orange) +
   theme_minimal()
 ```
 
-Bonus: Click where it says "point" (may say "auto" depending on how you did the last question) on the far left side and change the plot to a different type of plot? Copy and paste the code into the chunk below.
+2.  Click where it says "point" (may say "auto" depending on how you did the last question) on the far left side and change the plot to a different type of plot. Copy and paste the code into the chunk below. Close Esquisse and run the chunk below to generate a ggplot.
 
 ```{r}
 ggplot(Orange) +
@@ -43,4 +49,16 @@ ggplot(Orange) +
   theme_minimal()
 ```
 
+**Bonus / Extra practice**:
 
+Launch Esquisse on any selection of the following datasets we have worked with before and explore!
+
+```{r}
+yts <- read_yts()
+tb <- read_tb()
+bike <- read_bike()
+circ <- read_circulator()
+vacc <- read_csv("http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv")
+
+# esquisser(vacc)
+```

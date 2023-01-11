@@ -25,27 +25,25 @@ library(broom)
 
 ```
 
-3. Compute the correlation between the `1980`, `1990`, `2000`, and `2010` mortality variables. (No need to save this in an object. Just display the result to the screen.) Use `select()` function to first subset the data frame to keep the four columns only. To use a column name in `select()` that starts with a number, surround it with backticks (\`). 
+3. Compute the correlation between the `1980`, `1990`, `2000`, and `2010` mortality variables. (No need to save this in an object. Just display the result to the screen.) Use `select()` function to first subset the data frame to keep the four columns only. To use a column name in `select()` that starts with a number, surround it with backticks (\`). How does this change when we use the `use = "complete.obs"` argument? 
+
+```{r}
+
+```
+
+4. Perform a t-test to determine if there is evidence of a difference between child mortality in `1987` versus `2007`. Use the `pull()` function to extract these columns. Print the results using the `tidy` function from the `broom` package. 
+
+```{r}
+
+```
+
+**Bonus / Extra practice**: 5. Perform a t-test to determine if there is evidence of a difference between child mortality in `2006` versus `2007`. Use the `pull()` function to extract these columns. Print the results using the `tidy` function. How do these results compare to those in #4?
 
 ```{r}
 
 ```
 
 # Part 2
-
-4. Perform a t-test to determine if there is evidence of a difference between child mortality in `1987` versus `2007`. Use the `pull()` function to extract these columns. Print the results using the `tidy` function. 
-
-```{r}
-
-```
-
-5. Perform a t-test to determine if there is evidence of a difference between child mortality in `2006` versus `2007`. Use the `pull()` function to extract these columns. Print the results using the `tidy` function. How do these results compare to those in #4?
-
-```{r}
-
-```
-
-# Part 3
 
 6. Read in the Kaggle cars auction dataset using `read_kaggle()` from the `jhur` package.  Assign it to the "cars" variable. You can also find the data here:  http://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv.
 
@@ -54,6 +52,11 @@ library(broom)
 ```
 
 7. Fit a linear regression model with vehicle cost ("VehBCost") as the outcome and whether it's an online sale ("IsOnlineSale") as the predictor. Save the model fit in an object called "lmfit_cars" and display the summary table.
+
+```
+# General format
+glm(y ~ x, data = DATASET_NAME)
+```
 
 ```{r}
 
@@ -65,7 +68,7 @@ library(broom)
 
 ```
 
-9. Fit a linear regression model with vehicle cost ("VehBCost") as the outcome with predictors: (1) vehicle age ("VehicleAge"), (2) whether it's an online sale ("IsOnlineSale"), and interaction between "VehicleAge" and "IsOnlineSale".
+**Bonus / Extra practice**: 9. Fit a linear regression model with vehicle cost ("VehBCost") as the outcome with predictors: (1) vehicle age ("VehicleAge"), (2) whether it's an online sale ("IsOnlineSale"), and interaction between "VehicleAge" and "IsOnlineSale".
 
 - To include the interaction, use `VehicleAge * IsOnlineSale` in the formula. 
 - Save the model fit in an object called "lmfit_cars_3" and display the summary table.
@@ -74,9 +77,14 @@ library(broom)
 
 ```
 
-10. Fit a logistic regression model where the outcome is "bad buy" ("IsBadBuy") status and predictors are the cost ("VehBCost") and vehicle age ("VehicleAge").
+**Bonus / Extra practice**: 10. Fit a logistic regression model where the outcome is "bad buy" ("IsBadBuy") status and predictors are the cost ("VehBCost") and vehicle age ("VehicleAge").
 
 - Save the model fit in an object called "logfit_cars" and display the summary table.
+
+```
+# General format
+glm(y ~ x, data = DATASET_NAME, family = binomial())
+```
 
 ```{r}
 

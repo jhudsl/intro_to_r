@@ -175,33 +175,49 @@ pre code {
 <p>In this lab you can use the interactive console to explore or <strong>Knit</strong> the document. Remember anything you type here can be “sent” to the console with Cmd-Enter (OS-X) or Ctrl-Enter (Windows/Linux) in an R code chunk.</p>
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
-<ol style="list-style-type: decimal">
-<li>Create a new object called <code>my.num</code> that contains 6 numbers.</li>
-</ol>
-<pre class="r"><code># my.num &lt;- ???</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li><p>Multiply <code>my.num</code> by 4.</p></li>
-<li><p>Create a second object called <code>my.char</code> that contains 5 character strings.</p></li>
-</ol>
-<pre class="r"><code># my.char &lt;- ???</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li><p>Combine the two objects <code>my.num</code> and <code>my.char</code> into an object called <code>both</code>.</p></li>
-<li><p>What is the length of <code>both</code>?</p></li>
-<li><p>What class is <code>both</code>?</p></li>
-</ol>
-<p>Bonus: Create a vector that contains 4 sets of the numbers 1, 2, 3, and 4.</p>
+<p>1. Create a new object called <code>my.num</code> that contains 6 numbers.</p>
+<pre><code># General format
+my.num &lt;- c(number1, number2, ...)</code></pre>
+<p>2. Multiply <code>my.num</code> by 4.</p>
+<p>3. Create a second object called <code>my.char</code> that contains 5 character strings.</p>
+<pre><code># General format
+my.char &lt;- c(&quot;character1&quot;, &quot;character2&quot;, ...)</code></pre>
+<p>4. Combine the two objects <code>my.num</code> and <code>my.char</code> into an object called <code>both</code>.</p>
+<p>5. What is the length of <code>both</code>? Use the <code>length()</code> function.</p>
+<p>6. What class is <code>both</code>?</p>
+<p><strong>Bonus / Extra practice</strong>: Create a vector that contains 4 sets of the numbers 1, 2, 3, and 4.</p>
 </div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
-<ol start="7" style="list-style-type: decimal">
-<li><p>Divide <code>both</code> by 3, what happens?</p></li>
-<li><p>Create a vector with elements 1 2 3 4 5 6 and call it <code>x</code>.</p></li>
-<li><p>Create another vector with elements 10 20 30 40 50 and call it <code>y</code>.</p></li>
-<li><p>What happens when you add <code>x</code> and <code>y</code> together?</p></li>
-<li><p>Append the value 60 onto the vector <code>y</code> (hint: you can use the c() function).</p></li>
-<li><p>Add <code>x</code> and <code>y</code> together.</p></li>
-</ol>
-<p>Bonus: Multiply <code>x</code> and <code>y</code> together. How is this similar to the way R performs addition in #13 ?</p>
+<p>7. Divide <code>both</code> by 3, what happens?</p>
+<p>8. Create a vector with elements 1, 2, 3, 4, 5 and call it <code>x</code>.</p>
+<pre><code># General format
+x &lt;- c(...)</code></pre>
+<p>9. Create another vector with elements 10, 20, 30, 40, 50 and call it <code>y</code>.</p>
+<pre><code># General format
+y &lt;- c(...)</code></pre>
+<p>10. Determine the length of <code>x</code> and <code>y</code>. Next, add them together.</p>
+<p>11. Append the value 60 onto the vector <code>y</code> (hint: you can use the <code>c()</code> function).</p>
+<pre><code># General format
+y &lt;- c(y, ...)</code></pre>
+<p>12. Determine the length of <code>x</code> and <code>y</code>.</p>
+<p>13. Add <code>x</code> and <code>y</code> together. What happens?</p>
+<p><strong>Bonus / Extra practice</strong>: Multiply the following <code>a</code> and <code>b</code> together. How is this similar to the way R performs addition in #10 ?</p>
+<pre class="r"><code>a &lt;- c(1, 2, 3)
+b &lt;- c(10, 100, 1000)</code></pre>
+</div>
+<div id="part-3" class="section level1">
+<h1>Part 3</h1>
+<p>14. Create a vector object called <code>int_vect</code> that starts at 1 and goes up to 10. Use <code>seq()</code>.</p>
+<pre><code># General format
+seq(from = NUMBER, to = NUMBER)</code></pre>
+<p>15. Repeat the <code>int_vect</code> object this sequence 3 times using <code>rep()</code> and store the new object as <code>int_vect_3</code>.</p>
+<pre><code># General format - times and each are optional
+rep(x = OBJECT_TO_REPEAT, times = NUM_TIMES_TO_REPEAT, each = NUM_TIMES_TO_REPEAT_EACH_ELEMENT)</code></pre>
+<p>16. What is the length of <code>int_vect_3</code>?</p>
+<p>17. Create a vector that takes the sequence “Strongly Agree”, “Agree”, “Neutral”, “Disagree”, “Strongly Disagree” and repeats each element 10 times.</p>
+<p><strong>Bonus / Extra practice</strong>: “Strongly Agree”, “Agree”, “Neutral”, “Disagree”, “Strongly Disagree” are often responses to surveys. Create a randomly sampled vector of 30 survey responses. (hint use <code>sample()</code> and set the replace argument to <code>TRUE</code>). Store the output as <code>my_responses</code>. Examine the data by typing the name in the Console using a function.</p>
+<p><strong>Bonus / Extra practice</strong>: Let’s say you change your survey so participants can rank their response 1-10 (inclusive). Create a randomly sampled vector of 30 survey responses. (hint use <code>seq()</code> and <code>sample()</code> and set the replace argument to <code>TRUE</code>). Store the output as <code>my_responses_2</code>. Examine the data by typing the name in the Console using a function.</p>
 </div>
 
 
