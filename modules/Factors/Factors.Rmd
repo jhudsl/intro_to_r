@@ -288,7 +288,7 @@ data_highschool_fct %>%
 - we can change data to be a factor variable using `mutate` and a factor creating function like `factor()` or `as_factor`
 - the `as_factor()` is from the  `forcats` package (first appearance order by default)
 - the `factor()` base R function (alphabetical order by default)
-- with either functions we can specify the levels with the `levels` argument if we want a specific order
+- with `factor()` we can specify the levels with the `levels` argument if we want a specific order
 - the `fct_reorder({variable_to_reorder}, {variable_to_order_by})` helps us reorder a variable by the values of another variable
 - arranging, tabulating, and plotting the data will reflect the new order
 
