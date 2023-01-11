@@ -522,9 +522,9 @@ ggplot(food, mapping = aes(x = observation_time,
 ## Adding color will automatically group the data
 
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
-ggplot(food, aes(x = observation_time, 
-                 y = item_price_change,
-                color = item_ID)) + 
+ggplot(food, mapping = aes(x = observation_time, 
+                           y = item_price_change,
+                       color = item_ID)) + 
   geom_line() 
 ```
 
@@ -533,18 +533,18 @@ ggplot(food, aes(x = observation_time,
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
 ggplot(food, mapping = aes(x = observation_time, 
                            y = item_price_change,
-                           color = item_categ)) + 
+                       color = item_categ)) + 
   geom_line() 
 ```
 
 ## Sometimes you need group and color
 
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
-ggplot(food, aes(x = observation_time, 
-                 y = item_price_change,
-                 group = item_ID,
-                color = item_categ)) + 
-            geom_line() 
+ggplot(food, mapping = aes(x = observation_time, 
+                           y = item_price_change,
+                       group = item_ID,
+                       color = item_categ)) + 
+                            geom_line() 
 
 ```
 
