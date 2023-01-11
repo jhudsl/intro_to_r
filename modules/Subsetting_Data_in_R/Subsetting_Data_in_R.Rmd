@@ -567,7 +567,7 @@ select(df, -newcol, everything(), newcol)
 head(select(df, -newcol, everything(), newcol))
 ```
 
-## Odering the colum names of a data frame: alphabetically
+## Ordering the column names of a data frame: alphabetically
 Using the base R `order()` function.
 
 ```{r}
