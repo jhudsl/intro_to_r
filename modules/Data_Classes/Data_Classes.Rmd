@@ -69,35 +69,42 @@ class(z)
 
 There is one useful functions associated with practically all R classes: 
 
-- `as.CLASS_NAME(x)` to **coerce between classes** `x` from current `x` class into a certain class 
+`as.CLASS_NAME(x)` **coerces between classes**. It turns `x` into a certain class.
 
+Examples:
 
+- `as.numeric()`
+- `as.character()`
+- `as.logical()`
+- `as.double()`
+- `as.integer()`
+- `as.Date()`
+- `as.factor()` (More on this one later!)
 
 ## General Class Information: Checking
 
 
 ```{r logical_coercion}
+class(4)
 class(c(1, 4, 7))
-class(c(1, 4, 7))
-class(c("tree", "cloud"))
+class("tree")
 class(c("tree", "cloud"))
 ```
 
-## General Class Information: coercing
+## Coercing: seamless transition
 
-In some cases the coercing is seamless: 
+Sometimes coercing works great!
 
 ```{r logical_coercion3s}
-as.character(c(1, 4, 7))
+as.character(4)
 as.numeric(c("1", "4", "7"))
 as.logical(c("TRUE", "FALSE", "FALSE"))
-as.integer(c(1.2, 3.7))
-as.double(c(1, 2, 3))
+as.logical(0)
 ```
 
-## General Class Information: coercing
+## Coercing: not-so-seamless
 
-In some cases the coercing is not possible; if executed, will return `NA` (an R constant representing "**N**ot **A**vailable" i.e. missing value)
+When interpretation is ambiguous, R will return `NA` (an R constant representing "**N**ot **A**vailable" i.e. missing value)
 
 ```{r logical_coercions4}
 as.numeric(c("1", "4", "7a"))
@@ -105,20 +112,16 @@ as.logical(c("TRUE", "FALSE", "UNKNOWN"))
 as.Date(c("2021-06-15", "2021-06-32"))
 ```
 
-## Numeric Subclasses
+## Number Subclasses
 
-There are two major numeric subclasses or types
+There are two major number subclasses or types
 
 1) Double
 2) Integer
 
-
-
-
-
 ## Double
 
-`Double` is a special subset of `numeric` that contains <span style="color: red;">fractional values</span>.
+`Double` is equivalent to `numeric`. It is a number that contains <span style="color: red;">fractional values</span>.
 
 `Double` stands for [double-precision](https://en.wikipedia.org/wiki/Double-precision_floating-point_format)
 
@@ -130,21 +133,26 @@ typeof(y)
 ```
 
 
-## Integer{.small}
+## Integer
 
-`Integer` is a special subset of `numeric` that contains only <span style="color: red;">whole numbers</span>. Need to use `as.integer` to create integers (unless they are read in as integers or created as such with `seq` and `sample`). Otherwise, will be double by default.
-
+`Integer` is a special number that contains only <span style="color: red;">whole numbers</span>.
 
 ```{r seq}
-x <- c(1, 2, 3, 4, 5)
-class(x)
-typeof(x)
 y
-y_int <-as.integer(y)
+y_int <- as.integer(y)
 y_int
 class(y_int)
 typeof(y_int)
+```
 
+## Integer
+
+Need to use `as.integer()` function to create integers (unless they are read in as integers or created as such with `seq` and `sample`). Otherwise, will be double by default.
+
+```{r}
+x <- c(1, 2, 3, 4, 5) # technically integers
+class(x)
+typeof(x)
 ```
 
 ## Checking double vs integer
@@ -152,25 +160,43 @@ typeof(y_int)
 A `tibble` will show the difference (as does `glimpse()`).
 
 ```{r}
-tibble(double_var = y,  int_var = y_int)
-glimpse(tibble(double_var = y, int_var = y_int))
+my_data <- tibble(double_var = y,  int_var = y_int)
+my_data
+glimpse(my_data)
 ```
-
 
 ## Factors
 
-A `factor` is a special `character` vector where the elements have pre-defined groups or 'levels'. You can think of these as qualitative or categorical variables. Use the `factor()` function to create factors.
+A `factor` is a special `character` vector where the elements have pre-defined groups or 'levels'. You can think of these as qualitative or categorical variables. Order is often important.
+
+Examples:
+
+- red, orange, yellow, green, blue, purple
+- breakfast, lunch, dinner
+- baby, toddler, child, teen, adult
+- Strongly Agree, Agree, Neutral, Disagree, Strongly Disagree
+- beginner, novice, intermediate, expert
+
+## Factors
+
+Use the `factor()` function to create factors.
 
 ```{r factor1}
 x <- c("small", "medium", "large", "medium", "large")
 class(x)
 
-x_fact <- factor(x) # factor() is a function
+x_fact <- factor(x)
 class(x_fact)
 x_fact
 ```
 
 Note that levels are, by default, in **alphanumerical** order!
+
+## Factors
+
+**Q:** Why not use `as.factor()` ?
+
+**A:** You can coerce with `as.factor()`. But you can't specify levels! More on this soon. 
 
 ## Factors
 
@@ -206,7 +232,7 @@ as.numeric(x_fact)
 
 ## Summary
 
-- There are two types of numeric class objects: integer and double
+- There are two types of number class objects: integer and double
 - Logic class objects only have `TRUE` or `FALSE` (without quotes)
 - `class()` can be used to test the class of an object x
 - `as.CLASS_NAME(x)` can be used to change the class of an object x
@@ -216,6 +242,7 @@ as.numeric(x_fact)
 ## Lab Part 1
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)    
+
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules//Data_Classes/lab/Data_Classes_Lab.Rmd)
 
 # Two-dimensional data classes
