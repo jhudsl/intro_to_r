@@ -16,6 +16,7 @@ opts_chunk$set(echo = TRUE,
                comment = "")
 library(tidyverse)
 library(jhur)
+library(emo)
 ```
 
 ## Recap
@@ -159,7 +160,7 @@ head(Orange)
 
 Will set up the plot - it will be empty!
 
--   **Aesthetic mapping** `(mapping = aes(x= , y =))` describes how variables in our data are mapped to elements of the plot
+-   **Aesthetic mapping** `(mapping = aes(x= , y =))` describes how variables in our data are mapped to elements of the plot - Note many people don't use `mapping` but it is helpful to know what we are doing.
 
 ::: codeexample
 ```{r, eval = FALSE, class.source = "codeexample"}
@@ -696,6 +697,49 @@ food_bar +
 
 ```
 
+## Tip- if you need you can remove outliers
+
+Set `outlier.shape = NA` to get ride of outliers. 
+Be careful about if you really should remove these!
+
+However, if can be helpful if your plot is getting stretched to acomodate plotting an outlier. 
+You can always say in the figure legend what you removed.
+
+```{r}
+esoph1 <- ggplot(esoph, mapping = aes(y = ncases, x = agegp)) +
+  geom_boxplot()
+
+esoph2 <- ggplot(esoph, mapping = aes(y = ncases, x = agegp)) +
+  geom_boxplot(outlier.shape = NA)
+```
+
+```{r, fig.show="hold", out.width="40%", echo = FALSE}
+esoph1 # fig.show = "hold" makes plots appear 
+esoph2 # next to one another in the chunk settings
+```
+
+## NA Values{.codesmall}
+
+- if it is a numeric value it will just get dropped from the graph and you will see a warning
+- it is categorical you will see it on the graph and will need to filter to remove the NA category
+
+```{r}
+icecream <-tibble(flavor = 
+            rep(c("chocolate", "vanilla", NA,"chocolate", "vanilla"), 8))
+
+icecream1 <- ggplot(icecream, aes(x = flavor)) + geom_bar() + 
+              theme(text=element_text(size=24))
+
+icecream2 <- icecream %>% drop_na(flavor)  %>% 
+                ggplot( aes(x = flavor)) + geom_bar() + 
+                  theme(text=element_text(size=24))
+```
+
+```{r, fig.show="hold", out.width="30%", echo = FALSE}
+icecream1 # fig.show = "hold" makes plots appear 
+icecream2 # next to one another in the chunk settings
+```
+
 # Extensions
 
 ## `patchwork` package
@@ -724,7 +768,6 @@ direct.label(rp_fac_plot, method = list("angled.boxes"))
 Great for adding p-values and significance levels <https://cran.r-project.org/web/packages/ggpubr/ggpubr.pdf> 
 
 ```{r, out.width="50%", fig.align="center"}
-install.packages("ggpubr")
 library(ggpubr)
 data("ToothGrowth")
 ggboxplot(ToothGrowth, x = "dose", y = "len",
