@@ -460,6 +460,14 @@ ggplot(Orange, mapping = aes(x = circumference, y = age, color = Tree)) +
   theme(legend.position = "none")
 ```
 
+## Cheatsheet about theme
+https://github.com/claragranell/ggplot2/blob/main/ggplot_theme_system_cheatsheet.pdf
+
+```{r, echo = FALSE, fig.align='center', out.width= "90%"}
+knitr::include_graphics("img/theme_sheet.png")
+``` 
+
+
 ## Can make your own theme to use on plots!
 
 Guide on how to: <https://rpubs.com/mclaire19/ggplot2-custom-themes>
@@ -763,6 +771,7 @@ Great for adding labels directly onto plots <https://www.opencasestudies.org/ocs
 library(directlabels)
 direct.label(rp_fac_plot, method = list("angled.boxes"))
 ```
+
 ## `ggpubr` package
 
 Great for adding p-values and significance levels <https://cran.r-project.org/web/packages/ggpubr/ggpubr.pdf> 
