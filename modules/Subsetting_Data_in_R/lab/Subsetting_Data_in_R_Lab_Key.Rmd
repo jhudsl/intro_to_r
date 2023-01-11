@@ -125,7 +125,7 @@ There are `nrow(cars_mpg)` cars.
 2. Subset the rows of `cars_mt_copy` that get **less** than 16 miles per gallon (`MPG`) of fuel efficiency and **more** than 150 horsepower (`HP`) - how many are there?
 
 ```{r}
-filter(cars_mt_copy, MPG < 16 & HP > 150)
+filter(cars_mt_copy, MPG < 16 & HP > 150) # all of these options work
 nrow(filter(cars_mt_copy, MPG < 16 & HP > 150))
 nrow(filter(cars_mt_copy, MPG < 16, HP > 150))
 cars_mt_copy %>%
@@ -137,7 +137,7 @@ cars_mt_copy %>%
 3. Subset the rows of `cars_mt_copy` that get **less** than 16 miles per gallon (`MPG`) of fuel efficiency **and** **greater than or equal** to 150 horsepower (`HP`) - how many are there?
 
 ```{r}
-filter(cars_mt_copy, MPG < 16 & HP >= 150)
+filter(cars_mt_copy, MPG < 16 & HP >= 150) # all of these options work
 nrow(filter(cars_mt_copy, MPG < 16 & HP >= 150))
 nrow(filter(cars_mt_copy, MPG < 16, HP >= 150))
 cars_mt_copy %>%
