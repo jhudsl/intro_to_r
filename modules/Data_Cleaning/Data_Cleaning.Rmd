@@ -155,8 +155,8 @@ pct_complete(airquality)
 ```
 
 ```{R}
-airquality %>% 
-pct_complete(Ozone)
+airquality %>% select(Ozone) %>%
+pct_complete()
 ```
 
 
@@ -181,11 +181,6 @@ mean(c(2,4,NA))
 median(c(1,2,3,NA))
 ```
 
-```{r, echo = FALSE}
-red_blue <- tibble(color = rep(c("red", "blue", NA), 3))
-red_blue <- red_blue %>% count(color)
-red_blue <- rename(red_blue, col_count = n)
-```
 
 ## Missing Data Issues
 
@@ -288,7 +283,7 @@ think that all 0 values should be `NA`.
 ```{r}
 df %>% head(n = 3)
 
-df %>% mutate(Dog = na_if(Dog, 0))
+df %>% mutate(Dog = na_if(x = Dog, y = 0))
 ```
 
 ## Think about `NA`
@@ -325,10 +320,20 @@ week
 `r emoji("warning")` Calculating percentages will give you a different result depending on your choice to include NA values.!
 
 
+```{r}
+red_blue <- tibble(color = rep(c("red", "blue", NA), 3))
+red_blue <- red_blue %>% count(color)
+red_blue <- rename(red_blue, col_count = n)
+red_blue
+```
 
+## Word of caution {.codesmall}
+
+
+`r emoji("warning")` Calculating percentages will give you a different result depending on your choice to include NA values.!
 
 ```{r}
-red_blue
+
 red_blue %>% mutate(percent = 
                       col_count/sum(pull(red_blue, col_count)))
 ```
