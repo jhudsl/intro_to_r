@@ -178,6 +178,18 @@ pre code {
 <p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
 <p>The way you can create a file like this in RStudio is: File → New File → R Markdown and then using the default or using a template.</p>
 <p>This is a code chunk that will set up our packages and data.</p>
+<pre class="r"><code>knitr::opts_chunk$set(echo = TRUE)
+library(jhur)
+library(ggplot2)
+library(dplyr)
+
+long &lt;- read_circulator_long()
+## take just average ridership per day
+avg &lt;- long %&gt;%
+  filter(type == &quot;Average&quot;)
+# keep non-missing data
+avg &lt;- avg %&gt;%
+  filter(!is.na(number))</code></pre>
 <p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.</p>
 </div>
 <div id="plotting-some-data" class="section level2">

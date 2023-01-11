@@ -74,6 +74,7 @@ my.char <- c("character1", "character2", ...)
 
 ```
 
+
 # Part 2
 
 7\. Divide `both` by 3, what happens?
@@ -83,7 +84,7 @@ my.char <- c("character1", "character2", ...)
 ```
 
 
-8\. Create a vector with elements 1, 2, 3, 4, 5, 6 and call it `x`.
+8\. Create a vector with elements 1, 2, 3, 4, 5 and call it `x`.
 
 ```
 # General format
@@ -107,31 +108,44 @@ y <- c(...)
 ```
 
 
-10\. What happens when you add `x` and `y` together?
+10\. Determine the length of `x` and `y`. Next, add them together.
 
 ```{r}
 
 ```
 
 
-12\. Append the value 60 onto the vector `y` (hint: you can use the `c()` function).
+11\. Append the value 60 onto the vector `y` (hint: you can use the `c()` function).
+
+```
+# General format
+y <- c(y, ...)
+```
 
 ```{r}
 
 ```
 
 
-13\. Add `x` and `y` together.
+12\. Determine the length of `x` and `y`.
 
 ```{r}
 
 ```
 
 
-**Bonus / Extra practice**: Multiply `x` and `y` together. How is this similar to the way R performs addition in #13 ?
+13\. Add `x` and `y` together. What happens?
 
 ```{r}
 
+```
+
+
+**Bonus / Extra practice**: Multiply the following `a` and `b` together. How is this similar to the way R performs addition in #10 ?
+
+```{r}
+a <- c(1, 2, 3)
+b <- c(10, 100, 1000)
 ```
 
 

@@ -14,7 +14,7 @@ The way you can create a file like this in RStudio is: File → New File → R M
 
 This is a code chunk that will set up our packages and data. 
 
-```{r setup, include=FALSE}
+```{r setup, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(jhur)
 library(ggplot2)
