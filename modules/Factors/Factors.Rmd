@@ -91,14 +91,14 @@ OK this is very useful, but it is a bit difficult to read. We expect the values 
 Currently `grade` is class `character` but let's change that to class `factor` which allows us to specify the levels or order of the values.
 
 ```{r}
-levels(pull(data_highschool, grade))
+data_highschool %>% pull(grade) %>%  levels()
 
 data_highschool_fct <- data_highschool %>%
   mutate(grade = factor(grade,
     levels = c("Freshman", "Sophomore", "Junior", "Senior")
   ))
 
-levels(pull(data_highschool_fct, grade))
+data_highschool_fct %>% pull(grade) %>% levels()
 ```
 
 ## Change to a factor
