@@ -24,7 +24,7 @@ library(jhur)
 - `length()`, `class()`, and `str()` tell you information about an object
 - `head()` and `tail()` can also help you inspect an object
 - `readr`has helpful functions like `read_csv()` that can help you import data into R
-- `readr` also has helpful functions like `write_rds()` to create files that can be double clicked from the file pane to load into your RStudio environment
+
 
 📃[Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-2.pdf)
 
@@ -211,8 +211,16 @@ head(tibble(df), n = 2)
 
 If you run into losing a variable contained in your row names, you can also use `rownames_to_column` (of `tibble` package) to add it before turning it into a `tibble` to keep them:
 
+<div class = "codeexample">
+```{r, eval = FALSE, size = "tiny"}
+# general format! not code!
+{data you are creating or changing} <- # reassign if you want to keep changes
+      rownames_to_column({data you are using}, 
+                        {Name of column you are making from rownames})
+```
+</div>
+
 ```{r, size = "tiny"}
-library(tibble)
 head(rownames_to_column(df, "car"),  n = 2)
 head(tibble(rownames_to_column(df, "car")),  n = 2)
 ```
@@ -242,7 +250,9 @@ head(df)
 
 ## Take Care with Column Names
 
-When you can, avoid spaces, special punctuation, or numbers in column names, as these require quotes to refer to them. See https://jhudatascience.org/intro_to_r/quotes_vs_backticks.html for more guidance.
+When you can, avoid spaces, special punctuation, or numbers in column names, as these require quotes to refer to them. 
+
+See https://jhudatascience.org/intro_to_r/quotes_vs_backticks.html for more guidance.
 
 ```{r, eval = FALSE}
 df <- rename(df, MPG! = MPG) # this will cause an error
@@ -255,6 +265,25 @@ head(df_rename, 2)
 
 You will need to refer to a column like this with most functions.
 
+
+## Take Care with Column Names and Character Strings
+
+These are the conventions, most options will work for most functions.
+
+Backticks are typically for nonstandard variable names:
+
+- those with spaces `col 1`
+- those with punctuation `col.1`
+- those that are just numbers  `1`
+- those that start with numbers `1st col`
+
+Single or double quotes are typically used for character strings (data values that has characters): 
+
+- `"words"` 
+- `"phrases with spaces"`
+- `'words'`
+- `'phrases with spaces'`
+
 ## Be careful about copy pasting code!
 
 Curly quotes will not work!
@@ -262,6 +291,21 @@ Curly quotes will not work!
 ```{r, eval = FALSE}
 df_rename <-rename(df, ‘MPG!’ = MPG) # this will cause an error!
 ```
+
+```{r, eval = FALSE}
+df_rename <-rename(df, `MPG!` = MPG) # this will work!
+```
+
+Also true for double quotes
+```{r, eval = FALSE}
+df_rename <-rename(df, “MPG!” = MPG) # this will cause an error!
+```
+
+```{r, eval = FALSE}
+df_rename <-rename(df, "MPG!" = MPG) # this will work!
+```
+
+
 
 ## Renaming All Columns of a data frame: dplyr
 
@@ -283,7 +327,12 @@ head(df, 3)
 - tibbles are fancier `tidyverse` version
 - data frames are made with `data.frames()` and `read.csv()`
 - tibbles are made with `tibble()` and `read_csv()` from `readr`
+- If your original data has rownames, you need to use `rownames_to_column` before converting to tibble
 - the `rename()` function of `dplyr` can help you rename columns
+- avoid using punctuation (except underscores), spaces, and numbers (to start or alone) in column names
+- If you must use backticks around those column names
+- quotes can be used for character values
+- avoid copy and pasting code from other sources - quotation marks will change!
 
 ## Lab Part 1
 
@@ -294,7 +343,7 @@ head(df, 3)
 
 ## Subset columns of a data frame - `tidyverse` way: 
 
-To grab the `carb` column the `tidyverse` way we can use the `pull` function:
+To grab (or "pull" out) the `carb` column the `tidyverse` way we can use the `pull` function:
 ```{r}
 pull(df, carb)
 ```
@@ -302,14 +351,14 @@ pull(df, carb)
 
 ## Subset columns of a data frame: dplyr
 
-The `select` command from `dplyr` allows you to subset (gives a `tibble`!)
+The `select` command from `dplyr` allows you to subset (still a `tibble`!)
 ```{r}
 select(df, mpg)
 ```
 
 ## Subset columns of a data frame: dplyr
 
-Note that if you want the values (not a `tibble`), use `pull`:
+Note that if you want the values (not a `tibble`), use `pull` - as it pulls out the data:
 ```{r}
 pull(df, mpg)
 
@@ -331,8 +380,8 @@ select(df, starts_with("c"))
 Here are a few:
 
 ```{r, eval = FALSE}
-one_of() # if they exist
 last_col()
+starts_with()
 ends_with()
 contains() # like searching
 ```
@@ -344,9 +393,10 @@ knitr::include_graphics("images/tidyselect.png")
 ```
 
 ## Summary
-- `pull()` is the `tidyverse` way
+
+- `pull()` to get values out of a data frame/tibble
 - `select()` is the `tidyverse` way to get a tibble with only certain columns
-- you can `select()` based on patterns in the column names
+-  you can `select()` based on patterns in the column names
 
 
 
@@ -365,7 +415,6 @@ The command in `dplyr` for subsetting rows is `filter`.
 filter(df, mpg > 20)
 ```
 
-Note, no subsetting is necessary.  R "knows" `mpg` refers to a column of `df`.
 
 
 ## Subset rows of a data frame: dplyr
@@ -389,7 +438,7 @@ filter(df, mpg %in% c(20,21,22))
 
 ## Subset rows of a data frame: dplyr
 
-You can filter by two conditions using `&` or commas:
+You can filter by two conditions using `&` or commas (must meet both conditions):
 
 ```{r}
 filter(df, mpg > 20 & cyl == 4)
@@ -446,7 +495,7 @@ You can combine `filter` and `select` to subset the rows and columns, respective
 select(filter(df, mpg > 20 & cyl == 4), cyl, hp)
 ```
 
-In `R`, the common way to perform multiple operations is to wrap functions around each other in a nested way such as above. 
+In `R`, the common way to perform multiple operations is to wrap functions around each other in a "nested" way such as above. 
 
 ## Assigning Temporary Objects
 
@@ -461,7 +510,7 @@ head(df2,4)
 
 ## Using the `pipe` (comes with `dplyr`):
 
-Recently, the pipe `%>%` makes things such as this much more readable.  It reads left side "pipes" into right side.  RStudio `CMD/Ctrl + Shift + M` shortcut. Pipe `df` into `filter`, then pipe that into `select`:
+The pipe `%>%` makes things such as this much more readable.  It reads left side "pipes" into right side.  RStudio `CMD/Ctrl + Shift + M` shortcut. Pipe `df` into `filter`, then pipe that into `select`:
 
 
 ```{r}
@@ -471,18 +520,9 @@ df %>% filter(mpg > 20 & cyl == 4) %>% select(cyl, hp)
 
 # Adding/Removing Columns
 
-## Adding new columns to a data frame: base R
-
-You can add a new column, called `newcol` to `df`, using the `$` operator:
-```{r}
-df$newcol <- df$wt/2.2
-head(df,3)
-```
 
 
 ## Adding columns to a data frame: dplyr (`tidyverse` way)
-
-The `$` method is very common.
 
 The `mutate` function in `dplyr` allows you to add or modify columns of a data frame.
 
@@ -499,13 +539,6 @@ df <- mutate(df, newcol = wt/2.2)
 ```
 
 
-
-## Removing columns of a data frame: base R
-
-You can remove a column by assigning to `NULL`:
-```{r, eval = FALSE}
-df$newcol <- NULL
-```
 
 ## Removing columns of a data frame: dplyr
 
@@ -568,6 +601,7 @@ head(select(df, -newcol, everything(), newcol))
 ```
 
 ## Ordering the column names of a data frame: alphabetically
+
 Using the base R `order()` function.
 
 ```{r}
@@ -578,7 +612,7 @@ df %>% select(order(colnames(df)))
 
 ## Ordering the columns of a data frame: dplyr
 
-We can also use the `relocate()` function of dplyr to rearrange the columns.
+In addition to `select` we can also use the `relocate()` function of dplyr to rearrange the columns.
 
 For example, let say we just wanted `wt` to be first.
 
@@ -604,24 +638,19 @@ arrange(df, mpg)
 ```
 
 ## Ordering the rows of a data frame: dplyr
+
 Use the `desc` to arrange the rows in descending order:
 ```{r}
 arrange(df, desc(mpg))
 ```
 
 ## Ordering the rows of a data frame: dplyr
-Increasing and decreasing orderings:
+
+You can combine increasing and decreasing orderings:
 ```{r}
 arrange(df, mpg, desc(hp))
 ```
 
-<!-- ## Transmutation -->
-
-<!-- The `transmute` function in `dplyr` combines both the `mutate` and `select` functions. One can create new columns and keep only the columns wanted: -->
-
-<!-- ```{r} -->
-<!-- transmute(df, newcol2 = wt/2.2, mpg, hp) -->
-<!-- ``` -->
 
 ## Summary
 
@@ -630,11 +659,10 @@ arrange(df, mpg, desc(hp))
     1. nesting them inside one another using parentheses `()`
     2. creating intermediate data objects in between
     3. using pipes `%>%`
-- `arrange()` can be used to reorder rows
 - `select()` and `relocate()` can be used to reorder columns
+- `arrange()` can be used to reorder rows
 - can remove rows with `filter()`
 - can remove a column in a few ways:  
-    1. assigning a column to `NULL`  
     2. using `select()` with negative sign in front of column name(s)  
     3. not selecting it (without negative sign)  
 
@@ -664,6 +692,19 @@ df$carb
 
 Although it is easier (for this one task), mixing and matching the `$` operator with tidyverse functions usually doesn't work. Therefore, we want to let you know about it in case you see it, but we suggest that you try working with the tidyverse way.
 
+## Adding new columns to a data frame: base R
+
+You can add a new column (or modify an existing one) using the `$` operator instead of `mutate`.
+
+Just want you to be aware of this as it is very common.
+
+```{r}
+df$newcol <- df$wt/2.2
+head(df,3)
+```
+
+Even though `$` is easier for creating new columns, `mutate` is really powerful, so it's worth getting used to.
+
 ## Lab Part 4
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
@@ -688,7 +729,11 @@ We can grab the `carb` column using the `$` operator. This is the base R way to 
 df$carb
 ```
 
+## Remove a column in base R
 
+```{r, eval = FALSE}
+df$mpg <- NULL
+```
 ## Renaming Columns of a data frame: base R
 
 We can use the `colnames` function to extract and/or directly reassign column names of `df`:
@@ -731,7 +776,7 @@ df[, 11]
 df[, "carb"]
 ```
 
-## Biggest difference between `tbl` and data frame: 
+## Another difference between `tbl` and data frame: 
 
 Mostly, `tbl` (tibbles) are the same as data frames, except they don't print all lines.  When subsetting only one column using brackets, a data frame will return the values, but a `tbl` will return a `tbl`
 
