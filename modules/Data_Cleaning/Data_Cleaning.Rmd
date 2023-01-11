@@ -96,7 +96,9 @@ any(is.na(B)) # are there any NAs- NO/FALSE
 
 ## Fining `NA` values with `count()`{.codesmall}
 
+::: {style="color: red;"}
 Check the values for your variables, are they what you expect?
+:::
 
 `count()` is a great option because it gives you:
 
@@ -273,6 +275,10 @@ df %>% mutate(Dog = na_if(Dog, 0))
 
 ## Think about `NA`
 
+::: {style="color: red;"}
+⚠️ THINK ABOUT YOUR DATA FIRST! ⚠️
+:::
+
 Sometimes removing `NA` values leads to distorted math - be careful!
 Think about what your `NA` means for your data (are you sure ?).
 
@@ -288,13 +294,18 @@ Example: - survey reports `NA` if student has never tried cigarettes -
 survey reports 0 if student has tried cigarettes but did not smoke that
 week
 
-You might want to keep the `NA` values so that you know the original
-sample size.
+::: {style="color: red;"}
+⚠️You might want to keep the `NA` values so that you know the original
+sample size.⚠️
+:::
 
 ## Word of caution {.codesmall}
 
-Calculating percentages will give you a different result depending on
-your choice to include NA values.
+::: {style="color: red;"}
+⚠️ Calculating percentages will give you a different result depending on
+your choice to include NA values.! ⚠️
+:::
+
 
 ```{r}
 red_blue
