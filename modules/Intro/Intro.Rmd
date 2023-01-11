@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "Introduction"
 output:
   ioslides_presentation:
     css: ../../docs/styles.css
@@ -25,40 +25,41 @@ knitr::include_graphics("images/welcome.jpg")
 
 <sub>[Photo by <a href="https://unsplash.com/@bel2000a?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Belinda Fewings</a> on <a href="https://unsplash.com/s/photos/welcome?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>]</sub>
   
+## Before we start ..
+
+Poll: How are you feeling right now?
   
 ## About Us
 
 **Carrie Wright (she/her)** 
 
-Assistant Scientist, Department of Biostatistics, JHSPH
+Senior Staff Scientist, Fred Hutchinson Cancer Center
+
+Associate, Department of Biostatistics, JHSPH
 
 PhD in Biomedical Sciences
 
-Email: cwrigh60@jhu.edu
-
-Website: https://carriewright11.github.io
+Email: cwrigh60@jhu.edu  Web: https://carriewright11.github.io
 
 ```{r, fig.alt="Carrie's picture", out.width = "30%", echo = FALSE, fig.align='center'}
 # knitr::include_graphics("https://ca.slack-edge.com/T023TPZA8LF-U024F9G49S8-9861ddd543db-192")
 knitr::include_graphics(here::here("modules", "Intro", "images", "carrie.png"))
 ```
 
-
-
 ## About Us
 
 **Ava Hoffman (she/her)**
 
-Research Associate, Department of Biostatistics, JHSPH
+Senior Staff Scientist, Fred Hutchinson Cancer Center
+
+Associate, Department of Biostatistics, JHSPH
 
 PhD in Ecology
 
-Email: ava.hoffman@jhu.edu
-
-Website: https://avahoffman.com
+Email: ava.hoffman@jhu.edu  Web: https://avahoffman.com
 
 ```{r, fig.alt="Ava's picture", out.width = "30%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("https://ca.slack-edge.com/T023TPZA8LF-U0248RUHRC2-0ac3f9608641-512")
+knitr::include_graphics(here::here("modules", "Intro", "images", "ava.png"))
 ```
 
 ## About Us
@@ -81,38 +82,23 @@ knitr::include_graphics("https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/
 
 ## About Us - TAs
 
-**Alex Newman (he/him)**
+**Padmashri Saravanan (she/they)**
 
-2nd Year PhD Student, Department of Mental Health, BSPH   
+1st Year MHS Student, Department of Epidemiology, BSPH   
 
-MA in Psychology, Brandeis University   
+MSc in Mathematics, Birla Institute of Technology and Science, Pilani
 
-BA in Biological Basis of Behavior, University of Pennsylvania  
+Email: psarava1@jhu.edu
 
-Email: anewma28@jhu.edu
-
-```{r, fig.alt="Alex's picture", out.width = "25%", echo = FALSE, fig.align='center'}
-knitr::include_graphics(here::here("modules", "Intro", "images", "Alex.jpg"))
+```{r, fig.alt="Padma's picture", out.width = "25%", echo = FALSE, fig.align='center'}
+knitr::include_graphics(here::here("modules", "Intro", "images", "Padma.jpg"))
 ```
 
+## About you!
 
-## About Us - TAs
+Please introduce yourself!
 
-**Frances Wang (she/her)**   
-
-4th Year PhD Candidate, Department of Epidemiology, BSPH   
-
-MS in Biostatistics and Epidemiology, Case Western Reserve University   
-
-BA in Molecular Biology, Claremont McKenna College  
-
-Email: fwang41@jhu.edu
-
-
-```{r, fig.alt="Alex's picture", out.width = "25%", echo = FALSE, fig.align='center'}
-knitr::include_graphics(here::here("modules", "Intro", "images", "Frances.jpg"))
-```
-
+Find the "introductions" channel on Slack: [`https://intro-to-r-jan2023.slack.com/`](https://intro-to-r-jan2023.slack.com/)
 
 ## What is R?
 
@@ -215,13 +201,13 @@ knitr::include_graphics("../../docs/images/Intro_to_R.png")
  * Lecture with slides (possibly "Interactive")
  * Lab/Practical experience
  * Two 10 min breaks each day - timing may vary
- * June 13-24, 2022, 8:30AM-11:50AM on Zoom
- * No class on June 20th for [Juneteenth](https://en.wikipedia.org/wiki/Juneteenth)
+ * Jan 9-20, 2022, 1:30PM-5:00PM on Zoom
+ * No class on Jan 16th for [Martin Luther King, Jr. Day](https://en.wikipedia.org/wiki/Martin_Luther_King_Jr._Day)
  * Last two classes will focus on final project
  
 ## CoursePlus
  
-https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/18000/
+https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/17889/ 
 
 - Surveys throughout the class for the instructors
 - Upload homework
@@ -239,12 +225,12 @@ knitr::include_graphics("images/feedback-illustration.jpeg")
  1. Attendance/Participation: 20% - this can be asynchronous - just some sort of interaction with the instructors/TAs (turning in assignments, emailing etc.)
  2. Homework: 3 x 15%
  3. Final "Project": 35%
- 
-Homework and Final Project due by **Friday, July 1, 2022 at 11:59pm EST**.
+
+Homework and Final Project due by **Wednesday, Jan 25, 2022 at 11:59pm EST**.
 
 If you turn homework in earlier this can allow us to potentially give you feedback earlier.
  
- Note: Only people taking the course for credit must turn in the assignments. However, we will evaluate all submitted assignments in case others would like feedback on their work.
+Note: Only people taking the course for credit must turn in the assignments. However, we will evaluate all submitted assignments in case others would like feedback on their work.
 
 <!-- ## Grading -->
 
@@ -385,9 +371,9 @@ knitr::include_graphics("../Intro/images/hex.png")
 
 
 ```{r, fig.alt="Picture of Hadley Wickham", out.width = "20%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("https://pbs.twimg.com/profile_images/905186381995147264/7zKAG5sY_400x400.jpg")
+knitr::include_graphics("https://cdn.fosstodon.org/accounts/avatars/109/427/468/786/892/224/original/07ef3294a215592a.jpg")
 ```
-(source: https://twitter.com/hadleywickham)
+(source: https://fosstodon.org/@hadleywickham)
 
 ## Tidyverse and Base R
 
@@ -413,14 +399,44 @@ See this [article](https://tidyverse.tidyverse.org/articles/paper.html) for more
 
 We have an R package called jhur that will make sure all the packages are installed.
 
-You can just copy and paste the below code into your console - we'll explain what it all means in the next day or two
+You can just copy and paste the code below into your RStudio console - we'll explain what it all means in the next day or two.
 
 ```{r, packageInstall, eval=FALSE}
 install.packages("remotes")
-remotes::install_github("muschellij2/jhur")
+library(remotes)
+install_github("jhudsl/jhur")
 ```
 
 Note it may take ~5-10 minutes to run.
+
+## Generally Installing Packages
+
+You can typically install packages (which only needs to be done once) with each version installation of R using:
+
+tools > Install Packages
+
+```{r, fig.alt="The End", out.width = "20%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/install_packages1.png")
+```
+
+```{r, fig.alt="The End", out.width = "30%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/install_packages2.png")
+```
+
+## Loading packages
+
+After installing packages, each time you use them you will need to "load" them into memory - so that you can actively use them.
+
+This is typically done using a function called `library` to load the package.
+
+Here we "load" the `dplyr` package:
+
+```{r, eval = FALSE}
+library(dplyr)
+```
+
+We will cover this many times so just worry about the term "load" and the function `library` for now
+
 
 ## Useful (+ mostly Free) Resources
 
@@ -492,3 +508,10 @@ Check out Candace's courses:
 ## Website tour!
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
+
+```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
+knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
+```
+
+Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
+

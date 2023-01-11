@@ -17,119 +17,104 @@ library(lubridate)
 library(jhur)
 ```
 
-1. Create some data to work with. 
 
-First, create a vector that has class integer called `int_vect` that starts at 1 and goes up to 10 and repeats this sequence 3 times using `rep`  (hint use `seq()`).
-
-```{r}
-
-```
-
-2. Next, create a random vector of 30 values from a set of integers from 1 to 30 called `rand_vect` (hint use `sample()` and set the replace argument to `TRUE`).
-
-Because we are using a random vector let's use the `set.seed()` function to make sure we all have the same result - this code is already in the code chunk for you. Simply create the vector below the `set.seed` line.
-
+1\. Create some data to work with by running the following code chunk.
 
 ```{r}
 set.seed(1234)
 
-
+int_vect <- rep(seq(from = 1, to = 10), times = 3)
+rand_vect <- sample(x = 1:30, size = 30, replace = TRUE)
+TF_vect <- rep(c(TRUE, TRUE, FALSE), times = 10)
+TF_vect2 <- rep(c("TRUE", "TRUE", "FALSE"), times = 10)
 ```
 
-3. Create a vector that repeats `c(TRUE, TRUE, FALSE)` 10 times called `TF_vect`. Also create a vector that repeats `c("TRUE", "TRUE", "FALSE")` 10 times called `TF_vect2`.
+
+2\. Determine the class of each of these new objects.
 
 ```{r}
 
-
 ```
 
-Create a tibble combining these vectors together called `vect_data` using the following code.
 
-```{r, eval = FALSE}
+3\. Create a tibble combining these vectors together called `vect_data` using the following code.
+
+```{r}
 vect_data <- tibble(int_vect, rand_vect, TF_vect, TF_vect2)
 ```
 
 
-4. Take a look at 5 random rows using the `slice_sample()` function. Try this a few times to see how the results change.
-
-```{r}
-
-```
-
-5. Take a look at 5 random rows using the `slice_sample()` function again but this time with `set.seed(1234)` as the first line of the chunk. Try this a few times to see the results. (Don't forget to not copy the backticks.)
+4\. Take a look at 5 random rows using the `slice_sample()` function. Try this a few times to see how the results change.
 
 ```{r}
 
 ```
 
 
-6. Check to see if the `TF_vect` is logical. Check to see if `TF_vect2` is logical. Why are the results what they are?
+5\. Take a look at 5 random rows using the `slice_sample()` function again but this time with `set.seed(1234)` as the first line of the chunk. Try this a few times to see the results. (Don't forget to not copy the backticks.)
 
 ```{r}
-
 
 ```
 
 
-Bonus. Use `mutate()` function to create a new variable in `vect_data` named `type_fact` that is of class `factor` made from the `int_vect` variable. Take a look at the data and observe how the class is different for the new variable compared to `int_vect`.
+6\. Check to see if the `TF_vect` is logical. Check to see if `TF_vect2` is logical. Why are the results what they are?
 
 ```{r}
 
-
-
 ```
 
+
+**Bonus / Extra practice**: Use `mutate()` function to create a new variable in `vect_data` named `type_fact` that is of class `factor` made from the `int_vect` variable. Take a look at the data and observe how the class is different for the new variable compared to `int_vect`.
+
+```{r}
+
+```
 
 
 # Part 2
 
-1. Read in the Charm City Circulator data using `read_circulator()` function from `jhur` package using the code supplied in the chunk. 
+7\. Read in the Charm City Circulator data using `read_circulator()` function from `jhur` package using the code supplied in the chunk. 
 
-Use the `str()` function to take a look at the data and learn about the column types.
+-  Use the `str()` function to take a look at the data and learn about the column types.
 
 ```{r}
 circ <- read_circulator()
 
 ```
 
-2. Use the `mutate()` function to create a new column named `date_formatted` that is of `Date` class. The new variable is created from `date` column. Hint: use `mdy()` function.
+
+8\. Use the `mutate()` function to create a new column named `date_formatted` that is of `Date` class. The new variable is created from `date` column. Hint: use `mdy()` function.
 
 ```{r}
-
 
 ```
 
-3. Move the `date_formatted` variable to be before `date` using the `relocate` function. Take a look at the data using `glimpse()`. Note the difference between `date` and `date_formatted` columns.  
+
+9\. Move the `date_formatted` variable to be before `date` using the `relocate` function. Take a look at the data using `glimpse()`. Note the difference between `date` and `date_formatted` columns.  
 
 ```{r}
-
-
 
 ```
 
-4. Create a list data object called `classes_data` that combines the `vect_data` from the first part of the lab and `circ`. Use `glimpse()` to look at the data.
+
+10\. Create a list data object called `classes_data` that combines the `vect_data` from the first part of the lab and `circ`. Use `glimpse()` to look at the data.
 
 ```{r}
-
-
 
 ```
 
-Bonus: Use `range()` function on `date_formatted` variable to display the range of dates in the data set. How does this compare to that of `date`? Why? (Hint: use the pull function first to pull the values.)
+
+**Bonus / Extra practice**: Use `range()` function on `date_formatted` variable to display the range of dates in the data set. How does this compare to that of `date`? Why? (Hint: use the pull function first to pull the values.)
 
 ```{r}
-
 
 ```
  
 
-Bonus: Use the `group_by` function on `day` variable with the `summarize()` function, to display the number of `orangeBoardings` observations with each day (hint: `use sum()`). Which day had the most boardings? Is this true for the other routes (`purpleBoardings`, `greenBoardings`, `bannerBoardings`)?
+**Bonus / Extra practice**: Use the `group_by` function on `day` variable with the `summarize()` function, to display the number of `orangeBoardings` observations with each day (hint: `use sum()`). Which day had the most boardings? Is this true for the other routes (`purpleBoardings`, `greenBoardings`, `bannerBoardings`)?
 
 ```{r}
 
-
-
 ```
  
-
-

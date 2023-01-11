@@ -15,7 +15,7 @@ The way you can create a file like this in RStudio is: File → New File → R M
 
 This is a code chunk that will set up our packages and data. 
 
-```{r setup, include=FALSE}
+```{r setup, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(jhur)
 library(ggplot2)
@@ -68,9 +68,9 @@ x <- c(1, 2, 3)
 2. Add a new R chunk below the bonus instructions.You can use the insert chunk button or copy paste an existing code chunk. Include a lowercase x inside the chunk as the code.  Thus it should look like the chunk above but without `<- c(1,2,3)`. Make sure you press the knit button after this to see what the new chunk looks like.
 
 
-Bonus:
+**Bonus / Extra practice**:
+
 1. Change the days you are keeping to show `"Sunday"` instead of `"Saturday"`.
 2. Update the options of the R chunk you just made (with the lowercase x in it) so that the output option is `show output only`. How does the chunk look now?
 3. Create another R Markdown Document from RStudio dropdowns: File → New File → R Markdown.
-
 

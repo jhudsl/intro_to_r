@@ -174,10 +174,8 @@ pre code {
 
 <div id="instructions" class="section level3">
 <h3><strong>Instructions</strong></h3>
-<ol style="list-style-type: decimal">
-<li><p>Please submit your filled out <code>.Rmd</code> file to the assignment drop box on CoursePlus: <a href="https://courseplus.jhu.edu/core/index.cfm/go/db:assignment.submit/assignmentID/44234/coID/18000/" class="uri">https://courseplus.jhu.edu/core/index.cfm/go/db:assignment.submit/assignmentID/44234/coID/18000/</a></p></li>
-<li><p>All assignments are due by Friday, July 1, 2022 at 11:59pm EST. Please reach out to us if you need help before this time!</p></li>
-</ol>
+<p>Completed homework should be submitted on CoursePlus as an Rmd file. Please see the course website for more information about submitting assignments: <a href="https://jhudatascience.org/intro_to_r/syllabus.html#submitting-assignments" class="uri">https://jhudatascience.org/intro_to_r/syllabus.html#submitting-assignments</a>.</p>
+<p>Homework will be graded for correct output, not code style. All assignments are due at the end of the course. Please see the course website for more information about grading: <a href="https://jhudatascience.org/intro_to_r/syllabus.html#grading" class="uri">https://jhudatascience.org/intro_to_r/syllabus.html#grading</a>.</p>
 <pre class="r"><code>## you can add more, or change...these are suggestions
 library(tidyverse)
 library(readr)
@@ -187,7 +185,11 @@ library(tidyr)</code></pre>
 </div>
 <div id="problem-set" class="section level3">
 <h3><strong>Problem Set</strong></h3>
-<p>1. (a) Make an object “bday”. Assign it your birthday in day-month format (1-Jan). (b) Make another object “name”. Assign it your name. Make sure to use quotation marks for anything with text!</p>
+<p>1. Create the following two objects.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Make an object “bday”. Assign it your birthday in day-month format (1-Jan).</li>
+<li>Make another object “name”. Assign it your name. Make sure to use quotation marks for anything with text!</li>
+</ol>
 <pre class="r"><code>bday &lt;- &quot;19-Feb&quot;
 name &lt;- &quot;Bruce Wayne&quot;</code></pre>
 <p>2. Make an object “me” that is “bday” and “name” combined.</p>
@@ -200,7 +202,7 @@ name &lt;- &quot;Bruce Wayne&quot;</code></pre>
 <pre class="r"><code># R cannot perform math functions on character data classes (types).</code></pre>
 <p><strong>The following questions involve an outside dataset.</strong></p>
 <p>We will be working with a dataset from the “Kaggle” website, which hosts competitions for prediction and machine learning. More details on this dataset are here: <a href="https://www.kaggle.com/c/DontGetKicked/overview/background" class="uri">https://www.kaggle.com/c/DontGetKicked/overview/background</a>.</p>
-<p>5. Bring the dataset into R. The dataset is located at: <a href="https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv" class="uri">https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv</a>. You can use the link, download it, or use whatever method you like for getting the file. Once you get the file, read the dataset in using <code>read_csv()</code> and assign it the name “cars”.</p>
+<p>5. Bring the dataset into R. The dataset is located at: <a href="https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv" class="uri">https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv</a>. You can use the link, download it, or use whatever method you like for getting the file. Once you get the file, read the dataset in using <code>read_csv()</code> and assign it the name <code>cars</code>.</p>
 <pre class="r"><code>cars &lt;- read_csv(file = &quot;https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv&quot;)</code></pre>
 <pre><code>## Rows: 72983 Columns: 34
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -271,60 +273,99 @@ key &lt;- read_tsv(&quot;dict.txt&quot;)</code></pre>
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<p>7. R can save individual variables as <code>.rds</code> files that can be imported again later. Save the “cars” data in an .rds file using the <code>write_rds()</code> function. You can choose what the <code>file=</code> argument is.</p>
-<pre class="r"><code>write_rds(cars, file = &quot;kaggle.rds&quot;)</code></pre>
-<p>8. You should now be ready to work with the “cars” dataset.</p>
+<p>7. You should now be ready to work with the “cars” dataset.</p>
 <ol style="list-style-type: lower-alpha">
 <li>Preview the data so that you can see the names of the columns. There are several possible functions to do this.</li>
-<li>Determine the class of the first three columns using <code>spec()</code> or <code>typeof()</code>. Write your answer as a comment inside the R chunk below.</li>
+<li>Determine the class of the first three columns using <code>str()</code>. Write your answer as a comment inside the R chunk below.</li>
 </ol>
-<pre class="r"><code>spec(cars)</code></pre>
-<pre><code>## cols(
-##   RefId = col_double(),
-##   IsBadBuy = col_double(),
-##   PurchDate = col_character(),
-##   Auction = col_character(),
-##   VehYear = col_double(),
-##   VehicleAge = col_double(),
-##   Make = col_character(),
-##   Model = col_character(),
-##   Trim = col_character(),
-##   SubModel = col_character(),
-##   Color = col_character(),
-##   Transmission = col_character(),
-##   WheelTypeID = col_character(),
-##   WheelType = col_character(),
-##   VehOdo = col_double(),
-##   Nationality = col_character(),
-##   Size = col_character(),
-##   TopThreeAmericanName = col_character(),
-##   MMRAcquisitionAuctionAveragePrice = col_character(),
-##   MMRAcquisitionAuctionCleanPrice = col_character(),
-##   MMRAcquisitionRetailAveragePrice = col_character(),
-##   MMRAcquisitonRetailCleanPrice = col_character(),
-##   MMRCurrentAuctionAveragePrice = col_character(),
-##   MMRCurrentAuctionCleanPrice = col_character(),
-##   MMRCurrentRetailAveragePrice = col_character(),
-##   MMRCurrentRetailCleanPrice = col_character(),
-##   PRIMEUNIT = col_character(),
-##   AUCGUART = col_character(),
-##   BYRNO = col_double(),
-##   VNZIP1 = col_double(),
-##   VNST = col_character(),
-##   VehBCost = col_double(),
-##   IsOnlineSale = col_double(),
-##   WarrantyCost = col_double()
-## )</code></pre>
-<pre class="r"><code># RefId = col_double()
+<pre class="r"><code>str(cars)</code></pre>
+<pre><code>## spec_tbl_df [72,983 × 34] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+##  $ RefId                            : num [1:72983] 1 2 3 4 5 6 7 8 9 10 ...
+##  $ IsBadBuy                         : num [1:72983] 0 0 0 0 0 0 0 0 0 0 ...
+##  $ PurchDate                        : chr [1:72983] &quot;12/7/2009&quot; &quot;12/7/2009&quot; &quot;12/7/2009&quot; &quot;12/7/2009&quot; ...
+##  $ Auction                          : chr [1:72983] &quot;ADESA&quot; &quot;ADESA&quot; &quot;ADESA&quot; &quot;ADESA&quot; ...
+##  $ VehYear                          : num [1:72983] 2006 2004 2005 2004 2005 ...
+##  $ VehicleAge                       : num [1:72983] 3 5 4 5 4 5 5 4 2 2 ...
+##  $ Make                             : chr [1:72983] &quot;MAZDA&quot; &quot;DODGE&quot; &quot;DODGE&quot; &quot;DODGE&quot; ...
+##  $ Model                            : chr [1:72983] &quot;MAZDA3&quot; &quot;1500 RAM PICKUP 2WD&quot; &quot;STRATUS V6&quot; &quot;NEON&quot; ...
+##  $ Trim                             : chr [1:72983] &quot;i&quot; &quot;ST&quot; &quot;SXT&quot; &quot;SXT&quot; ...
+##  $ SubModel                         : chr [1:72983] &quot;4D SEDAN I&quot; &quot;QUAD CAB 4.7L SLT&quot; &quot;4D SEDAN SXT FFV&quot; &quot;4D SEDAN&quot; ...
+##  $ Color                            : chr [1:72983] &quot;RED&quot; &quot;WHITE&quot; &quot;MAROON&quot; &quot;SILVER&quot; ...
+##  $ Transmission                     : chr [1:72983] &quot;AUTO&quot; &quot;AUTO&quot; &quot;AUTO&quot; &quot;AUTO&quot; ...
+##  $ WheelTypeID                      : chr [1:72983] &quot;1&quot; &quot;1&quot; &quot;2&quot; &quot;1&quot; ...
+##  $ WheelType                        : chr [1:72983] &quot;Alloy&quot; &quot;Alloy&quot; &quot;Covers&quot; &quot;Alloy&quot; ...
+##  $ VehOdo                           : num [1:72983] 89046 93593 73807 65617 69367 ...
+##  $ Nationality                      : chr [1:72983] &quot;OTHER ASIAN&quot; &quot;AMERICAN&quot; &quot;AMERICAN&quot; &quot;AMERICAN&quot; ...
+##  $ Size                             : chr [1:72983] &quot;MEDIUM&quot; &quot;LARGE TRUCK&quot; &quot;MEDIUM&quot; &quot;COMPACT&quot; ...
+##  $ TopThreeAmericanName             : chr [1:72983] &quot;OTHER&quot; &quot;CHRYSLER&quot; &quot;CHRYSLER&quot; &quot;CHRYSLER&quot; ...
+##  $ MMRAcquisitionAuctionAveragePrice: chr [1:72983] &quot;8155&quot; &quot;6854&quot; &quot;3202&quot; &quot;1893&quot; ...
+##  $ MMRAcquisitionAuctionCleanPrice  : chr [1:72983] &quot;9829&quot; &quot;8383&quot; &quot;4760&quot; &quot;2675&quot; ...
+##  $ MMRAcquisitionRetailAveragePrice : chr [1:72983] &quot;11636&quot; &quot;10897&quot; &quot;6943&quot; &quot;4658&quot; ...
+##  $ MMRAcquisitonRetailCleanPrice    : chr [1:72983] &quot;13600&quot; &quot;12572&quot; &quot;8457&quot; &quot;5690&quot; ...
+##  $ MMRCurrentAuctionAveragePrice    : chr [1:72983] &quot;7451&quot; &quot;7456&quot; &quot;4035&quot; &quot;1844&quot; ...
+##  $ MMRCurrentAuctionCleanPrice      : chr [1:72983] &quot;8552&quot; &quot;9222&quot; &quot;5557&quot; &quot;2646&quot; ...
+##  $ MMRCurrentRetailAveragePrice     : chr [1:72983] &quot;11597&quot; &quot;11374&quot; &quot;7146&quot; &quot;4375&quot; ...
+##  $ MMRCurrentRetailCleanPrice       : chr [1:72983] &quot;12409&quot; &quot;12791&quot; &quot;8702&quot; &quot;5518&quot; ...
+##  $ PRIMEUNIT                        : chr [1:72983] &quot;NULL&quot; &quot;NULL&quot; &quot;NULL&quot; &quot;NULL&quot; ...
+##  $ AUCGUART                         : chr [1:72983] &quot;NULL&quot; &quot;NULL&quot; &quot;NULL&quot; &quot;NULL&quot; ...
+##  $ BYRNO                            : num [1:72983] 21973 19638 19638 19638 19638 ...
+##  $ VNZIP1                           : num [1:72983] 33619 33619 33619 33619 33619 ...
+##  $ VNST                             : chr [1:72983] &quot;FL&quot; &quot;FL&quot; &quot;FL&quot; &quot;FL&quot; ...
+##  $ VehBCost                         : num [1:72983] 7100 7600 4900 4100 4000 5600 4200 4500 5600 7700 ...
+##  $ IsOnlineSale                     : num [1:72983] 0 0 0 0 0 0 0 0 0 0 ...
+##  $ WarrantyCost                     : num [1:72983] 1113 1053 1389 630 1020 ...
+##  - attr(*, &quot;spec&quot;)=
+##   .. cols(
+##   ..   RefId = col_double(),
+##   ..   IsBadBuy = col_double(),
+##   ..   PurchDate = col_character(),
+##   ..   Auction = col_character(),
+##   ..   VehYear = col_double(),
+##   ..   VehicleAge = col_double(),
+##   ..   Make = col_character(),
+##   ..   Model = col_character(),
+##   ..   Trim = col_character(),
+##   ..   SubModel = col_character(),
+##   ..   Color = col_character(),
+##   ..   Transmission = col_character(),
+##   ..   WheelTypeID = col_character(),
+##   ..   WheelType = col_character(),
+##   ..   VehOdo = col_double(),
+##   ..   Nationality = col_character(),
+##   ..   Size = col_character(),
+##   ..   TopThreeAmericanName = col_character(),
+##   ..   MMRAcquisitionAuctionAveragePrice = col_character(),
+##   ..   MMRAcquisitionAuctionCleanPrice = col_character(),
+##   ..   MMRAcquisitionRetailAveragePrice = col_character(),
+##   ..   MMRAcquisitonRetailCleanPrice = col_character(),
+##   ..   MMRCurrentAuctionAveragePrice = col_character(),
+##   ..   MMRCurrentAuctionCleanPrice = col_character(),
+##   ..   MMRCurrentRetailAveragePrice = col_character(),
+##   ..   MMRCurrentRetailCleanPrice = col_character(),
+##   ..   PRIMEUNIT = col_character(),
+##   ..   AUCGUART = col_character(),
+##   ..   BYRNO = col_double(),
+##   ..   VNZIP1 = col_double(),
+##   ..   VNST = col_character(),
+##   ..   VehBCost = col_double(),
+##   ..   IsOnlineSale = col_double(),
+##   ..   WarrantyCost = col_double()
+##   .. )
+##  - attr(*, &quot;problems&quot;)=&lt;externalptr&gt;</code></pre>
+<pre class="r"><code>#  $ RefId                            : num [1:72983] 1 2 3 4 5 6 7 8 9 10 ...
+#  $ IsBadBuy                         : num [1:72983] 0 0 0 0 0 0 0 0 0 0 ...
+#  $ PurchDate                        : chr [1:72983] &quot;12/7/2009&quot; &quot;12/7/2009&quot;
+# OR
+# RefId = col_double()
 # IsBadBuy = col_double()
 # PurchDate = col_character()</code></pre>
-<p>9. How many cars (rows) are in the dataset? How many variables (columns) are recorded for each car?</p>
+<p>8. How many cars (rows) are in the dataset? How many variables (columns) are recorded for each car?</p>
 <pre class="r"><code>dim(cars)</code></pre>
 <pre><code>## [1] 72983    34</code></pre>
 <pre class="r"><code>nrow(cars)</code></pre>
 <pre><code>## [1] 72983</code></pre>
 <p><span style="color:red"> There are 72983 cars in the dataset and 34 variables. </span></p>
-<p>10. Filter out (i.e., remove) any vehicles that cost less than or equal to $5000 (“VehBCost”) or that have missing values. Reassign the new filtered dataset to “cars”. How many vehicles are left after filtering?</p>
+<p>9. Filter out (i.e., remove) any vehicles that cost less than or equal to $5000 (“VehBCost”) or that have missing values. Replace the original “cars” object by reassigning the new filtered dataset to “cars”. How many vehicles are left after filtering?</p>
 <p><strong>Hint:</strong> The <code>filter()</code> function also removes missing values.</p>
 <pre class="r"><code>cars &lt;- filter(cars, VehBCost &gt; 5000)
 nrow(cars)</code></pre>
@@ -334,7 +375,7 @@ cars &lt;- cars %&gt;% filter(VehBCost &gt; 5000)
 nrow(cars)</code></pre>
 <pre><code>## [1] 59957</code></pre>
 <p><span style="color:red"> There are 59957 cars after filtering by price. </span></p>
-<p>11. From this point on, work with the filtered “cars” dataset from the above question. Given the average car loan today is 70 months, create a new variable (column) called “MonthlyPrice” that shows the monthly cost for each car (Divide “VehBCost” by 70). Check to make sure the new column is there.</p>
+<p>10. From this point on, work with the filtered “cars” dataset from the above question. Given the average car loan today is 70 months, create a new variable (column) called “MonthlyPrice” that shows the monthly cost for each car (Divide “VehBCost” by 70). Check to make sure the new column is there.</p>
 <p><strong>Hint:</strong> use the <code>mutate()</code> function.</p>
 <pre class="r"><code>cars &lt;- cars %&gt;% mutate(MonthlyPrice = VehBCost / 70)
 # OR
@@ -358,7 +399,7 @@ colnames(cars)</code></pre>
 ## [31] &quot;VNST&quot;                              &quot;VehBCost&quot;                         
 ## [33] &quot;IsOnlineSale&quot;                      &quot;WarrantyCost&quot;                     
 ## [35] &quot;MonthlyPrice&quot;</code></pre>
-<p>12. What is the range of the manufacture year (“VehYear”) of the vehicles?</p>
+<p>11. What is the range of the manufacture year (“VehYear”) of the vehicles?</p>
 <pre class="r"><code>range(cars %&gt;% pull(VehYear))</code></pre>
 <pre><code>## [1] 2001 2010</code></pre>
 <pre class="r"><code># OR
@@ -373,6 +414,10 @@ range(cars$VehYear)</code></pre>
 ##  2001  2002  2003  2004  2005  2006  2007  2008  2009  2010 
 ##   532  1741  3859  7262 12296 15494 11079  6871   822     1</code></pre>
 <p><span style="color:red"> The range is 2001, 2010. </span></p>
+<p>12. Create a random sample with of mileage (odometer reading) from <code>cars</code>. To determine the column that corresponds to mileage (The vehicle’s odometer reading), check the “key” corresponding to the data dictionary that you imported above in question 6. Use <code>sample()</code> and <code>pull()</code>. Remember that by default random samples differ each time you run the code.</p>
+<pre class="r"><code>sample(pull(cars, VehOdo), size = 20)</code></pre>
+<pre><code>##  [1] 65188 71210 88046 73670 52685 41011 49242 49843 60947 43602 53921 59534
+## [13] 87435 67549 64279 64345 81672 82220 52045 64558</code></pre>
 <p>13. How many cars were from before 2004? What percent/proportion do these represent? Use:</p>
 <ul>
 <li><code>filter()</code> and <code>nrow()</code></li>
@@ -431,7 +476,7 @@ length(table(cars$Make))</code></pre>
 <pre><code>## [1] 985</code></pre>
 <p><span style="color:red"> 985 unique models. </span></p>
 <p>16. Which vehicle color group had the highest mean acquisition cost paid for the vehicle at time of purchase, and what was this cost?</p>
-<p><strong>Hint:</strong> Use <code>group_by()</code> with <code>summarize()</code>. To determine the column that corresponds to “acquisition cost paid for the vehicle at time of purchase”, check the “key” corresponding to the data dictionary that you imported above.</p>
+<p><strong>Hint:</strong> Use <code>group_by()</code> with <code>summarize()</code>. To determine the column that corresponds to “acquisition cost paid for the vehicle at time of purchase”, check the “key” corresponding to the data dictionary that you imported above in question 6.</p>
 <pre class="r"><code>cars %&gt;%
   group_by(Color) %&gt;%
   summarize(mean = mean(VehBCost))</code></pre>
@@ -480,7 +525,7 @@ length(table(cars$Make))</code></pre>
 ## 15 YELLOW    6922.
 ## 16 PURPLE    6889.
 ## 17 NULL      5860</code></pre>
-<p>18. How many vehicles were red and have fewer than 30,000 miles? To determine the column that corresponds to mileage (odometer reading), check the “key” corresponding to the data dictionary that you imported above. use:</p>
+<p>18. How many vehicles were red and have fewer than 30,000 miles? To determine the column that corresponds to mileage (The vehicle’s odometer reading), check the “key” corresponding to the data dictionary that you imported above in question 6. use:</p>
 <ul>
 <li><code>filter()</code> and <code>count()</code></li>
 <li><code>filter()</code> and <code>tally()</code> or</li>
@@ -539,6 +584,9 @@ sum(cars$Color %in% c(&quot;BLUE&quot;, &quot;RED&quot;))</code></pre>
   colMeans()</code></pre>
 <pre><code>##      VehYear   VehicleAge       VehOdo     VehBCost 
 ##  2005.654252     3.896176 70336.967210  7264.971979</code></pre>
+<blockquote>
+<p>The following questions are not required for full credit, but can make up for any points lost on other questions.</p>
+</blockquote>
 </div>
 <div id="bonus-practice" class="section level3">
 <h3><strong>Bonus Practice</strong></h3>

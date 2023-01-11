@@ -22,7 +22,7 @@ library(tidyverse)
 library(broom)
 library(naniar)
 
-bike <- jhur::read_bike()
+bike <- read_bike()
 ```
 
 # Part 1
@@ -47,17 +47,17 @@ bike %>%
 have_rout <- bike %>% drop_na(route)
 ```
 
-3.  Use `naniar` to make a visual of the amount of data missing for each variable of `bike` (use `naniar::gg_miss_var()`). Check out more about this package here: https://www.njtierney.com/post/2018/06/12/naniar-on-cran/
+3.  Use `naniar` to make a visual of the amount of data missing for each variable of `bike` (use `gg_miss_var()`). Check out more about this package here: https://www.njtierney.com/post/2018/06/12/naniar-on-cran/
 
 ```{r}
-naniar::gg_miss_var(bike)
+gg_miss_var(bike)
 ```
 
 
 4. What percentage of the `subType` variable is complete of `bike` ? Hint: use another `naniar` function.
  
 ```{r}
-naniar::pct_complete(bike$subType) # this or..
+pct_complete(bike$subType) # this or..
 pull(bike, subType) %>% pct_complete() # this
 ```
 
@@ -146,23 +146,25 @@ BloodType %>%
 BloodType %>% count(type)
 ```
 
-6. Make a new tibble of `BloodType` called `Bloodtype_split` that splits the `type` variable into two called `blood_type` and  `Rhfactor`. Note: periods are special characters that generally are interpreted as wild cards thus we need `\\` to tell R that we want it to be interpreted as a period.
+6. Make a new tibble of `BloodType` called `Bloodtype_split` that splits the `type` variable into two called `blood_type` and  `Rhfactor`. Note: periods are special characters that generally are interpreted as wild cards thus we need `\\.` instead of simply "." to tell R that we want it to be interpreted as a period.
 
-The following commented code within the chunk (starts with `#`) can be used as a guide to help you. Type your code below this commented code. 
-
-```{r}
-## ______________ <- ________ %>%
-# ________(____, ____ = c(__________, __________), sep = "\\.")
-
-BloodType_split <- BloodType %>% separate(type, into = c("blood_type", "Rhfactor"), sep = "\\.")
+```
+# General format
+NEW_TIBBLE <- OLD_TIBBLE 
+    %>% separate(OLD_COLUMN, into = c("NEW_COLUMN1", "NEW_COLUMN2"), sep = "SEPARATING_CHARACTER")
 ```
 
-Bonus: How many observations are there for each `Rhfactor`:
+```{r}
+BloodType_split <- BloodType %>%
+  separate(type, into = c("blood_type", "Rhfactor"), sep = "\\.")
+```
+
+**Bonus / Extra practice**: How many observations are there for each `Rhfactor`:
 ```{r}
 count(BloodType_split, Rhfactor)
 ```
 
-Bonus: Filtering for patients with type O, how many had the infection?
+**Bonus / Extra practice**: Filtering for patients with type O, how many had the infection?
 ```{r}
 BloodType_split %>%
   filter(blood_type == "O") %>%
