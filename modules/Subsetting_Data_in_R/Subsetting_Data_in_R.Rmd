@@ -250,7 +250,9 @@ head(df)
 
 ## Take Care with Column Names
 
-When you can, avoid spaces, special punctuation, or numbers in column names, as these require quotes to refer to them. See https://jhudatascience.org/intro_to_r/quotes_vs_backticks.html for more guidance.
+When you can, avoid spaces, special punctuation, or numbers in column names, as these require quotes to refer to them. 
+
+See https://jhudatascience.org/intro_to_r/quotes_vs_backticks.html for more guidance.
 
 ```{r, eval = FALSE}
 df <- rename(df, MPG! = MPG) # this will cause an error
