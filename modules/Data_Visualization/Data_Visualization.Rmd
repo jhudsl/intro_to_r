@@ -387,7 +387,7 @@ ggplot(Orange, mapping = aes(x = circumference, y = age)) +
 - individual layers can be customized using arguments like:
 `size`, `color` `alpha` (more transparent is closer to 0), and `linetype`
 - labels can be added with the `labs()` function and `x`, `y`, `title` arguments - the `\n` can be used for line breaks
--`xlim()` and `ylim()` can limit or expand the plot area
+- `xlim()` and `ylim()` can limit or expand the plot area
 - `scale_x_continuous()` and `scale_y_continuous()` can modify the scale of the axes
 - by default, `ggplot()` removes points with missing values from plots.
 
