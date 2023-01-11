@@ -223,7 +223,7 @@ library(jhur)</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Convert the column names of <code>cars_mt_copy</code> to all upper case. Use <code>rename_with()</code>, and the <code>toupper</code> command.</li>
 </ol>
-<p>Bonus: How can you print the first 3 rows and the last 3 rows of <code>cars_mt_copy</code> (in two lines of code)?</p>
+<p><strong>Bonus / Extra practice</strong>: How can you print the first 3 rows and the last 3 rows of <code>cars_mt_copy</code> (in two lines of code)?</p>
 </div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
@@ -232,9 +232,9 @@ library(jhur)</code></pre>
 <li><p>Subset both the column <code>CAR</code> that you just created and the columns from <code>cars_mt_copy</code> that end in <code>&quot;P&quot;</code> and call it <code>pvars</code>. Hint: use <code>ends_with()</code> and <code>select()</code>. Again take a look at the data.</p></li>
 <li><p>Create a subset of the <code>cars_mt_copy</code> that only contains the columns: <code>CAR</code>, <code>WT</code>, <code>QSEC</code>, and <code>HP</code> and assign this object to <code>carsSub</code> - what are the dimensions of this dataset?</p></li>
 </ol>
-<p>Bonus: Convert the column names of <code>carsSub</code> to all lower case. Take a look at the data.</p>
-<p>Bonus: Pull the variable <code>car</code> from <code>carsSub</code>. How does this differ form selecting it?</p>
-<p>Bonus: Select the variables that contain the letter a from <code>cars_mt_copy</code>.</p>
+<p><strong>Bonus / Extra practice</strong>: Convert the column names of <code>carsSub</code> to all lower case. Take a look at the data.</p>
+<p><strong>Bonus / Extra practice</strong>: Pull the variable <code>car</code> from <code>carsSub</code>. How does this differ form selecting it?</p>
+<p><strong>Bonus / Extra practice</strong>: Select the variables that contain the letter a from <code>cars_mt_copy</code>.</p>
 </div>
 <div id="part-3" class="section level1">
 <h1>Part 3</h1>
@@ -244,7 +244,7 @@ library(jhur)</code></pre>
 <li><p>Subset the rows of <code>cars_mt_copy</code> that get <strong>less</strong> than 16 miles per gallon (<code>MPG</code>) of fuel efficiency <strong>and</strong> <strong>greater than or equal</strong> to 150 horsepower (<code>HP</code>) - how many are there?</p></li>
 <li><p>Why do the answers for 2 and 3 differ?</p></li>
 </ol>
-<p>Bonus:</p>
+<p><strong>Bonus / Extra practice</strong>:</p>
 <p>Subset the rows of <code>cars_mt_copy</code> for cars that have 4 <code>CYL</code>, <strong>or</strong> <strong>less</strong> than 1.9 WT. How many cars have both?</p>
 </div>
 <div id="part-4" class="section level1">
@@ -258,8 +258,8 @@ library(jhur)</code></pre>
 <li><p>Re-order the rows of <code>carsSub</code> by weight (<code>WT</code>) in increasing order. Use <code>arrange()</code>. What is the heaviest car?</p></li>
 <li><p>Create a new variable in <code>carsSub</code> called <code>WT2</code>, which is equal to <code>WT^2</code>, using <code>mutate()</code>(don’t forget to reassign <code>carsSub</code>). Use pipes <code>%&gt;%</code>:</p></li>
 </ol>
-<p>Bonus: Move the <code>WT2</code> column to be first. Use <code>relocate()</code>.</p>
-<p>BONUS: How can you find the value of <code>WT2</code> for the Cadillac Fleetwood without just looking at the data manually and instead use functions we learned today?</p>
+<p><strong>Bonus / Extra practice</strong>: Move the <code>WT2</code> column to be first. Use <code>relocate()</code>.</p>
+<p><strong>Bonus / Extra practice</strong>: How can you find the value of <code>WT2</code> for the Cadillac Fleetwood without just looking at the data manually and instead use functions we learned today?</p>
 </div>
 
 

@@ -23,7 +23,6 @@ library(jhur)
 - if you don't use `<-` to reassign objects that you want to modify, they will stay the same
 - `length()`, `class()`, and `str()` tell you information about an object
 - `head()` and `tail()` can also help you inspect an object
-- `spec` can help you check data read into R with `readr`
 - `readr`has helpful functions like `read_csv()` that can help you import data into R
 - `readr` also has helpful functions like `write_rds()` to create files that can be double clicked from the file pane to load into your RStudio environment
 
@@ -213,6 +212,7 @@ head(tibble(df), n = 2)
 If you run into losing a variable contained in your row names, you can also use `rownames_to_column` (of `tibble` package) to add it before turning it into a `tibble` to keep them:
 
 ```{r, size = "tiny"}
+library(tibble)
 head(rownames_to_column(df, "car"),  n = 2)
 head(tibble(rownames_to_column(df, "car")),  n = 2)
 ```
@@ -237,6 +237,30 @@ For example, let's rename mpg to MPG. Notice the new name is listed **first**!
 ```{r}
 df <- rename(df, MPG = mpg)
 head(df)
+```
+
+
+## Take Care with Column Names
+
+When you can, avoid spaces, special punctuation, or numbers in column names, as these require quotes to refer to them. See https://jhudatascience.org/intro_to_r/quotes_vs_backticks.html for more guidance.
+
+```{r, eval = FALSE}
+df <- rename(df, MPG! = MPG) # this will cause an error
+```
+
+```{r}
+df_rename <-rename(df, `MPG!` = MPG) # this will work
+head(df_rename, 2)
+```
+
+You will need to refer to a column like this with most functions.
+
+## Be careful about copy pasting code!
+
+Curly quotes will not work!
+
+```{r, eval = FALSE}
+df_rename <-rename(df, ‘MPG!’ = MPG) # this will cause an error!
 ```
 
 ## Renaming All Columns of a data frame: dplyr
@@ -268,14 +292,6 @@ head(df, 3)
 
 # Subsetting Columns
 
-## Subset columns of a data frame: 
-
-We can grab the `carb` column using the `$` operator. This is the base R way to do this:
-
-```{r}
-df$carb
-```
-
 ## Subset columns of a data frame - `tidyverse` way: 
 
 To grab the `carb` column the `tidyverse` way we can use the `pull` function:
@@ -293,7 +309,7 @@ select(df, mpg)
 
 ## Subset columns of a data frame: dplyr
 
-Note that if you want the values (not a `tibble`), use `pull` (or `$` if you were using base R):
+Note that if you want the values (not a `tibble`), use `pull`:
 ```{r}
 pull(df, mpg)
 
@@ -328,8 +344,6 @@ knitr::include_graphics("images/tidyselect.png")
 ```
 
 ## Summary
-
-- the `$` is used base R to get the values of a column from a data frame or tibble
 - `pull()` is the `tidyverse` way
 - `select()` is the `tidyverse` way to get a tibble with only certain columns
 - you can `select()` based on patterns in the column names
@@ -400,6 +414,15 @@ which(select(df,carb) == 4)
 select(df, carb) == 4
 ```
 
+## `distinct()` function
+
+To filter for distinct values from a variable, multiple variables, or an entire tibble you can use the `distinct()` function from the `dplyr` package.
+
+```{r}
+distinct(df, cyl)
+
+distinct(df, cyl, gear)
+```
 
 ## Summary
 
@@ -408,6 +431,7 @@ select(df, carb) == 4
 - `&` means both conditions must be met to remain after `filter()`
 - `|` means either conditions needs to be met to remain after `filter()`
 - `which()` shows you where values meet a condition
+- `distinct()` helps you filter for unique values
 
 ## Lab Part 3
 
@@ -498,7 +522,7 @@ head(select(df, -newcol))
 
 **Or, you can simply select the columns you want to keep, ignoring the ones you want to remove.**
 
-## Removing columns to a data frame: dplyr
+## Removing columns in a data frame: dplyr
 
 You can use `c()` to list the columns to remove.
 
@@ -519,6 +543,38 @@ select(df, cyl, mpg, wt, car) %>%
 head()
 ```
 
+## Ordering the columns of a data frame: dplyr
+
+The `select` function can reorder columns.  Put `newcol` first, then select the rest of columns:
+```{r, eval = FALSE}
+select(df, newcol, everything())
+```
+
+```{r, echo = FALSE}
+head(select(df, newcol, everything()))
+```
+
+
+## Ordering the columns of a data frame: dplyr
+
+Put `newcol` at the end ("remove, everything, then add back in"):
+
+```{r, eval = FALSE}
+select(df, -newcol, everything(), newcol)
+```
+
+```{r, echo = FALSE}
+head(select(df, -newcol, everything(), newcol))
+```
+
+## Odering the colum names of a data frame: alphabetically
+Using the base R `order()` function.
+
+```{r}
+order(colnames(df))
+df %>% select(order(colnames(df)))
+```
+
 
 ## Ordering the columns of a data frame: dplyr
 
@@ -537,36 +593,6 @@ df_carb
 ```
 
 
-<!-- ## Ordering the columns of a data frame: dplyr -->
-
-<!-- The `select` function can reorder columns.  Put `newcol` first, then select the rest of columns: -->
-<!-- ```{r, eval = FALSE} -->
-<!-- select(df, newcol, everything()) -->
-<!-- ``` -->
-
-<!-- ```{r, echo = FALSE} -->
-<!-- head(select(df, newcol, everything())) -->
-<!-- ``` -->
-
-<!-- ## Ordering the columns of a data frame: dplyr -->
-
-<!-- Put `newcol` at the end ("remove, everything, then add back in"): -->
-
-<!-- ```{r, eval = FALSE} -->
-<!-- select(df, -newcol, everything(), newcol) -->
-<!-- ``` -->
-
-<!-- ```{r, echo = FALSE} -->
-<!-- head(select(df, -newcol, everything(), newcol)) -->
-<!-- ``` -->
-
-<!-- ## Odering the colunames of a data frame: alphabetically -->
-<!-- Using the base R `order()` function. -->
-
-<!-- ```{r} -->
-<!-- order(colnames(df)) -->
-<!-- df %>% select(order(colnames(df))) -->
-<!-- ``` -->
 
 # Ordering rows
 
@@ -591,7 +617,7 @@ arrange(df, mpg, desc(hp))
 
 <!-- ## Transmutation -->
 
-<!-- The `transmute` function in `dplyr` combines both the `mutate` and `select` functions. One can create new columns and keep the only the columns wanted: -->
+<!-- The `transmute` function in `dplyr` combines both the `mutate` and `select` functions. One can create new columns and keep only the columns wanted: -->
 
 <!-- ```{r} -->
 <!-- transmute(df, newcol2 = wt/2.2, mpg, hp) -->
@@ -628,68 +654,39 @@ arrange(df, mpg, desc(hp))
 df <- mutate(df, newcol = wt/2.2)
 ```
 
+## A note about base R: 
+
+The `$` operator is similar to `pull()`. This is the base R way to do this:
+
+```{r}
+df$carb
+```
+
+Although it is easier (for this one task), mixing and matching the `$` operator with tidyverse functions usually doesn't work. Therefore, we want to let you know about it in case you see it, but we suggest that you try working with the tidyverse way.
 
 ## Lab Part 4
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
+
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab.Rmd)
 
 
 
-# Extra Slides
-
-## Creating conditional variables
-
-One frequently-used tool is creating variables with conditions.
-
-A general function for creating new variables based on existing variables is the `ifelse()` function, which "returns a value depending on whether the element of test is `TRUE` or `FALSE`."
-
-```
-ifelse(test, yes, no)
-
-# test: an object which can be coerced
-    to logical mode.
-# yes: return values for true elements of test.
-# no: return values for false elements of test.
+```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
+knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 ```
 
-## `ifelse` example
+Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
+
+# Extra Slides - base R subsetting
+
+## Subset columns of a data frame: 
+
+We can grab the `carb` column using the `$` operator. This is the base R way to do this:
 
 ```{r}
-df$disp
+df$carb
 ```
-
-Now with `ifelse`()
-```{r}
-#ifelse(test, yes, no)
-ifelse(df$disp <= 200, "low", "high")
-```
-
-## Adding columns to a data frame: dplyr
-
-Combined with `ifelse(condition, TRUE, FALSE)`, it can give you:
-
-```{r}
-df <- mutate(df, 
-            disp_cat = ifelse(disp <= 200, "Low","High")
-            )
-
-head(df,2)
-```
-
-## Adding columns to a data frame: dplyr
-
-Alternatively, `case_when` provides a clean syntax as well:
-
-```{r}
-df <- mutate(df, 
-            disp_cat2 = case_when(
-              disp <= 200 ~ "Low",
-              disp > 200 ~ "High",
-            ))
-head(df$disp_cat2)
-```
-
 
 
 ## Renaming Columns of a data frame: base R
@@ -752,5 +749,7 @@ We can select multiple columns using multiple column names:
 ```{r}
 df[, c("mpg", "cyl")]
 ```
+
+
 
 

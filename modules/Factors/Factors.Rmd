@@ -178,7 +178,7 @@ We can order a factor by another variable by using the `fct_reorder()` function 
 library(forcats)
 
 data_highschool_fct %>%
-  ggplot(mapping = aes(x = forcats::fct_reorder(grade, absences), y = absences)) +
+  ggplot(mapping = aes(x = fct_reorder(grade, absences), y = absences)) +
   geom_boxplot() +
   labs(x = "Student Grade") +
   theme_bw(base_size = 16) # make all labels size 16
@@ -209,7 +209,7 @@ Now let's plot each of our variables of interest (absences and tardy) on the y a
 
 absences <- data_highschool_fct %>%
   ggplot(mapping = aes(
-    x = forcats::fct_reorder(grade, absences),
+    x = fct_reorder(grade, absences),
     y = absences
   )) +
   geom_boxplot(fill = "lightgreen") +
@@ -217,7 +217,7 @@ absences <- data_highschool_fct %>%
 
 tardy <- data_highschool_fct %>%
   ggplot(mapping = aes(
-    x = forcats::fct_reorder(grade, tardy),
+    x = fct_reorder(grade, tardy),
     y = tardy
   )) +
   geom_boxplot(fill = "violet") +
@@ -235,7 +235,7 @@ The last plot is informative, but what if we are mostly interested in absences a
 
 absences <- data_highschool_fct %>%
   ggplot(mapping = aes(
-    x = forcats::fct_reorder(grade, absences),
+    x = fct_reorder(grade, absences),
     y = absences
   )) +
   geom_boxplot(fill = "lightgreen")
@@ -243,7 +243,7 @@ absences <- data_highschool_fct %>%
 
 tardy <- data_highschool_fct %>%
   ggplot(mapping = aes(
-    x = forcats::fct_reorder(grade, absences),
+    x = fct_reorder(grade, absences),
     y = tardy
   )) +
   geom_boxplot(fill = "violet")
@@ -272,4 +272,9 @@ data_highschool_fct %>%
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)    
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules//Factors/lab/Factors_Lab.Rmd)
 
-The End
+```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
+knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
+```
+
+Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
+

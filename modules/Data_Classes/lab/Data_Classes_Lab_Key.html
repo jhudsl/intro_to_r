@@ -193,34 +193,25 @@ library(lubridate)</code></pre>
 ## 
 ##     date, intersect, setdiff, union</code></pre>
 <pre class="r"><code>library(jhur)</code></pre>
-<ol style="list-style-type: decimal">
-<li>Create some data to work with.</li>
-</ol>
-<p>First, create a vector that has class integer called <code>int_vect</code> that starts at 1 and goes up to 10 and repeats this sequence 3 times using <code>rep</code> (hint use <code>seq()</code>).</p>
-<pre class="r"><code>int_vect &lt;- rep(seq(from = 1, to = 10), times = 3)</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Next, create a random vector of 30 values from a set of integers from 1 to 30 called <code>rand_vect</code> (hint use <code>sample()</code> and set the replace argument to <code>TRUE</code>).</li>
-</ol>
-<p>Because we are using a random vector let’s use the <code>set.seed()</code> function to make sure we all have the same result - this code is already in the code chunk for you. Simply create the vector below the <code>set.seed</code> line.</p>
+<p>1. Create some data to work with by running the following code chunk.</p>
 <pre class="r"><code>set.seed(1234)
-rand_vect &lt;- sample(
-  x = seq(from = 1, to = 30, by = 1),
-  size = 30, replace = TRUE
-)
 
-# this also works... need to set the seed right before
-set.seed(1234)
-rand_vect &lt;- sample(x = 1:30, size = 30, replace = TRUE)</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Create a vector that repeats <code>c(TRUE, TRUE, FALSE)</code> 10 times called <code>TF_vect</code>. Also create a vector that repeats <code>c(&quot;TRUE&quot;, &quot;TRUE&quot;, &quot;FALSE&quot;)</code> 10 times called <code>TF_vect2</code>.</li>
-</ol>
-<pre class="r"><code>TF_vect &lt;- rep(c(TRUE, TRUE, FALSE), times = 10)
+int_vect &lt;- rep(seq(from = 1, to = 10), times = 3)
+rand_vect &lt;- sample(x = 1:30, size = 30, replace = TRUE)
+TF_vect &lt;- rep(c(TRUE, TRUE, FALSE), times = 10)
 TF_vect2 &lt;- rep(c(&quot;TRUE&quot;, &quot;TRUE&quot;, &quot;FALSE&quot;), times = 10)</code></pre>
-<p>Create a tibble combining these vectors together called <code>vect_data</code> using the following code.</p>
+<p>2. Determine the class of each of these new objects.</p>
+<pre class="r"><code>class(int_vect) # [1] &quot;integer&quot;</code></pre>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<pre class="r"><code>class(rand_vect) # [1] &quot;integer&quot;</code></pre>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<pre class="r"><code>class(TF_vect) # [1] &quot;logical&quot;</code></pre>
+<pre><code>## [1] &quot;logical&quot;</code></pre>
+<pre class="r"><code>class(TF_vect2) # [1] &quot;character&quot;</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<p>3. Create a tibble combining these vectors together called <code>vect_data</code> using the following code.</p>
 <pre class="r"><code>vect_data &lt;- tibble(int_vect, rand_vect, TF_vect, TF_vect2)</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>Take a look at 5 random rows using the <code>slice_sample()</code> function. Try this a few times to see how the results change.</li>
-</ol>
+<p>4. Take a look at 5 random rows using the <code>slice_sample()</code> function. Try this a few times to see how the results change.</p>
 <pre class="r"><code>slice_sample(vect_data, n = 5)</code></pre>
 <pre><code>## # A tibble: 5 × 4
 ##   int_vect rand_vect TF_vect TF_vect2
@@ -248,9 +239,7 @@ TF_vect2 &lt;- rep(c(&quot;TRUE&quot;, &quot;TRUE&quot;, &quot;FALSE&quot;), tim
 ## 3        3        26 FALSE   FALSE   
 ## 4        3        24 TRUE    TRUE    
 ## 5        9         5 FALSE   FALSE</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>Take a look at 5 random rows using the <code>slice_sample()</code> function again but this time with <code>set.seed(1234)</code> as the first line of the chunk. Try this a few times to see the results. (Don’t forget to not copy the backticks.)</li>
-</ol>
+<p>5. Take a look at 5 random rows using the <code>slice_sample()</code> function again but this time with <code>set.seed(1234)</code> as the first line of the chunk. Try this a few times to see the results. (Don’t forget to not copy the backticks.)</p>
 <pre class="r"><code>set.seed(1234)
 slice_sample(vect_data, n = 5)</code></pre>
 <pre><code>## # A tibble: 5 × 4
@@ -279,15 +268,15 @@ slice_sample(vect_data, n = 5)</code></pre>
 ## 3        2        16 TRUE    TRUE    
 ## 4        7        15 TRUE    TRUE    
 ## 5        2        30 TRUE    TRUE</code></pre>
-<ol start="6" style="list-style-type: decimal">
-<li>Check to see if the <code>TF_vect</code> is logical. Check to see if <code>TF_vect2</code> is logical. Why are the results what they are?</li>
-</ol>
+<p>6. Check to see if the <code>TF_vect</code> is logical. Check to see if <code>TF_vect2</code> is logical. Why are the results what they are?</p>
 <pre class="r"><code>is.logical(TF_vect)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <pre class="r"><code>is.logical(TF_vect2)</code></pre>
 <pre><code>## [1] FALSE</code></pre>
+<blockquote>
 <p>Logical vectors do not have quotes around <code>TRUE</code> and <code>FALSE</code> values.</p>
-<p>Bonus. Use <code>mutate()</code> function to create a new variable in <code>vect_data</code> named <code>type_fact</code> that is of class <code>factor</code> made from the <code>int_vect</code> variable. Take a look at the data and observe how the class is different for the new variable compared to <code>int_vect</code>.</p>
+</blockquote>
+<p><strong>Bonus / Extra practice</strong>: Use <code>mutate()</code> function to create a new variable in <code>vect_data</code> named <code>type_fact</code> that is of class <code>factor</code> made from the <code>int_vect</code> variable. Take a look at the data and observe how the class is different for the new variable compared to <code>int_vect</code>.</p>
 <pre class="r"><code>vect_data &lt;- mutate(vect_data, type_fact = factor(int_vect))
 vect_data</code></pre>
 <pre><code>## # A tibble: 30 × 5
@@ -307,10 +296,10 @@ vect_data</code></pre>
 </div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
-<ol style="list-style-type: decimal">
-<li>Read in the Charm City Circulator data using <code>read_circulator()</code> function from <code>jhur</code> package using the code supplied in the chunk.</li>
-</ol>
-<p>Use the <code>str()</code> function to take a look at the data and learn about the column types.</p>
+<p>7. Read in the Charm City Circulator data using <code>read_circulator()</code> function from <code>jhur</code> package using the code supplied in the chunk.</p>
+<ul>
+<li>Use the <code>str()</code> function to take a look at the data and learn about the column types.</li>
+</ul>
 <pre class="r"><code>circ &lt;- read_circulator()</code></pre>
 <pre><code>## Rows: 1146 Columns: 15
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -356,13 +345,9 @@ vect_data</code></pre>
 ##   ..   daily = col_double()
 ##   .. )
 ##  - attr(*, &quot;problems&quot;)=&lt;externalptr&gt;</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Use the <code>mutate()</code> function to create a new column named <code>date_formatted</code> that is of <code>Date</code> class. The new variable is created from <code>date</code> column. Hint: use <code>mdy()</code> function.</li>
-</ol>
+<p>8. Use the <code>mutate()</code> function to create a new column named <code>date_formatted</code> that is of <code>Date</code> class. The new variable is created from <code>date</code> column. Hint: use <code>mdy()</code> function.</p>
 <pre class="r"><code>circ &lt;- mutate(circ, date_formatted = mdy(date))</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Move the <code>date_formatted</code> variable to be before <code>date</code> using the <code>relocate</code> function. Take a look at the data using <code>glimpse()</code>. Note the difference between <code>date</code> and <code>date_formatted</code> columns.</li>
-</ol>
+<p>9. Move the <code>date_formatted</code> variable to be before <code>date</code> using the <code>relocate</code> function. Take a look at the data using <code>glimpse()</code>. Note the difference between <code>date</code> and <code>date_formatted</code> columns.</p>
 <pre class="r"><code>circ &lt;- circ %&gt;% relocate(date_formatted, .before = date)
 glimpse(circ)</code></pre>
 <pre><code>## Rows: 1,146
@@ -383,9 +368,7 @@ glimpse(circ)</code></pre>
 ## $ bannerAlightings &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
 ## $ bannerAverage    &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
 ## $ daily            &lt;dbl&gt; 952.0, 796.0, 1211.5, 1213.5, 1644.0, 1490.5, 888.5, …</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>Create a list data object called <code>classes_data</code> that combines the <code>vect_data</code> from the first part of the lab and <code>circ</code>. Use <code>glimpse()</code> to look at the data.</li>
-</ol>
+<p>10. Create a list data object called <code>classes_data</code> that combines the <code>vect_data</code> from the first part of the lab and <code>circ</code>. Use <code>glimpse()</code> to look at the data.</p>
 <pre class="r"><code>classes_data &lt;- list(vect_data, circ)
 glimpse(classes_data)</code></pre>
 <pre><code>## List of 2
@@ -412,13 +395,15 @@ glimpse(classes_data)</code></pre>
 ##   ..$ bannerAlightings: num [1:1146] NA NA NA NA NA NA NA NA NA NA ...
 ##   ..$ bannerAverage   : num [1:1146] NA NA NA NA NA NA NA NA NA NA ...
 ##   ..$ daily           : num [1:1146] 952 796 1212 1214 1644 ...</code></pre>
-<p>Bonus: Use <code>range()</code> function on <code>date_formatted</code> variable to display the range of dates in the data set. How does this compare to that of <code>date</code>? Why? (Hint: use the pull function first to pull the values.)</p>
+<p><strong>Bonus / Extra practice</strong>: Use <code>range()</code> function on <code>date_formatted</code> variable to display the range of dates in the data set. How does this compare to that of <code>date</code>? Why? (Hint: use the pull function first to pull the values.)</p>
 <pre class="r"><code>pull(circ, date_formatted) %&gt;% range()</code></pre>
 <pre><code>## [1] &quot;2010-01-11&quot; &quot;2013-03-01&quot;</code></pre>
 <pre class="r"><code>pull(circ, date) %&gt;% range()</code></pre>
 <pre><code>## [1] &quot;01/01/2011&quot; &quot;12/31/2012&quot;</code></pre>
-<p>The max of range(circ$date) is numerical not based on date.</p>
-<p>Bonus: Use the <code>group_by</code> function on <code>day</code> variable with the <code>summarize()</code> function, to display the number of <code>orangeBoardings</code> observations with each day (hint: <code>use sum()</code>). Which day had the most boardings? Is this true for the other routes (<code>purpleBoardings</code>, <code>greenBoardings</code>, <code>bannerBoardings</code>)?</p>
+<blockquote>
+<p>The max of <code>pull(circ, date) %&gt;% range()</code> is numerical not based on date.</p>
+</blockquote>
+<p><strong>Bonus / Extra practice</strong>: Use the <code>group_by</code> function on <code>day</code> variable with the <code>summarize()</code> function, to display the number of <code>orangeBoardings</code> observations with each day (hint: <code>use sum()</code>). Which day had the most boardings? Is this true for the other routes (<code>purpleBoardings</code>, <code>greenBoardings</code>, <code>bannerBoardings</code>)?</p>
 <pre class="r"><code>circ %&gt;%
   group_by(day) %&gt;%
   summarize(n = sum(orangeBoardings, na.rm = TRUE))</code></pre>

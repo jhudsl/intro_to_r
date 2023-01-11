@@ -32,23 +32,21 @@ The course will provide students with **“hands-on” training** for analyzing 
 
 ### Instructors
 
-* [Carrie Wright](https://carriewright11.github.io/): cwrigh60 at jhu.edu
-
-* [Ava Hoffman](https://www.avahoffman.com/): ava.hoffman at jhu.edu
+`r config::get("instructors")`
 
 ### Teaching Assistant
 
-* Padmashri Saravanan: psarava1 at jhu.edu
+`r config::get("ta")`
 
 <br>
 
 ## Class
 ***
 
-* January 9 - 20, 2023, 1:30PM-4:50PM on Zoom  - **No class on January 16th for Martin Luther King, Jr. Day**.
+* `r config::get("course_dates")` 1:30PM-4:50PM on Zoom  - `r config::get("holiday")`
 * Zoom link will be emailed prior to the first class.
 * Slack Workspace invitation will be sent directly via email.
-* [CoursePlus Website](https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/17889/)
+* [CoursePlus Website](`r config::get("courseplus_web")`)
 * [Syllabus](syllabus.html)
 * [Materials + Schedule](materials_schedule.html)
 * [Resources](resources.html)

@@ -134,7 +134,8 @@ Let's read in a `tibble` of values from TB incidence.
 If you have the `jhur` package installed successfully:
 
 ```{r}
-tb <- jhur::read_tb()
+library(jhur)
+tb <- read_tb()
 ```
 
 <br>
@@ -285,7 +286,7 @@ Here we will be using the Youth Tobacco Survey data:
 http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv
 
 ```{r}
-yts <- jhur::read_yts()
+yts <- read_yts()
 head(yts)
 ```
 
@@ -487,4 +488,10 @@ boxplot(formula = hp ~ cyl)
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
 
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Data_Summarization/lab/Data_Summarization_Lab.Rmd)
+
+```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
+knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
+```
+
+Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
 

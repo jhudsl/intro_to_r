@@ -11,6 +11,17 @@ library(knitr)
 opts_chunk$set(comment = "")
 ```
 
+## Recap
+
+-  Reproducible science makes everyone's life easier!
+-  the Editor is for static code like scripts or R Markdown documents
+-  Send code to the Console to run it
+-  The Console can be used for quickly testing code on the fly
+-  R code goes within what is called a chunk (the gray box with a green play button)
+-  Code chunks can be modified so that they show differently in reports
+
+📃[RStudio Cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf)
+
 ## Common new users frustrations
 
 1.  **Different versions of software**
@@ -99,7 +110,7 @@ In an `.Rmd` file, you can write notes outside the R chunks.
 - R uses `<-` to assign values to an object name (you might also see `=` used, but this is not best practice)
 - Object names are case-sensitive, i.e. X and x are different
 
-```{r assign}
+```{r}
 x <- 2
 x
 x * 4
@@ -116,6 +127,7 @@ x + 2
 
 - Here we introduce "1 dimensional" classes; often referred to as 'vectors'
 - Vectors can have multiple sets of observations, but each observation has to be the same class.
+- Use the `class()` function to check the class of an object.
 
 ```{r assignClass}
 class(x)
@@ -137,7 +149,7 @@ name <- "Ava Hoffman"
 name
 ```
 
-## The 'combine' function
+## The 'combine' function `c()`
 
 The function `c()` collects/combines/joins single R objects into a vector of R objects. It is mostly used for creating vectors of numbers, character strings, and other data types. 
 
@@ -147,11 +159,11 @@ x
 class(x)
 ```
 
-## The 'combine' function
+## The 'combine' function `c()`
 
 Try assigning your first and last name as 2 separate character strings into a single vector called `name2`
 
-## The 'combine' function
+## The 'combine' function `c()`
 
 Try assigning your first and last name as 2 separate character strings into a length-2 vector called `name2`
 
@@ -215,6 +227,11 @@ x + c(1, 2, 3, 4)
 
 ## Lab Part 1
 
+- Assign values to objects with `<-` (new name on left side)
+- `class()` tells you the class (kind) of object
+- Use the `c()` function to combine text/numbers/etc. into a vector
+- Use the `length()` function to determine number of elements
+
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Basic_R/lab/Basic_R_Lab.Rmd)
 
 ## Math + vector objects
@@ -274,13 +291,75 @@ z <- sample(y, size = 100, replace = T)
 str(z)
 ```
 
+## Lab Part 2
+
+- Reassigning allows you to make changes "in place"
+- `str()` tells you a lot of information about an object in your environment
+- `sample()` creates a random sample of values
+
+💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Basic_R/lab/Basic_R_Lab.Rmd)
+
+## Useful functions to create vectors `seq()`
+
+For numeric: `seq()` can be very useful- both integer and double.   
+The `from` argument says what number to start on.    
+The `to` argument says what number to not go above.   
+The `by` argument says how much to increment by.    
+The `length.out` argument says how long the vector should be overall.
+
+```{r}
+seq(from = 0, to = 1, by = 0.2)
+seq(from = 0, to = 10, by = 1)
+seq(from = -5, to = 5, length.out = 10)
+```
+
+## Useful functions to create vectors `rep()`
+
+For character: `rep()` can create very long vectors. 
+Works for creating character and numeric vectors.
+
+The `each` argument specifies how many of each item you want repeated.
+The `times` argument specifies how many times you want the vector repeated.
+
+`rep(WHAT_TO_REPEAT, arguments)`
+
+```{r}
+rep(c("black", "white"), each = 3)
+rep(c("black", "white"), times = 3)
+rep(c("black", "white"), each = 2, times = 2)
+```
+
+## Creating numeric vectors `sample()`
+
+ You can use the `sample()` function to make a random sequence.
+ The `x` argument specifies what you are sampling from.
+ The `size` argument specifies how many values there should be.
+ The `replace` argument specifies if values should be replaced or not.
+ 
+```{r}
+seq_hun <- seq(from = 0, to = 100, by = 1)
+seq_hun
+y <- sample(x = seq_hun, size = 5, replace = TRUE)
+y
+``` 
+
 ## Summary
 
 - R functions as a calculator
 - Use `<-` to save (assign) values to objects
 - Use `c()` to **combine** vectors
 - `length()`, `class()`, and `str()` tell you information about an object
+- The sequence `seq()` function helps you create numeric vectors (`from`,`to`, `by`, and `length.out` arguments)
+- The repeat `rep()` function helps you create vectors with the `each` and `times` arguments
+- `sample()` makes random vectors
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
 
 💻 [Basic R Lab](https://jhudatascience.org/intro_to_r/modules/Basic_R/lab/Basic_R_Lab.Rmd)
+
+```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
+knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
+```
+
+Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
+

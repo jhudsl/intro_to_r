@@ -15,7 +15,6 @@ opts_chunk$set(comment = "")
 library(readr)
 suppressPackageStartupMessages(library(dplyr))
 library(tidyverse)
-library(emoji)
 ```
 
 ## Recap on summarization
@@ -51,7 +50,9 @@ In general, data cleaning is a process of investigating your data for
 inaccuracies, or recoding it in a way that makes it more manageable.
 
 ::: {style="color: red;"}
- MOST IMPORTANT RULE - LOOK 👀 AT YOUR DATA!
+
+`r emo::ji("warning")` MOST IMPORTANT RULE - LOOK `r emo::ji("eyes")` AT YOUR DATA! `r emo::ji("warning")`
+
 :::
 
 
@@ -112,7 +113,8 @@ Check if rare values make sense.
 (You need a data frame to use this)
 
 ```{r, message=FALSE}
-bike <-jhur::read_bike()
+library(jhur)
+bike <- read_bike()
 
 bike %>% count(subType)
 
@@ -133,9 +135,9 @@ a given data object, (vector or data frame).
 #install.packages("naniar")
 library(naniar)
 x = c(0, NA, 2, 3, 4, -0.5, 0.2)
-naniar::pct_complete(x)
+pct_complete(x)
 test
-naniar::pct_complete(test) # doesn't count infinite values as missing
+pct_complete(test) # doesn't count infinite values as missing
 ```
 
 ## Air quality data
@@ -166,7 +168,7 @@ The `gg_miss_var()` function creates a nice plot about the number of
 missing values for each variable, (need a data frame).
 
 ```{r, fig.height=4, warning=FALSE, fig.align='center'}
-naniar::gg_miss_var(airqual)
+gg_miss_var(airqual)
 ```
 
 
@@ -293,13 +295,13 @@ df %>% mutate(Dog = na_if(x = Dog, y = 0))
 ::: 
 
 
-`r emoji("warning")` Sometimes removing `NA` values leads to distorted math - be careful!
+`r emo::ji("warning")` Sometimes removing `NA` values leads to distorted math - be careful!
 
-`r emoji("warning")` Think about what your `NA` means for your data (are you sure ?).
+`r emo::ji("warning")` Think about what your `NA` means for your data (are you sure ?).
 
-`r emoji("warning")` Is an `NA` for values so low they could not be reported? 
+`r emo::ji("warning")` Is an `NA` for values so low they could not be reported? 
 
-`r emoji("warning")` Or is it if it was too low and also if there was a different issue (like no one reported)?
+`r emo::ji("warning")` Or is it if it was too low and also if there was a different issue (like no one reported)?
 
 ## Think about `NA`
 
@@ -311,13 +313,13 @@ survey reports 0 if student has tried cigarettes but did not smoke that
 week
 
 
-`r emoji("warning")` You might want to keep the `NA` values so that you know the original sample size. 
+`r emo::ji("warning")` You might want to keep the `NA` values so that you know the original sample size. 
 
 
 ## Word of caution {.codesmall}
 
 
-`r emoji("warning")` Calculating percentages will give you a different result depending on your choice to include NA values.!
+`r emo::ji("warning")` Calculating percentages will give you a different result depending on your choice to include NA values.!
 
 
 ```{r}
@@ -330,7 +332,7 @@ red_blue
 ## Word of caution {.codesmall}
 
 
-`r emoji("warning")` Calculating percentages will give you a different result depending on your choice to include NA values.!
+`r emo::ji("warning")` Calculating percentages will give you a different result depending on your choice to include NA values.!
 
 ```{r}
 
@@ -725,6 +727,12 @@ museums %>% unite(col = address, street:zip, sep = ", ")
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)    
 💻[Lab](https://jhudatascience.org/intro_to_r/modules/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd)
 
+```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
+knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
+```
+
+Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
+
 # Extra Slides
 
 
@@ -805,8 +813,9 @@ paste0("Visit",1:5) # no space!
 In `stringr`, `str_split` splits a vector on a string into a `list`
 
 ```{r}
+library(stringr)
 x <- c("I really", "like writing", "R code programs")
-y <- stringr::str_split(x, pattern =  " ") # returns a list
+y <- str_split(x, pattern =  " ") # returns a list
 y
 ```
 
@@ -839,7 +848,7 @@ Base R:
 ## some data to work with
 
 ```{r readSal, echo = TRUE, eval = TRUE, message=FALSE, warning=FALSE}
-Sal = jhur::read_salaries() # or
+Sal = read_salaries() # or
 ```
 
 ## Showing difference in `str_extract`
