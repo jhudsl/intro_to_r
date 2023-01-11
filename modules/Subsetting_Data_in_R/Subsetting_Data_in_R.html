@@ -181,7 +181,6 @@ slide:not(.current) .plotly.html-widget{
 <li><code>length()</code>, <code>class()</code>, and <code>str()</code> tell you information about an object</li>
 <li><code>head()</code> and <code>tail()</code> can also help you inspect an object</li>
 <li><code>readr</code>has helpful functions like <code>read_csv()</code> that can help you import data into R</li>
-<li><code>readr</code> also has helpful functions like <code>write_rds()</code> to create files that can be double clicked from the file pane to load into your RStudio environment</li>
 </ul>
 
 <p>📃<a href='https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-2.pdf' title=''>Cheatsheet</a></p>
@@ -430,8 +429,13 @@ Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4</pre>
 
 <p>If you run into losing a variable contained in your row names, you can also use <code>rownames_to_column</code> (of <code>tibble</code> package) to add it before turning it into a <code>tibble</code> to keep them:</p>
 
-<pre class = 'prettyprint lang-r'>library(tibble)
-head(rownames_to_column(df, &quot;car&quot;),  n = 2)</pre>
+<div class="codeexample">
+<pre class = 'prettyprint lang-r'># general format! not code!
+{data you are creating or changing} &lt;- # reassign if you want to keep changes
+      rownames_to_column({data you are using}, 
+                        {Name of column you are making from rownames})</pre></div>
+
+<pre class = 'prettyprint lang-r'>head(rownames_to_column(df, &quot;car&quot;),  n = 2)</pre>
 
 <pre >            car mpg cyl disp  hp drat    wt  qsec vs am gear carb
 1     Mazda RX4  21   6  160 110  3.9 2.620 16.46  0  1    4    4
@@ -471,7 +475,9 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</pre>
 
 </article></slide><slide class=""><hgroup><h2>Take Care with Column Names</h2></hgroup><article  id="take-care-with-column-names">
 
-<p>When you can, avoid spaces, special punctuation, or numbers in column names, as these require quotes to refer to them. See <a href='https://jhudatascience.org/intro_to_r/quotes_vs_backticks.html' title=''>https://jhudatascience.org/intro_to_r/quotes_vs_backticks.html</a> for more guidance.</p>
+<p>When you can, avoid spaces, special punctuation, or numbers in column names, as these require quotes to refer to them.</p>
+
+<p>See <a href='https://jhudatascience.org/intro_to_r/quotes_vs_backticks.html' title=''>https://jhudatascience.org/intro_to_r/quotes_vs_backticks.html</a> for more guidance.</p>
 
 <pre class = 'prettyprint lang-r'>df &lt;- rename(df, MPG! = MPG) # this will cause an error</pre>
 
@@ -484,11 +490,41 @@ Mazda RX4 Wag   21   6  160 110  3.9 2.875 17.02  0  1    4    4</pre>
 
 <p>You will need to refer to a column like this with most functions.</p>
 
+</article></slide><slide class=""><hgroup><h2>Take Care with Column Names and Character Strings</h2></hgroup><article  id="take-care-with-column-names-and-character-strings">
+
+<p>These are the conventions, most options will work for most functions.</p>
+
+<p>Backticks are typically for nonstandard variable names:</p>
+
+<ul>
+<li>those with spaces <code>col 1</code></li>
+<li>those with punctuation <code>col.1</code></li>
+<li>those that are just numbers <code>1</code></li>
+<li>those that start with numbers <code>1st col</code></li>
+</ul>
+
+<p>Single or double quotes are typically used for character strings (data values that has characters):</p>
+
+<ul>
+<li><code>&quot;words&quot;</code></li>
+<li><code>&quot;phrases with spaces&quot;</code></li>
+<li><code>&#39;words&#39;</code></li>
+<li><code>&#39;phrases with spaces&#39;</code></li>
+</ul>
+
 </article></slide><slide class=""><hgroup><h2>Be careful about copy pasting code!</h2></hgroup><article  id="be-careful-about-copy-pasting-code">
 
 <p>Curly quotes will not work!</p>
 
 <pre class = 'prettyprint lang-r'>df_rename &lt;-rename(df, ‘MPG!’ = MPG) # this will cause an error!</pre>
+
+<pre class = 'prettyprint lang-r'>df_rename &lt;-rename(df, `MPG!` = MPG) # this will work!</pre>
+
+<p>Also true for double quotes</p>
+
+<pre class = 'prettyprint lang-r'>df_rename &lt;-rename(df, “MPG!” = MPG) # this will cause an error!</pre>
+
+<pre class = 'prettyprint lang-r'>df_rename &lt;-rename(df, &quot;MPG!&quot; = MPG) # this will work!</pre>
 
 </article></slide><slide class=""><hgroup><h2>Renaming All Columns of a data frame: dplyr</h2></hgroup><article  id="renaming-all-columns-of-a-data-frame-dplyr">
 
@@ -517,7 +553,12 @@ Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</pre>
 <li>tibbles are fancier <code>tidyverse</code> version</li>
 <li>data frames are made with <code>data.frames()</code> and <code>read.csv()</code></li>
 <li>tibbles are made with <code>tibble()</code> and <code>read_csv()</code> from <code>readr</code></li>
+<li>If your original data has rownames, you need to use <code>rownames_to_column</code> before converting to tibble</li>
 <li>the <code>rename()</code> function of <code>dplyr</code> can help you rename columns</li>
+<li>avoid using punctuation (except underscores), spaces, and numbers (to start or alone) in column names</li>
+<li>If you must use backticks around those column names</li>
+<li>quotes can be used for character values</li>
+<li>avoid copy and pasting code from other sources - quotation marks will change!</li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 1</h2></hgroup><article  id="lab-part-1">
@@ -528,7 +569,7 @@ Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</pre>
 
 </article></slide><slide class=""><hgroup><h2>Subset columns of a data frame - <code>tidyverse</code> way:</h2></hgroup><article  id="subset-columns-of-a-data-frame---tidyverse-way">
 
-<p>To grab the <code>carb</code> column the <code>tidyverse</code> way we can use the <code>pull</code> function:</p>
+<p>To grab (or &ldquo;pull&rdquo; out) the <code>carb</code> column the <code>tidyverse</code> way we can use the <code>pull</code> function:</p>
 
 <pre class = 'prettyprint lang-r'>pull(df, carb)</pre>
 
@@ -536,7 +577,7 @@ Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</pre>
 
 </article></slide><slide class=""><hgroup><h2>Subset columns of a data frame: dplyr</h2></hgroup><article  id="subset-columns-of-a-data-frame-dplyr">
 
-<p>The <code>select</code> command from <code>dplyr</code> allows you to subset (gives a <code>tibble</code>!)</p>
+<p>The <code>select</code> command from <code>dplyr</code> allows you to subset (still a <code>tibble</code>!)</p>
 
 <pre class = 'prettyprint lang-r'>select(df, mpg)</pre>
 
@@ -576,7 +617,7 @@ Volvo 142E          21.4</pre>
 
 </article></slide><slide class=""><hgroup><h2>Subset columns of a data frame: dplyr</h2></hgroup><article  id="subset-columns-of-a-data-frame-dplyr-1">
 
-<p>Note that if you want the values (not a <code>tibble</code>), use <code>pull</code>:</p>
+<p>Note that if you want the values (not a <code>tibble</code>), use <code>pull</code> - as it pulls out the data:</p>
 
 <pre class = 'prettyprint lang-r'>pull(df, mpg)</pre>
 
@@ -642,8 +683,8 @@ Volvo 142E            4    2</pre>
 
 <p>Here are a few:</p>
 
-<pre class = 'prettyprint lang-r'>one_of() # if they exist
-last_col()
+<pre class = 'prettyprint lang-r'>last_col()
+starts_with()
 ends_with()
 contains() # like searching</pre>
 
@@ -654,7 +695,7 @@ contains() # like searching</pre>
 </article></slide><slide class=""><hgroup><h2>Summary</h2></hgroup><article  id="summary-1">
 
 <ul>
-<li><code>pull()</code> is the <code>tidyverse</code> way</li>
+<li><code>pull()</code> to get values out of a data frame/tibble</li>
 <li><code>select()</code> is the <code>tidyverse</code> way to get a tibble with only certain columns</li>
 <li>you can <code>select()</code> based on patterns in the column names</li>
 </ul>
@@ -687,8 +728,6 @@ Porsche 914-2  26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
 Lotus Europa   30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
 Volvo 142E     21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</pre>
 
-<p>Note, no subsetting is necessary. R &ldquo;knows&rdquo; <code>mpg</code> refers to a column of <code>df</code>.</p>
-
 </article></slide><slide class=""><hgroup><h2>Subset rows of a data frame: dplyr</h2></hgroup><article  id="subset-rows-of-a-data-frame-dplyr-1">
 
 <p>You can have multiple logical conditions using the following:</p>
@@ -714,7 +753,7 @@ Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4</pre>
 
 </article></slide><slide class=""><hgroup><h2>Subset rows of a data frame: dplyr</h2></hgroup><article  id="subset-rows-of-a-data-frame-dplyr-3">
 
-<p>You can filter by two conditions using <code>&amp;</code> or commas:</p>
+<p>You can filter by two conditions using <code>&amp;</code> or commas (must meet both conditions):</p>
 
 <pre class = 'prettyprint lang-r'>filter(df, mpg &gt; 20 &amp; cyl == 4)</pre>
 
@@ -869,7 +908,7 @@ Porsche 914-2    4  91
 Lotus Europa     4 113
 Volvo 142E       4 109</pre>
 
-<p>In <code>R</code>, the common way to perform multiple operations is to wrap functions around each other in a nested way such as above.</p>
+<p>In <code>R</code>, the common way to perform multiple operations is to wrap functions around each other in a &ldquo;nested&rdquo; way such as above.</p>
 
 </article></slide><slide class=""><hgroup><h2>Assigning Temporary Objects</h2></hgroup><article  id="assigning-temporary-objects">
 
@@ -888,7 +927,7 @@ Fiat 128     4 66</pre>
 
 </article></slide><slide class=""><hgroup><h2>Using the <code>pipe</code> (comes with <code>dplyr</code>):</h2></hgroup><article  id="using-the-pipe-comes-with-dplyr">
 
-<p>Recently, the pipe <code>%&gt;%</code> makes things such as this much more readable. It reads left side &ldquo;pipes&rdquo; into right side. RStudio <code>CMD/Ctrl + Shift + M</code> shortcut. Pipe <code>df</code> into <code>filter</code>, then pipe that into <code>select</code>:</p>
+<p>The pipe <code>%&gt;%</code> makes things such as this much more readable. It reads left side &ldquo;pipes&rdquo; into right side. RStudio <code>CMD/Ctrl + Shift + M</code> shortcut. Pipe <code>df</code> into <code>filter</code>, then pipe that into <code>select</code>:</p>
 
 <pre class = 'prettyprint lang-r'>df %&gt;% filter(mpg &gt; 20 &amp; cyl == 4) %&gt;% select(cyl, hp)</pre>
 
@@ -907,21 +946,7 @@ Volvo 142E       4 109</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Adding/Removing Columns</h2></hgroup><article  id="addingremoving-columns">
 
-</article></slide><slide class=""><hgroup><h2>Adding new columns to a data frame: base R</h2></hgroup><article  id="adding-new-columns-to-a-data-frame-base-r">
-
-<p>You can add a new column, called <code>newcol</code> to <code>df</code>, using the <code>$</code> operator:</p>
-
-<pre class = 'prettyprint lang-r'>df$newcol &lt;- df$wt/2.2
-head(df,3)</pre>
-
-<pre >               mpg cyl disp  hp drat    wt  qsec vs am gear carb   newcol
-Mazda RX4     21.0   6  160 110 3.90 2.620 16.46  0  1    4    4 1.190909
-Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4 1.306818
-Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1 1.054545</pre>
-
 </article></slide><slide class=""><hgroup><h2>Adding columns to a data frame: dplyr (<code>tidyverse</code> way)</h2></hgroup><article  id="adding-columns-to-a-data-frame-dplyr-tidyverse-way">
-
-<p>The <code>$</code> method is very common.</p>
 
 <p>The <code>mutate</code> function in <code>dplyr</code> allows you to add or modify columns of a data frame.</p>
 
@@ -931,12 +956,6 @@ Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1 1.054545</pre>
                            {new variable name} = {new variable source}) </pre></div>
 
 <pre class = 'prettyprint lang-r'>df &lt;- mutate(df, newcol = wt/2.2)</pre>
-
-</article></slide><slide class=""><hgroup><h2>Removing columns of a data frame: base R</h2></hgroup><article  id="removing-columns-of-a-data-frame-base-r">
-
-<p>You can remove a column by assigning to <code>NULL</code>:</p>
-
-<pre class = 'prettyprint lang-r'>df$newcol &lt;- NULL</pre>
 
 </article></slide><slide class=""><hgroup><h2>Removing columns of a data frame: dplyr</h2></hgroup><article  id="removing-columns-of-a-data-frame-dplyr">
 
@@ -1115,7 +1134,7 @@ Volvo 142E          2.780</pre>
 
 </article></slide><slide class=""><hgroup><h2>Ordering the columns of a data frame: dplyr</h2></hgroup><article  id="ordering-the-columns-of-a-data-frame-dplyr-3">
 
-<p>We can also use the <code>relocate()</code> function of dplyr to rearrange the columns.</p>
+<p>In addition to <code>select</code> we can also use the <code>relocate()</code> function of dplyr to rearrange the columns.</p>
 
 <p>For example, let say we just wanted <code>wt</code> to be first.</p>
 
@@ -1351,7 +1370,7 @@ Lincoln Continental 2.4654545</pre>
 
 </article></slide><slide class=""><hgroup><h2>Ordering the rows of a data frame: dplyr</h2></hgroup><article  id="ordering-the-rows-of-a-data-frame-dplyr-2">
 
-<p>Increasing and decreasing orderings:</p>
+<p>You can combine increasing and decreasing orderings:</p>
 
 <pre class = 'prettyprint lang-r'>arrange(df, mpg, desc(hp))</pre>
 
@@ -1422,16 +1441,6 @@ Honda Civic         0.7340909
 Fiat 128            1.0000000
 Toyota Corolla      0.8340909</pre>
 
-<!-- ## Transmutation -->
-
-<!-- The `transmute` function in `dplyr` combines both the `mutate` and `select` functions. One can create new columns and keep only the columns wanted: -->
-
-<!-- ```{r} -->
-
-<!-- transmute(df, newcol2 = wt/2.2, mpg, hp) -->
-
-<!-- ``` -->
-
 </article></slide><slide class=""><hgroup><h2>Summary</h2></hgroup><article  id="summary-3">
 
 <ul>
@@ -1443,13 +1452,12 @@ Toyota Corolla      0.8340909</pre>
 <li>creating intermediate data objects in between</li>
 <li>using pipes <code>%&gt;%</code></li>
 </ol></li>
-<li><code>arrange()</code> can be used to reorder rows</li>
 <li><code>select()</code> and <code>relocate()</code> can be used to reorder columns</li>
+<li><code>arrange()</code> can be used to reorder rows</li>
 <li>can remove rows with <code>filter()</code></li>
 <li>can remove a column in a few ways:
 
 <ol>
-<li>assigning a column to <code>NULL</code><br/></li>
 <li>using <code>select()</code> with negative sign in front of column name(s)<br/></li>
 <li>not selecting it (without negative sign)</li>
 </ol></li>
@@ -1478,6 +1486,22 @@ Toyota Corolla      0.8340909</pre>
 
 <p>Although it is easier (for this one task), mixing and matching the <code>$</code> operator with tidyverse functions usually doesn’t work. Therefore, we want to let you know about it in case you see it, but we suggest that you try working with the tidyverse way.</p>
 
+</article></slide><slide class=""><hgroup><h2>Adding new columns to a data frame: base R</h2></hgroup><article  id="adding-new-columns-to-a-data-frame-base-r">
+
+<p>You can add a new column (or modify an existing one) using the <code>$</code> operator instead of <code>mutate</code>.</p>
+
+<p>Just want you to be aware of this as it is very common.</p>
+
+<pre class = 'prettyprint lang-r'>df$newcol &lt;- df$wt/2.2
+head(df,3)</pre>
+
+<pre >               mpg cyl disp  hp drat    wt  qsec vs am gear carb   newcol
+Mazda RX4     21.0   6  160 110 3.90 2.620 16.46  0  1    4    4 1.190909
+Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4 1.306818
+Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1 1.054545</pre>
+
+<p>Even though <code>$</code> is easier for creating new columns, <code>mutate</code> is really powerful, so it’s worth getting used to.</p>
+
 </article></slide><slide class=""><hgroup><h2>Lab Part 4</h2></hgroup><article  id="lab-part-4">
 
 <p>🏠 <a href='https://jhudatascience.org/intro_to_r/' title=''>Class Website</a></p>
@@ -1497,6 +1521,10 @@ Toyota Corolla      0.8340909</pre>
 <pre class = 'prettyprint lang-r'>df$carb</pre>
 
 <pre > [1] 4 4 1 1 2 1 4 2 2 4 4 3 3 3 4 4 4 1 2 1 1 2 2 4 2 1 2 2 4 6 8 2</pre>
+
+</article></slide><slide class=""><hgroup><h2>Remove a column in base R</h2></hgroup><article  id="remove-a-column-in-base-r">
+
+<pre class = 'prettyprint lang-r'>df$mpg &lt;- NULL</pre>
 
 </article></slide><slide class=""><hgroup><h2>Renaming Columns of a data frame: base R</h2></hgroup><article  id="renaming-columns-of-a-data-frame-base-r">
 
@@ -1563,7 +1591,7 @@ Datsun 710 22.8   4  108  93 3.85 2.32 18.61  1  1    4    1 1.054545</pre>
 
 <pre > [1] 4 4 1 1 2 1 4 2 2 4 4 3 3 3 4 4 4 1 2 1 1 2 2 4 2 1 2 2 4 6 8 2</pre>
 
-</article></slide><slide class=""><hgroup><h2>Biggest difference between <code>tbl</code> and data frame:</h2></hgroup><article  id="biggest-difference-between-tbl-and-data-frame">
+</article></slide><slide class=""><hgroup><h2>Another difference between <code>tbl</code> and data frame:</h2></hgroup><article  id="another-difference-between-tbl-and-data-frame">
 
 <p>Mostly, <code>tbl</code> (tibbles) are the same as data frames, except they don’t print all lines. When subsetting only one column using brackets, a data frame will return the values, but a <code>tbl</code> will return a <code>tbl</code></p>
 
