@@ -28,11 +28,10 @@ bike <- read_bike()
 # Part 1
 
 
-1.  Use the `is.na()`  and `any()` functions to check if the bike `dateInstalled` variable has any `NA` values.
+1.  Use the `is.na()`  and `any()` functions to check if the bike `dateInstalled` variable has any `NA` values. 
+Hint: You first need to `pull` out the vector version of this variable to use the `is.na()` function.
 
 ```{r}
-any(is.na(bike$dateInstalled))
-# or
 bike %>%
   pull(dateInstalled) %>%
   is.na() %>%
@@ -159,7 +158,7 @@ BloodType_split <- BloodType %>%
   separate(type, into = c("blood_type", "Rhfactor"), sep = "\\.")
 ```
 
-**Bonus / Extra practice**: How many observations are there for each `Rhfactor`:
+**Bonus / Extra practice**: How many observations are there for each `Rhfactor` in the data object you just made:
 ```{r}
 count(BloodType_split, Rhfactor)
 ```

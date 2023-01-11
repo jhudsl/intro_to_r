@@ -29,7 +29,8 @@ bike <- read_bike()
 # Part 1
 
 
-1.  Use the `is.na()`  and `any()` functions to check if the bike `dateInstalled` variable has any `NA` values.
+1.  Use the `is.na()`  and `any()` functions to check if the bike `dateInstalled` variable has any `NA` values. Use the pipe between each step. 
+Hint: You first need to `pull` out the vector version of this variable to use the `is.na()` function.
 
 ```{r}
 
@@ -137,7 +138,7 @@ NEW_TIBBLE <- OLD_TIBBLE %>%
 
 ```
 
-**Bonus / Extra practice**: How many observations are there for each `Rhfactor`:
+**Bonus / Extra practice**: How many observations are there for each `Rhfactor` in the data object you just made:
 ```{r}
 
 ```
