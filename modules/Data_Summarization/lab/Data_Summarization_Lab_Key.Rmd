@@ -206,7 +206,7 @@ bike %>%
   summarize(
     count = n(),
     mean = mean(length)
-  ) %>% 
+  ) %>%
   arrange(mean)
 ```
 
