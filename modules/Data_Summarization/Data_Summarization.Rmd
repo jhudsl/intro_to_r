@@ -256,37 +256,6 @@ tb %>%
 ```
 
 
-## Iterative summaries: `dplyr` `summarize()` and `across()` functions
-
-Use the [`across`](https://dplyr.tidyverse.org/reference/across.html) function with `summarize()` to make iterative summaries across multiple columns of your data.
-
-<div class = "codeexample">
-```{r, eval = FALSE}
-# General format - Not the code!
-across({ columns to go across }, ~ { summarization_function(.x, na.rm = ..) }) 
-```
-</div>
-
-```{r}
-tb %>% 
-  summarize(
-    across( c(`1990`, `1991`, `1992`, `1993`), ~ sum(.x, na.rm = TRUE))
-  )
-```
-
-
-## Iterative summaries: `dplyr` `summarize()` and `across()` functions
-
-Using select helper instead of `c()`:
-
-```{r}
-tb %>% 
-  summarize(
-    across( starts_with("2"), ~ sum(.x, na.rm = TRUE))
-  )
-```
-
-
 ## Row means
 
 `colMeans()` and `rowMeans()` require **all numeric data**. 
@@ -300,14 +269,14 @@ rowMeans(tb_2, na.rm = TRUE)
 ```
 
 
-## Row means
+## Column means
 
-`colMeans()` gives you very similar output to functions we've seen previously in this lecture (`summarize()` and `across()`).
+`colMeans()` and `rowMeans()` require **all numeric data**. 
+
+Let's see what the mean is across each column (year):
 
 ```{r}
 colMeans(tb_2, na.rm = TRUE)
-tb_2 %>% 
-  summarize(across( colnames(tb_2), ~ mean(.x, na.rm = TRUE)))
 ```
 
 
@@ -326,7 +295,6 @@ summary(tb)
 - don't forget the `na.rm = TRUE` argument!
 - `summary(x)`: quantile information
 - `summarize`: creates a summary table of columns of interest
-  - combine with `across()` to programmatically select columns
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
 
@@ -455,6 +423,18 @@ yts %>%
 ```
 
 
+## Group by as many variables as you want
+
+`group_by` Response and Education:
+
+```{r}
+yts %>%
+  group_by(Response, Education) %>%
+  summarize(avg_percent = mean(Data_Value, na.rm = TRUE),
+            max_percent = max(Data_Value, na.rm = TRUE))
+```
+
+
 ## Ungroup the data
 
 The `ungroup` function will allow you to clear the groups from the data. You can also overwrite the first `group_by` with a new one.
@@ -486,6 +466,17 @@ yts %>%
   group_by(YEAR) %>%
   summarize(n = n(),
             mean = mean(Data_Value, na.rm = TRUE))
+```
+
+
+## Counting{.codesmall}
+
+`count()`, `table()`, and `n()` can all give very similar information.
+
+```{r}
+mtcars %>% count(cyl)
+mtcars %>% pull(cyl) %>% table()
+mtcars %>% group_by(cyl) %>% summarize(n()) # n() typically used with summarize
 ```
 
 
