@@ -53,12 +53,29 @@ sum(bike %>% pull(length))
 ```
 
 
-3\. Summarize the data to get the `max` and `min` of `length` using the `summarize` function.
+3\. Summarize the data to get the `max` of `length` using the `summarize` function.
 
 ```
 # General format 
 DATA_TIBBLE %>% 
     summarize(SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN))
+```
+
+```{r}
+bike %>% summarize(
+  max = max(length)
+)
+```
+
+
+4\. Modify your code from #3 to add the `min` of `length` using the `summarize` function.
+
+```
+# General format 
+DATA_TIBBLE %>% 
+    summarize(SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN),
+              SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN)
+    )
 ```
 
 ```{r}
@@ -71,98 +88,114 @@ bike %>% summarize(
 
 **Bonus / Extra practice**:
 
-A\. Summarize the `bike` data to get the mean of `length` and `dateInstalled`. Do this three ways: 1) with `summarize`, 2) with `summarize` and `across`, and 3) with `colMeans()`.
+A\. Summarize the `bike` data to get the mean of `length` and `dateInstalled`. Make sure to remove `NA`s.
+
+```
+# General format 
+DATA_TIBBLE %>% 
+    summarize(SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN, na.rm = TRUE),
+              SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN, na.rm = TRUE)
+    )
+```
 
 ```{r}
 bike %>% summarize(
   mean_length = mean(length, na.rm = TRUE),
   mean_date = mean(dateInstalled, na.rm = TRUE)
 )
-bike %>%
-  summarize(across(c(length, dateInstalled), ~ mean(.x, na.rm = TRUE)))
 
 bike %>%
   select(length, dateInstalled) %>%
   colMeans()
 ```
 
-You should have gotten a mean date sometime in the 1800s - that doesn't make much sense! Hypothesize why the average date is a date from before bike lanes were being built in Baltimore.
-> There are probably some zeros or other incorrect low values in the data.
+
+B\. You should have gotten a mean date sometime in the 1800s - that doesn't make much sense! Hypothesize why the average date is a date from before bike lanes were being built in Baltimore.
+
+```{r}
+# There are probably some zeros or other incorrect low values in the data.
+```
 
 
-B\. Filter any zeros out of `bike` `dateInstalled`. Use `filter()`. Assign this "cleaned" dataset object the name `bike_2`.
+C\. Filter any zeros out of `bike` `dateInstalled`. Use `filter()`. Assign this "cleaned" dataset object the name `bike_2`.
+
+```
+# General format 
+DATA_TIBBLE %>% filter(LOGICAL_COMPARISON)
+```
 
 ```{r}
 bike_2 <- bike %>% filter(dateInstalled != 0)
 ```
 
-* Sometimes it's not a good idea to drop data! You can also change any zeros in `bike` `dateInstalled` to `NA` using `mutate` and `ifelse()`. `ifelse()` in R works takes the same arguments as the "IF" function in Excel, and can come in handy here: `ifelse(condition, yes = VAL_IF_TRUE, no = VAL_IF_FALSE)`.
-
-```{r}
-bike_nas <- bike %>%
-  mutate(dateInstalled = ifelse(dateInstalled == 0, yes = NA, no = dateInstalled))
-
-# How to find NAs?
-# is.na(bike$dateInstalled)
-# !is.na(bike$dateInstalled)
-```
-
 
 # Part 2
 
-4\. How many types of bike lanes are there?   (Hints: `unique`, `table`, or `bike %>% count()` on the column named `type`).
+5\. How many bike lanes are there in each type of lane? Use `count()` on the column named `type`.
 
 ```{r}
-# So many ways!!
-
 bike %>% count(type)
+```
 
+
+6\. How many bike lanes are there in each type of lane? Use `table()` on the column named `type`. How does this result differ from #5 ?
+
+```{r}
 bike %>%
   pull(type) %>%
   table()
+# NAs are NOT included as a category with `table()` !
+```
 
-unique(bike %>% pull(type))
-table(bike$type, useNA = "ifany")
-unique(bike$type)
-length(table(bike$type))
-length(unique(bike$type))
 
-is.na(unique(bike$type))
+7\. How many bike lanes are there in each type of lane? Use `group_by()`, `summarize()`, and `n()` on the column named `type`.
 
+```
+# General format 
+DATA_TIBBLE %>% 
+    group_by(GROUPING_COLUMN_NAME) %>% 
+    summarize(SUMMARY_COLUMN_NAME = n())
+```
+
+```{r}
 bike %>%
   group_by(type) %>%
   summarize(count = n())
 ```
 
 
-5\. Which bike lane `type` has (a) the most number of and (b) longest average bike lane length? (Hint: `group_by` and `summarize`). In your summarized output, make sure you call the new summarized average bike lane length variable (column name) "mean". In other words, the head of your output should look like:
+8\. Modify your code from #7 to also group by `numLanes`.
+
+```{r}
+bike %>%
+  group_by(type, numLanes) %>%
+  summarize(count = n())
+```
+
+
+**Bonus / Extra practice**:
+
+D\. Modify code from #7 to also summarize by longest average bike lane length? In your summarized output, make sure you call the new summarized average bike lane length variable (column name) "mean". In other words, the head of your output should look like:
 
 ```
 # A tibble: 
-  type            number_of_rows  mean
+  type                     count  mean
   <chr>                    <int> <dbl>
 1 BIKE BOULEVARD              49  197.
 ...
-```
-
-```
-# General format 
-DATA_TIBBLE %>% 
-    group_by(GROUPING_COLUMN_NAME) %>% 
-    summarize(SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN))
 ```
 
 ```{r}
 bike %>%
   group_by(type) %>%
   summarize(
-    number_of_rows = n(),
+    count = n(),
     mean = mean(length)
   )
 ```
 
 
-6\. Take your code from the above question and do the following:
+E\. Take your code from the above question `D` and do the following:
 
 - Add another pipe (`%>%`)
 - Add the `arrange()` to sort the output by the summarized column "mean".
@@ -171,41 +204,10 @@ bike %>%
 bike %>%
   group_by(type) %>%
   summarize(
-    number_of_rows = n(),
+    count = n(),
     mean = mean(length)
-  ) %>%
+  ) %>% 
   arrange(mean)
-```
-
-
-7\. Make a new column using `mutate`. This new column should be different for each year (`dateInstalled`), and indicate the total sum number of lanes (`numLanes`) built in that year. Call this new column `year_total` and make sure to reassign the dataset to `bike`. (hint: use `group_by` first)
-
-```{r}
-bike <- bike %>%
-  group_by(dateInstalled) %>%
-  mutate(year_total = sum(numLanes, na.rm = TRUE))
-```
-
-
-8\. How does your data from above change if you also group by `type`? Ungroup your data when you are done.
-
-```{r}
-bike %>%
-  group_by(dateInstalled, type) %>%
-  mutate(year_total = sum(numLanes, na.rm = TRUE))
-
-bike <- ungroup(bike)
-```
-
-
-**Bonus / Extra practice**:
-
-C\. Using `bike_2` from Part 1 above, what was the average bike lane length grouped by `dateInstalled`? Remove `NA`s with `na.rm = TRUE`.
-
-```{r}
-bike_2 %>%
-  group_by(dateInstalled) %>%
-  summarise(mean_of_the_bike = mean(length, na.rm = F))
 ```
 
 
@@ -214,32 +216,34 @@ bike_2 %>%
 9\. Create a histogram for the `length` column in the `bike` dataset. Try playing with the `breaks =` argument.
 
 ```{r}
-hist(x = pull(bike, length), breaks = 100)
+x <- bike %>% pull(length)
+hist(x)
+hist(x, breaks = 100)
 ```
 
 
 10\. Create a scatterplot of the `bike` dataset with `dateInstalled` on the x axis and `length` on the y axis.
 
 ```{r}
-plot(x = pull(bike, dateInstalled), y = pull(bike, length))
+x <- bike %>% pull(dateInstalled)
+y <- bike %>% pull(length)
+plot(x, y)
 ```
 
 
 **Bonus / Extra practice**:
 
-D\. Does the plot from question 10 improve if you use the `bike_2` dataset?
+
+F\. What kind of plot would be better for showing the length by each year group from `bike`? Make this plot. Also try this with the `bike_2` object above.
 
 ```{r}
-plot(x = pull(bike_2, dateInstalled), y = pull(bike_2, length))
-```
-> Yes!
+# A boxplot would be more appropriate since year behaves more as a category than a continuous number.
+x <- bike %>% pull(dateInstalled)
+y <- bike %>% pull(length)
+boxplot(y ~ x)
 
-
-E\. What kind of plot would be better for showing the length by each year group? Make this plot.
-
-> A boxplot would be more appropriate since year behaves more as a category than a continuous number.
-
-```{r}
-boxplot(pull(bike_2, length) ~ pull(bike_2, dateInstalled))
+x <- bike_2 %>% pull(dateInstalled)
+y <- bike_2 %>% pull(length)
+boxplot(y ~ x)
 ```
 
