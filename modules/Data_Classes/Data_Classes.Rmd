@@ -160,7 +160,7 @@ typeof(x)
 A `tibble` will show the difference (as does `glimpse()`).
 
 ```{r}
-my_data <- tibble(double_var = y,  int_var = y_int)
+my_data <- tibble(double_var = y, int_var = y_int)
 my_data
 glimpse(my_data)
 ```
@@ -350,7 +350,7 @@ date("06/15/2021") # This doesn't work
 ```
 
 ```{r, error = TRUE}
-mdy("06/15/2021")  # This works
+mdy("06/15/2021") # This works
 mdy("06/15/21") # This works
 ```
 
