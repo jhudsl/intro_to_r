@@ -209,9 +209,12 @@ TF_vect2 &lt;- rep(c(&quot;TRUE&quot;, &quot;TRUE&quot;, &quot;FALSE&quot;), tim
 <pre><code>## [1] &quot;logical&quot;</code></pre>
 <pre class="r"><code>class(TF_vect2) # [1] &quot;character&quot;</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
-<p>3. Create a tibble combining these vectors together called <code>vect_data</code> using the following code.</p>
+<p>3. Are <code>TF_vect</code> and <code>TF_vect2</code> different classes? Why or why not?</p>
+<pre class="r"><code># Yes!
+# Logical vectors do not have quotes around `TRUE` and `FALSE` values.</code></pre>
+<p>4. Create a tibble combining these vectors together called <code>vect_data</code> using the following code.</p>
 <pre class="r"><code>vect_data &lt;- tibble(int_vect, rand_vect, TF_vect, TF_vect2)</code></pre>
-<p>4. Take a look at 5 random rows using the <code>slice_sample()</code> function. Try this a few times to see how the results change.</p>
+<p>5. Take a look at 5 random rows using the <code>slice_sample()</code> function. Try this a few times to see how the results change.</p>
 <pre class="r"><code>slice_sample(vect_data, n = 5)</code></pre>
 <pre><code>## # A tibble: 5 × 4
 ##   int_vect rand_vect TF_vect TF_vect2
@@ -239,7 +242,7 @@ TF_vect2 &lt;- rep(c(&quot;TRUE&quot;, &quot;TRUE&quot;, &quot;FALSE&quot;), tim
 ## 3        3        26 FALSE   FALSE   
 ## 4        3        24 TRUE    TRUE    
 ## 5        9         5 FALSE   FALSE</code></pre>
-<p>5. Take a look at 5 random rows using the <code>slice_sample()</code> function again but this time with <code>set.seed(1234)</code> as the first line of the chunk. Try this a few times to see the results. (Don’t forget to not copy the backticks.)</p>
+<p>6. Take a look at 5 random rows using the <code>slice_sample()</code> function again but this time with <code>set.seed(1234)</code> as the first line of the chunk. Try this a few times to see the results. (Don’t forget to not copy the backticks.)</p>
 <pre class="r"><code>set.seed(1234)
 slice_sample(vect_data, n = 5)</code></pre>
 <pre><code>## # A tibble: 5 × 4
@@ -268,14 +271,11 @@ slice_sample(vect_data, n = 5)</code></pre>
 ## 3        2        16 TRUE    TRUE    
 ## 4        7        15 TRUE    TRUE    
 ## 5        2        30 TRUE    TRUE</code></pre>
-<p>6. Check to see if the <code>TF_vect</code> is logical. Check to see if <code>TF_vect2</code> is logical. Why are the results what they are?</p>
-<pre class="r"><code>is.logical(TF_vect)</code></pre>
-<pre><code>## [1] TRUE</code></pre>
-<pre class="r"><code>is.logical(TF_vect2)</code></pre>
-<pre><code>## [1] FALSE</code></pre>
-<blockquote>
-<p>Logical vectors do not have quotes around <code>TRUE</code> and <code>FALSE</code> values.</p>
-</blockquote>
+<p>7. Coerce <code>rand_vect</code> to character class using <code>as.character()</code>. Save this vector as <code>rand_char_vect</code>. How is the output for <code>rand_vect</code> and <code>rand_char_vect</code> different?</p>
+<pre class="r"><code>rand_char_vect &lt;- as.character(rand_vect)
+rand_char_vect # Numbers now have quotation marks</code></pre>
+<pre><code>##  [1] &quot;28&quot; &quot;16&quot; &quot;26&quot; &quot;22&quot; &quot;5&quot;  &quot;12&quot; &quot;15&quot; &quot;9&quot;  &quot;5&quot;  &quot;6&quot;  &quot;16&quot; &quot;4&quot;  &quot;2&quot;  &quot;7&quot;  &quot;22&quot;
+## [16] &quot;26&quot; &quot;6&quot;  &quot;15&quot; &quot;14&quot; &quot;20&quot; &quot;14&quot; &quot;30&quot; &quot;24&quot; &quot;30&quot; &quot;4&quot;  &quot;4&quot;  &quot;21&quot; &quot;8&quot;  &quot;20&quot; &quot;24&quot;</code></pre>
 <p><strong>Bonus / Extra practice</strong>: Use <code>mutate()</code> function to create a new variable in <code>vect_data</code> named <code>type_fact</code> that is of class <code>factor</code> made from the <code>int_vect</code> variable. Take a look at the data and observe how the class is different for the new variable compared to <code>int_vect</code>.</p>
 <pre class="r"><code>vect_data &lt;- mutate(vect_data, type_fact = factor(int_vect))
 vect_data</code></pre>
@@ -296,7 +296,7 @@ vect_data</code></pre>
 </div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
-<p>7. Read in the Charm City Circulator data using <code>read_circulator()</code> function from <code>jhur</code> package using the code supplied in the chunk.</p>
+<p>8. Read in the Charm City Circulator data using <code>read_circulator()</code> function from <code>jhur</code> package using the code supplied in the chunk.</p>
 <ul>
 <li>Use the <code>str()</code> function to take a look at the data and learn about the column types.</li>
 </ul>
@@ -345,9 +345,13 @@ vect_data</code></pre>
 ##   ..   daily = col_double()
 ##   .. )
 ##  - attr(*, &quot;problems&quot;)=&lt;externalptr&gt;</code></pre>
-<p>8. Use the <code>mutate()</code> function to create a new column named <code>date_formatted</code> that is of <code>Date</code> class. The new variable is created from <code>date</code> column. Hint: use <code>mdy()</code> function.</p>
+<p>9. Use the <code>mutate()</code> function to create a new column named <code>date_formatted</code> that is of <code>Date</code> class. The new variable is created from <code>date</code> column. Hint: use <code>mdy()</code> function. Reassign to <code>circ</code>.</p>
+<pre><code># General format
+NEWDATA &lt;- OLD_DATA %&gt;% mutate(NEW_COLUMN = OLD_COLUMN)</code></pre>
 <pre class="r"><code>circ &lt;- mutate(circ, date_formatted = mdy(date))</code></pre>
-<p>9. Move the <code>date_formatted</code> variable to be before <code>date</code> using the <code>relocate</code> function. Take a look at the data using <code>glimpse()</code>. Note the difference between <code>date</code> and <code>date_formatted</code> columns.</p>
+<p>10. Move the <code>date_formatted</code> variable to be before <code>date</code> using the <code>relocate</code> function. Take a look at the data using <code>glimpse()</code>. Note the difference between <code>date</code> and <code>date_formatted</code> columns.</p>
+<pre><code># General format
+NEWDATA &lt;- OLD_DATA %&gt;% relocate(COLUMN1, .before = COLUMN2)</code></pre>
 <pre class="r"><code>circ &lt;- circ %&gt;% relocate(date_formatted, .before = date)
 glimpse(circ)</code></pre>
 <pre><code>## Rows: 1,146
@@ -368,7 +372,9 @@ glimpse(circ)</code></pre>
 ## $ bannerAlightings &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
 ## $ bannerAverage    &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
 ## $ daily            &lt;dbl&gt; 952.0, 796.0, 1211.5, 1213.5, 1644.0, 1490.5, 888.5, …</code></pre>
-<p>10. Create a list data object called <code>classes_data</code> that combines the <code>vect_data</code> from the first part of the lab and <code>circ</code>. Use <code>glimpse()</code> to look at the data.</p>
+<p>11. Create a list data object called <code>classes_data</code> that combines the <code>vect_data</code> from the first part of the lab and <code>circ</code>. Use <code>glimpse()</code> to look at the data.</p>
+<pre><code># General format
+NEWLIST &lt;- list(OBJECT1, OBJECT2)</code></pre>
 <pre class="r"><code>classes_data &lt;- list(vect_data, circ)
 glimpse(classes_data)</code></pre>
 <pre><code>## List of 2
