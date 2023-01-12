@@ -188,16 +188,26 @@ rand_vect &lt;- sample(x = 1:30, size = 30, replace = TRUE)
 TF_vect &lt;- rep(c(TRUE, TRUE, FALSE), times = 10)
 TF_vect2 &lt;- rep(c(&quot;TRUE&quot;, &quot;TRUE&quot;, &quot;FALSE&quot;), times = 10)</code></pre>
 <p>2. Determine the class of each of these new objects.</p>
-<p>3. Create a tibble combining these vectors together called <code>vect_data</code> using the following code.</p>
+<p>3. Are <code>TF_vect</code> and <code>TF_vect2</code> different classes? Why or why not?</p>
+<p>4. Create a tibble combining these vectors together called <code>vect_data</code> using the following code.</p>
 <pre class="r"><code>vect_data &lt;- tibble(int_vect, rand_vect, TF_vect, TF_vect2)</code></pre>
-<p>4. Take a look at 5 random rows using the <code>slice_sample()</code> function. Try this a few times to see how the results change.</p>
-<p>5. Take a look at 5 random rows using the <code>slice_sample()</code> function again but this time with <code>set.seed(1234)</code> as the first line of the chunk. Try this a few times to see the results. (Don’t forget to not copy the backticks.)</p>
-<p>6. Check to see if the <code>TF_vect</code> is logical. Check to see if <code>TF_vect2</code> is logical. Why are the results what they are?</p>
+<p>5. Take a look at 5 random rows using the <code>slice_sample()</code> function. Try this a few times to see how the results change.</p>
+<pre class="r"><code>slice_sample(vect_data, n = 5)</code></pre>
+<pre><code>## # A tibble: 5 × 4
+##   int_vect rand_vect TF_vect TF_vect2
+##      &lt;int&gt;     &lt;int&gt; &lt;lgl&gt;   &lt;chr&gt;   
+## 1        3        26 FALSE   FALSE   
+## 2        4        22 TRUE    TRUE    
+## 3        6         4 TRUE    TRUE    
+## 4        5         5 TRUE    TRUE    
+## 5        2        16 TRUE    TRUE</code></pre>
+<p>6. Take a look at 5 random rows using the <code>slice_sample()</code> function again but this time with <code>set.seed(1234)</code> as the first line of the chunk. Try this a few times to see the results. (Don’t forget to not copy the backticks.)</p>
+<p>7. Coerce <code>rand_vect</code> to character class using <code>as.character()</code>. Save this vector as <code>rand_char_vect</code>. How is the output for <code>rand_vect</code> and <code>rand_char_vect</code> different?</p>
 <p><strong>Bonus / Extra practice</strong>: Use <code>mutate()</code> function to create a new variable in <code>vect_data</code> named <code>type_fact</code> that is of class <code>factor</code> made from the <code>int_vect</code> variable. Take a look at the data and observe how the class is different for the new variable compared to <code>int_vect</code>.</p>
 </div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
-<p>7. Read in the Charm City Circulator data using <code>read_circulator()</code> function from <code>jhur</code> package using the code supplied in the chunk.</p>
+<p>8. Read in the Charm City Circulator data using <code>read_circulator()</code> function from <code>jhur</code> package using the code supplied in the chunk.</p>
 <ul>
 <li>Use the <code>str()</code> function to take a look at the data and learn about the column types.</li>
 </ul>
@@ -210,9 +220,15 @@ TF_vect2 &lt;- rep(c(&quot;TRUE&quot;, &quot;TRUE&quot;, &quot;FALSE&quot;), tim
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<p>8. Use the <code>mutate()</code> function to create a new column named <code>date_formatted</code> that is of <code>Date</code> class. The new variable is created from <code>date</code> column. Hint: use <code>mdy()</code> function.</p>
-<p>9. Move the <code>date_formatted</code> variable to be before <code>date</code> using the <code>relocate</code> function. Take a look at the data using <code>glimpse()</code>. Note the difference between <code>date</code> and <code>date_formatted</code> columns.</p>
-<p>10. Create a list data object called <code>classes_data</code> that combines the <code>vect_data</code> from the first part of the lab and <code>circ</code>. Use <code>glimpse()</code> to look at the data.</p>
+<p>9. Use the <code>mutate()</code> function to create a new column named <code>date_formatted</code> that is of <code>Date</code> class. The new variable is created from <code>date</code> column. Hint: use <code>mdy()</code> function. Reassign to <code>circ</code>.</p>
+<pre><code># General format
+NEWDATA &lt;- OLD_DATA %&gt;% mutate(NEW_COLUMN = OLD_COLUMN)</code></pre>
+<p>10. Move the <code>date_formatted</code> variable to be before <code>date</code> using the <code>relocate</code> function. Take a look at the data using <code>glimpse()</code>. Note the difference between <code>date</code> and <code>date_formatted</code> columns.</p>
+<pre><code># General format
+NEWDATA &lt;- OLD_DATA %&gt;% relocate(COLUMN1, .before = COLUMN2)</code></pre>
+<p>11. Create a list data object called <code>classes_data</code> that combines the <code>vect_data</code> from the first part of the lab and <code>circ</code>. Use <code>glimpse()</code> to look at the data.</p>
+<pre><code># General format
+NEWLIST &lt;- list(OBJECT1, OBJECT2)</code></pre>
 <p><strong>Bonus / Extra practice</strong>: Use <code>range()</code> function on <code>date_formatted</code> variable to display the range of dates in the data set. How does this compare to that of <code>date</code>? Why? (Hint: use the pull function first to pull the values.)</p>
 <p><strong>Bonus / Extra practice</strong>: Use the <code>group_by</code> function on <code>day</code> variable with the <code>summarize()</code> function, to display the number of <code>orangeBoardings</code> observations with each day (hint: <code>use sum()</code>). Which day had the most boardings? Is this true for the other routes (<code>purpleBoardings</code>, <code>greenBoardings</code>, <code>bannerBoardings</code>)?</p>
 </div>
