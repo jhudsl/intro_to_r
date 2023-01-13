@@ -340,7 +340,7 @@ red_blue %>% mutate(percent =
 
 ```{r}
 
-total <-red_blue %>% drop_na() %>% pull(col_count) %>%sum()
+total <- red_blue %>% drop_na() %>% pull(col_count) %>% sum()
 red_blue %>% mutate(percent = 
                     (col_count/total)*100)
 
