@@ -323,7 +323,7 @@ red_blue <- rename(red_blue, col_count = n)
 red_blue
 ```
 
-## Word of caution - Percentanges with `NA`
+## Word of caution - Percentages with `NA`
 
 
 `r emo::ji("warning")` Calculating percentages will give you a different result depending on your choice to include NA values!
