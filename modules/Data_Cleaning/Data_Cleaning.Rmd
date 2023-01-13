@@ -33,11 +33,11 @@ library(tidyverse)
 
 -   tibbles show column classes!
 -   `as.CLASS_NAME(x)` can be used to change the class of an object x
+-  `class()` can test what class an object is
 -   Logic class objects only have `TRUE` or `False` (without quotes)
--   The repeat `rep()` and `seq()` functions help you create vectors
-    with `to` and `from` arguments (and others)
--   `sample()` makes random vectors. Can be used for integers or double
-    depending on what it is sampling from.
+-   Two kinds of numeric subclasses - integer (whole numbers) and double (fractional values)
+-   Character class values need quotes
+-   Factors are a special character class that has levels
 -   matrix has columns and rows but is all one data class
 -   lists can contain multiples of any other class of data including
     lists!
@@ -207,7 +207,7 @@ for sure if an `NA` value meets the condition. To keep them need to add
 
 Think about if this is OK or not - it depends on your data!
 
-## filter() and missing data {.codesmall}
+## filter() and missing data
 
 ```{r}
 df <-tibble(Dog = c(0, NA, 2, 3, 1, 1), 
@@ -269,13 +269,7 @@ df %>% select(!miss_var_which(df))
 ```
 
 
-## Removing columns with threshold of percent missing row values{.codesmall}
 
-```{r}
-is.na(df) %>% head(n = 3)
-colMeans(is.na(df))#TRUE and FALSE treated like 0 and 1
-df %>% select(which(colMeans(is.na(df)) < 0.2))# remove if over 20% missing
-```
 
 ## Change a value to be `NA`{.codesmall}
 
@@ -299,9 +293,9 @@ df %>% mutate(Dog = na_if(x = Dog, y = 0))
 
 `r emo::ji("warning")` Think about what your `NA` means for your data (are you sure ?).
 
-`r emo::ji("warning")` Is an `NA` for values so low they could not be reported? 
+- Is an `NA` for values so low they could not be reported? 
 
-`r emo::ji("warning")` Or is it if it was too low and also if there was a different issue (like no one reported)?
+- Or is it if it was too low and also if there was a different issue (like no one reported)?
 
 ## Think about `NA`
 
@@ -329,28 +323,33 @@ red_blue <- rename(red_blue, col_count = n)
 red_blue
 ```
 
-## Word of caution {.codesmall}
+## Word of caution - Percentages with `NA`
 
 
-`r emo::ji("warning")` Calculating percentages will give you a different result depending on your choice to include NA values.!
+`r emo::ji("warning")` Calculating percentages will give you a different result depending on your choice to include NA values!
+
+This is because the denominator changes.
+
+```{r}
+total <- red_blue %>% pull(col_count) %>% sum()
+red_blue %>% mutate(percent = 
+                    (col_count/total)*100)
+```
+
+## Word of caution - Percentanges with `NA`
 
 ```{r}
 
+total <- red_blue %>% drop_na() %>% pull(col_count) %>% sum()
 red_blue %>% mutate(percent = 
-                      col_count/sum(pull(red_blue, col_count)))
-```
-
-## Word of caution
-
-```{r}
-red_blue %>% mutate(percent = 
-                      col_count/sum(pull(drop_na(red_blue), col_count)))
+                    (col_count/total)*100)
 
 ```
-
 Should you be dividing by 9 or 6?   
 It depends on your data and what `NA` might mean.   
 Pay attention to your data and your `NA` values!
+
+
 
 
 ## Summary
@@ -422,8 +421,8 @@ In `dplyr` you can use the `recode` function (need `mutate` here too!):
 ```{r, eval = FALSE}
 # General Format - this is not code!
 {data_input} %>%
-  mutate({variable_to_fix} = {Variable_fixing}, {old_value} = {new_value},
-                                       {another_old_value} = {new_value})
+  mutate({variable_to_fix} = recode({Variable_fixing}, {old_value} = {new_value},
+                                       {another_old_value} = {new_value}))
 
 ```
 :::
@@ -568,7 +567,7 @@ The `stringr` package:
 ## `stringr`
 
 `str_detect`, and `str_replace` search for matches to argument pattern
-within each element of a character vector (not data frame or tibble!).
+within each element of a **character vector** (not data frame or tibble!).
 
 -   `str_detect` - returns `TRUE` if `pattern` is found
 -   `str_replace` - replaces `pattern` with `replacement`
@@ -953,11 +952,6 @@ rownames(check_Sal) = NULL
 all.equal(check_Sal, dplyr_sal)
 ```
 
-## Website
-
-[Website](../index.html)
-
-# Extra slides
 
 ## Creating Two-way Tables
 
@@ -994,4 +988,34 @@ library(scales)
 tab_df %>% 
   count(x, y) %>% 
   group_by(x) %>% mutate(pct_x = percent(n / sum(n)))
+```
+
+
+
+## Removing columns with threshold of percent missing values{.codesmall}
+
+```{r}
+is.na(df) %>% head(n = 3)
+colMeans(is.na(df))#TRUE and FALSE treated like 0 and 1
+which(colMeans(is.na(df)) < 0.2) #the location of the columns <.2
+df %>% select(which(colMeans(is.na(df)) < 0.2))# remove if over 20% missing
+```
+
+## Percent calculation without intermediate objects
+
+```{r}
+
+red_blue  %>% pull(col_count) %>%sum()
+sum(pull(red_blue,col_count))
+red_blue %>% mutate(percent = 
+              (col_count/sum(pull(red_blue ,col_count)))*100)
+
+red_blue %>% drop_na() %>% pull(col_count) %>%sum()
+sum(pull(drop_na(red_blue),col_count))
+red_blue %>% mutate(percent = 
+              (col_count/sum(pull(drop_na(red_blue),col_count)))*100)
+
+# different order
+red_blue %>% drop_na() %>%  mutate(percent = 
+              (col_count/sum(pull(red_blue,col_count)))*100)
 ```
