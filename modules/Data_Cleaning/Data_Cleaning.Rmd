@@ -331,7 +331,7 @@ red_blue
 This is because the denominator changes.
 
 ```{r}
-total <-red_blue %>% pull(col_count) %>% sum()
+total <- red_blue %>% pull(col_count) %>% sum()
 red_blue %>% mutate(percent = 
                     (col_count/total)*100)
 ```
