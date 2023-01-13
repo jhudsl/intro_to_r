@@ -293,9 +293,9 @@ df %>% mutate(Dog = na_if(x = Dog, y = 0))
 
 `r emo::ji("warning")` Think about what your `NA` means for your data (are you sure ?).
 
-`r emo::ji("warning")` Is an `NA` for values so low they could not be reported? 
+- Is an `NA` for values so low they could not be reported? 
 
-`r emo::ji("warning")` Or is it if it was too low and also if there was a different issue (like no one reported)?
+- Or is it if it was too low and also if there was a different issue (like no one reported)?
 
 ## Think about `NA`
 
@@ -323,28 +323,33 @@ red_blue <- rename(red_blue, col_count = n)
 red_blue
 ```
 
-## Word of caution {.codesmall}
+## Word of caution - Percentanges with `NA`
 
 
-`r emo::ji("warning")` Calculating percentages will give you a different result depending on your choice to include NA values.!
+`r emo::ji("warning")` Calculating percentages will give you a different result depending on your choice to include NA values!
+
+This is because the denominator changes.
+
+```{r}
+total <-red_blue %>% pull(col_count) %>% sum()
+red_blue %>% mutate(percent = 
+                    (col_count/total)*100)
+```
+
+## Word of caution - Percentanges with `NA`
 
 ```{r}
 
+total <-red_blue %>% drop_na() %>% pull(col_count) %>%sum()
 red_blue %>% mutate(percent = 
-                      col_count/sum(pull(red_blue, col_count)))
-```
-
-## Word of caution
-
-```{r}
-red_blue %>% mutate(percent = 
-                      col_count/sum(pull(drop_na(red_blue), col_count)))
+                    (col_count/total)*100)
 
 ```
-
 Should you be dividing by 9 or 6?   
 It depends on your data and what `NA` might mean.   
 Pay attention to your data and your `NA` values!
+
+
 
 
 ## Summary
@@ -999,4 +1004,23 @@ is.na(df) %>% head(n = 3)
 colMeans(is.na(df))#TRUE and FALSE treated like 0 and 1
 which(colMeans(is.na(df)) < 0.2) #the location of the columns <.2
 df %>% select(which(colMeans(is.na(df)) < 0.2))# remove if over 20% missing
+```
+
+## Percent calculation without intermediate objects
+
+```{r}
+
+red_blue  %>% pull(col_count) %>%sum()
+sum(pull(red_blue,col_count))
+red_blue %>% mutate(percent = 
+              (col_count/sum(pull(red_blue ,col_count)))*100)
+
+red_blue %>% drop_na() %>% pull(col_count) %>%sum()
+sum(pull(drop_na(red_blue),col_count))
+red_blue %>% mutate(percent = 
+              (col_count/sum(pull(drop_na(red_blue),col_count)))*100)
+
+# different order
+red_blue %>% drop_na() %>%  mutate(percent = 
+              (col_count/sum(pull(red_blue,col_count)))*100)
 ```
