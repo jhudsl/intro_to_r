@@ -33,11 +33,11 @@ library(tidyverse)
 
 -   tibbles show column classes!
 -   `as.CLASS_NAME(x)` can be used to change the class of an object x
+-  `class()` can test what class an object is
 -   Logic class objects only have `TRUE` or `False` (without quotes)
--   The repeat `rep()` and `seq()` functions help you create vectors
-    with `to` and `from` arguments (and others)
--   `sample()` makes random vectors. Can be used for integers or double
-    depending on what it is sampling from.
+-   Two kinds of numeric subclasses - integer (whole numbers) and double (fractional values)
+-   Character class values need quotes
+-   Factors are a special character class that has levels
 -   matrix has columns and rows but is all one data class
 -   lists can contain multiples of any other class of data including
     lists!
