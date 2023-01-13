@@ -196,9 +196,11 @@ slide:not(.current) .plotly.html-widget{
 <ul>
 <li>tibbles show column classes!</li>
 <li><code>as.CLASS_NAME(x)</code> can be used to change the class of an object x</li>
+<li><code>class()</code> can test what class an object is</li>
 <li>Logic class objects only have <code>TRUE</code> or <code>False</code> (without quotes)</li>
-<li>The repeat <code>rep()</code> and <code>seq()</code> functions help you create vectors with <code>to</code> and <code>from</code> arguments (and others)</li>
-<li><code>sample()</code> makes random vectors. Can be used for integers or double depending on what it is sampling from.</li>
+<li>Two kinds of numeric subclasses - integer (whole numbers) and double (fractional values)</li>
+<li>Character class values need quotes</li>
+<li>Factors are a special character class that has levels</li>
 <li>matrix has columns and rows but is all one data class</li>
 <li>lists can contain multiples of any other class of data including lists!</li>
 <li>The <code>lubridate</code> package is helpful for dates and times<br/>📃<a href='https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-4.pdf' title=''>Cheatsheet</a></li>
@@ -398,7 +400,7 @@ sum(x)</pre>
 
 <p>Think about if this is OK or not - it depends on your data!</p>
 
-</article></slide><slide class=""><hgroup><h2>filter() and missing data</h2></hgroup><article  id="filter-and-missing-data-1" class="codesmall">
+</article></slide><slide class=""><hgroup><h2>filter() and missing data</h2></hgroup><article  id="filter-and-missing-data-1">
 
 <pre class = 'prettyprint lang-r'>df &lt;-tibble(Dog = c(0, NA, 2, 3, 1, 1), 
             Cat = c(NA, 8, 6, NA, 2, NA))</pre>
@@ -506,32 +508,6 @@ df</pre>
 5     5
 6     6</pre>
 
-</article></slide><slide class=""><hgroup><h2>Removing columns with threshold of percent missing row values</h2></hgroup><article  id="removing-columns-with-threshold-of-percent-missing-row-values" class="codesmall">
-
-<pre class = 'prettyprint lang-r'>is.na(df) %&gt;% head(n = 3)</pre>
-
-<pre >       Dog   Cat  test
-[1,] FALSE  TRUE FALSE
-[2,]  TRUE FALSE FALSE
-[3,] FALSE FALSE FALSE</pre>
-
-<pre class = 'prettyprint lang-r'>colMeans(is.na(df))#TRUE and FALSE treated like 0 and 1</pre>
-
-<pre >      Dog       Cat      test 
-0.1666667 0.5000000 0.0000000 </pre>
-
-<pre class = 'prettyprint lang-r'>df %&gt;% select(which(colMeans(is.na(df)) &lt; 0.2))# remove if over 20% missing</pre>
-
-<pre ># A tibble: 6 × 2
-    Dog  test
-  &lt;dbl&gt; &lt;dbl&gt;
-1     0     1
-2    NA     2
-3     2     3
-4     3     4
-5     1     5
-6     1     6</pre>
-
 </article></slide><slide class=""><hgroup><h2>Change a value to be <code class="codesmall">NA</code></h2></hgroup><article  id="change-a-value-to-be-na">
 
 <p>The <code>na_if()</code> function of <code>dplyr</code> can be helpful for this. Let’s say we think that all 0 values should be <code>NA</code>.</p>
@@ -566,9 +542,10 @@ df</pre>
 
 <p>⚠️ Think about what your <code>NA</code> means for your data (are you sure ?).</p>
 
-<p>⚠️ Is an <code>NA</code> for values so low they could not be reported?</p>
-
-<p>⚠️ Or is it if it was too low and also if there was a different issue (like no one reported)?</p>
+<ul>
+<li><p>Is an <code>NA</code> for values so low they could not be reported?</p></li>
+<li><p>Or is it if it was too low and also if there was a different issue (like no one reported)?</p></li>
+</ul>
 
 </article></slide><slide class=""><hgroup><h2>Think about <code>NA</code></h2></hgroup><article  id="think-about-na-1">
 
@@ -594,31 +571,35 @@ red_blue</pre>
 2 red           3
 3 &lt;NA&gt;          3</pre>
 
-</article></slide><slide class=""><hgroup><h2>Word of caution</h2></hgroup><article  id="word-of-caution-1" class="codesmall">
+</article></slide><slide class=""><hgroup><h2>Word of caution - Percentages with <code>NA</code></h2></hgroup><article  id="word-of-caution---percentages-with-na">
 
-<p>⚠️ Calculating percentages will give you a different result depending on your choice to include NA values.!</p>
+<p>⚠️ Calculating percentages will give you a different result depending on your choice to include NA values!</p>
 
-<pre class = 'prettyprint lang-r'>red_blue %&gt;% mutate(percent = 
-                      col_count/sum(pull(red_blue, col_count)))</pre>
+<p>This is because the denominator changes.</p>
 
-<pre ># A tibble: 3 × 3
-  color col_count percent
-  &lt;chr&gt;     &lt;int&gt;   &lt;dbl&gt;
-1 blue          3   0.333
-2 red           3   0.333
-3 &lt;NA&gt;          3   0.333</pre>
-
-</article></slide><slide class=""><hgroup><h2>Word of caution</h2></hgroup><article  id="word-of-caution-2">
-
-<pre class = 'prettyprint lang-r'>red_blue %&gt;% mutate(percent = 
-                      col_count/sum(pull(drop_na(red_blue), col_count)))</pre>
+<pre class = 'prettyprint lang-r'>total &lt;- red_blue %&gt;% pull(col_count) %&gt;% sum()
+red_blue %&gt;% mutate(percent = 
+                    (col_count/total)*100)</pre>
 
 <pre ># A tibble: 3 × 3
   color col_count percent
   &lt;chr&gt;     &lt;int&gt;   &lt;dbl&gt;
-1 blue          3     0.5
-2 red           3     0.5
-3 &lt;NA&gt;          3     0.5</pre>
+1 blue          3    33.3
+2 red           3    33.3
+3 &lt;NA&gt;          3    33.3</pre>
+
+</article></slide><slide class=""><hgroup><h2>Word of caution - Percentanges with <code>NA</code></h2></hgroup><article  id="word-of-caution---percentanges-with-na">
+
+<pre class = 'prettyprint lang-r'>total &lt;- red_blue %&gt;% drop_na() %&gt;% pull(col_count) %&gt;% sum()
+red_blue %&gt;% mutate(percent = 
+                    (col_count/total)*100)</pre>
+
+<pre ># A tibble: 3 × 3
+  color col_count percent
+  &lt;chr&gt;     &lt;int&gt;   &lt;dbl&gt;
+1 blue          3      50
+2 red           3      50
+3 &lt;NA&gt;          3      50</pre>
 
 <p>Should you be dividing by 9 or 6?<br/>It depends on your data and what <code>NA</code> might mean.<br/>Pay attention to your data and your <code>NA</code> values!</p>
 
@@ -706,8 +687,8 @@ red_blue</pre>
 <div class="codeexample">
 <pre class = 'prettyprint lang-r'># General Format - this is not code!
 {data_input} %&gt;%
-  mutate({variable_to_fix} = {Variable_fixing}, {old_value} = {new_value},
-                                       {another_old_value} = {new_value})</pre></div>
+  mutate({variable_to_fix} = recode({Variable_fixing}, {old_value} = {new_value},
+                                       {another_old_value} = {new_value}))</pre></div>
 
 <pre class = 'prettyprint lang-r'>data_diet %&gt;% 
   mutate(Gender = recode(Gender, M = &quot;Male&quot;, 
@@ -882,7 +863,7 @@ head(data_diet)</pre>
 
 </article></slide><slide class=""><hgroup><h2><code>stringr</code></h2></hgroup><article  id="stringr">
 
-<p><code>str_detect</code>, and <code>str_replace</code> search for matches to argument pattern within each element of a character vector (not data frame or tibble!).</p>
+<p><code>str_detect</code>, and <code>str_replace</code> search for matches to argument pattern within each element of a <strong>character vector</strong> (not data frame or tibble!).</p>
 
 <ul>
 <li><code>str_detect</code> - returns <code>TRUE</code> if <code>pattern</code> is found</li>
@@ -1376,12 +1357,6 @@ all.equal(check_Sal, dplyr_sal)</pre>
 
 <pre >[1] TRUE</pre>
 
-</article></slide><slide class=""><hgroup><h2>Website</h2></hgroup><article  id="website">
-
-<p><a href='../index.html' title=''>Website</a></p>
-
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Extra slides</h2></hgroup><article  id="extra-slides-1">
-
 </article></slide><slide class=""><hgroup><h2>Creating Two-way Tables</h2></hgroup><article  id="creating-two-way-tables">
 
 <p>A two-way table. If you pass in 2 vectors, <code>table</code> creates a 2-dimensional table.</p>
@@ -1445,7 +1420,83 @@ tab_df %&gt;%
 2     1     1     1 100% 
 3     2     2     2 50%  
 4     2     4     2 50%  
-5     3     3     4 100% </pre></article></slide>
+5     3     3     4 100% </pre>
+
+</article></slide><slide class=""><hgroup><h2>Removing columns with threshold of percent missing values</h2></hgroup><article  id="removing-columns-with-threshold-of-percent-missing-values" class="codesmall">
+
+<pre class = 'prettyprint lang-r'>is.na(df) %&gt;% head(n = 3)</pre>
+
+<pre >         x
+[1,] FALSE
+[2,] FALSE
+[3,] FALSE</pre>
+
+<pre class = 'prettyprint lang-r'>colMeans(is.na(df))#TRUE and FALSE treated like 0 and 1</pre>
+
+<pre >x 
+0 </pre>
+
+<pre class = 'prettyprint lang-r'>which(colMeans(is.na(df)) &lt; 0.2) #the location of the columns &lt;.2</pre>
+
+<pre >x 
+1 </pre>
+
+<pre class = 'prettyprint lang-r'>df %&gt;% select(which(colMeans(is.na(df)) &lt; 0.2))# remove if over 20% missing</pre>
+
+<pre ># A tibble: 3 × 1
+  x              
+  &lt;chr&gt;          
+1 I really       
+2 like writing   
+3 R code programs</pre>
+
+</article></slide><slide class=""><hgroup><h2>Percent calculation without intermediate objects</h2></hgroup><article  id="percent-calculation-without-intermediate-objects">
+
+<pre class = 'prettyprint lang-r'>red_blue  %&gt;% pull(col_count) %&gt;%sum()</pre>
+
+<pre >[1] 9</pre>
+
+<pre class = 'prettyprint lang-r'>sum(pull(red_blue,col_count))</pre>
+
+<pre >[1] 9</pre>
+
+<pre class = 'prettyprint lang-r'>red_blue %&gt;% mutate(percent = 
+              (col_count/sum(pull(red_blue ,col_count)))*100)</pre>
+
+<pre ># A tibble: 3 × 3
+  color col_count percent
+  &lt;chr&gt;     &lt;int&gt;   &lt;dbl&gt;
+1 blue          3    33.3
+2 red           3    33.3
+3 &lt;NA&gt;          3    33.3</pre>
+
+<pre class = 'prettyprint lang-r'>red_blue %&gt;% drop_na() %&gt;% pull(col_count) %&gt;%sum()</pre>
+
+<pre >[1] 6</pre>
+
+<pre class = 'prettyprint lang-r'>sum(pull(drop_na(red_blue),col_count))</pre>
+
+<pre >[1] 6</pre>
+
+<pre class = 'prettyprint lang-r'>red_blue %&gt;% mutate(percent = 
+              (col_count/sum(pull(drop_na(red_blue),col_count)))*100)</pre>
+
+<pre ># A tibble: 3 × 3
+  color col_count percent
+  &lt;chr&gt;     &lt;int&gt;   &lt;dbl&gt;
+1 blue          3      50
+2 red           3      50
+3 &lt;NA&gt;          3      50</pre>
+
+<pre class = 'prettyprint lang-r'># different order
+red_blue %&gt;% drop_na() %&gt;%  mutate(percent = 
+              (col_count/sum(pull(red_blue,col_count)))*100)</pre>
+
+<pre ># A tibble: 2 × 3
+  color col_count percent
+  &lt;chr&gt;     &lt;int&gt;   &lt;dbl&gt;
+1 blue          3    33.3
+2 red           3    33.3</pre></article></slide>
 
 
   <slide class="backdrop"></slide>
