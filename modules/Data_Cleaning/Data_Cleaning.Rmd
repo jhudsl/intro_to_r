@@ -207,7 +207,7 @@ for sure if an `NA` value meets the condition. To keep them need to add
 
 Think about if this is OK or not - it depends on your data!
 
-## filter() and missing data {.codesmall}
+## filter() and missing data
 
 ```{r}
 df <-tibble(Dog = c(0, NA, 2, 3, 1, 1), 
