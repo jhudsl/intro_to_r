@@ -269,13 +269,7 @@ df %>% select(!miss_var_which(df))
 ```
 
 
-## Removing columns with threshold of percent missing row values{.codesmall}
 
-```{r}
-is.na(df) %>% head(n = 3)
-colMeans(is.na(df))#TRUE and FALSE treated like 0 and 1
-df %>% select(which(colMeans(is.na(df)) < 0.2))# remove if over 20% missing
-```
 
 ## Change a value to be `NA`{.codesmall}
 
@@ -994,4 +988,15 @@ library(scales)
 tab_df %>% 
   count(x, y) %>% 
   group_by(x) %>% mutate(pct_x = percent(n / sum(n)))
+```
+
+# Extra Slides
+
+## Removing columns with threshold of percent missing values{.codesmall}
+
+```{r}
+is.na(df) %>% head(n = 3)
+colMeans(is.na(df))#TRUE and FALSE treated like 0 and 1
+which(colMeans(is.na(df)) < 0.2) #the location of the columns <.2
+df %>% select(which(colMeans(is.na(df)) < 0.2))# remove if over 20% missing
 ```
