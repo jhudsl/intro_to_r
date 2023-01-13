@@ -421,8 +421,8 @@ In `dplyr` you can use the `recode` function (need `mutate` here too!):
 ```{r, eval = FALSE}
 # General Format - this is not code!
 {data_input} %>%
-  mutate({variable_to_fix} = {Variable_fixing}, {old_value} = {new_value},
-                                       {another_old_value} = {new_value})
+  mutate({variable_to_fix} = recode({Variable_fixing}, {old_value} = {new_value},
+                                       {another_old_value} = {new_value}))
 
 ```
 :::
@@ -567,7 +567,7 @@ The `stringr` package:
 ## `stringr`
 
 `str_detect`, and `str_replace` search for matches to argument pattern
-within each element of a character vector (not data frame or tibble!).
+within each element of a **character vector** (not data frame or tibble!).
 
 -   `str_detect` - returns `TRUE` if `pattern` is found
 -   `str_replace` - replaces `pattern` with `replacement`
@@ -952,11 +952,6 @@ rownames(check_Sal) = NULL
 all.equal(check_Sal, dplyr_sal)
 ```
 
-## Website
-
-[Website](../index.html)
-
-# Extra slides
 
 ## Creating Two-way Tables
 
@@ -995,7 +990,7 @@ tab_df %>%
   group_by(x) %>% mutate(pct_x = percent(n / sum(n)))
 ```
 
-# Extra Slides
+
 
 ## Removing columns with threshold of percent missing values{.codesmall}
 
