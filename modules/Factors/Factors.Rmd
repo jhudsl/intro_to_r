@@ -16,7 +16,7 @@ library(tidyverse)
 A `factor` is a special `character` vector where the elements have pre-defined groups or 'levels'. You can think of these as qualitative or categorical variables:
 
 ```{r factor1}
-x <- c("red", "red", "blue", "yellow", "blue")
+x <- c("yellow", "red", "red", "blue", "yellow", "blue")
 class(x)
 
 x_fact <- factor(x) # factor() is a function
@@ -25,6 +25,8 @@ x_fact
 ```
 
 Note that levels are, by default, in **alphanumerical** order.
+
+
 
 ## Factors
 
@@ -40,6 +42,26 @@ A package called `forcats` is really helpful for working with factors.
 knitr::include_graphics("https://github.com/tidyverse/forcats/raw/main/man/figures/logo.png")
 ```
 
+## `factor()` vs `as_factor()`
+
+`factor()` is from base R and `as_factor()` is from `forcats`
+
+Both can change a variable to be of class factor.
+
+- `factor()` will order **alphabetically** unless told otherwise.
+- `as_factor()` will  order by **first appearance** unless told otherwise.
+
+```{r}
+x <- c("yellow", "red", "red", "blue", "yellow", "blue")
+class(x)
+
+x_fact <- as_factor(x) # factor() is a function
+class(x_fact)
+x_fact
+```
+## `factor()` vs `as_factor()`
+
+If you are assigning your levels manually either function is fine!
 
 ## A Factor Example
 
@@ -91,14 +113,14 @@ OK this is very useful, but it is a bit difficult to read. We expect the values 
 Currently `grade` is class `character` but let's change that to class `factor` which allows us to specify the levels or order of the values.
 
 ```{r}
-levels(pull(data_highschool, grade))
+data_highschool %>% pull(grade) %>%  levels()
 
 data_highschool_fct <- data_highschool %>%
   mutate(grade = factor(grade,
     levels = c("Freshman", "Sophomore", "Junior", "Senior")
   ))
 
-levels(pull(data_highschool_fct, grade))
+data_highschool_fct %>% pull(grade) %>% levels()
 ```
 
 ## Change to a factor
@@ -263,7 +285,10 @@ data_highschool_fct %>%
 
 ## Summary
 - the factor class allows us to have a different order from alphanumeric for categorical data
-- we can change data to be a factor variable using `mutate` , the `as_factor()` (of `forcats` package) or `factor()` function and specifying the levels with the `levels` argument
+- we can change data to be a factor variable using `mutate` and a factor creating function like `factor()` or `as_factor`
+- the `as_factor()` is from the  `forcats` package (first appearance order by default)
+- the `factor()` base R function (alphabetical order by default)
+- with `factor()` we can specify the levels with the `levels` argument if we want a specific order
 - the `fct_reorder({variable_to_reorder}, {variable_to_order_by})` helps us reorder a variable by the values of another variable
 - arranging, tabulating, and plotting the data will reflect the new order
 
