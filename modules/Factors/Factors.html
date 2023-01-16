@@ -175,7 +175,7 @@ slide:not(.current) .plotly.html-widget{
 
 <p>A <code>factor</code> is a special <code>character</code> vector where the elements have pre-defined groups or &lsquo;levels&rsquo;. You can think of these as qualitative or categorical variables:</p>
 
-<pre class = 'prettyprint lang-r'>x &lt;- c(&quot;red&quot;, &quot;red&quot;, &quot;blue&quot;, &quot;yellow&quot;, &quot;blue&quot;)
+<pre class = 'prettyprint lang-r'>x &lt;- c(&quot;yellow&quot;, &quot;red&quot;, &quot;red&quot;, &quot;blue&quot;, &quot;yellow&quot;, &quot;blue&quot;)
 class(x)</pre>
 
 <pre >## [1] &quot;character&quot;</pre>
@@ -187,7 +187,7 @@ class(x_fact)</pre>
 
 <pre class = 'prettyprint lang-r'>x_fact</pre>
 
-<pre >## [1] red    red    blue   yellow blue  
+<pre >## [1] yellow red    red    blue   yellow blue  
 ## Levels: blue red yellow</pre>
 
 <p>Note that levels are, by default, in <strong>alphanumerical</strong> order.</p>
@@ -203,6 +203,36 @@ class(x_fact)</pre>
 <p>A package called <code>forcats</code> is really helpful for working with factors.</p>
 
 <p><img src="https://github.com/tidyverse/forcats/raw/main/man/figures/logo.png" title="Forcats hex sticker" alt="Forcats hex sticker" width="30%" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2><code>factor()</code> vs <code>as_factor()</code></h2></hgroup><article  id="factor-vs-as_factor">
+
+<p><code>factor()</code> is from base R and <code>as_factor()</code> is from <code>forcats</code></p>
+
+<p>Both can change a variable to be of class factor.</p>
+
+<ul>
+<li><code>factor()</code> will order <strong>alphabetically</strong> unless told otherwise.</li>
+<li><code>as_factor()</code> will order by <strong>first appearance</strong> unless told otherwise.</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>x &lt;- c(&quot;yellow&quot;, &quot;red&quot;, &quot;red&quot;, &quot;blue&quot;, &quot;yellow&quot;, &quot;blue&quot;)
+class(x)</pre>
+
+<pre >## [1] &quot;character&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>x_fact &lt;- as_factor(x) # factor() is a function
+class(x_fact)</pre>
+
+<pre >## [1] &quot;factor&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>x_fact</pre>
+
+<pre >## [1] yellow red    red    blue   yellow blue  
+## Levels: yellow red blue</pre>
+
+</article></slide><slide class=""><hgroup><h2><code>factor()</code> vs <code>as_factor()</code></h2></hgroup><article  id="factor-vs-as_factor-1">
+
+<p>If you are assigning your levels manually either function is fine!</p>
 
 </article></slide><slide class=""><hgroup><h2>A Factor Example</h2></hgroup><article  id="a-factor-example">
 
@@ -258,7 +288,7 @@ data_highschool &lt;- tibble(
 
 <p>Currently <code>grade</code> is class <code>character</code> but let’s change that to class <code>factor</code> which allows us to specify the levels or order of the values.</p>
 
-<pre class = 'prettyprint lang-r'>levels(pull(data_highschool, grade))</pre>
+<pre class = 'prettyprint lang-r'>data_highschool %&gt;% pull(grade) %&gt;%  levels()</pre>
 
 <pre >## NULL</pre>
 
@@ -267,7 +297,7 @@ data_highschool &lt;- tibble(
     levels = c(&quot;Freshman&quot;, &quot;Sophomore&quot;, &quot;Junior&quot;, &quot;Senior&quot;)
   ))
 
-levels(pull(data_highschool_fct, grade))</pre>
+data_highschool_fct %&gt;% pull(grade) %&gt;% levels()</pre>
 
 <pre >## [1] &quot;Freshman&quot;  &quot;Sophomore&quot; &quot;Junior&quot;    &quot;Senior&quot;</pre>
 
@@ -472,7 +502,10 @@ head(data_highschool_fct)</pre>
 
 <ul>
 <li>the factor class allows us to have a different order from alphanumeric for categorical data</li>
-<li>we can change data to be a factor variable using <code>mutate</code> , the <code>as_factor()</code> (of <code>forcats</code> package) or <code>factor()</code> function and specifying the levels with the <code>levels</code> argument</li>
+<li>we can change data to be a factor variable using <code>mutate</code> and a factor creating function like <code>factor()</code> or <code>as_factor</code></li>
+<li>the <code>as_factor()</code> is from the <code>forcats</code> package (first appearance order by default)</li>
+<li>the <code>factor()</code> base R function (alphabetical order by default)</li>
+<li>with <code>factor()</code> we can specify the levels with the <code>levels</code> argument if we want a specific order</li>
 <li>the <code>fct_reorder({variable_to_reorder}, {variable_to_order_by})</code> helps us reorder a variable by the values of another variable</li>
 <li>arranging, tabulating, and plotting the data will reflect the new order</li>
 </ul>
