@@ -342,7 +342,10 @@ head(jhu_cars)</pre>
 <pre class = 'prettyprint lang-r'>library(jhur)
 tb &lt;- read_tb()</pre>
 
-<p><br> If not, download the <code>xlsx</code> file from this link and read it in using <code>read_csv()</code>: <a href='http://jhudatascience.org/intro_to_r/data/tb_incidence.xlsx' title=''>http://jhudatascience.org/intro_to_r/data/tb_incidence.xlsx</a></p>
+<p><br> If not, download the <code>xlsx</code> file from <a href='http://jhudatascience.org/intro_to_r/data/tb_incidence.xlsx' title=''>http://jhudatascience.org/intro_to_r/data/tb_incidence.xlsx</a> and read it in:</p>
+
+<pre class = 'prettyprint lang-r'>library(readxl)
+tb &lt;- read_excel(&quot;tb_incidence.xlsx&quot;)</pre>
 
 </article></slide><slide class=""><hgroup><h2>TB Incidence</h2></hgroup><article  id="tb-incidence-1">
 
@@ -418,72 +421,60 @@ tb &lt;- tb %&gt;% rename(country = `TB incidence, all forms (per 100 000 popula
 {data to use} %&gt;% 
    summarize({summary column name} = {operator(source column)}) </pre></div>
 
+</article></slide><slide class=""><hgroup><h2>Summarize the data: <code>dplyr</code> <code>summarize()</code> function</h2></hgroup><article  id="summarize-the-data-dplyr-summarize-function-1">
+
+<p><code>summarize</code> creates a summary table of a column you’re interested in.</p>
+
+<div class="codeexample">
+<pre class = 'prettyprint lang-r'># General format - Not the code!
+{data to use} %&gt;% 
+   summarize({summary column name} = {operator(source column)}) </pre></div>
+
 <pre class = 'prettyprint lang-r'>tb %&gt;% 
-  summarize(mean_2006 = mean(`2006`, na.rm = TRUE))</pre>
+  summarize(mean_1991 = mean(`1991`))</pre>
 
 <pre ># A tibble: 1 × 1
-  mean_2006
+  mean_1991
       &lt;dbl&gt;
-1      135.</pre>
+1        NA</pre>
 
-</article></slide><slide class=""><hgroup><h2>Summarize the data: <code>dplyr</code> <code>summarize()</code> function</h2></hgroup><article  id="summarize-the-data-dplyr-summarize-function-1">
+<pre class = 'prettyprint lang-r'>tb %&gt;% 
+  summarize(mean_1991 = mean(`1991`, na.rm = TRUE))</pre>
+
+<pre ># A tibble: 1 × 1
+  mean_1991
+      &lt;dbl&gt;
+1      108.</pre>
+
+</article></slide><slide class=""><hgroup><h2>Summarize the data: <code>dplyr</code> <code>summarize()</code> function</h2></hgroup><article  id="summarize-the-data-dplyr-summarize-function-2">
 
 <p><code>summarize()</code> can do multiple operations at once. Just separate by a comma.</p>
 
 <pre class = 'prettyprint lang-r'>tb %&gt;% 
-  summarize(mean_2006 = mean(`2006`, na.rm = TRUE),
-            median_2007 = median(`2007`, na.rm = TRUE),
-            median(`2004`, na.rm = TRUE))</pre>
+  summarize(mean_1991 = mean(`1991`, na.rm = TRUE),
+            median_1991 = median(`1991`, na.rm = TRUE),
+            median(`2000`, na.rm = TRUE))</pre>
 
 <pre ># A tibble: 1 × 3
-  mean_2006 median_2007 `median(\`2004\`, na.rm = TRUE)`
+  mean_1991 median_1991 `median(\`2000\`, na.rm = TRUE)`
       &lt;dbl&gt;       &lt;dbl&gt;                            &lt;dbl&gt;
-1      135.          53                               56</pre>
+1      108.          58                               60</pre>
 
 <p><br> Notice how when we forget to provide a new name, output is still provided, but the column name is messy.</p>
 
-</article></slide><slide class=""><hgroup><h2>Summarize the data: <code>dplyr</code> <code>summarize()</code> function</h2></hgroup><article  id="summarize-the-data-dplyr-summarize-function-2">
+</article></slide><slide class=""><hgroup><h2>Summarize the data: <code>dplyr</code> <code>summarize()</code> function</h2></hgroup><article  id="summarize-the-data-dplyr-summarize-function-3">
 
 <p>This looks better.</p>
 
 <pre class = 'prettyprint lang-r'>tb %&gt;% 
-  summarize(mean_2006 = mean(`2006`, na.rm = TRUE),
-            median_2007 = median(`2007`, na.rm = TRUE),
-            median_2004 = median(`2004`, na.rm = TRUE))</pre>
+  summarize(mean_1991 = mean(`1991`, na.rm = TRUE),
+            median_1991 = median(`1991`, na.rm = TRUE),
+            median_2000 = median(`2000`, na.rm = TRUE))</pre>
 
 <pre ># A tibble: 1 × 3
-  mean_2006 median_2007 median_2004
+  mean_1991 median_1991 median_2000
       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-1      135.          53          56</pre>
-
-</article></slide><slide class=""><hgroup><h2>Iterative summaries: <code>dplyr</code> <code>summarize()</code> and <code>across()</code> functions</h2></hgroup><article  id="iterative-summaries-dplyr-summarize-and-across-functions">
-
-<p>Use the <a href='https://dplyr.tidyverse.org/reference/across.html' title=''><code>across</code></a> function with <code>summarize()</code> to summarize across multiple columns of your data.</p>
-
-<div class="codeexample">
-<pre class = 'prettyprint lang-r'># General format - Not the code!
-across({ columns to go across }, ~ { summarization_function(.x, na.rm = ..) }) </pre></div>
-
-<pre class = 'prettyprint lang-r'>tb %&gt;% 
-  summarize(across( c(`1990`, `1991`, `1992`, `1993`), ~ sum(.x, na.rm = TRUE)))</pre>
-
-<pre ># A tibble: 1 × 4
-  `1990` `1991` `1992` `1993`
-   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-1  21855  22288  22421  22836</pre>
-
-</article></slide><slide class=""><hgroup><h2>Iterative summaries: <code>dplyr</code> <code>summarize()</code> and <code>across()</code> functions</h2></hgroup><article  id="iterative-summaries-dplyr-summarize-and-across-functions-1">
-
-<p>Another example using select helpers:</p>
-
-<pre class = 'prettyprint lang-r'>tb %&gt;% 
-  summarize(across( starts_with(&quot;2&quot;), ~ range(.x, na.rm = TRUE)))</pre>
-
-<pre ># A tibble: 2 × 8
-  `2000` `2001` `2002` `2003` `2004` `2005` `2006` `2007`
-   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-1      0      0      3      0      0      0      0      0
-2    801    916    994   1075   1127   1141   1169   1198</pre>
+1      108.          58          60</pre>
 
 </article></slide><slide class=""><hgroup><h2>Row means</h2></hgroup><article  id="row-means">
 
@@ -712,9 +703,11 @@ Saint Vincent and the Grenadines                            Samoa
                           Zambia                         Zimbabwe 
                       535.944444                       608.222222 </pre>
 
-</article></slide><slide class=""><hgroup><h2>Row means</h2></hgroup><article  id="row-means-1">
+</article></slide><slide class=""><hgroup><h2>Column means</h2></hgroup><article  id="column-means">
 
-<p><code>colMeans()</code> gives you very similar output to functions we’ve seen previously in this lecture (<code>summarize()</code> and <code>across()</code>).</p>
+<p><code>colMeans()</code> and <code>rowMeans()</code> require <strong>all numeric data</strong>.</p>
+
+<p>Let’s see what the mean is across each column (year):</p>
 
 <pre class = 'prettyprint lang-r'>colMeans(tb_2, na.rm = TRUE)</pre>
 
@@ -724,16 +717,6 @@ Saint Vincent and the Grenadines                            Samoa
 121.5169 125.0435 127.8454 130.7488 136.1739 136.1932 136.9662 135.6683 
     2006     2007 
 134.6106 133.3865 </pre>
-
-<pre class = 'prettyprint lang-r'>tb_2 %&gt;% 
-  summarize(across( colnames(tb_2), ~ mean(.x, na.rm = TRUE)))</pre>
-
-<pre >      1990     1991    1992     1993     1994     1995     1996     1997
-1 105.5797 107.6715 108.314 110.3188 111.9662 114.1981 115.3527 118.8792
-      1998     1999     2000     2001     2002     2003     2004     2005
-1 121.5169 125.0435 127.8454 130.7488 136.1739 136.1932 136.9662 135.6683
-      2006     2007
-1 134.6106 133.3865</pre>
 
 </article></slide><slide class=""><hgroup><h2><code>summary()</code> Function</h2></hgroup><article  id="summary-function">
 
@@ -782,7 +765,14 @@ Saint Vincent and the Grenadines                            Samoa
  Max.   :1169.00   Max.   :1198.0  
                    NA&#39;s   :1       </pre>
 
-</article></slide><slide class=""><hgroup><h2>Lab Part 1</h2></hgroup><article  id="lab-part-1">
+</article></slide><slide class=""><hgroup><h2>Summary &amp; Lab Part 1</h2></hgroup><article  id="summary-lab-part-1">
+
+<ul>
+<li>summary stats (<code>mean()</code>) work with <code>pull()</code></li>
+<li>don’t forget the <code>na.rm = TRUE</code> argument!</li>
+<li><code>summary(x)</code>: quantile information</li>
+<li><code>summarize</code>: creates a summary table of columns of interest</li>
+</ul>
 
 <p>🏠 <a href='https://jhudatascience.org/intro_to_r/' title=''>Class Website</a></p>
 
@@ -5956,6 +5946,28 @@ yts_grouped</pre>
 3 Frequent        3.48        23.9
 4 &lt;NA&gt;           53.5         81.9</pre>
 
+</article></slide><slide class=""><hgroup><h2>Group by as many variables as you want</h2></hgroup><article  id="group-by-as-many-variables-as-you-want">
+
+<p><code>group_by</code> Response and Education:</p>
+
+<pre class = 'prettyprint lang-r'>yts %&gt;%
+  group_by(Response, Education) %&gt;%
+  summarize(avg_percent = mean(Data_Value, na.rm = TRUE),
+            max_percent = max(Data_Value, na.rm = TRUE))</pre>
+
+<pre ># A tibble: 8 × 4
+# Groups:   Response [4]
+  Response Education     avg_percent max_percent
+  &lt;chr&gt;    &lt;chr&gt;               &lt;dbl&gt;       &lt;dbl&gt;
+1 Current  High School         14.1         40.6
+2 Current  Middle School        5.73        26.1
+3 Ever     High School         34.7         96.2
+4 Ever     Middle School       18.6         98  
+5 Frequent High School          5.91        23.9
+6 Frequent Middle School        1.33         8  
+7 &lt;NA&gt;     High School         53.8         78.9
+8 &lt;NA&gt;     Middle School       53.2         81.9</pre>
+
 </article></slide><slide class=""><hgroup><h2>Ungroup the data</h2></hgroup><article  id="ungroup-the-data">
 
 <p>The <code>ungroup</code> function will allow you to clear the groups from the data. You can also overwrite the first <code>group_by</code> with a new one.</p>
@@ -6011,7 +6023,7 @@ yts</pre>
 
 </article></slide><slide class=""><hgroup><h2>Counting</h2></hgroup><article  id="counting">
 
-<p>There are other functions, such as <code>n()</code> count the number of observations.</p>
+<p>There are other functions, such as <code>n()</code> count the number of observations (NAs included).</p>
 
 <pre class = 'prettyprint lang-r'>yts %&gt;%
   group_by(YEAR) %&gt;%
@@ -6039,7 +6051,49 @@ yts</pre>
 16  2014   334  15.7
 17  2015   577  15.2</pre>
 
-</article></slide><slide class=""><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
+</article></slide><slide class=""><hgroup><h2>Counting</h2></hgroup><article  id="counting-1" class="codesmall">
+
+<p><code>count()</code>, <code>table()</code>, and <code>n()</code> can all give very similar information.</p>
+
+<pre class = 'prettyprint lang-r'>mtcars %&gt;% count(cyl)</pre>
+
+<pre >  cyl  n
+1   4 11
+2   6  7
+3   8 14</pre>
+
+<pre class = 'prettyprint lang-r'>mtcars %&gt;% pull(cyl) %&gt;% table()</pre>
+
+<pre >.
+ 4  6  8 
+11  7 14 </pre>
+
+<pre class = 'prettyprint lang-r'>mtcars %&gt;% group_by(cyl) %&gt;% summarize(n()) # n() typically used with summarize</pre>
+
+<pre ># A tibble: 3 × 2
+    cyl `n()`
+  &lt;dbl&gt; &lt;int&gt;
+1     4    11
+2     6     7
+3     8    14</pre>
+
+</article></slide><slide class=""><hgroup><h2>Summary &amp; Lab Part 2</h2></hgroup><article  id="summary-lab-part-2">
+
+<ul>
+<li><code>count(x)</code>: what unique values do you have?
+
+<ul>
+<li><code>pull()</code> + <code>table()</code></li>
+<li><code>unique()</code> combined with <code>length()</code></li>
+</ul></li>
+<li><code>group_by()</code>: changes all subsequent functions
+
+<ul>
+<li>combine with <code>summarize()</code> to get statistics per group</li>
+<li>combine with <code>mutate()</code> to add column</li>
+</ul></li>
+<li><code>summarize()</code> with <code>n()</code> gives the count (NAs included)</li>
+</ul>
 
 <p>🏠 <a href='https://jhudatascience.org/intro_to_r/' title=''>Class Website</a></p>
 
@@ -6049,7 +6103,9 @@ yts</pre>
 
 </article></slide><slide class=""><hgroup><h2>Basic Plots</h2></hgroup><article  id="basic-plots">
 
-<p>Plotting is an important component of exploratory data analysis. These are some rough plots that you can use in real time while exploring your data. We will go over formatting and making plots look nicer in additional lectures.</p>
+<p>Plotting is an important component of exploratory data analysis. These are some rough plots that you can use in real time while exploring your data.</p>
+
+<p><strong>We will go over formatting and making plots look nicer in additional lectures.</strong></p>
 
 <ul>
 <li>Basic summarization plots:
@@ -6092,31 +6148,12 @@ boxplot(formula = hp ~ cyl)</pre>
 
 <p><img src="data:image/png;base64,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" width="720" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Summary</h2></hgroup><article  id="summary">
+</article></slide><slide class=""><hgroup><h2>Summary &amp; Lab Part 3</h2></hgroup><article  id="summary-lab-part-3">
 
 <ul>
-<li>summary stats (<code>mean()</code>) work with <code>pull()</code></li>
-<li><code>summary(x)</code>: quantile information</li>
-<li><code>summarize</code>: creates a summary table of columns of interest
-
-<ul>
-<li>combine with <code>across()</code> to programmatically select columns</li>
-</ul></li>
-<li><code>count(x)</code>: what unique values do you have?
-
-<ul>
-<li><code>pull()</code> + <code>table()</code></li>
-<li><code>unique()</code> combined with <code>length()</code></li>
-</ul></li>
-<li><code>group_by()</code>: changes all subsequent functions
-
-<ul>
-<li>combine with <code>summarize()</code> to get statistics per group</li>
-</ul></li>
-<li><code>plot()</code> and <code>hist()</code> are great for a <strong>quick snapshot</strong> of the data</li>
+<li><code>plot(x,y)</code> and <code>hist(x)</code> are great for a <strong>quick snapshot</strong> of the data</li>
+<li><code>boxplot(y ~ x)</code> works for categorical data</li>
 </ul>
-
-</article></slide><slide class=""><hgroup><h2>Lab Part 3</h2></hgroup><article  id="lab-part-3">
 
 <p>🏠 <a href='https://jhudatascience.org/intro_to_r/' title=''>Class Website</a></p>
 
