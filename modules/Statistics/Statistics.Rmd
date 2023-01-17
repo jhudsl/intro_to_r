@@ -22,7 +22,7 @@ library(readr)
 library(ggplot2)
 library(emo)
 
-install.packages(c("faraway", "epitools"))
+#install.packages(c("faraway", "epitools"))
 ```
 
 ## Summary
@@ -52,6 +52,8 @@ We will cover how to use R to compute some of basic statistics and fit some basi
 
 <br>
 
+## 
+
 ```{r, fig.alt="I was told there would be no math", out.width = "35%", echo = FALSE, fig.show='hold',fig.align='center'}
 knitr::include_graphics("https://c.tenor.com/O3x8ywLm380AAAAd/chevy-chase.gif")
 ```
@@ -64,7 +66,7 @@ knitr::include_graphics("https://c.tenor.com/O3x8ywLm380AAAAd/chevy-chase.gif")
 
 There are plenty of resources online for learning more about these methods, as well as dedicated Biostatistics series (at different advancement levels) at the JHU School of Public Health.
 
-Check out [www.opencasestudies.org](https://www.opencasestudies.org/) for deep dives on some of the concepts covered here.
+Check out [www.opencasestudies.org](https://www.opencasestudies.org/) for deeper dives on some of the concepts covered here and the [resource page](https://jhudatascience.org/intro_to_r/resources.html) for more resources.
 
 # Correlation
 
