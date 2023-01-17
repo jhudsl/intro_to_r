@@ -289,7 +289,8 @@ where:
 ## Linear regression fit in R 
 
 To fit regression models in R, we use the function `glm()` (Generalized Linear Model). 
-You may also see `lm()` which is a more limited function, only allows for randomly/Gaussian distributed error terms.
+
+You may also see `lm()` which is a more limited function, only allows for randomly/Gaussian distributed error terms (aka typical linear regressions). 
 
 We typically provide two arguments: 
 
