@@ -206,7 +206,7 @@ slide:not(.current) .plotly.html-widget{
 <li>The <code>lubridate</code> package is helpful for dates and times<br/>📃<a href='https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-4.pdf' title=''>Cheatsheet</a></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Data Cleaning</h2></hgroup><article  class="emphasized" id="data-cleaning">
+</article></slide><slide class=""><hgroup><h2>Data Cleaning</h2></hgroup><article  id="data-cleaning" class="emphasized">
 
 <p>In general, data cleaning is a process of investigating your data for inaccuracies, or recoding it in a way that makes it more manageable.</p>
 
@@ -227,7 +227,7 @@ slide:not(.current) .plotly.html-widget{
 <li><code>Inf</code> and <code>-Inf</code> - Infinity, happens when you divide a positive number (or negative number) by 0.</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Finding Missing data</h2></hgroup><article  class="small" id="finding-missing-data">
+</article></slide><slide class=""><hgroup><h2>Finding Missing data</h2></hgroup><article  id="finding-missing-data" class="small">
 
 <ul>
 <li><code>is.na</code> - looks for <code>NAN</code> and <code>NA</code></li>
@@ -253,7 +253,7 @@ is.na(test)</pre>
 
 <pre >[1] FALSE FALSE  TRUE</pre>
 
-</article></slide><slide class=""><hgroup><h2>Useful checking functions</h2></hgroup><article  class="small" id="useful-checking-functions">
+</article></slide><slide class=""><hgroup><h2>Useful checking functions</h2></hgroup><article  id="useful-checking-functions" class="small">
 
 <ul>
 <li><code>any</code> will be <code>TRUE</code> if ANY are true
@@ -405,7 +405,7 @@ sum(x)</pre>
 <pre class = 'prettyprint lang-r'>df &lt;-tibble(Dog = c(0, NA, 2, 3, 1, 1), 
             Cat = c(NA, 8, 6, NA, 2, NA))</pre>
 
-</article></slide><slide class=""><hgroup><h2>filter() and missing data</h2></hgroup><article  class="codesmall" id="filter-and-missing-data-2">
+</article></slide><slide class=""><hgroup><h2>filter() and missing data</h2></hgroup><article  id="filter-and-missing-data-2" class="codesmall">
 
 <pre class = 'prettyprint lang-r'>df</pre>
 
@@ -471,7 +471,7 @@ sum(x)</pre>
 1     2     6
 2     1     2</pre>
 
-</article></slide><slide class=""><hgroup><h2>Drop <strong>columns</strong> with any missing values</h2></hgroup><article  class="codesmall" id="drop-columns-with-any-missing-values">
+</article></slide><slide class=""><hgroup><h2>Drop <strong>columns</strong> with any missing values</h2></hgroup><article  id="drop-columns-with-any-missing-values" class="codesmall">
 
 <p>Use the <code>miss_var_which()</code> function from <code>naniar</code></p>
 
@@ -492,7 +492,7 @@ df</pre>
 
 <pre >[1] &quot;Dog&quot; &quot;Cat&quot;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Drop <strong>columns</strong> with any missing values</h2></hgroup><article  class="codesmall" id="drop-columns-with-any-missing-values-1">
+</article></slide><slide class=""><hgroup><h2>Drop <strong>columns</strong> with any missing values</h2></hgroup><article  id="drop-columns-with-any-missing-values-1" class="codesmall">
 
 <p><code>miss_var_which</code> and function from <code>naniar</code> (need a data frame)</p>
 
@@ -555,7 +555,7 @@ df</pre>
 
 <p>⚠️ You might want to keep the <code>NA</code> values so that you know the original sample size.</p>
 
-</article></slide><slide class=""><hgroup><h2>Word of caution</h2></hgroup><article  class="codesmall" id="word-of-caution">
+</article></slide><slide class=""><hgroup><h2>Word of caution</h2></hgroup><article  id="word-of-caution" class="codesmall">
 
 <p>⚠️ Calculating percentages will give you a different result depending on your choice to include NA values.!</p>
 
@@ -1422,7 +1422,7 @@ tab_df %&gt;%
 4     2     4     2 50%  
 5     3     3     4 100% </pre>
 
-</article></slide><slide class=""><hgroup><h2>Removing columns with threshold of percent missing values</h2></hgroup><article  class="codesmall" id="removing-columns-with-threshold-of-percent-missing-values">
+</article></slide><slide class=""><hgroup><h2>Removing columns with threshold of percent missing values</h2></hgroup><article  id="removing-columns-with-threshold-of-percent-missing-values" class="codesmall">
 
 <pre class = 'prettyprint lang-r'>is.na(df) %&gt;% head(n = 3)</pre>
 
