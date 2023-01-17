@@ -52,6 +52,8 @@ We will cover how to use R to compute some of basic statistics and fit some basi
 
 <br>
 
+## 
+
 ```{r, fig.alt="I was told there would be no math", out.width = "35%", echo = FALSE, fig.show='hold',fig.align='center'}
 knitr::include_graphics("https://c.tenor.com/O3x8ywLm380AAAAd/chevy-chase.gif")
 ```
@@ -64,7 +66,7 @@ knitr::include_graphics("https://c.tenor.com/O3x8ywLm380AAAAd/chevy-chase.gif")
 
 There are plenty of resources online for learning more about these methods, as well as dedicated Biostatistics series (at different advancement levels) at the JHU School of Public Health.
 
-Check out [www.opencasestudies.org](https://www.opencasestudies.org/) for deep dives on some of the concepts covered here.
+Check out [www.opencasestudies.org](https://www.opencasestudies.org/) for deeper dives on some of the concepts covered here and the [resource page](https://jhudatascience.org/intro_to_r/resources.html) for more resources.
 
 # Correlation
 
@@ -172,7 +174,7 @@ t.test(x)
 
 ## Running two-sample t-test{.small}
 
-It tests test difference in means of a variable between two groups. By default:
+It tests the difference in means of a variable between two groups. By default:
 
 - tests whether difference in means of a variable is equal to 0 (`mu=0`) 
 - uses "two sided" alternative (`alternative = "two.sided"`) 
@@ -287,6 +289,8 @@ where:
 ## Linear regression fit in R 
 
 To fit regression models in R, we use the function `glm()` (Generalized Linear Model). 
+
+You may also see `lm()` which is a more limited function, only allows for randomly/Gaussian distributed error terms (aka typical linear regressions). 
 
 We typically provide two arguments: 
 
@@ -413,7 +417,7 @@ Generalized Linear Models (GLMs) allow for fitting regressions for non-continuou
 Add the `family` argument -- a description of the error distribution and link function to be used in the model. These include: 
 
 - `binomial(link = "logit")`
-- `poisson(link = "log")`, and other.
+- `poisson(link = "log")`, and others.
 
 See `?family` documentation for details of family functions. 
 
@@ -484,10 +488,24 @@ Some final notes:
 - `glm()` fits regression models:
      - Use the `formula =` argument to specify the model (e.g., `y ~ x` or `y ~ x1 + x2` using column names)
      - Use `data =` to indicate the dataset
-     - Use `family = binomial()` to do a logistic regression
+     - Use `family = binomial()` to do a other regressions like logistic, Poisson and more
      - `summary()` gives useful statistics
 - `oddsratio()` from the `epitools` package can calculate odds ratios
 - this is just the tip of the iceberg!
+
+## Resources (also on the [website](https://jhudatascience.org/intro_to_r/resources.html)!)
+
+For more check out:
+
+- [this chapter](https://jhudatascience.org/tidyversecourse/model.html#linear-modeling) on modeling in this tidyverse book  
+- [this chart on when to do what test](https://www.scribbr.com/statistics/statistical-tests/)
+- [opencasesstudies.org](www.opencasestudies.org)
+
+For classes at JHU School of Public Health:
+
+- [PH.140.621, PH.140.622, PH.140.623, PH.140.62 - Statistical Methods in Public Health I, II, III, and IV](https://e-catalogue.jhu.edu/course-descriptions/biostatistics/) - The class is mostly taught in STATA, but you can also join a group of students working in R. The class covers many topics in statistical analysis for public health data.
+- [PH.140.778 - Statistical Computing, Algorithm, and Software Development](https://www.jhsph.edu/courses/course/36737/2022/140.778.01/statistical-computing-algorithm-and-software-devel) - A more advanced course for working with data in R.
+Content for similar topics as this course can also be found on Leanpub.
 
 ## Lab Part 2
 
