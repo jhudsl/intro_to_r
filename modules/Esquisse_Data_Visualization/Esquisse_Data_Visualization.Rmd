@@ -47,7 +47,7 @@ knitr::include_graphics("images/start_a_plot.png")
 
 ## Show the plot in the browser
 
-```{r}
+```{r, eval = FALSE}
 esquisse::esquisser(iris, viewer = "browser")
 ```
 
