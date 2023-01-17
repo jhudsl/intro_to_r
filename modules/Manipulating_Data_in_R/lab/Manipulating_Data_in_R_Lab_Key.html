@@ -178,9 +178,11 @@ library(dplyr)
 library(tidyr)</code></pre>
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
-<ol style="list-style-type: decimal">
-<li>Read in the SARS-CoV-2 Vaccination data from <a href="http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv" class="uri">http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv</a>. You can use the url or download the data. Assign the data the name “vacc”. We will be reviewing new concepts here and incorporating some from week 1. Remember to use <code>read_csv()</code> from the <code>readr</code> package.</li>
-</ol>
+<p>1. Read in the SARS-CoV-2 Vaccination data from <a href="http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv" class="uri">http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv</a>. You can use the url or download the data. Assign the data the name “vacc”. We will be reviewing new concepts here and incorporating some from week 1.</p>
+<ul>
+<li>Remember to use <code>read_csv()</code> from the <code>readr</code> package.</li>
+<li>Do NOT use <code>read.csv()</code>.</li>
+</ul>
 <pre class="r"><code>vacc &lt;- read_csv(&quot;http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv&quot;)</code></pre>
 <pre><code>## Rows: 64 Columns: 125
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -193,9 +195,7 @@ library(tidyr)</code></pre>
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre class="r"><code># If downloaded
 # vacc &lt;- read_csv(&quot;USA_covid19_vaccinations.csv&quot;)</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Look at the column names using <code>colnames</code> - do you notice any patterns?</li>
-</ol>
+<p>2. Look at the column names using <code>colnames</code> - do you notice any patterns?</p>
 <pre class="r"><code>colnames(vacc)</code></pre>
 <pre><code>##   [1] &quot;State/Territory/Federal Entity&quot;                                    
 ##   [2] &quot;Total Doses Delivered&quot;                                             
@@ -323,34 +323,24 @@ library(tidyr)</code></pre>
 ## [124] &quot;Percent People Primary Other Booster J&amp;J&quot;                          
 ## [125] &quot;Percent People Primary Other Booster Uknown&quot;</code></pre>
 <pre class="r"><code># Looks like many start with &quot;Percent&quot; and some start with &quot;Total&quot; - this indicates there are different units of measure for these different variables!</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Let’s rename the column “State/Territory/Federal Entity” in “vacc” to “Entity” using <code>rename</code>. Make sure to reassign to <code>vacc</code> here and in subsequent steps.</li>
-</ol>
+<p>3. Let’s rename the column “State/Territory/Federal Entity” in “vacc” to “Entity” using <code>rename</code>. Make sure to reassign to <code>vacc</code> here and in subsequent steps.</p>
 <pre><code># General format
 new_data &lt;- old_data %&gt;% rename(newname = oldname)</code></pre>
 <pre class="r"><code>vacc &lt;- vacc %&gt;% rename(Entity = `State/Territory/Federal Entity`)</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>Select only the columns “Entity”, and those that start with “Percent”. Use <code>select</code> and <code>starts_with(&quot;Percent&quot;)</code>.</li>
-</ol>
+<p>4. Select only the columns “Entity”, and those that start with “Percent”. Use <code>select</code> and <code>starts_with(&quot;Percent&quot;)</code>.</p>
 <pre><code># General format
 new_data &lt;- old_data %&gt;% select(colname1, colname2, ...)</code></pre>
 <pre class="r"><code>vacc &lt;- vacc %&gt;% select(Entity, starts_with(&quot;Percent&quot;))</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>Create a new dataset “vacc_long” that does <code>pivot_longer()</code> on all columns except “Entity”. Remember that <code>!Entity</code> means all columns except “Entity”.</li>
-</ol>
+<p>5. Create a new dataset “vacc_long” that does <code>pivot_longer()</code> on all columns except “Entity”. Remember that <code>!Entity</code> means all columns except “Entity”.</p>
 <pre><code># General format
 new_data &lt;- old_data %&gt;% pivot_longer(cols = colname(s))</code></pre>
 <pre class="r"><code>vacc_long &lt;- vacc %&gt;% pivot_longer(cols = !Entity)</code></pre>
-<ol start="6" style="list-style-type: decimal">
-<li>Filter the “Entity” column so it only includes values in the following list: “Maryland”,“Virginia”,“Florida”,“Massachusetts”, “United States”. <strong>Hint</strong>: use <code>filter</code> and <code>%in%</code>.</li>
-</ol>
+<p>6. Filter the “Entity” column so it only includes values in the following list: “Maryland”,“Virginia”,“Florida”,“Massachusetts”, “United States”. <strong>Hint</strong>: use <code>filter</code> and <code>%in%</code>.</p>
 <pre><code># General format
 new_data &lt;- old_data %&gt;% filter(colname %in% c(1, 2, 3, ...))</code></pre>
 <pre class="r"><code>vacc_long &lt;- vacc_long %&gt;%
   filter(Entity %in% c(&quot;Maryland&quot;, &quot;Virginia&quot;, &quot;Mississippi&quot;, &quot;Massachusetts&quot;, &quot;United States&quot;))</code></pre>
-<ol start="7" style="list-style-type: decimal">
-<li>Use <code>pivot_wider</code> to reshape “vacc_long”. Use “Entity” for the <code>names_from</code> argument. Use “value” for the <code>values_from</code> argument. Call this new data <code>vacc_wide</code>. Look at the data. How do these states compare to one another.</li>
-</ol>
+<p>7. Use <code>pivot_wider</code> to reshape “vacc_long”. Use “Entity” for the <code>names_from</code> argument. Use “value” for the <code>values_from</code> argument. Call this new data <code>vacc_wide</code>. Look at the data. How do these states compare to one another.</p>
 <pre><code># General format
 new_data &lt;- old_data %&gt;% pivot_wider(names_from = column1, values_from = column2)</code></pre>
 <pre class="r"><code>vacc_wide &lt;- vacc_long %&gt;%
@@ -374,7 +364,273 @@ vacc_wide</code></pre>
 ## 10 Percent of 65+ P…            88            93       92.6        82.1     90.1
 ## # … with 24 more rows</code></pre>
 <p><strong>Bonus / Extra practice</strong>:</p>
-<p>Combine blocks 1 and 3-7 by chaining everything together using the pipe <code>%&gt;%</code>. Call your data <code>vacc_compare</code>.</p>
+<p>A. Why is using <code>read.csv()</code> in Question 1 problematic? Use <code>colnames()</code> to examine the two different methods and datasets (vacc1 and vacc2) below.</p>
+<pre class="r"><code>vacc1 &lt;- read_csv(&quot;http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv&quot;)</code></pre>
+<pre><code>## Rows: 64 Columns: 125
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr   (1): State/Territory/Federal Entity
+## dbl (121): Total Doses Delivered, Doses Delivered per 100K, 18+ Doses Delive...
+## lgl   (3): People with 2 Doses by State of Residence, People 18+ with 1+ Dos...
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>vacc2 &lt;- read.csv(&quot;http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv&quot;)
+
+colnames(vacc1)</code></pre>
+<pre><code>##   [1] &quot;State/Territory/Federal Entity&quot;                                    
+##   [2] &quot;Total Doses Delivered&quot;                                             
+##   [3] &quot;Doses Delivered per 100K&quot;                                          
+##   [4] &quot;18+ Doses Delivered per 100K&quot;                                      
+##   [5] &quot;Total Doses Administered by State where Administered&quot;              
+##   [6] &quot;Doses Administered per 100k by State where Administered&quot;           
+##   [7] &quot;18+ Doses Administered by State where Administered&quot;                
+##   [8] &quot;18+ Doses Administered per 100K by State where Administered&quot;       
+##   [9] &quot;People with at least One Dose by State of Residence&quot;               
+##  [10] &quot;Percent of Total Pop with at least One Dose by State of Residence&quot; 
+##  [11] &quot;People 18+ with at least One Dose by State of Residence&quot;           
+##  [12] &quot;Percent of 18+ Pop with at least One Dose by State of Residence&quot;   
+##  [13] &quot;People Fully Vaccinated by State of Residence&quot;                     
+##  [14] &quot;Percent of Total Pop Fully Vaccinated by State of Residence&quot;       
+##  [15] &quot;People 18+ Fully Vaccinated by State of Residence&quot;                 
+##  [16] &quot;Percent of 18+ Pop Fully Vaccinated by State of Residence&quot;         
+##  [17] &quot;Total Number of Pfizer doses delivered&quot;                            
+##  [18] &quot;Total Number of Moderna doses delivered&quot;                           
+##  [19] &quot;Total Number of Janssen doses delivered&quot;                           
+##  [20] &quot;Total Number of doses from Other manufacturer delivered&quot;           
+##  [21] &quot;Total Number of Janssen doses administered&quot;                        
+##  [22] &quot;Total Number of Moderna doses administered&quot;                        
+##  [23] &quot;Total Number of Pfizer doses adminstered&quot;                          
+##  [24] &quot;Total Number of doses from Other manufacturer administered&quot;        
+##  [25] &quot;People Fully Vaccinated Moderna Resident&quot;                          
+##  [26] &quot;People Fully Vaccinated Pfizer Resident&quot;                           
+##  [27] &quot;People Fully Vaccinated Janssen Resident&quot;                          
+##  [28] &quot;People Fully Vaccinated Other 2-dose manufacturer Resident&quot;        
+##  [29] &quot;People 18+ Fully Vaccinated Moderna Resident&quot;                      
+##  [30] &quot;People 18+ Fully Vaccinated Pfizer Resident&quot;                       
+##  [31] &quot;People 18+ Fully Vaccinated Janssen Resident&quot;                      
+##  [32] &quot;People 18+ Fully Vaccinated Other 2-dose manufacturer Resident&quot;    
+##  [33] &quot;People with 2 Doses by State of Residence&quot;                         
+##  [34] &quot;Percent of Total Pop with 1+ Doses by State of Residence&quot;          
+##  [35] &quot;People 18+ with 1+ Doses by State of Residence&quot;                    
+##  [36] &quot;Percent of 18+ Pop with 1+ Doses by State of Residence&quot;            
+##  [37] &quot;Percent of Total Pop with 2 Doses by State of Residence&quot;           
+##  [38] &quot;People 18+ with 2 Doses by State of Residence&quot;                     
+##  [39] &quot;Percent of 18+ Pop with 2 Doses by State of Residence&quot;             
+##  [40] &quot;People with 1+ Doses by State of Residence&quot;                        
+##  [41] &quot;People 65+ with at least One Dose by State of Residence&quot;           
+##  [42] &quot;Percent of 65+ Pop with at least One Dose by State of Residence&quot;   
+##  [43] &quot;People 65+ Fully Vaccinated by State of Residence&quot;                 
+##  [44] &quot;Percent of 65+ Pop Fully Vaccinated by State of Residence&quot;         
+##  [45] &quot;People 65+ Fully Vaccinated_Moderna_Resident&quot;                      
+##  [46] &quot;People 65+ Fully Vaccinated_Pfizer_Resident&quot;                       
+##  [47] &quot;People 65+ Fully Vaccinated_Janssen_Resident&quot;                      
+##  [48] &quot;People 65+ Fully Vaccinated_Other 2-dose Manuf_Resident&quot;           
+##  [49] &quot;65+ Doses Administered by State where Administered&quot;                
+##  [50] &quot;Doses Administered per 100k of 65+ pop by State where Administered&quot;
+##  [51] &quot;Doses Delivered per 100k of 65+ pop&quot;                               
+##  [52] &quot;People 12+ with at least One Dose by State of Residence&quot;           
+##  [53] &quot;Percent of 12+ Pop with at least One Dose by State of Residence&quot;   
+##  [54] &quot;People 12+ Fully Vaccinated by State of Residence&quot;                 
+##  [55] &quot;Percent of 12+ Pop Fully Vaccinated by State of Residence&quot;         
+##  [56] &quot;People 12+ Fully Vaccinated_Moderna_Resident&quot;                      
+##  [57] &quot;People 12+ Fully Vaccinated_Pfizer_Resident&quot;                       
+##  [58] &quot;People 12+ Fully Vaccinated_Janssen_Resident&quot;                      
+##  [59] &quot;People 12+ Fully Vaccinated_Other 2-dose Manuf_Resident&quot;           
+##  [60] &quot;12+ Doses Administered by State where Administered&quot;                
+##  [61] &quot;Doses Administered per 100k of 12+ pop by State where Administered&quot;
+##  [62] &quot;Doses Delivered per 100k of 12+ pop&quot;                               
+##  [63] &quot;People 5+ with at least One Dose by State of Residence&quot;            
+##  [64] &quot;Percent of 5+ Pop with at least One Dose by State of Residence&quot;    
+##  [65] &quot;People 5+ Fully Vaccinated by State of Residence&quot;                  
+##  [66] &quot;Percent of 5+ Pop Fully Vaccinated by State of Residence&quot;          
+##  [67] &quot;People 5+ Fully Vaccinated_Moderna_Resident&quot;                       
+##  [68] &quot;People 5+ Fully Vaccinated_Pfizer_Resident&quot;                        
+##  [69] &quot;People 5+ Fully Vaccinated_Janssen_Resident&quot;                       
+##  [70] &quot;People 5+ Fully Vaccinated_Other 2-dose Manuf_Resident&quot;            
+##  [71] &quot;5+ Doses Administered by State where Administered&quot;                 
+##  [72] &quot;Doses Administered per 100k of 5+ pop  by State where Administered&quot;
+##  [73] &quot;Doses Delivered per 100k of 5+ pop&quot;                                
+##  [74] &quot;People who have received a booster dose&quot;                           
+##  [75] &quot;Percent of fully vaccinated people with booster doses&quot;             
+##  [76] &quot;People 18+ who have received a booster dose&quot;                       
+##  [77] &quot;Percent of fully vaccinated people 18+ with booster doses&quot;         
+##  [78] &quot;People 50+ who have received a booster dose&quot;                       
+##  [79] &quot;Percent of fully vaccinated people 50+ with booster doses&quot;         
+##  [80] &quot;People 65+ who have received a booster dose&quot;                       
+##  [81] &quot;Percent of fully vaccinated people 65+ with booster doses&quot;         
+##  [82] &quot;People with Moderna booster dose&quot;                                  
+##  [83] &quot;People with Pfizer booster dose&quot;                                   
+##  [84] &quot;People with Janssen booster dose&quot;                                  
+##  [85] &quot;People with booster dose of an Other manufacturer&quot;                 
+##  [86] &quot;Total Count People w/Booster Primary Pfizer Minus TX&quot;              
+##  [87] &quot;Total Count People w/Booster Primary Moderna Minus TX&quot;             
+##  [88] &quot;Total Count People w/Booster Primary J&amp;J Minus TX&quot;                 
+##  [89] &quot;Total Count People w/Booster Primary Other Minus TX&quot;               
+##  [90] &quot;Total Count People w/Booster Booster Pfizer Minus TX&quot;              
+##  [91] &quot;Total Count People w/Booster Booster Moderna Minus TX&quot;             
+##  [92] &quot;Total Count People w/Booster Booster J&amp;J Minus TX&quot;                 
+##  [93] &quot;Total Count People w/Booster Booster Other Minus TX&quot;               
+##  [94] &quot;Count People Primary Pfizer Booster Pfizer&quot;                        
+##  [95] &quot;Count People Primary Pfizer Booster Moderna&quot;                       
+##  [96] &quot;Count People Primary Pfizer Booster J&amp;J&quot;                           
+##  [97] &quot;Count People Primary Pfizer Booster Uknown&quot;                        
+##  [98] &quot;Count People Primary Moderna Booster Pfizer&quot;                       
+##  [99] &quot;Count People Primary Moderna Booster Moderna&quot;                      
+## [100] &quot;Count People Primary Moderna Booster J&amp;J&quot;                          
+## [101] &quot;Count People Primary Moderna Booster Uknown&quot;                       
+## [102] &quot;Count People Primary J&amp;J Booster Pfizer&quot;                           
+## [103] &quot;Count People Primary J&amp;J Booster Moderna&quot;                          
+## [104] &quot;Count People Primary J&amp;J Booster J&amp;J&quot;                              
+## [105] &quot;Count People Primary J&amp;J Booster Other&quot;                            
+## [106] &quot;Count People Primary Other Booster Pfizer&quot;                         
+## [107] &quot;Count People Primary Other Booster Moderna&quot;                        
+## [108] &quot;Count People Primary Other Booster J&amp;J&quot;                            
+## [109] &quot;Count People Primary Other Booster Other&quot;                          
+## [110] &quot;Percent People Primary Pfizer Booster Pfizer&quot;                      
+## [111] &quot;Percent People Primary Pfizer Booster Moderna&quot;                     
+## [112] &quot;Percent People Primary Pfizer Booster J&amp;J&quot;                         
+## [113] &quot;Percent People Primary Pfizer Booster Other&quot;                       
+## [114] &quot;Percent People Primary Moderna Booster Pfizer&quot;                     
+## [115] &quot;Percent People Primary Moderna Booster Moderna&quot;                    
+## [116] &quot;Percent People Primary Moderna Booster J&amp;J&quot;                        
+## [117] &quot;Percent People Primary Moderna Booster Other&quot;                      
+## [118] &quot;Percent People Primary J&amp;J Booster Pfizer&quot;                         
+## [119] &quot;Percent People Primary J&amp;J Booster Moderna&quot;                        
+## [120] &quot;Percent People Primary J&amp;J Booster J&amp;J&quot;                            
+## [121] &quot;Percent People Primary J&amp;J Booster Other&quot;                          
+## [122] &quot;Percent People Primary Other Booster Pfizer&quot;                       
+## [123] &quot;Percent People Primary Other Booster Moderna&quot;                      
+## [124] &quot;Percent People Primary Other Booster J&amp;J&quot;                          
+## [125] &quot;Percent People Primary Other Booster Uknown&quot;</code></pre>
+<pre class="r"><code>colnames(vacc2)</code></pre>
+<pre><code>##   [1] &quot;State.Territory.Federal.Entity&quot;                                    
+##   [2] &quot;Total.Doses.Delivered&quot;                                             
+##   [3] &quot;Doses.Delivered.per.100K&quot;                                          
+##   [4] &quot;X18..Doses.Delivered.per.100K&quot;                                     
+##   [5] &quot;Total.Doses.Administered.by.State.where.Administered&quot;              
+##   [6] &quot;Doses.Administered.per.100k.by.State.where.Administered&quot;           
+##   [7] &quot;X18..Doses.Administered.by.State.where.Administered&quot;               
+##   [8] &quot;X18..Doses.Administered.per.100K.by.State.where.Administered&quot;      
+##   [9] &quot;People.with.at.least.One.Dose.by.State.of.Residence&quot;               
+##  [10] &quot;Percent.of.Total.Pop.with.at.least.One.Dose.by.State.of.Residence&quot; 
+##  [11] &quot;People.18..with.at.least.One.Dose.by.State.of.Residence&quot;           
+##  [12] &quot;Percent.of.18..Pop.with.at.least.One.Dose.by.State.of.Residence&quot;   
+##  [13] &quot;People.Fully.Vaccinated.by.State.of.Residence&quot;                     
+##  [14] &quot;Percent.of.Total.Pop.Fully.Vaccinated.by.State.of.Residence&quot;       
+##  [15] &quot;People.18..Fully.Vaccinated.by.State.of.Residence&quot;                 
+##  [16] &quot;Percent.of.18..Pop.Fully.Vaccinated.by.State.of.Residence&quot;         
+##  [17] &quot;Total.Number.of.Pfizer.doses.delivered&quot;                            
+##  [18] &quot;Total.Number.of.Moderna.doses.delivered&quot;                           
+##  [19] &quot;Total.Number.of.Janssen.doses.delivered&quot;                           
+##  [20] &quot;Total.Number.of.doses.from.Other.manufacturer.delivered&quot;           
+##  [21] &quot;Total.Number.of.Janssen.doses.administered&quot;                        
+##  [22] &quot;Total.Number.of.Moderna.doses.administered&quot;                        
+##  [23] &quot;Total.Number.of.Pfizer.doses.adminstered&quot;                          
+##  [24] &quot;Total.Number.of.doses.from.Other.manufacturer.administered&quot;        
+##  [25] &quot;People.Fully.Vaccinated.Moderna.Resident&quot;                          
+##  [26] &quot;People.Fully.Vaccinated.Pfizer.Resident&quot;                           
+##  [27] &quot;People.Fully.Vaccinated.Janssen.Resident&quot;                          
+##  [28] &quot;People.Fully.Vaccinated.Other.2.dose.manufacturer.Resident&quot;        
+##  [29] &quot;People.18..Fully.Vaccinated.Moderna.Resident&quot;                      
+##  [30] &quot;People.18..Fully.Vaccinated.Pfizer.Resident&quot;                       
+##  [31] &quot;People.18..Fully.Vaccinated.Janssen.Resident&quot;                      
+##  [32] &quot;People.18..Fully.Vaccinated.Other.2.dose.manufacturer.Resident&quot;    
+##  [33] &quot;People.with.2.Doses.by.State.of.Residence&quot;                         
+##  [34] &quot;Percent.of.Total.Pop.with.1..Doses.by.State.of.Residence&quot;          
+##  [35] &quot;People.18..with.1..Doses.by.State.of.Residence&quot;                    
+##  [36] &quot;Percent.of.18..Pop.with.1..Doses.by.State.of.Residence&quot;            
+##  [37] &quot;Percent.of.Total.Pop.with.2.Doses.by.State.of.Residence&quot;           
+##  [38] &quot;People.18..with.2.Doses.by.State.of.Residence&quot;                     
+##  [39] &quot;Percent.of.18..Pop.with.2.Doses.by.State.of.Residence&quot;             
+##  [40] &quot;People.with.1..Doses.by.State.of.Residence&quot;                        
+##  [41] &quot;People.65..with.at.least.One.Dose.by.State.of.Residence&quot;           
+##  [42] &quot;Percent.of.65..Pop.with.at.least.One.Dose.by.State.of.Residence&quot;   
+##  [43] &quot;People.65..Fully.Vaccinated.by.State.of.Residence&quot;                 
+##  [44] &quot;Percent.of.65..Pop.Fully.Vaccinated.by.State.of.Residence&quot;         
+##  [45] &quot;People.65..Fully.Vaccinated_Moderna_Resident&quot;                      
+##  [46] &quot;People.65..Fully.Vaccinated_Pfizer_Resident&quot;                       
+##  [47] &quot;People.65..Fully.Vaccinated_Janssen_Resident&quot;                      
+##  [48] &quot;People.65..Fully.Vaccinated_Other.2.dose.Manuf_Resident&quot;           
+##  [49] &quot;X65..Doses.Administered.by.State.where.Administered&quot;               
+##  [50] &quot;Doses.Administered.per.100k.of.65..pop.by.State.where.Administered&quot;
+##  [51] &quot;Doses.Delivered.per.100k.of.65..pop&quot;                               
+##  [52] &quot;People.12..with.at.least.One.Dose.by.State.of.Residence&quot;           
+##  [53] &quot;Percent.of.12..Pop.with.at.least.One.Dose.by.State.of.Residence&quot;   
+##  [54] &quot;People.12..Fully.Vaccinated.by.State.of.Residence&quot;                 
+##  [55] &quot;Percent.of.12..Pop.Fully.Vaccinated.by.State.of.Residence&quot;         
+##  [56] &quot;People.12..Fully.Vaccinated_Moderna_Resident&quot;                      
+##  [57] &quot;People.12..Fully.Vaccinated_Pfizer_Resident&quot;                       
+##  [58] &quot;People.12..Fully.Vaccinated_Janssen_Resident&quot;                      
+##  [59] &quot;People.12..Fully.Vaccinated_Other.2.dose.Manuf_Resident&quot;           
+##  [60] &quot;X12..Doses.Administered.by.State.where.Administered&quot;               
+##  [61] &quot;Doses.Administered.per.100k.of.12..pop.by.State.where.Administered&quot;
+##  [62] &quot;Doses.Delivered.per.100k.of.12..pop&quot;                               
+##  [63] &quot;People.5..with.at.least.One.Dose.by.State.of.Residence&quot;            
+##  [64] &quot;Percent.of.5..Pop.with.at.least.One.Dose.by.State.of.Residence&quot;    
+##  [65] &quot;People.5..Fully.Vaccinated.by.State.of.Residence&quot;                  
+##  [66] &quot;Percent.of.5..Pop.Fully.Vaccinated.by.State.of.Residence&quot;          
+##  [67] &quot;People.5..Fully.Vaccinated_Moderna_Resident&quot;                       
+##  [68] &quot;People.5..Fully.Vaccinated_Pfizer_Resident&quot;                        
+##  [69] &quot;People.5..Fully.Vaccinated_Janssen_Resident&quot;                       
+##  [70] &quot;People.5..Fully.Vaccinated_Other.2.dose.Manuf_Resident&quot;            
+##  [71] &quot;X5..Doses.Administered.by.State.where.Administered&quot;                
+##  [72] &quot;Doses.Administered.per.100k.of.5..pop..by.State.where.Administered&quot;
+##  [73] &quot;Doses.Delivered.per.100k.of.5..pop&quot;                                
+##  [74] &quot;People.who.have.received.a.booster.dose&quot;                           
+##  [75] &quot;Percent.of.fully.vaccinated.people.with.booster.doses&quot;             
+##  [76] &quot;People.18..who.have.received.a.booster.dose&quot;                       
+##  [77] &quot;Percent.of.fully.vaccinated.people.18..with.booster.doses&quot;         
+##  [78] &quot;People.50..who.have.received.a.booster.dose&quot;                       
+##  [79] &quot;Percent.of.fully.vaccinated.people.50..with.booster.doses&quot;         
+##  [80] &quot;People.65..who.have.received.a.booster.dose&quot;                       
+##  [81] &quot;Percent.of.fully.vaccinated.people.65..with.booster.doses&quot;         
+##  [82] &quot;People.with.Moderna.booster.dose&quot;                                  
+##  [83] &quot;People.with.Pfizer.booster.dose&quot;                                   
+##  [84] &quot;People.with.Janssen.booster.dose&quot;                                  
+##  [85] &quot;People.with.booster.dose.of.an.Other.manufacturer&quot;                 
+##  [86] &quot;Total.Count.People.w.Booster.Primary.Pfizer.Minus.TX&quot;              
+##  [87] &quot;Total.Count.People.w.Booster.Primary.Moderna.Minus.TX&quot;             
+##  [88] &quot;Total.Count.People.w.Booster.Primary.J.J.Minus.TX&quot;                 
+##  [89] &quot;Total.Count.People.w.Booster.Primary.Other.Minus.TX&quot;               
+##  [90] &quot;Total.Count.People.w.Booster.Booster.Pfizer.Minus.TX&quot;              
+##  [91] &quot;Total.Count.People.w.Booster.Booster.Moderna.Minus.TX&quot;             
+##  [92] &quot;Total.Count.People.w.Booster.Booster.J.J.Minus.TX&quot;                 
+##  [93] &quot;Total.Count.People.w.Booster.Booster.Other.Minus.TX&quot;               
+##  [94] &quot;Count.People.Primary.Pfizer.Booster.Pfizer&quot;                        
+##  [95] &quot;Count.People.Primary.Pfizer.Booster.Moderna&quot;                       
+##  [96] &quot;Count.People.Primary.Pfizer.Booster.J.J&quot;                           
+##  [97] &quot;Count.People.Primary.Pfizer.Booster.Uknown&quot;                        
+##  [98] &quot;Count.People.Primary.Moderna.Booster.Pfizer&quot;                       
+##  [99] &quot;Count.People.Primary.Moderna.Booster.Moderna&quot;                      
+## [100] &quot;Count.People.Primary.Moderna.Booster.J.J&quot;                          
+## [101] &quot;Count.People.Primary.Moderna.Booster.Uknown&quot;                       
+## [102] &quot;Count.People.Primary.J.J.Booster.Pfizer&quot;                           
+## [103] &quot;Count.People.Primary.J.J.Booster.Moderna&quot;                          
+## [104] &quot;Count.People.Primary.J.J.Booster.J.J&quot;                              
+## [105] &quot;Count.People.Primary.J.J.Booster.Other&quot;                            
+## [106] &quot;Count.People.Primary.Other.Booster.Pfizer&quot;                         
+## [107] &quot;Count.People.Primary.Other.Booster.Moderna&quot;                        
+## [108] &quot;Count.People.Primary.Other.Booster.J.J&quot;                            
+## [109] &quot;Count.People.Primary.Other.Booster.Other&quot;                          
+## [110] &quot;Percent.People.Primary.Pfizer.Booster.Pfizer&quot;                      
+## [111] &quot;Percent.People.Primary.Pfizer.Booster.Moderna&quot;                     
+## [112] &quot;Percent.People.Primary.Pfizer.Booster.J.J&quot;                         
+## [113] &quot;Percent.People.Primary.Pfizer.Booster.Other&quot;                       
+## [114] &quot;Percent.People.Primary.Moderna.Booster.Pfizer&quot;                     
+## [115] &quot;Percent.People.Primary.Moderna.Booster.Moderna&quot;                    
+## [116] &quot;Percent.People.Primary.Moderna.Booster.J.J&quot;                        
+## [117] &quot;Percent.People.Primary.Moderna.Booster.Other&quot;                      
+## [118] &quot;Percent.People.Primary.J.J.Booster.Pfizer&quot;                         
+## [119] &quot;Percent.People.Primary.J.J.Booster.Moderna&quot;                        
+## [120] &quot;Percent.People.Primary.J.J.Booster.J.J&quot;                            
+## [121] &quot;Percent.People.Primary.J.J.Booster.Other&quot;                          
+## [122] &quot;Percent.People.Primary.Other.Booster.Pfizer&quot;                       
+## [123] &quot;Percent.People.Primary.Other.Booster.Moderna&quot;                      
+## [124] &quot;Percent.People.Primary.Other.Booster.J.J&quot;                          
+## [125] &quot;Percent.People.Primary.Other.Booster.Uknown&quot;</code></pre>
+<pre class="r"><code># read.csv() attempts to remove special characters (Like + or /) but this can make the column names hard to read!</code></pre>
+<p>B. Take the code from Questions 1 and 3-7. Chain all of this code together using the pipe <code>%&gt;%</code>. Call your data <code>vacc_compare</code>.</p>
 <pre class="r"><code>vacc_compare &lt;-
   read_csv(&quot;http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv&quot;) %&gt;%
   rename(Entity = `State/Territory/Federal Entity`) %&gt;%
@@ -406,12 +662,13 @@ vacc_wide</code></pre>
 ##  9 Percent of 65+ P…            95            95       95          89.8     95  
 ## 10 Percent of 65+ P…            88            93       92.6        82.1     90.1
 ## # … with 24 more rows</code></pre>
-<p>Tweak the code in the block above to:</p>
+<p>C. Modify the code from Question B:</p>
 <ul>
-<li>look for columns that start with “Total” (instead of “Percent”) and</li>
-<li>select different states/Entities to compare</li>
+<li>Look for columns that start with “Total” (instead of “Percent”) and</li>
+<li>Select different states/Entities to compare</li>
+<li>Call your data <code>vacc_compare2</code></li>
 </ul>
-<pre class="r"><code>vacc_compare &lt;-
+<pre class="r"><code>vacc_compare2 &lt;-
   read_csv(&quot;http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv&quot;) %&gt;%
   rename(Entity = `State/Territory/Federal Entity`) %&gt;%
   select(Entity, starts_with(&quot;Total&quot;)) %&gt;%
@@ -427,7 +684,7 @@ vacc_wide</code></pre>
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>vacc_compare</code></pre>
+<pre class="r"><code>vacc_compare2</code></pre>
 <pre><code>## # A tibble: 18 × 5
 ##    name                               `United States`  Alaska California  Kansas
 ##    &lt;chr&gt;                                        &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
@@ -452,9 +709,7 @@ vacc_wide</code></pre>
 </div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
-<ol start="8" style="list-style-type: decimal">
-<li>Read in the GDP and Personal Income Data from <a href="http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv" class="uri">http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv</a>. You can use the url or download the data. Call it “gdp”.</li>
-</ol>
+<p>8. Read in the GDP and Personal Income Data from <a href="http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv" class="uri">http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv</a>. You can use the url or download the data. Call it “gdp”.</p>
 <pre class="r"><code>gdp &lt;- read_csv(&quot;http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv&quot;)</code></pre>
 <pre><code>## Rows: 180 Columns: 3
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -466,48 +721,47 @@ vacc_wide</code></pre>
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre class="r"><code># If downloaded
 # gdp &lt;- read_csv(&quot;gdp_personal_income.csv&quot;)</code></pre>
-<ol start="9" style="list-style-type: decimal">
-<li>Use <code>pivot_wider</code> to reshape “gdp”. Use “Description” for the <code>names_from</code> argument. Use “<code>2020</code>” for the <code>values_from</code> argument. Reassign this data to “gdp”.</li>
-</ol>
-<pre><code>new_data &lt;- old_data %&gt;% pivot_wider(names_from = column1, values_from = column2)</code></pre>
+<p>9. Use <code>pivot_wider</code> to reshape “gdp”. Use “Description” for the <code>names_from</code> argument. Use “<code>2020</code>” for the <code>values_from</code> argument. Reassign this data to “gdp”.</p>
+<pre><code># General format
+new_data &lt;- old_data %&gt;% pivot_wider(names_from = column1, values_from = column2)</code></pre>
 <pre class="r"><code>gdp &lt;- gdp %&gt;%
   pivot_wider(
     names_from = Description,
     values_from = `2020`
   )</code></pre>
-<ol start="10" style="list-style-type: decimal">
-<li>Join the data so that you only retain data in both “vacc” and “gdp”.</li>
-</ol>
+<p>10. Join the data. Keep only data that is found in both “vacc” and “gdp”.</p>
 <ul>
-<li>First, try merging without using the <code>by</code> argument - what happens?</li>
-<li>Next, try merging using <code>by = c(&quot;Entity&quot; = &quot;GeoName&quot;)</code>.</li>
-<li>Call the output “merged”. How many observations are there?</li>
+<li>First, try joining without using the <code>by</code> argument - what happens?</li>
+<li>Next, try joining using <code>by = c(&quot;Entity&quot; = &quot;GeoName&quot;)</code>.</li>
+<li>Call the output “merged”. How many observations (rows) are there?</li>
 </ul>
-<pre><code>new_data &lt;- inner_join(x, y, by = c(&quot;colname1&quot; = &quot;colname2&quot;))</code></pre>
+<pre><code># General format
+new_data &lt;- inner_join(x, y, by = c(&quot;colname1&quot; = &quot;colname2&quot;))</code></pre>
 <pre class="r"><code># merged &lt;- inner_join(vacc, gdp) does not work!
 merged &lt;- inner_join(vacc, gdp, by = c(&quot;Entity&quot; = &quot;GeoName&quot;))
 nrow(merged)</code></pre>
 <pre><code>## [1] 51</code></pre>
-<ol start="11" style="list-style-type: decimal">
-<li>Join the data using a <code>full_join.</code> Call the output “full”. How many observations are there?</li>
-</ol>
-<pre><code>new_data &lt;- full_join(x, y, by = c(&quot;colname1&quot; = &quot;colname2&quot;))</code></pre>
+<p>11. Change your code from Question 10 to do a <code>full_join.</code> Call the output “full”. How many observations (rows) are there?</p>
+<pre><code># General format
+new_data &lt;- full_join(x, y, by = c(&quot;colname1&quot; = &quot;colname2&quot;))</code></pre>
 <pre class="r"><code>full &lt;- full_join(vacc, gdp, by = c(&quot;Entity&quot; = &quot;GeoName&quot;))
 nrow(full)</code></pre>
 <pre><code>## [1] 73</code></pre>
 <p><strong>Bonus / Extra practice</strong>:</p>
-<p>Do a left join of “vacc” and “gdp”. How many observations are there?</p>
+<p>D. Do a left join of “vacc” and “gdp”. Call the output “left”. How many observations are there?</p>
 <pre class="r"><code>left &lt;- left_join(vacc, gdp, by = c(&quot;Entity&quot; = &quot;GeoName&quot;))
 nrow(left)</code></pre>
 <pre><code>## [1] 64</code></pre>
-<p>Repeat above with a <code>right_join</code> with the same order of the arguments. How many observations are there?</p>
+<p>E. Copy your code from Question D and change it to a <code>right_join</code> with the same order of the arguments. Call the output “right”. How many observations are there?</p>
 <pre class="r"><code>right &lt;- right_join(vacc, gdp, by = c(&quot;Entity&quot; = &quot;GeoName&quot;))
 nrow(right)</code></pre>
 <pre><code>## [1] 60</code></pre>
-<p>Perform a <code>setdiff</code> on “vacc” and “gdp” to determine what Entities are missing from the GDP data and which are missing from the vaccine data. Remember you need to <code>pull()</code> the columns you want to compare.</p>
+<p>F. Perform a <code>setdiff</code> on “vacc” and “gdp” to determine what Entities are missing from the GDP data and which are missing from the vaccine data. Remember you need to <code>pull()</code> the columns you want to compare.</p>
+<pre><code># General format
+setdiff(PULLED_COL_1, PULLED_COL_2)</code></pre>
 <pre class="r"><code>entity &lt;- vacc %&gt;% pull(Entity)
 geoname &lt;- gdp %&gt;% pull(GeoName)
-setdiff(entity, geoname)</code></pre>
+setdiff(entity, geoname) # In vacc &quot;Entity&quot; but not gdp &quot;GeoName&quot;</code></pre>
 <pre><code>##  [1] &quot;American Samoa&quot;                 &quot;Bureau of Prisons&quot;             
 ##  [3] &quot;Dept of Defense&quot;                &quot;Federated States of Micronesia&quot;
 ##  [5] &quot;Guam&quot;                           &quot;Indian Health Svc&quot;             
@@ -515,7 +769,7 @@ setdiff(entity, geoname)</code></pre>
 ##  [9] &quot;New York State&quot;                 &quot;Puerto Rico&quot;                   
 ## [11] &quot;Republic of Palau&quot;              &quot;Veterans Health&quot;               
 ## [13] &quot;Virgin Islands&quot;</code></pre>
-<pre class="r"><code>setdiff(geoname, entity)</code></pre>
+<pre class="r"><code>setdiff(geoname, entity) # In gdp &quot;GeoName&quot; but not vacc &quot;Entity&quot;</code></pre>
 <pre><code>## [1] &quot;New York&quot;       &quot;New England&quot;    &quot;Mideast&quot;        &quot;Great Lakes&quot;   
 ## [5] &quot;Plains&quot;         &quot;Southeast&quot;      &quot;Southwest&quot;      &quot;Rocky Mountain&quot;
 ## [9] &quot;Far West&quot;</code></pre>
