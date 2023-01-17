@@ -19,7 +19,10 @@ library(tidyr)
 
 # Part 1
 
-1. Read in the SARS-CoV-2 Vaccination data from http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv. You can use the url or download the data. Assign the data the name "vacc". We will be reviewing new concepts here and incorporating some from week 1. Remember to use `read_csv()` from the `readr` package.
+1. Read in the SARS-CoV-2 Vaccination data from http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv. You can use the url or download the data. Assign the data the name "vacc". We will be reviewing new concepts here and incorporating some from week 1. 
+
+-  Remember to use `read_csv()` from the `readr` package.
+-  Do NOT use `read.csv()`.
 
 ```{r}
 vacc <- read_csv("http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv")
