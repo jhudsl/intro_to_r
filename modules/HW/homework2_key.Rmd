@@ -128,10 +128,10 @@ nrow(cars)
 **Hint:** The `filter()` function also removes missing values.
 
 ```{r}
-cars <- filter(cars, VehBCost >= 5000)
+cars <- filter(cars, VehBCost > 5000)
 nrow(cars)
 # OR
-cars <- cars %>% filter(VehBCost >= 5000)
+cars <- cars %>% filter(VehBCost > 5000)
 nrow(cars)
 ```
 
