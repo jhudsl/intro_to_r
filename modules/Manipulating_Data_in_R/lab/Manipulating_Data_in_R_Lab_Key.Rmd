@@ -19,7 +19,7 @@ library(tidyr)
 
 # Part 1
 
-1. Read in the SARS-CoV-2 Vaccination data from http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv. You can use the url or download the data. Assign the data the name "vacc". We will be reviewing new concepts here and incorporating some from week 1. 
+1\. Read in the SARS-CoV-2 Vaccination data from http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv. You can use the url or download the data. Assign the data the name "vacc". We will be reviewing new concepts here and incorporating some from week 1. 
 
 -  Remember to use `read_csv()` from the `readr` package.
 -  Do NOT use `read.csv()`.
@@ -30,14 +30,16 @@ vacc <- read_csv("http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinat
 # vacc <- read_csv("USA_covid19_vaccinations.csv")
 ```
 
-2. Look at the column names using `colnames` - do you notice any patterns?
+
+2\. Look at the column names using `colnames` - do you notice any patterns?
 
 ```{r}
 colnames(vacc)
 # Looks like many start with "Percent" and some start with "Total" - this indicates there are different units of measure for these different variables!
 ```
 
-3. Let's rename the column "State/Territory/Federal Entity" in "vacc" to "Entity" using `rename`. Make sure to reassign to `vacc` here and in subsequent steps.
+
+3\. Let's rename the column "State/Territory/Federal Entity" in "vacc" to "Entity" using `rename`. Make sure to reassign to `vacc` here and in subsequent steps.
 
 ```
 # General format
@@ -48,7 +50,8 @@ new_data <- old_data %>% rename(newname = oldname)
 vacc <- vacc %>% rename(Entity = `State/Territory/Federal Entity`)
 ```
 
-4. Select only the columns "Entity", and those that start with "Percent". Use `select` and `starts_with("Percent")`. 
+
+4\. Select only the columns "Entity", and those that start with "Percent". Use `select` and `starts_with("Percent")`. 
 
 ```
 # General format
@@ -59,7 +62,8 @@ new_data <- old_data %>% select(colname1, colname2, ...)
 vacc <- vacc %>% select(Entity, starts_with("Percent"))
 ```
 
-5. Create a new dataset "vacc_long" that does `pivot_longer()` on all columns except "Entity". Remember that `!Entity` means all columns except "Entity".
+
+5\. Create a new dataset "vacc_long" that does `pivot_longer()` on all columns except "Entity". Remember that `!Entity` means all columns except "Entity".
 
 ```
 # General format
@@ -70,7 +74,8 @@ new_data <- old_data %>% pivot_longer(cols = colname(s))
 vacc_long <- vacc %>% pivot_longer(cols = !Entity)
 ```
 
-6. Filter the "Entity" column so it only includes values in the following list: "Maryland","Virginia","Florida","Massachusetts", "United States". **Hint**: use `filter` and `%in%`.
+
+6\. Filter the "Entity" column so it only includes values in the following list: "Maryland","Virginia","Florida","Massachusetts", "United States". **Hint**: use `filter` and `%in%`.
 
 ```
 # General format
@@ -82,7 +87,8 @@ vacc_long <- vacc_long %>%
   filter(Entity %in% c("Maryland", "Virginia", "Mississippi", "Massachusetts", "United States"))
 ```
 
-7. Use `pivot_wider` to reshape "vacc_long". Use "Entity" for the `names_from` argument. Use "value" for the `values_from` argument. Call this new data `vacc_wide`. Look at the data. How do these states compare to one another.
+
+7\. Use `pivot_wider` to reshape "vacc_long". Use "Entity" for the `names_from` argument. Use "value" for the `values_from` argument. Call this new data `vacc_wide`. Look at the data. How do these states compare to one another.
 
 ```
 # General format
@@ -98,9 +104,22 @@ vacc_wide <- vacc_long %>%
 vacc_wide
 ```
 
+
 **Bonus / Extra practice**:
 
-Combine blocks 1 and 3-7 by chaining everything together using the pipe ` %>% `. Call your data `vacc_compare`.
+A\. Why is using `read.csv()` in Question 1 problematic? Look at `colnames()` using both `read_csv()` from the `readr` package and `read.csv()` from base R.
+
+```{r}
+vacc <- read_csv("http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv")
+colnames(vacc)
+vacc2 <- read.csv("http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv")
+colnames(vacc2)
+
+# read.csv() attempts to remove special characters (Like + or /) but this can make the column names hard to read!
+```
+
+
+B\. Take the code from Questions 1 and 3-7. Chain all of this code together using the pipe ` %>% `. Call your data `vacc_compare`.
 
 ```{r}
 vacc_compare <-
@@ -113,20 +132,22 @@ vacc_compare <-
 vacc_compare
 ```
 
-Tweak the code in the block above to:
 
-- look for columns that start with "Total" (instead of "Percent") and 
-- select different states/Entities to compare
+C\. Modify the code from Question B:
+
+-  Look for columns that start with "Total" (instead of "Percent") and 
+-  Select different states/Entities to compare
+-  Call your data `vacc_compare2`
 
 ```{r}
-vacc_compare <-
+vacc_compare2 <-
   read_csv("http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv") %>%
   rename(Entity = `State/Territory/Federal Entity`) %>%
   select(Entity, starts_with("Total")) %>%
   pivot_longer(cols = !Entity) %>%
   filter(Entity %in% c("Alaska", "Kansas", "California", "United States")) %>%
   pivot_wider(names_from = Entity, values_from = value)
-vacc_compare
+vacc_compare2
 ```
 
 
@@ -139,6 +160,7 @@ gdp <- read_csv("http://jhudatascience.org/intro_to_r/data/gdp_personal_income.c
 # If downloaded
 # gdp <- read_csv("gdp_personal_income.csv")
 ```
+
 
 9. Use `pivot_wider` to reshape "gdp". Use "Description" for the `names_from` argument. Use "`2020`" for the `values_from` argument. Reassign this data to "gdp".
 
@@ -153,6 +175,7 @@ gdp <- gdp %>%
     values_from = `2020`
   )
 ```
+
 
 10. Join the data so that you only retain data in both "vacc" and "gdp". 
 
@@ -170,6 +193,7 @@ merged <- inner_join(vacc, gdp, by = c("Entity" = "GeoName"))
 nrow(merged)
 ```
 
+
 11. Join the data using a `full_join.` Call the output "full". How many observations are there?
 
 ```
@@ -180,6 +204,7 @@ new_data <- full_join(x, y, by = c("colname1" = "colname2"))
 full <- full_join(vacc, gdp, by = c("Entity" = "GeoName"))
 nrow(full)
 ```
+
 
 **Bonus / Extra practice**:
 
