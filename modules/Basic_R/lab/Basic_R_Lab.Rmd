@@ -189,14 +189,14 @@ rep(x = OBJECT_TO_REPEAT, times = NUM_TIMES_TO_REPEAT, each = NUM_TIMES_TO_REPEA
 ```
 
 
-**Bonus / Extra practice**: "Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree" are often responses to surveys. Create a randomly sampled vector of 30 survey responses. (hint use `sample()` and set the replace argument to `TRUE`). Store the output as `my_responses`. Examine the data by typing the name in the Console using a function.
+**Bonus / Extra practice**: "Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree" are often responses to surveys. Create a randomly sampled vector of 30 survey responses. (hint use `sample()` and set the replace argument to `TRUE`). Store the output as `my_responses`. Examine the data by typing the name `my_responses` in the Console.
 
 ```{r}
 
 ```
 
 
-**Bonus / Extra practice**: Let's say you change your survey so participants can rank their response 1-10 (inclusive). Create a randomly sampled vector of 30 survey responses. (hint use `seq()` and `sample()` and set the replace argument to `TRUE`). Store the output as `my_responses_2`. Examine the data by typing the name in the Console using a function.
+**Bonus / Extra practice**: Let's say you change your survey so participants can rank their response 1-10 (inclusive). Create a randomly sampled vector of 30 survey responses. (hint use `seq()` and `sample()` and set the replace argument to `TRUE`). Store the output as `my_responses_2`. Examine the data by typing the name `my_responses_2` in the Console.
 
 ```{r}
 
