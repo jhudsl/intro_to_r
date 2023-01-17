@@ -17,7 +17,6 @@ library(here)
 ```{r esquisse}
 # install.packages("esquisse")
 library(esquisse)
-
 ```
 
 ## Esquisse Package
@@ -140,10 +139,12 @@ glimpse(wide_circ)
 ## Long Data
 ```{r}
 library(tidyr)
-long_circ <- wide_circ %>% 
-  pivot_longer(cols = contains(c("boarding")), 
-               names_to = "Route", 
-               values_to = "Boardings")
+long_circ <- wide_circ %>%
+  pivot_longer(
+    cols = contains(c("boarding")),
+    names_to = "Route",
+    values_to = "Boardings"
+  )
 ```
 
 ## Long Data
@@ -155,7 +156,7 @@ glimpse(long_circ)
 
 ```{r, eval = FALSE}
 esquisser(wide_circ) # days as x...? Tricky!
-esquisser(long_circ) #day as x, Boardings as y, Route as fill
+esquisser(long_circ) # day as x, Boardings as y, Route as fill
 ```
 
 ## Summary
