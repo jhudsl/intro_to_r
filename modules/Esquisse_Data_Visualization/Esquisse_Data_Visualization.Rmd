@@ -44,6 +44,13 @@ esquisser(mtcars)
 knitr::include_graphics("images/start_a_plot.png")
 ```
 
+
+## Show the plot in the browser
+
+```{r}
+esquisse::esquisser(iris, viewer = "browser")
+```
+
 ## Select Variables
 
 To select variables you can drag and drop variables to the respective axis that you would like the variable to be plotted on.
