@@ -17,6 +17,7 @@ library(here)
 ```{r esquisse}
 # install.packages("esquisse")
 library(esquisse)
+
 ```
 
 ## Esquisse Package
@@ -41,6 +42,13 @@ esquisser(mtcars)
 
 ```{r, fig.alt="starting a plot", out.width = "90%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/start_a_plot.png")
+```
+
+
+## Show the plot in the browser
+
+```{r, eval = FALSE}
+esquisse::esquisser(iris, viewer = "browser")
 ```
 
 ## Select Variables
@@ -114,6 +122,40 @@ To change titles on your plot, use the titles tab.
 
 ```{r, fig.alt="change titles", out.width = "100%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/titles.gif")
+```
+
+## Wide & Long Data Example
+```{r}
+library(jhur)
+wide_circ <- read_circulator()
+```
+
+## Wide Data
+```{r}
+library(dplyr)
+glimpse(wide_circ)
+```
+
+
+## Long Data
+```{r}
+library(tidyr)
+long_circ <- wide_circ %>% 
+  pivot_longer(cols = contains(c("boarding")), 
+               names_to = "Route", 
+               values_to = "Boardings")
+```
+
+## Long Data
+```{r}
+glimpse(long_circ)
+```
+
+## Make a plot of boardings by day for different routes
+
+```{r, eval = FALSE}
+esquisser(wide_circ) # days as x...? Tricky!
+esquisser(long_circ) #day as x, Boardings as y, Route as fill
 ```
 
 ## Summary
