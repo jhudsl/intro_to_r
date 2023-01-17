@@ -82,7 +82,9 @@ ex_data %>%
 ```{r}
 # This works because Sepal.Length already exists as a column name. However `new name!` needs backticks because it doesn't exist yet and R needs to know what it is (not a not equal to conditional for example), as R could interpret it differently.
 
-iris %>% rename(`new name!` = Sepal.Length) %>% head()
+iris %>%
+  rename(`new name!` = Sepal.Length) %>%
+  head()
 ```
 
 ## `summarize()`
@@ -141,27 +143,34 @@ For column names that do not exist yet, you need quotes (single or double). Back
 library(jhur)
 wide_circ <- read_circulator()
 
-long_circ <- wide_circ %>% 
-  pivot_longer(cols = contains(c("boarding")), 
-               names_to = "Route", 
-               values_to = "Boardings")
+long_circ <- wide_circ %>%
+  pivot_longer(
+    cols = contains(c("boarding")),
+    names_to = "Route",
+    values_to = "Boardings"
+  )
 
-long_circ <- wide_circ %>% 
-  pivot_longer(cols = contains(c("boarding")), 
-               names_to = 'Route', 
-               values_to = 'Boardings')
-
+long_circ <- wide_circ %>%
+  pivot_longer(
+    cols = contains(c("boarding")),
+    names_to = "Route",
+    values_to = "Boardings"
+  )
 ```
 
 These will not work:
 ```{r, eval = FALSE}
-long_circ <- wide_circ %>% 
-  pivot_longer(cols = contains(c("boarding")), 
-               names_to = `Route`, 
-               values_to = `Boardings`)
+long_circ <- wide_circ %>%
+  pivot_longer(
+    cols = contains(c("boarding")),
+    names_to = `Route`,
+    values_to = `Boardings`
+  )
 
-long_circ <- wide_circ %>% 
-  pivot_longer(cols = contains(c("boarding")), 
-               names_to = Route, 
-               values_to = Boardings)
+long_circ <- wide_circ %>%
+  pivot_longer(
+    cols = contains(c("boarding")),
+    names_to = Route,
+    values_to = Boardings
+  )
 ``` 
