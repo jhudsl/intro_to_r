@@ -104,8 +104,6 @@ A\. Why is using `read.csv()` in Question 1 problematic? Use `colnames()` to exa
 ```{r}
 vacc1 <- read_csv("http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv")
 vacc2 <- read.csv("http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv")
-
-
 ```
 
 
