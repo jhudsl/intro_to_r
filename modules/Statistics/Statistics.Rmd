@@ -289,6 +289,7 @@ where:
 ## Linear regression fit in R 
 
 To fit regression models in R, we use the function `glm()` (Generalized Linear Model). 
+You may also see `lm()` which is a more limited function, only allows for randomly/Gaussian distributed error terms.
 
 We typically provide two arguments: 
 
@@ -415,7 +416,7 @@ Generalized Linear Models (GLMs) allow for fitting regressions for non-continuou
 Add the `family` argument -- a description of the error distribution and link function to be used in the model. These include: 
 
 - `binomial(link = "logit")`
-- `poisson(link = "log")`, and other.
+- `poisson(link = "log")`, and others.
 
 See `?family` documentation for details of family functions. 
 
@@ -486,7 +487,7 @@ Some final notes:
 - `glm()` fits regression models:
      - Use the `formula =` argument to specify the model (e.g., `y ~ x` or `y ~ x1 + x2` using column names)
      - Use `data =` to indicate the dataset
-     - Use `family = binomial()` to do a logistic regression
+     - Use `family = binomial()` to do a other regressions like logistic, Poisson and more
      - `summary()` gives useful statistics
 - `oddsratio()` from the `epitools` package can calculate odds ratios
 - this is just the tip of the iceberg!
