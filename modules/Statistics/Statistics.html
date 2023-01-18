@@ -204,6 +204,8 @@ slide:not(.current) .plotly.html-widget{
 
 <p><br></p>
 
+</article></slide><slide class=""><hgroup><h2></h2></hgroup><article  id="section">
+
 <p><img src="https://c.tenor.com/O3x8ywLm380AAAAd/chevy-chase.gif" title="I was told there would be no math" alt="I was told there would be no math" width="35%" style="display: block; margin: auto;" /></p>
 
 </article></slide><slide class=""><hgroup><h2>Overview</h2></hgroup><article  id="overview-1">
@@ -213,7 +215,7 @@ slide:not(.current) .plotly.html-widget{
 
 <p>There are plenty of resources online for learning more about these methods, as well as dedicated Biostatistics series (at different advancement levels) at the JHU School of Public Health.</p>
 
-<p>Check out <a href='https://www.opencasestudies.org/' title=''>www.opencasestudies.org</a> for deep dives on some of the concepts covered here.</p>
+<p>Check out <a href='https://www.opencasestudies.org/' title=''>www.opencasestudies.org</a> for deeper dives on some of the concepts covered here and the <a href='https://jhudatascience.org/intro_to_r/resources.html' title=''>resource page</a> for more resources.</p>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Correlation</h2></hgroup><article  id="correlation">
 
@@ -355,7 +357,7 @@ mean of x
 
 </article></slide><slide class=""><hgroup><h2>Running two-sample t-test</h2></hgroup><article  class="small" id="running-two-sample-t-test">
 
-<p>It tests test difference in means of a variable between two groups. By default:</p>
+<p>It tests the difference in means of a variable between two groups. By default:</p>
 
 <ul>
 <li>tests whether difference in means of a variable is equal to 0 (<code>mu=0</code>)</li>
@@ -474,6 +476,8 @@ y_i = \alpha + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_3 x_{i3} + \varepsilon_i
 </article></slide><slide class=""><hgroup><h2>Linear regression fit in R</h2></hgroup><article  id="linear-regression-fit-in-r">
 
 <p>To fit regression models in R, we use the function <code>glm()</code> (Generalized Linear Model).</p>
+
+<p>You may also see <code>lm()</code> which is a more limited function, only allows for randomly/Gaussian distributed error terms (aka typical linear regressions).</p>
 
 <p>We typically provide two arguments:</p>
 
@@ -722,7 +726,7 @@ Number of Fisher Scoring iterations: 2</pre>
 
 <ul>
 <li><code>binomial(link = &quot;logit&quot;)</code></li>
-<li><code>poisson(link = &quot;log&quot;)</code>, and other.</li>
+<li><code>poisson(link = &quot;log&quot;)</code>, and others.</li>
 </ul>
 
 <p>See <code>?family</code> documentation for details of family functions.</p>
@@ -1525,11 +1529,28 @@ attr(,&quot;method&quot;)
 <ul>
 <li>Use the <code>formula =</code> argument to specify the model (e.g., <code>y ~ x</code> or <code>y ~ x1 + x2</code> using column names)</li>
 <li>Use <code>data =</code> to indicate the dataset</li>
-<li>Use <code>family = binomial()</code> to do a logistic regression</li>
+<li>Use <code>family = binomial()</code> to do a other regressions like logistic, Poisson and more</li>
 <li><code>summary()</code> gives useful statistics</li>
 </ul></li>
 <li><code>oddsratio()</code> from the <code>epitools</code> package can calculate odds ratios</li>
 <li>this is just the tip of the iceberg!</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Resources (also on the <a href='https://jhudatascience.org/intro_to_r/resources.html' title=''>website</a>!)</h2></hgroup><article  id="resources-also-on-the-website">
+
+<p>For more check out:</p>
+
+<ul>
+<li><a href='https://jhudatascience.org/tidyversecourse/model.html#linear-modeling' title=''>this chapter</a> on modeling in this tidyverse book<br/></li>
+<li><a href='https://www.scribbr.com/statistics/statistical-tests/' title=''>this chart on when to do what test</a></li>
+<li><a href='www.opencasestudies.org' title=''>opencasestudies.org</a></li>
+</ul>
+
+<p>For classes at JHU School of Public Health:</p>
+
+<ul>
+<li><a href='https://e-catalogue.jhu.edu/course-descriptions/biostatistics/' title=''>PH.140.621, PH.140.622, PH.140.623, PH.140.62 - Statistical Methods in Public Health I, II, III, and IV</a> - The class is mostly taught in STATA, but you can also join a group of students working in R. The class covers many topics in statistical analysis for public health data.</li>
+<li><a href='https://www.jhsph.edu/courses/course/36737/2022/140.778.01/statistical-computing-algorithm-and-software-devel' title=''>PH.140.778 - Statistical Computing, Algorithm, and Software Development</a> - A more advanced course for working with data in R. Content for similar topics as this course can also be found on Leanpub.</li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
