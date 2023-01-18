@@ -74,7 +74,7 @@ x_fact_2
 x_fact
 ```
 
-## A Factor Example
+## A Factor Example{.smaller}
 
 We will use data on student dropouts from the State of California during the 2016-2017 school year. More on this data can be found here: https://www.cde.ca.gov/ds/ad/filesdropouts.asp
 
@@ -232,7 +232,7 @@ dropouts_fct %>%
 
 ## `forcats` for ordering{.smaller}
 
-What if we wanted to order `grade` by the amount of `absences`? 
+What if we wanted to order `grade` by increasing `n_dropouts`? 
 
 ```{r, fig.height= 3}
 library(forcats)
@@ -276,7 +276,7 @@ head(dropouts_fct)
 
 ## Plotting new variable{.smaller}
 
-Now let's plot each of our variables of interest (absences and tardy) on the y axis and grade on the x axis. Let's arrange grade by the amount of each.
+Now let's plot each of our variables of interest (n_dropouts and tardy) on the y axis and grade on the x axis. Let's arrange grade by the amount of each.
 
 ```{r, eval = FALSE}
 
