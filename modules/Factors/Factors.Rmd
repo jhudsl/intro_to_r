@@ -92,9 +92,9 @@ dropouts
 Aggregate (sum) across ethnicity and gender:
 
 ```{r}
-dropouts <- 
-  dropouts %>% 
-  group_by(CDS_CODE) %>% 
+dropouts <-
+  dropouts %>%
+  group_by(CDS_CODE) %>%
   summarize(
     Freshman = sum(D9),
     Sophomore = sum(D10),
@@ -109,8 +109,8 @@ dropouts
 Pivot to long format:
 
 ```{r}
-dropouts <- 
-  dropouts %>% 
+dropouts <-
+  dropouts %>%
   pivot_longer(
     !CDS_CODE,
     names_to = "grade",
@@ -146,7 +146,7 @@ Let's make a plot first.
 
 ```{r, fig.height= 3}
 dropouts_subset %>%
-  ggplot(mapping = aes(x = grade, y = n_dropouts )) +
+  ggplot(mapping = aes(x = grade, y = n_dropouts)) +
   geom_boxplot() +
   theme_bw(base_size = 16) # make all labels size 16
 ```
@@ -158,7 +158,7 @@ OK this is very useful, but it is a bit difficult to read. We expect the values 
 Currently `grade` is class `character` but let's change that to class `factor` which allows us to specify the levels or order of the values.
 
 ```{r}
-dropouts_fct <- 
+dropouts_fct <-
   dropouts_subset %>%
   mutate(grade = factor(grade,
     levels = c("Freshman", "Sophomore", "Junior", "Senior")
@@ -181,7 +181,7 @@ Now let's make our plot again:
 
 ```{r, fig.height= 3}
 dropouts_fct %>%
-  ggplot(mapping = aes(x = grade, y = n_dropouts )) +
+  ggplot(mapping = aes(x = grade, y = n_dropouts)) +
   geom_boxplot() +
   theme_bw(base_size = 16)
 ```
@@ -238,7 +238,7 @@ What if we wanted to order `grade` by the amount of `absences`?
 library(forcats)
 
 dropouts_fct %>%
-  ggplot(mapping = aes(x = grade, y = n_dropouts )) +
+  ggplot(mapping = aes(x = grade, y = n_dropouts)) +
   geom_boxplot() +
   theme_bw(base_size = 16)
 ```
@@ -253,7 +253,7 @@ We can order a factor by another variable by using the `fct_reorder()` function 
 library(forcats)
 
 dropouts_fct %>%
-  ggplot(mapping = aes(x = fct_reorder(grade, n_dropouts, mean), y = n_dropouts )) +
+  ggplot(mapping = aes(x = fct_reorder(grade, n_dropouts, mean), y = n_dropouts)) +
   geom_boxplot() +
   labs(x = "Student Grade") +
   theme_bw(base_size = 16)
@@ -331,7 +331,7 @@ dropouts_plot + tardy_plot
 ```{r}
 dropouts_plot +
   labs(x = "Student Grade", y = "Number of Dropouts") +
-tardy_plot +
+  tardy_plot +
   labs(x = "Student Grade", y = "Tardy Days")
 ```
 
