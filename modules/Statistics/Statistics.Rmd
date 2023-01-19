@@ -459,7 +459,7 @@ esdcomp
 
 ## Linear regression: model fitting 
 
-We fit linear regression model with the number of patient visits (`visits`) as an outcome and total number of hours worked (`hours`) as a predictor. In other words, we are evaluation if the number of hours worked is predicitive of the number of visits a doctor had.
+We fit linear regression model with the number of patient visits (`visits`) as an outcome and total number of hours worked (`hours`) as a predictor. In other words, we are evaluation if the number of hours worked is predictive of the number of visits a doctor had.
 
 ```{r}
 fit <- glm(visits ~ hours, data = esdcomp)
