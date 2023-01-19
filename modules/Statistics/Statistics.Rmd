@@ -22,7 +22,7 @@ library(readr)
 library(ggplot2)
 library(emo)
 
-install.packages(c("faraway", "epitools"))
+#install.packages(c("faraway", "epitools"))
 ```
 
 ## Summary
@@ -61,7 +61,7 @@ knitr::include_graphics("https://c.tenor.com/O3x8ywLm380AAAAd/chevy-chase.gif")
 ## Overview
 
 ::: {style="color: red;"}
-`r emo::ji("rotating_light")` We will focus on how to use R software to do these. We will be glossing over the statistical theory and "formulas" for these tests. Moreover, we do not claim the data we use for demonstration meet assumptions of the methods. `r emo::ji("rotating_light")`
+`r emo::ji("rotating_light")` We will focus on how to use R software to do these. We will be glossing over the statistical **theory** and "formulas" for these tests. Moreover, we do not claim the data we use for demonstration meet **assumptions** of the methods. `r emo::ji("rotating_light")`
 :::
 
 There are plenty of resources online for learning more about these methods, as well as dedicated Biostatistics series (at different advancement levels) at the JHU School of Public Health.
@@ -70,17 +70,48 @@ Check out [www.opencasestudies.org](https://www.opencasestudies.org/) for deeper
 
 # Correlation
 
+## Correlation
+
+Correlation coefficient is a summary statistic that measures the strength of a linear relationship between two variables.
+
+- The strength of the relationship - based on how well the points form a line
+- The direction of the relationship - based on if the points progress upward or downward
+
+```{r, fig.alt="The End", out.width = "90%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://www.mathsisfun.com/data/images/correlation-examples.svg")
+```
+[source](https://www.mathsisfun.com/data/correlation.html)
+
+See this [case study](https://www.opencasestudies.org/ocs-bp-co2-emissions) for more information.
+
 ## Correlation 
 
-Function `cor()` computes correlation in R
+Function `cor()` computes correlation in R.
 
 ```
-cor(x, y = NULL, use = "everything",
+cor(x, y = NULL, use = c("everything", "complete.obs"),
     method = c("pearson", "kendall", "spearman"))
 ```
-- provide two numeric vectors (arguments `x`, `y`), or
+- provide two numeric vectors of the same length (arguments `x`, `y`), or
 - provide a data.frame / tibble with numeric columns only
 - by default, Pearson correlation coefficient is computed
+
+## Correlation test
+
+Function `cor.test()` also computes correlation and tests for association.
+
+```
+cor.test(x, y = NULL, alternative(c("two.sided", "less", "greater")),
+    method = c("pearson", "kendall", "spearman"))
+```
+- provide two numeric vectors of the same length (arguments `x`, `y`), or
+- provide a data.frame / tibble with numeric columns only
+- by default, Pearson correlation coefficient is computed
+- alternative values:
+   - two.sided means true correlation coefficient is not equal to zero
+   - greater means true correlation coefficient is > 0 (positive relationship)
+   - less means true correlation coefficient is < 0 (negative relationship)
+
 
 ## Correlation {.small}
 
@@ -103,19 +134,27 @@ x <- circ %>% pull(orangeAverage)
 y <- circ %>% pull(purpleAverage)
 ```
 
+```{r,fig.width=3, fig.height=3}
+plot(x,y)
+```
+
+## Correlation coefficient calculation and test
+
 ```{r}
 cor(x, y)
 cor(x, y, use = "complete.obs")
+cor.test(x,y)
 ```
 
 ## Correlation for two vectors with plot
 
-In plot form... 
-
+In plot form... `geom_smooth()` of `ggplot2` can help, as can `stat_cor()` of `ggpubr`.
 ```{r, fig.width=3, fig.height=3}
+#install.packages("ggpubr")
+library(ggpubr)
 circ %>%
   ggplot(aes(x = orangeAverage, y = purpleAverage)) +
-  geom_point(size = 0.3)
+  geom_point(size = 0.3) + geom_smooth() + stat_cor()
 ```
 
 ## Correlation for data frame columns
@@ -140,6 +179,15 @@ cor_mat
 library(corrplot)
 corrplot(cor_mat, type = "upper", order = "hclust")
 ```
+
+## Correlation does not imply causation
+
+```{r, fig.alt="The End", out.width = "90%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://www.opencasestudies.org/ocs-bp-co2-emissions/img/causation.png")
+```
+
+[source](http://tylervigen.com/spurious-correlations)
+
 
 # T-test
 
