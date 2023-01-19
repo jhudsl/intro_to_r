@@ -281,15 +281,26 @@ $(document).ready(function () {
 <div id="tibble-for-naming-variables" class="section level2">
 <h2><code>tibble()</code> for naming variables</h2>
 <ul>
-<li>backticks are typically for nonstandard variable names:
+<li>backticks are typically for nonstandard <strong>variable</strong> names (aka column names):
 <ul>
-<li>those with spaces</li>
-<li>those with punctuation</li>
-<li>those that are just numbers</li>
-<li>those that start with numbers</li>
+<li>those with spaces <code>name with space</code></li>
+<li>those with punctuation <code>name!</code></li>
+<li>those that are just numbers <code>12</code></li>
+<li>those that start with numbers <code>1name</code></li>
 </ul></li>
-<li>single or double quotes are typically used for character strings</li>
+<li>single or double quotes are typically used for <strong>character strings</strong> for the values within the data</li>
 </ul>
+<p>For example, in the <code>iris</code> data set:</p>
+<pre class="r"><code>head(iris)</code></pre>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
+<p>Sepal.Length is a column/variable name that would often need backticks, while the Species setosa is character string value for the variable Species, and it would need quotes.</p>
+<p>Let’s check out how some functions work with this.</p>
 <p>In the <code>tibble()</code> function when specifying names we need to backticks when we have spaces or punctuation or variable names that are just numeric characters (this also works with single quotes or double quotes, but backticks are more common practice).</p>
 <p>This is not required if we have a typical type of name without spaces or punctuation. However if we do use quotes on such a name is is not a problem either.</p>
 <pre class="r"><code># the preferred method
@@ -307,11 +318,11 @@ ex_data</code></pre>
 <pre><code>## # A tibble: 5 × 6
 ##   `Number!` `Var with space` `2022` `2021` typical typical2
 ##       &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1         1 A                     2      5       1        1
-## 2         2 B                     3      3       2        2
-## 3         3 C                     1      4       3        3
-## 4         4 D                     5      1       4        4
-## 5         5 E                     4      2       5        5</code></pre>
+## 1         1 A                     4      3       1        1
+## 2         2 B                     5      4       2        2
+## 3         3 C                     2      2       3        3
+## 4         4 D                     3      1       4        4
+## 5         5 E                     1      5       5        5</code></pre>
 <pre class="r"><code># this works
 
 ex_data &lt;- tibble(
@@ -326,11 +337,11 @@ ex_data</code></pre>
 <pre><code>## # A tibble: 5 × 6
 ##   `Number!` `Var with space` `2022` `2021` typical typical2
 ##       &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1         1 A                     3      5       1        1
-## 2         2 B                     1      4       2        2
-## 3         3 C                     4      1       3        3
-## 4         4 D                     2      3       4        4
-## 5         5 E                     5      2       5        5</code></pre>
+## 1         1 A                     4      1       1        1
+## 2         2 B                     1      2       2        2
+## 3         3 C                     5      3       3        3
+## 4         4 D                     2      5       4        4
+## 5         5 E                     3      4       5        5</code></pre>
 </div>
 <div id="rename" class="section level2">
 <h2><code>rename()</code></h2>
@@ -340,32 +351,47 @@ ex_data</code></pre>
 <pre><code>## # A tibble: 5 × 6
 ##   Number `Var with space` `2022` `2021` typical typical2
 ##    &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1      1 A                     3      5       1        1
-## 2      2 B                     1      4       2        2
-## 3      3 C                     4      1       3        3
-## 4      4 D                     2      3       4        4
-## 5      5 E                     5      2       5        5</code></pre>
+## 1      1 A                     4      1       1        1
+## 2      2 B                     1      2       2        2
+## 3      3 C                     5      3       3        3
+## 4      4 D                     2      5       4        4
+## 5      5 E                     3      4       5        5</code></pre>
 <pre class="r"><code>ex_data %&gt;%
   rename(Number = &quot;Number!&quot;)</code></pre>
 <pre><code>## # A tibble: 5 × 6
 ##   Number `Var with space` `2022` `2021` typical typical2
 ##    &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1      1 A                     3      5       1        1
-## 2      2 B                     1      4       2        2
-## 3      3 C                     4      1       3        3
-## 4      4 D                     2      3       4        4
-## 5      5 E                     5      2       5        5</code></pre>
-<pre class="r"><code># not necessary but not probematic to put new typical name in quotes
+## 1      1 A                     4      1       1        1
+## 2      2 B                     1      2       2        2
+## 3      3 C                     5      3       3        3
+## 4      4 D                     2      5       4        4
+## 5      5 E                     3      4       5        5</code></pre>
+<pre class="r"><code># not necessary but not problematic to put new typical name in quotes
 ex_data %&gt;%
   rename(&quot;Number&quot; = &quot;Number!&quot;)</code></pre>
 <pre><code>## # A tibble: 5 × 6
 ##   Number `Var with space` `2022` `2021` typical typical2
 ##    &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1      1 A                     3      5       1        1
-## 2      2 B                     1      4       2        2
-## 3      3 C                     4      1       3        3
-## 4      4 D                     2      3       4        4
-## 5      5 E                     5      2       5        5</code></pre>
+## 1      1 A                     4      1       1        1
+## 2      2 B                     1      2       2        2
+## 3      3 C                     5      3       3        3
+## 4      4 D                     2      5       4        4
+## 5      5 E                     3      4       5        5</code></pre>
+</div>
+<div id="here-is-another-example" class="section level2">
+<h2>Here is another example…</h2>
+<pre class="r"><code># This works because Sepal.Length already exists as a column name. However `new name!` needs backticks because it doesn&#39;t exist yet and R needs to know what it is (not a not equal to conditional for example), as R could interpret it differently.
+
+iris %&gt;%
+  rename(`new name!` = Sepal.Length) %&gt;%
+  head()</code></pre>
+<pre><code>##   new name! Sepal.Width Petal.Length Petal.Width Species
+## 1       5.1         3.5          1.4         0.2  setosa
+## 2       4.9         3.0          1.4         0.2  setosa
+## 3       4.7         3.2          1.3         0.2  setosa
+## 4       4.6         3.1          1.5         0.2  setosa
+## 5       5.0         3.6          1.4         0.2  setosa
+## 6       5.4         3.9          1.7         0.4  setosa</code></pre>
 </div>
 <div id="summarize" class="section level2">
 <h2><code>summarize()</code></h2>
@@ -391,29 +417,29 @@ ex_data %&gt;%
 <pre><code>## # A tibble: 5 × 6
 ##   `Number!` `Var with space` `2022` `2021` typical typical2
 ##       &lt;dbl&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1         3 A                     3      5       1        1
-## 2         4 B                     1      4       2        2
-## 3         5 C                     4      1       3        3
-## 4         6 D                     2      3       4        4
-## 5         7 E                     5      2       5        5</code></pre>
+## 1         3 A                     4      1       1        1
+## 2         4 B                     1      2       2        2
+## 3         5 C                     5      3       3        3
+## 4         6 D                     2      5       4        4
+## 5         7 E                     3      4       5        5</code></pre>
 <pre class="r"><code>ex_data %&gt;% mutate(&quot;Number!&quot; = `Number!` + 2)</code></pre>
 <pre><code>## # A tibble: 5 × 6
 ##   `Number!` `Var with space` `2022` `2021` typical typical2
 ##       &lt;dbl&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1         3 A                     3      5       1        1
-## 2         4 B                     1      4       2        2
-## 3         5 C                     4      1       3        3
-## 4         6 D                     2      3       4        4
-## 5         7 E                     5      2       5        5</code></pre>
+## 1         3 A                     4      1       1        1
+## 2         4 B                     1      2       2        2
+## 3         5 C                     5      3       3        3
+## 4         6 D                     2      5       4        4
+## 5         7 E                     3      4       5        5</code></pre>
 <pre class="r"><code>ex_data %&gt;% mutate(Typical = `Number!` + 2)</code></pre>
 <pre><code>## # A tibble: 5 × 7
 ##   `Number!` `Var with space` `2022` `2021` typical typical2 Typical
 ##       &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;   &lt;dbl&gt;
-## 1         1 A                     3      5       1        1       3
-## 2         2 B                     1      4       2        2       4
-## 3         3 C                     4      1       3        3       5
-## 4         4 D                     2      3       4        4       6
-## 5         5 E                     5      2       5        5       7</code></pre>
+## 1         1 A                     4      1       1        1       3
+## 2         2 B                     1      2       2        2       4
+## 3         3 C                     5      3       3        3       5
+## 4         4 D                     2      5       4        4       6
+## 5         5 E                     3      4       5        5       7</code></pre>
 </div>
 <div id="stringr-functions" class="section level2">
 <h2><code>stringr</code> functions</h2>
@@ -429,6 +455,40 @@ str_detect(pattern = &quot;t&quot;, string = x)</code></pre>
 <pre><code>## [1]  TRUE FALSE FALSE</code></pre>
 <pre class="r"><code># this will not work:
 # str_detect(pattern = `t`, string = x)</code></pre>
+</div>
+<div id="pivot_longer-and-pivot_wider-are-a-bit-different" class="section level2">
+<h2><code>pivot_longer</code> and <code>pivot_wider</code> are a bit different</h2>
+<p>For column names that do not exist yet, you need quotes (single or double). Backticks will not work.</p>
+<pre class="r"><code>library(jhur)
+wide_circ &lt;- read_circulator()
+
+long_circ &lt;- wide_circ %&gt;%
+  pivot_longer(
+    cols = contains(c(&quot;boarding&quot;)),
+    names_to = &quot;Route&quot;,
+    values_to = &quot;Boardings&quot;
+  )
+
+long_circ &lt;- wide_circ %&gt;%
+  pivot_longer(
+    cols = contains(c(&quot;boarding&quot;)),
+    names_to = &quot;Route&quot;,
+    values_to = &quot;Boardings&quot;
+  )</code></pre>
+<p>These will not work:</p>
+<pre class="r"><code>long_circ &lt;- wide_circ %&gt;%
+  pivot_longer(
+    cols = contains(c(&quot;boarding&quot;)),
+    names_to = `Route`,
+    values_to = `Boardings`
+  )
+
+long_circ &lt;- wide_circ %&gt;%
+  pivot_longer(
+    cols = contains(c(&quot;boarding&quot;)),
+    names_to = Route,
+    values_to = Boardings
+  )</code></pre>
 </div>
 
 
