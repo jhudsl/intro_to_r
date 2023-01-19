@@ -22,7 +22,7 @@ library(readr)
 library(ggplot2)
 library(emo)
 
-#install.packages(c("faraway", "epitools"))
+install.packages(c("faraway", "epitools"))
 ```
 
 ## Summary
@@ -172,7 +172,7 @@ circ %>%
 
 In plot form... `geom_smooth()` of `ggplot2` can help, as can `stat_cor()` of `ggpubr`.
 ```{r, fig.width=3, fig.height=3}
-#install.packages("ggpubr")
+install.packages("ggpubr")
 
 library(ggpubr)
 circ %>%
@@ -582,6 +582,7 @@ summary(binom_fit)
 
 This data shows whether people became ill after eating ice cream in the 1940s.
 ```{r}
+#install.packages(epitools)
 library(epitools)
 data(oswego)
 ice_cream <-
