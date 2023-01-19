@@ -135,7 +135,7 @@ y <- circ %>% pull(purpleAverage)
 ```
 
 ```{r,fig.width=3, fig.height=3}
-plot(x,y)
+plot(x, y)
 ```
 
 ## Correlation coefficient calculation and test
@@ -144,7 +144,7 @@ plot(x,y)
 library(broom)
 cor(x, y)
 cor(x, y, use = "complete.obs")
-cor.test(x,y)
+cor.test(x, y)
 ```
 
 ## Broom package
@@ -152,7 +152,7 @@ cor.test(x,y)
 The `broom` package helps make stats results look tidy
 
 ```{r}
-cor_result <-tidy(cor.test(x,y))
+cor_result <- tidy(cor.test(x, y))
 glimpse(cor_result)
 ```
 
@@ -163,10 +163,12 @@ In plot form... `geom_smooth()` and `annotate()` can help.
 ```{r}
 
 corr_value <- pull(cor_result, estimate) %>% round(digits = 4)
-cor_label = paste("R =", corr_value)
+cor_label <- paste("R =", corr_value)
 circ %>%
   ggplot(aes(x = orangeAverage, y = purpleAverage)) +
-  geom_point(size = 0.3) + geom_smooth() + annotate("text", x = 2000, y = 7500, label = cor_label)
+  geom_point(size = 0.3) +
+  geom_smooth() +
+  annotate("text", x = 2000, y = 7500, label = cor_label)
 ```
 ## Plotting with `ggpubr`
 
@@ -177,7 +179,9 @@ install.packages("ggpubr")
 library(ggpubr)
 circ %>%
   ggplot(aes(x = orangeAverage, y = purpleAverage)) +
-  geom_point(size = 0.3) + geom_smooth() + stat_cor(p.accuracy = 0.001)
+  geom_point(size = 0.3) +
+  geom_smooth() +
+  stat_cor(p.accuracy = 0.001)
 ```
 
 
@@ -290,8 +294,8 @@ Use the `p.adjust()` function on a vector of p values. Use `method = ` to specif
 ```{r}
 my_pvalues <- c(0.049, 0.001, 0.31, 0.00001)
 p.adjust(my_pvalues, method = "BH") # Benjamini Hochberg
-p.adjust(my_pvalues, method = "bonferroni") #multiply by number of tests
-my_pvalues*4
+p.adjust(my_pvalues, method = "bonferroni") # multiply by number of tests
+my_pvalues * 4
 ```
 
 See [here](https://www.nature.com/articles/nbt1209-1135) for more about multiple testing correction. Bonferroni also often done as p value threshold divided by number of tests (0.05/test number).
@@ -497,7 +501,9 @@ Can also use `tidy` and `glimpse` to see the output nicely.
 
 ```{r}
 fit2 <- glm(visits ~ hours + revenue, data = esdcomp)
-fit2 %>% tidy() %>% glimpse()
+fit2 %>%
+  tidy() %>%
+  glimpse()
 ```
 
 ## Linear regression: factors 
@@ -534,9 +540,13 @@ summary(fit_4)
 Relative to the level is not listed.
 
 ```{r}
-circ <- circ %>% mutate(day = factor(day,levels = 
-          c("Monday", "Tuesday", "Wednesday", 
-          "Thursday", "Friday", "Saturday", "Sunday")))
+circ <- circ %>% mutate(day = factor(day,
+  levels =
+    c(
+      "Monday", "Tuesday", "Wednesday",
+      "Thursday", "Friday", "Saturday", "Sunday"
+    )
+))
 fit_5 <- glm(orangeBoardings ~ day, data = circ)
 summary(fit_5)
 ```
@@ -573,7 +583,7 @@ wbca
 `Class` is a 0/1-valued variable indicating if the tumor was malignant (0 if malignant, 1 if benign). 
 
 ```{r regress7, comment="", fig.height=4,fig.width=8}
-binom_fit <-glm(Class ~ UShap + USize, data = wbca, family = binomial(link = "logit"))
+binom_fit <- glm(Class ~ UShap + USize, data = wbca, family = binomial(link = "logit"))
 
 summary(binom_fit)
 ```
@@ -582,7 +592,7 @@ summary(binom_fit)
 
 This data shows whether people became ill after eating ice cream in the 1940s.
 ```{r}
-#install.packages(epitools)
+# install.packages(epitools)
 library(epitools)
 data(oswego)
 ice_cream <-
