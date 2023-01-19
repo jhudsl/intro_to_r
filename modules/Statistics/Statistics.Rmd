@@ -141,43 +141,73 @@ plot(x,y)
 ## Correlation coefficient calculation and test
 
 ```{r}
+library(broom)
 cor(x, y)
 cor(x, y, use = "complete.obs")
 cor.test(x,y)
 ```
 
+## Broom package
+
+The `broom` package helps make stats results look tidy
+
+```{r}
+cor_result <-tidy(cor.test(x,y))
+glimpse(cor_result)
+```
+
 ## Correlation for two vectors with plot
+
+In plot form... `geom_smooth()` and `annotate()` can help.
+
+```{r}
+
+pull(cor_result, estimate) %>% round(digits = 4)
+circ %>%
+  ggplot(aes(x = orangeAverage, y = purpleAverage)) +
+  geom_point(size = 0.3) + geom_smooth() + annotate("text", x = 2000, y = 7500, label = paste("R =", round(pull(cor_result, estimate), digits =4)))
+```
+## Plotting with `ggpubr`
 
 In plot form... `geom_smooth()` of `ggplot2` can help, as can `stat_cor()` of `ggpubr`.
 ```{r, fig.width=3, fig.height=3}
 #install.packages("ggpubr")
+
 library(ggpubr)
 circ %>%
   ggplot(aes(x = orangeAverage, y = purpleAverage)) +
-  geom_point(size = 0.3) + geom_smooth() + stat_cor()
+  geom_point(size = 0.3) + geom_smooth() + stat_cor(p.accuracy = 0.001)
 ```
+
+
 
 ## Correlation for data frame columns
 
-We can compute correlation for all pairs of columns of a data frame / matrix. We typically just say, *"compute correlation matrix"*.
+We can compute correlation for all pairs of columns of a data frame / matrix. This is often called, *"computing a correlation matrix"*.
 
 Columns must be all numeric! 
 
 ```{r}
 circ_subset_Average <- circ %>% select(ends_with("Average"))
-dim(circ_subset_Average)
+head(circ_subset_Average)
+```
 
+## Correlation for data frame columns
+We can compute correlation for all pairs of columns of a data frame / matrix. This is often called, *"computing a correlation matrix"*.
+
+
+```{r}
 cor_mat <- cor(circ_subset_Average, use = "complete.obs")
 cor_mat
 ```
 
 ## Correlation for data frame columns with plot
 
-- Google, *"r correlation matrix plot"*
+ `corrplot` package can make correlation matrix plots
 
 ```{r, fig.width=4, fig.height=4}
 library(corrplot)
-corrplot(cor_mat, type = "upper", order = "hclust")
+corrplot(cor_mat)
 ```
 
 ## Correlation does not imply causation
@@ -230,6 +260,10 @@ It tests the difference in means of a variable between two groups. By default:
 - assumes data are not paired (`paired = FALSE`)
 - assumes true variance in the two groups is not equal (`var.equal = FALSE`)
 
+Check out this this [case study](https://www.opencasestudies.org/ocs-bp-rural-and-urban-obesity/) and this [case study](https://www.opencasestudies.org/ocs-bp-diet/) for more information.
+
+## Running two-sample t-test in R
+
 ```{r}
 x <- circ %>% pull(orangeAverage)
 y <- circ %>% pull(purpleAverage)
@@ -281,7 +315,11 @@ p.adjust(my_pvalues, method = "bonferroni")
 
 Linear regression is a method to model the relationship between a response and one or more explanatory variables. 
 
-We provide a little notation here so some of the commands are easier to put in the proper context.
+Most commonly used statistical tests are actually specialized regressions, including the two sample t-test, [see here for more](https://www.opencasestudies.org/ocs-bp-diet/#(t)-test_and_linear_regression).
+
+## Linear Regression Notation
+
+Here is some of the notation, so it is easier to understand the commands/results.
 
 $$
 y_i = \alpha + \beta x_{i} + \varepsilon_i 
