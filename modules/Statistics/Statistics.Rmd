@@ -82,7 +82,7 @@ knitr::include_graphics("https://www.mathsisfun.com/data/images/correlation-exam
 ```
 [source](https://www.mathsisfun.com/data/correlation.html)
 
-See this [case study](https://www.opencasestudies.org/ocs-bp-co2-emissions) for more information.
+See this [case study](https://www.opencasestudies.org/ocs-bp-co2-emissions/#Data_Analysis) for more information.
 
 ## Correlation 
 
@@ -162,10 +162,11 @@ In plot form... `geom_smooth()` and `annotate()` can help.
 
 ```{r}
 
-pull(cor_result, estimate) %>% round(digits = 4)
+corr_value <- pull(cor_result, estimate) %>% round(digits = 4)
+cor_label = paste("R =", corr_value)
 circ %>%
   ggplot(aes(x = orangeAverage, y = purpleAverage)) +
-  geom_point(size = 0.3) + geom_smooth() + annotate("text", x = 2000, y = 7500, label = paste("R =", round(pull(cor_result, estimate), digits =4)))
+  geom_point(size = 0.3) + geom_smooth() + annotate("text", x = 2000, y = 7500, label = cor_label)
 ```
 ## Plotting with `ggpubr`
 
@@ -260,7 +261,7 @@ It tests the difference in means of a variable between two groups. By default:
 - assumes data are not paired (`paired = FALSE`)
 - assumes true variance in the two groups is not equal (`var.equal = FALSE`)
 
-Check out this this [case study](https://www.opencasestudies.org/ocs-bp-rural-and-urban-obesity/) and this [case study](https://www.opencasestudies.org/ocs-bp-diet/) for more information.
+Check out this this [case study](https://www.opencasestudies.org/ocs-bp-rural-and-urban-obesity/#Data_Analysis) and this [case study](https://www.opencasestudies.org/ocs-bp-diet/#Data_Analysis) for more information.
 
 ## Running two-sample t-test in R
 
@@ -329,7 +330,7 @@ where:
 
 * $y_i$ is the outcome for person i
 * $\alpha$ is the intercept
-* $\beta$ is the slope 
+* $\beta$ is the slope (also called a coefficient) - the mean change in y that we would expect for one unit change in x ("rise over run")
 * $x_i$ is the predictor for person i
 * $\varepsilon_i$ is the residual variation for person i
 
@@ -369,9 +370,11 @@ where:
 
 * $y_i$ is the outcome for person i
 * $\alpha$ is the intercept
-* $\beta_1$, $\beta_2$, $\beta_2$ are the slopes for variables $x_{i1}$, $x_{i2}$, $x_{i3}$ 
+* $\beta_1$, $\beta_2$, $\beta_2$ are the slopes/coefficients for variables $x_{i1}$, $x_{i2}$, $x_{i3}$ - average difference in y for a unit change (or each value) in x while accounting for other variables
 * $x_{i1}$, $x_{i2}$, $x_{i3}$ are the predictors for person i
 * $\varepsilon_i$ is the residual variation for person i
+
+See this [case study](https://www.opencasestudies.org/ocs-bp-diet/#Data_Analysis) for more details.
 
 ## Linear regression fit in R 
 
@@ -456,7 +459,7 @@ esdcomp
 
 ## Linear regression: model fitting 
 
-We fit linear regression model with the number of patient visits (`visits`) as an outcome and total number of hours worked (`hours`) as a predictor. 
+We fit linear regression model with the number of patient visits (`visits`) as an outcome and total number of hours worked (`hours`) as a predictor. In other words, we are evaluation if the number of hours worked is predicitive of the number of visits a doctor had.
 
 ```{r}
 fit <- glm(visits ~ hours, data = esdcomp)
@@ -471,18 +474,35 @@ The `summary()` function returns a list that shows us some more detail
 summary(fit)
 ```
 
+## tidy results
+The broom package can help us here too!
+The estimate is the coefficient or slope - for one change in hours worked (1 hour increase), we see 1.58 more visits. The error for this estimate is relatively small at 0.167. This relationship appears to be significant with a small p value <0.001.
+
+```{r}
+tidy(fit) %>% glimpse()
+```
+
 ## Linear regression: multiple predictors {.smaller}
 
-Let's try adding another explanatory variable to our model, dollars per hour earned by the doctor (`revenue``).
+Let's try adding another explanatory variable to our model, dollars per hour earned by the doctor (`revenue``). The tidy function will not work with this unfortunately. The meaning of coefficients is more complicated here.
 
 ```{r}
 fit2 <- glm(visits ~ hours + revenue, data = esdcomp)
 summary(fit2)
 ```
 
+## Linear regression: multiple predictors
+
+Can also use `tidy` and `glimpse` to see the output nicely.
+
+```{r}
+fit2 <- glm(visits ~ hours + revenue, data = esdcomp)
+fit2 %>% tidy() %>% glimpse()
+```
+
 ## Linear regression: factors 
 
-Factors get special treatment in regression models - lowest level of the factor is the comparison group, and all other factors are relative to its values.
+Factors get special treatment in regression models - lowest level of the factor is the comparison group, and all other factors are **relative** to its values.
 
 `residency` takes values Y or N to indicate whether the doctor is a resident.
 
@@ -492,9 +512,33 @@ esdcomp %>% count(residency)
 
 ## Linear regression: factors {.smaller}
 
-```{r regress6, comment="", fig.height=4,fig.width=8}
+Yes relative to No - baseline is no
+
+```{r regressbaseline, comment="", fig.height=4,fig.width=8}
 fit_3 <- glm(visits ~ residency, data = esdcomp)
 summary(fit_3)
+```
+
+## Linear regression: factors {.smaller}
+
+Relative to the level is not listed.
+
+```{r regress8, comment="", fig.height=4,fig.width=8}
+circ <- jhur::read_circulator()
+fit_4 <- glm(orangeBoardings ~ factor(day), data = circ)
+summary(fit_4)
+```
+
+## Linear regression: factors {.smaller}
+
+Relative to the level is not listed.
+
+```{r}
+circ <- circ %>% mutate(day = factor(day,levels = 
+          c("Monday", "Tuesday", "Wednesday", 
+          "Thursday", "Friday", "Saturday", "Sunday")))
+fit_5 <- glm(orangeBoardings ~ day, data = circ)
+summary(fit_5)
 ```
 
 ## Generalized Linear Models (GLMs)
@@ -503,8 +547,13 @@ Generalized Linear Models (GLMs) allow for fitting regressions for non-continuou
 
 Add the `family` argument -- a description of the error distribution and link function to be used in the model. These include: 
 
-- `binomial(link = "logit")`
-- `poisson(link = "log")`, and others.
+- `binomial(link = "logit")`  - outcome is binary
+- `poisson(link = "log")` - outcome is count or rate
+- others
+
+Very important to use the right test!
+
+See this [case study](https://www.opencasestudies.org/ocs-bp-vaping-case-study/#Data_Analysis) for more information.
 
 See `?family` documentation for details of family functions. 
 
@@ -524,13 +573,15 @@ wbca
 `Class` is a 0/1-valued variable indicating if the tumor was malignant (0 if malignant, 1 if benign). 
 
 ```{r regress7, comment="", fig.height=4,fig.width=8}
-binom_fit <- glm(Class ~ UShap + USize, data = wbca, family = binomial())
+binom_fit <-glm(Class ~ UShap + USize, data = wbca, family = binomial(link = "logit"))
+
 summary(binom_fit)
 ```
 
 ## Odds ratios
 
-```{r echo = FALSE}
+This data shows whether people became ill after eating ice cream in the 1940s.
+```{r}
 library(epitools)
 data(oswego)
 ice_cream <-
@@ -542,7 +593,8 @@ ice_cream <-
   )
 ```
 
-This data shows whether people became ill after eating ice cream in the 1940s.
+
+## Odds ratios
 
 ```{r}
 head(ice_cream)
@@ -551,7 +603,7 @@ ice_cream %>% count(ill, vanilla.ice.cream)
 
 ## Odds ratios
 
-Use `oddsratio(x, y)` from the `epitools()` package to calculate 
+Use `oddsratio(x, y)` from the `epitools()` package to calculate odds ratios.
 
 ```{r}
 library(epitools)
@@ -559,6 +611,8 @@ response <- ice_cream %>% pull(ill)
 predictor <- ice_cream %>% pull(vanilla.ice.cream)
 oddsratio(predictor, response)
 ```
+
+See this [case study](https://www.opencasestudies.org/ocs-bp-vaping-case-study/#Logistic_regression_%E2%80%9Cby_hand%E2%80%9D_and_by_model) for more information.
 
 ## Final note 
 
@@ -570,14 +624,17 @@ Some final notes:
 
 ## Summary
 
-- Use `cor()` to calculate correlation between two vectors. `corrplot()` is nice for a quick visualization!
-- `t.test()` tests the difference in means between two vectors
+- Use `cor()` to calculate correlation between two vectors, `cor.test() can give more information.
+- `corrplot()` is nice for a quick visualization!
+- `t.test()` one sample test to test the difference in mean of a single vector from zero (one input)
+- `t.test()` two sample test to test the difference in means between two vectors (two inputs)
 - `glm()` fits regression models:
      - Use the `formula =` argument to specify the model (e.g., `y ~ x` or `y ~ x1 + x2` using column names)
      - Use `data =` to indicate the dataset
-     - Use `family = binomial()` to do a other regressions like logistic, Poisson and more
+     - Use `family = ` to do a other regressions like logistic, Poisson and more
      - `summary()` gives useful statistics
-- `oddsratio()` from the `epitools` package can calculate odds ratios
+- `tidy` from the broom package helps us to see results nicely
+- `oddsratio()` from the `epitools` package can calculate odds ratios (outside of logistic regression - which allows more than one explanatory variable)
 - this is just the tip of the iceberg!
 
 ## Resources (also on the [website](https://jhudatascience.org/intro_to_r/resources.html)!)
@@ -607,18 +664,5 @@ knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
 
 
-# Extra Slides
 
-## Adding correlation value to a plot
 
-Note that you can add the correlation value to a plot, via the `annotate()`. 
-
-```{r, fig.width=3, fig.height=3}
-cor_val <- cor(x, y, use = "complete.obs")
-cor_val_label <- paste0("r = ", round(cor_val, 3))
-
-circ %>%
-  ggplot(aes(x = orangeAverage, y = purpleAverage)) +
-  geom_point(size = 0.3) +
-  annotate("text", x = 2000, y = 7500, label = cor_val_label, size = 5)
-```
