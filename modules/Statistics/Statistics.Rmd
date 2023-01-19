@@ -275,11 +275,9 @@ t.test(x, y)
 The `broom` package has a `tidy()` function that can organize results into a data frame so that they are easily manipulated (or nicely printed)
 
 ```{r broom, comment=""}
-library(broom)
-
 result <- t.test(x, y)
 result_tidy <- tidy(result)
-result_tidy
+glimpse(result_tidy)
 ```
 
 ## P-value adjustment
@@ -291,8 +289,11 @@ Use the `p.adjust()` function on a vector of p values. Use `method = ` to specif
 ```{r}
 my_pvalues <- c(0.049, 0.001, 0.31, 0.00001)
 p.adjust(my_pvalues, method = "BH") # Benjamini Hochberg
-p.adjust(my_pvalues, method = "bonferroni")
+p.adjust(my_pvalues, method = "bonferroni") #multiply by number of tests
+my_pvalues*4
 ```
+
+See [here](https://www.nature.com/articles/nbt1209-1135) for more about multiple testing correction. Bonferroni also often done as p value threshold divided by number of tests (0.05/test number).
 
 ## Some other statistical tests
 
