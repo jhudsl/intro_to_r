@@ -320,7 +320,7 @@ cars_dbl %>%
 
 ## Applying functions with `across` from `dplyr`.{.codesmall}
 
-Combining with `mutate()`:
+Combining with `mutate()` - the `replace_na` function
 
 ```{r warning=FALSE, message=FALSE}
 # Child mortality data
@@ -335,13 +335,45 @@ mort %>%
   ))
 ```
 
+## `purrr` package
+
+Similar to across, `purrr` is a package that allows you to apply a function to multiple columns in a data frame or multiple data objects in a list.
+
+## map_df
+
+```{r}
+library(purrr)
+airquality %>% map_df(replace_na, replace = 0)
+```
+# Mulitple Data Frames
+
+## Multiple data frames
+
+Lists help us work with multiple data frames
+
+```{r}
+AQ_list <- list( AQ1 = airquality, AQ2 = airquality, AQ3 = airquality)
+str(AQ_list)
+```
+
+
+## Multiple data frames: sapply
+
+```{r}
+AQ_list %>% sapply(FUN = summary)
+```
+
 ## Summary
 
 - Simple functions take the form:
-  - `NEW_FUNCTION <- function(x, y) x + y ..`
-  - Can specify defaults like `function(x = 1, y = 2)`
+  - `NEW_FUNCTION <- function(x, y){x + y}`
+  - Can specify defaults like `function(x = 1, y = 2){x + y}`
+  -`return` will provide a value as output
+  - `print` will simply print the value on the screen but not save it
 - Apply your functions with `sapply(<a vector or list>, some_function)`
 - Use `across()` to apply functions across multiple columns of data
+- `purrr` is a package that you can use to do more iterative work easily
+- can use `sapply` or `purrr` to work with multiple data frames within lists simultaneously
 
 ## Website
 
