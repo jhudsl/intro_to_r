@@ -365,7 +365,7 @@ library(purrr)
 airquality %>% map_df(replace_na, replace = 0)
 ```
 
-# Mulitple Data Frames
+# Multiple Data Frames
 
 ## Multiple data frames
 
@@ -377,7 +377,7 @@ str(AQ_list)
 ```
 
 
-## Multiple data frames: sapply
+## Multiple data frames: `sapply`
 
 ```{r}
 AQ_list %>% sapply(FUN = summary)
