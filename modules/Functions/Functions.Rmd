@@ -52,17 +52,6 @@ times_2 <- function(x) {
 times_2(x = 10)
 ```
 
-## Writing your own functions: `return`
-
-If we want something specific for the function's output, we use `return()`:
-
-```{r comment=""}
-times_2 <- function(x) {
-  output <- x * 2
-  return(output)
-}
-times_2(x = 10)
-```
 
 ## Writing your own functions
 
@@ -75,6 +64,44 @@ return(value)
 }
 ```
 
+
+## Writing your own functions: `return`
+
+If we want something specific for the function's output, we use `return()`:
+
+```{r comment=""}
+times_2_plus_4 <- function(x) {
+  output_int <- x * 2
+  output <- output_int + 4
+  return(output)
+}
+times_2_plus_4(x = 10)
+```
+
+## Writing your own functions: print intermediate steps
+
+ - printed results do not stay around
+ - returned results stay around
+ - can only return one result but can print many
+ 
+Printing is to show what a function is doing.
+
+```{r comment=""}
+times_2_plus_4 <- function(x) {
+  output_int <- x * 2
+  output <- output_int + 4
+  print(output_int)
+  return(output)
+}
+
+times_2_plus_4(x = 10)
+
+result <-times_2_plus_4(x = 10)
+result
+
+```
+
+
 ## Writing your own functions: multiple inputs
 
 Functions can take multiple inputs:
@@ -82,6 +109,22 @@ Functions can take multiple inputs:
 ```{r comment=""}
 times_2_plus_y <- function(x, y) x * 2 + y
 times_2_plus_y(x = 10, y = 3)
+```
+
+
+## Writing your own functions: multiple outputs
+
+Functions can have one returned result with multiple outputs.
+
+```{r comment=""}
+x_and_y_plus_2<- function(x, y){
+    output1 <- x + 2
+    output2 <- y + 2
+
+return(c(output1,output2))
+}
+result <-x_and_y_plus_2(x = 10, y = 3)
+result
 ```
 
 ## Writing your own functions: defaults
