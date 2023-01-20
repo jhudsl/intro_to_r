@@ -391,6 +391,7 @@ str(AQ_list)
 AQ_list %>% sapply(summary)
 ```
 
+
 ## Summary
 
 - Simple functions take the form:
@@ -399,7 +400,8 @@ AQ_list %>% sapply(summary)
   -`return` will provide a value as output
   - `print` will simply print the value on the screen but not save it
 - Apply your functions with `sapply(<a vector or list>, some_function)`
-- Use `across()` to apply functions across multiple columns of data
+- Use `across()` to apply functions across multiple columns of data 
+- need to use `across` within `summarize()` or `mutate()`
 - `purrr` is a package that you can use to do more iterative work easily
 - can use `sapply` or `purrr` to work with multiple data frames within lists simultaneously
 
