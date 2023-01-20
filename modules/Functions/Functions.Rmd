@@ -80,21 +80,19 @@ times_2_plus_4(x = 10)
 
 ## Writing your own functions: print intermediate steps
 
- - printed results do not stay around
+ - printed results do not stay around but can show what a function is doing
  - returned results stay around
  - can only return one result but can print many
- 
-Printing is to show what a function is doing.
+
+## Adding print
 
 ```{r comment=""}
 times_2_plus_4 <- function(x) {
   output_int <- x * 2
   output <- output_int + 4
-  print(output_int)
+  print(paste("times2 result = ", output_int))
   return(output)
 }
-
-times_2_plus_4(x = 10)
 
 result <-times_2_plus_4(x = 10)
 result
@@ -172,18 +170,16 @@ loud(word = "hooray!")
 We can use `filter(row_number()==n)` to extract a row of a tibble:
 
 ```{r message=FALSE}
-cars <- read_kaggle()
-
 get_row <- function(dat, row) dat %>% filter(row_number() == row)
+
+cars <- read_kaggle()
+cars <- cars %>% select(1:8)
 ```
 
-```{r echo=FALSE}
-# So extra columns don't clutter the slide
-cars <- cars %>% select(1:10)
-```
 
 ```{r}
 get_row(dat = cars, row = 10)
+get_row(dat = iris, row = 4)
 ```
 
 ```{r echo=FALSE}
@@ -199,7 +195,7 @@ cars <- read_kaggle()
 get_index <- function(dat, row, col) {
   dat %>%
     filter(row_number() == row) %>%
-    select(col)
+    select(all_of(col))
 }
 
 get_index(dat = cars, row = 10, col = 8)
@@ -213,41 +209,50 @@ Including default values for arguments:
 get_top <- function(dat, row = 1, col = 1) {
   dat %>%
     filter(row_number() == row) %>%
-    select(col)
+    select(all_of(col))
 }
 
 get_top(dat = cars)
 ```
 
-## Using your custom functions: `sapply()`
+# Functions on multiple columns
+
+## Using your custom functions: `sapply()`- a base R function
 
 Now that you've made a function... You can "apply" functions easily with `sapply()`!
 
 These functions take the form:
 
 ```   
-sapply(<a vector or list>, some_function)
+sapply(<a vector, list, data frame>, some_function)
 ```
 
 ## Using your custom functions: `sapply()`
 
 `r emo::ji("rotating_light")` There are no parentheses on the functions! `r emo::ji("rotating_light")`
 
+You can also pipe into your function.
+
 ```{r comment=""}
-sapply(cars, class)
+head(iris, n = 2)
+sapply(iris, class)
+iris %>% sapply(class)
 ```
 
 ## Using your custom functions: `sapply()`
 
 ```{r}
-sapply(pull(cars, VehOdo), times_2_plus_y)
+select(cars, VehYear:VehicleAge) %>% head()
+select(cars, VehYear:VehicleAge) %>% sapply(times_2) %>% head()
 ```
 
 ## Using your custom functions "on the fly" to iterate
 
 ```{r comment=""}
-sapply(pull(cars, VehOdo), function(x) x / 1000)
+select(cars, VehYear:VehicleAge) %>% 
+  sapply(function(x) x / 1000) %>% head()
 ```
+# across
 
 ## Applying functions with `across` from `dplyr`
 
@@ -266,7 +271,7 @@ across( .cols = <columns>, .fns = function, ... )
 Combining with `summarize()`:
 
 ```{r warning=FALSE}
-cars_dbl <- cars %>% select(Make, Model, where(is.double))
+cars_dbl <- cars %>% select(Make, where(is.numeric))
 
 cars_dbl %>%
   group_by(Make) %>%
@@ -297,7 +302,7 @@ cars_dbl %>%
 
 ## Applying functions with `across` from `dplyr`.{.codesmall}
 
-Combining with `mutate()`:
+Combining with `mutate()`: rounding to the nearest power of 10 with negative digits
 
 ```{r}
 cars_dbl %>%
