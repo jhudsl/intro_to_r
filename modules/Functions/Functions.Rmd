@@ -52,17 +52,6 @@ times_2 <- function(x) {
 times_2(x = 10)
 ```
 
-## Writing your own functions: `return`
-
-If we want something specific for the function's output, we use `return()`:
-
-```{r comment=""}
-times_2 <- function(x) {
-  output <- x * 2
-  return(output)
-}
-times_2(x = 10)
-```
 
 ## Writing your own functions
 
@@ -75,6 +64,42 @@ return(value)
 }
 ```
 
+
+## Writing your own functions: `return`
+
+If we want something specific for the function's output, we use `return()`:
+
+```{r comment=""}
+times_2_plus_4 <- function(x) {
+  output_int <- x * 2
+  output <- output_int + 4
+  return(output)
+}
+times_2_plus_4(x = 10)
+```
+
+## Writing your own functions: print intermediate steps
+
+ - printed results do not stay around but can show what a function is doing
+ - returned results stay around
+ - can only return one result but can print many
+
+## Adding print
+
+```{r comment=""}
+times_2_plus_4 <- function(x) {
+  output_int <- x * 2
+  output <- output_int + 4
+  print(paste("times2 result = ", output_int))
+  return(output)
+}
+
+result <-times_2_plus_4(x = 10)
+result
+
+```
+
+
 ## Writing your own functions: multiple inputs
 
 Functions can take multiple inputs:
@@ -82,6 +107,22 @@ Functions can take multiple inputs:
 ```{r comment=""}
 times_2_plus_y <- function(x, y) x * 2 + y
 times_2_plus_y(x = 10, y = 3)
+```
+
+
+## Writing your own functions: multiple outputs
+
+Functions can have one returned result with multiple outputs.
+
+```{r comment=""}
+x_and_y_plus_2<- function(x, y){
+    output1 <- x + 2
+    output2 <- y + 2
+
+return(c(output1,output2))
+}
+result <-x_and_y_plus_2(x = 10, y = 3)
+result
 ```
 
 ## Writing your own functions: defaults
@@ -129,18 +170,16 @@ loud(word = "hooray!")
 We can use `filter(row_number()==n)` to extract a row of a tibble:
 
 ```{r message=FALSE}
-cars <- read_kaggle()
-
 get_row <- function(dat, row) dat %>% filter(row_number() == row)
+
+cars <- read_kaggle()
+cars <- cars %>% select(1:8)
 ```
 
-```{r echo=FALSE}
-# So extra columns don't clutter the slide
-cars <- cars %>% select(1:10)
-```
 
 ```{r}
 get_row(dat = cars, row = 10)
+get_row(dat = iris, row = 4)
 ```
 
 ```{r echo=FALSE}
@@ -156,7 +195,7 @@ cars <- read_kaggle()
 get_index <- function(dat, row, col) {
   dat %>%
     filter(row_number() == row) %>%
-    select(col)
+    select(all_of(col))
 }
 
 get_index(dat = cars, row = 10, col = 8)
@@ -170,67 +209,88 @@ Including default values for arguments:
 get_top <- function(dat, row = 1, col = 1) {
   dat %>%
     filter(row_number() == row) %>%
-    select(col)
+    select(all_of(col))
 }
 
 get_top(dat = cars)
 ```
 
-## Using your custom functions: `sapply()`
+# Functions on multiple columns
+
+## Using your custom functions: `sapply()`- a base R function
 
 Now that you've made a function... You can "apply" functions easily with `sapply()`!
 
 These functions take the form:
 
 ```   
-sapply(<a vector or list>, some_function)
+sapply(<a vector, list, data frame>, some_function)
 ```
 
 ## Using your custom functions: `sapply()`
 
 `r emo::ji("rotating_light")` There are no parentheses on the functions! `r emo::ji("rotating_light")`
 
+You can also pipe into your function.
+
 ```{r comment=""}
-sapply(cars, class)
+head(iris, n = 2)
+sapply(iris, class)
+iris %>% sapply(class)
 ```
 
 ## Using your custom functions: `sapply()`
 
 ```{r}
-sapply(pull(cars, VehOdo), times_2_plus_y)
+select(cars, VehYear:VehicleAge) %>% head()
+select(cars, VehYear:VehicleAge) %>% sapply(times_2) %>% head()
 ```
 
 ## Using your custom functions "on the fly" to iterate
 
 ```{r comment=""}
-sapply(pull(cars, VehOdo), function(x) x / 1000)
+select(cars, VehYear:VehicleAge) %>% 
+  sapply(function(x) x / 1000) %>% head()
 ```
+# across
 
 ## Applying functions with `across` from `dplyr`
 
-`across()` makes it easy to apply the same transformation to multiple columns. Usually used with `summarize()`.
+`across()` makes it easy to apply the same transformation to multiple columns. Usually used with `summarize()` or `mutate()`.
 
 ```
-across( .cols = <columns>, .fns = function, ... )
+summarize(across( .cols = <columns>, .fns = function, ... )) 
 ```
-
+or
+```
+mutate(across(.cols = <columns>, .fns = function, ...))
+```
 - List columns first : `.cols = `
 - List function next: `.fns = `
 - Then list any arguments for the function
 
-## Applying functions with `across` from `dplyr`.{.codesmall}
+## Applying functions with `across` from `dplyr`
 
-Combining with `summarize()`:
+Combining with `summarize()`
 
 ```{r warning=FALSE}
-cars_dbl <- cars %>% select(Make, Model, where(is.double))
+cars_dbl <- cars %>% select(Make, starts_with("Veh"))
 
+cars_dbl %>%
+  summarize(across(.cols = everything(), .fns = mean))
+```
+
+## Applying functions with `across` from `dplyr`
+
+Can use with other tidyverse functions like `group_by`!
+
+```{r}
 cars_dbl %>%
   group_by(Make) %>%
   summarize(across(.cols = everything(), .fns = mean))
 ```
 
-## Applying functions with `across` from `dplyr`.{.codesmall}
+## Applying functions with `across` from `dplyr`
 
 Combining with `summarize()`:
 
@@ -242,42 +302,33 @@ cars_dbl %>%
   summarize(across(.cols = everything(), .fns = mean, na.rm = TRUE))
 ```
 
-## Applying functions with `across` from `dplyr`.{.codesmall}
+## Applying functions with `across` from `dplyr`
 
 Using different `tidyselect()` options:
 
 ```{r warning=FALSE}
-cars_dbl %>%
+cars_dbl %>% 
   group_by(Make) %>%
   summarize(across(.cols = starts_with("Veh"), .fns = mean))
 ```
 
-## Applying functions with `across` from `dplyr`.{.codesmall}
+## Applying functions with `across` from `dplyr`
 
-Combining with `mutate()`:
-
-```{r}
-cars_dbl %>%
-  mutate(across(.cols = starts_with("Veh"), .fns = round, digits = -3))
-```
-
-## Applying functions with `across` from `dplyr`.{.codesmall}
-
-Combining with `mutate()`:
+Combining with `mutate()`: rounding to the nearest power of 10 (with negative digits value)
 
 ```{r}
 cars_dbl %>%
   mutate(across(
-    .cols = everything(),
-    .fns = str_replace_all,
-    pattern = "A",
-    replacement = "a"
-  ))
+    .cols = starts_with("Veh"), 
+    .fns = round, 
+    digits = -3))
 ```
+
+
 
 ## Applying functions with `across` from `dplyr`.{.codesmall}
 
-Combining with `mutate()`:
+Combining with `mutate()` - the `replace_na` function
 
 ```{r warning=FALSE, message=FALSE}
 # Child mortality data
@@ -292,13 +343,67 @@ mort %>%
   ))
 ```
 
+## Use custom functions within `mutate` and `across`
+
+```{r}
+times1000 <- function(x) x *1000
+
+airquality %>%
+  mutate(across(
+    .cols = everything(),
+    .fns  = times1000
+  )) %>% head(n = 2)
+
+airquality %>%
+  mutate(across(
+    .cols = everything(),
+    .fns  = function(x) x *1000
+  )) %>% head(n = 2)
+```
+
+
+## `purrr` package
+
+Similar to across, `purrr` is a package that allows you to apply a function to multiple columns in a data frame or multiple data objects in a list.
+
+## map_df
+
+```{r}
+library(purrr)
+airquality %>% map_df(replace_na, replace = 0)
+```
+
+# Multiple Data Frames
+
+## Multiple data frames
+
+Lists help us work with multiple data frames
+
+```{r}
+AQ_list <- list( AQ1 = airquality, AQ2 = airquality, AQ3 = airquality)
+str(AQ_list)
+```
+
+
+## Multiple data frames: `sapply`
+
+```{r}
+AQ_list %>% sapply(summary)
+```
+
+
 ## Summary
 
 - Simple functions take the form:
-  - `NEW_FUNCTION <- function(x, y) x + y ..`
-  - Can specify defaults like `function(x = 1, y = 2)`
+  - `NEW_FUNCTION <- function(x, y){x + y}`
+  - Can specify defaults like `function(x = 1, y = 2){x + y}`
+  -`return` will provide a value as output
+  - `print` will simply print the value on the screen but not save it
 - Apply your functions with `sapply(<a vector or list>, some_function)`
-- Use `across()` to apply functions across multiple columns of data
+- Use `across()` to apply functions across multiple columns of data 
+- need to use `across` within `summarize()` or `mutate()`
+- `purrr` is a package that you can use to do more iterative work easily
+- can use `sapply` or `purrr` to work with multiple data frames within lists simultaneously
 
 ## Website
 
