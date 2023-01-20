@@ -179,10 +179,16 @@ pre code {
 library(dplyr)
 library(ggplot2)</code></pre>
 <ol style="list-style-type: decimal">
-<li>Create a function that takes one argument, a vector, and returns the sum of the vector squared. Call it “sum_squared”. Test your function on the vector <code>c(2,7,21,30,90)</code> - you should get the answer 22500.</li>
+<li>Create a function that takes one argument, a vector, and returns the sum of the vector and squares the result. Call it “sum_squared”. Test your function on the vector <code>c(2,7,21,30,90)</code> - you should get the answer 22500.</li>
 </ol>
 <pre><code># General format
-NEW_FUNCTION &lt;- function(x, y) x + y ..</code></pre>
+NEW_FUNCTION &lt;- function(x, y) x + y </code></pre>
+<p>or</p>
+<pre><code># General format
+NEW_FUNCTION &lt;- function(x, y){
+result &lt;- x + y 
+return(result)
+}</code></pre>
 <pre class="r"><code>x &lt;- c(2, 7, 21, 30, 90)
 
 sum_squared &lt;- function(x) sum(x)^2
@@ -219,7 +225,7 @@ has_n(x)</code></pre>
 # If downloaded
 # vacc &lt;- read_csv(&quot;USA_covid19_vaccinations.csv&quot;)</code></pre>
 <ol start="5" style="list-style-type: decimal">
-<li>We want to get some summary statistics on the Moderna vaccines. Use <code>across</code> inside <code>summarize</code> to get the sum total number vaccine doses for any variable containing the word “Moderna” or starting with “Total”. <strong>Hint</strong>: use <code>matches()</code> AND <code>starts_with()</code> to select the right columns inside <code>across</code>. Keep in mind that this includes the United States as a whole and so is not totally accurate!</li>
+<li>We want to get some summary statistics on the Moderna vaccines. Use <code>across</code> inside <code>summarize</code> to get the sum total number vaccine doses for any variable containing the word “Moderna” or starting with “Total”. <strong>Hint</strong>: use <code>contains()</code> AND <code>starts_with()</code> to select the right columns inside <code>across</code>. Keep in mind that this includes the United States as a whole and so it is not totally accurate! Remember that <code>NA</code> values can influence calculations.</li>
 </ol>
 <pre><code># General format
 data %&gt;%
@@ -230,7 +236,7 @@ data %&gt;%
   ))</code></pre>
 <pre class="r"><code>vacc %&gt;%
   summarize(across(
-    .cols = matches(&quot;Moderna&quot;) &amp; starts_with(&quot;Total&quot;),
+    .cols = contains(&quot;Moderna&quot;) &amp; starts_with(&quot;Total&quot;),
     .fns = sum
   ))</code></pre>
 <pre><code>## # A tibble: 1 × 4
@@ -239,7 +245,7 @@ data %&gt;%
 ## 1                   482227080        403816391               NA               NA</code></pre>
 <pre class="r"><code>vacc %&gt;%
   summarize(across(
-    .cols = matches(&quot;Moderna&quot;) &amp; starts_with(&quot;Total&quot;),
+    .cols = contains(&quot;Moderna&quot;) &amp; starts_with(&quot;Total&quot;),
     .fns = sum,
     na.rm = TRUE
   ))</code></pre>
@@ -248,14 +254,14 @@ data %&gt;%
 ##                         &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
 ## 1                   482227080        403816391         29736587         31851324</code></pre>
 <ol start="6" style="list-style-type: decimal">
-<li>Use <code>across</code> and <code>mutate</code> to convert all columns containing the word “Percent” into proportions (i.e., divide that value by 100). <strong>Hint</strong>: use <code>matches()</code> to select the right columns. Use a “function on the fly” to divide by 100. It will also be easier to check your work if you <code>select()</code> columns that match “Percent”.</li>
+<li>Use <code>across</code> and <code>mutate</code> to convert all columns containing the word “Percent” into proportions (i.e., divide that value by 100). <strong>Hint</strong>: use <code>contains()</code> to select the right columns. Use a “function on the fly” to divide by 100. It will also be easier to check your work if you <code>select()</code> columns that match “Percent”.</li>
 </ol>
 <pre class="r"><code>vacc %&gt;%
   mutate(across(
-    .cols = matches(&quot;Percent&quot;),
+    .cols = contains(&quot;Percent&quot;),
     .fns = function(x) x / 100
   )) %&gt;%
-  select(matches(&quot;Percent&quot;))</code></pre>
+  select(contains(&quot;Percent&quot;))</code></pre>
 <pre><code>## # A tibble: 64 × 34
 ##    `Percent of Total Pop wi…` `Percent of 18…` `Percent of To…` `Percent of 18…`
 ##                         &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
