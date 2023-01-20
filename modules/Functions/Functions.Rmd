@@ -94,9 +94,8 @@ times_2_plus_4 <- function(x) {
   return(output)
 }
 
-result <-times_2_plus_4(x = 10)
+result <- times_2_plus_4(x = 10)
 result
-
 ```
 
 
@@ -115,13 +114,13 @@ times_2_plus_y(x = 10, y = 3)
 Functions can have one returned result with multiple outputs.
 
 ```{r comment=""}
-x_and_y_plus_2<- function(x, y){
-    output1 <- x + 2
-    output2 <- y + 2
+x_and_y_plus_2 <- function(x, y) {
+  output1 <- x + 2
+  output2 <- y + 2
 
-return(c(output1,output2))
+  return(c(output1, output2))
 }
-result <-x_and_y_plus_2(x = 10, y = 3)
+result <- x_and_y_plus_2(x = 10, y = 3)
 result
 ```
 
@@ -243,14 +242,17 @@ iris %>% sapply(class)
 
 ```{r}
 select(cars, VehYear:VehicleAge) %>% head()
-select(cars, VehYear:VehicleAge) %>% sapply(times_2) %>% head()
+select(cars, VehYear:VehicleAge) %>%
+  sapply(times_2) %>%
+  head()
 ```
 
 ## Using your custom functions "on the fly" to iterate
 
 ```{r comment=""}
-select(cars, VehYear:VehicleAge) %>% 
-  sapply(function(x) x / 1000) %>% head()
+select(cars, VehYear:VehicleAge) %>%
+  sapply(function(x) x / 1000) %>%
+  head()
 ```
 # across
 
@@ -307,7 +309,7 @@ cars_dbl %>%
 Using different `tidyselect()` options:
 
 ```{r warning=FALSE}
-cars_dbl %>% 
+cars_dbl %>%
   group_by(Make) %>%
   summarize(across(.cols = starts_with("Veh"), .fns = mean))
 ```
@@ -319,9 +321,10 @@ Combining with `mutate()`: rounding to the nearest power of 10 (with negative di
 ```{r}
 cars_dbl %>%
   mutate(across(
-    .cols = starts_with("Veh"), 
-    .fns = round, 
-    digits = -3))
+    .cols = starts_with("Veh"),
+    .fns = round,
+    digits = -3
+  ))
 ```
 
 
@@ -346,19 +349,21 @@ mort %>%
 ## Use custom functions within `mutate` and `across`
 
 ```{r}
-times1000 <- function(x) x *1000
+times1000 <- function(x) x * 1000
 
 airquality %>%
   mutate(across(
     .cols = everything(),
     .fns  = times1000
-  )) %>% head(n = 2)
+  )) %>%
+  head(n = 2)
 
 airquality %>%
   mutate(across(
     .cols = everything(),
-    .fns  = function(x) x *1000
-  )) %>% head(n = 2)
+    .fns  = function(x) x * 1000
+  )) %>%
+  head(n = 2)
 ```
 
 
@@ -380,7 +385,7 @@ airquality %>% map_df(replace_na, replace = 0)
 Lists help us work with multiple data frames
 
 ```{r}
-AQ_list <- list( AQ1 = airquality, AQ2 = airquality, AQ3 = airquality)
+AQ_list <- list(AQ1 = airquality, AQ2 = airquality, AQ3 = airquality)
 str(AQ_list)
 ```
 

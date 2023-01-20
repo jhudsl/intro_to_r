@@ -179,15 +179,21 @@ pre code {
 library(dplyr)
 library(ggplot2)</code></pre>
 <ol style="list-style-type: decimal">
-<li>Create a function that takes one argument, a vector, and returns the sum of the vector squared. Call it “sum_squared”. Test your function on the vector <code>c(2,7,21,30,90)</code> - you should get the answer 22500.</li>
+<li>Create a function that takes one argument, a vector, and returns the sum of the vector and squares the result. Call it “sum_squared”. Test your function on the vector <code>c(2,7,21,30,90)</code> - you should get the answer 22500.</li>
 </ol>
 <pre><code># General format
-NEW_FUNCTION &lt;- function(x, y) x + y ..</code></pre>
+NEW_FUNCTION &lt;- function(x, y) x + y </code></pre>
+<p>or</p>
+<pre><code># General format
+NEW_FUNCTION &lt;- function(x, y){
+result &lt;- x + y 
+return(result)
+}</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li><p>Create a function that takes two arguments, (1) a vector and (2) a numeric value. This function tests whether the number (2) is contained within the vector (1). Call it “has_n”. Test your function on the vector <code>c(2,7,21,30,90)</code> and number <code>21</code> - you should get the answer TRUE.</p></li>
 <li><p>Amend the function “has_n” from #2 so that it takes a default value of <code>21</code> for the numeric argument.</p></li>
 <li><p>Read in the SARS-CoV-2 Vaccination data from <a href="http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv" class="uri">http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv</a>. Assign the data the name “vacc”.</p></li>
-<li><p>We want to get some summary statistics on the Moderna vaccines. Use <code>across</code> inside <code>summarize</code> to get the sum total number vaccine doses for any variable containing the word “Moderna” or starting with “Total”. <strong>Hint</strong>: use <code>matches()</code> AND <code>starts_with()</code> to select the right columns inside <code>across</code>. Keep in mind that this includes the United States as a whole and so is not totally accurate!</p></li>
+<li><p>We want to get some summary statistics on the Moderna vaccines. Use <code>across</code> inside <code>summarize</code> to get the sum total number vaccine doses for any variable containing the word “Moderna” or starting with “Total”. <strong>Hint</strong>: use <code>contains()</code> AND <code>starts_with()</code> to select the right columns inside <code>across</code>. Keep in mind that this includes the United States as a whole and so it is not totally accurate! Remember that <code>NA</code> values can influence calculations.</p></li>
 </ol>
 <pre><code># General format
 data %&gt;%
@@ -197,7 +203,7 @@ data %&gt;%
     {additional arguments}
   ))</code></pre>
 <ol start="6" style="list-style-type: decimal">
-<li><p>Use <code>across</code> and <code>mutate</code> to convert all columns containing the word “Percent” into proportions (i.e., divide that value by 100). <strong>Hint</strong>: use <code>matches()</code> to select the right columns. Use a “function on the fly” to divide by 100. It will also be easier to check your work if you <code>select()</code> columns that match “Percent”.</p></li>
+<li><p>Use <code>across</code> and <code>mutate</code> to convert all columns containing the word “Percent” into proportions (i.e., divide that value by 100). <strong>Hint</strong>: use <code>contains()</code> to select the right columns. Use a “function on the fly” to divide by 100. It will also be easier to check your work if you <code>select()</code> columns that match “Percent”.</p></li>
 <li><p>Use <code>across</code> and <code>mutate</code> to convert all columns starting with the word “Total” into a binary variable: TRUE if the value is greater than 10,000,000 and FALSE if less than or equal to 10,000,000. <strong>Hint</strong>: use <code>starts_with()</code> to select the columns starting with “Total”. Use a “function on the fly” to do a logical test if the value is greater than 10,000,000.</p></li>
 </ol>
 <p><strong>Bonus / Extra practice</strong></p>
