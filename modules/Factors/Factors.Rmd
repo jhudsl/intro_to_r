@@ -16,23 +16,35 @@ library(tidyverse)
 A `factor` is a special `character` vector where the elements have pre-defined groups or 'levels'. You can think of these as qualitative or categorical variables:
 
 ```{r factor1}
-x <- c("red", "red", "blue", "yellow", "blue")
+x <- c("yellow", "red", "red", "blue", "yellow", "blue")
 class(x)
 
 x_fact <- factor(x) # factor() is a function
 class(x_fact)
+```
+
+## Factors
+
+Factors have **levels** (character types do not).
+
+```{r}
+x
 x_fact
 ```
+
+<br>
 
 Note that levels are, by default, in **alphanumerical** order.
 
 ## Factors
 
-You can learn what are the unique levels of a `factor` vector
+Extract the levels of a `factor` vector using `levels()`:
 
 ```{r}
 levels(x_fact)
 ```
+
+## `forcats` package
 
 A package called `forcats` is really helpful for working with factors.
 
@@ -40,28 +52,77 @@ A package called `forcats` is really helpful for working with factors.
 knitr::include_graphics("https://github.com/tidyverse/forcats/raw/main/man/figures/logo.png")
 ```
 
+## `factor()` vs `as_factor()`
 
-## A Factor Example
+`factor()` is from base R and `as_factor()` is from `forcats`
 
-First we will create some data about absences of students. We will have information about the number of days absent and the grade for individual students. 
+Both can change a variable to be of class factor.
 
-- We will use the `tibble()` function to create the data.   
-- We will use the `sample()` function to create a random sequence of  integers from 0 to 7 (for a range of absence values) with replacements for 32 hypothetical students.   
-- Since there are four grades and 8*4 is 32, we will repeat the 4 grade values 8 times. 
-- We use the `set.seed()` function so that the random sample from 0 to 7 is the same each time the code is run.
+- `factor()` will order **alphabetically** unless told otherwise.
+- `as_factor()` will  order by **first appearance** unless told otherwise.
+
+If you are assigning your levels manually either function is fine!
+
+## `as_factor()` function
 
 ```{r}
-set.seed(123)
-data_highschool <- tibble(
-  absences = sample(0:7, size = 32, replace = TRUE),
-  grade = rep(c("Sophomore", "Freshman", "Junior", "Senior"), 8)
-)
+x <- c("yellow", "red", "red", "blue", "yellow", "blue")
+x_fact_2 <- as_factor(x)
+x_fact_2
+
+# Compare to factor() method:
+x_fact
+```
+
+## A Factor Example{.smaller}
+
+We will use data on student dropouts from the State of California during the 2016-2017 school year. More on this data can be found here: https://www.cde.ca.gov/ds/ad/filesdropouts.asp
+
+To preserve school anonymity, "CDS_CODE" is used in place of the individual school's name.
+
+You can download the data from the JHU website here: http://jhudatascience.org/intro_to_r/data/dropouts.txt
+
+```{r}
+dropouts <- read_delim("http://jhudatascience.org/intro_to_r/data/dropouts.txt", delim = "\t")
+dropouts
+```
+
+## Preparing the data
+
+Aggregate (sum) across ethnicity and gender:
+
+```{r}
+dropouts <-
+  dropouts %>%
+  group_by(CDS_CODE) %>%
+  summarize(
+    Freshman = sum(D9),
+    Sophomore = sum(D10),
+    Junior = sum(D11),
+    Senior = sum(D12)
+  )
+dropouts
+```
+
+## Preparing the data
+
+Pivot to long format:
+
+```{r}
+dropouts <-
+  dropouts %>%
+  pivot_longer(
+    !CDS_CODE,
+    names_to = "grade",
+    values_to = "n_dropouts"
+  )
+dropouts
 ```
 
 ## The data
 
 ```{r}
-head(data_highschool)
+head(dropouts)
 ```
 
 Notice that `grade` is a `chr` variable. This indicates that the values are **character** strings. 
@@ -70,19 +131,25 @@ R does not realize that there is any order related to the `grade` values. It wil
 
 However, we know that the order is: **freshman**, **sophomore**, **junior**, **senior**.
 
+## For the next steps, let's take a subset of data.
+
+Use `set.seed()` to take the same random sample each time.
+
+```{r}
+set.seed(123)
+dropouts_subset <- slice_sample(dropouts, n = 32)
+```
 
 ## Plot the data
 
-
-Let's make a plot first:
+Let's make a plot first.
 
 ```{r, fig.height= 3}
-data_highschool %>%
-  ggplot(mapping = aes(x = grade, y = absences)) +
+dropouts_subset %>%
+  ggplot(mapping = aes(x = grade, y = n_dropouts)) +
   geom_boxplot() +
   theme_bw(base_size = 16) # make all labels size 16
 ```
-
 
 OK this is very useful, but it is a bit difficult to read. We expect the values to be plotted by the order that we know, not by alphabetical order. 
 
@@ -91,20 +158,21 @@ OK this is very useful, but it is a bit difficult to read. We expect the values 
 Currently `grade` is class `character` but let's change that to class `factor` which allows us to specify the levels or order of the values.
 
 ```{r}
-levels(pull(data_highschool, grade))
-
-data_highschool_fct <- data_highschool %>%
+dropouts_fct <-
+  dropouts_subset %>%
   mutate(grade = factor(grade,
     levels = c("Freshman", "Sophomore", "Junior", "Senior")
   ))
 
-levels(pull(data_highschool_fct, grade))
+dropouts_fct %>%
+  pull(grade) %>%
+  levels()
 ```
 
 ## Change to a factor
 
 ```{r}
-head(data_highschool_fct)
+head(dropouts_fct)
 ```
 
 ## Plot again
@@ -112,143 +180,159 @@ head(data_highschool_fct)
 Now let's make our plot again:
 
 ```{r, fig.height= 3}
-data_highschool_fct %>%
-  ggplot(mapping = aes(x = grade, y = absences)) +
+dropouts_fct %>%
+  ggplot(mapping = aes(x = grade, y = n_dropouts)) +
   geom_boxplot() +
   theme_bw(base_size = 16)
 ```
 
 Now that's more like it! Notice how the data is automatically plotted in the order we would like.
 
+## What about if we `arrange()` the data by grade ?{.smaller}
 
-## What about if we arrange the data by grade ?{.smaller}
-```{r, size="tiny"}
-data_highschool %>% # the data with the character version of grade
-  arrange(grade) %>%
-  head(n = 19) # print just enough to see the 1st three grades
+Character data is arranged alphabetically.
+
+```{r}
+dropouts_subset %>%
+  arrange(grade)
 ```
 
 Notice that the order is not what we would hope for!
 
 ## Arranging Factors{.smaller}
 
-```{r, size = 'tiny'}
-data_highschool_fct %>% # the data with the factor version of grade
-  arrange(grade) %>%
-  head(19)
+Factor data is arranged by level.
+
+```{r}
+dropouts_fct %>%
+  arrange(grade)
 ```
 
 Nice! Now this is what we would want!
 
 ## Making tables with characters
 
+Tables grouped by a character are arranged alphabetically.
+
 ```{r}
-data_highschool %>%
+dropouts_subset %>%
   group_by(grade) %>%
-  summarize(total_absences = sum(absences))
+  summarize(total_dropouts = sum(n_dropouts))
 ```
+
 ## Making tables with factors
 
+Tables grouped by a factor are arranged by level.
+
 ```{r}
-data_highschool_fct %>%
+dropouts_fct %>%
   group_by(grade) %>%
-  summarize(total_absences = sum(absences))
+  summarize(total_dropouts = sum(n_dropouts))
 ```
 
-Here we see that the sum is calculated in the order we would like only for the version of the data that has absences coded as a factor!
-
 ## `forcats` for ordering{.smaller}
-What if we wanted to order `grade` by the amount of `absences`? 
+
+What if we wanted to order `grade` by increasing `n_dropouts`? 
+
 ```{r, fig.height= 3}
 library(forcats)
 
-data_highschool_fct %>%
-  ggplot(mapping = aes(x = grade, y = absences)) +
+dropouts_fct %>%
+  ggplot(mapping = aes(x = grade, y = n_dropouts)) +
   geom_boxplot() +
   theme_bw(base_size = 16)
 ```
 
 This would be useful for identifying easily which grade to focus on.
 
-
 ## forcats for ordering{.smaller}
+
 We can order a factor by another variable by using the `fct_reorder()` function of the `forcats` package.
 
 ```{r, fig.height= 3}
 library(forcats)
 
-data_highschool_fct %>%
-  ggplot(mapping = aes(x = fct_reorder(grade, absences), y = absences)) +
+dropouts_fct %>%
+  ggplot(mapping = aes(x = fct_reorder(grade, n_dropouts, mean), y = n_dropouts)) +
   geom_boxplot() +
   labs(x = "Student Grade") +
-  theme_bw(base_size = 16) # make all labels size 16
+  theme_bw(base_size = 16)
 ```
 
 ## Adding another variable
 
 Let's say that we also want to assess which grade has the most incidences of being tardy (another word for late) to class. 
- - Now we will add another simulated variable of random values from 0 to 7 and of 32 values total. 
+- Now we will add another simulated variable of random values from 0 to 7 and of 32 values total. 
 - We set a seed again so that our results will be consistent each time we run this code.
 
 ```{r}
 set.seed(1956)
-data_highschool_fct <-
-  data_highschool_fct %>%
+dropouts_fct <-
+  dropouts_fct %>%
   mutate("tardy" = sample(0:7, size = 32, replace = TRUE))
 
-head(data_highschool_fct)
+head(dropouts_fct)
 ```
 
+## Plotting new variable{.smaller}
 
+Now let's plot each of our variables of interest (n_dropouts and tardy) on the y axis and grade on the x axis. Let's arrange grade by the amount of each.
 
-## Plotting new variable
+```{r, eval = FALSE}
 
-Now let's plot each of our variables of interest (absences and tardy) on the y axis and grade on the x axis. Let's arrange grade by the amount of each.
-
-```{r, echo = FALSE}
-
-absences <- data_highschool_fct %>%
+dropouts_plot <- dropouts_fct %>%
   ggplot(mapping = aes(
-    x = fct_reorder(grade, absences),
-    y = absences
+    x = fct_reorder(grade, n_dropouts, mean),
+    y = n_dropouts
   )) +
   geom_boxplot(fill = "lightgreen") +
   theme_bw(base_size = 13)
 
-tardy <- data_highschool_fct %>%
+tardy_plot <- dropouts_fct %>%
   ggplot(mapping = aes(
-    x = fct_reorder(grade, tardy),
+    x = fct_reorder(grade, tardy, median),
     y = tardy
   )) +
   geom_boxplot(fill = "violet") +
   theme_bw(base_size = 13)
 
 library(patchwork)
-absences + tardy
+dropouts_plot + tardy_plot
 ```
 
-## Plot with more reordering
+## Plotting new variable
 
-The last plot is informative, but what if we are mostly interested in absences and we are secondarily interested in tardiness. Then it might help to order grade for both plots by the amount of absences for each grade.
+The result!
 
 ```{r, echo = FALSE}
 
-absences <- data_highschool_fct %>%
+dropouts_plot <- dropouts_fct %>%
   ggplot(mapping = aes(
-    x = fct_reorder(grade, absences),
-    y = absences
+    x = fct_reorder(grade, n_dropouts, mean),
+    y = n_dropouts
   )) +
-  geom_boxplot(fill = "lightgreen")
+  geom_boxplot(fill = "lightgreen") +
+  theme_bw(base_size = 13)
 
-
-tardy <- data_highschool_fct %>%
+tardy_plot <- dropouts_fct %>%
   ggplot(mapping = aes(
-    x = fct_reorder(grade, absences),
+    x = fct_reorder(grade, tardy, median),
     y = tardy
   )) +
-  geom_boxplot(fill = "violet")
+  geom_boxplot(fill = "violet") +
+  theme_bw(base_size = 13)
 
-absences + tardy
+library(patchwork)
+dropouts_plot + tardy_plot
+```
+
+## Cleaning up the plots
+
+```{r}
+dropouts_plot +
+  labs(x = "Student Grade", y = "Number of Dropouts") +
+  tardy_plot +
+  labs(x = "Student Grade", y = "Tardy Days")
 ```
 
 ## fct_count
@@ -256,15 +340,18 @@ absences + tardy
 The `fct_count()` function of the `forcats` package is helpful for checking that the proportions of each level for a factor are similar. Need the `prop = TRUE` argument otherwise just counts are reported.
 
 ```{r}
-data_highschool_fct %>%
+dropouts_fct %>%
   pull(grade) %>%
   fct_count(prop = TRUE)
 ```
 
 ## Summary
 - the factor class allows us to have a different order from alphanumeric for categorical data
-- we can change data to be a factor variable using `mutate` , the `as_factor()` (of `forcats` package) or `factor()` function and specifying the levels with the `levels` argument
-- the `fct_reorder({variable_to_reorder}, {variable_to_order_by})` helps us reorder a variable by the values of another variable
+- we can change data to be a factor variable using `mutate` and a factor creating function like `factor()` or `as_factor`
+- the `as_factor()` is from the  `forcats` package (first appearance order by default)
+- the `factor()` base R function (alphabetical order by default)
+- with `factor()` we can specify the levels with the `levels` argument if we want a specific order
+- the `fct_reorder({variable_to_reorder}, {variable_to_order_by}, {summary function})` helps us reorder a variable by the values of another variable
 - arranging, tabulating, and plotting the data will reflect the new order
 
 ## Lab

@@ -171,7 +171,20 @@ slide:not(.current) .plotly.html-widget{
           </hgroup>
   </slide>
 
-<slide class=""><hgroup><h2>Common new users frustrations</h2></hgroup><article  id="common-new-users-frustrations">
+<slide class=""><hgroup><h2>Recap</h2></hgroup><article  id="recap">
+
+<ul>
+<li>Reproducible science makes everyone’s life easier!</li>
+<li>the Editor is for static code like scripts or R Markdown documents</li>
+<li>Send code to the Console to run it</li>
+<li>The Console can be used for quickly testing code on the fly</li>
+<li>R code goes within what is called a chunk (the gray box with a green play button)</li>
+<li>Code chunks can be modified so that they show differently in reports</li>
+</ul>
+
+<p>📃<a href='https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf' title=''>RStudio Cheatsheet</a></p>
+
+</article></slide><slide class=""><hgroup><h2>Common new users frustrations</h2></hgroup><article  id="common-new-users-frustrations">
 
 <ol>
 <li><strong>Different versions of software</strong></li>
@@ -432,6 +445,13 @@ name2</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 1</h2></hgroup><article  id="lab-part-1">
 
+<ul>
+<li>Assign values to objects with <code>&lt;-</code> (new name on left side)</li>
+<li><code>class()</code> tells you the class (kind) of object</li>
+<li>Use the <code>c()</code> function to combine text/numbers/etc. into a vector</li>
+<li>Use the <code>length()</code> function to determine number of elements</li>
+</ul>
+
 <p>💻 <a href='https://jhudatascience.org/intro_to_r/modules/Basic_R/lab/Basic_R_Lab.Rmd' title=''>Lab</a></p>
 
 </article></slide><slide class=""><hgroup><h2>Math + vector objects</h2></hgroup><article  id="math-vector-objects-1">
@@ -486,9 +506,15 @@ x &lt;- x + c(1, 2, 3, 4)</pre>
 
 <pre class = 'prettyprint lang-r'>str(z)</pre>
 
-<pre > num [1:100] 9 12 9 9 2 6 2 6 6 9 ...</pre>
+<pre > num [1:100] 6 9 12 9 12 12 12 9 9 2 ...</pre>
 
 </article></slide><slide class=""><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
+
+<ul>
+<li>Reassigning allows you to make changes &ldquo;in place&rdquo;</li>
+<li><code>str()</code> tells you a lot of information about an object in your environment</li>
+<li><code>sample()</code> creates a random sample of values</li>
+</ul>
 
 <p>💻 <a href='https://jhudatascience.org/intro_to_r/modules/Basic_R/lab/Basic_R_Lab.Rmd' title=''>Lab</a></p>
 
@@ -546,7 +572,7 @@ seq_hun</pre>
 <pre class = 'prettyprint lang-r'>y &lt;- sample(x = seq_hun, size = 5, replace = TRUE)
 y</pre>
 
-<pre >[1] 84 84 31 76 16</pre>
+<pre >[1] 57  1 52 79 10</pre>
 
 </article></slide><slide class=""><hgroup><h2>Summary</h2></hgroup><article  id="summary">
 

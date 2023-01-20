@@ -32,7 +32,7 @@ You may be asked a question in the console when you do this. If so, answer by ty
 
 The gray area below is a code chunk that will set up our packages and data (this will not show up in the rendered report when we press knit). You can also run the code within the editor area by pressing the green play button. Don't worry right now about what the code is doing, we will cover this later. We just want you to get used to RStudio and RMarkdowns.
 
-```{r setup, include=FALSE}
+```{r setup, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(jhur)
 library(ggplot2)

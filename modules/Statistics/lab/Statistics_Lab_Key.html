@@ -177,6 +177,7 @@ pre code {
 <ol style="list-style-type: decimal">
 <li>Load the libraries needed in this lab. Then, read in the following child mortality data using <code>read_mortality()</code> function from <code>jhur</code> package. Assign it to the “mort” variable. Change its first column name from <code>...1</code> into <code>country</code>. You can also find the data here: <a href="https://jhudatascience.org/intro_to_r/data/mortality.csv" class="uri">https://jhudatascience.org/intro_to_r/data/mortality.csv</a></li>
 </ol>
+<p>Note that the data has lots of <code>NA</code> values - don’t worry if you see that.</p>
 <pre class="r"><code>library(dplyr)
 library(jhur)
 library(broom)
@@ -186,7 +187,7 @@ mort &lt;- read_mortality()
 mort &lt;- mort %&gt;%
   rename(country = `...1`)</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Compute the correlation between the <code>2006</code> and <code>2007</code> mortality variables. (No need to save this in an object. Just display the result to the screen.) Use the <code>pull()</code> function to first extract these columns. To use a column name in <code>pull()</code> that starts with a number, surround it with backticks (`). Then, use the <code>cor</code> function.</li>
+<li>Compute the correlation (with <code>cor</code>) between the <code>2006</code> and <code>2007</code> mortality variables. (No need to save this in an object. Just display the result to the screen.) Use the <code>pull()</code> function to first extract these columns. To use a column name in <code>pull()</code> that starts with a number, surround it with backticks (`). Then, use the <code>cor</code> function.</li>
 </ol>
 <pre class="r"><code>x &lt;- pull(mort, `2006`)
 y &lt;- pull(mort, `2007`)
@@ -194,7 +195,7 @@ y &lt;- pull(mort, `2007`)
 cor(x, y)</code></pre>
 <pre><code>## [1] 0.9995124</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li>Compute the correlation between the <code>1980</code>, <code>1990</code>, <code>2000</code>, and <code>2010</code> mortality variables. (No need to save this in an object. Just display the result to the screen.) Use <code>select()</code> function to first subset the data frame to keep the four columns only. To use a column name in <code>select()</code> that starts with a number, surround it with backticks (`). How does this change when we use the <code>use = &quot;complete.obs&quot;</code> argument?</li>
+<li>Compute the correlation (with <code>cor</code>) between the <code>1980</code>, <code>1990</code>, <code>2000</code>, and <code>2010</code> mortality variables. (No need to save this in an object. Just display the result to the screen.) Use <code>select()</code> function to first subset the data frame to keep the four columns only. To use a column name in <code>select()</code> that starts with a number, surround it with backticks (`). How does this change when we use the <code>use = &quot;complete.obs&quot;</code> argument?</li>
 </ol>
 <pre class="r"><code>mort_sub &lt;-
   mort %&gt;%
@@ -266,7 +267,7 @@ t.test(x, y)</code></pre>
 </ol>
 <pre class="r"><code>cars &lt;- read_kaggle()</code></pre>
 <ol start="7" style="list-style-type: decimal">
-<li>Fit a linear regression model with vehicle cost (“VehBCost”) as the outcome and whether it’s an online sale (“IsOnlineSale”) as the predictor. Save the model fit in an object called “lmfit_cars” and display the summary table.</li>
+<li>Fit a linear regression model with vehicle cost (“VehBCost”) as the outcome and whether it’s an online sale (“IsOnlineSale”) as the predictor. Save the model fit in an object called “lmfit_cars” and display the summary table with <code>summary()</code>.</li>
 </ol>
 <pre><code># General format
 glm(y ~ x, data = DATASET_NAME)</code></pre>

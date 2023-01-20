@@ -178,65 +178,107 @@ library(dplyr)
 library(tidyr)</code></pre>
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
-<ol style="list-style-type: decimal">
-<li><p>Read in the SARS-CoV-2 Vaccination data from <a href="http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv" class="uri">http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv</a>. You can use the url or download the data. Assign the data the name “vacc”. We will be reviewing new concepts here and incorporating some from week 1. Remember to use <code>read_csv()</code> from the <code>readr</code> package.</p></li>
-<li><p>Look at the column names using <code>colnames</code> - do you notice any patterns?</p></li>
-<li><p>Let’s rename the column “State/Territory/Federal Entity” in “vacc” to “Entity” using <code>rename</code>. Make sure to reassign to <code>vacc</code> here and in subsequent steps.</p></li>
-</ol>
+<p>1. Read in the SARS-CoV-2 Vaccination data from <a href="http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv" class="uri">http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv</a>. You can use the url or download the data. Assign the data the name “vacc”. We will be reviewing new concepts here and incorporating some from week 1.</p>
+<ul>
+<li>Remember to use <code>read_csv()</code> from the <code>readr</code> package.</li>
+<li>Do NOT use <code>read.csv()</code>.</li>
+</ul>
+<p>2. Look at the column names using <code>colnames</code> - do you notice any patterns?</p>
+<pre class="r"><code>colnames(vacc)</code></pre>
+<pre><code>##  [1] &quot;Entity&quot;                                                           
+##  [2] &quot;Percent of Total Pop with at least One Dose by State of Residence&quot;
+##  [3] &quot;Percent of 18+ Pop with at least One Dose by State of Residence&quot;  
+##  [4] &quot;Percent of Total Pop Fully Vaccinated by State of Residence&quot;      
+##  [5] &quot;Percent of 18+ Pop Fully Vaccinated by State of Residence&quot;        
+##  [6] &quot;Percent of Total Pop with 1+ Doses by State of Residence&quot;         
+##  [7] &quot;Percent of 18+ Pop with 1+ Doses by State of Residence&quot;           
+##  [8] &quot;Percent of Total Pop with 2 Doses by State of Residence&quot;          
+##  [9] &quot;Percent of 18+ Pop with 2 Doses by State of Residence&quot;            
+## [10] &quot;Percent of 65+ Pop with at least One Dose by State of Residence&quot;  
+## [11] &quot;Percent of 65+ Pop Fully Vaccinated by State of Residence&quot;        
+## [12] &quot;Percent of 12+ Pop with at least One Dose by State of Residence&quot;  
+## [13] &quot;Percent of 12+ Pop Fully Vaccinated by State of Residence&quot;        
+## [14] &quot;Percent of 5+ Pop with at least One Dose by State of Residence&quot;   
+## [15] &quot;Percent of 5+ Pop Fully Vaccinated by State of Residence&quot;         
+## [16] &quot;Percent of fully vaccinated people with booster doses&quot;            
+## [17] &quot;Percent of fully vaccinated people 18+ with booster doses&quot;        
+## [18] &quot;Percent of fully vaccinated people 50+ with booster doses&quot;        
+## [19] &quot;Percent of fully vaccinated people 65+ with booster doses&quot;        
+## [20] &quot;Percent People Primary Pfizer Booster Pfizer&quot;                     
+## [21] &quot;Percent People Primary Pfizer Booster Moderna&quot;                    
+## [22] &quot;Percent People Primary Pfizer Booster J&amp;J&quot;                        
+## [23] &quot;Percent People Primary Pfizer Booster Other&quot;                      
+## [24] &quot;Percent People Primary Moderna Booster Pfizer&quot;                    
+## [25] &quot;Percent People Primary Moderna Booster Moderna&quot;                   
+## [26] &quot;Percent People Primary Moderna Booster J&amp;J&quot;                       
+## [27] &quot;Percent People Primary Moderna Booster Other&quot;                     
+## [28] &quot;Percent People Primary J&amp;J Booster Pfizer&quot;                        
+## [29] &quot;Percent People Primary J&amp;J Booster Moderna&quot;                       
+## [30] &quot;Percent People Primary J&amp;J Booster J&amp;J&quot;                           
+## [31] &quot;Percent People Primary J&amp;J Booster Other&quot;                         
+## [32] &quot;Percent People Primary Other Booster Pfizer&quot;                      
+## [33] &quot;Percent People Primary Other Booster Moderna&quot;                     
+## [34] &quot;Percent People Primary Other Booster J&amp;J&quot;                         
+## [35] &quot;Percent People Primary Other Booster Uknown&quot;</code></pre>
+<p>3. Let’s rename the column “State/Territory/Federal Entity” in “vacc” to “Entity” using <code>rename</code>. Make sure to reassign to <code>vacc</code> here and in subsequent steps.</p>
 <pre><code># General format
 new_data &lt;- old_data %&gt;% rename(newname = oldname)</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>Select only the columns “Entity”, and those that start with “Percent”. Use <code>select</code> and <code>starts_with(&quot;Percent&quot;)</code>.</li>
-</ol>
+<p>4. Select only the columns “Entity”, and those that start with “Percent”. Use <code>select</code> and <code>starts_with(&quot;Percent&quot;)</code>.</p>
 <pre><code># General format
 new_data &lt;- old_data %&gt;% select(colname1, colname2, ...)</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>Create a new dataset “vacc_long” that does <code>pivot_longer()</code> on all columns except “Entity”. Remember that <code>!Entity</code> means all columns except “Entity”.</li>
-</ol>
+<p>5. Create a new dataset “vacc_long” that does <code>pivot_longer()</code> on all columns except “Entity”. Remember that <code>!Entity</code> means all columns except “Entity”.</p>
 <pre><code># General format
 new_data &lt;- old_data %&gt;% pivot_longer(cols = colname(s))</code></pre>
-<ol start="6" style="list-style-type: decimal">
-<li>Filter the “Entity” column so it only includes values in the following list: “Maryland”,“Virginia”,“Florida”,“Massachusetts”, “United States”. <strong>Hint</strong>: use <code>filter</code> and <code>%in%</code>.</li>
-</ol>
+<p>6. Filter the “Entity” column so it only includes values in the following list: “Maryland”,“Virginia”,“Florida”,“Massachusetts”, “United States”. <strong>Hint</strong>: use <code>filter</code> and <code>%in%</code>.</p>
 <pre><code># General format
 new_data &lt;- old_data %&gt;% filter(colname %in% c(1, 2, 3, ...))</code></pre>
-<ol start="7" style="list-style-type: decimal">
-<li>Use <code>pivot_wider</code> to reshape “vacc_long”. Use “Entity” for the <code>names_from</code> argument. Use “value” for the <code>values_from</code> argument. Call this new data <code>vacc_wide</code>. Look at the data. How do these states compare to one another.</li>
-</ol>
+<p>7. Use <code>pivot_wider</code> to reshape “vacc_long”. Use “Entity” for the <code>names_from</code> argument. Use “value” for the <code>values_from</code> argument. Call this new data <code>vacc_wide</code>. Look at the data. How do these states compare to one another.</p>
 <pre><code># General format
 new_data &lt;- old_data %&gt;% pivot_wider(names_from = column1, values_from = column2)</code></pre>
 <p><strong>Bonus / Extra practice</strong>:</p>
-<p>Combine blocks 1 and 3-7 by chaining everything together using the pipe <code>%&gt;%</code>. Call your data <code>vacc_compare</code>.</p>
-<p>Tweak the code in the block above to:</p>
+<p>A. Why is using <code>read.csv()</code> in Question 1 problematic? Use <code>colnames()</code> to examine the two different methods and datasets (vacc1 and vacc2) below.</p>
+<pre class="r"><code>vacc1 &lt;- read_csv(&quot;http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv&quot;)</code></pre>
+<pre><code>## Rows: 64 Columns: 125
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr   (1): State/Territory/Federal Entity
+## dbl (121): Total Doses Delivered, Doses Delivered per 100K, 18+ Doses Delive...
+## lgl   (3): People with 2 Doses by State of Residence, People 18+ with 1+ Dos...
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>vacc2 &lt;- read.csv(&quot;http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv&quot;)</code></pre>
+<p>B. Take the code from Questions 1 and 3-7. Chain all of this code together using the pipe <code>%&gt;%</code>. Call your data <code>vacc_compare</code>.</p>
+<p>C. Modify the code from Question B:</p>
 <ul>
-<li>look for columns that start with “Total” (instead of “Percent”) and</li>
-<li>select different states/Entities to compare</li>
+<li>Look for columns that start with “Total” (instead of “Percent”) and</li>
+<li>Select different states/Entities to compare</li>
+<li>Call your data <code>vacc_compare2</code></li>
 </ul>
 </div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
-<ol start="8" style="list-style-type: decimal">
-<li><p>Read in the GDP and Personal Income Data from <a href="http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv" class="uri">http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv</a>. You can use the url or download the data. Call it “gdp”.</p></li>
-<li><p>Use <code>pivot_wider</code> to reshape “gdp”. Use “Description” for the <code>names_from</code> argument. Use “<code>2020</code>” for the <code>values_from</code> argument. Reassign this data to “gdp”.</p></li>
-</ol>
-<pre><code>new_data &lt;- old_data %&gt;% pivot_wider(names_from = column1, values_from = column2)</code></pre>
-<ol start="10" style="list-style-type: decimal">
-<li>Join the data so that you only retain data in both “vacc” and “gdp”.</li>
-</ol>
+<p>8. Read in the GDP and Personal Income Data from <a href="http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv" class="uri">http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv</a>. You can use the url or download the data. Call it “gdp”.</p>
+<p>9. Use <code>pivot_wider</code> to reshape “gdp”. Use “Description” for the <code>names_from</code> argument. Use “<code>2020</code>” for the <code>values_from</code> argument. Reassign this data to “gdp”.</p>
+<pre><code># General format
+new_data &lt;- old_data %&gt;% pivot_wider(names_from = column1, values_from = column2)</code></pre>
+<p>10. Join the data. Keep only data that is found in both “vacc” and “gdp”.</p>
 <ul>
-<li>First, try merging without using the <code>by</code> argument - what happens?</li>
-<li>Next, try merging using <code>by = c(&quot;Entity&quot; = &quot;GeoName&quot;)</code>.</li>
-<li>Call the output “merged”. How many observations are there?</li>
+<li>First, try joining without using the <code>by</code> argument - what happens?</li>
+<li>Next, try joining using <code>by = c(&quot;Entity&quot; = &quot;GeoName&quot;)</code>.</li>
+<li>Call the output “merged”. How many observations (rows) are there?</li>
 </ul>
-<pre><code>new_data &lt;- inner_join(x, y, by = c(&quot;colname1&quot; = &quot;colname2&quot;))</code></pre>
-<ol start="11" style="list-style-type: decimal">
-<li>Join the data using a <code>full_join.</code> Call the output “full”. How many observations are there?</li>
-</ol>
-<pre><code>new_data &lt;- full_join(x, y, by = c(&quot;colname1&quot; = &quot;colname2&quot;))</code></pre>
+<pre><code># General format
+new_data &lt;- inner_join(x, y, by = c(&quot;colname1&quot; = &quot;colname2&quot;))</code></pre>
+<p>11. Change your code from Question 10 to do a <code>full_join.</code> Call the output “full”. How many observations (rows) are there?</p>
+<pre><code># General format
+new_data &lt;- full_join(x, y, by = c(&quot;colname1&quot; = &quot;colname2&quot;))</code></pre>
 <p><strong>Bonus / Extra practice</strong>:</p>
-<p>Do a left join of “vacc” and “gdp”. How many observations are there?</p>
-<p>Repeat above with a <code>right_join</code> with the same order of the arguments. How many observations are there?</p>
-<p>Perform a <code>setdiff</code> on “vacc” and “gdp” to determine what Entities are missing from the GDP data and which are missing from the vaccine data. Remember you need to <code>pull()</code> the columns you want to compare.</p>
+<p>D. Do a left join of “vacc” and “gdp”. Call the output “left”. How many observations are there?</p>
+<p>E. Copy your code from Question D and change it to a <code>right_join</code> with the same order of the arguments. Call the output “right”. How many observations are there?</p>
+<p>F. Perform a <code>setdiff</code> on “vacc” and “gdp” to determine what Entities are missing from the GDP data and which are missing from the vaccine data. Remember you need to <code>pull()</code> the columns you want to compare.</p>
+<pre><code># General format
+setdiff(PULLED_COL_1, PULLED_COL_2)</code></pre>
 </div>
 
 
