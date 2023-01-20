@@ -335,6 +335,25 @@ mort %>%
   ))
 ```
 
+## Use custom functions within `mutate` and `across`
+
+```{r}
+times1000 <- function(x) x *1000
+
+airquality %>%
+  mutate(across(
+    .cols = everything(),
+    .fns  = times1000
+  )) %>% head(n = 2)
+
+airquality %>%
+  mutate(across(
+    .cols = everything(),
+    .fns  = function(x) x *1000
+  )) %>% head(n = 2)
+```
+
+
 ## `purrr` package
 
 Similar to across, `purrr` is a package that allows you to apply a function to multiple columns in a data frame or multiple data objects in a list.
@@ -345,6 +364,7 @@ Similar to across, `purrr` is a package that allows you to apply a function to m
 library(purrr)
 airquality %>% map_df(replace_na, replace = 0)
 ```
+
 # Mulitple Data Frames
 
 ## Multiple data frames
