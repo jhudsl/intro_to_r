@@ -13,11 +13,20 @@ library(dplyr)
 library(ggplot2)
 ```
 
-1. Create a function that takes one argument, a vector, and returns the sum of the vector squared. Call it "sum_squared". Test your function on the vector `c(2,7,21,30,90)` - you should get the answer 22500.
+1. Create a function that takes one argument, a vector, and returns the sum of the vector and squares the result. Call it "sum_squared". Test your function on the vector `c(2,7,21,30,90)` - you should get the answer 22500.
 
 ```
 # General format
-NEW_FUNCTION <- function(x, y) x + y ..
+NEW_FUNCTION <- function(x, y) x + y 
+```
+or
+
+```
+# General format
+NEW_FUNCTION <- function(x, y){
+result <- x + y 
+return(result)
+}
 ```
 
 ```{r}
@@ -42,7 +51,7 @@ NEW_FUNCTION <- function(x, y) x + y ..
 
 ```
 
-5. We want to get some summary statistics on the Moderna vaccines. Use `across` inside `summarize` to get the sum total number vaccine doses for any variable containing the word "Moderna" or starting with "Total". **Hint**: use `matches()` AND `starts_with()` to select the right columns inside `across`. Keep in mind that this includes the United States as a whole and so is not totally accurate!
+5. We want to get some summary statistics on the Moderna vaccines. Use `across` inside `summarize` to get the sum total number vaccine doses for any variable containing the word "Moderna" or starting with "Total". **Hint**: use `contains()` AND `starts_with()` to select the right columns inside `across`. Keep in mind that this includes the United States as a whole and so it is not totally accurate! Remember that `NA` values can influence calculations.
 
 ```
 # General format
@@ -58,7 +67,7 @@ data %>%
 
 ```
 
-6. Use `across` and `mutate` to convert all columns containing the word "Percent" into proportions (i.e., divide that value by 100). **Hint**: use `matches()` to select the right columns. Use a "function on the fly" to divide by 100. It will also be easier to check your work if you `select()` columns that match "Percent".
+6. Use `across` and `mutate` to convert all columns containing the word "Percent" into proportions (i.e., divide that value by 100). **Hint**: use `contains()` to select the right columns. Use a "function on the fly" to divide by 100. It will also be easier to check your work if you `select()` columns that match "Percent".
 
 ```{r}
 
