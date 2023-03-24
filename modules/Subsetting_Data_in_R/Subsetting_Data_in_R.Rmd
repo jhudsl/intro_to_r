@@ -600,7 +600,10 @@ select(df, -newcol, everything(), newcol)
 head(select(df, -newcol, everything(), newcol))
 ```
 
+
 ## Ordering the column names of a data frame: alphabetically
+
+Using the base R `order()` function.
 
 ```{r}
 order(colnames(df))

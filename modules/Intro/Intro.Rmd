@@ -100,6 +100,20 @@ Please introduce yourself!
 
 Find the "introductions" channel on Slack: [`https://intro-to-r-jan2023.slack.com/`](https://intro-to-r-jan2023.slack.com/)
 
+
+## The Learning Curve
+
+Learning a programming language can be very intense and sometimes overwhelming.
+
+We recommend fully diving in and minimizing other commitments to get the most out of this course.
+
+We want you to succeed -- We will get through this together!
+
+```{r, fig.alt="Sweeping the ocean", out.width = "25%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/sweeping-the-ocean.gif")
+```
+
+
 ## What is R?
 
 - R is a language and environment for statistical computing and graphics developed in 1991
@@ -201,7 +215,7 @@ knitr::include_graphics("../../docs/images/Intro_to_R.png")
  * Lecture with slides (possibly "Interactive")
  * Lab/Practical experience
  * Two 10 min breaks each day - timing may vary
- * Jan 9-20, 2022, 1:30PM-5:00PM on Zoom
+ * Jan 9-20, 2023, 1:30PM-5:00PM on Zoom
  * No class on Jan 16th for [Martin Luther King, Jr. Day](https://en.wikipedia.org/wiki/Martin_Luther_King_Jr._Day)
  * Last two classes will focus on final project
  
@@ -226,7 +240,7 @@ knitr::include_graphics("images/feedback-illustration.jpeg")
  2. Homework: 3 x 15%
  3. Final "Project": 35%
 
-Homework and Final Project due by **Wednesday, Jan 25, 2022 at 11:59pm EST**.
+Homework and Final Project due by **Wednesday, Jan 25, 2023 at 11:59pm EST**.
 
 If you turn homework in earlier this can allow us to potentially give you feedback earlier.
  
@@ -266,6 +280,7 @@ If you have a PC: https://youtu.be/we6vwB7DsNU
 
 If you have a Mac: https://www.youtube.com/watch?v=Ao9e0cDzMrE
 
+You can find these on the resource page of the website.
 
 ## Basic terms
 
@@ -283,6 +298,8 @@ knitr::include_graphics("images/hex.png")
 
 
 **Function** - a function is a particular piece of code that allows you to do something in R. You can write your own, use functions that come directly from installing R, or use functions from additional packages.
+
+You can think of a function as **verb** in R.
 
 A function might help you add numbers together, create a plot, or organize your data. More on that soon!
 
@@ -312,11 +329,12 @@ round(0.627, digits = 1)
 ## Basic terms
 
 
-**Object** - an object is something that can be worked with in R - can be lots of different things!
+**Object** - an object is something that can be worked with or on in R - can be lots of different things! You can think of objects as **nouns** in R.
 
 - a matrix of numbers
 - a plot
 - a function
+- data
 
 ... many more
 
@@ -354,7 +372,8 @@ Fancier versions from the tidyverse are called **tibbles** (more on that soon!).
 
 * When you download R, it has a "base" set of functions/packages (**base R**)  
     * You can install additional packages for your uses from [CRAN](https://cran.r-project.org/) or [GitHub](https://github.com/) 
-    * These additional packages are written by RStudio or R users/developers (like us)  
+    * These additional packages are written by RStudio or R users/developers (like us)
+    * There are also packages for bioinformatics available at [Bioconductor](https://www.bioconductor.org/)
     
     
 ```{r, fig.alt="Picture of R package stickers", out.width = "30%", echo = FALSE, fig.align='center'}
@@ -366,7 +385,7 @@ knitr::include_graphics("../Intro/images/hex.png")
 
 * Not all packages available on CRAN or GitHub are trustworthy
 * RStudio (the company) makes a lot of great packages
-* Who wrote it? **Hadley Wickham** is a major authority on R (Employee and Developer at RStudio)
+* Who wrote it? **Hadley Wickham** is a major authority on R (Employee and Developer at Posit - formerly called RStudio)
 * How to [trust](http://simplystatistics.org/2015/11/06/how-i-decide-when-to-trust-an-r-package/) an R package
 
 
@@ -394,30 +413,23 @@ knitr::include_graphics("https://tidyverse.tidyverse.org/logo.png")
 
 See this [article](https://tidyverse.tidyverse.org/articles/paper.html) for more info.
 
+## Package Installation
 
-## Collection of R packages
+We will go through this in the lab, but you only have to do it **once** for each installation of R. 
+Depending on where the package comes from will change how you install the package. But typically for the tidyverse packages you will get them from CRAN.
 
-We have an R package called jhur that will make sure all the packages are installed.
-
-You can just copy and paste the code below into your RStudio console - we'll explain what it all means in the next day or two.
-
-```{r, packageInstall, eval=FALSE}
-install.packages("remotes")
-library(remotes)
-install_github("jhudsl/jhur")
-```
-
-Note it may take ~5-10 minutes to run.
 
 ## Generally Installing Packages
 
-You can typically install packages (which only needs to be done once) with each version installation of R using:
+You can  also  install packages from CRAN (not elsewhere as easily) using the tool menu in RStudio:
 
 tools > Install Packages
 
 ```{r, fig.alt="The End", out.width = "20%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/install_packages1.png")
 ```
+
+Be sure to use the pull down menu to select the right place where the package is coming from, such as CRAN.
 
 ```{r, fig.alt="The End", out.width = "30%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/install_packages2.png")
@@ -497,8 +509,9 @@ Check out Candace's courses:
 - R is a powerful data visualization and analysis software language
 - We will focus on **packages** (code shared among people) of the `tidyverse`, which helps make R more intuitive.
 - We will also talk a bit about **base R** because some resources online and R users will use this.
-- **Functions** perform specific tasks in R and are found within packages.
-- **Arguments** within functions specify how a function is to be performed.
+- **Functions** (like verbs) perform specific tasks in R and are found within **packages**.
+- **Arguments** within functions specify how a **function** is to be performed.
+- **Objects** (like nouns) are what we are working with or on in R to modify
 - Materials will be updated frequently as we improve it.
 - Class **surveys** are available on CoursePlus so you can provide feedback!
 - Lots of **resources** can be found on the website.
