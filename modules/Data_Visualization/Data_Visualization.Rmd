@@ -15,6 +15,7 @@ opts_chunk$set(echo = TRUE,
                fig.width = 7, 
                comment = "")
 library(tidyverse)
+library(tidyr)
 library(jhur)
 library(emo)
 ```
@@ -778,8 +779,6 @@ Great for adding p-values and significance levels <https://cran.r-project.org/we
 
 ```{r, out.width="50%", fig.align="center"}
 install.packages("ggpubr")
-install.packages("tidyr")
-library(tidyr)
 library(ggpubr)
 data("ToothGrowth")
 ggboxplot(ToothGrowth, x = "dose", y = "len",
