@@ -246,7 +246,7 @@ times_2_plus_4(x = 10)</pre>
   return(output)
 }
 
-result &lt;-times_2_plus_4(x = 10)</pre>
+result &lt;- times_2_plus_4(x = 10)</pre>
 
 <pre >[1] &quot;times2 result =  20&quot;</pre>
 
@@ -267,13 +267,13 @@ times_2_plus_y(x = 10, y = 3)</pre>
 
 <p>Functions can have one returned result with multiple outputs.</p>
 
-<pre class = 'prettyprint lang-r'>x_and_y_plus_2&lt;- function(x, y){
-    output1 &lt;- x + 2
-    output2 &lt;- y + 2
+<pre class = 'prettyprint lang-r'>x_and_y_plus_2 &lt;- function(x, y) {
+  output1 &lt;- x + 2
+  output2 &lt;- y + 2
 
-return(c(output1,output2))
+  return(c(output1, output2))
 }
-result &lt;-x_and_y_plus_2(x = 10, y = 3)
+result &lt;- x_and_y_plus_2(x = 10, y = 3)
 result</pre>
 
 <pre >[1] 12  5</pre>
@@ -427,7 +427,9 @@ get_top(dat = cars)</pre>
 5    2005          4
 6    2004          5</pre>
 
-<pre class = 'prettyprint lang-r'>select(cars, VehYear:VehicleAge) %&gt;% sapply(times_2) %&gt;% head()</pre>
+<pre class = 'prettyprint lang-r'>select(cars, VehYear:VehicleAge) %&gt;%
+  sapply(times_2) %&gt;%
+  head()</pre>
 
 <pre >     VehYear VehicleAge
 [1,]    4012          6
@@ -439,8 +441,9 @@ get_top(dat = cars)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Using your custom functions &ldquo;on the fly&rdquo; to iterate</h2></hgroup><article  id="using-your-custom-functions-on-the-fly-to-iterate">
 
-<pre class = 'prettyprint lang-r'>select(cars, VehYear:VehicleAge) %&gt;% 
-  sapply(function(x) x / 1000) %&gt;% head()</pre>
+<pre class = 'prettyprint lang-r'>select(cars, VehYear:VehicleAge) %&gt;%
+  sapply(function(x) x / 1000) %&gt;%
+  head()</pre>
 
 <pre >     VehYear VehicleAge
 [1,]   2.006      0.003
@@ -534,7 +537,7 @@ cars_dbl %&gt;%
 
 <p>Using different <code>tidyselect()</code> options:</p>
 
-<pre class = 'prettyprint lang-r'>cars_dbl %&gt;% 
+<pre class = 'prettyprint lang-r'>cars_dbl %&gt;%
   group_by(Make) %&gt;%
   summarize(across(.cols = starts_with(&quot;Veh&quot;), .fns = mean))</pre>
 
@@ -559,9 +562,10 @@ cars_dbl %&gt;%
 
 <pre class = 'prettyprint lang-r'>cars_dbl %&gt;%
   mutate(across(
-    .cols = starts_with(&quot;Veh&quot;), 
-    .fns = round, 
-    digits = -3))</pre>
+    .cols = starts_with(&quot;Veh&quot;),
+    .fns = round,
+    digits = -3
+  ))</pre>
 
 <pre ># A tibble: 72,983 × 5
    Make       VehYear VehicleAge VehOdo VehBCost
@@ -610,13 +614,14 @@ mort %&gt;%
 
 </article></slide><slide class=""><hgroup><h2>Use custom functions within <code>mutate</code> and <code>across</code></h2></hgroup><article  id="use-custom-functions-within-mutate-and-across">
 
-<pre class = 'prettyprint lang-r'>times1000 &lt;- function(x) x *1000
+<pre class = 'prettyprint lang-r'>times1000 &lt;- function(x) x * 1000
 
 airquality %&gt;%
   mutate(across(
     .cols = everything(),
     .fns  = times1000
-  )) %&gt;% head(n = 2)</pre>
+  )) %&gt;%
+  head(n = 2)</pre>
 
 <pre >  Ozone Solar.R Wind  Temp Month  Day
 1 41000  190000 7400 67000  5000 1000
@@ -625,8 +630,9 @@ airquality %&gt;%
 <pre class = 'prettyprint lang-r'>airquality %&gt;%
   mutate(across(
     .cols = everything(),
-    .fns  = function(x) x *1000
-  )) %&gt;% head(n = 2)</pre>
+    .fns  = function(x) x * 1000
+  )) %&gt;%
+  head(n = 2)</pre>
 
 <pre >  Ozone Solar.R Wind  Temp Month  Day
 1 41000  190000 7400 67000  5000 1000
@@ -662,7 +668,7 @@ airquality %&gt;% map_df(replace_na, replace = 0)</pre>
 
 <p>Lists help us work with multiple data frames</p>
 
-<pre class = 'prettyprint lang-r'>AQ_list &lt;- list( AQ1 = airquality, AQ2 = airquality, AQ3 = airquality)
+<pre class = 'prettyprint lang-r'>AQ_list &lt;- list(AQ1 = airquality, AQ2 = airquality, AQ3 = airquality)
 str(AQ_list)</pre>
 
 <pre >List of 3
