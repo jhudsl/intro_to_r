@@ -170,19 +170,20 @@ circ %>%
   geom_smooth() +
   annotate("text", x = 2000, y = 7500, label = cor_label)
 ```
-## Plotting with `ggpubr`
 
-In plot form... `geom_smooth()` of `ggplot2` can help, as can `stat_cor()` of `ggpubr`.
-```{r, fig.width=3, fig.height=3}
-install.packages("ggpubr")
+<!-- ## Plotting with `ggpubr` -->
 
-library(ggpubr)
-circ %>%
-  ggplot(aes(x = orangeAverage, y = purpleAverage)) +
-  geom_point(size = 0.3) +
-  geom_smooth() +
-  stat_cor(p.accuracy = 0.001)
-```
+<!-- In plot form... `geom_smooth()` of `ggplot2` can help, as can `stat_cor()` of `ggpubr`. -->
+<!-- ```{r, fig.width=3, fig.height=3} -->
+<!-- install.packages("ggpubr") -->
+
+<!-- library(ggpubr) -->
+<!-- circ %>% -->
+<!--   ggplot(aes(x = orangeAverage, y = purpleAverage)) + -->
+<!--   geom_point(size = 0.3) + -->
+<!--   geom_smooth() + -->
+<!--   stat_cor(p.accuracy = 0.001) -->
+<!-- ``` -->
 
 
 
