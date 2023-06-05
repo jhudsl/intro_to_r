@@ -773,18 +773,18 @@ library(directlabels)
 direct.label(rp_fac_plot, method = list("angled.boxes"))
 ```
 
-## `ggpubr` package
+<!-- ## `ggpubr` package -->
 
-Great for adding p-values and significance levels <https://cran.r-project.org/web/packages/ggpubr/ggpubr.pdf> 
+<!-- Great for adding p-values and significance levels <https://cran.r-project.org/web/packages/ggpubr/ggpubr.pdf>  -->
 
-```{r, out.width="50%", fig.align="center"}
-install.packages("ggpubr")
-library(ggpubr)
-data("ToothGrowth")
-ggboxplot(ToothGrowth, x = "dose", y = "len",
-          color = "dose", palette = "jco")+
-  stat_compare_means(method = "anova")
-```
+<!-- ```{r, out.width="50%", fig.align="center"} -->
+<!-- install.packages("ggpubr") -->
+<!-- library(ggpubr) -->
+<!-- data("ToothGrowth") -->
+<!-- ggboxplot(ToothGrowth, x = "dose", y = "len", -->
+<!--           color = "dose", palette = "jco")+ -->
+<!--   stat_compare_means(method = "anova") -->
+<!-- ``` -->
 
 ## plotly
 
