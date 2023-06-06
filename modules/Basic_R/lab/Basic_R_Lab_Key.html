@@ -301,24 +301,24 @@ rep(my_seq, each = 10)</code></pre>
 ## [43] &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot;
 ## [46] &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot;
 ## [49] &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot;</code></pre>
-<p><strong>Bonus / Extra practice</strong>: “Strongly Agree”, “Agree”, “Neutral”, “Disagree”, “Strongly Disagree” are often responses to surveys. Create a randomly sampled vector of 30 survey responses. (hint use <code>sample()</code> and set the replace argument to <code>TRUE</code>). Store the output as <code>my_responses</code>. Examine the data by typing the name in the Console using a function.</p>
+<p><strong>Bonus / Extra practice</strong>: “Strongly Agree”, “Agree”, “Neutral”, “Disagree”, “Strongly Disagree” are often responses to surveys. Create a randomly sampled vector of 30 survey responses. (hint use <code>sample()</code> and set the replace argument to <code>TRUE</code>). Store the output as <code>my_responses</code>. Examine the data by typing the name <code>my_responses</code> in the Console.</p>
 <pre class="r"><code>my_responses &lt;- sample(
   x = c(&quot;Strongly Agree&quot;, &quot;Agree&quot;, &quot;Neutral&quot;, &quot;Disagree&quot;, &quot;Strongly Disagree&quot;),
   size = 30,
   replace = TRUE
 )
 my_responses</code></pre>
-<pre><code>##  [1] &quot;Neutral&quot;           &quot;Agree&quot;             &quot;Neutral&quot;          
-##  [4] &quot;Neutral&quot;           &quot;Strongly Agree&quot;    &quot;Strongly Disagree&quot;
-##  [7] &quot;Agree&quot;             &quot;Strongly Disagree&quot; &quot;Agree&quot;            
-## [10] &quot;Strongly Agree&quot;    &quot;Neutral&quot;           &quot;Neutral&quot;          
-## [13] &quot;Disagree&quot;          &quot;Agree&quot;             &quot;Strongly Agree&quot;   
-## [16] &quot;Neutral&quot;           &quot;Neutral&quot;           &quot;Disagree&quot;         
-## [19] &quot;Strongly Disagree&quot; &quot;Disagree&quot;          &quot;Neutral&quot;          
-## [22] &quot;Agree&quot;             &quot;Neutral&quot;           &quot;Strongly Agree&quot;   
-## [25] &quot;Agree&quot;             &quot;Agree&quot;             &quot;Agree&quot;            
-## [28] &quot;Strongly Agree&quot;    &quot;Disagree&quot;          &quot;Agree&quot;</code></pre>
-<p><strong>Bonus / Extra practice</strong>: Let’s say you change your survey so participants can rank their response 1-10 (inclusive). Create a randomly sampled vector of 30 survey responses. (hint use <code>seq()</code> and <code>sample()</code> and set the replace argument to <code>TRUE</code>). Store the output as <code>my_responses_2</code>. Examine the data by typing the name in the Console using a function.</p>
+<pre><code>##  [1] &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;    &quot;Strongly Disagree&quot;
+##  [4] &quot;Neutral&quot;           &quot;Agree&quot;             &quot;Disagree&quot;         
+##  [7] &quot;Disagree&quot;          &quot;Neutral&quot;           &quot;Strongly Agree&quot;   
+## [10] &quot;Strongly Disagree&quot; &quot;Neutral&quot;           &quot;Strongly Agree&quot;   
+## [13] &quot;Strongly Agree&quot;    &quot;Neutral&quot;           &quot;Agree&quot;            
+## [16] &quot;Strongly Agree&quot;    &quot;Neutral&quot;           &quot;Disagree&quot;         
+## [19] &quot;Disagree&quot;          &quot;Agree&quot;             &quot;Strongly Disagree&quot;
+## [22] &quot;Disagree&quot;          &quot;Strongly Disagree&quot; &quot;Agree&quot;            
+## [25] &quot;Agree&quot;             &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;   
+## [28] &quot;Strongly Agree&quot;    &quot;Agree&quot;             &quot;Disagree&quot;</code></pre>
+<p><strong>Bonus / Extra practice</strong>: Let’s say you change your survey so participants can rank their response 1-10 (inclusive). Create a randomly sampled vector of 30 survey responses. (hint use <code>seq()</code> and <code>sample()</code> and set the replace argument to <code>TRUE</code>). Store the output as <code>my_responses_2</code>. Examine the data by typing the name <code>my_responses_2</code> in the Console.</p>
 <pre class="r"><code>my_responses_2 &lt;- sample(
   x = seq(from = 1, to = 10),
   size = 30,
