@@ -10,9 +10,10 @@ library(tidyverse)
 
 **`r config::get("course_name_long")`**
 
-**Overview:** This course will provide **"hands-on" training** for learning how to analyze data in the R statistical software package. We will cover data input/output, data management and manipulation, and how to make useful and informative graphics
+**Overview:** This course will provide *"hands-on" training*  for learning how to analyze data in the R statistical software package. We will cover data input/output, data management and manipulation, and how to make useful and informative graphics.
 
-### Logistics:
+### Logistics
+***
 
 **When:** 
 
@@ -23,16 +24,18 @@ library(tidyverse)
 
 - **Class Website:** http://jhudatascience.org/intro_to_r/   
 - **CoursePlus:** `r config::get("courseplus_web")`
-- **Zoom link and Slack link will be emailed to students.**
+- Zoom link and Slack link will be emailed to students.
 - Communication will mainly occur through Slack
 
 
-### Intruction Team:
+### Intruction Team
+***
 
 - **Instructors:** `r config::get("instructors")`
 - **Teaching Assistants:** `r config::get("ta")`
 
 ### Course Format
+***
 
 * Each class will consist of 2 or 3 hour-long modules.
 * Each module features a lecture and an R programming lab, where students apply the skills taught in the modules to real data in breakout rooms. 
@@ -61,7 +64,10 @@ Zoom + Working Virtually
 ***
 </details>
 
+<br>
+
 ### Objectives
+***
 
 By the end of the course, students should be comfortable:
 
@@ -74,11 +80,9 @@ By the end of the course, students should be comfortable:
 - Creating reproducible R documents
 
 
+<br>
 
-
-
-
-## Grading
+### Grading
 ***
 
 1. Attendance/Participation: 20% (Please let the instructors know if attendance will be difficult for you.)
@@ -91,7 +95,7 @@ All assignments are due `r config::get("final_due_date")`.
 
 <br>
 
-## Submitting Assignments
+### Submitting Assignments
 ***
 
 Submit each assignment to the designated [Drop Box on CoursePlus](`r config::get("courseplus_dropboxes")`).
@@ -109,7 +113,7 @@ You should complete the following:
 
 <br>
 
-## Assignment Extensions
+### Assignment Extensions
 ***
 
 We know that you will try your best to submit assignments on time. However, we understand that life happens. We can accept late assignments with a deduction of 2% of your assignment score per day late.
@@ -118,7 +122,7 @@ For example, if you scored 9/10 on an assignment (90%) but turned it in two days
 
 <br>
 
-## Final Projects 
+### Final Projects 
 ***
 
 This project should entail:
@@ -141,7 +145,7 @@ See the [guidelines/instructions](modules/Project_Guidelines/Project_Guidelines.
 
 <br>
 
-## Code of Conduct
+### Code of Conduct
 ***
 
 We would like to create an open, safe, welcoming, diverse, inclusive, intellectually stimulating, and hopefully fun class experience. 
