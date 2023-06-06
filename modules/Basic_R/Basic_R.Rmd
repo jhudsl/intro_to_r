@@ -22,27 +22,23 @@ opts_chunk$set(comment = "")
 
 📃[RStudio Cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf)
 
-## Common new users frustrations
-
-1.  **Different versions of software**
-1.  **Data type problems (is that a character or a number?)**
-2.  Working directory problems: trying to read files that R "can't find"
-    - RStudio can help, and so do RStudio Projects
-    - discuss in Data Input/Output lecture
-3.  Typos (R is **case sensitive**, `x` and `X` are different)
-    - RStudio helps with "tab completion"
-    - discussed throughout
-
 ## Explaining output on slides
 
 In slides, a command (we'll also call them code or a code chunk) will look like this
 
 ```{r code}
-print("I'm code")
+class(3)
 ```
 
 And then directly after it, will be the output of the code.  
-So `print("I'm code")` is the code chunk and [1] "I'm code" is the output.
+So `class(3)` is the code chunk and '[1] "numeric" ' is the output.
+
+## Running code chunks
+
+Send code to run in the console:
+
+- Run the whole chunk with the green play button (top right of the chunk)
+- Run single line with ⌘+return or ctrl+return
 
 ## R as a calculator
 
@@ -52,7 +48,7 @@ So `print("I'm code")` is the code chunk and [1] "I'm code" is the output.
 2^3
 ```
 
-Note: when you type your command, R inherently thinks you want to print the result. 
+Note: when you enter your command in the Console, R inherently thinks you want to print the result. 
 
 ## R as a calculator
 
@@ -108,7 +104,6 @@ In an `.Rmd` file, you can write notes outside the R chunks.
 
 - You can create objects from within the R environment and from files on your computer
 - R uses `<-` to assign values to an object name (you might also see `=` used, but this is not best practice)
-- Object names are case-sensitive, i.e. X and x are different
 
 ```{r}
 x <- 2
@@ -132,8 +127,63 @@ x + 2
 ```{r assignClass}
 class(x)
 y <- "hello world!"
-print(y)
 class(y)
+```
+
+## numeric vs. character classes?
+
+We will talk in-depth about classes. For now:
+
+**numeric**
+
+-  Numbers
+-  No quotation marks
+
+```{r eval = FALSE}
+2
+```
+
+**character**
+
+-  Text with quotation marks
+-  Green lettering (default)
+
+```{r eval = FALSE}
+"hello!"
+```
+
+# Common issues
+
+## TROUBLESHOOTING: R is case sensitive
+
+Object names are case-sensitive, i.e., `X` and `x` are different
+
+```{r}
+x
+```
+
+```{r error = TRUE}
+X
+```
+
+## TROUBLESHOOTING: No commas in big numbers
+
+Commas separate objects in R, so they shouldn't be used when entering big numbers.
+
+```{r error = TRUE}
+z <- 3,000
+```
+
+## TROUBLESHOOTING: Complete the statement
+
+```{r error = TRUE}
+10 / 
+```
+
+`+` indicates an incomplete statement. Hit "esc" to clear and bring back the `>`.
+
+```{r, fig.alt="Incomplete statements make a + sign appear in the Console.", out.width = "45%", echo = FALSE, out.extra='style="float:left"'}
+knitr::include_graphics("images/incomplete_statement.png")
 ```
 
 ## Simple object practice
