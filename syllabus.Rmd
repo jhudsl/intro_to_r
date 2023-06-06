@@ -10,41 +10,46 @@ library(tidyverse)
 
 **`r config::get("course_name_long")`**
 
-**Class Website:** http://jhudatascience.org/intro_to_r/   
-**CoursePlus:** `r config::get("courseplus_web")`
+**Overview:** This course will provide *"hands-on" training*  for learning how to analyze data in the R statistical software package. We will cover data input/output, data management and manipulation, and how to make useful and informative graphics.
 
-**Zoom link will be emailed to students.**
-
-**Day/Time:** `r config::get("course_dates")`: 1:30PM-4:50PM ET on Zoom (**`r config::get("holiday")`**)
-
-**Instructors:** `r config::get("instructors")`
-
-**Teaching Assistants:** `r config::get("ta")`
-
-**Communication will mainly occur through Slack and we will email you about how to connect to Slack.**
-
-**Overview:** This course will provide **"hands-on" training** for learning how to analyze data in the R statistical software package. We will cover data input/output, data management and manipulation, and how to make useful and informative graphics
-
-**Course Format:** Each class will consist of 2 or 3 hour-long modules: each module features a lecture and an R programming lab, where students apply the skills taught in the modules to real data.
-
-By the end of the course, students should be comfortable:
-
-- Reading data into R
-- Recoding and manipulating data
-- Using R add-on packages
-- Making exploratory plots
-- Performing basic statistical tests
-- Understanding basic programming syntax
-- Creating reproducible R documents
-
-<br>
-
-## Zoom + Working Virtually
+### Logistics
 ***
 
-* Zoom link will be emailed to students
-* Class sessions will be recorded and later posted
-* We will have lectures as well as breakout room sessions to work on labs
+**When:** 
+
+- **Dates:** `r config::get("course_dates")` (`r config::get("holiday")`)
+- **Time:** `r config::get("course_time")`
+
+**Where:**
+
+- **Class Website:** http://jhudatascience.org/intro_to_r/   
+- **CoursePlus:** `r config::get("courseplus_web")`
+- Course lectures and labs will be online through Zoom
+- Zoom link and Slack link will be emailed to students
+- Communication will mainly occur through Slack
+
+
+### Instruction Team
+***
+
+- **Instructors:** `r config::get("instructors")`
+- **Teaching Assistants:** `r config::get("ta")`
+
+### Course Format
+***
+
+* Each class will consist of 2 or 3 hour-long modules.
+* Each module features a lecture and an R programming lab, where students apply the skills taught in the modules to real data in breakout rooms. 
+* Class sessions will be recorded and later posted. 
+* If you have a question not covered during class, please post it on Slack. This allows everyone to see it. If another student does not answer your question (which we encourage!), we will try to answer it within 24 hours. If you feel uncomfortable posting a question publicly, let a TA or instructor know your question and we will post it for you anonymously. 
+* To get the most out of this class, if possible, we suggest working virtually with a **large monitor or two screens**. This setup allows you to follow along on Zoom while also doing the hands-on coding.
+
+<details><summary> <span style = "color: #5383bb;"> **Please click here for details about using Zoom.**</span></summary>
+
+Zoom + Working Virtually
+
+***
+
 * Please be aware that there is the option to use closed captioning:
 
   ![closed captioning on zoom](docs/images/CC.png)
@@ -56,14 +61,29 @@ By the end of the course, students should be comfortable:
   * In breakout room sessions you can ask for help like so:
 
   ![ask for help](docs/images/help.png)
-
-* If you have a question based on our labs or homework (or not covered during lecture time), we ask that you post it on slack (which will be our main communication method - the link will be emailed). This allows for questions to be seen by everyone, not just the students in your breakout room. If another student does not answer your question (which we encourage!), we will try to answer it within 24 hours. If you feel uncomfortable posting a question publicly, let a TA or instructor know your question and we will post it for you anonymously. 
-
-* To get the most out of this class, we suggest working virtually with a **large monitor or two screens**. This setup allows you to follow along on Zoom while also doing the hands-on coding.
+  
+***
+</details>
 
 <br>
 
-## Grading
+### Objectives
+***
+
+By the end of the course, students should be comfortable:
+
+- Reading data into R
+- Recoding and manipulating data
+- Using R add-on packages
+- Making exploratory plots
+- Performing basic statistical tests
+- Understanding basic programming syntax
+- Creating reproducible R documents
+
+
+<br>
+
+### Grading
 ***
 
 1. Attendance/Participation: 20% (Please let the instructors know if attendance will be difficult for you.)
@@ -76,7 +96,7 @@ All assignments are due `r config::get("final_due_date")`.
 
 <br>
 
-## Submitting Assignments
+### Submitting Assignments
 ***
 
 Submit each assignment to the designated [Drop Box on CoursePlus](`r config::get("courseplus_dropboxes")`).
@@ -94,7 +114,7 @@ You should complete the following:
 
 <br>
 
-## Assignment Extensions
+### Assignment Extensions
 ***
 
 We know that you will try your best to submit assignments on time. However, we understand that life happens. We can accept late assignments with a deduction of 2% of your assignment score per day late.
@@ -103,7 +123,7 @@ For example, if you scored 9/10 on an assignment (90%) but turned it in two days
 
 <br>
 
-## Final Projects 
+### Final Projects 
 ***
 
 This project should entail:
@@ -126,7 +146,7 @@ See the [guidelines/instructions](modules/Project_Guidelines/Project_Guidelines.
 
 <br>
 
-## Code of Conduct
+### Code of Conduct
 ***
 
 We would like to create an open, safe, welcoming, diverse, inclusive, intellectually stimulating, and hopefully fun class experience. 
