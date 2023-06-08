@@ -365,6 +365,14 @@ The `select` command from `dplyr` allows you to subset (still a `tibble`!)
 select(tb, mpg)
 ```
 
+## Select mutiple columns
+
+We can use `select` to select for multiple columns.
+
+```{r}
+select(tb, mpg, car, gear)
+```
+
 ## Subset columns of a data frame: dplyr
 
 Note that if you want the values (not a `tibble`), use `pull` - as it pulls out the data:
