@@ -143,7 +143,7 @@ Need to assign the output of the function to keep the result!
 ```{R}
 df_updated <- data.frame(df)
 # this would overwrite the existing df object
-df<-data.frame(df) 
+df <- data.frame(df) 
 ```
 
 ## Or create a data frame when reading in the file
@@ -193,7 +193,7 @@ Using `read.csv()` and `data.frame()` you can make data frames
 **Tidyverse (fancier version):**  
 Using `read_csv()` and `tibble()` you can make tibbles 
 
-We generally recommend using tibbles, but you can do a lot with data frames too.
+We generally recommend using tibbles, but you are likely to run into lots of data frames with your work.
 
 ## Data frames vs tibbles
  
