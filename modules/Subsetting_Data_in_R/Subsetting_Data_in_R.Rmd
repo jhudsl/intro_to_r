@@ -441,7 +441,6 @@ filter(tb, mpg > 20)
 ```
 
 
-
 ## Subset rows of a data frame: dplyr
 
 You can have multiple logical conditions using the following:
@@ -453,21 +452,25 @@ You can have multiple logical conditions using the following:
 * `&` : AND
 * `|` : OR
 
-## Subset rows of a data frame: dplyr
+## Common error for filter
 
-The `%in%` operator can be used find values from a pre-made list (using `c()`):
+If you try to filter for a column that does not exist it will not work:
+ 
+ - misspelled column name 
+ - column that was already removed 
 
-```{r}
-filter(tb, mpg %in% c(20,21,22))
-```
 
-## Subset rows of a data frame: dplyr
+
+## Subset rows of a data frame: dplyr {.codesmall}
 
 You can filter by two conditions using `&` or commas (must meet both conditions):
 
+```{r, eval = FALSE}
+filter(tb, mpg > 20, cyl == 4) # same result
+```
+
 ```{r}
 filter(tb, mpg > 20 & cyl == 4)
-filter(tb, mpg > 20, cyl == 4)
 ```
 
 ## Subset rows of a data frame: dplyr
@@ -476,6 +479,24 @@ If you want OR statements (meaning the data can meet either condition does not n
 
 ```{r}
 filter(tb, mpg > 20 | cyl == 4)
+
+```
+
+## Subset rows of a data frame: dplyr {.codesmall}
+
+The `%in%` operator can be used find values from a pre-made list (using `c()`) for a **single column** at a time. 
+
+```{r}
+filter(tb, mpg %in% c(20,21,22))
+
+filter(tb, mpg ==20 | mpg ==21 | mpg ==22) #equivalent
+```
+## Subset rows of a data frame: dplyr {.codesmall}
+
+The `%in%` operator can be used find values from a pre-made list (using `c()`) for a **single column** at a time.
+
+```{r}
+filter(tb, gear %in% c(4,5), cyl %in% c(6,5))
 
 ```
 
