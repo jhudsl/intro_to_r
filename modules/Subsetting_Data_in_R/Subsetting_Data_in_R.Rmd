@@ -379,6 +379,7 @@ pull(select(tb, mpg))
 ## Select columns of a data frame: dplyr
 
 The `select` command from `dplyr` allows you to subset columns matching patterns:
+
 ```{r}
 head(tb, 2)
 select(tb, starts_with("c"))
@@ -400,12 +401,19 @@ Type `tidyselect::` in the **console** and see what RStudio suggests:
 ```{r, fig.alt="dplyr", out.width = "80%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/tidyselect.png")
 ```
+## Combining tidyselect helpers with regular selection
+
+```{r}
+head(tb, 2)
+select(tb, starts_with("d"), car)
+```
 
 ## Summary
 
 - `pull()` to get values out of a data frame/tibble
 - `select()` is the `tidyverse` way to get a tibble with only certain columns
 -  you can `select()` based on patterns in the column names
+-  you can combine multiple patterns together like `select(starts_with("C"), ends_with("state"))`
 
 
 
