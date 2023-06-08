@@ -579,13 +579,13 @@ select(tb, -c("newcol", "drat"))
 ## Ordering the columns of a data frame: dplyr
 
 The `select` function can reorder columns.
-```{r, eval = FALSE}
-head(tb)
+```{r}
+head(tb, 2)
 select(tb, cyl, mpg, wt, car) %>%
-head()
+head(2)
 ```
 
-## Ordering the columns of a data frame: dplyr
+## Ordering the columns of a data frame: dplyr {.codesmall}
 
 The `select` function can reorder columns.  Put `newcol` first, then select the rest of columns:
 ```{r, eval = FALSE}
@@ -593,11 +593,10 @@ select(tb, newcol, everything())
 ```
 
 ```{r, echo = FALSE}
-head(select(tb, newcol, everything()))
+head(select(tb, newcol, everything()), 3)
 ```
 
-
-## Ordering the columns of a data frame: dplyr
+## Ordering the columns of a data frame: dplyr {.codesmall}
 
 Put `newcol` at the end ("remove, everything, then add back in"):
 
@@ -606,11 +605,11 @@ select(tb, -newcol, everything(), newcol)
 ```
 
 ```{r, echo = FALSE}
-head(select(tb, -newcol, everything(), newcol))
+head(select(tb, -newcol, everything(), newcol), 3)
 ```
 
 
-## Ordering the column names of a data frame: alphabetically
+## Ordering the column names of a data frame: alphabetically {.codesmall}
 
 Using the base R `order()` function.
 
@@ -620,20 +619,19 @@ tb %>% select(order(colnames(tb)))
 ```
 
 
-## Ordering the columns of a data frame: dplyr
+## Ordering the columns of a data frame: dplyr {.codesmall}
 
-In addition to `select` we can also use the `relocate()` function of dplyr to rearrange the columns.
+In addition to `select` we can also use the `relocate()` function of dplyr to rearrange the columns for more complicated moves.
 
-For example, let say we just wanted `wt` to be first.
+For example, let say we just wanted `wt` to be before `cyl`.
 
 ```{r}
 
-head(tb)
+head(tb, 1)
 
-tb_carb <- relocate(tb, wt,
-                       .before = mpg)
+tb_carb <- relocate(tb, wt, .before = cyl)
 
-tb_carb
+head(tb_carb, 1)
 ```
 
 
