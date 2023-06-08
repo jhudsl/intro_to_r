@@ -475,7 +475,7 @@ filter(tb, mpg > 20 & cyl == 4)
 
 ## Subset rows of a data frame: dplyr
 
-If you want OR statements (meaning the data can meet either condition does not need to meet both), you need to use the pipe `|` between conditions:
+If you want OR statements (meaning the data can meet either condition does not need to meet both), you need to use `|` between conditions:
 
 ```{r}
 filter(tb, mpg > 20 | cyl == 4)
@@ -596,7 +596,7 @@ select(tb, - newcol)
 ```
 
 ```{r, echo = FALSE}
-head(select(tb, -newcol))
+head(select(tb, - newcol))
 ```
 
 **Or, you can simply select the columns you want to keep, ignoring the ones you want to remove.**
