@@ -146,7 +146,7 @@ df_updated <- data.frame(df)
 df <- data.frame(df) 
 ```
 
-## Or create a data frame when reading in the file
+## Or create a data frame when reading in the file {.codesmall}
 
 Or directly when reading in a csv with the `read.csv()` function (also base R)
 
@@ -173,7 +173,7 @@ tbl
 
 Note don't necessarily need to use `head()`- tibbles conveniently print a portion of the data.
 
-## tibbles form read_csv()
+## tibbles form read_csv(){.codesmall}
 
 Alternatively we can read data files using the `tidyverse` with the `read_csv()` function of the `readr` package from the `tidyverse` to make a tibble.
 
@@ -207,7 +207,7 @@ head(tibble(df), n = 2)
 
 
 
-## rownames_to_column function
+## rownames_to_column function{.codesmall}
 
 If you run into losing a variable contained in your row names, you can also use `rownames_to_column` (of `tibble` package) to add it before turning it into a `tibble` to keep them:
 
