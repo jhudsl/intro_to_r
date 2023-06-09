@@ -316,7 +316,7 @@ tb_rename <-rename(tb, "MPG!" = MPG) # this will work!
 
 
 
-## Renaming All Columns of a data frame: dplyr
+## Renaming all columns of a data frame: dplyr {.codesmall}
 
 To rename all columns you use the `rename_with()`. In this case we will use `toupper()` to make all letters upper case. Could also use `tolower()` function.
 
