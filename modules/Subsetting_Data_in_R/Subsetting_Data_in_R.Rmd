@@ -416,11 +416,22 @@ head(tb, 2)
 select(tb, starts_with("d"), car)
 ```
 
+## The `where()` function can help select columns of a specific class{.codesmall}
+
+`is.character()` and `is.numeric()` are often the most helpful
+
+```{r}
+head(tb, 2)
+tb %>%select(where(is.numeric))
+
+```
+
 ## Summary
 
 - `pull()` to get values out of a data frame/tibble
 - `select()` is the `tidyverse` way to get a tibble with only certain columns
 -  you can `select()` based on patterns in the column names
+-  you can also `select()` based on column class with the `where()` function
 -  you can combine multiple patterns together like `select(starts_with("C"), ends_with("state"))`
 
 
@@ -500,14 +511,7 @@ filter(tb, gear %in% c(4,5), cyl %in% c(6,5))
 
 ```
 
-## `which()` function 
 
-Instead of removing rows like filter, `which()` simply shows where the values occur if they pass a specific condition. We will see that this can be helpful later when we want to select and filter in more complicated ways.
-
-```{r}
-which(select(tb,carb) == 4)
-select(tb, carb) == 4
-```
 
 ## `distinct()` function
 
@@ -525,7 +529,6 @@ distinct(tb, cyl, gear)
 - `==` is the same as equivalent to
 - `&` means both conditions must be met to remain after `filter()`
 - `|` means either conditions needs to be met to remain after `filter()`
-- `which()` shows you where values meet a condition
 - `distinct()` helps you filter for unique values
 
 ## Lab Part 3
@@ -568,7 +571,7 @@ tb %>% filter(mpg > 20 & cyl == 4) %>% select(cyl, hp)
 
 
 
-## Adding columns to a data frame: dplyr (`tidyverse` way)
+## Adding columns to a data frame: dplyr (`tidyverse` way){.codesmall}
 
 The `mutate` function in `dplyr` allows you to add or modify columns of a data frame.
 
@@ -581,8 +584,39 @@ The `mutate` function in `dplyr` allows you to add or modify columns of a data f
 </div>
 
 ```{r}
-tb <- mutate(tb, newcol = wt/2.2)
+tb <- mutate(tb, newcol = wt / 2.2)
+head(tb, 4)
 ```
+
+
+## Use mutate to modify existing columns {.codesmall}
+
+The `mutate` function in `dplyr` allows you to add or modify columns of a data frame.
+
+<div class = "codeexample">
+```{r, eval = FALSE}
+# General format - Not the code!
+{data object to update} <- mutate({data to use}, 
+                           {variable name to change} = {variable modification}) 
+```
+</div>
+
+```{r}
+tb <- mutate(tb, wt = wt * 2)
+head(tb, 4)
+```
+
+
+## You can pipe data into mutate {.codesmall}
+
+
+```{r}
+tb <- tb %>% mutate(wt = wt / 2)
+head(tb,4)
+```
+
+
+
 
 
 
@@ -703,7 +737,7 @@ arrange(tb, mpg, desc(hp))
 - you can do sequential steps in a few ways:
     1. nesting them inside one another using parentheses `()`
     2. creating intermediate data objects in between
-    3. using pipes `%>%`
+    3. using pipes `%>%` (like "then" statements)
 - `select()` and `relocate()` can be used to reorder columns
 - `arrange()` can be used to reorder rows
 - can remove rows with `filter()`
@@ -764,7 +798,19 @@ knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 
 Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
 
-# Extra Slides - base R subsetting
+# Extra Slides
+
+## `which()` function
+
+Instead of removing rows like filter, `which()` simply shows where the values occur if they pass a specific condition. We will see that this can be helpful later when we want to select and filter in more complicated ways.
+
+```{r}
+which(select(tb,carb) == 4)
+select(tb, carb) == 4
+```
+
+
+# base R subsetting
 
 ## Subset columns of a data frame: 
 
