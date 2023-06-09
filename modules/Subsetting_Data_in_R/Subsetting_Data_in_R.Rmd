@@ -415,6 +415,24 @@ knitr::include_graphics("images/tidyselect.png")
 head(tb, 2)
 select(tb, starts_with("d"), car)
 ```
+## Multiple tidyselect functions
+
+Follows OR logic.
+
+```{r}
+tb %>%select(starts_with("c"), ends_with("r"))
+
+```
+
+## Multiple patterns with tidyselect
+
+Need to combine the patterns with the `c()` function.
+
+```{r}
+tb %>%  select(starts_with(c("c", "d")))
+
+```
+
 
 ## The `where()` function can help select columns of a specific class{.codesmall}
 
@@ -432,7 +450,8 @@ tb %>%select(where(is.numeric))
 - `select()` is the `tidyverse` way to get a tibble with only certain columns
 -  you can `select()` based on patterns in the column names
 -  you can also `select()` based on column class with the `where()` function
--  you can combine multiple patterns together like `select(starts_with("C"), ends_with("state"))`
+-  you can combine multiple tidyselector functions together like `select(starts_with("C"), ends_with("state"))`
+-  you can combine multiple patterns with the `c()` function like `select(starts_with(c("A", "C")))`
 
 
 
