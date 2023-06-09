@@ -131,7 +131,7 @@ cars_mt_copy %>%
   nrow()
 ```
 
-7. Why do the answers for 2 and 3 differ?
+7. Why do the answers for 5 and 6 differ?
 
 They differ because there are two cars with HP values that are exactly 150.
 
@@ -209,7 +209,6 @@ carsSub <- carsSub %>% mutate(WT2 = WT^2)
 **Bonus / Extra practice**: Move the `WT2` column to be first. Use `relocate()`.
 
 ```{r}
-
 carsSub <- carsSub %>% relocate(WT2, .before = CAR)
 carsSub
 ```
