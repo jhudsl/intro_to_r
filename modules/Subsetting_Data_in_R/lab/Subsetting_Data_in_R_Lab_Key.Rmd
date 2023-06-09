@@ -101,7 +101,7 @@ pull(carsSub, car)
 select(carsSub, car)
 ```
 
-**Bonus / Extra practice**: Select the variables that contain the letter a from `cars_mt_copy`.
+**Bonus / Extra practice**: Select the variables that contain the letter "a" from `cars_mt_copy`.
 
 ```{r}
 select(cars_mt_copy, contains("a"))
