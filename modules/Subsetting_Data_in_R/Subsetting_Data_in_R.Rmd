@@ -130,7 +130,7 @@ skim(df)
 knitr::include_graphics("images/skim.png")
 ```
 
-# Making data frames(base R) and tibbles (tidyverse)
+# Making data frames (base R) and tibbles (tidyverse)
 ## Creating data frames using base R data frame function
 ```{r}
 data.frame(df)
@@ -143,10 +143,10 @@ Need to assign the output of the function to keep the result!
 ```{R}
 df_updated <- data.frame(df)
 # this would overwrite the existing df object
-df<-data.frame(df) 
+df <- data.frame(df) 
 ```
 
-## Or create a data frame when reading in the file
+## Or create a data frame when reading in the file {.codesmall}
 
 Or directly when reading in a csv with the `read.csv()` function (also base R)
 
@@ -173,7 +173,7 @@ tbl
 
 Note don't necessarily need to use `head()`- tibbles conveniently print a portion of the data.
 
-## tibbles form read_csv()
+## tibbles form read_csv(){.codesmall}
 
 Alternatively we can read data files using the `tidyverse` with the `read_csv()` function of the `readr` package from the `tidyverse` to make a tibble.
 
@@ -193,7 +193,7 @@ Using `read.csv()` and `data.frame()` you can make data frames
 **Tidyverse (fancier version):**  
 Using `read_csv()` and `tibble()` you can make tibbles 
 
-We generally recommend using tibbles, but you can do a lot with data frames too.
+We generally recommend using tibbles, but you are likely to run into lots of data frames with your work.
 
 ## Data frames vs tibbles
  
@@ -207,7 +207,7 @@ head(tibble(df), n = 2)
 
 
 
-## rownames_to_column function
+## rownames_to_column function{.codesmall}
 
 If you run into losing a variable contained in your row names, you can also use `rownames_to_column` (of `tibble` package) to add it before turning it into a `tibble` to keep them:
 
@@ -221,8 +221,17 @@ If you run into losing a variable contained in your row names, you can also use 
 </div>
 
 ```{r, size = "tiny"}
-head(rownames_to_column(df, "car"),  n = 2)
-head(tibble(rownames_to_column(df, "car")),  n = 2)
+head(df,  n = 2)
+df <- rownames_to_column(df, "car")
+head(df, n = 2)
+```
+
+
+## Let's stick with the tibble version
+
+```{r}
+tb <- tibble(df)
+tb
 ```
 
 
@@ -243,8 +252,8 @@ For example, let's rename mpg to MPG. Notice the new name is listed **first**!
 </div>
 
 ```{r}
-df <- rename(df, MPG = mpg)
-head(df)
+tb <- rename(tb, MPG = mpg)
+head(tb)
 ```
 
 
@@ -255,12 +264,12 @@ When you can, avoid spaces, special punctuation, or numbers in column names, as 
 See https://jhudatascience.org/intro_to_r/quotes_vs_backticks.html for more guidance.
 
 ```{r, eval = FALSE}
-df <- rename(df, MPG! = MPG) # this will cause an error
+tb <- rename(tb, MPG! = MPG) # this will cause an error
 ```
 
 ```{r}
-df_rename <-rename(df, `MPG!` = MPG) # this will work
-head(df_rename, 2)
+tb_rename <-rename(tb, `MPG!` = MPG) # this will work
+head(tb_rename, 2)
 ```
 
 You will need to refer to a column like this with most functions.
@@ -289,36 +298,36 @@ Single or double quotes are typically used for character strings (data values th
 Curly quotes will not work!
 
 ```{r, eval = FALSE}
-df_rename <-rename(df, ‘MPG!’ = MPG) # this will cause an error!
+tb_rename <-rename(tb, ‘MPG!’ = MPG) # this will cause an error!
 ```
 
 ```{r, eval = FALSE}
-df_rename <-rename(df, `MPG!` = MPG) # this will work!
+tb_rename <-rename(tb, `MPG!` = MPG) # this will work!
 ```
 
 Also true for double quotes
 ```{r, eval = FALSE}
-df_rename <-rename(df, “MPG!” = MPG) # this will cause an error!
+tb_rename <-rename(tb, “MPG!” = MPG) # this will cause an error!
 ```
 
 ```{r, eval = FALSE}
-df_rename <-rename(df, "MPG!" = MPG) # this will work!
+tb_rename <-rename(tb, "MPG!" = MPG) # this will work!
 ```
 
 
 
-## Renaming All Columns of a data frame: dplyr
+## Renaming all columns of a data frame: dplyr {.codesmall}
 
 To rename all columns you use the `rename_with()`. In this case we will use `toupper()` to make all letters upper case. Could also use `tolower()` function.
 
 ```{r}
-df_upper <- rename_with(df, toupper)
-head(df_upper, 3)
+tb_upper <- rename_with(tb, toupper)
+head(tb_upper, 3)
 ```
 
 ```{r}
-df <- rename_with(df, tolower)
-head(df, 3)
+tb <- rename_with(tb, tolower)
+head(tb, 3)
 ```
 
 ## Summary
@@ -327,10 +336,10 @@ head(df, 3)
 - tibbles are fancier `tidyverse` version
 - data frames are made with `data.frames()` and `read.csv()`
 - tibbles are made with `tibble()` and `read_csv()` from `readr`
-- If your original data has rownames, you need to use `rownames_to_column` before converting to tibble
+- if your original data has rownames, you need to use `rownames_to_column` before converting to tibble
 - the `rename()` function of `dplyr` can help you rename columns
 - avoid using punctuation (except underscores), spaces, and numbers (to start or alone) in column names
-- If you must use backticks around those column names
+- if you must do a nonstandard column name, use backticks to refer to it
 - quotes can be used for character values
 - avoid copy and pasting code from other sources - quotation marks will change!
 
@@ -345,7 +354,7 @@ head(df, 3)
 
 To grab (or "pull" out) the `carb` column the `tidyverse` way we can use the `pull` function:
 ```{r}
-pull(df, carb)
+pull(tb, carb)
 ```
 
 
@@ -353,26 +362,35 @@ pull(df, carb)
 
 The `select` command from `dplyr` allows you to subset (still a `tibble`!)
 ```{r}
-select(df, mpg)
+select(tb, mpg)
+```
+
+## Select mutiple columns
+
+We can use `select` to select for multiple columns.
+
+```{r}
+select(tb, mpg, car, gear)
 ```
 
 ## Subset columns of a data frame: dplyr
 
 Note that if you want the values (not a `tibble`), use `pull` - as it pulls out the data:
 ```{r}
-pull(df, mpg)
+pull(tb, mpg)
 
 # pull with select works too!
 
-pull(select(df, mpg))
+pull(select(tb, mpg))
 ```
 
 ## Select columns of a data frame: dplyr
 
 The `select` command from `dplyr` allows you to subset columns matching patterns:
+
 ```{r}
-head(df, 2)
-select(df, starts_with("c"))
+head(tb, 2)
+select(tb, starts_with("c"))
 ```
 
 ## See the Select "helpers"
@@ -391,19 +409,43 @@ Type `tidyselect::` in the **console** and see what RStudio suggests:
 ```{r, fig.alt="dplyr", out.width = "80%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/tidyselect.png")
 ```
+## Combining tidyselect helpers with regular selection
 
-## Summary
+```{r}
+head(tb, 2)
+select(tb, starts_with("d"), car)
+```
+## Multiple tidyselect functions
 
-- `pull()` to get values out of a data frame/tibble
-- `select()` is the `tidyverse` way to get a tibble with only certain columns
--  you can `select()` based on patterns in the column names
+Follows OR logic.
+
+```{r}
+tb %>%select(starts_with("c"), ends_with("r"))
+
+```
+
+## Multiple patterns with tidyselect
+
+Need to combine the patterns with the `c()` function.
+
+```{r}
+tb %>%  select(starts_with(c("c", "d")))
+
+```
+
+
+## The `where()` function can help select columns of a specific class{.codesmall}
+
+`is.character()` and `is.numeric()` are often the most helpful
+
+```{r}
+head(tb, 2)
+tb %>%select(where(is.numeric))
+
+```
 
 
 
-## Lab Part 2
-
-🏠 [Class Website](https://jhudatascience.org/intro_to_r/)    
-💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab.Rmd)
 
 # Subsetting Rows
 
@@ -412,9 +454,8 @@ knitr::include_graphics("images/tidyselect.png")
 The command in `dplyr` for subsetting rows is `filter`.
 
 ```{r}
-filter(df, mpg > 20)
+filter(tb, mpg > 20)
 ```
-
 
 
 ## Subset rows of a data frame: dplyr
@@ -428,101 +469,134 @@ You can have multiple logical conditions using the following:
 * `&` : AND
 * `|` : OR
 
-## Subset rows of a data frame: dplyr
+## Common error for filter
 
-The `%in%` operator can be used find values from a pre-made list (using `c()`):
+If you try to filter for a column that does not exist it will not work:
+ 
+ - misspelled column name 
+ - column that was already removed 
 
-```{r}
-filter(df, mpg %in% c(20,21,22))
-```
 
-## Subset rows of a data frame: dplyr
+
+## Subset rows of a data frame: dplyr {.codesmall}
 
 You can filter by two conditions using `&` or commas (must meet both conditions):
 
+```{r, eval = FALSE}
+filter(tb, mpg > 20, cyl == 4) # same result
+```
+
 ```{r}
-filter(df, mpg > 20 & cyl == 4)
-filter(df, mpg > 20, cyl == 4)
+filter(tb, mpg > 20 & cyl == 4)
 ```
 
 ## Subset rows of a data frame: dplyr
 
-If you want OR statements (meaning the data can meet either condition does not need to meet both), you need to use the pipe `|` between conditions:
+If you want OR statements (meaning the data can meet either condition does not need to meet both), you need to use `|` between conditions:
 
 ```{r}
-filter(df, mpg > 20 | cyl == 4)
+filter(tb, mpg > 20 | cyl == 4)
 
 ```
 
-## `which()` function 
+## Subset rows of a data frame: dplyr {.codesmall}
 
-Instead of removing rows like filter, `which()` simply shows where the values occur if they pass a specific condition. We will see that this can be helpful later when we want to select and filter in more complicated ways.
+The `%in%` operator can be used find values from a pre-made list (using `c()`) for a **single column** at a time. 
 
 ```{r}
-which(select(df,carb) == 4)
-select(df, carb) == 4
+filter(tb, mpg %in% c(20,21,22))
+
+filter(tb, mpg ==20 | mpg ==21 | mpg ==22) #equivalent
 ```
+## Subset rows of a data frame: dplyr {.codesmall}
+
+The `%in%` operator can be used find values from a pre-made list (using `c()`) for a **single column** at a time.
+
+```{r}
+filter(tb, gear %in% c(4,5), cyl %in% c(6,5))
+
+```
+
+
 
 ## `distinct()` function
 
 To filter for distinct values from a variable, multiple variables, or an entire tibble you can use the `distinct()` function from the `dplyr` package.
 
 ```{r}
-distinct(df, cyl)
+distinct(tb, cyl)
 
-distinct(df, cyl, gear)
+distinct(tb, cyl, gear)
 ```
 
 ## Summary
 
+- `pull()` to get values out of a data frame/tibble
+- `select()` is the `tidyverse` way to get a tibble with only certain columns
+-  you can `select()` based on patterns in the column names
+-  you can also `select()` based on column class with the `where()` function
+-  you can combine multiple tidyselect functions together like `select(starts_with("C"), ends_with("state"))`
+-  you can combine multiple patterns with the `c()` function like `select(starts_with(c("A", "C")))`
 - `filter()` can be used to filter out rows based on logical conditions
 - `==` is the same as equivalent to
 - `&` means both conditions must be met to remain after `filter()`
 - `|` means either conditions needs to be met to remain after `filter()`
-- `which()` shows you where values meet a condition
 - `distinct()` helps you filter for unique values
 
-## Lab Part 3
+## Lab Part 2
 
-🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)    
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab.Rmd)
+
 
 ## Combining `filter` and `select`
 
 You can combine `filter` and `select` to subset the rows and columns, respectively, of a data frame:
 
 ```{r}
-select(filter(df, mpg > 20 & cyl == 4), cyl, hp)
+select(filter(tb, mpg > 20), cyl)
 ```
 
-In `R`, the common way to perform multiple operations is to wrap functions around each other in a "nested" way such as above. 
+
+## Nesting
+
+In `R`, the common way to perform multiple operations is to wrap functions around each other in a "nested" form.
+
+```{r}
+head(select(tb, car, cyl), 2)
+```
+
+## Nesting can get confusing looking
+
+```{r}
+select(filter(tb, mpg > 20 & cyl == 4), cyl, hp)
+```
 
 ## Assigning Temporary Objects
 
 One can also create temporary objects and reassign them:
 
 ```{r}
-df2 <- filter(df, mpg > 20 & cyl == 4)
-df2 <- select(df2, cyl, hp)
+tb2 <- filter(tb, mpg > 20 & cyl == 4)
+tb2 <- select(tb2, cyl, hp)
 
-head(df2,4)
+head(tb2,4)
 ```
 
 ## Using the `pipe` (comes with `dplyr`):
 
-The pipe `%>%` makes things such as this much more readable.  It reads left side "pipes" into right side.  RStudio `CMD/Ctrl + Shift + M` shortcut. Pipe `df` into `filter`, then pipe that into `select`:
+The pipe `%>%` makes this much more readable.  It reads left side "pipes" into right side.  RStudio `CMD/Ctrl + Shift + M` shortcut. Pipe `tb` into `filter`, then pipe that into `select`:
 
 
 ```{r}
-df %>% filter(mpg > 20 & cyl == 4) %>% select(cyl, hp)
+tb %>% filter(mpg > 20 & cyl == 4) %>% select(cyl, hp)
 ```
 
 
 # Adding/Removing Columns
 
 
-
-## Adding columns to a data frame: dplyr (`tidyverse` way)
+## Adding columns to a data frame: dplyr (`tidyverse` way){.codesmall}
 
 The `mutate` function in `dplyr` allows you to add or modify columns of a data frame.
 
@@ -535,7 +609,35 @@ The `mutate` function in `dplyr` allows you to add or modify columns of a data f
 </div>
 
 ```{r}
-df <- mutate(df, newcol = wt/2.2)
+tb <- mutate(tb, newcol = wt / 2.2)
+head(tb, 4)
+```
+
+
+## Use mutate to modify existing columns {.codesmall}
+
+The `mutate` function in `dplyr` allows you to add or modify columns of a data frame.
+
+<div class = "codeexample">
+```{r, eval = FALSE}
+# General format - Not the code!
+{data object to update} <- mutate({data to use}, 
+                           {variable name to change} = {variable modification}) 
+```
+</div>
+
+```{r}
+tb <- mutate(tb, wt = wt * 2)
+head(tb, 4)
+```
+
+
+## You can pipe data into mutate {.codesmall}
+
+
+```{r}
+tb <- tb %>% mutate(wt = wt / 2)
+head(tb,4)
 ```
 
 
@@ -546,11 +648,11 @@ The `NULL` method is still very common.
 
 The `select` function can remove a column with minus (`-`):
 ```{r, eval = FALSE}
-select(df, - newcol)
+select(tb, - newcol)
 ```
 
 ```{r, echo = FALSE}
-head(select(df, -newcol))
+head(select(tb, - newcol))
 ```
 
 **Or, you can simply select the columns you want to keep, ignoring the ones you want to remove.**
@@ -561,7 +663,7 @@ You can use `c()` to list the columns to remove.
 
 Remove `newcol` and `drat`:
 ```{r}
-select(df, -c("newcol", "drat"))
+select(tb, -c("newcol", "drat"))
 ```
 
 
@@ -570,61 +672,59 @@ select(df, -c("newcol", "drat"))
 ## Ordering the columns of a data frame: dplyr
 
 The `select` function can reorder columns.
-```{r, eval = FALSE}
-head(df)
-select(df, cyl, mpg, wt, car) %>%
-head()
+```{r}
+head(tb, 2)
+select(tb, cyl, mpg, wt, car) %>%
+head(2)
 ```
 
-## Ordering the columns of a data frame: dplyr
+## Ordering the columns of a data frame: dplyr {.codesmall}
 
 The `select` function can reorder columns.  Put `newcol` first, then select the rest of columns:
 ```{r, eval = FALSE}
-select(df, newcol, everything())
+select(tb, newcol, everything())
 ```
 
 ```{r, echo = FALSE}
-head(select(df, newcol, everything()))
+head(select(tb, newcol, everything()), 3)
 ```
 
-
-## Ordering the columns of a data frame: dplyr
+## Ordering the columns of a data frame: dplyr {.codesmall}
 
 Put `newcol` at the end ("remove, everything, then add back in"):
 
 ```{r, eval = FALSE}
-select(df, -newcol, everything(), newcol)
+select(tb, -newcol, everything(), newcol)
 ```
 
 ```{r, echo = FALSE}
-head(select(df, -newcol, everything(), newcol))
+head(select(tb, -newcol, everything(), newcol), 3)
 ```
 
 
-## Ordering the column names of a data frame: alphabetically
+## Ordering the column names of a data frame: alphabetically {.codesmall}
 
 Using the base R `order()` function.
 
 ```{r}
-order(colnames(df))
-df %>% select(order(colnames(df)))
+order(colnames(tb))
+tb %>% select(order(colnames(tb)))
 ```
 
 
-## Ordering the columns of a data frame: dplyr
+## Ordering the columns of a data frame: dplyr {.codesmall}
 
-In addition to `select` we can also use the `relocate()` function of dplyr to rearrange the columns.
+In addition to `select` we can also use the `relocate()` function of dplyr to rearrange the columns for more complicated moves.
 
-For example, let say we just wanted `wt` to be first.
+For example, let say we just wanted `wt` to be before `cyl`.
 
 ```{r}
 
-head(df)
+head(tb, 1)
 
-df_carb <- relocate(df, wt,
-                       .before = mpg)
+tb_carb <- relocate(tb, wt, .before = cyl)
 
-df_carb
+head(tb_carb, 1)
 ```
 
 
@@ -635,21 +735,21 @@ df_carb
 
 The `arrange` function can reorder rows  By default, `arrange` orders in increasing order:
 ```{r}
-arrange(df, mpg)
+arrange(tb, mpg)
 ```
 
 ## Ordering the rows of a data frame: dplyr
 
 Use the `desc` to arrange the rows in descending order:
 ```{r}
-arrange(df, desc(mpg))
+arrange(tb, desc(mpg))
 ```
 
 ## Ordering the rows of a data frame: dplyr
 
 You can combine increasing and decreasing orderings:
 ```{r}
-arrange(df, mpg, desc(hp))
+arrange(tb, mpg, desc(hp))
 ```
 
 
@@ -659,7 +759,7 @@ arrange(df, mpg, desc(hp))
 - you can do sequential steps in a few ways:
     1. nesting them inside one another using parentheses `()`
     2. creating intermediate data objects in between
-    3. using pipes `%>%`
+    3. using pipes `%>%` (like "then" statements)
 - `select()` and `relocate()` can be used to reorder columns
 - `arrange()` can be used to reorder rows
 - can remove rows with `filter()`
@@ -680,7 +780,7 @@ arrange(df, mpg, desc(hp))
 </div>
 
 ```{r, eval = FALSE}
-df <- mutate(df, newcol = wt/2.2)
+tb <- mutate(tb, newcol = wt/2.2)
 ```
 
 ## A note about base R: 
@@ -688,7 +788,7 @@ df <- mutate(df, newcol = wt/2.2)
 The `$` operator is similar to `pull()`. This is the base R way to do this:
 
 ```{r}
-df$carb
+tb$carb
 ```
 
 Although it is easier (for this one task), mixing and matching the `$` operator with tidyverse functions usually doesn't work. Therefore, we want to let you know about it in case you see it, but we suggest that you try working with the tidyverse way.
@@ -700,13 +800,13 @@ You can add a new column (or modify an existing one) using the `$` operator inst
 Just want you to be aware of this as it is very common.
 
 ```{r}
-df$newcol <- df$wt/2.2
-head(df,3)
+tb$newcol <- tb$wt/2.2
+head(tb,3)
 ```
 
 Even though `$` is easier for creating new columns, `mutate` is really powerful, so it's worth getting used to.
 
-## Lab Part 4
+## Lab Part 3
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
 
@@ -720,7 +820,19 @@ knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 
 Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
 
-# Extra Slides - base R subsetting
+# Extra Slides
+
+## `which()` function
+
+Instead of removing rows like filter, `which()` simply shows where the values occur if they pass a specific condition. We will see that this can be helpful later when we want to select and filter in more complicated ways.
+
+```{r}
+which(select(tb,carb) == 4)
+select(tb, carb) == 4
+```
+
+
+# base R subsetting
 
 ## Subset columns of a data frame: 
 
