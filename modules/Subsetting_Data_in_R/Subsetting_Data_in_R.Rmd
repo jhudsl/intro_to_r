@@ -280,14 +280,11 @@ You will need to refer to a column like this with most functions.
 These are the conventions, most options will work for most functions.
 Sometimes you need to just try!
 
-
-<div class="heatMap">
-
 | Example 	| Type	| Use 	|
 |:---:|:---:|:---:|
 |Liver| character string - word | use quotes ('single' or "double")|
 |New York| character string - phrase | use quotes ('single' or "double")|
-| col 1 	| atypical - has spaces and numbers | use \` backticks\`  |
+| col 1 | atypical - has spaces and numbers | use \` backticks\`  |
 | col.1	| atypical - has punctuation (besides "_")	| use \` backticks\`  | 
 | 1	| atypical - just a number	| use \`backticks\` |
 | 1st col	| atypical - start with number 	| use \` backticks\`  |" 
