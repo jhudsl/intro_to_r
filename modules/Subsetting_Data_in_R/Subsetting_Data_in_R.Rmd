@@ -278,20 +278,33 @@ You will need to refer to a column like this with most functions.
 ## Take Care with Column Names and Character Strings
 
 These are the conventions, most options will work for most functions.
+Sometimes you need to just try!
 
-Backticks are typically for nonstandard variable names:
 
-- those with spaces `col 1`
-- those with punctuation `col.1`
-- those that are just numbers  `1`
-- those that start with numbers `1st col`
+<div class="heatMap">
 
-Single or double quotes are typically used for character strings (data values that has characters): 
+| Example 	| Type	| Use 	|
+|:---:|:---:|:---:|
+|Liver| character string - word | use quotes ('single' or "double")|
+|New York| character string - phrase | use quotes ('single' or "double")|
+| col 1 	| atypical - has spaces and numbers | use \` backticks\`  |
+| col.1	| atypical - has punctuation (besides "_")	| use \` backticks\`  | 
+| 1	| atypical - just a number	| use \`backticks\` |
+| 1st col	| atypical - start with number 	| use \` backticks\`  |" 
 
-- `"words"` 
-- `"phrases with spaces"`
-- `'words'`
-- `'phrases with spaces'`
+<!-- Backticks are typically for nonstandard variable names: -->
+
+<!-- - those with spaces `col 1` -->
+<!-- - those with punctuation `col.1` -->
+<!-- - those that are just numbers  `1` -->
+<!-- - those that start with numbers `1st col` -->
+
+<!-- Single or double quotes are typically used for character strings (data values that has characters):  -->
+
+<!-- - `"words"`  -->
+<!-- - `"phrases with spaces"` -->
+<!-- - `'words'` -->
+<!-- - `'phrases with spaces'` -->
 
 ## Be careful about copy pasting code!
 
