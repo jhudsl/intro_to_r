@@ -336,10 +336,10 @@ head(tb, 3)
 - tibbles are fancier `tidyverse` version
 - data frames are made with `data.frames()` and `read.csv()`
 - tibbles are made with `tibble()` and `read_csv()` from `readr`
-- If your original data has rownames, you need to use `rownames_to_column` before converting to tibble
+- if your original data has rownames, you need to use `rownames_to_column` before converting to tibble
 - the `rename()` function of `dplyr` can help you rename columns
 - avoid using punctuation (except underscores), spaces, and numbers (to start or alone) in column names
-- If you must use backticks around those column names
+- if you must do a nonstandard column name, use backticks to refer to it
 - quotes can be used for character values
 - avoid copy and pasting code from other sources - quotation marks will change!
 
@@ -444,21 +444,8 @@ tb %>%select(where(is.numeric))
 
 ```
 
-## Summary
-
-- `pull()` to get values out of a data frame/tibble
-- `select()` is the `tidyverse` way to get a tibble with only certain columns
--  you can `select()` based on patterns in the column names
--  you can also `select()` based on column class with the `where()` function
--  you can combine multiple tidyselector functions together like `select(starts_with("C"), ends_with("state"))`
--  you can combine multiple patterns with the `c()` function like `select(starts_with(c("A", "C")))`
 
 
-
-## Lab Part 2
-
-🏠 [Class Website](https://jhudatascience.org/intro_to_r/)    
-💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab.Rmd)
 
 # Subsetting Rows
 
@@ -544,26 +531,46 @@ distinct(tb, cyl, gear)
 
 ## Summary
 
+- `pull()` to get values out of a data frame/tibble
+- `select()` is the `tidyverse` way to get a tibble with only certain columns
+-  you can `select()` based on patterns in the column names
+-  you can also `select()` based on column class with the `where()` function
+-  you can combine multiple tidyselect functions together like `select(starts_with("C"), ends_with("state"))`
+-  you can combine multiple patterns with the `c()` function like `select(starts_with(c("A", "C")))`
 - `filter()` can be used to filter out rows based on logical conditions
 - `==` is the same as equivalent to
 - `&` means both conditions must be met to remain after `filter()`
 - `|` means either conditions needs to be met to remain after `filter()`
 - `distinct()` helps you filter for unique values
 
-## Lab Part 3
+## Lab Part 2
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)    
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab.Rmd)
+
 
 ## Combining `filter` and `select`
 
 You can combine `filter` and `select` to subset the rows and columns, respectively, of a data frame:
 
 ```{r}
-select(filter(tb, mpg > 20 & cyl == 4), cyl, hp)
+select(filter(tb, mpg > 20), cyl)
 ```
 
-In `R`, the common way to perform multiple operations is to wrap functions around each other in a "nested" way such as above. 
+
+## Nesting
+
+In `R`, the common way to perform multiple operations is to wrap functions around each other in a "nested" form.
+
+```{r}
+head(select(tb, car, cyl), 2)
+```
+
+## Nesting can get confusing looking
+
+```{r}
+select(filter(tb, mpg > 20 & cyl == 4), cyl, hp)
+```
 
 ## Assigning Temporary Objects
 
@@ -578,7 +585,7 @@ head(tb2,4)
 
 ## Using the `pipe` (comes with `dplyr`):
 
-The pipe `%>%` makes things such as this much more readable.  It reads left side "pipes" into right side.  RStudio `CMD/Ctrl + Shift + M` shortcut. Pipe `tb` into `filter`, then pipe that into `select`:
+The pipe `%>%` makes this much more readable.  It reads left side "pipes" into right side.  RStudio `CMD/Ctrl + Shift + M` shortcut. Pipe `tb` into `filter`, then pipe that into `select`:
 
 
 ```{r}
@@ -587,7 +594,6 @@ tb %>% filter(mpg > 20 & cyl == 4) %>% select(cyl, hp)
 
 
 # Adding/Removing Columns
-
 
 
 ## Adding columns to a data frame: dplyr (`tidyverse` way){.codesmall}
@@ -633,9 +639,6 @@ head(tb, 4)
 tb <- tb %>% mutate(wt = wt / 2)
 head(tb,4)
 ```
-
-
-
 
 
 
@@ -803,7 +806,7 @@ head(tb,3)
 
 Even though `$` is easier for creating new columns, `mutate` is really powerful, so it's worth getting used to.
 
-## Lab Part 4
+## Lab Part 3
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
 
