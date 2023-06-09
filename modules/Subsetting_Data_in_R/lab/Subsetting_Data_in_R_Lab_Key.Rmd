@@ -195,7 +195,9 @@ carsSub <- cars_mt_copy %>%
 ```{r}
 carsSub <- arrange(carsSub, WT)
 carsSub
-arrange(carsSub, desc(WT)) %>% head(n = 1) %>% pull(CAR)
+arrange(carsSub, desc(WT)) %>%
+  head(n = 1) %>%
+  pull(CAR)
 ```
 
 
