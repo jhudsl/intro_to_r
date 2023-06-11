@@ -259,7 +259,7 @@ head(tb)
 
 ## Take Care with Column Names
 
-When you can, avoid spaces, special punctuation, or numbers in column names, as these require quotes to refer to them. 
+When you can, avoid spaces, special punctuation, or numbers in column names, as these require specail treatment to refer to them. 
 
 See https://jhudatascience.org/intro_to_r/quotes_vs_backticks.html for more guidance.
 
@@ -278,17 +278,40 @@ You will need to refer to a column like this with most functions.
 ## Take Care with Column Names and Character Strings
 
 These are the conventions, most options will work for most functions.
-Sometimes you need to just try!
+Sometimes you need to just try! \` backticks\` vs "quotes" or 'quotes'
 
-| Example 	| Type	| Use 	|
-|:---:|:---:|:---:|
-|Liver| character string - word | use quotes ('single' or "double")|
-|New York| character string - phrase | use quotes ('single' or "double")|
-| col 1 | atypical - has spaces and numbers | use \` backticks\`  |
-| col.1	| atypical - has punctuation (besides "_")	| use \` backticks\`  | 
-| 1	| atypical - just a number	| use \`backticks\` |
-| 1st col	| atypical - start with number 	| use \` backticks\`  |" 
 
+```{r, fig.alt="dplyr", out.width = "14%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/backtick_1.png")
+```
+
+<!-- | Example 	| Type	| Use 	| -->
+<!-- |:---:|:---:|:---:| -->
+<!-- |Liver| character string - word | use quotes ('single' or "double")| -->
+<!-- |New York| character string - phrase | use quotes ('single' or "double")| -->
+<!-- | col 1 | atypical - has spaces and numbers | use \` backticks\`  | -->
+<!-- | col.1	| atypical - has punctuation (besides "_")	| use \` backticks\`  |  -->
+<!-- | 1	| atypical - just a number	| use \`backticks\` | -->
+<!-- | 1st col	| atypical - start with number 	| use \` backticks\`  |"  -->
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(kableExtra)
+text_tbl <- data.frame(
+    Type = c("character string", "character string ", "atypical", "atypical", "atypical", "atypical"),
+  Example = c("Liver", "New York", "col 1", "col.1", "1", "1st col"),
+  Features = c("word", "phrase", "has spaces and numbers", "has punctuation ", "just a number", "starts with number"),
+ Use = c("use quotes - single or double", "use quotes - single or double", "use `backticks`", "use `backticks`", "use `backticks`", "use `backticks`")
+)
+
+kbl(text_tbl) %>%
+  #kable_classic(full_width = F, html_font = "helvetica") %>%
+  kable_paper(full_width = F, html_font = "helvetica", font_size = "18") %>%
+  column_spec(1:4, bold = T, border_right = T, border_left = TRUE) %>%
+  row_spec(0, align = "c") %>%
+  row_spec(1:2,  background = "yellow") %>%
+  row_spec(3:6, background = "lightgreen")
+```
+  
 <!-- Backticks are typically for nonstandard variable names: -->
 
 <!-- - those with spaces `col 1` -->
