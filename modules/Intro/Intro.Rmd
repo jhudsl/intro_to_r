@@ -213,18 +213,18 @@ knitr::include_graphics("../../docs/images/Intro_to_R.png")
  * Lecture with slides, interactive
  * Lab/Practical experience
  * Two 10 min breaks each day - timing may vary
- * Jan 9-20, 2023, 1:30PM-5:00PM on Zoom
- * No class on Jan 16th for [Martin Luther King, Jr. Day](https://en.wikipedia.org/wiki/Martin_Luther_King_Jr._Day)
+ * `r config::get("course_dates")` `r config::get("course_time")` on Zoom
+ * `r config::get("holiday")`
  * Last two classes will focus on final project
  
 ## CoursePlus
  
-https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/17889/ 
+`r config::get("courseplus_web")`
 
 - Surveys throughout the class for the instructors
 - Upload homework
 
-End of class Survey - link in email.
+End of class Survey from JHU - link in email.
 
 ```{r, fig.alt="Surveys count", out.width = "40%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/feedback-illustration.jpeg")
@@ -238,31 +238,29 @@ knitr::include_graphics("images/feedback-illustration.jpeg")
  2. Homework: 3 x 15%
  3. Final "Project": 35%
 
-Homework and Final Project due by **Wednesday, Jan 25, 2023 at 11:59pm EST**.
+Homework and Final Project due by **`r config::get("final_due_date")`**.
 
 If you turn homework in earlier this can allow us to potentially give you feedback earlier.
  
 Note: Only people taking the course for credit must turn in the assignments. However, we will evaluate all submitted assignments in case others would like feedback on their work.
 
-<!-- ## Grading -->
-
-<!-- * **Homework 1**: Due Tuesday by class -->
-
-<!-- * **Homework 2**: Due Thursday by class -->
-
-<!-- * **Homework 3**: Due Friday by class -->
-
-<!-- * **Project**: Due 2 weeks after class ends -->
-
 ## Your Setup
 
 If you can, we suggest working virtually with a **large monitor or two screens**. This setup allows you to follow along on Zoom while also doing the hands-on coding.
 
+```{r, fig.alt="Surveys count", out.width = "40%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/monitors.jpg")
+```
+
+<sub>[[source - reddit.com]("https://www.reddit.com/r/ProgrammerHumor/comments/11ygrjj/deducing_your_personality_from_your_monitor_setup/")]</sub>
+
 ## Installing R
 
-* Install the latest version from: [http://cran.r-project.org/](http://cran.r-project.org/ )
+* Install the [latest R version](http://cran.r-project.org/) `r config::get("r_version")`
 
 * [Install RStudio](https://www.rstudio.com/products/rstudio/download/)
+
+More detailed instructions [on the website](https://jhudatascience.org/intro_to_r/docs/module_details/day0.html).
 
 RStudio is an **integrated development environment** (IDE) that makes it easier to work with R.
 
@@ -286,7 +284,7 @@ R jargon: https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf
 
 **Package** - a package in R is a bundle or "package" of code (and or possibly data) that can be loaded together for easy repeated use or for **sharing** with others.
 
-Packages are sort of analogous to a software application like Microsoft Word on your computer. Your operating system allows you to use it, just like having R installed (and other required packages) allows you to use packages.
+Packages are analogous to a software application like Microsoft Word on your computer. Your operating system allows you to use it, just like having R installed (and other required packages) allows you to use packages.
 
 ```{r, fig.alt="R hex stickers for packages", out.width = "35%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/hex.png")
@@ -295,7 +293,7 @@ knitr::include_graphics("images/hex.png")
 ## Basic terms
 
 
-**Function** - a function is a particular piece of code that allows you to do something in R. You can write your own, use functions that come directly from installing R, or use functions from additional packages.
+**Function** - a function is a piece of code that allows you to do something in R. You can write your own, use functions that come directly from installing R, or use functions from additional packages.
 
 You can think of a function as **verb** in R.
 
@@ -382,17 +380,10 @@ knitr::include_graphics("../Intro/images/hex.png")
 ## Using Packages
 
 * Not all packages available on CRAN or GitHub are trustworthy
-* RStudio (the company) makes a lot of great packages
-* Who wrote it? **Hadley Wickham** is a major authority on R (Employee and Developer at Posit - formerly called RStudio)
+* Posit makes [many useful packages](https://posit.co/products/open-source/rpackages/)
 * How to [trust](http://simplystatistics.org/2015/11/06/how-i-decide-when-to-trust-an-r-package/) an R package
 
-
-```{r, fig.alt="Picture of Hadley Wickham", out.width = "20%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("https://cdn.fosstodon.org/accounts/avatars/109/427/468/786/892/224/original/07ef3294a215592a.jpg")
-```
-(source: https://fosstodon.org/@hadleywickham)
-
-## Tidyverse and Base R
+## Tidyverse and Base R: Two Dialects
 
 We will mostly show you how to use tidyverse packages and functions. 
 
@@ -403,7 +394,7 @@ This is a newer set of packages designed for data science that can make your cod
  - particularly good for **wrangling** (manipulating, cleaning, joining) data  
  - more flexible for **visualizing** data  
 
-Packages for the tidyverse are managed by a team of respected data scientists at RStudio.
+Packages for the tidyverse are managed by a team of respected data scientists at Posit.
 
 ```{r, fig.alt="Tidyverse hex sticker", out.width = "10%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("https://tidyverse.tidyverse.org/logo.png")
@@ -413,40 +404,61 @@ See this [article](https://tidyverse.tidyverse.org/articles/paper.html) for more
 
 ## Package Installation
 
-We will go through this in the lab, but you only have to do it **once** for each installation of R. 
-Depending on where the package comes from will change how you install the package. But typically for the tidyverse packages you will get them from CRAN.
+We will go through this in the lab.
 
+Differs depending on the source (CRAN, GitHub, etc)
 
-## Generally Installing Packages
+Must be done **once** for each installation of R. 
 
-You can  also  install packages from CRAN (not elsewhere as easily) using the tool menu in RStudio:
+## Installing Packages: Dropdown Menu
+
+You can install packages from CRAN using the tool menu in RStudio:
 
 tools > Install Packages
 
-```{r, fig.alt="The End", out.width = "20%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="Install packages menu in RStudio", out.width = "20%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/install_packages1.png")
 ```
 
-Be sure to use the pull down menu to select the right place where the package is coming from, such as CRAN.
+Type in the package name to install.
 
-```{r, fig.alt="The End", out.width = "30%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="The 'readr' package has been typed into the dropdown menu", out.width = "30%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/install_packages2.png")
 ```
 
+## Installing Packages: Using Code
+
+We use a function called `install.packages()` for CRAN packages.
+
+Here is an example where we "install" the `dplyr` package:
+
+```{r, eval = FALSE}
+install.packages("dplyr")
+```
+
+The package name is enclosed in quotation marks.
+
 ## Loading packages
 
-After installing packages, each time you use them you will need to "load" them into memory - so that you can actively use them.
+After installing packages, you will need to "load" them into memory so that you can use them.
 
-This is typically done using a function called `library` to load the package.
+This must be done **every time** you start R.
 
-Here we "load" the `dplyr` package:
+We use a function called `library` to load packages.
+
+Here is an example where we "load" the `dplyr` package:
 
 ```{r, eval = FALSE}
 library(dplyr)
 ```
 
-We will cover this many times so just worry about the term "load" and the function `library` for now
+Quotation marks are optional.
 
+## Installing + Loading packages
+
+```{r, fig.alt="Installing must be done once via 'install.packages() while loading must be done every R session via 'library()'.", out.width = "80%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/install_v_load.png")
+```
 
 ## Useful (+ mostly Free) Resources
 
@@ -504,14 +516,13 @@ Check out Candace's courses:
 
 ## Summary
 
-- R is a powerful data visualization and analysis software language
-- We will focus on **packages** (code shared among people) of the `tidyverse`, which helps make R more intuitive.
-- We will also talk a bit about **base R** because some resources online and R users will use this.
-- **Functions** (like verbs) perform specific tasks in R and are found within **packages**.
-- **Arguments** within functions specify how a **function** is to be performed.
-- **Objects** (like nouns) are what we are working with or on in R to modify
-- Materials will be updated frequently as we improve it.
-- Class **surveys** are available on CoursePlus so you can provide feedback!
+- R is a powerful data visualization and analysis software language.
+- Add-on **packages** like the `tidyverse` can help make R more intuitive.
+- **Functions** (like verbs) perform specific tasks in R and are found within packages.
+- **Arguments** within functions specify how to perform a function.
+- **Objects** (like nouns) are data or variables.
+- We will be both installing and loading packages.
+- Materials will be updated frequently as we improve it. Please use the **surveys** available on CoursePlus so you can provide feedback!
 - Lots of **resources** can be found on the website.
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
