@@ -339,6 +339,8 @@ unique(locations)
 length(unique(locations))
 ```
 
+<!-- Instructor note: You can also use `n_distinct()` from the dplyr package. This is faster and perhaps somewhat more intuitive: -->
+<!-- mtcars %>% dplyr::n_distinct("mpg", "cyl") -->
 
 ## `table` and `dplyr`: `count` 
 
