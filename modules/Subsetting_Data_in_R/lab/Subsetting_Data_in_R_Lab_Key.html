@@ -580,7 +580,9 @@ carsSub</code></pre>
 ## 12 Cadillac Fleetwood   5.25  18.0   205
 ## 13 Chrysler Imperial    5.34  17.4   230
 ## 14 Lincoln Continental  5.42  17.8   215</code></pre>
-<pre class="r"><code>arrange(carsSub, desc(WT)) %&gt;% head(n = 1) %&gt;% pull(CAR)</code></pre>
+<pre class="r"><code>arrange(carsSub, desc(WT)) %&gt;%
+  head(n = 1) %&gt;%
+  pull(CAR)</code></pre>
 <pre><code>## [1] &quot;Lincoln Continental&quot;</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Create a new variable in <code>carsSub</code> called <code>WT2</code>, which is equal to <code>WT^2</code>, using <code>mutate()</code>(don’t forget to reassign <code>carsSub</code>). Use pipes <code>%&gt;%</code>:</li>
