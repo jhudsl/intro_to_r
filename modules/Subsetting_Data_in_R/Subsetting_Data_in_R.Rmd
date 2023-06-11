@@ -259,7 +259,7 @@ head(tb)
 
 ## Take Care with Column Names
 
-When you can, avoid spaces, special punctuation, or numbers in column names, as these require specail treatment to refer to them. 
+When you can, avoid spaces, special punctuation, or numbers in column names, as these require special treatment to refer to them. 
 
 See https://jhudatascience.org/intro_to_r/quotes_vs_backticks.html for more guidance.
 
@@ -385,7 +385,7 @@ The `select` command from `dplyr` allows you to subset (still a `tibble`!)
 select(tb, mpg)
 ```
 
-## Select mutiple columns
+## Select multiple columns
 
 We can use `select` to select for multiple columns.
 
