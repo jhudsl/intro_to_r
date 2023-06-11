@@ -13,20 +13,15 @@ opts_chunk$set(comment = "")
 
 ## Help! Office hours
 
-Poll: What times are best for you for office hours?
-
-**Today is different**
-
-Ava will hold office hours from 5:00pm - 6:00pm EST.
-
 Office hours will always be held at the _same Zoom link_.
 
 ## Working with R -- RStudio
 
 RStudio is an Integrated Development Environment (IDE) for R
 
--   It helps the user effectively use R
--   Makes things easier
+-   Helps you write code - makes suggestions
+-   Helps you view the output of your code
+-   Helps you find errors
 -   Is NOT a dropdown statistical tool (such as Stata)
     -   See [Rcmdr](https://cran.r-project.org/web/packages/Rcmdr/index.html) or [Radiant](http://vnijs.github.io/radiant/)
 
@@ -51,15 +46,40 @@ More information
 -   Workspace browser and data viewer
 -   Plot history, zooming, and flexible image and file export
 -   Integrated R help and documentation
--   Searchable command history
+
+
 
 ## RStudio
 
-```{r, fig.alt="RStudio", out.width = "80%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("https://ayeimanolr.files.wordpress.com/2013/04/r-rstudio-1-1.png?w=640&h=382")
+First it is important to be familiar with the layout. When you first open RStudio, you will see 3 panes.
+
+```{r, fig.align='center', out.width="100%", echo = FALSE, fig.alt= "When RStudio is first opened you will see 3 panes"}
+knitr::include_graphics("images/three_panes.png")
 ```
 
-<!-- ## RStudio/R Console ![Console](images/r-rstudio-1-3-console.png) -->
+
+
+
+## RStudio Layout
+
+If RStudio doesn't look the way you want (or like our RStudio), then:
+
+Click on the pane button, which looks like a waffle with 4 indentations.
+Scroll down to "Pane Layout".
+
+```{r, fig.align='center', out.width="80%", echo = FALSE, fig.alt= "Pane button."}
+knitr::include_graphics("images/pane_button.png")
+```
+<!-- ## Source/Editor ![Script](images/r-rstudio-1-3-script.png) -->
+
+
+## Default Layout
+
+```{r, fig.align='center', out.width="60%", echo = FALSE, fig.alt= "The Pane Layout menu allows you to modify the layout of RStudio. This shows the default settings with Source on the top left, Console on the bottom left, Environment, History, Connections, and Build on the top right, and Files, Plots, Packages, Help, VCS (version control) on the bottom right."}
+knitr::include_graphics("images/pane_layout.png")
+
+```
+
 
 ## Getting the editor
 You must open a file first to save code to open the editor. These include for example R Scripts or R Markdown.
@@ -134,17 +154,7 @@ Although people will use scripts often, and they are good for more programmatic 
 For data analyses, R Markdown files are generally superior because they allow you to check your code and write more info about your code.
 
 
-## RStudio Layout
 
-If RStudio doesn't look the way you want (or like our RStudio), then do:
-
-RStudio --\> Preferences --\> Pane Layout
-
-```{r, out.width = "500px", echo = FALSE, fig.align='center'}
-knitr::include_graphics("images/pane_layout.png")
-```
-
-<!-- ## Source/Editor ![Script](images/r-rstudio-1-3-script.png) -->
 
 ## Workspace/Environment
 
