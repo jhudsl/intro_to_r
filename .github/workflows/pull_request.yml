@@ -434,6 +434,14 @@ jobs:
           git merge -s recursive --strategy-option=theirs origin/${{ github.head_ref }} --allow-unrelated-histories
         shell: bash
         
+      # Make temp branch on which to render pdf
+      - name: Set up temporary branch
+        run: |
+          branch_temp='${{ matrix.modulenames }}-temp'
+          git branch $branch_temp
+          git checkout $branch_temp
+        shell: bash
+        
       # Render pdfs of slides
       - name: Convert HTML to PDF
         uses: LukaszLapaj/html-to-pdf-action@master
@@ -448,6 +456,10 @@ jobs:
           branch_name='preview-${{ github.event.pull_request.number }}'
           git add ./modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf --force
           git commit -m 'Render pdf' || echo "No changes to commit"
+          
+          git checkout $branch_name
+          git merge $branch temp
+          git pull --set-upstream origin $branch_name --allow-unrelated-histories --strategy-option=ours
           git push --force || echo "No changes to commit"
         shell: bash
 
