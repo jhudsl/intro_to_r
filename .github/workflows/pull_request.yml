@@ -459,6 +459,6 @@ jobs:
           
           git checkout $branch_name
           git merge $branch_temp --strategy-option=theirs
-          git push origin/$branch_name --force --strategy-option=ours --allow-unrelated-histories || echo "No changes to commit"
+          git push origin/$branch_name --force || echo "No changes to commit"
         shell: bash
 
