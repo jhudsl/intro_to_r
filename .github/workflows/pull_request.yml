@@ -458,8 +458,7 @@ jobs:
           git commit -m 'Render pdf' || echo "No changes to commit"
           
           git checkout $branch_name
-          git merge $branch_temp
-          git pull --set-upstream origin $branch_name --allow-unrelated-histories --strategy-option=ours
-          git push --force || echo "No changes to commit"
+          git merge $branch_temp --strategy-option=theirs
+          git push origin/$branch_name --force --strategy-option=ours --allow-unrelated-histories || echo "No changes to commit"
         shell: bash
 
