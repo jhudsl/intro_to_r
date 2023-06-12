@@ -40,6 +40,10 @@ Send code to run in the console:
 - Run the whole chunk with the green play button (top right of the chunk)
 - Run single line with ⌘+return or ctrl+return
 
+```{r, fig.alt="The green RStudio play button is highlighted with an arrow. Press this button to run all the code inside the chunk.", out.width = "60%", echo = FALSE, out.extra='style="float:left"'}
+knitr::include_graphics("images/green_play_button.png")
+```
+
 ## R as a calculator
 
 ```{r calcDemo}
@@ -153,6 +157,10 @@ We will talk in-depth about classes. For now:
 ```
 
 # Common issues
+
+```{r, fig.alt="", out.width = "60%", echo = FALSE, out.extra='style="float:left"'}
+knitr::include_graphics("images/debug.png")
+```
 
 ## TROUBLESHOOTING: R is case sensitive
 
