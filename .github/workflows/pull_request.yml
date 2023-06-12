@@ -446,6 +446,8 @@ jobs:
         id: commit_pdfs
         run: |
           branch_name='preview-${{ github.event.pull_request.number }}'
+          git diff origin/main -- './modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf' >/dev/null && changes=true || changes=false
+          echo "changes=$changes" >> $GITHUB_OUTPUT 
           git add ./modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf --force
           git commit -m 'Render preview' || echo "No changes to commit"
           git pull --set-upstream origin $branch_name --allow-unrelated-histories --strategy-option=ours
