@@ -366,6 +366,7 @@ knitr::include_graphics("images/chunk_settings2.png")
 ## Errors
 
 R studio can help you find issues in your code.
+Note that sometimes the error occurs earlier than RStudio thinks.
 
 ```{r echo=FALSE, fig.align='center', out.width="80%"}
 knitr::include_graphics("images/errors.png")
