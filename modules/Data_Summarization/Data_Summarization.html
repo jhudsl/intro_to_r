@@ -5747,6 +5747,10 @@ locations</pre>
 
 <pre >[1] 50</pre>
 
+<!-- Instructor note: You can also use `n_distinct()` from the dplyr package. This is faster and perhaps somewhat more intuitive: -->
+
+<!-- mtcars %>% dplyr::n_distinct("mpg", "cyl") -->
+
 </article></slide><slide class=""><hgroup><h2><code>table</code> and <code>dplyr</code>: <code>count</code></h2></hgroup><article  id="table-and-dplyr-count">
 
 <p><code>table(x)</code> will return a frequency table of unique elements of <code>x</code></p>
