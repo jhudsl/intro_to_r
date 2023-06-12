@@ -53,7 +53,7 @@ More information
 
 First it is important to be familiar with the layout. When you first open RStudio, you will see 3 panes.
 
-```{r, fig.align='center', out.width="100%", echo = FALSE, fig.alt= "When RStudio is first opened you will see 3 panes"}
+```{r, fig.align='center', out.width="70%", echo = FALSE, fig.alt= "When RStudio is first opened you will see 3 panes"}
 knitr::include_graphics("images/three_panes.png")
 ```
 
@@ -80,13 +80,53 @@ knitr::include_graphics("images/pane_layout.png")
 
 ```
 
+## Pane 1 (Left side) for writing code
 
-## Getting the editor
-You must open a file first to save code to open the editor. These include for example R Scripts or R Markdown.
+```{r, fig.align='center', out.width="60%", echo = FALSE, fig.alt= "The left pane is for writing code."}
+knitr::include_graphics("images/Pane1_for_writing.png")
+
+```
+
+## Pane 2 - where objects will be
+
+We will start seeing this tomorrow!
+
+```{r, fig.align='center', out.width="60%", echo = FALSE, fig.alt= "We we see objects"}
+knitr::include_graphics("images/pane2.png")
+
+```
+
+## Pane 3 - where we get help and see plots
+
+```{r, fig.align='center', out.width="60%", echo = FALSE, fig.alt= "The left pane is for writing code."}
+knitr::include_graphics("images/pane3.png")
+
+```
+
+## Hidden Pane
+
+To save a copy of your code. You must open a file first - this will open a 4th pane. These files include Scripts or what are called R Markdown files.
 
 ```{r, out.width = "90%", echo = FALSE}
-knitr::include_graphics("images/both.png")
+knitr::include_graphics("images/start_R_markdown.png")
 ```
+
+## Hidden Pane
+
+You will see a popup that you can just say "OK" to for now.
+
+```{r, out.width = "90%", echo = FALSE}
+knitr::include_graphics("images/rmarkdown_popup.png")
+```
+
+## Hidden Pane
+
+Nice! now we have a place to save code! This is where we will mostly be working.
+
+```{r, out.width = "90%", echo = FALSE}
+knitr::include_graphics("images/new_pane.png")
+```
+
 
 ## Working with R in R Studio - 2 major panes:
 
@@ -132,9 +172,8 @@ Super useful "cheat sheet": <https://github.com/rstudio/cheatsheets/raw/master/r
 knitr::include_graphics("images/rstudio_sheet.png")
 ```
 
-## RStudio layout
+## R Markdown files look different form scripts
 
-To make an R Markdown file:  click the green plus button -> R Markdown. We will do this together soon! 
 It will look like this with text in it, unlike a script.
 
 ```{r, fig.alt="RStudio layout", out.width = "100%", echo = FALSE, fig.align='center'}
@@ -152,8 +191,6 @@ knitr::include_graphics("images/rstudio_script.png")
 Although people will use scripts often, and they are good for more programmatic purposes, we generally don't recommend them for Public Health Researchers.
 
 For data analyses, R Markdown files are generally superior because they allow you to check your code and write more info about your code.
-
-
 
 
 ## Workspace/Environment
@@ -191,16 +228,11 @@ knitr::include_graphics("images/rstudio_environment.png")
 
 To do this lab we need to:
 
-1)  Download the file at the link above by clicking on the link or typing in:
-<font size="5"> https://jhudatascience.org/intro_to_r/modules/RStudio/lab/RStudio_Lab.Rmd </font>
+- Download the file at the link above by clicking on it or go to the [website](https://jhudatascience.org/intro_to_r/materials_schedule.html) schedule page
+- Find the downloaded file on your computer
+- Open the file in RStudio (double clicking the file name typically works)
 
-(Also on the [website](https://jhudatascience.org/intro_to_r/materials_schedule.html) schedule page - Lab for day 1)
-2)  Find the downloaded file on your computer
-3)  Open the file in RStudio 
-
-This may require finding your downloads on your computer.
-
-Recall that these videos can help:
+These videos can help if you aren't sure where your downloads are:
 
 If you have a PC: https://youtu.be/we6vwB7DsNU
 
@@ -227,7 +259,7 @@ knitr::include_graphics("images/RMarkdown.png")
 
 ## Code chunks
 
-Within R Markdown files are code "chunks"
+Within R Markdown files are code "chunks".
 
 This is where you can type R code and run it! 
 
@@ -235,24 +267,62 @@ This is where you can type R code and run it!
 knitr::include_graphics("images/chunk.png")
 ```
 
+## Run code in a chunk
+
+Clicking the run (play) button runs the code in the chunk.
+
+```{r, out.width = "80%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/chunk.png")
+```
+
+`Ctrl + Enter` on Windows or `Command + Enter` on Mac in your script evaluates that line of code
+
+## Running a chunk executes the code
+
+- generally see a preview of the output of the code just below the chunk
+- see the code in the console
+
+```{r, out.width = "80%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/output.png")
+```
+
+## If you get annoyed by code previews in Markdown files:
+
+In RStudio
+Click the Edit tab -->  scroll down to Preferences... --> R Markdown
+
+Uncheck the following:
+
+```{r, fig.alt="knit", out.width = "100%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/options.png")
+```
+
+
 ## Create Chunks
 
 To create a new R code chunk:
 
-Copy paste an existing chunk in the R Markdown file and replace the code **OR**
-
-1)  Use the insert code chunk button at the top of RStudio.
+- Use the insert code chunk button at the top of RStudio.
 
 ```{r, out.width = "80%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/insert_chunk.png")
 ```
 
-2)  Select R (default) as the language:
+- Select R (default) as the language:
 
 ```{r, out.width = "13%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/select_R.png")
 ```
 
+## Create Chunks
+
+ If you like keyboard shortcuts: 
+ 
+ - Windows & Linux use Ctrl+Alt+I
+ - MacOS use Command+Option+I
+
+I is for insert.
+ 
 ## Run previous chunks button
 
 You can run all chunks above a specific chunk using this button:
@@ -279,34 +349,32 @@ knitr::include_graphics("images/chunk_settings2.png")
 
 This will create a report from the R Markdown document!
 
-```{r, fig.alt="knit", out.width = "100%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="knit", out.width = "40%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/knit.png")
+```
+
+
+## Nice report!
+
+This generates a nice report that you can share with others who can open in any browser.
+
+```{r, fig.alt="knit", out.width = "100%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/report.png")
 ```
 
 ## Useful R Studio Shortcuts
 
--   `Ctrl + Enter` in your script evaluates that line of code
+-   `Ctrl + Enter` on Windows or `Command + Enter` on Mac in your script evaluates that line of code
     -   It's like copying and pasting the code into the console for it to run.
--   `Ctrl+1` takes you to the script page
--   `Ctrl+2` takes you to the console
+-   `Ctrl+1` on Windows or `Command + 1` on Mac takes you to the script page 
+-   `Ctrl+2` on Windows or `Command + 2` on Mactakes you to the console
 -   <http://www.rstudio.com/ide/docs/using/keyboard_shortcuts>
-
-
-## If you get annoyed by inline code previews in Markdown files:
-
-In RStudio
-Click the Edit tab -->  scroll down to Preferences... --> R Markdown
-
-Uncheck the following:
-
-```{r, fig.alt="knit", out.width = "100%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("images/options.png")
-```
 
 
 ## Recap of where code goes
 
 - you can test code in the console
+
 ```{r, fig.alt="knit", out.width = "90%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/where_code_console.png")
 ```
@@ -365,8 +433,8 @@ knitr::include_graphics("images/double_question.png")
 ## Summary
 
 -  RStudio makes working in R easier
--  the Editor is for static code like scripts or R Markdown documents
--  The console is for testing code
+-  the Editor (top) is for static code like scripts or R Markdown documents
+-  The console is for testing code (bottom) - best to save your code though!
 -  R markdown documents are really helpful for lots of reasons!
 -  R code goes within what is called a chunk (the gray box with a green play button)
 -  Code chunks can be modified so that they show differently in reports
