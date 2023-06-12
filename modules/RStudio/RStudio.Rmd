@@ -297,6 +297,24 @@ Uncheck the following:
 knitr::include_graphics("images/options.png")
 ```
 
+## Knit file to html
+
+Running all chunks - this will create a report from the R Markdown document!
+
+```{r, fig.alt="knit", out.width = "40%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/knit.png")
+```
+
+
+
+## Nice report!
+
+This generates a nice report that you can share with others who can open in any browser.
+
+```{r, fig.alt="knit", out.width = "100%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/report.png")
+```
+
 
 ## Create Chunks
 
@@ -345,22 +363,14 @@ You can specify if a chunk will be seen in the report or not.
 knitr::include_graphics("images/chunk_settings2.png")
 ```
 
-## Knit file to html
+## Errors
 
-This will create a report from the R Markdown document!
+R studio can help you find issues in your code.
 
-```{r, fig.alt="knit", out.width = "40%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("images/knit.png")
+```{r echo=FALSE, fig.align='center', out.width="80%"}
+knitr::include_graphics("images/errors.png")
 ```
 
-
-## Nice report!
-
-This generates a nice report that you can share with others who can open in any browser.
-
-```{r, fig.alt="knit", out.width = "100%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("images/report.png")
-```
 
 ## Useful R Studio Shortcuts
 
