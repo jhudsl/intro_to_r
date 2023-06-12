@@ -728,7 +728,7 @@ head(tb,4)
 
 
 
-## Removing columns of a data frame: dplyr
+## Removing columns of a data frame: dplyr {.codesmall}
 
 The `NULL` method is still very common.
 
@@ -743,7 +743,7 @@ head(select(tb, - newcol))
 
 **Or, you can simply select the columns you want to keep, ignoring the ones you want to remove.**
 
-## Removing columns in a data frame: dplyr
+## Removing columns in a data frame: dplyr {.codesmall}
 
 You can use `c()` to list the columns to remove.
 
@@ -755,7 +755,7 @@ select(tb, -c("newcol", "drat"))
 
 # Ordering columns
 
-## Ordering the columns of a data frame: dplyr
+## Ordering the columns of a data frame: dplyr 
 
 The `select` function can reorder columns.
 ```{r}
