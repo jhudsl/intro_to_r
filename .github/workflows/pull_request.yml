@@ -458,7 +458,7 @@ jobs:
           git commit -m 'Render pdf' || echo "No changes to commit"
           
           git checkout $branch_name
-          git merge $branch_temp --strategy-option=theirs
+          git merge $branch_temp
           git push origin $branch_name --force || echo "No changes to commit"
         shell: bash
 
