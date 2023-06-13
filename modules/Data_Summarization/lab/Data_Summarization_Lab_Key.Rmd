@@ -50,6 +50,7 @@ bike %>%
 ```{r}
 sum(bike$length)
 sum(bike %>% pull(length))
+bike %>% pull(length) %>% sum()
 ```
 
 

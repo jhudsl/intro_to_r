@@ -348,8 +348,26 @@ unique(locations)
 length(unique(locations))
 ```
 
-<!-- Instructor note: You can also use `n_distinct()` from the dplyr package. This is faster and perhaps somewhat more intuitive: -->
-<!-- mtcars %>% dplyr::n_distinct("mpg", "cyl") -->
+
+## `unique()` and `distinct()`
+
+These functions work similarly, but expect different types of objects
+
+```{r echo=FALSE}
+options(max.print = 15)
+```
+
+```{r}
+unique(locations) # vector
+yts %>% distinct(LocationDesc) # tibble / data frame
+```
+
+<!-- Note: You can also use `n_distinct()` from the dplyr package to mimic length + unique. This is faster and perhaps somewhat more intuitive: -->
+<!-- yts %>% dplyr::n_distinct("LocationDesc") -->
+
+```{r echo=FALSE}
+options(max.print = 1000)
+```
 
 ## `table` and `dplyr`: `count` 
 
