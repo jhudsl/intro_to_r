@@ -97,7 +97,7 @@ any(is.na(A)) # are there any NAs - YES/TRUE
 any(is.na(B)) # are there any NAs- NO/FALSE
 ```
 
-## Fining `NA` values with `count()`{.codesmall}
+## Finding `NA` values with `count()`{.codesmall}
 
 ::: {style="color: red;"}
 Check the values for your variables, are they what you expect?
@@ -109,14 +109,11 @@ Check the values for your variables, are they what you expect?
 2)  The amount of these values
 
 Check if rare values make sense.
-(You need a data frame to use this)
 
 ```{r, message=FALSE}
 library(jhur)
 bike <- read_bike()
-
 bike %>% count(subType)
-
 ```
 
 
@@ -151,15 +148,26 @@ airqual
 
 ## naniar: `pct_complete()`{.small}
 
+This can tell you if there are missing values in the dataset.
+
 ```{R}
 pct_complete(airquality)
 ```
+
+Or for a particular variable:
 
 ```{R}
 airquality %>% select(Ozone) %>%
 pct_complete()
 ```
 
+## naniar:`miss_var_summary()`
+
+To get the percent missing (and counts) for each variable as a table, use this function.
+
+```{r}
+miss_var_summary(airquality)
+```
 
 ## `naniar` plots
 
