@@ -281,6 +281,17 @@ df %>% head(n = 3)
 df %>% mutate(Dog = na_if(Dog, 0))
 ```
 
+
+## Change `NA` to be a value
+
+The `replace_na()` function (part of the `tidyr` package), can do the opposite of `na_if()`.
+
+```{r}
+df %>% head(n = 3)
+df %>% mutate(Dog = replace_na(Dog, 0))
+```
+
+
 ## Think about `NA`
 
 ::: {style="color: red;"}
