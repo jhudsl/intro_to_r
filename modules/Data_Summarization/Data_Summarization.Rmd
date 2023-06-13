@@ -442,7 +442,7 @@ yts %>%
 The `ungroup` function will allow you to clear the groups from the data. You can also overwrite the first `group_by` with a new one.
 
 ```{r}
-yts = ungroup(yts)
+yts <- ungroup(yts)
 yts
 ```
 
