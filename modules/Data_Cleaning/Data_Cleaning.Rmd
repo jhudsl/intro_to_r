@@ -278,7 +278,7 @@ think that all 0 values should be `NA`.
 ```{r}
 df %>% head(n = 3)
 
-df %>% mutate(Dog = na_if(x = Dog, y = 0))
+df %>% mutate(Dog = na_if(Dog, 0))
 ```
 
 ## Think about `NA`
