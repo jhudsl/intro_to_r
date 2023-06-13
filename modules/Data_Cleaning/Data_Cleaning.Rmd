@@ -539,7 +539,9 @@ head(data_diet)
 
 ```
 
-```{r, echo= FALSE}
+## Now it is easier to see what is happening
+
+```{r}
 data_diet %>% 
   count(Diet, Effect)
 ```
@@ -637,7 +639,7 @@ count(data_diet, Gender)
 data_diet %>% 
   mutate(Gender = case_when(
     Gender %in% c("M", "male", "Man", "m", "Male") ~ "Male",
-    Gender %in% c("F", "Female", "f", "female")~ "Female",
+    Gender %in% c("F", "Female", "f", "female") ~ "Female",
     Gender %in% c("O", "Other") ~ "Other"))
 ```
 
@@ -662,19 +664,21 @@ knitr::include_graphics("https://media1.giphy.com/media/S9ZK4mmi3u3jdc5dek/200w.
 
 # Separating and uniting data
 
-## What if our data looked like this?
+## Uniting columns 
 
-```{r, echo = FALSE}
-diet_comb <- diet_effect %>% unite("change" , Diet:Effect, remove = TRUE)
+The `unite()` function can help combine columns  
+The `col` argument specifies new column name    
+The `sep` argument specifies what separator to use when combining -defualt is "_"
+The `remove` argument specifies if you want to drop the old columns
+
+```{r}
+diet_comb <- data_diet %>% 
+  unite(Diet, Effect, col = "change", remove = TRUE)
 ```
 
 ```{r}
 diet_comb
 ```
-
-
-
-
 
 ## Separating columns based on a separator
 
@@ -682,47 +686,13 @@ The `separate()` function from `tidyr` can split a column into multiple columns.
 The `col` argument specifies what column to work with      
 The `into` argument specifies names of new columns   
 The `sep` argument specifies what to separate by
+
 ```{r}
-diet_comb %>% 
+diet_comb <- diet_comb %>% 
   separate(col = change, into = c("Diet", "Change"), sep = "_" )
+diet_comb
 ```
 
-
-
-## Uniting columns 
-
-The `unite()` function can instead help combine columns.    
-The `col` argument specifies new column name    
-The `sep` argument specifies what separator to use when combining    
-```{r unite_df, echo = FALSE}
-df = tibble(id = rep(1:5, 3), visit = rep(1:3, each = 5))
-head(df, 4)
-```
-
-```{r}
-df_united <- df %>% unite(col = "unique_id", id, visit, sep = "_")
-head(df_united, 4)
-```
-
-## Combining multiple columns next to one another
-
-```{r}
-museums <-tibble(
-       name = c("Baltimore Museum of Art", "Walters Art Museum", 
-                "American Visionary Art Museum"),
-       street = c("10 Art Museum Dr", "600 N Charles St", "800 Key Hwy"),
-       city = c("Baltimore", "Baltimore", "Baltimore"), 
-       State = rep("MD", 3),
-       zip =  c(21218, 21201, 21230)
-       )
-```
-
-## Combining multiple columns next to one another
-
-```{r}
-museums
-museums %>% unite(col = address, street:zip, sep = ", ")
-```
 
 ## Summary
 
@@ -733,6 +703,7 @@ museums %>% unite(col = address, street:zip, sep = ", ")
     -   also has other useful string manipulation functions like `str_replace()` and more!
     - `separate()` can split columns into additional columns
     - `unite()` can combine columns
+    - `:` can indicate when you want to start and end with columns next to one another
 
 
 ## Lab Part 2
