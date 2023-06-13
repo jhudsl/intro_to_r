@@ -21,7 +21,6 @@ library(tidyverse)
 
 -   `summary(x)`: quantile information
 -   `summarize`: creates a summary table of columns of interest
-    -   combine with `across()` to programmatically select columns
 -   `count(variable)`: how many of each unique value do you have
 -   `group_by()`: changes all subsequent functions
     -   combine with `summarize()` to get statistics per group
