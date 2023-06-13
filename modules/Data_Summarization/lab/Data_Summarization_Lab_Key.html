@@ -213,7 +213,9 @@ bike &lt;- read_bike()</code></pre>
 <pre><code>## [1] 439447.6</code></pre>
 <pre class="r"><code>sum(bike %&gt;% pull(length))</code></pre>
 <pre><code>## [1] 439447.6</code></pre>
-<pre class="r"><code>bike %&gt;% pull(length) %&gt;% sum()</code></pre>
+<pre class="r"><code>bike %&gt;%
+  pull(length) %&gt;%
+  sum()</code></pre>
 <pre><code>## [1] 439447.6</code></pre>
 <p>3. Summarize the data to get the <code>max</code> of <code>length</code> using the <code>summarize</code> function.</p>
 <pre><code># General format 
