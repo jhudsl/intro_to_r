@@ -40,8 +40,8 @@ bike <- read_bike()
 ```{r}
 nrow(bike)
 dim(bike)
-bike %>%
-  nrow()
+bike %>% nrow()
+bike %>% count()
 ```
 
 
@@ -141,13 +141,10 @@ bike %>% count(type)
 ```
 
 
-6\. How many bike lanes are there in each type of lane? Use `table()` on the column named `type`. How does this result differ from #5 ?
+6\. Modify your code from question 5 to break down each lane type by number of lates. Use `count()` on the columns named `type` and `numLanes`.
 
 ```{r}
-bike %>%
-  pull(type) %>%
-  table()
-# NAs are NOT included as a category with `table()` !
+bike %>% count(type, numLanes)
 ```
 
 

@@ -369,25 +369,17 @@ yts %>% distinct(LocationDesc) # tibble / data frame
 options(max.print = 1000)
 ```
 
-## `table` and `dplyr`: `count` 
 
-`table(x)` will return a frequency table of unique elements of `x`
+## `dplyr`: `count` 
 
-```{r, message = FALSE}
-table(locations)
-```
-
-
-## `table` and `dplyr`: `count` 
-
-Use `count` directly on a data.frame and column without needing to use `pull()`.
+Use `count` to return a frequency table of unique elements of a data.frame.
 
 ```{r, message = FALSE}
 yts %>% count(LocationDesc)
 ```
 
 
-## `table` and `dplyr`: `count` 
+## `dplyr`: `count` 
 
 Multiple columns listed further subdivides the count.
 
@@ -396,7 +388,7 @@ yts %>% count(LocationDesc, TopicDesc)
 ```
 
 
-## `table` and `dplyr`: `count` 
+## `dplyr`: `count` 
 
 Multiple columns listed further subdivides the count.
 
@@ -406,7 +398,7 @@ yts %>% count(LocationDesc, TopicDesc)
 
 <br>
 
-**Note:** `count()` includes NAs but `table()` does not
+**Note:** `count()` includes NAs
 
 
 # Grouping
@@ -500,11 +492,10 @@ yts %>%
 
 ## Counting{.codesmall}
 
-`count()`, `table()`, and `n()` can all give very similar information.
+`count()` and `n()` can give very similar information.
 
 ```{r}
 mtcars %>% count(cyl)
-mtcars %>% pull(cyl) %>% table()
 mtcars %>% group_by(cyl) %>% summarize(n()) # n() typically used with summarize
 ```
 
@@ -512,7 +503,7 @@ mtcars %>% group_by(cyl) %>% summarize(n()) # n() typically used with summarize
 ## Summary & Lab Part 2
 
 - `count(x)`: what unique values do you have? 
-  - `pull()` + `table()`
+  - `pull()` gives a vector
   - `unique()` combined with `length()`
 - `group_by()`: changes all subsequent functions
   - combine with `summarize()` to get statistics per group

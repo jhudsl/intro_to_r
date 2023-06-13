@@ -138,10 +138,6 @@ BloodType
  "A.-","A.+", "AB.-", "AB.+", "B-","B+", "O.-", "O.+"
 
 ```{r}
-BloodType %>%
-  pull(type) %>%
-  table(useNA = "ifany")
-# or
 BloodType %>% count(type)
 ```
 
