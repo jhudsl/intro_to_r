@@ -151,13 +151,13 @@ airqual
 This can tell you if there are missing values in the dataset.
 
 ```{R}
-pct_complete(airquality)
+pct_complete(airqual)
 ```
 
 Or for a particular variable:
 
 ```{R}
-airquality %>% select(Ozone) %>%
+airqual %>% select(Ozone) %>%
 pct_complete()
 ```
 
@@ -166,7 +166,7 @@ pct_complete()
 To get the percent missing (and counts) for each variable as a table, use this function.
 
 ```{r}
-miss_var_summary(airquality)
+miss_var_summary(airqual)
 ```
 
 ## `naniar` plots
@@ -214,35 +214,34 @@ for sure if an `NA` value meets the condition. To keep them need to add
 
 Think about if this is OK or not - it depends on your data!
 
-## filter() and missing data
-
-```{r}
-df <- tibble(Dog = c(0, NA, 2, 3, 1, 1), 
-            Cat = c(NA, 8, 6, NA, 2, NA))
-```
-
 
 ## filter() and missing data {.codesmall}
 
+What if NA values represent values that are so low it is undetectable?
+
+Filter will drop them from the data.
+
 ```{r}
-df
-df %>% filter(Dog < 3)
+airqual %>% filter(Ozone < 5)
 ```
 
 ## filter() and missing data 
 
+`is.na()` can help us keep them.
+
 ```{r}
-df %>% filter(Dog < 3 | is.na(Dog))
+airqual %>% filter(Ozone < 5 | is.na(Ozone))
 ```
 
-## To remove rows with `NA` values for a **variable** use `drop_na()`
+## To remove **rows** with `NA` values for a **variable** use `drop_na()`
 
 A function from the `tidyr` package. (Need a data frame to start!)
 
 Disclaimer: Don't do this unless you have thought about if dropping `NA` values makes sense based on knowing what these values mean in your data.
 
 ```{r}
-df %>% drop_na(Dog)
+dim(airqual)
+airqual %>% drop_na(Ozone)
 ```
 
 
@@ -252,7 +251,7 @@ df %>% drop_na(Dog)
 This function of the `tidyr` package drops rows with **any** missing data in **any** column when used on a df.
 
 ```{r}
-df %>% drop_na()
+airqual %>% drop_na()
 ```
 
 ## Drop **columns** with any missing values{.codesmall}
@@ -260,9 +259,7 @@ df %>% drop_na()
 Use the `miss_var_which()` function from `naniar`
 
 ```{r}
-df <- df %>% mutate(test = c(1,2,3,4,5,6))
-df
-miss_var_which(df) # which columns have missing values
+miss_var_which(airqual) # which columns have missing values
 ```
 
 ## Drop **columns** with any missing values {.codesmall}
@@ -271,7 +268,7 @@ miss_var_which(df) # which columns have missing values
 
 ```{r}
 
-df %>% select(!miss_var_which(df))
+airqual %>% select(!miss_var_which(airqual))
 
 ```
 
@@ -284,9 +281,8 @@ The `na_if()` function of `dplyr` can be helpful for this. Let's say we
 think that all 0 values should be `NA`.
 
 ```{r}
-df %>% head(n = 3)
-
-df %>% mutate(Dog = na_if(Dog, 0))
+df <- tibble(A = c(1, 2, 4, 0), B = c(1, 2, 3, 4))
+df %>% mutate(A = na_if(A, 0))
 ```
 
 
@@ -295,8 +291,8 @@ df %>% mutate(Dog = na_if(Dog, 0))
 The `replace_na()` function (part of the `tidyr` package), can do the opposite of `na_if()`.
 
 ```{r}
-df %>% head(n = 3)
-df %>% mutate(Dog = replace_na(Dog, 0))
+df <- tibble(A = c(1, 2, 4, NA), B = c(1, 2, 3, 4))
+df %>% mutate(A = replace_na(A, 0))
 ```
 
 
