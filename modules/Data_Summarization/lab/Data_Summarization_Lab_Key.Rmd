@@ -40,8 +40,8 @@ bike <- read_bike()
 ```{r}
 nrow(bike)
 dim(bike)
-bike %>%
-  nrow()
+bike %>% nrow()
+bike %>% count()
 ```
 
 
@@ -50,6 +50,7 @@ bike %>%
 ```{r}
 sum(bike$length)
 sum(bike %>% pull(length))
+bike %>% pull(length) %>% sum()
 ```
 
 
@@ -107,6 +108,8 @@ bike %>% summarize(
 bike %>%
   select(length, dateInstalled) %>%
   colMeans()
+
+# The mean date is in the 1800s -- that doesn't seem right!
 ```
 
 
@@ -138,13 +141,10 @@ bike %>% count(type)
 ```
 
 
-6\. How many bike lanes are there in each type of lane? Use `table()` on the column named `type`. How does this result differ from #5 ?
+6\. Modify your code from question 5 to break down each lane type by number of lanes. Use `count()` on the columns named `type` and `numLanes`.
 
 ```{r}
-bike %>%
-  pull(type) %>%
-  table()
-# NAs are NOT included as a category with `table()` !
+bike %>% count(type, numLanes)
 ```
 
 

@@ -35,6 +35,15 @@ pre { /* Code block - slightly smaller in this lecture */
 📃[Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-3.pdf)
 
 
+## Another Cheatsheet
+
+https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf
+
+```{r, fig.alt="A preview of the Data transformation cheatsheet produced by RStudio.", out.width = "80%", echo = FALSE, align = "center"}
+knitr::include_graphics("images/Manip_cheatsheet.png")
+```
+
+
 ## Data Summarization
 
 * Basic statistical summarization
@@ -339,28 +348,38 @@ unique(locations)
 length(unique(locations))
 ```
 
-<!-- Instructor note: You can also use `n_distinct()` from the dplyr package. This is faster and perhaps somewhat more intuitive: -->
-<!-- mtcars %>% dplyr::n_distinct("mpg", "cyl") -->
 
-## `table` and `dplyr`: `count` 
+## `unique()` and `distinct()`
 
-`table(x)` will return a frequency table of unique elements of `x`
+These functions work similarly, but expect different types of objects
 
-```{r, message = FALSE}
-table(locations)
+```{r echo=FALSE}
+options(max.print = 15)
+```
+
+```{r}
+unique(locations) # vector
+yts %>% distinct(LocationDesc) # tibble / data frame
+```
+
+<!-- Note: You can also use `n_distinct()` from the dplyr package to mimic length + unique. This is faster and perhaps somewhat more intuitive: -->
+<!-- yts %>% dplyr::n_distinct("LocationDesc") -->
+
+```{r echo=FALSE}
+options(max.print = 1000)
 ```
 
 
-## `table` and `dplyr`: `count` 
+## `dplyr`: `count` 
 
-Use `count` directly on a data.frame and column without needing to use `pull()`.
+Use `count` to return a frequency table of unique elements of a data.frame.
 
 ```{r, message = FALSE}
 yts %>% count(LocationDesc)
 ```
 
 
-## `table` and `dplyr`: `count` 
+## `dplyr`: `count` 
 
 Multiple columns listed further subdivides the count.
 
@@ -369,7 +388,7 @@ yts %>% count(LocationDesc, TopicDesc)
 ```
 
 
-## `table` and `dplyr`: `count` 
+## `dplyr`: `count` 
 
 Multiple columns listed further subdivides the count.
 
@@ -379,7 +398,7 @@ yts %>% count(LocationDesc, TopicDesc)
 
 <br>
 
-**Note:** `count()` includes NAs but `table()` does not
+**Note:** `count()` includes NAs
 
 
 # Grouping
@@ -442,7 +461,7 @@ yts %>%
 The `ungroup` function will allow you to clear the groups from the data. You can also overwrite the first `group_by` with a new one.
 
 ```{r}
-yts = ungroup(yts)
+yts <- ungroup(yts)
 yts
 ```
 
@@ -473,11 +492,10 @@ yts %>%
 
 ## Counting{.codesmall}
 
-`count()`, `table()`, and `n()` can all give very similar information.
+`count()` and `n()` can give very similar information.
 
 ```{r}
 mtcars %>% count(cyl)
-mtcars %>% pull(cyl) %>% table()
 mtcars %>% group_by(cyl) %>% summarize(n()) # n() typically used with summarize
 ```
 
@@ -485,7 +503,7 @@ mtcars %>% group_by(cyl) %>% summarize(n()) # n() typically used with summarize
 ## Summary & Lab Part 2
 
 - `count(x)`: what unique values do you have? 
-  - `pull()` + `table()`
+  - `pull()` gives a vector
   - `unique()` combined with `length()`
 - `group_by()`: changes all subsequent functions
   - combine with `summarize()` to get statistics per group
