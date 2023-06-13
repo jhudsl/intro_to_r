@@ -347,14 +347,7 @@ BloodType</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Check to see that <code>type</code> only has these possible values: “A.-”,“A.+”, “AB.-”, “AB.+”, “B-”,“B+”, “O.-”, “O.+”</li>
 </ol>
-<pre class="r"><code>BloodType %&gt;%
-  pull(type) %&gt;%
-  table(useNA = &quot;ifany&quot;)</code></pre>
-<pre><code>## .
-##  A.-  A.+ AB.- AB.+  B.-  B.+  O.-  O.+ 
-##    2    1    2    1    2    1    3    3</code></pre>
-<pre class="r"><code># or
-BloodType %&gt;% count(type)</code></pre>
+<pre class="r"><code>BloodType %&gt;% count(type)</code></pre>
 <pre><code>## # A tibble: 8 × 2
 ##   type      n
 ##   &lt;chr&gt; &lt;int&gt;
