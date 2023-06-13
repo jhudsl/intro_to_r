@@ -107,6 +107,8 @@ bike %>% summarize(
 bike %>%
   select(length, dateInstalled) %>%
   colMeans()
+
+# The mean date is in the 1800s -- that doesn't seem right!
 ```
 
 
