@@ -201,13 +201,19 @@ bike &lt;- read_bike()</code></pre>
 <pre><code>## [1] 1631</code></pre>
 <pre class="r"><code>dim(bike)</code></pre>
 <pre><code>## [1] 1631    9</code></pre>
-<pre class="r"><code>bike %&gt;%
-  nrow()</code></pre>
+<pre class="r"><code>bike %&gt;% nrow()</code></pre>
 <pre><code>## [1] 1631</code></pre>
+<pre class="r"><code>bike %&gt;% count()</code></pre>
+<pre><code>## # A tibble: 1 × 1
+##       n
+##   &lt;int&gt;
+## 1  1631</code></pre>
 <p>2. How many feet of bike “lanes” are currently in Baltimore, based on the <code>length</code> column? (use <code>sum()</code>)</p>
 <pre class="r"><code>sum(bike$length)</code></pre>
 <pre><code>## [1] 439447.6</code></pre>
 <pre class="r"><code>sum(bike %&gt;% pull(length))</code></pre>
+<pre><code>## [1] 439447.6</code></pre>
+<pre class="r"><code>bike %&gt;% pull(length) %&gt;% sum()</code></pre>
 <pre><code>## [1] 439447.6</code></pre>
 <p>3. Summarize the data to get the <code>max</code> of <code>length</code> using the <code>summarize</code> function.</p>
 <pre><code># General format 
@@ -254,6 +260,7 @@ DATA_TIBBLE %&gt;%
   colMeans()</code></pre>
 <pre><code>##        length dateInstalled 
 ##      269.4344     1853.9454</code></pre>
+<pre class="r"><code># The mean date is in the 1800s -- that doesn&#39;t seem right!</code></pre>
 <p>B. You should have gotten a mean date sometime in the 1800s - that doesn’t make much sense! Hypothesize why the average date is a date from before bike lanes were being built in Baltimore.</p>
 <pre class="r"><code># There are probably some zeros or other incorrect low values in the data.</code></pre>
 <p>C. Filter any zeros out of <code>bike</code> <code>dateInstalled</code>. Use <code>filter()</code>. Assign this “cleaned” dataset object the name <code>bike_2</code>.</p>
@@ -276,16 +283,27 @@ DATA_TIBBLE %&gt;% filter(LOGICAL_COMPARISON)</code></pre>
 ## 6 SIDEPATH            7
 ## 7 SIGNED ROUTE      304
 ## 8 &lt;NA&gt;                9</code></pre>
-<p>6. How many bike lanes are there in each type of lane? Use <code>table()</code> on the column named <code>type</code>. How does this result differ from #5 ?</p>
-<pre class="r"><code>bike %&gt;%
-  pull(type) %&gt;%
-  table()</code></pre>
-<pre><code>## .
-##  BIKE BOULEVARD       BIKE LANE      CONTRAFLOW SHARED BUS BIKE         SHARROW 
-##              49             621              13              39             589 
-##        SIDEPATH    SIGNED ROUTE 
-##               7             304</code></pre>
-<pre class="r"><code># NAs are NOT included as a category with `table()` !</code></pre>
+<p>6. Modify your code from question 5 to break down each lane type by number of lanes. Use <code>count()</code> on the columns named <code>type</code> and <code>numLanes</code>.</p>
+<pre class="r"><code>bike %&gt;% count(type, numLanes)</code></pre>
+<pre><code>## # A tibble: 16 × 3
+##    type            numLanes     n
+##    &lt;chr&gt;              &lt;dbl&gt; &lt;int&gt;
+##  1 BIKE BOULEVARD         1     1
+##  2 BIKE BOULEVARD         2    48
+##  3 BIKE LANE              0    20
+##  4 BIKE LANE              1   411
+##  5 BIKE LANE              2   190
+##  6 CONTRAFLOW             1     7
+##  7 CONTRAFLOW             2     6
+##  8 SHARED BUS BIKE        1    39
+##  9 SHARROW                1   217
+## 10 SHARROW                2   372
+## 11 SIDEPATH               1     6
+## 12 SIDEPATH               2     1
+## 13 SIGNED ROUTE           1   211
+## 14 SIGNED ROUTE           2    93
+## 15 &lt;NA&gt;                   0     1
+## 16 &lt;NA&gt;                   1     8</code></pre>
 <p>7. How many bike lanes are there in each type of lane? Use <code>group_by()</code>, <code>summarize()</code>, and <code>n()</code> on the column named <code>type</code>.</p>
 <pre><code># General format 
 DATA_TIBBLE %&gt;% 
