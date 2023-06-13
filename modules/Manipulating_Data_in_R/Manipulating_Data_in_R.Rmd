@@ -373,7 +373,7 @@ knitr::include_graphics("images/inner_join.gif")
 ## Inner Join
 
 ```{r inner_join}
-ij = inner_join(data_As, data_cold)
+ij <- inner_join(data_As, data_cold)
 ij
 ```
 
@@ -388,7 +388,7 @@ knitr::include_graphics("images/left_join.gif")
 ## Left Join
 
 ```{r left_join}
-lj = left_join(data_As, data_cold)
+lj <- left_join(data_As, data_cold)
 lj
 ```
 
