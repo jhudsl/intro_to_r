@@ -141,7 +141,7 @@ bike %>% count(type)
 ```
 
 
-6\. Modify your code from question 5 to break down each lane type by number of lates. Use `count()` on the columns named `type` and `numLanes`.
+6\. Modify your code from question 5 to break down each lane type by number of lanes. Use `count()` on the columns named `type` and `numLanes`.
 
 ```{r}
 bike %>% count(type, numLanes)
