@@ -38,28 +38,30 @@ Column names are slightly different. We will go over some of these situations in
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(kableExtra)
 text_tbl <- data.frame(
-
-    Function = c("tibble()", 
-                 "rename()", 
-                 "filter()", 
-                 "summarize()", 
-                 "mutate()", 
-                 "readr()",
-                 "tidyselect functions (ex.starts_with())",
-                 "stringr functions (ex. str_detect())", 
-                 "pivot_longer()/pivot_wider()",
-                 "modeling functions"
-                 ),
-    Use = c("Tolerates quotes or backticks if atypical", 
-            "Tolerates quotes or backticks if atypical", 
-            "Only backticks if atypical", 
-            "Only backticks if atypical",
-            "Tolerates quotes or backticks if atypical", 
-            "Only quotes tolearted",
-            "Only quotes tolerated",
-            "Only quotes tolerated",
-            "Only quotes tolerated",
-            "Only backticks if atypical")
+  Function = c(
+    "tibble()",
+    "rename()",
+    "filter()",
+    "summarize()",
+    "mutate()",
+    "readr()",
+    "tidyselect functions (ex.starts_with())",
+    "stringr functions (ex. str_detect())",
+    "pivot_longer()/pivot_wider()",
+    "modeling functions"
+  ),
+  Use = c(
+    "Tolerates quotes or backticks if atypical",
+    "Tolerates quotes or backticks if atypical",
+    "Only backticks if atypical",
+    "Only backticks if atypical",
+    "Tolerates quotes or backticks if atypical",
+    "Only quotes tolearted",
+    "Only quotes tolerated",
+    "Only quotes tolerated",
+    "Only quotes tolerated",
+    "Only backticks if atypical"
+  )
 )
 kbl(text_tbl) %>%
   kable_paper(full_width = F, html_font = "helvetica", font_size = "18") %>%
@@ -69,7 +71,7 @@ kbl(text_tbl) %>%
   row_spec(3:4, background = "yellow") %>%
   row_spec(5, background = "lightgreen") %>%
   row_spec(6:9, background = "lightblue") %>%
-  row_spec(10,  background = "yellow")
+  row_spec(10, background = "yellow")
 ```
 
 
@@ -168,7 +170,7 @@ Even though this is an atypical column name, this will not work like you would e
 Here we see values less than 5 for `Sepal.Length`.
 
 ```{r}
-filter(iris,"Sepal.Length" > 5) %>% head()
+filter(iris, "Sepal.Length" > 5) %>% head()
 ```
 
 Instead stick to just using the column name as it is - filter only works on columns that already exists, so it knows what to look for. 
@@ -293,13 +295,12 @@ long_circ <- wide_circ %>%
 
 ```{r}
 car_data <- mtcars
-fit_cars <-glm(mpg ~ cyl + disp + hp + wt*gear, data = car_data)
-
+fit_cars <- glm(mpg ~ cyl + disp + hp + wt * gear, data = car_data)
 ```
 
 Use backticks if there is an atypical name. Do not use quotes.
 
 ```{r}
 car_data <- rename(car_data, `mpg!` = mpg)
-fit_cars <-glm(`mpg!` ~ cyl + disp + hp + wt*gear, data = car_data)
+fit_cars <- glm(`mpg!` ~ cyl + disp + hp + wt * gear, data = car_data)
 ```
