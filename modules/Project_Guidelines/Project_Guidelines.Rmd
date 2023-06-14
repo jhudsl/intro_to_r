@@ -14,9 +14,12 @@ You are also free to create your own data if you wish, but please ensure that it
 
 Options for places to find data are:
 
-* https://www.kaggle.com/datasets  
-* https://shiny.rstudio.com/gallery/tidy-tuesday.html  
-* https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html   
+* from kaggle: https://www.kaggle.com/datasets  
+* from R itself: https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html 
+* from the `tidytuesdayR` package: https://github.com/thebioengineer/tidytuesdayR
+* from the CDC: https://data.cdc.gov/
+* from healthdata.gov: https://healthdata.gov/
+
 (This is the data that comes with R - you can load them using `datasets::` and pressing tab in RStudio to see the names of the datasets - for example `datasets::ability.cov` will load the ability dataset.)
 
 You are not limited to these options for finding your data.
@@ -33,7 +36,7 @@ You are not limited to these options for finding your data.
 
 (1 point)
 
-5) Make **two** **different** kinds of visualizations of your data.
+5) Make **two** **different** kinds of visualizations of your data using `ggplot2`.
 
 (2 points total:  1 point for each of 2 **different** kinds of plots completed)
 
