@@ -259,7 +259,7 @@ head(tb)
 
 ## Take Care with Column Names
 
-When you can, avoid spaces, special punctuation, or numbers in column names, as these require quotes to refer to them. 
+When you can, avoid spaces, special punctuation, or numbers in column names, as these require special treatment to refer to them. 
 
 See https://jhudatascience.org/intro_to_r/quotes_vs_backticks.html for more guidance.
 
@@ -275,23 +275,57 @@ head(tb_rename, 2)
 You will need to refer to a column like this with most functions.
 
 
-## Take Care with Column Names and Character Strings
+## Unusual Column Names
 
-These are the conventions, most options will work for most functions.
+It's best to avoid unusual column names where possible.
 
-Backticks are typically for nonstandard variable names:
+We just showed the use of \` backticks\` . You may see people use quotes as well.
 
-- those with spaces `col 1`
-- those with punctuation `col.1`
-- those that are just numbers  `1`
-- those that start with numbers `1st col`
+```{r, fig.alt="dplyr", out.width = "14%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/backtick_1.png")
+```
 
-Single or double quotes are typically used for character strings (data values that has characters): 
+Other atypical column names are those with:
 
-- `"words"` 
-- `"phrases with spaces"`
-- `'words'`
-- `'phrases with spaces'`
+- spaces
+- number without characters
+- number starting the name
+- other punctuation marks besides "_"
+
+
+<!-- ## Unusal Comun Names -->
+
+<!-- These are the conventions, most options will work for most functions. -->
+<!-- Sometimes you need to just try and check your work! \` backticks\` vs "quotes" or 'quotes' -->
+
+
+<!-- <!-- | Example 	| Type	| Use 	| --> -->
+<!-- <!-- |:---:|:---:|:---:| --> -->
+<!-- <!-- |Liver| character string - word | use quotes ('single' or "double")| --> -->
+<!-- <!-- |New York| character string - phrase | use quotes ('single' or "double")| --> -->
+<!-- <!-- | col 1 | atypical - has spaces and numbers | use \` backticks\`  | --> -->
+<!-- <!-- | col.1	| atypical - has punctuation (besides "_")	| use \` backticks\`  |  --> -->
+<!-- <!-- | 1	| atypical - just a number	| use \`backticks\` | --> -->
+<!-- <!-- | 1st col	| atypical - start with number 	| use \` backticks\`  |"  --> -->
+
+<!-- ```{r echo=FALSE, message=FALSE, warning=FALSE} -->
+<!-- library(kableExtra) -->
+<!-- text_tbl <- data.frame( -->
+<!--     Type = c("character string",  "atypical", "atypical", "atypical"), -->
+<!--   Example = c("New York", "col.1", "1", "1st col"), -->
+<!--   Features = c("spaces",  "has punctuation ", "just a number", "starts with number"), -->
+<!--  Use = c("use quotes - single or double", "use `backticks`", "use `backticks`", "use `backticks`") -->
+<!-- ) -->
+
+<!-- kbl(text_tbl) %>% -->
+<!--   kable_paper(full_width = F, html_font = "helvetica", font_size = "18") %>% -->
+<!--   column_spec(1:4, bold = T, border_right = T, border_left = TRUE) %>% -->
+<!--   row_spec(0, align = "c") %>% -->
+<!--   row_spec(1,  background = "yellow") %>% -->
+<!--   row_spec(2:4, background = "lightgreen") -->
+<!-- ``` -->
+<!-- You will see this come up again when we refer to row values too. We will need quotes for character strings even if it is a single word or letter.  -->
+
 
 ## Be careful about copy pasting code!
 
@@ -409,6 +443,7 @@ Type `tidyselect::` in the **console** and see what RStudio suggests:
 ```{r, fig.alt="dplyr", out.width = "80%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/tidyselect.png")
 ```
+
 ## Combining tidyselect helpers with regular selection
 
 ```{r}
@@ -420,7 +455,7 @@ select(tb, starts_with("d"), car)
 Follows OR logic.
 
 ```{r}
-tb %>%select(starts_with("c"), ends_with("r"))
+select(tb, starts_with("c"), ends_with("r"))
 
 ```
 
@@ -429,7 +464,7 @@ tb %>%select(starts_with("c"), ends_with("r"))
 Need to combine the patterns with the `c()` function.
 
 ```{r}
-tb %>%  select(starts_with(c("c", "d")))
+select(tb, starts_with(c("c", "d")))
 
 ```
 
@@ -440,7 +475,7 @@ tb %>%  select(starts_with(c("c", "d")))
 
 ```{r}
 head(tb, 2)
-tb %>%select(where(is.numeric))
+select(tb, where(is.numeric))
 
 ```
 
@@ -506,8 +541,9 @@ The `%in%` operator can be used find values from a pre-made list (using `c()`) f
 ```{r}
 filter(tb, mpg %in% c(20,21,22))
 
-filter(tb, mpg ==20 | mpg ==21 | mpg ==22) #equivalent
+filter(tb, mpg == 20 | mpg == 21 | mpg == 22) #equivalent
 ```
+
 ## Subset rows of a data frame: dplyr {.codesmall}
 
 The `%in%` operator can be used find values from a pre-made list (using `c()`) for a **single column** at a time.
@@ -517,7 +553,53 @@ filter(tb, gear %in% c(4,5), cyl %in% c(6,5))
 
 ```
 
+## Be careful with column names and `filter`
 
+This will not work the way you might expect!
+
+```{r}
+filter(iris,"Sepal.Length" > 5)
+```
+## Be careful with column names and `filter`
+
+Using backticks works!
+
+```{r}
+filter(iris,`Sepal.Length`> 7.7)
+```
+
+## Be careful with column names and `filter`
+
+Using nothing works!
+
+```{r}
+filter(iris, Sepal.Length > 7.7)
+```
+
+## Be careful with column names and `filter`
+
+```{r, eval = FALSE}
+filter(iris, "Species" == "virginica") # this will give an error
+```
+
+## Be careful with column names and `filter`
+
+```{r}
+filter(iris, Species == "virginica") # this works!
+```
+
+## `filter()` is tricky
+
+Try not use anything special for the column names in `filter()`
+
+## Always good to check each step!
+
+Did the filter work the way you expected? Did the dimensions change?
+
+```{r, echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://media.giphy.com/media/5b5OU7aUekfdSAER5I/giphy.gif")
+```
+https://media.giphy.com/media/5b5OU7aUekfdSAER5I/giphy.gif
 
 ## `distinct()` function
 
@@ -538,6 +620,10 @@ distinct(tb, cyl, gear)
 -  you can combine multiple tidyselect functions together like `select(starts_with("C"), ends_with("state"))`
 -  you can combine multiple patterns with the `c()` function like `select(starts_with(c("A", "C")))`
 - `filter()` can be used to filter out rows based on logical conditions
+-  avoid using quotes when referring to column names with `filter()`
+
+## Summary Continued
+
 - `==` is the same as equivalent to
 - `&` means both conditions must be met to remain after `filter()`
 - `|` means either conditions needs to be met to remain after `filter()`
@@ -642,7 +728,7 @@ head(tb,4)
 
 
 
-## Removing columns of a data frame: dplyr
+## Removing columns of a data frame: dplyr {.codesmall}
 
 The `NULL` method is still very common.
 
@@ -657,7 +743,7 @@ head(select(tb, - newcol))
 
 **Or, you can simply select the columns you want to keep, ignoring the ones you want to remove.**
 
-## Removing columns in a data frame: dplyr
+## Removing columns in a data frame: dplyr {.codesmall}
 
 You can use `c()` to list the columns to remove.
 
@@ -669,7 +755,7 @@ select(tb, -c("newcol", "drat"))
 
 # Ordering columns
 
-## Ordering the columns of a data frame: dplyr
+## Ordering the columns of a data frame: dplyr 
 
 The `select` function can reorder columns.
 ```{r}
