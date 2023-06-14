@@ -30,7 +30,7 @@ kbl(text_tbl) %>%
   row_spec(3:6, background = "lightgreen")
 ```
 
-## Coumn names
+## Column names
 
 Column names are slightly different. We will go over some of these situations in more detail, but here is a summary:
 
@@ -161,7 +161,7 @@ iris %>%
 
 ##`filter()` function 
 
-It is best to avoid using quotes for columnames!
+It is best to avoid using quotes for column names!
 
 Even though this is an atypical column name, this will not work like you would expect. 
 
@@ -288,7 +288,7 @@ long_circ <- wide_circ %>%
 
 
 
-## Dont need quotes for modeling with `glm()`
+## Don't need quotes for modeling with `glm()`
 
 
 ```{r}
