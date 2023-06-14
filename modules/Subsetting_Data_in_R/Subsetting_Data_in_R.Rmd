@@ -290,7 +290,7 @@ Other atypical column names are those with:
 - spaces
 - number without characters
 - number starting the name
-- other punctuation marks besides "_"
+- other punctuation marks (besides "_" or "." and not at the beginning)
 
 
 <!-- ## Unusal Comun Names -->
@@ -555,26 +555,30 @@ filter(tb, gear %in% c(4,5), cyl %in% c(6,5))
 
 ## Be careful with column names and `filter`
 
-This will not work the way you might expect!
+This will not work the way you might expect! Best to stick with nothing but the column name if it is a typical name. 
 
 ```{r}
-filter(iris,"Sepal.Length" > 5)
+filter(tb, "mpg" > 20)
 ```
+
+## Don't use quotes for atypical names
+
+Atypical names are those with punctuation, spaces, start with a number, or are just a number. 
+
+```{r}
+tb <- rename(tb, `mpg!` = mpg)
+
+filter(tb, "mpg!" > 22) # will not work correctly
+```
+
 ## Be careful with column names and `filter`
 
 Using backticks works!
 
 ```{r}
-filter(iris,`Sepal.Length`> 7.7)
+filter(`mpg!`> 22)
 ```
 
-## Be careful with column names and `filter`
-
-Using nothing works!
-
-```{r}
-filter(iris, Sepal.Length > 7.7)
-```
 
 ## Be careful with column names and `filter`
 
@@ -590,7 +594,7 @@ filter(iris, Species == "virginica") # this works!
 
 ## `filter()` is tricky
 
-Try not use anything special for the column names in `filter()`
+Try not use anything special for the column names in `filter()`. This is why it is good to not use atypical column names. Then you can just use the column name!
 
 ## Always good to check each step!
 
