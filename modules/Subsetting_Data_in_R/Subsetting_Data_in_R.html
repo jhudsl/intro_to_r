@@ -511,11 +511,9 @@ head(tb_rename, 2)</pre>
 1 Mazda RX4       21     6   160   110   3.9  2.62  16.5     0     1     4     4
 2 Mazda RX4 …     21     6   160   110   3.9  2.88  17.0     0     1     4     4</pre>
 
-<p>You will need to refer to a column like this with most functions.</p>
-
 </article></slide><slide class=""><hgroup><h2>Unusual Column Names</h2></hgroup><article  id="unusual-column-names">
 
-<p>It’s best to avoid unusual column names where possible.</p>
+<p>It’s best to avoid unusual column names where possible, as things get tricky later.</p>
 
 <p>We just showed the use of ` backticks` . You may see people use quotes as well.</p>
 
@@ -527,50 +525,14 @@ head(tb_rename, 2)</pre>
 <li>spaces</li>
 <li>number without characters</li>
 <li>number starting the name</li>
-<li>other punctuation marks besides “_”</li>
+<li>other punctuation marks (besides “_” or &ldquo;.&rdquo; and not at the beginning)</li>
 </ul>
 
-<!-- ## Unusal Comun Names -->
+</article></slide><slide class=""><hgroup><h2>A solution!</h2></hgroup><article  id="a-solution">
 
-<!-- These are the conventions, most options will work for most functions. -->
+<p>Rename tricky column names so that you don’t have to deal with them later!</p>
 
-<!-- Sometimes you need to just try and check your work! \` backticks\` vs "quotes" or 'quotes' -->
-
-<!-- <!-- | Example     | Type  | Use   | -->
-
-<p>–&gt; <!-- <!-- |:---:|:---:|:---:| --> –&gt; <!-- <!-- |Liver| character string - word | use quotes ('single' or "double")| --> –&gt; <!-- <!-- |New York| character string - phrase | use quotes ('single' or "double")| --> –&gt; <!-- <!-- | col 1 | atypical - has spaces and numbers | use \` backticks\`  | --> –&gt; <!-- <!-- | col.1   | atypical - has punctuation (besides "_")  | use \` backticks\`  |  --> –&gt; <!-- <!-- | 1   | atypical - just a number  | use \`backticks\` | --> –&gt; <!-- <!-- | 1st col | atypical - start with number  | use \` backticks\`  |"  --> –&gt;</p>
-
-<!-- ```{r echo=FALSE, message=FALSE, warning=FALSE} -->
-
-<!-- library(kableExtra) -->
-
-<!-- text_tbl <- data.frame( -->
-
-<!--     Type = c("character string",  "atypical", "atypical", "atypical"), -->
-
-<!--   Example = c("New York", "col.1", "1", "1st col"), -->
-
-<!--   Features = c("spaces",  "has punctuation ", "just a number", "starts with number"), -->
-
-<!--  Use = c("use quotes - single or double", "use `backticks`", "use `backticks`", "use `backticks`") -->
-
-<!-- ) -->
-
-<!-- kbl(text_tbl) %>% -->
-
-<!--   kable_paper(full_width = F, html_font = "helvetica", font_size = "18") %>% -->
-
-<!--   column_spec(1:4, bold = T, border_right = T, border_left = TRUE) %>% -->
-
-<!--   row_spec(0, align = "c") %>% -->
-
-<!--   row_spec(1,  background = "yellow") %>% -->
-
-<!--   row_spec(2:4, background = "lightgreen") -->
-
-<!-- ``` -->
-
-<!-- You will see this come up again when we refer to row values too. We will need quotes for character strings even if it is a single word or letter.  -->
+<p><img src="https://media.giphy.com/media/6q29hxDKvJvPy/giphy.gif" style="display: block; margin: auto;" /></p>
 
 </article></slide><slide class=""><hgroup><h2>Be careful about copy pasting code!</h2></hgroup><article  id="be-careful-about-copy-pasting-code">
 
@@ -620,8 +582,7 @@ head(tb, 3)</pre>
 <li>if your original data has rownames, you need to use <code>rownames_to_column</code> before converting to tibble</li>
 <li>the <code>rename()</code> function of <code>dplyr</code> can help you rename columns</li>
 <li>avoid using punctuation (except underscores), spaces, and numbers (to start or alone) in column names</li>
-<li>if you must do a nonstandard column name, use backticks to refer to it</li>
-<li>quotes can be used for character values</li>
+<li>if you must do a nonstandard column name - typically use backticks around it. See <a href='https://jhudatascience.org/intro_to_r/quotes_vs_backticks.html' title=''>https://jhudatascience.org/intro_to_r/quotes_vs_backticks.html</a>.</li>
 <li>avoid copy and pasting code from other sources - quotation marks will change!</li>
 </ul>
 
@@ -971,243 +932,92 @@ contains() # like searching</pre>
 
 </article></slide><slide class=""><hgroup><h2>Be careful with column names and <code>filter</code></h2></hgroup><article  id="be-careful-with-column-names-and-filter">
 
-<p>This will not work the way you might expect!</p>
+<p>This will not work the way you might expect! Best to stick with nothing but the column name if it is a typical name.</p>
 
-<pre class = 'prettyprint lang-r'>filter(iris,&quot;Sepal.Length&quot; &gt; 5)</pre>
+<pre class = 'prettyprint lang-r'>filter(tb, &quot;mpg&quot; &gt; 20)</pre>
 
-<pre >    Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
-1            5.1         3.5          1.4         0.2     setosa
-2            4.9         3.0          1.4         0.2     setosa
-3            4.7         3.2          1.3         0.2     setosa
-4            4.6         3.1          1.5         0.2     setosa
-5            5.0         3.6          1.4         0.2     setosa
-6            5.4         3.9          1.7         0.4     setosa
-7            4.6         3.4          1.4         0.3     setosa
-8            5.0         3.4          1.5         0.2     setosa
-9            4.4         2.9          1.4         0.2     setosa
-10           4.9         3.1          1.5         0.1     setosa
-11           5.4         3.7          1.5         0.2     setosa
-12           4.8         3.4          1.6         0.2     setosa
-13           4.8         3.0          1.4         0.1     setosa
-14           4.3         3.0          1.1         0.1     setosa
-15           5.8         4.0          1.2         0.2     setosa
-16           5.7         4.4          1.5         0.4     setosa
-17           5.4         3.9          1.3         0.4     setosa
-18           5.1         3.5          1.4         0.3     setosa
-19           5.7         3.8          1.7         0.3     setosa
-20           5.1         3.8          1.5         0.3     setosa
-21           5.4         3.4          1.7         0.2     setosa
-22           5.1         3.7          1.5         0.4     setosa
-23           4.6         3.6          1.0         0.2     setosa
-24           5.1         3.3          1.7         0.5     setosa
-25           4.8         3.4          1.9         0.2     setosa
-26           5.0         3.0          1.6         0.2     setosa
-27           5.0         3.4          1.6         0.4     setosa
-28           5.2         3.5          1.5         0.2     setosa
-29           5.2         3.4          1.4         0.2     setosa
-30           4.7         3.2          1.6         0.2     setosa
-31           4.8         3.1          1.6         0.2     setosa
-32           5.4         3.4          1.5         0.4     setosa
-33           5.2         4.1          1.5         0.1     setosa
-34           5.5         4.2          1.4         0.2     setosa
-35           4.9         3.1          1.5         0.2     setosa
-36           5.0         3.2          1.2         0.2     setosa
-37           5.5         3.5          1.3         0.2     setosa
-38           4.9         3.6          1.4         0.1     setosa
-39           4.4         3.0          1.3         0.2     setosa
-40           5.1         3.4          1.5         0.2     setosa
-41           5.0         3.5          1.3         0.3     setosa
-42           4.5         2.3          1.3         0.3     setosa
-43           4.4         3.2          1.3         0.2     setosa
-44           5.0         3.5          1.6         0.6     setosa
-45           5.1         3.8          1.9         0.4     setosa
-46           4.8         3.0          1.4         0.3     setosa
-47           5.1         3.8          1.6         0.2     setosa
-48           4.6         3.2          1.4         0.2     setosa
-49           5.3         3.7          1.5         0.2     setosa
-50           5.0         3.3          1.4         0.2     setosa
-51           7.0         3.2          4.7         1.4 versicolor
-52           6.4         3.2          4.5         1.5 versicolor
-53           6.9         3.1          4.9         1.5 versicolor
-54           5.5         2.3          4.0         1.3 versicolor
-55           6.5         2.8          4.6         1.5 versicolor
-56           5.7         2.8          4.5         1.3 versicolor
-57           6.3         3.3          4.7         1.6 versicolor
-58           4.9         2.4          3.3         1.0 versicolor
-59           6.6         2.9          4.6         1.3 versicolor
-60           5.2         2.7          3.9         1.4 versicolor
-61           5.0         2.0          3.5         1.0 versicolor
-62           5.9         3.0          4.2         1.5 versicolor
-63           6.0         2.2          4.0         1.0 versicolor
-64           6.1         2.9          4.7         1.4 versicolor
-65           5.6         2.9          3.6         1.3 versicolor
-66           6.7         3.1          4.4         1.4 versicolor
-67           5.6         3.0          4.5         1.5 versicolor
-68           5.8         2.7          4.1         1.0 versicolor
-69           6.2         2.2          4.5         1.5 versicolor
-70           5.6         2.5          3.9         1.1 versicolor
-71           5.9         3.2          4.8         1.8 versicolor
-72           6.1         2.8          4.0         1.3 versicolor
-73           6.3         2.5          4.9         1.5 versicolor
-74           6.1         2.8          4.7         1.2 versicolor
-75           6.4         2.9          4.3         1.3 versicolor
-76           6.6         3.0          4.4         1.4 versicolor
-77           6.8         2.8          4.8         1.4 versicolor
-78           6.7         3.0          5.0         1.7 versicolor
-79           6.0         2.9          4.5         1.5 versicolor
-80           5.7         2.6          3.5         1.0 versicolor
-81           5.5         2.4          3.8         1.1 versicolor
-82           5.5         2.4          3.7         1.0 versicolor
-83           5.8         2.7          3.9         1.2 versicolor
-84           6.0         2.7          5.1         1.6 versicolor
-85           5.4         3.0          4.5         1.5 versicolor
-86           6.0         3.4          4.5         1.6 versicolor
-87           6.7         3.1          4.7         1.5 versicolor
-88           6.3         2.3          4.4         1.3 versicolor
-89           5.6         3.0          4.1         1.3 versicolor
-90           5.5         2.5          4.0         1.3 versicolor
-91           5.5         2.6          4.4         1.2 versicolor
-92           6.1         3.0          4.6         1.4 versicolor
-93           5.8         2.6          4.0         1.2 versicolor
-94           5.0         2.3          3.3         1.0 versicolor
-95           5.6         2.7          4.2         1.3 versicolor
-96           5.7         3.0          4.2         1.2 versicolor
-97           5.7         2.9          4.2         1.3 versicolor
-98           6.2         2.9          4.3         1.3 versicolor
-99           5.1         2.5          3.0         1.1 versicolor
-100          5.7         2.8          4.1         1.3 versicolor
-101          6.3         3.3          6.0         2.5  virginica
-102          5.8         2.7          5.1         1.9  virginica
-103          7.1         3.0          5.9         2.1  virginica
-104          6.3         2.9          5.6         1.8  virginica
-105          6.5         3.0          5.8         2.2  virginica
-106          7.6         3.0          6.6         2.1  virginica
-107          4.9         2.5          4.5         1.7  virginica
-108          7.3         2.9          6.3         1.8  virginica
-109          6.7         2.5          5.8         1.8  virginica
-110          7.2         3.6          6.1         2.5  virginica
-111          6.5         3.2          5.1         2.0  virginica
-112          6.4         2.7          5.3         1.9  virginica
-113          6.8         3.0          5.5         2.1  virginica
-114          5.7         2.5          5.0         2.0  virginica
-115          5.8         2.8          5.1         2.4  virginica
-116          6.4         3.2          5.3         2.3  virginica
-117          6.5         3.0          5.5         1.8  virginica
-118          7.7         3.8          6.7         2.2  virginica
-119          7.7         2.6          6.9         2.3  virginica
-120          6.0         2.2          5.0         1.5  virginica
-121          6.9         3.2          5.7         2.3  virginica
-122          5.6         2.8          4.9         2.0  virginica
-123          7.7         2.8          6.7         2.0  virginica
-124          6.3         2.7          4.9         1.8  virginica
-125          6.7         3.3          5.7         2.1  virginica
-126          7.2         3.2          6.0         1.8  virginica
-127          6.2         2.8          4.8         1.8  virginica
-128          6.1         3.0          4.9         1.8  virginica
-129          6.4         2.8          5.6         2.1  virginica
-130          7.2         3.0          5.8         1.6  virginica
-131          7.4         2.8          6.1         1.9  virginica
-132          7.9         3.8          6.4         2.0  virginica
-133          6.4         2.8          5.6         2.2  virginica
-134          6.3         2.8          5.1         1.5  virginica
-135          6.1         2.6          5.6         1.4  virginica
-136          7.7         3.0          6.1         2.3  virginica
-137          6.3         3.4          5.6         2.4  virginica
-138          6.4         3.1          5.5         1.8  virginica
-139          6.0         3.0          4.8         1.8  virginica
-140          6.9         3.1          5.4         2.1  virginica
-141          6.7         3.1          5.6         2.4  virginica
-142          6.9         3.1          5.1         2.3  virginica
-143          5.8         2.7          5.1         1.9  virginica
-144          6.8         3.2          5.9         2.3  virginica
-145          6.7         3.3          5.7         2.5  virginica
-146          6.7         3.0          5.2         2.3  virginica
-147          6.3         2.5          5.0         1.9  virginica
-148          6.5         3.0          5.2         2.0  virginica
-149          6.2         3.4          5.4         2.3  virginica
-150          5.9         3.0          5.1         1.8  virginica</pre>
+<pre ># A tibble: 32 × 12
+   car           mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+   &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 Mazda RX4    21       6  160    110  3.9   2.62  16.5     0     1     4     4
+ 2 Mazda RX4 …  21       6  160    110  3.9   2.88  17.0     0     1     4     4
+ 3 Datsun 710   22.8     4  108     93  3.85  2.32  18.6     1     1     4     1
+ 4 Hornet 4 D…  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1
+ 5 Hornet Spo…  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2
+ 6 Valiant      18.1     6  225    105  2.76  3.46  20.2     1     0     3     1
+ 7 Duster 360   14.3     8  360    245  3.21  3.57  15.8     0     0     3     4
+ 8 Merc 240D    24.4     4  147.    62  3.69  3.19  20       1     0     4     2
+ 9 Merc 230     22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2
+10 Merc 280     19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4
+# … with 22 more rows</pre>
+
+</article></slide><slide class=""><hgroup><h2>Don’t use quotes for atypical names</h2></hgroup><article  id="dont-use-quotes-for-atypical-names">
+
+<p>Atypical names are those with punctuation, spaces, start with a number, or are just a number.</p>
+
+<pre class = 'prettyprint lang-r'>tb &lt;- rename(tb, `mpg!` = mpg)
+
+filter(tb, &quot;mpg!&quot; &gt; 22) # will not work correctly</pre>
+
+<pre ># A tibble: 32 × 12
+   car        `mpg!`   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+   &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 Mazda RX4    21       6  160    110  3.9   2.62  16.5     0     1     4     4
+ 2 Mazda RX4…   21       6  160    110  3.9   2.88  17.0     0     1     4     4
+ 3 Datsun 710   22.8     4  108     93  3.85  2.32  18.6     1     1     4     1
+ 4 Hornet 4 …   21.4     6  258    110  3.08  3.22  19.4     1     0     3     1
+ 5 Hornet Sp…   18.7     8  360    175  3.15  3.44  17.0     0     0     3     2
+ 6 Valiant      18.1     6  225    105  2.76  3.46  20.2     1     0     3     1
+ 7 Duster 360   14.3     8  360    245  3.21  3.57  15.8     0     0     3     4
+ 8 Merc 240D    24.4     4  147.    62  3.69  3.19  20       1     0     4     2
+ 9 Merc 230     22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2
+10 Merc 280     19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4
+# … with 22 more rows</pre>
 
 </article></slide><slide class=""><hgroup><h2>Be careful with column names and <code>filter</code></h2></hgroup><article  id="be-careful-with-column-names-and-filter-1">
 
 <p>Using backticks works!</p>
 
-<pre class = 'prettyprint lang-r'>filter(iris,`Sepal.Length`&gt; 7.7)</pre>
+<pre class = 'prettyprint lang-r'>filter(tb, `mpg!` &gt; 22)</pre>
 
-<pre >  Sepal.Length Sepal.Width Petal.Length Petal.Width   Species
-1          7.9         3.8          6.4           2 virginica</pre>
+<pre ># A tibble: 9 × 12
+  car         `mpg!`   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+  &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 Datsun 710    22.8     4 108      93  3.85  2.32  18.6     1     1     4     1
+2 Merc 240D     24.4     4 147.     62  3.69  3.19  20       1     0     4     2
+3 Merc 230      22.8     4 141.     95  3.92  3.15  22.9     1     0     4     2
+4 Fiat 128      32.4     4  78.7    66  4.08  2.2   19.5     1     1     4     1
+5 Honda Civic   30.4     4  75.7    52  4.93  1.62  18.5     1     1     4     2
+6 Toyota Cor…   33.9     4  71.1    65  4.22  1.84  19.9     1     1     4     1
+7 Fiat X1-9     27.3     4  79      66  4.08  1.94  18.9     1     1     4     1
+8 Porsche 91…   26       4 120.     91  4.43  2.14  16.7     0     1     5     2
+9 Lotus Euro…   30.4     4  95.1   113  3.77  1.51  16.9     1     1     5     2</pre>
 
 </article></slide><slide class=""><hgroup><h2>Be careful with column names and <code>filter</code></h2></hgroup><article  id="be-careful-with-column-names-and-filter-2">
 
-<p>Using nothing works!</p>
+<pre class = 'prettyprint lang-r'>filter(tb, &quot;car&quot; == &quot;Ferrari Dino&quot;) # this will not work</pre>
 
-<pre class = 'prettyprint lang-r'>filter(iris, Sepal.Length &gt; 7.7)</pre>
-
-<pre >  Sepal.Length Sepal.Width Petal.Length Petal.Width   Species
-1          7.9         3.8          6.4           2 virginica</pre>
+<pre ># A tibble: 0 × 12
+# … with 12 variables: car &lt;chr&gt;, mpg! &lt;dbl&gt;, cyl &lt;dbl&gt;, disp &lt;dbl&gt;, hp &lt;dbl&gt;,
+#   drat &lt;dbl&gt;, wt &lt;dbl&gt;, qsec &lt;dbl&gt;, vs &lt;dbl&gt;, am &lt;dbl&gt;, gear &lt;dbl&gt;,
+#   carb &lt;dbl&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Be careful with column names and <code>filter</code></h2></hgroup><article  id="be-careful-with-column-names-and-filter-3">
 
-<pre class = 'prettyprint lang-r'>filter(iris, &quot;Species&quot; == &quot;virginica&quot;) # this will give an error</pre>
+<pre class = 'prettyprint lang-r'>filter(tb, car == &quot;Ferrari Dino&quot;) # this works!</pre>
 
-</article></slide><slide class=""><hgroup><h2>Be careful with column names and <code>filter</code></h2></hgroup><article  id="be-careful-with-column-names-and-filter-4">
-
-<pre class = 'prettyprint lang-r'>filter(iris, Species == &quot;virginica&quot;) # this works!</pre>
-
-<pre >   Sepal.Length Sepal.Width Petal.Length Petal.Width   Species
-1           6.3         3.3          6.0         2.5 virginica
-2           5.8         2.7          5.1         1.9 virginica
-3           7.1         3.0          5.9         2.1 virginica
-4           6.3         2.9          5.6         1.8 virginica
-5           6.5         3.0          5.8         2.2 virginica
-6           7.6         3.0          6.6         2.1 virginica
-7           4.9         2.5          4.5         1.7 virginica
-8           7.3         2.9          6.3         1.8 virginica
-9           6.7         2.5          5.8         1.8 virginica
-10          7.2         3.6          6.1         2.5 virginica
-11          6.5         3.2          5.1         2.0 virginica
-12          6.4         2.7          5.3         1.9 virginica
-13          6.8         3.0          5.5         2.1 virginica
-14          5.7         2.5          5.0         2.0 virginica
-15          5.8         2.8          5.1         2.4 virginica
-16          6.4         3.2          5.3         2.3 virginica
-17          6.5         3.0          5.5         1.8 virginica
-18          7.7         3.8          6.7         2.2 virginica
-19          7.7         2.6          6.9         2.3 virginica
-20          6.0         2.2          5.0         1.5 virginica
-21          6.9         3.2          5.7         2.3 virginica
-22          5.6         2.8          4.9         2.0 virginica
-23          7.7         2.8          6.7         2.0 virginica
-24          6.3         2.7          4.9         1.8 virginica
-25          6.7         3.3          5.7         2.1 virginica
-26          7.2         3.2          6.0         1.8 virginica
-27          6.2         2.8          4.8         1.8 virginica
-28          6.1         3.0          4.9         1.8 virginica
-29          6.4         2.8          5.6         2.1 virginica
-30          7.2         3.0          5.8         1.6 virginica
-31          7.4         2.8          6.1         1.9 virginica
-32          7.9         3.8          6.4         2.0 virginica
-33          6.4         2.8          5.6         2.2 virginica
-34          6.3         2.8          5.1         1.5 virginica
-35          6.1         2.6          5.6         1.4 virginica
-36          7.7         3.0          6.1         2.3 virginica
-37          6.3         3.4          5.6         2.4 virginica
-38          6.4         3.1          5.5         1.8 virginica
-39          6.0         3.0          4.8         1.8 virginica
-40          6.9         3.1          5.4         2.1 virginica
-41          6.7         3.1          5.6         2.4 virginica
-42          6.9         3.1          5.1         2.3 virginica
-43          5.8         2.7          5.1         1.9 virginica
-44          6.8         3.2          5.9         2.3 virginica
-45          6.7         3.3          5.7         2.5 virginica
-46          6.7         3.0          5.2         2.3 virginica
-47          6.3         2.5          5.0         1.9 virginica
-48          6.5         3.0          5.2         2.0 virginica
-49          6.2         3.4          5.4         2.3 virginica
-50          5.9         3.0          5.1         1.8 virginica</pre>
+<pre ># A tibble: 1 × 12
+  car         `mpg!`   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+  &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 Ferrari Di…   19.7     6   145   175  3.62  2.77  15.5     0     1     5     6</pre>
 
 </article></slide><slide class=""><hgroup><h2><code>filter()</code> is tricky</h2></hgroup><article  id="filter-is-tricky">
 
-<p>Try not use anything special for the column names in <code>filter()</code></p>
+<p>Try not use anything special for the column names in <code>filter()</code>. This is why it is good to not use atypical column names. Then you can just use the column name!</p>
+
+<p>So let’s get rid of our unusual name in our data again.</p>
+
+<pre class = 'prettyprint lang-r'>tb &lt;- rename(tb, mpg = `mpg!`)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Always good to check each step!</h2></hgroup><article  id="always-good-to-check-each-step">
 
