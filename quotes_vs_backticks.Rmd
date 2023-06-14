@@ -5,7 +5,51 @@ output: html_document
 
 When do you use quotes, backticks, or nothing in R?
 
+There are some inconsistencies across different functions, sometimes you just need to try them out. Always check that your work did what you expect!
+
+In general these are the conventions for working with values (recall that values or samples within rows):
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(kableExtra)
+text_tbl <- data.frame(
+    Type = c("character string", "character string ", "atypical", "atypical", "atypical", "atypical"),
+  Example = c("Liver", "New York", "col 1", "col.1", "1", "1st col"),
+  Features = c("word", "phrase", "has spaces and numbers", "has punctuation ", "just a number", "starts with number"),
+ Use = c("use quotes - single or double", "use quotes - single or double", "use `backticks`", "use `backticks`", "use `backticks`", "use `backticks`")
+)
+kbl(text_tbl) %>%
+  #kable_classic(full_width = F, html_font = "helvetica") %>%
+  kable_paper(full_width = F, html_font = "helvetica", font_size = "18") %>%
+  column_spec(1:4, bold = T, border_right = T, border_left = TRUE) %>%
+  row_spec(0, align = "c") %>%
+  row_spec(1:2,  background = "yellow") %>%
+  row_spec(3:6, background = "lightgreen")
+```
+
+Column names are slightly different. We will go over some of these situations in more detail, but here is a summary:
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(kableExtra)
+text_tbl <- data.frame(
+    Function = c("tibble()", "rename()", "filter()","summarize()", "mutate()", "stringr functions", "pivot_longer()/pivot_wider()"),
+    Use = c("Tolerates quotes or backticks if atypical", "Tolerates quotes or backticks if atypical", "Only backticks if atypical", "Only backticks if atypical","Tolerates quotes or backticks if atypical", "Only quotes as it works with character strings", "Only quotes tollerated in all cases")
+)
+kbl(text_tbl) %>%
+  kable_paper(full_width = F, html_font = "helvetica", font_size = "18") %>%
+  column_spec(1:2, bold = T, border_right = T, border_left = TRUE) %>%
+  row_spec(0, align = "c") %>%
+  row_spec(1:2, background = "lightgreen") %>%
+  row_spec(3:4,  background = "yellow") %>%
+  row_spec(5, background = "lightgreen") %>%
+  row_spec(6:7, background = "lightblue")
+```
+
+
 ## `tibble()` for naming variables
+
+- we suggest that you avoid nonstandard **variable** names - if you do you do not need any quotes or backticks around the name within `tibble`
+
 
 - backticks are typically for nonstandard **variable** names (aka column names):
   - those with spaces `name with space`
@@ -25,7 +69,7 @@ Sepal.Length is a column/variable name that would often need backticks, while th
 
 Let's check out how some functions work with this.
 
-In the `tibble()` function when specifying names we need to backticks when we have spaces or punctuation or variable names that are just numeric characters (this also works with single quotes or double quotes, but backticks are more common practice). 
+In the `tibble()` function when specifying names we need to use backticks when we have spaces or punctuation or variable names that are just numeric characters (this also works with single quotes or double quotes, but backticks are more common practice). 
 
 This is not required if we have a typical type of name without spaces or punctuation. However if we do use quotes on such a name is is not a problem either. 
 
@@ -89,7 +133,8 @@ iris %>%
 
 ## `summarize()`
 
-Only backticks will work here. Otherwise, the variable gets interpreted as a character string.
+Only backticks will work here. Otherwise, the variable gets interpreted as a character string if we use quotes.
+
 ```{r}
 ex_data %>%
   summarize(mean = mean(`2022`))
@@ -146,7 +191,7 @@ wide_circ <- read_circulator()
 long_circ <- wide_circ %>%
   pivot_longer(
     cols = contains(c("boarding")),
-    names_to = "Route",
+    names_to = "Route!",
     values_to = "Boardings"
   )
 
@@ -174,3 +219,22 @@ long_circ <- wide_circ %>%
     values_to = Boardings
   )
 ``` 
+
+## With the `filter()` function it is best to avoid using quotes for columnames!
+
+Even though this is an atypical column name, this will not work like you would expect. 
+
+Here we see values less than 5 for `Sepal.Length`.
+
+```{r}
+filter(iris,"Sepal.Length" > 5) %>% head()
+```
+
+Instead stick to just using the column name as it is - filter only works on columns that already exists, so it knows what to look for. 
+
+This works!
+
+```{r}
+filter(iris, Sepal.Length > 5) %>% head()
+```
+
