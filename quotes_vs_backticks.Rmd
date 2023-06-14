@@ -26,7 +26,24 @@ kbl(text_tbl) %>%
   row_spec(3:6, background = "lightgreen")
 ```
 
-Column names are slightly different because we typically want to avoid spaces in general and character strings like words are expected and therefore the often don't require quotes. We will go over some of these situations.
+Column names are slightly different. We will go over some of these situations in more detail, but here is a summary:
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(kableExtra)
+text_tbl <- data.frame(
+    Function = c("tibble()", "rename()", "filter()","summarize()", "mutate()", "stringr functions", "pivot_longer()/pivot_wider()"),
+    Use = c("Tolerates quotes or backticks if atypical", "Tolerates quotes or backticks if atypical", "Only backticks if atypical", "Only backticks if atypical","Tolerates quotes or backticks if atypical", "Only quotes as it works with character strings", "Only quotes tollerated in all cases")
+)
+kbl(text_tbl) %>%
+  kable_paper(full_width = F, html_font = "helvetica", font_size = "18") %>%
+  column_spec(1:2, bold = T, border_right = T, border_left = TRUE) %>%
+  row_spec(0, align = "c") %>%
+  row_spec(1:2, background = "lightgreen") %>%
+  row_spec(3:4,  background = "yellow") %>%
+  row_spec(5, background = "lightgreen") %>%
+  row_spec(6:7, background = "lightblue")
+```
 
 
 ## `tibble()` for naming variables
@@ -174,7 +191,7 @@ wide_circ <- read_circulator()
 long_circ <- wide_circ %>%
   pivot_longer(
     cols = contains(c("boarding")),
-    names_to = "Route",
+    names_to = "Route!",
     values_to = "Boardings"
   )
 
