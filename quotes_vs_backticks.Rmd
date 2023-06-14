@@ -32,8 +32,23 @@ Column names are slightly different. We will go over some of these situations in
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(kableExtra)
 text_tbl <- data.frame(
-    Function = c("tibble()", "rename()", "filter()","summarize()", "mutate()", "stringr functions", "pivot_longer()/pivot_wider()"),
-    Use = c("Tolerates quotes or backticks if atypical", "Tolerates quotes or backticks if atypical", "Only backticks if atypical", "Only backticks if atypical","Tolerates quotes or backticks if atypical", "Only quotes as it works with character strings", "Only quotes tollerated in all cases")
+    Function = c("tibble()", 
+                 "rename()", 
+                 "filter()", 
+                 "summarize()", 
+                 "mutate()", 
+                 "stringr functions", 
+                 "pivot_longer()/pivot_wider()",
+                 "readr()"
+                 ),
+    Use = c("Tolerates quotes or backticks if atypical", 
+            "Tolerates quotes or backticks if atypical", 
+            "Only backticks if atypical", 
+            "Only backticks if atypical",
+            "Tolerates quotes or backticks if atypical", 
+            "Only quotes as it works with character strings",
+            "Only quotes tolerated in all cases",
+            "Only quotes are tolerated")
 )
 kbl(text_tbl) %>%
   kable_paper(full_width = F, html_font = "helvetica", font_size = "18") %>%
@@ -42,7 +57,7 @@ kbl(text_tbl) %>%
   row_spec(1:2, background = "lightgreen") %>%
   row_spec(3:4,  background = "yellow") %>%
   row_spec(5, background = "lightgreen") %>%
-  row_spec(6:7, background = "lightblue")
+  row_spec(6:8, background = "lightblue")
 ```
 
 
@@ -129,6 +144,25 @@ ex_data %>%
 iris %>%
   rename(`new name!` = Sepal.Length) %>%
   head()
+```
+
+
+## With the `filter()` function it is best to avoid using quotes for columnames!
+
+Even though this is an atypical column name, this will not work like you would expect. 
+
+Here we see values less than 5 for `Sepal.Length`.
+
+```{r}
+filter(iris,"Sepal.Length" > 5) %>% head()
+```
+
+Instead stick to just using the column name as it is - filter only works on columns that already exists, so it knows what to look for. 
+
+This works!
+
+```{r}
+filter(iris, Sepal.Length > 5) %>% head()
 ```
 
 ## `summarize()`
@@ -220,21 +254,14 @@ long_circ <- wide_circ %>%
   )
 ``` 
 
-## With the `filter()` function it is best to avoid using quotes for columnames!
+## `readr` expects quotes not backticks
 
-Even though this is an atypical column name, this will not work like you would expect. 
+This is true for URLs or paths.
 
-Here we see values less than 5 for `Sepal.Length`.
-
-```{r}
-filter(iris,"Sepal.Length" > 5) %>% head()
+```{r message=FALSE, warning=FALSE}
+# Use this
+vacc <- read_csv(file = "http://jhudatascience.org/intro_to_r/data/vaccinations.csv")
 ```
 
-Instead stick to just using the column name as it is - filter only works on columns that already exists, so it knows what to look for. 
 
-This works!
-
-```{r}
-filter(iris, Sepal.Length > 5) %>% head()
-```
 
