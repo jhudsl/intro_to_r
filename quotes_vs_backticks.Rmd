@@ -37,9 +37,10 @@ text_tbl <- data.frame(
                  "filter()", 
                  "summarize()", 
                  "mutate()", 
-                 "stringr functions", 
-                 "pivot_longer()/pivot_wider()",
                  "readr()",
+                 "tidyselect functions (ex.starts_with())",
+                 "stringr functions (ex. str_detect())", 
+                 "pivot_longer()/pivot_wider()",
                  "modeling functions"
                  ),
     Use = c("Tolerates quotes or backticks if atypical", 
@@ -47,9 +48,10 @@ text_tbl <- data.frame(
             "Only backticks if atypical", 
             "Only backticks if atypical",
             "Tolerates quotes or backticks if atypical", 
-            "Only quotes as it works with character strings",
-            "Only quotes tolerated in all cases",
-            "Only quotes are tolerated",
+            "Only quotes tolearted",
+            "Only quotes tolerated",
+            "Only quotes tolerated",
+            "Only quotes tolerated",
             "Only backticks if atypical")
 )
 kbl(text_tbl) %>%
@@ -59,8 +61,8 @@ kbl(text_tbl) %>%
   row_spec(1:2, background = "lightgreen") %>%
   row_spec(3:4,  background = "yellow") %>%
   row_spec(5, background = "lightgreen") %>%
-  row_spec(6:8, background = "lightblue") %>%
-  row_spec(9,  background = "yellow")
+  row_spec(6:9, background = "lightblue") %>%
+  row_spec(10,  background = "yellow")
 ```
 
 
@@ -196,6 +198,23 @@ ex_data %>% mutate("Number!" = `Number!` + 2)
 ex_data %>% mutate(Typical = `Number!` + 2)
 ```
 
+## `readr` expects quotes not backticks
+
+This is true for URLs or paths.
+
+```{r message=FALSE, warning=FALSE}
+# Use this
+vacc <- read_csv(file = "http://jhudatascience.org/intro_to_r/data/vaccinations.csv")
+```
+
+## tidyselect helper functions 
+
+These require quotes.
+
+```{r}
+select(iris, contains("et")) %>% head(n = 2)
+select(iris, ends_with("Width")) %>% head(n = 2)
+```
 ## `stringr` functions
 
 When working with strings we need to use quotes.
@@ -256,15 +275,6 @@ long_circ <- wide_circ %>%
     values_to = Boardings
   )
 ``` 
-
-## `readr` expects quotes not backticks
-
-This is true for URLs or paths.
-
-```{r message=FALSE, warning=FALSE}
-# Use this
-vacc <- read_csv(file = "http://jhudatascience.org/intro_to_r/data/vaccinations.csv")
-```
 
 
 ## Dont need quotes for modeling
