@@ -1,12 +1,15 @@
 ---
 title: "Quotes vs backticks"
-output: html_document
-
+output: 
+  html_document:
+    toc: TRUE
 ---
 
 When do you use quotes, backticks, or nothing in R?
 
 There are some inconsistencies across different functions, sometimes you just need to try them out. Always check that your work did what you expect!
+
+## Values in general
 
 In general these are the conventions for working with values (recall that values or samples within rows):
 
@@ -26,6 +29,8 @@ kbl(text_tbl) %>%
   row_spec(1:2, background = "yellow") %>%
   row_spec(3:6, background = "lightgreen")
 ```
+
+## Coumn names
 
 Column names are slightly different. We will go over some of these situations in more detail, but here is a summary:
 
@@ -143,7 +148,7 @@ ex_data %>%
   rename("Number" = "Number!")
 ```
 
-## Here is another example...
+Here is another example...
 
 ```{r}
 # This works because Sepal.Length already exists as a column name. However `new name!` needs backticks because it doesn't exist yet and R needs to know what it is (not a not equal to conditional for example), as R could interpret it differently.
@@ -154,7 +159,9 @@ iris %>%
 ```
 
 
-## With the `filter()` function it is best to avoid using quotes for columnames!
+##`filter()` function 
+
+It is best to avoid using quotes for columnames!
 
 Even though this is an atypical column name, this will not work like you would expect. 
 
@@ -209,7 +216,7 @@ This is true for URLs or paths.
 vacc <- read_csv(file = "http://jhudatascience.org/intro_to_r/data/vaccinations.csv")
 ```
 
-## tidyselect helper functions 
+## tidyselect helper functions like `contains()`
 
 These require quotes.
 
@@ -239,7 +246,7 @@ str_detect(pattern = "t", string = x)
 # str_detect(pattern = `t`, string = x)
 ```
 
-## `pivot_longer` and `pivot_wider` are a bit different
+## `pivot_longer` and `pivot_wider`
 
 For column names that do not exist yet, you need quotes (single or double). Backticks will not work.
 
@@ -281,7 +288,7 @@ long_circ <- wide_circ %>%
 
 
 
-## Dont need quotes for modeling
+## Dont need quotes for modeling with `glm()`
 
 
 ```{r}
