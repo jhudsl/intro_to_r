@@ -5,7 +5,12 @@ output: html_document
 
 When do you use quotes, backticks, or nothing in R?
 
+There are some inconsistencies across different functions, sometimes you just need to try them out. Always check that your work did what you expect!
+
 ## `tibble()` for naming variables
+
+- we suggest that you avoid nonstandard **variable** names - if you do you do not need any quotes or backticks around the name within `tibble`
+
 
 - backticks are typically for nonstandard **variable** names (aka column names):
   - those with spaces `name with space`
@@ -25,7 +30,7 @@ Sepal.Length is a column/variable name that would often need backticks, while th
 
 Let's check out how some functions work with this.
 
-In the `tibble()` function when specifying names we need to backticks when we have spaces or punctuation or variable names that are just numeric characters (this also works with single quotes or double quotes, but backticks are more common practice). 
+In the `tibble()` function when specifying names we need to use backticks when we have spaces or punctuation or variable names that are just numeric characters (this also works with single quotes or double quotes, but backticks are more common practice). 
 
 This is not required if we have a typical type of name without spaces or punctuation. However if we do use quotes on such a name is is not a problem either. 
 
@@ -89,7 +94,8 @@ iris %>%
 
 ## `summarize()`
 
-Only backticks will work here. Otherwise, the variable gets interpreted as a character string.
+Only backticks will work here. Otherwise, the variable gets interpreted as a character string if we use quotes.
+
 ```{r}
 ex_data %>%
   summarize(mean = mean(`2022`))
@@ -174,3 +180,5 @@ long_circ <- wide_circ %>%
     values_to = Boardings
   )
 ``` 
+
+
