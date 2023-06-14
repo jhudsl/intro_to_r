@@ -39,7 +39,8 @@ text_tbl <- data.frame(
                  "mutate()", 
                  "stringr functions", 
                  "pivot_longer()/pivot_wider()",
-                 "readr()"
+                 "readr()",
+                 "modeling functions"
                  ),
     Use = c("Tolerates quotes or backticks if atypical", 
             "Tolerates quotes or backticks if atypical", 
@@ -48,7 +49,8 @@ text_tbl <- data.frame(
             "Tolerates quotes or backticks if atypical", 
             "Only quotes as it works with character strings",
             "Only quotes tolerated in all cases",
-            "Only quotes are tolerated")
+            "Only quotes are tolerated",
+            "Only backticks if atypical")
 )
 kbl(text_tbl) %>%
   kable_paper(full_width = F, html_font = "helvetica", font_size = "18") %>%
@@ -57,7 +59,8 @@ kbl(text_tbl) %>%
   row_spec(1:2, background = "lightgreen") %>%
   row_spec(3:4,  background = "yellow") %>%
   row_spec(5, background = "lightgreen") %>%
-  row_spec(6:8, background = "lightblue")
+  row_spec(6:8, background = "lightblue") %>%
+  row_spec(9,  background = "yellow")
 ```
 
 
@@ -264,4 +267,18 @@ vacc <- read_csv(file = "http://jhudatascience.org/intro_to_r/data/vaccinations.
 ```
 
 
+## Dont need quotes for modeling
 
+
+```{r}
+car_data <- mtcars
+fit_cars <-glm(mpg ~ cyl + disp + hp + wt*gear, data = car_data)
+
+```
+
+Use backticks if there is an atypical name. Do not use quotes.
+
+```{r}
+car_data <- rename(car_data, `mpg!` = mpg)
+fit_cars <-glm(`mpg!` ~ cyl + disp + hp + wt*gear, data = car_data)
+```
