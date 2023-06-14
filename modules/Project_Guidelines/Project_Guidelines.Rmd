@@ -8,15 +8,20 @@ output: html_document
 This project is supposed to get you used to working with R in a way that would be conducive for collaborating or creating reproducible analyses.
 
 1) Please identify a dataset to analyze. Any dataset will do, as long as you can perform the following requirements and you **do not violate any privacy restrictions** for the data. 
-Also please ensure that the instructors have access to your data so that they can evaluate your project. Thus if you use your own data, make sure turn in data file (csv, excel etc.) or add a link to your data if it is hosted somewhere.
+Also please ensure that the instructors have access to your data so that they can evaluate your project. 
+
+**Thus send us a link to your data if it is hosted somewhere or make sure to turn in a data file (csv, excel etc.) on CoursePlus.** If the data is not hosted publicly somewhere, you must turn it in on Drop Box with your other files. 
 
 You are also free to create your own data if you wish, but please ensure that it is large enough to perform the rest of the following requirements. 
 
 Options for places to find data are:
 
-* https://www.kaggle.com/datasets  
-* https://shiny.rstudio.com/gallery/tidy-tuesday.html  
-* https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html   
+* from Kaggle: https://www.kaggle.com/datasets  
+* from R itself: https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html 
+* from the `tidytuesdayR` package: https://github.com/thebioengineer/tidytuesdayR
+* from the CDC: https://data.cdc.gov/
+* from healthdata.gov: https://healthdata.gov/
+
 (This is the data that comes with R - you can load them using `datasets::` and pressing tab in RStudio to see the names of the datasets - for example `datasets::ability.cov` will load the ability dataset.)
 
 You are not limited to these options for finding your data.
@@ -33,7 +38,7 @@ You are not limited to these options for finding your data.
 
 (1 point)
 
-5) Make **two** **different** kinds of visualizations of your data.
+5) Make **two** **different** kinds of visualizations of your data using `ggplot2`.
 
 (2 points total:  1 point for each of 2 **different** kinds of plots completed)
 
@@ -49,7 +54,7 @@ You are not limited to these options for finding your data.
 
 (0.5 points)
 
-9) All steps and descriptions should be written in an RMarkdown file that is rendered to an html file. Code should be included in code chunks. Please make sure that your file knits properly to create an html file. Submit the Rmarkdown (.Rmd) file. 
+9) All steps and descriptions should be written in an RMarkdown file that is rendered to an html file. Code should be included in code chunks. Please make sure that your file knits properly to create an html file. **Submit at least the Rmarkdown (.Rmd) file**. 
 
 Please see the project example on our website for an example project: Source code [Rmd](ProjectExample/Final_Project_Example.Rmd) and the output [html](ProjectExample/Final_Project_Example.html).
 
