@@ -12,17 +12,17 @@ In general these are the conventions for working with values (recall that values
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(kableExtra)
 text_tbl <- data.frame(
-    Type = c("character string", "character string ", "atypical", "atypical", "atypical", "atypical"),
+  Type = c("character string", "character string ", "atypical", "atypical", "atypical", "atypical"),
   Example = c("Liver", "New York", "col 1", "col.1", "1", "1st col"),
   Features = c("word", "phrase", "has spaces and numbers", "has punctuation ", "just a number", "starts with number"),
- Use = c("use quotes - single or double", "use quotes - single or double", "use `backticks`", "use `backticks`", "use `backticks`", "use `backticks`")
+  Use = c("use quotes - single or double", "use quotes - single or double", "use `backticks`", "use `backticks`", "use `backticks`", "use `backticks`")
 )
 kbl(text_tbl) %>%
-  #kable_classic(full_width = F, html_font = "helvetica") %>%
+  # kable_classic(full_width = F, html_font = "helvetica") %>%
   kable_paper(full_width = F, html_font = "helvetica", font_size = "18") %>%
   column_spec(1:4, bold = T, border_right = T, border_left = TRUE) %>%
   row_spec(0, align = "c") %>%
-  row_spec(1:2,  background = "yellow") %>%
+  row_spec(1:2, background = "yellow") %>%
   row_spec(3:6, background = "lightgreen")
 ```
 
@@ -32,15 +32,15 @@ Column names are slightly different. We will go over some of these situations in
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(kableExtra)
 text_tbl <- data.frame(
-    Function = c("tibble()", "rename()", "filter()","summarize()", "mutate()", "stringr functions", "pivot_longer()/pivot_wider()"),
-    Use = c("Tolerates quotes or backticks if atypical", "Tolerates quotes or backticks if atypical", "Only backticks if atypical", "Only backticks if atypical","Tolerates quotes or backticks if atypical", "Only quotes as it works with character strings", "Only quotes tollerated in all cases")
+  Function = c("tibble()", "rename()", "filter()", "summarize()", "mutate()", "stringr functions", "pivot_longer()/pivot_wider()"),
+  Use = c("Tolerates quotes or backticks if atypical", "Tolerates quotes or backticks if atypical", "Only backticks if atypical", "Only backticks if atypical", "Tolerates quotes or backticks if atypical", "Only quotes as it works with character strings", "Only quotes tollerated in all cases")
 )
 kbl(text_tbl) %>%
   kable_paper(full_width = F, html_font = "helvetica", font_size = "18") %>%
   column_spec(1:2, bold = T, border_right = T, border_left = TRUE) %>%
   row_spec(0, align = "c") %>%
   row_spec(1:2, background = "lightgreen") %>%
-  row_spec(3:4,  background = "yellow") %>%
+  row_spec(3:4, background = "yellow") %>%
   row_spec(5, background = "lightgreen") %>%
   row_spec(6:7, background = "lightblue")
 ```
@@ -227,7 +227,7 @@ Even though this is an atypical column name, this will not work like you would e
 Here we see values less than 5 for `Sepal.Length`.
 
 ```{r}
-filter(iris,"Sepal.Length" > 5) %>% head()
+filter(iris, "Sepal.Length" > 5) %>% head()
 ```
 
 Instead stick to just using the column name as it is - filter only works on columns that already exists, so it knows what to look for. 
