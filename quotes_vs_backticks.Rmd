@@ -1,6 +1,7 @@
 ---
 title: "Quotes vs backticks"
 output: html_document
+
 ---
 
 When do you use quotes, backticks, or nothing in R?
@@ -12,17 +13,17 @@ In general these are the conventions for working with values (recall that values
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(kableExtra)
 text_tbl <- data.frame(
-    Type = c("character string", "character string ", "atypical", "atypical", "atypical", "atypical"),
+  Type = c("character string", "character string ", "atypical", "atypical", "atypical", "atypical"),
   Example = c("Liver", "New York", "col 1", "col.1", "1", "1st col"),
   Features = c("word", "phrase", "has spaces and numbers", "has punctuation ", "just a number", "starts with number"),
- Use = c("use quotes - single or double", "use quotes - single or double", "use `backticks`", "use `backticks`", "use `backticks`", "use `backticks`")
+  Use = c("use quotes - single or double", "use quotes - single or double", "use `backticks`", "use `backticks`", "use `backticks`", "use `backticks`")
 )
 kbl(text_tbl) %>%
-  #kable_classic(full_width = F, html_font = "helvetica") %>%
+  # kable_classic(full_width = F, html_font = "helvetica") %>%
   kable_paper(full_width = F, html_font = "helvetica", font_size = "18") %>%
   column_spec(1:4, bold = T, border_right = T, border_left = TRUE) %>%
   row_spec(0, align = "c") %>%
-  row_spec(1:2,  background = "yellow") %>%
+  row_spec(1:2, background = "yellow") %>%
   row_spec(3:6, background = "lightgreen")
 ```
 
@@ -32,6 +33,7 @@ Column names are slightly different. We will go over some of these situations in
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(kableExtra)
 text_tbl <- data.frame(
+
     Function = c("tibble()", 
                  "rename()", 
                  "filter()", 
@@ -59,7 +61,7 @@ kbl(text_tbl) %>%
   column_spec(1:2, bold = T, border_right = T, border_left = TRUE) %>%
   row_spec(0, align = "c") %>%
   row_spec(1:2, background = "lightgreen") %>%
-  row_spec(3:4,  background = "yellow") %>%
+  row_spec(3:4, background = "yellow") %>%
   row_spec(5, background = "lightgreen") %>%
   row_spec(6:9, background = "lightblue") %>%
   row_spec(10,  background = "yellow")
@@ -215,6 +217,7 @@ These require quotes.
 select(iris, contains("et")) %>% head(n = 2)
 select(iris, ends_with("Width")) %>% head(n = 2)
 ```
+
 ## `stringr` functions
 
 When working with strings we need to use quotes.
@@ -275,6 +278,7 @@ long_circ <- wide_circ %>%
     values_to = Boardings
   )
 ``` 
+
 
 
 ## Dont need quotes for modeling
