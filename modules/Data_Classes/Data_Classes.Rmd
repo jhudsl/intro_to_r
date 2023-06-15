@@ -267,9 +267,10 @@ Two-dimensional classes are those we would often use to store data read from a f
 
 ```{r,}
 head(iris, n = 3)
-iris_mat <- select(iris, -Species) %>% tibble() %>% head(n = 3)
+iris_mat <- select(iris, -Species) %>%
+  tibble() %>%
+  head(n = 3)
 as.matrix(iris_mat)
-
 ```
 
 ## Matrices
