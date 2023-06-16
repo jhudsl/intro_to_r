@@ -89,7 +89,7 @@ is.infinite(test)
 
 Do we have any `NA`s? (`any` can help)
 
-```{r isna}
+```{r}
 A <- c(1, 2, 3, NA)
 B <- c(1, 2, 3, 4)
 any(is.na(A)) # are there any NAs - YES/TRUE
@@ -274,6 +274,14 @@ airqual %>% select(!miss_var_which(airqual))
 
 
 
+## Change a value to be `NA`{.codesmall}
+
+The `na_if()` function of `dplyr` can be helpful for this. Let's say we
+think that all 0 values should be `NA`.
+
+```{r}
+count(bike, dateInstalled)
+```
 
 ## Change a value to be `NA`{.codesmall}
 
@@ -281,18 +289,20 @@ The `na_if()` function of `dplyr` can be helpful for this. Let's say we
 think that all 0 values should be `NA`.
 
 ```{r}
-df <- tibble(A = c(1, 2, 3, 0), B = c(1, 2, 3, 4))
-df %>% mutate(A = na_if(A, 0))
+bike <- bike %>% 
+  mutate(dateInstalled = na_if(dateInstalled, 0))
+count(bike, dateInstalled)
 ```
 
 
-## Change `NA` to be a value
+## Change `NA` to be a value {.codesmall}
 
 The `replace_na()` function (part of the `tidyr` package), can do the opposite of `na_if()`.
-
+ (note that you must use numeric values as replacement - we will show how to replace with character strings soon)
 ```{r}
-df <- tibble(A = c(1, 2, 3, NA), B = c(1, 2, 3, 4))
-df %>% mutate(A = replace_na(A, 0))
+bike %>% 
+  mutate(dateInstalled = replace_na(dateInstalled, 2005)) %>% 
+  count(dateInstalled)
 ```
 
 
@@ -329,37 +339,24 @@ week
 
 `r emo::ji("warning")` Calculating percentages will give you a different result depending on your choice to include NA values.!
 
-
-```{r}
-red_blue <- tibble(color = rep(c("red", "blue", NA), 3))
-red_blue <- red_blue %>% count(color)
-red_blue <- rename(red_blue, col_count = n)
-red_blue
-```
-
-## Word of caution - Percentages with `NA`
-
-
-`r emo::ji("warning")` Calculating percentages will give you a different result depending on your choice to include NA values!
-
 This is because the denominator changes.
 
+
+## Word of caution - Percentages with `NA`
+
+
 ```{r}
-total <- red_blue %>% pull(col_count) %>% sum()
-red_blue %>% mutate(percent = 
-                    (col_count/total)*100)
+count(bike, dateInstalled) %>% mutate(percent = (n/(sum(n)) *100))
 ```
 
 ## Word of caution - Percentages with `NA`
 
 ```{r}
-
-total <- red_blue %>% drop_na() %>% pull(col_count) %>% sum()
-red_blue %>% mutate(percent = 
-                    (col_count/total)*100)
-
+bike %>% drop_na(dateInstalled) %>% 
+  count(dateInstalled) %>% mutate(percent = (n/(sum(n)) *100))
 ```
-Should you be dividing by 9 or 6?   
+
+Should you be dividing by the total count with `NA` values included?   
 It depends on your data and what `NA` might mean.   
 Pay attention to your data and your `NA` values!
 
@@ -986,21 +983,4 @@ which(colMeans(is.na(df)) < 0.2) #the location of the columns <.2
 df %>% select(which(colMeans(is.na(df)) < 0.2))# remove if over 20% missing
 ```
 
-## Percent calculation without intermediate objects
 
-```{r}
-
-red_blue  %>% pull(col_count) %>%sum()
-sum(pull(red_blue,col_count))
-red_blue %>% mutate(percent = 
-              (col_count/sum(pull(red_blue ,col_count)))*100)
-
-red_blue %>% drop_na() %>% pull(col_count) %>%sum()
-sum(pull(drop_na(red_blue),col_count))
-red_blue %>% mutate(percent = 
-              (col_count/sum(pull(drop_na(red_blue),col_count)))*100)
-
-# different order
-red_blue %>% drop_na() %>%  mutate(percent = 
-              (col_count/sum(pull(red_blue,col_count)))*100)
-```
