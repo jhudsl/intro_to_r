@@ -32,6 +32,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link rel="shortcut icon" href="resources/images/favicon.ico" />
  <!--- go to https://favicon.io/favicon-converter/ to upload an image to make a new favicon.io. You will need to replace the current favicon.io image with the one in the downloaded directory from the website. The current image is in the resources/images/ directory --->
 
@@ -276,19 +278,242 @@ $(document).ready(function () {
 
 </div>
 
+<div id="TOC">
+<ul>
+<li><a href="#values-in-general">Values in general</a></li>
+<li><a href="#column-names">Column names</a></li>
+<li><a href="#tibble-for-naming-variables"><code>tibble()</code> for naming variables</a></li>
+<li><a href="#rename"><code>rename()</code></a></li>
+<li><a href="#summarize"><code>summarize()</code></a></li>
+<li><a href="#mutate"><code>mutate()</code></a></li>
+<li><a href="#readr-expects-quotes-not-backticks"><code>readr</code> expects quotes not backticks</a></li>
+<li><a href="#tidyselect-helper-functions-like-contains">tidyselect helper functions like <code>contains()</code></a></li>
+<li><a href="#stringr-functions"><code>stringr</code> functions</a></li>
+<li><a href="#pivot_longer-and-pivot_wider"><code>pivot_longer</code> and <code>pivot_wider</code></a></li>
+<li><a href="#dont-need-quotes-for-modeling-with-glm">Don’t need quotes for modeling with <code>glm()</code></a></li>
+</ul>
+</div>
 
 <p>When do you use quotes, backticks, or nothing in R?</p>
+<p>There are some inconsistencies across different functions, sometimes you just need to try them out. Always check that your work did what you expect!</p>
+<div id="values-in-general" class="section level2">
+<h2>Values in general</h2>
+<p>In general these are the conventions for working with values (recall that values or samples within rows):</p>
+<table class=" lightable-paper" style="font-size: 18px; font-family: helvetica; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;text-align: center;">
+Type
+</th>
+<th style="text-align:left;text-align: center;">
+Example
+</th>
+<th style="text-align:left;text-align: center;">
+Features
+</th>
+<th style="text-align:left;text-align: center;">
+Use
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: yellow !important;">
+character string
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: yellow !important;">
+Liver
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: yellow !important;">
+word
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: yellow !important;">
+use quotes - single or double
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: yellow !important;">
+character string
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: yellow !important;">
+New York
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: yellow !important;">
+phrase
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: yellow !important;">
+use quotes - single or double
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightgreen !important;">
+atypical
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightgreen !important;">
+col 1
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightgreen !important;">
+has spaces and numbers
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightgreen !important;">
+use <code>backticks</code>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightgreen !important;">
+atypical
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightgreen !important;">
+col.1
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightgreen !important;">
+has punctuation
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightgreen !important;">
+use <code>backticks</code>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightgreen !important;">
+atypical
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightgreen !important;">
+1
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightgreen !important;">
+just a number
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightgreen !important;">
+use <code>backticks</code>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightgreen !important;">
+atypical
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightgreen !important;">
+1st col
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightgreen !important;">
+starts with number
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightgreen !important;">
+use <code>backticks</code>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="column-names" class="section level2">
+<h2>Column names</h2>
+<p>Column names are slightly different. We will go over some of these situations in more detail, but here is a summary:</p>
+<table class=" lightable-paper" style="font-size: 18px; font-family: helvetica; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;text-align: center;">
+Function
+</th>
+<th style="text-align:left;text-align: center;">
+Use
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightgreen !important;">
+tibble()
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightgreen !important;">
+Tolerates quotes or backticks if atypical
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightgreen !important;">
+rename()
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightgreen !important;">
+Tolerates quotes or backticks if atypical
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: yellow !important;">
+filter()
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: yellow !important;">
+Only backticks if atypical
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: yellow !important;">
+summarize()
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: yellow !important;">
+Only backticks if atypical
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightgreen !important;">
+mutate()
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightgreen !important;">
+Tolerates quotes or backticks if atypical
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightblue !important;">
+readr()
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightblue !important;">
+Only quotes tolearted
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightblue !important;">
+tidyselect functions (ex.starts_with())
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightblue !important;">
+Only quotes tolerated
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightblue !important;">
+stringr functions (ex. str_detect())
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightblue !important;">
+Only quotes tolerated
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightblue !important;">
+pivot_longer()/pivot_wider()
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: lightblue !important;">
+Only quotes tolerated
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: yellow !important;">
+modeling functions
+</td>
+<td style="text-align:left;font-weight: bold;border-left:1px solid;border-right:1px solid;background-color: yellow !important;">
+Only backticks if atypical
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <div id="tibble-for-naming-variables" class="section level2">
 <h2><code>tibble()</code> for naming variables</h2>
 <ul>
-<li>backticks are typically for nonstandard <strong>variable</strong> names (aka column names):
+<li><p>we suggest that you avoid nonstandard <strong>variable</strong> names - if you do you do not need any quotes or backticks around the name within <code>tibble</code></p></li>
+<li><p>backticks are typically for nonstandard <strong>variable</strong> names (aka column names):</p>
 <ul>
 <li>those with spaces <code>name with space</code></li>
 <li>those with punctuation <code>name!</code></li>
 <li>those that are just numbers <code>12</code></li>
 <li>those that start with numbers <code>1name</code></li>
 </ul></li>
-<li>single or double quotes are typically used for <strong>character strings</strong> for the values within the data</li>
+<li><p>single or double quotes are typically used for <strong>character strings</strong> for the values within the data</p></li>
 </ul>
 <p>For example, in the <code>iris</code> data set:</p>
 <pre class="r"><code>head(iris)</code></pre>
@@ -301,7 +526,7 @@ $(document).ready(function () {
 ## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
 <p>Sepal.Length is a column/variable name that would often need backticks, while the Species setosa is character string value for the variable Species, and it would need quotes.</p>
 <p>Let’s check out how some functions work with this.</p>
-<p>In the <code>tibble()</code> function when specifying names we need to backticks when we have spaces or punctuation or variable names that are just numeric characters (this also works with single quotes or double quotes, but backticks are more common practice).</p>
+<p>In the <code>tibble()</code> function when specifying names we need to use backticks when we have spaces or punctuation or variable names that are just numeric characters (this also works with single quotes or double quotes, but backticks are more common practice).</p>
 <p>This is not required if we have a typical type of name without spaces or punctuation. However if we do use quotes on such a name is is not a problem either.</p>
 <pre class="r"><code># the preferred method
 
@@ -318,11 +543,11 @@ ex_data</code></pre>
 <pre><code>## # A tibble: 5 × 6
 ##   `Number!` `Var with space` `2022` `2021` typical typical2
 ##       &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1         1 A                     3      2       1        1
-## 2         2 B                     1      3       2        2
-## 3         3 C                     5      1       3        3
-## 4         4 D                     2      5       4        4
-## 5         5 E                     4      4       5        5</code></pre>
+## 1         1 A                     5      1       1        1
+## 2         2 B                     3      4       2        2
+## 3         3 C                     1      2       3        3
+## 4         4 D                     4      5       4        4
+## 5         5 E                     2      3       5        5</code></pre>
 <pre class="r"><code># this works
 
 ex_data &lt;- tibble(
@@ -337,11 +562,11 @@ ex_data</code></pre>
 <pre><code>## # A tibble: 5 × 6
 ##   `Number!` `Var with space` `2022` `2021` typical typical2
 ##       &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1         1 A                     4      1       1        1
-## 2         2 B                     2      4       2        2
-## 3         3 C                     3      5       3        3
-## 4         4 D                     5      3       4        4
-## 5         5 E                     1      2       5        5</code></pre>
+## 1         1 A                     2      3       1        1
+## 2         2 B                     3      2       2        2
+## 3         3 C                     4      5       3        3
+## 4         4 D                     5      1       4        4
+## 5         5 E                     1      4       5        5</code></pre>
 </div>
 <div id="rename" class="section level2">
 <h2><code>rename()</code></h2>
@@ -351,35 +576,33 @@ ex_data</code></pre>
 <pre><code>## # A tibble: 5 × 6
 ##   Number `Var with space` `2022` `2021` typical typical2
 ##    &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1      1 A                     4      1       1        1
-## 2      2 B                     2      4       2        2
-## 3      3 C                     3      5       3        3
-## 4      4 D                     5      3       4        4
-## 5      5 E                     1      2       5        5</code></pre>
+## 1      1 A                     2      3       1        1
+## 2      2 B                     3      2       2        2
+## 3      3 C                     4      5       3        3
+## 4      4 D                     5      1       4        4
+## 5      5 E                     1      4       5        5</code></pre>
 <pre class="r"><code>ex_data %&gt;%
   rename(Number = &quot;Number!&quot;)</code></pre>
 <pre><code>## # A tibble: 5 × 6
 ##   Number `Var with space` `2022` `2021` typical typical2
 ##    &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1      1 A                     4      1       1        1
-## 2      2 B                     2      4       2        2
-## 3      3 C                     3      5       3        3
-## 4      4 D                     5      3       4        4
-## 5      5 E                     1      2       5        5</code></pre>
+## 1      1 A                     2      3       1        1
+## 2      2 B                     3      2       2        2
+## 3      3 C                     4      5       3        3
+## 4      4 D                     5      1       4        4
+## 5      5 E                     1      4       5        5</code></pre>
 <pre class="r"><code># not necessary but not problematic to put new typical name in quotes
 ex_data %&gt;%
   rename(&quot;Number&quot; = &quot;Number!&quot;)</code></pre>
 <pre><code>## # A tibble: 5 × 6
 ##   Number `Var with space` `2022` `2021` typical typical2
 ##    &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1      1 A                     4      1       1        1
-## 2      2 B                     2      4       2        2
-## 3      3 C                     3      5       3        3
-## 4      4 D                     5      3       4        4
-## 5      5 E                     1      2       5        5</code></pre>
-</div>
-<div id="here-is-another-example" class="section level2">
-<h2>Here is another example…</h2>
+## 1      1 A                     2      3       1        1
+## 2      2 B                     3      2       2        2
+## 3      3 C                     4      5       3        3
+## 4      4 D                     5      1       4        4
+## 5      5 E                     1      4       5        5</code></pre>
+<p>Here is another example…</p>
 <pre class="r"><code># This works because Sepal.Length already exists as a column name. However `new name!` needs backticks because it doesn&#39;t exist yet and R needs to know what it is (not a not equal to conditional for example), as R could interpret it differently.
 
 iris %&gt;%
@@ -392,10 +615,32 @@ iris %&gt;%
 ## 4       4.6         3.1          1.5         0.2  setosa
 ## 5       5.0         3.6          1.4         0.2  setosa
 ## 6       5.4         3.9          1.7         0.4  setosa</code></pre>
+<p>##<code>filter()</code> function</p>
+<p>It is best to avoid using quotes for column names!</p>
+<p>Even though this is an atypical column name, this will not work like you would expect.</p>
+<p>Here we see values less than 5 for <code>Sepal.Length</code>.</p>
+<pre class="r"><code>filter(iris, &quot;Sepal.Length&quot; &gt; 5) %&gt;% head()</code></pre>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
+<p>Instead stick to just using the column name as it is - filter only works on columns that already exists, so it knows what to look for.</p>
+<p>This works!</p>
+<pre class="r"><code>filter(iris, Sepal.Length &gt; 5) %&gt;% head()</code></pre>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          5.4         3.9          1.7         0.4  setosa
+## 3          5.4         3.7          1.5         0.2  setosa
+## 4          5.8         4.0          1.2         0.2  setosa
+## 5          5.7         4.4          1.5         0.4  setosa
+## 6          5.4         3.9          1.3         0.4  setosa</code></pre>
 </div>
 <div id="summarize" class="section level2">
 <h2><code>summarize()</code></h2>
-<p>Only backticks will work here. Otherwise, the variable gets interpreted as a character string.</p>
+<p>Only backticks will work here. Otherwise, the variable gets interpreted as a character string if we use quotes.</p>
 <pre class="r"><code>ex_data %&gt;%
   summarize(mean = mean(`2022`))</code></pre>
 <pre><code>## # A tibble: 1 × 1
@@ -417,29 +662,47 @@ iris %&gt;%
 <pre><code>## # A tibble: 5 × 6
 ##   `Number!` `Var with space` `2022` `2021` typical typical2
 ##       &lt;dbl&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1         3 A                     4      1       1        1
-## 2         4 B                     2      4       2        2
-## 3         5 C                     3      5       3        3
-## 4         6 D                     5      3       4        4
-## 5         7 E                     1      2       5        5</code></pre>
+## 1         3 A                     2      3       1        1
+## 2         4 B                     3      2       2        2
+## 3         5 C                     4      5       3        3
+## 4         6 D                     5      1       4        4
+## 5         7 E                     1      4       5        5</code></pre>
 <pre class="r"><code>ex_data %&gt;% mutate(&quot;Number!&quot; = `Number!` + 2)</code></pre>
 <pre><code>## # A tibble: 5 × 6
 ##   `Number!` `Var with space` `2022` `2021` typical typical2
 ##       &lt;dbl&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1         3 A                     4      1       1        1
-## 2         4 B                     2      4       2        2
-## 3         5 C                     3      5       3        3
-## 4         6 D                     5      3       4        4
-## 5         7 E                     1      2       5        5</code></pre>
+## 1         3 A                     2      3       1        1
+## 2         4 B                     3      2       2        2
+## 3         5 C                     4      5       3        3
+## 4         6 D                     5      1       4        4
+## 5         7 E                     1      4       5        5</code></pre>
 <pre class="r"><code>ex_data %&gt;% mutate(Typical = `Number!` + 2)</code></pre>
 <pre><code>## # A tibble: 5 × 7
 ##   `Number!` `Var with space` `2022` `2021` typical typical2 Typical
 ##       &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;   &lt;dbl&gt;
-## 1         1 A                     4      1       1        1       3
-## 2         2 B                     2      4       2        2       4
-## 3         3 C                     3      5       3        3       5
-## 4         4 D                     5      3       4        4       6
-## 5         5 E                     1      2       5        5       7</code></pre>
+## 1         1 A                     2      3       1        1       3
+## 2         2 B                     3      2       2        2       4
+## 3         3 C                     4      5       3        3       5
+## 4         4 D                     5      1       4        4       6
+## 5         5 E                     1      4       5        5       7</code></pre>
+</div>
+<div id="readr-expects-quotes-not-backticks" class="section level2">
+<h2><code>readr</code> expects quotes not backticks</h2>
+<p>This is true for URLs or paths.</p>
+<pre class="r"><code># Use this
+vacc &lt;- read_csv(file = &quot;http://jhudatascience.org/intro_to_r/data/vaccinations.csv&quot;)</code></pre>
+</div>
+<div id="tidyselect-helper-functions-like-contains" class="section level2">
+<h2>tidyselect helper functions like <code>contains()</code></h2>
+<p>These require quotes.</p>
+<pre class="r"><code>select(iris, contains(&quot;et&quot;)) %&gt;% head(n = 2)</code></pre>
+<pre><code>##   Petal.Length Petal.Width
+## 1          1.4         0.2
+## 2          1.4         0.2</code></pre>
+<pre class="r"><code>select(iris, ends_with(&quot;Width&quot;)) %&gt;% head(n = 2)</code></pre>
+<pre><code>##   Sepal.Width Petal.Width
+## 1         3.5         0.2
+## 2         3.0         0.2</code></pre>
 </div>
 <div id="stringr-functions" class="section level2">
 <h2><code>stringr</code> functions</h2>
@@ -456,8 +719,8 @@ str_detect(pattern = &quot;t&quot;, string = x)</code></pre>
 <pre class="r"><code># this will not work:
 # str_detect(pattern = `t`, string = x)</code></pre>
 </div>
-<div id="pivot_longer-and-pivot_wider-are-a-bit-different" class="section level2">
-<h2><code>pivot_longer</code> and <code>pivot_wider</code> are a bit different</h2>
+<div id="pivot_longer-and-pivot_wider" class="section level2">
+<h2><code>pivot_longer</code> and <code>pivot_wider</code></h2>
 <p>For column names that do not exist yet, you need quotes (single or double). Backticks will not work.</p>
 <pre class="r"><code>library(jhur)
 wide_circ &lt;- read_circulator()
@@ -465,7 +728,7 @@ wide_circ &lt;- read_circulator()
 long_circ &lt;- wide_circ %&gt;%
   pivot_longer(
     cols = contains(c(&quot;boarding&quot;)),
-    names_to = &quot;Route&quot;,
+    names_to = &quot;Route!&quot;,
     values_to = &quot;Boardings&quot;
   )
 
@@ -489,6 +752,14 @@ long_circ &lt;- wide_circ %&gt;%
     names_to = Route,
     values_to = Boardings
   )</code></pre>
+</div>
+<div id="dont-need-quotes-for-modeling-with-glm" class="section level2">
+<h2>Don’t need quotes for modeling with <code>glm()</code></h2>
+<pre class="r"><code>car_data &lt;- mtcars
+fit_cars &lt;- glm(mpg ~ cyl + disp + hp + wt * gear, data = car_data)</code></pre>
+<p>Use backticks if there is an atypical name. Do not use quotes.</p>
+<pre class="r"><code>car_data &lt;- rename(car_data, `mpg!` = mpg)
+fit_cars &lt;- glm(`mpg!` ~ cyl + disp + hp + wt * gear, data = car_data)</code></pre>
 </div>
 
 
