@@ -219,10 +219,21 @@ bike &lt;- read_bike()</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>What percentage of the <code>subType</code> variable is complete of <code>bike</code> ? Hint: use another <code>naniar</code> function.</li>
 </ol>
-<pre class="r"><code>pct_complete(bike$subType) # this or..</code></pre>
-<pre><code>## [1] 99.75475</code></pre>
 <pre class="r"><code>pull(bike, subType) %&gt;% pct_complete() # this</code></pre>
 <pre><code>## [1] 99.75475</code></pre>
+<pre class="r"><code>miss_var_summary(bike) # or this</code></pre>
+<pre><code>## # A tibble: 9 × 3
+##   variable      n_miss pct_miss
+##   &lt;chr&gt;          &lt;int&gt;    &lt;dbl&gt;
+## 1 route           1269   77.8  
+## 2 block            215   13.2  
+## 3 project           74    4.54 
+## 4 name              12    0.736
+## 5 type               9    0.552
+## 6 subType            4    0.245
+## 7 numLanes           0    0    
+## 8 length             0    0    
+## 9 dateInstalled      0    0</code></pre>
 </div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
@@ -288,7 +299,7 @@ BloodType</code></pre>
   sum()</code></pre>
 <pre><code>## [1] 1</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Recode the <code>gender</code> variable of the <code>BloodType</code> data so that it is consistent. Use <code>case_when()</code>.</li>
+<li>Recode the <code>gender</code> variable of the <code>BloodType</code> data so that it is consistent. Use <code>case_when()</code>. Don’t forget to use quotes!</li>
 </ol>
 <pre class="r"><code>BloodType &lt;- BloodType %&gt;%
   mutate(gender = case_when(
@@ -318,7 +329,7 @@ count(BloodType, gender)</code></pre>
 ## 3 Other      2
 ## 4 &lt;NA&gt;       1</code></pre>
 <ol start="4" style="list-style-type: decimal">
-<li>Recode the <code>type</code> variable of the <code>BloodType</code> data to be consistent. Use <code>recode</code>. Hint: the inconsistency has to do with lower case <code>o</code> and capital <code>O</code>.</li>
+<li>Recode the <code>type</code> variable of the <code>BloodType</code> data to be consistent. Use <code>recode</code>. Hint: the inconsistency has to do with lower case <code>o</code> and capital <code>O</code>. Don’t forget to use quotes!</li>
 </ol>
 <pre class="r"><code>BloodType &lt;- BloodType %&gt;%
   mutate(type = recode(type,
@@ -360,7 +371,7 @@ BloodType</code></pre>
 ## 7 O.-       3
 ## 8 O.+       3</code></pre>
 <ol start="6" style="list-style-type: decimal">
-<li>Make a new tibble of <code>BloodType</code> called <code>Bloodtype_split</code> that splits the <code>type</code> variable into two called <code>blood_type</code> and <code>Rhfactor</code>. Note: periods are special characters that generally are interpreted as wild cards thus we need <code>\\.</code> instead of simply “.” to tell R that we want it to be interpreted as a period.</li>
+<li>Make a new tibble of <code>BloodType</code> called <code>Bloodtype_split</code> that splits the <code>type</code> variable into two called <code>blood_type</code> and <code>Rhfactor</code>. Note: periods are special characters that generally are interpreted as wild cards thus we need “\.” instead of simply “.” to tell R that we want it to be interpreted as a period. Make sure you use quotes around “\.” and the column names like shown below (don’t want backticks).</li>
 </ol>
 <pre><code># General format
 NEW_TIBBLE &lt;- OLD_TIBBLE 
