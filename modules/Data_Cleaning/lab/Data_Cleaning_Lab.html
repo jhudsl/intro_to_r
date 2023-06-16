@@ -249,14 +249,14 @@ BloodType</code></pre>
 <p>There are some issues with this data that we need to figure out!</p>
 <ol style="list-style-type: decimal">
 <li><p>Determine how many <code>NA</code> values there are for <code>gender</code>. .</p></li>
-<li><p>Recode the <code>gender</code> variable of the <code>BloodType</code> data so that it is consistent. Use <code>case_when()</code>.</p></li>
+<li><p>Recode the <code>gender</code> variable of the <code>BloodType</code> data so that it is consistent. Use <code>case_when()</code>. Don’t forget to use quotes!</p></li>
 </ol>
 <p>Check to see how many values <code>gender</code> has for each category (hint: use <code>count</code>). It’s good practice to regularly check your data throughout the data wrangling process.</p>
 <ol start="3" style="list-style-type: decimal">
 <li></li>
-<li><p>Recode the <code>type</code> variable of the <code>BloodType</code> data to be consistent. Use <code>recode</code>. Hint: the inconsistency has to do with lower case <code>o</code> and capital <code>O</code>.</p></li>
+<li><p>Recode the <code>type</code> variable of the <code>BloodType</code> data to be consistent. Use <code>recode</code>. Hint: the inconsistency has to do with lower case <code>o</code> and capital <code>O</code>. Don’t forget to use quotes!</p></li>
 <li><p>Check to see that <code>type</code> only has these possible values: “A.-”,“A.+”, “AB.-”, “AB.+”, “B-”,“B+”, “O.-”, “O.+”</p></li>
-<li><p>Make a new tibble of <code>BloodType</code> called <code>Bloodtype_split</code> that splits the <code>type</code> variable into two called <code>blood_type</code> and <code>Rhfactor</code>. Note: periods are special characters that generally are interpreted as wild cards thus we need <code>\\.</code> instead of simply “.” for the <strong>separating character</strong> to tell R that we want it to be interpreted as a period.</p></li>
+<li><p>Make a new tibble of <code>BloodType</code> called <code>Bloodtype_split</code> that splits the <code>type</code> variable into two called <code>blood_type</code> and <code>Rhfactor</code>. Note: periods are special characters that generally are interpreted as wild cards thus we need “\.” instead of simply “.” for the <strong>separating character</strong> to tell R that we want it to be interpreted as a period. Make sure you use quotes around “\.” and the column names like shown below (don’t want backticks).</p></li>
 </ol>
 <pre><code># General format
 NEW_TIBBLE &lt;- OLD_TIBBLE %&gt;% 
