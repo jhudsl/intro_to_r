@@ -439,7 +439,9 @@ In `dplyr` you can use the `recode` function (need `mutate` here too!):
 ```
 :::
 
-Need quotes for new values!
+::: {style="color: red;"}
+Need quotes for new values! Tolerates quotes for old values.
+:::
 
 ```{r, eval = FALSE}
 
@@ -477,7 +479,9 @@ It is more flexible and powerful.
 
 ## Or you can use `case_when()`{.codesmall}
 
-Need quotes for new and existing values!
+::: {style="color: red;"}
+Need quotes for conditions and new values!
+:::
 
 ```{r}
 data_diet %>% 
@@ -748,8 +752,8 @@ diet_comb
 
 ## Summary
 
--   `recode()` can help with simple recoding (not based on condition but **exact** swap)
--   `case_when()` can recode **entire values** based on **conditions**
+-   `recode()` can help with simple recoding (not based on condition but **exact** swap) (only need quotes for new values - but it tolerates redundant quotes)
+-   `case_when()` can recode **entire values** based on **conditions** (need quotes for conditions and new values)
     -   remember `case_when()` needs `TRUE ~ varaible` to keep values that aren't specified by conditions, otherwise will be `NA`
 -   `stringr` package has great functions for looking for specific **parts of values** especially `filter()` and `str_detect()` combined
     -   also has other useful string manipulation functions like `str_replace()` and more!
