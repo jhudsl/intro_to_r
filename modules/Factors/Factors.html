@@ -244,7 +244,7 @@ x_fact</pre>
 <pre >## [1] yellow red    red    blue   yellow blue  
 ## Levels: blue red yellow</pre>
 
-</article></slide><slide class=""><hgroup><h2>A Factor Example</h2></hgroup><article  id="a-factor-example" class="smaller">
+</article></slide><slide class=""><hgroup><h2>A Factor Example</h2></hgroup><article  class="smaller" id="a-factor-example">
 
 <p>We will use data on student dropouts from the State of California during the 2016-2017 school year. More on this data can be found here: <a href='https://www.cde.ca.gov/ds/ad/filesdropouts.asp' title=''>https://www.cde.ca.gov/ds/ad/filesdropouts.asp</a></p>
 
@@ -422,7 +422,7 @@ dropouts_fct %&gt;%
 
 <p>Now that’s more like it! Notice how the data is automatically plotted in the order we would like.</p>
 
-</article></slide><slide class=""><hgroup><h2>What about if we <code>arrange()</code> the data by grade ?</h2></hgroup><article  id="what-about-if-we-arrange-the-data-by-grade" class="smaller">
+</article></slide><slide class=""><hgroup><h2>What about if we <code>arrange()</code> the data by grade ?</h2></hgroup><article  class="smaller" id="what-about-if-we-arrange-the-data-by-grade">
 
 <p>Character data is arranged alphabetically.</p>
 
@@ -446,7 +446,7 @@ dropouts_fct %&gt;%
 
 <p>Notice that the order is not what we would hope for!</p>
 
-</article></slide><slide class=""><hgroup><h2>Arranging Factors</h2></hgroup><article  id="arranging-factors" class="smaller">
+</article></slide><slide class=""><hgroup><h2>Arranging Factors</h2></hgroup><article  class="smaller" id="arranging-factors">
 
 <p>Factor data is arranged by level.</p>
 
@@ -502,7 +502,7 @@ dropouts_fct %&gt;%
 ## 3 Junior                 2
 ## 4 Senior                13</pre>
 
-</article></slide><slide class=""><hgroup><h2><code>forcats</code> for ordering</h2></hgroup><article  id="forcats-for-ordering" class="smaller">
+</article></slide><slide class=""><hgroup><h2><code>forcats</code> for ordering</h2></hgroup><article  class="smaller" id="forcats-for-ordering">
 
 <p>What if we wanted to order <code>grade</code> by increasing <code>n_dropouts</code>?</p>
 
@@ -517,7 +517,7 @@ dropouts_fct %&gt;%
 
 <p>This would be useful for identifying easily which grade to focus on.</p>
 
-</article></slide><slide class=""><hgroup><h2>forcats for ordering</h2></hgroup><article  id="forcats-for-ordering-1" class="smaller">
+</article></slide><slide class=""><hgroup><h2>forcats for ordering</h2></hgroup><article  class="smaller" id="forcats-for-ordering-1">
 
 <p>We can order a factor by another variable by using the <code>fct_reorder()</code> function of the <code>forcats</code> package.</p>
 
@@ -552,7 +552,7 @@ head(dropouts_fct)</pre>
 ## 5 15633216009179 Junior             0     4
 ## 6 33670330113647 Sophomore          0     0</pre>
 
-</article></slide><slide class=""><hgroup><h2>Plotting new variable</h2></hgroup><article  id="plotting-new-variable" class="smaller">
+</article></slide><slide class=""><hgroup><h2>Plotting new variable</h2></hgroup><article  class="smaller" id="plotting-new-variable">
 
 <p>Now let’s plot each of our variables of interest (n_dropouts and tardy) on the y axis and grade on the x axis. Let’s arrange grade by the amount of each.</p>
 
