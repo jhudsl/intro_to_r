@@ -684,6 +684,7 @@ data_diet %>%
   filter(str_detect(string = Gender,
                     pattern = "M"))
 ```
+
 ## OK back to our original problem
 ```{r}
 count(data_diet, Gender)
@@ -773,8 +774,11 @@ diet_comb
 -   `recode()` can help with simple recoding (not based on condition but **exact** swap) (only need quotes for new values - but it tolerates redundant quotes)
 -   `case_when()` can recode **entire values** based on **conditions** (need quotes for conditions and new values)
     -   remember `case_when()` needs `TRUE ~ varaible` to keep values that aren't specified by conditions, otherwise will be `NA`
+    
+## Summary Continued
+
 -   `stringr` package has great functions for looking for specific **parts of values** especially `filter()` and `str_detect()` combined
-- `stringr`  also has other useful string functions like `str_replace()` and more!
+- `stringr`  also has other useful string functions like `str_detect()` (finding patterns in a column or vector), `str_subset()` (parsing text), `str_replace()` (replacing the first instance in values), `str_replace_all()` (replacing all instances in each value) and more!
 - `separate()` can split columns into additional columns
 - `unite()` can combine columns
 - `:` can indicate when you want to start and end with columns next to one another
