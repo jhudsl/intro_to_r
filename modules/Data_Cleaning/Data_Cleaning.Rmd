@@ -256,7 +256,7 @@ This function of the `tidyr` package drops rows with **any** missing data in **a
 airqual %>% drop_na()
 ```
 
-## Drop **columns** with any missing values{.codesmall}
+## Drop **columns** with any missing values
 
 Use the `miss_var_which()` function from `naniar`
 
@@ -276,8 +276,7 @@ airqual %>% select(!miss_var_which(airqual))
 
 ## Change a value to be `NA`{.codesmall}
 
-The `na_if()` function of `dplyr` can be helpful for this. Let's say we
-think that all 0 values should be `NA`.
+Let's say we think that all 0 values should be `NA`.
 
 ```{r}
 count(bike, dateInstalled)
@@ -285,8 +284,7 @@ count(bike, dateInstalled)
 
 ## Change a value to be `NA`{.codesmall}
 
-The `na_if()` function of `dplyr` can be helpful for this. Let's say we
-think that all 0 values should be `NA`.
+The `na_if()` function of `dplyr` can be helpful for changing all 0 values to `NA`.
 
 ```{r}
 bike <- bike %>% 
@@ -425,12 +423,10 @@ data_diet %>%
 ## `dplyr` can help!{.codesmall}
 
 Using Excel to find all of the different ways `gender` has been coded,
-could be hectic!
-
-In `dplyr` you can use the `recode` function.
+could be hectic! In `dplyr` you can use the `recode` function.
 
 ::: {style="color: red;"}
-(need `mutate`!)
+(need `mutate` for data frames/tibbles!)
 :::
 ::: codeexample
 ```{r, eval = FALSE}
@@ -441,6 +437,8 @@ In `dplyr` you can use the `recode` function.
 
 ```
 :::
+
+## recode() function
 
 ::: {style="color: red;"}
 Need quotes for new values! Tolerates quotes for old values.
@@ -480,7 +478,7 @@ The `case_when()` function of `dplyr` can help us to do this as well.
 It is more flexible and powerful. 
 
 ::: {style="color: red;"}
-(need `mutate` here too!):
+(need `mutate` here too!)
 :::
 
 ## Or you can use `case_when()`{.codesmall}
