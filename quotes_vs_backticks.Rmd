@@ -238,30 +238,42 @@ select(iris, ends_with("Width")) %>% head(n = 2)
 Don't need quotes for existing values.
 
 ```{r}
-ToothGrowth %>% mutate(supp = recode(supp, VC = "Ascorbic_Acid",
-                                            OJ = "Orange_juice")) %>%
+ToothGrowth %>%
+  mutate(supp = recode(supp,
+    VC = "Ascorbic_Acid",
+    OJ = "Orange_juice"
+  )) %>%
   count(supp)
 ```
 
 However it tolerates this.
 
 ```{r}
-ToothGrowth %>% mutate(supp = recode(supp, "VC" = "Ascorbic_Acid",
-                                           "OJ" = "Orange_juice")) %>%
+ToothGrowth %>%
+  mutate(supp = recode(supp,
+    "VC" = "Ascorbic_Acid",
+    "OJ" = "Orange_juice"
+  )) %>%
   count(supp)
 ```
 
 Backticks or quotes work for atypical column names.
 
 ```{r}
-ToothGrowth %>% mutate(supp = paste0(supp, "!")) %>% # making atypical
-  mutate(supp = recode(supp, `VC!` = "Ascorbic_Acid",
-                             `OJ!` = "Orange_juice")) %>%
+ToothGrowth %>%
+  mutate(supp = paste0(supp, "!")) %>% # making atypical
+  mutate(supp = recode(supp,
+    `VC!` = "Ascorbic_Acid",
+    `OJ!` = "Orange_juice"
+  )) %>%
   count(supp)
 
-ToothGrowth %>% mutate(supp = paste0(supp, "!")) %>% # making atypical
-  mutate(supp = recode(supp,  "VC!" = "Ascorbic_Acid",
-                              "OJ!" = "Orange_juice")) %>%
+ToothGrowth %>%
+  mutate(supp = paste0(supp, "!")) %>% # making atypical
+  mutate(supp = recode(supp,
+    "VC!" = "Ascorbic_Acid",
+    "OJ!" = "Orange_juice"
+  )) %>%
   count(supp)
 ```
 
@@ -272,21 +284,24 @@ Need quotes for conditionals and new values.
 ```{r}
 
 ToothGrowth %>%
-  mutate(supp = case_when(supp == "VC" ~ "Ascorbic_Acid",
-                          supp == "OJ" ~ "Orange_juice")) %>%
+  mutate(supp = case_when(
+    supp == "VC" ~ "Ascorbic_Acid",
+    supp == "OJ" ~ "Orange_juice"
+  )) %>%
   count(supp)
-
 ```
 
 Only quotes work for atypical values. Backticks do not.
 
 ```{r}
 
-ToothGrowth %>% mutate(supp = paste0(supp, "!")) %>% # making atypical
-  mutate(supp = case_when(supp == "VC!" ~ "Ascorbic_Acid",
-                          supp == "OJ!" ~ "Orange_juice")) %>%
+ToothGrowth %>%
+  mutate(supp = paste0(supp, "!")) %>% # making atypical
+  mutate(supp = case_when(
+    supp == "VC!" ~ "Ascorbic_Acid",
+    supp == "OJ!" ~ "Orange_juice"
+  )) %>%
   count(supp)
-
 ```
 
 ## `stringr` functions
