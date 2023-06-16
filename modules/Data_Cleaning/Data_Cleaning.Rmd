@@ -535,7 +535,7 @@ Note that automatically values not reassigned explicitly by
 {value_for_not_meeting_condition} could be something new 
 or it can be the original values of the column
 
-## case_when with TRUE ~ original vairable name
+## case_when with TRUE ~ original variable name
 
 ```{r}
 data_diet %>% 
@@ -728,7 +728,7 @@ knitr::include_graphics("https://media1.giphy.com/media/S9ZK4mmi3u3jdc5dek/200w.
 
 The `unite()` function can help combine columns  
 The `col` argument specifies new column name    
-The `sep` argument specifies what separator to use when combining -defualt is "_"
+The `sep` argument specifies what separator to use when combining -default is "_"
 The `remove` argument specifies if you want to drop the old columns
 
 ```{r}
