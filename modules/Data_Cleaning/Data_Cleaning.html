@@ -997,6 +997,18 @@ Effect</pre>
 
 <pre >[1] &quot;Increase&quot; &quot;decrease&quot; &quot;decrease&quot; &quot;Increase&quot; &quot;Increase&quot; &quot;Increase&quot;</pre>
 
+</article></slide><slide class=""><hgroup><h2><code>st_replace()</code> only replaces the first instance of the pattern in each value</h2></hgroup><article  id="st_replace-only-replaces-the-first-instance-of-the-pattern-in-each-value">
+
+<p><code>str_replace_all()</code> can be used to replace all instances within each value</p>
+
+<pre class = 'prettyprint lang-r'>str_replace(string = Effect, pattern = &quot;e&quot;, replacement = &quot;E&quot;)</pre>
+
+<pre >[1] &quot;IncrEase&quot; &quot;DEcrease&quot; &quot;DEcrease&quot; &quot;IncrEase&quot; &quot;IncrEase&quot; &quot;IncrEase&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>str_replace_all(string = Effect, pattern = &quot;e&quot;, replacement = &quot;E&quot;)</pre>
+
+<pre >[1] &quot;IncrEasE&quot; &quot;DEcrEasE&quot; &quot;DEcrEasE&quot; &quot;IncrEasE&quot; &quot;IncrEasE&quot; &quot;IncrEasE&quot;</pre>
+
 </article></slide><slide class=""><hgroup><h2>Subsetting part of a string</h2></hgroup><article  id="subsetting-part-of-a-string">
 
 <p><code>str_sub()</code> allows you to subset part of a string<br/>The <code>string</code> argument specifies what strings to work with<br/>The <code>start</code> argument specifies position of where to start<br/>The <code>end</code> argument specifies position of where to end</p>
@@ -1151,8 +1163,13 @@ diet_comb</pre>
 <ul>
 <li>remember <code>case_when()</code> needs <code>TRUE ~ varaible</code> to keep values that aren’t specified by conditions, otherwise will be <code>NA</code></li>
 </ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Summary Continued</h2></hgroup><article  id="summary-continued">
+
+<ul>
 <li><code>stringr</code> package has great functions for looking for specific <strong>parts of values</strong> especially <code>filter()</code> and <code>str_detect()</code> combined</li>
-<li><code>stringr</code> also has other useful string functions like <code>str_replace()</code> and more!</li>
+<li><code>stringr</code> also has other useful string functions like <code>str_detect()</code> (finding patterns in a column or vector), <code>str_subset()</code> (parsing text), <code>str_replace()</code> (replacing the first instance in values), <code>str_replace_all()</code> (replacing all instances in each value) and more!</li>
 <li><code>separate()</code> can split columns into additional columns</li>
 <li><code>unite()</code> can combine columns</li>
 <li><code>:</code> can indicate when you want to start and end with columns next to one another</li>
