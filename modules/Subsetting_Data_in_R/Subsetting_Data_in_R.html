@@ -356,7 +356,7 @@ Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</pre>
 # this would overwrite the existing df object
 df &lt;- data.frame(df) </pre>
 
-</article></slide><slide class=""><hgroup><h2>Or create a data frame when reading in the file</h2></hgroup><article  class="codesmall" id="or-create-a-data-frame-when-reading-in-the-file">
+</article></slide><slide class=""><hgroup><h2>Or create a data frame when reading in the file</h2></hgroup><article  id="or-create-a-data-frame-when-reading-in-the-file" class="codesmall">
 
 <p>Or directly when reading in a csv with the <code>read.csv()</code> function (also base R)</p>
 
@@ -391,7 +391,7 @@ tbl</pre>
 
 <p>Note don’t necessarily need to use <code>head()</code>- tibbles conveniently print a portion of the data.</p>
 
-</article></slide><slide class=""><hgroup><h2>tibbles form read_csv()</h2></hgroup><article  class="codesmall" id="tibbles-form-read_csv">
+</article></slide><slide class=""><hgroup><h2>tibbles form read_csv()</h2></hgroup><article  id="tibbles-form-read_csv" class="codesmall">
 
 <p>Alternatively we can read data files using the <code>tidyverse</code> with the <code>read_csv()</code> function of the <code>readr</code> package from the <code>tidyverse</code> to make a tibble.</p>
 
@@ -425,7 +425,7 @@ Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4</pre>
 1    21     6   160   110   3.9  2.62  16.5     0     1     4     4
 2    21     6   160   110   3.9  2.88  17.0     0     1     4     4</pre>
 
-</article></slide><slide class=""><hgroup><h2>rownames_to_column function</h2></hgroup><article  class="codesmall" id="rownames_to_column-function">
+</article></slide><slide class=""><hgroup><h2>rownames_to_column function</h2></hgroup><article  id="rownames_to_column-function" class="codesmall">
 
 <p>If you run into losing a variable contained in your row names, you can also use <code>rownames_to_column</code> (of <code>tibble</code> package) to add it before turning it into a <code>tibble</code> to keep them:</p>
 
@@ -548,7 +548,7 @@ head(tb_rename, 2)</pre>
 
 <pre class = 'prettyprint lang-r'>tb_rename &lt;-rename(tb, &quot;MPG!&quot; = MPG) # this will work!</pre>
 
-</article></slide><slide class=""><hgroup><h2>Renaming all columns of a data frame: dplyr</h2></hgroup><article  class="codesmall" id="renaming-all-columns-of-a-data-frame-dplyr">
+</article></slide><slide class=""><hgroup><h2>Renaming all columns of a data frame: dplyr</h2></hgroup><article  id="renaming-all-columns-of-a-data-frame-dplyr" class="codesmall">
 
 <p>To rename all columns you use the <code>rename_with()</code>. In this case we will use <code>toupper()</code> to make all letters upper case. Could also use <code>tolower()</code> function.</p>
 
@@ -771,7 +771,7 @@ contains() # like searching</pre>
 10 Merc 280              6     4  168.  3.92
 # … with 22 more rows</pre>
 
-</article></slide><slide class=""><hgroup><h2>The <code>where()</code> function can help select columns of a specific class</h2></hgroup><article  class="codesmall" id="the-where-function-can-help-select-columns-of-a-specific-class">
+</article></slide><slide class=""><hgroup><h2>The <code>where()</code> function can help select columns of a specific class</h2></hgroup><article  id="the-where-function-can-help-select-columns-of-a-specific-class" class="codesmall">
 
 <p><code>is.character()</code> and <code>is.numeric()</code> are often the most helpful</p>
 
@@ -848,7 +848,7 @@ contains() # like searching</pre>
 <li>column that was already removed</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Subset rows of a data frame: dplyr</h2></hgroup><article  class="codesmall" id="subset-rows-of-a-data-frame-dplyr-2">
+</article></slide><slide class=""><hgroup><h2>Subset rows of a data frame: dplyr</h2></hgroup><article  id="subset-rows-of-a-data-frame-dplyr-2" class="codesmall">
 
 <p>You can filter by two conditions using <code>&amp;</code> or commas (must meet both conditions):</p>
 
@@ -895,7 +895,7 @@ contains() # like searching</pre>
 13 Lotus Euro…  30.4     4  95.1   113  3.77  1.51  16.9     1     1     5     2
 14 Volvo 142E   21.4     4 121     109  4.11  2.78  18.6     1     1     4     2</pre>
 
-</article></slide><slide class=""><hgroup><h2>Subset rows of a data frame: dplyr</h2></hgroup><article  class="codesmall" id="subset-rows-of-a-data-frame-dplyr-4">
+</article></slide><slide class=""><hgroup><h2>Subset rows of a data frame: dplyr</h2></hgroup><article  id="subset-rows-of-a-data-frame-dplyr-4" class="codesmall">
 
 <p>The <code>%in%</code> operator can be used find values from a pre-made list (using <code>c()</code>) for a <strong>single column</strong> at a time.</p>
 
@@ -915,7 +915,7 @@ contains() # like searching</pre>
 1 Mazda RX4       21     6   160   110   3.9  2.62  16.5     0     1     4     4
 2 Mazda RX4 W…    21     6   160   110   3.9  2.88  17.0     0     1     4     4</pre>
 
-</article></slide><slide class=""><hgroup><h2>Subset rows of a data frame: dplyr</h2></hgroup><article  class="codesmall" id="subset-rows-of-a-data-frame-dplyr-5">
+</article></slide><slide class=""><hgroup><h2>Subset rows of a data frame: dplyr</h2></hgroup><article  id="subset-rows-of-a-data-frame-dplyr-5" class="codesmall">
 
 <p>The <code>%in%</code> operator can be used find values from a pre-made list (using <code>c()</code>) for a <strong>single column</strong> at a time.</p>
 
@@ -1173,7 +1173,7 @@ head(tb2,4)</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Adding/Removing Columns</h2></hgroup><article  id="addingremoving-columns">
 
-</article></slide><slide class=""><hgroup><h2>Adding columns to a data frame: dplyr (<code>tidyverse</code> way)</h2></hgroup><article  class="codesmall" id="adding-columns-to-a-data-frame-dplyr-tidyverse-way">
+</article></slide><slide class=""><hgroup><h2>Adding columns to a data frame: dplyr (<code>tidyverse</code> way)</h2></hgroup><article  id="adding-columns-to-a-data-frame-dplyr-tidyverse-way" class="codesmall">
 
 <p>The <code>mutate</code> function in <code>dplyr</code> allows you to add or modify columns of a data frame.</p>
 
@@ -1193,7 +1193,7 @@ head(tb, 4)</pre>
 3 Dats…  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1   1.05
 4 Horn…  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1   1.46</pre>
 
-</article></slide><slide class=""><hgroup><h2>Use mutate to modify existing columns</h2></hgroup><article  class="codesmall" id="use-mutate-to-modify-existing-columns">
+</article></slide><slide class=""><hgroup><h2>Use mutate to modify existing columns</h2></hgroup><article  id="use-mutate-to-modify-existing-columns" class="codesmall">
 
 <p>The <code>mutate</code> function in <code>dplyr</code> allows you to add or modify columns of a data frame.</p>
 
@@ -1213,7 +1213,7 @@ head(tb, 4)</pre>
 3 Dats…  22.8     4   108    93  3.85  4.64  18.6     1     1     4     1   1.05
 4 Horn…  21.4     6   258   110  3.08  6.43  19.4     1     0     3     1   1.46</pre>
 
-</article></slide><slide class=""><hgroup><h2>You can pipe data into mutate</h2></hgroup><article  class="codesmall" id="you-can-pipe-data-into-mutate">
+</article></slide><slide class=""><hgroup><h2>You can pipe data into mutate</h2></hgroup><article  id="you-can-pipe-data-into-mutate" class="codesmall">
 
 <pre class = 'prettyprint lang-r'>tb &lt;- tb %&gt;% mutate(wt = wt / 2)
 head(tb,4)</pre>
@@ -1226,7 +1226,7 @@ head(tb,4)</pre>
 3 Dats…  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1   1.05
 4 Horn…  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1   1.46</pre>
 
-</article></slide><slide class=""><hgroup><h2>Removing columns of a data frame: dplyr</h2></hgroup><article  class="codesmall" id="removing-columns-of-a-data-frame-dplyr">
+</article></slide><slide class=""><hgroup><h2>Removing columns of a data frame: dplyr</h2></hgroup><article  id="removing-columns-of-a-data-frame-dplyr" class="codesmall">
 
 <p>The <code>NULL</code> method is still very common.</p>
 
@@ -1246,7 +1246,7 @@ head(tb,4)</pre>
 
 <p><strong>Or, you can simply select the columns you want to keep, ignoring the ones you want to remove.</strong></p>
 
-</article></slide><slide class=""><hgroup><h2>Removing columns in a data frame: dplyr</h2></hgroup><article  class="codesmall" id="removing-columns-in-a-data-frame-dplyr">
+</article></slide><slide class=""><hgroup><h2>Removing columns in a data frame: dplyr</h2></hgroup><article  id="removing-columns-in-a-data-frame-dplyr" class="codesmall">
 
 <p>You can use <code>c()</code> to list the columns to remove.</p>
 
@@ -1292,7 +1292,7 @@ head(2)</pre>
 1     6    21  2.62 Mazda RX4    
 2     6    21  2.88 Mazda RX4 Wag</pre>
 
-</article></slide><slide class=""><hgroup><h2>Ordering the columns of a data frame: dplyr</h2></hgroup><article  class="codesmall" id="ordering-the-columns-of-a-data-frame-dplyr-1">
+</article></slide><slide class=""><hgroup><h2>Ordering the columns of a data frame: dplyr</h2></hgroup><article  id="ordering-the-columns-of-a-data-frame-dplyr-1" class="codesmall">
 
 <p>The <code>select</code> function can reorder columns. Put <code>newcol</code> first, then select the rest of columns:</p>
 
@@ -1305,7 +1305,7 @@ head(2)</pre>
 2   1.31 Mazd…  21       6   160   110  3.9   2.88  17.0     0     1     4     4
 3   1.05 Dats…  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1</pre>
 
-</article></slide><slide class=""><hgroup><h2>Ordering the columns of a data frame: dplyr</h2></hgroup><article  class="codesmall" id="ordering-the-columns-of-a-data-frame-dplyr-2">
+</article></slide><slide class=""><hgroup><h2>Ordering the columns of a data frame: dplyr</h2></hgroup><article  id="ordering-the-columns-of-a-data-frame-dplyr-2" class="codesmall">
 
 <p>Put <code>newcol</code> at the end (&ldquo;remove, everything, then add back in&rdquo;):</p>
 
@@ -1318,7 +1318,7 @@ head(2)</pre>
 2 Mazd…  21       6   160   110  3.9   2.88  17.0     0     1     4     4   1.31
 3 Dats…  22.8     4   108    93  3.85  2.32  18.6     1     1     4     1   1.05</pre>
 
-</article></slide><slide class=""><hgroup><h2>Ordering the column names of a data frame: alphabetically</h2></hgroup><article  class="codesmall" id="ordering-the-column-names-of-a-data-frame-alphabetically">
+</article></slide><slide class=""><hgroup><h2>Ordering the column names of a data frame: alphabetically</h2></hgroup><article  id="ordering-the-column-names-of-a-data-frame-alphabetically" class="codesmall">
 
 <p>Using the base R <code>order()</code> function.</p>
 
@@ -1343,7 +1343,7 @@ head(2)</pre>
 10     0 Merc 280       4     6  168.  3.92     4   123  19.2   1.56  18.3     1
 # … with 22 more rows, and 1 more variable: wt &lt;dbl&gt;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Ordering the columns of a data frame: dplyr</h2></hgroup><article  class="codesmall" id="ordering-the-columns-of-a-data-frame-dplyr-3">
+</article></slide><slide class=""><hgroup><h2>Ordering the columns of a data frame: dplyr</h2></hgroup><article  id="ordering-the-columns-of-a-data-frame-dplyr-3" class="codesmall">
 
 <p>In addition to <code>select</code> we can also use the <code>relocate()</code> function of dplyr to rearrange the columns for more complicated moves.</p>
 
