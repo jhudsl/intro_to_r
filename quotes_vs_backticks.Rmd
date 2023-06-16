@@ -46,6 +46,8 @@ text_tbl <- data.frame(
     "mutate()",
     "readr()",
     "tidyselect functions (ex.starts_with())",
+    "recode()",
+    "case_when()",
     "stringr functions (ex. str_detect())",
     "pivot_longer()/pivot_wider()",
     "modeling functions"
@@ -57,6 +59,8 @@ text_tbl <- data.frame(
     "Only backticks if atypical",
     "Tolerates quotes or backticks if atypical",
     "Only quotes tolearted",
+    "Only quotes tolerated",
+    "Tolerates quotes or backticks if atypical",
     "Only quotes tolerated",
     "Only quotes tolerated",
     "Only quotes tolerated",
@@ -70,8 +74,10 @@ kbl(text_tbl) %>%
   row_spec(1:2, background = "lightgreen") %>%
   row_spec(3:4, background = "yellow") %>%
   row_spec(5, background = "lightgreen") %>%
-  row_spec(6:9, background = "lightblue") %>%
-  row_spec(10, background = "yellow")
+  row_spec(6:7, background = "lightblue") %>%
+  row_spec(8, background = "lightgreen") %>%
+  row_spec(9:11, background = "lightblue") %>%
+  row_spec(12, background = "yellow")
 ```
 
 
@@ -227,6 +233,62 @@ select(iris, contains("et")) %>% head(n = 2)
 select(iris, ends_with("Width")) %>% head(n = 2)
 ```
 
+## `recode()`
+
+Don't need quotes for existing values.
+
+```{r}
+ToothGrowth %>% mutate(supp = recode(supp, VC = "Ascorbic_Acid",
+                                            OJ = "Orange_juice")) %>%
+  count(supp)
+```
+
+However it tolerates this.
+
+```{r}
+ToothGrowth %>% mutate(supp = recode(supp, "VC" = "Ascorbic_Acid",
+                                           "OJ" = "Orange_juice")) %>%
+  count(supp)
+```
+
+Backticks or quotes work for atypical column names.
+
+```{r}
+ToothGrowth %>% mutate(supp = paste0(supp, "!")) %>% # making atypical
+  mutate(supp = recode(supp, `VC!` = "Ascorbic_Acid",
+                             `OJ!` = "Orange_juice")) %>%
+  count(supp)
+
+ToothGrowth %>% mutate(supp = paste0(supp, "!")) %>% # making atypical
+  mutate(supp = recode(supp,  "VC!" = "Ascorbic_Acid",
+                              "OJ!" = "Orange_juice")) %>%
+  count(supp)
+```
+
+## `case_when()`
+
+Need quotes for conditionals and new values.
+
+```{r}
+
+ToothGrowth %>%
+  mutate(supp = case_when(supp == "VC" ~ "Ascorbic_Acid",
+                          supp == "OJ" ~ "Orange_juice")) %>%
+  count(supp)
+
+```
+
+Only quotes work for atypical values. Backticks do not.
+
+```{r}
+
+ToothGrowth %>% mutate(supp = paste0(supp, "!")) %>% # making atypical
+  mutate(supp = case_when(supp == "VC!" ~ "Ascorbic_Acid",
+                          supp == "OJ!" ~ "Orange_juice")) %>%
+  count(supp)
+
+```
+
 ## `stringr` functions
 
 When working with strings we need to use quotes.
@@ -247,6 +309,7 @@ str_detect(pattern = "t", string = x)
 # this will not work:
 # str_detect(pattern = `t`, string = x)
 ```
+
 
 ## `pivot_longer` and `pivot_wider`
 

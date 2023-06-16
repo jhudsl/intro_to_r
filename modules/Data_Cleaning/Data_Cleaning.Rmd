@@ -21,7 +21,6 @@ library(tidyverse)
 
 -   `summary(x)`: quantile information
 -   `summarize`: creates a summary table of columns of interest
-    -   combine with `across()` to programmatically select columns
 -   `count(variable)`: how many of each unique value do you have
 -   `group_by()`: changes all subsequent functions
     -   combine with `summarize()` to get statistics per group
@@ -78,9 +77,9 @@ Types of "missing" data:
 -   `is.infinite` - looks for Inf or -Inf
 
 ```{r}
-test<-c(0,NA, -1)
+test <- c(0,NA, -1)
 test/0
-test <-test/0
+test <- test/0
 is.na(test)
 is.nan(test)
 is.infinite(test)
@@ -88,17 +87,28 @@ is.infinite(test)
 
 ## Useful checking functions {.small}
 
--   `any` will be `TRUE` if ANY are true
-    -   `any(is.na(x))` - do we have any `NA`'s in `x`?
+Do we have any `NA`s? (`any` can help)
 
-```{r isna}
-A = c(1, 2, 4, NA)
-B = c(1, 2, 3, 4)
+```{r}
+A <- c(1, 2, 3, NA)
+B <- c(1, 2, 3, 4)
 any(is.na(A)) # are there any NAs - YES/TRUE
 any(is.na(B)) # are there any NAs- NO/FALSE
 ```
 
-## Fining `NA` values with `count()`{.codesmall}
+
+## Useful checking functions {.small}
+
+Are all the values `NA`? (`all` can help)
+
+```{r isna}
+A <- c(1, 2, 3, NA)
+B <- c(1, 2, 3, 4)
+all(is.na(A)) # are there any NAs - YES/TRUE
+all(is.na(B)) # are there any NAs- NO/FALSE
+```
+
+## Finding `NA` values with `count()`{.codesmall}
 
 ::: {style="color: red;"}
 Check the values for your variables, are they what you expect?
@@ -110,34 +120,22 @@ Check the values for your variables, are they what you expect?
 2)  The amount of these values
 
 Check if rare values make sense.
-(You need a data frame to use this)
 
 ```{r, message=FALSE}
 library(jhur)
 bike <- read_bike()
-
 bike %>% count(subType)
-
 ```
-
 
 
 ## `naniar`
 
 Sometimes you need to look at lots of data though... the [`naniar`
-package](https://cran.r-project.org/web/packages/naniar/vignettes/getting-started-w-naniar.html)
-is a good option.
-
-The `pct_complete()` function shows the percentage that is complete for
-a given data object, (vector or data frame).
+package](https://cran.r-project.org/web/packages/naniar/vignettes/getting-started-w-naniar.html) is a good option.
 
 ```{r, error=FALSE}
 #install.packages("naniar")
 library(naniar)
-x = c(0, NA, 2, 3, 4, -0.5, 0.2)
-pct_complete(x)
-test
-pct_complete(test) # doesn't count infinite values as missing
 ```
 
 ## Air quality data
@@ -146,21 +144,32 @@ The `airquality` dataset comes with R about air quality in New York in 1973.
 
 ```{r, message=FALSE}
 ?airquality # use this to find out more about the data
-airqual <-tibble(airquality)
+airqual <- tibble(airquality)
 airqual
 ```
 
 ## naniar: `pct_complete()`{.small}
 
-```{R}
-pct_complete(airquality)
-```
+This can tell you if there are missing values in the dataset.
 
 ```{R}
-airquality %>% select(Ozone) %>%
+pct_complete(airqual)
+```
+
+Or for a particular variable:
+
+```{R}
+airqual %>% select(Ozone) %>%
 pct_complete()
 ```
 
+## naniar:`miss_var_summary()`
+
+To get the percent missing (and counts) for each variable as a table, use this function.
+
+```{r}
+miss_var_summary(airqual)
+```
 
 ## `naniar` plots
 
@@ -179,7 +188,7 @@ Recall that mathematical operations with `NA` often result in `NA`s.
 
 ```{r}
 sum(c(1,2,3,NA))
-mean(c(2,4,NA))
+mean(c(1,2,3,NA))
 median(c(1,2,3,NA))
 ```
 
@@ -190,7 +199,7 @@ This is also true for logical data. Recall that `TRUE` is evaluated as 1
 and `FALSE` is evaluated as 0.
 
 ```{r}
-x = c(TRUE, TRUE, TRUE, TRUE, FALSE, NA)
+x <- c(TRUE, TRUE, TRUE, TRUE, FALSE, NA)
 sum(x)
 sum(x, na.rm = TRUE)
 ```
@@ -207,35 +216,34 @@ for sure if an `NA` value meets the condition. To keep them need to add
 
 Think about if this is OK or not - it depends on your data!
 
-## filter() and missing data
-
-```{r}
-df <-tibble(Dog = c(0, NA, 2, 3, 1, 1), 
-            Cat = c(NA, 8, 6, NA, 2, NA))
-```
-
 
 ## filter() and missing data {.codesmall}
 
+What if NA values represent values that are so low it is undetectable?
+
+Filter will drop them from the data.
+
 ```{r}
-df
-df %>% filter(Dog < 3)
+airqual %>% filter(Ozone < 5)
 ```
 
 ## filter() and missing data 
 
+`is.na()` can help us keep them.
+
 ```{r}
-df %>% filter(Dog < 3 | is.na(Dog))
+airqual %>% filter(Ozone < 5 | is.na(Ozone))
 ```
 
-## To remove rows with `NA` values for a **variable** use `drop_na()`
+## To remove **rows** with `NA` values for a **variable** use `drop_na()`
 
 A function from the `tidyr` package. (Need a data frame to start!)
 
 Disclaimer: Don't do this unless you have thought about if dropping `NA` values makes sense based on knowing what these values mean in your data.
 
 ```{r}
-df %>% drop_na(Dog)
+dim(airqual)
+airqual %>% drop_na(Ozone)
 ```
 
 
@@ -245,17 +253,15 @@ df %>% drop_na(Dog)
 This function of the `tidyr` package drops rows with **any** missing data in **any** column when used on a df.
 
 ```{r}
-df %>% drop_na()
+airqual %>% drop_na()
 ```
 
-## Drop **columns** with any missing values{.codesmall}
+## Drop **columns** with any missing values
 
 Use the `miss_var_which()` function from `naniar`
 
 ```{r}
-df<-df %>% mutate(test = c(1,2,3,4,5,6))
-df
-miss_var_which(df) # which columns have missing values
+miss_var_which(airqual) # which columns have missing values
 ```
 
 ## Drop **columns** with any missing values {.codesmall}
@@ -263,24 +269,40 @@ miss_var_which(df) # which columns have missing values
 `miss_var_which` and  function from `naniar` (need a data frame)
 
 ```{r}
-
-df %>% select(!miss_var_which(df))
-
+airqual %>% select(!miss_var_which(airqual))
 ```
-
 
 
 
 ## Change a value to be `NA`{.codesmall}
 
-The `na_if()` function of `dplyr` can be helpful for this. Let's say we
-think that all 0 values should be `NA`.
+Let's say we think that all 0 values should be `NA`.
 
 ```{r}
-df %>% head(n = 3)
-
-df %>% mutate(Dog = na_if(x = Dog, y = 0))
+count(bike, dateInstalled)
 ```
+
+## Change a value to be `NA`{.codesmall}
+
+The `na_if()` function of `dplyr` can be helpful for changing all 0 values to `NA`.
+
+```{r}
+bike <- bike %>% 
+  mutate(dateInstalled = na_if(dateInstalled, 0))
+count(bike, dateInstalled)
+```
+
+
+## Change `NA` to be a value {.codesmall}
+
+The `replace_na()` function (part of the `tidyr` package), can do the opposite of `na_if()`.
+ (note that you must use numeric values as replacement - we will show how to replace with character strings soon)
+```{r}
+bike %>% 
+  mutate(dateInstalled = replace_na(dateInstalled, 2005)) %>% 
+  count(dateInstalled)
+```
+
 
 ## Think about `NA`
 
@@ -315,37 +337,24 @@ week
 
 `r emo::ji("warning")` Calculating percentages will give you a different result depending on your choice to include NA values.!
 
-
-```{r}
-red_blue <- tibble(color = rep(c("red", "blue", NA), 3))
-red_blue <- red_blue %>% count(color)
-red_blue <- rename(red_blue, col_count = n)
-red_blue
-```
-
-## Word of caution - Percentages with `NA`
-
-
-`r emo::ji("warning")` Calculating percentages will give you a different result depending on your choice to include NA values!
-
 This is because the denominator changes.
 
+
+## Word of caution - Percentages with `NA`
+
+
 ```{r}
-total <- red_blue %>% pull(col_count) %>% sum()
-red_blue %>% mutate(percent = 
-                    (col_count/total)*100)
+count(bike, dateInstalled) %>% mutate(percent = (n/(sum(n)) *100))
 ```
 
 ## Word of caution - Percentages with `NA`
 
 ```{r}
-
-total <- red_blue %>% drop_na() %>% pull(col_count) %>% sum()
-red_blue %>% mutate(percent = 
-                    (col_count/total)*100)
-
+bike %>% drop_na(dateInstalled) %>% 
+  count(dateInstalled) %>% mutate(percent = (n/(sum(n)) *100))
 ```
-Should you be dividing by 9 or 6?   
+
+Should you be dividing by the total count with `NA` values included?   
 It depends on your data and what `NA` might mean.   
 Pay attention to your data and your `NA` values!
 
@@ -375,6 +384,7 @@ Pay attention to your data and your `NA` values!
 ## Example of Recoding
 
 ```{r}
+set.seed(124)
 data_diet <- tibble(Diet = rep(c("A", "B", "B"),
                                times = 4), 
                     Gender = c("Male", 
@@ -410,13 +420,14 @@ data_diet %>%
   count(Gender)
 ```
 
-## `dplyr` can help!
+## `dplyr` can help!{.codesmall}
 
 Using Excel to find all of the different ways `gender` has been coded,
-could be hectic!
+could be hectic! In `dplyr` you can use the `recode` function.
 
-In `dplyr` you can use the `recode` function (need `mutate` here too!):
-
+::: {style="color: red;"}
+(need `mutate` for data frames/tibbles!)
+:::
 ::: codeexample
 ```{r, eval = FALSE}
 # General Format - this is not code!
@@ -425,6 +436,12 @@ In `dplyr` you can use the `recode` function (need `mutate` here too!):
                                        {another_old_value} = {new_value}))
 
 ```
+:::
+
+## recode() function
+
+::: {style="color: red;"}
+Need quotes for new values! Tolerates quotes for old values.
 :::
 
 ```{r, eval = FALSE}
@@ -450,33 +467,60 @@ data_diet %>%
                                  O = "Other",
                                  f = "Female",
                                  F = "Female")) %>%
-  count(Gender, Diet)
+  count(Gender)
 ```
+
 
 ## Or you can use `case_when()`
 
 The `case_when()` function of `dplyr` can help us to do this as well.
 
-::: codeexample
-```{r, eval = FALSE}
-# General Format - this is not code!
-{data_input} %>%
-  mutate({variable_to_fix} = case_when({Variable_fixing}   
-                                /some condition/  ~ {value_for_con})
+It is more flexible and powerful. 
+
+::: {style="color: red;"}
+(need `mutate` here too!)
+:::
+
+## Or you can use `case_when()`{.codesmall}
+
+::: {style="color: red;"}
+Need quotes for conditions and new values!
+:::
+
+```{r}
+data_diet %>% 
+  mutate(Gender = case_when(Gender == "M" ~ "Male", 
+                            Gender == "m" ~ "Male", 
+                            Gender == "Man" ~ "Male",
+                            Gender == "O" ~ "Other",
+                            Gender == "f" ~ "Female",
+                            Gender == "F" ~ "Female"))  %>% 
+  count(Gender)
 
 ```
-:::
+
+## What happened?{.codesmall}
+
+```{r}
+data_diet %>% 
+  mutate(Gender = case_when(Gender == "M" ~ "Male", 
+                            Gender == "m" ~ "Male", 
+                            Gender == "Man" ~ "Male",
+                            Gender == "O" ~ "Other",
+                            Gender == "f" ~ "Female",
+                            Gender == "F" ~ "Female"))
+```
+
+## Original data
+```{r}
+data_diet
+```
+
+## `case_when()` drops unspecified values
 
 Note that automatically values not reassigned explicitly by
 `case_when()` will be `NA` unless otherwise specified.
 
-```{r, eval = TRUE}
-data_diet %>% 
-  mutate(Gender = case_when(Gender == "M" ~ "Male"))
-```
-
-
-## Use of `case_when()` without automatic `NA`
 ::: codeexample
 ```{r, eval = FALSE}
 # General Format - this is not code!
@@ -486,14 +530,23 @@ data_diet %>%
                          TRUE ~ {value_for_not_meeting_condition})
 
 ```
+:::
 
+{value_for_not_meeting_condition} could be something new 
+or it can be the original values of the column
 
-Here we use the original values of `Gender` to replace all values of `Gender` that do not meet the condition `== "M"`.
+## case_when with TRUE ~ original vairable name
 
 ```{r}
 data_diet %>% 
-  mutate(Gender = case_when(Gender == "M" ~ "Male",
-                                     TRUE ~ Gender))
+  mutate(Gender = case_when(Gender == "M" ~ "Male", 
+                            Gender == "m" ~ "Male", 
+                            Gender == "Man" ~ "Male",
+                            Gender == "O" ~ "Other",
+                            Gender == "f" ~ "Female",
+                            Gender == "F" ~ "Female",
+                            TRUE ~ Gender))  %>% 
+  count(Gender)
 ```
 
 
@@ -516,7 +569,7 @@ data_diet %>%
 
 ```{r}
 
-data_diet <-data_diet %>% 
+data_diet <- data_diet %>% 
       mutate(Effect = case_when(Weight_change > 0 ~ "Increase",
                                 Weight_change == 0 ~ "Same",
                                 Weight_change < 0 ~ "Decrease"))
@@ -525,13 +578,16 @@ head(data_diet)
 
 ```
 
-```{r, echo= FALSE}
+## Now it is easier to see what is happening
+
+```{r}
 data_diet %>% 
   count(Diet, Effect)
 ```
+## Taking a look at the data
 
 ```{r, echo = FALSE}
-diet_effect <-data_diet %>% 
+diet_effect <- data_diet %>% 
   count(Diet, Effect)
 
 data_diet %>% 
@@ -576,11 +632,14 @@ within each element of a **character vector** (not data frame or tibble!).
 ## `str_detect()`
 
 The `string` argument specifies what to check    
-The `pattern` argument specifies what to check for    
+The `pattern` argument specifies what to check for (case sensitive)  
 
 ```{r}
-x<-c("cat", "dog", "mouse")
-str_detect(string = x, pattern = "d")
+
+Effect <- pull(data_diet) %>% head(n = 6)
+Effect
+str_detect(string = Effect, pattern = "d")
+str_detect(string = Effect, pattern = "D")
 ```
 
 ## `str_replace()`
@@ -589,41 +648,56 @@ The `string` argument specifies what to check
 The `pattern` argument specifies what to check for    
 The `replacement` argument specifies what to replace the pattern with    
 ```{r}
-x<-c("cat", "dog", "mouse")
-str_replace(string = x, pattern = "d", replacement = "D")
+str_replace(string = Effect, pattern = "D", replacement = "d")
 ```
 
 ## Subsetting part of a string
 
 `str_sub()` allows you to subset part of a string   
-The `string` argument specifies what strings to work with     The `start` argument specifies position of where to start    
+The `string` argument specifies what strings to work with     
+The `start` argument specifies position of where to start    
 The `end` argument specifies position of where to end    
 
 ```{r}
-x<-c("cat", "dog", "mouse")
-str_sub(string = x, start = 1, end = 2)
+str_sub(string = Effect, start = 1, end = 3)
 ```
 
 ## `filter` and `stringr` functions
 
 ```{r}
-head(data_diet,n = 4)
+head(data_diet, n = 4)
 data_diet %>% 
   filter(str_detect(string = Gender,
                     pattern = "M"))
 ```
-
-
-## `case_when()` improved with `stringr`
+## OK back to our original problem
 ```{r}
 count(data_diet, Gender)
 ```
+
+## Recode was nice but what if miss something?
+
+```{r, eval = FALSE}
+
+data_diet %>% 
+  mutate(Gender = recode(Gender, M = "Male", 
+                                 m = "Male", 
+                               Man = "Male",
+                                 O = "Other",
+                                 f = "Female",
+                                 F = "Female")) %>%
+  count(Gender, Diet)
+```
+
+## `case_when()` was an improvement
+
+But we still might miss a strange value
 
 ```{r, eval = FALSE}
 data_diet %>% 
   mutate(Gender = case_when(
     Gender %in% c("M", "male", "Man", "m", "Male") ~ "Male",
-    Gender %in% c("F", "Female", "f", "female")~ "Female",
+    Gender %in% c("F", "Female", "f", "female") ~ "Female",
     Gender %in% c("O", "Other") ~ "Other"))
 ```
 
@@ -640,7 +714,9 @@ data_diet %>%
   count(Gender)
 ```
 
-## That was easier!
+This is a more robust solution! It will catch typos as long as first letter is correct.
+
+## That's better!
 
 ```{r, echo = FALSE, fig.align='center', out.width= "30%"}
 knitr::include_graphics("https://media1.giphy.com/media/S9ZK4mmi3u3jdc5dek/200w.webp?cid=ecf05e47h7myga959jwvek6s9x1tkog135g7pxu8vvjz2yqb&rid=200w.webp&ct=g")
@@ -648,19 +724,21 @@ knitr::include_graphics("https://media1.giphy.com/media/S9ZK4mmi3u3jdc5dek/200w.
 
 # Separating and uniting data
 
-## What if our data looked like this?
+## Uniting columns 
 
-```{r, echo = FALSE}
-diet_comb<-diet_effect %>% unite("change" , Diet:Effect, remove = TRUE)
+The `unite()` function can help combine columns  
+The `col` argument specifies new column name    
+The `sep` argument specifies what separator to use when combining -defualt is "_"
+The `remove` argument specifies if you want to drop the old columns
+
+```{r}
+diet_comb <- data_diet %>% 
+  unite(Diet, Effect, col = "change", remove = TRUE)
 ```
 
 ```{r}
 diet_comb
 ```
-
-
-
-
 
 ## Separating columns based on a separator
 
@@ -668,57 +746,24 @@ The `separate()` function from `tidyr` can split a column into multiple columns.
 The `col` argument specifies what column to work with      
 The `into` argument specifies names of new columns   
 The `sep` argument specifies what to separate by
+
 ```{r}
-diet_comb %>% 
+diet_comb <- diet_comb %>% 
   separate(col = change, into = c("Diet", "Change"), sep = "_" )
+diet_comb
 ```
 
-
-
-## Uniting columns 
-
-The `unite()` function can instead help combine columns.    
-The `col` argument specifies new column name    
-The `sep` argument specifies what separator to use when combining    
-```{r unite_df, echo = FALSE}
-df = tibble(id = rep(1:5, 3), visit = rep(1:3, each = 5))
-head(df, 4)
-```
-
-```{r}
-df_united <- df %>% unite(col = "unique_id", id, visit, sep = "_")
-head(df_united, 4)
-```
-
-## Combining multiple columns next to one another
-
-```{r}
-museums <-tibble(
-       name = c("Baltimore Museum of Art", "Walters Art Museum", 
-                "American Visionary Art Museum"),
-       street = c("10 Art Museum Dr", "600 N Charles St", "800 Key Hwy"),
-       city = c("Baltimore", "Baltimore", "Baltimore"), 
-       State = rep("MD", 3),
-       zip =  c(21218, 21201, 21230)
-       )
-```
-
-## Combining multiple columns next to one another
-
-```{r}
-museums
-museums %>% unite(col = address, street:zip, sep = ", ")
-```
 
 ## Summary
-
--   `recode()` can help with simple recoding (not based on condition but simple swap)
--   `case_when()` can recode **entire values** based on conditions
+ - `recode()` and `case_when()` require `mutate()` when working with dataframes/tibbles
+-   `recode()` can help with simple recoding (not based on condition but **exact** swap) (only need quotes for new values - but it tolerates redundant quotes)
+-   `case_when()` can recode **entire values** based on **conditions** (need quotes for conditions and new values)
     -   remember `case_when()` needs `TRUE ~ varaible` to keep values that aren't specified by conditions, otherwise will be `NA`
 -   `stringr` package has great functions for looking for specific **parts of values** especially `filter()` and `str_detect()` combined
-    -   also has other useful string manipulation functions like `str_replace()` and more!
-    - `separate()` can split columns into additional columns
-    - `unite()` can combine columns
+- `stringr`  also has other useful string functions like `str_replace()` and more!
+- `separate()` can split columns into additional columns
+- `unite()` can combine columns
+- `:` can indicate when you want to start and end with columns next to one another
 
 
 ## Lab Part 2
@@ -742,7 +787,7 @@ Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribu
 ```{r str_split_orig}
 library(stringr)
 x <- c("I really like writing R code")
-df = tibble(x = c("I really", "like writing", "R code programs"))
+df <- tibble(x = c("I really", "like writing", "R code programs"))
 y <- unlist(str_split(x, " "))
 y
 length(y)
@@ -1001,21 +1046,4 @@ which(colMeans(is.na(df)) < 0.2) #the location of the columns <.2
 df %>% select(which(colMeans(is.na(df)) < 0.2))# remove if over 20% missing
 ```
 
-## Percent calculation without intermediate objects
 
-```{r}
-
-red_blue  %>% pull(col_count) %>%sum()
-sum(pull(red_blue,col_count))
-red_blue %>% mutate(percent = 
-              (col_count/sum(pull(red_blue ,col_count)))*100)
-
-red_blue %>% drop_na() %>% pull(col_count) %>%sum()
-sum(pull(drop_na(red_blue),col_count))
-red_blue %>% mutate(percent = 
-              (col_count/sum(pull(drop_na(red_blue),col_count)))*100)
-
-# different order
-red_blue %>% drop_na() %>%  mutate(percent = 
-              (col_count/sum(pull(red_blue,col_count)))*100)
-```
