@@ -87,14 +87,25 @@ is.infinite(test)
 
 ## Useful checking functions {.small}
 
--   `any` will be `TRUE` if ANY are true
-    -   `any(is.na(x))` - do we have any `NA`'s in `x`?
+Do we have any `NA`s? (`any` can help)
 
 ```{r isna}
-A <- c(1, 2, 4, NA)
+A <- c(1, 2, 3, NA)
 B <- c(1, 2, 3, 4)
 any(is.na(A)) # are there any NAs - YES/TRUE
 any(is.na(B)) # are there any NAs- NO/FALSE
+```
+
+
+## Useful checking functions {.small}
+
+Are all the values `NA`? (`all` can help)
+
+```{r isna}
+A <- c(1, 2, 3, NA)
+B <- c(1, 2, 3, 4)
+all(is.na(A)) # are there any NAs - YES/TRUE
+all(is.na(B)) # are there any NAs- NO/FALSE
 ```
 
 ## Finding `NA` values with `count()`{.codesmall}
@@ -117,23 +128,14 @@ bike %>% count(subType)
 ```
 
 
-
 ## `naniar`
 
 Sometimes you need to look at lots of data though... the [`naniar`
-package](https://cran.r-project.org/web/packages/naniar/vignettes/getting-started-w-naniar.html)
-is a good option.
-
-The `pct_complete()` function shows the percentage that is complete for
-a given data object, (vector or data frame).
+package](https://cran.r-project.org/web/packages/naniar/vignettes/getting-started-w-naniar.html) is a good option.
 
 ```{r, error=FALSE}
 #install.packages("naniar")
 library(naniar)
-x <- c(0, NA, 2, 3, 4, -0.5, 0.2)
-pct_complete(x)
-test
-pct_complete(test) # doesn't count infinite values as missing
 ```
 
 ## Air quality data
@@ -186,7 +188,7 @@ Recall that mathematical operations with `NA` often result in `NA`s.
 
 ```{r}
 sum(c(1,2,3,NA))
-mean(c(2,4,NA))
+mean(c(1,2,3,NA))
 median(c(1,2,3,NA))
 ```
 
@@ -267,9 +269,7 @@ miss_var_which(airqual) # which columns have missing values
 `miss_var_which` and  function from `naniar` (need a data frame)
 
 ```{r}
-
 airqual %>% select(!miss_var_which(airqual))
-
 ```
 
 
@@ -281,7 +281,7 @@ The `na_if()` function of `dplyr` can be helpful for this. Let's say we
 think that all 0 values should be `NA`.
 
 ```{r}
-df <- tibble(A = c(1, 2, 4, 0), B = c(1, 2, 3, 4))
+df <- tibble(A = c(1, 2, 3, 0), B = c(1, 2, 3, 4))
 df %>% mutate(A = na_if(A, 0))
 ```
 
@@ -291,7 +291,7 @@ df %>% mutate(A = na_if(A, 0))
 The `replace_na()` function (part of the `tidyr` package), can do the opposite of `na_if()`.
 
 ```{r}
-df <- tibble(A = c(1, 2, 4, NA), B = c(1, 2, 3, 4))
+df <- tibble(A = c(1, 2, 3, NA), B = c(1, 2, 3, 4))
 df %>% mutate(A = replace_na(A, 0))
 ```
 
