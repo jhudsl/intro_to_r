@@ -651,6 +651,20 @@ The `replacement` argument specifies what to replace the pattern with
 str_replace(string = Effect, pattern = "D", replacement = "d")
 ```
 
+## `st_replace()` only replaces the first instance of the pattern in each value 
+
+`str_replace_all()` can be used to replace all instances within each value
+
+```{r}
+str_replace(string = Effect, pattern = "e", replacement = "E")
+```
+
+```{r}
+str_replace_all(string = Effect, pattern = "e", replacement = "E")
+
+```
+
+
 ## Subsetting part of a string
 
 `str_sub()` allows you to subset part of a string   
