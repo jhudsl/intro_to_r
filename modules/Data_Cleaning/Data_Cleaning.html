@@ -202,7 +202,7 @@ slide:not(.current) .plotly.html-widget{
 <li>The <code>lubridate</code> package is helpful for dates and times<br/>📃<a href='https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-4.pdf' title=''>Cheatsheet</a></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Data Cleaning</h2></hgroup><article  class="emphasized" id="data-cleaning">
+</article></slide><slide class=""><hgroup><h2>Data Cleaning</h2></hgroup><article  id="data-cleaning" class="emphasized">
 
 <p>In general, data cleaning is a process of investigating your data for inaccuracies, or recoding it in a way that makes it more manageable.</p>
 
@@ -223,7 +223,7 @@ slide:not(.current) .plotly.html-widget{
 <li><code>Inf</code> and <code>-Inf</code> - Infinity, happens when you divide a positive number (or negative number) by 0.</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Finding Missing data</h2></hgroup><article  class="small" id="finding-missing-data">
+</article></slide><slide class=""><hgroup><h2>Finding Missing data</h2></hgroup><article  id="finding-missing-data" class="small">
 
 <ul>
 <li><code>is.na</code> - looks for <code>NAN</code> and <code>NA</code></li>
@@ -249,7 +249,7 @@ is.na(test)</pre>
 
 <pre >[1] FALSE FALSE  TRUE</pre>
 
-</article></slide><slide class=""><hgroup><h2>Useful checking functions</h2></hgroup><article  class="small" id="useful-checking-functions">
+</article></slide><slide class=""><hgroup><h2>Useful checking functions</h2></hgroup><article  id="useful-checking-functions" class="small">
 
 <p>Do we have any <code>NA</code>s? (<code>any</code> can help)</p>
 
@@ -263,7 +263,7 @@ any(is.na(A)) # are there any NAs - YES/TRUE</pre>
 
 <pre >[1] FALSE</pre>
 
-</article></slide><slide class=""><hgroup><h2>Useful checking functions</h2></hgroup><article  class="small" id="useful-checking-functions-1">
+</article></slide><slide class=""><hgroup><h2>Useful checking functions</h2></hgroup><article  id="useful-checking-functions-1" class="small">
 
 <p>Are all the values <code>NA</code>? (<code>all</code> can help)</p>
 
@@ -409,7 +409,7 @@ sum(x)</pre>
 
 <p>Think about if this is OK or not - it depends on your data!</p>
 
-</article></slide><slide class=""><hgroup><h2>filter() and missing data</h2></hgroup><article  class="codesmall" id="filter-and-missing-data-1">
+</article></slide><slide class=""><hgroup><h2>filter() and missing data</h2></hgroup><article  id="filter-and-missing-data-1" class="codesmall">
 
 <p>What if NA values represent values that are so low it is undetectable?</p>
 
@@ -500,7 +500,7 @@ sum(x)</pre>
 
 <pre >[1] &quot;Ozone&quot;   &quot;Solar.R&quot;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Drop <strong>columns</strong> with any missing values</h2></hgroup><article  class="codesmall" id="drop-columns-with-any-missing-values-1">
+</article></slide><slide class=""><hgroup><h2>Drop <strong>columns</strong> with any missing values</h2></hgroup><article  id="drop-columns-with-any-missing-values-1" class="codesmall">
 
 <p><code>miss_var_which</code> and function from <code>naniar</code> (need a data frame)</p>
 
@@ -561,7 +561,7 @@ count(bike, dateInstalled)</pre>
 8          2013    10
 9            NA   126</pre>
 
-</article></slide><slide class=""><hgroup><h2>Change <code>NA</code> to be a value</h2></hgroup><article  class="codesmall" id="change-na-to-be-a-value">
+</article></slide><slide class=""><hgroup><h2>Change <code>NA</code> to be a value</h2></hgroup><article  id="change-na-to-be-a-value" class="codesmall">
 
 <p>The <code>replace_na()</code> function (part of the <code>tidyr</code> package), can do the opposite of <code>na_if()</code>. (note that you must use numeric values as replacement - we will show how to replace with character strings soon)</p>
 
@@ -604,7 +604,7 @@ count(bike, dateInstalled)</pre>
 
 <p>⚠️ You might want to keep the <code>NA</code> values so that you know the original sample size.</p>
 
-</article></slide><slide class=""><hgroup><h2>Word of caution</h2></hgroup><article  class="codesmall" id="word-of-caution">
+</article></slide><slide class=""><hgroup><h2>Word of caution</h2></hgroup><article  id="word-of-caution" class="codesmall">
 
 <p>⚠️ Calculating percentages will give you a different result depending on your choice to include NA values.!</p>
 
@@ -722,7 +722,7 @@ data_diet &lt;- tibble(Diet = rep(c(&quot;A&quot;, &quot;B&quot;, &quot;B&quot;)
 8 O          2
 9 Other      1</pre>
 
-</article></slide><slide class=""><hgroup><h2><code>dplyr</code> can help!</h2></hgroup><article  class="codesmall" id="dplyr-can-help">
+</article></slide><slide class=""><hgroup><h2><code>dplyr</code> can help!</h2></hgroup><article  id="dplyr-can-help" class="codesmall">
 
 <p>Using Excel to find all of the different ways <code>gender</code> has been coded, could be hectic! In <code>dplyr</code> you can use the <code>recode</code> function.</p>
 
@@ -798,7 +798,7 @@ data_diet &lt;- tibble(Diet = rep(c(&quot;A&quot;, &quot;B&quot;, &quot;B&quot;)
 3 Other      2
 4 &lt;NA&gt;       3</pre>
 
-</article></slide><slide class=""><hgroup><h2>What happened?</h2></hgroup><article  class="codesmall" id="what-happened">
+</article></slide><slide class=""><hgroup><h2>What happened?</h2></hgroup><article  id="what-happened" class="codesmall">
 
 <pre class = 'prettyprint lang-r'>data_diet %&gt;% 
   mutate(Gender = case_when(Gender == &quot;M&quot; ~ &quot;Male&quot;, 
@@ -857,7 +857,7 @@ data_diet &lt;- tibble(Diet = rep(c(&quot;A&quot;, &quot;B&quot;, &quot;B&quot;)
 
 <p>{value_for_not_meeting_condition} could be something new or it can be the original values of the column</p>
 
-</article></slide><slide class=""><hgroup><h2>case_when with TRUE ~ original vairable name</h2></hgroup><article  id="case_when-with-true-original-vairable-name">
+</article></slide><slide class=""><hgroup><h2>case_when with TRUE ~ original variable name</h2></hgroup><article  id="case_when-with-true-original-variable-name">
 
 <pre class = 'prettyprint lang-r'>data_diet %&gt;% 
   mutate(Gender = case_when(Gender == &quot;M&quot; ~ &quot;Male&quot;, 
@@ -1094,7 +1094,7 @@ Effect</pre>
 
 </article></slide><slide class=""><hgroup><h2>Uniting columns</h2></hgroup><article  id="uniting-columns">
 
-<p>The <code>unite()</code> function can help combine columns<br/>The <code>col</code> argument specifies new column name<br/>The <code>sep</code> argument specifies what separator to use when combining -defualt is “_” The <code>remove</code> argument specifies if you want to drop the old columns</p>
+<p>The <code>unite()</code> function can help combine columns<br/>The <code>col</code> argument specifies new column name<br/>The <code>sep</code> argument specifies what separator to use when combining -default is “_” The <code>remove</code> argument specifies if you want to drop the old columns</p>
 
 <pre class = 'prettyprint lang-r'>diet_comb &lt;- data_diet %&gt;% 
   unite(Diet, Effect, col = &quot;change&quot;, remove = TRUE)</pre>
@@ -1514,7 +1514,7 @@ tab_df %&gt;%
 4     2     4     2 50%  
 5     3     3     4 100% </pre>
 
-</article></slide><slide class=""><hgroup><h2>Removing columns with threshold of percent missing values</h2></hgroup><article  class="codesmall" id="removing-columns-with-threshold-of-percent-missing-values">
+</article></slide><slide class=""><hgroup><h2>Removing columns with threshold of percent missing values</h2></hgroup><article  id="removing-columns-with-threshold-of-percent-missing-values" class="codesmall">
 
 <pre class = 'prettyprint lang-r'>is.na(df) %&gt;% head(n = 3)</pre>
 
