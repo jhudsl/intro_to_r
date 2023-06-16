@@ -386,6 +386,7 @@ Pay attention to your data and your `NA` values!
 ## Example of Recoding
 
 ```{r}
+set.seed(124)
 data_diet <- tibble(Diet = rep(c("A", "B", "B"),
                                times = 4), 
                     Gender = c("Male", 
@@ -421,7 +422,7 @@ data_diet %>%
   count(Gender)
 ```
 
-## `dplyr` can help!
+## `dplyr` can help!{.codesmall}
 
 Using Excel to find all of the different ways `gender` has been coded,
 could be hectic!
@@ -461,33 +462,53 @@ data_diet %>%
                                  O = "Other",
                                  f = "Female",
                                  F = "Female")) %>%
-  count(Gender, Diet)
+  count(Gender)
 ```
 
 ## Or you can use `case_when()`
 
 The `case_when()` function of `dplyr` can help us to do this as well.
 
-::: codeexample
-```{r, eval = FALSE}
-# General Format - this is not code!
-{data_input} %>%
-  mutate({variable_to_fix} = case_when({Variable_fixing}   
-                                /some condition/  ~ {value_for_con})
+It is more flexible and powerful. 
+
+
+## Or you can use `case_when()`{.codesmall}
+
+
+```{r}
+data_diet %>% 
+  mutate(Gender = case_when(Gender == "M" ~ "Male", 
+                            Gender == "m" ~ "Male", 
+                            Gender == "Man" ~ "Male",
+                            Gender == "O" ~ "Other",
+                            Gender == "f" ~ "Female",
+                            Gender == "F" ~ "Female"))  %>% 
+  count(Gender)
 
 ```
-:::
+
+## What happened?{.codesmall}
+
+```{r}
+data_diet %>% 
+  mutate(Gender = case_when(Gender == "M" ~ "Male", 
+                            Gender == "m" ~ "Male", 
+                            Gender == "Man" ~ "Male",
+                            Gender == "O" ~ "Other",
+                            Gender == "f" ~ "Female",
+                            Gender == "F" ~ "Female"))
+```
+
+## Original data
+```{r}
+data_diet
+```
+
+## `case_when()` drops unspecified values
 
 Note that automatically values not reassigned explicitly by
 `case_when()` will be `NA` unless otherwise specified.
 
-```{r, eval = TRUE}
-data_diet %>% 
-  mutate(Gender = case_when(Gender == "M" ~ "Male"))
-```
-
-
-## Use of `case_when()` without automatic `NA`
 ::: codeexample
 ```{r, eval = FALSE}
 # General Format - this is not code!
@@ -497,14 +518,23 @@ data_diet %>%
                          TRUE ~ {value_for_not_meeting_condition})
 
 ```
+:::
 
+{value_for_not_meeting_condition} could be something new 
+or it can be the original values of the column
 
-Here we use the original values of `Gender` to replace all values of `Gender` that do not meet the condition `== "M"`.
+## case_when with TRUE ~ original vairable name
 
 ```{r}
 data_diet %>% 
-  mutate(Gender = case_when(Gender == "M" ~ "Male",
-                                     TRUE ~ Gender))
+  mutate(Gender = case_when(Gender == "M" ~ "Male", 
+                            Gender == "m" ~ "Male", 
+                            Gender == "Man" ~ "Male",
+                            Gender == "O" ~ "Other",
+                            Gender == "f" ~ "Female",
+                            Gender == "F" ~ "Female",
+                            TRUE ~ Gender))  %>% 
+  count(Gender)
 ```
 
 
@@ -542,6 +572,7 @@ head(data_diet)
 data_diet %>% 
   count(Diet, Effect)
 ```
+## Taking a look at the data
 
 ```{r, echo = FALSE}
 diet_effect <- data_diet %>% 
@@ -589,11 +620,14 @@ within each element of a **character vector** (not data frame or tibble!).
 ## `str_detect()`
 
 The `string` argument specifies what to check    
-The `pattern` argument specifies what to check for    
+The `pattern` argument specifies what to check for (case sensitive)  
 
 ```{r}
-x <- c("cat", "dog", "mouse")
-str_detect(string = x, pattern = "d")
+
+Effect <- pull(data_diet) %>% head(n = 6)
+Effect
+str_detect(string = Effect, pattern = "d")
+str_detect(string = Effect, pattern = "D")
 ```
 
 ## `str_replace()`
@@ -602,35 +636,50 @@ The `string` argument specifies what to check
 The `pattern` argument specifies what to check for    
 The `replacement` argument specifies what to replace the pattern with    
 ```{r}
-x <- c("cat", "dog", "mouse")
-str_replace(string = x, pattern = "d", replacement = "D")
+str_replace(string = Effect, pattern = "D", replacement = "d")
 ```
 
 ## Subsetting part of a string
 
 `str_sub()` allows you to subset part of a string   
-The `string` argument specifies what strings to work with     The `start` argument specifies position of where to start    
+The `string` argument specifies what strings to work with     
+The `start` argument specifies position of where to start    
 The `end` argument specifies position of where to end    
 
 ```{r}
-x <- c("cat", "dog", "mouse")
-str_sub(string = x, start = 1, end = 2)
+str_sub(string = Effect, start = 1, end = 3)
 ```
 
 ## `filter` and `stringr` functions
 
 ```{r}
-head(data_diet,n = 4)
+head(data_diet, n = 4)
 data_diet %>% 
   filter(str_detect(string = Gender,
                     pattern = "M"))
 ```
-
-
-## `case_when()` improved with `stringr`
+## OK back to our original problem
 ```{r}
 count(data_diet, Gender)
 ```
+
+## Recode was nice but what if miss something?
+
+```{r, eval = FALSE}
+
+data_diet %>% 
+  mutate(Gender = recode(Gender, M = "Male", 
+                                 m = "Male", 
+                               Man = "Male",
+                                 O = "Other",
+                                 f = "Female",
+                                 F = "Female")) %>%
+  count(Gender, Diet)
+```
+
+## `case_when()` was an improvement
+
+But we still might miss a strange value
 
 ```{r, eval = FALSE}
 data_diet %>% 
@@ -653,7 +702,9 @@ data_diet %>%
   count(Gender)
 ```
 
-## That was easier!
+This is a more robust solution! It will catch typos as long as first letter is correct.
+
+## That's better!
 
 ```{r, echo = FALSE, fig.align='center', out.width= "30%"}
 knitr::include_graphics("https://media1.giphy.com/media/S9ZK4mmi3u3jdc5dek/200w.webp?cid=ecf05e47h7myga959jwvek6s9x1tkog135g7pxu8vvjz2yqb&rid=200w.webp&ct=g")
@@ -693,8 +744,8 @@ diet_comb
 
 ## Summary
 
--   `recode()` can help with simple recoding (not based on condition but simple swap)
--   `case_when()` can recode **entire values** based on conditions
+-   `recode()` can help with simple recoding (not based on condition but **exact** swap)
+-   `case_when()` can recode **entire values** based on **conditions**
     -   remember `case_when()` needs `TRUE ~ varaible` to keep values that aren't specified by conditions, otherwise will be `NA`
 -   `stringr` package has great functions for looking for specific **parts of values** especially `filter()` and `str_detect()` combined
     -   also has other useful string manipulation functions like `str_replace()` and more!
