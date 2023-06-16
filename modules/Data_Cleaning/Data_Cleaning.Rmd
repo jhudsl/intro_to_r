@@ -439,6 +439,8 @@ In `dplyr` you can use the `recode` function (need `mutate` here too!):
 ```
 :::
 
+Need quotes for new values!
+
 ```{r, eval = FALSE}
 
 data_diet %>% 
@@ -465,6 +467,7 @@ data_diet %>%
   count(Gender)
 ```
 
+
 ## Or you can use `case_when()`
 
 The `case_when()` function of `dplyr` can help us to do this as well.
@@ -474,6 +477,7 @@ It is more flexible and powerful.
 
 ## Or you can use `case_when()`{.codesmall}
 
+Need quotes for new and existing values!
 
 ```{r}
 data_diet %>% 
