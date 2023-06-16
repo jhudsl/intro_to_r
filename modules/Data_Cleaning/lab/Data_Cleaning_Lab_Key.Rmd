@@ -40,7 +40,7 @@ bike %>%
 
 
 
-2.  Filter rows of bike, so that only rows remain that do NOT have missing values  for the `route` variable,  using `drop_na`. Assign this to the object `have_route.`
+2.  Filter rows of bike, so that only rows remain that do NOT have missing values for the `route` variable,  using `drop_na`. Assign this to the object `have_route.`
 
 ```{r}
 have_rout <- bike %>% drop_na(route)
@@ -56,8 +56,8 @@ gg_miss_var(bike)
 4. What percentage of the `subType` variable is complete of `bike` ? Hint: use another `naniar` function.
  
 ```{r}
-pct_complete(bike$subType) # this or..
 pull(bike, subType) %>% pct_complete() # this
+miss_var_summary(bike) # or this
 ```
 
 # Part 2
@@ -92,7 +92,7 @@ BloodType
 
 There are some issues with this data that we need to figure out!
 
-1. Determine how many `NA` values there are for `gender`.
+1. Determine how many `NA` values there are for `gender`. 
 
 ```{r}
 count(BloodType, gender) # the simple way
@@ -103,7 +103,7 @@ BloodType %>% # another way
   sum()
 ```
 
-2. Recode the `gender` variable of the `BloodType` data so that it is consistent. Use `case_when()`.
+2. Recode the `gender` variable of the `BloodType` data so that it is consistent. Use `case_when()`. Don't forget to use quotes!
 
 ```{r}
 
@@ -124,7 +124,7 @@ Check to see how many values `gender` has for each category (hint: use `count`).
 BloodType %>% count(gender)
 ```
 
-4. Recode the `type` variable of the `BloodType` data to be consistent. Use `recode`. Hint: the inconsistency has to do with lower case `o` and capital `O`.
+4. Recode the `type` variable of the `BloodType` data to be consistent. Use `recode`. Hint: the inconsistency has to do with lower case `o` and capital `O`. Don't forget to use quotes!
 ```{r}
 BloodType <- BloodType %>%
   mutate(type = recode(type,
@@ -141,7 +141,7 @@ BloodType
 BloodType %>% count(type)
 ```
 
-6. Make a new tibble of `BloodType` called `Bloodtype_split` that splits the `type` variable into two called `blood_type` and  `Rhfactor`. Note: periods are special characters that generally are interpreted as wild cards thus we need `\\.` instead of simply "." to tell R that we want it to be interpreted as a period.
+6. Make a new tibble of `BloodType` called `Bloodtype_split` that splits the `type` variable into two called `blood_type` and  `Rhfactor`. Note: periods are special characters that generally are interpreted as wild cards thus we need "\\." instead of simply "." to tell R that we want it to be interpreted as a period. Make sure you use quotes around "\\." and the column names like shown below (don't want backticks).
 
 ```
 # General format
