@@ -46,10 +46,12 @@ In this module, we will show you how to:
 
 ## What is wide/long data?
 
-https://github.com/gadenbuie/tidyexplain/blob/main/images/tidyr-pivoting.gif
+<div style="font-size:40pt">
+Data is wide or long **with respect** to certain variables.
+</div>
 
-```{r, fig.alt="A gif visualization of data going from wide to long form.", out.width = "40%", echo = FALSE, align = "center"}
-knitr::include_graphics("images/tidyr_pivoting.gif")
+```{r, fig.alt="Wide versus long data rearanges the position of column names and row content.", out.width = "60%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/pivot.jpg")
 ```
 
 ## What is wide/long data?
@@ -58,9 +60,9 @@ Data is stored *differently* in the tibble.
 
 ```{r, echo = FALSE}
 ex_wide <- tibble(State = "Alabama",
-                 June_vacc_rate = "37.2%",
-                 May_vacc_rate = "36.0%",
-                 April_vacc_rate = "32.4%"
+                 June_vacc_rate = 0.516,
+                 May_vacc_rate = 0.514,
+                 April_vacc_rate = 0.511
                      )
 ex_long <- pivot_longer(ex_wide, cols = !State)
 ```
@@ -81,9 +83,9 @@ ex_long
 
 ```{r, echo = FALSE}
 ex_wide <- tibble(State = c("Alabama", "Alaska"),
-                 June_vacc_rate = c("37.2%", "47.5%"),
-                 May_vacc_rate = c("36.0%", "46.2%"),
-                 April_vacc_rate = c("32.4%", "41.7%")
+                 June_vacc_rate = c(0.516, 0.627),
+                 May_vacc_rate = c(0.514, 0.626),
+                 April_vacc_rate = c(0.511, 0.623)
                      )
 ex_long <- pivot_longer(ex_wide, cols = !State)
 ```
@@ -102,12 +104,10 @@ ex_long
 
 ## What is wide/long data?
 
-<div style="font-size:40pt">
-Data is wide or long **with respect** to certain variables.
-</div>
+https://github.com/gadenbuie/tidyexplain/blob/main/images/tidyr-pivoting.gif
 
-```{r, fig.alt="Wide versus long data rearanges the position of column names and row content.", out.width = "60%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("images/pivot.jpg")
+```{r, fig.alt="A gif visualization of data going from wide to long form.", out.width = "40%", echo = FALSE, align = "center"}
+knitr::include_graphics("images/tidyr_pivoting.gif")
 ```
 
 ## Why do we need to switch between wide/long data?
@@ -153,9 +153,11 @@ You might see old functions `gather` and `spread` when googling. These are older
 ## Reshaping data from **wide to long**
 
 ```{r, echo = FALSE}
-wide_data <- tibble(June_vacc_rate = "37.2%",
-                 May_vacc_rate = "36.0%",
-                 April_vacc_rate = "32.4%")
+wide_data <- tibble(
+  June_vacc_rate = 0.516,
+  May_vacc_rate = 0.514,
+  April_vacc_rate = 0.511
+)
 ```
 
 ```{r}
@@ -183,9 +185,11 @@ long_data
 ## Reshaping data from **wide to long**
 
 ```{r, echo = FALSE}
-wide_data <- tibble(June_vacc_rate = "37.2%",
-                 May_vacc_rate = "36.0%",
-                 April_vacc_rate = "32.4%")
+wide_data <- tibble(
+  June_vacc_rate = 0.516,
+  May_vacc_rate = 0.514,
+  April_vacc_rate = 0.511
+)
 ```
 
 ```{r}
@@ -196,6 +200,8 @@ long_data <- wide_data %>% pivot_longer(cols = everything(),
 long_data
 ```
 
+Newly created column names are enclosed in quotation marks.
+
 ## Data used: Charm City Circulator
 
 http://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv
@@ -204,6 +210,17 @@ http://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv
 library(jhur)
 circ <- read_circulator()
 head(circ, 5)
+```
+
+## Mission: Taking the averages by line
+
+Let's imagine we want to create a table of averge ridership by route/line. Results should look something like:
+
+```{r, message = FALSE}
+example <- tibble(line = c("orange","purple","green","banner"),
+                  avg = c("600(?)", "700(?)", "500(?)", "400(?)")
+)
+example
 ```
 
 ## Reshaping data from **wide to long**
@@ -216,18 +233,11 @@ long
 
 ## Reshaping data from **wide to long**
 
-There are many ways to select the columns we want. Use `?tidyr_tidy_select` to look at more column selection options.
+Un-pivoted columns appear the same as before (`day`, `date`, `daily`)
 
 ```{r}
-long <- circ %>% 
-  pivot_longer( !c(day, date, daily))
-long
-```
-
-## Reshaping data from **wide to long**
-
-```{r}
-long %>% count(name)
+head(circ, n = 2)
+head(long, n = 2)
 ```
 
 ## Cleaning up long data
@@ -253,6 +263,25 @@ long
 long <- long %>% 
   separate(name, into = c("line", "type"), sep = "_")
 long
+```
+
+## Mission: Taking the averages by line
+
+Now our data is more tidy, and we can take the averages easily!
+
+```{r}
+long %>% 
+  group_by(line) %>% 
+  summarize("avg" = mean(value, na.rm = TRUE))
+```
+
+## Reshaping data from **wide to long**
+
+There are many ways to **select** the columns we want. Check out https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html to look at more column selection options.
+
+```{r}
+circ %>% 
+  pivot_longer( !c(day, date, daily))
 ```
 
 # `pivot_wider`...
@@ -295,33 +324,6 @@ wide <- long %>% pivot_wider(names_from = "type",
 wide
 ```
 
-
-## Inconsistencies in non-pivoted columns?
-
-Notice "daily" column has different values
-
-```{r echo = FALSE}
-long2 <- long
-long2[1,3] <- 4000
-long2[2,3] <- 10
-```
-
-```{r}
-long2
-```
-
-
-## Inconsistencies in non-pivoted columns?
-
-R won't drop data while pivoting.
-
-```{r}
-wide2 <- long2 %>% pivot_wider(names_from = "type", 
-                             values_from = "value") 
-wide2
-```
-
-
 ## Summary
 
 - `tidyr` package helps us convert between wide and long data
@@ -337,6 +339,14 @@ wide2
 
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Manipulating_Data_in_R/lab/Manipulating_Data_in_R_Lab.Rmd)
 
+## Joining
+
+"Combining datasets"
+
+```{r, fig.alt="Inner, outer, left, and right joins represented with venn diagrams", out.width = "100%", echo = FALSE, align = "center"}
+knitr::include_graphics("images/joins.png")
+```
+
 ## Joining in `dplyr`
 
 * Merging/joining data sets together - usually on key variables, usually "id"
@@ -350,11 +360,15 @@ wide2
 ## Merging: Simple Data
 
 ```{r echo=FALSE}
-data_As <- tibble(State = c("Alabama", "Alaska"),
-                 June_vacc_rate = c("37.2%", "47.5%"),
-                 May_vacc_rate = c("36.0%", "46.2%"))
-data_cold <- tibble(State = c("Maine", "Alaska"),
-                    April_vacc_rate = c("32.4%", "41.7%"))
+data_As <- tibble(
+  State = c("Alabama", "Alaska"),
+  June_vacc_rate = c(0.516, 0.627),
+  May_vacc_rate = c(0.514, 0.626)
+)
+data_cold <- tibble(
+  State = c("Maine", "Alaska"),
+  April_vacc_rate = c(0.795, 0.623)
+)
 ```
 
 ```{r}
@@ -373,7 +387,7 @@ knitr::include_graphics("images/inner_join.gif")
 ## Inner Join
 
 ```{r inner_join}
-ij = inner_join(data_As, data_cold)
+ij <- inner_join(data_As, data_cold)
 ij
 ```
 
@@ -388,7 +402,7 @@ knitr::include_graphics("images/left_join.gif")
 ## Left Join
 
 ```{r left_join}
-lj = left_join(data_As, data_cold)
+lj <- left_join(data_As, data_cold)
 lj
 ```
 
@@ -448,7 +462,7 @@ fj
 data_As <- tibble(State = c("Alabama", "Alaska"),
                  state_bird = c("wild turkey", "willow ptarmigan"))
 data_cold <- tibble(State = c("Maine", "Alaska", "Alaska"),
-                    vacc_rate = c("32.4%", "41.7%", "46.2%"),
+                    vacc_rate = c(0.795, 0.623, 0.626),
                     month = c("April", "April", "May"))
 ```
 
@@ -487,16 +501,6 @@ knitr::include_graphics("images/left_join_extra.gif")
 
 ```{r}
 unloadNamespace("tidylog")
-```
-
-## Duplicated
-
-- The `duplicated` function can give you indications if there are duplicates in a **vector**:
-
-```{r}
-duplicated(1:5)
-duplicated(c(1:5, 1))
-lj %>% mutate(dup_State = duplicated(State))
 ```
 
 ## Using the `by` argument
@@ -563,3 +567,27 @@ knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 
 Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
 
+# Additional Slides
+
+## Inconsistencies in non-pivoted columns?
+
+Notice "daily" column has different values
+
+```{r echo = FALSE}
+long2 <- long
+long2[2,1] <- "MONDAY"
+```
+
+```{r}
+long2
+```
+
+## Inconsistencies in non-pivoted columns?
+
+R won't drop data while pivoting.
+
+```{r}
+wide2 <- long2 %>% pivot_wider(names_from = "type", 
+                             values_from = "value") 
+wide2
+```
