@@ -9,12 +9,13 @@ When can you use a function directly on a column of a tibble and when do you nee
 
 There are some inconsistencies across different functions. Typically if it is a base R function, you often need to pull the data out into a vector first.  Sometimes you just need to try them out. Always check that your work did what you expect!
 
-## Values in general
+## In general
 
 In general these are the conventions for working with values (recall that values or samples within rows):
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(kableExtra)
+library(tidyverse)
 text_tbl <- data.frame(
   Type = c("base R and tidyverse function", "special tidyverse function", "base R"),
   Example = c("setdiff()", "stringr functions like str_replace()", "mean()" ))
