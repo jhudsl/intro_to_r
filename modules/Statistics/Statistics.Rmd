@@ -21,8 +21,6 @@ options(scipen = 999)
 library(readr)
 library(ggplot2)
 library(emo)
-
-install.packages(c("faraway", "epitools"))
 ```
 
 ## Summary
@@ -362,7 +360,7 @@ print(ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width)) +
   theme(legend.position = "none", text = element_text(size = 20)))
 ```
 
-## Linear regression
+## Linear regression {.smaller}
 
 Linear regression is a method to model the relationship between a response and one or more explanatory variables. 
 
@@ -613,7 +611,7 @@ head(ice_cream)
 ice_cream %>% count(ill, vanilla.ice.cream)
 ```
 
-## Odds ratios
+## Odds ratios {.smaller}
 
 Use `oddsratio(x, y)` from the `epitools()` package to calculate odds ratios.
 
@@ -634,9 +632,9 @@ Some final notes:
 
 - Researcher's responsibility to **understand the R software**  they use -- meaning of function's arguments and meaning of  function's output elements
 
-## Summary
+## Summary {.smaller}
 
-- Use `cor()` to calculate correlation between two vectors, `cor.test() can give more information.
+- Use `cor()` to calculate correlation between two vectors, `cor.test()` can give more information.
 - `corrplot()` is nice for a quick visualization!
 - `t.test()` one sample test to test the difference in mean of a single vector from zero (one input)
 - `t.test()` two sample test to test the difference in means between two vectors (two inputs)
