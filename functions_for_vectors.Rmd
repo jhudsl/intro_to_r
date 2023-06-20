@@ -1,0 +1,61 @@
+---
+title: "Functions that need pull first"
+output: 
+  html_document:
+    toc: TRUE
+---
+
+When can you use a function directly on a column of a tibble and when do you need a vector in R?
+
+There are some inconsistencies across different functions. Typically if it is a base R function, you often need to pull the data out into a vector first.  Sometimes you just need to try them out. Always check that your work did what you expect!
+
+## Values in general
+
+In general these are the conventions for working with values (recall that values or samples within rows):
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(kableExtra)
+text_tbl <- data.frame(
+  Type = c("base R and tidyverse function", "special tidyverse function", "base R"),
+  Example = c("setdiff()", "stringr functions like str_replace()", "mean()" ))
+kbl(text_tbl) %>%
+  # kable_classic(full_width = F, html_font = "helvetica") %>%
+  kable_paper(full_width = F, html_font = "helvetica", font_size = "18") %>%
+  column_spec(1:2, bold = T, border_right = T, border_left = TRUE) %>%
+  row_spec(0, align = "c") %>%
+  row_spec(1, background = "yellow") %>%
+  row_spec(2, background = "lightgreen") %>%
+  row_spec(3, background = "lightblue")
+```
+
+## setdiff()
+
+This function was originaly a base R function and it got adopted by a tidyverse package and is therefore used as it was previously and requires vectors.
+
+```{r}
+animal1 <-tibble(animals = c("cat", "dog", "mouse"), 
+                 size  = c("medium", "medium", "small"))
+animal2 <-tibble(animals = c("cat", "hourse", "fish"),
+                 size  = c("medium", "large", "small"))
+
+# shows what is in the first data set that is not in the second dataset as a tibble
+dplyr::setdiff(select(animal1, animals), 
+               select(animal2, animals))
+# shows what is in the first data set that is not in the second dataset as a vector
+dplyr::setdiff(pull(animal1, animals), 
+               pull(animal2, animals))
+# shows what is in the first data set that is not in the second dataset as a vector
+base::setdiff(animal1$animals, 
+               animal2$animals)
+# shows what is in the first data set that is not in the second dataset as a vector
+base::setdiff(pull(animal1,animals), 
+              pull(animal2,animals))
+
+base::setdiff(select(animal1, animals), 
+              select(animal2, animals)) # works a bit differently
+
+lubridate::setdiff(select(animal1, animals), 
+              select(animal2, animals)) 
+```
+
+
