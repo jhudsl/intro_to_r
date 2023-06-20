@@ -216,11 +216,12 @@ corrplot(cor_mat)
 
 ## Correlation does not imply causation
 
-```{r, fig.alt="The End", out.width = "90%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("https://www.opencasestudies.org/ocs-bp-co2-emissions/img/causation.png")
+```{r, fig.alt="Simpson's paradox!", out.width = "90%", echo = FALSE, fig.align='center'}
+knitr::include_graphics(here::here("images/lyme_and_fried_chicken_map.png"))
+knitr::include_graphics(here::here("images/lyme_and_fried_chicken.png"))
 ```
 
-[source](http://tylervigen.com/spurious-correlations)
+[source](http://doi.org/10.1007/s10393-020-01472-1)
 
 
 # T-test
@@ -307,6 +308,13 @@ See [here](https://www.nature.com/articles/nbt1209-1135) for more about multiple
 - `var.test()`-- Fisher’s F-Test
 - `chisq.test()` -- Chi-squared test
 - `aov()` -- Analysis of Variance (ANOVA)
+
+## Summary
+
+- Use `cor()` to calculate correlation between two vectors, `cor.test()` can give more information.
+- `corrplot()` is nice for a quick visualization!
+- `t.test()` one sample test to test the difference in mean of a single vector from zero (one input)
+- `t.test()` two sample test to test the difference in means between two vectors (two inputs)
 
 ## Lab Part 1
 
