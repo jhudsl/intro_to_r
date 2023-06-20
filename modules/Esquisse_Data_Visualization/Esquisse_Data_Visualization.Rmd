@@ -26,7 +26,6 @@ The [`esquisse` package](https://cran.r-project.org/web/packages/esquisse/vignet
 It is an interactive tool to help you in RStudio.
 
 It's super **nifty**!
-
 ```{r, fig.alt="starting a plot", out.width = "50%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("https://c.tenor.com/DNUSO9MjrTEAAAAC/bob-ross.gif")
 ```
@@ -42,7 +41,6 @@ esquisser(mtcars)
 ```{r, fig.alt="starting a plot", out.width = "90%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/start_a_plot.png")
 ```
-
 
 ## Show the plot in the browser
 
@@ -123,13 +121,33 @@ To change titles on your plot, use the titles tab.
 knitr::include_graphics("images/titles.gif")
 ```
 
+## View data
+
+You can also easily view data
+
+```{r, fig.alt="Click on the table button to view a table of your data.", out.width = "100%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/view_data.png")
+```
+
+## Interrupting Esquisse
+
+You'll need to "interrupt" Esquisse to launch it with a new dataset.
+
+Use the stop button or press ctrl+c to stop the Esquisse app.
+
+```{r, fig.alt="Click the stop button to interrupt the Esquisse app.", out.width = "100%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/stop.png")
+```
+
 ## Wide & Long Data Example
+
 ```{r}
 library(jhur)
 wide_circ <- read_circulator()
 ```
 
 ## Wide Data
+
 ```{r}
 library(dplyr)
 glimpse(wide_circ)
@@ -137,6 +155,7 @@ glimpse(wide_circ)
 
 
 ## Long Data
+
 ```{r}
 library(tidyr)
 long_circ <- wide_circ %>%
@@ -148,6 +167,7 @@ long_circ <- wide_circ %>%
 ```
 
 ## Long Data
+
 ```{r}
 glimpse(long_circ)
 ```
@@ -162,7 +182,9 @@ esquisser(long_circ) # day as x, Boardings as y, Route as fill
 ## Summary
 
 * Use the `esquisser()` function on a dataset
+* Use the `viewer = "browser"` argument to launch in your browser.
 * Code from Esquisse can copied into code chunks to be generated in the "Plots" pane
+* It's easier if your code is in "long" form!
 
 ## Lab
 
