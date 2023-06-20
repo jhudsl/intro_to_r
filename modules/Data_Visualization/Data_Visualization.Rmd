@@ -161,6 +161,15 @@ head(Orange)
 
 Will set up the plot - it will be empty!
 
+
+
+```{r, echo = FALSE, fig.align='center'}
+knitr::include_graphics("img/ing_and_base.png")
+```
+
+## First layer of code with `ggplot2` package
+
+
 -   **Aesthetic mapping** `(mapping = aes(x= , y =))` describes how variables in our data are mapped to elements of the plot - Note many people don't use `mapping` but it is helpful to know what we are doing.
 
 ::: codeexample
@@ -178,17 +187,21 @@ ggplot(Orange, mapping = aes(x = circumference, y = age))
 
 ## Next layer code with `ggplot2` package
 
+```{r, echo = FALSE, fig.align='center', out.width = "35%"}
+knitr::include_graphics("img/the_geoms.png")
+```
+
+
 There are many to choose from, to list just a few:
 
 -   `geom_point()` -- points (we have seen)
 -   `geom_line()` -- lines to connect observations
--   `geom_boxplot()`
--   `geom_histogram()`
--   `geom_bar()`
--   `geom_col()`
--   `geom_errorbar()`
--   `geom_density()`
+-   `geom_boxplot()` -- boxplots
+-   `geom_histogram()` -- histogram
+-   `geom_bar()` -- bar plot
+-   `geom_col()` -- column plot
 -   `geom_tile()` -- blocks filled with color
+
 
 ## Next layer code with `ggplot2` package
 
@@ -290,6 +303,12 @@ ggplot(Orange, mapping = aes(x = circumference, y = age)) +
   geom_point(size = 5, color = "red", alpha = 0.5) + 
   geom_line(size = 0.8, color = "black", linetype = 2)
 ```
+
+# Customize the look of the plot
+
+```{r, echo = FALSE, fig.align='center', out.width= "50%"}
+knitr::include_graphics("img/frosting.png")
+``` 
 
 ## Customize the look of the plot {.codesmall}
 
