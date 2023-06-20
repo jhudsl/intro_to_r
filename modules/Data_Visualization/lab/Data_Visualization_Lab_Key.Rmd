@@ -153,14 +153,14 @@ facet_plot <- ggplot(bike_agg_2, mapping = aes(
 facet_plot
 ```
 
-**Bonus / Extra practice**: Modify `facet_plot` to remove the legend (hint use `theme()`) and change the names of the axis titles to be "Number of bike lanes" for the x axis and "Date bike lane was installed" for the y axis. 
+**Bonus / Extra practice**: Modify `facet_plot` to remove the legend (hint use `theme()`) and change the names of the axis titles to be "Number of bike lanes" for the y axis and "Date bike lane was installed" for the x axis. 
 
 ```{r}
 facet_plot <- facet_plot +
   theme(legend.position = "none") +
   labs(
-    x = "Number of bike lanes",
-    y = "Date bike lane was installed"
+    y = "Number of bike lanes",
+    x = "Date bike lane was installed"
   )
 
 facet_plot
