@@ -29,9 +29,9 @@ kbl(text_tbl) %>%
   row_spec(3, background = "lightblue")
 ```
 
-## setdiff()
+## `setdiff()`
 
-This function was originaly a base R function and it got adopted by a tidyverse package and is therefore used as it was previously and requires vectors.
+This function was originally a base R function and it got adopted by a tidyverse package and is therefore used as it was previously and requires vectors.
 
 ```{r}
 animal1 <-tibble(animals = c("cat", "dog", "mouse"), 
