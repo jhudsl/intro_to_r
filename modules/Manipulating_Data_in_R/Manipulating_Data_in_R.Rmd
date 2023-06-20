@@ -280,9 +280,8 @@ long %>%
 There are many ways to **select** the columns we want. Check out https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html to look at more column selection options.
 
 ```{r}
-long <- circ %>% 
+circ %>% 
   pivot_longer( !c(day, date, daily))
-long
 ```
 
 # `pivot_wider`...
