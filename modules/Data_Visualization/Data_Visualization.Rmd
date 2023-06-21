@@ -483,7 +483,7 @@ ggplot(Orange, mapping = aes(x = circumference, y = age, color = Tree)) +
 ## Cheatsheet about theme
 https://github.com/claragranell/ggplot2/blob/main/ggplot_theme_system_cheatsheet.pdf
 
-```{r, echo = FALSE, fig.align='center', out.width= "90%"}
+```{r, echo = FALSE, fig.align='center', out.width= "55%"}
 knitr::include_graphics("img/theme_sheet.png")
 ``` 
 
@@ -494,27 +494,20 @@ Guide on how to: <https://rpubs.com/mclaire19/ggplot2-custom-themes>
 
 ## Group and/or color by variable's values
 
-First, we will generate some data frame for the purpose of demonstration.
+First, we will read in some data for the purpose of demonstration about food prices over time. 
+
+
+
+```{r}
+food <- read_csv(
+  file = "http://jhudatascience.org/intro_to_r/data/food_price.csv")
+```
+
+## Food data
 
 -   2 different categories (e.g. pasta, rice)
 -   4 different items (e.g. 2 of each category)
 -   10 price values changes collected over time for each item
-
-```{r}
-# create 4 vectors: 2x character class and 2x numeric class
-item_categ <- rep(c("pasta", "rice"),each = 20)
-item_ID  <- rep(seq(from = 1, to = 4), each = 10)
-item_ID <- paste0("ID_", item_ID)
-observation_time  <- rep(seq(from = 1, to = 10), times = 4)
-item_price_change <- c(sample(0.5:2.5, size = 10, replace = TRUE),
-                       sample(0:1, size = 10, replace = TRUE),
-                       sample(2:5, size = 10, replace = TRUE),
-                       sample(6:9, size = 10, replace = TRUE))
-# use 4 vectors to create data frame with 4 columns
-food  <- tibble(item_ID, item_categ, observation_time, item_price_change) 
-```
-
-## Group and/or color by variable's values
 
 ```{r}
 food
