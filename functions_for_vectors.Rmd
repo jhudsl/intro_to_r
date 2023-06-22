@@ -48,13 +48,27 @@ cold_states <- data_cold %>% pull(State)
 base::setdiff(A_states, cold_states)
 ```
 
-When using `setdiff()` from `dplyr`, it does something different. It tells us the rows in the first tibble that are not in the second tibble. We can select the `State` to compare and it still works, even though `A_states` and `cold_states` are tibbles and not vectors.
+If we do this with the `dplyr` version this still works the same:
+
+```{r}
+dplyr::setdiff(A_states, cold_states)
+```
+
+We can select the `State` variable to compare and it still works as the above with the `dplyr` version, even though `A_states` and `cold_states` are tibbles and not vectors.
 
 ```{r}
 A_states <- data_As %>% select(State)
+A_states
 cold_states <- data_cold %>% select(State)
+cold_states
 dplyr::setdiff(A_states, cold_states)
-base::setdiff(A_states, cold_states) # the output is not correct 
+
+```
+
+However when using `setdiff()` from base R with the tibble versions of A_states and cold_states,  it tells us the rows in the first tibble that are not in the second tibble.
+
+```{r}
+base::setdiff(A_states, cold_states) 
 ```
 
 We could also use `setdiff()` from `dplyr` to tell us what rows were removed when filtering a dataframe or tibble:
