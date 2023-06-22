@@ -27,19 +27,19 @@ install.packages(c("faraway", "epitools"))
 
 ## Summary
 
-- `ggplot()` specifies what data use and what variables will be mapped to where
-- inside `ggplot()`, `mapping = aes(x = , y = , color =)` specify what variables correspond to what aspects of the plot in general
+- `ggplot()` specifies what data to use and what variables will be mapped to where
+- inside `ggplot()`, `mapping = aes(x = , y = , color = )` specify what variables correspond to what aspects of the plot in general
 - layers of plots can be combined using the `+` at the **end** of lines
 - use `geom_line()` and `geom_point()` to add lines and points
 - sometimes you need to add a `group` element to `mapping = aes()` if your plot looks strange
 - make sure you are plotting what you think you are by checking the numbers!
-- `facet_grid(~ variable)` and `facet_wrap(~variable)` can be helpful to quickly split up your plot
+- `facet_grid(~variable)` and `facet_wrap(~variable)` can be helpful to quickly split up your plot
 
 ## Summary
 
 - the factor class allows us to have a different order from alphanumeric for categorical data
-- we can change data to be a factor variable using `mutate` , the `as_factor()` (of `forcats` package) or `factor()` function and specifying the levels with the `levels` argument
-- the `fct_reorder({variable_to_reorder}, {variable_to_order_by})` helps us reorder a variable by the values of another variable
+- we can change data to be a factor variable using `mutate()`, `as_factor()` (in the `forcats` package), or `factor()` functions and specifying the levels with the `levels` argument
+- `fct_reorder({variable_to_reorder}, {variable_to_order_by})` helps us reorder a variable by the values of another variable
 - arranging, tabulating, and plotting the data will reflect the new order
 
 ## Overview
@@ -72,7 +72,7 @@ Check out [www.opencasestudies.org](https://www.opencasestudies.org/) for deeper
 
 ## Correlation
 
-Correlation coefficient is a summary statistic that measures the strength of a linear relationship between two variables.
+The correlation coefficient is a summary statistic that measures the strength of a linear relationship between two variables.
 
 - The strength of the relationship - based on how well the points form a line
 - The direction of the relationship - based on if the points progress upward or downward
@@ -130,11 +130,14 @@ First, we compute correlation by providing two vectors.
 Like other functions, if there are `NA`s, you get `NA` as the result.  But if you specify use only the complete observations, then it will give you correlation using the non-missing data. 
 
 ```{r}
+# x and y must be numeric vectors
 x <- circ %>% pull(orangeAverage)
 y <- circ %>% pull(purpleAverage)
 ```
 
 ```{r,fig.width=3, fig.height=3}
+# have to specify which data on each axis
+# can accomodate missing data
 plot(x, y)
 ```
 
@@ -161,9 +164,8 @@ glimpse(cor_result)
 In plot form... `geom_smooth()` and `annotate()` can help.
 
 ```{r}
-
 corr_value <- pull(cor_result, estimate) %>% round(digits = 4)
-cor_label <- paste("R =", corr_value)
+cor_label <- paste0("R = ", corr_value)
 circ %>%
   ggplot(aes(x = orangeAverage, y = purpleAverage)) +
   geom_point(size = 0.3) +
@@ -201,7 +203,6 @@ head(circ_subset_Average)
 ## Correlation for data frame columns
 We can compute correlation for all pairs of columns of a data frame / matrix. This is often called, *"computing a correlation matrix"*.
 
-
 ```{r}
 cor_mat <- cor(circ_subset_Average, use = "complete.obs")
 cor_mat
@@ -209,7 +210,7 @@ cor_mat
 
 ## Correlation for data frame columns with plot
 
- `corrplot` package can make correlation matrix plots
+`corrplot` package can make correlation matrix plots
 
 ```{r, fig.width=4, fig.height=4}
 library(corrplot)
@@ -218,11 +219,12 @@ corrplot(cor_mat)
 
 ## Correlation does not imply causation
 
-```{r, fig.alt="The End", out.width = "90%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("https://www.opencasestudies.org/ocs-bp-co2-emissions/img/causation.png")
+```{r, fig.alt="Simpson's paradox!", out.width = "75%", echo = FALSE, fig.align='center'}
+knitr::include_graphics(here::here("images/lyme_and_fried_chicken_map.png"))
+knitr::include_graphics(here::here("images/lyme_and_fried_chicken.png"))
 ```
 
-[source](http://tylervigen.com/spurious-correlations)
+[source](http://doi.org/10.1007/s10393-020-01472-1)
 
 
 # T-test
@@ -245,14 +247,16 @@ t.test(x, y = NULL,
 
 ## Running one-sample t-test
 
-It tests mean of a variable in one group. By default (i.e., without us explicitly specifying values of other arguments): 
+It tests the mean of a variable in one group. By default (i.e., without us explicitly specifying values of other arguments): 
 
-- tests whether a mean of a variable is equal to 0 (`mu=0`) 
-- uses "two sided" alternative (`alternative = "two.sided"`) 
+- tests whether a mean of a variable is equal to 0 (`mu = 0`)
+- uses "two sided" alternative (`alternative = "two.sided"`)
 - returns result assuming confidence level 0.95 (`conf.level = 0.95`)
+- omits `NA` values in data
 
 ```{r}
 x <- circ %>% pull(orangeAverage)
+sum(is.na(x)) # count NAs in x
 t.test(x)
 ```
 
@@ -260,11 +264,12 @@ t.test(x)
 
 It tests the difference in means of a variable between two groups. By default:
 
-- tests whether difference in means of a variable is equal to 0 (`mu=0`) 
+- tests whether difference in means of a variable is equal to 0 (`mu = 0`) 
 - uses "two sided" alternative (`alternative = "two.sided"`) 
 - returns result assuming confidence level 0.95 (`conf.level = 0.95`)
 - assumes data are not paired (`paired = FALSE`)
 - assumes true variance in the two groups is not equal (`var.equal = FALSE`)
+- omits `NA` values in data
 
 Check out this this [case study](https://www.opencasestudies.org/ocs-bp-rural-and-urban-obesity/#Data_Analysis) and this [case study](https://www.opencasestudies.org/ocs-bp-diet/#Data_Analysis) for more information.
 
@@ -273,6 +278,7 @@ Check out this this [case study](https://www.opencasestudies.org/ocs-bp-rural-an
 ```{r}
 x <- circ %>% pull(orangeAverage)
 y <- circ %>% pull(purpleAverage)
+sum(is.na(x)); sum(is.na(y)) # count NAs in x and y
 t.test(x, y)
 ```
 
@@ -286,9 +292,9 @@ result_tidy <- tidy(result)
 glimpse(result_tidy)
 ```
 
-## P-value adjustment
+## P-value adjustment {.smaller}
 
-`r emo::ji("rotating_light")` You run an increased risk of Type I errors (a "false positive") when multiple hypotheses are tested simultaneously.
+`r emo::ji("rotating_light")` You run an increased risk of Type I errors (a "false positive") when multiple hypotheses are tested simultaneously. `r emo::ji("rotating_light")`
 
 Use the `p.adjust()` function on a vector of p values. Use `method = ` to specify the adjustment method:
 
@@ -305,10 +311,19 @@ See [here](https://www.nature.com/articles/nbt1209-1135) for more about multiple
 
 - `wilcox.test()` -- Wilcoxon signed rank test, Wilcoxon rank sum test
 - `shapiro.test()` -- Shapiro test
-- `ks.test()` -- Kolmogorov-Smirnov test 
+- `ks.test()` -- Kolmogorov-Smirnov test
 - `var.test()`-- Fisher’s F-Test
 - `chisq.test()` -- Chi-squared test
 - `aov()` -- Analysis of Variance (ANOVA)
+
+## Summary
+
+- Use `cor()` to calculate correlation between two vectors, `cor.test()` can give more information.
+- `corrplot()` is nice for a quick visualization!
+- `t.test()` one sample test to test the difference in mean of a single vector from zero (one input)
+- `t.test()` two sample test to test the difference in means between two vectors (two inputs)
+- `tidy()` in the `broom` package is useful for organizing and saving statistical test output
+- Remember to adjust p-values with `p.adjust()` when doing multiple tests on data
 
 ## Lab Part 1
 
@@ -324,7 +339,7 @@ Linear regression is a method to model the relationship between a response and o
 
 Most commonly used statistical tests are actually specialized regressions, including the two sample t-test, [see here for more](https://www.opencasestudies.org/ocs-bp-diet/#(t)-test_and_linear_regression).
 
-## Linear Regression Notation
+## Linear regression notation
 
 Here is some of the notation, so it is easier to understand the commands/results.
 
@@ -362,7 +377,7 @@ print(ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width)) +
   theme(legend.position = "none", text = element_text(size = 20)))
 ```
 
-## Linear regression
+## Linear regression {.smaller}
 
 Linear regression is a method to model the relationship between a response and one or more explanatory variables. 
 
@@ -385,9 +400,9 @@ See this [case study](https://www.opencasestudies.org/ocs-bp-diet/#Data_Analysis
 
 To fit regression models in R, we use the function `glm()` (Generalized Linear Model). 
 
-You may also see `lm()` which is a more limited function, only allows for randomly/Gaussian distributed error terms (aka typical linear regressions). 
+You may also see `lm()` which is a more limited function that only allows for normally/Gaussian distributed error terms (aka typical linear regressions).
 
-We typically provide two arguments: 
+We typically provide two arguments:
 
 - `formula` -- model formula written using names of columns in our data 
 - `data` -- our data frame 
@@ -399,10 +414,6 @@ $$
 y_i = \alpha + \beta x_{i} + \varepsilon_i 
 $$
 In R translates to 
-
-```{r}
-
-```
 
 <p style="text-align: center;">
 `y ~ x`
@@ -442,7 +453,7 @@ In R translates to
 
 In practice, `y` and `x1`, `x2`, `x3` are replaced with the **names of columns from our data set**. 
 
-For example, if we want to fit a regression model where outcome is `income` and predictors are `years_of_education`, `age`, `location` then our formula would be: 
+For example, if we want to fit a regression model where outcome is `income` and predictors are `years_of_education`, `age`, and `location` then our formula would be: 
 
 <p style="text-align: center;">
 `income ~ years_of_education + age + location`
@@ -489,7 +500,7 @@ tidy(fit) %>% glimpse()
 
 ## Linear regression: multiple predictors {.smaller}
 
-Let's try adding another explanatory variable to our model, dollars per hour earned by the doctor (`revenue``). The tidy function will not work with this unfortunately. The meaning of coefficients is more complicated here.
+Let's try adding another explanatory variable to our model, dollars per hour earned by the doctor (`revenue`). The tidy function will not work with this unfortunately. The meaning of coefficients is more complicated here.
 
 ```{r}
 fit2 <- glm(visits ~ hours + revenue, data = esdcomp)
@@ -528,7 +539,7 @@ summary(fit_3)
 
 ## Linear regression: factors {.smaller}
 
-Relative to the level is not listed.
+Comparison group is not listed - treated as intercept. All other estimates are relative to the intercept.
 
 ```{r regress8, comment="", fig.height=4,fig.width=8}
 circ <- jhur::read_circulator()
@@ -552,13 +563,43 @@ fit_5 <- glm(orangeBoardings ~ day, data = circ)
 summary(fit_5)
 ```
 
-## Generalized Linear Models (GLMs)
+## Linear regression: factors {.smaller}
 
-Generalized Linear Models (GLMs) allow for fitting regressions for non-continuous/normal outcomes. Examples include: logistic regression, Poisson regression. 
+Can view estimates for the comparison group by removing the intercept in the GLM formula `y ~ x - 1`. Caveat is that the p-values change.
+
+```{r regress9, comment="", fig.height=4, fig.width=8}
+fit_6 <- glm(orangeBoardings ~ factor(day) - 1, data = circ)
+summary(fit_6)
+```
+
+## Linear regression: interactions {.smaller}
+
+Can also specify interactions between variables in a formula `y ~ x1 + x2 + x1 * x2`. This allows for not only the intercepts between factors to differ, but also the slopes with regard to the interacting variable.
+
+```{r fig.height=4, fig.width=8}
+fit_7 <- glm(visits ~ hours + residency + hours * residency, data = esdcomp)
+tidy(fit_7)
+```
+
+## Linear regression: interactions {.smaller}
+
+By default, `ggplot` with a factor added as a color will look include the interaction term. Notice the different intercept and slope of the lines.
+
+```{r fig.height=3.5, fig.width=7}
+ggplot(esdcomp, aes(x = hours, y = visits, color = residency)) +
+  geom_point(size = 1, alpha = 0.8) +
+  geom_smooth(method = "glm", se = FALSE) +
+  scale_color_manual(values = c("black", "grey50")) +
+  theme_classic()
+```
+
+## Generalized linear models (GLMs)
+
+Generalized linear models (GLMs) allow for fitting regressions for non-continuous/normal outcomes. Examples include: logistic regression, Poisson regression. 
 
 Add the `family` argument -- a description of the error distribution and link function to be used in the model. These include: 
 
-- `binomial(link = "logit")`  - outcome is binary
+- `binomial(link = "logit")` - outcome is binary
 - `poisson(link = "log")` - outcome is count or rate
 - others
 
@@ -581,11 +622,15 @@ wbca
 
 ## Logistic regression {.smaller}
 
-`Class` is a 0/1-valued variable indicating if the tumor was malignant (0 if malignant, 1 if benign). 
+`Class` is a 0/1-valued variable indicating if the tumor was malignant (0 if malignant, 1 if benign).
+
+```
+# General format
+glm(y ~ x, data = DATASET_NAME, family = binomial(link = "logit"))
+```
 
 ```{r regress7, comment="", fig.height=4,fig.width=8}
 binom_fit <- glm(Class ~ UShap + USize, data = wbca, family = binomial(link = "logit"))
-
 summary(binom_fit)
 ```
 
@@ -613,7 +658,7 @@ head(ice_cream)
 ice_cream %>% count(ill, vanilla.ice.cream)
 ```
 
-## Odds ratios
+## Odds ratios {.smaller}
 
 Use `oddsratio(x, y)` from the `epitools()` package to calculate odds ratios.
 
@@ -636,16 +681,11 @@ Some final notes:
 
 ## Summary
 
-- Use `cor()` to calculate correlation between two vectors, `cor.test() can give more information.
-- `corrplot()` is nice for a quick visualization!
-- `t.test()` one sample test to test the difference in mean of a single vector from zero (one input)
-- `t.test()` two sample test to test the difference in means between two vectors (two inputs)
 - `glm()` fits regression models:
      - Use the `formula =` argument to specify the model (e.g., `y ~ x` or `y ~ x1 + x2` using column names)
-     - Use `data =` to indicate the dataset
+     - Use `data = ` to indicate the dataset
      - Use `family = ` to do a other regressions like logistic, Poisson and more
      - `summary()` gives useful statistics
-- `tidy` from the broom package helps us to see results nicely
 - `oddsratio()` from the `epitools` package can calculate odds ratios (outside of logistic regression - which allows more than one explanatory variable)
 - this is just the tip of the iceberg!
 
