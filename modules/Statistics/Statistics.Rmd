@@ -278,7 +278,8 @@ Check out this this [case study](https://www.opencasestudies.org/ocs-bp-rural-an
 ```{r}
 x <- circ %>% pull(orangeAverage)
 y <- circ %>% pull(purpleAverage)
-sum(is.na(x)); sum(is.na(y)) # count NAs in x and y
+sum(is.na(x))
+sum(is.na(y)) # count NAs in x and y
 t.test(x, y)
 ```
 
