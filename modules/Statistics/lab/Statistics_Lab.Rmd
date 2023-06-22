@@ -21,7 +21,7 @@ library(jhur)
 library(broom)
 ```
 
-2. Compute the correlation between the `2006` and `2007` mortality variables with `cor`. (No need to save this in an object. Just display the result to the screen.) Use the `pull()` function to first extract these columns. To use a column name in `pull()` that starts with a number, surround it with backticks (\`). Then, use the `cor` function.
+2. Compute the correlation between the `2006` and `2007` mortality variables with `cor`. (No need to save this in an object. Just display the result to the screen.) Use the `pull()` function to first extract these columns. To use a column name in `pull()` that starts with a number, surround it with backticks. Then, use the `cor` function.
 
 ```{r}
 
@@ -85,7 +85,7 @@ glm(y ~ x, data = DATASET_NAME)
 
 ```
 # General format
-glm(y ~ x, data = DATASET_NAME, family = binomial())
+glm(y ~ x, data = DATASET_NAME, family = binomial(link = "logit"))
 ```
 
 ```{r}
