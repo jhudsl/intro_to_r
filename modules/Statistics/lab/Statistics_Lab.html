@@ -182,8 +182,8 @@ pre code {
 library(jhur)
 library(broom)</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li><p>Compute the correlation between the <code>2006</code> and <code>2007</code> mortality variables with <code>cor</code>. (No need to save this in an object. Just display the result to the screen.) Use the <code>pull()</code> function to first extract these columns. To use a column name in <code>pull()</code> that starts with a number, surround it with backticks (`). Then, use the <code>cor</code> function.</p></li>
-<li><p>Compute the correlation (with <code>cor</code>) between the <code>1980</code>, <code>1990</code>, <code>2000</code>, and <code>2010</code> mortality variables. (No need to save this in an object. Just display the result to the screen.) Use <code>select()</code> function to first subset the data frame to keep the four columns only. To use a column name in <code>select()</code> that starts with a number, surround it with backticks (`). How does this change when we use the <code>use = &quot;complete.obs&quot;</code> argument?</p></li>
+<li><p>Compute the correlation between the <code>2006</code> and <code>2007</code> mortality variables with <code>cor</code>. (No need to save this in an object. Just display the result to the screen.) Use the <code>pull()</code> function to first extract these columns. To use a column name in <code>pull()</code> that starts with a number, surround it with backticks. Then, use the <code>cor</code> function.</p></li>
+<li><p>Compute the correlation (with <code>cor</code>) between the <code>1980</code>, <code>1990</code>, <code>2000</code>, and <code>2010</code> mortality variables. (No need to save this in an object. Just display the result to the screen.) Use <code>select()</code> function to first subset the data frame to keep the four columns only. To use a column name in <code>select()</code> that starts with a number, surround it with backticks. How does this change when we use the <code>use = &quot;complete.obs&quot;</code> argument?</p></li>
 <li><p>Perform a t-test to determine if there is evidence of a difference between child mortality in <code>1987</code> versus <code>2007</code>. Use the <code>pull()</code> function to extract these columns. Print the results using the <code>tidy</code> function from the <code>broom</code> package.</p></li>
 </ol>
 <p><strong>Bonus / Extra practice</strong>: 5. Perform a t-test to determine if there is evidence of a difference between child mortality in <code>2006</code> versus <code>2007</code>. Use the <code>pull()</code> function to extract these columns. Print the results using the <code>tidy</code> function. How do these results compare to those in #4?</p>
@@ -209,7 +209,7 @@ glm(y ~ x, data = DATASET_NAME)</code></pre>
 <li>Save the model fit in an object called “logfit_cars” and display the summary table.</li>
 </ul>
 <pre><code># General format
-glm(y ~ x, data = DATASET_NAME, family = binomial())</code></pre>
+glm(y ~ x, data = DATASET_NAME, family = binomial(link = &quot;logit&quot;))</code></pre>
 </div>
 
 
