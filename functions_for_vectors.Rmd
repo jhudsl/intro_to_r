@@ -103,3 +103,45 @@ This however, would not work well:
 ```{r, eval = FALSE}
 iris %>% select(Species) %>% str_detect(pattern = "set")
 ```
+
+
+## base R math functions
+
+Functions like `sum()` or `mean()` need vectors. We can use them well within `summarize` but would need to use a vector otherwise. 
+
+```{r}
+iris %>% summarize(mean_Petal_Length = mean(Petal.Length))
+
+iris %>% pull(Petal.Length) %>% mean()
+```
+
+This does not work:
+
+```{r, eval = FALSE}
+iris %>% select(Petal.Length) %>% mean()
+
+```
+
+
+
+## stat functions
+
+Functions like `cor.test` of the `stats` package (which come automatically with R) need vectors too. Note that some of the other `stats` functions are tolerant to using tibbles. 
+
+```{r}
+
+x <-iris %>% pull(Petal.Length)
+y <-iris %>% pull(Petal.Width)
+
+t.test(x,y)
+```
+
+This does not work:
+
+```{r, eval = FALSE}
+x <-iris %>% select(Petal.Length)
+y <-iris %>% select(Petal.Width)
+
+cor.test(x,y)
+```
+
