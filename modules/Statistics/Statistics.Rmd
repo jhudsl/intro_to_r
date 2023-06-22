@@ -245,7 +245,7 @@ t.test(x, y = NULL,
        conf.level = 0.95, ...)
 ```
 
-## Running one-sample t-test
+## Running one-sample t-test {.smaller}
 
 It tests the mean of a variable in one group. By default (i.e., without us explicitly specifying values of other arguments): 
 
@@ -260,7 +260,7 @@ sum(is.na(x)) # count NAs in x
 t.test(x)
 ```
 
-## Running two-sample t-test{.small}
+## Running two-sample t-test {.small}
 
 It tests the difference in means of a variable between two groups. By default:
 
