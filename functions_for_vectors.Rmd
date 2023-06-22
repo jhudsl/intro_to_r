@@ -86,6 +86,7 @@ mt_cars_high_mpg <- mtcars %>% filter(mpg > 20)
 dplyr::setdiff(mtcars, mt_cars_high_mpg)
 ```
 
+Here we see all the rows with `mpg` below 20. 
 
 ## `stringr` functions
 
@@ -97,7 +98,8 @@ iris %>% filter(str_detect(string = Species, pattern = "set")) %>% head() # this
 iris %>% pull(Species) %>% str_detect(pattern = "set") %>% head() # so will this
 ```
 
-```{r}
-iris %>% pull(Species) %>% str_detect(pattern = "set")
+This however, would not work well:
 
+```{r, eval = FALSE}
+iris %>% select(Species) %>% str_detect(pattern = "set")
 ```
