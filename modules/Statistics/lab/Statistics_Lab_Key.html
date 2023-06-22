@@ -187,7 +187,7 @@ mort &lt;- read_mortality()
 mort &lt;- mort %&gt;%
   rename(country = `...1`)</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Compute the correlation (with <code>cor</code>) between the <code>2006</code> and <code>2007</code> mortality variables. (No need to save this in an object. Just display the result to the screen.) Use the <code>pull()</code> function to first extract these columns. To use a column name in <code>pull()</code> that starts with a number, surround it with backticks (`). Then, use the <code>cor</code> function.</li>
+<li>Compute the correlation (with <code>cor</code>) between the <code>2006</code> and <code>2007</code> mortality variables. (No need to save this in an object. Just display the result to the screen.) Use the <code>pull()</code> function to first extract these columns. To use a column name in <code>pull()</code> that starts with a number, surround it with backticks. Then, use the <code>cor</code> function.</li>
 </ol>
 <pre class="r"><code>x &lt;- pull(mort, `2006`)
 y &lt;- pull(mort, `2007`)
@@ -195,7 +195,7 @@ y &lt;- pull(mort, `2007`)
 cor(x, y)</code></pre>
 <pre><code>## [1] 0.9995124</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li>Compute the correlation (with <code>cor</code>) between the <code>1980</code>, <code>1990</code>, <code>2000</code>, and <code>2010</code> mortality variables. (No need to save this in an object. Just display the result to the screen.) Use <code>select()</code> function to first subset the data frame to keep the four columns only. To use a column name in <code>select()</code> that starts with a number, surround it with backticks (`). How does this change when we use the <code>use = &quot;complete.obs&quot;</code> argument?</li>
+<li>Compute the correlation (with <code>cor</code>) between the <code>1980</code>, <code>1990</code>, <code>2000</code>, and <code>2010</code> mortality variables. (No need to save this in an object. Just display the result to the screen.) Use <code>select()</code> function to first subset the data frame to keep the four columns only. To use a column name in <code>select()</code> that starts with a number, surround it with backticks. How does this change when we use the <code>use = &quot;complete.obs&quot;</code> argument?</li>
 </ol>
 <pre class="r"><code>mort_sub &lt;-
   mort %&gt;%
@@ -328,11 +328,12 @@ summary(lmfit_cars_2)</code></pre>
 <li>To include the interaction, use <code>VehicleAge * IsOnlineSale</code> in the formula.</li>
 <li>Save the model fit in an object called “lmfit_cars_3” and display the summary table.</li>
 </ul>
-<pre class="r"><code>lmfit_cars_3 &lt;- glm(VehBCost ~ VehicleAge * IsOnlineSale, data = cars)
+<pre class="r"><code>lmfit_cars_3 &lt;- glm(VehBCost ~ VehicleAge + IsOnlineSale + VehicleAge * IsOnlineSale, data = cars)
 summary(lmfit_cars_3)</code></pre>
 <pre><code>## 
 ## Call:
-## glm(formula = VehBCost ~ VehicleAge * IsOnlineSale, data = cars)
+## glm(formula = VehBCost ~ VehicleAge + IsOnlineSale + VehicleAge * 
+##     IsOnlineSale, data = cars)
 ## 
 ## Deviance Residuals: 
 ##    Min      1Q  Median      3Q     Max  
@@ -359,12 +360,12 @@ summary(lmfit_cars_3)</code></pre>
 <li>Save the model fit in an object called “logfit_cars” and display the summary table.</li>
 </ul>
 <pre><code># General format
-glm(y ~ x, data = DATASET_NAME, family = binomial())</code></pre>
-<pre class="r"><code>logfit_cars &lt;- glm(IsBadBuy ~ VehBCost + VehicleAge, data = cars, family = binomial())
+glm(y ~ x, data = DATASET_NAME, family = binomial(link = &quot;logit&quot;))</code></pre>
+<pre class="r"><code>logfit_cars &lt;- glm(IsBadBuy ~ VehBCost + VehicleAge, data = cars, family = binomial(link = &quot;logit&quot;))
 summary(logfit_cars)</code></pre>
 <pre><code>## 
 ## Call:
-## glm(formula = IsBadBuy ~ VehBCost + VehicleAge, family = binomial(), 
+## glm(formula = IsBadBuy ~ VehBCost + VehicleAge, family = binomial(link = &quot;logit&quot;), 
 ##     data = cars)
 ## 
 ## Deviance Residuals: 
