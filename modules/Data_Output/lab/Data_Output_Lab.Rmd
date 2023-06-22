@@ -40,13 +40,19 @@ NEW_OBJECT <- OBJECT %>% filter(COLUMNNAME == CRITERIA)
 ```
 
 
-**Bonus / Extra practice**: Copy your code from problem 3 and modify it to write to the data directory inside your R Project.
+**Bonus / Extra practice**: Copy your code from problem 3 and modify it to write to the data directory inside your R Project. *Note: you may need to make a new folder named "data" if it doesn't already exist.*
 ```{r eval = FALSE}
 
 ```
 
 
 **Bonus / Extra practice**: Write one of the variables in your Environment to your working directory in `rds` format. Call the file `my_variable.rds`.
+```{r}
+
+```
+
+
+**Bonus / Extra practice**: Read the RDS file from your working directory back into your Environment. Call the file `z`.
 ```{r}
 
 ```
