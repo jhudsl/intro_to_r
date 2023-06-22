@@ -33,6 +33,8 @@ kbl(text_tbl) %>%
 
 This function was originally a base R function and it got adopted by a tidyverse package and is therefore used as it was previously and requires vectors.
 
+
+
 ```{r}
 animal1 <-tibble(animals = c("cat", "dog", "mouse"), 
                  size  = c("medium", "medium", "small"))
@@ -59,4 +61,50 @@ lubridate::setdiff(select(animal1, animals),
               select(animal2, animals)) 
 ```
 
+- `setdiff()` is both a base R and `dplyr` function. This is confusing and part of the struggle of an open development environment.
+- When using `setdiff()` from base R, vectors are required. It shows the elements in the first that are missing from the second.
 
+
+```{r}
+data_As <- tibble(State = c("Alabama", "Alaska"),
+                 state_bird = c("wild turkey", "willow ptarmigan"))
+data_cold <- tibble(State = c("Maine", "Alaska", "Alaska"),
+                    vacc_rate = c(0.795, 0.623, 0.626),
+                    month = c("April", "April", "May"))
+
+A_states <- data_As %>% pull(State)
+cold_states <- data_cold %>% pull(State)
+setdiff(A_states, cold_states)
+
+```
+
+When using `setdiff()` from `dplyr`, it does something different. It tells us the rows in the first tibble that are not in the second tibble. We have to select “State” column so the columns are identical across the two tibbles.
+
+```{r}
+A_states <- data_As %>% select(State)
+cold_states <- data_cold %>% select(State)
+dplyr::setdiff(A_states, cold_states)
+```
+
+We could also use `setdiff()` from `dplyr` to tell us what rows were removed when filtering a dataframe or tibble:
+
+```{r}
+mt_cars_high_mpg <- mtcars %>% filter(mpg > 20)
+dplyr::setdiff(mtcars, mt_cars_high_mpg)
+```
+
+
+## `stringr` functions
+
+These functions are often applied within `filter()` or `mutate()` for a data frame. When they are not used inside these functions they need to be used on a vector. 
+
+```{r}
+iris %>% filter(str_detect(string = Species, pattern = "set")) %>% head() # this will work
+
+iris %>% pull(Species) %>% str_detect(pattern = "set") %>% head() # so will this
+```
+
+```{r}
+iris %>% pull(Species) %>% str_detect(pattern = "set")
+
+```
