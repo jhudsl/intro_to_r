@@ -31,38 +31,9 @@ kbl(text_tbl) %>%
 
 ## `setdiff()`
 
-This function was originally a base R function and it got adopted by tidyverse packages (`dplyr` and `lubridate`) and is therefore can behave a bit differently.
+This function was originally a base R function and it got adopted by tidyverse packages (`dplyr` and `lubridate`) and is therefore can behave a bit differently. This is confusing and part of the struggle of an open development environment.
 
-
-
-```{r}
-animal1 <-tibble(animals = c("cat", "dog", "mouse"), 
-                 size  = c("medium", "medium", "small"))
-animal2 <-tibble(animals = c("cat", "hourse", "fish"),
-                 size  = c("medium", "large", "small"))
-
-# shows what is in the first data set that is not in the second dataset as a tibble
-dplyr::setdiff(select(animal1, animals), 
-               select(animal2, animals))
-# shows what is in the first data set that is not in the second dataset as a vector
-dplyr::setdiff(pull(animal1, animals), 
-               pull(animal2, animals))
-# shows what is in the first data set that is not in the second dataset as a vector
-base::setdiff(animal1$animals, 
-               animal2$animals)
-# shows what is in the first data set that is not in the second dataset as a vector
-base::setdiff(pull(animal1,animals), 
-              pull(animal2,animals))
-
-base::setdiff(select(animal1, animals), 
-              select(animal2, animals)) # works a bit differently
-
-lubridate::setdiff(select(animal1, animals), 
-              select(animal2, animals)) 
-```
-
-- `setdiff()` is both a base R and `dplyr` function. This is confusing and part of the struggle of an open development environment.
-- When using `setdiff()` from base R, vectors are required. It shows the elements in the first that are missing from the second.
+When using `setdiff()` from base R, vectors are required - meaning we need to use `pull` first. It shows the elements in the first that are missing from the second. Using `::` we can specify which package we want to use the function from.
 
 
 ```{r}
@@ -74,16 +45,16 @@ data_cold <- tibble(State = c("Maine", "Alaska", "Alaska"),
 
 A_states <- data_As %>% pull(State)
 cold_states <- data_cold %>% pull(State)
-setdiff(A_states, cold_states)
-
+base::setdiff(A_states, cold_states)
 ```
 
-When using `setdiff()` from `dplyr`, it does something different. It tells us the rows in the first tibble that are not in the second tibble. We have to select “State” column so the columns are identical across the two tibbles.
+When using `setdiff()` from `dplyr`, it does something different. It tells us the rows in the first tibble that are not in the second tibble. We can select the `State` to compare and it still works, even though `A_states` and `cold_states` are tibbles and not vectors.
 
 ```{r}
 A_states <- data_As %>% select(State)
 cold_states <- data_cold %>% select(State)
 dplyr::setdiff(A_states, cold_states)
+base::setdiff(A_states, cold_states) # the output is not correct 
 ```
 
 We could also use `setdiff()` from `dplyr` to tell us what rows were removed when filtering a dataframe or tibble:
