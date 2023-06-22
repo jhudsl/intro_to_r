@@ -17,8 +17,8 @@ In general these are the conventions for working with values (recall that values
 library(kableExtra)
 library(tidyverse)
 text_tbl <- data.frame(
-  Type = c("base R and tidyverse function", "special tidyverse function", "base R"),
-  Example = c("setdiff()", "stringr functions like str_replace()", "mean()" ))
+  Type = c("base R and tidyverse function", "special tidyverse functions", "base R functions", "stat functions that come with R"),
+  Example = c("setdiff()", "stringr functions like str_replace()", "mean()", "cor.test()"))
 kbl(text_tbl) %>%
   # kable_classic(full_width = F, html_font = "helvetica") %>%
   kable_paper(full_width = F, html_font = "helvetica", font_size = "18") %>%
@@ -26,7 +26,7 @@ kbl(text_tbl) %>%
   row_spec(0, align = "c") %>%
   row_spec(1, background = "yellow") %>%
   row_spec(2, background = "lightgreen") %>%
-  row_spec(3, background = "lightblue")
+  row_spec(3:4, background = "lightblue")
 ```
 
 ## `setdiff()`
