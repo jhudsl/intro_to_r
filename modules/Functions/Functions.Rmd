@@ -50,6 +50,12 @@ times_2 <- function(x) {
   x * 2
 }
 times_2(x = 10)
+
+is_even <- function(x) {
+  x %% 2 == 0
+}
+is_even(x = 11)
+is_even(x = times_2(x = 10))
 ```
 
 
@@ -131,6 +137,7 @@ Functions can have "default" arguments. This lets us use the function without us
 ```{r comment=""}
 times_2_plus_y <- function(x = 10, y = 3) x * 2 + y
 times_2_plus_y()
+times_2_plus_y(x = 11, y = 4)
 ```
 
 ## Writing another simple function
@@ -150,6 +157,7 @@ sqdif <- function(x = 2, y = 3) (x - y)^2
 sqdif()
 sqdif(x = 10, y = 5)
 sqdif(10, 5)
+sqdif(11, 4)
 ```
 
 ## Writing your own functions: characters
@@ -166,24 +174,19 @@ loud(word = "hooray!")
 
 ## Functions for tibbles
 
-We can use `filter(row_number()==n)` to extract a row of a tibble:
+We can use `filter(row_number() == n)` to extract a row of a tibble:
 
 ```{r message=FALSE}
 get_row <- function(dat, row) dat %>% filter(row_number() == row)
 
 cars <- read_kaggle()
-cars <- cars %>% select(1:8)
+cars_1_8 <- cars %>% select(1:8)
 ```
 
 
 ```{r}
 get_row(dat = cars, row = 10)
 get_row(dat = iris, row = 4)
-```
-
-```{r echo=FALSE}
-# Restore dataset
-cars <- read_kaggle()
 ```
 
 ## Functions for tibbles
@@ -213,6 +216,21 @@ get_top <- function(dat, row = 1, col = 1) {
 
 get_top(dat = cars)
 ```
+
+## Summary
+
+- Simple functions take the form:
+  - `NEW_FUNCTION <- function(x, y){x + y}`
+  - Can specify defaults like `function(x = 1, y = 2){x + y}`
+  -`return` will provide a value as output
+  - `print` will simply print the value on the screen but not save it
+
+## Lab Part 1
+
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)  
+
+💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Functions/lab/Functions_Lab.Rmd)
+
 
 # Functions on multiple columns
 
@@ -254,6 +272,7 @@ select(cars, VehYear:VehicleAge) %>%
   sapply(function(x) x / 1000) %>%
   head()
 ```
+
 # across
 
 ## Applying functions with `across` from `dplyr`
@@ -269,7 +288,7 @@ mutate(across(.cols = <columns>, .fns = function, ...))
 ```
 - List columns first : `.cols = `
 - List function next: `.fns = `
-- Then list any arguments for the function
+- Then list any arguments for the function (e.g., `na.rm = TRUE`)
 
 ## Applying functions with `across` from `dplyr`
 
@@ -306,7 +325,7 @@ cars_dbl %>%
 
 ## Applying functions with `across` from `dplyr`
 
-Using different `tidyselect()` options:
+Using different `tidyselect()` options (e.g., `starts_with()`, `ends_with()`, `contains()`)
 
 ```{r warning=FALSE}
 cars_dbl %>%
@@ -329,9 +348,13 @@ cars_dbl %>%
 
 
 
-## Applying functions with `across` from `dplyr`.{.codesmall}
+## Applying functions with `across` from `dplyr` {.smaller}
 
 Combining with `mutate()` - the `replace_na` function
+
+```replace_na({data frame}, {list of values})```
+or
+```replace_na({vector}, {single value})```
 
 ```{r warning=FALSE, message=FALSE}
 # Child mortality data
@@ -380,7 +403,7 @@ airquality %>% map_df(replace_na, replace = 0)
 
 # Multiple Data Frames
 
-## Multiple data frames
+## Multiple data frames {.smaller}
 
 Lists help us work with multiple data frames
 
@@ -393,24 +416,21 @@ str(AQ_list)
 ## Multiple data frames: `sapply`
 
 ```{r}
-AQ_list %>% sapply(summary)
+AQ_list %>% sapply(class)
+AQ_list %>% sapply(nrow)
+AQ_list %>% sapply(colMeans, na.rm = TRUE)
 ```
 
 
 ## Summary
 
-- Simple functions take the form:
-  - `NEW_FUNCTION <- function(x, y){x + y}`
-  - Can specify defaults like `function(x = 1, y = 2){x + y}`
-  -`return` will provide a value as output
-  - `print` will simply print the value on the screen but not save it
 - Apply your functions with `sapply(<a vector or list>, some_function)`
 - Use `across()` to apply functions across multiple columns of data 
-- need to use `across` within `summarize()` or `mutate()`
+- Need to use `across` within `summarize()` or `mutate()`
 - `purrr` is a package that you can use to do more iterative work easily
-- can use `sapply` or `purrr` to work with multiple data frames within lists simultaneously
+- Can use `sapply` or `purrr` to work with multiple data frames within lists simultaneously
 
-## Website
+## Lab Part 2
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)  
 
