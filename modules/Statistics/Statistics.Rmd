@@ -72,7 +72,7 @@ Check out [www.opencasestudies.org](https://www.opencasestudies.org/) for deeper
 
 ## Correlation
 
-The correlation coefficient is a summary statistic that measures the strength of a linear relationship between two variables.
+The correlation coefficient is a summary statistic that measures the strength of a linear relationship between two numeric variables.
 
 - The strength of the relationship - based on how well the points form a line
 - The direction of the relationship - based on if the points progress upward or downward
@@ -108,7 +108,7 @@ cor.test(x, y = NULL, alternative(c("two.sided", "less", "greater")),
 - provide a data.frame / tibble with numeric columns only
 - by default, Pearson correlation coefficient is computed
 - alternative values:
-   - two.sided means true correlation coefficient is not equal to zero
+   - two.sided means true correlation coefficient is not equal to zero (default)
    - greater means true correlation coefficient is > 0 (positive relationship)
    - less means true correlation coefficient is < 0 (negative relationship)
 
