@@ -142,13 +142,13 @@ vacc_dat <-
   )) %>%
   filter(`State/Territory/Federal Entity` != "United States")
 
-vacc_boxplot <- function(df){
+vacc_boxplot <- function(df) {
   ggplot(df) +
-  geom_boxplot(aes(
-    x = `Total Doses Delivered`,
-    y = `Percent of fully vaccinated people with booster doses`
-  )) +
-  labs(x = "Total Doses Delivered: Greater than 10,000,000")
+    geom_boxplot(aes(
+      x = `Total Doses Delivered`,
+      y = `Percent of fully vaccinated people with booster doses`
+    )) +
+    labs(x = "Total Doses Delivered: Greater than 10,000,000")
 }
 vacc_boxplot(vacc_dat)
 ```
