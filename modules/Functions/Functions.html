@@ -207,6 +207,17 @@ times_2(x = 10)</pre>
 
 <pre >[1] 20</pre>
 
+<pre class = 'prettyprint lang-r'>is_even &lt;- function(x) {
+  x %% 2 == 0
+}
+is_even(x = 11)</pre>
+
+<pre >[1] FALSE</pre>
+
+<pre class = 'prettyprint lang-r'>is_even(x = times_2(x = 10))</pre>
+
+<pre >[1] TRUE</pre>
+
 </article></slide><slide class=""><hgroup><h2>Writing your own functions</h2></hgroup><article  id="writing-your-own-functions-3">
 
 <p>The general syntax for a function is:</p>
@@ -287,6 +298,10 @@ times_2_plus_y()</pre>
 
 <pre >[1] 23</pre>
 
+<pre class = 'prettyprint lang-r'>times_2_plus_y(x = 11, y = 4)</pre>
+
+<pre >[1] 26</pre>
+
 </article></slide><slide class=""><hgroup><h2>Writing another simple function</h2></hgroup><article  id="writing-another-simple-function">
 
 <p>Let’s write a function, <code>sqdif</code>, that:</p>
@@ -314,6 +329,10 @@ sqdif()</pre>
 
 <pre >[1] 25</pre>
 
+<pre class = 'prettyprint lang-r'>sqdif(11, 4)</pre>
+
+<pre >[1] 49</pre>
+
 </article></slide><slide class=""><hgroup><h2>Writing your own functions: characters</h2></hgroup><article  id="writing-your-own-functions-characters">
 
 <p>Functions can have any kind of input. Here is a function with characters:</p>
@@ -328,19 +347,26 @@ loud(word = &quot;hooray!&quot;)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Functions for tibbles</h2></hgroup><article  id="functions-for-tibbles">
 
-<p>We can use <code>filter(row_number()==n)</code> to extract a row of a tibble:</p>
+<p>We can use <code>filter(row_number() == n)</code> to extract a row of a tibble:</p>
 
 <pre class = 'prettyprint lang-r'>get_row &lt;- function(dat, row) dat %&gt;% filter(row_number() == row)
 
 cars &lt;- read_kaggle()
-cars &lt;- cars %&gt;% select(1:8)</pre>
+cars_1_8 &lt;- cars %&gt;% select(1:8)</pre>
 
 <pre class = 'prettyprint lang-r'>get_row(dat = cars, row = 10)</pre>
 
-<pre ># A tibble: 1 × 8
-  RefId IsBadBuy PurchDate Auction VehYear VehicleAge Make  Model       
-  &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;       
-1    10        0 12/7/2009 ADESA      2007          2 FORD  FIVE HUNDRED</pre>
+<pre ># A tibble: 1 × 34
+  RefId IsBadBuy PurchDate Auction VehYear VehicleAge Make  Model Trim  SubModel
+  &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   
+1    10        0 12/7/2009 ADESA      2007          2 FORD  FIVE… SEL   4D SEDA…
+# … with 24 more variables: Color &lt;chr&gt;, Transmission &lt;chr&gt;, WheelTypeID &lt;chr&gt;,
+#   WheelType &lt;chr&gt;, VehOdo &lt;dbl&gt;, Nationality &lt;chr&gt;, Size &lt;chr&gt;,
+#   TopThreeAmericanName &lt;chr&gt;, MMRAcquisitionAuctionAveragePrice &lt;chr&gt;,
+#   MMRAcquisitionAuctionCleanPrice &lt;chr&gt;,
+#   MMRAcquisitionRetailAveragePrice &lt;chr&gt;,
+#   MMRAcquisitonRetailCleanPrice &lt;chr&gt;, MMRCurrentAuctionAveragePrice &lt;chr&gt;,
+#   MMRCurrentAuctionCleanPrice &lt;chr&gt;, MMRCurrentRetailAveragePrice &lt;chr&gt;, …</pre>
 
 <pre class = 'prettyprint lang-r'>get_row(dat = iris, row = 4)</pre>
 
@@ -380,6 +406,24 @@ get_top(dat = cars)</pre>
   RefId
   &lt;dbl&gt;
 1     1</pre>
+
+</article></slide><slide class=""><hgroup><h2>Summary</h2></hgroup><article  id="summary">
+
+<ul>
+<li>Simple functions take the form:
+
+<ul>
+<li><code>NEW_FUNCTION &lt;- function(x, y){x + y}</code></li>
+<li>Can specify defaults like <code>function(x = 1, y = 2){x + y}</code> -<code>return</code> will provide a value as output</li>
+<li><code>print</code> will simply print the value on the screen but not save it</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Lab Part 1</h2></hgroup><article  id="lab-part-1">
+
+<p>🏠 <a href='https://jhudatascience.org/intro_to_r/' title=''>Class Website</a></p>
+
+<p>💻 <a href='https://jhudatascience.org/intro_to_r/modules/Functions/lab/Functions_Lab.Rmd' title=''>Lab</a></p>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Functions on multiple columns</h2></hgroup><article  id="functions-on-multiple-columns">
 
@@ -468,7 +512,7 @@ get_top(dat = cars)</pre>
 <ul>
 <li>List columns first : <code>.cols =</code></li>
 <li>List function next: <code>.fns =</code></li>
-<li>Then list any arguments for the function</li>
+<li>Then list any arguments for the function (e.g., <code>na.rm = TRUE</code>)</li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code></h2></hgroup><article  id="applying-functions-with-across-from-dplyr-1">
@@ -535,7 +579,7 @@ cars_dbl %&gt;%
 
 </article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code></h2></hgroup><article  id="applying-functions-with-across-from-dplyr-4">
 
-<p>Using different <code>tidyselect()</code> options:</p>
+<p>Using different <code>tidyselect()</code> options (e.g., <code>starts_with()</code>, <code>ends_with()</code>, <code>contains()</code>)</p>
 
 <pre class = 'prettyprint lang-r'>cars_dbl %&gt;%
   group_by(Make) %&gt;%
@@ -582,9 +626,11 @@ cars_dbl %&gt;%
 10 FORD          2000          0  85000     8000
 # … with 72,973 more rows</pre>
 
-</article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code>.</h2></hgroup><article  class="codesmall" id="applying-functions-with-across-from-dplyr.">
+</article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code></h2></hgroup><article  id="applying-functions-with-across-from-dplyr-6" class="smaller">
 
 <p>Combining with <code>mutate()</code> - the <code>replace_na</code> function</p>
+
+<p><code>replace_na({data frame}, {list of values})</code> or <code>replace_na({vector}, {single value})</code></p>
 
 <pre class = 'prettyprint lang-r'># Child mortality data
 mort &lt;- read_mortality() %&gt;% rename(country = `...1`)
@@ -664,7 +710,7 @@ airquality %&gt;% map_df(replace_na, replace = 0)</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Multiple Data Frames</h2></hgroup><article  id="multiple-data-frames">
 
-</article></slide><slide class=""><hgroup><h2>Multiple data frames</h2></hgroup><article  id="multiple-data-frames-1">
+</article></slide><slide class=""><hgroup><h2>Multiple data frames</h2></hgroup><article  id="multiple-data-frames-1" class="smaller">
 
 <p>Lists help us work with multiple data frames</p>
 
@@ -696,70 +742,37 @@ str(AQ_list)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Multiple data frames: <code>sapply</code></h2></hgroup><article  id="multiple-data-frames-sapply">
 
-<pre class = 'prettyprint lang-r'>AQ_list %&gt;% sapply(summary)</pre>
+<pre class = 'prettyprint lang-r'>AQ_list %&gt;% sapply(class)</pre>
 
-<pre >      AQ1                AQ2                AQ3               
- [1,] &quot;Min.   :  1.00  &quot; &quot;Min.   :  1.00  &quot; &quot;Min.   :  1.00  &quot;
- [2,] &quot;1st Qu.: 18.00  &quot; &quot;1st Qu.: 18.00  &quot; &quot;1st Qu.: 18.00  &quot;
- [3,] &quot;Median : 31.50  &quot; &quot;Median : 31.50  &quot; &quot;Median : 31.50  &quot;
- [4,] &quot;Mean   : 42.13  &quot; &quot;Mean   : 42.13  &quot; &quot;Mean   : 42.13  &quot;
- [5,] &quot;3rd Qu.: 63.25  &quot; &quot;3rd Qu.: 63.25  &quot; &quot;3rd Qu.: 63.25  &quot;
- [6,] &quot;Max.   :168.00  &quot; &quot;Max.   :168.00  &quot; &quot;Max.   :168.00  &quot;
- [7,] &quot;NA&#39;s   :37  &quot;     &quot;NA&#39;s   :37  &quot;     &quot;NA&#39;s   :37  &quot;    
- [8,] &quot;Min.   :  7.0  &quot;  &quot;Min.   :  7.0  &quot;  &quot;Min.   :  7.0  &quot; 
- [9,] &quot;1st Qu.:115.8  &quot;  &quot;1st Qu.:115.8  &quot;  &quot;1st Qu.:115.8  &quot; 
-[10,] &quot;Median :205.0  &quot;  &quot;Median :205.0  &quot;  &quot;Median :205.0  &quot; 
-[11,] &quot;Mean   :185.9  &quot;  &quot;Mean   :185.9  &quot;  &quot;Mean   :185.9  &quot; 
-[12,] &quot;3rd Qu.:258.8  &quot;  &quot;3rd Qu.:258.8  &quot;  &quot;3rd Qu.:258.8  &quot; 
-[13,] &quot;Max.   :334.0  &quot;  &quot;Max.   :334.0  &quot;  &quot;Max.   :334.0  &quot; 
-[14,] &quot;NA&#39;s   :7  &quot;      &quot;NA&#39;s   :7  &quot;      &quot;NA&#39;s   :7  &quot;     
-[15,] &quot;Min.   : 1.700  &quot; &quot;Min.   : 1.700  &quot; &quot;Min.   : 1.700  &quot;
-[16,] &quot;1st Qu.: 7.400  &quot; &quot;1st Qu.: 7.400  &quot; &quot;1st Qu.: 7.400  &quot;
-[17,] &quot;Median : 9.700  &quot; &quot;Median : 9.700  &quot; &quot;Median : 9.700  &quot;
-[18,] &quot;Mean   : 9.958  &quot; &quot;Mean   : 9.958  &quot; &quot;Mean   : 9.958  &quot;
-[19,] &quot;3rd Qu.:11.500  &quot; &quot;3rd Qu.:11.500  &quot; &quot;3rd Qu.:11.500  &quot;
-[20,] &quot;Max.   :20.700  &quot; &quot;Max.   :20.700  &quot; &quot;Max.   :20.700  &quot;
-[21,] NA                 NA                 NA                
-[22,] &quot;Min.   :56.00  &quot;  &quot;Min.   :56.00  &quot;  &quot;Min.   :56.00  &quot; 
-[23,] &quot;1st Qu.:72.00  &quot;  &quot;1st Qu.:72.00  &quot;  &quot;1st Qu.:72.00  &quot; 
-[24,] &quot;Median :79.00  &quot;  &quot;Median :79.00  &quot;  &quot;Median :79.00  &quot; 
-[25,] &quot;Mean   :77.88  &quot;  &quot;Mean   :77.88  &quot;  &quot;Mean   :77.88  &quot; 
-[26,] &quot;3rd Qu.:85.00  &quot;  &quot;3rd Qu.:85.00  &quot;  &quot;3rd Qu.:85.00  &quot; 
-[27,] &quot;Max.   :97.00  &quot;  &quot;Max.   :97.00  &quot;  &quot;Max.   :97.00  &quot; 
-[28,] NA                 NA                 NA                
-[29,] &quot;Min.   :5.000  &quot;  &quot;Min.   :5.000  &quot;  &quot;Min.   :5.000  &quot; 
-[30,] &quot;1st Qu.:6.000  &quot;  &quot;1st Qu.:6.000  &quot;  &quot;1st Qu.:6.000  &quot; 
-[31,] &quot;Median :7.000  &quot;  &quot;Median :7.000  &quot;  &quot;Median :7.000  &quot; 
-[32,] &quot;Mean   :6.993  &quot;  &quot;Mean   :6.993  &quot;  &quot;Mean   :6.993  &quot; 
-[33,] &quot;3rd Qu.:8.000  &quot;  &quot;3rd Qu.:8.000  &quot;  &quot;3rd Qu.:8.000  &quot; 
-[34,] &quot;Max.   :9.000  &quot;  &quot;Max.   :9.000  &quot;  &quot;Max.   :9.000  &quot; 
-[35,] NA                 NA                 NA                
-[36,] &quot;Min.   : 1.0  &quot;   &quot;Min.   : 1.0  &quot;   &quot;Min.   : 1.0  &quot;  
-[37,] &quot;1st Qu.: 8.0  &quot;   &quot;1st Qu.: 8.0  &quot;   &quot;1st Qu.: 8.0  &quot;  
-[38,] &quot;Median :16.0  &quot;   &quot;Median :16.0  &quot;   &quot;Median :16.0  &quot;  
-[39,] &quot;Mean   :15.8  &quot;   &quot;Mean   :15.8  &quot;   &quot;Mean   :15.8  &quot;  
-[40,] &quot;3rd Qu.:23.0  &quot;   &quot;3rd Qu.:23.0  &quot;   &quot;3rd Qu.:23.0  &quot;  
-[41,] &quot;Max.   :31.0  &quot;   &quot;Max.   :31.0  &quot;   &quot;Max.   :31.0  &quot;  
-[42,] NA                 NA                 NA                </pre>
+<pre >         AQ1          AQ2          AQ3 
+&quot;data.frame&quot; &quot;data.frame&quot; &quot;data.frame&quot; </pre>
 
-</article></slide><slide class=""><hgroup><h2>Summary</h2></hgroup><article  id="summary">
+<pre class = 'prettyprint lang-r'>AQ_list %&gt;% sapply(nrow)</pre>
+
+<pre >AQ1 AQ2 AQ3 
+153 153 153 </pre>
+
+<pre class = 'prettyprint lang-r'>AQ_list %&gt;% sapply(colMeans, na.rm = TRUE)</pre>
+
+<pre >               AQ1        AQ2        AQ3
+Ozone    42.129310  42.129310  42.129310
+Solar.R 185.931507 185.931507 185.931507
+Wind      9.957516   9.957516   9.957516
+Temp     77.882353  77.882353  77.882353
+Month     6.993464   6.993464   6.993464
+Day      15.803922  15.803922  15.803922</pre>
+
+</article></slide><slide class=""><hgroup><h2>Summary</h2></hgroup><article  id="summary-1">
 
 <ul>
-<li>Simple functions take the form:
-
-<ul>
-<li><code>NEW_FUNCTION &lt;- function(x, y){x + y}</code></li>
-<li>Can specify defaults like <code>function(x = 1, y = 2){x + y}</code> -<code>return</code> will provide a value as output</li>
-<li><code>print</code> will simply print the value on the screen but not save it</li>
-</ul></li>
 <li>Apply your functions with <code>sapply(&lt;a vector or list&gt;, some_function)</code></li>
 <li>Use <code>across()</code> to apply functions across multiple columns of data</li>
-<li>need to use <code>across</code> within <code>summarize()</code> or <code>mutate()</code></li>
+<li>Need to use <code>across</code> within <code>summarize()</code> or <code>mutate()</code></li>
 <li><code>purrr</code> is a package that you can use to do more iterative work easily</li>
-<li>can use <code>sapply</code> or <code>purrr</code> to work with multiple data frames within lists simultaneously</li>
+<li>Can use <code>sapply</code> or <code>purrr</code> to work with multiple data frames within lists simultaneously</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Website</h2></hgroup><article  id="website">
+</article></slide><slide class=""><hgroup><h2>Lab Part 2</h2></hgroup><article  id="lab-part-2">
 
 <p>🏠 <a href='https://jhudatascience.org/intro_to_r/' title=''>Class Website</a></p>
 
