@@ -91,8 +91,7 @@ jobs:
         id: diffset
         uses: softprops/diffset@v1
         with:
-          special_files: |
-            *.Rmd
+          special_files: *.Rmd
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
       - name: Print Special Files
