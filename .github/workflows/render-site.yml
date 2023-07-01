@@ -117,8 +117,8 @@ jobs:
         
        # Render all module files
       - name: Render html of modules
-        run: Rscript "scripts/render_modules.R"
-
+        run: Rscript "scripts/render_modules.R --files '${{ steps.changed-files.outputs.all_changed_files }}'"
+        
        # Render the cheatsheets
       - name: Render Cheatsheet pdfs
         run: Rscript "scripts/render_cheatsheets.R" 

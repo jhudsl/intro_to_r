@@ -1,5 +1,25 @@
 # Render modules
 
+# --------- Check Files ---------
+
+option_list <- list(
+  optparse::make_option(
+    c("--files"),
+    type = "character",
+    default = NULL,
+    help = "files that have been changed",
+  )
+)
+
+# Read the files argument
+opt_parser <- optparse::OptionParser(option_list = option_list)
+opt <- optparse::parse_args(opt_parser)
+files <- opt$files
+
+message(print(files))
+
+# --------- Render ---------
+
 # Find anything ending in Rmd
 files <- dir(pattern = '[.]Rmd$', recursive = TRUE)
 
