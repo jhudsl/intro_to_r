@@ -92,7 +92,6 @@ jobs:
       - name: checkout
         # if: diffset.outputs.special_files
         uses: actions/checkout@v3
-        ref: 'main'
         with:
           # get the full repo
           fetch-depth: 0
