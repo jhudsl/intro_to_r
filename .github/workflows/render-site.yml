@@ -58,6 +58,7 @@ jobs:
           git push origin || echo "No changes to commit"
       
   render-main:
+    name: Render Main Site and Materials
     needs: [yaml-check, style-code]
     runs-on: ubuntu-latest
 
