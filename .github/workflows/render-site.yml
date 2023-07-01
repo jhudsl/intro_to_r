@@ -74,9 +74,23 @@ jobs:
         run: |
           repo_name='${{ github.event.repository.name }}'
           git config --global --add safe.directory /__w/$repo_name/$repo_name
+
+      - name: Diffset
+        id: diffset
+        uses: softprops/diffset@v1
+        with:
+          special_files: |
+            *.Rmd
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          
+      - name: Print Special Files
+        if: diffset.outputs.special_files
+        run: ls -al ${{ steps.diffset.outputs.special_files }}
     
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: checkout
+        # if: diffset.outputs.special_files
         uses: actions/checkout@v3
         ref: 'main'
         with:
