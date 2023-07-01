@@ -60,6 +60,10 @@ jobs:
       - name: Install config package
         run: Rscript -e "install.packages('config')"
         
+      # TODO: add this to docker
+      - name: Install optparse package
+        run: Rscript -e "install.packages('optparse')"
+        
        # Now we want to render all the html files from the Rmd files
       - name: Run render html for the main site
         id: site
