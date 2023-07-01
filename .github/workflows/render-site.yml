@@ -77,24 +77,27 @@ jobs:
           git config --global --add safe.directory /__w/$repo_name/$repo_name
     
       # # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      # - name: checkout
-      #   uses: actions/checkout@v3
-      #   ref: 'main'
-      #   with:
-      #     # get the full repo
-      #     fetch-depth: 0
-      #     # use github PAT
-      #     token: ${{ secrets.GH_PAT }}
-      
-      - name: Checkout
+      - name: checkout
         uses: actions/checkout@v3
-      - name: Diffset
-        id: diffset
-        uses: softprops/diffset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-      - name: Print Diffset
-        run: ls -al ${{ steps.diffset.outputs.files }}
+        ref: 'main'
+        with:
+          # get the full repo
+          fetch-depth: 0
+          # use github PAT
+          token: ${{ secrets.GH_PAT }}
+      
+      # Example 1
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v37
+
+      # NOTE: `since_last_remote_commit: true` is implied by default and falls back to the previous local commit.
+
+      - name: List all changed files
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file was changed"
+          done
 
       # We want a fresh run of the renders each time - so first delete old html files
       - name: Delete old *.html
