@@ -95,8 +95,6 @@ jobs:
       - name: Read html and pdf files
         id: getfiles
         run: |
-          #echo "::set-output name=files::$(cat files.txt)"
-          #echo "files=$(cat files.txt)" >> "$GITHUB_OUTPUT"
           echo "files=$(cat files.txt)" >> $GITHUB_OUTPUT 
 
       # This checks on the steps before it and makes sure that they completed.
@@ -130,7 +128,6 @@ jobs:
       image: jhudsl/course_template:main
     strategy:
       matrix:
-        #modulenames: ['Intro', 'Data_Classes']
         modulenames: ${{fromJson(needs.render-main.outputs.pdffiles)}}
           
     steps:
