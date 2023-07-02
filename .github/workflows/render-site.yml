@@ -131,7 +131,7 @@ jobs:
     strategy:
       matrix:
         #modulenames: ['Intro', 'Data_Classes']
-        modulenames: [ ${{needs.render-main.outputs.pdffiles}}]
+        modulenames: ${{fromJson(needs.render-main.outputs.pdffiles)}}
           
     steps:
       - name: Checkout files
