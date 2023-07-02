@@ -83,7 +83,6 @@ jobs:
         
        # Render resource pdfs
       - name: Render Resource pdfs
-        run: Rscript "scripts/render_resources.R" 
         run: |
           Rscript --vanilla "scripts/render_resources.R" --files "${{ steps.changed-files.outputs.all_changed_files }}"
         
