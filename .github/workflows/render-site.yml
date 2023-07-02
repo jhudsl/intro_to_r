@@ -95,21 +95,9 @@ jobs:
       - name: Read html and pdf files
         id: getfiles
         run: |
-          echo "::set-output name=files::$(cat files.txt)"
+          #echo "::set-output name=files::$(cat files.txt)"
           #echo "files=$(cat files.txt)" >> "$GITHUB_OUTPUT"
-          #echo "files=$(cat files.txt)" >> $GITHUB_OUTPUT 
-          
-      # # Render pdfs of slides
-      # - name: Convert HTML to PDF
-      #   run: |
-      #     for file in ${{ steps.getfiles.outputs.files }}; do
-      #       pandoc ./$file.html -o ./$file.pdf
-      #       echo "$file was changed"
-      #     done
-      #     #htmlFile: ./${{ steps.getfiles.outputs.htmlfiles }}
-      #     #outputFile: ./${{ steps.getfiles.outputs.pdffiles }}
-      #     #htmlFile: [./modules/Basic_R/Basic_R.html, ./modules/Data_Classes/Data_Classes.html]
-      #     #outputFile: [./modules/Basic_R/Basic_R.pdf, ./modules/Data_Classes/Data_Classes.pdf]
+          echo "files=['Intro', 'Data_Classes']" >> $GITHUB_OUTPUT 
 
       # This checks on the steps before it and makes sure that they completed.
       # If the renders didn't complete we don't want to commit the file changes
@@ -142,8 +130,8 @@ jobs:
       image: jhudsl/course_template:main
     strategy:
       matrix:
-        modulenames: ['Intro', 'Data_Classes']
-        #modulenames: ${{needs.render-main.outputs.files}}
+        #modulenames: ['Intro', 'Data_Classes']
+        modulenames: ${{needs.render-main.outputs.pdffiles}}
           
     steps:
       - name: Checkout files
