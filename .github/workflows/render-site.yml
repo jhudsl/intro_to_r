@@ -95,20 +95,21 @@ jobs:
       - name: Read html and pdf files
         id: getfiles
         run: |
-          echo "::set-output name=files::$(cat files.txt)"
+          #echo "::set-output name=files::$(cat files.txt)"
           #echo "files=$(cat files.txt)" >> "$GITHUB_OUTPUT"
+          echo "files=$(cat files.txt)" >> $GITHUB_OUTPUT 
           
-      # Render pdfs of slides
-      - name: Convert HTML to PDF
-        run: |
-          for file in ${{ steps.getfiles.outputs.files }}; do
-            pandoc ./$file.html -o ./$file.pdf
-            echo "$file was changed"
-          done
-          #htmlFile: ./${{ steps.getfiles.outputs.htmlfiles }}
-          #outputFile: ./${{ steps.getfiles.outputs.pdffiles }}
-          #htmlFile: [./modules/Basic_R/Basic_R.html, ./modules/Data_Classes/Data_Classes.html]
-          #outputFile: [./modules/Basic_R/Basic_R.pdf, ./modules/Data_Classes/Data_Classes.pdf]
+      # # Render pdfs of slides
+      # - name: Convert HTML to PDF
+      #   run: |
+      #     for file in ${{ steps.getfiles.outputs.files }}; do
+      #       pandoc ./$file.html -o ./$file.pdf
+      #       echo "$file was changed"
+      #     done
+      #     #htmlFile: ./${{ steps.getfiles.outputs.htmlfiles }}
+      #     #outputFile: ./${{ steps.getfiles.outputs.pdffiles }}
+      #     #htmlFile: [./modules/Basic_R/Basic_R.html, ./modules/Data_Classes/Data_Classes.html]
+      #     #outputFile: [./modules/Basic_R/Basic_R.pdf, ./modules/Data_Classes/Data_Classes.pdf]
 
       # This checks on the steps before it and makes sure that they completed.
       # If the renders didn't complete we don't want to commit the file changes
@@ -127,6 +128,10 @@ jobs:
           git commit -m 'Render site' || echo "No changes to commit"
           git pull --set-upstream origin main --allow-unrelated-histories --strategy-option=ours
           git push origin main || echo "No changes to push"
+    
+    # Save files for conversion to pdf      
+    outputs:
+      pdffiles: "${{ steps.getfiles.outputs.files }}"
 
 
   render-pdf-lectures:
@@ -137,23 +142,7 @@ jobs:
       image: jhudsl/course_template:main
     strategy:
       matrix:
-        modulenames: 
-          - Intro
-          - RStudio
-          - Reproducibility
-          - Basic_R
-          - Data_Input
-          - Subsetting_Data_in_R
-          - Data_Summarization
-          - Data_Classes
-          - Data_Cleaning
-          - Manipulating_Data_in_R
-          - Esquisse_Data_Visualization
-          - Data_Visualization
-          - Factors
-          - Statistics
-          - Data_Output
-          - Functions
+        modulenames: ${{needs.render-main.outputs.files}}
           
     steps:
       - name: Checkout files
