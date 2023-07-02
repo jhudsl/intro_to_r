@@ -16,12 +16,13 @@ opt_parser <- optparse::OptionParser(option_list = option_list)
 opt <- optparse::parse_args(opt_parser)
 files <- opt$files
 
+# Split files up if multiple
+files <- stringr::str_split(files, " ")
+if (class(files) == "list") files <- unlist(files)
+
 message(print(files))
 
 # --------- Render ---------
-
-# Find anything ending in Rmd
-files <- dir(pattern = '[.]Rmd$', recursive = TRUE)
 
 # Lab files should be in a /lab subdirectory within modules/
 lab_files <- files[grepl("modules/.*/lab", files)]
