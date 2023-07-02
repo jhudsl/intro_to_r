@@ -16,4 +16,11 @@ if(nrow(files) > 0) {
   )
 }
 
-readr::write_lines(paste(files$files, collapse = "\n"), "files.txt", sep = "")
+files_quotes <- paste0("'",files$files,"'")
+combined_files <- paste0(files_quotes, collapse = ", ")
+
+readr::write_lines(
+  paste0("[", combined_files, "]"),
+  "files.txt", 
+  sep = ""
+)
