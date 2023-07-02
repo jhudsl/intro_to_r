@@ -42,7 +42,7 @@ message("The following lecture files will be rendered:")
 if (length(lecture_files) != 0)
   print(lecture_files) else
   print("(no changes, so no rendering needed)")
-write.csv(data.frame(files = lecture_files), "lecture_files.csv")
+readr::write_csv(data.frame(files = lecture_files), "lecture_files.csv")
 
 # loop thru and render all lab files to html
 # Specific module name will be pulled out based on the dir name in modules/
