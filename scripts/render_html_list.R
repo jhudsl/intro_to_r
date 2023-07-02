@@ -4,11 +4,7 @@
 
 # Read in all files needed
 
-files <- rbind(
-  read.csv("lecture_files.csv"),
-  read.csv("lab_files.csv"),
-  read.csv("cheatsheet_files.csv")
-)[2]
+files <- read.csv("lecture_files.csv")[2]
 
 files$html <- sapply(files$files, gsub, pattern = ".Rmd", replacement = ".html")
 files$pdf <- sapply(files$files, gsub, pattern = ".Rmd", replacement = ".pdf")
