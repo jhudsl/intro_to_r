@@ -86,11 +86,24 @@ jobs:
         run: |
           Rscript --vanilla "scripts/render_resources.R" --files "${{ steps.changed-files.outputs.all_changed_files }}"
         
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v37
-      # NOTE: `since_last_remote_commit: true` is implied by default and falls back to the previous local commit.
+       # Generate list of files that need pdfs
+      - name: Get list of html to pdfs
+        run: |
+          Rscript --vanilla "scripts/render_html_list.R"
         
+      - name: Read html and pdf files
+        id: getfiles
+        run: |
+          echo "::set-output name=htmlfiles::$(cat html.txt)"
+          echo "::set-output name=pdffiles::$(cat pdf.txt)"
+          
+      # Render pdfs of slides
+      - name: Convert HTML to PDF
+        uses: LukaszLapaj/html-to-pdf-action@master
+        with:
+          htmlFile: ./${{ steps.getfiles.outputs.htmlfiles }}
+          outputFile: ./${{ steps.getfiles.outputs.pdffiles }}
+
       # This checks on the steps before it and makes sure that they completed.
       # If the renders didn't complete we don't want to commit the file changes
       - name: Check on render steps

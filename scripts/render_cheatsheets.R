@@ -32,6 +32,7 @@ message("The following cheatsheet files will be rendered to pdf:")
 if (length(cheatsheet_files) != 0) 
   print(cheatsheet_files) else 
   print("(no changes, so no rendering needed)")
+write.csv(data.frame(files = cheatsheet_files), "cheatsheet_files.csv")
 
 # loop thru and render all cheatsheet files to pdf
 if (length(cheatsheet_files) != 0) {
