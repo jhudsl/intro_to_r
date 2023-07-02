@@ -97,7 +97,7 @@ jobs:
         run: |
           #echo "::set-output name=files::$(cat files.txt)"
           #echo "files=$(cat files.txt)" >> "$GITHUB_OUTPUT"
-          echo "files=['Intro', 'Data_Classes']" >> $GITHUB_OUTPUT 
+          echo "files=$('Intro', 'Data_Classes') >> $GITHUB_OUTPUT 
 
       # This checks on the steps before it and makes sure that they completed.
       # If the renders didn't complete we don't want to commit the file changes
@@ -131,7 +131,7 @@ jobs:
     strategy:
       matrix:
         #modulenames: ['Intro', 'Data_Classes']
-        modulenames: ${needs.render-main.outputs.pdffiles}
+        modulenames: [ ${{needs.render-main.outputs.pdffiles}} ]
           
     steps:
       - name: Checkout files
