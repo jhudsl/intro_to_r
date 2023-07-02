@@ -30,7 +30,7 @@ jobs:
           repo_name='${{ github.event.repository.name }}'
           git config --global --add safe.directory /__w/$repo_name/$repo_name
     
-      # # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # # Checks-out your repository with the token so your job can access it
       - name: checkout
         uses: actions/checkout@v3
         with:
@@ -39,11 +39,9 @@ jobs:
           # use github PAT
           token: ${{ secrets.GH_PAT }}
       
-      # Example 1
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v37
-
       # NOTE: `since_last_remote_commit: true` is implied by default and falls back to the previous local commit.
 
       - name: List all changed files
@@ -77,14 +75,22 @@ jobs:
       - name: Render html of modules
         run: |
           Rscript --vanilla "scripts/render_modules.R" --files "${{ steps.changed-files.outputs.all_changed_files }}"
-
+          
        # Render the cheatsheets
       - name: Render Cheatsheet pdfs
-        run: Rscript "scripts/render_cheatsheets.R" 
+        run: |
+          Rscript --vanilla "scripts/render_cheatsheets.R" --files "${{ steps.changed-files.outputs.all_changed_files }}"
         
        # Render resource pdfs
       - name: Render Resource pdfs
         run: Rscript "scripts/render_resources.R" 
+        run: |
+          Rscript --vanilla "scripts/render_resources.R" --files "${{ steps.changed-files.outputs.all_changed_files }}"
+        
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v37
+      # NOTE: `since_last_remote_commit: true` is implied by default and falls back to the previous local commit.
         
       # This checks on the steps before it and makes sure that they completed.
       # If the renders didn't complete we don't want to commit the file changes
