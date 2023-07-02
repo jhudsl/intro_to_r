@@ -101,8 +101,10 @@ jobs:
       - name: Convert HTML to PDF
         uses: LukaszLapaj/html-to-pdf-action@master
         with:
-          htmlFile: ./${{ steps.getfiles.outputs.htmlfiles }}
-          outputFile: ./${{ steps.getfiles.outputs.pdffiles }}
+          #htmlFile: ./${{ steps.getfiles.outputs.htmlfiles }}
+          #outputFile: ./${{ steps.getfiles.outputs.pdffiles }}
+          htmlFile: ./modules/Basic_R/Basic_R.html, ./modules/Data_Classes/Data_Classes.html
+          outputFile: ./modules/Basic_R/Basic_R.pdf, ./modules/Data_Classes/Data_Classes.pdf
 
       # This checks on the steps before it and makes sure that they completed.
       # If the renders didn't complete we don't want to commit the file changes
