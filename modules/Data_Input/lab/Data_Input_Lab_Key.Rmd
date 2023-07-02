@@ -13,7 +13,6 @@ Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-
 1\. Use the manual import method (File > Import Dataset > From Text (`readr`)) to Read in SARS-CoV-2 vaccination data from URL 
 http://jhudatascience.org/intro_to_r/data/vaccinations.csv. You can learn more about how the data was collected here: https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-Jurisdi/unsk-b7fc
 
-
 2\. What is the dataset object called? You can find this information in the Console or the Environment. Enter your answer as a comment using `#`.
 
 ```{r}
@@ -147,3 +146,6 @@ asthma <- read_excel(path = "data/asthma.xlsx")
 
 **Bonus / Extra practice**: Practice importing a dataset of your choice, give it an object name, and use `head()` to preview the first few lines.
 
+
+
+lines
