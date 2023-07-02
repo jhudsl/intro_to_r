@@ -94,7 +94,8 @@ jobs:
       - name: Read html and pdf files
         id: getfiles
         run: |
-          echo "files=$(cat files.txt)" >> $GITHUB_OUTPUT
+          echo "::set-output name=files::$(cat files.txt)"
+          #echo "files=$(cat files.txt)" >> $GITHUB_OUTPUT
           
       # Render pdfs of slides
       - name: Convert HTML to PDF
