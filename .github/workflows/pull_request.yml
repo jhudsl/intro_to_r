@@ -420,6 +420,11 @@ jobs:
 
             _Updated at ${{ steps.build-components.outputs.time }} with changes from ${{ steps.build-components.outputs.commit_id }}_
           edit-mode: replace
+          
+    # Save files for conversion to pdf      
+    outputs:
+      pdffiles: "${{ steps.getfiles.outputs.files }}"
+
 
   render-pdf-lectures:
     name: Render pdf lecture slides
@@ -430,7 +435,7 @@ jobs:
     if: ${{needs.yaml-check.outputs.toggle_render_preview == 'yes'}}
     strategy:
       matrix:
-        modulenames: ${{fromJson(needs.render-main.outputs.pdffiles)}}
+        modulenames: ${{fromJson(needs.render-preview.outputs.pdffiles)}}
         
     steps:
       - name: Checkout files
