@@ -16,4 +16,4 @@ if(nrow(files) > 0) {
   )
 }
 
-readr::write_lines(files$files, "files.txt")
+readr::write_lines(paste(files$files, collapse = "\n"), "files.txt", sep = "")
