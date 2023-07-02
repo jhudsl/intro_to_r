@@ -7,16 +7,12 @@
 files <- readr::read_csv("lecture_files.csv")
 
 if(nrow(files) > 0) {
-  files$html <- sapply(files$files, gsub, pattern = ".Rmd", replacement = ".html")
-  files$pdf <- sapply(files$files, gsub, pattern = ".Rmd", replacement = ".pdf")
+  files$simple <- sapply(files$files, gsub, pattern = ".Rmd", replacement = "")
 } else {
   # Just render the Intro files if no others to render.
   files <- data.frame(
-    files = "modules/Intro/Intro.Rmd",
-    html = "modules/Intro/Intro.html",
-    pdf = "modules/Intro/Intro.pdf"
+    files = "modules/Intro/Intro"
   )
 }
 
-readr::write_lines(files$html, "html.txt")
-readr::write_lines(files$pdf, "pdf.txt")
+readr::write_lines(files$files, "files.txt")
