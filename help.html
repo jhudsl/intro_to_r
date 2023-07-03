@@ -13,7 +13,7 @@
 
 <title>Frequent Code Issues</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -144,11 +144,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -177,8 +181,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -186,16 +190,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -279,14 +276,23 @@ $(document).ready(function () {
 
 <p>Here are some common code issues that can cause trouble.</p>
 <p><br> <br></p>
-<div id="error-in-x-could-not-find-function-y-forgetting-to-load-a-library-or-misspelling-a-function-or-package" class="section level2">
-<h2><strong><code>Error in x : could not find function "y"</code>: Forgetting to load a library or misspelling a function or package</strong></h2>
-<p>If you get an error like: <code>Error in BLANK : could not find function "BLANK"</code></p>
-<p>Then you likely forgot to load the package that the function is from or the function is misspelled.</p>
-<p>This will result in an error if we don’t also run <code>library(tidyverse)</code> (which contains <code>stringr</code>) or <code>library(stringr)</code>.</p>
+<div
+id="error-in-x-could-not-find-function-y-forgetting-to-load-a-library-or-misspelling-a-function-or-package"
+class="section level2">
+<h2><strong><code>Error in x : could not find function "y"</code>:
+Forgetting to load a library or misspelling a function or
+package</strong></h2>
+<p>If you get an error like:
+<code>Error in BLANK : could not find function "BLANK"</code></p>
+<p>Then you likely forgot to load the package that the function is from
+or the function is misspelled.</p>
+<p>This will result in an error if we don’t also run
+<code>library(tidyverse)</code> (which contains <code>stringr</code>) or
+<code>library(stringr)</code>.</p>
 <pre class="r"><code>library(tidyverse) # need this!
 iris %&gt;% pull(Species) </code></pre>
-<p>This will not work because <code>str_detect</code> is missing a <code>t</code> at the end:</p>
+<p>This will not work because <code>str_detect</code> is missing a
+<code>t</code> at the end:</p>
 <pre class="r"><code>library(tidyverse) # need this! This can be at the top of your file
 iris %&gt;% pull(Species) %&gt;% str_detec(&quot;setosa&quot;)</code></pre>
 <p>This will not work because <code>library()</code> is misspelled:</p>
@@ -294,14 +300,20 @@ iris %&gt;% pull(Species) %&gt;% str_detec(&quot;setosa&quot;)</code></pre>
 iris %&gt;% pull(Species) %&gt;% str_detect(&quot;setosa&quot;)</code></pre>
 <hr />
 </div>
-<div id="why-are-my-changes-not-taking-effect-its-making-my-results-look-weird-forgetting-to-assign-your-data-to-an-object" class="section level2">
-<h2><strong>Why are my changes not taking effect? It’s making my results look weird!: Forgetting to assign your data to an object</strong></h2>
-<p>Often we are just printing our data and not either reassigning an existing object or creating a new object.</p>
+<div
+id="why-are-my-changes-not-taking-effect-its-making-my-results-look-weird-forgetting-to-assign-your-data-to-an-object"
+class="section level2">
+<h2><strong>Why are my changes not taking effect? It’s making my results
+look weird!: Forgetting to assign your data to an object</strong></h2>
+<p>Often we are just printing our data and not either reassigning an
+existing object or creating a new object.</p>
 <p>Here we are creating a new object from an existing one:</p>
 <pre class="r"><code>new_tree &lt;- trees</code></pre>
-<p>If we want to modify <code>new_tree</code> and save that modified version, then we need to reassign <code>new_tree</code> like so:</p>
+<p>If we want to modify <code>new_tree</code> and save that modified
+version, then we need to reassign <code>new_tree</code> like so:</p>
 <pre class="r"><code>new_tree &lt;- new_tree + 1</code></pre>
-<p>Using just this will only print the result and not actually change <code>new_tree</code>:</p>
+<p>Using just this will only print the result and not actually change
+<code>new_tree</code>:</p>
 <pre class="r"><code>new_tree + 1</code></pre>
 <pre><code>##    Girth Height Volume
 ## 1   10.3     72   12.3
@@ -335,44 +347,74 @@ iris %&gt;% pull(Species) %&gt;% str_detect(&quot;setosa&quot;)</code></pre>
 ## 29  20.0     82   53.5
 ## 30  20.0     82   53.0
 ## 31  22.6     89   79.0</code></pre>
-<p>If we forget to reassign this can cause subsequent steps to not work as expected because we will not be working with the data that has been modified.</p>
+<p>If we forget to reassign this can cause subsequent steps to not work
+as expected because we will not be working with the data that has been
+modified.</p>
 <hr />
 </div>
-<div id="error-object-x-not-found-forgetting-to-assign-an-object-to-start-with" class="section level2">
-<h2><strong><code>Error: object 'X' not found</code>: Forgetting to assign an object to start with</strong></h2>
-<p>This error is usually caused by forgetting to assign an object to start with, or not running the piece of code that assigns an object. If you never created trees2 and try to modify it like so:</p>
+<div
+id="error-object-x-not-found-forgetting-to-assign-an-object-to-start-with"
+class="section level2">
+<h2><strong><code>Error: object 'X' not found</code>: Forgetting to
+assign an object to start with</strong></h2>
+<p>This error is usually caused by forgetting to assign an object to
+start with, or not running the piece of code that assigns an object. If
+you never created trees2 and try to modify it like so:</p>
 <pre class="r"><code>trees2 +1</code></pre>
-<p>You will get the error: <code>Error: object 'trees2' not found</code></p>
-<p>Make sure you run something like this, with the <code>&lt;-</code> operator:</p>
+<p>You will get the error:
+<code>Error: object 'trees2' not found</code></p>
+<p>Make sure you run something like this, with the <code>&lt;-</code>
+operator:</p>
 <pre class="r"><code>trees2 &lt;- new_tree + 1</code></pre>
 <hr />
 </div>
-<div id="why-do-i-have-a-sign-instead-of-the-cursor-in-the-console-trouble-with-parentheses" class="section level2">
-<h2><strong>Why do I have a <code>+</code> sign instead of the cursor <code>&gt;</code> in the console?: Trouble with parentheses</strong></h2>
-<p>You may get a <code>+</code> sign instead of the cursor <code>&gt;</code> in the console suggesting that you have not closed an open parentheses. Each instance of <code>(</code> should be followed by <code>)</code>.</p>
-<p>Hit the “esc” key to restore your <code>&gt;</code>, then fix/rerun your code.</p>
+<div
+id="why-do-i-have-a-sign-instead-of-the-cursor-in-the-console-trouble-with-parentheses"
+class="section level2">
+<h2><strong>Why do I have a <code>+</code> sign instead of the cursor
+<code>&gt;</code> in the console?: Trouble with
+parentheses</strong></h2>
+<p>You may get a <code>+</code> sign instead of the cursor
+<code>&gt;</code> in the console suggesting that you have not closed an
+open parentheses. Each instance of <code>(</code> should be followed by
+<code>)</code>.</p>
+<p>Hit the “esc” key to restore your <code>&gt;</code>, then fix/rerun
+your code.</p>
 <hr />
 </div>
-<div id="error-unexpected-in-...-error-unexpected-in-...-error-unexpected-x-in-...-trouble-with-parentheses" class="section level2">
-<h2><strong><code>Error: unexpected ',' in ...</code>, <code>Error: unexpected ')' in ...</code>, <code>Error: unexpected 'X' in ...</code>: Trouble with parentheses</strong></h2>
+<div
+id="error-unexpected-in-...-error-unexpected-in-...-error-unexpected-x-in-...-trouble-with-parentheses"
+class="section level2">
+<h2><strong><code>Error: unexpected ',' in ...</code>,
+<code>Error: unexpected ')' in ...</code>,
+<code>Error: unexpected 'X' in ...</code>: Trouble with
+parentheses</strong></h2>
 <p>This error can be caused by missing parentheses. Such as:</p>
 <pre class="r"><code>library(dplyr)
 all_equal((trees+1, new_tree)
 # should be all_equal((trees+1), new_tree)</code></pre>
-<p>which will result in this error: <code>Error: unexpected ',' in "all_equal((trees+1,"</code></p>
-<p>You will also often get this error if your parentheses are in the wrong place.</p>
+<p>which will result in this error:
+<code>Error: unexpected ',' in "all_equal((trees+1,"</code></p>
+<p>You will also often get this error if your parentheses are in the
+wrong place.</p>
 <pre class="r"><code>library(dplyr)
 all_equal((trees+1, new_tree))
 # correct number of parentheses but wrong placement
 # should be all_equal((trees+1), new_tree)</code></pre>
-<p>If you have too many parentheses like this (the last one is extra)… you will get this error:</p>
+<p>If you have too many parentheses like this (the last one is extra)…
+you will get this error:</p>
 <pre class="r"><code>all_equal((tress+1), new_tree))</code></pre>
 <p><code>Error: unexpected ')' in "all_equal((trees+1), new_tree))"</code></p>
 <hr />
 </div>
-<div id="error-unexpected-symbol-in-x-not-using-quotes-or-backticks-when-needed" class="section level2">
-<h2><strong><code>Error: unexpected symbol in "x"</code>: Not using quotes or backticks when needed</strong></h2>
-<p>You will need to use quotes for variable names that have spaces or unusual punctuation. It is best to avoid these and rename variables if a variable name has spaces.</p>
+<div
+id="error-unexpected-symbol-in-x-not-using-quotes-or-backticks-when-needed"
+class="section level2">
+<h2><strong><code>Error: unexpected symbol in "x"</code>: Not using
+quotes or backticks when needed</strong></h2>
+<p>You will need to use quotes for variable names that have spaces or
+unusual punctuation. It is best to avoid these and rename variables if a
+variable name has spaces.</p>
 <pre class="r"><code>df_quotes</code></pre>
 <pre><code>## # A tibble: 3 × 2
 ##   `The Values` names
@@ -380,22 +422,28 @@ all_equal((trees+1, new_tree))
 ## 1            1 A    
 ## 2            2 B    
 ## 3            3 C</code></pre>
-<p>If we want to specifically pull out the column with the variable named <code>The Values</code> we need to use quotes or back ticks.</p>
+<p>If we want to specifically pull out the column with the variable
+named <code>The Values</code> we need to use quotes or back ticks.</p>
 <pre class="r"><code>df_quotes %&gt;% pull(names) # this works fine! no spaces in `names`
 df_quotes %&gt;% pull(The Values) # this does not work!
 df_quotes %&gt;% pull(&quot;The Values&quot;) # this works
 df_quotes %&gt;% pull(`The Values`) # this works</code></pre>
 <hr />
 </div>
-<div id="error-unexpected-input-in-x-copypasting-quotation-marks" class="section level2">
-<h2><strong><code>Error: unexpected input in "x"</code>: Copy+pasting quotation marks</strong></h2>
-<p>If you copy paste code form somewhere with curly quotation marks, it will not work.</p>
+<div id="error-unexpected-input-in-x-copypasting-quotation-marks"
+class="section level2">
+<h2><strong><code>Error: unexpected input in "x"</code>: Copy+pasting
+quotation marks</strong></h2>
+<p>If you copy paste code form somewhere with curly quotation marks, it
+will not work.</p>
 <pre class="r"><code>df_quotes %&gt;% pull(&quot;The Values&quot;) # this works
 df_quotes %&gt;% pull(“The Values”) # this doesn&#39;t work</code></pre>
 <hr />
 </div>
-<div id="error-invalidate_mapping-forgetting-to-useto-addggplot2-layers" class="section level2">
-<h2><strong><code>Error in</code>validate_mapping()<code>: Forgetting to use</code>+<code>to add</code>ggplot2` layers</strong></h2>
+<div id="error-invalidate_mapping-forgetting-to-useto-addggplot2-layers"
+class="section level2">
+<h2><strong><code>Error in</code>validate_mapping()<code>: Forgetting to use</code>+<code>to add</code>ggplot2`
+layers</strong></h2>
 <p>This will not work:</p>
 <pre class="r"><code>ggplot(data = iris, aes(x = Species, y = Petal.Length)) %&gt;%
   geom_boxplot()</code></pre>
@@ -404,8 +452,11 @@ df_quotes %&gt;% pull(“The Values”) # this doesn&#39;t work</code></pre>
   geom_boxplot()</code></pre>
 <hr />
 </div>
-<div id="error-in.gg-usingat-the-start-of-a-line-not-the-end-of-the-previous-line-to-addggplot2-layers" class="section level2">
-<h2><strong><code>Error in</code>+.gg<code>!: Using</code>+<code>at the start of a line, not the end of the previous line to add</code>ggplot2` layers</strong></h2>
+<div
+id="error-in.gg-usingat-the-start-of-a-line-not-the-end-of-the-previous-line-to-addggplot2-layers"
+class="section level2">
+<h2><strong><code>Error in</code>+.gg<code>!: Using</code>+<code>at the start of a line, not the end of the previous line to add</code>ggplot2`
+layers</strong></h2>
 <p>This will not work:</p>
 <pre class="r"><code>ggplot(data = iris, aes(x = Species, y = Petal.Length))
  +  geom_boxplot()</code></pre>
