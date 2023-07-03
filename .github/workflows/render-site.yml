@@ -89,6 +89,10 @@ jobs:
         id: getfiles
         run: |
           echo "files=$(cat files.txt)" >> $GITHUB_OUTPUT 
+          rm files.txt
+          rm cheatsheet_files.csv
+          rm lab_files.csv
+          rm lecture_files.csv
 
       # This checks on the steps before it and makes sure that they completed.
       # If the renders didn't complete we don't want to commit the file changes
