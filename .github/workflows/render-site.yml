@@ -21,7 +21,7 @@ jobs:
     name: Render Main Site and Materials
     runs-on: ubuntu-latest
     container:
-      image: jhudsl/intro_to_r:1.0
+      image: jhudsl/intro_to_r:1.1
     
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -54,14 +54,6 @@ jobs:
       # We want a fresh run of the renders each time - so first delete old html files
       - name: Delete old *.html
         run: Rscript -e "rmarkdown::clean_site(preview = FALSE)"
-
-      # TODO: add this to docker
-      - name: Install config package
-        run: Rscript -e "install.packages('config')"
-        
-      # TODO: add this to docker
-      - name: Install optparse package
-        run: Rscript -e "install.packages('optparse')"
         
        # Now we want to render all the html files from the Rmd files
       - name: Run render html for the main site
@@ -126,7 +118,7 @@ jobs:
     needs: render-main
     runs-on: ubuntu-latest
     container:
-      image: jhudsl/intro_to_r:1.0
+      image: jhudsl/intro_to_r:1.1
     strategy:
       matrix:
         modulenames: ${{fromJson(needs.render-main.outputs.pdffiles)}}
