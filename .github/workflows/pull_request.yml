@@ -438,6 +438,12 @@ jobs:
         modulenames: ${{fromJson(needs.render-preview.outputs.pdffiles)}}
         
     steps:
+      # Give permission to access the repo
+      - name: safelist repository
+        run: |
+          repo_name='${{ github.event.repository.name }}'
+          git config --global --add safe.directory /__w/$repo_name/$repo_name
+          
       - name: Checkout files
         uses: actions/checkout@v3
         with:

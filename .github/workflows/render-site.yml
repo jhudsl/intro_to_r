@@ -132,17 +132,17 @@ jobs:
         modulenames: ${{fromJson(needs.render-main.outputs.pdffiles)}}
           
     steps:
-      - name: Checkout files
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GH_PAT }}
-          
       # Give permission to access the repo
       - name: safelist repository
         run: |
           repo_name='${{ github.event.repository.name }}'
           git config --global --add safe.directory /__w/$repo_name/$repo_name
+    
+      - name: Checkout files
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_PAT }}
         
       # Render pdfs of slides
       - name: Convert HTML to PDF
@@ -150,7 +150,6 @@ jobs:
         with:
           htmlFile: ./modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
           outputFile: ./modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
-
 
       # Commit the rendered site files - html files and site_libs files
       - name: Commit pdfs
