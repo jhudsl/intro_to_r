@@ -13,7 +13,7 @@
 
 <title> Introduction to R for Public Health Researchers  </title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -144,11 +144,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -177,8 +181,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -186,16 +190,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -272,22 +269,35 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore"><p><img src="docs/images/Intro_to_R.png" align="left" style="padding-right: 20px" width="120" /> Introduction to R for Public Health Researchers <br></p></h1>
+<h1 class="title toc-ignore"><p><img src="docs/images/Intro_to_R.png"
+style="padding-right: 20px" align="left" width="120" /> Introduction to
+R for Public Health Researchers <br></p></h1>
 
 </div>
 
 
-<p><a href="http://www.jhsph.edu/"><img alt = "JHSPH" align="right" src="docs/images/bloomberg.logo.small.horizontal.blue.png" style="width:40%"/></a> <br> <br></p>
+<p><a href="http://www.jhsph.edu/"><img alt = "JHSPH" align="right" src="docs/images/bloomberg.logo.small.horizontal.blue.png" style="width:40%"/></a>
+<br> <br></p>
 <p><br></p>
 <div id="overview" class="section level2">
 <h2>Overview</h2>
 <hr />
-<p><strong>Welcome to Introduction to R for Public Health Researchers!</strong></p>
-<p>This course is for students who have little to no familiarity with the R programming language and want to learn more about how to use R to import, wrangle, visualize, and analyze data.</p>
-<p>The course will provide students with <strong>“hands-on” training</strong> for analyzing data with the R programming language for statistical computing, a popular open-source solution for data analysis and visualization.</p>
+<p><strong>Welcome to Introduction to R for Public Health
+Researchers!</strong></p>
+<p>This course is for students who have little to no familiarity with
+the R programming language and want to learn more about how to use R to
+import, wrangle, visualize, and analyze data.</p>
+<p>The course will provide students with <strong>“hands-on”
+training</strong> for analyzing data with the R programming language for
+statistical computing, a popular open-source solution for data analysis
+and visualization.</p>
 <div id="instructors" class="section level3">
 <h3>Instructors</h3>
-<p><a href="https://carriewright11.github.io/">Carrie Wright</a> (cwrigh60 at jhu.edu), <a href="https://www.avahoffman.com/">Ava Hoffman</a> (ava.hoffman at jhu.edu), <a href="https://clifmckee.github.io/">Clifton McKee</a> (cmckee7 at jhu.edu)</p>
+<p><a href="https://carriewright11.github.io/">Carrie Wright</a>
+(cwrigh60 at jhu.edu), <a href="https://www.avahoffman.com/">Ava
+Hoffman</a> (ava.hoffman at jhu.edu), <a
+href="https://clifmckee.github.io/">Clifton McKee</a> (cmckee7 at
+jhu.edu)</p>
 </div>
 <div id="teaching-assistant" class="section level3">
 <h3>Teaching Assistant</h3>
@@ -299,11 +309,19 @@ $(document).ready(function () {
 <h2>Class</h2>
 <hr />
 <ul>
-<li>June 12-16 and 20-23, 2023 1:30PM-4:50PM on Zoom - In recognition of <a href="https://en.wikipedia.org/wiki/Juneteenth">Juneteenth</a>, there will be <strong>no class on Monday June 19th, 2023</strong>.</li>
+<li>June 12-16 and 20-23, 2023 1:30PM-4:50PM on Zoom - In recognition of
+<a href="https://en.wikipedia.org/wiki/Juneteenth">Juneteenth</a>, there
+will be <strong>no class on Monday June 19th, 2023</strong>.</li>
 <li>Zoom link will be emailed prior to the first class.</li>
-<li><a href="https://jhudatascience.org/intro_to_r/modules/Setup/R_and_RStudio_installation.html">Installation Instructions</a> - This is <strong>required</strong> before the course, but we can help you on the first day (or before) if you have trouble.</li>
+<li><a
+href="https://jhudatascience.org/intro_to_r/modules/Setup/R_and_RStudio_installation.html">Installation
+Instructions</a> - This is <strong>required</strong> before the course,
+but we can help you on the first day (or before) if you have
+trouble.</li>
 <li>Slack Workspace invitation will be sent directly via email.</li>
-<li><a href="https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/20767/">CoursePlus Website</a></li>
+<li><a
+href="https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/20767/">CoursePlus
+Website</a></li>
 <li><a href="syllabus.html">Syllabus</a></li>
 <li><a href="materials_schedule.html">Materials + Schedule</a></li>
 <li><a href="resources.html">Resources</a></li>
@@ -313,12 +331,19 @@ $(document).ready(function () {
 <div id="find-an-error" class="section level2">
 <h2>Find an Error!?</h2>
 <hr />
-<p>Feel free to submit typos/errors/etc via the GitHub repository associated with the class: <a href="https://github.com/jhudsl/intro_to_r" class="uri">https://github.com/jhudsl/intro_to_r</a></p>
-<p>This page was last updated on 2023-06-23.</p>
+<p>Feel free to submit typos/errors/etc via the GitHub repository
+associated with the class: <a
+href="https://github.com/jhudsl/intro_to_r"
+class="uri">https://github.com/jhudsl/intro_to_r</a></p>
+<p>This page was last updated on 2023-07-03.</p>
 <p style="text-align:center;">
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://live.staticflickr.com/4557/26350808799_6f9c8bcaa2_b.jpg" height="150"/> </a>
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://live.staticflickr.com/4557/26350808799_6f9c8bcaa2_b.jpg" height="150"/>
+</a>
 </p>
-<p><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</p>
+<p><br />This work is licensed under a
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative
+Commons Attribution-NonCommercial-ShareAlike 4.0 International
+License</a>.</p>
 </div>
 
 
