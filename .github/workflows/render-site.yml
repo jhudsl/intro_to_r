@@ -137,6 +137,12 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.GH_PAT }}
+          
+      # Give permission to access the repo
+      - name: safelist repository
+        run: |
+          repo_name='${{ github.event.repository.name }}'
+          git config --global --add safe.directory /__w/$repo_name/$repo_name
         
       # Render pdfs of slides
       - name: Convert HTML to PDF

@@ -431,7 +431,7 @@ jobs:
     needs: render-preview
     runs-on: ubuntu-latest
     container:
-      image: jhudsl/course_template:main
+      image: jhudsl/intro_to_r:1.0
     if: ${{needs.yaml-check.outputs.toggle_render_preview == 'yes'}}
     strategy:
       matrix:
