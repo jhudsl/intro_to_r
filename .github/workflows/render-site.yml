@@ -126,7 +126,7 @@ jobs:
     needs: render-main
     runs-on: ubuntu-latest
     container:
-      image: jhudsl/course_template:main
+      image: jhudsl/intro_to_r:1.0
     strategy:
       matrix:
         modulenames: ${{fromJson(needs.render-main.outputs.pdffiles)}}
