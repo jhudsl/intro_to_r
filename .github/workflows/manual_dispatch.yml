@@ -1,0 +1,32 @@
+# Candace Savonen May 2022
+
+name: Manual build of docker image
+
+on:
+  workflow_dispatch:
+    inputs:
+      directory:
+        required: true
+        type: string
+      tag:
+        required: true
+        type: string
+      dockerhubpush:
+        description: 'Push to Dockerhub?'
+        required: false
+        default: 'false'
+        type: string
+
+jobs:
+
+  build-it:
+    name: Build docker image on command
+    uses: ./.github/workflows/docker-test.yml
+    with:
+      directory: ${{github.event.inputs.directory}}
+      tag: ${{github.event.inputs.tag}}
+      dockerhubpush: ${{github.event.inputs.dockerhubpush}}
+    secrets:
+      GH_PAT: ${{ secrets.GH_PAT }}
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
