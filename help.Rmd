@@ -28,14 +28,12 @@ knitr::knit_hooks$set(error = function(x, options) {
   
 ![You can select Remove Output. You should now see output in the console.](images/console_output2.jpg)
 
+<br>
+<br>
+
 ## **`Error in x : could not find function "y"`**
 
 **Forgetting to load a library or misspelling a function or package**
-
-If you get an error like:
-`Error in BLANK : could not find function "BLANK"`
-
-Then you likely forgot to load the package that the function is from or the function is misspelled. 
 
 For example, we forgot `library(tidyverse)` below:
 
