@@ -14,6 +14,14 @@ knitr::knit_hooks$set(error = function(x, options) {
 })
 ```
 
+## **How do I get output to stop printing inside the Rmarkdown and only show it in the console?**
+
+**To change this, you will need to adjust the RStudio Settings.**
+
+![Click the gear icon beside the knit button to expand the options menu.](images/console_output1.jpg)
+  
+![You can select Remove Output. You should now see output in the console.](images/console_output2.jpg)
+
 ## **`Error in x : could not find function "y"`**
 
 **Forgetting to load a library or misspelling a function or package**
@@ -226,11 +234,3 @@ This will work:
 ggplot(data = iris, aes(x = Species, y = Petal.Length)) +
   geom_boxplot()
 ```
-
-## **How do I get output to stop printing inside the Rmarkdown and only show it in the console?**
-
-**To change this, you will need to adjust the RStudio Settings.**
-
-![Click the gear icon beside the knit button to expand the options menu.](images/console_output1.jpg)
-  
-![You can select Remove Output. You should now see output in the console.](images/console_output2.jpg)
