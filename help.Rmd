@@ -8,15 +8,11 @@ Here are some common code issues that can cause trouble.
 <br>
 <br>
 
-```{r, echo = FALSE}
-knitr::knit_hooks$set(error = function(x, options) {
-  paste0("<pre style=\"color: red;\"><code>", x, "</code></pre>")
-})
-```
-
-```{css echo=FALSE}
-.custom-inline {
-  color: black
+```{css, echo=FALSE}
+.bg-error {
+  background-color: #fde4e4;
+  border: 2px solid #ce0707;
+  color: #ce0707
 }
 ```
 
@@ -41,20 +37,20 @@ For example, we forgot `library(tidyverse)` below:
 unloadNamespace("tidyverse")
 ```
 
-```{r, error = TRUE}
+```{r, error = TRUE, class.error="bg-error"}
 iris %>% pull(Species) 
 ```
 
 Below will not work because `str_detect` is missing a `t` at the end:
 
-```{r, error = TRUE, message = FALSE}
+```{r, error = TRUE, message = FALSE, class.error="bg-error"}
 library(tidyverse) # need this! This can be at the top of your file
 iris %>% pull(Species) %>% str_detec("setosa")
 ```
 
 This will not work because `library()` is misspelled:
 
-```{r, error = TRUE}
+```{r, error = TRUE, class.error="bg-error"}
 libary(tidyverse)
 ```
 
@@ -96,7 +92,7 @@ If we forget to reassign this can cause subsequent steps to not work as expected
 
 This error is usually caused by forgetting to assign an object to start with, or not running the piece of code that assigns an object. If you never created `rivers2` and try to modify it like so:
 
-```{r, error = TRUE}
+```{r, error = TRUE, class.error="bg-error"}
 rivers2 + 1
 ```
 
@@ -125,7 +121,7 @@ Hit the "esc" key to restore your `>`, then fix/rerun your code.
 
 This error can be caused by missing parentheses. Such as:
 
-```{r, error = TRUE}
+```{r, error = TRUE, class.error="bg-error"}
 library(dplyr)
 all.equal((rivers+1, rivers)
 ```
@@ -138,13 +134,13 @@ all.equal((rivers+1), rivers)
 
 You will also often get this error if you have the correct number of parentheses but wrong placement:
 
-```{r, error = TRUE}
+```{r, error = TRUE, class.error="bg-error"}
 all.equal((rivers+1, rivers))
 ```
 
 If you have too many parentheses like this (the last one is extra)... you will get this error:
 
-```{r, error = TRUE}
+```{r, error = TRUE, class.error="bg-error"}
 all_equal((rivers+1), rivers))
 ```
 
@@ -156,7 +152,7 @@ all_equal((rivers+1), rivers))
 
 You will need to use quotes for variable names that have spaces or unusual punctuation. It is best to avoid these and rename variables if a variable name has spaces.
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, class.error="bg-error"}
 library(tibble)
 df_quotes <- tibble("The Values" = c(1,2,3), "names" = c("A", "B", "C"))
 ```
@@ -180,7 +176,7 @@ df_quotes %>% pull("The Values") # this works
 df_quotes %>% pull(`The Values`) # this works
 ```
 
-```{r, error = TRUE}
+```{r, error = TRUE, class.error="bg-error"}
 df_quotes %>% pull(The Values) # this does not work!
 ```
 
@@ -196,7 +192,7 @@ If you copy paste code form somewhere with curly quotation marks, it will not wo
 df_quotes %>% pull("The Values") # this works
 ```
 
-```{r, error = TRUE}
+```{r, error = TRUE, class.error="bg-error"}
 df_quotes %>% pull(“The Values”) # this doesn't work
 ```
 
@@ -209,14 +205,14 @@ df_quotes %>% pull(“The Values”) # this doesn't work
 
 This will not work:
 
-```{r, error = TRUE}
+```{r, error = TRUE, class.error="bg-error"}
 ggplot(data = iris, aes(x = Species, y = Petal.Length)) %>%
   geom_boxplot()
 ```
 
 This will work:
 
-```{r,out.width = "30%"}
+```{r, out.width = "30%"}
 ggplot(data = iris, aes(x = Species, y = Petal.Length)) +
   geom_boxplot()
 ```
@@ -227,14 +223,14 @@ ggplot(data = iris, aes(x = Species, y = Petal.Length)) +
 
 This will not work:
 
-```{r, error = TRUE, out.width = "30%"}
+```{r, error = TRUE, class.error="bg-error", out.width = "30%"}
 ggplot(data = iris, aes(x = Species, y = Petal.Length))
  +  geom_boxplot()
 ```
 
 This will work:
 
-```{r, out.width = "30%"}
+```{r, out.width = "30%", class.error="bg-error"}
 ggplot(data = iris, aes(x = Species, y = Petal.Length)) +
   geom_boxplot()
 ```
