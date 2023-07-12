@@ -14,7 +14,10 @@ Here are some common code issues that can cause trouble.
   border: 2px solid #ce0707;
   color: #ce0707
 }
-code{color: #000}
+code{
+  background-color: #ffffff;
+  color: #000,
+}
 ```
 
 ## **How do I get output to stop printing inside the Rmarkdown and only show it in the console?**
