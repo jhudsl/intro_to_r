@@ -109,7 +109,7 @@ jobs:
           git config --local user.name "jhudsl-robot"
           git add . --force
           git commit -m 'Render site' || echo "No changes to commit"
-          git pull --set-upstream origin main --allow-unrelated-histories --strategy-option=ours
+          git pull --rebase --set-upstream origin main --allow-unrelated-histories --strategy-option=ours
           git push origin main || echo "No changes to push"
     
     # Save files for conversion to pdf      
@@ -153,6 +153,6 @@ jobs:
           git config --local user.email "itcrtrainingnetwork@gmail.com"
           git config --local user.name "jhudsl-robot"
           git add . --force
-          git commit -m 'Render site' || echo "No changes to commit"
-          git pull --set-upstream origin main --allow-unrelated-histories --strategy-option=ours
-          git push origin main || echo "No changes to push"
+          git commit -m 'Render pdfs' || echo "No changes to commit"
+          git pull --rebase --set-upstream origin main --allow-unrelated-histories --strategy-option=ours
+          git push --force || echo "No changes to commit"
