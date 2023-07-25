@@ -336,16 +336,16 @@ existing object or creating a new object.</p>
 <p>Here we are creating a new object from an existing one:</p>
 <pre class="r"><code>new_rivers &lt;- sample(rivers, 5)
 new_rivers</code></pre>
-<pre><code>## [1] 336 230 276 329 350</code></pre>
+<pre><code>## [1]  276 1270  710  430  320</code></pre>
 <p>Using just this will only print the result and not actually change
 <code>new_rivers</code>:</p>
 <pre class="r"><code>new_rivers + 1</code></pre>
-<pre><code>## [1] 337 231 277 330 351</code></pre>
+<pre><code>## [1]  277 1271  711  431  321</code></pre>
 <p>If we want to modify <code>new_rivers</code> and save that modified
 version, then we need to reassign <code>new_rivers</code> like so:</p>
 <pre class="r"><code>new_rivers &lt;- new_rivers + 1
 new_rivers</code></pre>
-<pre><code>## [1] 337 231 277 330 351</code></pre>
+<pre><code>## [1]  277 1271  711  431  321</code></pre>
 <p>If we forget to reassign this can cause subsequent steps to not work
 as expected because we will not be working with the data that has been
 modified.</p>
@@ -363,7 +363,7 @@ you never created <code>rivers2</code> and try to modify it like so:</p>
 operator:</p>
 <pre class="r"><code>rivers2 &lt;- new_rivers + 1
 rivers2</code></pre>
-<pre><code>## [1] 338 232 278 331 352</code></pre>
+<pre><code>## [1]  278 1272  712  432  322</code></pre>
 <hr />
 </div>
 <div id="why-do-i-have-a-sign-instead-of-the-cursor-in-the-console"
