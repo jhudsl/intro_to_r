@@ -33,35 +33,6 @@ code{
 <br>
 <br>
 
-## **`Error in x : could not find function "y"`**
-
-**Forgetting to load a library or misspelling a function or package**
-
-For example, we forgot `library(tidyverse)` below:
-
-```{r, echo = FALSE}
-unloadNamespace("tidyverse")
-```
-
-```{r, error = TRUE, class.error="bg-error"}
-iris %>% pull(Species) 
-```
-
-Below will not work because `str_detect` is missing a `t` at the end:
-
-```{r, error = TRUE, message = FALSE, class.error="bg-error"}
-library(tidyverse) # need this! This can be at the top of your file
-iris %>% pull(Species) %>% str_detec("setosa")
-```
-
-This will not work because `library()` is misspelled:
-
-```{r, error = TRUE, class.error="bg-error"}
-libary(tidyverse)
-```
-
-***
-
 ## **Why are my changes not taking effect? It's making my results look weird!**
 
 **Forgetting to assign your data to an object**
@@ -91,6 +62,45 @@ new_rivers
 If we forget to reassign this can cause subsequent steps to not work as expected because we will not be working with the data that has been modified.
 
 ***
+## **Why do I have a `+`  sign instead of the cursor `>` in the console?**
+
+**Trouble with parentheses**
+
+You may get a `+`  sign instead of the cursor `>` in the console suggesting that you have not closed an open parentheses. Each instance of `(` should be followed by `)`. 
+
+Hit the "esc" key to restore your `>`, then fix/rerun your code.
+
+***
+
+## **`Error in x : could not find function "y"`**
+
+**Forgetting to load a library or misspelling a function or package**
+
+For example, we forgot `library(tidyverse)` below:
+
+```{r, echo = FALSE}
+unloadNamespace("tidyverse")
+```
+
+```{r, error = TRUE, class.error="bg-error"}
+iris %>% pull(Species) 
+```
+
+Below will not work because `str_detect` is missing a `t` at the end:
+
+```{r, error = TRUE, message = FALSE, class.error="bg-error"}
+library(tidyverse) # need this! This can be at the top of your file
+iris %>% pull(Species) %>% str_detec("setosa")
+```
+
+This will not work because `library()` is misspelled:
+
+```{r, error = TRUE, class.error="bg-error"}
+libary(tidyverse)
+```
+
+***
+
 
 ## **`Error: object 'X' not found`**
 
@@ -111,15 +121,6 @@ rivers2
 
 ***
 
-## **Why do I have a `+`  sign instead of the cursor `>` in the console?**
-
-**Trouble with parentheses**
-
-You may get a `+`  sign instead of the cursor `>` in the console suggesting that you have not closed an open parentheses. Each instance of `(` should be followed by `)`. 
-
-Hit the "esc" key to restore your `>`, then fix/rerun your code.
-
-***
 
 ## **`Error: unexpected ',' in ...`, `Error: unexpected ')' in ...`, `Error: unexpected 'X' in ...`**
 
