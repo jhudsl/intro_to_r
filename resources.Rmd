@@ -1,7 +1,8 @@
 ---
 title: "Resources"
-output:
-  html_document
+output: 
+  html_document:
+    toc: TRUE
 ---
 
 ```{r, include = FALSE}
@@ -9,17 +10,16 @@ library(dplyr)
 library(kableExtra)
 ```
 
-## Additional Resources
-***
 
-**Need help getting started?**
+
+### **Help getting started**
 
 - [R reference card](http://cran.r-project.org/doc/contrib/Short-refcard.pdf) 
 - [R jargon](https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf) 
 - [R terminology](https://cran.r-project.org/doc/manuals/r-release/R-lang.pdf)
 - [Lawlor et al. 2022](https://doi.org/10.1371/journal.pcbi.1010372): Ten simple rules for teaching yourself R 
 
-**Need to review?**
+### **Class Cheatsheets**
 
 - [Day 1 - RStudio & Reproducibility Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-1.pdf)
 - [Day 2 - Basic R & Data Input/Output Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-2.pdf)
@@ -30,24 +30,30 @@ library(kableExtra)
 - [Day 7 - Data Visualization `ggplot2` & Factors Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-7.pdf)
 - [Day 8 - Statistics Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-8.pdf)
 - [Day 9 - Functions Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-9.pdf)
-
 - [Additional RStudio "Cheatsheets"](https://www.rstudio.com/resources/cheatsheets/)
 
 
-**Trouble Shooting Guides**
+### **Trouble Shooting Guides**
 
 - [Guide on when to use quotes or backticks](https://jhudatascience.org/intro_to_r/resources/quotes_vs_backticks.html)
 - [Guide on what functions require pulling values out first](https://jhudatascience.org/intro_to_r/resources/functions_for_vectors.html)
 
 
-**Tidyverse Resources**
+### **Tidyverse Resources**
 
 - [What is the Tidyverse?](https://www.tidyverse.org/packages/)
 - If you need to check what packages are part of the `tidyverse`, you can do so at this [link](https://www.tidyverse.org/packages/).
-RStudio shortcuts can be found [here](<http://www.rstudio.com/ide/docs/using/keyboard_shortcuts>).
 
+
+### **Keyboard shortcuts**
+
+- RStudio shortcuts can be found [here](<http://www.rstudio.com/ide/docs/using/keyboard_shortcuts>).
+
+
+### **Extra help**
 
 **Need help with data import?** 
+
 - [Video on data import](https://youtu.be/LEkNfJgpunQ)
 - [video](https://www.youtube.com/watch?v=we6vwB7DsNU) for PC users who want to see how to move files around (especially from downloads) 
 - [video](https://www.youtube.com/watch?v=Ao9e0cDzMrE) for Mac users who want to see how to move files around (especially from downloads)
@@ -75,7 +81,9 @@ RStudio shortcuts can be found [here](<http://www.rstudio.com/ide/docs/using/key
 - [Modeling 101](https://jhudatascience.org/tidyversecourse/model.html#linear-modeling)
 - [Interpreting GLM output (e.g., deviance)](https://www.statology.org/null-residual-deviance/)
 
-**Want more?**  
+### **More Classes and Resources**  
+
+#### **Online Courses and Resources**
 
 - [Tidyverse Skills for Data Science Book](https://jhudatascience.org/tidyversecourse/)  (**a great next step** to learn more about the tidyverse, some modeling, and machine learning)
 - [Tidyverse Skills for Data Science Course](https://www.coursera.org/specializations/tidyverse-data-science-r)  (same content with quizzes, can get certificate with $)
@@ -85,39 +93,36 @@ RStudio shortcuts can be found [here](<http://www.rstudio.com/ide/docs/using/key
 - [R basics chapter of Introduction to Data Science by Rafael A. Irizarry](https://rafalab.github.io/dsbook/r-basics.html)(great general information)
 - [Dataquest](https://www.dataquest.io/)  (general interactive resource)
 - [Quick R Guide]( http://statmethods.net/)  (nice free general resource)
+- [Introduction to Reproducibility](https://jhudatascience.org/Reproducibility_in_Cancer_Informatics/)
+- [Advanced Reproducibility](https://jhudatascience.org/Adv_Reproducibility_in_Cancer_Informatics/)
 
-**Interested in more stats classes at JHU?**
+#### **Classes at JHU**
 
 - [PH.140.621, PH.140.622, PH.140.623, PH.140.62 - Statistical Methods in Public Health I, II, III, and IV](https://e-catalogue.jhu.edu/course-descriptions/biostatistics/) - The class is mostly taught in STATA, but you can also join a group of students working in R. The class covers many topics in statistical analysis for public health data.
 - [PH.140.778 - Statistical Computing, Algorithm, and Software Development](https://www.jhsph.edu/courses/course/36737/2022/140.778.01/statistical-computing-algorithm-and-software-devel) - A more advanced course for working with data in R.
     - Content for similar topics as this course can also be found on [Leanpub](https://leanpub.com/advstatcomp).
 
-**Interested in Reproducibility?**
 
-Check out these courses:
-
-- [Introduction](https://jhudatascience.org/Reproducibility_in_Cancer_Informatics/)
-- [Advanced](https://jhudatascience.org/Adv_Reproducibility_in_Cancer_Informatics/)
-
-**R for Stata, SPSS, and SAS files**
+### **R for Stata, SPSS, and SAS files**
 
 - The [Haven](https://haven.tidyverse.org/) package  
  (This package is super useful for reading and writing files so that they are compatible across Stata, SPSS, SAS, and R) 
 - [R vs Stata](https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf)  
 (See page 505)
 
-**Comparison of Python and R**
+### **Comparison of Python and R**
+
 - A helpful [blog post](https://www.ibm.com/cloud/blog/python-vs-r) about the difference between these two languages.
 
-**Interested in Conferences?**
+### **Interested in Conferences?**
 
 - The [RStudio/Posit conference](https://posit.co/conference/) has lots of useful workshops! 
 <br>
 
-## Videos of Previous Online Lectures
+### **Videos of Previous Online Lectures**
 ***
 
-### From Summer Institute 2022
+**From Summer Institute 2022**
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}
 mat <- matrix(c(
@@ -142,7 +147,7 @@ knitr::kable(mat, format = "html") %>%
 ```
 
 
-### From Winter Institute 2022
+**From Winter Institute 2022**
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}
 mat <- matrix(c(
@@ -167,7 +172,7 @@ knitr::kable(mat, format = "html") %>%
   kable_styling()
 ```
 
-### From Summer Institute 2021
+**From Summer Institute 2021**
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}
 mat <- matrix(c(
@@ -190,7 +195,7 @@ knitr::kable(mat, format = "html") %>%
   kable_styling()
 ```
 
-### From Winter Institute 2020
+**From Winter Institute 2020**
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}
 mat <- matrix(c(
@@ -209,7 +214,7 @@ knitr::kable(mat, format = "html") %>%
   kable_styling()
 ```
 
-### From Summer Institute 2017
+**From Summer Institute 2017**
 
 ```{r videos, echo = FALSE, message = FALSE, results='asis'}
 mat <- matrix(c(
