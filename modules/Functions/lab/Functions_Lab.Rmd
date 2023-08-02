@@ -1,9 +1,15 @@
 ---
-title: "Factors Lab"
+title: "Functions Lab"
 output: html_document
 editor_options: 
   chunk_output_type: console
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Part 1
 
 0. Load all the libraries we will use in this lab. 
 
@@ -33,17 +39,19 @@ return(result)
 
 ```
 
-2. Create a function that takes two arguments, (1) a vector and (2) a numeric value. This function tests whether the number (2) is contained within the vector (1). Call it "has_n". Test your function on the vector `c(2,7,21,30,90)` and number `21` - you should get the answer TRUE.
+2. Create a function that takes two arguments, (1) a vector and (2) a numeric value. This function tests whether the number (2) is contained within the vector (1). Call it `has_n`. Test your function on the vector `c(2,7,21,30,90)` and number `21` - you should get the answer TRUE.
 
 ```{r}
 
 ```
 
-3. Amend the function "has_n" from #2 so that it takes a default value of `21` for the numeric argument.
+3. Amend the function `has_n` from #2 so that it takes a default value of `21` for the numeric argument.
 
 ```{r}
 
 ```
+
+# Part 2
 
 4. Read in the SARS-CoV-2 Vaccination data from http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv. Assign the data the name "vacc".
 
@@ -51,7 +59,7 @@ return(result)
 
 ```
 
-5. We want to get some summary statistics on the Moderna vaccines. Use `across` inside `summarize` to get the sum total number vaccine doses for any variable containing the word "Moderna" or starting with "Total". **Hint**: use `contains()` AND `starts_with()` to select the right columns inside `across`. Keep in mind that this includes the United States as a whole and so it is not totally accurate! Remember that `NA` values can influence calculations.
+5. We want to get some summary statistics on the Moderna vaccines. Use `across` inside `summarize` to get the sum total number vaccine doses for any variable containing the word "Moderna" AND starting with "Total". **Hint**: use `contains()` AND `starts_with()` to select the right columns inside `across`. Keep in mind that this includes the United States as a whole and so it is not totally accurate! Remember that `NA` values can influence calculations.
 
 ```
 # General format
@@ -67,7 +75,7 @@ data %>%
 
 ```
 
-6. Use `across` and `mutate` to convert all columns containing the word "Percent" into proportions (i.e., divide that value by 100). **Hint**: use `contains()` to select the right columns. Use a "function on the fly" to divide by 100. It will also be easier to check your work if you `select()` columns that match "Percent".
+6. Use `across` and `mutate` to convert all columns containing the word "Percent" into proportions (i.e., divide that value by 100). **Hint**: use `contains()` to select the right columns within `across()`. Use a "function on the fly" to divide by 100. It will also be easier to check your work if you `select()` columns that match "Percent".
 
 ```{r}
 

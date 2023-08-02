@@ -203,11 +203,15 @@ NEW_OBJECT &lt;- OBJECT %&gt;% filter(COLUMNNAME == CRITERIA)</code></pre>
 <li>Write out the <code>vacc_filtered</code> object as a CSV file calling it “vacc_filtered.csv”, using <code>write_csv()</code>:</li>
 </ol>
 <pre class="r"><code>write_csv(vacc_filtered, file = &quot;vacc_filtered.csv&quot;)</code></pre>
-<p><strong>Bonus / Extra practice</strong>: Copy your code from problem 3 and modify it to write to the data directory inside your R Project.</p>
-<pre class="r"><code>write_csv(vacc_filtered, file = &quot;data/vacc_filtered.csv&quot;)</code></pre>
+<p><strong>Bonus / Extra practice</strong>: Copy your code from problem 3 and modify it to write to the data directory inside your R Project. <em>Note: you may need to make a new folder named “data” if it doesn’t already exist.</em></p>
+<pre class="r"><code>getwd()
+dir.create(&quot;data&quot;)
+write_csv(vacc_filtered, file = &quot;data/vacc_filtered.csv&quot;)</code></pre>
 <p><strong>Bonus / Extra practice</strong>: Write one of the variables in your Environment to your working directory in <code>rds</code> format. Call the file <code>my_variable.rds</code>.</p>
 <pre class="r"><code>y &lt;- c(10, 20, 30, 40, 50, 60)
 write_rds(y, file = &quot;my_variable.rds&quot;)</code></pre>
+<p><strong>Bonus / Extra practice</strong>: Read the RDS file from your working directory back into your Environment. Call the file <code>z</code>.</p>
+<pre class="r"><code>z &lt;- read_rds(file = &quot;my_variable.rds&quot;)</code></pre>
 </div>
 
 

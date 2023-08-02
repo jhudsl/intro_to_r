@@ -52,7 +52,7 @@ RUN Rscript -e  "options(warn = 2);install.packages( \
       repos = 'https://cloud.r-project.org/')"
 
 # Other packages
-RUN Rscript -e  "devtools::install_github('hadley/emo')"
+RUN Rscript -e  "devtools::install_github('hadley/emo')"	
 RUN Rscript -e  "install.packages('esquisse')"
 RUN Rscript -e  "install.packages('directlabels')"
 RUN Rscript -e  "install.packages('plotly')"
@@ -60,6 +60,10 @@ RUN Rscript -e  "install.packages('tidylog')"
 RUN Rscript -e  "install.packages('patchwork')"
 RUN Rscript -e  "install.packages('corrplot')"
 RUN Rscript -e  "install.packages('broom')"
+RUN Rscript -e  "install.packages('config')"
+RUN Rscript -e  "install.packages('optparse')"
+RUN Rscript -e  "install.packages('faraway')"
+RUN Rscript -e  "install.packages('epitools')"
 
 # Install pdflatex
 RUN apt-get install -y texlive-latex-base texlive-latex-extra

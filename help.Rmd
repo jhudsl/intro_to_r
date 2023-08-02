@@ -8,86 +8,110 @@ Here are some common code issues that can cause trouble.
 <br>
 <br>
 
-## **`Error in x : could not find function "y"`: Forgetting to load a library or misspelling a function or package**
+```{css, echo=FALSE}
+.bg-error {
+  background-color: #fde4e4;
+  border: 2px solid #ce0707;
+  color: #ce0707
+}
+code{
+  background-color: #ffffff;
+  color: #000
+}
+```
 
+## **How do I get output to stop printing inside the Rmarkdown and only show it in the console?**
 
-If you get an error like:
-`Error in BLANK : could not find function "BLANK"`
+**To change this, you will need to adjust the RStudio Settings.**
 
-Then you likely forgot to load the package that the function is from or the function is misspelled. 
+![Click the gear icon beside the knit button to expand the options menu.](images/console_output1.jpg)
+  
+![You can select Remove Output. You should now see output in the console.](images/console_output2.jpg)
 
-This will result in an error if we don't also run `library(tidyverse)` (which contains `stringr`) or `library(stringr)`. 
+<br>
+<br>
 
-```{r, eval = FALSE}
-library(tidyverse) # need this!
+## **`Error in x : could not find function "y"`**
+
+**Forgetting to load a library or misspelling a function or package**
+
+For example, we forgot `library(tidyverse)` below:
+
+```{r, echo = FALSE}
+unloadNamespace("tidyverse")
+```
+
+```{r, error = TRUE, class.error="bg-error"}
 iris %>% pull(Species) 
 ```
 
-This will not work because `str_detect` is missing a `t` at the end:
+Below will not work because `str_detect` is missing a `t` at the end:
 
-```{r, eval = FALSE}
+```{r, error = TRUE, message = FALSE, class.error="bg-error"}
 library(tidyverse) # need this! This can be at the top of your file
 iris %>% pull(Species) %>% str_detec("setosa")
 ```
 
 This will not work because `library()` is misspelled:
 
-```{r, eval = FALSE}
+```{r, error = TRUE, class.error="bg-error"}
 libary(tidyverse)
-iris %>% pull(Species) %>% str_detect("setosa")
 ```
 
 ***
 
-## **Why are my changes not taking effect? It's making my results look weird!: Forgetting to assign your data to an object**
+## **Why are my changes not taking effect? It's making my results look weird!**
+
+**Forgetting to assign your data to an object**
 
 Often we are just printing our data and not either reassigning an existing object or creating a new object.
 
 Here we are creating a new object from an existing one:
 
 ```{r}
-new_tree <- trees
+new_rivers <- sample(rivers, 5)
+new_rivers
 ```
 
-
-If we want to modify `new_tree` and save that modified version, then we need to reassign `new_tree` like so:
+Using just this will only print the result and not actually change `new_rivers`:
 
 ```{r}
-new_tree <- new_tree + 1
+new_rivers + 1
 ```
 
-Using just this will only print the result and not actually change `new_tree`:
+If we want to modify `new_rivers` and save that modified version, then we need to reassign `new_rivers` like so:
 
 ```{r}
-new_tree + 1
+new_rivers <- new_rivers + 1
+new_rivers
 ```
 
 If we forget to reassign this can cause subsequent steps to not work as expected because we will not be working with the data that has been modified.
 
 ***
 
+## **`Error: object 'X' not found`**
 
-## **`Error: object 'X' not found`: Forgetting to assign an object to start with**
+**Forgetting to assign an object to start with**
 
-This error is usually caused by forgetting to assign an object to start with, or not running the piece of code that assigns an object. If you never created trees2 and try to modify it like so:
+This error is usually caused by forgetting to assign an object to start with, or not running the piece of code that assigns an object. If you never created `rivers2` and try to modify it like so:
 
-```{r, eval = FALSE}
-trees2 +1
+```{r, error = TRUE, class.error="bg-error"}
+rivers2 + 1
 ```
-
-You will get the error:
-`Error: object 'trees2' not found`
 
 Make sure you run something like this, with the `<-` operator:
 
-```{r, eval = FALSE}
-trees2 <- new_tree + 1
+```{r}
+rivers2 <- new_rivers + 1
+rivers2
 ```
 
 ***
 
+## **Why do I have a `+`  sign instead of the cursor `>` in the console?**
 
-## **Why do I have a `+`  sign instead of the cursor `>` in the console?: Trouble with parentheses**
+**Trouble with parentheses**
 
 You may get a `+`  sign instead of the cursor `>` in the console suggesting that you have not closed an open parentheses. Each instance of `(` should be followed by `)`. 
 
@@ -95,41 +119,44 @@ Hit the "esc" key to restore your `>`, then fix/rerun your code.
 
 ***
 
+## **`Error: unexpected ',' in ...`, `Error: unexpected ')' in ...`, `Error: unexpected 'X' in ...`**
 
-## **`Error: unexpected ',' in ...`, `Error: unexpected ')' in ...`, `Error: unexpected 'X' in ...`: Trouble with parentheses**
+**Trouble with parentheses**
 
 This error can be caused by missing parentheses. Such as:
 
-```{r, eval = FALSE}
+```{r, error = TRUE, class.error="bg-error"}
 library(dplyr)
-all_equal((trees+1, new_tree)
-# should be all_equal((trees+1), new_tree)
+all.equal((rivers+1, rivers)
 ```
- which will result in this error:
- `Error: unexpected ',' in "all_equal((trees+1,"`
- 
-You will also often get this error if your parentheses are in the wrong place.
 
-```{r, eval = FALSE}
-library(dplyr)
-all_equal((trees+1, new_tree))
-# correct number of parentheses but wrong placement
-# should be all_equal((trees+1), new_tree)
+It should be:
+
+```{r}
+all.equal((rivers+1), rivers)
 ```
- 
+
+You will also often get this error if you have the correct number of parentheses but wrong placement:
+
+```{r, error = TRUE, class.error="bg-error"}
+all.equal((rivers+1, rivers))
+```
+
 If you have too many parentheses like this (the last one is extra)... you will get this error:
-```{r, eval = FALSE}
-all_equal((tress+1), new_tree))
+
+```{r, error = TRUE, class.error="bg-error"}
+all_equal((rivers+1), rivers))
 ```
-`Error: unexpected ')' in "all_equal((trees+1), new_tree))"`
 
 ***
 
-## **`Error: unexpected symbol in "x"`: Not using quotes or backticks when needed**  
+## **`Error: unexpected symbol in "x"`**
+
+**Not using quotes or backticks when needed**  
 
 You will need to use quotes for variable names that have spaces or unusual punctuation. It is best to avoid these and rename variables if a variable name has spaces.
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, class.error="bg-error"}
 library(tibble)
 df_quotes <- tibble("The Values" = c(1,2,3), "names" = c("A", "B", "C"))
 ```
@@ -138,59 +165,76 @@ df_quotes <- tibble("The Values" = c(1,2,3), "names" = c("A", "B", "C"))
 df_quotes
 
 ```
+
 If we want to specifically pull out the column with the variable named `The Values` we need to use quotes or back ticks.
 
-```{r, eval = FALSE}
+```{r}
 df_quotes %>% pull(names) # this works fine! no spaces in `names`
-df_quotes %>% pull(The Values) # this does not work!
+```
+
+```{r}
 df_quotes %>% pull("The Values") # this works
+```
+
+```{r}
 df_quotes %>% pull(`The Values`) # this works
+```
+
+```{r, error = TRUE, class.error="bg-error"}
+df_quotes %>% pull(The Values) # this does not work!
 ```
 
 ***
 
-## **`Error: unexpected input in "x"`: Copy+pasting quotation marks**
+## **`Error: unexpected input in "x"`**
+
+**Copy+pasting quotation marks**
 
 If you copy paste code form somewhere with curly quotation marks, it will not work.
 
-```{r, eval = FALSE}
+```{r}
 df_quotes %>% pull("The Values") # this works
+```
+
+```{r, error = TRUE, class.error="bg-error"}
 df_quotes %>% pull(“The Values”) # this doesn't work
 ```
 
 ***
 
 
-## **`Error in `validate_mapping()`: Forgetting to use `+` to add `ggplot2` layers**
+## **`ℹ Did you use '%>%' or '|>' instead of '+'?`**
+
+**Forgetting to use `+` to add `ggplot2` layers**
 
 This will not work:
-```{r, eval=FALSE}
+
+```{r, error = TRUE, class.error="bg-error"}
 ggplot(data = iris, aes(x = Species, y = Petal.Length)) %>%
   geom_boxplot()
 ```
 
 This will work:
-```{r, eval=FALSE}
+
+```{r, out.width = "30%"}
 ggplot(data = iris, aes(x = Species, y = Petal.Length)) +
   geom_boxplot()
 ```
 
 ***
 
-## **`Error in `+.gg`!: Using `+` at the start of a line, not the end of the previous line to add `ggplot2` layers**
+## **``Error in `+.gg`:`` ``ℹ Did you accidentally put `+` on a new line?``**
 
 This will not work:
 
-```{r, eval=FALSE}
+```{r, error = TRUE, class.error="bg-error", out.width = "30%"}
 ggplot(data = iris, aes(x = Species, y = Petal.Length))
  +  geom_boxplot()
 ```
 
 This will work:
 
-```{r, eval=FALSE}
+```{r, out.width = "30%", class.error="bg-error"}
 ggplot(data = iris, aes(x = Species, y = Petal.Length)) +
   geom_boxplot()
 ```
-
-

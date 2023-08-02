@@ -13,7 +13,7 @@
 
 <title>Syllabus</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -144,11 +144,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -177,8 +181,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -186,16 +190,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -277,21 +274,31 @@ $(document).ready(function () {
 </div>
 
 
-<p><strong>Epi/Biostats Summer Institute - Introduction to R for Public Health Researchers 140.604.79</strong></p>
-<p><strong>Overview:</strong> This course will provide <em>“hands-on” training</em> for learning how to analyze data in the R statistical software package. We will cover data input/output, data management and manipulation, and how to make useful and informative graphics.</p>
+<p><strong>Epi/Biostats Summer Institute - Introduction to R for Public
+Health Researchers 140.604.79</strong></p>
+<p><strong>Overview:</strong> This course will provide <em>“hands-on”
+training</em> for learning how to analyze data in the R statistical
+software package. We will cover data input/output, data management and
+manipulation, and how to make useful and informative graphics.</p>
 <div id="logistics" class="section level3">
 <h3>Logistics</h3>
 <hr />
 <p><strong>When:</strong></p>
 <ul>
-<li><strong>Dates:</strong> June 12-16 and 20-23, 2023 (In recognition of <a href="https://en.wikipedia.org/wiki/Juneteenth">Juneteenth</a>, there will be <strong>no class on Monday June 19th, 2023</strong>.)</li>
+<li><strong>Dates:</strong> June 12-16 and 20-23, 2023 (In recognition
+of <a href="https://en.wikipedia.org/wiki/Juneteenth">Juneteenth</a>,
+there will be <strong>no class on Monday June 19th, 2023</strong>.)</li>
 <li><strong>Time:</strong> 1:30 p.m. - 5:00 p.m. ET</li>
 </ul>
 <p><strong>Where:</strong></p>
 <ul>
-<li><strong>Class Website:</strong> <a href="http://jhudatascience.org/intro_to_r/" class="uri">http://jhudatascience.org/intro_to_r/</a><br />
+<li><strong>Class Website:</strong> <a
+href="http://jhudatascience.org/intro_to_r/"
+class="uri">http://jhudatascience.org/intro_to_r/</a><br />
 </li>
-<li><strong>CoursePlus:</strong> <a href="https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/20767/" class="uri">https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/20767/</a></li>
+<li><strong>CoursePlus:</strong> <a
+href="https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/20767/"
+class="uri">https://courseplus.jhu.edu/core/index.cfm/go/syl:syl.public.view/coid/20767/</a></li>
 <li>Course lectures and labs will be online through Zoom</li>
 <li>Zoom link and Slack link will be emailed to students</li>
 <li>Communication will mainly occur through Slack</li>
@@ -301,8 +308,13 @@ $(document).ready(function () {
 <h3>Instruction Team</h3>
 <hr />
 <ul>
-<li><strong>Instructors:</strong> <a href="https://carriewright11.github.io/">Carrie Wright</a> (cwrigh60 at jhu.edu), <a href="https://www.avahoffman.com/">Ava Hoffman</a> (ava.hoffman at jhu.edu), <a href="https://clifmckee.github.io/">Clifton McKee</a> (cmckee7 at jhu.edu)</li>
-<li><strong>Teaching Assistants:</strong> Rupshikha Sen (rsen6 at jhmi.edu)</li>
+<li><strong>Instructors:</strong> <a
+href="https://carriewright11.github.io/">Carrie Wright</a> (cwrigh60 at
+jhu.edu), <a href="https://www.avahoffman.com/">Ava Hoffman</a>
+(ava.hoffman at jhu.edu), <a href="https://clifmckee.github.io/">Clifton
+McKee</a> (cmckee7 at jhu.edu)</li>
+<li><strong>Teaching Assistants:</strong> Rupshikha Sen (rsen6 at
+jhmi.edu)</li>
 </ul>
 </div>
 <div id="course-format" class="section level3">
@@ -310,40 +322,55 @@ $(document).ready(function () {
 <hr />
 <ul>
 <li>Each class will consist of 2 or 3 hour-long modules.</li>
-<li>Each module features a lecture and an R programming lab, where students apply the skills taught in the modules to real data in breakout rooms.</li>
+<li>Each module features a lecture and an R programming lab, where
+students apply the skills taught in the modules to real data in breakout
+rooms.</li>
 <li>Class sessions will be recorded and later posted.</li>
-<li>If you have a question not covered during class, please post it on Slack. This allows everyone to see it. If another student does not answer your question (which we encourage!), we will try to answer it within 24 hours. If you feel uncomfortable posting a question publicly, let a TA or instructor know your question and we will post it for you anonymously.</li>
-<li>To get the most out of this class, if possible, we suggest working virtually with a <strong>large monitor or two screens</strong>. This setup allows you to follow along on Zoom while also doing the hands-on coding.</li>
+<li>If you have a question not covered during class, please post it on
+Slack. This allows everyone to see it. If another student does not
+answer your question (which we encourage!), we will try to answer it
+within 24 hours. If you feel uncomfortable posting a question publicly,
+let a TA or instructor know your question and we will post it for you
+anonymously.</li>
+<li>To get the most out of this class, if possible, we suggest working
+virtually with a <strong>large monitor or two screens</strong>. This
+setup allows you to follow along on Zoom while also doing the hands-on
+coding.</li>
 </ul>
 <details>
 <summary>
-<span style="color: #5383bb;"> <strong>Please click here for details about using Zoom.</strong></span>
+<span style="color: #5383bb;"> <strong>Please click here for details
+about using Zoom.</strong></span>
 </summary>
 <p>Zoom + Working Virtually</p>
 <hr />
 <ul>
-<li>Please be aware that there is the option to use closed captioning:</li>
+<li>Please be aware that there is the option to use closed
+captioning:</li>
 </ul>
-<div class="figure">
-<img src="docs/images/CC.png" alt="" />
-<p class="caption">closed captioning on zoom</p>
+<div class="float">
+<img src="docs/images/CC.png" alt="closed captioning on zoom" />
+<div class="figcaption">closed captioning on zoom</div>
 </div>
 <ul>
-<li>During lectures you can indicate how you feel about the pace of the course like so:</li>
+<li>During lectures you can indicate how you feel about the pace of the
+course like so:</li>
 </ul>
-<div class="figure">
-<img src="docs/images/slow_fast_reactions.png" alt="" />
-<p class="caption">reactions about pace</p>
+<div class="float">
+<img src="docs/images/slow_fast_reactions.png"
+alt="reactions about pace" />
+<div class="figcaption">reactions about pace</div>
 </div>
 <ul>
 <li>In breakout room sessions you can ask for help like so:</li>
 </ul>
-<div class="figure">
-<img src="docs/images/help.png" alt="" />
-<p class="caption">ask for help</p>
+<div class="float">
+<img src="docs/images/help.png" alt="ask for help" />
+<div class="figcaption">ask for help</div>
 </div>
 <ul>
-<li>For directions on how to change breakout rooms click <a href="https://docs.google.com/document/d/1YP1pZF1bIm66_Tl15Y3eHl8pGxNIASD33mKCtGCfQzc/edit?usp=sharing">here</a>.</li>
+<li>For directions on how to change breakout rooms click <a
+href="https://docs.google.com/document/d/1YP1pZF1bIm66_Tl15Y3eHl8pGxNIASD33mKCtGCfQzc/edit?usp=sharing">here</a>.</li>
 </ul>
 <hr />
 </details>
@@ -367,41 +394,61 @@ $(document).ready(function () {
 <div id="course-evaluation" class="section level3">
 <h3>Course Evaluation</h3>
 <hr />
-<p>Course evaluations are very important for the school to determine what courses to continue to support. It also helps us to improve the course with your feedback.</p>
-<p>Use this link to access the evaluation: <a href="https://courseevaluations.jhsph.edu" class="uri">https://courseevaluations.jhsph.edu</a></p>
-<p>Use your JHED ID or and password to log in. If you do not have a JHED ID, sign in as a “Guest User” using the email provided to create your JHU login during course registration. Please contact <a href="mailto:JHSPH.courseeval@jhu.edu" class="email">JHSPH.courseeval@jhu.edu</a> for assistance.</p>
-<p>All non-auditing institute students (whether they are taking courses for credit or not) are eligible to evaluate their courses.</p>
+<p>Course evaluations are very important for the school to determine
+what courses to continue to support. It also helps us to improve the
+course with your feedback.</p>
+<p>Use this link to access the evaluation: <a
+href="https://courseevaluations.jhsph.edu"
+class="uri">https://courseevaluations.jhsph.edu</a></p>
+<p>Use your JHED ID or and password to log in. If you do not have a JHED
+ID, sign in as a “Guest User” using the email provided to create your
+JHU login during course registration. Please contact <a
+href="mailto:JHSPH.courseeval@jhu.edu"
+class="email">JHSPH.courseeval@jhu.edu</a> for assistance.</p>
+<p>All non-auditing institute students (whether they are taking courses
+for credit or not) are eligible to evaluate their courses.</p>
 </div>
 <div id="grading" class="section level3">
 <h3>Grading</h3>
 <hr />
 <ol style="list-style-type: decimal">
-<li>Attendance/Participation: 20% (Please let the instructors know if attendance will be difficult for you.)</li>
+<li>Attendance/Participation: 20% (Please let the instructors know if
+attendance will be difficult for you.)</li>
 <li>Homework: 3 x 15%</li>
 <li>Final “Project”: 35%</li>
 </ol>
 <p>All assignments are due June 30th at 11:59pm ET.</p>
-<p><strong>Note</strong>: only people taking the course for credit must turn in the assignments. However, we will evaluate all submitted assignments in case others would like feedback on their work.</p>
+<p><strong>Note</strong>: only people taking the course for credit must
+turn in the assignments. However, we will evaluate all submitted
+assignments in case others would like feedback on their work.</p>
 <p><br></p>
 </div>
 <div id="submitting-assignments" class="section level3">
 <h3>Submitting Assignments</h3>
 <hr />
-<p>Submit each assignment to the designated <a href="https://courseplus.jhu.edu/core/index.cfm/go/db:main/coID/20767/">Drop Box on CoursePlus</a>.</p>
+<p>Submit each assignment to the designated <a
+href="https://courseplus.jhu.edu/core/index.cfm/go/db:main/coID/20767/">Drop
+Box on CoursePlus</a>.</p>
 <p>You should complete the following:</p>
 <ol style="list-style-type: decimal">
-<li><a href="https://app.dataquest.io/m/499/introduction-to-programming-in-r">Data Quest: Introduction to Programming in R</a></li>
+<li><a
+href="https://app.dataquest.io/m/499/introduction-to-programming-in-r">Data
+Quest: Introduction to Programming in R</a></li>
 <li>Homework 2 Problem Set (submit your Rmd file):
 <ul>
-<li><a href="modules/HW/homework2.Rmd">Questions (Rmd)</a>, <a href="modules/HW/homework2.html">Questions (HTML)</a><br />
+<li><a href="modules/HW/homework2.Rmd">Questions (Rmd)</a>, <a
+href="modules/HW/homework2.html">Questions (HTML)</a><br />
 </li>
-<li><a href="modules/HW/homework2_key.Rmd">Key (Rmd)</a>, <a href="modules/HW/homework2_key.html">Key (HTML)</a></li>
+<li><a href="modules/HW/homework2_key.Rmd">Key (Rmd)</a>, <a
+href="modules/HW/homework2_key.html">Key (HTML)</a></li>
 </ul></li>
 <li>Homework 3 Problem Set (submit your Rmd file):
 <ul>
-<li><a href="modules/HW/homework3.Rmd">Questions (Rmd)</a>, <a href="modules/HW/homework3.html">Questions (HTML)</a><br />
+<li><a href="modules/HW/homework3.Rmd">Questions (Rmd)</a>, <a
+href="modules/HW/homework3.html">Questions (HTML)</a><br />
 </li>
-<li><a href="modules/HW/homework3_key.Rmd">Key (Rmd)</a>, <a href="modules/HW/homework3_key.html">Key (HTML)</a></li>
+<li><a href="modules/HW/homework3_key.Rmd">Key (Rmd)</a>, <a
+href="modules/HW/homework3_key.html">Key (HTML)</a></li>
 </ul></li>
 <li>Final Project (see below)</li>
 </ol>
@@ -410,8 +457,11 @@ $(document).ready(function () {
 <div id="assignment-extensions" class="section level3">
 <h3>Assignment Extensions</h3>
 <hr />
-<p>We know that you will try your best to submit assignments on time. However, we understand that life happens. We can accept late assignments with a deduction of 2% of your assignment score per day late.</p>
-<p>For example, if you scored 9/10 on an assignment (90%) but turned it in two days late, your score would be 8.6/10 (86%).</p>
+<p>We know that you will try your best to submit assignments on time.
+However, we understand that life happens. We can accept late assignments
+with a deduction of 2% of your assignment score per day late.</p>
+<p>For example, if you scored 9/10 on an assignment (90%) but turned it
+in two days late, your score would be 8.6/10 (86%).</p>
 <p><br></p>
 </div>
 <div id="final-projects" class="section level3">
@@ -423,53 +473,91 @@ $(document).ready(function () {
 <li>doing some light data cleaning</li>
 <li>performing some data summarization</li>
 <li>creating a couple of visualizations</li>
-<li>doing some very light statistical analysis, like regression or t-tests</li>
+<li>doing some very light statistical analysis, like regression or
+t-tests</li>
 </ul>
-<p>You may use one of these public datasets, a different public dataset, or your own data for the project. If using your own dataset, be sure any sensitive information is protected.</p>
+<p>You may use one of these public datasets, a different public dataset,
+or your own data for the project. If using your own dataset, be sure any
+sensitive information is protected.</p>
 <ul>
-<li><a href="https://www.data.gov/" class="uri">https://www.data.gov/</a></li>
-<li><a href="https://data.baltimorecity.gov/" class="uri">https://data.baltimorecity.gov/</a></li>
-<li><a href="https://github.com/awesomedata/awesome-public-datasets" class="uri">https://github.com/awesomedata/awesome-public-datasets</a></li>
+<li><a href="https://www.data.gov/"
+class="uri">https://www.data.gov/</a></li>
+<li><a href="https://data.baltimorecity.gov/"
+class="uri">https://data.baltimorecity.gov/</a></li>
+<li><a href="https://github.com/awesomedata/awesome-public-datasets"
+class="uri">https://github.com/awesomedata/awesome-public-datasets</a></li>
 </ul>
-<p>Example projects can be found with the source code: <a href="modules/Project_Example/Project_Example.Rmd">Rmd</a>, and the output <a href="modules/Project_Example/Project_Example.html">html</a> here.</p>
-<p>See the <a href="modules/Project_Guidelines/Project_Guidelines.html">guidelines/instructions</a> for final projects.</p>
+<p>Example projects can be found with the source code: <a
+href="modules/Project_Example/Project_Example.Rmd">Rmd</a>, and the
+output <a href="modules/Project_Example/Project_Example.html">html</a>
+here.</p>
+<p>See the <a
+href="modules/Project_Guidelines/Project_Guidelines.html">guidelines/instructions</a>
+for final projects.</p>
 <p><br></p>
 </div>
 <div id="code-of-conduct" class="section level3">
 <h3>Code of Conduct</h3>
 <hr />
-<p>We would like to create an open, safe, welcoming, diverse, inclusive, intellectually stimulating, and hopefully fun class experience.</p>
-<p>We strive to be a space in which individual differences are respected, so that each individual can reach their fullest potential.</p>
+<p>We would like to create an open, safe, welcoming, diverse, inclusive,
+intellectually stimulating, and hopefully fun class experience.</p>
+<p>We strive to be a space in which individual differences are
+respected, so that each individual can reach their fullest
+potential.</p>
 <div id="guidelines" class="section level4">
 <h4>Guidelines</h4>
 <ul>
 <li>Demonstrating empathy and kindness toward other people</li>
 <li>Giving and gracefully accepting constructive feedback</li>
 <li>Avoiding making assumptions about others</li>
-<li>Being respectful of differing opinions, viewpoints, and experiences</li>
-<li>Take the time to consider how your speech and actions may influence others</li>
-<li>Actively seek to acknowledge and respect the boundaries of other members</li>
+<li>Being respectful of differing opinions, viewpoints, and
+experiences</li>
+<li>Take the time to consider how your speech and actions may influence
+others</li>
+<li>Actively seek to acknowledge and respect the boundaries of other
+members</li>
 <li>Demonstrating academic integrity
 <ul>
-<li>Students can work together, but assignments must show unique contributions from the student who turns in the assignment</li>
-<li>Students can use online resources for help, but assignments must show unique contributions from the student who turns in the assignment - plagiarism is not allowed</li>
-<li>If students are struggling, reach out to instructors or TAs as early as possible</li>
+<li>Students can work together, but assignments must show unique
+contributions from the student who turns in the assignment</li>
+<li>Students can use online resources for help, but assignments must
+show unique contributions from the student who turns in the assignment -
+plagiarism is not allowed</li>
+<li>If students are struggling, reach out to instructors or TAs as early
+as possible</li>
 </ul></li>
 </ul>
-<p>This applies to emails, surveys, Slack, Zoom, office hours, meetings with other students, instructors, or TAs.</p>
-<p><strong>Please reach out to a TA or instructor if you witness or experience a violation of the class guidelines or other JHU codes of conduct.</strong></p>
+<p>This applies to emails, surveys, Slack, Zoom, office hours, meetings
+with other students, instructors, or TAs.</p>
+<p><strong>Please reach out to a TA or instructor if you witness or
+experience a violation of the class guidelines or other JHU codes of
+conduct.</strong></p>
 <ul>
 <li><strong>JHU Student Code of Conduct:</strong><br />
-<a href="https://studentaffairs.jhu.edu/policies-guidelines/student-code/" class="uri">https://studentaffairs.jhu.edu/policies-guidelines/student-code/</a><br />
+<a
+href="https://studentaffairs.jhu.edu/policies-guidelines/student-code/"
+class="uri">https://studentaffairs.jhu.edu/policies-guidelines/student-code/</a><br />
 </li>
 <li><strong>Hopkins School of Medicine:</strong><br />
-<a href="https://www.hopkinsmedicine.org/research/resources/offices-policies/OPC/Research_Integrity/som_code_of_conduct_04302020.pdf" class="uri">https://www.hopkinsmedicine.org/research/resources/offices-policies/OPC/Research_Integrity/som_code_of_conduct_04302020.pdf</a><br />
+<a
+href="https://www.hopkinsmedicine.org/research/resources/offices-policies/OPC/Research_Integrity/som_code_of_conduct_04302020.pdf"
+class="uri">https://www.hopkinsmedicine.org/research/resources/offices-policies/OPC/Research_Integrity/som_code_of_conduct_04302020.pdf</a><br />
 </li>
 <li><strong>JHSPH Academic Ethics Code:</strong><br />
-<a href="https://www.jhsph.edu/offices-and-services/student-affairs/resources/student-policies/_documents/academic-ethics-code.pdf" class="uri">https://www.jhsph.edu/offices-and-services/student-affairs/resources/student-policies/_documents/academic-ethics-code.pdf</a></li>
+<a
+href="https://www.jhsph.edu/offices-and-services/student-affairs/resources/student-policies/_documents/academic-ethics-code.pdf"
+class="uri">https://www.jhsph.edu/offices-and-services/student-affairs/resources/student-policies/_documents/academic-ethics-code.pdf</a></li>
 </ul>
-<p><strong>The University has developed avenues for reporting and for seeking help including:</strong></p>
-<p>● JHU Sexual Assault Helpline, 410-516-7333 (confidential) ● Campus Safety and Security, 410-516-7777 ● University Sexual Assault Response and Prevention website ● Johns Hopkins Compliance Hotline, 844-SPEAK2US (844-733-2528) ● JHU Office of Institutional Equity 410-516-8075 (nonconfidential) ● Johns Hopkins Student Assistance Program (JHSAP), 443-287-7000 ● University Health Services - Mental Health (UHS-MS), 410-955-1892 ● The Faculty and Staff Assistance Program (FASAP), 443-997-7000</p>
+<p><strong>The University has developed avenues for reporting and for
+seeking help including:</strong></p>
+<p>● JHU Sexual Assault Helpline, 410-516-7333 (confidential) ● Campus
+Safety and Security, 410-516-7777 ● University Sexual Assault Response
+and Prevention website ● Johns Hopkins Compliance Hotline, 844-SPEAK2US
+(844-733-2528) ● JHU Office of Institutional Equity 410-516-8075
+(nonconfidential) ● Johns Hopkins Student Assistance Program (JHSAP),
+443-287-7000 ● University Health Services - Mental Health (UHS-MS),
+410-955-1892 ● The Faculty and Staff Assistance Program (FASAP),
+443-997-7000</p>
 </div>
 </div>
 

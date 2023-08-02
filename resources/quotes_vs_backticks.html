@@ -13,7 +13,7 @@
 
 <title>Quotes vs backticks</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -146,11 +146,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -179,8 +183,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -188,16 +192,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -280,27 +277,44 @@ $(document).ready(function () {
 
 <div id="TOC">
 <ul>
-<li><a href="#values-in-general">Values in general</a></li>
-<li><a href="#column-names">Column names</a></li>
-<li><a href="#tibble-for-naming-variables"><code>tibble()</code> for naming variables</a></li>
-<li><a href="#rename"><code>rename()</code></a></li>
-<li><a href="#summarize"><code>summarize()</code></a></li>
-<li><a href="#mutate"><code>mutate()</code></a></li>
-<li><a href="#readr-expects-quotes-not-backticks"><code>readr</code> expects quotes not backticks</a></li>
-<li><a href="#tidyselect-helper-functions-like-contains">tidyselect helper functions like <code>contains()</code></a></li>
-<li><a href="#recode"><code>recode()</code></a></li>
-<li><a href="#case_when"><code>case_when()</code></a></li>
-<li><a href="#stringr-functions"><code>stringr</code> functions</a></li>
-<li><a href="#pivot_longer-and-pivot_wider"><code>pivot_longer</code> and <code>pivot_wider</code></a></li>
-<li><a href="#dont-need-quotes-for-modeling-with-glm">Don’t need quotes for modeling with <code>glm()</code></a></li>
+<li><a href="#values-in-general" id="toc-values-in-general">Values in
+general</a></li>
+<li><a href="#column-names" id="toc-column-names">Column names</a></li>
+<li><a href="#tibble-for-naming-variables"
+id="toc-tibble-for-naming-variables"><code>tibble()</code> for naming
+variables</a></li>
+<li><a href="#rename" id="toc-rename"><code>rename()</code></a></li>
+<li><a href="#summarize"
+id="toc-summarize"><code>summarize()</code></a></li>
+<li><a href="#mutate" id="toc-mutate"><code>mutate()</code></a></li>
+<li><a href="#readr-expects-quotes-not-backticks"
+id="toc-readr-expects-quotes-not-backticks"><code>readr</code> expects
+quotes not backticks</a></li>
+<li><a href="#tidyselect-helper-functions-like-contains"
+id="toc-tidyselect-helper-functions-like-contains">tidyselect helper
+functions like <code>contains()</code></a></li>
+<li><a href="#recode" id="toc-recode"><code>recode()</code></a></li>
+<li><a href="#case_when"
+id="toc-case_when"><code>case_when()</code></a></li>
+<li><a href="#stringr-functions"
+id="toc-stringr-functions"><code>stringr</code> functions</a></li>
+<li><a href="#pivot_longer-and-pivot_wider"
+id="toc-pivot_longer-and-pivot_wider"><code>pivot_longer</code> and
+<code>pivot_wider</code></a></li>
+<li><a href="#dont-need-quotes-for-modeling-with-glm"
+id="toc-dont-need-quotes-for-modeling-with-glm">Don’t need quotes for
+modeling with <code>glm()</code></a></li>
 </ul>
 </div>
 
 <p>When do you use quotes, backticks, or nothing in R?</p>
-<p>There are some inconsistencies across different functions, sometimes you just need to try them out. Always check that your work did what you expect!</p>
+<p>There are some inconsistencies across different functions, sometimes
+you just need to try them out. Always check that your work did what you
+expect!</p>
 <div id="values-in-general" class="section level2">
 <h2>Values in general</h2>
-<p>In general these are the conventions for working with values (recall that values or samples within rows):</p>
+<p>In general these are the conventions for working with values (recall
+that values or samples within rows):</p>
 <table class=" lightable-paper" style="font-size: 18px; font-family: helvetica; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -408,7 +422,8 @@ use <code>backticks</code>
 </div>
 <div id="column-names" class="section level2">
 <h2>Column names</h2>
-<p>Column names are slightly different. We will go over some of these situations in more detail, but here is a summary:</p>
+<p>Column names are slightly different. We will go over some of these
+situations in more detail, but here is a summary:</p>
 <table class=" lightable-paper" style="font-size: 18px; font-family: helvetica; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -523,15 +538,19 @@ Only backticks if atypical
 <div id="tibble-for-naming-variables" class="section level2">
 <h2><code>tibble()</code> for naming variables</h2>
 <ul>
-<li><p>we suggest that you avoid nonstandard <strong>variable</strong> names - if you do you do not need any quotes or backticks around the name within <code>tibble</code></p></li>
-<li><p>backticks are typically for nonstandard <strong>variable</strong> names (aka column names):</p>
+<li><p>we suggest that you avoid nonstandard <strong>variable</strong>
+names - if you do you do not need any quotes or backticks around the
+name within <code>tibble</code></p></li>
+<li><p>backticks are typically for nonstandard <strong>variable</strong>
+names (aka column names):</p>
 <ul>
 <li>those with spaces <code>name with space</code></li>
 <li>those with punctuation <code>name!</code></li>
 <li>those that are just numbers <code>12</code></li>
 <li>those that start with numbers <code>1name</code></li>
 </ul></li>
-<li><p>single or double quotes are typically used for <strong>character strings</strong> for the values within the data</p></li>
+<li><p>single or double quotes are typically used for <strong>character
+strings</strong> for the values within the data</p></li>
 </ul>
 <p>For example, in the <code>iris</code> data set:</p>
 <pre class="r"><code>head(iris)</code></pre>
@@ -542,10 +561,17 @@ Only backticks if atypical
 ## 4          4.6         3.1          1.5         0.2  setosa
 ## 5          5.0         3.6          1.4         0.2  setosa
 ## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
-<p>Sepal.Length is a column/variable name that would often need backticks, while the Species setosa is character string value for the variable Species, and it would need quotes.</p>
+<p>Sepal.Length is a column/variable name that would often need
+backticks, while the Species setosa is character string value for the
+variable Species, and it would need quotes.</p>
 <p>Let’s check out how some functions work with this.</p>
-<p>In the <code>tibble()</code> function when specifying names we need to use backticks when we have spaces or punctuation or variable names that are just numeric characters (this also works with single quotes or double quotes, but backticks are more common practice).</p>
-<p>This is not required if we have a typical type of name without spaces or punctuation. However if we do use quotes on such a name is is not a problem either.</p>
+<p>In the <code>tibble()</code> function when specifying names we need
+to use backticks when we have spaces or punctuation or variable names
+that are just numeric characters (this also works with single quotes or
+double quotes, but backticks are more common practice).</p>
+<p>This is not required if we have a typical type of name without spaces
+or punctuation. However if we do use quotes on such a name is is not a
+problem either.</p>
 <pre class="r"><code># the preferred method
 
 ex_data &lt;- tibble(
@@ -561,11 +587,11 @@ ex_data</code></pre>
 <pre><code>## # A tibble: 5 × 6
 ##   `Number!` `Var with space` `2022` `2021` typical typical2
 ##       &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1         1 A                     1      2       1        1
-## 2         2 B                     2      3       2        2
-## 3         3 C                     4      1       3        3
-## 4         4 D                     3      5       4        4
-## 5         5 E                     5      4       5        5</code></pre>
+## 1         1 A                     5      3       1        1
+## 2         2 B                     1      5       2        2
+## 3         3 C                     2      4       3        3
+## 4         4 D                     3      1       4        4
+## 5         5 E                     4      2       5        5</code></pre>
 <pre class="r"><code># this works
 
 ex_data &lt;- tibble(
@@ -580,11 +606,11 @@ ex_data</code></pre>
 <pre><code>## # A tibble: 5 × 6
 ##   `Number!` `Var with space` `2022` `2021` typical typical2
 ##       &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1         1 A                     2      4       1        1
-## 2         2 B                     4      2       2        2
-## 3         3 C                     5      1       3        3
-## 4         4 D                     1      3       4        4
-## 5         5 E                     3      5       5        5</code></pre>
+## 1         1 A                     5      2       1        1
+## 2         2 B                     2      5       2        2
+## 3         3 C                     1      1       3        3
+## 4         4 D                     4      4       4        4
+## 5         5 E                     3      3       5        5</code></pre>
 </div>
 <div id="rename" class="section level2">
 <h2><code>rename()</code></h2>
@@ -594,32 +620,32 @@ ex_data</code></pre>
 <pre><code>## # A tibble: 5 × 6
 ##   Number `Var with space` `2022` `2021` typical typical2
 ##    &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1      1 A                     2      4       1        1
-## 2      2 B                     4      2       2        2
-## 3      3 C                     5      1       3        3
-## 4      4 D                     1      3       4        4
-## 5      5 E                     3      5       5        5</code></pre>
+## 1      1 A                     5      2       1        1
+## 2      2 B                     2      5       2        2
+## 3      3 C                     1      1       3        3
+## 4      4 D                     4      4       4        4
+## 5      5 E                     3      3       5        5</code></pre>
 <pre class="r"><code>ex_data %&gt;%
   rename(Number = &quot;Number!&quot;)</code></pre>
 <pre><code>## # A tibble: 5 × 6
 ##   Number `Var with space` `2022` `2021` typical typical2
 ##    &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1      1 A                     2      4       1        1
-## 2      2 B                     4      2       2        2
-## 3      3 C                     5      1       3        3
-## 4      4 D                     1      3       4        4
-## 5      5 E                     3      5       5        5</code></pre>
+## 1      1 A                     5      2       1        1
+## 2      2 B                     2      5       2        2
+## 3      3 C                     1      1       3        3
+## 4      4 D                     4      4       4        4
+## 5      5 E                     3      3       5        5</code></pre>
 <pre class="r"><code># not necessary but not problematic to put new typical name in quotes
 ex_data %&gt;%
   rename(&quot;Number&quot; = &quot;Number!&quot;)</code></pre>
 <pre><code>## # A tibble: 5 × 6
 ##   Number `Var with space` `2022` `2021` typical typical2
 ##    &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1      1 A                     2      4       1        1
-## 2      2 B                     4      2       2        2
-## 3      3 C                     5      1       3        3
-## 4      4 D                     1      3       4        4
-## 5      5 E                     3      5       5        5</code></pre>
+## 1      1 A                     5      2       1        1
+## 2      2 B                     2      5       2        2
+## 3      3 C                     1      1       3        3
+## 4      4 D                     4      4       4        4
+## 5      5 E                     3      3       5        5</code></pre>
 <p>Here is another example…</p>
 <pre class="r"><code># This works because Sepal.Length already exists as a column name. However `new name!` needs backticks because it doesn&#39;t exist yet and R needs to know what it is (not a not equal to conditional for example), as R could interpret it differently.
 
@@ -635,7 +661,8 @@ iris %&gt;%
 ## 6       5.4         3.9          1.7         0.4  setosa</code></pre>
 <p>##<code>filter()</code> function</p>
 <p>It is best to avoid using quotes for column names!</p>
-<p>Even though this is an atypical column name, this will not work like you would expect.</p>
+<p>Even though this is an atypical column name, this will not work like
+you would expect.</p>
 <p>Here we see values less than 5 for <code>Sepal.Length</code>.</p>
 <pre class="r"><code>filter(iris, &quot;Sepal.Length&quot; &gt; 5) %&gt;% head()</code></pre>
 <pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
@@ -645,7 +672,8 @@ iris %&gt;%
 ## 4          4.6         3.1          1.5         0.2  setosa
 ## 5          5.0         3.6          1.4         0.2  setosa
 ## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
-<p>Instead stick to just using the column name as it is - filter only works on columns that already exists, so it knows what to look for.</p>
+<p>Instead stick to just using the column name as it is - filter only
+works on columns that already exists, so it knows what to look for.</p>
 <p>This works!</p>
 <pre class="r"><code>filter(iris, Sepal.Length &gt; 5) %&gt;% head()</code></pre>
 <pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
@@ -658,7 +686,8 @@ iris %&gt;%
 </div>
 <div id="summarize" class="section level2">
 <h2><code>summarize()</code></h2>
-<p>Only backticks will work here. Otherwise, the variable gets interpreted as a character string if we use quotes.</p>
+<p>Only backticks will work here. Otherwise, the variable gets
+interpreted as a character string if we use quotes.</p>
 <pre class="r"><code>ex_data %&gt;%
   summarize(mean = mean(`2022`))</code></pre>
 <pre><code>## # A tibble: 1 × 1
@@ -680,29 +709,29 @@ iris %&gt;%
 <pre><code>## # A tibble: 5 × 6
 ##   `Number!` `Var with space` `2022` `2021` typical typical2
 ##       &lt;dbl&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1         3 A                     2      4       1        1
-## 2         4 B                     4      2       2        2
-## 3         5 C                     5      1       3        3
-## 4         6 D                     1      3       4        4
-## 5         7 E                     3      5       5        5</code></pre>
+## 1         3 A                     5      2       1        1
+## 2         4 B                     2      5       2        2
+## 3         5 C                     1      1       3        3
+## 4         6 D                     4      4       4        4
+## 5         7 E                     3      3       5        5</code></pre>
 <pre class="r"><code>ex_data %&gt;% mutate(&quot;Number!&quot; = `Number!` + 2)</code></pre>
 <pre><code>## # A tibble: 5 × 6
 ##   `Number!` `Var with space` `2022` `2021` typical typical2
 ##       &lt;dbl&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1         3 A                     2      4       1        1
-## 2         4 B                     4      2       2        2
-## 3         5 C                     5      1       3        3
-## 4         6 D                     1      3       4        4
-## 5         7 E                     3      5       5        5</code></pre>
+## 1         3 A                     5      2       1        1
+## 2         4 B                     2      5       2        2
+## 3         5 C                     1      1       3        3
+## 4         6 D                     4      4       4        4
+## 5         7 E                     3      3       5        5</code></pre>
 <pre class="r"><code>ex_data %&gt;% mutate(Typical = `Number!` + 2)</code></pre>
 <pre><code>## # A tibble: 5 × 7
 ##   `Number!` `Var with space` `2022` `2021` typical typical2 Typical
 ##       &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;   &lt;dbl&gt;
-## 1         1 A                     2      4       1        1       3
-## 2         2 B                     4      2       2        2       4
-## 3         3 C                     5      1       3        3       5
-## 4         4 D                     1      3       4        4       6
-## 5         5 E                     3      5       5        5       7</code></pre>
+## 1         1 A                     5      2       1        1       3
+## 2         2 B                     2      5       2        2       4
+## 3         3 C                     1      1       3        3       5
+## 4         4 D                     4      4       4        4       6
+## 5         5 E                     3      3       5        5       7</code></pre>
 </div>
 <div id="readr-expects-quotes-not-backticks" class="section level2">
 <h2><code>readr</code> expects quotes not backticks</h2>
@@ -710,7 +739,8 @@ iris %&gt;%
 <pre class="r"><code># Use this
 vacc &lt;- read_csv(file = &quot;http://jhudatascience.org/intro_to_r/data/vaccinations.csv&quot;)</code></pre>
 </div>
-<div id="tidyselect-helper-functions-like-contains" class="section level2">
+<div id="tidyselect-helper-functions-like-contains"
+class="section level2">
 <h2>tidyselect helper functions like <code>contains()</code></h2>
 <p>These require quotes.</p>
 <pre class="r"><code>select(iris, contains(&quot;et&quot;)) %&gt;% head(n = 2)</code></pre>
@@ -796,7 +826,9 @@ vacc &lt;- read_csv(file = &quot;http://jhudatascience.org/intro_to_r/data/vacci
 <pre class="r"><code>x &lt;- c(&quot;cat&quot;, &quot;dog&quot;, &quot;mouse&quot;)
 # this will not work:
 # x &lt;- c(`cat`, `dog`, `mouse`)</code></pre>
-<p>When looking for patterns we need to use quotes because we are using it as a character string and quotes designate this. Backticks will not work.</p>
+<p>When looking for patterns we need to use quotes because we are using
+it as a character string and quotes designate this. Backticks will not
+work.</p>
 <pre class="r"><code>x &lt;- c(&quot;cat&quot;, &quot;dog&quot;, &quot;mouse&quot;)
 # this will not work:
 # x &lt;- c(`cat`, `dog`, `mouse`)
@@ -807,7 +839,8 @@ str_detect(pattern = &quot;t&quot;, string = x)</code></pre>
 </div>
 <div id="pivot_longer-and-pivot_wider" class="section level2">
 <h2><code>pivot_longer</code> and <code>pivot_wider</code></h2>
-<p>For column names that do not exist yet, you need quotes (single or double). Backticks will not work.</p>
+<p>For column names that do not exist yet, you need quotes (single or
+double). Backticks will not work.</p>
 <pre class="r"><code>library(jhur)
 wide_circ &lt;- read_circulator()
 

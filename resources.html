@@ -13,7 +13,7 @@
 
 <title>Resources</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -146,11 +146,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -179,8 +183,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -188,16 +192,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -284,81 +281,176 @@ $(document).ready(function () {
 <hr />
 <p><strong>Need to review?</strong></p>
 <ul>
-<li><a href="https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-1.pdf">Day 1 - RStudio &amp; Reproducibility Cheatsheet</a></li>
-<li><a href="https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-2.pdf">Day 2 - Basic R &amp; Data Input/Output Cheatsheet</a></li>
-<li><a href="https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-3.pdf">Day 3 - Data Subsetting Cheatsheet</a></li>
-<li><a href="https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-4.pdf">Day 4 - Data Summarization &amp; Data Classes Cheatsheet</a></li>
-<li><a href="https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-5.pdf">Day 5 - Data Cleaning Cheatsheet</a></li>
-<li><a href="https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-6.pdf">Day 6 - Data Manipulation &amp; Data Visualization <code>esquisse</code> Cheatsheet</a></li>
-<li><a href="https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-7.pdf">Day 7 - Data Visualization <code>ggplot2</code> &amp; Factors Cheatsheet</a></li>
-<li><a href="https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-8.pdf">Day 8 - Statistics Cheatsheet</a></li>
-<li><a href="https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-9.pdf">Day 9 - Functions Cheatsheet</a></li>
+<li><a
+href="https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-1.pdf">Day
+1 - RStudio &amp; Reproducibility Cheatsheet</a></li>
+<li><a
+href="https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-2.pdf">Day
+2 - Basic R &amp; Data Input/Output Cheatsheet</a></li>
+<li><a
+href="https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-3.pdf">Day
+3 - Data Subsetting Cheatsheet</a></li>
+<li><a
+href="https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-4.pdf">Day
+4 - Data Summarization &amp; Data Classes Cheatsheet</a></li>
+<li><a
+href="https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-5.pdf">Day
+5 - Data Cleaning Cheatsheet</a></li>
+<li><a
+href="https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-6.pdf">Day
+6 - Data Manipulation &amp; Data Visualization <code>esquisse</code>
+Cheatsheet</a></li>
+<li><a
+href="https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-7.pdf">Day
+7 - Data Visualization <code>ggplot2</code> &amp; Factors
+Cheatsheet</a></li>
+<li><a
+href="https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-8.pdf">Day
+8 - Statistics Cheatsheet</a></li>
+<li><a
+href="https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-9.pdf">Day
+9 - Functions Cheatsheet</a></li>
 </ul>
-<p>If you need to check what packages are part of the <code>tidyverse</code>, you can do so at this <a href="https://www.tidyverse.org/packages/">link</a>.</p>
-<p>RStudio shortcuts can be found <a href="http://www.rstudio.com/ide/docs/using/keyboard_shortcuts">here</a>.</p>
+<p>If you need to check what packages are part of the
+<code>tidyverse</code>, you can do so at this <a
+href="https://www.tidyverse.org/packages/">link</a>.</p>
+<p>RStudio shortcuts can be found <a
+href="http://www.rstudio.com/ide/docs/using/keyboard_shortcuts">here</a>.</p>
 <p><strong>Want background reading?</strong></p>
 <ul>
-<li><a href="https://doi.org/10.1371/journal.pcbi.1010372">Lawlor et al. 2022</a>: Ten simple rules for teaching yourself R</li>
+<li><a href="https://doi.org/10.1371/journal.pcbi.1010372">Lawlor et
+al. 2022</a>: Ten simple rules for teaching yourself R</li>
 </ul>
 <p><strong>Need help?</strong></p>
 <ul>
-<li><a href="https://www.rstudio.com/resources/cheatsheets/">Various RStudio “Cheatsheets”</a><br />
+<li><a href="https://www.rstudio.com/resources/cheatsheets/">Various
+RStudio “Cheatsheets”</a><br />
 </li>
-<li><a href="http://cran.r-project.org/doc/contrib/Short-refcard.pdf">R reference card</a></li>
-<li><a href="https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf">R jargon</a><br />
+<li><a href="http://cran.r-project.org/doc/contrib/Short-refcard.pdf">R
+reference card</a></li>
+<li><a
+href="https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf">R
+jargon</a><br />
 </li>
-<li><a href="https://cran.r-project.org/doc/manuals/r-release/R-lang.pdf">R terminology</a></li>
-<li><a href="https://www.tidyverse.org/packages/">What is the Tidyverse?</a></li>
+<li><a
+href="https://cran.r-project.org/doc/manuals/r-release/R-lang.pdf">R
+terminology</a></li>
+<li><a href="https://www.tidyverse.org/packages/">What is the
+Tidyverse?</a></li>
 <li><a href="https://youtu.be/LEkNfJgpunQ">Video on data import</a></li>
-<li>Animations of join functions: <a href="https://github.com/gadenbuie/tidyexplain/blob/master/images/full-join.gif"><code>full-join()</code></a> <a href="https://github.com/gadenbuie/tidyexplain/blob/master/images/inner-join.gif"><code>inner_join()</code></a> <a href="https://github.com/gadenbuie/tidyexplain/blob/master/images/left-join.gif"><code>left-join()</code></a> <a href="https://github.com/gadenbuie/tidyexplain/blob/master/images/right-join.gif"><code>right-join()</code></a></li>
-<li><a href="https://www.youtube.com/watch?v=we6vwB7DsNU">video</a> for PC users who want to see how to move files around (especially from downloads)</li>
-<li><a href="https://www.youtube.com/watch?v=Ao9e0cDzMrE">video</a> for Mac users who want to see how to move files around (especially from downloads)</li>
-<li><a href="https://docs.google.com/presentation/d/18u1Vhd3Uq-QprC0btpxS_-Ka-LKVUvncyoqdbGdb-g4/edit?usp=sharing">Extra information about file paths</a></li>
-<li><a href="https://r-graph-gallery.com/ggplot2-package.html"><code>ggplot2</code> gallery</a> - See what is possible with <code>ggplot2</code> to create graphs in R</li>
-<li><a href="https://jhudatascience.org/tidyversecourse/dataviz.html#making-good-plots">Visualization best practices</a></li>
-<li><a href="https://github.com/claragranell/ggplot2/blob/main/ggplot_theme_system_cheatsheet.pdf">ggplot2 theme cheatsheet</a></li>
-<li><a href="https://infogram.com/page/choose-the-right-chart-data-visualization">Guide on when to use which plot</a></li>
-<li><a href="https://jhudatascience.org/intro_to_r/quotes_vs_backticks.html">Guide on when to use quotes or backticks</a></li>
-<li><a href="https://www.scribbr.com/statistics/statistical-tests/">Guide on when to use what stats test</a></li>
-<li><a href="https://jhudatascience.org/tidyversecourse/model.html#linear-modeling">Modeling 101</a></li>
+<li>Animations of join functions: <a
+href="https://github.com/gadenbuie/tidyexplain/blob/master/images/full-join.gif"><code>full-join()</code></a>
+<a
+href="https://github.com/gadenbuie/tidyexplain/blob/master/images/inner-join.gif"><code>inner_join()</code></a>
+<a
+href="https://github.com/gadenbuie/tidyexplain/blob/master/images/left-join.gif"><code>left-join()</code></a>
+<a
+href="https://github.com/gadenbuie/tidyexplain/blob/master/images/right-join.gif"><code>right-join()</code></a></li>
+<li><a href="https://www.youtube.com/watch?v=we6vwB7DsNU">video</a> for
+PC users who want to see how to move files around (especially from
+downloads)</li>
+<li><a href="https://www.youtube.com/watch?v=Ao9e0cDzMrE">video</a> for
+Mac users who want to see how to move files around (especially from
+downloads)</li>
+<li><a
+href="https://docs.google.com/presentation/d/18u1Vhd3Uq-QprC0btpxS_-Ka-LKVUvncyoqdbGdb-g4/edit?usp=sharing">Extra
+information about file paths</a></li>
+<li><a
+href="https://r-graph-gallery.com/ggplot2-package.html"><code>ggplot2</code>
+gallery</a> - See what is possible with <code>ggplot2</code> to create
+graphs in R</li>
+<li><a
+href="https://jhudatascience.org/tidyversecourse/dataviz.html#making-good-plots">Visualization
+best practices</a></li>
+<li><a
+href="https://github.com/claragranell/ggplot2/blob/main/ggplot_theme_system_cheatsheet.pdf">ggplot2
+theme cheatsheet</a></li>
+<li><a
+href="https://infogram.com/page/choose-the-right-chart-data-visualization">Guide
+on when to use which plot</a></li>
+<li><a
+href="https://jhudatascience.org/intro_to_r/quotes_vs_backticks.html">Guide
+on when to use quotes or backticks</a></li>
+<li><a
+href="https://www.scribbr.com/statistics/statistical-tests/">Guide on
+when to use what stats test</a></li>
+<li><a
+href="https://jhudatascience.org/tidyversecourse/model.html#linear-modeling">Modeling
+101</a></li>
+<li><a
+href="https://www.statology.org/null-residual-deviance/">Interpreting
+GLM output (e.g., deviance)</a></li>
 </ul>
 <p><strong>Want more?</strong></p>
 <ul>
-<li><a href="https://jhudatascience.org/tidyversecourse/">Tidyverse Skills for Data Science Book</a> (<strong>a great next step</strong> to learn more about the tidyverse, some modeling, and machine learning)</li>
-<li><a href="https://www.coursera.org/specializations/tidyverse-data-science-r">Tidyverse Skills for Data Science Course</a> (same content with quizzes, can get certificate with $)</li>
-<li><a href="http://r4ds.had.co.nz/">R for Data Science</a> (great general information)</li>
-<li><a href="https://rafalab.github.io/dsbook/r-basics.html">R basics chapter of Introduction to Data Science by Rafael A. Irizarry</a>(great general information)</li>
-<li><a href="https://www.opencasestudies.org/">Open Case Studies</a><br />
-(resource for specific public health cases with statistical implementation and interpretation - <strong>a great next step</strong> for learning more about stats and wrangling!)</li>
-<li><a href="https://www.dataquest.io/">Dataquest</a> (general interactive resource)</li>
-<li><a href="http://statmethods.net/">Quick R Guide</a> (nice free general resource)</li>
-<li><a href="https://hopstat.wordpress.com/2016/02/18/how-i-build-up-a-ggplot2-figure/">Building up a <code>ggplot2</code> figure</a> (guide to making plots)</li>
+<li><a href="https://jhudatascience.org/tidyversecourse/">Tidyverse
+Skills for Data Science Book</a> (<strong>a great next step</strong> to
+learn more about the tidyverse, some modeling, and machine
+learning)</li>
+<li><a
+href="https://www.coursera.org/specializations/tidyverse-data-science-r">Tidyverse
+Skills for Data Science Course</a> (same content with quizzes, can get
+certificate with $)</li>
+<li><a href="http://r4ds.had.co.nz/">R for Data Science</a> (great
+general information)</li>
+<li><a href="https://rafalab.github.io/dsbook/r-basics.html">R basics
+chapter of Introduction to Data Science by Rafael A. Irizarry</a>(great
+general information)</li>
+<li><a href="https://www.opencasestudies.org/">Open Case
+Studies</a><br />
+(resource for specific public health cases with statistical
+implementation and interpretation - <strong>a great next step</strong>
+for learning more about stats and wrangling!)</li>
+<li><a href="https://www.dataquest.io/">Dataquest</a> (general
+interactive resource)</li>
+<li><a href="http://statmethods.net/">Quick R Guide</a> (nice free
+general resource)</li>
+<li><a
+href="https://hopstat.wordpress.com/2016/02/18/how-i-build-up-a-ggplot2-figure/">Building
+up a <code>ggplot2</code> figure</a> (guide to making plots)</li>
 </ul>
 <p><strong>Interested in more stats classes at JHU?</strong></p>
 <ul>
-<li><a href="https://e-catalogue.jhu.edu/course-descriptions/biostatistics/">PH.140.621, PH.140.622, PH.140.623, PH.140.62 - Statistical Methods in Public Health I, II, III, and IV</a> - The class is mostly taught in STATA, but you can also join a group of students working in R. The class covers many topics in statistical analysis for public health data.</li>
-<li><a href="https://www.jhsph.edu/courses/course/36737/2022/140.778.01/statistical-computing-algorithm-and-software-devel">PH.140.778 - Statistical Computing, Algorithm, and Software Development</a> - A more advanced course for working with data in R.
+<li><a
+href="https://e-catalogue.jhu.edu/course-descriptions/biostatistics/">PH.140.621,
+PH.140.622, PH.140.623, PH.140.62 - Statistical Methods in Public Health
+I, II, III, and IV</a> - The class is mostly taught in STATA, but you
+can also join a group of students working in R. The class covers many
+topics in statistical analysis for public health data.</li>
+<li><a
+href="https://www.jhsph.edu/courses/course/36737/2022/140.778.01/statistical-computing-algorithm-and-software-devel">PH.140.778
+- Statistical Computing, Algorithm, and Software Development</a> - A
+more advanced course for working with data in R.
 <ul>
-<li>Content for similar topics as this course can also be found on <a href="https://leanpub.com/advstatcomp">Leanpub</a>.</li>
+<li>Content for similar topics as this course can also be found on <a
+href="https://leanpub.com/advstatcomp">Leanpub</a>.</li>
 </ul></li>
 </ul>
 <p><strong>Interested in Reproducibility?</strong></p>
 <p>Check out Candace’s courses:</p>
 <ul>
-<li><a href="https://jhudatascience.org/Reproducibility_in_Cancer_Informatics/">Introduction</a></li>
-<li><a href="https://jhudatascience.org/Adv_Reproducibility_in_Cancer_Informatics/">Advanced</a></li>
+<li><a
+href="https://jhudatascience.org/Reproducibility_in_Cancer_Informatics/">Introduction</a></li>
+<li><a
+href="https://jhudatascience.org/Adv_Reproducibility_in_Cancer_Informatics/">Advanced</a></li>
 </ul>
 <p><strong>R for Stata, SPSS, and SAS files</strong></p>
 <ul>
 <li>The <a href="https://haven.tidyverse.org/">Haven</a> package<br />
-(This package is super useful for reading and writing files so that they are compatible across Stata, SPSS, SAS, and R)</li>
-<li><a href="https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf">R vs Stata</a><br />
+(This package is super useful for reading and writing files so that they
+are compatible across Stata, SPSS, SAS, and R)</li>
+<li><a
+href="https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf">R
+vs Stata</a><br />
 (See page 505)</li>
 </ul>
-<p><strong>Comparison of Python and R</strong> - A helpful <a href="https://www.ibm.com/cloud/blog/python-vs-r">blog post</a> about the difference between these two languages.</p>
+<p><strong>Comparison of Python and R</strong> - A helpful <a
+href="https://www.ibm.com/cloud/blog/python-vs-r">blog post</a> about
+the difference between these two languages.</p>
 <p><strong>Interested in Conferences?</strong></p>
 <ul>
-<li>The <a href="https://posit.co/conference/">RStudio/Posit conference</a> has lots of useful workshops! <br></li>
+<li>The <a href="https://posit.co/conference/">RStudio/Posit
+conference</a> has lots of useful workshops! <br></li>
 </ul>
 </div>
 <div id="videos-of-previous-online-lectures" class="section level2">
@@ -383,7 +475,8 @@ Link to Video
 RStudio and Reproducibility
 </td>
 <td style="text-align:left;">
-<a href="https://www.youtube.com/watch?v=eCsD0f0q6rY&amp;t=9s" class="uri">https://www.youtube.com/watch?v=eCsD0f0q6rY&amp;t=9s</a>
+<a href="https://www.youtube.com/watch?v=eCsD0f0q6rY&amp;t=9s"
+class="uri">https://www.youtube.com/watch?v=eCsD0f0q6rY&amp;t=9s</a>
 </td>
 </tr>
 <tr>
@@ -391,7 +484,8 @@ RStudio and Reproducibility
 Basic R
 </td>
 <td style="text-align:left;">
-<a href="https://www.youtube.com/watch?v=2YRgDG3qsho" class="uri">https://www.youtube.com/watch?v=2YRgDG3qsho</a>
+<a href="https://www.youtube.com/watch?v=2YRgDG3qsho"
+class="uri">https://www.youtube.com/watch?v=2YRgDG3qsho</a>
 </td>
 </tr>
 <tr>
@@ -399,7 +493,8 @@ Basic R
 Data IO
 </td>
 <td style="text-align:left;">
-<a href="https://www.youtube.com/watch?v=ejnBAdA2N1c" class="uri">https://www.youtube.com/watch?v=ejnBAdA2N1c</a>
+<a href="https://www.youtube.com/watch?v=ejnBAdA2N1c"
+class="uri">https://www.youtube.com/watch?v=ejnBAdA2N1c</a>
 </td>
 </tr>
 <tr>
@@ -407,7 +502,8 @@ Data IO
 Subsetting Data
 </td>
 <td style="text-align:left;">
-<a href="https://www.youtube.com/watch?v=GFa6dXAezJg" class="uri">https://www.youtube.com/watch?v=GFa6dXAezJg</a>
+<a href="https://www.youtube.com/watch?v=GFa6dXAezJg"
+class="uri">https://www.youtube.com/watch?v=GFa6dXAezJg</a>
 </td>
 </tr>
 <tr>
@@ -415,7 +511,8 @@ Subsetting Data
 Data Summarization
 </td>
 <td style="text-align:left;">
-<a href="https://www.youtube.com/watch?v=kj_69maSANk" class="uri">https://www.youtube.com/watch?v=kj_69maSANk</a>
+<a href="https://www.youtube.com/watch?v=kj_69maSANk"
+class="uri">https://www.youtube.com/watch?v=kj_69maSANk</a>
 </td>
 </tr>
 <tr>
@@ -423,7 +520,8 @@ Data Summarization
 Data Classes
 </td>
 <td style="text-align:left;">
-<a href="https://www.youtube.com/watch?v=zoVciFJieLY&amp;t=21s" class="uri">https://www.youtube.com/watch?v=zoVciFJieLY&amp;t=21s</a>
+<a href="https://www.youtube.com/watch?v=zoVciFJieLY&amp;t=21s"
+class="uri">https://www.youtube.com/watch?v=zoVciFJieLY&amp;t=21s</a>
 </td>
 </tr>
 <tr>
@@ -431,7 +529,8 @@ Data Classes
 Data Cleaning
 </td>
 <td style="text-align:left;">
-<a href="https://www.youtube.com/watch?v=GhK8xMUBNwg" class="uri">https://www.youtube.com/watch?v=GhK8xMUBNwg</a>
+<a href="https://www.youtube.com/watch?v=GhK8xMUBNwg"
+class="uri">https://www.youtube.com/watch?v=GhK8xMUBNwg</a>
 </td>
 </tr>
 <tr>
@@ -439,7 +538,8 @@ Data Cleaning
 Data Manipulation
 </td>
 <td style="text-align:left;">
-<a href="https://www.youtube.com/watch?v=qP73AWUjfAU" class="uri">https://www.youtube.com/watch?v=qP73AWUjfAU</a>
+<a href="https://www.youtube.com/watch?v=qP73AWUjfAU"
+class="uri">https://www.youtube.com/watch?v=qP73AWUjfAU</a>
 </td>
 </tr>
 <tr>
@@ -447,7 +547,8 @@ Data Manipulation
 Intro to Data Visualization
 </td>
 <td style="text-align:left;">
-<a href="https://www.youtube.com/watch?v=OCVo6vWrKL4" class="uri">https://www.youtube.com/watch?v=OCVo6vWrKL4</a>
+<a href="https://www.youtube.com/watch?v=OCVo6vWrKL4"
+class="uri">https://www.youtube.com/watch?v=OCVo6vWrKL4</a>
 </td>
 </tr>
 <tr>
@@ -455,7 +556,8 @@ Intro to Data Visualization
 Data Visualization
 </td>
 <td style="text-align:left;">
-<a href="https://www.youtube.com/watch?v=9UPlZqOfT_s" class="uri">https://www.youtube.com/watch?v=9UPlZqOfT_s</a>
+<a href="https://www.youtube.com/watch?v=9UPlZqOfT_s"
+class="uri">https://www.youtube.com/watch?v=9UPlZqOfT_s</a>
 </td>
 </tr>
 <tr>
@@ -463,7 +565,8 @@ Data Visualization
 Factors
 </td>
 <td style="text-align:left;">
-<a href="https://www.youtube.com/watch?v=0fE756trEEE" class="uri">https://www.youtube.com/watch?v=0fE756trEEE</a>
+<a href="https://www.youtube.com/watch?v=0fE756trEEE"
+class="uri">https://www.youtube.com/watch?v=0fE756trEEE</a>
 </td>
 </tr>
 <tr>
@@ -471,7 +574,8 @@ Factors
 Statistics
 </td>
 <td style="text-align:left;">
-<a href="https://www.youtube.com/watch?v=jZ5sskAdAJU&amp;t=4s" class="uri">https://www.youtube.com/watch?v=jZ5sskAdAJU&amp;t=4s</a>
+<a href="https://www.youtube.com/watch?v=jZ5sskAdAJU&amp;t=4s"
+class="uri">https://www.youtube.com/watch?v=jZ5sskAdAJU&amp;t=4s</a>
 </td>
 </tr>
 <tr>
@@ -479,7 +583,8 @@ Statistics
 Functions
 </td>
 <td style="text-align:left;">
-<a href="https://www.youtube.com/watch?v=dx-85RzN1G0" class="uri">https://www.youtube.com/watch?v=dx-85RzN1G0</a>
+<a href="https://www.youtube.com/watch?v=dx-85RzN1G0"
+class="uri">https://www.youtube.com/watch?v=dx-85RzN1G0</a>
 </td>
 </tr>
 </tbody>
@@ -504,7 +609,8 @@ Link to Video
 RStudio
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/zpAQrglIJb0" class="uri">https://youtu.be/zpAQrglIJb0</a>
+<a href="https://youtu.be/zpAQrglIJb0"
+class="uri">https://youtu.be/zpAQrglIJb0</a>
 </td>
 </tr>
 <tr>
@@ -512,7 +618,8 @@ RStudio
 Basic R
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/_8ZG0G1nNlA" class="uri">https://youtu.be/_8ZG0G1nNlA</a>
+<a href="https://youtu.be/_8ZG0G1nNlA"
+class="uri">https://youtu.be/_8ZG0G1nNlA</a>
 </td>
 </tr>
 <tr>
@@ -520,7 +627,8 @@ Basic R
 Reproducibility
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/ChFTiZ7Clo4" class="uri">https://youtu.be/ChFTiZ7Clo4</a>
+<a href="https://youtu.be/ChFTiZ7Clo4"
+class="uri">https://youtu.be/ChFTiZ7Clo4</a>
 </td>
 </tr>
 <tr>
@@ -528,7 +636,8 @@ Reproducibility
 Data IO
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/bnYN7AfYGNM" class="uri">https://youtu.be/bnYN7AfYGNM</a>
+<a href="https://youtu.be/bnYN7AfYGNM"
+class="uri">https://youtu.be/bnYN7AfYGNM</a>
 </td>
 </tr>
 <tr>
@@ -536,7 +645,8 @@ Data IO
 Subsetting Data
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/kPU3dl25ox8" class="uri">https://youtu.be/kPU3dl25ox8</a>
+<a href="https://youtu.be/kPU3dl25ox8"
+class="uri">https://youtu.be/kPU3dl25ox8</a>
 </td>
 </tr>
 <tr>
@@ -544,7 +654,8 @@ Subsetting Data
 Data Summarization
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/C_a8bGGdrIA" class="uri">https://youtu.be/C_a8bGGdrIA</a>
+<a href="https://youtu.be/C_a8bGGdrIA"
+class="uri">https://youtu.be/C_a8bGGdrIA</a>
 </td>
 </tr>
 <tr>
@@ -552,7 +663,8 @@ Data Summarization
 Data Classes
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/ZCe30kIJ0Xc" class="uri">https://youtu.be/ZCe30kIJ0Xc</a>
+<a href="https://youtu.be/ZCe30kIJ0Xc"
+class="uri">https://youtu.be/ZCe30kIJ0Xc</a>
 </td>
 </tr>
 <tr>
@@ -560,7 +672,8 @@ Data Classes
 Data Cleaning
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/siFL49CCsJg" class="uri">https://youtu.be/siFL49CCsJg</a>
+<a href="https://youtu.be/siFL49CCsJg"
+class="uri">https://youtu.be/siFL49CCsJg</a>
 </td>
 </tr>
 <tr>
@@ -568,7 +681,8 @@ Data Cleaning
 Data Manipulation
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/7M81XUIY5SE" class="uri">https://youtu.be/7M81XUIY5SE</a>
+<a href="https://youtu.be/7M81XUIY5SE"
+class="uri">https://youtu.be/7M81XUIY5SE</a>
 </td>
 </tr>
 <tr>
@@ -576,7 +690,8 @@ Data Manipulation
 Intro to Data Visualization
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/Md46muvSrYE" class="uri">https://youtu.be/Md46muvSrYE</a>
+<a href="https://youtu.be/Md46muvSrYE"
+class="uri">https://youtu.be/Md46muvSrYE</a>
 </td>
 </tr>
 <tr>
@@ -584,7 +699,8 @@ Intro to Data Visualization
 Data Visualization
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/YjDT3ZUSiR4" class="uri">https://youtu.be/YjDT3ZUSiR4</a>
+<a href="https://youtu.be/YjDT3ZUSiR4"
+class="uri">https://youtu.be/YjDT3ZUSiR4</a>
 </td>
 </tr>
 <tr>
@@ -592,7 +708,8 @@ Data Visualization
 Factors
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/Co4l0YhuYSk" class="uri">https://youtu.be/Co4l0YhuYSk</a>
+<a href="https://youtu.be/Co4l0YhuYSk"
+class="uri">https://youtu.be/Co4l0YhuYSk</a>
 </td>
 </tr>
 <tr>
@@ -600,7 +717,8 @@ Factors
 Statistics
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/3nSIN1mu8uw" class="uri">https://youtu.be/3nSIN1mu8uw</a>
+<a href="https://youtu.be/3nSIN1mu8uw"
+class="uri">https://youtu.be/3nSIN1mu8uw</a>
 </td>
 </tr>
 <tr>
@@ -608,7 +726,8 @@ Statistics
 Functions
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/XUKJtUYU1Ic" class="uri">https://youtu.be/XUKJtUYU1Ic</a>
+<a href="https://youtu.be/XUKJtUYU1Ic"
+class="uri">https://youtu.be/XUKJtUYU1Ic</a>
 </td>
 </tr>
 </tbody>
@@ -633,7 +752,8 @@ Link to Video
 RStudio
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/zpAQrglIJb0" class="uri">https://youtu.be/zpAQrglIJb0</a>
+<a href="https://youtu.be/zpAQrglIJb0"
+class="uri">https://youtu.be/zpAQrglIJb0</a>
 </td>
 </tr>
 <tr>
@@ -641,7 +761,8 @@ RStudio
 Basic R
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/md30mwFJ2_Q" class="uri">https://youtu.be/md30mwFJ2_Q</a>
+<a href="https://youtu.be/md30mwFJ2_Q"
+class="uri">https://youtu.be/md30mwFJ2_Q</a>
 </td>
 </tr>
 <tr>
@@ -649,7 +770,8 @@ Basic R
 Data IO
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/6xNyETqIqZU" class="uri">https://youtu.be/6xNyETqIqZU</a>
+<a href="https://youtu.be/6xNyETqIqZU"
+class="uri">https://youtu.be/6xNyETqIqZU</a>
 </td>
 </tr>
 <tr>
@@ -657,7 +779,8 @@ Data IO
 Subsetting Data
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/YeBSc2YXr4U" class="uri">https://youtu.be/YeBSc2YXr4U</a>
+<a href="https://youtu.be/YeBSc2YXr4U"
+class="uri">https://youtu.be/YeBSc2YXr4U</a>
 </td>
 </tr>
 <tr>
@@ -665,7 +788,8 @@ Subsetting Data
 Data Summarization Part 1 + 2
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/yL3BGDWtVC4" class="uri">https://youtu.be/yL3BGDWtVC4</a>
+<a href="https://youtu.be/yL3BGDWtVC4"
+class="uri">https://youtu.be/yL3BGDWtVC4</a>
 </td>
 </tr>
 <tr>
@@ -673,7 +797,8 @@ Data Summarization Part 1 + 2
 Data Classes
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/zBCvbikMTAc" class="uri">https://youtu.be/zBCvbikMTAc</a>
+<a href="https://youtu.be/zBCvbikMTAc"
+class="uri">https://youtu.be/zBCvbikMTAc</a>
 </td>
 </tr>
 <tr>
@@ -681,7 +806,8 @@ Data Classes
 Data Cleaning
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/TaREvr5evwk" class="uri">https://youtu.be/TaREvr5evwk</a>
+<a href="https://youtu.be/TaREvr5evwk"
+class="uri">https://youtu.be/TaREvr5evwk</a>
 </td>
 </tr>
 <tr>
@@ -689,7 +815,8 @@ Data Cleaning
 Data Manipulation
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/-039V99I-PE" class="uri">https://youtu.be/-039V99I-PE</a>
+<a href="https://youtu.be/-039V99I-PE"
+class="uri">https://youtu.be/-039V99I-PE</a>
 </td>
 </tr>
 <tr>
@@ -697,7 +824,8 @@ Data Manipulation
 Reproducibility
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/ui9dJLqtdCs" class="uri">https://youtu.be/ui9dJLqtdCs</a>
+<a href="https://youtu.be/ui9dJLqtdCs"
+class="uri">https://youtu.be/ui9dJLqtdCs</a>
 </td>
 </tr>
 <tr>
@@ -705,7 +833,8 @@ Reproducibility
 Statistics
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/EJwlBoBHoz4" class="uri">https://youtu.be/EJwlBoBHoz4</a>
+<a href="https://youtu.be/EJwlBoBHoz4"
+class="uri">https://youtu.be/EJwlBoBHoz4</a>
 </td>
 </tr>
 <tr>
@@ -713,7 +842,8 @@ Statistics
 Data Visualization
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/ngQX9khx7UQ" class="uri">https://youtu.be/ngQX9khx7UQ</a>
+<a href="https://youtu.be/ngQX9khx7UQ"
+class="uri">https://youtu.be/ngQX9khx7UQ</a>
 </td>
 </tr>
 <tr>
@@ -721,7 +851,8 @@ Data Visualization
 Functions
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/epIujSKgNi4" class="uri">https://youtu.be/epIujSKgNi4</a>
+<a href="https://youtu.be/epIujSKgNi4"
+class="uri">https://youtu.be/epIujSKgNi4</a>
 </td>
 </tr>
 </tbody>
@@ -746,7 +877,8 @@ Link to Video
 RStudio and Data Classes
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/vyIsDnsq5jY" class="uri">https://youtu.be/vyIsDnsq5jY</a>
+<a href="https://youtu.be/vyIsDnsq5jY"
+class="uri">https://youtu.be/vyIsDnsq5jY</a>
 </td>
 </tr>
 <tr>
@@ -754,7 +886,8 @@ RStudio and Data Classes
 Subsetting Data
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/mT8lSagYbjM" class="uri">https://youtu.be/mT8lSagYbjM</a>
+<a href="https://youtu.be/mT8lSagYbjM"
+class="uri">https://youtu.be/mT8lSagYbjM</a>
 </td>
 </tr>
 <tr>
@@ -762,7 +895,8 @@ Subsetting Data
 Data Summarization Part 1
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/SZYpzt9zy0g" class="uri">https://youtu.be/SZYpzt9zy0g</a>
+<a href="https://youtu.be/SZYpzt9zy0g"
+class="uri">https://youtu.be/SZYpzt9zy0g</a>
 </td>
 </tr>
 <tr>
@@ -770,7 +904,8 @@ Data Summarization Part 1
 Data Classes
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/82zSA1N0mnA" class="uri">https://youtu.be/82zSA1N0mnA</a>
+<a href="https://youtu.be/82zSA1N0mnA"
+class="uri">https://youtu.be/82zSA1N0mnA</a>
 </td>
 </tr>
 <tr>
@@ -778,7 +913,8 @@ Data Classes
 Data Cleaning
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/G3V2YPaQN34" class="uri">https://youtu.be/G3V2YPaQN34</a>
+<a href="https://youtu.be/G3V2YPaQN34"
+class="uri">https://youtu.be/G3V2YPaQN34</a>
 </td>
 </tr>
 <tr>
@@ -786,7 +922,8 @@ Data Cleaning
 Data Manipulation
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/43MPdw5bf4o" class="uri">https://youtu.be/43MPdw5bf4o</a>
+<a href="https://youtu.be/43MPdw5bf4o"
+class="uri">https://youtu.be/43MPdw5bf4o</a>
 </td>
 </tr>
 <tr>
@@ -794,7 +931,8 @@ Data Manipulation
 Statistics 1
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/Jr4ljyzrr4U" class="uri">https://youtu.be/Jr4ljyzrr4U</a>
+<a href="https://youtu.be/Jr4ljyzrr4U"
+class="uri">https://youtu.be/Jr4ljyzrr4U</a>
 </td>
 </tr>
 <tr>
@@ -802,7 +940,8 @@ Statistics 1
 Statistics 2
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/ub2BSbK9lMM" class="uri">https://youtu.be/ub2BSbK9lMM</a>
+<a href="https://youtu.be/ub2BSbK9lMM"
+class="uri">https://youtu.be/ub2BSbK9lMM</a>
 </td>
 </tr>
 </tbody>
@@ -827,7 +966,8 @@ Link to Video
 Day 1
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/Xi-wsACc7p0" class="uri">https://youtu.be/Xi-wsACc7p0</a>
+<a href="https://youtu.be/Xi-wsACc7p0"
+class="uri">https://youtu.be/Xi-wsACc7p0</a>
 </td>
 </tr>
 <tr>
@@ -835,7 +975,8 @@ Day 1
 Day 2
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/u1FQt9Hr8iw" class="uri">https://youtu.be/u1FQt9Hr8iw</a>
+<a href="https://youtu.be/u1FQt9Hr8iw"
+class="uri">https://youtu.be/u1FQt9Hr8iw</a>
 </td>
 </tr>
 <tr>
@@ -843,7 +984,8 @@ Day 2
 Day 3
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/woc7AGJTzZw" class="uri">https://youtu.be/woc7AGJTzZw</a>
+<a href="https://youtu.be/woc7AGJTzZw"
+class="uri">https://youtu.be/woc7AGJTzZw</a>
 </td>
 </tr>
 <tr>
@@ -851,7 +993,8 @@ Day 3
 Day 4
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/RZ7eVIMPIes" class="uri">https://youtu.be/RZ7eVIMPIes</a>
+<a href="https://youtu.be/RZ7eVIMPIes"
+class="uri">https://youtu.be/RZ7eVIMPIes</a>
 </td>
 </tr>
 <tr>
@@ -859,7 +1002,8 @@ Day 4
 Day 5
 </td>
 <td style="text-align:left;">
-<a href="https://youtu.be/e8cFV8wluC0" class="uri">https://youtu.be/e8cFV8wluC0</a>
+<a href="https://youtu.be/e8cFV8wluC0"
+class="uri">https://youtu.be/e8cFV8wluC0</a>
 </td>
 </tr>
 </tbody>

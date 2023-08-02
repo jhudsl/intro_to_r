@@ -17,56 +17,12 @@ on:
 
 jobs:
 
-  yaml-check:
-    name: Load user automation choices
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-        # Use the yaml-env-action action.
-      - name: Load environment from YAML
-        uses: doughepi/yaml-env-action@v1.0.0
-        with:
-            files: docs/config_automation.yml # Pass a space-separated list of configuration files. Rightmost files take precedence.
-    outputs:
-      toggle_style_code: "${{ env.STYLE_CODE }}"
-      
-  style-code:
-    name: Style code
-    needs: yaml-check
-    runs-on: ubuntu-latest
-    if: ${{needs.yaml-check.outputs.toggle_style_code == 'yes'}}
-    container:
-      image: jhudsl/course_template:main
-
-    steps:
-      - name: Checkout files
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Run styler
-        run: Rscript -e "styler::style_file(list.files(pattern = 'Rmd$', recursive = TRUE, full.names = TRUE));warnings()"
-
-      - name: Commit styled files
-        run: |
-          git config --local user.email "itcrtrainingnetwork@gmail.com"
-          git config --local user.name "jhudsl-robot"
-          git add \*.Rmd
-          git commit -m 'Style Rmds' || echo "No changes to commit"
-          git push origin || echo "No changes to commit"
-      
   render-main:
-    needs: [yaml-check, style-code]
+    name: Render Main Site and Materials
     runs-on: ubuntu-latest
-
-
-          # install.packages("remotes") # in case we decide not to go with the container...
-          # remotes::install_cran("rmarkdown")
-          # remotes::install_deps(dependencies = TRUE)
     container:
-      image: jhudsl/intro_to_r:1.0
+      image: jhudsl/intro_to_r:1.1
+    
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Give permission to access the repo
@@ -75,7 +31,7 @@ jobs:
           repo_name='${{ github.event.repository.name }}'
           git config --global --add safe.directory /__w/$repo_name/$repo_name
     
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # # Checks-out your repository with the token so your job can access it
       - name: checkout
         uses: actions/checkout@v3
         with:
@@ -83,14 +39,21 @@ jobs:
           fetch-depth: 0
           # use github PAT
           token: ${{ secrets.GH_PAT }}
+      
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v37
+      # NOTE: `since_last_remote_commit: true` is implied by default and falls back to the previous local commit.
+
+      - name: List all changed files
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file was changed"
+          done
 
       # We want a fresh run of the renders each time - so first delete old html files
       - name: Delete old *.html
         run: Rscript -e "rmarkdown::clean_site(preview = FALSE)"
-
-      # TODO: add this to docker
-      - name: Install config package
-        run: Rscript -e "install.packages('config')"
         
        # Now we want to render all the html files from the Rmd files
       - name: Run render html for the main site
@@ -103,16 +66,34 @@ jobs:
         
        # Render all module files
       - name: Render html of modules
-        run: Rscript "scripts/render_modules.R"
-
+        run: |
+          Rscript --vanilla "scripts/render_modules.R" --files "${{ steps.changed-files.outputs.all_changed_files }}"
+          
        # Render the cheatsheets
       - name: Render Cheatsheet pdfs
-        run: Rscript "scripts/render_cheatsheets.R" 
+        run: |
+          Rscript --vanilla "scripts/render_cheatsheets.R" --files "${{ steps.changed-files.outputs.all_changed_files }}"
         
        # Render resource pdfs
       - name: Render Resource pdfs
-        run: Rscript "scripts/render_resources.R" 
+        run: |
+          Rscript --vanilla "scripts/render_resources.R" --files "${{ steps.changed-files.outputs.all_changed_files }}"
         
+       # Generate list of files that need pdfs
+      - name: Get list of html to pdfs
+        run: |
+          Rscript --vanilla "scripts/render_html_list.R"
+          echo "$(cat files.txt)"
+        
+      - name: Read html and pdf files
+        id: getfiles
+        run: |
+          echo "files=$(cat files.txt)" >> $GITHUB_OUTPUT 
+          rm files.txt
+          rm cheatsheet_files.csv
+          rm lab_files.csv
+          rm lecture_files.csv
+
       # This checks on the steps before it and makes sure that they completed.
       # If the renders didn't complete we don't want to commit the file changes
       - name: Check on render steps
@@ -128,8 +109,12 @@ jobs:
           git config --local user.name "jhudsl-robot"
           git add . --force
           git commit -m 'Render site' || echo "No changes to commit"
-          git pull --set-upstream origin main --allow-unrelated-histories --strategy-option=ours
+          git pull --rebase --set-upstream origin main --allow-unrelated-histories --strategy-option=ours
           git push origin main || echo "No changes to push"
+    
+    # Save files for conversion to pdf      
+    outputs:
+      pdffiles: "${{ steps.getfiles.outputs.files }}"
 
 
   render-pdf-lectures:
@@ -137,28 +122,18 @@ jobs:
     needs: render-main
     runs-on: ubuntu-latest
     container:
-      image: jhudsl/course_template:main
+      image: jhudsl/intro_to_r:1.1
     strategy:
       matrix:
-        modulenames: 
-          - Intro
-          - RStudio
-          - Reproducibility
-          - Basic_R
-          - Data_Input
-          - Subsetting_Data_in_R
-          - Data_Summarization
-          - Data_Classes
-          - Data_Cleaning
-          - Manipulating_Data_in_R
-          - Esquisse_Data_Visualization
-          - Data_Visualization
-          - Factors
-          - Statistics
-          - Data_Output
-          - Functions
+        modulenames: ${{fromJson(needs.render-main.outputs.pdffiles)}}
           
     steps:
+      # Give permission to access the repo
+      - name: safelist repository
+        run: |
+          repo_name='${{ github.event.repository.name }}'
+          git config --global --add safe.directory /__w/$repo_name/$repo_name
+    
       - name: Checkout files
         uses: actions/checkout@v3
         with:
@@ -172,13 +147,12 @@ jobs:
           htmlFile: ./modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
           outputFile: ./modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
 
-
       # Commit the rendered site files - html files and site_libs files
       - name: Commit pdfs
         run: |
           git config --local user.email "itcrtrainingnetwork@gmail.com"
           git config --local user.name "jhudsl-robot"
           git add . --force
-          git commit -m 'Render site' || echo "No changes to commit"
-          git pull --set-upstream origin main --allow-unrelated-histories --strategy-option=ours
-          git push --force || echo "No changes to push"
+          git commit -m 'Render pdfs' || echo "No changes to commit"
+          git pull --rebase --set-upstream origin main --allow-unrelated-histories --strategy-option=ours
+          git push --force || echo "No changes to commit"

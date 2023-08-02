@@ -51,6 +51,7 @@ dat <- read_csv("http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_
 * an absolute path, 
 * a relative path (relative to your working directory), 
 * a file name only (which writes the file to your working directory)
+* remember to include the file extension (`.csv `, `.txt`, or `.tsv`)
 
 ```{r, eval = FALSE}
 # Examples
@@ -83,10 +84,36 @@ x2
 ```
 
 
-## Summary
+## Saving multiple objects
+
+You may want to export a set of objects from R for later use, either to save time or to use in another R script. You can output these to an `.RData` file individually, or save your entire Environment with `save.image()`.
+
+```{r}
+save(x, x2, file = "x_x2_output.RData")
+save.image(file = "my_environment.RData")
+```
+
+
+## Using RStudio for importing/exporting data
+
+If there is an `.rds` or `.RData` file that you want to work with, you can open it into your environment using the file icon.
+
+```{r echo = FALSE, out.width="50%"}
+knitr::include_graphics(here::here("images/open_R_data_files.png"))
+```
+
+Can also save your entire environment or a subset of objects in your environment to a new `.RData` file with the save icon. Click the "List" button and switch to "Grid" to select which objects to delete or keep before saving the Environment.
+
+```{r echo = FALSE, fig.show="hold", out.width="50%"}
+knitr::include_graphics(here::here("images/subset_objects_in_environment.png"))
+knitr::include_graphics(here::here("images/save_environment.png"))
+```
+
+## Summary {.small}
 
 - Use `write_csv()` and `write_delim()` from the `readr` package to write your (modified) data
 - `.rds` files can be handy for saving intermediate work
+- Can save environment (or subset) using `save()` and `save.image()`
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
 
