@@ -12,6 +12,12 @@ library(kableExtra)
 ## Additional Resources
 ***
 
+**Need help getting started?**
+
+- [R reference card](http://cran.r-project.org/doc/contrib/Short-refcard.pdf) 
+- [R jargon](https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf) 
+- [R terminology](https://cran.r-project.org/doc/manuals/r-release/R-lang.pdf)
+
 **Need to review?**
 
 - [Day 1 - RStudio & Reproducibility Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-1.pdf)
@@ -44,25 +50,30 @@ RStudio shortcuts can be found [here](<http://www.rstudio.com/ide/docs/using/key
 
 - [Lawlor et al. 2022](https://doi.org/10.1371/journal.pcbi.1010372): Ten simple rules for teaching yourself R 
 
-**Need help?** 
-
-- [R reference card](http://cran.r-project.org/doc/contrib/Short-refcard.pdf) 
-- [R jargon](https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf) 
-- [R terminology](https://cran.r-project.org/doc/manuals/r-release/R-lang.pdf)
+**Need help with data import?** 
 - [Video on data import](https://youtu.be/LEkNfJgpunQ)
--  Animations of join functions:
-    [`full-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/full-join.gif)
-    [`inner_join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/inner-join.gif)
-    [`left-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/left-join.gif)
-    [`right-join()`](https://github.com/gadenbuie/tidyexplain/blob/master/images/right-join.gif)
 - [video](https://www.youtube.com/watch?v=we6vwB7DsNU) for PC users who want to see how to move files around (especially from downloads) 
 - [video](https://www.youtube.com/watch?v=Ao9e0cDzMrE) for Mac users who want to see how to move files around (especially from downloads)
 - [Extra information about file paths](https://docs.google.com/presentation/d/18u1Vhd3Uq-QprC0btpxS_-Ka-LKVUvncyoqdbGdb-g4/edit?usp=sharing)
+
+**Need help with joins?**
+
+- [`full-join()` annimation](https://github.com/gadenbuie/tidyexplain/blob/master/images/full-join.gif)
+- [`inner_join()` annimation](https://github.com/gadenbuie/tidyexplain/blob/master/images/inner-join.gif)
+- [`left-join()` annimation](https://github.com/gadenbuie/tidyexplain/blob/master/images/left-join.gif)
+- [`right-join()` annimation](https://github.com/gadenbuie/tidyexplain/blob/master/images/right-join.gif)
+
+
+**Need help with plots?**
+
 - [`ggplot2` gallery](https://r-graph-gallery.com/ggplot2-package.html) - See what is possible with `ggplot2` to create graphs in R
+- [`ggplot2` theme cheatsheet](https://github.com/claragranell/ggplot2/blob/main/ggplot_theme_system_cheatsheet.pdf)
 - [Visualization best practices](https://jhudatascience.org/tidyversecourse/dataviz.html#making-good-plots)
-- [ggplot2 theme cheatsheet](https://github.com/claragranell/ggplot2/blob/main/ggplot_theme_system_cheatsheet.pdf)
 - [Guide on when to use which plot](https://infogram.com/page/choose-the-right-chart-data-visualization)
-- [Building up a `ggplot2` figure](https://hopstat.wordpress.com/2016/02/18/how-i-build-up-a-ggplot2-figure/)  (guide to making plots)
+- [Guide to building up a `ggplot2` figure](https://hopstat.wordpress.com/2016/02/18/how-i-build-up-a-ggplot2-figure/)  
+
+**Need help with stats?**
+
 - [Guide on when to use what stats test](https://www.scribbr.com/statistics/statistical-tests/)
 - [Modeling 101](https://jhudatascience.org/tidyversecourse/model.html#linear-modeling)
 - [Interpreting GLM output (e.g., deviance)](https://www.statology.org/null-residual-deviance/)
@@ -71,10 +82,10 @@ RStudio shortcuts can be found [here](<http://www.rstudio.com/ide/docs/using/key
 
 - [Tidyverse Skills for Data Science Book](https://jhudatascience.org/tidyversecourse/)  (**a great next step** to learn more about the tidyverse, some modeling, and machine learning)
 - [Tidyverse Skills for Data Science Course](https://www.coursera.org/specializations/tidyverse-data-science-r)  (same content with quizzes, can get certificate with $)
-- [R for Data Science](http://r4ds.had.co.nz/)  (great general information)
-- [R basics chapter of Introduction to Data Science by Rafael A. Irizarry](https://rafalab.github.io/dsbook/r-basics.html)(great general information)
 - [Open Case Studies](https://www.opencasestudies.org/)  
 (resource for specific public health cases with statistical implementation and interpretation - **a great next step** for learning more about stats and wrangling!)
+- [R for Data Science](http://r4ds.had.co.nz/)  (great general information)
+- [R basics chapter of Introduction to Data Science by Rafael A. Irizarry](https://rafalab.github.io/dsbook/r-basics.html)(great general information)
 - [Dataquest](https://www.dataquest.io/)  (general interactive resource)
 - [Quick R Guide]( http://statmethods.net/)  (nice free general resource)
 
