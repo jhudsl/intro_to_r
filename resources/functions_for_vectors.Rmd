@@ -1,15 +1,14 @@
 ---
 title: "Functions that need pull first"
 output: 
-  html_document:
-    toc: TRUE
+  html_document
 ---
 
 When can you use a function directly on a column of a tibble and when do you need a vector in R?
 
 There are some inconsistencies across different functions. Typically if it is a base R function, you often need to pull the data out into a vector first.  Sometimes you just need to try them out. Always check that your work did what you expect!
 
-## In general
+## In general {.tabset .tabset-fade}
 
 In general these functions need to use vectors:
 
@@ -29,7 +28,13 @@ kbl(text_tbl) %>%
   row_spec(3:4, background = "lightblue")
 ```
 
-## `setdiff()`
+<br>
+
+Click below to take a look at each in more detail.
+
+<br>
+
+### `setdiff()` function
 
 This function was originally a base R function and it got adopted by tidyverse packages (`dplyr` and `lubridate`) and is therefore can behave a bit differently. This is confusing and part of the struggle of an open development environment.
 
@@ -88,7 +93,7 @@ dplyr::setdiff(mtcars, mt_cars_high_mpg)
 
 Here we see all the rows with `mpg` below 20. 
 
-## `stringr` functions
+### `stringr` functions
 
 These functions are often applied within `filter()` or `mutate()` for a data frame. When they are not used inside these functions they need to be used on a vector. 
 
@@ -105,7 +110,7 @@ iris %>% select(Species) %>% str_detect(pattern = "set")
 ```
 
 
-## base R math functions
+### `base` R math functions
 
 Functions like `sum()` or `mean()` need vectors. We can use them well within `summarize` but would need to use a vector otherwise. 
 
@@ -124,7 +129,7 @@ iris %>% select(Petal.Length) %>% mean()
 
 
 
-## stat functions
+### `stats` functions
 
 Functions like `cor.test` of the `stats` package (which come automatically with R) need vectors too. Note that some of the other `stats` functions are tolerant to using tibbles. 
 
