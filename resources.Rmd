@@ -1,8 +1,6 @@
 ---
-title: "Resources"
 output: 
-  html_document:
-    toc: TRUE
+  html_document
 ---
 
 ```{r, include = FALSE}
@@ -10,6 +8,16 @@ library(dplyr)
 library(kableExtra)
 ```
 
+
+
+## Resources {.tabset .tabset-fade}
+
+<br>
+
+Here are additional resources to help you on your R journey - either before, during, or after the class!
+
+<br>
+<br>
 
 
 ### **Help getting started**
@@ -122,7 +130,7 @@ library(kableExtra)
 ### **Videos of Previous Online Lectures**
 ***
 
-**From Summer Institute 2022**
+#### **From Summer Institute 2022**
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}
 mat <- matrix(c(
@@ -147,7 +155,7 @@ knitr::kable(mat, format = "html") %>%
 ```
 
 
-**From Winter Institute 2022**
+#### **From Winter Institute 2022**
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}
 mat <- matrix(c(
@@ -172,7 +180,7 @@ knitr::kable(mat, format = "html") %>%
   kable_styling()
 ```
 
-**From Summer Institute 2021**
+#### **From Summer Institute 2021**
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}
 mat <- matrix(c(
@@ -214,7 +222,7 @@ knitr::kable(mat, format = "html") %>%
   kable_styling()
 ```
 
-**From Summer Institute 2017**
+#### **From Summer Institute 2017**
 
 ```{r videos, echo = FALSE, message = FALSE, results='asis'}
 mat <- matrix(c(
