@@ -101,6 +101,33 @@ Check out Candace's courses:
 ## Videos of Previous Online Lectures
 ***
 
+### From Summer Institute 2023
+
+```{r, echo = FALSE, message = FALSE, results='asis'}
+mat <- matrix(c(
+  "Introduction", "https://youtu.be/aIJrFKQYnP8",
+  "RStudio", "https://youtu.be/cxHVf5rTK1c",
+  "Reproducibility", "https://youtu.be/af9B9-_df1o",
+  "Basic R", "https://youtu.be/5io-iZDutH8",
+  "Data Input", "https://youtu.be/sllVVRD5YE4",
+  "Subsetting Data", "https://youtu.be/dWdK3bnAGm8",
+  "Data Classes", "https://youtu.be/Q4ubnU35TUs",
+  "Data Summarization", "https://youtu.be/xsI30yCGgTQ",
+  "Data Cleaning", "https://youtu.be/qL6_yfiR9Jk",
+  "Data Manipulation", "https://youtu.be/fQ7lDp8Svw0",
+  "Intro to Data Visualization", "https://youtu.be/D5RdNwadtR0",
+  "Data Visualization", "https://youtu.be/fKj1iBxLwyk",
+  "Factors", "https://youtu.be/yqU5zHVh-qA",
+  "Statistics", "https://youtu.be/T9Oh0miYhZ0",
+  "Data Output", "https://youtu.be/x2OuR4JhPLY",
+  "Functions", "https://www.youtube.com/watch?v=dx-85RzN1G0"
+), ncol = 2, byrow = TRUE)
+mat <- data.frame(mat, stringsAsFactors = FALSE)
+colnames(mat) <- c("Day", "Link to Video")
+knitr::kable(mat, format = "html") %>%
+  kable_styling()
+```
+
 ### From Summer Institute 2022
 
 ```{r, echo = FALSE, message = FALSE, results='asis'}
