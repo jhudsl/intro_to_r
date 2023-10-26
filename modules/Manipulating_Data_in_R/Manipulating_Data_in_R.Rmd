@@ -214,7 +214,7 @@ head(circ, 5)
 
 ## Mission: Taking the averages by line
 
-Let's imagine we want to create a table of averge ridership by route/line. Results should look something like:
+Let's imagine we want to create a table of average ridership by route/line. Results should look something like:
 
 ```{r, message = FALSE}
 example <- tibble(line = c("orange","purple","green","banner"),
