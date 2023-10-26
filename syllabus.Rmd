@@ -16,12 +16,14 @@ library(tidyverse)
 
 ## Logistics
 
+<br>
+
 ### When 
 
 - **Dates:** `r config::get("course_dates")` (`r config::get("holiday")`)
 - **Time:** `r config::get("course_time")`
 
-### Where:
+### Where
 
 - **Class Website:** http://jhudatascience.org/intro_to_r/   
 - **CoursePlus:** `r config::get("courseplus_web")`
@@ -29,7 +31,7 @@ library(tidyverse)
 - Zoom link and Slack link will be emailed to students
 - Communication will mainly occur through Slack
 
-### Instruction Team:
+### Instruction Team
 
 - **Instructors:** `r config::get("instructors")`
 - **Teaching Assistants:** `r config::get("ta")`
