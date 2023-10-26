@@ -12,15 +12,16 @@ library(tidyverse)
 
 **Overview:** This course will provide *"hands-on" training*  for learning how to analyze data in the R statistical software package. We will cover data input/output, data management and manipulation, and how to make useful and informative graphics.
 
-### Logistics
 ***
 
-**When:** 
+# Logistics
+
+## When 
 
 - **Dates:** `r config::get("course_dates")` (`r config::get("holiday")`)
 - **Time:** `r config::get("course_time")`
 
-**Where:**
+## Where:
 
 - **Class Website:** http://jhudatascience.org/intro_to_r/   
 - **CoursePlus:** `r config::get("courseplus_web")`
@@ -28,15 +29,12 @@ library(tidyverse)
 - Zoom link and Slack link will be emailed to students
 - Communication will mainly occur through Slack
 
-
-### Instruction Team
-***
+## Instruction Team:
 
 - **Instructors:** `r config::get("instructors")`
 - **Teaching Assistants:** `r config::get("ta")`
 
-### Course Format
-***
+# Course Format
 
 * Each class will consist of 2 or 3 hour-long modules.
 * Each module features a lecture and an R programming lab, where students apply the skills taught in the modules to real data in breakout rooms. 
