@@ -1,16 +1,18 @@
 ---
 title: "Syllabus"
-subtitle: `r config::get("course_name_long")`
 output: 
-  html_document:
-    toc: true
+  html_document
 ---
 
 ```{r setup, echo = FALSE, message = FALSE}
 library(tidyverse)
 ```
 
+<br>
+
 ## Overview
+
+**`r config::get("course_name_long")`**
 
 This course will provide *"hands-on" training*  for learning how to analyze data in the R statistical software package. We will cover data input/output, data management and manipulation, and how to make useful and informative graphics.
 
@@ -121,22 +123,6 @@ All assignments are due **`r config::get("final_due_date")`**.
 
 <br>
 
-### Submission
-
-All assignments are due **`r config::get("final_due_date")`**. 
-
-Submit each assignment to the designated [Drop Box on CoursePlus](`r config::get("courseplus_dropboxes")`).
-
-<br>
-
-### Assignment Extensions
-
-We know that you will try your best to submit assignments on time. However, we understand that life happens. We can accept late assignments with a deduction of 2% of your assignment score per day late.
-
-For example, if you scored 9/10 on an assignment (90%) but turned it in two days late, your score would be 8.6/10 (86%).
-
-<br>
-
 ### Homework
 
 You should complete the following:
@@ -168,6 +154,22 @@ You may use one of these public datasets, a different public dataset, or your ow
 Example projects can be found with the source code: [Rmd](modules/Project_Example/Project_Example.Rmd), and the output [html](modules/Project_Example/Project_Example.html) here.
 
 See the [guidelines/instructions](modules/Project_Guidelines/Project_Guidelines.html) for final projects.
+
+<br>
+
+### Submission
+
+All assignments are due **`r config::get("final_due_date")`**. 
+
+Submit each assignment to the designated [Drop Box on CoursePlus](`r config::get("courseplus_dropboxes")`).
+
+<br>
+
+### Assignment Extensions
+
+We know that you will try your best to submit assignments on time. However, we understand that life happens. We can accept late assignments with a deduction of 2% of your assignment score per day late.
+
+For example, if you scored 9/10 on an assignment (90%) but turned it in two days late, your score would be 8.6/10 (86%).
 
 <br>
 
