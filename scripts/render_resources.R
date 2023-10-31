@@ -23,23 +23,36 @@ if (class(files) == "list") files <- unlist(files)
 # --------- Render ---------
 
 # Find anything ending in md and extract
-files <- files[grepl("[.]md$", files)]
-res_files_md <- files[grepl("resources", files)]
+files_md <- files[grepl("[.]md$", files)]
+res_files_md <- files_md[grepl("resources", files_md)]
 
 # Find anything ending in Rmd and extract
-files <- files[grepl("[.]Rmd$", files)]
-res_files_Rmd <- files[grepl("resources", files)]
+files_Rmd <- files[grepl("[.]Rmd$", files)]
+res_files_Rmd <- files_Rmd[grepl("resources", files_Rmd)]
 
-res_files <- c(res_files_md, res_files_Rmd[res_files_Rmd != "resources.Rmd"])
-if (length(res_files) != 0)
-  print(res_files) else
-    print("(no changes, so no rendering needed)")
+# Check if any .md files at all
+if (length(res_files_md) != 0)
+  print(res_files_md) else
+    print("(no .md changes, so no rendering of .md files needed)")
 
-# loop thru and render all resources files to pdf
-if (length(res_files) != 0) {
-  for (file in res_files) {
+# loop thru and render all markdown (.md) resources files to pdf
+if (length(res_files_md) != 0) {
+  for (file in res_files_md) {
     rmarkdown::render(file,
                       output_dir = "resources",
                       output_format = "pdf_document")
+  }
+}
+
+# Check if any .Rmd files at all
+if (length(res_files_Rmd[res_files_Rmd != "resources.Rmd"]) != 0)
+  print(res_files_Rmd) else
+    print("(no .md changes, so no rendering of .md files needed)")
+
+# loop thru and render all markdown (.md) resources files to format specified
+if (length(res_files_Rmd) != 0) {
+  for (file in res_files_Rmd) {
+    rmarkdown::render(file,
+                      output_dir = "resources")
   }
 }
