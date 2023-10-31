@@ -1,7 +1,8 @@
 ---
 title: "Quotes vs backticks"
 output: 
-  html_document
+  html_document:
+    css: docs/web_styles.css
 ---
 
 When do you use quotes, backticks, or nothing in R?
@@ -406,3 +407,5 @@ Use backticks if there is an atypical name. Do not use quotes.
 car_data <- rename(car_data, `mpg!` = mpg)
 fit_cars <- glm(`mpg!` ~ cyl + disp + hp + wt * gear, data = car_data)
 ```
+
+
