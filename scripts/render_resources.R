@@ -44,14 +44,16 @@ if (length(res_files_md) != 0) {
   }
 }
 
-# Check if any .Rmd files at all
 # Excluding the parent file, "resources.Rmd"
-if (length(res_files_Rmd[res_files_Rmd != "resources.Rmd"]) != 0)
+res_files_Rmd <- res_files_Rmd[res_files_Rmd != "resources.Rmd"]
+
+# Check if any .Rmd files at all
+if (length(res_files_Rmd) != 0)
   print(res_files_Rmd) else
     print("(no .md changes, so no rendering of .md files needed)")
 
 # loop thru and render all markdown (.Rmd) resources files to format specified
-if (length(res_files_Rmd[res_files_Rmd != "resources.Rmd"]) != 0) {
+if (length(res_files_Rmd) != 0) {
   for (file in res_files_Rmd) {
     rmarkdown::render(file,
                       output_dir = "resources")
