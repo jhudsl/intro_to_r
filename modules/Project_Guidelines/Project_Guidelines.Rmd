@@ -17,12 +17,17 @@ You are also free to create your own data if you wish, but please ensure that it
 Options for places to find data are:
 
 * from Kaggle: https://www.kaggle.com/datasets  
-* from R itself: https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html 
-* from the `tidytuesdayR` package: https://github.com/thebioengineer/tidytuesdayR
+* from the US Government: https://data.gov/
 * from the CDC: https://data.cdc.gov/
 * from healthdata.gov: https://healthdata.gov/
+* from Baltimore City: https://data.baltimorecity.gov/
+* from R itself: https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html 
+* from the `tidytuesdayR` package: https://github.com/thebioengineer/tidytuesdayR
+* from the `catdata` package: https://CRAN.R-project.org/package=catdata
+* from the `dataplay` package: https://github.com/avahoffman/dataplay
+* from https://github.com/awesomedata/awesome-public-datasets, which links to many more sources
 
-(This is the data that comes with R - you can load them using `datasets::` and pressing tab in RStudio to see the names of the datasets - for example `datasets::ability.cov` will load the ability dataset.)
+To use the data that comes with R, enter `datasets::` and press *tab* in RStudio to see the names of the datasets - for example `datasets::ability.cov` will load the ability dataset.
 
 You are not limited to these options for finding your data.
 
