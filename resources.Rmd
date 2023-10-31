@@ -18,7 +18,8 @@ Here are additional resources to help you on your R journey - either before, dur
 - [R reference card](http://cran.r-project.org/doc/contrib/Short-refcard.pdf) 
 - [R jargon](https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf) 
 - [R terminology](https://cran.r-project.org/doc/manuals/r-release/R-lang.pdf)
-- [What is the Tidyverse/what packages are in it?](https://www.tidyverse.org/packages/)   
+- [What is the Tidyverse/what packages are in it?](https://www.tidyverse.org/packages/)
+- [Where do package names come from?](https://www.statworx.com/en/content-hub/blog/why-is-it-called-that-way-origin-and-meaning-of-r-package-names/)
 - [Lawlor et al. 2022](https://doi.org/10.1371/journal.pcbi.1010372): Ten simple rules for teaching yourself R 
 
 </details>
@@ -88,6 +89,7 @@ Here are additional resources to help you on your R journey - either before, dur
 
 - [Guide on when to use what stats test](https://www.scribbr.com/statistics/statistical-tests/)
 - [Modeling 101](https://jhudatascience.org/tidyversecourse/model.html#linear-modeling)
+- [Common statistical tests are linear models](https://lindeloev.github.io/tests-as-linear/) (why understanding linear models will get you far!)
 - [Interpreting GLM output (e.g., deviance)](https://www.statology.org/null-residual-deviance/)
 
 
@@ -145,6 +147,33 @@ Here are additional resources to help you on your R journey - either before, dur
 <br>
 
 <details><summary> <span style = "color: #5383bb;"> ► **Videos of Previous Online Lectures**</span></summary><br>
+
+  **From Summer Institute 2023**
+  
+  ```{r, echo = FALSE, message = FALSE, results='asis'}
+  mat <- matrix(c(
+    "Introduction", "https://youtu.be/aIJrFKQYnP8",
+    "RStudio", "https://youtu.be/cxHVf5rTK1c",
+    "Reproducibility", "https://youtu.be/af9B9-_df1o",
+    "Basic R", "https://youtu.be/5io-iZDutH8",
+    "Data Input", "https://youtu.be/sllVVRD5YE4",
+    "Subsetting Data", "https://youtu.be/dWdK3bnAGm8",
+    "Data Classes", "https://youtu.be/Q4ubnU35TUs",
+    "Data Summarization", "https://youtu.be/xsI30yCGgTQ",
+    "Data Cleaning", "https://youtu.be/qL6_yfiR9Jk",
+    "Data Manipulation", "https://youtu.be/fQ7lDp8Svw0",
+    "Intro to Data Visualization", "https://youtu.be/D5RdNwadtR0",
+    "Data Visualization", "https://youtu.be/fKj1iBxLwyk",
+    "Factors", "https://youtu.be/yqU5zHVh-qA",
+    "Statistics", "https://youtu.be/T9Oh0miYhZ0",
+    "Data Output", "https://youtu.be/x2OuR4JhPLY",
+    "Functions", "https://youtu.be/jWv5RSXq5mo"
+  ), ncol = 2, byrow = TRUE)
+  mat <- data.frame(mat, stringsAsFactors = FALSE)
+  colnames(mat) <- c("Day", "Link to Video")
+  knitr::kable(mat, format = "html") %>%
+    kable_styling()
+  ```
 
   **From Summer Institute 2022**
   
