@@ -20,6 +20,7 @@ code{
 }
 ```
 
+# Common Issues
 
 ***
 ## **How do I get output to stop printing inside the Rmarkdown and only show it in the console?**
@@ -85,6 +86,8 @@ Check out our [Guide on when to use quotes or backticks](https://jhudatascience.
 ## **How do I know when to use the `pull()` function, instead of just using `select()`?**
 
 Check out our [Guide on what functions require pulling values out first](https://jhudatascience.org/intro_to_r/resources/functions_for_vectors.html).
+
+# Common Errors
 
 ***
 ## **Error in x : could not find function "y"**
@@ -213,7 +216,7 @@ df_quotes %>% pull(“The Values”) # this doesn't work
 ```
 
 ***
-## **`ℹ` Did you use '%>%' or '|>' instead of '+'?**
+## **Error: `mapping` must be created by `aes()` / `ℹ` Did you use '%>%' or '|>' instead of '+'?**
 
 **Forgetting to use `+` to add `ggplot2` layers**
 
