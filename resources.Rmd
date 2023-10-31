@@ -1,4 +1,5 @@
 ---
+title: "Resources"
 output: 
   html_document
 ---
@@ -8,26 +9,23 @@ library(dplyr)
 library(kableExtra)
 ```
 
-
-
-## Resources {.tabset .tabset-fade}
+Here are additional resources to help you on your R journey - either before, during, or after the class! Click each section to expand.
 
 <br>
 
-Here are additional resources to help you on your R journey - either before, during, or after the class!
-
-<br>
-<br>
-
-
-### **Help getting started**
+<details open><summary> <span style = "color: #5383bb;"> ► **Help Getting Started**</span></summary><br>
 
 - [R reference card](http://cran.r-project.org/doc/contrib/Short-refcard.pdf) 
 - [R jargon](https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf) 
 - [R terminology](https://cran.r-project.org/doc/manuals/r-release/R-lang.pdf)
+- [What is the Tidyverse/what packages are in it?](https://www.tidyverse.org/packages/)   
 - [Lawlor et al. 2022](https://doi.org/10.1371/journal.pcbi.1010372): Ten simple rules for teaching yourself R 
 
-### **Class Cheatsheets**
+</details>
+
+<br>
+
+<details><summary> <span style = "color: #5383bb;"> ► **Class Cheatsheets**</span></summary><br>
 
 - [Day 1 - RStudio & Reproducibility Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-1.pdf)
 - [Day 2 - Basic R & Data Input/Output Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-2.pdf)
@@ -40,31 +38,34 @@ Here are additional resources to help you on your R journey - either before, dur
 - [Day 9 - Functions Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-9.pdf)
 - [Additional RStudio "Cheatsheets"](https://www.rstudio.com/resources/cheatsheets/)
 
+</details>
 
-### **Trouble Shooting Guides**
+<br>
+
+<details><summary> <span style = "color: #5383bb;"> ► **Troubleshooting Guides**</span></summary><br>
 
 - [Guide on when to use quotes or backticks](https://jhudatascience.org/intro_to_r/resources/quotes_vs_backticks.html)
 - [Guide on what functions require pulling values out first](https://jhudatascience.org/intro_to_r/resources/functions_for_vectors.html)
 
+</details>
 
-### **Tidyverse Resources**
+<br>
 
-- [What is the Tidyverse?](https://www.tidyverse.org/packages/)
-- If you need to check what packages are part of the `tidyverse`, you can do so at this [link](https://www.tidyverse.org/packages/).
-
-
-### **Keyboard shortcuts**
+<details><summary> <span style = "color: #5383bb;"> ► **Keyboard Shortcuts**</span></summary><br>
 
 - RStudio shortcuts can be found [here](<http://www.rstudio.com/ide/docs/using/keyboard_shortcuts>).
 
+</details>
 
-### **Extra help**
+<br>
+
+<details open><summary> <span style = "color: #5383bb;"> ► **Extra help**</span></summary><br>
 
 **Need help with data import?** 
 
 - [Video on data import](https://youtu.be/LEkNfJgpunQ)
-- [video](https://www.youtube.com/watch?v=we6vwB7DsNU) for PC users who want to see how to move files around (especially from downloads) 
-- [video](https://www.youtube.com/watch?v=Ao9e0cDzMrE) for Mac users who want to see how to move files around (especially from downloads)
+- [Video](https://www.youtube.com/watch?v=we6vwB7DsNU) for PC users who want to see how to move files around (especially from downloads) 
+- [Video](https://www.youtube.com/watch?v=Ao9e0cDzMrE) for Mac users who want to see how to move files around (especially from downloads)
 - [Extra information about file paths](https://docs.google.com/presentation/d/18u1Vhd3Uq-QprC0btpxS_-Ka-LKVUvncyoqdbGdb-g4/edit?usp=sharing)
 
 **Need help with joins?**
@@ -89,7 +90,12 @@ Here are additional resources to help you on your R journey - either before, dur
 - [Modeling 101](https://jhudatascience.org/tidyversecourse/model.html#linear-modeling)
 - [Interpreting GLM output (e.g., deviance)](https://www.statology.org/null-residual-deviance/)
 
-### **More Classes and Resources**  
+
+</details>
+
+<br>
+
+<details><summary> <span style = "color: #5383bb;"> ► **Courses & Conferences**</span></summary><br>
 
 #### **Online Courses and Resources**
 
@@ -110,133 +116,143 @@ Here are additional resources to help you on your R journey - either before, dur
 - [PH.140.778 - Statistical Computing, Algorithm, and Software Development](https://www.jhsph.edu/courses/course/36737/2022/140.778.01/statistical-computing-algorithm-and-software-devel) - A more advanced course for working with data in R.
     - Content for similar topics as this course can also be found on [Leanpub](https://leanpub.com/advstatcomp).
 
+#### **R Conferences**
 
-### **R for Stata, SPSS, and SAS files**
+- The [RStudio/Posit conference](https://posit.co/conference/) has lots of useful workshops! 
+- useR! — International R User Conference information can be found [here](https://www.r-project.org/conferences/).
+
+</details>
+
+<br>
+
+<details><summary> <span style = "color: #5383bb;"> ► **R for Stata, SPSS, and SAS files**</span></summary><br>
 
 - The [Haven](https://haven.tidyverse.org/) package  
  (This package is super useful for reading and writing files so that they are compatible across Stata, SPSS, SAS, and R) 
 - [R vs Stata](https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf)  
 (See page 505)
 
-### **Comparison of Python and R**
+</details>
+
+<br>
+
+<details><summary> <span style = "color: #5383bb;"> ► **Comparison of Python and R**</span></summary><br>
 
 - A helpful [blog post](https://www.ibm.com/cloud/blog/python-vs-r) about the difference between these two languages.
 
-### **Interested in Conferences?**
-
-- The [RStudio/Posit conference](https://posit.co/conference/) has lots of useful workshops! 
-<br>
-
-### **Videos of Previous Online Lectures**
-***
-
-#### **From Summer Institute 2022**
-
-```{r, echo = FALSE, message = FALSE, results='asis'}
-mat <- matrix(c(
-  "RStudio and Reproducibility", "https://www.youtube.com/watch?v=eCsD0f0q6rY&t=9s",
-  "Basic R", "https://www.youtube.com/watch?v=2YRgDG3qsho",
-  "Data IO", "https://www.youtube.com/watch?v=ejnBAdA2N1c",
-  "Subsetting Data", "https://www.youtube.com/watch?v=GFa6dXAezJg",
-  "Data Summarization", "https://www.youtube.com/watch?v=kj_69maSANk",
-  "Data Classes", "https://www.youtube.com/watch?v=zoVciFJieLY&t=21s",
-  "Data Cleaning", "https://www.youtube.com/watch?v=GhK8xMUBNwg",
-  "Data Manipulation", "https://www.youtube.com/watch?v=qP73AWUjfAU",
-  "Intro to Data Visualization", "https://www.youtube.com/watch?v=OCVo6vWrKL4",
-  "Data Visualization", "https://www.youtube.com/watch?v=9UPlZqOfT_s",
-  "Factors", "https://www.youtube.com/watch?v=0fE756trEEE",
-  "Statistics", "https://www.youtube.com/watch?v=jZ5sskAdAJU&t=4s",
-  "Functions", "https://www.youtube.com/watch?v=dx-85RzN1G0"
-), ncol = 2, byrow = TRUE)
-mat <- data.frame(mat, stringsAsFactors = FALSE)
-colnames(mat) <- c("Day", "Link to Video")
-knitr::kable(mat, format = "html") %>%
-  kable_styling()
-```
-
-
-#### **From Winter Institute 2022**
-
-```{r, echo = FALSE, message = FALSE, results='asis'}
-mat <- matrix(c(
-  "RStudio", "https://youtu.be/zpAQrglIJb0",
-  "Basic R", "https://youtu.be/_8ZG0G1nNlA",
-  "Reproducibility", "https://youtu.be/ChFTiZ7Clo4",
-  "Data IO", "https://youtu.be/bnYN7AfYGNM",
-  "Subsetting Data", "https://youtu.be/kPU3dl25ox8",
-  "Data Summarization", "https://youtu.be/C_a8bGGdrIA",
-  "Data Classes", "https://youtu.be/ZCe30kIJ0Xc",
-  "Data Cleaning", "https://youtu.be/siFL49CCsJg",
-  "Data Manipulation", "https://youtu.be/7M81XUIY5SE",
-  "Intro to Data Visualization", "https://youtu.be/Md46muvSrYE",
-  "Data Visualization", "https://youtu.be/YjDT3ZUSiR4",
-  "Factors", "https://youtu.be/Co4l0YhuYSk",
-  "Statistics", "https://youtu.be/3nSIN1mu8uw",
-  "Functions", "https://youtu.be/XUKJtUYU1Ic"
-), ncol = 2, byrow = TRUE)
-mat <- data.frame(mat, stringsAsFactors = FALSE)
-colnames(mat) <- c("Day", "Link to Video")
-knitr::kable(mat, format = "html") %>%
-  kable_styling()
-```
-
-#### **From Summer Institute 2021**
-
-```{r, echo = FALSE, message = FALSE, results='asis'}
-mat <- matrix(c(
-  "RStudio", "https://youtu.be/zpAQrglIJb0",
-  "Basic R", "https://youtu.be/md30mwFJ2_Q",
-  "Data IO", "https://youtu.be/6xNyETqIqZU",
-  "Subsetting Data", "https://youtu.be/YeBSc2YXr4U",
-  "Data Summarization Part 1 + 2", "https://youtu.be/yL3BGDWtVC4",
-  "Data Classes", "https://youtu.be/zBCvbikMTAc",
-  "Data Cleaning", "https://youtu.be/TaREvr5evwk",
-  "Data Manipulation", "https://youtu.be/-039V99I-PE",
-  "Reproducibility", "https://youtu.be/ui9dJLqtdCs",
-  "Statistics", "https://youtu.be/EJwlBoBHoz4",
-  "Data Visualization", "https://youtu.be/ngQX9khx7UQ",
-  "Functions", "https://youtu.be/epIujSKgNi4"
-), ncol = 2, byrow = TRUE)
-mat <- data.frame(mat, stringsAsFactors = FALSE)
-colnames(mat) <- c("Day", "Link to Video")
-knitr::kable(mat, format = "html") %>%
-  kable_styling()
-```
-
-**From Winter Institute 2020**
-
-```{r, echo = FALSE, message = FALSE, results='asis'}
-mat <- matrix(c(
-  "RStudio and Data Classes", "https://youtu.be/vyIsDnsq5jY",
-  "Subsetting Data", "https://youtu.be/mT8lSagYbjM",
-  "Data Summarization Part 1", "https://youtu.be/SZYpzt9zy0g",
-  "Data Classes", "https://youtu.be/82zSA1N0mnA",
-  "Data Cleaning", "https://youtu.be/G3V2YPaQN34",
-  "Data Manipulation", "https://youtu.be/43MPdw5bf4o",
-  "Statistics 1", "https://youtu.be/Jr4ljyzrr4U",
-  "Statistics 2", "https://youtu.be/ub2BSbK9lMM"
-), ncol = 2, byrow = TRUE)
-mat <- data.frame(mat, stringsAsFactors = FALSE)
-colnames(mat) <- c("Day", "Link to Video")
-knitr::kable(mat, format = "html") %>%
-  kable_styling()
-```
-
-#### **From Summer Institute 2017**
-
-```{r videos, echo = FALSE, message = FALSE, results='asis'}
-mat <- matrix(c(
-  "Day 1", "https://youtu.be/Xi-wsACc7p0",
-  "Day 2", "https://youtu.be/u1FQt9Hr8iw",
-  "Day 3", "https://youtu.be/woc7AGJTzZw",
-  "Day 4", "https://youtu.be/RZ7eVIMPIes",
-  "Day 5", "https://youtu.be/e8cFV8wluC0"
-), ncol = 2, byrow = TRUE)
-mat <- data.frame(mat, stringsAsFactors = FALSE)
-colnames(mat) <- c("Day", "Link to Video")
-knitr::kable(mat, format = "html") %>%
-  kable_styling()
-```
+</details>
 
 <br>
 
+<details><summary> <span style = "color: #5383bb;"> ► **Videos of Previous Online Lectures**</span></summary><br>
+
+  **From Summer Institute 2022**
+  
+  ```{r, echo = FALSE, message = FALSE, results='asis'}
+  mat <- matrix(c(
+    "RStudio and Reproducibility", "https://www.youtube.com/watch?v=eCsD0f0q6rY&t=9s",
+    "Basic R", "https://www.youtube.com/watch?v=2YRgDG3qsho",
+    "Data IO", "https://www.youtube.com/watch?v=ejnBAdA2N1c",
+    "Subsetting Data", "https://www.youtube.com/watch?v=GFa6dXAezJg",
+    "Data Summarization", "https://www.youtube.com/watch?v=kj_69maSANk",
+    "Data Classes", "https://www.youtube.com/watch?v=zoVciFJieLY&t=21s",
+    "Data Cleaning", "https://www.youtube.com/watch?v=GhK8xMUBNwg",
+    "Data Manipulation", "https://www.youtube.com/watch?v=qP73AWUjfAU",
+    "Intro to Data Visualization", "https://www.youtube.com/watch?v=OCVo6vWrKL4",
+    "Data Visualization", "https://www.youtube.com/watch?v=9UPlZqOfT_s",
+    "Factors", "https://www.youtube.com/watch?v=0fE756trEEE",
+    "Statistics", "https://www.youtube.com/watch?v=jZ5sskAdAJU&t=4s",
+    "Functions", "https://www.youtube.com/watch?v=dx-85RzN1G0"
+  ), ncol = 2, byrow = TRUE)
+  mat <- data.frame(mat, stringsAsFactors = FALSE)
+  colnames(mat) <- c("Day", "Link to Video")
+  knitr::kable(mat, format = "html") %>%
+    kable_styling()
+  ```
+  
+  **From Winter Institute 2022**
+  
+  ```{r, echo = FALSE, message = FALSE, results='asis'}
+  mat <- matrix(c(
+    "RStudio", "https://youtu.be/zpAQrglIJb0",
+    "Basic R", "https://youtu.be/_8ZG0G1nNlA",
+    "Reproducibility", "https://youtu.be/ChFTiZ7Clo4",
+    "Data IO", "https://youtu.be/bnYN7AfYGNM",
+    "Subsetting Data", "https://youtu.be/kPU3dl25ox8",
+    "Data Summarization", "https://youtu.be/C_a8bGGdrIA",
+    "Data Classes", "https://youtu.be/ZCe30kIJ0Xc",
+    "Data Cleaning", "https://youtu.be/siFL49CCsJg",
+    "Data Manipulation", "https://youtu.be/7M81XUIY5SE",
+    "Intro to Data Visualization", "https://youtu.be/Md46muvSrYE",
+    "Data Visualization", "https://youtu.be/YjDT3ZUSiR4",
+    "Factors", "https://youtu.be/Co4l0YhuYSk",
+    "Statistics", "https://youtu.be/3nSIN1mu8uw",
+    "Functions", "https://youtu.be/XUKJtUYU1Ic"
+  ), ncol = 2, byrow = TRUE)
+  mat <- data.frame(mat, stringsAsFactors = FALSE)
+  colnames(mat) <- c("Day", "Link to Video")
+  knitr::kable(mat, format = "html") %>%
+    kable_styling()
+  ```
+  
+  **From Summer Institute 2021**
+  
+  ```{r, echo = FALSE, message = FALSE, results='asis'}
+  mat <- matrix(c(
+    "RStudio", "https://youtu.be/zpAQrglIJb0",
+    "Basic R", "https://youtu.be/md30mwFJ2_Q",
+    "Data IO", "https://youtu.be/6xNyETqIqZU",
+    "Subsetting Data", "https://youtu.be/YeBSc2YXr4U",
+    "Data Summarization Part 1 + 2", "https://youtu.be/yL3BGDWtVC4",
+    "Data Classes", "https://youtu.be/zBCvbikMTAc",
+    "Data Cleaning", "https://youtu.be/TaREvr5evwk",
+    "Data Manipulation", "https://youtu.be/-039V99I-PE",
+    "Reproducibility", "https://youtu.be/ui9dJLqtdCs",
+    "Statistics", "https://youtu.be/EJwlBoBHoz4",
+    "Data Visualization", "https://youtu.be/ngQX9khx7UQ",
+    "Functions", "https://youtu.be/epIujSKgNi4"
+  ), ncol = 2, byrow = TRUE)
+  mat <- data.frame(mat, stringsAsFactors = FALSE)
+  colnames(mat) <- c("Day", "Link to Video")
+  knitr::kable(mat, format = "html") %>%
+    kable_styling()
+  ```
+  
+  **From Winter Institute 2020**
+  
+  ```{r, echo = FALSE, message = FALSE, results='asis'}
+  mat <- matrix(c(
+    "RStudio and Data Classes", "https://youtu.be/vyIsDnsq5jY",
+    "Subsetting Data", "https://youtu.be/mT8lSagYbjM",
+    "Data Summarization Part 1", "https://youtu.be/SZYpzt9zy0g",
+    "Data Classes", "https://youtu.be/82zSA1N0mnA",
+    "Data Cleaning", "https://youtu.be/G3V2YPaQN34",
+    "Data Manipulation", "https://youtu.be/43MPdw5bf4o",
+    "Statistics 1", "https://youtu.be/Jr4ljyzrr4U",
+    "Statistics 2", "https://youtu.be/ub2BSbK9lMM"
+  ), ncol = 2, byrow = TRUE)
+  mat <- data.frame(mat, stringsAsFactors = FALSE)
+  colnames(mat) <- c("Day", "Link to Video")
+  knitr::kable(mat, format = "html") %>%
+    kable_styling()
+  ```
+  
+  **From Summer Institute 2017**
+  
+  ```{r videos, echo = FALSE, message = FALSE, results='asis'}
+  mat <- matrix(c(
+    "Day 1", "https://youtu.be/Xi-wsACc7p0",
+    "Day 2", "https://youtu.be/u1FQt9Hr8iw",
+    "Day 3", "https://youtu.be/woc7AGJTzZw",
+    "Day 4", "https://youtu.be/RZ7eVIMPIes",
+    "Day 5", "https://youtu.be/e8cFV8wluC0"
+  ), ncol = 2, byrow = TRUE)
+  mat <- data.frame(mat, stringsAsFactors = FALSE)
+  colnames(mat) <- c("Day", "Link to Video")
+  knitr::kable(mat, format = "html") %>%
+    kable_styling()
+  ```
+
+</details>
+
+<br>

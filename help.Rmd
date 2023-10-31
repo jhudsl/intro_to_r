@@ -1,13 +1,9 @@
 ---
-title: "Frequent Code Issues"
+title: "FAQ / Help"
 output: 
   html_document:
     toc: true
 ---
-
-<br>
-
-Here are some common code issues that can cause trouble.
 
 <br>
 <br>
@@ -24,6 +20,9 @@ code{
 }
 ```
 
+# **Common Issues**
+
+***
 ## **How do I get output to stop printing inside the Rmarkdown and only show it in the console?**
 
 **To change this, you will need to adjust the RStudio Settings.**
@@ -35,6 +34,12 @@ code{
 <br>
 <br>
 
+***
+## **What packages are part of the Tidyverse**?
+
+If you need to check what packages are part of the `tidyverse`, you can do so at this [link](https://www.tidyverse.org/packages/).
+
+***
 ## **Why are my changes not taking effect? It's making my results look weird!**
 
 **Forgetting to assign your data to an object**
@@ -73,8 +78,21 @@ You may get a `+`  sign instead of the cursor `>` in the console suggesting that
 Hit the "esc" key to restore your `>`, then fix/rerun your code.
 
 ***
+## **When should I use quotes ("") or backticks (``)?**
 
-## **`Error in x : could not find function "y"`**
+Check out our [Guide on when to use quotes or backticks](https://jhudatascience.org/intro_to_r/resources/quotes_vs_backticks.html).
+
+***
+## **How do I know when to use the `pull()` function, instead of just using `select()`?**
+
+Check out our [Guide on what functions require pulling values out first](https://jhudatascience.org/intro_to_r/resources/functions_for_vectors.html).
+
+<br><br><br>
+
+# **Common Errors**
+
+***
+## **Error in x : could not find function "y"**
 
 **Forgetting to load a library or misspelling a function or package**
 
@@ -102,9 +120,7 @@ libary(tidyverse)
 ```
 
 ***
-
-
-## **`Error: object 'X' not found`**
+## **Error: object 'X' not found**
 
 **Forgetting to assign an object to start with**
 
@@ -122,9 +138,7 @@ rivers2
 ```
 
 ***
-
-
-## **`Error: unexpected ',' in ...`, `Error: unexpected ')' in ...`, `Error: unexpected 'X' in ...`**
+## **Error: unexpected ',' in ... / Error: unexpected ')' in ... / Error: unexpected 'X' in ...**
 
 **Trouble with parentheses**
 
@@ -154,8 +168,7 @@ all_equal((rivers+1), rivers))
 ```
 
 ***
-
-## **`Error: unexpected symbol in "x"`**
+## **Error: unexpected symbol in "x"**
 
 **Not using quotes or backticks when needed**  
 
@@ -190,8 +203,7 @@ df_quotes %>% pull(The Values) # this does not work!
 ```
 
 ***
-
-## **`Error: unexpected input in "x"`**
+## **Error: unexpected input in "x"**
 
 **Copy+pasting quotation marks**
 
@@ -206,9 +218,7 @@ df_quotes %>% pull(“The Values”) # this doesn't work
 ```
 
 ***
-
-
-## **`ℹ Did you use '%>%' or '|>' instead of '+'?`**
+## **Error: `mapping` must be created by `aes()` / `ℹ` Did you use '%>%' or '|>' instead of '+'?**
 
 **Forgetting to use `+` to add `ggplot2` layers**
 
@@ -227,8 +237,7 @@ ggplot(data = iris, aes(x = Species, y = Petal.Length)) +
 ```
 
 ***
-
-## **``Error in `+.gg`:`` ``ℹ Did you accidentally put `+` on a new line?``**
+## **Error in +.gg: `ℹ` Did you accidentally put '+' on a new line?**
 
 This will not work:
 

@@ -334,8 +334,8 @@ jobs:
         run: |
           Rscript --vanilla "scripts/render_cheatsheets.R" --files "${{ steps.changed-files.outputs.all_changed_files }}"
         
-       # Render resource pdfs
-      - name: Render Resource pdfs
+       # Render resource pdfs + html
+      - name: Render Resource pdfs + html
         run: |
           Rscript --vanilla "scripts/render_resources.R" --files "${{ steps.changed-files.outputs.all_changed_files }}"
         
