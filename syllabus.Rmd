@@ -1,6 +1,6 @@
 ---
 title: "Syllabus"
-output:
+output: 
   html_document
 ---
 
@@ -8,19 +8,42 @@ output:
 library(tidyverse)
 ```
 
+<br>
+
+## Overview
+
 **`r config::get("course_name_long")`**
 
-**Overview:** This course will provide *"hands-on" training*  for learning how to analyze data in the R statistical software package. We will cover data input/output, data management and manipulation, and how to make useful and informative graphics.
+This course will provide *"hands-on" training*  for learning how to analyze data in the R statistical software package. We will cover data input/output, data management and manipulation, and how to make useful and informative graphics.
 
-### Logistics
-***
+<br>
 
-**When:** 
+## Objectives
+
+By the end of the course, students should be comfortable:
+
+- Reading data into R
+- Recoding and manipulating data
+- Using R add-on packages
+- Making exploratory plots
+- Performing basic statistical tests
+- Understanding basic programming syntax
+- Creating reproducible R documents
+
+<br>
+
+## Logistics
+
+<br>
+
+### When 
 
 - **Dates:** `r config::get("course_dates")` (`r config::get("holiday")`)
 - **Time:** `r config::get("course_time")`
 
-**Where:**
+<br>
+
+### Where
 
 - **Class Website:** http://jhudatascience.org/intro_to_r/   
 - **CoursePlus:** `r config::get("courseplus_web")`
@@ -28,28 +51,28 @@ library(tidyverse)
 - Zoom link and Slack link will be emailed to students
 - Communication will mainly occur through Slack
 
+<br>
 
 ### Instruction Team
-***
 
 - **Instructors:** `r config::get("instructors")`
 - **Teaching Assistants:** `r config::get("ta")`
 
-### Course Format
-***
+<br>
 
-* Each class will consist of 2 or 3 hour-long modules.
-* Each module features a lecture and an R programming lab, where students apply the skills taught in the modules to real data in breakout rooms. 
-* Class sessions will be recorded and later posted. 
-* If you have a question not covered during class, please post it on Slack. This allows everyone to see it. If another student does not answer your question (which we encourage!), we will try to answer it within 24 hours. If you feel uncomfortable posting a question publicly, let a TA or instructor know your question and we will post it for you anonymously. 
-* To get the most out of this class, if possible, we suggest working virtually with a **large monitor or two screens**. This setup allows you to follow along on Zoom while also doing the hands-on coding.
+## Course Format
 
-<details><summary> <span style = "color: #5383bb;"> **Please click here for details about using Zoom.**</span></summary>
-
-Zoom + Working Virtually
-
-***
-
+- Each class will consist of 2 or 3 hour-long modules.
+- Each module features a lecture and an R programming lab, where students apply the skills taught in the modules to real data in breakout rooms. 
+- Class sessions will be recorded and later posted. 
+- If you have a question not covered during class, please post it on Slack. This allows everyone to see it. If another student does not answer your question (which we encourage!), we will try to answer it within 24 hours. If you feel uncomfortable posting a question publicly, let a TA or instructor know your question and we will post it for you anonymously. 
+- To get the most out of this class, if possible, we suggest working virtually with a **large monitor or two screens**. This setup allows you to follow along on Zoom while also doing the hands-on coding.  
+- <details><summary> <span style = "color: #5383bb;"> **Please click here for details about using Zoom.**</span></summary>
+      
+  Zoom + Working Virtually
+  
+  ***
+  
   * Please be aware that there is the option to use closed captioning:
 
   ![closed captioning on zoom](docs/images/CC.png)
@@ -63,81 +86,56 @@ Zoom + Working Virtually
   ![ask for help](docs/images/help.png)
 
   * For directions on how to change breakout rooms click [here](https://docs.google.com/document/d/1YP1pZF1bIm66_Tl15Y3eHl8pGxNIASD33mKCtGCfQzc/edit?usp=sharing).
-  
-***
-</details>
+    
+  ***
+  </details>
 
 <br>
 
-### Objectives
-***
-
-By the end of the course, students should be comfortable:
-
-- Reading data into R
-- Recoding and manipulating data
-- Using R add-on packages
-- Making exploratory plots
-- Performing basic statistical tests
-- Understanding basic programming syntax
-- Creating reproducible R documents
-
-
-<br>
-
-### Course Evaluation
-***
+## Course Evaluation
 
 Course evaluations are very important for the school to determine what courses to continue to support. It also helps us to improve the course with your feedback.
 
-Use this link to access the evaluation: https://courseevaluations.jhsph.edu
+- Use this link to access the evaluation: https://courseevaluations.jhsph.edu. 
+- Use your JHED ID or  and password to log in. If you do not have a JHED ID, sign in as a “Guest User” using the email provided to create your JHU login during course registration. Please contact JHSPH.courseeval@jhu.edu for assistance.  
+- All non-auditing institute students (whether they are taking courses for credit or not) are eligible to evaluate their courses. 
 
-Use your JHED ID or  and password to log in. If you do not have a JHED ID, sign in as a “Guest User” using the email provided to create your JHU login during course registration. Please contact JHSPH.courseeval@jhu.edu for assistance.
+<br>
 
-All non-auditing institute students (whether they are taking courses for credit or not) are eligible to evaluate their courses. 
+## Assignments
+
+<br>
 
 ### Grading
-***
 
-1. Attendance/Participation: 20% (Please let the instructors know if attendance will be difficult for you.)
-2. Homework: 3 x 15%
-3. Final "Project": 35%
+All assignments are due **`r config::get("final_due_date")`**. 
 
-All assignments are due `r config::get("final_due_date")`. 
+| **Assignment**       |  **Percent of Grade**|
+|:---------------------|---------------------:|
+|Attendance/Participation               | 20% |
+|Homework 1                             | 15% |
+|Homework 2                             | 15% |
+|Homework 3                             | 15% |
+|Final Project                          | 35% |
+|**Total**                              | 100%|
 
 **Note**: only people taking the course for credit must turn in the assignments. However, we will evaluate all submitted assignments in case others would like feedback on their work.
 
 <br>
 
-### Submitting Assignments
-***
-
-Submit each assignment to the designated [Drop Box on CoursePlus](`r config::get("courseplus_dropboxes")`).
+### Homework
 
 You should complete the following:
 
-1. [Data Quest: Introduction to Programming in R](https://app.dataquest.io/m/499/introduction-to-programming-in-r)
-2. Homework 2 Problem Set (submit your Rmd file): 
-   - [Questions (Rmd)](modules/HW/homework2.Rmd), [Questions (HTML)](modules/HW/homework2.html)         
-   - [Key (Rmd)](modules/HW/homework2_key.Rmd), [Key (HTML)](modules/HW/homework2_key.html)
-3. Homework 3 Problem Set (submit your Rmd file):
-   - [Questions (Rmd)](modules/HW/homework3.Rmd), [Questions (HTML)](modules/HW/homework3.html)         
-   - [Key (Rmd)](modules/HW/homework3_key.Rmd), [Key (HTML)](modules/HW/homework3_key.html)
-4. Final Project (see below)
+| **Module**                  | **Details**                                         | **Code**                                                                                                                                           |
+| :-------------------------: | :-------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------: |
+| Homework 1                  | [Day 0 Instructions](docs/module_details/day0.html) | [Dataquest](https://app.dataquest.io/login?target-url=%2Fm%2F499%2Fintroduction-to-programming-in-r)                                               |
+| Homework 2                  |                                                     | [Rmd](modules/HW/homework2.Rmd), [HTML](modules/HW/homework2.html), [Key](modules/HW/homework2_key.Rmd), [Key HTML](modules/HW/homework2_key.html) |
+| Homework 3                  |                                                     | [Rmd](modules/HW/homework3.Rmd), [HTML](modules/HW/homework3.html), [Key](modules/HW/homework3_key.Rmd), [Key HTML](modules/HW/homework3_key.html) | 
 
 <br>
 
-### Assignment Extensions
-***
-
-We know that you will try your best to submit assignments on time. However, we understand that life happens. We can accept late assignments with a deduction of 2% of your assignment score per day late.
-
-For example, if you scored 9/10 on an assignment (90%) but turned it in two days late, your score would be 8.6/10 (86%).
-
-<br>
-
-### Final Projects 
-***
+### Final Project
 
 This project should entail:
 
@@ -159,46 +157,62 @@ See the [guidelines/instructions](modules/Project_Guidelines/Project_Guidelines.
 
 <br>
 
+### Submission
 
-### Code of Conduct
-***
+All assignments are due **`r config::get("final_due_date")`**. 
+
+Submit each assignment to the designated [Drop Box on CoursePlus](`r config::get("courseplus_dropboxes")`).
+
+<br>
+
+### Assignment Extensions
+
+We know that you will try your best to submit assignments on time. However, we understand that life happens. We can accept late assignments with a deduction of 2% of your assignment score per day late.
+
+For example, if you scored 9/10 on an assignment (90%) but turned it in two days late, your score would be 8.6/10 (86%).
+
+<br>
+
+## Code of Conduct
 
 We would like to create an open, safe, welcoming, diverse, inclusive, intellectually stimulating, and hopefully fun class experience. 
 
 We strive to be a space in which individual differences are respected, so that each individual can reach their fullest potential.
 
-#### Guidelines
+<br>
 
-- Demonstrating empathy and kindness toward other people
-- Giving and gracefully accepting constructive feedback
-- Avoiding making assumptions about others
-- Being respectful of differing opinions, viewpoints, and experiences
-- Take the time to consider how your speech and actions may influence others
-- Actively seek to acknowledge and respect the boundaries of other members
-- Demonstrating academic integrity 
-    - Students can work together, but assignments must show unique contributions from the student who turns in the assignment
-    - Students can use online resources for help, but assignments must show unique contributions from the student who turns in the assignment - plagiarism is not allowed
-    - If students are struggling, reach out to instructors or TAs as early as possible
+### Guidelines
 
+- Demonstrating empathy and kindness toward other people  
+- Giving and gracefully accepting constructive feedback  
+- Avoiding making assumptions about others  
+- Being respectful of differing opinions, viewpoints, and experiences  
+- Take the time to consider how your speech and actions may influence others  
+- Actively seek to acknowledge and respect the boundaries of other members  
+- Demonstrating academic integrity  
+    - Students can work together, but assignments must show unique contributions from the student who turns in the assignment  
+    - Students can use online resources for help, but assignments must show unique contributions from the student who turns in the assignment - plagiarism is not allowed  
+    - If students are struggling, reach out to instructors or TAs as early as possible  
 
 This applies to emails, surveys, Slack, Zoom, office hours, meetings with other students, instructors, or TAs.
 
  **Please reach out to a TA or instructor if you witness or experience a violation of the class guidelines or other JHU codes of conduct.**
+ 
+<br>
+ 
+### Resources
 
-- **JHU Student Code of Conduct:**   
-https://studentaffairs.jhu.edu/policies-guidelines/student-code/  
-- **Hopkins School of Medicine:**  
-https://www.hopkinsmedicine.org/research/resources/offices-policies/OPC/Research_Integrity/som_code_of_conduct_04302020.pdf   
-- **JHSPH Academic Ethics Code:**   
-https://www.jhsph.edu/offices-and-services/student-affairs/resources/student-policies/_documents/academic-ethics-code.pdf 
+- **JHU Student Code of Conduct:** https://studentaffairs.jhu.edu/policies-guidelines/student-code/  
+- **Hopkins School of Medicine:** https://www.hopkinsmedicine.org/research/resources/offices-policies/OPC/Research_Integrity/som_code_of_conduct_04302020.pdf   
+- **JHSPH Academic Ethics Code:** https://www.jhsph.edu/offices-and-services/student-affairs/resources/student-policies/_documents/academic-ethics-code.pdf  
 
 **The University has developed avenues for reporting and for seeking help including:** 
 
-● JHU Sexual Assault Helpline, 410-516-7333 (confidential) 
-● Campus Safety and Security, 410-516-7777 
-● University Sexual Assault Response and Prevention website 
-● Johns Hopkins Compliance Hotline, 844-SPEAK2US (844-733-2528) 
-● JHU Office of Institutional Equity 410-516-8075 (nonconfidential) 
-● Johns Hopkins Student Assistance Program (JHSAP), 443-287-7000 
-● University Health Services - Mental Health (UHS-MS), 410-955-1892 
-● The Faculty and Staff Assistance Program (FASAP), 443-997-7000 
+- JHU Sexual Assault Helpline, 410-516-7333 (confidential)  
+- Campus Safety and Security, 410-516-7777  
+- University Sexual Assault Response and Prevention website  
+- Johns Hopkins Compliance Hotline, 844-SPEAK2US (844-733-2528)  
+- JHU Office of Institutional Equity 410-516-8075 (nonconfidential)   
+- Johns Hopkins Student Assistance Program (JHSAP), 443-287-7000  
+- University Health Services - Mental Health (UHS-MS), 410-955-1892  
+- The Faculty and Staff Assistance Program (FASAP), 443-997-7000  

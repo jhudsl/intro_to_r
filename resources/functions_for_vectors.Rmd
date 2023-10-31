@@ -1,0 +1,152 @@
+---
+title: "Functions that need pull first"
+output: 
+  html_document:
+    css: ../docs/web_styles.css
+---
+
+When can you use a function directly on a column of a tibble and when do you need a vector in R?
+
+There are some inconsistencies across different functions. Typically if it is a base R function, you often need to pull the data out into a vector first.  Sometimes you just need to try them out. Always check that your work did what you expect!
+
+## In general {.tabset .tabset-fade}
+
+In general these functions need to use vectors:
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(kableExtra)
+library(tidyverse)
+text_tbl <- data.frame(
+  Type = c("base R and tidyverse function", "special tidyverse functions", "base R functions", "stat functions that come with R"),
+  Example = c("setdiff()", "stringr functions like str_replace()", "mean()", "cor.test()"))
+kbl(text_tbl) %>%
+  # kable_classic(full_width = F, html_font = "helvetica") %>%
+  kable_paper(full_width = F, html_font = "helvetica", font_size = "18") %>%
+  column_spec(1:2, bold = T, border_right = T, border_left = TRUE) %>%
+  row_spec(0, align = "c") %>%
+  row_spec(1, background = "yellow") %>%
+  row_spec(2, background = "lightgreen") %>%
+  row_spec(3:4, background = "lightblue")
+```
+
+<br>
+
+Click below to take a look at each in more detail.
+
+<br>
+
+### `setdiff()` function
+
+This function was originally a base R function and it got adopted by tidyverse packages (`dplyr` and `lubridate`) and is therefore can behave a bit differently. This is confusing and part of the struggle of an open development environment.
+
+When using `setdiff()` from base R, vectors are required - meaning we need to use `pull` first. It shows the **elements in the first that are missing from the second**. 
+
+Using `::` we can specify which package we want to use the function from.
+
+
+```{r}
+data_As <- tibble(State = c("Alabama", "Alaska"),
+                 state_bird = c("wild turkey", "willow ptarmigan"))
+data_cold <- tibble(State = c("Maine", "Alaska", "Alaska"),
+                    vacc_rate = c(0.795, 0.623, 0.626),
+                    month = c("April", "April", "May"))
+
+A_states_vector <- data_As %>% pull(State)
+cold_states_vector <- data_cold %>% pull(State)
+
+A_states_vector
+cold_states_vector
+
+base::setdiff(A_states_vector, cold_states_vector)
+```
+"Alabama" is in the first vector, but not in the second vector.
+
+If we do this with the `dplyr` version this still works the same:
+
+```{r}
+dplyr::setdiff(A_states_vector, cold_states_vector)
+```
+
+We can select the `State` variable to compare (keeping it as a tibble) and it still works as the above with the `dplyr` version, even though `A_states` and `cold_states` are tibbles and not vectors. (Remember `select()` creates a smaller tibble and `pull()` creates a vector of the values.) In this case we see the rows in the first tibble that are not in the second.
+
+```{r}
+A_states_tibble <- data_As %>% select(State)
+A_states_tibble
+cold_states_tibble <- data_cold %>% select(State)
+cold_states_tibble
+dplyr::setdiff(A_states_tibble, cold_states_tibble)
+
+```
+
+However when using `setdiff()` from base R with the tibble versions of the data, it does not work properly and just gives us the first tibble.
+
+```{r}
+base::setdiff(A_states_tibble, cold_states_tibble) 
+base::setdiff(cold_states_tibble, A_states_tibble) 
+```
+
+We could also use `setdiff()` from `dplyr` to tell us what rows were removed when filtering a dataframe or tibble:
+
+```{r}
+mt_cars_high_mpg <- mtcars %>% filter(mpg > 20)
+dplyr::setdiff(mtcars, mt_cars_high_mpg)
+```
+
+Here we see all the rows with `mpg` below 20. 
+
+### `stringr` functions
+
+These functions are often applied within `filter()` or `mutate()` for a data frame. When they are not used inside these functions they need to be used on a vector. 
+
+```{r}
+iris %>% filter(str_detect(string = Species, pattern = "set")) %>% head() # this will work
+
+iris %>% pull(Species) %>% str_detect(pattern = "set") %>% head() # so will this
+```
+
+This however, would not work well:
+
+```{r, eval = FALSE}
+iris %>% select(Species) %>% str_detect(pattern = "set")
+```
+
+
+### `base` R math functions
+
+Functions like `sum()` or `mean()` need vectors. We can use them well within `summarize` but would need to use a vector otherwise. 
+
+```{r}
+iris %>% summarize(mean_Petal_Length = mean(Petal.Length))
+
+iris %>% pull(Petal.Length) %>% mean()
+```
+
+This does not work:
+
+```{r, eval = FALSE}
+iris %>% select(Petal.Length) %>% mean()
+
+```
+
+
+
+### `stats` functions
+
+Functions like `cor.test` of the `stats` package (which come automatically with R) need vectors too. Note that some of the other `stats` functions are tolerant to using tibbles. 
+
+```{r}
+
+x <-iris %>% pull(Petal.Length)
+y <-iris %>% pull(Petal.Width)
+
+cor.test(x,y)
+```
+
+This does not work:
+
+```{r, eval = FALSE}
+x <-iris %>% select(Petal.Length)
+y <-iris %>% select(Petal.Width)
+
+cor.test(x,y)
+```

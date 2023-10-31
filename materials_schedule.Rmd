@@ -9,9 +9,8 @@ output:
 <br>
 
 ## Day Overview
-***
 
-| Time (EST)        | Content   |
+| Time (ET)         | Content   |
 |-------------------|-----------|
 | 1:30pm - 2:30pm   | Session 1 |
 | 2:30pm - 2:40pm   | Break     |
@@ -22,7 +21,6 @@ output:
 <br>
 
 ## Detailed Schedule + Materials
-***
 
 ```{r, results='asis', echo = FALSE, message=FALSE, warning = FALSE}
 # The str_replace_all creates an absolute url to linked documents since there are word and pdf rendered versions of the syllabus
@@ -38,61 +36,3 @@ pander::pandoc.table(
 )
 ```
 
-### Module Details
-
-[Day 0 (before the first session)](docs/module_details/day0.html)
- - Homework 1
-
-[Day 1](docs/module_details/day1.html)
-
-- Introduction 
-- RStudio
-- Reproducible Research
-
-[Day 2](docs/module_details/day2.html)
-
-- Basic R: Variables/Objects in R
-- Data Input
-
-
-[Day 3](docs/module_details/day3.html)
-
-- Subsetting Data
-- Discuss Homework 2 - work on Homework 2 in class if there is time
-
-
-[Day 4](docs/module_details/day4.html)
-
-- Summarization
-- Data Classes
-
-
-[Day 5](docs/module_details/day5.html)
-
-- Data Cleaning
-- Discuss Final Project Guidelines
-
-
-[Day 6](docs/module_details/day6.html)
-
-- Data Manipulation
-- Data Visualization with Esquisse
-- Discuss Homework 3 - work on Homework 3 in class if there is time
-
-
-[Day 7](docs/module_details/day7.html)
-
-- Data Visualization Continued
-- Factors
-
-[Day 8](docs/module_details/day8.html)
-
-- Statistics
-- Data Output
-- Discuss and work on Final Project
-
-
-[Day 9](docs/module_details/day9.html)
-
-- Functions
-- Work on Final Project
