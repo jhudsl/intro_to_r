@@ -11,7 +11,7 @@
 
 
 
-<title>Frequent Code Issues</title>
+<title>FAQ / Help</title>
 
 <script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -255,7 +255,7 @@ $(document).ready(function () {
   <a href="resources.html">Resources</a>
 </li>
 <li>
-  <a href="help.html">Help</a>
+  <a href="help.html">FAQ / Help</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -269,17 +269,23 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Frequent Code Issues</h1>
+<h1 class="title toc-ignore">FAQ / Help</h1>
 
 </div>
 
 <div id="TOC">
+<ul>
+<li><a href="#common-issues" id="toc-common-issues"><strong>Common
+Issues</strong></a>
 <ul>
 <li><a
 href="#how-do-i-get-output-to-stop-printing-inside-the-rmarkdown-and-only-show-it-in-the-console"
 id="toc-how-do-i-get-output-to-stop-printing-inside-the-rmarkdown-and-only-show-it-in-the-console"><strong>How
 do I get output to stop printing inside the Rmarkdown and only show it
 in the console?</strong></a></li>
+<li><a href="#what-packages-are-part-of-the-tidyverse"
+id="toc-what-packages-are-part-of-the-tidyverse"><strong>What packages
+are part of the Tidyverse</strong>?</a></li>
 <li><a
 href="#why-are-my-changes-not-taking-effect-its-making-my-results-look-weird"
 id="toc-why-are-my-changes-not-taking-effect-its-making-my-results-look-weird"><strong>Why
@@ -289,29 +295,49 @@ weird!</strong></a></li>
 id="toc-why-do-i-have-a-sign-instead-of-the-cursor-in-the-console"><strong>Why
 do I have a <code>+</code> sign instead of the cursor <code>&gt;</code>
 in the console?</strong></a></li>
-<li><a href="#error-in-x-could-not-find-function-y"
-id="toc-error-in-x-could-not-find-function-y"><strong><code>Error in x : could not find function "y"</code></strong></a></li>
-<li><a href="#error-object-x-not-found"
-id="toc-error-object-x-not-found"><strong><code>Error: object 'X' not found</code></strong></a></li>
+<li><a href="#when-should-i-use-quotes-or-backticks"
+id="toc-when-should-i-use-quotes-or-backticks"><strong>When should I use
+quotes (““) or backticks (``)?</strong></a></li>
 <li><a
-href="#error-unexpected-in-...-error-unexpected-in-...-error-unexpected-x-in-..."
-id="toc-error-unexpected-in-...-error-unexpected-in-...-error-unexpected-x-in-..."><strong><code>Error: unexpected ',' in ...</code>,
-<code>Error: unexpected ')' in ...</code>,
-<code>Error: unexpected 'X' in ...</code></strong></a></li>
+href="#how-do-i-know-when-to-use-the-pull-function-instead-of-just-using-select"
+id="toc-how-do-i-know-when-to-use-the-pull-function-instead-of-just-using-select"><strong>How
+do I know when to use the <code>pull()</code> function, instead of just
+using <code>select()</code>?</strong></a></li>
+</ul></li>
+<li><a href="#common-errors" id="toc-common-errors"><strong>Common
+Errors</strong></a>
+<ul>
+<li><a href="#error-in-x-could-not-find-function-y"
+id="toc-error-in-x-could-not-find-function-y"><strong>Error in x : could
+not find function “y”</strong></a></li>
+<li><a href="#error-object-x-not-found"
+id="toc-error-object-x-not-found"><strong>Error: object ‘X’ not
+found</strong></a></li>
+<li><a
+href="#error-unexpected-in-error-unexpected-in-error-unexpected-x-in"
+id="toc-error-unexpected-in-error-unexpected-in-error-unexpected-x-in"><strong>Error:
+unexpected ‘,’ in … / Error: unexpected ‘)’ in … / Error: unexpected ‘X’
+in …</strong></a></li>
 <li><a href="#error-unexpected-symbol-in-x"
-id="toc-error-unexpected-symbol-in-x"><strong><code>Error: unexpected symbol in "x"</code></strong></a></li>
+id="toc-error-unexpected-symbol-in-x"><strong>Error: unexpected symbol
+in “x”</strong></a></li>
 <li><a href="#error-unexpected-input-in-x"
-id="toc-error-unexpected-input-in-x"><strong><code>Error: unexpected input in "x"</code></strong></a></li>
-<li><a href="#ℹ-did-you-use-or-instead-of"
-id="toc-ℹ-did-you-use-or-instead-of"><strong><code>ℹ Did you use '%&gt;%' or '|&gt;' instead of '+'?</code></strong></a></li>
+id="toc-error-unexpected-input-in-x"><strong>Error: unexpected input in
+“x”</strong></a></li>
+<li><a
+href="#error-mapping-must-be-created-by-aes-ℹ-did-you-use-or-instead-of"
+id="toc-error-mapping-must-be-created-by-aes-ℹ-did-you-use-or-instead-of"><strong>Error:
+<code>mapping</code> must be created by <code>aes()</code> /
+<code>ℹ</code> Did you use ‘%&gt;%’ or ‘|&gt;’ instead of
+‘+’?</strong></a></li>
 <li><a href="#error-in-.gg-ℹ-did-you-accidentally-put-on-a-new-line"
-id="toc-error-in-.gg-ℹ-did-you-accidentally-put-on-a-new-line"><strong><code>Error in `+.gg`:</code>
-<code>ℹ Did you accidentally put `+` on a new line?</code></strong></a></li>
+id="toc-error-in-.gg-ℹ-did-you-accidentally-put-on-a-new-line"><strong>Error
+in +.gg: <code>ℹ</code> Did you accidentally put ‘+’ on a new
+line?</strong></a></li>
+</ul></li>
 </ul>
 </div>
 
-<p><br></p>
-<p>Here are some common code issues that can cause trouble.</p>
 <p><br> <br></p>
 <style type="text/css">
 .bg-error {
@@ -324,6 +350,9 @@ code{
   color: #000
 }
 </style>
+<div id="common-issues" class="section level1">
+<h1><strong>Common Issues</strong></h1>
+<hr />
 <div
 id="how-do-i-get-output-to-stop-printing-inside-the-rmarkdown-and-only-show-it-in-the-console"
 class="section level2">
@@ -344,6 +373,15 @@ alt="You can select Remove Output. You should now see output in the console." />
 output in the console.</div>
 </div>
 <p><br> <br></p>
+<hr />
+</div>
+<div id="what-packages-are-part-of-the-tidyverse"
+class="section level2">
+<h2><strong>What packages are part of the Tidyverse</strong>?</h2>
+<p>If you need to check what packages are part of the
+<code>tidyverse</code>, you can do so at this <a
+href="https://www.tidyverse.org/packages/">link</a>.</p>
+<hr />
 </div>
 <div
 id="why-are-my-changes-not-taking-effect-its-making-my-results-look-weird"
@@ -356,16 +394,16 @@ existing object or creating a new object.</p>
 <p>Here we are creating a new object from an existing one:</p>
 <pre class="r"><code>new_rivers &lt;- sample(rivers, 5)
 new_rivers</code></pre>
-<pre><code>## [1] 340 300 525 320 360</code></pre>
+<pre><code>## [1] 630 600 390 268 411</code></pre>
 <p>Using just this will only print the result and not actually change
 <code>new_rivers</code>:</p>
 <pre class="r"><code>new_rivers + 1</code></pre>
-<pre><code>## [1] 341 301 526 321 361</code></pre>
+<pre><code>## [1] 631 601 391 269 412</code></pre>
 <p>If we want to modify <code>new_rivers</code> and save that modified
 version, then we need to reassign <code>new_rivers</code> like so:</p>
 <pre class="r"><code>new_rivers &lt;- new_rivers + 1
 new_rivers</code></pre>
-<pre><code>## [1] 341 301 526 321 361</code></pre>
+<pre><code>## [1] 631 601 391 269 412</code></pre>
 <p>If we forget to reassign this can cause subsequent steps to not work
 as expected because we will not be working with the data that has been
 modified.</p>
@@ -384,8 +422,30 @@ open parentheses. Each instance of <code>(</code> should be followed by
 your code.</p>
 <hr />
 </div>
+<div id="when-should-i-use-quotes-or-backticks" class="section level2">
+<h2><strong>When should I use quotes (““) or backticks
+(``)?</strong></h2>
+<p>Check out our <a
+href="https://jhudatascience.org/intro_to_r/resources/quotes_vs_backticks.html">Guide
+on when to use quotes or backticks</a>.</p>
+<hr />
+</div>
+<div
+id="how-do-i-know-when-to-use-the-pull-function-instead-of-just-using-select"
+class="section level2">
+<h2><strong>How do I know when to use the <code>pull()</code> function,
+instead of just using <code>select()</code>?</strong></h2>
+<p>Check out our <a
+href="https://jhudatascience.org/intro_to_r/resources/functions_for_vectors.html">Guide
+on what functions require pulling values out first</a>.</p>
+<p><br><br><br></p>
+</div>
+</div>
+<div id="common-errors" class="section level1">
+<h1><strong>Common Errors</strong></h1>
+<hr />
 <div id="error-in-x-could-not-find-function-y" class="section level2">
-<h2><strong><code>Error in x : could not find function "y"</code></strong></h2>
+<h2><strong>Error in x : could not find function “y”</strong></h2>
 <p><strong>Forgetting to load a library or misspelling a function or
 package</strong></p>
 <p>For example, we forgot <code>library(tidyverse)</code> below:</p>
@@ -402,7 +462,7 @@ iris %&gt;% pull(Species) %&gt;% str_detec(&quot;setosa&quot;)</code></pre>
 <hr />
 </div>
 <div id="error-object-x-not-found" class="section level2">
-<h2><strong><code>Error: object 'X' not found</code></strong></h2>
+<h2><strong>Error: object ‘X’ not found</strong></h2>
 <p><strong>Forgetting to assign an object to start with</strong></p>
 <p>This error is usually caused by forgetting to assign an object to
 start with, or not running the piece of code that assigns an object. If
@@ -413,15 +473,13 @@ you never created <code>rivers2</code> and try to modify it like so:</p>
 operator:</p>
 <pre class="r"><code>rivers2 &lt;- new_rivers + 1
 rivers2</code></pre>
-<pre><code>## [1] 342 302 527 322 362</code></pre>
+<pre><code>## [1] 632 602 392 270 413</code></pre>
 <hr />
 </div>
-<div
-id="error-unexpected-in-...-error-unexpected-in-...-error-unexpected-x-in-..."
+<div id="error-unexpected-in-error-unexpected-in-error-unexpected-x-in"
 class="section level2">
-<h2><strong><code>Error: unexpected ',' in ...</code>,
-<code>Error: unexpected ')' in ...</code>,
-<code>Error: unexpected 'X' in ...</code></strong></h2>
+<h2><strong>Error: unexpected ‘,’ in … / Error: unexpected ‘)’ in … /
+Error: unexpected ‘X’ in …</strong></h2>
 <p><strong>Trouble with parentheses</strong></p>
 <p>This error can be caused by missing parentheses. Such as:</p>
 <pre class="r"><code>library(dplyr)
@@ -448,7 +506,7 @@ you will get this error:</p>
 <hr />
 </div>
 <div id="error-unexpected-symbol-in-x" class="section level2">
-<h2><strong><code>Error: unexpected symbol in "x"</code></strong></h2>
+<h2><strong>Error: unexpected symbol in “x”</strong></h2>
 <p><strong>Not using quotes or backticks when needed</strong></p>
 <p>You will need to use quotes for variable names that have spaces or
 unusual punctuation. It is best to avoid these and rename variables if a
@@ -475,7 +533,7 @@ named <code>The Values</code> we need to use quotes or back ticks.</p>
 <hr />
 </div>
 <div id="error-unexpected-input-in-x" class="section level2">
-<h2><strong><code>Error: unexpected input in "x"</code></strong></h2>
+<h2><strong>Error: unexpected input in “x”</strong></h2>
 <p><strong>Copy+pasting quotation marks</strong></p>
 <p>If you copy paste code form somewhere with curly quotation marks, it
 will not work.</p>
@@ -487,8 +545,12 @@ will not work.</p>
 ##                        ^</code></pre>
 <hr />
 </div>
-<div id="ℹ-did-you-use-or-instead-of" class="section level2">
-<h2><strong><code>ℹ Did you use '%&gt;%' or '|&gt;' instead of '+'?</code></strong></h2>
+<div
+id="error-mapping-must-be-created-by-aes-ℹ-did-you-use-or-instead-of"
+class="section level2">
+<h2><strong>Error: <code>mapping</code> must be created by
+<code>aes()</code> / <code>ℹ</code> Did you use ‘%&gt;%’ or ‘|&gt;’
+instead of ‘+’?</strong></h2>
 <p><strong>Forgetting to use <code>+</code> to add <code>ggplot2</code>
 layers</strong></p>
 <p>This will not work:</p>
@@ -505,8 +567,8 @@ layers</strong></p>
 </div>
 <div id="error-in-.gg-ℹ-did-you-accidentally-put-on-a-new-line"
 class="section level2">
-<h2><strong><code>Error in `+.gg`:</code>
-<code>ℹ Did you accidentally put `+` on a new line?</code></strong></h2>
+<h2><strong>Error in +.gg: <code>ℹ</code> Did you accidentally put ‘+’
+on a new line?</strong></h2>
 <p>This will not work:</p>
 <pre class="r"><code>ggplot(data = iris, aes(x = Species, y = Petal.Length))</code></pre>
 <p><img src="help_files/figure-html/unnamed-chunk-25-1.png" width="30%" /></p>
@@ -518,6 +580,7 @@ class="section level2">
 <pre class="r"><code>ggplot(data = iris, aes(x = Species, y = Petal.Length)) +
   geom_boxplot()</code></pre>
 <p><img src="help_files/figure-html/unnamed-chunk-26-1.png" width="30%" /></p>
+</div>
 </div>
 
 
