@@ -15,8 +15,8 @@ schedule <- read_markdown("../_schedule_table.Rmd")
 
 Upon completion of this session, you will be able to do the following:
 
-1. Successfully install R and RStudio.
-2. Install your first R packages.
+1.  Successfully install R and RStudio.
+2.  Install your first R packages.
 
 ## Material
 
@@ -34,8 +34,7 @@ pander::pandoc.table(
   split.tables = Inf,
   style = "rmarkdown"
 )
-``` 
-
+```
 
 ## Instructions
 
@@ -55,27 +54,45 @@ Install the latest version of RStudio (Desktop):
 
 -   [Download For Windows users](`r config::get("rstudio_dl_windows")`) - (may need to copy-paste the link to the browser)
 
--   A more detailed walk-through of the steps above is provided in [R_and_RStudio_installation](../../modules/Setup/R_and_RStudio_installation.html).
+-   A more detailed walk-through of the steps above is provided in [R_and_RStudio_installation](../../modules/Setup/R_and_RStudio_installation.html). However, you should use the most recent versions of R and RStudio.
 
 You can also visit the `RStudio` website, <https://posit.co/download/rstudio-desktop/>.
 
-If you are using a computer issued from Hopkins, you may need to work with the IT department in advance to do these installations. 
+If you are using a computer issued from Hopkins, you may need to work with the IT department in advance to do these installations.
+
+## Installing `jhur` (optional)
+
+The instructor team has created a collection of code, called a "package", that will help get data into your programming environment quickly. Copy and paste the following into the console and hit "return" to run the code.
+
+```{r eval=FALSE}
+install.packages("remotes")
+```
+
+![](../../docs/images/install_remotes_console.png){width=50%}
+
+Next, run the following:
+
+```{r eval=FALSE}
+remotes::install_github("jhudsl/jhur")
+```
+
+If you get the following message, `Enter one or more numbers, or an empty line to skip updates: `, you can hit return to enter an empty line (no updates).
+
+You should see some messages in the console, ending with `* DONE (jhur)` if the process completed successfully.
+
+![](../../docs/images/install_jhur.png){width=50%}
 
 ## Homework 1
 
-**(Due `r config::get("final_due_date")` - but we strongly suggest you complete it before the course starts)**: 
+**(Due `r config::get("final_due_date")` - but we strongly suggest you complete it before the course starts)**:
 
--   Complete the free lessons for Introduction to R on Dataquest. 
+-   Complete the *FREE* lessons for Introduction to R on Dataquest.
 
 -   Upload a screenshot of the completion page to the Drop Box link below.
-    
-  
-    
 
 ## Homework
 
-`r emo::ji("pencil")` **HOMEWORK 1**: [Dataquest](https://app.dataquest.io/login?target-url=%2Fm%2F499%2Fintroduction-to-programming-in-r) 
-
+`r emo::ji("pencil")` **HOMEWORK 1**: [Dataquest](https://app.dataquest.io/login?target-url=%2Fm%2F499%2Fintroduction-to-programming-in-r)
 
 ## Drop Boxes
 
