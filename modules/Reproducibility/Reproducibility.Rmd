@@ -6,9 +6,11 @@ output:
     widescreen: yes
 --- 
 
+```{r include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, comment=FALSE, warning=FALSE)
+```
 
-
-```{r, echo = FALSE, message = FALSE, comment=FALSE}
+```{r}
 # from these slides: https://docs.google.com/presentation/d/1-cauITbscmnDEDt5IqrZOLlCjyhzEOZY5fqwVY7l8tQ/edit?usp=sharing
 library(knitr)
 opts_chunk$set(comment = "")
@@ -17,7 +19,7 @@ suppressPackageStartupMessages(library(dplyr))
 library(tidyverse)
 library(devtools)
 library(remotes)
-install.packages("ottrpal")
+install.packages("ottrpal", repos = "https://cloud.r-project.org")
 library(ottrpal)
 ```
 
