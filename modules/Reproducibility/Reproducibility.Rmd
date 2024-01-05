@@ -19,7 +19,7 @@ suppressPackageStartupMessages(library(dplyr))
 library(tidyverse)
 library(devtools)
 library(remotes)
-install.packages("ottrpal", repos = "https://cloud.r-project.org")
+install.packages("ottrpal", repos = "https://cloud.r-project.org", quiet = TRUE)
 library(ottrpal)
 ```
 
