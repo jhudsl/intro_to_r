@@ -50,7 +50,8 @@ if (length(lab_files) != 0) {
   for (i in 1:length(lab_files)) {
     module_name <- stringr::str_split(lab_files, pattern = '/')[[i]][2]
     rmarkdown::render(lab_files[i],
-                      output_dir = paste0("modules/", module_name, "/lab"))
+                      output_dir = paste0("modules/", module_name, "/lab"),
+                      envir = new.env())
   }
 }
 
@@ -66,6 +67,7 @@ if (length(lecture_files) != 0) {
       stringr::str_split(lecture_files, pattern = '/')[[i]][2]
     message("debug 4")
     rmarkdown::render(lecture_files[i],
-                      output_dir = paste0("modules/", module_name))
+                      output_dir = paste0("modules/", module_name),
+                      envir = new.env())
   }
 }
