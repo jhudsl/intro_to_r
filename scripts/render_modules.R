@@ -58,14 +58,10 @@ if (length(lab_files) != 0) {
 # loop thru and render all lecture files to html
 # Specific module name will be pulled out based on the dir name in modules/
 
-message("debug 1")
 if (length(lecture_files) != 0) {
-  message("debug 2")
   for (i in 1:length(lecture_files)) {
-    message("debug 3")
     module_name <-
       stringr::str_split(lecture_files, pattern = '/')[[i]][2]
-    message("debug 4")
     rmarkdown::render(lecture_files[i],
                       output_dir = paste0("modules/", module_name),
                       envir = new.env())
