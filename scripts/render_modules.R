@@ -50,17 +50,20 @@ if (length(lab_files) != 0) {
   for (i in 1:length(lab_files)) {
     module_name <- stringr::str_split(lab_files, pattern = '/')[[i]][2]
     rmarkdown::render(lab_files[i],
-                      output_dir = paste0("modules/", module_name, "/lab"))
+                      output_dir = paste0("modules/", module_name, "/lab"),
+                      envir = new.env())
   }
 }
 
 # loop thru and render all lecture files to html
 # Specific module name will be pulled out based on the dir name in modules/
+
 if (length(lecture_files) != 0) {
   for (i in 1:length(lecture_files)) {
     module_name <-
       stringr::str_split(lecture_files, pattern = '/')[[i]][2]
     rmarkdown::render(lecture_files[i],
-                      output_dir = paste0("modules/", module_name))
+                      output_dir = paste0("modules/", module_name),
+                      envir = new.env())
   }
 }
