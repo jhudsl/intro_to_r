@@ -132,7 +132,7 @@ Learning R has been career changing for all of us, and we want to share that!
 
 We want you to succeed -- We will get through this together!
 
-```{r, fig.alt="Sweeping the ocean", out.width = "25%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="High five", out.width = "25%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/low-five-high-five.gif")
 ```
 
@@ -179,9 +179,9 @@ knitr::include_graphics("https://www.r-project.org/Rlogo.png")
 * Strong community 
 
 ```{r, fig.alt="R-Ladies - a non-profit civil society community", out.width = "20%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("https://rladies-baltimore.github.io/img/R-LadiesGlobal_RBG_online_LogoOnly.png")
+knitr::include_graphics("https://github.com/rladies/branding-materials/raw/main/logo/R-LadiesGlobal_RBG_online_LogoWithText_Horizontal.png")
 ```
-<sub>[source: https://rladies-baltimore.github.io/]</sub>
+<sub>[source: https://github.com/rladies/meetup-presentations_baltimore]</sub>
 
 ## Why not R?
 
@@ -232,6 +232,7 @@ knitr::include_graphics("../../docs/images/Intro_to_R.png")
 - Making exploratory plots
 - Performing basic statistical tests
 - Writing R functions
+- **Building intuition** 
 
 ## Course Format
 
@@ -240,16 +241,18 @@ knitr::include_graphics("../../docs/images/Intro_to_R.png")
  * Two 10 min breaks each day - timing may vary
  * `r config::get("course_dates")` `r config::get("course_time")` on Zoom
  * `r config::get("holiday")`
- * Last two classes will focus on final project
+ * Final classes will focus on final project
  
 ## CoursePlus
  
 `r config::get("courseplus_web")`
 
-- Surveys throughout the class for the instructors
 - Upload homework
 
-End of class Survey from JHU - link in email.
+## Surveys
+
+- End of class Survey from JHU: https://courseevaluations.jhsph.edu/.
+- Daily survey / pulse check
 
 ```{r, fig.alt="Surveys count", out.width = "40%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/feedback-illustration.jpeg")
@@ -432,11 +435,11 @@ See this [article](https://tidyverse.tidyverse.org/articles/paper.html) for more
 
 ## Package Installation
 
-We will go through this in the lab.
+We will practice this in labs :) 
 
 Differs depending on the source (CRAN, GitHub, etc)
 
-Must be done **once** for each installation of R. 
+Must be done **once** for each installation of R (e.g., version 4.2 >> 4.3). 
 
 ## Installing Packages: Dropdown Menu
 
@@ -488,6 +491,12 @@ Quotation marks are optional.
 knitr::include_graphics("images/install_v_load.png")
 ```
 
+## Installing + Loading packages
+
+```{r, fig.alt="Installing must be done once via 'install.packages() while loading must be done every R session via 'library()'.", out.width = "80%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("../../images/lol/install_packages.jpg")
+```
+
 ## Useful (+ mostly Free) Resources
 
 Found on our website under the `Resources` tab:
@@ -500,11 +509,15 @@ https://jhudatascience.org/intro_to_r/resources.html
 
 Error messages can be scary!
 
-Check out the FAQ/Help page on the website, and ask questions in Slack!
-
-https://jhudatascience.org/intro_to_r/help.html
+- Check out the FAQ/Help page on the website: https://jhudatascience.org/intro_to_r/help.html
+- Ask questions in Slack! Copy+pasting your error messages is really helpful!
+- Leverage our awesome TA time for 1:1 troubleshooting
 
 **We will also dedicate time today to debug any installation issues**
+
+```{r, fig.alt="Muppets hugging it out", out.width = "25%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/forrest-gump-running.gif")
+```
 
 ## Summary
 
