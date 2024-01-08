@@ -33,7 +33,7 @@ Poll: How are you feeling right now?
 
 **Carrie Wright (she/her)** 
 
-Senior Staff Scientist, Fred Hutchinson Cancer Center
+Senior Staff Scientist and Training Lead, Fred Hutchinson Cancer Center
 
 Associate, Department of Biostatistics, JHSPH
 
@@ -78,23 +78,39 @@ knitr::include_graphics("https://ca.slack-edge.com/T05B63VRKQU-U05B3L06SQK-a4239
 
 ## About Us - TAs
 
-**Rupshikha Sen**
+**Alex Newman (he/him)**
 
-MSc Graduate Student, Department of Epidemiology, BSPH   
+3rd Year PhD Student, Department of Mental Health, BSPH   
 
-DDS, The Dayananda Sagar Institutions, Bangalore
+MA in Psychology, Brandeis University   
 
-Email: rsen6@jhmi.edu
+BA in Biological Basis of Behavior, University of Pennsylvania  
 
-<!-- ```{r, fig.alt="Rupshikha's picture", out.width = "25%", echo = FALSE, fig.align='center'} -->
-<!-- knitr::include_graphics(here::here("modules", "Intro", "images", "Rupshikha.jpg")) -->
-<!-- ``` -->
+Email: anewma28@jhu.edu
+
+```{r, fig.alt="Alex's picture", out.width = "25%", echo = FALSE, fig.align='center'}
+knitr::include_graphics(here::here("modules", "Intro", "images", "Alex.jpg"))
+```
+
+## About Us - TAs
+
+**Padmashri Saravanan (she/they)**
+
+2nd Year MHS Student, Department of Epidemiology, BSPH   
+
+MSc in Mathematics, Birla Institute of Technology and Science, Pilani
+
+Email: psarava1@jhu.edu
+
+```{r, fig.alt="Padma's picture", out.width = "25%", echo = FALSE, fig.align='center'}
+knitr::include_graphics(here::here("modules", "Intro", "images", "Padma.jpg"))
+```
 
 ## About you!
 
-Please introduce yourself!
+Please introduce yourself on Slack!
 
-Find the "introductions" channel on Slack: [`https://intro-to-r-june2023.slack.com/`](https://intro-to-r-june2023.slack.com/)
+[Slack Workspace](`r config::get("slack_workspace")`)
 
 
 ## The Learning Curve
@@ -103,10 +119,21 @@ Learning a programming language can be very intense and sometimes overwhelming.
 
 We recommend fully diving in and minimizing other commitments to get the most out of this course.
 
-We want you to succeed -- We will get through this together!
+Like learning a spoken language, programming takes **practice**.
 
 ```{r, fig.alt="Sweeping the ocean", out.width = "25%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/sweeping-the-ocean.gif")
+```
+
+
+## The Learning Curve
+
+Learning R has been career changing for all of us, and we want to share that!
+
+We want you to succeed -- We will get through this together!
+
+```{r, fig.alt="High five", out.width = "25%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/low-five-high-five.gif")
 ```
 
 
@@ -152,9 +179,9 @@ knitr::include_graphics("https://www.r-project.org/Rlogo.png")
 * Strong community 
 
 ```{r, fig.alt="R-Ladies - a non-profit civil society community", out.width = "20%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("https://rladies-baltimore.github.io/img/R-LadiesGlobal_RBG_online_LogoOnly.png")
+knitr::include_graphics("https://github.com/rladies/branding-materials/raw/main/logo/R-LadiesGlobal_RBG_online_LogoWithText_Horizontal.png")
 ```
-<sub>[source: https://rladies-baltimore.github.io/]</sub>
+<sub>[source: https://github.com/rladies/meetup-presentations_baltimore]</sub>
 
 ## Why not R?
 
@@ -205,6 +232,7 @@ knitr::include_graphics("../../docs/images/Intro_to_R.png")
 - Making exploratory plots
 - Performing basic statistical tests
 - Writing R functions
+- **Building intuition** 
 
 ## Course Format
 
@@ -213,16 +241,18 @@ knitr::include_graphics("../../docs/images/Intro_to_R.png")
  * Two 10 min breaks each day - timing may vary
  * `r config::get("course_dates")` `r config::get("course_time")` on Zoom
  * `r config::get("holiday")`
- * Last two classes will focus on final project
+ * Final classes will focus on final project
  
 ## CoursePlus
  
 `r config::get("courseplus_web")`
 
-- Surveys throughout the class for the instructors
 - Upload homework
 
-End of class Survey from JHU - link in email.
+## Surveys
+
+- End of class Survey from JHU: https://courseevaluations.jhsph.edu/.
+- Daily survey / pulse check
 
 ```{r, fig.alt="Surveys count", out.width = "40%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/feedback-illustration.jpeg")
@@ -379,7 +409,10 @@ knitr::include_graphics("../Intro/images/hex.png")
 
 * Not all packages available on CRAN or GitHub are trustworthy
 * Posit makes [many useful packages](https://posit.co/products/open-source/rpackages/)
-* How to [trust](http://simplystatistics.org/2015/11/06/how-i-decide-when-to-trust-an-r-package/) an R package
+* How to [trust](https://simplystatistics.org/posts/2015-11-06-how-i-decide-when-to-trust-an-r-package/) an R package
+* Many packages have accompanying academic papers published in peer-reviewed journals
+* Widely used packages have better documentation (official and in forums) and are more likely free of errors
+
 
 ## Tidyverse and Base R: Two Dialects
 
@@ -402,11 +435,11 @@ See this [article](https://tidyverse.tidyverse.org/articles/paper.html) for more
 
 ## Package Installation
 
-We will go through this in the lab.
+We will practice this in labs :) 
 
 Differs depending on the source (CRAN, GitHub, etc)
 
-Must be done **once** for each installation of R. 
+Must be done **once** for each installation of R (e.g., version 4.2 >> 4.3). 
 
 ## Installing Packages: Dropdown Menu
 
@@ -458,59 +491,33 @@ Quotation marks are optional.
 knitr::include_graphics("images/install_v_load.png")
 ```
 
+## Installing + Loading packages
+
+```{r, fig.alt="Installing must be done once via 'install.packages() while loading must be done every R session via 'library()'.", out.width = "80%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("../../images/lol/install_packages.jpg")
+```
+
 ## Useful (+ mostly Free) Resources
 
 Found on our website under the `Resources` tab:
 https://jhudatascience.org/intro_to_r/resources.html
 
 -  videos from previous offerings of the class
--  cheatsheets from the class 
+-  cheatsheets for each class 
 
-## Useful (+ mostly Free) Resources
+## Help!!!
 
-**Want more?**  
+Error messages can be scary!
 
-- Tidyverse Skills for Data Science Book: https://jhudatascience.org/tidyversecourse/ 
-(more about the tidyverse, some modeling, and machine learning)
+- Check out the FAQ/Help page on the website: https://jhudatascience.org/intro_to_r/help.html
+- Ask questions in Slack! Copy+pasting your error messages is really helpful!
+- Leverage our awesome TA time for 1:1 troubleshooting
 
-- Tidyverse Skills for Data Science Course: https://www.coursera.org/specializations/tidyverse-data-science-r  
-(same content with quizzes, can get certificate with $)
+**We will also dedicate time today to debug any installation issues**
 
-- R for Data Science: http://r4ds.had.co.nz/  
-(great general information)
-
-- R basics by Rafael A. Irizarry: https://rafalab.github.io/dsbook/r-basics.html
-(great general information)
- 
-- Open Case Studies: https://www.opencasestudies.org/  
-(resource for specific public health cases with statistical implementation and interpretation)
-
-- Dataquest: https://www.dataquest.io/  
-(general interactive resource)
-
-## Useful (+ mostly Free) Resources
-
-**Need help?** 
-
-- Various "Cheat Sheets": https://www.rstudio.com/resources/cheatsheets/   
-
-- R reference card: http://cran.r-project.org/doc/contrib/Short-refcard.pdf  
-
-- R jargon: https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf  
-
-- R vs Stata: https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf  
-
-- R terminology: https://cran.r-project.org/doc/manuals/r-release/R-lang.pdf
-
-## Useful (+ mostly Free) Resources
-
-**Interested in Reproducibility?**
-
-Check out Candace's courses:
-
-- Introduction: https://jhudatascience.org/Reproducibility_in_Cancer_Informatics/
-
-- Advanced: https://jhudatascience.org/Adv_Reproducibility_in_Cancer_Informatics/
+```{r, fig.alt="Muppets hugging it out", out.width = "25%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/forrest-gump-running.gif")
+```
 
 ## Summary
 
