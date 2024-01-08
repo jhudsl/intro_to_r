@@ -15,17 +15,17 @@ The way you can create a file like this in RStudio is: File → New File → R M
 
 Now we will install some packages! Note it may take ~5-10 minutes to run all these steps. **You need to run these steps in the order listed.**
 
-1) First copy and paste the following code into the console (the lower left panel/pane): <br>
+1) First copy and paste the following code into the console (the lower left panel/pane) - **but do not copy the backticks**: <br>
 `install.packages("remotes")`<br>
 This code will install a package from CRAN called "remotes". <br>
 You may be asked a question in the console when you do this. If so, answer by typing Yes into the console.
 
-2) Next copy and paste the following code again into the console (the lower left panel/pane):  <br>
+2) Next copy and paste the following code again into the console (the lower left panel/pane), **again do not copy the backticks**:  <br>
 `library(remotes)` <br>
 This code loads the remotes package into memory- in other words we can use the functions within the package.<br>
 You may be asked a question in the console when you do this. If so, answer by typing Yes into the console.
 
-3) Now install a package that the instructors made that is not on CRAN but on GitHub, by copy and pasting the code into the console. <br>
+3) Now install a package that the instructors made that is not on CRAN but on GitHub, by copy and pasting the code into the console. We still don't want to copy the backticks.<br>
 `install_github("jhudsl/jhur")`<br>
 You may be asked a question in the console when you do this. If so, answer by typing Yes into the console.
 
