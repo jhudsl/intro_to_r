@@ -119,10 +119,21 @@ Learning a programming language can be very intense and sometimes overwhelming.
 
 We recommend fully diving in and minimizing other commitments to get the most out of this course.
 
-We want you to succeed -- We will get through this together!
+Like learning a spoken language, programming takes **practice**.
 
 ```{r, fig.alt="Sweeping the ocean", out.width = "25%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/sweeping-the-ocean.gif")
+```
+
+
+## The Learning Curve
+
+Learning R has been career changing for all of us, and we want to share that!
+
+We want you to succeed -- We will get through this together!
+
+```{r, fig.alt="Sweeping the ocean", out.width = "25%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/low-five-high-five.gif")
 ```
 
 
@@ -395,7 +406,10 @@ knitr::include_graphics("../Intro/images/hex.png")
 
 * Not all packages available on CRAN or GitHub are trustworthy
 * Posit makes [many useful packages](https://posit.co/products/open-source/rpackages/)
-* How to [trust](http://simplystatistics.org/2015/11/06/how-i-decide-when-to-trust-an-r-package/) an R package
+* How to [trust](https://simplystatistics.org/posts/2015-11-06-how-i-decide-when-to-trust-an-r-package/) an R package
+* Many packages have accompanying academic papers published in peer-reviewed journals
+* Widely used packages have better documentation (official and in forums) and are more likely free of errors
+
 
 ## Tidyverse and Base R: Two Dialects
 
@@ -480,53 +494,17 @@ Found on our website under the `Resources` tab:
 https://jhudatascience.org/intro_to_r/resources.html
 
 -  videos from previous offerings of the class
--  cheatsheets from the class 
+-  cheatsheets for each class 
 
-## Useful (+ mostly Free) Resources
+## Help!!!
 
-**Want more?**  
+Error messages can be scary!
 
-- Tidyverse Skills for Data Science Book: https://jhudatascience.org/tidyversecourse/ 
-(more about the tidyverse, some modeling, and machine learning)
+Check out the FAQ/Help page on the website, and ask questions in Slack!
 
-- Tidyverse Skills for Data Science Course: https://www.coursera.org/specializations/tidyverse-data-science-r  
-(same content with quizzes, can get certificate with $)
+https://jhudatascience.org/intro_to_r/help.html
 
-- R for Data Science: http://r4ds.had.co.nz/  
-(great general information)
-
-- R basics by Rafael A. Irizarry: https://rafalab.github.io/dsbook/r-basics.html
-(great general information)
- 
-- Open Case Studies: https://www.opencasestudies.org/  
-(resource for specific public health cases with statistical implementation and interpretation)
-
-- Dataquest: https://www.dataquest.io/  
-(general interactive resource)
-
-## Useful (+ mostly Free) Resources
-
-**Need help?** 
-
-- Various "Cheat Sheets": https://www.rstudio.com/resources/cheatsheets/   
-
-- R reference card: http://cran.r-project.org/doc/contrib/Short-refcard.pdf  
-
-- R jargon: https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf  
-
-- R vs Stata: https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf  
-
-- R terminology: https://cran.r-project.org/doc/manuals/r-release/R-lang.pdf
-
-## Useful (+ mostly Free) Resources
-
-**Interested in Reproducibility?**
-
-Check out Candace's courses:
-
-- Introduction: https://jhudatascience.org/Reproducibility_in_Cancer_Informatics/
-
-- Advanced: https://jhudatascience.org/Adv_Reproducibility_in_Cancer_Informatics/
+**We will also dedicate time today to debug any installation issues**
 
 ## Summary
 
