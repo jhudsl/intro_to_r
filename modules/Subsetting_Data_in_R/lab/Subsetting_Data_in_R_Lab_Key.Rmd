@@ -11,91 +11,95 @@ knitr::opts_chunk$set(echo = TRUE)
 
 In this lab you can use the interactive console to explore but please record your commands here.  Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-X) or Ctrl-Enter (Windows/Linux) (But only inside the code chunks designated with the ```{r}``` areas).
 
+First let's get the OCSdata package if we haven't already. We added an argument here so you don't have to select a mirror. 
+
+```{r}
+install.packages("OCSdata", repos='http://cran.us.r-project.org')
+```
+
 ```{r, message = FALSE}
 # don't forget to load the packages that you will need!
 library(dplyr)
 library(tidyverse)
-library(jhur)
+library(OCSdata)
 ```
 
 # Part 1
 
-First check to see if you have the `mtcars` dataset by running this chunk. Remember that code is denoted with backticks "`" around it in the main text, but do not copy backticks when you paste code elements into code chunks (like the gray section below). 
+First let's load the opioid related datasets by running this chunk. Remember that code is denoted with backticks "`" around it in the main text, but do not copy backticks when you paste code elements into code chunks (like the gray section below). 
 
 ```{r}
-mtcars
+OCSdata::load_imported_data("ocs-bp-opioid-rural-urban")
 ```
 
-1. What class is `mtcars`?
-```{r}
-class(mtcars)
-```
-
-2. How many observations (rows) and variables (columns) are in the `mtcars` dataset - try the `dim()` function?
+Check that it worked by seeing if you have the `county_pop` data.
 
 ```{r}
-dim(mtcars)
-nrow(mtcars)
-ncol(mtcars)
-```
-
-3. Copy mtcars into an object called `cars_mt_copy` using the code supplied in the chunk below. Next, rename the column `mpg` in `cars_mt_copy` to `MPG` (hint - use `rename()`). 
-
-```{r}
-cars_mt_copy <- mtcars
-cars_mt_copy <- rename(cars_mt_copy, MPG = mpg)
-head(cars_mt_copy)
-```
-
-4. Convert the column names of `cars_mt_copy` to all upper case. Use `rename_with()`, and the `toupper` command.
-
-```{r}
-cars_mt_copy <- rename_with(cars_mt_copy, toupper)
-head(cars_mt_copy)
-dim(cars_mt_copy)
+county_pop
 ```
 
 
-5. Using `cars_mt_copy` create a column called `CAR` using the `rownames_to_column()` function. Create a tibble from the data called `cars_mt_copy`.  Take a look at your data to check it. How many dimensions does it have?
+1. What class is `county_pop`?
 
 ```{r}
-cars_mt_copy <- rownames_to_column(cars_mt_copy, "CAR")
-head(cars_mt_copy)
-cars_mt_copy <- tibble(cars_mt_copy)
-cars_mt_copy
+class(county_pop)
 ```
 
-**Bonus / Extra practice**: How can you print the first 3 rows and the last 3 rows of `cars_mt_copy` (in two lines of code)?
+2. How many observations (rows) and variables (columns) are in the dataset - try the `dim()` function?
 
 ```{r}
-head(cars_mt_copy, 3)
-tail(cars_mt_copy, 3)
+dim(county_pop)
+nrow(county_pop)
+ncol(county_pop)
+```
+
+3.  Next, rename the column `BUYER_STATE`  to be `State_name` (hint - use `rename()` and watch out for the order of the new and old names!). 
+
+```{r}
+county_pop <- rename(county_pop, State_name = BUYER_STATE)
+head(county_pop)
+```
+
+4. Convert the column names of `county_pop` to be all lower case. Use `rename_with()`, and the `tolower` command.
+
+```{r}
+county_pop <- rename_with(county_pop, tolower)
+head(county_pop)
+dim(county_pop)
+```
+
+
+**Bonus / Extra practice**: How can you print the first 3 rows and the last 3 rows of `county_pop` (in two lines of code)?
+
+```{r}
+head(county_pop, 3)
+tail(county_pop, 3)
 ```
 
 # Part 2
 
-1. Create a subset of the `cars_mt_copy` that only contains the columns: `CAR`, `WT`, `QSEC`, and `HP` and assign this object to `carsSub` - what are the dimensions of this dataset?
+1. Create a subset of the `county_pop` that only contains the columns: `county_name`, `year`, and `population` and assign this object to `pop_sub` - what are the dimensions of this dataset?
 
 ```{r}
-carsSub <- select(cars_mt_copy, CAR, WT, QSEC, HP)
-carsSub
+pop_sub <- select(county_pop, county_name, year, population)
+pop_sub
 ```
 
-2. Subset both the column `CAR` that you just created and the columns from `cars_mt_copy` that end in `"P"` and call it `pvars`. Hint: use `ends_with()` and `select()`. Again take a look at the data.
+2. Start with `conty_pop` this again instead of the dataset you just made. Subset the data to only include the `population` column and the columns that end with "_name". Hint: use  `select()` and `ends_with()`. Assign this subset of the data to be `pop2`. Again take a look at the data.
 
 ```{r}
-pvars <- select(cars_mt_copy, CAR, ends_with("P"))
-pvars
+pop2 <- select(county_pop, population, ends_with("_name"))
+pop2
 ```
 
-3. Pull the variable `CAR` from `carsSub`. How does this differ form selecting it?
+3. Pull the variable `county_name` from `pop2`. How does this differ form selecting it?
 
 ```{r}
-pull(carsSub, CAR)
-select(carsSub, CAR)
+pull(pop2, county_name)
+select(pop2, county_name)
 ```
 
-4. Subset the rows of `cars_mt_copy` that get **more** than 20 miles per gallon (`MPG`) of fuel efficiency - how many are there? Use `filter()`.
+4. Subset the rows of `county_pop` that have **more** than 20000 miles per gallon (`MPG`) of fuel efficiency - how many are there? Use `filter()`.
 
 ```{r}
 cars_mpg <- filter(cars_mt_copy, MPG > 20)
