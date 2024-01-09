@@ -89,6 +89,11 @@ First we need to install and load the package.
 install.packages("OCSdata")
 ```
 
+```{r, echo = FALSE}
+install.packages("devtools")
+devtools::install_cran("OCSdata")
+```
+
 ```{r}
 library(OCSdata)
 ```
