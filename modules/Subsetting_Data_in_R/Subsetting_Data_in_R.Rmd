@@ -363,6 +363,9 @@ head(annualDosage_lower, 3)
 
 If you need to do lots of naming fixes - look into the janitor package!
 
+```{r, echo = FALSE}
+install.packages("janitor", repos='http://cran.us.r-project.org')
+```
 
 ```{r}
 #install.packages("janitor")
