@@ -320,7 +320,14 @@ tb_rename <-rename(tb, “MPG!” = MPG) # this will cause an error!
 tb_rename <-rename(tb, "MPG!" = MPG) # this will work!
 ```
 
+## Rename multiple columns
 
+A comma can separate different colunm names to change.
+
+```{r}
+tb_rename <- rename(tb, horsepower = hp, Displacement = disp)
+head(tb_rename, 3)
+```
 
 ## Renaming all columns of a data frame: dplyr {.codesmall}
 
@@ -336,6 +343,35 @@ tb <- rename_with(tb, tolower)
 head(tb, 3)
 ```
 
+## janitor package
+
+If you need to do lots of naming fixes - look into the janitor package!
+
+
+```{r}
+#install.packages("janitor")
+library(janitor)
+```
+
+## janitor `clean_names`
+
+The `clean_names` function can intuit what fixes you might need. Here it makes everything consistent.
+
+```{r}
+head(tb_rename, 2)
+clean_tb <- clean_names(tb_rename)
+head(clean_tb, 2)
+```
+## more of clean_names
+
+`clean_names` can also get rid of spaces and replace them with `_`.
+
+```{r}
+test <- tibble(`col 1` = c(1,2,3), `col 2` = c(2,3,4))
+test
+clean_names(test)
+```
+
 ## Summary
 
 - data frames are simpler version of a data table
@@ -347,6 +383,7 @@ head(tb, 3)
 - avoid using punctuation (except underscores), spaces, and numbers (to start or alone) in column names
 - if you must do a nonstandard column name - typically use backticks around it. See https://jhudatascience.org/intro_to_r/quotes_vs_backticks.html.
 - avoid copy and pasting code from other sources - quotation marks will change!
+- check out `janitor` if you need to make lots of column name changes
 
 ## Lab Part 1
 
