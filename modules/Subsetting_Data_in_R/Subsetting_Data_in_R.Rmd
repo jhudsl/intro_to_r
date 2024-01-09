@@ -107,7 +107,7 @@ See https://cran.r-project.org/web/packages/OCSdata/vignettes/instructions.html 
 OCSdata::load_imported_data("ocs-bp-opioid-rural-urban")
 ```
 
-You will see a few new objects in your enviornment called `annualDosage`, `county_pop`, and `land`.
+You will see a few new objects in your environment called `annualDosage`, `county_pop`, and `land`.
 
 ## Checking the data `dim()`
 
@@ -339,7 +339,7 @@ renamed_annualDosage <- rename(annualDosage, "County!" = BUYER_COUNTY) # this wi
 
 ## Rename multiple columns
 
-A comma can separate different colunm names to change.
+A comma can separate different column names to change.
 
 ```{r}
 renamed_annualDosage <- rename(annualDosage, County = BUYER_COUNTY, State = BUYER_STATE)
