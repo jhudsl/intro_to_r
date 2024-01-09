@@ -433,7 +433,7 @@ read_dta(file = "mtcars.dta")
 ```
 
 
-## Data Input: base R 
+## `read.csv` is * base R *
 
 There are also data importing functions provided in base R (rather than the `readr` package), like `read.delim()` and `read.csv()`. 
 
@@ -515,7 +515,7 @@ R Projects are a good way to keep your files organized and reduce headaches
 
 Look at your data!
 
-- `glimpse()` gets a quick look at the column structure
+- `str()` / `glimpse()` gets a quick look at the column structure
 - `View()` gives you a preview of the data in a new tab
 - `head()` shows first few rows
 - `tail()` shows the last few rows
