@@ -110,20 +110,20 @@ glimpse(df)
 
 ## Checking your data: `slice_sample()`
 
-What if you want to see the middle of your data? You can use the `slice_sample()` function of the `dplyr` package to see a random set of rows. You can specify the number of rows with the `n` argument or use a proportion with the `prop` argument.
+What if you want to see the middle of your data? You can use the `slice_sample()` function of the `dplyr` package to see a **random** set of rows. You can specify the number of rows with the `n` argument.
 
 ```{r}
-slice_sample(df, n = 3)
-slice_sample(df, prop = .2)
+slice_sample(df, n = 2)
+slice_sample(df, n = 2)
 
 ```
 
 ## `skimr` package
 
 ```{r, eval = FALSE}
+#install.packages("skimr")
 library(skimr)
 skim(df)
-
 ```
 
 ```{r, fig.alt="dplyr", out.width = "90%", echo = FALSE, fig.align='center'}
