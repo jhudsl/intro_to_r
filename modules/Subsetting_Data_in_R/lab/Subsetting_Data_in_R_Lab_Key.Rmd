@@ -137,30 +137,22 @@ county_pop %>%
 
 7. Why do the answers for 5 and 6 differ?
 
-They differ because there are two cars with HP values that are exactly 150.
+They differ because there are rows with values that are exactly 2010.
 
 **Bonus / Extra practice**:
 
-Subset the rows of `cars_mt_copy` for cars that have 4 `CYL`,  **or** **less** than 1.9 WT.
-How many cars have both?
+Subset the rows of `country_pop` for rows that have `state_name` of `NM`,  **or** **less** than 10000 `population`.
+How many rows have both?
 
 ```{r}
-filter(cars_mt_copy, CYL == 4 | WT < 1.9)
-nrow(filter(cars_mt_copy, CYL == 4 & WT < 1.9))
+filter(county_pop, state_name == "NM" | population < 10000)
+nrow(filter(county_pop, state_name == "NM" & population < 10000))
 ```
 
-**Bonus / Extra practice**: Convert the column names of `carsSub` to all lower case. Take a look at the data.
+**Bonus / Extra practice**: Select the variables that contain the letter "a" from `cars_mt_copy`.
 
 ```{r}
-carsSub <- rename_with(carsSub, tolower)
-carsSub
-```
-
-
-**Bonus / Extra practice**: Select the variables that contain the letter "A" from `cars_mt_copy`.
-
-```{r}
-select(cars_mt_copy, contains("A"))
+select(county_pop, contains("a"))
 ```
 
 # Part 3
