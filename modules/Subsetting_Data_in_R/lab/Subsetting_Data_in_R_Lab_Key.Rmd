@@ -99,27 +99,27 @@ pull(pop2, county_name)
 select(pop2, county_name)
 ```
 
-4. Subset the rows of `county_pop` that have **more** than 20000 miles per gallon (`MPG`) of fuel efficiency - how many are there? Use `filter()`.
+4. Subset the rows of `county_pop` that have **more** than 100000 for population - how many rows are there? Use `filter()`.
 
 ```{r}
-cars_mpg <- filter(cars_mt_copy, MPG > 20)
-dim(cars_mpg)
-nrow(cars_mpg)
-cars_mpg
+county_pop_sub <- filter(county_pop, population > 100000)
+dim(county_pop_sub)
+nrow(county_pop_sub)
+
 ```
 
 There are `r nrow(cars_mpg)` cars. 
 There are `nrow(cars_mpg)` cars. 
 
 
-5. Subset the rows of `cars_mt_copy` that get **less** than 16 miles per gallon (`MPG`) of fuel efficiency and **more** than 150 horsepower (`HP`) - how many are there?
+5. Subset the rows of `county_pop` that have a year value **less** than 2010 and **more** than 100000 population - how many are there?
 
 ```{r}
-filter(cars_mt_copy, MPG < 16 & HP > 150) # all of these options work
-nrow(filter(cars_mt_copy, MPG < 16 & HP > 150))
-nrow(filter(cars_mt_copy, MPG < 16, HP > 150))
-cars_mt_copy %>%
-  filter(MPG < 16, HP > 150) %>%
+filter(county_pop, year < 2010 & population > 100000) # all of these options work
+nrow(filter(county_pop, year < 2010 & population > 100000))
+nrow(filter(county_pop, year < 2010, population > 100000))
+county_pop %>%
+  filter(year < 2010, population > 100000) %>%
   nrow()
 ```
 
@@ -127,11 +127,11 @@ cars_mt_copy %>%
 6. Subset the rows of `cars_mt_copy` that get **less** than 16 miles per gallon (`MPG`) of fuel efficiency **and** **greater than or equal** to 150 horsepower (`HP`) - how many are there?
 
 ```{r}
-filter(cars_mt_copy, MPG < 16 & HP >= 150) # all of these options work
-nrow(filter(cars_mt_copy, MPG < 16 & HP >= 150))
-nrow(filter(cars_mt_copy, MPG < 16, HP >= 150))
-cars_mt_copy %>%
-  filter(MPG < 16, HP >= 150) %>%
+filter(county_pop, year <= 2010 & population > 100000) # all of these options work
+nrow(filter(county_pop, year <= 2010 & population > 100000))
+nrow(filter(county_pop, year <= 2010, population > 100000))
+county_pop %>%
+  filter(year <= 2010, population > 100000) %>%
   nrow()
 ```
 
