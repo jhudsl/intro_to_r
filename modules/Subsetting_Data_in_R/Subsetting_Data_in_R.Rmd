@@ -96,7 +96,7 @@ library(OCSdata)
 ## Getting data to work with
 
 Then we will load data from one of the case studies about opioid usage.
-See https://cran.r-project.org/web/packages/OCSdata/vignettes/instructions.html for more info on what data is available.
+See https://cran.r-project.org/web/packages/OCSdata/vignettes/instructions.html for more info on what data is available. See https://www.opencasestudies.org/ocs-bp-opioid-rural-urban/ about this data.
 
 ```{r}
 OCSdata::load_imported_data("ocs-bp-opioid-rural-urban")
@@ -141,7 +141,7 @@ library(skimr)
 skim(annualDosage)
 ```
 
-```{r, fig.alt="dplyr", out.width = "90%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="dplyr", out.width = "55%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/skim2.png")
 ```
 
