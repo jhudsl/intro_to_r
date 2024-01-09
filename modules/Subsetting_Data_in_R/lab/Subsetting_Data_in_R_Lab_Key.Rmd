@@ -157,8 +157,8 @@ select(county_pop, contains("a"))
 
 # Part 3
 
-1. Create a subset called `carsSub`from the `cars_mt_copy` data that only contains the columns:
-`CAR`,	`WT`, `QSEC`, and `HP` for only the cars with 8 cylinders (`CYL`).
+1. Create a subset called `countysub`from the `county_pop`  that only contains the columns:
+`county_name`,	`state_name`, `population`, and for only the rows with the year 2012 (`year`).
 	What are the dimensions of this dataset? Don't use pipes (`%>%`).
 
 ```{r}
