@@ -388,17 +388,17 @@ Pay attention to your data and your `NA` values!
 set.seed(124)
 data_diet <- tibble(Diet = rep(c("A", "B", "B"),
                                times = 4), 
-                    Gender = c("Male", 
-                               "m",
+                    Treatment = c("Ginger", 
+                               "g",
                                "Other",
-                               "F", 
-                               "Female",
-                               "M", 
-                               "f",
+                               "peppermint", 
+                               "Peppermint",
+                               "G", 
+                               "Mint",
                                "O", 
-                               "Man",
-                               "f",
-                               "F",
+                               "ginger",
+                               "mint",
+                               "Mint",
                                "O"), 
                     Weight_start = sample(100:250, size = 12),
                     Weight_change = sample(-10:20, size = 12))
@@ -418,12 +418,12 @@ This needs lots of recoding.
 
 ```{r}
 data_diet %>%
-  count(Gender)
+  count(Treatment)
 ```
 
 ## `dplyr` can help!{.codesmall}
 
-Using Excel to find all of the different ways `gender` has been coded,
+Using Excel to find all of the different ways `Treatment` has been coded,
 could be hectic! In `dplyr` you can use the `recode` function.
 
 ::: {style="color: red;"}
@@ -448,13 +448,14 @@ Need quotes for new values! Tolerates quotes for old values.
 ```{r, eval = FALSE}
 
 data_diet %>% 
-  mutate(Gender = recode(Gender, M = "Male", 
-                                 m = "Male", 
-                               Man = "Male",
-                                 O = "Other",
-                                 f = "Female",
-                                 F = "Female")) %>%
-  count(Gender, Diet)
+  mutate(Treatment = recode(Treatment, G = "Ginger", 
+                                       g = "Ginger", 
+                                  ginger = "Ginger",
+                                       O = "Other",
+                                    Mint = "Peppermint",
+                                    mint = "Peppermint",
+                              peppermint = "Peppermint")) %>%
+  count(Treatment, Diet)
 ```
 
 ## `recode()`
@@ -462,13 +463,14 @@ data_diet %>%
 ```{r, eval = TRUE}
 
 data_diet %>% 
-  mutate(Gender = recode(Gender, M = "Male", 
-                                 m = "Male", 
-                               Man = "Male",
-                                 O = "Other",
-                                 f = "Female",
-                                 F = "Female")) %>%
-  count(Gender)
+  mutate(Treatment = recode(Treatment, G = "Ginger", 
+                                       g = "Ginger", 
+                                  ginger = "Ginger",
+                                       O = "Other",
+                                    Mint = "Peppermint",
+                                    mint = "Peppermint",
+                              peppermint = "Peppermint")) %>%
+  count(Treatment, Diet)
 ```
 
 
@@ -490,26 +492,28 @@ Need quotes for conditions and new values!
 
 ```{r}
 data_diet %>% 
-  mutate(Gender = case_when(Gender == "M" ~ "Male", 
-                            Gender == "m" ~ "Male", 
-                            Gender == "Man" ~ "Male",
-                            Gender == "O" ~ "Other",
-                            Gender == "f" ~ "Female",
-                            Gender == "F" ~ "Female"))  %>% 
-  count(Gender)
+  mutate(Treatment = case_when(Treatment == "G" ~ "Ginger", 
+                               Treatment == "g" ~ "Ginger", 
+                               Treatment == "ginger" ~ "Ginger",
+                               Treatment == "O" ~ "Other",
+                               Treatment == "Mint" ~ "Peppermint",
+                               Treatment == "mint" ~ "Peppermint",
+                               Treatment == "peppermint" ~ "Peppermint"))  %>% 
+  count(Treatment)
 
 ```
 
 ## What happened?{.codesmall}
 
-```{r}
+```{r, eval = FALSE}
 data_diet %>% 
-  mutate(Gender = case_when(Gender == "M" ~ "Male", 
-                            Gender == "m" ~ "Male", 
-                            Gender == "Man" ~ "Male",
-                            Gender == "O" ~ "Other",
-                            Gender == "f" ~ "Female",
-                            Gender == "F" ~ "Female"))
+  mutate(Treatment = case_when(Treatment == "G" ~ "Ginger", 
+                               Treatment == "g" ~ "Ginger", 
+                               Treatment == "ginger" ~ "Ginger",
+                               Treatment == "O" ~ "Other",
+                               Treatment == "Mint" ~ "Peppermint",
+                               Treatment == "mint" ~ "Peppermint",
+                               Treatment == "peppermint" ~ "Peppermint")) 
 ```
 
 ## Original data
@@ -540,14 +544,15 @@ or it can be the original values of the column
 
 ```{r}
 data_diet %>% 
-  mutate(Gender = case_when(Gender == "M" ~ "Male", 
-                            Gender == "m" ~ "Male", 
-                            Gender == "Man" ~ "Male",
-                            Gender == "O" ~ "Other",
-                            Gender == "f" ~ "Female",
-                            Gender == "F" ~ "Female",
-                            TRUE ~ Gender))  %>% 
-  count(Gender)
+  mutate(Treatment = case_when(Treatment == "G" ~ "Ginger", 
+                               Treatment == "g" ~ "Ginger", 
+                               Treatment == "ginger" ~ "Ginger",
+                               Treatment == "O" ~ "Other",
+                               Treatment == "Mint" ~ "Peppermint",
+                               Treatment == "mint" ~ "Peppermint",
+                               Treatment == "peppermint" ~ "Peppermint",
+                                TRUE ~ Treatment)) %>%
+  count(Treatment)
 ```
 
 
@@ -555,10 +560,12 @@ data_diet %>%
 
 ```{r}
 data_diet %>% 
-  mutate(Gender = case_when(
-    Gender %in% c("M", "male", "Man", "m", "Male") ~ "Male",
-    Gender %in% c("F", "Female", "f", "female") ~ "Female",
-    Gender %in% c("O", "Other") ~ "Other"))
+  mutate(Treatment = case_when(
+    Treatment %in% c("G", "g", "Ginger", "ginger") ~ "Ginger",
+    Treatment %in% c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
+    Treatment %in% c("O", "Other") ~ "Other")) %>%
+
+  count(Treatment)
 
 ```
 
@@ -682,13 +689,13 @@ str_sub(string = Effect, start = 1, end = 3)
 ```{r}
 head(data_diet, n = 4)
 data_diet %>% 
-  filter(str_detect(string = Gender,
-                    pattern = "M"))
+  filter(str_detect(string = Treatment,
+                    pattern = "int"))
 ```
 
 ## OK back to our original problem
 ```{r}
-count(data_diet, Gender)
+count(data_diet, Treatment)
 ```
 
 ## Recode was nice but what if miss something?
@@ -696,13 +703,13 @@ count(data_diet, Gender)
 ```{r, eval = FALSE}
 
 data_diet %>% 
-  mutate(Gender = recode(Gender, M = "Male", 
-                                 m = "Male", 
-                               Man = "Male",
-                                 O = "Other",
-                                 f = "Female",
-                                 F = "Female")) %>%
-  count(Gender, Diet)
+  mutate(Treatment = recode(Treatment, G = "Ginger", 
+                                       g = "Ginger", 
+                                  ginger = "Ginger",
+                                       O = "Other",
+                                    Mint = "Peppermint",
+                                    mint = "Peppermint",
+                              peppermint = "Peppermint"))
 ```
 
 ## `case_when()` was an improvement
@@ -711,10 +718,10 @@ But we still might miss a strange value
 
 ```{r, eval = FALSE}
 data_diet %>% 
-  mutate(Gender = case_when(
-    Gender %in% c("M", "male", "Man", "m", "Male") ~ "Male",
-    Gender %in% c("F", "Female", "f", "female") ~ "Female",
-    Gender %in% c("O", "Other") ~ "Other"))
+  mutate(Treatment = case_when(
+    Treatment %in% c("G", "g", "Ginger", "ginger") ~ "Ginger",
+    Treatment %in% c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
+    Treatment %in% c("O", "Other") ~ "Other"))
 ```
 
 ## `case_when()` improved with `stringr`
@@ -723,11 +730,11 @@ data_diet %>%
 
 ```{r}
 data_diet %>% 
-  mutate(Gender = case_when(
-    str_detect(string = Gender, pattern = "^m|^M") ~ "Male",
-    str_detect(string = Gender, pattern = "^f|^F") ~ "Female",
-    str_detect(string = Gender, pattern = "^o|^O") ~ "Other")) %>%
-  count(Gender)
+  mutate(Treatment = case_when(
+    str_detect(string = Treatment, pattern = "^g|^G") ~ "Ginger",
+    str_detect(string = Treatment, pattern = "int") ~ "Peppermint",
+    str_detect(string = Treatment, pattern = "^o|^O") ~ "Other")) %>%
+  count(Treatment)
 ```
 
 This is a more robust solution! It will catch typos as long as first letter is correct.
