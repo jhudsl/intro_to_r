@@ -123,7 +123,7 @@ Check to see how many values `weight_loss` has for each category (hint: use `cou
 
 3.
 ```{r}
-BloodType %>% count(wight_loss)
+BloodType %>% count(weight_loss)
 ```
 
 4. Recode the `type` variable of the `BloodType` data to be consistent. Use `recode`. Hint: the inconsistency has to do with lower case `o` and capital `O`. Don't forget to use quotes!
