@@ -221,7 +221,7 @@ as.character(x_fact)
 as.numeric(x_fact)
 ```
 
-## Class coersion in with a dataset
+## Class conversion in with a dataset
 
 ```{r, results='hide'}
 library(jhur)
@@ -232,9 +232,9 @@ circ <- read_circulator()
 head(circ)
 ```
 
-## Class coersion in with a dataset
+## Class conversion in with a dataset
 
-Say we want to change `daily` to be an integar. We would need to use mutate to help us modify that column or create a new column. Let's create a new one so it is easier to see what is happening. 
+Say we want to change `daily` to be an integer. We would need to use mutate to help us modify that column or create a new column. Let's create a new one so it is easier to see what is happening. 
 
 ```{r}
 circ_updated <- mutate(circ, daily_int= as.integer(daily))
