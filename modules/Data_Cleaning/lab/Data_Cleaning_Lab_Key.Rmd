@@ -53,7 +53,9 @@ gg_miss_var(bike)
 ```
 
 
-4. What percentage of the `subType` variable is complete of `bike` ? Hint: use another `naniar` function.
+**Bonus / Extra practice**
+
+What percentage of the `subType` variable is complete of `bike` ? Hint: use another `naniar` function.
  
 ```{r}
 pull(bike, subType) %>% pct_complete() # this
