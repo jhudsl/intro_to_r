@@ -21,12 +21,21 @@ library(jhur)
 library(tidyverse)
 library(broom)
 library(naniar)
-
-bike <- read_csv(file = "http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv")
-
 ```
 
 # Part 1
+
+0. Read in the bike data, you can use the URL or download the data.
+
+Bike Lanes Dataset: BikeBaltimore is the Department of Transportation's bike program. 
+The data is from http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms
+
+You can Download as a CSV in your current working directory.  Note its also available at: 	http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv 
+
+```{r}
+
+
+```
 
 
 1.  Use the `is.na()`  and `any()` functions to check if the bike `dateInstalled` variable has any `NA` values. Use the pipe between each step. 
