@@ -94,7 +94,7 @@ pop2
 dim(pop2)
 ```
 
-3. Pull the variable `county_name` from `pop2`. Use head() to take a look at it.  How does this differ form selecting it?
+3. Pull the variable `county_name` from `pop2`. How does this differ form selecting it? Use head() to take a look at both options.
 
 ```{r}
 head(pull(pop2, county_name))
@@ -156,8 +156,8 @@ select(county_pop, contains("a"))
 
 # Part 3
 
-1. Create a subset called `county_2012`from `county_pop` that only contains the rows for the year 2012 and only the columns: `county_name`,	`state_name`, `population`. `year` should not be included in `county_sub`.
-	What are the dimensions of this dataset? Don't use pipes (`%>%`).
+1. Create a subset called `county_2012` from `county_pop` that only contains the rows for the year 2012 and only the columns: `county_name`,	`state_name`, `population`. `year` should not be included in `county_sub`.
+	What are the dimensions of this dataset? Don't use pipes (`%>%`) and instead do this in two steps creating the `county_2012` object with `filter` and updating it with `select`.
 
 ```{r}
 county_2012 <- filter(county_pop, year == 2012)
@@ -176,7 +176,7 @@ county_2012
 dim(county_2012)
 ```
 
-What happens if you do the steps in a different order? Why?
+What happens if you do the steps in a different order? Why does this not work?
 
 ```{r}
 #county_2012 <- county_pop %>%

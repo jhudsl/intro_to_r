@@ -87,7 +87,7 @@ tail(county_pop, 3)
 
 ```
 
-3. Pull the variable `county_name` from `pop2`. How does this differ form selecting it?
+3. Pull the variable `county_name` from `pop2`. How does this differ form selecting it? Use head() to take a look at both options.
 
 ```{r}
 
@@ -119,7 +119,6 @@ tail(county_pop, 3)
 
 7. Why do the answers for 5 and 6 differ?
 
-They differ because there are rows with values that are exactly 2010.
 
 **Bonus / Extra practice**:
 
@@ -140,7 +139,7 @@ How many rows have both?
 # Part 3
 
 1. Create a subset called `county_2012`from `county_pop` that only contains the rows for the year 2012 and only the columns: `county_name`,	`state_name`, `population`. `year` should not be included in `county_sub`.
-	What are the dimensions of this dataset? Don't use pipes (`%>%`).
+	What are the dimensions of this dataset? Don't use pipes (`%>%`) and instead do this in two steps creating the `county_2012` object with `filter` and updating it with `select`.
 
 ```{r}
 
@@ -152,7 +151,7 @@ How many rows have both?
 
 ```
 
-What happens if you do the steps in a different order? Why?
+What happens if you do the steps in a different order? Why does this not work?
 
 ```{r,  error = TRUE}
 
