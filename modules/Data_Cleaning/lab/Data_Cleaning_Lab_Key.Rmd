@@ -22,7 +22,7 @@ library(tidyverse)
 library(broom)
 library(naniar)
 
-bike <- read_bike()
+bike <- read_csv(file = "http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv")
 ```
 
 # Part 1
