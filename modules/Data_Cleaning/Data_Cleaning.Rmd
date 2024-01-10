@@ -376,14 +376,14 @@ set.seed(124)
 data_diet <- tibble(Diet = rep(c("A", "B", "B"),
                                times = 4), 
                     Treatment = c("Ginger", 
-                               "g",
+                               "Ginger",
                                "Other",
                                "peppermint", 
-                               "Peppermint",
-                               "G", 
+                               "peppermint",
+                               "Ginger", 
                                "Mint",
                                "O", 
-                               "ginger",
+                               "Ginger",
                                "mint",
                                "Mint",
                                "O"), 
@@ -394,7 +394,7 @@ data_diet <- tibble(Diet = rep(c("A", "B", "B"),
 
 
 ```{r, include = FALSE, echo = FALSE}
-#writexl::write_xlsx(data_diet, here::here("data", "cleaning_diet_data.xlsx")
+#writexl::write_xlsx(data_diet, here::here("data", "cleaning_diet_data.xlsx"))
 ```
 ## Reading in the data if it were an excel sheet
 Data is also here: 
@@ -448,14 +448,12 @@ Need quotes for new values! Tolerates quotes for old values.
 ```{r, eval = FALSE}
 
 data_diet %>% 
-  mutate(Treatment = recode(Treatment, G = "Ginger", 
-                                       g = "Ginger", 
-                                  ginger = "Ginger",
+  mutate(Treatment = recode(Treatment,  
                                        O = "Other",
                                     Mint = "Peppermint",
                                     mint = "Peppermint",
                               peppermint = "Peppermint")) %>%
-  count(Treatment, Diet)
+  count(Treatment)
 ```
 
 ## `recode()`
@@ -463,14 +461,12 @@ data_diet %>%
 ```{r, eval = TRUE}
 
 data_diet %>% 
-  mutate(Treatment = recode(Treatment, G = "Ginger", 
-                                       g = "Ginger", 
-                                  ginger = "Ginger",
+  mutate(Treatment = recode(Treatment,
                                        O = "Other",
                                     Mint = "Peppermint",
                                     mint = "Peppermint",
                               peppermint = "Peppermint")) %>%
-  count(Treatment, Diet)
+  count(Treatment)
 ```
 
 
@@ -492,9 +488,7 @@ Need quotes for conditions and new values!
 
 ```{r}
 data_diet %>% 
-  mutate(Treatment = case_when(Treatment == "G" ~ "Ginger", 
-                               Treatment == "g" ~ "Ginger", 
-                               Treatment == "ginger" ~ "Ginger",
+  mutate(Treatment = case_when(
                                Treatment == "O" ~ "Other",
                                Treatment == "Mint" ~ "Peppermint",
                                Treatment == "mint" ~ "Peppermint",
@@ -505,11 +499,13 @@ data_diet %>%
 
 ## What happened?{.codesmall}
 
+We seem to have `NA` values!
+
+We didn't specify what happens to values that were already `Other` or `Ginger`.
+
 ```{r, eval = FALSE}
 data_diet %>% 
-  mutate(Treatment = case_when(Treatment == "G" ~ "Ginger", 
-                               Treatment == "g" ~ "Ginger", 
-                               Treatment == "ginger" ~ "Ginger",
+  mutate(Treatment = case_when(
                                Treatment == "O" ~ "Other",
                                Treatment == "Mint" ~ "Peppermint",
                                Treatment == "mint" ~ "Peppermint",
@@ -524,7 +520,7 @@ data_diet
 ## `case_when()` drops unspecified values
 
 Note that automatically values not reassigned explicitly by
-`case_when()` will be `NA` unless otherwise specified.
+`case_when()` will be `NA` unless otherwise specified. 
 
 ::: codeexample
 ```{r, eval = FALSE}
@@ -544,9 +540,7 @@ or it can be the original values of the column
 
 ```{r}
 data_diet %>% 
-  mutate(Treatment = case_when(Treatment == "G" ~ "Ginger", 
-                               Treatment == "g" ~ "Ginger", 
-                               Treatment == "ginger" ~ "Ginger",
+  mutate(Treatment = case_when(
                                Treatment == "O" ~ "Other",
                                Treatment == "Mint" ~ "Peppermint",
                                Treatment == "mint" ~ "Peppermint",
@@ -555,13 +549,42 @@ data_diet %>%
   count(Treatment)
 ```
 
+## Typically it is good practice to include the TRUE statement
+
+```{r, eval = FALSE}
+data_diet %>% 
+  mutate(Treatment = case_when(
+                               Treatment == "O" ~ "Other",
+                               Treatment == "Mint" ~ "Peppermint",
+                               Treatment == "mint" ~ "Peppermint",
+                               Treatment == "peppermint" ~ "Peppermint",
+                                TRUE ~ Treatment)) %>%
+  count(Treatment)
+```
+
+You never know if you might be missing something - and if a value already was an NA it will stay that way. 
+
+## But maybe we want NA?
+
+Perhaps we want values that are O or Other to actually be NA, then `case_when` can be helpful for this. We simply specify everything else.
+
+```{r}
+data_diet %>% 
+  mutate(Treatment = case_when(Treatment == "Ginger" ~ "Ginger", 
+                               Treatment == "Mint" ~ "Peppermint",
+                               Treatment == "mint" ~ "Peppermint",
+                               Treatment == "peppermint" ~ "Peppermint")) %>%
+  count(Treatment)
+```
 
 ## More complicated case_when()
+
+`case_when` can do more complicated statements than `recode` and can match many patterns at a time.
 
 ```{r}
 data_diet %>% 
   mutate(Treatment = case_when(
-    Treatment %in% c("G", "g", "Ginger", "ginger") ~ "Ginger",
+    Treatment == "Ginger" ~ "Ginger", # keep it the same!
     Treatment %in% c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
     Treatment %in% c("O", "Other") ~ "Other")) %>%
 
@@ -573,7 +596,7 @@ data_diet %>%
 
 ## Another reason for `case_when()`
 
-`case_when` can do very sophisticated comparisons
+`case_when` can do very sophisticated comparisons!
 
 ```{r}
 
@@ -592,22 +615,6 @@ head(data_diet)
 data_diet %>% 
   count(Diet, Effect)
 ```
-## Taking a look at the data
-
-```{r, echo = FALSE}
-diet_effect <- data_diet %>% 
-  count(Diet, Effect)
-
-data_diet %>% 
-  count(Diet, Effect)%>%
-  ggplot(aes(x = Effect,y = n, fill = Diet)) + 
-  geom_col(position = position_dodge()) +
-  labs(y = "Individuals", 
-       title = "Effect of diet A & B on participants")
-
-
-```
-
 
 # Working with strings
 
