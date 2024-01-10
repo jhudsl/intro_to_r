@@ -118,23 +118,56 @@ quantile(jhu_cars$hp)
 ```
 
 
-## Statistical summarization
+## The `dplyr` pipe `%>%` operator
 
-The "tidy" way:
+A nice and readable way to chain together multiple R functions.
+
+Changes `f(x, y)` to `x %>% f(y)`.
+
+```{r eval=FALSE}
+# Going to work
+get_dressed(me,
+            pack_lunch(
+              check_pockets(
+                wallet = TRUE, phone = TRUE, keys = TRUE),
+              items = c("sandwich", "chips", "apple"), lunchbox = TRUE),
+            pants = TRUE, shirt = TRUE, footwear = "sandals")
+
+# Going to work, the tidy way
+me %>%
+  get_dressed(pants = TRUE, shirt = TRUE, footwear = "sandals") %>%
+  pack_lunch(items = c("sandwich", "chips", "apple"), lunchbox = TRUE) %>%
+  check_pockets(wallet = TRUE, phone = TRUE, keys = TRUE)
+```
+
+
+## Statistical summarization the "tidy" way
 
 ```{r}
 jhu_cars %>% pull(hp) %>% mean() # alt: pull(jhu_cars, hp) %>% mean()
-jhu_cars %>% pull(hp) %>% quantile()
-```
-
-
-## Statistical summarization
-
-```{r}
 jhu_cars %>% pull(wt) %>% median()
+jhu_cars %>% pull(hp) %>% quantile()
 jhu_cars %>% pull(wt) %>% quantile(probs = 0.6)
 ```
 
+
+## Behavior of `pull()` function
+
+`pull()` converts a single data column into a vector. This allows you to run summary functions on these data. Once you have "pulled" the data column out, you don't have to name it again in any piped summary functions.
+
+```{r}
+cars_wt <- jhu_cars %>% pull(wt)
+class(cars_wt)
+cars_wt
+```
+
+```{r, eval=FALSE}
+jhu_cars %>% pull(wt) %>% range(wt) # Incorrect
+```
+
+```{r}
+jhu_cars %>% pull(wt) %>% range() # Correct
+```
 
 ## Data Summarization on data frames
 
