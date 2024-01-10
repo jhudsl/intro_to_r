@@ -12,7 +12,8 @@ opts_chunk$set(comment = "")
 library(readr)
 suppressPackageStartupMessages(library(dplyr))
 library(tidyverse)
-
+install.packages("emoji", repos='http://cran.us.r-project.org')
+library(emoji)
 ```
 
 
@@ -49,7 +50,7 @@ inaccuracies, or recoding it in a way that makes it more manageable.
 
 ::: {style="color: red;"}
 
- MOST IMPORTANT RULE - LOOK  AT YOUR DATA!
+`r emoji("warning")` MOST IMPORTANT RULE - LOOK `r emoji("eyes")` AT YOUR DATA! `r emoji("warning")`
 
 :::
 
@@ -298,9 +299,9 @@ bike %>%
 ::: 
 
 
- Sometimes removing `NA` values leads to distorted math - be careful!
+`r emoji("warning")` Sometimes removing `NA` values leads to distorted math - be careful!
 
- Think about what your `NA` means for your data (are you sure ?).
+`r emoji("warning")` Think about what your `NA` means for your data (are you sure ?).
 
 - Is an `NA` for values so low they could not be reported? 
 
@@ -316,13 +317,13 @@ survey reports 0 if student has tried cigarettes but did not smoke that
 week
 
 
-You might want to keep the `NA` values so that you know the original sample size. 
+`r emoji("warning")` You might want to keep the `NA` values so that you know the original sample size. 
 
 
 ## Word of caution {.codesmall}
 
 
- Calculating percentages will give you a different result depending on your choice to include NA values.!
+`r emoji("warning")` Calculating percentages will give you a different result depending on your choice to include NA values.!
 
 This is because the denominator changes.
 
