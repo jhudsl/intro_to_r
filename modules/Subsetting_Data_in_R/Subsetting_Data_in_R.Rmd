@@ -224,6 +224,14 @@ head(annualDosage)
 
 # Renaming Columns
 
+## `rename` function
+
+```{r, fig.alt="dplyr", out.width = "70%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/rename.png")
+```
+"Artwork by @allison_horst". https://allisonhorst.com/
+
+
 ## Renaming Columns of a data frame or tibble
 
 To rename columns in `dplyr`, you can use the `rename` function.
@@ -450,7 +458,7 @@ contains() # like searching
 
 Type `tidyselect::` in the **console** and see what RStudio suggests:
 
-```{r, fig.alt="dplyr", out.width = "80%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="dplyr", out.width = "70%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/tidyselect.png")
 ```
 
@@ -493,6 +501,14 @@ select(AD, where(is.numeric))
 
 
 # Subsetting Rows
+
+## `filter` function
+
+```{r, fig.alt="dplyr", out.width = "70%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/filter.png")
+```
+
+"Artwork by @allison_horst". https://allisonhorst.com/
 
 ## Subset rows of a data frame: dplyr
 
@@ -750,6 +766,12 @@ AD <- AD %>% mutate(newcol = newcol / 2)
 head(AD,4)
 ```
 
+## `mutate` function
+
+```{r, fig.alt="dplyr", out.width = "80%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/mutate.png")
+```
+"Artwork by @allison_horst". https://allisonhorst.com/
 
 
 ## Removing columns of a data frame: dplyr {.codesmall}
@@ -826,7 +848,7 @@ AD %>% select(order(colnames(AD)))
 
 In addition to `select` we can also use the `relocate()` function of dplyr to rearrange the columns for more complicated moves.
 
-For example, let say we just wanted `wt` to be before `cyl`.
+For example, let say we just wanted `year` to be before `BUYER_STATE`.
 
 ```{r}
 
