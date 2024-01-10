@@ -4,18 +4,18 @@ output:
   ioslides_presentation:
     css: ../../docs/styles.css
     widescreen: yes
-editor_options: 
-  markdown: 
-    wrap: 72
 ---
 
-```{r, echo = FALSE, message = FALSE}
+```{r, echo = FALSE, message = FALSE, results='hide'}
 library(knitr)
 opts_chunk$set(comment = "")
 library(readr)
 suppressPackageStartupMessages(library(dplyr))
 library(tidyverse)
+install.packages("emoji", repos='http://cran.us.r-project.org')
+library(emoji)
 ```
+
 
 ## Recap on summarization
 
@@ -50,7 +50,7 @@ inaccuracies, or recoding it in a way that makes it more manageable.
 
 ::: {style="color: red;"}
 
-`r emo::ji("warning")` MOST IMPORTANT RULE - LOOK `r emo::ji("eyes")` AT YOUR DATA! `r emo::ji("warning")`
+`r emoji("warning")` MOST IMPORTANT RULE - LOOK `r emoji("eyes")` AT YOUR DATA! `r emoji("warning")`
 
 :::
 
@@ -85,28 +85,16 @@ is.nan(test)
 is.infinite(test)
 ```
 
-## Useful checking functions {.small}
 
-Do we have any `NA`s? (`any` can help)
+## Useful checking functions
+
+`any()` can help you check if there are any `NA` values in a vector
 
 ```{r}
-A <- c(1, 2, 3, NA)
-B <- c(1, 2, 3, 4)
-any(is.na(A)) # are there any NAs - YES/TRUE
-any(is.na(B)) # are there any NAs- NO/FALSE
+test
+any(is.na(test))
 ```
 
-
-## Useful checking functions {.small}
-
-Are all the values `NA`? (`all` can help)
-
-```{r isna}
-A <- c(1, 2, 3, NA)
-B <- c(1, 2, 3, 4)
-all(is.na(A)) # are there any NAs - YES/TRUE
-all(is.na(B)) # are there any NAs- NO/FALSE
-```
 
 ## Finding `NA` values with `count()`{.codesmall}
 
@@ -123,7 +111,7 @@ Check if rare values make sense.
 
 ```{r, message=FALSE}
 library(jhur)
-bike <- read_bike()
+bike <- read_csv(file = "http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv")
 bike %>% count(subType)
 ```
 
@@ -311,9 +299,9 @@ bike %>%
 ::: 
 
 
-`r emo::ji("warning")` Sometimes removing `NA` values leads to distorted math - be careful!
+`r emoji("warning")` Sometimes removing `NA` values leads to distorted math - be careful!
 
-`r emo::ji("warning")` Think about what your `NA` means for your data (are you sure ?).
+`r emoji("warning")` Think about what your `NA` means for your data (are you sure ?).
 
 - Is an `NA` for values so low they could not be reported? 
 
@@ -329,13 +317,13 @@ survey reports 0 if student has tried cigarettes but did not smoke that
 week
 
 
-`r emo::ji("warning")` You might want to keep the `NA` values so that you know the original sample size. 
+`r emoji("warning")` You might want to keep the `NA` values so that you know the original sample size. 
 
 
 ## Word of caution {.codesmall}
 
 
-`r emo::ji("warning")` Calculating percentages will give you a different result depending on your choice to include NA values.!
+`r emoji("warning")` Calculating percentages will give you a different result depending on your choice to include NA values.!
 
 This is because the denominator changes.
 
@@ -363,8 +351,8 @@ Pay attention to your data and your `NA` values!
 
 ## Summary
 
--   `is.na()`,`any(is.na())`, `count()`, and functions from `naniar`
-    like `gg_miss_var()` can help determine if we have `NA` values
+-   `is.na()`,`any(is.na())`, `all(is.na())`,`count()`, and functions from `naniar` like `gg_miss_var()` and `miss_var_summary` can help determine if we have `NA` values
+-   `miss_var_which` can help you drop columns that have any missing values.
 -   `filter()` automatically removes `NA` values - can't confirm or deny
     if condition is met (need `| is.na()` to keep them)
 -   `drop_na()` can help you remove `NA` values from a variable or an
@@ -387,23 +375,36 @@ Pay attention to your data and your `NA` values!
 set.seed(124)
 data_diet <- tibble(Diet = rep(c("A", "B", "B"),
                                times = 4), 
-                    Gender = c("Male", 
-                               "m",
+                    Treatment = c("Ginger", 
+                               "Ginger",
                                "Other",
-                               "F", 
-                               "Female",
-                               "M", 
-                               "f",
+                               "peppermint", 
+                               "peppermint",
+                               "Ginger", 
+                               "Mint",
                                "O", 
-                               "Man",
-                               "f",
-                               "F",
+                               "Ginger",
+                               "mint",
+                               "Mint",
                                "O"), 
                     Weight_start = sample(100:250, size = 12),
                     Weight_change = sample(-10:20, size = 12))
 
 ```
 
+
+```{r, include = FALSE, echo = FALSE}
+#writexl::write_xlsx(data_diet, here::here("data", "cleaning_diet_data.xlsx"))
+```
+## Reading in the data if it were an excel sheet
+Data is also here: 
+
+http://jhudatascience.org/intro_to_r/data/cleaning_diet_data.xlsx
+
+```{r}
+library(readxl)
+data_diet<- read_excel(here::here("data", "cleaning_diet_data.xlsx"))
+```
 
 ## Say we have some data about samples in a diet study:
 
@@ -417,12 +418,12 @@ This needs lots of recoding.
 
 ```{r}
 data_diet %>%
-  count(Gender)
+  count(Treatment)
 ```
 
 ## `dplyr` can help!{.codesmall}
 
-Using Excel to find all of the different ways `gender` has been coded,
+Using Excel to find all of the different ways `Treatment` has been coded,
 could be hectic! In `dplyr` you can use the `recode` function.
 
 ::: {style="color: red;"}
@@ -432,7 +433,7 @@ could be hectic! In `dplyr` you can use the `recode` function.
 ```{r, eval = FALSE}
 # General Format - this is not code!
 {data_input} %>%
-  mutate({variable_to_fix} = recode({Variable_fixing}, {old_value} = {new_value},
+  mutate({variable_to_fix_or_new} = recode({Variable_fixing}, {old_value} = {new_value},
                                        {another_old_value} = {new_value}))
 
 ```
@@ -447,13 +448,12 @@ Need quotes for new values! Tolerates quotes for old values.
 ```{r, eval = FALSE}
 
 data_diet %>% 
-  mutate(Gender = recode(Gender, M = "Male", 
-                                 m = "Male", 
-                               Man = "Male",
-                                 O = "Other",
-                                 f = "Female",
-                                 F = "Female")) %>%
-  count(Gender, Diet)
+  mutate(Treatment_recoded = recode(Treatment,  
+                                       O = "Other",
+                                    Mint = "Peppermint",
+                                    mint = "Peppermint",
+                              peppermint = "Peppermint")) %>%
+  count(Treatment, Treatment_recoded)
 ```
 
 ## `recode()`
@@ -461,15 +461,27 @@ data_diet %>%
 ```{r, eval = TRUE}
 
 data_diet %>% 
-  mutate(Gender = recode(Gender, M = "Male", 
-                                 m = "Male", 
-                               Man = "Male",
-                                 O = "Other",
-                                 f = "Female",
-                                 F = "Female")) %>%
-  count(Gender)
+  mutate(Treatment_recoded = recode(Treatment,
+                                       O = "Other",
+                                    Mint = "Peppermint",
+                                    mint = "Peppermint",
+                              peppermint = "Peppermint")) %>%
+  count(Treatment, Treatment_recoded)
 ```
+## Can update or overwrite variables with recode too!
 
+Just use the same variable name to change the variable within mutate.
+
+```{r, eval = TRUE}
+
+data_diet %>% 
+  mutate(Treatment= recode(Treatment,
+                                       O = "Other",
+                                    Mint = "Peppermint",
+                                    mint = "Peppermint",
+                              peppermint = "Peppermint")) %>%
+  count(Treatment)
+```
 
 ## Or you can use `case_when()`
 
@@ -489,37 +501,35 @@ Need quotes for conditions and new values!
 
 ```{r}
 data_diet %>% 
-  mutate(Gender = case_when(Gender == "M" ~ "Male", 
-                            Gender == "m" ~ "Male", 
-                            Gender == "Man" ~ "Male",
-                            Gender == "O" ~ "Other",
-                            Gender == "f" ~ "Female",
-                            Gender == "F" ~ "Female"))  %>% 
-  count(Gender)
+  mutate(Treatment_recoded = case_when(
+                               Treatment == "O" ~ "Other",
+                               Treatment == "Mint" ~ "Peppermint",
+                               Treatment == "mint" ~ "Peppermint",
+                               Treatment == "peppermint" ~ "Peppermint"))  %>% 
+  count(Treatment, Treatment_recoded)
 
 ```
 
 ## What happened?{.codesmall}
 
-```{r}
+We seem to have `NA` values!
+
+We didn't specify what happens to values that were already `Other` or `Ginger`.
+
+```{r, eval = FALSE}
 data_diet %>% 
-  mutate(Gender = case_when(Gender == "M" ~ "Male", 
-                            Gender == "m" ~ "Male", 
-                            Gender == "Man" ~ "Male",
-                            Gender == "O" ~ "Other",
-                            Gender == "f" ~ "Female",
-                            Gender == "F" ~ "Female"))
+  mutate(Treatment = case_when(
+                               Treatment == "O" ~ "Other",
+                               Treatment == "Mint" ~ "Peppermint",
+                               Treatment == "mint" ~ "Peppermint",
+                               Treatment == "peppermint" ~ "Peppermint")) 
 ```
 
-## Original data
-```{r}
-data_diet
-```
 
 ## `case_when()` drops unspecified values
 
 Note that automatically values not reassigned explicitly by
-`case_when()` will be `NA` unless otherwise specified.
+`case_when()` will be `NA` unless otherwise specified. 
 
 ::: codeexample
 ```{r, eval = FALSE}
@@ -539,25 +549,69 @@ or it can be the original values of the column
 
 ```{r}
 data_diet %>% 
-  mutate(Gender = case_when(Gender == "M" ~ "Male", 
-                            Gender == "m" ~ "Male", 
-                            Gender == "Man" ~ "Male",
-                            Gender == "O" ~ "Other",
-                            Gender == "f" ~ "Female",
-                            Gender == "F" ~ "Female",
-                            TRUE ~ Gender))  %>% 
-  count(Gender)
+  mutate(Treatment_recoded = case_when(
+                               Treatment == "O" ~ "Other",
+                               Treatment == "Mint" ~ "Peppermint",
+                               Treatment == "mint" ~ "Peppermint",
+                               Treatment == "peppermint" ~ "Peppermint",
+                                TRUE ~ Treatment)) %>%
+  count(Treatment, Treatment_recoded)
+```
+
+## Typically it is good practice to include the TRUE statement
+
+You never know if you might be missing something - and if a value already was an NA it will stay that way. 
+
+```{r, eval = FALSE}
+data_diet %>% 
+  mutate(Treatment_recoded = case_when(
+                               Treatment == "O" ~ "Other",
+                               Treatment == "Mint" ~ "Peppermint",
+                               Treatment == "mint" ~ "Peppermint",
+                               Treatment == "peppermint" ~ "Peppermint",
+                                TRUE ~ Treatment)) %>%
+  count(Treatment, Treatment_recoded)
 ```
 
 
-## More complicated case_when()
+## But maybe we want NA?
+
+Perhaps we want values that are O or Other to actually be NA, then `case_when` can be helpful for this. We simply specify everything else.
 
 ```{r}
 data_diet %>% 
-  mutate(Gender = case_when(
-    Gender %in% c("M", "male", "Man", "m", "Male") ~ "Male",
-    Gender %in% c("F", "Female", "f", "female") ~ "Female",
-    Gender %in% c("O", "Other") ~ "Other"))
+  mutate(Treatment_recoded = case_when(Treatment == "Ginger" ~ "Ginger", 
+                               Treatment == "Mint" ~ "Peppermint",
+                               Treatment == "mint" ~ "Peppermint",
+                               Treatment == "peppermint" ~ "Peppermint")) %>%
+  count(Treatment, Treatment_recoded)
+```
+## case_when() can also overwrite/update a variable
+
+Just like recode, just need to specify what we want in the first part of `mutate`.
+
+```{r}
+data_diet %>% 
+  mutate(Treatment = case_when(Treatment == "Ginger" ~ "Ginger", 
+                               Treatment == "Mint" ~ "Peppermint",
+                               Treatment == "mint" ~ "Peppermint",
+                               Treatment == "peppermint" ~ "Peppermint")) %>%
+  count(Treatment)
+
+```
+
+## More complicated case_when()
+
+`case_when` can do more complicated statements than `recode` and can match many patterns at a time.
+
+```{r}
+data_diet %>% 
+  mutate(Treatment_recode = case_when(
+    Treatment == "Ginger" ~ "Ginger", # keep it the same!
+    Treatment %in% c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
+    Treatment %in% c("O", "Other") ~ "Other")) %>%
+
+  count(Treatment, Treatment_recode)
 
 ```
 
@@ -565,7 +619,9 @@ data_diet %>%
 
 ## Another reason for `case_when()`
 
-`case_when` can do very sophisticated comparisons
+`case_when` can do very sophisticated comparisons!
+
+Here we create a new variable called `Effect`.
 
 ```{r}
 
@@ -584,22 +640,6 @@ head(data_diet)
 data_diet %>% 
   count(Diet, Effect)
 ```
-## Taking a look at the data
-
-```{r, echo = FALSE}
-diet_effect <- data_diet %>% 
-  count(Diet, Effect)
-
-data_diet %>% 
-  count(Diet, Effect)%>%
-  ggplot(aes(x = Effect,y = n, fill = Diet)) + 
-  geom_col(position = position_dodge()) +
-  labs(y = "Individuals", 
-       title = "Effect of diet A & B on participants")
-
-
-```
-
 
 # Working with strings
 
@@ -681,13 +721,13 @@ str_sub(string = Effect, start = 1, end = 3)
 ```{r}
 head(data_diet, n = 4)
 data_diet %>% 
-  filter(str_detect(string = Gender,
-                    pattern = "M"))
+  filter(str_detect(string = Treatment,
+                    pattern = "int"))
 ```
 
 ## OK back to our original problem
 ```{r}
-count(data_diet, Gender)
+count(data_diet, Treatment)
 ```
 
 ## Recode was nice but what if miss something?
@@ -695,13 +735,13 @@ count(data_diet, Gender)
 ```{r, eval = FALSE}
 
 data_diet %>% 
-  mutate(Gender = recode(Gender, M = "Male", 
-                                 m = "Male", 
-                               Man = "Male",
-                                 O = "Other",
-                                 f = "Female",
-                                 F = "Female")) %>%
-  count(Gender, Diet)
+  mutate(Treatment_recoded = recode(Treatment, G = "Ginger", 
+                                       g = "Ginger", 
+                                  ginger = "Ginger",
+                                       O = "Other",
+                                    Mint = "Peppermint",
+                                    mint = "Peppermint",
+                              peppermint = "Peppermint"))
 ```
 
 ## `case_when()` was an improvement
@@ -710,10 +750,11 @@ But we still might miss a strange value
 
 ```{r, eval = FALSE}
 data_diet %>% 
-  mutate(Gender = case_when(
-    Gender %in% c("M", "male", "Man", "m", "Male") ~ "Male",
-    Gender %in% c("F", "Female", "f", "female") ~ "Female",
-    Gender %in% c("O", "Other") ~ "Other"))
+  mutate(Treatment_recoded = case_when(
+    Treatment %in% c("G", "g", "Ginger", "ginger") ~ "Ginger",
+    Treatment %in% c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
+    Treatment %in% c("O", "Other") ~ "Other",
+    TRUE ~ Treatment))
 ```
 
 ## `case_when()` improved with `stringr`
@@ -722,14 +763,14 @@ data_diet %>%
 
 ```{r}
 data_diet %>% 
-  mutate(Gender = case_when(
-    str_detect(string = Gender, pattern = "^m|^M") ~ "Male",
-    str_detect(string = Gender, pattern = "^f|^F") ~ "Female",
-    str_detect(string = Gender, pattern = "^o|^O") ~ "Other")) %>%
-  count(Gender)
+  mutate(Treatment_recoded = case_when(
+    str_detect(string = Treatment, pattern = "int") ~ "Peppermint",
+    str_detect(string = Treatment, pattern = "^o|^O") ~ "Other",
+    TRUE ~ Treatment)) %>%
+  count(Treatment, Treatment_recoded)
 ```
 
-This is a more robust solution! It will catch typos as long as first letter is correct.
+This is a more robust solution! It will catch typos as long as first letter is correct or there is part of the word mint.
 
 ## That's better!
 
