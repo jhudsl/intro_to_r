@@ -149,102 +149,73 @@ skim(annualDosage)
 knitr::include_graphics("images/skim2.png")
 ```
 
-# Making data frames (base R) and tibbles (tidyverse)
-## Creating data frames using base R data frame function
+# Data frames and tibbles
+
+## Data frames
+
+An older version of data in tables is called a data frame. The iris dataset is an example of this. 
+
 ```{r}
-data.frame(annualDosage)
+class(iris)
+head(iris)
 ```
-
-
-## Keep in mind...
-
-Need to assign the output of the function to keep the result!
-```{R}
-df <- data.frame(annualDosage) 
-```
-
-## Or create a data frame when reading in the file {.codesmall}
-
-Or directly when reading in a csv with the `read.csv()` function (also base R)
-
-```{r, eval = FALSE}
-# function comes from base R - no package loading required
-df_example_readr <- read.csv(file = "documents/data_analysis/data_file.csv")
-```
-
-
 ## tibble
 
-We can create a **fancier** version of the previous data frame which can be really helpful. In our case, our data happened to already be this kind of data frame called a **tibble**. 
+Tibbles are a **fancier** version of data frames:
 
+- We don't have to use head to see a preview of it
+- We see the dimensions
+- We see the data types for each column
+
+```{r}
+annualDosage
+
+```
 
 
 ## Creating a `tibble`
 
-If we needed to create a `tibble` ("fancy" data frame), we can using the  `tibble()` function.  
+If we wanted to create a `tibble` ("fancy" data frame), we can using the  `tibble()` function on a data frame.  
 
 ```{r}
-tbl <- tibble(df) 
-tbl
+tbl_iris <- tibble(iris) 
+tbl_iris
 ```
 
-Note don't necessarily need to use `head()`- tibbles conveniently print a portion of the data.
+Note don't necessarily need to use `head()` with tibbles, as they conveniently print a portion of the data.
 
-## tibbles form read_csv(){.codesmall}
-
-Alternatively we can read data files using the `tidyverse` with the `read_csv()` function of the `readr` package from the `tidyverse` to make a tibble.
-
-
-```{r, eval = FALSE}
-
-df_example_readr <- read_csv(file = "documents/data_analysis/data_file.csv")
-```
-
-You may start to notice how the tidyverse package work well together!
 
 ## Summary of tibbles and data frames
 
-**Base R:**  
-Using `read.csv()` and `data.frame()` you can make data frames  
+We generally recommend using tibbles, but you are likely to run into lots of data frames with your work. 
 
-**Tidyverse (fancier version):**  
-Using `read_csv()` and `tibble()` you can make tibbles 
+Most functions work for both so you don't need to worry about it much!
 
-We generally recommend using tibbles, but you are likely to run into lots of data frames with your work.
+It can be helpful to convert data frames to tibbles though just to see more about the data more easily. The `tibble()` function helps us do that.
 
 ## Data frames vs tibbles - watch out for rownames
  
-In the "tidy" data format, rownames are removed.  For example, `mtcars` has each car name as a row name. Here we use the `head()` function to see the first 2 rows of each using the `n` argument. In this case we would want to make the rownames a new column first before making into a tibble.
+Note that this conversion can remove row names - which some data frames have.  For example, `mtcars`  (part of R) has row names. In this case we would want to make the rownames a new column first before making into a tibble.
 
 ```{r}
 head(mtcars, n = 2)
 head(tibble(mtcars), n = 2)
 ```
 
-
-
-
 ## rownames_to_column function{.codesmall}
 
-If you run into losing a variable contained in your row names, you can also use `rownames_to_column` (of `tibble` package) to add it before turning it into a `tibble` to keep them:
+There is a function that specifically helps you do that.
 
-<div class = "codeexample">
-```{r, eval = FALSE, size = "tiny"}
-# general format! not code!
-{data you are creating or changing} <- # reassign if you want to keep changes
-      rownames_to_column({data you are using}, 
-                        {Name of column you are making from rownames})
-```
-</div>
+```{r}
+head(rownames_to_column(mtcars), n = 2)
+head(tibble(rownames_to_column(mtcars)), n = 2)
 
-```{r, size = "tiny"}
-head(mtcars,  n = 2)
-df <- rownames_to_column(mtcars, "car")
-head(df, n = 2)
 ```
 
 
-## Let's stick with the tibble annualDosage data
+## Data for now
+
+Let's stick with the tibble annualDosage data for our next lesson 
 
 ```{r}
 head(annualDosage)
