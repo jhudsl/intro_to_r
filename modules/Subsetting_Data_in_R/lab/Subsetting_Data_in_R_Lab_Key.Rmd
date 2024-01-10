@@ -11,6 +11,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 In this lab you can use the interactive console to explore but please record your commands here.  Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-X) or Ctrl-Enter (Windows/Linux) (But only inside the code chunks designated with the ```{r}``` areas).
 
+# Part 1
+
 First let's get the OCSdata package if we haven't already. We added an argument here so you don't have to select a mirror. 
 
 ```{r}
@@ -24,9 +26,8 @@ library(tidyverse)
 library(OCSdata)
 ```
 
-# Part 1
 
-First let's load the opioid related datasets by running this chunk. Remember that code is denoted with backticks "`" around it in the main text, but do not copy backticks when you paste code elements into code chunks (like the gray section below). 
+Now let's load the opioid related datasets by running this chunk. 
 
 ```{r}
 OCSdata::load_imported_data("ocs-bp-opioid-rural-urban")
@@ -82,34 +83,32 @@ tail(county_pop, 3)
 
 ```{r}
 pop_sub <- select(county_pop, county_name, year, population)
-pop_sub
+dim(pop_sub)
 ```
 
-2. Start with `conty_pop` again instead of the dataset you just made. Subset the data to only include the `population` column and the columns that end with "_name". Hint: use  `select()` and `ends_with()`. Assign this subset of the data to be `pop2`. Again take a look at the data.
+2. Start with `conty_pop` again instead of the dataset you just made. Subset the data to only include the `population` column and the columns that end with "_name". Hint: use  `select()` and `ends_with()`. Assign this subset of the data to be `pop2`. Again take a look at the data and check the dimensions.
 
 ```{r}
 pop2 <- select(county_pop, population, ends_with("_name"))
 pop2
+dim(pop2)
 ```
 
-3. Pull the variable `county_name` from `pop2`. How does this differ form selecting it?
+3. Pull the variable `county_name` from `pop2`. Use head() to take a look at it.  How does this differ form selecting it?
 
 ```{r}
-pull(pop2, county_name)
-select(pop2, county_name)
+head(pull(pop2, county_name))
+head(select(pop2, county_name))
 ```
 
 4. Subset the rows of `county_pop` that have **more** than 100000 for population - how many rows are there? Use `filter()`.
 
 ```{r}
 county_pop_sub <- filter(county_pop, population > 100000)
-dim(county_pop_sub)
 nrow(county_pop_sub)
-
+# or this:
+filter(county_pop, population > 100000) %>% nrow()
 ```
-
-There are `r nrow(cars_mpg)` cars. 
-There are `nrow(cars_mpg)` cars. 
 
 
 5. Subset the rows of `county_pop` that have a year value **less** than 2010 and **more** than 100000 population - how many are there?
@@ -179,10 +178,11 @@ dim(county_2012)
 
 What happens if you do the steps in a different order? Why?
 
-```{r,  error = TRUE}
-county_2012 <- county_pop %>%
-  select(county_name, state_name, population) %>%
-  filter(year == 2012)
+```{r}
+#county_2012 <- county_pop %>%
+#  select(county_name, state_name, population) %>%
+#  filter(year == 2012)
+# you get an error because there is now year variable to filter from
 ```
 
 3. Re-order the rows of `county_2012` by population in increasing order. Use `arrange()`. What is county with the smallest population?
@@ -206,11 +206,11 @@ county_2012 <- county_2012 %>% mutate(pop1000 = population/1000)
 **Bonus / Extra practice**: Move the `pop1000` column to be between `county_name` and `state_name` of the `county_2012` dataset. Use `relocate()`.
 
 ```{r}
-county_2012 <- county2012 %>% relocate(pop1000, .before = state_name)
+county_2012 <- county_2012 %>% relocate(pop1000, .before = state_name)
 county_2012
 ```
 
-**Bonus / Extra practice**: How can you find the value of `population` for the Chambers AL without just looking at the data manually and instead use functions we learned today?
+**Bonus / Extra practice**: How can you find the value of `population` for Chambers AL without just looking at the data manually and instead use functions we learned today?
 
 ```{r}
 county_2012 %>%

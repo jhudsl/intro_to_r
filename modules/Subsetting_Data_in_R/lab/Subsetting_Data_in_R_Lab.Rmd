@@ -24,7 +24,7 @@ library(OCSdata)
 ```
 
 
-Now let's load the opioid related datasets by running this chunk. Remember that code is denoted with backticks "`" around it in the main text, but do not copy backticks when you paste code elements into code chunks (like the gray section below). 
+Now let's load the opioid related datasets by running this chunk. 
 
 ```{r}
 OCSdata::load_imported_data("ocs-bp-opioid-rural-urban")
@@ -80,7 +80,7 @@ tail(county_pop, 3)
 
 ```
 
-2. Start with `conty_pop`  again instead of the dataset you just made. Subset the data to only include the `population` column and the columns that end with "_name". Hint: use  `select()` and `ends_with()`. Assign this subset of the data to be `pop2`. Again take a look at the data.
+2. Start with `conty_pop`  again instead of the dataset you just made. Subset the data to only include the `population` column and the columns that end with "_name". Hint: use  `select()` and `ends_with()`. Assign this subset of the data to be `pop2`. Again take a look at the data and check the dimensions.
 
 ```{r}
 
@@ -100,9 +100,6 @@ tail(county_pop, 3)
 
 
 ```
-
-There are `r nrow(cars_mpg)` cars. 
-There are `nrow(cars_mpg)` cars. 
 
 
 5. Subset the rows of `county_pop` that have a year value **less** than 2010 and **more** than 100000 population - how many are there?
@@ -181,7 +178,7 @@ What happens if you do the steps in a different order? Why?
 
 ```
 
-**Bonus / Extra practice**: How can you find the value of `population` for the Chambers AL without just looking at the data manually and instead use functions we learned today?
+**Bonus / Extra practice**: How can you find the value of `population` for Chambers AL without just looking at the data manually and instead use functions we learned today?
 
 ```{r}
 
