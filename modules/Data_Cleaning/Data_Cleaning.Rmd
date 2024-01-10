@@ -393,6 +393,10 @@ data_diet <- tibble(Diet = rep(c("A", "B", "B"),
 ```
 
 
+```{r, include = FALSE, echo = FALSE}
+#writexl::write_xlsx(data_diet, here::here("data", "cleaning_diet_data.xlsx")
+```
+
 ## Say we have some data about samples in a diet study:
 
 ```{r}
