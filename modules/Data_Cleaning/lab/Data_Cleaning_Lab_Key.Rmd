@@ -71,11 +71,11 @@ Let's say we the data like so:
 
 ```{r}
 BloodType <- tibble(
-  gender =
+  weight_loss =
     c(
-      "M", "Male", "Female", "F", "M",
-      "Male", "Other", "M", "F", "Other",
-      "F", "Male", NA, "Male", "Female"
+      "Y", "No", "Yes", "y", "no",
+      "n", "No", "N", "yes", "Yes",
+      "No", "N", NA, "N", "Other"
     ),
   type = c(
     "A.-", "AB.+", "O.-", "O.+", "AB.-",
@@ -94,39 +94,40 @@ BloodType
 
 There are some issues with this data that we need to figure out!
 
-1. Determine how many `NA` values there are for `gender`. 
+1. Determine how many `NA` values there are for `weight_loss` (assume you know that`N` and `n` is for no).
 
 ```{r}
-count(BloodType, gender) # the simple way
-sum(is.na(pull(BloodType, gender))) # another way
+count(BloodType, weight_loss) # the simple way
+sum(is.na(pull(BloodType, weight_loss))) # another way
 BloodType %>% # another way
-  pull(gender) %>%
+  pull(weight_loss) %>%
   is.na() %>%
   sum()
 ```
 
-2. Recode the `gender` variable of the `BloodType` data so that it is consistent. Use `case_when()`. Don't forget to use quotes!
+2. Recode the `weight_loss` variable of the `BloodType` data so that it is consistent. Use `case_when()`. Keep "Other" as "Other". Don't forget to use quotes!
 
 ```{r}
 
 BloodType <- BloodType %>%
-  mutate(gender = case_when(
-    gender %in% c("M", "m", "Male") ~ "Male",
-    gender %in% c("F", "female", "Female") ~ "Female",
-    gender %in% c("Other") ~ "Other"
+  mutate(weight_loss = case_when(
+    weight_loss %in% c("N", "n", "No", "no") ~ "No",
+    weight_loss %in% c("Y", "y", "Yes", "yes") ~ "Yes",
+    weight_loss %in% c("Other") ~ "Other"
   ))
 
-count(BloodType, gender)
+count(BloodType, weight_loss)
 ```
 
-Check to see how many values `gender` has for each category (hint: use `count`). It's good practice to regularly check your data throughout the data wrangling process.
+Check to see how many values `weight_loss` has for each category (hint: use `count`). It's good practice to regularly check your data throughout the data wrangling process.
 
 3.
 ```{r}
-BloodType %>% count(gender)
+BloodType %>% count(wight_loss)
 ```
 
 4. Recode the `type` variable of the `BloodType` data to be consistent. Use `recode`. Hint: the inconsistency has to do with lower case `o` and capital `O`. Don't forget to use quotes!
+
 ```{r}
 BloodType <- BloodType %>%
   mutate(type = recode(type,
