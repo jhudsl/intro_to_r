@@ -40,7 +40,7 @@ bike %>%
 
 
 
-2.  Filter rows of bike, so that only rows remain that do NOT have missing values for the `route` variable,  using `drop_na`. Assign this to the object `have_route.`
+2.  Clean rows of bike, so that only rows remain that do NOT have missing values for the `route` variable,  using `drop_na`. Assign this to the object `have_route.`
 
 ```{r}
 have_rout <- bike %>% drop_na(route)
