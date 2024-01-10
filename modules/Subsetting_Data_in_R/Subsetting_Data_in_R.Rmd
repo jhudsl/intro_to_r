@@ -367,8 +367,7 @@ clean_names(test)
 
 - data frames are simpler version of a data table
 - tibbles are fancier `tidyverse` version
-- data frames are made with `data.frames()` and `read.csv()`
-- tibbles are made with `tibble()` and `read_csv()` from `readr`
+- tibbles are made with `tibble()` 
 - if your original data has rownames, you need to use `rownames_to_column` before converting to tibble
 - the `rename()` function of `dplyr` can help you rename columns
 - avoid using punctuation (except underscores), spaces, and numbers (to start or alone) in column names
