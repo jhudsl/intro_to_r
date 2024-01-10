@@ -5,70 +5,96 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 In this lab you can use the interactive console to explore but please record your commands here.  Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-X) or Ctrl-Enter (Windows/Linux) (But only inside the code chunks designated with the ```{r}``` areas).
 
-```{r, message = FALSE}
-# don't forget to load the packages that you will need!!
-library(dplyr)
-library(tidyverse)
-library(jhur)
-```
 
 # Part 1
 
-First check to see if you have the `mtcars` dataset by running this chunk.Remember that code is denoted with backticks "`" around it in the main text, but do not copy backticks when you paste code elements into code chunks (like the gray section below). 
+First let's get the OCSdata package if we haven't already. We added an argument here so you don't have to select a mirror. 
 
 ```{r}
-mtcars
+install.packages("OCSdata", repos='http://cran.us.r-project.org')
+```
+
+```{r, message = FALSE}
+# don't forget to load the packages that you will need!
+library(dplyr)
+library(tidyverse)
+library(OCSdata)
 ```
 
 
-1. What class is `mtcars`?
+Now let's load the opioid related datasets by running this chunk. 
 
 ```{r}
-
+OCSdata::load_imported_data("ocs-bp-opioid-rural-urban")
 ```
 
-2. How many observations (rows) and variables (columns) are in the `mtcars` dataset - try the `dim()` function?
+Check that it worked by seeing if you have the `county_pop` data.
 
 ```{r}
 
-```
-
-3. Copy mtcars into an object called `cars_mt_copy` using the code supplied in the chunk below. Next, rename the column `mpg` in `cars_mt_copy` to `MPG` (hint - use `rename()`).
-
-```{r}
-cars_mt_copy <- mtcars
-
-```
-
-4. Convert the column names of `cars_mt_copy` to all upper case. Use `rename_with()`, and the `toupper` command.
-
-```{r}
 
 ```
 
 
-5. Using `cars_mt_copy` create a column called `CAR` using the `rownames_to_column()` function. Create a tibble from the data called `cars_mt_copy`.  Take a look at your data to check it. How many dimensions does it have?
+1. What class is `county_pop`?
 
 ```{r}
 
+
 ```
 
-**Bonus / Extra practice**: How can you print the first 3 rows and the last 3 rows of `cars_mt_copy` (in two lines of code)?
+2. How many observations (rows) and variables (columns) are in the dataset - try the `dim()` function?
 
 ```{r}
 
 ```
 
+3.  Next, rename the column `BUYER_STATE`  to be `State_name` (hint - use `rename()` and watch out for the order of the new and old names!). 
+
+```{r}
+
+```
+
+4. Convert the column names of `county_pop` to be all lower case. Use `rename_with()`, and the `tolower` command.
+
+```{r}
+
+```
+
+
+**Bonus / Extra practice**: How can you print the first 3 rows and the last 3 rows of `county_pop` (in two lines of code)?
+
+```{r}
+head(county_pop, 3)
+tail(county_pop, 3)
+```
 
 # Part 2
 
-1. Create a subset of the `cars_mt_copy` that only contains the columns: `CAR`, `WT`, `QSEC`, and `HP` and assign this object to `carsSub` - what are the dimensions of this dataset?
+1. Create a subset of the `county_pop` that only contains the columns: `county_name`, `year`, and `population` and assign this object to `pop_sub` - what are the dimensions of this dataset?
+
+```{r}
+
+
+```
+
+2. Start with `conty_pop`  again instead of the dataset you just made. Subset the data to only include the `population` column and the columns that end with "_name". Hint: use  `select()` and `ends_with()`. Assign this subset of the data to be `pop2`. Again take a look at the data and check the dimensions.
+
+```{r}
+
+
+```
+
+3. Pull the variable `county_name` from `pop2`. How does this differ form selecting it? Use head() to take a look at both options.
+
+```{r}
+
+
+```
+
+4. Subset the rows of `county_pop` that have **more** than 100000 for population - how many rows are there? Use `filter()`.
 
 ```{r}
 
@@ -76,36 +102,18 @@ cars_mt_copy <- mtcars
 ```
 
 
-2. Subset both the column `CAR` that you just created and the columns from `cars_mt_copy` that end in `"P"` and call it `pvars`. Hint: use `ends_with()` and `select()`. Again take a look at the data.
+5. Subset the rows of `county_pop` that have a year value **less** than 2010 and **more** than 100000 population - how many are there?
 
 ```{r}
 
-```
-
-3. Pull the variable `CAR` from `carsSub`. How does this differ form selecting it?
-
-```{r}
-
-```
-
-4. Subset the rows of `cars_mt_copy` that get **more** than 20 miles per gallon (`MPG`) of fuel efficiency - how many are there? Use `filter()`.
-
-```{r}
 
 ```
 
 
-
-5. Subset the rows of `cars_mt_copy` that get **less** than 16 miles per gallon (`MPG`) of fuel efficiency and **more** than 150 horsepower (`HP`) - how many are there?
-
-```{r}
-
-```
-
-
-6. Subset the rows of `cars_mt_copy` that get **less** than 16 miles per gallon (`MPG`) of fuel efficiency **and** **greater than or equal** to 150 horsepower (`HP`) - how many are there?
+6. Subset the rows of `county_pop` that have a year value of **less than or equal to ** 2010 and **more** than 100000 population - how many are there?
 
 ```{r}
+
 
 ```
 
@@ -114,22 +122,15 @@ cars_mt_copy <- mtcars
 
 **Bonus / Extra practice**:
 
-Subset the rows of `cars_mt_copy` for cars that have 4 `CYL`,  **or** **less** than 1.9 WT.
-How many cars have both?
+Subset the rows of `country_pop` for rows that have `state_name` of `NM`,  **or** **less** than 10000 `population`.
+How many rows have both?
 
 ```{r}
 
-```
-
-**Bonus / Extra practice**: Convert the column names of `carsSub` to all lower case. Take a look at the data.
-
-```{r}
 
 ```
 
-
-
-**Bonus / Extra practice**: Select the variables that contain the letter "A" from `cars_mt_copy`.
+**Bonus / Extra practice**: Select the variables that contain the letter "a" from `cars_mt_copy`.
 
 ```{r}
 
@@ -137,9 +138,8 @@ How many cars have both?
 
 # Part 3
 
-1. Create a subset called `carsSub` from the `cars_mt_copy` data that only contains the columns:
-`CAR`,	`WT`, `QSEC`, and `HP` for only the cars with 8 cylinders (`CYL`).
-	What are the dimensions of this dataset? Don't use pipes (`%>%`).
+1. Create a subset called `county_2012`from `county_pop` that only contains the rows for the year 2012 and only the columns: `county_name`,	`state_name`, `population`. `year` should not be included in `county_sub`.
+	What are the dimensions of this dataset? Don't use pipes (`%>%`) and instead do this in two steps creating the `county_2012` object with `filter` and updating it with `select`.
 
 ```{r}
 
@@ -151,33 +151,34 @@ How many cars have both?
 
 ```
 
-What happens if you do the steps in a different order? Why?
+What happens if you do the steps in a different order? Why does this not work?
 
+```{r,  error = TRUE}
 
-3. Re-order the rows of `carsSub` by weight (`WT`) in increasing order. Use `arrange()`. What is the heaviest car?
+```
+
+3. Re-order the rows of `county_2012` by population in increasing order. Use `arrange()`. What is county with the smallest population?
 
 ```{r}
 
 ```
 
 
-4. Create a new variable in `carsSub` called `WT2`, which  is equal to `WT^2`, using `mutate()`(don't forget to reassign `carsSub`). Use pipes `%>%`:
+4. Create a new variable in `county_2012` called `pop1000`, which  is equal to `population` divided by 1000, using `mutate()`(don't forget to reassign `county_2012`). Use pipes `%>%`:
 
 ```{r}
 
 ```
 
 
-**Bonus / Extra practice**: Move the `WT2` column to be first. Use `relocate()`.
+**Bonus / Extra practice**: Move the `pop1000` column to be between `county_name` and `state_name` of the `county_2012` dataset. Use `relocate()`.
 
 ```{r}
 
 ```
 
-
-**Bonus / Extra practice**: How can you find the value of `WT2` for the Cadillac Fleetwood without just looking at the data manually and instead use functions we learned today?
+**Bonus / Extra practice**: How can you find the value of `population` for Chambers AL without just looking at the data manually and instead use functions we learned today?
 
 ```{r}
 
 ```
-

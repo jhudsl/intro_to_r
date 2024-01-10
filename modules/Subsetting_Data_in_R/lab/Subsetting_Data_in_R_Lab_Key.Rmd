@@ -11,214 +11,209 @@ knitr::opts_chunk$set(echo = TRUE)
 
 In this lab you can use the interactive console to explore but please record your commands here.  Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-X) or Ctrl-Enter (Windows/Linux) (But only inside the code chunks designated with the ```{r}``` areas).
 
+# Part 1
+
+First let's get the OCSdata package if we haven't already. We added an argument here so you don't have to select a mirror. 
+
+```{r}
+install.packages("OCSdata", repos='http://cran.us.r-project.org')
+```
+
 ```{r, message = FALSE}
 # don't forget to load the packages that you will need!
 library(dplyr)
 library(tidyverse)
-library(jhur)
-```
-
-# Part 1
-
-First check to see if you have the `mtcars` dataset by running this chunk. Remember that code is denoted with backticks "`" around it in the main text, but do not copy backticks when you paste code elements into code chunks (like the gray section below). 
-
-```{r}
-mtcars
-```
-
-1. What class is `mtcars`?
-```{r}
-class(mtcars)
-```
-
-2. How many observations (rows) and variables (columns) are in the `mtcars` dataset - try the `dim()` function?
-
-```{r}
-dim(mtcars)
-nrow(mtcars)
-ncol(mtcars)
-```
-
-3. Copy mtcars into an object called `cars_mt_copy` using the code supplied in the chunk below. Next, rename the column `mpg` in `cars_mt_copy` to `MPG` (hint - use `rename()`). 
-
-```{r}
-cars_mt_copy <- mtcars
-cars_mt_copy <- rename(cars_mt_copy, MPG = mpg)
-head(cars_mt_copy)
-```
-
-4. Convert the column names of `cars_mt_copy` to all upper case. Use `rename_with()`, and the `toupper` command.
-
-```{r}
-cars_mt_copy <- rename_with(cars_mt_copy, toupper)
-head(cars_mt_copy)
-dim(cars_mt_copy)
+library(OCSdata)
 ```
 
 
-5. Using `cars_mt_copy` create a column called `CAR` using the `rownames_to_column()` function. Create a tibble from the data called `cars_mt_copy`.  Take a look at your data to check it. How many dimensions does it have?
+Now let's load the opioid related datasets by running this chunk. 
 
 ```{r}
-cars_mt_copy <- rownames_to_column(cars_mt_copy, "CAR")
-head(cars_mt_copy)
-cars_mt_copy <- tibble(cars_mt_copy)
-cars_mt_copy
+OCSdata::load_imported_data("ocs-bp-opioid-rural-urban")
 ```
 
-**Bonus / Extra practice**: How can you print the first 3 rows and the last 3 rows of `cars_mt_copy` (in two lines of code)?
+Check that it worked by seeing if you have the `county_pop` data.
 
 ```{r}
-head(cars_mt_copy, 3)
-tail(cars_mt_copy, 3)
+county_pop
+```
+
+
+1. What class is `county_pop`?
+
+```{r}
+class(county_pop)
+```
+
+2. How many observations (rows) and variables (columns) are in the dataset - try the `dim()` function?
+
+```{r}
+dim(county_pop)
+nrow(county_pop)
+ncol(county_pop)
+```
+
+3.  Next, rename the column `BUYER_STATE`  to be `State_name` (hint - use `rename()` and watch out for the order of the new and old names!). 
+
+```{r}
+county_pop <- rename(county_pop, State_name = BUYER_STATE)
+head(county_pop)
+```
+
+4. Convert the column names of `county_pop` to be all lower case. Use `rename_with()`, and the `tolower` command.
+
+```{r}
+county_pop <- rename_with(county_pop, tolower)
+head(county_pop)
+dim(county_pop)
+```
+
+
+**Bonus / Extra practice**: How can you print the first 3 rows and the last 3 rows of `county_pop` (in two lines of code)?
+
+```{r}
+head(county_pop, 3)
+tail(county_pop, 3)
 ```
 
 # Part 2
 
-1. Create a subset of the `cars_mt_copy` that only contains the columns: `CAR`, `WT`, `QSEC`, and `HP` and assign this object to `carsSub` - what are the dimensions of this dataset?
+1. Create a subset of the `county_pop` that only contains the columns: `county_name`, `year`, and `population` and assign this object to `pop_sub` - what are the dimensions of this dataset?
 
 ```{r}
-carsSub <- select(cars_mt_copy, CAR, WT, QSEC, HP)
-carsSub
+pop_sub <- select(county_pop, county_name, year, population)
+dim(pop_sub)
 ```
 
-2. Subset both the column `CAR` that you just created and the columns from `cars_mt_copy` that end in `"P"` and call it `pvars`. Hint: use `ends_with()` and `select()`. Again take a look at the data.
+2. Start with `conty_pop` again instead of the dataset you just made. Subset the data to only include the `population` column and the columns that end with "_name". Hint: use  `select()` and `ends_with()`. Assign this subset of the data to be `pop2`. Again take a look at the data and check the dimensions.
 
 ```{r}
-pvars <- select(cars_mt_copy, CAR, ends_with("P"))
-pvars
+pop2 <- select(county_pop, population, ends_with("_name"))
+pop2
+dim(pop2)
 ```
 
-3. Pull the variable `CAR` from `carsSub`. How does this differ form selecting it?
+3. Pull the variable `county_name` from `pop2`. How does this differ form selecting it? Use head() to take a look at both options.
 
 ```{r}
-pull(carsSub, CAR)
-select(carsSub, CAR)
+head(pull(pop2, county_name))
+head(select(pop2, county_name))
 ```
 
-4. Subset the rows of `cars_mt_copy` that get **more** than 20 miles per gallon (`MPG`) of fuel efficiency - how many are there? Use `filter()`.
+4. Subset the rows of `county_pop` that have **more** than 100000 for population - how many rows are there? Use `filter()`.
 
 ```{r}
-cars_mpg <- filter(cars_mt_copy, MPG > 20)
-dim(cars_mpg)
-nrow(cars_mpg)
-cars_mpg
+county_pop_sub <- filter(county_pop, population > 100000)
+nrow(county_pop_sub)
+# or this:
+filter(county_pop, population > 100000) %>% nrow()
 ```
 
-There are `r nrow(cars_mpg)` cars. 
-There are `nrow(cars_mpg)` cars. 
 
-
-5. Subset the rows of `cars_mt_copy` that get **less** than 16 miles per gallon (`MPG`) of fuel efficiency and **more** than 150 horsepower (`HP`) - how many are there?
+5. Subset the rows of `county_pop` that have a year value **less** than 2010 and **more** than 100000 population - how many are there?
 
 ```{r}
-filter(cars_mt_copy, MPG < 16 & HP > 150) # all of these options work
-nrow(filter(cars_mt_copy, MPG < 16 & HP > 150))
-nrow(filter(cars_mt_copy, MPG < 16, HP > 150))
-cars_mt_copy %>%
-  filter(MPG < 16, HP > 150) %>%
+filter(county_pop, year < 2010 & population > 100000) # all of these options work
+nrow(filter(county_pop, year < 2010 & population > 100000))
+nrow(filter(county_pop, year < 2010, population > 100000))
+county_pop %>%
+  filter(year < 2010, population > 100000) %>%
   nrow()
 ```
 
 
-6. Subset the rows of `cars_mt_copy` that get **less** than 16 miles per gallon (`MPG`) of fuel efficiency **and** **greater than or equal** to 150 horsepower (`HP`) - how many are there?
+6. Subset the rows of `county_pop` that have a year value of **less than or equal to ** 2010 and **more** than 100000 population - how many are there?
 
 ```{r}
-filter(cars_mt_copy, MPG < 16 & HP >= 150) # all of these options work
-nrow(filter(cars_mt_copy, MPG < 16 & HP >= 150))
-nrow(filter(cars_mt_copy, MPG < 16, HP >= 150))
-cars_mt_copy %>%
-  filter(MPG < 16, HP >= 150) %>%
+filter(county_pop, year <= 2010 & population > 100000) # all of these options work
+nrow(filter(county_pop, year <= 2010 & population > 100000))
+nrow(filter(county_pop, year <= 2010, population > 100000))
+county_pop %>%
+  filter(year <= 2010, population > 100000) %>%
   nrow()
 ```
 
 7. Why do the answers for 5 and 6 differ?
 
-They differ because there are two cars with HP values that are exactly 150.
+They differ because there are rows with values that are exactly 2010.
 
 **Bonus / Extra practice**:
 
-Subset the rows of `cars_mt_copy` for cars that have 4 `CYL`,  **or** **less** than 1.9 WT.
-How many cars have both?
+Subset the rows of `country_pop` for rows that have `state_name` of `NM`,  **or** **less** than 10000 `population`.
+How many rows have both?
 
 ```{r}
-filter(cars_mt_copy, CYL == 4 | WT < 1.9)
-nrow(filter(cars_mt_copy, CYL == 4 & WT < 1.9))
+filter(county_pop, state_name == "NM" | population < 10000)
+nrow(filter(county_pop, state_name == "NM" & population < 10000))
 ```
 
-**Bonus / Extra practice**: Convert the column names of `carsSub` to all lower case. Take a look at the data.
+**Bonus / Extra practice**: Select the variables that contain the letter "a" from `cars_mt_copy`.
 
 ```{r}
-carsSub <- rename_with(carsSub, tolower)
-carsSub
-```
-
-
-**Bonus / Extra practice**: Select the variables that contain the letter "A" from `cars_mt_copy`.
-
-```{r}
-select(cars_mt_copy, contains("A"))
+select(county_pop, contains("a"))
 ```
 
 # Part 3
 
-1. Create a subset called `carsSub`from the `cars_mt_copy` data that only contains the columns:
-`CAR`,	`WT`, `QSEC`, and `HP` for only the cars with 8 cylinders (`CYL`).
-	What are the dimensions of this dataset? Don't use pipes (`%>%`).
+1. Create a subset called `county_2012` from `county_pop` that only contains the rows for the year 2012 and only the columns: `county_name`,	`state_name`, `population`. `year` should not be included in `county_sub`.
+	What are the dimensions of this dataset? Don't use pipes (`%>%`) and instead do this in two steps creating the `county_2012` object with `filter` and updating it with `select`.
 
 ```{r}
-carsSub <- filter(cars_mt_copy, CYL == 8)
-carsSub <- select(carsSub, CAR, WT, QSEC, HP)
-carsSub # can get dimensions just from viewing the tibble
-dim(carsSub) # alternatively can use dim() function
+county_2012 <- filter(county_pop, year == 2012)
+county_2012  <- select(county_2012, county_name, state_name, population)
+county_2012 # can get dimensions just from viewing the tibble
+dim(county_2012) # alternatively can use dim() function
 ```
 
 2. Try the same thing again with pipes `%>%`.
 
 ```{r}
-carsSub <- cars_mt_copy %>%
-  filter(CYL == 8) %>%
-  select(CAR, WT, QSEC, HP)
-carsSub
-dim(carsSub)
+county_2012 <- county_pop %>%
+  filter(year == 2012) %>%
+  select(county_name, state_name, population)
+county_2012
+dim(county_2012)
 ```
 
-What happens if you do the steps in a different order? Why?
-
-```{r, eval = FALSE}
-carsSub <- cars_mt_copy %>%
-  select(CAR, WT, QSEC, HP) %>%
-  filter(CYL == 8)
-```
-
-3. Re-order the rows of `carsSub` by weight (`WT`) in increasing order. Use `arrange()`. What is the heaviest car?
+What happens if you do the steps in a different order? Why does this not work?
 
 ```{r}
-carsSub <- arrange(carsSub, WT)
-carsSub
-arrange(carsSub, desc(WT)) %>%
+#county_2012 <- county_pop %>%
+#  select(county_name, state_name, population) %>%
+#  filter(year == 2012)
+# you get an error because there is now year variable to filter from
+```
+
+3. Re-order the rows of `county_2012` by population in increasing order. Use `arrange()`. What is county with the smallest population?
+
+```{r}
+county_2012 <- arrange(county_2012, population)
+county_2012
+arrange(county_2012, population) %>%
   head(n = 1) %>%
-  pull(CAR)
+  pull(county_name)
 ```
 
 
-4. Create a new variable in `carsSub` called `WT2`, which  is equal to `WT^2`, using `mutate()`(don't forget to reassign `carsSub`). Use pipes `%>%`:
+4. Create a new variable in `county_2012` called `pop1000`, which  is equal to `population` divided by 1000, using `mutate()`(don't forget to reassign `county_2012`). Use pipes `%>%`:
 
 ```{r}
-carsSub <- carsSub %>% mutate(WT2 = WT^2)
+county_2012 <- county_2012 %>% mutate(pop1000 = population/1000)
 ```
 
 
-**Bonus / Extra practice**: Move the `WT2` column to be first. Use `relocate()`.
+**Bonus / Extra practice**: Move the `pop1000` column to be between `county_name` and `state_name` of the `county_2012` dataset. Use `relocate()`.
 
 ```{r}
-carsSub <- carsSub %>% relocate(WT2, .before = CAR)
-carsSub
+county_2012 <- county_2012 %>% relocate(pop1000, .before = state_name)
+county_2012
 ```
 
-**Bonus / Extra practice**: How can you find the value of `WT2` for the Cadillac Fleetwood without just looking at the data manually and instead use functions we learned today?
+**Bonus / Extra practice**: How can you find the value of `population` for Chambers AL without just looking at the data manually and instead use functions we learned today?
 
 ```{r}
-carsSub %>%
-  filter(CAR == "Cadillac Fleetwood") %>%
-  select(WT2)
+county_2012 %>%
+  filter(county_name == "Chambers", state_name == "AL") %>%
+  select(population)
 ```
