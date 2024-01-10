@@ -433,7 +433,7 @@ could be hectic! In `dplyr` you can use the `recode` function.
 ```{r, eval = FALSE}
 # General Format - this is not code!
 {data_input} %>%
-  mutate({variable_to_fix} = recode({Variable_fixing}, {old_value} = {new_value},
+  mutate({variable_to_fix_or_new} = recode({Variable_fixing}, {old_value} = {new_value},
                                        {another_old_value} = {new_value}))
 
 ```
@@ -448,12 +448,12 @@ Need quotes for new values! Tolerates quotes for old values.
 ```{r, eval = FALSE}
 
 data_diet %>% 
-  mutate(Treatment = recode(Treatment,  
+  mutate(Treatment_recoded = recode(Treatment,  
                                        O = "Other",
                                     Mint = "Peppermint",
                                     mint = "Peppermint",
                               peppermint = "Peppermint")) %>%
-  count(Treatment)
+  count(Treatment, Treatment_recoded)
 ```
 
 ## `recode()`
@@ -461,14 +461,27 @@ data_diet %>%
 ```{r, eval = TRUE}
 
 data_diet %>% 
-  mutate(Treatment = recode(Treatment,
+  mutate(Treatment_recoded = recode(Treatment,
+                                       O = "Other",
+                                    Mint = "Peppermint",
+                                    mint = "Peppermint",
+                              peppermint = "Peppermint")) %>%
+  count(Treatment, Treatment_recoded)
+```
+## Can update or overwrite variables with recode too!
+
+Just use the same variable name to change the variable within mutate.
+
+```{r, eval = TRUE}
+
+data_diet %>% 
+  mutate(Treatment= recode(Treatment,
                                        O = "Other",
                                     Mint = "Peppermint",
                                     mint = "Peppermint",
                               peppermint = "Peppermint")) %>%
   count(Treatment)
 ```
-
 
 ## Or you can use `case_when()`
 
@@ -488,12 +501,12 @@ Need quotes for conditions and new values!
 
 ```{r}
 data_diet %>% 
-  mutate(Treatment = case_when(
+  mutate(Treatment_recoded = case_when(
                                Treatment == "O" ~ "Other",
                                Treatment == "Mint" ~ "Peppermint",
                                Treatment == "mint" ~ "Peppermint",
                                Treatment == "peppermint" ~ "Peppermint"))  %>% 
-  count(Treatment)
+  count(Treatment, Treatment_recoded)
 
 ```
 
@@ -512,10 +525,6 @@ data_diet %>%
                                Treatment == "peppermint" ~ "Peppermint")) 
 ```
 
-## Original data
-```{r}
-data_diet
-```
 
 ## `case_when()` drops unspecified values
 
@@ -540,33 +549,46 @@ or it can be the original values of the column
 
 ```{r}
 data_diet %>% 
-  mutate(Treatment = case_when(
+  mutate(Treatment_recoded = case_when(
                                Treatment == "O" ~ "Other",
                                Treatment == "Mint" ~ "Peppermint",
                                Treatment == "mint" ~ "Peppermint",
                                Treatment == "peppermint" ~ "Peppermint",
                                 TRUE ~ Treatment)) %>%
-  count(Treatment)
+  count(Treatment, Treatment_recoded)
 ```
 
 ## Typically it is good practice to include the TRUE statement
 
+You never know if you might be missing something - and if a value already was an NA it will stay that way. 
+
 ```{r, eval = FALSE}
 data_diet %>% 
-  mutate(Treatment = case_when(
+  mutate(Treatment_recoded = case_when(
                                Treatment == "O" ~ "Other",
                                Treatment == "Mint" ~ "Peppermint",
                                Treatment == "mint" ~ "Peppermint",
                                Treatment == "peppermint" ~ "Peppermint",
                                 TRUE ~ Treatment)) %>%
-  count(Treatment)
+  count(Treatment, Treatment_recoded)
 ```
 
-You never know if you might be missing something - and if a value already was an NA it will stay that way. 
 
 ## But maybe we want NA?
 
 Perhaps we want values that are O or Other to actually be NA, then `case_when` can be helpful for this. We simply specify everything else.
+
+```{r}
+data_diet %>% 
+  mutate(Treatment_recoded = case_when(Treatment == "Ginger" ~ "Ginger", 
+                               Treatment == "Mint" ~ "Peppermint",
+                               Treatment == "mint" ~ "Peppermint",
+                               Treatment == "peppermint" ~ "Peppermint")) %>%
+  count(Treatment, Treatment_recoded)
+```
+## case_when() can also overwrite/update a variable
+
+Just like recode, just need to specify what we want in the first part of `mutate`.
 
 ```{r}
 data_diet %>% 
@@ -575,6 +597,7 @@ data_diet %>%
                                Treatment == "mint" ~ "Peppermint",
                                Treatment == "peppermint" ~ "Peppermint")) %>%
   count(Treatment)
+
 ```
 
 ## More complicated case_when()
@@ -583,12 +606,12 @@ data_diet %>%
 
 ```{r}
 data_diet %>% 
-  mutate(Treatment = case_when(
+  mutate(Treatment_recode = case_when(
     Treatment == "Ginger" ~ "Ginger", # keep it the same!
     Treatment %in% c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
     Treatment %in% c("O", "Other") ~ "Other")) %>%
 
-  count(Treatment)
+  count(Treatment, Treatment_recode)
 
 ```
 
@@ -597,6 +620,8 @@ data_diet %>%
 ## Another reason for `case_when()`
 
 `case_when` can do very sophisticated comparisons!
+
+Here we create a new variable called `Effect`.
 
 ```{r}
 
@@ -710,7 +735,7 @@ count(data_diet, Treatment)
 ```{r, eval = FALSE}
 
 data_diet %>% 
-  mutate(Treatment = recode(Treatment, G = "Ginger", 
+  mutate(Treatment_recoded = recode(Treatment, G = "Ginger", 
                                        g = "Ginger", 
                                   ginger = "Ginger",
                                        O = "Other",
@@ -725,10 +750,11 @@ But we still might miss a strange value
 
 ```{r, eval = FALSE}
 data_diet %>% 
-  mutate(Treatment = case_when(
+  mutate(Treatment_recoded = case_when(
     Treatment %in% c("G", "g", "Ginger", "ginger") ~ "Ginger",
     Treatment %in% c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
-    Treatment %in% c("O", "Other") ~ "Other"))
+    Treatment %in% c("O", "Other") ~ "Other",
+    TRUE ~ Treatment))
 ```
 
 ## `case_when()` improved with `stringr`
@@ -737,14 +763,14 @@ data_diet %>%
 
 ```{r}
 data_diet %>% 
-  mutate(Treatment = case_when(
-    str_detect(string = Treatment, pattern = "^g|^G") ~ "Ginger",
+  mutate(Treatment_recoded = case_when(
     str_detect(string = Treatment, pattern = "int") ~ "Peppermint",
-    str_detect(string = Treatment, pattern = "^o|^O") ~ "Other")) %>%
-  count(Treatment)
+    str_detect(string = Treatment, pattern = "^o|^O") ~ "Other",
+    TRUE ~ Treatment)) %>%
+  count(Treatment, Treatment_recoded)
 ```
 
-This is a more robust solution! It will catch typos as long as first letter is correct.
+This is a more robust solution! It will catch typos as long as first letter is correct or there is part of the word mint.
 
 ## That's better!
 
