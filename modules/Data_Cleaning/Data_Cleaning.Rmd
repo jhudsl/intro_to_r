@@ -12,8 +12,7 @@ opts_chunk$set(comment = "")
 library(readr)
 suppressPackageStartupMessages(library(dplyr))
 library(tidyverse)
-devtools::install_github("hadley/emo")
-library(emo)
+
 ```
 
 
@@ -50,7 +49,7 @@ inaccuracies, or recoding it in a way that makes it more manageable.
 
 ::: {style="color: red;"}
 
-`r emo::ji("warning")` MOST IMPORTANT RULE - LOOK `r emo::ji("eyes")` AT YOUR DATA! `r emo::ji("warning")`
+ MOST IMPORTANT RULE - LOOK  AT YOUR DATA!
 
 :::
 
@@ -299,9 +298,9 @@ bike %>%
 ::: 
 
 
-`r emo::ji("warning")` Sometimes removing `NA` values leads to distorted math - be careful!
+ Sometimes removing `NA` values leads to distorted math - be careful!
 
-`r emo::ji("warning")` Think about what your `NA` means for your data (are you sure ?).
+ Think about what your `NA` means for your data (are you sure ?).
 
 - Is an `NA` for values so low they could not be reported? 
 
@@ -317,13 +316,13 @@ survey reports 0 if student has tried cigarettes but did not smoke that
 week
 
 
-`r emo::ji("warning")` You might want to keep the `NA` values so that you know the original sample size. 
+You might want to keep the `NA` values so that you know the original sample size. 
 
 
 ## Word of caution {.codesmall}
 
 
-`r emo::ji("warning")` Calculating percentages will give you a different result depending on your choice to include NA values.!
+ Calculating percentages will give you a different result depending on your choice to include NA values.!
 
 This is because the denominator changes.
 
