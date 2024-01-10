@@ -127,7 +127,7 @@ knitr::include_graphics("images/path.gif")
 `here` function of the `here` package helps R start looking where your .Rproj file is.
 
 ```{r}
-install.packages(here, repos='http://cran.us.r-project.org')
+install.packages("here", repos='http://cran.us.r-project.org')
 ```
 
 ```{r}
