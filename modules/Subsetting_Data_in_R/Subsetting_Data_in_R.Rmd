@@ -108,6 +108,40 @@ See https://cran.r-project.org/web/packages/OCSdata/vignettes/instructions.html 
 
 See https://www.opencasestudies.org/ocs-bp-opioid-rural-urban/ about this data.
 
+##  Get the data into your project directory
+
+```{r, results='hide'}
+OCSdata::simpler_import_data("ocs-bp-opioid-rural-urban", 
+                             outpath = tempdir())
+```
+
+Where is the data?
+
+Simulates creating subdirectories to organize your data.
+
+```{r, fig.alt="dplyr", out.width = "55%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/path.gif")
+```
+
+## Import the data
+`here` function of the `here` package helps R start looking where your .Rproj file is.
+
+```{r}
+install.packages(here, repos='http://cran.us.r-project.org')
+```
+
+```{r}
+#install.packages(here)
+library(here)
+annualDosage <- read_csv(file = 
+   here("OCS_data/data/simpler_import/county_annual.csv"))
+
+```
+
+
+
+## If you have trouble can do this
+
 ```{r}
 OCSdata::load_imported_data("ocs-bp-opioid-rural-urban")
 ```
