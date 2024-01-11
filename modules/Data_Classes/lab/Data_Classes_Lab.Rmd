@@ -51,37 +51,16 @@ vect_data <- tibble(int_vect, rand_vect, TF_vect, TF_vect2)
 ```
 
 
-5\. Take a look at 5 random rows using the `slice_sample()` function. Try this a few times to see how the results change.
 
-```{r}
-slice_sample(vect_data, n = 5)
-```
-
-
-6\. Take a look at 5 random rows using the `slice_sample()` function again but this time with `set.seed(1234)` as the first line of the chunk. Try this a few times to see the results. (Don't forget to not copy the backticks.)
+5\. Coerce `rand_vect` to character class using `as.character()`. Save this vector as `rand_char_vect`. How is the output for `rand_vect` and `rand_char_vect` different?
 
 ```{r}
 
 ```
 
 
-7\. Coerce `rand_vect` to character class using `as.character()`. Save this vector as `rand_char_vect`. How is the output for `rand_vect` and `rand_char_vect` different?
 
-```{r}
-
-```
-
-
-**Bonus / Extra practice**: Use `mutate()` function to create a new variable in `vect_data` named `type_fact` that is of class `factor` made from the `int_vect` variable. Take a look at the data and observe how the class is different for the new variable compared to `int_vect`. 
-
-```{r}
-
-```
-
-
-# Part 2
-
-8\. Read in the Charm City Circulator data using `read_circulator()` function from `jhur` package using the code supplied in the chunk. 
+6\. Read in the Charm City Circulator data using `read_circulator()` function from `jhur` package using the code supplied in the chunk. 
 
 - Use the `str()` function to take a look at the data and learn about the column types.
 
@@ -91,7 +70,7 @@ circ <- read_circulator()
 ```
 
 
-9\. Use the `mutate()` function to create a new column named `date_formatted` that is of `Date` class. The new variable is created from `date` column. Hint: use `mdy()` function. Reassign to `circ`.
+7\. Use the `mutate()` function to create a new column named `date_formatted` that is of `Date` class. The new variable is created from `date` column. Hint: use `mdy()` function. Reassign to `circ`.
 
 ```
 # General format
