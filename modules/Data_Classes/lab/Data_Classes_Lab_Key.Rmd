@@ -121,11 +121,12 @@ circ <- mutate(circ, date_formatted = mdy(date))
 NEWDATA <- OLD_DATA %>% relocate(COLUMN1, .before = COLUMN2)
 ```
 
+**Bonus / Extra practice**: Move the `date_formatted` variable to be before `date` using the `relocate` function. Take a look at the data using `glimpse()`. Note the difference between `date` and `date_formatted` columns.
+
 ```{r}
 circ <- circ %>% relocate(date_formatted, .before = date)
 glimpse(circ)
 ```
-
 
 
 **Bonus / Extra practice**: Use `range()` function on `date_formatted` variable to display the range of dates in the data set. How does this compare to that of `date`? Why? (Hint: use the pull function first to pull the values.)

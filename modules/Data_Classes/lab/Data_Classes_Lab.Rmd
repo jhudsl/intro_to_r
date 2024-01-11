@@ -103,7 +103,7 @@ NEWDATA <- OLD_DATA %>% mutate(NEW_COLUMN = OLD_COLUMN)
 ```
 
 
-10\. Move the `date_formatted` variable to be before `date` using the `relocate` function. Take a look at the data using `glimpse()`. Note the difference between `date` and `date_formatted` columns.  
+**Bonus / Extra practice**:  Move the `date_formatted` variable to be before `date` using the `relocate` function. Take a look at the data using `glimpse()`. Note the difference between `date` and `date_formatted` columns.  
 
 ```
 # General format
@@ -113,7 +113,6 @@ NEWDATA <- OLD_DATA %>% relocate(COLUMN1, .before = COLUMN2)
 ```{r}
 
 ```
-
 
 
 
