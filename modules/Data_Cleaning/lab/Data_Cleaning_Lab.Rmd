@@ -108,7 +108,7 @@ There are some issues with this data that we need to figure out!
 
 ```
 
-2. Recode the `weight_loss` variable of the `BloodType` data so that it is consistent. Use `case_when()`. Don't forget to use quotes!
+2. Recode the `weight_loss` variable of the `BloodType` data so that it is consistent. Use `case_when()`. Keep "Other" as "Other". Don't forget to use quotes!
 
 ```{r}
 
@@ -124,7 +124,7 @@ Check to see how many values `weight_loss` has for each category (hint: use `cou
 
 ```
 
-4. Recode the `type` variable of the `BloodType` data to be consistent. Use `recode`. Hint: the inconsistency has to do with lower case `o` and capital `O`. Don't forget to use quotes!
+4. Recode the `type` variable of the `BloodType` data to be consistent. Use `case_when()`. Hint: the inconsistency has to do with lower case `o` and capital `O`. Don't forget to use quotes! **Remember that important extra step that we often do for `case_when()`. Sometimes it matters and sometimes it doesn't.** Why is that?
 
 ```{r}
 
