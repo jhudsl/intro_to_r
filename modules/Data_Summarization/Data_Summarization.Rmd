@@ -108,16 +108,6 @@ head(jhu_cars)
 ```
 
 
-## Statistical summarization
-
-You might see base R `$` to reference/select columns from a `data.frame`/`tibble`:
-
-```{r}
-mean(jhu_cars$hp)
-quantile(jhu_cars$hp)
-```
-
-
 ## The `dplyr` pipe `%>%` operator
 
 A nice and readable way to chain together multiple R functions.
@@ -168,6 +158,7 @@ jhu_cars %>% pull(wt) %>% range(wt) # Incorrect
 ```{r}
 jhu_cars %>% pull(wt) %>% range() # Correct
 ```
+
 
 ## Data Summarization on data frames
 
@@ -221,11 +212,13 @@ str(tb)
 
 Before we go further, let's rename the first column using the `rename()` function in `dplyr`.
 
-In this case, we have to use the backticks (\`) because there are spaces and funky characters in the name:
+In this case, we have to use the backticks (\`) because there are spaces and funky characters in the name. We will also rename the columns marked as years to start with `year_` so they don't need backticks.
 
 ```{r}
 library(dplyr)
-tb <- tb %>% rename(country = `TB incidence, all forms (per 100 000 population per year)`)
+tb <- tb %>%
+  rename(country = `TB incidence, all forms (per 100 000 population per year)`) %>%
+  rename_with(.cols = 2:19, \(x)paste0("year_", x))
 ```
 
 
@@ -242,11 +235,16 @@ colnames(tb)
 
 `summarize` creates a summary table of a column you're interested in.
 
+Can run multiple summary statistics at once (unlike `pull()` which can only do a single calculation on one column).
+
+You can also do more elaborate summaries across different groups of data using `group_by()`. More on this later!
+
 <div class = "codeexample">
 ```{r, eval = FALSE}
 # General format - Not the code!
 {data to use} %>% 
-   summarize({summary column name} = {operator(source column)}) 
+   summarize({summary column name} = {operator(source column)},
+             {summary column name} = {operator(source column)}) 
 ```
 </div>
 
@@ -265,9 +263,9 @@ colnames(tb)
 
 ```{r}
 tb %>% 
-  summarize(mean_1991 = mean(`1991`))
+  summarize(mean_1991 = mean(year_1991))
 tb %>% 
-  summarize(mean_1991 = mean(`1991`, na.rm = TRUE))
+  summarize(mean_1991 = mean(year_1991, na.rm = TRUE))
 ```
 
 
@@ -277,9 +275,9 @@ tb %>%
 
 ```{r}
 tb %>% 
-  summarize(mean_1991 = mean(`1991`, na.rm = TRUE),
-            median_1991 = median(`1991`, na.rm = TRUE),
-            median(`2000`, na.rm = TRUE))
+  summarize(mean_1991 = mean(year_1991, na.rm = TRUE),
+            median_1991 = median(year_1991, na.rm = TRUE),
+            median(year_2000, na.rm = TRUE))
 ```
 
 <br>
@@ -292,34 +290,17 @@ This looks better.
 
 ```{r}
 tb %>% 
-  summarize(mean_1991 = mean(`1991`, na.rm = TRUE),
-            median_1991 = median(`1991`, na.rm = TRUE),
-            median_2000 = median(`2000`, na.rm = TRUE))
+  summarize(mean_1991 = mean(year_1991, na.rm = TRUE),
+            median_1991 = median(year_1991, na.rm = TRUE),
+            median_2000 = median(year_2000, na.rm = TRUE))
 ```
 
 
-## Row means
+## Summarize the data: `dplyr` `summarize()` function
 
-`colMeans()` and `rowMeans()` require **all numeric data**. 
+Note that `summarize()` creates a separate tibble from the original data, so you don't want to overwrite your original data if you decide to save the summary.
 
-Let's see what the mean is across each row (country):
-
-```{r}
-tb_2 <- column_to_rownames(tb, var = "country") # opposite of rownames_to_column() !
-head(tb_2, n = 2)
-rowMeans(tb_2, na.rm = TRUE)
-```
-
-
-## Column means
-
-`colMeans()` and `rowMeans()` require **all numeric data**. 
-
-Let's see what the mean is across each column (year):
-
-```{r}
-colMeans(tb_2, na.rm = TRUE)
-```
+If you want to save a summary statistic in the original data, use `mutate()` instead to create a new column for the summary statistic.
 
 
 ## `summary()` Function
@@ -354,22 +335,16 @@ head(yts)
 ```
 
 
-## Column to vector
+## Length and unique
+
+`unique(x)` will return the unique elements of `x`.
 
 Let's work with one column as a vector using `pull()`.
 
 ```{r, message = FALSE}
-locations <- yts %>% pull(LocationDesc)
-locations
-```
-
-
-## Length and unique
-
-`unique(x)` will return the unique elements of `x`
-
-```{r, message = FALSE}
-unique(locations)
+yts %>%
+  pull(LocationDesc) %>%
+  unique()
 ```
 
 
@@ -378,7 +353,10 @@ unique(locations)
 `length` will tell you the length of a vector. Combined with `unique`, tells you the number of unique elements:
 
 ```{r}
-length(unique(locations))
+yts %>%
+  pull(LocationDesc) %>%
+  unique() %>%
+  length()
 ```
 
 
@@ -387,13 +365,17 @@ length(unique(locations))
 These functions work similarly, but expect different types of objects
 
 ```{r echo=FALSE}
-options(max.print = 15)
+options(max.print = 5)
 ```
 
 ```{r}
-unique(locations) # vector
-yts %>% distinct(LocationDesc) # tibble / data frame
+yts %>%
+  pull(LocationDesc) %>%
+  unique() # vector
+yts %>%
+  distinct(LocationDesc) # tibble / data frame
 ```
+
 
 <!-- Note: You can also use `n_distinct()` from the dplyr package to mimic length + unique. This is faster and perhaps somewhat more intuitive: -->
 <!-- yts %>% dplyr::n_distinct("LocationDesc") -->
@@ -530,6 +512,38 @@ yts %>%
 ```{r}
 mtcars %>% count(cyl)
 mtcars %>% group_by(cyl) %>% summarize(n()) # n() typically used with summarize
+```
+
+
+## Row means
+
+Let's see what the mean TB incidence is across years each row (country):
+
+```{r}
+tb %>%
+  select(starts_with("year")) %>%
+  rowMeans(na.rm = TRUE) %>%
+  head(n = 5)
+
+tb %>%
+  group_by(country) %>%
+  summarize(mean = rowMeans(across(starts_with("year")), na.rm = TRUE)) %>%
+  head(n = 5)
+```
+
+
+## Column means
+
+Let's see what the mean is across each column (year):
+
+```{r}
+tb %>%
+  select(starts_with("year")) %>%
+  colMeans(na.rm = TRUE) %>%
+  head(n = 5)
+
+tb %>%
+  summarize(across(starts_with("year"), ~mean(.x, na.rm = TRUE)))
 ```
 
 
