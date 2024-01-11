@@ -115,16 +115,6 @@ NEWDATA <- OLD_DATA %>% relocate(COLUMN1, .before = COLUMN2)
 ```
 
 
-11\. Create a list data object called `classes_data` that combines the `vect_data` from the first part of the lab and `circ`. Use `glimpse()` to look at the data.
-
-```
-# General format
-NEWLIST <- list(OBJECT1, OBJECT2)
-```
-
-```{r}
-
-```
 
 
 **Bonus / Extra practice**: Use `range()` function on `date_formatted` variable to display the range of dates in the data set. How does this compare to that of `date`? Why? (Hint: use the pull function first to pull the values.)
@@ -134,9 +124,5 @@ NEWLIST <- list(OBJECT1, OBJECT2)
 ```
 
 
-**Bonus / Extra practice**: Use the `group_by` function on `day` variable with the `summarize()` function, to display the number of `orangeBoardings` observations with each day (hint: `use sum()`). Which day had the most boardings? Is this true for the other routes (`purpleBoardings`, `greenBoardings`, `bannerBoardings`)?
 
-```{r}
-
-```
  
