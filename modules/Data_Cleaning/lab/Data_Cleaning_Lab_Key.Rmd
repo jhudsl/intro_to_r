@@ -116,7 +116,8 @@ BloodType <- BloodType %>%
   mutate(weight_loss = case_when(
     weight_loss %in% c("N", "n", "No", "no") ~ "No",
     weight_loss %in% c("Y", "y", "Yes", "yes") ~ "Yes",
-    weight_loss %in% c("Other") ~ "Other"
+    weight_loss %in% c("Other") ~ "Other",
+    TRUE ~ weight_loss # the only other value is an NA so we could include this or we don't need to (it's generally good practice unless we want to create NAs)
   ))
 
 count(BloodType, weight_loss)
@@ -129,14 +130,14 @@ Check to see how many values `weight_loss` has for each category (hint: use `cou
 BloodType %>% count(weight_loss)
 ```
 
-4. Recode the `type` variable of the `BloodType` data to be consistent. Use `recode`. Hint: the inconsistency has to do with lower case `o` and capital `O`. Don't forget to use quotes!
+4. Recode the `type` variable of the `BloodType` data to be consistent. Use `case_when()`. Hint: the inconsistency has to do with lower case `o` and capital `O`. Don't forget to use quotes! **Remember that important extra step that we often do for `case_when()`. Sometimes it matters and sometimes it doesn't.** Why is that?
 
 ```{r}
 BloodType <- BloodType %>%
-  mutate(type = recode(type,
-    "o.-" = "O.-",
-    "o.+" = "O.+"
-  ))
+  mutate(type = case_when(
+    type == "o.-" ~ "O.-",
+    type == "o.+" ~ "O.+",
+    TRUE ~ type))
 BloodType
 ```
 

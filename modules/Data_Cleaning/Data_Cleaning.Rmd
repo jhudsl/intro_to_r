@@ -126,28 +126,19 @@ package](https://cran.r-project.org/web/packages/naniar/vignettes/getting-starte
 library(naniar)
 ```
 
-## Air quality data
-
-The `airquality` dataset comes with R about air quality in New York in 1973.
-
-```{r, message=FALSE}
-?airquality # use this to find out more about the data
-airqual <- tibble(airquality)
-airqual
-```
 
 ## naniar: `pct_complete()`{.small}
 
 This can tell you if there are missing values in the dataset.
 
 ```{R}
-pct_complete(airqual)
+pct_complete(bike)
 ```
 
 Or for a particular variable:
 
 ```{R}
-airqual %>% select(Ozone) %>%
+bike%>% select(route) %>%
 pct_complete()
 ```
 
@@ -156,7 +147,7 @@ pct_complete()
 To get the percent missing (and counts) for each variable as a table, use this function.
 
 ```{r}
-miss_var_summary(airqual)
+miss_var_summary(bike)
 ```
 
 ## `naniar` plots
@@ -165,7 +156,7 @@ The `gg_miss_var()` function creates a nice plot about the number of
 missing values for each variable, (need a data frame).
 
 ```{r, fig.height=4, warning=FALSE, fig.align='center'}
-gg_miss_var(airqual)
+gg_miss_var(bike)
 ```
 
 
@@ -212,7 +203,7 @@ What if NA values represent values that are so low it is undetectable?
 Filter will drop them from the data.
 
 ```{r}
-airqual %>% filter(Ozone < 5)
+bike %>% filter(subType == "STCLN")
 ```
 
 ## filter() and missing data 
@@ -220,18 +211,27 @@ airqual %>% filter(Ozone < 5)
 `is.na()` can help us keep them.
 
 ```{r}
-airqual %>% filter(Ozone < 5 | is.na(Ozone))
+bike %>% filter(subType == "STCLN" | is.na(subType))
 ```
 
 ## To remove **rows** with `NA` values for a **variable** use `drop_na()`
 
 A function from the `tidyr` package. (Need a data frame to start!)
 
-Disclaimer: Don't do this unless you have thought about if dropping `NA` values makes sense based on knowing what these values mean in your data.
+Disclaimer: Don't do this unless you have thought about if dropping `NA` values makes sense based on knowing what these values mean in your data. **Also consider if you need those rows for values for other variables.**
 
 ```{r}
-dim(airqual)
-airqual %>% drop_na(Ozone)
+dim(bike)
+bike_drop <- bike %>% drop_na(route)
+dim(bike_drop)
+```
+
+## Let's take a look
+
+Can still have NAs for other columns
+
+```{r}
+bike_drop 
 ```
 
 
@@ -241,7 +241,8 @@ airqual %>% drop_na(Ozone)
 This function of the `tidyr` package drops rows with **any** missing data in **any** column when used on a df.
 
 ```{r}
-airqual %>% drop_na()
+bike_drop <- bike %>% drop_na()
+bike_drop
 ```
 
 ## Drop **columns** with any missing values
@@ -249,7 +250,7 @@ airqual %>% drop_na()
 Use the `miss_var_which()` function from `naniar`
 
 ```{r}
-miss_var_which(airqual) # which columns have missing values
+miss_var_which(bike)# which columns have missing values
 ```
 
 ## Drop **columns** with any missing values {.codesmall}
@@ -257,7 +258,8 @@ miss_var_which(airqual) # which columns have missing values
 `miss_var_which` and  function from `naniar` (need a data frame)
 
 ```{r}
-airqual %>% select(!miss_var_which(airqual))
+bike_drop <- bike %>% select(!miss_var_which(bike))
+bike_drop
 ```
 
 
@@ -424,64 +426,8 @@ data_diet %>%
 ## `dplyr` can help!{.codesmall}
 
 Using Excel to find all of the different ways `Treatment` has been coded,
-could be hectic! In `dplyr` you can use the `recode` function.
+could be hectic! In `dplyr` you can use the `case_when` function.
 
-::: {style="color: red;"}
-(need `mutate` for data frames/tibbles!)
-:::
-::: codeexample
-```{r, eval = FALSE}
-# General Format - this is not code!
-{data_input} %>%
-  mutate({variable_to_fix_or_new} = recode({Variable_fixing}, {old_value} = {new_value},
-                                       {another_old_value} = {new_value}))
-
-```
-:::
-
-## recode() function
-
-::: {style="color: red;"}
-Need quotes for new values! Tolerates quotes for old values.
-:::
-
-```{r, eval = FALSE}
-
-data_diet %>% 
-  mutate(Treatment_recoded = recode(Treatment,  
-                                       O = "Other",
-                                    Mint = "Peppermint",
-                                    mint = "Peppermint",
-                              peppermint = "Peppermint")) %>%
-  count(Treatment, Treatment_recoded)
-```
-
-## `recode()`
-
-```{r, eval = TRUE}
-
-data_diet %>% 
-  mutate(Treatment_recoded = recode(Treatment,
-                                       O = "Other",
-                                    Mint = "Peppermint",
-                                    mint = "Peppermint",
-                              peppermint = "Peppermint")) %>%
-  count(Treatment, Treatment_recoded)
-```
-## Can update or overwrite variables with recode too!
-
-Just use the same variable name to change the variable within mutate.
-
-```{r, eval = TRUE}
-
-data_diet %>% 
-  mutate(Treatment= recode(Treatment,
-                                       O = "Other",
-                                    Mint = "Peppermint",
-                                    mint = "Peppermint",
-                              peppermint = "Peppermint")) %>%
-  count(Treatment)
-```
 
 ## Or you can use `case_when()`
 
@@ -730,21 +676,7 @@ data_diet %>%
 count(data_diet, Treatment)
 ```
 
-## Recode was nice but what if miss something?
-
-```{r, eval = FALSE}
-
-data_diet %>% 
-  mutate(Treatment_recoded = recode(Treatment, G = "Ginger", 
-                                       g = "Ginger", 
-                                  ginger = "Ginger",
-                                       O = "Other",
-                                    Mint = "Peppermint",
-                                    mint = "Peppermint",
-                              peppermint = "Peppermint"))
-```
-
-## `case_when()` was an improvement
+## `case_when()` made an improvement
 
 But we still might miss a strange value
 
@@ -811,8 +743,7 @@ diet_comb
 
 
 ## Summary
- - `recode()` and `case_when()` require `mutate()` when working with dataframes/tibbles
--   `recode()` can help with simple recoding (not based on condition but **exact** swap) (only need quotes for new values - but it tolerates redundant quotes)
+ -  `case_when()` requires `mutate()` when working with dataframes/tibbles
 -   `case_when()` can recode **entire values** based on **conditions** (need quotes for conditions and new values)
     -   remember `case_when()` needs `TRUE ~ varaible` to keep values that aren't specified by conditions, otherwise will be `NA`
     
@@ -837,6 +768,68 @@ knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
 
 # Extra Slides
+
+## `recode()` function
+
+This is similar to `case_when()` but it can't do as much.
+
+::: {style="color: red;"}
+(need `mutate` for data frames/tibbles!)
+:::
+::: codeexample
+```{r, eval = FALSE}
+# General Format - this is not code!
+{data_input} %>%
+  mutate({variable_to_fix_or_new} = recode({Variable_fixing}, {old_value} = {new_value},
+                                       {another_old_value} = {new_value}))
+
+```
+:::
+
+## recode() function
+
+::: {style="color: red;"}
+Need quotes for new values! Tolerates quotes for old values.
+:::
+
+```{r, eval = FALSE}
+
+data_diet %>% 
+  mutate(Treatment_recoded = recode(Treatment,  
+                                       O = "Other",
+                                    Mint = "Peppermint",
+                                    mint = "Peppermint",
+                              peppermint = "Peppermint")) %>%
+  count(Treatment, Treatment_recoded)
+```
+
+## `recode()`
+
+```{r, eval = TRUE}
+
+data_diet %>% 
+  mutate(Treatment_recoded = recode(Treatment,
+                                       O = "Other",
+                                    Mint = "Peppermint",
+                                    mint = "Peppermint",
+                              peppermint = "Peppermint")) %>%
+  count(Treatment, Treatment_recoded)
+```
+## Can update or overwrite variables with recode too!
+
+Just use the same variable name to change the variable within mutate.
+
+```{r, eval = TRUE}
+
+data_diet %>% 
+  mutate(Treatment= recode(Treatment,
+                                       O = "Other",
+                                    Mint = "Peppermint",
+                                    mint = "Peppermint",
+                              peppermint = "Peppermint")) %>%
+  count(Treatment)
+```
+
 
 
 ## String Splitting
