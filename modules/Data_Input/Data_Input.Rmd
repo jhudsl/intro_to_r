@@ -468,6 +468,12 @@ setwd("/Users/avahoffman/Desktop")
 - We will also discuss the `glimpse()` function later, which does something very similar.
 - `head()` shows first few rows
 - `tail()` shows the last few rows
+- `here` package
+
+```{r eval=FALSE}
+library(here)
+here()
+```
 
 
 ## Summary - Part 2
