@@ -87,6 +87,8 @@ download.file(
 )
 ```
 
+Note: the "wb" option makes sure the file can be read correctly on Windows machines.
+
 ### 2.4
 
 Use the `read_excel()` function in the `readxl` package to read the `asthma.xlsx` file and call the output `asthma`. 
