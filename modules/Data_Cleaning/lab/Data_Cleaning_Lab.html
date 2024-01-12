@@ -455,7 +455,8 @@ BloodType</code></pre>
 <code>n</code> is for no). .</p></li>
 <li><p>Recode the <code>weight_loss</code> variable of the
 <code>BloodType</code> data so that it is consistent. Use
-<code>case_when()</code>. Don’t forget to use quotes!</p></li>
+<code>case_when()</code>. Keep “Other” as “Other”. Don’t forget to use
+quotes!</p></li>
 </ol>
 <p>Check to see how many values <code>weight_loss</code> has for each
 category (hint: use <code>count</code>). It’s good practice to regularly
@@ -463,9 +464,12 @@ check your data throughout the data wrangling process.</p>
 <ol start="3" style="list-style-type: decimal">
 <li></li>
 <li><p>Recode the <code>type</code> variable of the
-<code>BloodType</code> data to be consistent. Use <code>recode</code>.
-Hint: the inconsistency has to do with lower case <code>o</code> and
-capital <code>O</code>. Don’t forget to use quotes!</p></li>
+<code>BloodType</code> data to be consistent. Use
+<code>case_when()</code>. Hint: the inconsistency has to do with lower
+case <code>o</code> and capital <code>O</code>. Don’t forget to use
+quotes! <strong>Remember that important extra step that we often do for
+<code>case_when()</code>. Sometimes it matters and sometimes it
+doesn’t.</strong> Why is that?</p></li>
 <li><p>Check to see that <code>type</code> only has these possible
 values: “A.-”,“A.+”, “AB.-”, “AB.+”, “B-”,“B+”, “O.-”, “O.+”</p></li>
 <li><p>Make a new tibble of <code>BloodType</code> called

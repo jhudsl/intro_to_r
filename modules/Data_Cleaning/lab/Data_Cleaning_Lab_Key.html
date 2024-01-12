@@ -505,7 +505,8 @@ quotes!</li>
   mutate(weight_loss = case_when(
     weight_loss %in% c(&quot;N&quot;, &quot;n&quot;, &quot;No&quot;, &quot;no&quot;) ~ &quot;No&quot;,
     weight_loss %in% c(&quot;Y&quot;, &quot;y&quot;, &quot;Yes&quot;, &quot;yes&quot;) ~ &quot;Yes&quot;,
-    weight_loss %in% c(&quot;Other&quot;) ~ &quot;Other&quot;
+    weight_loss %in% c(&quot;Other&quot;) ~ &quot;Other&quot;,
+    TRUE ~ weight_loss # the only other value is an NA so we could include this or we don&#39;t need to (it&#39;s generally good practice unless we want to create NAs)
   ))
 
 count(BloodType, weight_loss)</code></pre>
@@ -532,15 +533,18 @@ check your data throughout the data wrangling process.</p>
 ## 4 &lt;NA&gt;            1</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Recode the <code>type</code> variable of the <code>BloodType</code>
-data to be consistent. Use <code>recode</code>. Hint: the inconsistency
-has to do with lower case <code>o</code> and capital <code>O</code>.
-Don’t forget to use quotes!</li>
+data to be consistent. Use <code>case_when()</code>. Hint: the
+inconsistency has to do with lower case <code>o</code> and capital
+<code>O</code>. Don’t forget to use quotes! <strong>Remember that
+important extra step that we often do for <code>case_when()</code>.
+Sometimes it matters and sometimes it doesn’t.</strong> Why is
+that?</li>
 </ol>
 <pre class="r"><code>BloodType &lt;- BloodType %&gt;%
-  mutate(type = recode(type,
-    &quot;o.-&quot; = &quot;O.-&quot;,
-    &quot;o.+&quot; = &quot;O.+&quot;
-  ))
+  mutate(type = case_when(
+    type == &quot;o.-&quot; ~ &quot;O.-&quot;,
+    type == &quot;o.+&quot; ~ &quot;O.+&quot;,
+    TRUE ~ type))
 BloodType</code></pre>
 <pre><code>## # A tibble: 15 × 3
 ##    weight_loss type  infection
