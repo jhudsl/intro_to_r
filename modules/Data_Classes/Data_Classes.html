@@ -3666,22 +3666,23 @@ circ_updated %&gt;% select(daily, daily_int)</pre>
 
 <p><code>as.matrix()</code> creates a matrix from a data frame or tibble (where all values are the same class).</p>
 
-<pre class = 'prettyprint lang-r'>head(iris, n = 3)</pre>
-
-<pre >##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-## 1          5.1         3.5          1.4         0.2  setosa
-## 2          4.9         3.0          1.4         0.2  setosa
-## 3          4.7         3.2          1.3         0.2  setosa</pre>
-
-<pre class = 'prettyprint lang-r'>iris_mat &lt;- select(iris, -Species) %&gt;%
-  tibble() %&gt;%
+<pre class = 'prettyprint lang-r'>circ_mat &lt;- select(circ, contains(&quot;orange&quot;)) %&gt;%
   head(n = 3)
-as.matrix(iris_mat)</pre>
+circ_mat</pre>
 
-<pre >##      Sepal.Length Sepal.Width Petal.Length Petal.Width
-## [1,]          5.1         3.5          1.4         0.2
-## [2,]          4.9         3.0          1.4         0.2
-## [3,]          4.7         3.2          1.3         0.2</pre>
+<pre >## # A tibble: 3 × 3
+##   orangeBoardings orangeAlightings orangeAverage
+##             &lt;dbl&gt;            &lt;dbl&gt;         &lt;dbl&gt;
+## 1             877             1027          952 
+## 2             777              815          796 
+## 3            1203             1220         1212.</pre>
+
+<pre class = 'prettyprint lang-r'>as.matrix(circ_mat)</pre>
+
+<pre >##      orangeBoardings orangeAlightings orangeAverage
+## [1,]             877             1027         952.0
+## [2,]             777              815         796.0
+## [3,]            1203             1220        1211.5</pre>
 
 </article></slide><slide class=""><hgroup><h2>Matrices</h2></hgroup><article  id="matrices-1">
 
