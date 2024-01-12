@@ -102,18 +102,15 @@ any(is.na(test))
 Check the values for your variables, are they what you expect?
 :::
 
-`count()` is a great option because it gives you:
-
-1)  The unique values
-2)  The amount of these values
-
-Check if rare values make sense.
+`count()` is a great option because it helps you check if rare values make sense.
 
 ```{r, message=FALSE}
 library(jhur)
-bike <- read_csv(file = "http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv")
+bike <- read_csv(file =
+    "http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv")
 bike %>% count(subType)
 ```
+
 
 
 ## `naniar`
@@ -125,6 +122,11 @@ package](https://cran.r-project.org/web/packages/naniar/vignettes/getting-starte
 #install.packages("naniar")
 library(naniar)
 ```
+
+```{r, fig.alt="dplyr", out.width = "60%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/naniar.png")
+```
+"Artwork by @allison_horst". https://allisonhorst.com/
 
 
 ## naniar: `pct_complete()`{.small}
@@ -350,17 +352,18 @@ Pay attention to your data and your `NA` values!
 
 
 
-
 ## Summary
 
 -   `is.na()`,`any(is.na())`, `all(is.na())`,`count()`, and functions from `naniar` like `gg_miss_var()` and `miss_var_summary` can help determine if we have `NA` values
--   `miss_var_which` can help you drop columns that have any missing values.
+-   `miss_var_which()` can help you drop columns that have any missing values.
 -   `filter()` automatically removes `NA` values - can't confirm or deny
     if condition is met (need `| is.na()` to keep them)
 -   `drop_na()` can help you remove `NA` values from a variable or an
     entire data frame
 -   `NA` values can change your calculation results
 -   think about what `NA` values represent - don't drop them if you shouldn't
+-   `na_if()` will make `NA` values for a particular value
+-   `replace_na()` will replace `NA values with a particular value
 
 ## Lab Part 1
 
@@ -747,10 +750,20 @@ diet_comb
 -   `case_when()` can recode **entire values** based on **conditions** (need quotes for conditions and new values)
     -   remember `case_when()` needs `TRUE ~ varaible` to keep values that aren't specified by conditions, otherwise will be `NA`
     
+**Note:** you might see the `recode()` function, it only does some of what `case_when()` can do, so we skipped it, but it is in the extra slides at the end.
+
+## Summary continued
+
+```{r, fig.alt="dplyr", out.width = "70%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/case_when.png")
+```
+"Artwork by @allison_horst". https://allisonhorst.com/
+
+
 ## Summary Continued
 
 -   `stringr` package has great functions for looking for specific **parts of values** especially `filter()` and `str_detect()` combined
-- `stringr`  also has other useful string functions like `str_detect()` (finding patterns in a column or vector), `str_subset()` (parsing text), `str_replace()` (replacing the first instance in values), `str_replace_all()` (replacing all instances in each value) and more!
+- `stringr`  also has other useful string functions like `str_detect()` (finding patterns in a column or vector), `str_subset()` (parsing text), `str_replace()` (replacing the first instance in values), `str_replace_all()` (replacing all instances in each value) and **more**!
 - `separate()` can split columns into additional columns
 - `unite()` can combine columns
 - `:` can indicate when you want to start and end with columns next to one another
@@ -815,6 +828,7 @@ data_diet %>%
                               peppermint = "Peppermint")) %>%
   count(Treatment, Treatment_recoded)
 ```
+
 ## Can update or overwrite variables with recode too!
 
 Just use the same variable name to change the variable within mutate.
