@@ -282,11 +282,10 @@ Two-dimensional classes are those we would often use to store data read from a f
 `as.matrix()` creates a matrix from a data frame or tibble (where all values are the same class).
 
 ```{r,}
-head(iris, n = 3)
-iris_mat <- select(iris, -Species) %>%
-  tibble() %>%
+circ_mat <- select(circ, contains("orange")) %>%
   head(n = 3)
-as.matrix(iris_mat)
+circ_mat
+as.matrix(circ_mat)
 ```
 
 ## Matrices
