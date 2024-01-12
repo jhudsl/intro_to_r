@@ -747,6 +747,8 @@ diet_comb
 -   `case_when()` can recode **entire values** based on **conditions** (need quotes for conditions and new values)
     -   remember `case_when()` needs `TRUE ~ varaible` to keep values that aren't specified by conditions, otherwise will be `NA`
     
+**Note:** you might see the `recode()` function, it only does some of what `case_when()` can do, so we skipped it, but it is in the extra slides at the end.
+    
 ## Summary Continued
 
 -   `stringr` package has great functions for looking for specific **parts of values** especially `filter()` and `str_detect()` combined
