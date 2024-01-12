@@ -752,7 +752,7 @@ diet_comb
 ## Summary Continued
 
 -   `stringr` package has great functions for looking for specific **parts of values** especially `filter()` and `str_detect()` combined
-- `stringr`  also has other useful string functions like `str_detect()` (finding patterns in a column or vector), `str_subset()` (parsing text), `str_replace()` (replacing the first instance in values), `str_replace_all()` (replacing all instances in each value) and more!
+- `stringr`  also has other useful string functions like `str_detect()` (finding patterns in a column or vector), `str_subset()` (parsing text), `str_replace()` (replacing the first instance in values), `str_replace_all()` (replacing all instances in each value) and **more**!
 - `separate()` can split columns into additional columns
 - `unite()` can combine columns
 - `:` can indicate when you want to start and end with columns next to one another
@@ -817,6 +817,7 @@ data_diet %>%
                               peppermint = "Peppermint")) %>%
   count(Treatment, Treatment_recoded)
 ```
+
 ## Can update or overwrite variables with recode too!
 
 Just use the same variable name to change the variable within mutate.
