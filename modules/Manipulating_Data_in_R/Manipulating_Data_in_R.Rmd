@@ -151,8 +151,9 @@ You might see old functions `gather` and `spread` when googling. These are older
 
 ## Reshaping data from **wide to long**
 
-```{r, echo = FALSE}
-wide_vacc <- read_csv(file = "https://jhudatascience.org/intro_to_r/data/wide_vacc.csv")
+```{r, message = FALSE}
+wide_vacc <- read_csv(
+  file = "https://jhudatascience.org/intro_to_r/data/wide_vacc.csv")
 ```
 
 ```{r}
@@ -161,7 +162,7 @@ long_vacc <- wide_vacc %>% pivot_longer(cols = everything())
 long_vacc
 ```
 
-## Reshaping data from **wide to long** {.codesmall} 
+## Reshaping wide to long: Better column names {.codesmall} 
 
 `pivot_longer()` - puts column data into rows (`tidyr` package)
 
@@ -178,10 +179,6 @@ long_vacc
 </div>
 
 ## Reshaping data from **wide to long**
-
-```{r, echo = FALSE}
-wide_vacc <- read_csv(file = "https://jhudatascience.org/intro_to_r/data/wide_vacc.csv")
-```
 
 ```{r}
 wide_vacc
@@ -203,13 +200,13 @@ circ <- read_circulator()
 head(circ, 5)
 ```
 
-## Mission: Taking the averages by line
+## Mission: Taking the average boardings by line
 
-Let's imagine we want to create a table of average ridership by route/line. Results should look something like:
+Let's imagine we want to create a table of average boardings by route/line. Results should look something like:
 
 ```{r, message = FALSE, echo = FALSE}
 example <- tibble(line = c("orange","purple","green","banner"),
-                  avg = c("600(?)", "700(?)", "500(?)", "400(?)")
+                  avg_boardings = c("600(?)", "700(?)", "500(?)", "400(?)")
 )
 example
 ```
@@ -224,11 +221,11 @@ long
 
 ## Reshaping data from **wide to long**
 
-Un-pivoted columns appear the same as before (`day`, `date`, `daily`)
+Un-pivoted columns (`day`, `date`, `daily`) are similar
 
 ```{r}
-head(circ, n = 2)
-head(long, n = 2)
+circ %>% select(day, date, daily) %>% head()
+long %>% select(day, date, daily) %>% head()
 ```
 
 ## Cleaning up long data
@@ -237,9 +234,8 @@ We will use `str_replace` from the `stringr` package to put `_` in the names
 
 ```{r}
 long <- long %>% mutate(
-  name = str_replace(name, "Board", "_Board"),
-  name = str_replace(name, "Alight", "_Alight"),
-  name = str_replace(name, "Average", "_Average") 
+  name = str_replace(string = name, pattern = "B", replacement = "_B"),
+  name = str_replace(string = name, pattern = "A", replacement = "_A")
 )
 long
 ```
@@ -256,14 +252,24 @@ long <- long %>%
 long
 ```
 
-## Mission: Taking the averages by line
+## Mission: Taking the average boardings by line
+
+Filter by Boardings only..
+
+```{r}
+long <- long %>% 
+  filter(type == "Boardings")
+long
+```
+
+## Mission: Taking the average boardings by line
 
 Now our data is more tidy, and we can take the averages easily!
 
 ```{r}
 long %>% 
   group_by(line) %>% 
-  summarize("avg" = mean(value, na.rm = TRUE))
+  summarize("avg_boardings" = mean(value, na.rm = TRUE))
 ```
 
 ## Reshaping data from **wide to long**
@@ -295,10 +301,10 @@ circ %>%
 ## Reshaping data from **long to wide**
 
 ```{r}
-long_data
-wide_data <- long_data %>% pivot_wider(names_from = "Month", 
+long_vacc
+wide_vacc <- long_vacc %>% pivot_wider(names_from = "Month", 
                                        values_from = "Rate") 
-wide_data
+wide_vacc
 ```
 
 ## Reshaping Charm City Circulator
