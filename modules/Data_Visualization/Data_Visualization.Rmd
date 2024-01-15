@@ -1,6 +1,6 @@
 ---
 title: "Data Visualization"
-output:
+output: 
   ioslides_presentation:
     css: ../../docs/styles.css
     widescreen: yes
@@ -397,6 +397,22 @@ ggplot(Orange, mapping = aes(x = circumference, y = age)) +
   labs(title = "My plot of orange tree circumference vs age") + 
   xlim(100, max(pull(Orange, circumference))) 
   
+```
+
+## Modifying plot objects
+
+You can add to a plot object to make changes!
+
+```{r, fig.width=5, fig.height=3, fig.align='center'}
+
+plt1 <- ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
+  geom_point(size = 5, color = "red", alpha = 0.5) + 
+  geom_line(size = 0.8, color = "brown", linetype = 2) + 
+  labs(title = "My plot of orange tree circumference vs age") + 
+  xlim(100, max(pull(Orange, circumference))) 
+
+plt1 + theme_minimal()
+
 ```
 
 ## Summary
