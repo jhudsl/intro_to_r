@@ -398,6 +398,8 @@ knitr::include_graphics("images/left_join.gif")
 
 ## Left Join
 
+"Everything to the left of the comma"
+
 ```{r left_join}
 lj <- left_join(data_As, data_cold)
 lj
@@ -425,6 +427,8 @@ knitr::include_graphics("images/right_join.gif")
 ```
 
 ## Right Join
+
+"Everything to the right of the comma"
 
 ```{r right_join}
 rj <- right_join(data_As, data_cold)
