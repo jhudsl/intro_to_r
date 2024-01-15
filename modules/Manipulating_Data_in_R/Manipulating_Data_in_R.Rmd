@@ -26,11 +26,10 @@ library(tidyverse)
 
 ## Recap of Data Cleaning
 
--   `recode()` can help with simple recoding (not based on condition but simple swap)
 -   `case_when()` can recode **entire values** based on conditions
     -   remember `case_when()` needs `TRUE ~ varaible` to keep values that aren't specified by conditions, otherwise will be `NA`
 -   `stringr` package has great functions for looking for specific **parts of values** especially `filter()` and `str_detect()` combined
-    -   also has other useful string manipulation functions like `str_replace()` and more!
+    - also has other useful string manipulation functions like `str_replace()` and more!
     - `separate()` can split columns into additional columns
     - `unite()` can combine columns
 
@@ -153,17 +152,13 @@ You might see old functions `gather` and `spread` when googling. These are older
 ## Reshaping data from **wide to long**
 
 ```{r, echo = FALSE}
-wide_data <- tibble(
-  June_vacc_rate = 0.516,
-  May_vacc_rate = 0.514,
-  April_vacc_rate = 0.511
-)
+wide_vacc <- read_csv(file = "https://jhudatascience.org/intro_to_r/data/wide_vacc.csv")
 ```
 
 ```{r}
-wide_data
-long_data <- wide_data %>% pivot_longer(cols = everything())
-long_data
+wide_vacc
+long_vacc <- wide_vacc %>% pivot_longer(cols = everything())
+long_vacc
 ```
 
 ## Reshaping data from **wide to long** {.codesmall} 
@@ -171,33 +166,29 @@ long_data
 `pivot_longer()` - puts column data into rows (`tidyr` package)
 
 - First describe which columns we want to "pivot_longer"
-- `names_to =` gives a new name to the pivoted columns
-- `values_to =` gives a new name to the values that used to be in those columns
+- `names_to =` new name for old columns
+- `values_to =` new name for old cell values
 
 <div class = "codeexample">
 ```{r, eval=FALSE}
 {long_data} <- {wide_data} %>% pivot_longer(cols = {columns to pivot},
-                                        names_to = {New column name: contains old column names},
-                                        values_to = {New column name: contains cell values})
+                                        names_to = {name for old columns},
+                                        values_to = {name for cell values})
 ```
 </div>
 
 ## Reshaping data from **wide to long**
 
 ```{r, echo = FALSE}
-wide_data <- tibble(
-  June_vacc_rate = 0.516,
-  May_vacc_rate = 0.514,
-  April_vacc_rate = 0.511
-)
+wide_vacc <- read_csv(file = "https://jhudatascience.org/intro_to_r/data/wide_vacc.csv")
 ```
 
 ```{r}
-wide_data
-long_data <- wide_data %>% pivot_longer(cols = everything(),
+wide_vacc
+long_vacc <- wide_vacc %>% pivot_longer(cols = everything(),
                                         names_to = "Month",
                                         values_to = "Rate")
-long_data
+long_vacc
 ```
 
 Newly created column names are enclosed in quotation marks.
@@ -216,7 +207,7 @@ head(circ, 5)
 
 Let's imagine we want to create a table of average ridership by route/line. Results should look something like:
 
-```{r, message = FALSE}
+```{r, message = FALSE, echo = FALSE}
 example <- tibble(line = c("orange","purple","green","banner"),
                   avg = c("600(?)", "700(?)", "500(?)", "400(?)")
 )
