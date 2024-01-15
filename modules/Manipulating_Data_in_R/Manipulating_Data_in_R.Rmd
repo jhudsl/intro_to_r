@@ -356,16 +356,11 @@ knitr::include_graphics("images/joins.png")
 
 ## Merging: Simple Data
 
-```{r echo=FALSE}
-data_As <- tibble(
-  State = c("Alabama", "Alaska"),
-  June_vacc_rate = c(0.516, 0.627),
-  May_vacc_rate = c(0.514, 0.626)
-)
-data_cold <- tibble(
-  State = c("Maine", "Alaska"),
-  April_vacc_rate = c(0.795, 0.623)
-)
+```{r message=FALSE}
+data_As <- read_csv(
+  file = "https://jhudatascience.org/intro_to_r/data/data_As_1.csv")
+data_cold <- read_csv(
+  file = "https://jhudatascience.org/intro_to_r/data/data_cold_1.csv")
 ```
 
 ```{r}
@@ -459,12 +454,11 @@ fj
 
 ## Watch out for "`includes duplicates`"
 
-```{r echo=FALSE}
-data_As <- tibble(State = c("Alabama", "Alaska"),
-                 state_bird = c("wild turkey", "willow ptarmigan"))
-data_cold <- tibble(State = c("Maine", "Alaska", "Alaska"),
-                    vacc_rate = c(0.795, 0.623, 0.626),
-                    month = c("April", "April", "May"))
+```{r message=FALSE}
+data_As <- read_csv(
+  file = "https://jhudatascience.org/intro_to_r/data/data_As_2.csv")
+data_cold <- read_csv(
+  file = "https://jhudatascience.org/intro_to_r/data/data_cold_2.csv")
 ```
 
 ```{r}
@@ -499,6 +493,8 @@ knitr::include_graphics("images/left_join_extra.gif")
 ```
 
 ## Stop `tidylog`
+
+`unloadNamespace()` does the opposite of `library()`.
 
 ```{r}
 unloadNamespace("tidylog")
