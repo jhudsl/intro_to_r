@@ -518,28 +518,43 @@ If the datasets have two different names for the same data, use:
 full_join(x, y, by = c("a" = "b"))
 ```
 
-## Using "`setdiff`"
+## Getting the set difference with `setdiff`
 
-We might want to determine what indexes ARE in the first dataset that AREN'T in the second:
+We might want to determine what indexes ARE in the first dataset that AREN'T in the second.
 
-```{r}
-data_As
-data_cold
-```
+For this to work, the datasets need the same columns.
 
-## Using "`setdiff`"
-
-Use `setdiff` to determine what indexes ARE in the first dataset that AREN'T in the second:
+We'll just select the index using `select()`.
 
 ```{r}
-A_states <- data_As %>% pull(State)
-cold_states <- data_cold %>% pull(State)
+A_states <- data_As %>% select(State)
+cold_states <- data_cold %>% select(State)
 ```
 
+## Getting the set difference with `setdiff`
+
+States in `A_states` but not in `cold_states`
+
 ```{r}
-setdiff(A_states, cold_states)
-setdiff(cold_states, A_states)
+dplyr::setdiff(A_states, cold_states)
 ```
+
+States in `cold_states` but not in `A_states`
+
+```{r}
+dplyr::setdiff(cold_states, A_states)
+```
+
+## Getting the set difference with `setdiff`
+
+Why did we use `dplyr::setdiff`? 
+
+There is a base R function, also called `setdiff` that requires vectors.
+
+In other words, we use `dplyr::` to be specific about the package we want to use.
+
+More set operations can be found here:
+https://dplyr.tidyverse.org/reference/setops.html
 
 ## Summary
 
