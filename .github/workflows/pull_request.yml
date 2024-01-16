@@ -457,10 +457,6 @@ jobs:
           git merge -s recursive --strategy-option=theirs origin/${{ github.head_ref }} --allow-unrelated-histories
         shell: bash
         
-      # Echo files
-      - name: Echo files
-        run: echo "${{fromJson(needs.render-preview.outputs.pdffiles)}}"
-        
       # Render pdfs of slides
       - name: Convert HTML to PDF
         uses: LukaszLapaj/html-to-pdf-action@master
