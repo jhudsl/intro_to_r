@@ -302,7 +302,7 @@ jobs:
         
       - name: Get changed files
         id: changed-files
-        uses: tj-actions/changed-files@v37
+        uses: tj-actions/changed-files@v41
       # NOTE: `since_last_remote_commit: true` is implied by default and falls back to the previous local commit.
 
       - name: List all changed files
@@ -316,7 +316,7 @@ jobs:
         run: Rscript -e "rmarkdown::clean_site(preview = FALSE)"
 
        # Now we want to render all the html files from the Rmd files
-      - name: Run render html for the main site
+      - name: Run render html for the main website
         id: site
         run: Rscript -e "rmarkdown::render_site()"
 
@@ -325,7 +325,7 @@ jobs:
         run: Rscript "scripts/render_module_details_for_syllabus.R"
 
        # Render all module files
-      - name: Render html of modules
+      - name: Render html of modules where .Rmd has changed
         run: |
           Rscript --vanilla "scripts/render_modules.R" --files "${{ steps.changed-files.outputs.all_changed_files }}"
           
@@ -339,11 +339,10 @@ jobs:
         run: |
           Rscript --vanilla "scripts/render_resources.R" --files "${{ steps.changed-files.outputs.all_changed_files }}"
         
-       # Generate list of files that need pdfs
-      - name: Get list of html to pdfs
+      - name: Print list of lectures that need pdfs generated
         run: |
           Rscript --vanilla "scripts/render_html_list.R"
-          echo "$(cat files.txt)"
+          echo "$(cat lecture_files.csv)"
         
       - name: Read html and pdf files
         id: getfiles
