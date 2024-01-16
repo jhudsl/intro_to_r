@@ -141,18 +141,12 @@ knitr::include_graphics("images/stop.png")
 
 ## Wide & Long Data Example
 
-```{r}
+```{r message=FALSE}
 library(jhur)
-wide_circ <- read_circulator()
-```
-
-## Wide Data
-
-```{r}
 library(dplyr)
+wide_circ <- read_circulator()
 glimpse(wide_circ)
 ```
-
 
 ## Long Data
 
@@ -179,6 +173,12 @@ esquisser(wide_circ) # days as x...? Tricky!
 esquisser(long_circ) # day as x, Boardings as y, Route as fill
 ```
 
+## Some Alternatives to `esquisse`
+
+* `ggquickeda`: https://smouksassi.github.io/ggquickeda/
+* `ggraptR`: https://github.com/cargomoose/ggraptR/
+* `autoplot` can be helpful for some packages (see [this blog post](http://www.sthda.com/english/wiki/ggfortify-extension-to-ggplot2-to-handle-some-popular-packages-r-software-and-data-visualization))
+
 ## Summary
 
 * Use the `esquisser()` function on a dataset
@@ -197,4 +197,8 @@ knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 ```
 
 Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
+
+
+
+
 
