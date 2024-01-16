@@ -26,11 +26,10 @@ library(tidyverse)
 
 ## Recap of Data Cleaning
 
--   `recode()` can help with simple recoding (not based on condition but simple swap)
 -   `case_when()` can recode **entire values** based on conditions
     -   remember `case_when()` needs `TRUE ~ varaible` to keep values that aren't specified by conditions, otherwise will be `NA`
 -   `stringr` package has great functions for looking for specific **parts of values** especially `filter()` and `str_detect()` combined
-    -   also has other useful string manipulation functions like `str_replace()` and more!
+    - also has other useful string manipulation functions like `str_replace()` and more!
     - `separate()` can split columns into additional columns
     - `unite()` can combine columns
 
@@ -152,52 +151,41 @@ You might see old functions `gather` and `spread` when googling. These are older
 
 ## Reshaping data from **wide to long**
 
-```{r, echo = FALSE}
-wide_data <- tibble(
-  June_vacc_rate = 0.516,
-  May_vacc_rate = 0.514,
-  April_vacc_rate = 0.511
-)
+```{r, message = FALSE}
+wide_vacc <- read_csv(
+  file = "https://jhudatascience.org/intro_to_r/data/wide_vacc.csv")
 ```
 
 ```{r}
-wide_data
-long_data <- wide_data %>% pivot_longer(cols = everything())
-long_data
+wide_vacc
+long_vacc <- wide_vacc %>% pivot_longer(cols = everything())
+long_vacc
 ```
 
-## Reshaping data from **wide to long** {.codesmall} 
+## Reshaping wide to long: Better column names {.codesmall} 
 
 `pivot_longer()` - puts column data into rows (`tidyr` package)
 
 - First describe which columns we want to "pivot_longer"
-- `names_to =` gives a new name to the pivoted columns
-- `values_to =` gives a new name to the values that used to be in those columns
+- `names_to =` new name for old columns
+- `values_to =` new name for old cell values
 
 <div class = "codeexample">
 ```{r, eval=FALSE}
 {long_data} <- {wide_data} %>% pivot_longer(cols = {columns to pivot},
-                                        names_to = {New column name: contains old column names},
-                                        values_to = {New column name: contains cell values})
+                                        names_to = {name for old columns},
+                                        values_to = {name for cell values})
 ```
 </div>
 
 ## Reshaping data from **wide to long**
 
-```{r, echo = FALSE}
-wide_data <- tibble(
-  June_vacc_rate = 0.516,
-  May_vacc_rate = 0.514,
-  April_vacc_rate = 0.511
-)
-```
-
 ```{r}
-wide_data
-long_data <- wide_data %>% pivot_longer(cols = everything(),
+wide_vacc
+long_vacc <- wide_vacc %>% pivot_longer(cols = everything(),
                                         names_to = "Month",
                                         values_to = "Rate")
-long_data
+long_vacc
 ```
 
 Newly created column names are enclosed in quotation marks.
@@ -212,13 +200,13 @@ circ <- read_circulator()
 head(circ, 5)
 ```
 
-## Mission: Taking the averages by line
+## Mission: Taking the average boardings by line
 
-Let's imagine we want to create a table of average ridership by route/line. Results should look something like:
+Let's imagine we want to create a table of average boardings by route/line. Results should look something like:
 
-```{r, message = FALSE}
+```{r, message = FALSE, echo = FALSE}
 example <- tibble(line = c("orange","purple","green","banner"),
-                  avg = c("600(?)", "700(?)", "500(?)", "400(?)")
+                  avg_boardings = c("600(?)", "700(?)", "500(?)", "400(?)")
 )
 example
 ```
@@ -233,11 +221,11 @@ long
 
 ## Reshaping data from **wide to long**
 
-Un-pivoted columns appear the same as before (`day`, `date`, `daily`)
+Un-pivoted columns (`day`, `date`, `daily`) are similar
 
 ```{r}
-head(circ, n = 2)
-head(long, n = 2)
+circ %>% select(day, date, daily) %>% head()
+long %>% select(day, date, daily) %>% head()
 ```
 
 ## Cleaning up long data
@@ -246,9 +234,8 @@ We will use `str_replace` from the `stringr` package to put `_` in the names
 
 ```{r}
 long <- long %>% mutate(
-  name = str_replace(name, "Board", "_Board"),
-  name = str_replace(name, "Alight", "_Alight"),
-  name = str_replace(name, "Average", "_Average") 
+  name = str_replace(string = name, pattern = "B", replacement = "_B"),
+  name = str_replace(string = name, pattern = "A", replacement = "_A")
 )
 long
 ```
@@ -265,14 +252,24 @@ long <- long %>%
 long
 ```
 
-## Mission: Taking the averages by line
+## Mission: Taking the average boardings by line
+
+Filter by Boardings only..
+
+```{r}
+long <- long %>% 
+  filter(type == "Boardings")
+long
+```
+
+## Mission: Taking the average boardings by line
 
 Now our data is more tidy, and we can take the averages easily!
 
 ```{r}
 long %>% 
   group_by(line) %>% 
-  summarize("avg" = mean(value, na.rm = TRUE))
+  summarize("avg_boardings" = mean(value, na.rm = TRUE))
 ```
 
 ## Reshaping data from **wide to long**
@@ -304,10 +301,10 @@ circ %>%
 ## Reshaping data from **long to wide**
 
 ```{r}
-long_data
-wide_data <- long_data %>% pivot_wider(names_from = "Month", 
+long_vacc
+wide_vacc <- long_vacc %>% pivot_wider(names_from = "Month", 
                                        values_from = "Rate") 
-wide_data
+wide_vacc
 ```
 
 ## Reshaping Charm City Circulator
@@ -343,7 +340,7 @@ wide
 
 "Combining datasets"
 
-```{r, fig.alt="Inner, outer, left, and right joins represented with venn diagrams", out.width = "100%", echo = FALSE, align = "center"}
+```{r, fig.alt="Inner, outer, left, and right joins represented with venn diagrams", out.width = "70%", echo = FALSE, align = "center"}
 knitr::include_graphics("images/joins.png")
 ```
 
@@ -359,16 +356,11 @@ knitr::include_graphics("images/joins.png")
 
 ## Merging: Simple Data
 
-```{r echo=FALSE}
-data_As <- tibble(
-  State = c("Alabama", "Alaska"),
-  June_vacc_rate = c(0.516, 0.627),
-  May_vacc_rate = c(0.514, 0.626)
-)
-data_cold <- tibble(
-  State = c("Maine", "Alaska"),
-  April_vacc_rate = c(0.795, 0.623)
-)
+```{r message=FALSE}
+data_As <- read_csv(
+  file = "https://jhudatascience.org/intro_to_r/data/data_As_1.csv")
+data_cold <- read_csv(
+  file = "https://jhudatascience.org/intro_to_r/data/data_cold_1.csv")
 ```
 
 ```{r}
@@ -401,6 +393,8 @@ knitr::include_graphics("images/left_join.gif")
 
 ## Left Join
 
+"Everything to the left of the comma"
+
 ```{r left_join}
 lj <- left_join(data_As, data_cold)
 lj
@@ -428,6 +422,8 @@ knitr::include_graphics("images/right_join.gif")
 ```
 
 ## Right Join
+
+"Everything to the right of the comma"
 
 ```{r right_join}
 rj <- right_join(data_As, data_cold)
@@ -458,12 +454,11 @@ fj
 
 ## Watch out for "`includes duplicates`"
 
-```{r echo=FALSE}
-data_As <- tibble(State = c("Alabama", "Alaska"),
-                 state_bird = c("wild turkey", "willow ptarmigan"))
-data_cold <- tibble(State = c("Maine", "Alaska", "Alaska"),
-                    vacc_rate = c(0.795, 0.623, 0.626),
-                    month = c("April", "April", "May"))
+```{r message=FALSE}
+data_As <- read_csv(
+  file = "https://jhudatascience.org/intro_to_r/data/data_As_2.csv")
+data_cold <- read_csv(
+  file = "https://jhudatascience.org/intro_to_r/data/data_cold_2.csv")
 ```
 
 ```{r}
@@ -499,6 +494,8 @@ knitr::include_graphics("images/left_join_extra.gif")
 
 ## Stop `tidylog`
 
+`unloadNamespace()` does the opposite of `library()`.
+
 ```{r}
 unloadNamespace("tidylog")
 ```
@@ -521,28 +518,43 @@ If the datasets have two different names for the same data, use:
 full_join(x, y, by = c("a" = "b"))
 ```
 
-## Using "`setdiff`"
+## Getting the set difference with `setdiff`
 
-We might want to determine what indexes ARE in the first dataset that AREN'T in the second:
+We might want to determine what indexes ARE in the first dataset that AREN'T in the second.
 
-```{r}
-data_As
-data_cold
-```
+For this to work, the datasets need the same columns.
 
-## Using "`setdiff`"
-
-Use `setdiff` to determine what indexes ARE in the first dataset that AREN'T in the second:
+We'll just select the index using `select()`.
 
 ```{r}
-A_states <- data_As %>% pull(State)
-cold_states <- data_cold %>% pull(State)
+A_states <- data_As %>% select(State)
+cold_states <- data_cold %>% select(State)
 ```
 
+## Getting the set difference with `setdiff`
+
+States in `A_states` but not in `cold_states`
+
 ```{r}
-setdiff(A_states, cold_states)
-setdiff(cold_states, A_states)
+dplyr::setdiff(A_states, cold_states)
 ```
+
+States in `cold_states` but not in `A_states`
+
+```{r}
+dplyr::setdiff(cold_states, A_states)
+```
+
+## Getting the set difference with `setdiff`
+
+Why did we use `dplyr::setdiff`? 
+
+There is a base R function, also called `setdiff` that requires vectors.
+
+In other words, we use `dplyr::` to be specific about the package we want to use.
+
+More set operations can be found here:
+https://dplyr.tidyverse.org/reference/setops.html
 
 ## Summary
 
@@ -591,3 +603,9 @@ wide2 <- long2 %>% pivot_wider(names_from = "type",
                              values_from = "value") 
 wide2
 ```
+
+## Fast manipulation using `collapse` package
+
+https://sebkrantz.github.io/collapse/
+
+Might be helpful if your data is very large. However, `dplyr` and `tidyr` functions are great for most applications.

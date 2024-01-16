@@ -1,5 +1,5 @@
 ---
-title: "Manipulating Data in R Lab Key"
+title: "Manipulating Data in R Lab - Key"
 output: html_document
 editor_options: 
   chunk_output_type: console
@@ -75,7 +75,7 @@ vacc_long <- vacc %>% pivot_longer(cols = !Entity)
 ```
 
 
-6\. Filter the "Entity" column so it only includes values in the following list: "Maryland","Virginia","Florida","Massachusetts", "United States". **Hint**: use `filter` and `%in%`.
+6\. Using `vacc_long`, filter the "Entity" column so it only includes values in the following list: "Maryland","Virginia","Florida","Massachusetts", "United States". **Hint**: use `filter` and `%in%`.
 
 ```
 # General format
@@ -107,19 +107,7 @@ vacc_wide
 
 **Bonus / Extra practice**:
 
-A\. Why is using `read.csv()` in Question 1 problematic? Use `colnames()` to examine the two different methods and datasets (vacc1 and vacc2) below.
-
-```{r}
-vacc1 <- read_csv("http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv")
-vacc2 <- read.csv("http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv")
-
-colnames(vacc1)
-colnames(vacc2)
-# read.csv() attempts to remove special characters (Like + or /) but this can make the column names hard to read!
-```
-
-
-B\. Take the code from Questions 1 and 3-7. Chain all of this code together using the pipe ` %>% `. Call your data `vacc_compare`.
+A\. Take the code from Questions 1 and 3-7. Chain all of this code together using the pipe ` %>% `. Call your data `vacc_compare`.
 
 ```{r}
 vacc_compare <-
@@ -133,7 +121,7 @@ vacc_compare
 ```
 
 
-C\. Modify the code from Question B:
+B\. Modify the code from Question A:
 
 -  Look for columns that start with "Total" (instead of "Percent") and 
 -  Select different states/Entities to compare
@@ -211,7 +199,7 @@ nrow(full)
 
 **Bonus / Extra practice**:
 
-D\. Do a left join of "vacc" and "gdp". Call the output "left". How many observations are there?
+C\. Do a left join of "vacc" and "gdp". Call the output "left". How many observations are there?
 
 ```{r}
 left <- left_join(vacc, gdp, by = c("Entity" = "GeoName"))
@@ -219,7 +207,7 @@ nrow(left)
 ```
 
 
-E\. Copy your code from Question D and change it to a `right_join` with the same order of the arguments. Call the output "right". How many observations are there?
+D\. Copy your code from Question D and change it to a `right_join` with the same order of the arguments. Call the output "right". How many observations are there?
 
 ```{r}
 right <- right_join(vacc, gdp, by = c("Entity" = "GeoName"))
@@ -227,16 +215,20 @@ nrow(right)
 ```
 
 
-F\. Perform a `setdiff` on "vacc" and "gdp" to determine what Entities are missing from the GDP data and which are missing from the vaccine data. Remember you need to `pull()` the columns you want to compare.
+E\. Perform a `setdiff` on "vacc" and "gdp" to determine what Entities are missing from the GDP data and which are missing from the vaccine data. 
+
+  - First, `select()` only the columns you want to compare. Create new objects for each dataset.
+  - Rename the selected column for *one* of the datasets, so that both datasets have the same column name. You can use `rename()`
+  - Then use `setdiff()`
 
 ```
 # General format
-setdiff(PULLED_COL_1, PULLED_COL_2)
+dplyr::setdiff(DATA_1, DATA_2)
 ```
 
 ```{r}
-entity <- vacc %>% pull(Entity)
-geoname <- gdp %>% pull(GeoName)
+entity <- vacc %>% select(Entity)
+geoname <- gdp %>% select(GeoName) %>% rename(Entity = GeoName)
 setdiff(entity, geoname) # In vacc "Entity" but not gdp "GeoName"
 setdiff(geoname, entity) # In gdp "GeoName" but not vacc "Entity"
 ```
