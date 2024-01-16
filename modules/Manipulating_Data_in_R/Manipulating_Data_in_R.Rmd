@@ -603,3 +603,9 @@ wide2 <- long2 %>% pivot_wider(names_from = "type",
                              values_from = "value") 
 wide2
 ```
+
+## Fast manipulation using `collapse` package
+
+https://sebkrantz.github.io/collapse/
+
+Might be helpful if your data is very large. However, `dplyr` and `tidyr` functions are great for most applications.
