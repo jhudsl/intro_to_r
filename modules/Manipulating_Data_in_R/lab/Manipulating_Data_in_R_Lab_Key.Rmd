@@ -1,5 +1,5 @@
 ---
-title: "Manipulating Data in R Lab Key"
+title: "Manipulating Data in R Lab - Key"
 output: html_document
 editor_options: 
   chunk_output_type: console
@@ -215,16 +215,20 @@ nrow(right)
 ```
 
 
-E\. Perform a `setdiff` on "vacc" and "gdp" to determine what Entities are missing from the GDP data and which are missing from the vaccine data. Remember you need to `pull()` the columns you want to compare.
+E\. Perform a `setdiff` on "vacc" and "gdp" to determine what Entities are missing from the GDP data and which are missing from the vaccine data. 
+
+  - First, `select()` only the columns you want to compare. Create new objects for each dataset.
+  - Rename the selected column for *one* of the datasets, so that both datasets have the same column name. You can use `rename()`
+  - Then use `setdiff()`
 
 ```
 # General format
-setdiff(PULLED_COL_1, PULLED_COL_2)
+dplyr::setdiff(DATA_1, DATA_2)
 ```
 
 ```{r}
-entity <- vacc %>% pull(Entity)
-geoname <- gdp %>% pull(GeoName)
+entity <- vacc %>% select(Entity)
+geoname <- gdp %>% select(GeoName) %>% rename(Entity = GeoName)
 setdiff(entity, geoname) # In vacc "Entity" but not gdp "GeoName"
 setdiff(geoname, entity) # In gdp "GeoName" but not vacc "Entity"
 ```
