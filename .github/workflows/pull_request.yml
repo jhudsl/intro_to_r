@@ -339,12 +339,12 @@ jobs:
         run: |
           Rscript --vanilla "scripts/render_resources.R" --files "${{ steps.changed-files.outputs.all_changed_files }}"
         
-      - name: Print list of lectures that need pdfs generated
+      - name: Generate list of lectures that need pdfs generated
         run: |
           Rscript --vanilla "scripts/render_html_list.R"
-          echo "$(cat lecture_files.csv)"
+          echo lecture files "$(cat lecture_files.csv)"
         
-      - name: Read html and pdf files
+      - name: Store list of lectures that need pdfs generated // Delete intermediate files
         id: getfiles
         run: |
           echo "files=$(cat files.txt)" >> $GITHUB_OUTPUT 
@@ -456,6 +456,10 @@ jobs:
           git checkout $branch_name
           git merge -s recursive --strategy-option=theirs origin/${{ github.head_ref }} --allow-unrelated-histories
         shell: bash
+        
+      # Echo files
+      - name: Echo files
+        run: echo "${{fromJson(needs.render-preview.outputs.pdffiles)}}"
         
       # Render pdfs of slides
       - name: Convert HTML to PDF

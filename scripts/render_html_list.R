@@ -4,7 +4,7 @@
 
 # Read in all files needed
 
-files <- readr::read_csv("lecture_files.csv")
+files <- readr::read_csv("lecture_files.csv", show_col_types = FALSE)
 
 if(nrow(files) > 0) {
   files$files <- sapply(files$files, gsub, pattern = ".Rmd", replacement = "")
