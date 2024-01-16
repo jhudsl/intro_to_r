@@ -15,6 +15,7 @@ library(tidyverse)
 
 ## Recap of Data Cleaning
 
+test
 -   `is.na()`,`any(is.na())`, `count()`, and functions from `naniar`
     like `gg_miss_var()` can help determine if we have `NA` values
 -   `filter()` automatically removes `NA` values - can't confirm or deny
@@ -609,17 +610,3 @@ wide2
 https://sebkrantz.github.io/collapse/
 
 Might be helpful if your data is very large. However, `dplyr` and `tidyr` functions are great for most applications.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
