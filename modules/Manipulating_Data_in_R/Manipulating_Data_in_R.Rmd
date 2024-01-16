@@ -316,7 +316,7 @@ long
 ## Reshaping Charm City Circulator
 
 ```{r}
-wide <- long %>% pivot_wider(names_from = "type", 
+wide <- long %>% pivot_wider(names_from = "line", 
                              values_from = "value") 
 wide
 ```
