@@ -1,6 +1,6 @@
 ---
 title: "Data Visualization"
-output:
+output: 
   ioslides_presentation:
     css: ../../docs/styles.css
     widescreen: yes
@@ -97,11 +97,12 @@ plot objects are placed on top of each other with `+`
 📉 +\
 📈
 
-## ggplot2 
+## ggplot2
 
 ```{r, fig.alt="ggplotcake", out.width = "90%", echo = FALSE, fig.show='hold',fig.align='center'}
 knitr::include_graphics("img/cake.png")
 ```
+
 Slide Credit: Tanya Shapiro
 
 ## ggplot2
@@ -147,9 +148,9 @@ Read more about tidy data and see other examples: [Tidy Data](https://vita.had.c
 
 ## Data to plot
 
- Type `?Orange` for more information.
- 
- Is the data in tidy? Is it in long format?
+Type `?Orange` for more information.
+
+Is the data in tidy? Is it in long format?
 
 ```{r}
 head(Orange)
@@ -161,14 +162,11 @@ head(Orange)
 
 Will set up the plot - it will be empty!
 
-
-
 ```{r, echo = FALSE, fig.align='center'}
 knitr::include_graphics("img/ing_and_base.png")
 ```
 
 ## First layer of code with `ggplot2` package
-
 
 -   **Aesthetic mapping** `(mapping = aes(x= , y =))` describes how variables in our data are mapped to elements of the plot - Note many people don't use `mapping` but it is helpful to know what we are doing.
 
@@ -191,7 +189,6 @@ ggplot(Orange, mapping = aes(x = circumference, y = age))
 knitr::include_graphics("img/the_geoms.png")
 ```
 
-
 There are many to choose from, to list just a few:
 
 -   `geom_point()` -- points (we have seen)
@@ -202,15 +199,14 @@ There are many to choose from, to list just a few:
 -   `geom_col()` -- column plot
 -   `geom_tile()` -- blocks filled with color
 
-
 ## Next layer code with `ggplot2` package
 
-When to use what plot? A few examples: 
+When to use what plot? A few examples:
 
-- a scatterplot (`geom_point()`): to examine the relationship between two sets of continuous numeric data
-- a barplot (`geom_bar()`): to compare the distribution of a quantitative variable (numeric) between groups or categories
-- a histogram (`geom_hist()`): to observe the overall distribution of numeric data
-- a boxplot (`geom_boxplot()`): to compare values between different factor levels or categories
+-   a scatterplot (`geom_point()`): to examine the relationship between two sets of continuous numeric data
+-   a barplot (`geom_bar()`): to compare the distribution of a quantitative variable (numeric) between groups or categories
+-   a histogram (`geom_hist()`): to observe the overall distribution of numeric data
+-   a boxplot (`geom_boxplot()`): to compare values between different factor levels or categories
 
 ## Next layer code with `ggplot2` package
 
@@ -235,7 +231,7 @@ Read as: *using Orange data, and provided aesthetic mapping, add points to the p
 
 ## Tip - plus sign `+` must come at end of line
 
-Having the + sign at the beginning of a line will not work! 
+Having the + sign at the beginning of a line will not work!
 
 ```{r, eval = FALSE}
 ggplot(food, mapping = aes(x = item_ID, 
@@ -244,7 +240,7 @@ ggplot(food, mapping = aes(x = item_ID,
  + geom_boxplot()
 ```
 
-Pipes will also not work in place of  `+`!
+Pipes will also not work in place of `+`!
 
 ```{r,eval = FALSE}
 ggplot(food, mapping = aes(x = item_ID, 
@@ -252,7 +248,6 @@ ggplot(food, mapping = aes(x = item_ID,
                            fill = item_categ))  %>%
 geom_boxplot()
 ```
-
 
 ## Plots can be assigned as an object {.mall}
 
@@ -308,7 +303,7 @@ ggplot(Orange, mapping = aes(x = circumference, y = age)) +
 
 ```{r, echo = FALSE, fig.align='center', out.width= "50%"}
 knitr::include_graphics("img/frosting.png")
-``` 
+```
 
 ## Customize the look of the plot {.codesmall}
 
@@ -373,7 +368,7 @@ plot_scale <-ggplot(Orange, mapping = aes(x = circumference, y = age)) +
                 scale_y_continuous(breaks = seq(from = 100, to = 1600, by = 200))
 ```
 
-## Changing axis: specifying axis scale{.codesmall}
+## Changing axis: specifying axis scale {.codesmall}
 
 ```{r, fig.width=5, fig.height=1.8, fig.align='center'}
 plot_scale 
@@ -399,23 +394,61 @@ ggplot(Orange, mapping = aes(x = circumference, y = age)) +
   
 ```
 
+## Modifying plot objects
+
+You can add to a plot object to make changes!
+
+```{r, fig.width=5, fig.height=3, fig.align='center'}
+
+plt1 <- ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
+  geom_point(size = 5, color = "red", alpha = 0.5) + 
+  geom_line(size = 0.8, color = "brown", linetype = 2) + 
+  labs(title = "My plot of orange tree circumference vs age") + 
+  xlim(100, max(pull(Orange, circumference))) 
+
+plt1 + theme_minimal()
+
+```
+
+## Overwriting specifications
+
+It's possible to go in and change specifications with newer layers
+
+```{r, fig.width=5, fig.height=3, fig.align='center'}
+Orange %>% ggplot(aes(x = circumference,
+                      y = age, 
+                      color = Tree)) + 
+  geom_line(size = 0.8)
+```
+
+## Overwriting specifications
+
+It's possible to go in and change specifications with newer layers
+
+```{r, fig.width=5, fig.height=3, fig.align='center'}
+Orange %>% ggplot(aes(x = circumference,
+                      y = age, 
+                      color = Tree)) + 
+  geom_line(size = 0.8, color = "black")
+```
+
+
+
 ## Summary
 
-- `ggplot()` specifies what data use and what variables will be mapped to where
-- inside `ggplot()`, `mapping = aes(x = , y = , color =)` specify what variables correspond to what aspects of the plot in general
-- layers of plots can be combined using the `+` at the **end** of lines
-- special [`theme_*()` functions](https://ggplot2.tidyverse.org/reference/ggtheme.html).functions can change the overall look
-- individual layers can be customized using arguments like:
-`size`, `color` `alpha` (more transparent is closer to 0), and `linetype`
-- labels can be added with the `labs()` function and `x`, `y`, `title` arguments - the `\n` can be used for line breaks
-- `xlim()` and `ylim()` can limit or expand the plot area
-- `scale_x_continuous()` and `scale_y_continuous()` can modify the scale of the axes
-- by default, `ggplot()` removes points with missing values from plots.
-
+-   `ggplot()` specifies what data use and what variables will be mapped to where
+-   inside `ggplot()`, `mapping = aes(x = , y = , color =)` specify what variables correspond to what aspects of the plot in general
+-   layers of plots can be combined using the `+` at the **end** of lines
+-   special [`theme_*()` functions](https://ggplot2.tidyverse.org/reference/ggtheme.html) can change the overall look
+-   individual layers can be customized using arguments like: `size`, `color` `alpha` (more transparent is closer to 0), and `linetype`
+-   labels can be added with the `labs()` function and `x`, `y`, `title` arguments - the `\n` can be used for line breaks
+-   `xlim()` and `ylim()` can limit or expand the plot area
+-   `scale_x_continuous()` and `scale_y_continuous()` can modify the scale of the axes
+-   by default, `ggplot()` removes points with missing values from plots.
 
 ## Lab 1
 
-🏠 [Class Website](https://jhudatascience.org/intro_to_r/)    
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)\
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules//Data_Visualization/lab/Data_Visualization_Lab.Rmd)
 
 ## theme() function:
@@ -467,7 +500,7 @@ ggplot(Orange, mapping = aes(x = circumference, y = age)) +
         axis.title = element_text(size = 16))
 ```
 
-## theme() function:moving (or removing) legend {.codesmall}
+## theme() function: moving (or removing) legend {.codesmall}
 
 If specifying position - use: "top", "bottom", "right", "left", "none"
 
@@ -481,11 +514,57 @@ ggplot(Orange, mapping = aes(x = circumference, y = age, color = Tree)) +
 ```
 
 ## Cheatsheet about theme
-https://github.com/claragranell/ggplot2/blob/main/ggplot_theme_system_cheatsheet.pdf
+
+<https://github.com/claragranell/ggplot2/blob/main/ggplot_theme_system_cheatsheet.pdf>
 
 ```{r, echo = FALSE, fig.align='center', out.width= "55%"}
 knitr::include_graphics("img/theme_sheet.png")
-``` 
+```
+
+## Keys for specifications
+
+`linetype`
+
+```{r, echo = FALSE, fig.align='center', out.width= "60%"}
+knitr::include_graphics("http://www.cookbook-r.com/Graphs/Shapes_and_line_types/figure/line_types-1.png")
+```
+
+[source](http://www.cookbook-r.com/Graphs/Shapes_and_line_types/figure/line_types-1.png)
+
+## Linetype key
+
+-   *geoms* that draw lines have a `linetype` parameter
+-   these include values that are strings like "blank", "solid", "dashed", "dotdash", "longdash", and "twodash"
+
+```{r, fig.width=5, fig.height=3, fig.align='center'}
+Orange %>% ggplot(aes(x = circumference,
+                      y = age,
+                      color = Tree)) +
+  geom_line(size = 0.8, linetype = "twodash")
+```
+
+
+## Keys for specifications
+
+`shape`
+
+```{r, echo = FALSE, fig.align='center', out.width= "60%"}
+knitr::include_graphics("http://www.cookbook-r.com/Graphs/Shapes_and_line_types/figure/unnamed-chunk-2-1.png")
+```
+
+[source](http://www.cookbook-r.com/Graphs/Shapes_and_line_types/figure/unnamed-chunk-2-1.png)
+
+## shape key
+
+-   *geoms* that draw have points have a `shape` parameter
+-   these include numeric values
+
+```{r, fig.width=5, fig.height=3, fig.align='center'}
+Orange %>% ggplot(aes(x = circumference,
+                      y = age,
+                      color = Tree)) +
+  geom_point(size = 2, shape =12)
+```
 
 
 ## Can make your own theme to use on plots!
@@ -494,9 +573,7 @@ Guide on how to: <https://rpubs.com/mclaire19/ggplot2-custom-themes>
 
 ## Group and/or color by variable's values
 
-First, we will read in some data for the purpose of demonstration about food prices over time. 
-
-
+First, we will read in some data for the purpose of demonstration about food prices over time.
 
 ```{r}
 food <- read_csv(
@@ -523,12 +600,10 @@ ggplot(food, mapping = aes(x = observation_time,
 ```
 
 ## If it looks confusing to you, try again
-    
-    
+
 ```{r, echo = FALSE, fig.align='center', out.width= "30%"}
 knitr::include_graphics("https://media.giphy.com/media/xT0xeuOy2Fcl9vDGiA/giphy.gif")
 ```
-
 
 ## Using `group` in plots
 
@@ -570,7 +645,7 @@ ggplot(food, mapping = aes(x = observation_time,
 
 ```
 
-## Adding a facet can help make it easier to see what is happening{.codesmall}
+## Adding a facet can help make it easier to see what is happening {.codesmall}
 
 Two options: `facet_grid()`- creates a grid shape `facet_wrap()` -more flexible
 
@@ -599,8 +674,8 @@ rp_fac_plot
 
 ## Tips - Color vs Fill {.codesmall}
 
-- `color` is needed for points and lines
-- `fill` is generally needed for boxes and bars
+-   `color` is needed for points and lines
+-   `fill` is generally needed for boxes and bars
 
 ```{r, out.width="30%", fig.show='hold'}
 
@@ -614,8 +689,6 @@ ggplot(food, mapping = aes(x = item_ID,
                            fill = item_categ)) + # fills the boxplot
   geom_boxplot() 
 ```
-
-
 
 ## Tip - Good idea to add jitter layer to top of box plots
 
@@ -670,9 +743,7 @@ food_bar +
 
 ## Tip - col vs bar {.codesmall}
 
-`geom_bar(x =)` can only use one `aes` mapping
-`geom_col(x = , y = )` can have two
-
+`geom_bar(x =)` can only use one `aes` mapping `geom_col(x = , y = )` can have two
 
 ## Tip - Check what you plot {.codesmall}
 
@@ -685,7 +756,7 @@ ggplot(food, mapping = aes(x = item_ID,
   geom_col()
 ```
 
-## What did we plot? Always good to check it is correct!{.codesmall}
+## What did we plot? Always good to check it is correct! {.codesmall}
 
 ```{r}
 head(food, n = 3)
@@ -693,14 +764,16 @@ head(food, n = 3)
 food %>% group_by(item_ID) %>%
   summarize(sum = sum(item_price_change))
 ```
-## Try that again{.codesmall}
+
+## Try that again {.codesmall}
 
 ```{r, fig.width=5 , fig.height=3, fig.align='center'}
 food %>% group_by(item_categ, item_ID) %>%
   summarize(mean_change = mean(item_price_change))
 ```
 
-## Try that again{.codesmall}
+## Try that again {.codesmall}
+
 ```{r}
 food %>% group_by(item_categ, item_ID) %>%
   summarize(mean_change = mean(item_price_change)) %>%
@@ -720,11 +793,9 @@ food_bar +
 
 ## Tip- if you need you can remove outliers
 
-Set `outlier.shape = NA` to get ride of outliers. 
-Be careful about if you really should remove these!
+Set `outlier.shape = NA` to get ride of outliers. Be careful about if you really should remove these!
 
-However, if can be helpful if your plot is getting stretched to accommodate plotting an outlier. 
-You can always say in the figure legend what you removed.
+However, if can be helpful if your plot is getting stretched to accommodate plotting an outlier. You can always say in the figure legend what you removed.
 
 ```{r}
 esoph1 <- ggplot(esoph, mapping = aes(y = ncases, x = agegp)) +
@@ -739,10 +810,10 @@ esoph1 # fig.show = "hold" makes plots appear
 esoph2 # next to one another in the chunk settings
 ```
 
-## NA Values{.codesmall}
+## NA Values {.codesmall}
 
-- if it is a numeric value it will just get dropped from the graph and you will see a warning
-- it is categorical you will see it on the graph and will need to filter to remove the NA category
+-   if it is a numeric value it will just get dropped from the graph and you will see a warning
+-   it is categorical you will see it on the graph and will need to filter to remove the NA category
 
 ```{r}
 icecream <-tibble(flavor = 
@@ -790,12 +861,19 @@ direct.label(rp_fac_plot, method = list("angled.boxes"))
 <!-- Great for adding p-values and significance levels <https://cran.r-project.org/web/packages/ggpubr/ggpubr.pdf>  -->
 
 <!-- ```{r, out.width="50%", fig.align="center"} -->
+
 <!-- install.packages("ggpubr") -->
+
 <!-- library(ggpubr) -->
+
 <!-- data("ToothGrowth") -->
+
 <!-- ggboxplot(ToothGrowth, x = "dose", y = "len", -->
+
 <!--           color = "dose", palette = "jco")+ -->
+
 <!--   stat_compare_means(method = "anova") -->
+
 <!-- ``` -->
 
 ## plotly
@@ -825,15 +903,16 @@ ggsave(filename = "saved_plot.png",  # will save in working directory
 ```
 
 ## Summary
-- The `theme()` function helps you specify aspects about your plot
-  - move or remove a legend with `theme(legend.position = "none")`
-  - change font aspects of individual text elements `theme(plot.title = element_text(size = 20))`
-  - center a title: `theme(plot.title = element_text(hjust = 0.5))`
-- sometimes you need to add a `group` element to `mapping = aes()` if your plot looks strange
-- make sure you are plotting what you think you are by checking the numbers!
-- `facet_grid(~ variable)` and `facet_wrap(~variable)` can be helpful to quickly split up your plot
-  - `facet_wrap()` allows for a `scales = "free"` argument so that you can have a different axis scale for different plots
-- use `fill` to fill in boxplots
+
+-   The `theme()` function helps you specify aspects about your plot
+    -   move or remove a legend with `theme(legend.position = "none")`
+    -   change font aspects of individual text elements `theme(plot.title = element_text(size = 20))`
+    -   center a title: `theme(plot.title = element_text(hjust = 0.5))`
+-   sometimes you need to add a `group` element to `mapping = aes()` if your plot looks strange
+-   make sure you are plotting what you think you are by checking the numbers!
+-   `facet_grid(~ variable)` and `facet_wrap(~variable)` can be helpful to quickly split up your plot
+    -   `facet_wrap()` allows for a `scales = "free"` argument so that you can have a different axis scale for different plots
+-   use `fill` to fill in boxplots
 
 ## Good practices for plots
 
@@ -841,7 +920,7 @@ Check out this [guide](https://jhudatascience.org/tidyversecourse/dataviz.html#m
 
 ## Lab 2
 
-🏠 [Class Website](https://jhudatascience.org/intro_to_r/)    
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)\
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules//Data_Visualization/lab/Data_Visualization_Lab.Rmd)
 
 ```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
@@ -849,4 +928,3 @@ knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 ```
 
 Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
-
