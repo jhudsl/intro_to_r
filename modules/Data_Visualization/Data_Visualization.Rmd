@@ -557,13 +557,14 @@ knitr::include_graphics("img/shape.png")
 ## shape key
 
 -   *geoms* that draw have points have a `shape` parameter
--   these include numeric values
+-   these include numeric values (don't need quotes for these) and some characters values (need quotes for these)
+
 
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
 Orange %>% ggplot(aes(x = circumference,
                       y = age,
                       color = Tree)) +
-  geom_point(size = 2, shape =12)
+  geom_point(size = 2, shape = 12)
 ```
 
 
