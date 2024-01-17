@@ -249,6 +249,16 @@ This would be useful for identifying easily which grade to focus on.
 
 We can order a factor by another variable by using the `fct_reorder()` function of the `forcats` package.
 
+<div class = "codeexample">
+```{r, eval=FALSE}
+fct_reorder({column getting changed}, {guiding column}, {summarizing function})
+```
+</div>
+
+## forcats for ordering{.smaller}
+
+We can order a factor by another variable by using the `fct_reorder()` function of the `forcats` package.
+
 ```{r, fig.height= 3}
 library(forcats)
 
@@ -259,83 +269,19 @@ dropouts_fct %>%
   theme_bw(base_size = 16)
 ```
 
-## Adding another variable
+## Remember, `desc()` can also be used! {.smaller}
 
-Let's say that we also want to assess which grade has the most incidences of being tardy (another word for late) to class. 
-- Now we will add another simulated variable of random values from 0 to 7 and of 32 values total. 
-- We set a seed again so that our results will be consistent each time we run this code.
+```{r, fig.height= 3}
+library(forcats)
 
-```{r}
-set.seed(1956)
-dropouts_fct <-
-  dropouts_fct %>%
-  mutate("tardy" = sample(0:7, size = 32, replace = TRUE))
-
-head(dropouts_fct)
+dropouts_fct %>%
+  ggplot(mapping = aes(x = fct_reorder(grade, desc(n_dropouts), mean), y = n_dropouts)) +
+  geom_boxplot() +
+  labs(x = "Student Grade") +
+  theme_bw(base_size = 16)
 ```
 
-## Plotting new variable{.smaller}
-
-Now let's plot each of our variables of interest (n_dropouts and tardy) on the y axis and grade on the x axis. Let's arrange grade by the amount of each.
-
-```{r, eval = FALSE}
-
-dropouts_plot <- dropouts_fct %>%
-  ggplot(mapping = aes(
-    x = fct_reorder(grade, n_dropouts, mean),
-    y = n_dropouts
-  )) +
-  geom_boxplot(fill = "lightgreen") +
-  theme_bw(base_size = 13)
-
-tardy_plot <- dropouts_fct %>%
-  ggplot(mapping = aes(
-    x = fct_reorder(grade, tardy, median),
-    y = tardy
-  )) +
-  geom_boxplot(fill = "violet") +
-  theme_bw(base_size = 13)
-
-library(patchwork)
-dropouts_plot + tardy_plot
-```
-
-## Plotting new variable
-
-The result!
-
-```{r, echo = FALSE}
-
-dropouts_plot <- dropouts_fct %>%
-  ggplot(mapping = aes(
-    x = fct_reorder(grade, n_dropouts, mean),
-    y = n_dropouts
-  )) +
-  geom_boxplot(fill = "lightgreen") +
-  theme_bw(base_size = 13)
-
-tardy_plot <- dropouts_fct %>%
-  ggplot(mapping = aes(
-    x = fct_reorder(grade, tardy, median),
-    y = tardy
-  )) +
-  geom_boxplot(fill = "violet") +
-  theme_bw(base_size = 13)
-
-library(patchwork)
-dropouts_plot + tardy_plot
-```
-
-## Cleaning up the plots
-
-```{r}
-dropouts_plot +
-  labs(x = "Student Grade", y = "Number of Dropouts") +
-  tardy_plot +
-  labs(x = "Student Grade", y = "Tardy Days")
-```
-
-## fct_count
+## Checking Proportions with `fct_count()`
 
 The `fct_count()` function of the `forcats` package is helpful for checking that the proportions of each level for a factor are similar. Need the `prop = TRUE` argument otherwise just counts are reported.
 
