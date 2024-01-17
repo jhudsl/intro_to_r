@@ -526,7 +526,7 @@ knitr::include_graphics("img/theme_sheet.png")
 `linetype`
 
 ```{r, echo = FALSE, fig.align='center', out.width= "60%"}
-knitr::include_graphics("http://www.cookbook-r.com/Graphs/Shapes_and_line_types/figure/line_types-1.png")
+knitr::include_graphics("img/line_types.png")
 ```
 
 [source](http://www.cookbook-r.com/Graphs/Shapes_and_line_types/figure/line_types-1.png)
@@ -548,8 +548,8 @@ Orange %>% ggplot(aes(x = circumference,
 
 `shape`
 
-```{r, echo = FALSE, fig.align='center', out.width= "60%"}
-knitr::include_graphics("http://www.cookbook-r.com/Graphs/Shapes_and_line_types/figure/unnamed-chunk-2-1.png")
+```{r, echo = FALSE, fig.align='center', out.width= "50%"}
+knitr::include_graphics("img/shape.png")
 ```
 
 [source](http://www.cookbook-r.com/Graphs/Shapes_and_line_types/figure/unnamed-chunk-2-1.png)
