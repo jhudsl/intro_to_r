@@ -410,7 +410,7 @@ plt1 + theme_minimal()
 
 ```
 
-## Overwriting specifications with `theme()`
+## Overwriting specifications
 
 It's possible to go in and change specifications with newer layers
 
@@ -421,7 +421,7 @@ Orange %>% ggplot(aes(x = circumference,
   geom_line(size = 0.8)
 ```
 
-## Overwriting specifications with `theme()`
+## Overwriting specifications
 
 It's possible to go in and change specifications with newer layers
 
@@ -432,24 +432,14 @@ Orange %>% ggplot(aes(x = circumference,
   geom_line(size = 0.8, color = "black")
 ```
 
-## Coming up after lab
 
--   *geoms* that draw lines have a `linetype` parameter
--   these include values that are strings like "blank", "solid", "dashed", "dotdash", "longdash", and "twodash"
-
-```{r, fig.width=5, fig.height=3, fig.align='center'}
-Orange %>% ggplot(aes(x = circumference,
-                      y = age,
-                      color = Tree)) +
-  geom_line(size = 0.8, linetype = "twodash")
-```
 
 ## Summary
 
 -   `ggplot()` specifies what data use and what variables will be mapped to where
 -   inside `ggplot()`, `mapping = aes(x = , y = , color =)` specify what variables correspond to what aspects of the plot in general
 -   layers of plots can be combined using the `+` at the **end** of lines
--   special [`theme_*()` functions](https://ggplot2.tidyverse.org/reference/ggtheme.html).functions can change the overall look
+-   special [`theme_*()` functions](https://ggplot2.tidyverse.org/reference/ggtheme.html) can change the overall look
 -   individual layers can be customized using arguments like: `size`, `color` `alpha` (more transparent is closer to 0), and `linetype`
 -   labels can be added with the `labs()` function and `x`, `y`, `title` arguments - the `\n` can be used for line breaks
 -   `xlim()` and `ylim()` can limit or expand the plot area
@@ -530,6 +520,52 @@ ggplot(Orange, mapping = aes(x = circumference, y = age, color = Tree)) +
 ```{r, echo = FALSE, fig.align='center', out.width= "55%"}
 knitr::include_graphics("img/theme_sheet.png")
 ```
+
+## Keys for specifications
+
+`linetype`
+
+```{r, echo = FALSE, fig.align='center', out.width= "60%"}
+knitr::include_graphics("http://www.cookbook-r.com/Graphs/Shapes_and_line_types/figure/line_types-1.png")
+```
+
+[source](http://www.cookbook-r.com/Graphs/Shapes_and_line_types/figure/line_types-1.png)
+
+## Linetype key
+
+-   *geoms* that draw lines have a `linetype` parameter
+-   these include values that are strings like "blank", "solid", "dashed", "dotdash", "longdash", and "twodash"
+
+```{r, fig.width=5, fig.height=3, fig.align='center'}
+Orange %>% ggplot(aes(x = circumference,
+                      y = age,
+                      color = Tree)) +
+  geom_line(size = 0.8, linetype = "twodash")
+```
+
+
+## Keys for specifications
+
+`shape`
+
+```{r, echo = FALSE, fig.align='center', out.width= "60%"}
+knitr::include_graphics("http://www.cookbook-r.com/Graphs/Shapes_and_line_types/figure/unnamed-chunk-2-1.png")
+```
+
+[source](http://www.cookbook-r.com/Graphs/Shapes_and_line_types/figure/unnamed-chunk-2-1.png)
+
+## shape key
+
+-   *geoms* that draw have points have a `shape` parameter
+-   these include numeric values
+
+```{r, fig.width=5, fig.height=3, fig.align='center'}
+Orange %>% ggplot(aes(x = circumference,
+                      y = age,
+                      color = Tree)) +
+  geom_point(size = 2, shape =12)
+```
+
 
 ## Can make your own theme to use on plots!
 
