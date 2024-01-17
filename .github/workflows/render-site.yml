@@ -149,7 +149,7 @@ jobs:
 
           git fetch --all
           git checkout main
-          git merge -s recursive --strategy-option=theirs origin/${{ github.head_ref }} --allow-unrelated-histories
+          git merge -s recursive --strategy-option=theirs origin/main --allow-unrelated-histories
         shell: bash
         
       # Render pdfs of slides
