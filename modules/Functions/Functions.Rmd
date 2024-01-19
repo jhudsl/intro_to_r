@@ -13,8 +13,10 @@ library(knitr)
 library(stringr)
 library(tidyr)
 library(emo)
+library(readr)
 opts_chunk$set(comment = "")
 ```
+
 
 ## Writing your own functions
 
@@ -27,11 +29,23 @@ So far we've seen many functions, like `c()`, `class()`, `filter()`, `dim()` ...
 - Avoid running code unintentionally
 - Use names that make sense to you
 
+
 ## Writing your own functions
 
-Here we will write a function that multiplies some number (x) by 2:
+The general syntax for a function is: 
 
-```{r comment=""}
+```
+function_name <- function(arg1, arg2, ...) {
+ <function body>
+}
+```
+
+
+## Writing your own functions
+
+Here we will write a function that multiplies some number `x` by 2:
+
+```{r}
 times_2 <- function(x) x * 2
 ```
 
@@ -40,6 +54,7 @@ When you run the line of code above, you make it ready to use (no output yet!). 
 ```{r comment=""}
 times_2(x = 10)
 ```
+
 
 ## Writing your own functions: `{ }`
 
@@ -56,18 +71,6 @@ is_even <- function(x) {
 }
 is_even(x = 11)
 is_even(x = times_2(x = 10))
-```
-
-
-## Writing your own functions
-
-The general syntax for a function is: 
-
-```
-functionName <- function(inputs) {
- <function body>
-return(value)
-}
 ```
 
 
@@ -89,6 +92,8 @@ times_2_plus_4(x = 10)
  - printed results do not stay around but can show what a function is doing
  - returned results stay around
  - can only return one result but can print many
+ - if `return` not called, last evaluated expression is returned
+ - `return` should be the last step (steps after may be skipped)
 
 ## Adding print
 
@@ -130,6 +135,7 @@ result <- x_and_y_plus_2(x = 10, y = 3)
 result
 ```
 
+
 ## Writing your own functions: defaults
 
 Functions can have "default" arguments. This lets us use the function without using an argument later:
@@ -140,6 +146,7 @@ times_2_plus_y()
 times_2_plus_y(x = 11, y = 4)
 ```
 
+
 ## Writing another simple function
 
 Let's write a function, `sqdif`, that:
@@ -148,6 +155,7 @@ Let's write a function, `sqdif`, that:
 2. takes the difference
 3. squares this difference
 4. then returns the final value 
+
 
 ## Writing another simple function
 
@@ -159,6 +167,7 @@ sqdif(x = 10, y = 5)
 sqdif(10, 5)
 sqdif(11, 4)
 ```
+
 
 ## Writing your own functions: characters
 
@@ -172,6 +181,7 @@ loud <- function(word) {
 loud(word = "hooray!")
 ```
 
+
 ## Functions for tibbles
 
 We can use `filter(row_number() == n)` to extract a row of a tibble:
@@ -183,11 +193,11 @@ cars <- read_kaggle()
 cars_1_8 <- cars %>% select(1:8)
 ```
 
-
 ```{r}
 get_row(dat = cars, row = 10)
 get_row(dat = iris, row = 4)
 ```
+
 
 ## Functions for tibbles
 
@@ -203,6 +213,7 @@ get_index <- function(dat, row, col) {
 get_index(dat = cars, row = 10, col = 8)
 ```
 
+
 ## Functions for tibbles
 
 Including default values for arguments:
@@ -217,6 +228,20 @@ get_top <- function(dat, row = 1, col = 1) {
 get_top(dat = cars)
 ```
 
+## Functions for tibbles
+
+Can create function with an argument that allows inputting a column name for `select` or other `dplyr` operation:
+
+```{r}
+clean_dataset <- function(dataset, col_name) {
+  my_data_out <- dataset %>% select({{col_name}}) # Note the curly braces
+  write_csv(my_data_out, "clean_data.csv")
+  return(my_data_out)
+}
+
+clean_dataset(dataset = mtcars, col_name = "cyl")
+```
+
 ## Summary
 
 - Simple functions take the form:
@@ -224,6 +249,7 @@ get_top(dat = cars)
   - Can specify defaults like `function(x = 1, y = 2){x + y}`
   -`return` will provide a value as output
   - `print` will simply print the value on the screen but not save it
+
 
 ## Lab Part 1
 
@@ -244,6 +270,7 @@ These functions take the form:
 sapply(<a vector, list, data frame>, some_function)
 ```
 
+
 ## Using your custom functions: `sapply()`
 
 `r emo::ji("rotating_light")` There are no parentheses on the functions! `r emo::ji("rotating_light")`
@@ -256,6 +283,7 @@ sapply(iris, class)
 iris %>% sapply(class)
 ```
 
+
 ## Using your custom functions: `sapply()`
 
 ```{r}
@@ -265,6 +293,7 @@ select(cars, VehYear:VehicleAge) %>%
   head()
 ```
 
+
 ## Using your custom functions "on the fly" to iterate
 
 ```{r comment=""}
@@ -273,22 +302,38 @@ select(cars, VehYear:VehicleAge) %>%
   head()
 ```
 
+
 # across
+
+## Using functions in `mutate()` and `summarize()`
+
+Already know how to use functions to modify columns using `mutate()` or calculate summary statistics using `summarize()`.
+
+```{r}
+mtcars %>%
+  mutate(wt_kg = wt*1000/2.205,
+         power_watts = hp*745.7) %>%
+  summarize(mean_kg = mean(wt_kg),
+            max_watts = max(power_watts))
+```
+
 
 ## Applying functions with `across` from `dplyr`
 
 `across()` makes it easy to apply the same transformation to multiple columns. Usually used with `summarize()` or `mutate()`.
 
 ```
-summarize(across( .cols = <columns>, .fns = function, ... )) 
+summarize(across( .cols = <columns>, .fns = function)) 
 ```
 or
 ```
-mutate(across(.cols = <columns>, .fns = function, ...))
+mutate(across(.cols = <columns>, .fns = function))
 ```
+
 - List columns first : `.cols = `
 - List function next: `.fns = `
-- Then list any arguments for the function (e.g., `na.rm = TRUE`)
+- If there are arguments to a function (e.g., `na.rm = TRUE`), the function may need to be modified to an anonymous function, e.g., `\(x) mean(x, na.rm = TRUE)`
+
 
 ## Applying functions with `across` from `dplyr`
 
@@ -301,6 +346,7 @@ cars_dbl %>%
   summarize(across(.cols = everything(), .fns = mean))
 ```
 
+
 ## Applying functions with `across` from `dplyr`
 
 Can use with other tidyverse functions like `group_by`!
@@ -311,17 +357,17 @@ cars_dbl %>%
   summarize(across(.cols = everything(), .fns = mean))
 ```
 
+
 ## Applying functions with `across` from `dplyr`
 
-Combining with `summarize()`:
+To add arguments to functions, may need to use anonymous function. In this syntax, the shorthand `\(x)` is equivalent to `function(x)`.
 
 ```{r warning=FALSE}
-# Adding arguments to the end!
-#
 cars_dbl %>%
   group_by(Make) %>%
-  summarize(across(.cols = everything(), .fns = mean, na.rm = TRUE))
+  summarize(across(.cols = everything(), .fns = \(x) mean(x, na.rm = TRUE)))
 ```
+
 
 ## Applying functions with `across` from `dplyr`
 
@@ -332,6 +378,7 @@ cars_dbl %>%
   group_by(Make) %>%
   summarize(across(.cols = starts_with("Veh"), .fns = mean))
 ```
+
 
 ## Applying functions with `across` from `dplyr`
 
@@ -345,7 +392,6 @@ cars_dbl %>%
     digits = -3
   ))
 ```
-
 
 
 ## Applying functions with `across` from `dplyr` {.smaller}
@@ -369,7 +415,10 @@ mort %>%
   ))
 ```
 
+
 ## Use custom functions within `mutate` and `across`
+
+If your function needs to span more than one line, better to define it first before using inside `mutate()` and `across()`.
 
 ```{r}
 times1000 <- function(x) x * 1000
@@ -394,12 +443,14 @@ airquality %>%
 
 Similar to across, `purrr` is a package that allows you to apply a function to multiple columns in a data frame or multiple data objects in a list.
 
+
 ## map_df
 
 ```{r}
 library(purrr)
 airquality %>% map_df(replace_na, replace = 0)
 ```
+
 
 # Multiple Data Frames
 
@@ -429,6 +480,7 @@ AQ_list %>% sapply(colMeans, na.rm = TRUE)
 - Need to use `across` within `summarize()` or `mutate()`
 - `purrr` is a package that you can use to do more iterative work easily
 - Can use `sapply` or `purrr` to work with multiple data frames within lists simultaneously
+
 
 ## Lab Part 2
 
