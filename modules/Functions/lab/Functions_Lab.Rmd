@@ -39,13 +39,19 @@ return(result)
 
 ```
 
-2. Create a function that takes two arguments, (1) a vector and (2) a numeric value. This function tests whether the number (2) is contained within the vector (1). Call it `has_n`. Test your function on the vector `c(2,7,21,30,90)` and number `21` - you should get the answer TRUE.
+2. Create a function that takes two arguments, (1) a vector and (2) a numeric value. This function tests whether the number (2) is contained within the vector (1). **Hint**: use `%in%`. Call it `has_n`. Test your function on the vector `c(2,7,21,30,90)` and number `21` - you should get the answer TRUE.
 
 ```{r}
 
 ```
 
 3. Amend the function `has_n` from #2 so that it takes a default value of `21` for the numeric argument.
+
+```{r}
+
+```
+
+4. Create a new number `b_num` that is not contained with `nums`. Use your updated `has_n` function with the default value and add `b_num` as the `n` argument when calling the function. What is the outcome?
 
 ```{r}
 
