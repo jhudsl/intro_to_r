@@ -13,7 +13,7 @@ library(knitr)
 library(stringr)
 library(tidyr)
 library(emo)
-library(read)
+library(readr)
 opts_chunk$set(comment = "")
 ```
 
@@ -45,11 +45,7 @@ function_name <- function(arg1, arg2, ...) {
 
 Here we will write a function that multiplies some number `x` by 2:
 
-```{r comment=""}
-`function_name <- function(arg_1, arg_2, ...) {
-   <function body> 
-}`
-
+```{r}
 times_2 <- function(x) x * 2
 ```
 
