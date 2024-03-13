@@ -43,7 +43,7 @@ Assign the plot to variable `my_plot`. Type `my_plot` in the console to have it 
 
 ```
 # General format
-ggplot(???, mapping = aes(x = ???, y = ???)) +
+ggplot(???, aes(x = ???, y = ???)) +
   ??? +
   ???
 ```
@@ -88,7 +88,7 @@ my_plot + theme_bw()
 
 ```{r}
 Orange %>%
-  ggplot(mapping = aes(x = Tree, y = circumference)) +
+  ggplot(aes(x = Tree, y = circumference)) +
   geom_boxplot()
 ```
 

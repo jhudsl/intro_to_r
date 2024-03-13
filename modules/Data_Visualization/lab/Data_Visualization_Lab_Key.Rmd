@@ -42,7 +42,7 @@ Assign the plot to variable `my_plot`. Type `my_plot` in the console to have it 
 
 ```
 # General format
-ggplot(???, mapping = aes(x = ???, y = ???)) +
+ggplot(???, aes(x = ???, y = ???)) +
   ??? +
   ???
 ```
@@ -50,7 +50,7 @@ ggplot(???, mapping = aes(x = ???, y = ???)) +
 ```{r}
 
 my_plot <-
-  ggplot(bike_agg, mapping = aes(x = dateInstalled, y = lane_avg_length)) +
+  ggplot(bike_agg, aes(x = dateInstalled, y = lane_avg_length)) +
   geom_line() +
   geom_point()
 
@@ -102,7 +102,7 @@ my_plot + theme_void()
 
 ```{r}
 Orange %>%
-  ggplot(mapping = aes(x = Tree, y = circumference)) +
+  ggplot(aes(x = Tree, y = circumference)) +
   geom_boxplot()
 ```
 
@@ -125,7 +125,7 @@ bike_agg_2
 2.  Use `ggplot2` package to make a plot showing trajectories of number of lanes (`lane_count`; y-axis) over year (`dateInstalled`; x-axis), where each bike line type has a different line with a different color (hint: use `color = type` in mapping). 
 
 ```{r}
-ggplot(bike_agg_2, mapping = aes(
+ggplot(bike_agg_2, aes(
   x = dateInstalled,
   y = lane_count,
   color = type
@@ -141,7 +141,7 @@ Assign the new plot as an object called `facet_plot`.
 
 ```{r}
 
-facet_plot <- ggplot(bike_agg_2, mapping = aes(
+facet_plot <- ggplot(bike_agg_2, aes(
   x = dateInstalled,
   y = lane_count,
   color = type
