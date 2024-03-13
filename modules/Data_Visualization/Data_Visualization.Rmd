@@ -291,13 +291,15 @@ ggplot(Orange, aes(x = circumference, y = age, color = Tree)) +
 
 ## Adding color - or change the color of each plot layer
 
-You can change look of each layer separately. Note the arguments like "linetype" and "alpha" that allow us to change the opacity of the points and style of the line respectively. 
+You can change look of each layer separately. Note the arguments like `linetype` and `alpha` that allow us to change the opacity of the points and style of the line respectively. 
 
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
 ggplot(Orange, aes(x = circumference, y = age)) +
   geom_point(size = 5, color = "red", alpha = 0.5) +
   geom_line(size = 0.8, color = "black", linetype = 2)
 ```
+
+`linetype` can be given as a number. See the docs for what numbers correspond to what `linetype`!
 
 # Customize the look of the plot
 
@@ -375,18 +377,6 @@ plot_scale <-ggplot(Orange, aes(x = circumference, y = age)) +
                 scale_y_continuous(breaks = seq(from = 100, to = 1600, by = 200))
 ```
 
-## Changing axis: specifying axis scale {.codesmall}
-
-```{r, fig.width=5, fig.height=1.8, fig.align='center'}
-plot_scale
-```
-
-```{r, fig.width=5, fig.height=1.8, fig.align='center', echo = TRUE}
-ggplot(Orange, aes(x = circumference, y = age)) +
-                geom_point(size = 5, color = "red", alpha = 0.5) +
-                geom_line(size = 0.8, color = "brown", linetype = 2)
-```
-
 ## Changing axis: specifying axis limits
 
 `xlim()` and `ylim()` can specify the limits for each axis
@@ -401,9 +391,21 @@ ggplot(Orange, aes(x = circumference, y = age)) +
 
 ```
 
+## Changing axis: specifying axis scale {.codesmall}
+
+```{r, fig.width=5, fig.height=1.8, fig.align='center'}
+plot_scale
+```
+
+```{r, fig.width=5, fig.height=1.8, fig.align='center', echo = TRUE}
+ggplot(Orange, aes(x = circumference, y = age)) +
+                geom_point(size = 5, color = "red", alpha = 0.5) +
+                geom_line(size = 0.8, color = "brown", linetype = 2)
+```
+
 ## Modifying plot objects
 
-You can add to a plot object to make changes!
+You can add to a plot object to make changes! Note that we can save our plots as an object like `plt1` below. And now if we reference `plt1` again our plot will print out!
 
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
 
@@ -414,7 +416,6 @@ plt1 <- ggplot(Orange, aes(x = circumference, y = age)) +
   xlim(100, max(pull(Orange, circumference)))
 
 plt1 + theme_minimal()
-
 ```
 
 ## Overwriting specifications
