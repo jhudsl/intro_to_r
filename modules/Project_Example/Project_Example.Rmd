@@ -57,7 +57,6 @@ This shows that there are 149 Countries.
 I decided to rename the first variable called `Country name` so that it would not have a space - this makes it easier to work with as I will not need to use quotes around it for most functions. I used the `rename()` function to do this, listing the new name first.
 
 ```{r}
-
 Happiness <- Happiness %>%
   rename("Country_name" = "Country name")
 colnames(Happiness)
@@ -150,8 +149,6 @@ ggplot(
 I then decided to make a plot of a few countries of interest. Since I again wanted to have countries ordered by the `Happiness_score`, I figured I might look at additional countries, so I decided to use the full dataset `Happiness`. 
 
 ```{r}
-
-
 Happiness <- Happiness %>%
   mutate(
     Country_name = as_factor(Country_name),
@@ -189,7 +186,6 @@ count(Happiness, `Regional indicator`) %>% tally()
 I then used `ggplot()`  and `geom_boxplot()` to create a boxplot of the happiness scores for the countries in these different regions. I decided to use `coord_flip()` to flip the coordinates to make it easier to read the different region names. I colored the boxplots but using the `fill` argument within the `aes` specifications. I changed the style of the plot with `theme_linedraw()` and I removed the legend using `theme(legend.position = "none")`.
 
 ```{r}
-
 ggplot(
   data = Happiness,
   aes(

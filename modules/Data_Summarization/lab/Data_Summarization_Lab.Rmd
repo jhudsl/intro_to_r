@@ -38,14 +38,12 @@ bike <- read_bike()
 1\. How many bike "lanes" are currently in Baltimore?  You can assume each observation/row is a different bike "lane".  (hint: how do you get the number of rows of a data set? You can use `dim()` or `nrow()` or another function).
 
 ```{r}
-
 ```
 
 
 2\. How many feet of bike "lanes" are currently in Baltimore, based on the `length` column? (use `sum()`)
 
 ```{r}
-
 ```
 
 
@@ -58,7 +56,6 @@ DATA_TIBBLE %>%
 ```
 
 ```{r}
-
 ```
 
 
@@ -73,7 +70,6 @@ DATA_TIBBLE %>%
 ```
 
 ```{r}
-
 ```
 
 
@@ -90,14 +86,12 @@ DATA_TIBBLE %>%
 ```
 
 ```{r}
-
 ```
 
 
 B\. You should have gotten a mean date sometime in the 1800s - that doesn't make much sense! Hypothesize why the average date is a date from before bike lanes were being built in Baltimore.
 
 ```{r}
-
 ```
 
 
@@ -109,7 +103,6 @@ DATA_TIBBLE %>% filter(LOGICAL_COMPARISON)
 ```
 
 ```{r}
-
 ```
 
 
@@ -118,14 +111,12 @@ DATA_TIBBLE %>% filter(LOGICAL_COMPARISON)
 5\. How many bike lanes are there in each type of lane? Use `count()` on the column named `type`. Use `bike` instead of `bike_2`.
 
 ```{r}
-
 ```
 
 
 6\. Modify your code from question 5 to break down each lane type by number of lanes. Use `count()` on the columns named `type` and `numLanes`.
 
 ```{r}
-
 ```
 
 
@@ -139,14 +130,12 @@ DATA_TIBBLE %>%
 ```
 
 ```{r}
-
 ```
 
 
 8\. Modify your code from #7 to also group by `numLanes`.
 
 ```{r}
-
 ```
 
 
@@ -163,7 +152,6 @@ D\. Modify code from #7 to also summarize by longest average bike lane length? I
 ```
 
 ```{r}
-
 ```
 
 
@@ -173,7 +161,6 @@ E\. Take your code from the above question `D` and do the following:
 - Add the `arrange()` to sort the output by the summarized column "mean".
 
 ```{r}
-
 ```
 
 
@@ -182,14 +169,12 @@ E\. Take your code from the above question `D` and do the following:
 9\. Create a histogram for the `length` column in the `bike` dataset. Try playing with the `breaks =` argument.
 
 ```{r}
-
 ```
 
 
 10\. Create a scatterplot of the `bike` dataset with `dateInstalled` on the x axis and `length` on the y axis.
 
 ```{r}
-
 ```
 
 
@@ -199,6 +184,5 @@ E\. Take your code from the above question `D` and do the following:
 F\. What kind of plot would be better for showing the length by each year group from `bike`? Make this plot. Also try this with the `bike_2` object above.
 
 ```{r}
-
 ```
 

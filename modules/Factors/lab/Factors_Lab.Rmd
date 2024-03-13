@@ -15,37 +15,31 @@ library(ggplot2)
 0. Load the Youth Tobacco Survey data (using the `jhur` library function `read_yts()`). `select` "Sample_Size",  "Education", and "LocationAbbr". Name this data "yts". 
 
 ```{r}
-
 ```
 
 1. Create a boxplot showing the difference in "Sample_Size" between Middle School and High School "Education". **Hint**: Use `aes(x = Education, y = Sample_Size)` and `geom_boxplot()`.
 
 ```{r}
-
 ```
 
 2. Use `count` to count up the number of observations of data for each "Education" group.
 
 ```{r}
-
 ```
 
 3. Make "Education" a factor using the `mutate` and `factor` functions. Use the `levels` argument inside `factor` to reorder "Education". Reorder this variable so that "Middle School" comes before "High School". Assign the output the name "yts_fct".
 
 ```{r}
-
 ```
 
 4. Repeat #1 and #2 using the "yts_fct" data. You should see different ordering in the plot and `count` table.
 
 ```{r}
-
 ```
 
 **Bonus / Extra practice**: Convert "LocationAbbr" (state) in "yts_fct" into a factor using the `mutate` and `factor` functions. Do not add a `levels =` argument.
 
 ```{r}
-
 ```
 
 **Bonus / Extra practice**: We want to create a new column that contains the group-level median sample size. 
@@ -55,7 +49,6 @@ library(ggplot2)
 - **Hint**: Since you have already done `group_by`, a median "Sample_Size" will automatically be created for each unique level in "LocationAbbr". Use the `median` function with `na.rm = TRUE`.
 
 ```{r}
-
 ```
 
 **Bonus / Extra practice**: We want to plot the "LocationAbbr" (state) by the "med_sample_size" column we created above. Using the `forcats` package, create a plot that:
@@ -72,5 +65,4 @@ Save your plot using `ggsave()` with a width of 10 and height of 3.
 Which state has the largest median sample size?
 
 ```{r}
-
 ```

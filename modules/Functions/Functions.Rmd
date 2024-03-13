@@ -234,7 +234,7 @@ Can create function with an argument that allows inputting a column name for `se
 
 ```{r}
 clean_dataset <- function(dataset, col_name) {
-  my_data_out <- dataset %>% select({{col_name}}) # Note the curly braces
+  my_data_out <- dataset %>% select({{ col_name }}) # Note the curly braces
   write_csv(my_data_out, "clean_data.csv")
   return(my_data_out)
 }
@@ -311,10 +311,14 @@ Already know how to use functions to modify columns using `mutate()` or calculat
 
 ```{r}
 mtcars %>%
-  mutate(wt_kg = wt*1000/2.205,
-         power_watts = hp*745.7) %>%
-  summarize(mean_kg = mean(wt_kg),
-            max_watts = max(power_watts))
+  mutate(
+    wt_kg = wt * 1000 / 2.205,
+    power_watts = hp * 745.7
+  ) %>%
+  summarize(
+    mean_kg = mean(wt_kg),
+    max_watts = max(power_watts)
+  )
 ```
 
 

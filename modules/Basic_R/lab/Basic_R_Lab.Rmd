@@ -24,14 +24,12 @@ my.num <- c(number1, number2, ...)
 ```
 
 ```{r}
-
 ```
 
 
 2\. Multiply `my.num` by 4.
 
 ```{r}
-
 ```
 
 
@@ -43,35 +41,30 @@ my.char <- c("character1", "character2", ...)
 ```
 
 ```{r}
-
 ```
 
 
 4\. Combine the two objects `my.num` and `my.char` into an object called `both`.
 
 ```{r}
-
 ```
 
 
 5\. What is the length of `both`? Use the `length()` function.
 
 ```{r}
-
 ```
 
 
 6\. What class is `both`?
 
 ```{r}
-
 ```
 
 
 **Bonus / Extra practice**: Create a vector that contains 4 sets of the numbers 1, 2, 3, and 4.
 
 ```{r}
-
 ```
 
 
@@ -80,7 +73,6 @@ my.char <- c("character1", "character2", ...)
 7\. Divide `both` by 3, what happens?
 
 ```{r, error=TRUE}
-
 ```
 
 
@@ -92,7 +84,6 @@ x <- c(...)
 ```
 
 ```{r}
-
 ```
 
 
@@ -104,14 +95,12 @@ y <- c(...)
 ```
 
 ```{r}
-
 ```
 
 
 10\. Determine the length of `x` and `y`. Next, add them together.
 
 ```{r}
-
 ```
 
 
@@ -123,21 +112,18 @@ y <- c(y, ...)
 ```
 
 ```{r}
-
 ```
 
 
 12\. Determine the length of `x` and `y`.
 
 ```{r}
-
 ```
 
 
 13\. Add `x` and `y` together. What happens?
 
 ```{r}
-
 ```
 
 
@@ -159,7 +145,6 @@ seq(from = NUMBER, to = NUMBER)
 ```
 
 ```{r}
-
 ```
 
 
@@ -171,33 +156,28 @@ rep(x = OBJECT_TO_REPEAT, times = NUM_TIMES_TO_REPEAT, each = NUM_TIMES_TO_REPEA
 ```
 
 ```{r}
-
 ```
 
 
 16\. What is the length of `int_vect_3`?
 
 ```{r}
-
 ```
 
 
 17\. Create a vector that takes the sequence "Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree" and repeats each element 10 times.
 
 ```{r}
-
 ```
 
 
 **Bonus / Extra practice**: "Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree" are often responses to surveys. Create a randomly sampled vector of 30 survey responses. (hint use `sample()` and set the replace argument to `TRUE`). Store the output as `my_responses`. Examine the data by typing the name `my_responses` in the Console.
 
 ```{r}
-
 ```
 
 
 **Bonus / Extra practice**: Let's say you change your survey so participants can rank their response 1-10 (inclusive). Create a randomly sampled vector of 30 survey responses. (hint use `seq()` and `sample()` and set the replace argument to `TRUE`). Store the output as `my_responses_2`. Examine the data by typing the name `my_responses_2` in the Console.
 
 ```{r}
-
 ```

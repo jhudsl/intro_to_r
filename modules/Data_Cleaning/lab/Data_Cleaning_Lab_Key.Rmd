@@ -111,7 +111,6 @@ BloodType %>% # another way
 2. Recode the `weight_loss` variable of the `BloodType` data so that it is consistent. Use `case_when()`. Keep "Other" as "Other". Don't forget to use quotes!
 
 ```{r}
-
 BloodType <- BloodType %>%
   mutate(weight_loss = case_when(
     weight_loss %in% c("N", "n", "No", "no") ~ "No",
@@ -137,7 +136,8 @@ BloodType <- BloodType %>%
   mutate(type = case_when(
     type == "o.-" ~ "O.-",
     type == "o.+" ~ "O.+",
-    TRUE ~ type))
+    TRUE ~ type
+  ))
 BloodType
 ```
 

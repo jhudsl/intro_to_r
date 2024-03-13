@@ -33,14 +33,12 @@ TF_vect2 <- rep(c("TRUE", "TRUE", "FALSE"), times = 10)
 2\. Determine the class of each of these new objects.
 
 ```{r}
-
 ```
 
 
 3\. Are `TF_vect` and `TF_vect2` different classes? Why or why not?
 
 ```{r}
-
 ```
 
 
@@ -55,7 +53,6 @@ vect_data <- tibble(int_vect, rand_vect, TF_vect, TF_vect2)
 5\. Coerce `rand_vect` to character class using `as.character()`. Save this vector as `rand_char_vect`. How is the output for `rand_vect` and `rand_char_vect` different?
 
 ```{r}
-
 ```
 
 
@@ -66,7 +63,6 @@ vect_data <- tibble(int_vect, rand_vect, TF_vect, TF_vect2)
 
 ```{r}
 circ <- read_circulator()
-
 ```
 
 
@@ -78,7 +74,6 @@ NEWDATA <- OLD_DATA %>% mutate(NEW_COLUMN = OLD_COLUMN)
 ```
 
 ```{r}
-
 ```
 
 
@@ -90,7 +85,6 @@ NEWDATA <- OLD_DATA %>% relocate(COLUMN1, .before = COLUMN2)
 ```
 
 ```{r}
-
 ```
 
 
@@ -98,7 +92,6 @@ NEWDATA <- OLD_DATA %>% relocate(COLUMN1, .before = COLUMN2)
 **Bonus / Extra practice**: Use `range()` function on `date_formatted` variable to display the range of dates in the data set. How does this compare to that of `date`? Why? (Hint: use the pull function first to pull the values.)
 
 ```{r}
-
 ```
 
 

@@ -25,14 +25,12 @@ library(tidyr)
 -  Do NOT use `read.csv()`.
 
 ```{r}
-
 ```
 
 
 2\. Look at the column names using `colnames` - do you notice any patterns?
 
 ```{r}
-
 ```
 
 
@@ -44,7 +42,6 @@ new_data <- old_data %>% rename(newname = oldname)
 ```
 
 ```{r}
-
 ```
 
 
@@ -56,7 +53,6 @@ new_data <- old_data %>% select(colname1, colname2, ...)
 ```
 
 ```{r}
-
 ```
 
 
@@ -68,7 +64,6 @@ new_data <- old_data %>% pivot_longer(cols = colname(s))
 ```
 
 ```{r}
-
 ```
 
 
@@ -80,7 +75,6 @@ new_data <- old_data %>% filter(colname %in% c(1, 2, 3, ...))
 ```
 
 ```{r}
-
 ```
 
 
@@ -92,7 +86,6 @@ new_data <- old_data %>% pivot_wider(names_from = column1, values_from = column2
 ```
 
 ```{r}
-
 ```
 
 
@@ -101,7 +94,6 @@ new_data <- old_data %>% pivot_wider(names_from = column1, values_from = column2
 A\. Take the code from Questions 1 and 3-7. Chain all of this code together using the pipe ` %>% `. Call your data `vacc_compare`.
 
 ```{r}
-
 ```
 
 
@@ -112,7 +104,6 @@ B\. Modify the code from Question A:
 -  Call your data `vacc_compare2`
 
 ```{r}
-
 ```
 
 
@@ -121,7 +112,6 @@ B\. Modify the code from Question A:
 8\. Read in the GDP and Personal Income Data from http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv. You can use the url or download the data. Call it "gdp". 
 
 ```{r}
-
 ```
 
 
@@ -133,7 +123,6 @@ new_data <- old_data %>% pivot_wider(names_from = column1, values_from = column2
 ```
 
 ```{r}
-
 ```
 
 
@@ -149,7 +138,6 @@ new_data <- inner_join(x, y, by = c("colname1" = "colname2"))
 ```
 
 ```{r}
-
 ```
 
 
@@ -161,7 +149,6 @@ new_data <- full_join(x, y, by = c("colname1" = "colname2"))
 ```
 
 ```{r}
-
 ```
 
 
@@ -170,14 +157,12 @@ new_data <- full_join(x, y, by = c("colname1" = "colname2"))
 C\. Do a left join of "vacc" and "gdp". Call the output "left". How many observations are there?
 
 ```{r}
-
 ```
 
 
 D\. Copy your code from Question D and change it to a `right_join` with the same order of the arguments. Call the output "right". How many observations are there?
 
 ```{r}
-
 ```
 
 
@@ -193,6 +178,5 @@ dplyr::setdiff(DATA_1, DATA_2)
 ```
 
 ```{r}
-
 ```
 

@@ -237,7 +237,7 @@ head(circ)
 Say we want to change `daily` to be an integer. We would need to use mutate to help us modify that column or create a new column. Let's create a new one so it is easier to see what is happening. 
 
 ```{r}
-circ_updated <- mutate(circ, daily_int= as.integer(daily))
+circ_updated <- mutate(circ, daily_int = as.integer(daily))
 circ_updated %>% select(daily, daily_int)
 ```
 

@@ -7,17 +7,14 @@ editor_options:
 
 1. Create two objects in your environment, `x` and `y`. Assign `x` as a vector of numbers 1, 2, and 3. Assign `y` as a vector of numbers 4, 5, and 6. Once complete, check that both objects are visible in your RStudio environment.
 ```{r}
-
 ```
 
 2. Clear your environment. Check that `x` and `y` are no longer in the environment by typing each letter in the console. What is the result?
 ```{r}
-
 ```
 
 3. Check your R session info. Which version of R are you running? Which version of the `knitr` package are you running? Write these details below.
 ```{r}
-
 ```
 
 - R version:
@@ -25,10 +22,8 @@ editor_options:
 
 **Bonus / Extra practice**: Create a vector `z` with the numbers 0 to 9. Set the seed for the R random number generator to 1234. Draw 5 numbers at random from `z` using the `sample()` function with `replace = TRUE`. Repeatedly run the code 3 times and note what you observe.
 ```{r}
-
 ```
 
 **Bonus / Extra practice**: Run the `sample()` statement again, but this time without running the `set.seed()` line. What do you notice about the 5 numbers?
 ```{r}
-
 ```

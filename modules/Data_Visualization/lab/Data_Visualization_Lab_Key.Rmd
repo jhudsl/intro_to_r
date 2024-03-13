@@ -48,7 +48,6 @@ ggplot(???, mapping = aes(x = ???, y = ???)) +
 ```
 
 ```{r}
-
 my_plot <-
   ggplot(bike_agg, mapping = aes(x = dateInstalled, y = lane_avg_length)) +
   geom_line() +
@@ -140,7 +139,6 @@ ggplot(bike_agg_2, mapping = aes(
 Assign the new plot as an object called `facet_plot`.
 
 ```{r}
-
 facet_plot <- ggplot(bike_agg_2, mapping = aes(
   x = dateInstalled,
   y = lane_count,

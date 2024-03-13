@@ -17,14 +17,12 @@ http://jhudatascience.org/intro_to_r/data/vaccinations.csv. You can learn more a
 2\. What is the dataset object called? You can find this information in the Console or the Environment. Enter your answer as a comment using `#`.
 
 ```{r}
-
 ```
 
 
 3\. Preview the data by clicking the table button in the Environment. How many observations and variables are there? Enter your answer as a comment using `#`.
 
 ```{r}
-
 ```
 
 
@@ -41,21 +39,18 @@ library(readr)
 ```
 
 ```{r}
-
 ```
 
 
 5\. Use `head()` to display the first few rows of the data frame. 
 
 ```{r}
-
 ```
 
 
 6\. Use `str()` to display the list of column names and their type specification. 
 
 ```{r}
-
 ```
 
 
@@ -64,7 +59,6 @@ library(readr)
 If it is not installed, install it via: `RStudio --> Tools --> Install Packages`. You can also try `install.packages("readxl")`.
 
 ```{r}
-
 ```
 
 
@@ -82,14 +76,12 @@ download.file(
 9\. Use the `read_excel()` function in the `readxl` package to read the `asthma.xlsx` file and call the output `asthma`. 
 
 ```{r}
-
 ```
 
 
 10\. Use the `head()` and `str()` functions to inspect the data.
 
 ```{r}
-
 ```
 
 
@@ -104,13 +96,11 @@ yts
 **Bonus / Extra practice**: By default, R reads the first sheet of an excel file. Copy your code from question 9 and add the following argument: `sheet = 2`. Inspect the data using `head()`.
 
 ```{r}
-
 ```
 
 
 **Bonus / Extra practice**: Install and load the `haven` package. Look at the help page for `read_dta()` function, and scroll to the very bottom of the page. Try running some of the examples provided.
 ```{r eval = FALSE}
-
 ```
 
 
@@ -119,7 +109,6 @@ yts
 11\. Learn your working directory by running `getwd()`
 
 ```{r}
-
 ```
 
 

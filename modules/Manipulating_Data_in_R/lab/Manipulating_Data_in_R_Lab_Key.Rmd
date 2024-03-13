@@ -228,7 +228,9 @@ dplyr::setdiff(DATA_1, DATA_2)
 
 ```{r}
 entity <- vacc %>% select(Entity)
-geoname <- gdp %>% select(GeoName) %>% rename(Entity = GeoName)
+geoname <- gdp %>%
+  select(GeoName) %>%
+  rename(Entity = GeoName)
 setdiff(entity, geoname) # In vacc "Entity" but not gdp "GeoName"
 setdiff(geoname, entity) # In gdp "GeoName" but not vacc "Entity"
 ```

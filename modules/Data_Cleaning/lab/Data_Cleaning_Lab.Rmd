@@ -33,8 +33,6 @@ The data is from http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gy
 You can Download as a CSV in your current working directory.  Note its also available at: 	http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv 
 
 ```{r}
-
-
 ```
 
 
@@ -42,8 +40,6 @@ You can Download as a CSV in your current working directory.  Note its also avai
 Hint: You first need to `pull` out the vector version of this variable to use the `is.na()` function.
 
 ```{r}
-
-
 ```
 
 
@@ -51,14 +47,11 @@ Hint: You first need to `pull` out the vector version of this variable to use th
 2.  Clean rows of bike, so that only rows remain that do NOT have missing values for the `route` variable,  using `drop_na`. Assign this to the object `have_route.`
 
 ```{r}
-
 ```
 
 3.  Use `naniar` to make a visual of the amount of data missing for each variable of `bike` (use `gg_miss_var()`). Check out more about this package here: https://www.njtierney.com/post/2018/06/12/naniar-on-cran/
 
 ```{r}
-
-
 ```
 
 
@@ -67,7 +60,6 @@ Hint: You first need to `pull` out the vector version of this variable to use th
 What percentage of the `subType` variable is complete of `bike` ? Hint: use another `naniar` function.
  
 ```{r}
-
 ```
 
 # Part 2
@@ -105,36 +97,28 @@ There are some issues with this data that we need to figure out!
 1. Determine how many `NA` values there are for `weight_loss` (assume you know that`N` and `n` is for no).
 .
 ```{r}
-
 ```
 
 2. Recode the `weight_loss` variable of the `BloodType` data so that it is consistent. Use `case_when()`. Keep "Other" as "Other". Don't forget to use quotes!
 
 ```{r}
-
-
-
-
 ```
 
 Check to see how many values `weight_loss` has for each category (hint: use `count`). It's good practice to regularly check your data throughout the data wrangling process.
 
 3.
 ```{r}
-
 ```
 
 4. Recode the `type` variable of the `BloodType` data to be consistent. Use `case_when()`. Hint: the inconsistency has to do with lower case `o` and capital `O`. Don't forget to use quotes! **Remember that important extra step that we often do for `case_when()`. Sometimes it matters and sometimes it doesn't.** Why is that?
 
 ```{r}
-
 ```
 
 5. Check to see that `type` only has these possible values:
  "A.-","A.+", "AB.-", "AB.+", "B-","B+", "O.-", "O.+"
 
 ```{r}
-
 ```
 
 6. Make a new tibble of `BloodType` called `Bloodtype_split` that splits the `type` variable into two called `blood_type` and  `Rhfactor`. Note: periods are special characters that generally are interpreted as wild cards thus we need "\\." instead of simply "." for the **separating character** to tell R that we want it to be interpreted as a period. Make sure you use quotes around "\\." and the column names like shown below (don't want backticks).
@@ -146,17 +130,14 @@ NEW_TIBBLE <- OLD_TIBBLE %>%
 ```
 
 ```{r}
-
 ```
 
 **Bonus / Extra practice**: How many observations are there for each `Rhfactor` in the data object you just made:
 ```{r}
-
 ```
 
 **Bonus / Extra practice**: Filtering for patients with type O, how many had the infection?
 ```{r}
-
 ```
 
 

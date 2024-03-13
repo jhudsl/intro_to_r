@@ -16,7 +16,7 @@ In this lab you can use the interactive console to explore but please record you
 First let's get the OCSdata package if we haven't already. We added an argument here so you don't have to select a mirror. 
 
 ```{r}
-install.packages("OCSdata", repos='http://cran.us.r-project.org')
+install.packages("OCSdata", repos = "http://cran.us.r-project.org")
 ```
 
 ```{r, message = FALSE}
@@ -161,7 +161,7 @@ select(county_pop, contains("a"))
 
 ```{r}
 county_2012 <- filter(county_pop, year == 2012)
-county_2012  <- select(county_2012, county_name, state_name, population)
+county_2012 <- select(county_2012, county_name, state_name, population)
 county_2012 # can get dimensions just from viewing the tibble
 dim(county_2012) # alternatively can use dim() function
 ```
@@ -179,7 +179,7 @@ dim(county_2012)
 What happens if you do the steps in a different order? Why does this not work?
 
 ```{r}
-#county_2012 <- county_pop %>%
+# county_2012 <- county_pop %>%
 #  select(county_name, state_name, population) %>%
 #  filter(year == 2012)
 # you get an error because there is now year variable to filter from
@@ -199,7 +199,7 @@ arrange(county_2012, population) %>%
 4. Create a new variable in `county_2012` called `pop1000`, which  is equal to `population` divided by 1000, using `mutate()`(don't forget to reassign `county_2012`). Use pipes `%>%`:
 
 ```{r}
-county_2012 <- county_2012 %>% mutate(pop1000 = population/1000)
+county_2012 <- county_2012 %>% mutate(pop1000 = population / 1000)
 ```
 
 
