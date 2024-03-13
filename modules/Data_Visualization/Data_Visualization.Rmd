@@ -291,7 +291,7 @@ ggplot(Orange, aes(x = circumference, y = age, color = Tree)) +
 
 ## Adding color - or change the color of each plot layer
 
-You can change look of each layer separately.
+You can change look of each layer separately. Note the arguments like "linetype" and "alpha" that allow us to change the opacity of the points and style of the line respectively. 
 
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
 ggplot(Orange, aes(x = circumference, y = age)) +
@@ -315,6 +315,13 @@ ggplot(Orange, aes(x = circumference, y = age)) +
   geom_line(size = 0.8, color = "brown", linetype = 2) +
   theme_dark()
 ```
+
+## More themes!
+
+There's not only the built in ggplot2 themes but all kinds of themes from other packages! 
+- [ggthemes](https://jrnold.github.io/ggthemes/)
+- [ThemePark package](https://github.com/MatthewBJane/ThemePark)
+- [hrbr themes](https://github.com/hrbrmstr/hrbrthemes)
 
 ## Customize the look of the plot
 
@@ -585,6 +592,7 @@ Orange %>% ggplot(aes(x = circumference,
 
 Guide on how to: <https://rpubs.com/mclaire19/ggplot2-custom-themes>
 
+
 ## Group and/or color by variable's values
 
 First, we will read in some data for the purpose of demonstration about food prices over time.
@@ -685,6 +693,12 @@ rp_fac_plot <- ggplot(food, aes(x = observation_time, y = item_price_change,colo
                   facet_wrap( ~ item_categ, ncol = 1, scales = "free")
 rp_fac_plot
 ```
+
+
+## Tips!
+
+Let's talk additional tricks and tips for making ggplots!
+
 
 ## Tips - Color vs Fill {.codesmall}
 
