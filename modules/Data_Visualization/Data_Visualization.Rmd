@@ -394,21 +394,6 @@ ggplot(Orange, mapping = aes(x = circumference, y = age)) +
 
 ```
 
-## Removing the legend label
-
-You can use `theme(legend.position = "none")` to remove the legend. 
-
-```{r, fig.width=5, fig.height=3, fig.align='center'}
-
-ggplot(Orange, mapping = aes(x = circumference, y = age)) +
-  geom_point(size = 5, color = "red", alpha = 0.5) +
-  geom_line(size = 0.8, color = "brown", linetype = 2) +
-  labs(title = "My plot of orange tree circumference vs age") +
-  xlim(100, max(pull(Orange, circumference))) + 
-  theme(legend.position = "none")
-
-```
-
 ## Modifying plot objects
 
 You can add to a plot object to make changes!
@@ -434,6 +419,19 @@ Orange %>% ggplot(aes(x = circumference,
                       y = age,
                       color = Tree)) +
   geom_line(size = 0.8)
+```
+
+## Removing the legend label
+
+You can use `theme(legend.position = "none")` to remove the legend. 
+
+```{r, fig.width=5, fig.height=3, fig.align='center'}
+
+Orange %>% ggplot(aes(x = circumference,
+                      y = age,
+                      color = Tree)) +
+  geom_line(size = 0.8) + 
+  theme(legend.position = "none")
 ```
 
 ## Overwriting specifications
