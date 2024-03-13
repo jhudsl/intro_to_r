@@ -40,7 +40,7 @@ RUN apt-get -y --no-install-recommends install \
    python3-pip  python3-dev
 
 # JHUR package
-RUN Rscript -e "options(warn = 2); install.packages('remotes'); remotes::install_github('muschellij2/jhur')"
+RUN Rscript -e "options(warn = 2); install.packages('remotes'); remotes::install_github('muschellij2/jhur');remotes::install_github("MatthewBJane/ThemePark")"
 
 # R packages
 RUN Rscript -e  "options(warn = 2);install.packages( \
