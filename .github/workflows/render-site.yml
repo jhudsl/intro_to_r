@@ -21,7 +21,7 @@ jobs:
     name: Render Main Site and Materials
     runs-on: ubuntu-latest
     container:
-      image: jhudsl/intro_to_r:1.1
+      image: jhudsl/intro_to_r:1.1.1
     
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -123,7 +123,7 @@ jobs:
     needs: render-main
     runs-on: ubuntu-latest
     container:
-      image: jhudsl/intro_to_r:1.1
+      image: jhudsl/intro_to_r:1.1.1
     strategy:
       matrix:
         modulenames: ${{fromJson(needs.render-main.outputs.pdffiles)}}

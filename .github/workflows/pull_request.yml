@@ -269,7 +269,7 @@ jobs:
     needs: yaml-check
     runs-on: ubuntu-latest
     container:
-      image: jhudsl/intro_to_r:1.1
+      image: jhudsl/intro_to_r:1.1.1
     if: ${{needs.yaml-check.outputs.toggle_render_preview == 'yes'}}
 
     steps:
@@ -428,7 +428,7 @@ jobs:
     needs: render-preview
     runs-on: ubuntu-latest
     container:
-      image: jhudsl/intro_to_r:1.1
+      image: jhudsl/intro_to_r:1.1.1
     if: ${{needs.yaml-check.outputs.toggle_render_preview == 'yes'}}
     strategy:
       matrix:
