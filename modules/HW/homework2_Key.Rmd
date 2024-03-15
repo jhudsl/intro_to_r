@@ -6,7 +6,7 @@ output:
 
 ### **Instructions**
 
-Completed homework should be submitted on CoursePlus as an Rmd file. Please see the course website for more information about submitting assignments: https://jhudatascience.org/intro_to_r/syllabus.html#submitting-assignments.
+Completed homework should be submitted on CoursePlus as an **Rmd file**. Please see the course website for more information about submitting assignments: https://jhudatascience.org/intro_to_r/syllabus.html#submitting-assignments.
 
 Homework will be graded for correct output, not code style. All assignments are due at the end of the course. Please see the course website for more information about grading: https://jhudatascience.org/intro_to_r/syllabus.html#grading.
 
@@ -45,9 +45,8 @@ me <- c(bday, name)
 
 ```{r 3response}
 class(me)
+# The class for "me" is "character"
 ```
-
-<span style="color:red"> The class for "me" is `r class(me)`. </span>
 
 
 4\. If I want to do `me / 2` I get the following error: `Error in me/2 : non-numeric argument to binary operator`. Why? Write your answer as a comment inside the R chunk below.
@@ -118,9 +117,8 @@ str(cars)
 ```{r 8response}
 dim(cars)
 nrow(cars)
+# There are 72983 cars in the dataset and 34 variables.
 ```
-
-<span style="color:red"> There are `r nrow(cars)` cars in the dataset and `r ncol(cars)` variables. </span>
 
 
 9\. Filter out (i.e., remove) any vehicles that cost less than or equal to $5000 ("VehBCost") or that have missing values. Replace the original "cars" object by reassigning the new filtered dataset to "cars". How many vehicles are left after filtering?
@@ -133,9 +131,9 @@ nrow(cars)
 # OR
 cars <- cars %>% filter(VehBCost > 5000)
 nrow(cars)
-```
 
-<span style="color:red"> There are `r nrow(cars)` cars after filtering by price. </span>
+# There are 59957 cars after filtering by price.
+```
 
 
 10\. From this point on, work with the filtered "cars" dataset from the above question. Given the average car loan today is 70 months, create a new variable (column) called "MonthlyPrice" that shows the monthly cost for each car (Divide "VehBCost" by 70). Check to make sure the new column is there.
@@ -160,9 +158,9 @@ range(car_range)
 # OR
 range(cars$VehYear)
 table(cars$VehYear)
-```
 
-<span style="color:red"> The range is `r range( cars %>% pull(VehYear) )`. </span>
+# The range is 2001 2010. 
+```
 
 
 12\. Create a random sample with of mileage (odometer reading) from `cars`. To determine the column that corresponds to mileage (The vehicle's odometer reading), check the "key" corresponding to the data dictionary that you imported above in question 6. Use `sample()` and `pull()`. Remember that by default random samples differ each time you run the code.
@@ -193,9 +191,9 @@ table(cars$VehYear < 2004)
 nrow(cars %>% filter(VehYear < 2004)) / nrow(cars)
 # OR
 mean(cars$VehYear < 2004)
-```
 
-<span style="color:red"> The percent of cars were from before 2004 is `r nrow(cars %>% filter(VehYear < 2004)) / nrow(cars) * 100`. </span>
+# The percent of cars were from before 2004 is 10.22733. 
+```
 
 
 14\. How many different vehicle manufacturers/makes ("Make") are there?
@@ -213,9 +211,9 @@ length(unique(cars %>% pull(Make)))
 length(unique(cars$Make))
 # OR
 length(table(cars$Make))
-```
 
-<span style="color:red"> `r length(unique(cars$Make))` unique makes. </span>
+# 32 unique makes.
+```
 
 
 15\. How many different vehicle models ("Model") are there?
@@ -225,9 +223,9 @@ cars %>%
   pull(Model) %>%
   unique() %>%
   length()
-```
 
-<span style="color:red"> `r length(unique(cars$Model))` unique models. </span>
+# 985 unique models.
+```
 
 
 16\. Which vehicle color group had the highest mean acquisition cost paid for the vehicle at time of purchase, and what was this cost?
@@ -267,9 +265,9 @@ cars %>%
   count()
 # OR
 sum(cars$Color == "RED" & cars$VehOdo < 30000)
-```
 
-<span style="color:red"> A total of `r sum(cars$Color == "RED" & cars$VehOdo < 30000)` cars. </span>
+# A total of 24 cars.
+```
 
 
 19\. How many vehicles are blue or red? use:
@@ -290,9 +288,9 @@ cars %>%
 sum(cars$Color == "BLUE" | cars$Color == "RED")
 # OR
 sum(cars$Color %in% c("BLUE", "RED"))
-```
 
-<span style="color:red"> A total of `r sum(cars$Color %in% c("BLUE","RED"))` cars. </span>
+# A total of 13777 cars.
+```
 
 
 20\. Select all columns in "cars" where the column names starts with "Veh" (using `select()` and `starts_with()`. Then, use `colMeans()` to summarize across these columns.
@@ -328,9 +326,9 @@ mean_not_red_nissan <- cars %>%
   filter(Color != "RED" | Make != "NISSAN") %>%
   summarize(mean = mean(VehOdo)) %>%
   pull()
-```
 
-<span style="color:red"> Red Nissans have an average odometer of `r mean_red_nissan` while cars not fitting this criteria are `r mean_not_red_nissan` </span>
+# Red Nissans have an average odometer of 75117.32 while cars not fitting this criteria are 70324.34.
+```
 
 
 C\. Among red Nissans, what is the distribution of vehicle ages?
@@ -364,9 +362,9 @@ sum(cars$Make %in% c("CHRYSLER", "NISSAN") & cars$Color %in% c("WHITE", "SILVER"
 cars %>%
   filter(Make %in% c("CHRYSLER", "NISSAN") & cars$Color %in% c("WHITE", "SILVER")) %>%
   count()
-```
 
-<span style="color:red"> A total of `r sum((cars$Make == "CHRYSLER" | cars$Make=="NISSAN") & (cars$Color == "WHITE" | cars$Color == "SILVER" ))` cars. </span>
+# A total of 3718 cars. 
+```
 
 
 E\. Make a boxplot (`boxplot()`) that looks at vehicle age ("VehicleAge") on the x-axis and odometer reading ("VehOdo") on the y-axis.
