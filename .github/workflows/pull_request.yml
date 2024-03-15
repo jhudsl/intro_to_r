@@ -85,10 +85,11 @@ jobs:
       image: jhudsl/base_ottr:main
 
     steps:
-      - name: Checkout files
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.GH_PAT }}
 
       - name: Run styler
         run: Rscript -e "styler::style_file(list.files(pattern = 'Rmd$', recursive = TRUE, full.names = TRUE));warnings()"
@@ -111,10 +112,11 @@ jobs:
       image: ${{needs.yaml-check.outputs.rendering_docker_image}}
 
     steps:
-      - name: Checkout files
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.GH_PAT }}
 
       - name: Run lab converter
         shell: bash
