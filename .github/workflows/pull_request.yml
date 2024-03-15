@@ -131,6 +131,9 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
+          branch_name='preview-${{ github.event.pull_request.number }}'
+          git fetch --all
+          git checkout $branch_name
           git add \*.Rmd
           git commit -m 'Create Lab Rmds from Keys' || echo "No changes to commit"
           git push origin || echo "No changes to commit"
