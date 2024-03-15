@@ -21,7 +21,7 @@ library(forcats)
     * Character: strings or individual characters, quoted
     * Numeric: any real number(s)
     * Integer: any integer(s)/whole numbers (1,2,3)
-    * Double: any number with fractional values (1.2, 4.0)
+    * Double: any number with fractional values (1.2, 4.01, 1.00004)
     * Factor: categorical/qualitative variables
     * Logical: variables composed of TRUE or FALSE
     * Date/POSIXct: represents calendar dates and times
@@ -116,21 +116,26 @@ as.Date(c("2021-06-15", "2021-06-32"))
 
 There are two major number subclasses or types
 
-1) Double
-2) Integer
+1) Double (1.003)
+2) Integer (1)
 
 ## Double
 
-`Double` is equivalent to `numeric`. It is a number that contains <span style="color: red;">fractional values</span>.
+`Double` is equivalent to `numeric`. It is a number that contains <span style="color: red;">fractional values </span>. Can be any amount of places after the decimal.
 
 `Double` stands for [double-precision](https://en.wikipedia.org/wiki/Double-precision_floating-point_format)
 
 ```{r double}
-y <- c(1.1, 2.0, 3.2, 4.5, 5.6)
+y <- c(1.1, 2.0, 3.21, 4.5, 5.62)
 y
 class(y)
 typeof(y)
 ```
+
+## Significant figures and other formats
+
+The `num` function of the `tibble` package can be used to change format. See here for more: https://tibble.tidyverse.org/articles/numbers.html 
+
 
 
 ## Integer
