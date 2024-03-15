@@ -1,5 +1,5 @@
 ---
-title: "Starting with R and RMarkdown"
+title: "Starting with R and RMarkdown - Key"
 output: html_document
 editor_options: 
   chunk_output_type: console
@@ -64,6 +64,24 @@ Here we plot a few days. You can embed an R code chunk like this: Try pressing t
 ```{r plot_circ, out.width = "100%"}
 # keep only some days
 avg <- avg %>%
+  filter(day %in% c("Monday", "Tuesday", "Friday", "Saturday"))
+
+palette <- c(
+  banner = "blue",
+  green = "darkgreen",
+  orange = "orange",
+  purple = "purple"
+)
+
+ggplot(aes(x = date, y = number, colour = line), data = avg) +
+  geom_line() +
+  facet_wrap(~day) +
+  scale_colour_manual(values = palette)
+```
+
+```{r 0response, out.width = "100%"}
+# keep only some days
+avg <- avg %>%
   filter(day %in% c("Monday", "Tuesday", "Friday", "Sunday"))
 
 palette <- c(
@@ -110,6 +128,6 @@ x <- c(1, 2, 3)
 
 
 
-```{r echo=FALSE}
+```{r echo=FALSE, label = '2response'}
 x
 ```
