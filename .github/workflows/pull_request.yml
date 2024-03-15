@@ -32,8 +32,8 @@ jobs:
       - name: Make the branch fresh
         run: |
           git config --global --add safe.directory $GITHUB_WORKSPACE
-          git config --global user.email "itcrtrainingnetwork@gmail.com"
-          git config --global user.name "jhudsl-robot"
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
           branch_name='preview-${{ github.event.pull_request.number }}'
           echo branch doesnt exist
@@ -97,6 +97,9 @@ jobs:
       - name: Commit styled files
         run: |
           git config --system --add safe.directory "$GITHUB_WORKSPACE"
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
           git add \*.Rmd
           git commit -m 'Style Rmds' || echo "No changes to commit"
           git push origin || echo "No changes to commit"
@@ -125,6 +128,9 @@ jobs:
       - name: Commit lab Rmds created from lab key Rmds
         run: |
           git config --system --add safe.directory "$GITHUB_WORKSPACE"
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
           git add \*.Rmd
           git commit -m 'Create Lab Rmds from Keys' || echo "No changes to commit"
           git push origin || echo "No changes to commit"
@@ -158,8 +164,8 @@ jobs:
       # Set up git checkout
       - name: Set up git checkout
         run: |
-          git config --local user.email "itcrtrainingnetwork@gmail.com"
-          git config --local user.name "jhudsl-robot"
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
           branch_name='preview-${{ github.event.pull_request.number }}'
           git fetch --all
@@ -317,8 +323,8 @@ jobs:
       # Set up git checkout
       - name: Set up git checkout
         run: |
-          git config --local user.email "itcrtrainingnetwork@gmail.com"
-          git config --local user.name "jhudsl-robot"
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
           branch_name='preview-${{ github.event.pull_request.number }}'
           git fetch --all
