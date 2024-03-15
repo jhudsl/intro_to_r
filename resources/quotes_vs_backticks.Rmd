@@ -5,6 +5,18 @@ output:
     css: ../docs/web_styles.css
 ---
 
+```{css, echo=FALSE}
+.bg-error {
+  background-color: #fde4e4;
+  border: 2px solid #ce0707;
+  color: #ce0707
+}
+code{
+  background-color: #ffffff;
+  color: #000
+}
+```
+
 When do you use quotes, backticks, or nothing in R?
 
 There are some inconsistencies across different functions, sometimes you just need to try them out. Always check that your work did what you expect!
@@ -17,9 +29,9 @@ In general these are the conventions for working with values (recall that values
 library(kableExtra)
 text_tbl <- data.frame(
   Type = c("character string", "character string ", "atypical", "atypical", "atypical", "atypical"),
-  Example = c("Liver", "New York", "col 1", "col.1", "1", "1st col"),
+  Example = c("`Liver`", "`New York`", "`col 1`", "`col.1`", "`1`", "`1st col`"),
   Features = c("word", "phrase", "has spaces and numbers", "has punctuation ", "just a number", "starts with number"),
-  Use = c("use quotes - single or double", "use quotes - single or double", "use `backticks`", "use `backticks`", "use `backticks`", "use `backticks`")
+  Use = c("quotation marks - single or double", "quotation marks - single or double", "`backticks`", "`backticks`", "`backticks`", "`backticks`")
 )
 kbl(text_tbl) %>%
   # kable_classic(full_width = F, html_font = "helvetica") %>%
@@ -49,22 +61,24 @@ text_tbl <- data.frame(
     "recode()",
     "case_when()",
     "stringr functions (ex. str_detect())",
-    "pivot_longer()/pivot_wider()",
+    "joins",
+    "pivot_longer() / pivot_wider()",
     "modeling functions"
   ),
   Use = c(
-    "Tolerates quotes or backticks if atypical",
-    "Tolerates quotes or backticks if atypical",
-    "Only backticks if atypical",
-    "Only backticks if atypical",
-    "Tolerates quotes or backticks if atypical",
-    "Only quotes tolerated",
-    "Only quotes tolerated",
-    "Tolerates quotes or backticks if atypical",
-    "Only quotes tolerated",
-    "Only quotes tolerated",
-    "Only quotes tolerated",
-    "Only backticks if atypical"
+    "Quotation marks _okay_, use backticks _if atypical_",
+    "Quotation marks _okay_, use backticks _if atypical_",
+    "Quotation marks _not tolerated_, use backticks _if atypical_",
+    "Quotation marks _not tolerated_, use backticks _if atypical_",
+    "Quotation marks _okay_, use backticks _if atypical_",
+    "Quotation marks _required_",
+    "Quotation marks _required_",
+    "Quotation marks _okay_, use backticks _if atypical_",
+    "Quotation marks _required_",
+    "Quotation marks _required_",
+    "Quotation marks _okay_, use backticks _if atypical_",
+    "_See examples below_",
+    "Quotation marks _not tolerated_, use backticks _if atypical_"
   )
 )
 kbl(text_tbl) %>%
@@ -76,10 +90,13 @@ kbl(text_tbl) %>%
   row_spec(5, background = "lightgreen") %>%
   row_spec(6:7, background = "lightblue") %>%
   row_spec(8, background = "lightgreen") %>%
-  row_spec(9:11, background = "lightblue") %>%
-  row_spec(12, background = "yellow")
+  row_spec(9:10, background = "lightblue") %>%
+  row_spec(11, background = "lightgreen") %>%
+  row_spec(12, background = "lightblue") %>%
+  row_spec(13, background = "yellow")
 ```
 
+## Examples {.tabset .tabset-fade}
 
 ### `tibble()` for naming variables
 
@@ -216,14 +233,18 @@ Only backticks will work here. Otherwise, the variable gets interpreted as a cha
 ```{r}
 ex_data %>%
   summarize(mean = mean(`2022`))
+```
 
+```{r, error = TRUE, class.error="bg-error", class.warning="bg-error"}
 # will not work
-# ex_data %>%
-#   summarize(mean = mean("2022"))
+ex_data %>%
+  summarize(mean = mean("2022"))
+```
 
+```{r, error = TRUE, class.error="bg-error", class.warning="bg-error"}
 # will not work
-# ex_data %>%
-#   summarize(mean = mean("Number!"))
+ex_data %>%
+  summarize(mean = mean("Number!"))
 ```
 
 ### `mutate()`
@@ -349,47 +370,76 @@ str_detect(pattern = "t", string = x)
 # str_detect(pattern = `t`, string = x)
 ```
 
+### `join` functions
+
+By default, joins don't use column names. The two supplied data objects are not in quotation marks:
+
+```{r}
+band_members %>% inner_join(band_instruments)
+```
+
+If you supply the `by = ` argument, you can use no quotation marks, quotation marks, or backticks.
+
+```{r}
+band_members %>% inner_join(band_instruments, by = join_by(name))
+band_members %>% inner_join(band_instruments, by = join_by("name"))
+band_members %>% inner_join(band_instruments, by = join_by(`name`))
+```
+
+Use backticks if the column name is atypical.
+
+```{r}
+band_instruments_2 <- rename(band_instruments, `1.name` = name)
+band_members %>% inner_join(band_instruments_2, by = join_by(name == `1.name`))
+```
+
 
 ### `pivot_longer` and `pivot_wider`
 
-For column names that do not exist yet, you need quotes (single or double). Backticks will not work.
+These functions are a bit trickier because they have multiple arguments.
 
-```{r, eval = FALSE}
-library(jhur)
-wide_circ <- read_circulator()
+It is okay if the columns you are pivoting are without quotation marks, with quotation marks, or with backticks. See `religion` in the example below. Here, the exclamation point is not part of the column name, but rather indicating negation (all columns _except_ religion).
 
-long_circ <- wide_circ %>%
-  pivot_longer(
-    cols = contains(c("boarding")),
-    names_to = "Route!",
-    values_to = "Boardings"
-  )
+```{r}
+# These work!
+relig_income %>%
+  pivot_longer(!religion, names_to = "income", values_to = "count")
 
-long_circ <- wide_circ %>%
-  pivot_longer(
-    cols = contains(c("boarding")),
-    names_to = "Route",
-    values_to = "Boardings"
-  )
+relig_income %>%
+  pivot_longer(!"religion", names_to = "income", values_to = "count")
+
+relig_income %>%
+  pivot_longer(!`religion`, names_to = "income", values_to = "count")
+
+# Use backticks if atypical
+relig_income %>%
+  pivot_longer(c(`$10-20k`, `<$10k`), names_to = "income", values_to = "count")
 ```
 
-These will not work:
-```{r, eval = FALSE}
-long_circ <- wide_circ %>%
-  pivot_longer(
-    cols = contains(c("boarding")),
-    names_to = `Route`,
-    values_to = `Boardings`
-  )
+However, the new column names you are providing _must_ be in quotation marks. Here, these are supplied in the `names_to` and `values to` arguments. Pay attention to "income" and "count".
 
-long_circ <- wide_circ %>%
-  pivot_longer(
-    cols = contains(c("boarding")),
-    names_to = Route,
-    values_to = Boardings
-  )
-``` 
+```{r}
+# This works
+relig_income %>%
+  pivot_longer(!religion, names_to = "income", values_to = "count")
+```
 
+```{r, error = TRUE, class.error="bg-error", class.warning="bg-error"}
+# will not work
+relig_income %>%
+  pivot_longer(!religion, names_to = income, values_to = count)
+```
+
+When using `pivot_wider()`, quotation marks are optional for the `names_from` and `values_from` arguments.
+
+```{r}
+# These work!
+fish_encounters %>%
+  pivot_wider(names_from = station, values_from = seen)
+
+fish_encounters %>%
+  pivot_wider(names_from = "station", values_from = "seen")
+```
 
 
 ###  `glm()`
@@ -401,9 +451,16 @@ car_data <- mtcars
 fit_cars <- glm(mpg ~ cyl + disp + hp + wt * gear, data = car_data)
 ```
 
-Use backticks if there is an atypical name. Do not use quotes.
+Use backticks if there is an atypical name.
 
 ```{r}
 car_data <- rename(car_data, `mpg!` = mpg)
 fit_cars <- glm(`mpg!` ~ cyl + disp + hp + wt * gear, data = car_data)
+```
+
+Do not use quotes.
+
+```{r, error = TRUE, class.error="bg-error", class.warning="bg-error"}
+# will not work
+fit_cars <- glm("mpg!" ~ cyl + disp + hp + wt * gear, data = car_data)
 ```
