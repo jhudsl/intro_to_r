@@ -120,6 +120,19 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.GH_PAT }}
+      
+      # Set up git checkout
+      - name: Set up git checkout
+        run: |
+          git config --system --add safe.directory "$GITHUB_WORKSPACE"
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+          branch_name='preview-${{ github.event.pull_request.number }}'
+          git fetch --all
+          git checkout $branch_name
+          git merge -s recursive --strategy-option=theirs origin/${{ github.head_ref }} --allow-unrelated-histories
+        shell: bash
 
       - name: Run lab converter
         shell: bash
@@ -127,10 +140,6 @@ jobs:
 
       - name: Commit lab Rmds created from lab key Rmds
         run: |
-          git config --system --add safe.directory "$GITHUB_WORKSPACE"
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          
           branch_name='preview-${{ github.event.pull_request.number }}'
           git fetch --all
           git checkout $branch_name
