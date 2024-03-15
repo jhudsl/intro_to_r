@@ -3060,18 +3060,21 @@ var loadDeck = function(event) {
   });
 };
 
-if (document.readyState !== "loading" &&
-    document.querySelector('slides') === null) { 
-  // if the document is done loading but our element hasn't yet appeared, defer
-  // loading of the deck
-  window.setTimeout(function() {
-    loadDeck(null);
-  }, 0);
-} else {
-  // still loading the DOM, so wait until it's finished
-  document.addEventListener("DOMContentLoaded", loadDeck);
-}
+if (!window.Shiny) {
+  // If Shiny is loaded, the slide deck is initialized in ioslides template
 
+  if (document.readyState !== "loading" &&
+      document.querySelector('slides') === null) {
+    // if the document is done loading but our element hasn't yet appeared, defer
+    // loading of the deck
+    window.setTimeout(function() {
+      loadDeck(null);
+    }, 0);
+  } else {
+    // still loading the DOM, so wait until it's finished
+    document.addEventListener("DOMContentLoaded", loadDeck);
+  }
+}
 
 
 </script>
@@ -3267,7 +3270,7 @@ background-color: lightgreen;
 <li>Code chunks can be modified so that they show differently in reports</li>
 </ul>
 
-<p>📃<a href='https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf' title=''>RStudio Cheatsheet</a></p>
+<p>📃<a href='https://raw.githubusercontent.com/rstudio/cheatsheets/main/rstudio-ide.pdf' title=''>RStudio Cheatsheet</a></p>
 
 </article></slide><slide class=""><hgroup><h2>Explaining output on slides</h2></hgroup><article  id="explaining-output-on-slides">
 
@@ -3695,7 +3698,7 @@ seq_hun</pre>
 <pre class = 'prettyprint lang-r'>y &lt;- sample(x = seq_hun, size = 5, replace = TRUE)
 y</pre>
 
-<pre >[1] 33 37  4 47 40</pre>
+<pre >[1]  25  84  75   4 100</pre>
 
 </article></slide><slide class=""><hgroup><h2>Summary</h2></hgroup><article  id="summary">
 
@@ -3744,6 +3747,11 @@ y</pre>
        window.jQuery(document).on('slideenter', function(e) {
          window.jQuery(e.target).trigger('shown');
       });
+    }
+    if (window.Shiny) {
+      // Initialize slides when this script appears on the page, since it
+      // indicates that the <slides> markup has been fully loaded.
+      window.loadDeck();
     }
   })();
 </script>
