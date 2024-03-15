@@ -81,15 +81,7 @@ Examples:
 - `as.Date()`
 - `as.factor()` (More on this one later!)
 
-## General Class Information: Checking
 
-
-```{r logical_coercion}
-class(4)
-class(c(1, 4, 7))
-class("tree")
-class(c("tree", "cloud"))
-```
 
 ## Coercing: seamless transition
 
@@ -282,25 +274,6 @@ Two-dimensional classes are those we would often use to store data read from a f
     * for example: all entries are `numeric`, or all entries are `character`
 
 
-## Matrices
-
-`as.matrix()` creates a matrix from a data frame or tibble (where all values are the same class).
-
-```{r,}
-circ_mat <- select(circ, contains("orange")) %>%
-  head(n = 3)
-circ_mat
-as.matrix(circ_mat)
-```
-
-## Matrices
-
-`matrix()` creates a matrix from scratch.
-
-```{r}
-matrix(1:6, ncol = 2)
-```
-
 ## Lists
 
 * One other data type that is the most generic are `lists`.
@@ -312,23 +285,11 @@ matrix(1:6, ncol = 2)
 
 * Can be created using `list()`
 ```{r makeList}
-mylist <- list(c("A", "b", "c"), c(1, 2, 3), matrix(1:4, ncol = 2))
+mylist <- list(c("A", "b", "c"), c(1, 2, 3))
 mylist
 class(mylist)
 ```
 
-## Lists
-
-List elements can be named
-
-```{r makeListv}
-mylist_named <- list(
-  letters = c("A", "b", "c"),
-  numbers = c(1, 2, 3),
-  one_matrix = matrix(1:4, ncol = 2)
-)
-mylist_named
-```
 
 
 # Special data classes
@@ -420,6 +381,39 @@ knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
 
 # Extra Slides
+
+## Matrices
+
+`as.matrix()` creates a matrix from a data frame or tibble (where all values are the same class).
+
+```{r,}
+circ_mat <- select(circ, contains("orange")) %>%
+  head(n = 3)
+circ_mat
+as.matrix(circ_mat)
+```
+
+## Matrices
+
+`matrix()` creates a matrix from scratch.
+
+```{r}
+matrix(1:6, ncol = 2)
+```
+
+
+## More about Lists
+
+List elements can be named
+
+```{r makeListv}
+mylist_named <- list(
+  letters = c("A", "b", "c"),
+  numbers = c(1, 2, 3),
+  one_matrix = matrix(1:4, ncol = 2)
+)
+mylist_named
+```
 
 
 ## Some useful functions from `lubridate` to manipulate `Date` objects
