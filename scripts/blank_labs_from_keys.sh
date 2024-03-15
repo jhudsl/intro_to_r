@@ -13,5 +13,7 @@ find modules/ -type f -name "*_Key.Rmd" -print0 | while IFS= read -r -d '' file;
     echo created $modified_file
 
     # Remove " - Key" from YAML header
-    sed -i '' 's/ - Key//' "$modified_file"
+    # requires a backup which is then deleted
+    sed -i'' -e '/^title:/ s/ - Key//' "$modified_file"
+    rm "${modified_file}-e"
 done
