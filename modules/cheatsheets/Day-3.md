@@ -5,7 +5,7 @@
 ### Functions
 |Library/Package|Piece of code|Example of usage|What it does|
 |---------------|-------------|----------------|-------------|
-| Base `R`| [`nrow(x)`; `ncol(x)`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/nrow)|`nrow(x)`; `ncol(x)`| Get the number of rows and the number of columns in an object `x`, respectively.|
+| Base `R`| [`nrow(x)`; `ncol(x)`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/nrow) | `nrow(x)`; `ncol(x)`| Get the number of rows and the number of columns in an object `x`, respectively.|
 | Base `R`| [`dim(x)`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/dim)|`dim(x)`| Get the number of rows _and_ number of columns in an object `x`|
 | `dplyr`| [`glimpse(x)`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/dim)|`glimpse(mtcars)`| Get an overview of data frame `x`|
 | `dplyr`| [`slice_sample(x)`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/dim)|`slice_sample(mtcars)`| See a random subset of the rows of `x`|
@@ -23,7 +23,7 @@
 | `dplyr`| [`mutate()`](https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/mutate)| `df <- mutate(df, newcol = wt/2.2)`| Adds a new column that is a function of existing columns|
 | `dplyr`| [`relocate()`](https://dplyr.tidyverse.org/reference/relocate.html)| `df_carb <- relocate(.data = df, wt, .before = mpg)`| Reorder columns in a data frame or tibble|
 | `dplyr`| [`arrange()`](https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/arrange)| `df <- arrange(df, mpg)`| Reorders rows in ascending order. `arrange(desc())` would reorder rows in descending order.|
-| `dplyr`| [`case_when()`](https://dplyr.tidyverse.org/reference/case_when.html)| `df <- arrange(df, mpg)`|This function allows you to vectorise multiple [`if_else()`](https://dplyr.tidyverse.org/reference/if_else.html) statements.  If no cases match, NA is returned.|
+| `dplyr`| [`case_when()`](https://dplyr.tidyverse.org/reference/case_when.html)| `df <- arrange(df, mpg)`|This function allows you to vectorize multiple [`if_else()`](https://dplyr.tidyverse.org/reference/if_else.html) statements.  If no cases match, NA is returned.|
 | Base `R`| [`colnames()`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/row%2Bcolnames)|`colnames(df)`| Gets or sets the column names of a matrix or data frame.|
 
 - See [tidyselect helpers for handy things to use with `select()`](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html).
