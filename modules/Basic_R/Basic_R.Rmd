@@ -20,7 +20,7 @@ opts_chunk$set(comment = "")
 -  R code goes within what is called a chunk (the gray box with a green play button)
 -  Code chunks can be modified so that they show differently in reports
 
-📃[RStudio Cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf)
+📃[RStudio Cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rstudio-ide.pdf)
 
 ## Explaining output on slides
 
@@ -337,23 +337,10 @@ str(y)
 
 This tells you that `x` is a numeric vector and tells you the length.
 
-## R objects
-
-This is handy when we start dealing with bigger / more complex objects.
-
-```{r include=FALSE}
-z <- sample(y, size = 100, replace = T)
-```
-
-```{r}
-str(z)
-```
-
 ## Lab Part 2
 
 - Reassigning allows you to make changes "in place"
 - `str()` tells you a lot of information about an object in your environment
-- `sample()` creates a random sample of values
 
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Basic_R/lab/Basic_R_Lab.Rmd)
 
