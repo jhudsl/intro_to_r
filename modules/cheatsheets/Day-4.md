@@ -56,7 +56,7 @@
 | Base `R`| [`seq()`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/seq)|`seq(from = 0, to = 1, by = 0.2)`| Creates a vector of a sequence of numbers based on the specified arguments. |
 
 
-- [lubridate](https://lubridate.tidyverse.org/) is a powerful, widely used R package from “tidyverse” family to work
+- [`lubridate`](https://lubridate.tidyverse.org/) is a powerful, widely used R package from “tidyverse” family to work
 with Date / POSIXct class objects
 
 \* This format was adapted from the [cheatsheet format from AlexsLemonade](https://github.com/AlexsLemonade/training-modules/tree/master/module-cheatsheets).

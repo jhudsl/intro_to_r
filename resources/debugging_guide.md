@@ -57,7 +57,7 @@ Here's a screenshot from the help window in RStudio. Note that here we searched 
 
 <img src="screenshots/r_search_bar.png" width = 350>
 
-#### For Bioconductor package functions, look at their page on bioconductor.org
+#### For Bioconductor package functions, look at their page on https://www.bioconductor.org
 
 Like other a lot of other packages we may be using for genomics analysis, [DESeq2](https://www.bioconductor.org/packages/release/bioc/html/DESeq2.html) is a Bioconductor package. We use DESeq2 in the bulk RNA-seq module.
 
