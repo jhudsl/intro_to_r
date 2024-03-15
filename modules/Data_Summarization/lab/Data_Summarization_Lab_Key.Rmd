@@ -1,5 +1,5 @@
 ---
-title: "Data Summarization Lab Key"
+title: "Data Summarization Lab - Key"
 output: html_document
 editor_options: 
   chunk_output_type: console
@@ -37,7 +37,7 @@ bike <- read_bike()
 
 1\. How many bike "lanes" are currently in Baltimore?  You can assume each observation/row is a different bike "lane".  (hint: how do you get the number of rows of a data set? You can use `dim()` or `nrow()` or another function).
 
-```{r}
+```{r 1.1response}
 nrow(bike)
 dim(bike)
 bike %>% nrow()
@@ -47,7 +47,7 @@ bike %>% count()
 
 2\. How many feet of bike "lanes" are currently in Baltimore, based on the `length` column? (use `sum()`)
 
-```{r}
+```{r 1.2response}
 sum(bike$length)
 sum(bike %>% pull(length))
 bike %>%
@@ -64,7 +64,7 @@ DATA_TIBBLE %>%
     summarize(SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN))
 ```
 
-```{r}
+```{r 1.3response}
 bike %>% summarize(
   max = max(length)
 )
@@ -81,7 +81,7 @@ DATA_TIBBLE %>%
     )
 ```
 
-```{r}
+```{r 1.4response}
 bike %>% summarize(
   max = max(length),
   min = min(length)
@@ -101,7 +101,7 @@ DATA_TIBBLE %>%
     )
 ```
 
-```{r}
+```{r P1response}
 bike %>% summarize(
   mean_length = mean(length, na.rm = TRUE),
   mean_date = mean(dateInstalled, na.rm = TRUE)
@@ -117,7 +117,7 @@ bike %>%
 
 B\. You should have gotten a mean date sometime in the 1800s - that doesn't make much sense! Hypothesize why the average date is a date from before bike lanes were being built in Baltimore.
 
-```{r}
+```{r P2response}
 # There are probably some zeros or other incorrect low values in the data.
 ```
 
@@ -129,7 +129,7 @@ C\. Filter any zeros out of `bike` `dateInstalled`. Use `filter()`. Assign this 
 DATA_TIBBLE %>% filter(LOGICAL_COMPARISON)
 ```
 
-```{r}
+```{r P3response}
 bike_2 <- bike %>% filter(dateInstalled != 0)
 ```
 
@@ -138,14 +138,14 @@ bike_2 <- bike %>% filter(dateInstalled != 0)
 
 5\. How many bike lanes are there in each type of lane? Use `count()` on the column named `type`. Use `bike` instead of `bike_2`.
 
-```{r}
+```{r 2.1response}
 bike %>% count(type)
 ```
 
 
 6\. Modify your code from question 5 to break down each lane type by number of lanes. Use `count()` on the columns named `type` and `numLanes`.
 
-```{r}
+```{r 2.2response}
 bike %>% count(type, numLanes)
 ```
 
@@ -159,7 +159,7 @@ DATA_TIBBLE %>%
     summarize(SUMMARY_COLUMN_NAME = n())
 ```
 
-```{r}
+```{r 2.3response}
 bike %>%
   group_by(type) %>%
   summarize(count = n())
@@ -168,7 +168,7 @@ bike %>%
 
 8\. Modify your code from #7 to also group by `numLanes`.
 
-```{r}
+```{r 2.4response}
 bike %>%
   group_by(type, numLanes) %>%
   summarize(count = n())
@@ -187,7 +187,7 @@ D\. Modify code from #7 to also summarize by longest average bike lane length? I
 ...
 ```
 
-```{r}
+```{r P4response}
 bike %>%
   group_by(type) %>%
   summarize(
@@ -202,7 +202,7 @@ E\. Take your code from the above question `D` and do the following:
 - Add another pipe (`%>%`)
 - Add the `arrange()` to sort the output by the summarized column "mean".
 
-```{r}
+```{r P5response}
 bike %>%
   group_by(type) %>%
   summarize(
@@ -217,7 +217,7 @@ bike %>%
 
 9\. Create a histogram for the `length` column in the `bike` dataset. Try playing with the `breaks =` argument.
 
-```{r}
+```{r 3.1response}
 x <- bike %>% pull(length)
 hist(x)
 hist(x, breaks = 100)
@@ -226,7 +226,7 @@ hist(x, breaks = 100)
 
 10\. Create a scatterplot of the `bike` dataset with `dateInstalled` on the x axis and `length` on the y axis.
 
-```{r}
+```{r 3.2response}
 x <- bike %>% pull(dateInstalled)
 y <- bike %>% pull(length)
 plot(x, y)
@@ -238,7 +238,7 @@ plot(x, y)
 
 F\. What kind of plot would be better for showing the length by each year group from `bike`? Make this plot. Also try this with the `bike_2` object above.
 
-```{r}
+```{r P6response}
 # A boxplot would be more appropriate since year behaves more as a category than a continuous number.
 x <- bike %>% pull(dateInstalled)
 y <- bike %>% pull(length)
