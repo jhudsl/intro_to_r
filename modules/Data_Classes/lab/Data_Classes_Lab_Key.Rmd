@@ -93,7 +93,12 @@ circ <- mutate(circ, date_formatted = mdy(date))
 
 ```{r}
 circ <- circ %>% relocate(date_formatted, .before = date)
+
+# alternative
+# circ <- circ %>% select(day, date_formatted, everything()) %>% head() 
+
 glimpse(circ)
+
 ```
 
 
