@@ -79,7 +79,7 @@ jobs:
 
   render-main:
     name: Render Main Site and Materials
-    needs: yaml-check
+    needs: [yaml-check, make-labs]
     runs-on: ubuntu-latest
     container:
       image: ${{needs.yaml-check.outputs.rendering_docker_image}}
