@@ -176,13 +176,15 @@ x + y
 
 Multiply the following `a` and `b` together. How is this similar to the way R performs addition in #10 ?
 
-```{r P.2response}
+```{r}
 a <- c(1, 2, 3)
 b <- c(10, 100, 1000)
+```
+
+```{r P.2response}
 a * b
 # R adds together the first element of each vector, then the second, and so on. This order also applies when multiplying!
 ```
-
 
 # Part 3
 
