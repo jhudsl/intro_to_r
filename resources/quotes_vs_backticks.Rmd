@@ -59,6 +59,7 @@ text_tbl <- data.frame(
     "readr()",
     "tidyselect functions (ex.starts_with())",
     "recode()",
+    "separate() and unite()",
     "case_when()",
     "stringr functions (ex. str_detect())",
     "joins",
@@ -74,10 +75,11 @@ text_tbl <- data.frame(
     "Quotation marks _required_",
     "Quotation marks _required_",
     "Quotation marks _okay_, use backticks _if atypical_",
+    "_See examples below_",
     "Quotation marks _required_",
     "Quotation marks _required_",
     "Quotation marks _okay_, use backticks _if atypical_",
-    "_See examples below_",
+    "Quotation marks _okay_, use backticks _if atypical_",
     "Quotation marks _not tolerated_, use backticks _if atypical_"
   )
 )
@@ -89,11 +91,10 @@ kbl(text_tbl) %>%
   row_spec(3:4, background = "yellow") %>%
   row_spec(5, background = "lightgreen") %>%
   row_spec(6:7, background = "lightblue") %>%
-  row_spec(8, background = "lightgreen") %>%
-  row_spec(9:10, background = "lightblue") %>%
-  row_spec(11, background = "lightgreen") %>%
-  row_spec(12, background = "lightblue") %>%
-  row_spec(13, background = "yellow")
+  row_spec(8:9, background = "lightgreen") %>%
+  row_spec(10:11, background = "lightblue") %>%
+  row_spec(12:13, background = "lightgreen") %>%
+  row_spec(14, background = "yellow")
 ```
 
 ## Examples {.tabset .tabset-fade}
@@ -321,6 +322,45 @@ ToothGrowth %>%
   )) %>%
   count(supp)
 ```
+
+### `separate` and `unite`
+
+Here we have a very simple dataset. We are separating values based on the '.' character.
+
+```{r}
+df <- tibble(x = c(NA, "x.y", "x.z", "y.z"))
+df
+```
+
+When naming the column to separate (`x`), quotation marks are optional. Use backticks if atypical.
+
+```{r}
+df %>% separate(x, into = c("A", "B"))
+df %>% separate("x", into = c("A", "B"))
+```
+
+However, note that the values supplied for `into` and `sep` arguments must be in quotation marks.
+
+```{r, error = TRUE, class.error="bg-error", class.warning="bg-error"}
+# Will not work
+df %>% separate(x, into = c(A, B))
+```
+
+`unite` is easier. Quotation marks are optional for the new column which you are creating (`new_column`). Backticks are required if atypical.
+
+```{r}
+df2<- df %>% separate(x, into = c("A", "B"))
+df2 %>% unite("new_column", A:B, remove = FALSE)
+df2 %>% unite(new_column, A:B, remove = FALSE)
+```
+
+They are also optional for the columns you're uniting together to form the new column (`A:B`). Backticks are required if atypical.
+
+```{r}
+df2 %>% unite(new_column, A:B, remove = FALSE)
+df2 %>% unite(new_column, "A":"B", remove = FALSE)
+```
+
 
 ### `case_when()`
 
