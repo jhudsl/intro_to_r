@@ -5,7 +5,7 @@
 ### Functions
 |Library/Package|Piece of code|Example of usage|What it does|
 |---------------|-------------|----------------|-------------|
-| Base `R`| [`nrow(x)`; `ncol(x)`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/nrow)|`nrow(x)`; `ncol(x)`| Get the number of rows and the number of columns in an object `x`, respectively.|
+| Base `R`| [`nrow(x)`; `ncol(x)`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/nrow) | `nrow(x)`; `ncol(x)`| Get the number of rows and the number of columns in an object `x`, respectively.|
 | Base `R`| [`dim(x)`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/dim)|`dim(x)`| Get the number of rows _and_ number of columns in an object `x`|
 | `dplyr`| [`glimpse(x)`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/dim)|`glimpse(mtcars)`| Get an overview of data frame `x`|
 | `dplyr`| [`slice_sample(x)`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/dim)|`slice_sample(mtcars)`| See a random subset of the rows of `x`|

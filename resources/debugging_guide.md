@@ -3,7 +3,7 @@
 <p style="margin-top: 20px;"> </p>
 
 # An Introductory Guide to Troubleshooting Errors
-_by Candace Savonen -- adapted from [AlexsLemonade](https://github.com/AlexsLemonade/training-modules/blob/master/intro-to-R-tidyverse/00b-debugging_resources.md)_
+_by Candace Savonen -- adapted from [AlexsLemonade](https://github.com/AlexsLemonade/training-modules/blob/master/intro-to-R-tidyverse/00b-debugging_resources.Rmd)_
 
 This guide gives you tips and approaches for fixing errors that will arise. We also go through some of the most common errors that you will encounter and what they mean.
 
@@ -49,7 +49,7 @@ R-bloggers has examples of R code that you can use to figure out how to construc
 
 Once you've better determined the origin of the problem, you should use whatever documentation is available to you regarding the problematic code. When using a new function from a package you are unfamiliar with, it's worthwhile to skim through the documentation so you know how to properly use the functions. For base R functions, Tidyverse functions, and *some* Bioconductor packages, the documentation will give you a lot of the information you need. However, you will also likely find that not all documentation is thorough or clear.
 
-As we discussed in [`intro_to_R` notebook](https://alexslemonade.github.io/training-modules/intro-to-R-tidyverse/01-intro_to_r.nb.html), objects have *structures* and *types*. Having input that doesn't match the requirements that a function has can be a common source of errors. Pay special attention to what the documentation says about what kind of input and output the function is designed to use.
+As we discussed in [`intro_to_R` notebook](https://github.com/AlexsLemonade/training-modules/blob/master/intro-to-R-tidyverse/01-intro_to_base_R.nb.html), objects have *structures* and *types*. Having input that doesn't match the requirements that a function has can be a common source of errors. Pay special attention to what the documentation says about what kind of input and output the function is designed to use.
 
 #### Use the RStudio help bar
 
@@ -118,7 +118,7 @@ Most likely reason for this message is that you are trying to use a package that
 ```
 Error in ... no applicable method for <OBJECT_NAME> applied to an object of class <CLASS_OF_OBJECT>
 ```
-Most likely reason for this error message is that you are attempting to apply a function to an object of the wrong object type. The best approach here is to reference the function's documentation by looking for it in the search bar, then looking for what types of objects the function is built to use. After you determine what type of object the function is looking for, you can attempt to convert it by using `as.numeric` or the respective `as.<TYPE>` function. If you are trouble with this error often, we recommend you take another look through the [`intro_to_R` notebook](https://alexslemonade.github.io/training-modules/intro-to-R-tidyverse/01-intro_to_r.nb.html) or if you'd like a more advanced explanation, we recommend [Hadley Wickham's Advanced R chapter](http://adv-r.had.co.nz/S3.html) on the handling of object types.
+Most likely reason for this error message is that you are attempting to apply a function to an object of the wrong object type. The best approach here is to reference the function's documentation by looking for it in the search bar, then looking for what types of objects the function is built to use. After you determine what type of object the function is looking for, you can attempt to convert it by using `as.numeric` or the respective `as.<TYPE>` function. If you are trouble with this error often, we recommend you take another look through the [`intro_to_R` notebook](https://github.com/AlexsLemonade/training-modules/blob/master/intro-to-R-tidyverse/01-intro_to_base_R.nb.html) or if you'd like a more advanced explanation, we recommend [Hadley Wickham's Advanced R chapter](http://adv-r.had.co.nz/S3.html) on the handling of object types.
 
 #### _Example Error 6:_ "subscript out of bounds"
 ```
