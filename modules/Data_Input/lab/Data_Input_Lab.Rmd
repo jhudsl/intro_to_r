@@ -1,5 +1,5 @@
 ---
-title: "Data_Input_Lab"
+title: "Data Input Lab"
 output: html_document
 editor_options: 
   chunk_output_type: console
@@ -8,20 +8,42 @@ editor_options:
 In this lab you can use the interactive console to explore or **Knit** the document. 
 Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-X) or Ctrl-Enter (Windows/Linux) in an R code chunk.
 
+```{r}
+library(readr)
+```
+
 # Part 1  
 
-1\. Use the manual import method (File > Import Dataset > From Text (`readr`)) to Read in SARS-CoV-2 vaccination data from URL 
-http://jhudatascience.org/intro_to_r/data/vaccinations.csv. You can learn more about how the data was collected here: https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-Jurisdi/unsk-b7fc
+### 1.1 
 
+Set up your R Project. Once complete, confirm you have created a project folder.
 
-2\. What is the dataset object called? You can find this information in the Console or the Environment. Enter your answer as a comment using `#`.
+- First, save your files.
+- Click on the R Project button (blue box with a green plus sign on the top left).
+- If prompted, don't save your .Rdata
+- Click "New Directory"
+- Click "New Project"
+- Name the Directory (folder) and select an appropriate location (such as Desktop)
+
+### 1.2
+
+Use the manual import method (File > Import Dataset > From Text (`readr`)) to Read in SARS-CoV-2 vaccination data from this URL:
+
+https://jhudatascience.org/intro_to_r/data/vaccinations.csv. 
+
+You can learn more about how the data was collected here: https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-Jurisdi/unsk-b7fc
+
+### 1.3
+
+What is the dataset object called? You can find this information in the Console or the Environment. Enter your answer as a comment using `#`.
 
 ```{r}
 
 ```
 
+### 1.4
 
-3\. Preview the data by clicking the table button in the Environment. How many observations and variables are there? Enter your answer as a comment using `#`.
+Preview the data by clicking the table button in the Environment. How many observations and variables are there? Enter your answer as a comment using `#`.
 
 ```{r}
 
@@ -30,8 +52,10 @@ http://jhudatascience.org/intro_to_r/data/vaccinations.csv. You can learn more a
 
 # Part 2
 
-4\. Read in SARS-CoV-2 vaccination data from URL 
-http://jhudatascience.org/intro_to_r/data/vaccinations.csv
+### 2.1
+
+Read in SARS-CoV-2 vaccination data from URL 
+https://jhudatascience.org/intro_to_r/data/vaccinations.csv
 and assign it to an object named `vacc`. Use the code structure below.
 
 ```
@@ -44,22 +68,9 @@ library(readr)
 
 ```
 
+### 2.2
 
-5\. Use `head()` to display the first few rows of the data frame. 
-
-```{r}
-
-```
-
-
-6\. Use `str()` to display the list of column names and their type specification. 
-
-```{r}
-
-```
-
-
-7\. Load the `readxl` package with the `library()` command. 
+Load the `readxl` package with the `library()` command. 
 
 If it is not installed, install it via: `RStudio --> Tools --> Install Packages`. You can also try `install.packages("readxl")`.
 
@@ -67,71 +78,74 @@ If it is not installed, install it via: `RStudio --> Tools --> Install Packages`
 
 ```
 
+### 2.3
 
-8\. Download the dataset of asthma prevalence in the USA from: http://jhudatascience.org/intro_to_r/data/asthma.xlsx file to `asthma.xlsx` by running the following code chunk. This only downloads the file, it does NOT bring the file into R.
+Download the dataset of asthma prevalence in the USA from: https://jhudatascience.org/intro_to_r/data/asthma.xlsx file to `asthma.xlsx` by running the following code chunk. This only downloads the file, it does NOT bring the file into R.
 
 ```{r}
 download.file(
-  url = "http://jhudatascience.org/intro_to_r/data/asthma.xlsx",
+  url = "https://jhudatascience.org/intro_to_r/data/asthma.xlsx",
   destfile = "asthma.xlsx",
   overwrite = TRUE,
   mode = "wb"
 )
 ```
 
-9\. Use the `read_excel()` function in the `readxl` package to read the `asthma.xlsx` file and call the output `asthma`. 
+Note: the "wb" option makes sure the file can be read correctly on Windows machines.
+
+### 2.4
+
+Use the `read_excel()` function in the `readxl` package to read the `asthma.xlsx` file and call the output `asthma`. 
 
 ```{r}
 
 ```
 
 
-10\. Use the `head()` and `str()` functions to inspect the data.
+# Practice on Your Own!
+
+### P.1
+
+Run the following code - is there a problem? How do you know?
 
 ```{r}
-
-```
-
-
-**Bonus / Extra practice**: Run the following code - is there a problem? How do you know?
-
-```{r}
-yts <- read_delim("http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv", delim = "\t")
+yts <- read_delim("https://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv", delim = "\t")
 yts
 ```
 
+### P.2
 
-**Bonus / Extra practice**: By default, R reads the first sheet of an excel file. Copy your code from question 9 and add the following argument: `sheet = 2`. Inspect the data using `head()`.
+By default, R reads the first sheet of an excel file. Copy your code from question 2.4 and add the following argument: `sheet = 2`. Inspect the data using `head()`.
 
 ```{r}
 
 ```
 
+### P.3
 
-**Bonus / Extra practice**: Install and load the `haven` package. Look at the help page for `read_dta()` function, and scroll to the very bottom of the page. Try running some of the examples provided.
+Install and load the `haven` package. Look at the help page for `read_dta()` function, and scroll to the very bottom of the page. Try running some of the examples provided.
+
 ```{r eval = FALSE}
 
 ```
 
+### P.4 
 
-# Part 3
-
-11\. Learn your working directory by running `getwd()`
+Learn your working directory by running `getwd()`
 
 ```{r}
 
 ```
 
+Create a folder in your R project called data. Move the "asthma.xlsx" file there. 
 
-12\. Create a folder in your R project called data. Move the "asthma.xlsx" file there. 
+Modify the following code so that it finds "asthma.xlsx" in the "data" directory.
 
-
-13\. Modify the following code so that it finds "asthma.xlsx" in the "data" directory.
-
-```{r}
+```{r eval=FALSE}
 asthma <- read_excel(path = "asthma.xlsx")
 ```
 
+### P.5
 
-**Bonus / Extra practice**: Practice importing a dataset of your choice, give it an object name, and use `head()` to preview the first few lines.
+Practice importing a dataset of your choice, give it an object name, and use `head()` to preview the first few lines.
 
