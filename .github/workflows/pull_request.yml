@@ -168,6 +168,7 @@ jobs:
       
       # Create blank labs - runs quickly, so just does it for all of them
       - name: Run lab converter
+        if: ${{needs.yaml-check.outputs.toggle_make_labs == 'yes'}}
         shell: bash
         run: bash scripts/blank_labs_from_keys.sh
 
