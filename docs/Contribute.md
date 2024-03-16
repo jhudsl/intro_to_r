@@ -4,6 +4,14 @@ This is a guide for adding content to this course.
 
 
 
+## Quick Start
+
+* Use Pull Requests
+* Use Issues to flag problems or bugs
+* Only edit `.Rmd` files to change content
+
+
+
 ## Editing Lectures
 
 Lectures are stored within the `modules` directory. Each module has its own directory. To edit a lecture, locate the appropriate directory within `modules` and edit the `.Rmd` file. For example, if you want to edit the Statistics lecture, you'd edit `Statistics.Rmd` in the `modules/Statistics/` directory.
@@ -20,37 +28,48 @@ Within each module directory, there is a subdirectory called `lab`. Locate the `
 
 
 
-### How does the lab file cleanup work?
+#### How does the lab file cleanup work?
 
 When creating the lab key, there will be certain chunks that you'll want to clear out for the students to fill in on their own. For example, question 1 in the key might be:
 
-`
+````
 ```{r 1response}
 seq(0, 100, 5)
 ```
-`
+````
 but you want students to see:
 
-`
+````
 ```{r 1response}
  
 ```
-`
+````
 
-To make sure this happens correctly, you must label the chunks that you want cleaned. They must have a `label` ending with `response` or `response'`. Chunks without a label following this pattern will be ignored and reproduced exactly for the students. For example:
+To make sure this happens correctly, the chunks you want to clean must have a `label` ending with `response` or `response'`. Chunks without a label following this pattern will be ignored and reproduced exactly for the students. For example:
 
-`
+````
 ```{r 1response}
 seq(0, 100, 5)
 ```
-`
+````
 or
-`
+````
 ```{r label = '1response'}
 seq(0, 100, 5)
 ```
-`
+````
+become, respectively:
+````
+```{r 1response}
+ 
+```
+````
 
+````
+```{r label = '1response'}
+ 
+```
+````
 
 
 ## Emojis
