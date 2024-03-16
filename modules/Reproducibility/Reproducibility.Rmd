@@ -153,6 +153,15 @@ knitr::include_graphics("images/knit.png")
 
 Provide sufficient detail so that you can understand what you did.
 
+## Need random numbers to stay consistent?
+
+Use `set.seed()` : sets the starting state for the random number generator (RNG) in R.
+
+```{r}
+set.seed(100)
+sample(10)
+```
+
 ## R Markdown syntax
 
 Before:
