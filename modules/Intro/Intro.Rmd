@@ -251,8 +251,8 @@ knitr::include_graphics("../../docs/images/Intro_to_R.png")
 
 ## Surveys
 
-- End of class Survey from JHU: https://courseevaluations.jhsph.edu/.
-- Daily survey / pulse check
+- _End of class_ Survey from JHU: https://courseevaluations.jhsph.edu/.
+- Daily survey / pulse check : `r config::get("google_survey")`
 
 ```{r, fig.alt="Surveys count", out.width = "40%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/feedback-illustration.jpeg")
