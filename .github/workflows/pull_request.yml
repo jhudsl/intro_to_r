@@ -269,6 +269,7 @@ jobs:
     outputs:
       pdffiles: "${{ steps.getfiles.outputs.files }}"
 
+########################## PDFs ##############################
 
   render-pdf-lectures:
     name: Render pdf lecture slides

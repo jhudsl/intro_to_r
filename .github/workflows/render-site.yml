@@ -41,55 +41,11 @@ jobs:
       toggle_quiz_check: "${{ env.CHECK_QUIZZES }}"
       toggle_make_labs: "${{ env.MAKE_LABS }}"
 
-########################## Create Labs ##############################
- 
-  make-labs:
-    name: Make Labs from Lab Keys
-    needs: yaml-check
-    runs-on: ubuntu-latest
-    if: ${{needs.yaml-check.outputs.toggle_make_labs == 'yes'}}
-    container:
-      image: ${{needs.yaml-check.outputs.rendering_docker_image}}
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GH_PAT }}
-          
-      # Set up git checkout
-      - name: Set up git checkout
-        run: |
-          git config --system --add safe.directory "$GITHUB_WORKSPACE"
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-
-          git fetch --all
-          git checkout main
-          git merge -s recursive --strategy-option=theirs origin/main --allow-unrelated-histories
-        shell: bash
-
-      - name: Run lab converter
-        shell: bash
-        run: bash scripts/blank_labs_from_keys.sh
-
-      - name: Commit lab Rmds created from lab key Rmds
-        run: |
-          git config --system --add safe.directory "$GITHUB_WORKSPACE"
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          
-          git add \*.Rmd
-          git commit -m 'Create Lab Rmds from Keys' || echo "No changes to commit"
-          git merge -s recursive --strategy-option=ours origin/main --allow-unrelated-histories
-          git push --force || echo "No changes to commit"
-
-########################## Preview ##############################
+########################## Site ##############################
 
   render-main:
     name: Render Main Site and Materials
-    needs: [yaml-check, make-labs]
+    needs: yaml-check
     runs-on: ubuntu-latest
     container:
       image: ${{needs.yaml-check.outputs.rendering_docker_image}}
@@ -134,6 +90,11 @@ jobs:
        # Render module details for syllabus
       - name: Render module details for syllabus
         run: Rscript "scripts/render_module_details_for_syllabus.R"
+        
+      # Create blank labs - runs quickly, so just does it for all of them
+      - name: Run lab converter
+        shell: bash
+        run: bash scripts/blank_labs_from_keys.sh
         
        # Render all module files
       - name: Render html of modules
@@ -188,6 +149,7 @@ jobs:
     outputs:
       pdffiles: "${{ steps.getfiles.outputs.files }}"
 
+########################## PDFs ##############################
 
   render-pdf-lectures:
     name: Render pdf lecture slides
