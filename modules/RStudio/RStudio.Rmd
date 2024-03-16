@@ -282,16 +282,11 @@ knitr::include_graphics("images/chunk.png")
 knitr::include_graphics("images/output.png")
 ```
 
-## If you get annoyed by code previews in Markdown files:
+## If you get annoyed by code previews in Markdown files...
 
-In RStudio
-Click the Edit tab -->  scroll down to Preferences... --> R Markdown
+See the [Help page](https://jhudatascience.org/intro_to_r/help.html) of the website. You can adjust this and change your RStudio settings:
 
-Uncheck the following:
-
-```{r, fig.alt="knit", out.width = "100%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("images/options.png")
-```
+Tools > Global Options > Appearance
 
 ## Knit file to html
 
