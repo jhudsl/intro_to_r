@@ -23,21 +23,9 @@ code{
 # **Common Issues**
 
 ***
-## **How do I get output to stop printing inside the Rmarkdown and only show it in the console?**
-
-**To change this, you will need to adjust the RStudio Settings.**
-
-![Click the gear icon beside the knit button to expand the options menu.](images/console_output1.jpg)
-  
-![You can select Remove Output. You should now see output in the console.](images/console_output2.jpg)
-
-<br>
-<br>
-
-***
 ## **I'm getting an error related to something called Rtools**
 
-You probably need some add-on software for a Windows machine. Note that this is _not_ an additional package to install. Here is a quick guide to installing Rtools: [link](https://docs.google.com/viewer?url=https://raw.githubusercontent.com/jhudsl/intro_to_r/main/resources/rtools_windows.pdf).
+You probably need some add-on software for a Windows machine. Note that this is _not_ an additional R package to install. Here is a quick guide to installing Rtools: [link](https://docs.google.com/viewer?url=https://raw.githubusercontent.com/jhudsl/intro_to_r/main/resources/rtools_windows.pdf).
 
 ***
 ## **What packages are part of the Tidyverse**?
@@ -257,3 +245,25 @@ This will work:
 ggplot(data = iris, aes(x = Species, y = Petal.Length)) +
   geom_boxplot()
 ```
+
+# **Preference Changes**
+
+***
+## **How do I get output to stop printing inside the Rmarkdown and only show it in the console? (How Ava has her setup?)**
+
+**To change this, you will need to adjust the RStudio Settings.**
+
+![Click the gear icon beside the knit button to expand the options menu. Select "Chunk Output in Console".](images/console_output1.jpg)
+  
+![You can select Remove Output. You should now see output in the console.](images/console_output2.jpg)
+
+<br>
+<br>
+
+***
+## **How do I change the color / theme?
+
+Go to the menu Tools > Global Options > Appearance. Choose a theme and apply!
+
+<br>
+<br>
