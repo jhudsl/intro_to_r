@@ -103,55 +103,12 @@ jobs:
           git add \*.Rmd
           git commit -m 'Style Rmds' || echo "No changes to commit"
           git push origin || echo "No changes to commit"
-          
-########################## Create Labs ##############################
- 
-  make-labs:
-    name: Make Labs from Lab Keys
-    needs: yaml-check
-    runs-on: ubuntu-latest
-    if: ${{needs.yaml-check.outputs.toggle_make_labs == 'yes'}}
-    container:
-      image: ${{needs.yaml-check.outputs.rendering_docker_image}}
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GH_PAT }}
-      
-      # Set up git checkout
-      - name: Set up git checkout
-        run: |
-          git config --system --add safe.directory "$GITHUB_WORKSPACE"
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-
-          branch_name='preview-${{ github.event.pull_request.number }}'
-          git fetch --all
-          git checkout $branch_name
-          git merge -s recursive --strategy-option=theirs origin/${{ github.head_ref }} --allow-unrelated-histories
-        shell: bash
-
-      - name: Run lab converter
-        shell: bash
-        run: bash scripts/blank_labs_from_keys.sh
-
-      - name: Commit lab Rmds created from lab key Rmds
-        run: |
-          branch_name='preview-${{ github.event.pull_request.number }}'
-          git fetch --all
-          git checkout $branch_name
-          git add \*.Rmd
-          git commit -m 'Create Lab Rmds from Keys' || echo "No changes to commit"
-          git push origin || echo "No changes to commit"
 
 ########################## Preview ##############################
 
   render-preview:
     name: Render preview
-    needs: [yaml-check, make-labs]
+    needs: yaml-check
     runs-on: ubuntu-latest
     container:
       image: ${{needs.yaml-check.outputs.rendering_docker_image}}
@@ -208,6 +165,11 @@ jobs:
        # Render module details for syllabus
       - name: Render module details for syllabus
         run: Rscript "scripts/render_module_details_for_syllabus.R"
+      
+      # Create blank labs - runs quickly, so just does it for all of them
+      - name: Run lab converter
+        shell: bash
+        run: bash scripts/blank_labs_from_keys.sh
 
        # Render all module files
       - name: Render html of modules where .Rmd has changed
