@@ -3905,7 +3905,7 @@ yts_grouped</pre>
 
 </article></slide><slide class=""><hgroup><h2>Only the last <code>group_by</code> is recognized…</h2></hgroup><article  id="only-the-last-group_by-is-recognized">
 
-<p>The <code>ungroup</code> function will allow you to clear the groups from the data. You can also overwrite the first <code>group_by</code> with a new one.</p>
+<p>You can overwrite the first <code>group_by</code> with a new one.</p>
 
 <pre class = 'prettyprint lang-r'>yts %&gt;% 
   group_by(Response, Education)  %&gt;% 
@@ -3935,7 +3935,7 @@ yts_grouped</pre>
 
 </article></slide><slide class=""><hgroup><h2>Ungroup the data</h2></hgroup><article  id="ungroup-the-data">
 
-<p>The <code>ungroup</code> function will allow you to clear the groups from the data. You can also overwrite the first <code>group_by</code> with a new one.</p>
+<p>The <code>ungroup</code> function will allow you to clear the groups from the data.</p>
 
 <pre class = 'prettyprint lang-r'>yts &lt;- ungroup(yts)
 yts</pre>
@@ -4072,11 +4072,15 @@ yts_loc %&gt;% unique() # similar to distinct()</pre>
 [47] &quot;Colorado&quot;                 &quot;District of Columbia&quot;    
 [49] &quot;Texas&quot;                    &quot;Wyoming&quot;                 </pre>
 
+</article></slide><slide class=""><hgroup><h2>Base R functions you might see: <code>length</code> and <code>unique</code></h2></hgroup><article  id="base-r-functions-you-might-see-length-and-unique-1">
+
+<p>These functions require a column as a vector using <code>pull()</code>.</p>
+
 <pre class = 'prettyprint lang-r'>yts_loc %&gt;% unique() %&gt;% length() # similar to n_distinct()</pre>
 
 <pre >[1] 50</pre>
 
-</article></slide><slide class=""><hgroup><h2>* New! * Many dplyr functions now have a <code>.by=</code> argument</h2></hgroup><article  id="new-many-dplyr-functions-now-have-a-.by-argument" class="codesmall">
+</article></slide><slide class=""><hgroup><h2>* New! * Many dplyr functions now have a <code>.by=</code> argument</h2></hgroup><article  id="new-many-dplyr-functions-now-have-a-.by-argument">
 
 <p>Pipe <code>yts</code> into <code>group_by</code>, then pipe that into <code>summarize</code>:</p>
 
@@ -4125,7 +4129,7 @@ yts_loc %&gt;% unique() # similar to distinct()</pre>
 
 <p>Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a></p>
 
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>More advanced summarization (not covered)</h2></hgroup><article  id="more-advanced-summarization-not-covered">
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Extra Slides: More advanced summarization</h2></hgroup><article  id="extra-slides-more-advanced-summarization">
 
 </article></slide><slide class=""><hgroup><h2>Row means</h2></hgroup><article  id="row-means">
 
