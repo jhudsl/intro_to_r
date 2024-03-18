@@ -180,17 +180,6 @@ slice_sample(annualDosage, n = 2)
 
 ```
 
-## `skimr` package
-
-```{r, eval = FALSE}
-install.packages("skimr")
-library(skimr)
-skim(annualDosage)
-```
-
-```{r, fig.alt="dplyr", out.width = "55%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("images/skim2.png")
-```
 
 # Data frames and tibbles
 
@@ -279,7 +268,7 @@ knitr::include_graphics("images/rename.png")
 
 To rename columns in `dplyr`, you can use the `rename` function.
 
-For example, let's rename BUYER_COUNTY to County. Notice the new name is listed **first**!
+For example, let's rename BUYER_COUNTY to County. Notice the new name is listed **first**, similar to how a new object is assigned on the left!
 
 <div class = "codeexample">
 ```{r, eval = FALSE}
