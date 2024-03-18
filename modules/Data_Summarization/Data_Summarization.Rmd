@@ -212,13 +212,12 @@ str(tb)
 
 Before we go further, let's rename the first column using the `rename()` function in `dplyr`.
 
-In this case, we have to use the backticks (\`) because there are spaces and funky characters in the name. We will also rename the columns marked as years to start with `year_` so they don't need backticks.
+In this case, we have to use the backticks (\`) because there are spaces and funky characters in the name. 
 
 ```{r}
 library(dplyr)
 tb <- tb %>%
-  rename(country = `TB incidence, all forms (per 100 000 population per year)`) %>%
-  rename_with(.cols = 2:19, \(x)paste0("year_", x))
+  rename(country = `TB incidence, all forms (per 100 000 population per year)`)
 ```
 
 
@@ -263,9 +262,9 @@ You can also do more elaborate summaries across different groups of data using `
 
 ```{r}
 tb %>% 
-  summarize(mean_1991 = mean(year_1991))
+  summarize(mean_1991 = mean(`1991`)) # Note the backticks, this is a column name!
 tb %>% 
-  summarize(mean_1991 = mean(year_1991, na.rm = TRUE))
+  summarize(mean_1991 = mean(`1991`, na.rm = TRUE))
 ```
 
 
@@ -275,9 +274,9 @@ tb %>%
 
 ```{r}
 tb %>% 
-  summarize(mean_1991 = mean(year_1991, na.rm = TRUE),
-            median_1991 = median(year_1991, na.rm = TRUE),
-            median(year_2000, na.rm = TRUE))
+  summarize(mean_1991 = mean(`1991`, na.rm = TRUE),
+            median_1991 = median(`1991`, na.rm = TRUE),
+            median(`2000`, na.rm = TRUE))
 ```
 
 <br>
@@ -290,9 +289,9 @@ This looks better.
 
 ```{r}
 tb %>% 
-  summarize(mean_1991 = mean(year_1991, na.rm = TRUE),
-            median_1991 = median(year_1991, na.rm = TRUE),
-            median_2000 = median(year_2000, na.rm = TRUE))
+  summarize(mean_1991 = mean(`1991`, na.rm = TRUE),
+            median_1991 = median(`1991`, na.rm = TRUE),
+            median_2000 = median(`2000`, na.rm = TRUE))
 ```
 
 
@@ -335,50 +334,26 @@ head(yts)
 ```
 
 
-## Length and unique
+## `distinct()` values
 
-`unique(x)` will return the unique elements of `x`.
-
-Let's work with one column as a vector using `pull()`.
+`distinct(x)` will return the unique elements of column `x`.
 
 ```{r, message = FALSE}
 yts %>%
-  pull(LocationDesc) %>%
-  unique()
+  distinct(LocationDesc)
 ```
 
 
-## Length and unique
+## How many `distinct()` values?
 
-`length` will tell you the length of a vector. Combined with `unique`, tells you the number of unique elements:
+`n_distinct()` tells you the number of unique elements. _Must pull the column first!_
 
 ```{r}
 yts %>%
-  pull(LocationDesc) %>%
-  unique() %>%
-  length()
+  pull(LocationDesc) %>% 
+  n_distinct()
 ```
 
-
-## `unique()` and `distinct()`
-
-These functions work similarly, but expect different types of objects
-
-```{r echo=FALSE}
-options(max.print = 5)
-```
-
-```{r}
-yts %>%
-  pull(LocationDesc) %>%
-  unique() # vector
-yts %>%
-  distinct(LocationDesc) # tibble / data frame
-```
-
-
-<!-- Note: You can also use `n_distinct()` from the dplyr package to mimic length + unique. This is faster and perhaps somewhat more intuitive: -->
-<!-- yts %>% dplyr::n_distinct("LocationDesc") -->
 
 ```{r echo=FALSE}
 options(max.print = 1000)
@@ -471,6 +446,17 @@ yts %>%
 ```
 
 
+## Only the last `group_by` is recognized...
+
+The `ungroup` function will allow you to clear the groups from the data. You can also overwrite the first `group_by` with a new one.
+
+```{r}
+yts %>% 
+  group_by(Response, Education)  %>% 
+  group_by(Education) 
+```
+
+
 ## Ungroup the data
 
 The `ungroup` function will allow you to clear the groups from the data. You can also overwrite the first `group_by` with a new one.
@@ -515,7 +501,72 @@ mtcars %>% group_by(cyl) %>% summarize(n()) # n() typically used with summarize
 ```
 
 
+# A few miscellaneous topics .. 
+
+
+## Base R functions you might see: `length` and `unique`
+
+These functions require a column as a vector using `pull()`.
+
+```{r, message = FALSE}
+yts <- read_yts()
+yts_loc <- yts %>% pull(LocationDesc) # pull() to make a vector
+yts_loc %>% unique() # similar to distinct()
+yts_loc %>% unique() %>% length() # similar to n_distinct()
+```
+
+
+## * New! * Many dplyr functions now have a `.by=` argument {.codesmall}
+
+Pipe `yts` into `group_by`, then pipe that into `summarize`:
+
+```{r eval = FALSE}
+yts %>%
+  group_by(Response) %>%
+  summarize(avg_percent = mean(Data_Value, na.rm = TRUE),
+            max_percent = max(Data_Value, na.rm = TRUE))
+```
+
+is the same as..
+
+```{r eval = FALSE}
+yts %>%
+  summarize(avg_percent = mean(Data_Value, na.rm = TRUE),
+            max_percent = max(Data_Value, na.rm = TRUE),
+            .by = Response)
+```
+
+
+## `summary()` vs. `summarize()`
+
+* `summary()` (base R) gives statistics table on a dataset. 
+* `summarize()` (dplyr) creates a more customized summary tibble/dataframe.
+
+## Summary & Lab Part 2
+
+- `count(x)`: what unique values do you have? 
+  - `distinct()`: what are the distinct values?
+  - `n_distinct()` with `pull()`: how many distinct values?
+- `group_by()`: changes all subsequent functions
+  - combine with `summarize()` to get statistics per group
+  - combine with `mutate()` to add column
+- `summarize()` with `n()` gives the count (NAs included) 
+
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
+
+💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Data_Summarization/lab/Data_Summarization_Lab.Rmd)
+
+```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
+knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
+```
+
+Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
+
+# More advanced summarization (not covered)
+
 ## Row means
+
+Get means for each row.
 
 Let's see what the mean TB incidence is across years each row (country):
 
@@ -534,6 +585,8 @@ tb %>%
 
 ## Column means
 
+Get means for each column.
+
 Let's see what the mean is across each column (year):
 
 ```{r}
@@ -545,84 +598,3 @@ tb %>%
 tb %>%
   summarize(across(starts_with("year"), ~mean(.x, na.rm = TRUE)))
 ```
-
-
-## Summary & Lab Part 2
-
-- `count(x)`: what unique values do you have? 
-  - `pull()` gives a vector
-  - `unique()` combined with `length()`
-- `group_by()`: changes all subsequent functions
-  - combine with `summarize()` to get statistics per group
-  - combine with `mutate()` to add column
-- `summarize()` with `n()` gives the count (NAs included) 
-
-🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
-
-💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Data_Summarization/lab/Data_Summarization_Lab.Rmd)
-
-
-# Preview: plotting
-
-## Basic Plots
-
-Plotting is an important component of exploratory data analysis. These are some rough plots that you can use in real time while exploring your data. 
-
-**We will go over formatting and making plots look nicer in additional lectures.**
-
-* Basic summarization plots: 
-    * `hist(x)`: histogram of x
-    * `plot(x,y)`: scatterplot of x and y
-    * `boxplot(y~x)`: boxplot of y against levels of x
-
-
-## Histogram
-
-```{r}
-mpg <- jhu_cars %>% pull(mpg)
-hist(x = mpg)
-```
-
-
-## Histogram
-
-Use the `breaks =` argument to tweak the resolution:
-
-```{r}
-hist(x = mpg, breaks = 10)
-```
-
-
-## Scatterplot
-
-```{r}
-mpg <- jhu_cars %>% pull(mpg)
-hp <- jhu_cars %>% pull(hp)
-plot(x = hp, y = mpg) # plot(hp, mpg)
-```
-
-
-## Boxplot
-
-```{r}
-cyl <- jhu_cars %>% pull(cyl)
-hp <- jhu_cars %>% pull(hp)
-boxplot(formula = hp ~ cyl)
-```
-
-
-## Summary & Lab Part 3
-
-- `plot(x,y)` and `hist(x)` are great for a **quick snapshot** of the data
-- `boxplot(y ~ x)` works for categorical data
-
-🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
-
-💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Data_Summarization/lab/Data_Summarization_Lab.Rmd)
-
-```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
-knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
-```
-
-Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
-
