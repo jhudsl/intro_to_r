@@ -80,6 +80,7 @@ miss_var_summary(bike) # or this
 # Part 2
 
 **New Data set**
+
 Now imagine we work in a clinic and we are trying to understand more about blood types of patients. 
 
 Let's say we the data like so:
@@ -192,6 +193,7 @@ BloodType_split <- BloodType %>%
 ### P.2
 
 How many observations are there for each `Rhfactor` in the data object you just made:
+
 ```{r P.2response}
 count(BloodType_split, Rhfactor)
 ```
@@ -199,6 +201,7 @@ count(BloodType_split, Rhfactor)
 ### P.3
 
 Filtering for patients with type O, how many had the infection?
+
 ```{r P.3response}
 BloodType_split %>%
   filter(blood_type == "O") %>%
