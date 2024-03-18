@@ -58,46 +58,25 @@ knitr::include_graphics("images/three_panes.png")
 ```
 
 
+<!-- ## Pane 1 (Left side) for writing code -->
 
+<!-- ```{r, fig.align='center', out.width="60%", echo = FALSE, fig.alt= "The left pane is for writing code."} -->
+<!-- knitr::include_graphics("images/Pane1_for_writing.png") -->
+<!-- ``` -->
 
-## RStudio Layout
+<!-- ## Pane 2 - where objects will be -->
 
-If RStudio doesn't look the way you want (or like our RStudio), then:
+<!-- We will start seeing this tomorrow! -->
 
-Click on the pane button, which looks like a waffle with 4 indentations.
-Scroll down to "Pane Layout".
+<!-- ```{r, fig.align='center', out.width="60%", echo = FALSE, fig.alt= "We we see objects"} -->
+<!-- knitr::include_graphics("images/pane2.png") -->
+<!-- ``` -->
 
-```{r, fig.align='center', out.width="80%", echo = FALSE, fig.alt= "Pane button."}
-knitr::include_graphics("images/pane_button.png")
-```
-<!-- ## Source/Editor ![Script](images/r-rstudio-1-3-script.png) -->
+<!-- ## Pane 3 - where we get help and see plots -->
 
-
-## Default Layout
-
-```{r, fig.align='center', out.width="60%", echo = FALSE, fig.alt= "The Pane Layout menu allows you to modify the layout of RStudio. This shows the default settings with Source on the top left, Console on the bottom left, Environment, History, Connections, and Build on the top right, and Files, Plots, Packages, Help, VCS (version control) on the bottom right."}
-knitr::include_graphics("images/pane_layout.png")
-```
-
-## Pane 1 (Left side) for writing code
-
-```{r, fig.align='center', out.width="60%", echo = FALSE, fig.alt= "The left pane is for writing code."}
-knitr::include_graphics("images/Pane1_for_writing.png")
-```
-
-## Pane 2 - where objects will be
-
-We will start seeing this tomorrow!
-
-```{r, fig.align='center', out.width="60%", echo = FALSE, fig.alt= "We we see objects"}
-knitr::include_graphics("images/pane2.png")
-```
-
-## Pane 3 - where we get help and see plots
-
-```{r, fig.align='center', out.width="60%", echo = FALSE, fig.alt= "The left pane is for writing code."}
-knitr::include_graphics("images/pane3.png")
-```
+<!-- ```{r, fig.align='center', out.width="60%", echo = FALSE, fig.alt= "The left pane is for writing code."} -->
+<!-- knitr::include_graphics("images/pane3.png") -->
+<!-- ``` -->
 
 ## Hidden Pane
 
@@ -216,6 +195,27 @@ knitr::include_graphics("images/rstudio_environment.png")
 -   **Plots** - pictures and figures
 -   **Packages** - list of R packages that are loaded in memory
 
+
+
+## RStudio Layout
+
+If RStudio doesn't look the way you want (or like our RStudio), then:
+
+Click on the pane button, which looks like a waffle with 4 indentations.
+Scroll down to "Pane Layout".
+
+```{r, fig.align='center', out.width="80%", echo = FALSE, fig.alt= "Pane button."}
+knitr::include_graphics("images/pane_button.png")
+```
+<!-- ## Source/Editor ![Script](images/r-rstudio-1-3-script.png) -->
+
+
+## Default Layout
+
+```{r, fig.align='center', out.width="60%", echo = FALSE, fig.alt= "The Pane Layout menu allows you to modify the layout of RStudio. This shows the default settings with Source on the top left, Console on the bottom left, Environment, History, Connections, and Build on the top right, and Files, Plots, Packages, Help, VCS (version control) on the bottom right."}
+knitr::include_graphics("images/pane_layout.png")
+```
+
 # Let's take a look at R Studio ourselves!
 
 ## Lab: Starting with R and RMarkdown
@@ -282,16 +282,11 @@ knitr::include_graphics("images/chunk.png")
 knitr::include_graphics("images/output.png")
 ```
 
-## If you get annoyed by code previews in Markdown files:
+## If you get annoyed by code previews in Markdown files...
 
-In RStudio
-Click the Edit tab -->  scroll down to Preferences... --> R Markdown
+See the [Help page](https://jhudatascience.org/intro_to_r/help.html) of the website. You can adjust this and change your RStudio settings:
 
-Uncheck the following:
-
-```{r, fig.alt="knit", out.width = "100%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("images/options.png")
-```
+Tools > Global Options > Appearance
 
 ## Knit file to html
 
