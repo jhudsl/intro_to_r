@@ -11,7 +11,9 @@ Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-
 
 # Part 1
 
-1.  Read in SARS-CoV-2 vaccination data from URL 
+### 1.1
+
+Read in SARS-CoV-2 vaccination data from URL 
 http://jhudatascience.org/intro_to_r/data/vaccinations.csv
 and assign it to an object named `vacc`. 
 
@@ -26,8 +28,9 @@ library(readr)
 vacc <- read_csv(file = "http://jhudatascience.org/intro_to_r/data/vaccinations.csv")
 ```
 
+### 1.2
 
-2. Filter the dataset so that the "Location" column is equal to "US" (aka the entire USA). Store the modified dataset as `vacc_filtered`.
+Filter the dataset so that the "Location" column is equal to "US" (aka the entire USA). Store the modified dataset as `vacc_filtered`.
 
 ```
 # General format
@@ -38,31 +41,40 @@ NEW_OBJECT <- OBJECT %>% filter(COLUMNNAME == CRITERIA)
 vacc_filtered <- vacc %>% filter(Location == "US")
 ```
 
+### 1.3
 
-3. Write out the `vacc_filtered` object as a CSV file calling it "vacc_filtered.csv", using `write_csv()`:
+Write out the `vacc_filtered` object as a CSV file calling it "vacc_filtered.csv", using `write_csv()`:
 
 ```{r 1.3response}
 write_csv(vacc_filtered, file = "vacc_filtered.csv")
 ```
 
 
-**Bonus / Extra practice**: Copy your code from problem 3 and modify it to write to the data directory inside your R Project. *Note: you may need to make a new folder named "data" if it doesn't already exist.*
+# Practice on Your Own!
 
-```{r eval = FALSE, label = 'P1response'}
+### P.1
+
+Copy your code from problem 3 and modify it to write to the data directory inside your R Project. *Note: you may need to make a new folder named "data" if it doesn't already exist.*
+
+```{r eval = FALSE, label = 'P.1response'}
 getwd()
 dir.create("data")
 write_csv(vacc_filtered, file = "data/vacc_filtered.csv")
 ```
 
-**Bonus / Extra practice**: Write one of the variables in your Environment to your working directory in `rds` format. Call the file `my_variable.rds`.
+### P.2
 
-```{r P2response}
+Write one of the variables in your Environment to your working directory in `rds` format. Call the file `my_variable.rds`.
+
+```{r P.2response}
 y <- c(10, 20, 30, 40, 50, 60)
 write_rds(y, file = "my_variable.rds")
 ```
 
-**Bonus / Extra practice**: Read the RDS file from your working directory back into your Environment. Call the file `z`.
+### P.3
 
-```{r P3response}
+Read the RDS file from your working directory back into your Environment. Call the file `z`.
+
+```{r P.3response}
 z <- read_rds(file = "my_variable.rds")
 ```
