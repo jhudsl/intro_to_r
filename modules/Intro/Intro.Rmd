@@ -160,7 +160,7 @@ knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/thumb/9/
 - R is both [open source](https://en.wikipedia.org/wiki/Open_source) and [open development](https://en.wikipedia.org/wiki/Open-source_software_development)
 
 ```{r, fig.alt="R logo", out.width = "20%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("https://www.r-project.org/Rlogo.png")
+knitr::include_graphics("images/Rlogo.png")
 ```
 
 
@@ -251,7 +251,7 @@ knitr::include_graphics("../../docs/images/Intro_to_R.png")
 
 ## Surveys
 
-- _End of class_ Survey from JHU: https://courseevaluations.jhsph.edu/.
+- _End of class_ Survey from JHU: https://courseevaluations.jhsph.edu/
 - Daily survey / pulse check : `r config::get("google_survey")`
 
 ```{r, fig.alt="Surveys count", out.width = "40%", echo = FALSE, fig.align='center'}
