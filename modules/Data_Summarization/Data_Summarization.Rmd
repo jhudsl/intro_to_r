@@ -212,13 +212,12 @@ str(tb)
 
 Before we go further, let's rename the first column using the `rename()` function in `dplyr`.
 
-In this case, we have to use the backticks (\`) because there are spaces and funky characters in the name. We will also rename the columns marked as years to start with `year_` so they don't need backticks.
+In this case, we have to use the backticks (\`) because there are spaces and funky characters in the name. 
 
 ```{r}
 library(dplyr)
 tb <- tb %>%
-  rename(country = `TB incidence, all forms (per 100 000 population per year)`) %>%
-  rename_with(.cols = 2:19, \(x)paste0("year_", x))
+  rename(country = `TB incidence, all forms (per 100 000 population per year)`)
 ```
 
 
@@ -263,9 +262,9 @@ You can also do more elaborate summaries across different groups of data using `
 
 ```{r}
 tb %>% 
-  summarize(mean_1991 = mean(year_1991))
+  summarize(mean_1991 = mean(`1991`)) # Note the backticks, this is a column name!
 tb %>% 
-  summarize(mean_1991 = mean(year_1991, na.rm = TRUE))
+  summarize(mean_1991 = mean(`1991`, na.rm = TRUE))
 ```
 
 
@@ -275,9 +274,9 @@ tb %>%
 
 ```{r}
 tb %>% 
-  summarize(mean_1991 = mean(year_1991, na.rm = TRUE),
-            median_1991 = median(year_1991, na.rm = TRUE),
-            median(year_2000, na.rm = TRUE))
+  summarize(mean_1991 = mean(`1991`, na.rm = TRUE),
+            median_1991 = median(`1991`, na.rm = TRUE),
+            median(`2000`, na.rm = TRUE))
 ```
 
 <br>
@@ -290,9 +289,9 @@ This looks better.
 
 ```{r}
 tb %>% 
-  summarize(mean_1991 = mean(year_1991, na.rm = TRUE),
-            median_1991 = median(year_1991, na.rm = TRUE),
-            median_2000 = median(year_2000, na.rm = TRUE))
+  summarize(mean_1991 = mean(`1991`, na.rm = TRUE),
+            median_1991 = median(`1991`, na.rm = TRUE),
+            median_2000 = median(`2000`, na.rm = TRUE))
 ```
 
 
@@ -501,36 +500,7 @@ mtcars %>% group_by(cyl) %>% summarize(n()) # n() typically used with summarize
 ```
 
 
-## Row means
-
-Let's see what the mean TB incidence is across years each row (country):
-
-```{r}
-tb %>%
-  select(starts_with("year")) %>%
-  rowMeans(na.rm = TRUE) %>%
-  head(n = 5)
-
-tb %>%
-  group_by(country) %>%
-  summarize(mean = rowMeans(across(starts_with("year")), na.rm = TRUE)) %>%
-  head(n = 5)
-```
-
-
-## Column means
-
-Let's see what the mean is across each column (year):
-
-```{r}
-tb %>%
-  select(starts_with("year")) %>%
-  colMeans(na.rm = TRUE) %>%
-  head(n = 5)
-
-tb %>%
-  summarize(across(starts_with("year"), ~mean(.x, na.rm = TRUE)))
-```
+# A few miscellaneous topics .. 
 
 
 ## Base R functions you might see: `length` and `unique`
@@ -544,6 +514,32 @@ yts_loc %>% unique() # similar to distinct()
 yts_loc %>% unique() %>% length() # similar to n_distinct()
 ```
 
+
+## * New! * Many dplyr functions now have a `.by=` argument {.codesmall}
+
+Pipe `yts` into `group_by`, then pipe that into `summarize`:
+
+```{r eval = FALSE}
+yts %>%
+  group_by(Response) %>%
+  summarize(avg_percent = mean(Data_Value, na.rm = TRUE),
+            max_percent = max(Data_Value, na.rm = TRUE))
+```
+
+is the same as..
+
+```{r eval = FALSE}
+yts %>%
+  summarize(avg_percent = mean(Data_Value, na.rm = TRUE),
+            max_percent = max(Data_Value, na.rm = TRUE),
+            .by = Response)
+```
+
+
+## `summary()` vs. `summarize()`
+
+* `summary()` (base R) gives statistics table on a dataset. 
+* `summarize()` (dplyr) creates a more customized summary tibble/dataframe.
 
 ## Summary & Lab Part 2
 
@@ -565,3 +561,39 @@ knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 
 Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
 
+# More advanced summarization (not covered)
+
+## Row means
+
+Get means for each row.
+
+Let's see what the mean TB incidence is across years each row (country):
+
+```{r}
+tb %>%
+  select(starts_with("year")) %>%
+  rowMeans(na.rm = TRUE) %>%
+  head(n = 5)
+
+tb %>%
+  group_by(country) %>%
+  summarize(mean = rowMeans(across(starts_with("year")), na.rm = TRUE)) %>%
+  head(n = 5)
+```
+
+
+## Column means
+
+Get means for each column.
+
+Let's see what the mean is across each column (year):
+
+```{r}
+tb %>%
+  select(starts_with("year")) %>%
+  colMeans(na.rm = TRUE) %>%
+  head(n = 5)
+
+tb %>%
+  summarize(across(starts_with("year"), ~mean(.x, na.rm = TRUE)))
+```
