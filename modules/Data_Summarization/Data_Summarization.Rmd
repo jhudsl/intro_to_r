@@ -346,11 +346,12 @@ yts %>%
 
 ## How many `distinct()` values?
 
-`n_distinct()` tells you the number of unique elements:
+`n_distinct()` tells you the number of unique elements. _Must pull the column first!_
 
 ```{r}
 yts %>%
-  n_distinct(LocationDesc)
+  pull(LocationDesc) %>% 
+  n_distinct()
 ```
 
 
@@ -545,7 +546,7 @@ yts %>%
 
 - `count(x)`: what unique values do you have? 
   - `distinct()`: what are the distinct values?
-  - `n_distinct()`: how many distinct values?
+  - `n_distinct()` with `pull()`: how many distinct values?
 - `group_by()`: changes all subsequent functions
   - combine with `summarize()` to get statistics per group
   - combine with `mutate()` to add column
