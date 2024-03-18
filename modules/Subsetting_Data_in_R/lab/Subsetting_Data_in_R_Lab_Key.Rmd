@@ -135,7 +135,7 @@ nrow(filter(county_pop, year <= 2010, population > 100000))
 
 **Bonus / Extra practice**:
 
-Subset the rows of `country_pop` for rows that have `state_name` of `NM`,  **or** **less** than 10000 `population`.
+Subset the rows of `county_pop` for rows that have `state_name` of `NM`,  **or** **less** than 10000 `population`.
 How many rows have both?
 
 ```{r P.2response}
@@ -192,17 +192,22 @@ arrange(county_2012, population) %>%
   pull(county_name)
 ```
 
-4. Create a new variable in `county_2012` called `pop1000`, which  is equal to `population` divided by 1000, using `mutate()`(don't forget to reassign `county_2012`). Use pipes `%>%`:
+4. Create a new variable in `county_2012` called `pop1000`, which  is equal to `population` divided by 1000, using `mutate()`(don't forget to reassign `county_2012`). Use pipes `%>%`.
+
+```
+# General format
+NEWDATA <- OLD_DATA %>% mutate(NEW_COLUMN = OLD_COLUMN)
+```
 
 ```{r 3.4response}
 county_2012 <- county_2012 %>% mutate(pop1000 = population/1000)
 ```
 
 
-**Bonus / Extra practice**: Move the `pop1000` column to be between `county_name` and `state_name` of the `county_2012` dataset. Use `relocate()`.
+**Bonus / Extra practice**: Move the `state_name` column to be before `county_name` in the `county_2012` dataset. Use `relocate()`.
 
 ```{r P.4response}
-county_2012 <- county_2012 %>% relocate(pop1000, .before = state_name)
+county_2012 <- county_2012 %>% relocate(state_name, .before = county_name)
 county_2012
 ```
 
