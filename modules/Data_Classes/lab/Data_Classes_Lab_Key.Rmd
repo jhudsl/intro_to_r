@@ -7,6 +7,8 @@ editor_options:
 
 # Part 1
 
+### 1.1
+
 Load all the libraries we will use in this lab. 
 
 ```{r}
@@ -17,8 +19,7 @@ library(lubridate)
 library(jhur)
 ```
 
-
-1\. Create some data to work with by running the following code chunk.
+Create some data to work with by running the following code chunk.
 
 ```{r}
 set.seed(1234)
@@ -29,55 +30,60 @@ TF_vect <- rep(c(TRUE, TRUE, FALSE), times = 10)
 TF_vect2 <- rep(c("TRUE", "TRUE", "FALSE"), times = 10)
 ```
 
+### 1.2
 
-2\. Determine the class of each of these new objects.
+Determine the class of each of these new objects.
 
-```{r 2response}
+```{r 1.2response}
 class(int_vect) # [1] "integer"
 class(rand_vect) # [1] "integer"
 class(TF_vect) # [1] "logical"
 class(TF_vect2) # [1] "character"
 ```
 
+### 1.3
 
-3\. Are `TF_vect` and `TF_vect2` different classes? Why or why not?
+Are `TF_vect` and `TF_vect2` different classes? Why or why not?
 
-```{r 3response}
+```{r 1.3response}
 # Yes!
 # Logical vectors do not have quotes around `TRUE` and `FALSE` values.
 ```
 
+### 1.4
 
-4\. Create a tibble combining these vectors together called `vect_data` using the following code.
+Create a tibble combining these vectors together called `vect_data` using the following code.
 
 ```{r}
 vect_data <- tibble(int_vect, rand_vect, TF_vect, TF_vect2)
 ```
 
+### 1.5
 
-5\. Coerce `rand_vect` to character class using `as.character()`. Save this vector as `rand_char_vect`. How is the output for `rand_vect` and `rand_char_vect` different?
+Coerce `rand_vect` to character class using `as.character()`. Save this vector as `rand_char_vect`. How is the output for `rand_vect` and `rand_char_vect` different?
 
-```{r 5response}
+```{r 1.5response}
 rand_char_vect <- as.character(rand_vect)
 rand_char_vect # Numbers now have quotation marks
 ```
 
+### 1.6
 
-
-6\. Read in the Charm City Circulator data using `read_circulator()` function from `jhur` package using the code supplied in the chunk. 
+Read in the Charm City Circulator data using `read_circulator()` function from `jhur` package using the code supplied in the chunk. 
 
 ```{r}
 circ <- read_circulator()
 ```
 
-- Use the `str()` function to take a look at the data and learn about the column types.
+Use the `str()` function to take a look at the data and learn about the column types.
 
-```{r 6response}
+```{r 1.6response}
 str(circ)
 ```
 
+### 1.7
 
-7\. Use the `mutate()` function to create a new column named `date_formatted` that is of `Date` class. The new variable is created from `date` column. Hint: use `mdy()` function. Reassign to `circ`.
+Use the `mutate()` function to create a new column named `date_formatted` that is of `Date` class. The new variable is created from `date` column. Hint: use `mdy()` function. Reassign to `circ`.
 
 ```
 # General format
@@ -89,22 +95,27 @@ circ <- mutate(circ, date_formatted = mdy(date))
 ```
 
 
-**Bonus / Extra practice**: Move the `date_formatted` variable to be before `date` using the `relocate` function. Take a look at the data using `glimpse()`. Note the difference between `date` and `date_formatted` columns.
+# Practice on Your Own!
+
+### P.1
+
+Move the `date_formatted` variable to be before `date` using the `relocate` function. Take a look at the data using `glimpse()`. Note the difference between `date` and `date_formatted` columns.
 
 ```
 # General format
 NEWDATA <- OLD_DATA %>% relocate(COLUMN1, .before = COLUMN2)
 ```
 
-```{r b1response}
+```{r P.1response}
 circ <- circ %>% relocate(date_formatted, .before = date)
 glimpse(circ)
 ```
 
+### P.2
 
-**Bonus / Extra practice**: Use `range()` function on `date_formatted` variable to display the range of dates in the data set. How does this compare to that of `date`? Why? (Hint: use the pull function first to pull the values.)
+Use `range()` function on `date_formatted` variable to display the range of dates in the data set. How does this compare to that of `date`? Why? (Hint: use the pull function first to pull the values.)
 
-```{r b2response}
+```{r P.2response}
 pull(circ, date_formatted) %>% range()
 pull(circ, date) %>% range()
 
