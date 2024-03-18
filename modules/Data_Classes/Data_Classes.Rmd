@@ -21,7 +21,7 @@ library(forcats)
     * Character: strings or individual characters, quoted
     * Numeric: any real number(s)
     * Integer: any integer(s)/whole numbers (1,2,3)
-    * Double: any number with fractional values (1.2, 4.0)
+    * Double: any number with fractional values (1.2, 4.01, 1.00004)
     * Factor: categorical/qualitative variables
     * Logical: variables composed of TRUE or FALSE
     * Date/POSIXct: represents calendar dates and times
@@ -81,15 +81,7 @@ Examples:
 - `as.Date()`
 - `as.factor()` (More on this one later!)
 
-## General Class Information: Checking
 
-
-```{r logical_coercion}
-class(4)
-class(c(1, 4, 7))
-class("tree")
-class(c("tree", "cloud"))
-```
 
 ## Coercing: seamless transition
 
@@ -116,21 +108,26 @@ as.Date(c("2021-06-15", "2021-06-32"))
 
 There are two major number subclasses or types
 
-1) Double
-2) Integer
+1) Double (1.003)
+2) Integer (1)
 
 ## Double
 
-`Double` is equivalent to `numeric`. It is a number that contains <span style="color: red;">fractional values</span>.
+`Double` is equivalent to `numeric`. It is a number that contains <span style="color: red;">fractional values </span>. Can be any amount of places after the decimal.
 
 `Double` stands for [double-precision](https://en.wikipedia.org/wiki/Double-precision_floating-point_format)
 
 ```{r double}
-y <- c(1.1, 2.0, 3.2, 4.5, 5.6)
+y <- c(1.1, 2.0, 3.21, 4.5, 5.62)
 y
 class(y)
 typeof(y)
 ```
+
+## Significant figures and other formats
+
+The `num` function of the `tibble` package can be used to change format. See here for more: https://tibble.tidyverse.org/articles/numbers.html 
+
 
 
 ## Integer
@@ -277,25 +274,6 @@ Two-dimensional classes are those we would often use to store data read from a f
     * for example: all entries are `numeric`, or all entries are `character`
 
 
-## Matrices
-
-`as.matrix()` creates a matrix from a data frame or tibble (where all values are the same class).
-
-```{r,}
-circ_mat <- select(circ, contains("orange")) %>%
-  head(n = 3)
-circ_mat
-as.matrix(circ_mat)
-```
-
-## Matrices
-
-`matrix()` creates a matrix from scratch.
-
-```{r}
-matrix(1:6, ncol = 2)
-```
-
 ## Lists
 
 * One other data type that is the most generic are `lists`.
@@ -307,23 +285,11 @@ matrix(1:6, ncol = 2)
 
 * Can be created using `list()`
 ```{r makeList}
-mylist <- list(c("A", "b", "c"), c(1, 2, 3), matrix(1:4, ncol = 2))
+mylist <- list(c("A", "b", "c"), c(1, 2, 3))
 mylist
 class(mylist)
 ```
 
-## Lists
-
-List elements can be named
-
-```{r makeListv}
-mylist_named <- list(
-  letters = c("A", "b", "c"),
-  numbers = c(1, 2, 3),
-  one_matrix = matrix(1:4, ncol = 2)
-)
-mylist_named
-```
 
 
 # Special data classes
@@ -346,14 +312,14 @@ class("2021-06-15")
 
 library(lubridate)
 
-ymd("2021-06-15") # lubridate package
+ymd("2021-06-15") # lubridate package Year Month Day
 class(ymd("2021-06-15")) # lubridate package
 class(date("2021-06-15")) # lubridate package
 ```
 
 Note for  function `ymd`: **y**ear **m**onth **d**ay  
 
-## dates
+## Dates are useful!
 
 ```{r}
 a <- ymd("2021-06-15")
@@ -366,9 +332,12 @@ a - b
 
 `date()` is picky...
 
+
 ```{r, error = TRUE}
-date("06/15/2021") # This doesn't work
+date("06/15/2021") # This doesn't work, needs to be year month day
 ```
+
+## But we can use the month day year function `mdy`
 
 ```{r, error = TRUE}
 mdy("06/15/2021") # This works
@@ -376,6 +345,16 @@ mdy("06/15/21") # This works
 ```
 
 Note for  function `mdy`: **m**onth **d**ay  **y**ear
+
+## They right lubridate function needs to be used
+
+Must match the data format!
+
+```{r}
+ymd("06/15/2021") # This doesn't work - gives NA
+mdy("06/15/2021") # This works
+```
+
 
 ## Creating `POSIXct` class object  
 
@@ -387,20 +366,39 @@ class(ymd_hms("2013-01-24 19:39:07")) # lubridate package
 
 UTC represents time zone, by default: Coordinated Universal Time
 
-Note for  function `ymd_hms`: **y**ear **m**onth **d**ay **h**our **m**inute **s**econd. 
+Note for  function `ymd_hms`: year month day hour minute second. 
 
 There are functions in case your data have only date, hour and minute (`ymd_hm()`) or only date and hour (`ymd_h()`). 
 
+
+
+## In a dataframe
+
+Note dates are always displayed year month day, even if made with `mdy`!
+```{r}
+circ <- mutate(circ, date_formatted = mdy(date)) %>% 
+  relocate(date_formatted, .before = orangeBoardings) 
+glimpse(circ)
+```
+## Once a variable is a date type we can convert to other types
+
+
+```{r}
+circ %>% mutate(year = year(date_formatted)) %>%
+         mutate(month = month(date_formatted)) %>%
+         relocate(c(year, month), .before = orangeBoardings) %>%
+  glimpse()
+```
 
 ## Summary
 
  - two dimensional object classes include: data frames, tibbles, matrices, and lists
  - matrix has columns and rows but  is all one data class
-     - can create a matrix with `matrix()` from scratch or `as.matrix()` from something
  - lists can contain multiples of any other class of data including lists!
-     - can create lists with `list()`
- - calendar dates can be represented with the `Date` class using `ymd()`, `mdy()` functions from `lubridate` package 
+ - calendar dates can be represented with the `Date` class using `ymd()`, `mdy()` functions from `lubridate` package
+  - Make sure you choose the right function for the way the date is formatted!
 - `POSIXct` class representing a calendar date with hours, minutes, seconds. Can use `ymd_hms()` or `ymd_hm()` or `ymd_h()`functions from the [`lubridate` package](https://lubridate.tidyverse.org/)
+- can then easily subtract `Date` or `POSIXct` class variables or pull out aspects like year
 
 ## Lab Part 1
 
@@ -415,6 +413,39 @@ knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
 
 # Extra Slides
+
+## Matrices
+
+`as.matrix()` creates a matrix from a data frame or tibble (where all values are the same class).
+
+```{r,}
+circ_mat <- select(circ, contains("orange")) %>%
+  head(n = 3)
+circ_mat
+as.matrix(circ_mat)
+```
+
+## Matrices
+
+`matrix()` creates a matrix from scratch.
+
+```{r}
+matrix(1:6, ncol = 2)
+```
+
+
+## More about Lists
+
+List elements can be named
+
+```{r makeListv}
+mylist_named <- list(
+  letters = c("A", "b", "c"),
+  numbers = c(1, 2, 3),
+  one_matrix = matrix(1:4, ncol = 2)
+)
+mylist_named
+```
 
 
 ## Some useful functions from `lubridate` to manipulate `Date` objects
