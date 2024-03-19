@@ -518,6 +518,47 @@ If the datasets have two different names for the same data, use:
 full_join(x, y, by = c("a" = "b"))
 ```
 
+## `anti_join` : what's missing
+
+Entries in `data_As` but not in `data_cold`
+
+```{r}
+anti_join(data_As, data_cold, by = "State")
+```
+
+Entries in `data_cold` but not in `data_As`
+
+```{r}
+anti_join(data_cold, data_As, by = "State") # order switched
+```
+
+## Summary
+
+* Merging/joining data sets together - assumes all column names that overlap
+     - use the `by = c("a" = "b")` if they differ
+* `inner_join(x, y)` - only rows that match for `x` and `y` are kept
+* `full_join(x, y)` - all rows of `x` and `y` are kept 
+* `left_join(x, y)` - all rows of `x` are kept even if not merged with `y`
+* `right_join(x, y)` - all rows of `y` are kept even if not merged with `x`
+* Use the `tidylog` package for a detailed summary
+* `setdiff(x, y)` shows what in `x` is missing from `y`
+
+## Lab Part 2
+
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
+
+💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Manipulating_Data_in_R/lab/Manipulating_Data_in_R_Lab.Rmd)
+
+```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
+knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
+```
+
+Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
+
+
+# Additional Slides
+
+
 ## Getting the set difference with `setdiff`
 
 We might want to determine what indexes ARE in the first dataset that AREN'T in the second.
@@ -556,30 +597,6 @@ In other words, we use `dplyr::` to be specific about the package we want to use
 More set operations can be found here:
 https://dplyr.tidyverse.org/reference/setops.html
 
-## Summary
-
-* Merging/joining data sets together - assumes all column names that overlap
-     - use the `by = c("a" = "b")` if they differ
-* `inner_join(x, y)` - only rows that match for `x` and `y` are kept
-* `full_join(x, y)` - all rows of `x` and `y` are kept 
-* `left_join(x, y)` - all rows of `x` are kept even if not merged with `y`
-* `right_join(x, y)` - all rows of `y` are kept even if not merged with `x`
-* Use the `tidylog` package for a detailed summary
-* `setdiff(x, y)` shows what in `x` is missing from `y`
-
-## Lab Part 2
-
-🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
-
-💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Manipulating_Data_in_R/lab/Manipulating_Data_in_R_Lab.Rmd)
-
-```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
-knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
-```
-
-Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
-
-# Additional Slides
 
 ## Inconsistencies in non-pivoted columns?
 
