@@ -383,6 +383,8 @@ ij <- inner_join(data_As, data_cold)
 ij
 ```
 
+<IMG style="position:absolute;bottom:10.5%;left:85%;width:120px;"SRC="images/inner.png">
+
 ## Left Join
 
 https://raw.githubusercontent.com/gadenbuie/tidyexplain/main/images/left-join.gif
@@ -400,6 +402,8 @@ lj <- left_join(data_As, data_cold)
 lj
 ```
 
+<IMG style="position:absolute;bottom:10.5%;left:85%;width:120px;"SRC="images/left.png">
+
 ## Install `tidylog` package to log outputs
 
 ```{r, include=FALSE}
@@ -412,6 +416,8 @@ library(tidylog)
 library(tidylog)
 left_join(data_As, data_cold)
 ```
+
+<IMG style="position:absolute;bottom:10.5%;left:85%;width:120px;"SRC="images/left.png">
 
 ## Right Join
 
@@ -430,12 +436,16 @@ rj <- right_join(data_As, data_cold)
 rj
 ```
 
+<IMG style="position:absolute;bottom:10.5%;left:85%;width:120px;"SRC="images/right.png">
+
 ## Left Join: Switching arguments
 
 ```{r right_join2}
 lj2 <- left_join(data_cold, data_As)
 lj2
 ```
+
+<IMG style="position:absolute;bottom:10.5%;left:85%;width:120px;"SRC="images/left.png">
 
 ## Full Join
 
@@ -451,6 +461,8 @@ knitr::include_graphics("images/full_join.gif")
 fj <- full_join(data_As, data_cold)
 fj
 ```
+
+<IMG style="position:absolute;bottom:10.5%;left:85%;width:120px;"SRC="images/full.png">
 
 ## Watch out for "`includes duplicates`"
 
@@ -472,6 +484,8 @@ data_cold
 lj <- left_join(data_As, data_cold)
 ```
 
+<IMG style="position:absolute;bottom:10.5%;left:85%;width:120px;"SRC="images/left.png">
+
 ## Watch out for "`includes duplicates`"
 
 Data including the joining column ("State") has been duplicated.
@@ -483,6 +497,8 @@ lj
 <br>
 
 Note that "Alaska willow ptarmigan" appears twice.
+
+<IMG style="position:absolute;bottom:10.5%;left:85%;width:120px;"SRC="images/left.png">
 
 ## Watch out for "`includes duplicates`"
 
@@ -508,6 +524,8 @@ By default joins use the intersection of column names. If `by` is specified, it 
 full_join(data_As, data_cold, by = "State")
 ```
 
+<IMG style="position:absolute;bottom:10.5%;left:85%;width:120px;"SRC="images/full.png">
+
 ## Using the `by` argument
 
 You can join based on multiple columns by using something like `by = c(col1, col2)`.
@@ -517,6 +535,8 @@ If the datasets have two different names for the same data, use:
 ```{r eval=FALSE}
 full_join(x, y, by = c("a" = "b"))
 ```
+
+<IMG style="position:absolute;bottom:10.5%;left:85%;width:120px;"SRC="images/full.png">
 
 ## `anti_join` : what's missing
 
@@ -532,6 +552,8 @@ Entries in `data_cold` but not in `data_As`
 anti_join(data_cold, data_As, by = "State") # order switched
 ```
 
+<IMG style="position:absolute;bottom:10.5%;left:85%;width:120px;"SRC="images/anti.png">
+
 ## Summary
 
 * Merging/joining data sets together - assumes all column names that overlap
@@ -541,7 +563,7 @@ anti_join(data_cold, data_As, by = "State") # order switched
 * `left_join(x, y)` - all rows of `x` are kept even if not merged with `y`
 * `right_join(x, y)` - all rows of `y` are kept even if not merged with `x`
 * Use the `tidylog` package for a detailed summary
-* `setdiff(x, y)` shows what in `x` is missing from `y`
+* `antijoin(x, y)` shows what is only in `x` (missing from `y`)
 
 ## Lab Part 2
 
