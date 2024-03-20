@@ -24,7 +24,7 @@ library(tidyr)
 -  Remember to use `read_csv()` from the `readr` package.
 -  Do NOT use `read.csv()`.
 
-```{r}
+```{r 1.1response}
 vacc <- read_csv("http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv")
 # If downloaded
 # vacc <- read_csv("USA_covid19_vaccinations.csv")
@@ -33,7 +33,7 @@ vacc <- read_csv("http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinat
 
 2\. Look at the column names using `colnames` - do you notice any patterns?
 
-```{r}
+```{r 1.2response}
 colnames(vacc)
 # Looks like many start with "Percent" and some start with "Total" - this indicates there are different units of measure for these different variables!
 ```
@@ -46,7 +46,7 @@ colnames(vacc)
 new_data <- old_data %>% rename(newname = oldname)
 ```
 
-```{r}
+```{r 1.3response}
 vacc <- vacc %>% rename(Entity = `State/Territory/Federal Entity`)
 ```
 
@@ -58,7 +58,7 @@ vacc <- vacc %>% rename(Entity = `State/Territory/Federal Entity`)
 new_data <- old_data %>% select(colname1, colname2, ...)
 ```
 
-```{r}
+```{r 1.4response}
 vacc <- vacc %>% select(Entity, starts_with("Percent"))
 ```
 
@@ -70,7 +70,7 @@ vacc <- vacc %>% select(Entity, starts_with("Percent"))
 new_data <- old_data %>% pivot_longer(cols = colname(s))
 ```
 
-```{r}
+```{r 1.5response}
 vacc_long <- vacc %>% pivot_longer(cols = !Entity)
 ```
 
@@ -82,7 +82,7 @@ vacc_long <- vacc %>% pivot_longer(cols = !Entity)
 new_data <- old_data %>% filter(colname %in% c(1, 2, 3, ...))
 ```
 
-```{r}
+```{r 1.6response}
 vacc_long <- vacc_long %>%
   filter(Entity %in% c("Maryland", "Virginia", "Mississippi", "Massachusetts", "United States"))
 ```
@@ -95,7 +95,7 @@ vacc_long <- vacc_long %>%
 new_data <- old_data %>% pivot_wider(names_from = column1, values_from = column2)
 ```
 
-```{r}
+```{r 1.7response}
 vacc_wide <- vacc_long %>%
   pivot_wider(
     names_from = Entity,
@@ -109,7 +109,7 @@ vacc_wide
 
 A\. Take the code from Questions 1 and 3-7. Chain all of this code together using the pipe ` %>% `. Call your data `vacc_compare`.
 
-```{r}
+```{r Aresponse}
 vacc_compare <-
   read_csv("http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv") %>%
   rename(Entity = `State/Territory/Federal Entity`) %>%
@@ -127,7 +127,7 @@ B\. Modify the code from Question A:
 -  Select different states/Entities to compare
 -  Call your data `vacc_compare2`
 
-```{r}
+```{r Bresponse}
 vacc_compare2 <-
   read_csv("http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv") %>%
   rename(Entity = `State/Territory/Federal Entity`) %>%
@@ -143,7 +143,7 @@ vacc_compare2
 
 8\. Read in the GDP and Personal Income Data from http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv. You can use the url or download the data. Call it "gdp". 
 
-```{r}
+```{r 2.1response}
 gdp <- read_csv("http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv")
 # If downloaded
 # gdp <- read_csv("gdp_personal_income.csv")
@@ -157,7 +157,7 @@ gdp <- read_csv("http://jhudatascience.org/intro_to_r/data/gdp_personal_income.c
 new_data <- old_data %>% pivot_wider(names_from = column1, values_from = column2)
 ```
 
-```{r}
+```{r 2.2response}
 gdp <- gdp %>%
   pivot_wider(
     names_from = Description,
@@ -177,7 +177,7 @@ gdp <- gdp %>%
 new_data <- inner_join(x, y, by = c("colname1" = "colname2"))
 ```
 
-```{r}
+```{r 2.3response}
 # merged <- inner_join(vacc, gdp) does not work!
 merged <- inner_join(vacc, gdp, by = c("Entity" = "GeoName"))
 nrow(merged)
@@ -191,7 +191,7 @@ nrow(merged)
 new_data <- full_join(x, y, by = c("colname1" = "colname2"))
 ```
 
-```{r}
+```{r 2.4response}
 full <- full_join(vacc, gdp, by = c("Entity" = "GeoName"))
 nrow(full)
 ```
@@ -201,7 +201,7 @@ nrow(full)
 
 C\. Do a left join of "vacc" and "gdp". Call the output "left". How many observations are there?
 
-```{r}
+```{r Cresponse}
 left <- left_join(vacc, gdp, by = c("Entity" = "GeoName"))
 nrow(left)
 ```
@@ -209,7 +209,7 @@ nrow(left)
 
 D\. Copy your code from Question D and change it to a `right_join` with the same order of the arguments. Call the output "right". How many observations are there?
 
-```{r}
+```{r Dresponse}
 right <- right_join(vacc, gdp, by = c("Entity" = "GeoName"))
 nrow(right)
 ```
@@ -226,7 +226,7 @@ E\. Perform a `setdiff` on "vacc" and "gdp" to determine what Entities are missi
 dplyr::setdiff(DATA_1, DATA_2)
 ```
 
-```{r}
+```{r Eresponse}
 entity <- vacc %>% select(Entity)
 geoname <- gdp %>% select(GeoName) %>% rename(Entity = GeoName)
 setdiff(entity, geoname) # In vacc "Entity" but not gdp "GeoName"
