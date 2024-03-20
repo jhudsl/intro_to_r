@@ -350,7 +350,16 @@ Should you be dividing by the total count with `NA` values included?
 It depends on your data and what `NA` might mean.   
 Pay attention to your data and your `NA` values!
 
+## Don't forget about the common issues
 
+- Extra or Missing commas  
+- Extra or Missing parentheses   
+- Case sensitivity  
+- Spelling  
+
+```{r, fig.alt="", out.width = "50%", echo = FALSE, out.extra='style="float:left"'}
+knitr::include_graphics("images/debug.png")
+```
 
 ## Summary
 
