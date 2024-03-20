@@ -1,5 +1,5 @@
 ---
-title: "Data Visualization Lab Key"
+title: "Data Visualization Lab - Key"
 output: html_document
 editor_options: 
   chunk_output_type: console
@@ -47,7 +47,7 @@ ggplot(???, aes(x = ???, y = ???)) +
   ???
 ```
 
-```{r}
+```{r 1.1response}
 
 my_plot <-
   ggplot(bike_agg, aes(x = dateInstalled, y = lane_avg_length)) +
@@ -59,7 +59,7 @@ my_plot
 
 2. "Update" your plot by adding a title and changing the x and y axis titles. 
 
-```{r}
+```{r 1.2response}
 my_plot <- my_plot +
   labs(
     x = "Year of bike lane installation",
@@ -78,7 +78,7 @@ my_plot<- my_plot +
   scale_x_continuous(?????)
 ```
 
-```{r}
+```{r 1.3response}
 my_plot <- my_plot +
   scale_x_continuous(
     breaks = c(2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013)
@@ -90,7 +90,12 @@ my_plot
 
 4. Observe several different versions of the plot by displaying `my_plot` while adding a different "theme" to it. 
 
-```{r}
+```
+# General format
+my_plot + theme_bw()
+```
+
+```{r 1.4response}
 my_plot + theme_bw()
 my_plot + theme_classic()
 my_plot + theme_dark()
@@ -100,7 +105,7 @@ my_plot + theme_void()
 
 **Bonus / Extra practice**: Create a boxplot (with the `geom_boxplot()` function) using the `Orange` data, where `Tree` is plotted on the x axis and `circumference` is plotted on the y axis. 
 
-```{r}
+```{r P1response}
 Orange %>%
   ggplot(aes(x = Tree, y = circumference)) +
   geom_boxplot()
@@ -122,9 +127,9 @@ bike_agg_2
 ```
 
 
-2.  Use `ggplot2` package to make a plot showing trajectories of number of lanes (`lane_count`; y-axis) over year (`dateInstalled`; x-axis), where each bike line type has a different line with a different color (hint: use `color = type` in mapping). 
+2.  Use `ggplot2` package to make a plot showing trajectories of number of lanes (`lane_count`; y-axis) over year (`dateInstalled`; x-axis), where each bike line type has a different line (hint: use `group = type` in mapping) and a different color (hint: use `color = type` in mapping).
 
-```{r}
+```{r 2.2response}
 ggplot(bike_agg_2, aes(
   x = dateInstalled,
   y = lane_count,
@@ -139,7 +144,7 @@ ggplot(bike_agg_2, aes(
 (You may see `geom_path: Each group consists of only one observation. Do you need to adjust the group aesthetic?` warning as some bike lane types will have only 1 point plotted while trying to plot a line).
 Assign the new plot as an object called `facet_plot`.
 
-```{r}
+```{r 2.3response}
 
 facet_plot <- ggplot(bike_agg_2, aes(
   x = dateInstalled,
@@ -155,7 +160,7 @@ facet_plot
 
 **Bonus / Extra practice**: Modify `facet_plot` to remove the legend (hint use `theme()` and the `legend.position` argument) and change the names of the axis titles to be "Number of bike lanes" for the y axis and "Date bike lane was installed" for the x axis. 
 
-```{r}
+```{r P2response}
 facet_plot <- facet_plot +
   theme(legend.position = "none") +
   labs(
@@ -165,7 +170,6 @@ facet_plot <- facet_plot +
 
 facet_plot
 ```
-
 
 **Bonus / Extra practice**: Modify `facet_plot` one more time with a fun theme! Look into the [ThemePark package](https://github.com/MatthewBJane/ThemePark) It has lots of fun themes! Try one out! Remember you will need to install it using `remotes::install_github("MatthewBJane/ThemePark")`and load in the library. 
 

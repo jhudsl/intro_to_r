@@ -21,8 +21,6 @@ options(scipen = 999)
 library(readr)
 library(ggplot2)
 library(emo)
-
-install.packages(c("faraway", "epitools"))
 ```
 
 ## Summary
@@ -637,7 +635,14 @@ summary(binom_fit)
 
 ## Odds ratios
 
+> An odds ratio (OR) is a measure of association between an exposure and an outcome. The OR represents the odds that an outcome will occur given a particular exposure, compared to the odds of the outcome occurring in the absence of that exposure.
+
+Check out [this paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2938757/). 
+
+## Odds ratios
+
 This data shows whether people became ill after eating ice cream in the 1940s.
+
 ```{r}
 # install.packages(epitools)
 library(epitools)
@@ -650,7 +655,6 @@ ice_cream <-
     vanilla.ice.cream = recode(vanilla.ice.cream, "Y" = 1, "N" = 0)
   )
 ```
-
 
 ## Odds ratios
 

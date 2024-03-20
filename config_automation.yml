@@ -12,5 +12,9 @@ style-code: no
 # Test build the docker image if any docker-relevant files have been changed
 docker-test: no
 
+
+# Autogenerate Labs from Keys (clear the Rmarkdown chunks)
+make-labs: yes
+
 # What docker image should be used for rendering?
 rendering-docker-image: 'jhudsl/intro_to_r:1.1.1'

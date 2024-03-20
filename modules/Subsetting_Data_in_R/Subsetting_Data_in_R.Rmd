@@ -23,14 +23,8 @@ We are constantly making improvements.
 
 ## Recap
 
-- R functions as a calculator
-- Use `c()` to **combine** vectors
-- Use `<-` to save (assign) values to objects
-- if you don't use `<-` to reassign objects that you want to modify, they will stay the same
-- `length()`, `class()`, and `str()` tell you information about an object
-- `head()` and `tail()` can also help you inspect an object
+-  Reproducible science makes everyone's life easier!
 - `readr`has helpful functions like `read_csv()` that can help you import data into R
-
 
 📃[Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-2.pdf)
 
@@ -835,13 +829,13 @@ knitr::include_graphics("images/mutate.png")
 
 The `NULL` method is still very common.
 
-The `select` function can remove a column with minus (`-`):
+The `select` function can remove a column with exclamation mark (`!`) our using the minus sign (`-`):
 ```{r, eval = FALSE}
-select(AD, - newcol)
+select(AD, !newcol)
 ```
 
 ```{r, echo = FALSE}
-head(select(AD, - newcol))
+head(select(AD, !newcol))
 ```
 
 **Or, you can simply select the columns you want to keep, ignoring the ones you want to remove.**
@@ -852,7 +846,7 @@ You can use `c()` to list the columns to remove.
 
 Remove `newcol` and `drat`:
 ```{r}
-select(AD, -c(newcol, year))
+select(AD, !c(newcol, year))
 ```
 
 
@@ -883,11 +877,11 @@ head(select(AD, newcol, everything()), 3)
 Put `year` at the end ("remove, everything, then add back in"):
 
 ```{r, eval = FALSE}
-select(AD, -year, everything(), year)
+select(AD, !year, everything(), year)
 ```
 
 ```{r, echo = FALSE}
-head(select(AD, -year, everything(), year), 3)
+head(select(AD, !year, everything(), year), 3)
 ```
 
 
@@ -955,8 +949,8 @@ arrange(AD, desc(year), count) %>% head(n = 2)
 - `arrange()` can be used to reorder rows
 - can remove rows with `filter()`
 - can remove a column in a few ways:  
-    2. using `select()` with negative sign in front of column name(s)  
-    3. not selecting it (without negative sign)  
+    2. using `select()` with exclamation mark in front of column name(s)  
+    3. not selecting it (without exclamation mark)  
 
 ## Summary cont...
 

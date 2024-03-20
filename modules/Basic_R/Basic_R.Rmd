@@ -11,17 +11,6 @@ library(knitr)
 opts_chunk$set(comment = "")
 ```
 
-## Recap
-
--  Reproducible science makes everyone's life easier!
--  the Editor is for static code like scripts or R Markdown documents
--  Send code to the Console to run it
--  The Console can be used for quickly testing code on the fly
--  R code goes within what is called a chunk (the gray box with a green play button)
--  Code chunks can be modified so that they show differently in reports
-
-📃[RStudio Cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rstudio-ide.pdf)
-
 ## Explaining output on slides
 
 In slides, a command (we'll also call them code or a code chunk) will look like this
@@ -409,4 +398,3 @@ knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 ```
 
 Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
-
