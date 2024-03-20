@@ -22,7 +22,7 @@ library(readr)
 ```
 
 ```{r 1.1response}
-library(readr)
+library(tidyverse)
 vacc <- read_csv(file = "http://jhudatascience.org/intro_to_r/data/vaccinations.csv")
 ```
 
