@@ -457,7 +457,7 @@ Note you could accomplish the same task by doing: `airquality %>% mutate_all(~re
 
 ## pmap
 
-`pmap()` is a very handy `purrr` function for running through multiple inputs at once. Let's say we wanted to do something different with each variable. 
+`pmap()` is a very handy `purrr` function for running through multiple inputs at once. `pmap` is handy if we wanted to do something different with each variable. And it can handle lists or dataframes! But as with a lot of `purrr` functions it will by default spit back a `list`. 
 
 ```{r}
 metric_list <- airquality %>% 
@@ -476,8 +476,11 @@ metric_list <- airquality %>%
 
 # Note there is 153 items in the list -- corresponding to the 153 rows of data in airquality
 str(metric_list)
+```
 
-# In this particular instance we could turn this back into a data.frame again because the lengths of the 153 lists are all identical, but you can see how pmap gives you a lot of power to handle different shapes of data. 
+In this particular instance we could turn this back into a data.frame again because the lengths of the 153 lists are all identical, but you can see how pmap gives you a lot of power to handle different shapes of data. 
+
+```{r}
 metric_df <- bind_rows(metric_list)
 ```
 
