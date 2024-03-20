@@ -11,7 +11,7 @@
 
 
 
-<title>Data Cleaning Lab</title>
+<title>Introduction to R: Homework 3</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -348,140 +348,151 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Data Cleaning Lab</h1>
+<h1 class="title toc-ignore">Introduction to R: Homework 3</h1>
 
 </div>
 
 
-<div id="data-used" class="section level1">
-<h1>Data used</h1>
-<p>Bike Lanes Dataset: BikeBaltimore is the Department of
-Transportation’s bike program. The data is from <a href="http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms" class="uri">http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms</a></p>
-<p>You can Download as a CSV in your current working directory. Note its
-also available at: <a href="http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv" class="uri">http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv</a></p>
-<pre class="r"><code>library(readr)
+<div id="instructions" class="section level3">
+<h3><strong>Instructions</strong></h3>
+<p>Completed homework should be submitted on CoursePlus as an
+<strong>Rmd file</strong>. Please see the course website for more
+information about submitting assignments: <a href="https://jhudatascience.org/intro_to_r/syllabus.html#submitting-assignments" class="uri">https://jhudatascience.org/intro_to_r/syllabus.html#submitting-assignments</a>.</p>
+<p>Homework will be graded for correct output, not code style. All
+assignments are due at the end of the course. Please see the course
+website for more information about grading: <a href="https://jhudatascience.org/intro_to_r/syllabus.html#grading" class="uri">https://jhudatascience.org/intro_to_r/syllabus.html#grading</a>.</p>
+<pre class="r"><code>## you can add more, or change...these are suggestions
 library(tidyverse)
+library(readr)
 library(dplyr)
-library(lubridate)
-library(jhur)
-library(tidyverse)
-library(broom)
-library(naniar)</code></pre>
+library(ggplot2)
+library(tidyr)</code></pre>
 </div>
-<div id="part-1" class="section level1">
-<h1>Part 1</h1>
-<ol start="0" style="list-style-type: decimal">
-<li>Read in the bike data, you can use the URL or download the
-data.</li>
-</ol>
-<p>Bike Lanes Dataset: BikeBaltimore is the Department of
-Transportation’s bike program. The data is from <a href="http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms" class="uri">http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms</a></p>
-<p>You can Download as a CSV in your current working directory. Note its
-also available at: <a href="http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv" class="uri">http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv</a></p>
-<ol style="list-style-type: decimal">
-<li><p>Use the <code>is.na()</code> and <code>any()</code> functions to
-check if the bike <code>dateInstalled</code> variable has any
-<code>NA</code> values. Use the pipe between each step. Hint: You first
-need to <code>pull</code> out the vector version of this variable to use
-the <code>is.na()</code> function.</p></li>
-<li><p>Clean rows of bike, so that only rows remain that do NOT have
-missing values for the <code>route</code> variable, using
-<code>drop_na</code>. Assign this to the object
-<code>have_route.</code></p></li>
-<li><p>Use <code>naniar</code> to make a visual of the amount of data
-missing for each variable of <code>bike</code> (use
-<code>gg_miss_var()</code>). Check out more about this package here: <a href="https://www.njtierney.com/post/2018/06/12/naniar-on-cran/" class="uri">https://www.njtierney.com/post/2018/06/12/naniar-on-cran/</a></p></li>
-</ol>
-<p><strong>Bonus / Extra practice</strong></p>
-<p>What percentage of the <code>subType</code> variable is complete of
-<code>bike</code> ? Hint: use another <code>naniar</code> function.</p>
+<div id="problem-set" class="section level3">
+<h3><strong>Problem Set</strong></h3>
+<p>1. Bring the following dataset into R.</p>
+<ul>
+<li>The dataset is located at: <a href="https://jhudatascience.org/intro_to_r/data/mortality.csv" class="uri">https://jhudatascience.org/intro_to_r/data/mortality.csv</a>.</li>
+<li>You can use the link, download it, or use whatever method you like
+for getting the file.</li>
+<li>Once you get the file, read the dataset in using
+<code>read_csv()</code> and assign it the name “mort”.</li>
+</ul>
+<p>2. Run the <code>colnames()</code> function to take a look at the
+dataset column names. You should see that there was originally no name
+for the first column and that R replaced it with “…1”. Rename the first
+column of “mort” to “country” using the <code>rename()</code> function
+in <code>dplyr</code>.</p>
+<p>3. Select only the numeric type columns (<code>select()</code>).
+Then, create the variable “year” from column names by using the
+<code>colnames()</code> function to extract them.</p>
+<p>4. What is the <code>typeof()</code> for “year”? If it’s not an
+integer, turn it into integer form with <code>as.integer()</code>.</p>
+<p>5. Use the <code>pct_complete()</code> function in the
+<code>naniar</code> package to determine the percent missing data in
+“mort”. You might need to load and install <code>naniar</code>!</p>
+<p>6. Are there any countries that have a complete record in “mort”
+across all years? Just look at the output here, don’t reassign it.
+<strong>Hint:</strong> look for complete records by dropping all NAs
+from the dataset using <code>drop_na()</code>.</p>
+<p>7. Reshape the “complete” data to long form.</p>
+<ul>
+<li>There should be a column for country (“country”), a column for year
+(“year”), and a column for the mortality value (“mortality”).</li>
+<li>Use <code>pivot_longer()</code>.</li>
+<li>You should pivot all columns except “country”.</li>
+<li><strong>Hint:</strong> listing <code>!COLUMN</code> or
+<code>-COLUMN</code> means everything except COLUMN.</li>
+<li>Assign the reshaped data to “long”.</li>
+</ul>
+<p>8. Bring an additional dataset into R.</p>
+<ul>
+<li>The dataset is tab-delimited and located at: <a href="https://jhudatascience.org/intro_to_r/data/country_pop.txt" class="uri">https://jhudatascience.org/intro_to_r/data/country_pop.txt</a>.</li>
+<li>You can use the link, download it, or use whatever method you like
+for getting the file.</li>
+<li>Once you get the file, read the dataset in using
+<code>read_tsv()</code> and assign it the name “pop”.</li>
+</ul>
+<p>9. Rename the second column in “pop” to “country” and the column “%
+of world population”, to “percent”. Use the <code>rename()</code>
+function. Don’t forget to reassign the renamed data to “pop”.</p>
+<p>10. Sort the data in “pop” by “Population” from largest to smallest
+using <code>arrange()</code> and <code>desc()</code>. After sorting,
+<code>select()</code> “country” to create an one-column tibble of
+countries ordered by population. Assign this data the name
+“country_ordered”.</p>
+<p>11. Subset “long” based on years 2000-2010, including 2000 and 2010
+and call this “long_sub” using <code>&amp;</code> or the
+<code>between()</code> function. Confirm your filtering worked by
+looking at the range of “year”. If you’re getting a strange error, make
+sure you created the “year” column in problem #7.</p>
+<p>12. Further subset <code>long_sub</code>. You will filter for
+specific countries using <code>filter()</code> and the <code>%in%</code>
+operator. Only include countries in this list:
+<code>c(&quot;Venezuela&quot;, &quot;Bahrain&quot;, &quot;Estonia&quot;, &quot;Iran&quot;, &quot;Thailand&quot;, &quot;Canada&quot;)</code>.
+Make sure to reassign to “long_sub”.</p>
+<p>13. Use <code>pivot_wider()</code> to turn the “year” column of
+“long_sub” into multiple columns, each representing a different year.
+Fill values (<code>values_from=</code>) with “mortality”. Assign this
+pivoted dataset the name “mort_sub”.</p>
+<p>14. Using “country_ordered” and “mort_sub”, <code>right_join()</code>
+the two datasets by “country”. Use the pipe <code>%&gt;%</code> to join
+this dataset to “pop”, keeping only the data on the lefthand side of the
+join. Call this “joined”.</p>
+<p>15. The values in the table are percentages of the total population
+(not proportion).</p>
+<ul>
+<li>Create a new column called “mort_count” that estimates the total
+number of child deaths per year based on the total population. You can
+use (a) any year or (b) an average of all years to make your
+calculation. Whichever you choose, justify your choice.</li>
+<li>Finally, <code>select()</code> only “country”, “Population”, and
+“mort_count” and view the data.</li>
+</ul>
+<blockquote>
+<p>Justification is just for fun. The main point is that decisions in
+your analysis should depend on your reasoning not how many lines of code
+it takes :)</p>
+</blockquote>
+<blockquote>
+<p>The following questions are not required for full credit, but can
+make up for any points lost on other questions.</p>
+</blockquote>
 </div>
-<div id="part-2" class="section level1">
-<h1>Part 2</h1>
-<p><strong>New Data set</strong> Now imagine we work in a clinic and we
-are trying to understand more about blood types of patients.</p>
-<p>Let’s say we the data like so:</p>
-<pre class="r"><code>BloodType &lt;- tibble(
-  weight_loss =
-    c(
-      &quot;Y&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;y&quot;, &quot;no&quot;,
-      &quot;n&quot;, &quot;No&quot;, &quot;N&quot;, &quot;yes&quot;, &quot;Yes&quot;,
-      &quot;No&quot;, &quot;N&quot;, NA, &quot;N&quot;, &quot;Other&quot;
-    ),
-  type = c(
-    &quot;A.-&quot;, &quot;AB.+&quot;, &quot;O.-&quot;, &quot;O.+&quot;, &quot;AB.-&quot;,
-    &quot;B.+&quot;, &quot;B.-&quot;, &quot;o.-&quot;, &quot;O.+&quot;, &quot;A.-&quot;,
-    &quot;A.+&quot;, &quot;O.-&quot;, &quot;B.-&quot;, &quot;o.+&quot;, &quot;AB.-&quot;
-  ),
-  infection = c(
-    &quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;No&quot;,
-    &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;,
-    &quot;No&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;NotSure&quot;
-  )
-)
-
-BloodType</code></pre>
-<pre><code>## # A tibble: 15 × 3
-##    weight_loss type  infection
-##    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;    
-##  1 Y           A.-   Yes      
-##  2 No          AB.+  No       
-##  3 Yes         O.-   Yes      
-##  4 y           O.+   No       
-##  5 no          AB.-  No       
-##  6 n           B.+   No       
-##  7 No          B.-   Yes      
-##  8 N           o.-   No       
-##  9 yes         O.+   Yes      
-## 10 Yes         A.-   No       
-## 11 No          A.+   No       
-## 12 N           O.-   Yes      
-## 13 &lt;NA&gt;        B.-   Yes      
-## 14 N           o.+   Yes      
-## 15 Other       AB.-  NotSure</code></pre>
-<p>There are some issues with this data that we need to figure out!</p>
-<ol style="list-style-type: decimal">
-<li><p>Determine how many <code>NA</code> values there are for
-<code>weight_loss</code> (assume you know that<code>N</code> and
-<code>n</code> is for no).</p></li>
-<li><p>Recode the <code>weight_loss</code> variable of the
-<code>BloodType</code> data so that it is consistent. Use
-<code>case_when()</code>. Keep “Other” as “Other”. Don’t forget to use
-quotes!</p></li>
-</ol>
-<p>Check to see how many values <code>weight_loss</code> has for each
-category (hint: use <code>count</code>). It’s good practice to regularly
-check your data throughout the data wrangling process.</p>
-<ol start="3" style="list-style-type: decimal">
-<li></li>
-<li><p>Recode the <code>type</code> variable of the
-<code>BloodType</code> data to be consistent. Use
-<code>case_when()</code>. Hint: the inconsistency has to do with lower
-case <code>o</code> and capital <code>O</code>. Don’t forget to use
-quotes! <strong>Remember that important extra step that we often do for
-<code>case_when()</code>. Sometimes it matters and sometimes it
-doesn’t.</strong> Why is that?</p></li>
-<li><p>Check to see that <code>type</code> only has these possible
-values: “A.-”,“A.+”, “AB.-”, “AB.+”, “B-”,“B+”, “O.-”, “O.+”</p></li>
-<li><p>Make a new tibble of <code>BloodType</code> called
-<code>Bloodtype_split</code> that splits the <code>type</code> variable
-into two called <code>blood_type</code> and <code>Rhfactor</code>. Note:
-periods are special characters that generally are interpreted as wild
-cards thus we need “\.” instead of simply “.” for the <strong>separating
-character</strong> to tell R that we want it to be interpreted as a
-period. Make sure you use quotes around “\.” and the column names like
-shown below (don’t want backticks).</p></li>
-</ol>
-<pre><code># General format
-NEW_TIBBLE &lt;- OLD_TIBBLE %&gt;%
-  separate(OLD_COLUMN,
-           into = c(&quot;NEW_COLUMN1&quot;, &quot;NEW_COLUMN2&quot;),
-           sep = &quot;SEPARATING_CHARACTER&quot;)</code></pre>
-<p><strong>Bonus / Extra practice</strong>: How many observations are
-there for each <code>Rhfactor</code> in the data object you just
-made:</p>
-<p><strong>Bonus / Extra practice</strong>: Filtering for patients with
-type O, how many had the infection?</p>
+<div id="bonus-practice" class="section level3">
+<h3><strong>Bonus Practice</strong></h3>
+<p>A. Bring the following dataset into R.</p>
+<ul>
+<li>The dataset is located at: <a href="https://jhudatascience.org/intro_to_r/data/asthma.xlsx" class="uri">https://jhudatascience.org/intro_to_r/data/asthma.xlsx</a>.</li>
+<li>You should download the associated data.</li>
+<li>Once you get the file, read the dataset in using
+<code>read_excel()</code> from the <code>readxl</code> package and
+assign it the name “asthma”.</li>
+<li>Read in the sheet named “Age Group (Years)”.</li>
+</ul>
+<p>B. Rename the column <code>Weighted Number With Current Asthma</code>
+to “asthma_count” using <code>rename()</code>. Replace the original
+“asthma” object by calling the new dataset “asthma”.</p>
+<p>C. Separate <code>Percent (SE)</code> into two separate columns:
+“percent” and “SE” using the <code>separate()</code> function. Replace
+the original “asthma” object by calling the new dataset “asthma”.</p>
+<p>D. Remove the parentheses around the numbers in the new SE column.
+You should use a combination of <code>str_replace()</code>,
+<code>pull()</code> (because stringr package functions work on vectors
+not dataframes!) and <code>mutate()</code>. Replace the original
+“asthma” object by calling the new dataset “asthma”.</p>
+<ul>
+<li>The <code>pattern =</code> to find the starting parenthesis is
+“[(]”</li>
+<li>The <code>pattern =</code> to find for the ending parenthesis is
+“[)]”</li>
+<li>The <code>replacement =</code> for both can be empty quotation
+marks: “”</li>
+</ul>
+<p>E. Determine the class of “percent” and “SE”. Can you take the mean
+values? Why or why not?</p>
+<p>F. Use <code>as.numeric()</code> to convert “percent” and “SE” to
+numeric class. Calculate the mean for both.</p>
 </div>
 
 

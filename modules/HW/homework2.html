@@ -11,7 +11,7 @@
 
 
 
-<title>Data Cleaning Lab</title>
+<title>Introduction to R: Homework 2</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -348,140 +348,146 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Data Cleaning Lab</h1>
+<h1 class="title toc-ignore">Introduction to R: Homework 2</h1>
 
 </div>
 
 
-<div id="data-used" class="section level1">
-<h1>Data used</h1>
-<p>Bike Lanes Dataset: BikeBaltimore is the Department of
-Transportation’s bike program. The data is from <a href="http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms" class="uri">http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms</a></p>
-<p>You can Download as a CSV in your current working directory. Note its
-also available at: <a href="http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv" class="uri">http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv</a></p>
-<pre class="r"><code>library(readr)
+<div id="instructions" class="section level3">
+<h3><strong>Instructions</strong></h3>
+<p>Completed homework should be submitted on CoursePlus as an
+<strong>Rmd file</strong>. Please see the course website for more
+information about submitting assignments: <a href="https://jhudatascience.org/intro_to_r/syllabus.html#submitting-assignments" class="uri">https://jhudatascience.org/intro_to_r/syllabus.html#submitting-assignments</a>.</p>
+<p>Homework will be graded for correct output, not code style. All
+assignments are due at the end of the course. Please see the course
+website for more information about grading: <a href="https://jhudatascience.org/intro_to_r/syllabus.html#grading" class="uri">https://jhudatascience.org/intro_to_r/syllabus.html#grading</a>.</p>
+<pre class="r"><code>## you can add more, or change...these are suggestions
 library(tidyverse)
+library(readr)
 library(dplyr)
-library(lubridate)
-library(jhur)
-library(tidyverse)
-library(broom)
-library(naniar)</code></pre>
+library(ggplot2)
+library(tidyr)</code></pre>
 </div>
-<div id="part-1" class="section level1">
-<h1>Part 1</h1>
-<ol start="0" style="list-style-type: decimal">
-<li>Read in the bike data, you can use the URL or download the
-data.</li>
+<div id="problem-set" class="section level3">
+<h3><strong>Problem Set</strong></h3>
+<p>1. Create the following two objects.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Make an object “bday”. Assign it your birthday in day-month format
+(1-Jan).</li>
+<li>Make another object “name”. Assign it your name. Make sure to use
+quotation marks for anything with text!</li>
 </ol>
-<p>Bike Lanes Dataset: BikeBaltimore is the Department of
-Transportation’s bike program. The data is from <a href="http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms" class="uri">http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms</a></p>
-<p>You can Download as a CSV in your current working directory. Note its
-also available at: <a href="http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv" class="uri">http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv</a></p>
-<ol style="list-style-type: decimal">
-<li><p>Use the <code>is.na()</code> and <code>any()</code> functions to
-check if the bike <code>dateInstalled</code> variable has any
-<code>NA</code> values. Use the pipe between each step. Hint: You first
-need to <code>pull</code> out the vector version of this variable to use
-the <code>is.na()</code> function.</p></li>
-<li><p>Clean rows of bike, so that only rows remain that do NOT have
-missing values for the <code>route</code> variable, using
-<code>drop_na</code>. Assign this to the object
-<code>have_route.</code></p></li>
-<li><p>Use <code>naniar</code> to make a visual of the amount of data
-missing for each variable of <code>bike</code> (use
-<code>gg_miss_var()</code>). Check out more about this package here: <a href="https://www.njtierney.com/post/2018/06/12/naniar-on-cran/" class="uri">https://www.njtierney.com/post/2018/06/12/naniar-on-cran/</a></p></li>
+<p>2. Make an object “me” that is “bday” and “name” combined.</p>
+<p>3. Determine the data class for “me”.</p>
+<p>4. If I want to do <code>me / 2</code> I get the following error:
+<code>Error in me/2 : non-numeric argument to binary operator</code>.
+Why? Write your answer as a comment inside the R chunk below.</p>
+<p><strong>The following questions involve an outside
+dataset.</strong></p>
+<p>We will be working with a dataset from the “Kaggle” website, which
+hosts competitions for prediction and machine learning. More details on
+this dataset are here: <a href="https://www.kaggle.com/c/DontGetKicked/overview/background" class="uri">https://www.kaggle.com/c/DontGetKicked/overview/background</a>.</p>
+<p>5. Bring the dataset into R. The dataset is located at: <a href="https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv" class="uri">https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv</a>.
+You can use the link, download it, or use whatever method you like for
+getting the file. Once you get the file, read the dataset in using
+<code>read_csv()</code> and assign it the name <code>cars</code>.</p>
+<p>6. Import the data “dictionary” from <a href="https://jhudatascience.org/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt" class="uri">https://jhudatascience.org/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt</a>.
+Use the <code>read_tsv()</code> function and assign it the name
+“key”.</p>
+<p>7. You should now be ready to work with the “cars” dataset.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Preview the data so that you can see the names of the columns. There
+are several possible functions to do this.</li>
+<li>Determine the class of the first three columns using
+<code>str()</code>. Write your answer as a comment inside the R chunk
+below.</li>
 </ol>
-<p><strong>Bonus / Extra practice</strong></p>
-<p>What percentage of the <code>subType</code> variable is complete of
-<code>bike</code> ? Hint: use another <code>naniar</code> function.</p>
+<p>8. How many cars (rows) are in the dataset? How many variables
+(columns) are recorded for each car?</p>
+<p>9. Filter out (i.e., remove) any vehicles that cost less than or
+equal to $5000 (“VehBCost”) or that have missing values. Replace the
+original “cars” object by reassigning the new filtered dataset to
+“cars”. How many vehicles are left after filtering?</p>
+<p><strong>Hint:</strong> The <code>filter()</code> function also
+removes missing values.</p>
+<p>10. From this point on, work with the filtered “cars” dataset from
+the above question. Given the average car loan today is 70 months,
+create a new variable (column) called “MonthlyPrice” that shows the
+monthly cost for each car (Divide “VehBCost” by 70). Check to make sure
+the new column is there.</p>
+<p><strong>Hint:</strong> use the <code>mutate()</code> function.</p>
+<p>11. What is the range of the manufacture year (“VehYear”) of the
+vehicles?</p>
+<p>12. Create a random sample with of mileage (odometer reading) from
+<code>cars</code>. To determine the column that corresponds to mileage
+(The vehicle’s odometer reading), check the “key” corresponding to the
+data dictionary that you imported above in question 6. Use
+<code>sample()</code> and <code>pull()</code>. Remember that by default
+random samples differ each time you run the code.</p>
+<p>13. How many cars were from before 2004? What percent/proportion do
+these represent? Use:</p>
+<ul>
+<li><code>filter()</code> and <code>nrow()</code></li>
+<li><code>group_by()</code> and <code>summarize()</code> or</li>
+<li><code>sum()</code></li>
+</ul>
+<p>14. How many different vehicle manufacturers/makes (“Make”) are
+there?</p>
+<p><strong>Hint:</strong> use <code>length()</code> with
+<code>unique()</code> or <code>table()</code>. Remember to
+<code>pull()</code> the right column.</p>
+<p>15. How many different vehicle models (“Model”) are there?</p>
+<p>16. Which vehicle color group had the highest mean acquisition cost
+paid for the vehicle at time of purchase, and what was this cost?</p>
+<p><strong>Hint:</strong> Use <code>group_by()</code> with
+<code>summarize()</code>. To determine the column that corresponds to
+“acquisition cost paid for the vehicle at time of purchase”, check the
+“key” corresponding to the data dictionary that you imported above in
+question 6.</p>
+<p>17. Extend on the code you wrote for question 16. Use the
+<code>arrange()</code> function to sort the output by mean acquisition
+cost.</p>
+<p>18. How many vehicles were red and have fewer than 30,000 miles? To
+determine the column that corresponds to mileage (The vehicle’s odometer
+reading), check the “key” corresponding to the data dictionary that you
+imported above in question 6. use:</p>
+<ul>
+<li><code>filter()</code> and <code>count()</code></li>
+<li><code>filter()</code> and <code>tally()</code> or</li>
+<li><code>sum()</code></li>
+</ul>
+<p>19. How many vehicles are blue or red? use:</p>
+<ul>
+<li><code>filter()</code> and <code>count()</code></li>
+<li><code>filter()</code> and <code>tally()</code> or</li>
+<li><code>sum()</code></li>
+</ul>
+<p>20. Select all columns in “cars” where the column names starts with
+“Veh” (using <code>select()</code> and <code>starts_with()</code>. Then,
+use <code>colMeans()</code> to summarize across these columns.</p>
+<blockquote>
+<p>The following questions are not required for full credit, but can
+make up for any points lost on other questions.</p>
+</blockquote>
 </div>
-<div id="part-2" class="section level1">
-<h1>Part 2</h1>
-<p><strong>New Data set</strong> Now imagine we work in a clinic and we
-are trying to understand more about blood types of patients.</p>
-<p>Let’s say we the data like so:</p>
-<pre class="r"><code>BloodType &lt;- tibble(
-  weight_loss =
-    c(
-      &quot;Y&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;y&quot;, &quot;no&quot;,
-      &quot;n&quot;, &quot;No&quot;, &quot;N&quot;, &quot;yes&quot;, &quot;Yes&quot;,
-      &quot;No&quot;, &quot;N&quot;, NA, &quot;N&quot;, &quot;Other&quot;
-    ),
-  type = c(
-    &quot;A.-&quot;, &quot;AB.+&quot;, &quot;O.-&quot;, &quot;O.+&quot;, &quot;AB.-&quot;,
-    &quot;B.+&quot;, &quot;B.-&quot;, &quot;o.-&quot;, &quot;O.+&quot;, &quot;A.-&quot;,
-    &quot;A.+&quot;, &quot;O.-&quot;, &quot;B.-&quot;, &quot;o.+&quot;, &quot;AB.-&quot;
-  ),
-  infection = c(
-    &quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;No&quot;,
-    &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;,
-    &quot;No&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;NotSure&quot;
-  )
-)
-
-BloodType</code></pre>
-<pre><code>## # A tibble: 15 × 3
-##    weight_loss type  infection
-##    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;    
-##  1 Y           A.-   Yes      
-##  2 No          AB.+  No       
-##  3 Yes         O.-   Yes      
-##  4 y           O.+   No       
-##  5 no          AB.-  No       
-##  6 n           B.+   No       
-##  7 No          B.-   Yes      
-##  8 N           o.-   No       
-##  9 yes         O.+   Yes      
-## 10 Yes         A.-   No       
-## 11 No          A.+   No       
-## 12 N           O.-   Yes      
-## 13 &lt;NA&gt;        B.-   Yes      
-## 14 N           o.+   Yes      
-## 15 Other       AB.-  NotSure</code></pre>
-<p>There are some issues with this data that we need to figure out!</p>
-<ol style="list-style-type: decimal">
-<li><p>Determine how many <code>NA</code> values there are for
-<code>weight_loss</code> (assume you know that<code>N</code> and
-<code>n</code> is for no).</p></li>
-<li><p>Recode the <code>weight_loss</code> variable of the
-<code>BloodType</code> data so that it is consistent. Use
-<code>case_when()</code>. Keep “Other” as “Other”. Don’t forget to use
-quotes!</p></li>
-</ol>
-<p>Check to see how many values <code>weight_loss</code> has for each
-category (hint: use <code>count</code>). It’s good practice to regularly
-check your data throughout the data wrangling process.</p>
-<ol start="3" style="list-style-type: decimal">
-<li></li>
-<li><p>Recode the <code>type</code> variable of the
-<code>BloodType</code> data to be consistent. Use
-<code>case_when()</code>. Hint: the inconsistency has to do with lower
-case <code>o</code> and capital <code>O</code>. Don’t forget to use
-quotes! <strong>Remember that important extra step that we often do for
-<code>case_when()</code>. Sometimes it matters and sometimes it
-doesn’t.</strong> Why is that?</p></li>
-<li><p>Check to see that <code>type</code> only has these possible
-values: “A.-”,“A.+”, “AB.-”, “AB.+”, “B-”,“B+”, “O.-”, “O.+”</p></li>
-<li><p>Make a new tibble of <code>BloodType</code> called
-<code>Bloodtype_split</code> that splits the <code>type</code> variable
-into two called <code>blood_type</code> and <code>Rhfactor</code>. Note:
-periods are special characters that generally are interpreted as wild
-cards thus we need “\.” instead of simply “.” for the <strong>separating
-character</strong> to tell R that we want it to be interpreted as a
-period. Make sure you use quotes around “\.” and the column names like
-shown below (don’t want backticks).</p></li>
-</ol>
-<pre><code># General format
-NEW_TIBBLE &lt;- OLD_TIBBLE %&gt;%
-  separate(OLD_COLUMN,
-           into = c(&quot;NEW_COLUMN1&quot;, &quot;NEW_COLUMN2&quot;),
-           sep = &quot;SEPARATING_CHARACTER&quot;)</code></pre>
-<p><strong>Bonus / Extra practice</strong>: How many observations are
-there for each <code>Rhfactor</code> in the data object you just
-made:</p>
-<p><strong>Bonus / Extra practice</strong>: Filtering for patients with
-type O, how many had the infection?</p>
+<div id="bonus-practice" class="section level3">
+<h3><strong>Bonus Practice</strong></h3>
+<p>A. Using “cars”, create a new binary (TRUEs and FALSEs) column to
+indicate if the car has an automatic transmission. Call the new column
+“is_automatic”.</p>
+<p>B. What is the average vehicle odometer reading for cars that are
+both RED and NISSANs? How does this compare with vehicles that do NOT
+fit this criteria?</p>
+<p>C. Among red Nissans, what is the distribution of vehicle ages?</p>
+<p>D. How many vehicles (using <code>filter()</code> or
+<code>sum()</code> ) are made by Chrysler or Nissan and are white or
+silver?</p>
+<p>E. Make a boxplot (<code>boxplot()</code>) that looks at vehicle age
+(“VehicleAge”) on the x-axis and odometer reading (“VehOdo”) on the
+y-axis.</p>
+<p>F. Knit your document into a report.</p>
+<p>You use the knit button to do this. Make sure all your code is
+working first!</p>
 </div>
 
 
