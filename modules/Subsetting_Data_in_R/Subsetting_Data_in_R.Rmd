@@ -807,7 +807,8 @@ knitr::include_graphics("images/mutate.png")
 
 The `NULL` method is still very common.
 
-The `select` function can remove a column with `!` (you might also see a minus `-`):
+The `select` function can remove a column with exclamation mark (`!`) our using the minus sign (`-`):
+
 ```{r, eval = FALSE}
 select(AD, !newcol)
 ```
@@ -927,8 +928,8 @@ arrange(AD, desc(year), count) %>% head(n = 2)
 - `arrange()` can be used to reorder rows
 - can remove rows with `filter()`
 - can remove a column in a few ways:  
-    2. using `select()` with `!` in front of column name(s)  
-    3. not selecting it (without `!`)  
+    2. using `select()` with exclamation mark in front of column name(s)  
+    3. not selecting it (without exclamation mark)  
 
 ## Summary cont...
 

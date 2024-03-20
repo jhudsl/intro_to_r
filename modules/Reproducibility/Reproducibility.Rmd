@@ -26,21 +26,23 @@ library(ottrpal)
 ## Recap So Far
 
 RStudio
--  The Editor is for static code like scripts or R Markdown documents
--  Send code to the Console to run it
--  The Console can be used for quickly testing code on the fly
--  R code goes within what is called a chunk (the gray box with a green play button)
+
+-  The Editor is for static code like scripts or R Markdown documents  
+-  Send code to the Console to run it  
+-  The Console can be used for quickly testing code on the fly  
+-  R code goes within what is called a chunk (the gray box with a green play button)  
 
 📃[RStudio Cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rstudio-ide.pdf)
 
 ## Recap So Far
 
 Basic R
-- Use `c()` to **combine** vectors
-- Use `<-` to save (assign) values to objects
-- if you don't use `<-` to reassign objects that you want to modify, they will stay the same
-- `length()`, `class()`, and `str()` tell you information about an object
-- `head()` and `tail()` can also help you inspect an object
+
+- Use `c()` to **combine** vectors  
+- Use `<-` to save (assign) values to objects  
+- if you don't use `<-` to reassign objects that you want to modify, they will stay the same  
+- `length()`, `class()`, and `str()` tell you information about an object  
+- `head()` and `tail()` can also help you inspect an object  
 
 ## What's Reproducibility
 
