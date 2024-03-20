@@ -281,7 +281,7 @@ dropouts_fct %>%
   theme_bw(base_size = 16)
 ```
 
-## forcats for ordering.. can be used to sort datasets {.smaller}
+## forcats for ordering.. can be used to sort datasets
 
 ```{r, fig.height= 3}
 dropouts_fct %>% pull(grade) %>% levels() # By year order
@@ -289,9 +289,8 @@ dropouts_fct <- dropouts_fct %>%
   mutate(
     grade = fct_reorder(grade, n_dropouts, mean)
   )
-dropouts_fct %>% pull(grade) %>% levels() # by increasing max dropouts
+dropouts_fct %>% pull(grade) %>% levels() # by increasing mean dropouts
 ```
-
 
 ## Checking Proportions with `fct_count()`
 
