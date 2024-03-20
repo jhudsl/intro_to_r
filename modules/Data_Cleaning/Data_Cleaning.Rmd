@@ -537,7 +537,7 @@ data_diet %>%
 ```
 ## case_when() can also overwrite/update a variable
 
-Just like recode, just need to specify what we want in the first part of `mutate`.
+You need to specify what we want in the first part of `mutate`.
 
 ```{r}
 data_diet %>% 
@@ -551,16 +551,16 @@ data_diet %>%
 
 ## More complicated case_when()
 
-`case_when` can do more complicated statements than `recode` and can match many patterns at a time.
+`case_when` can do complicated statements and can match many patterns at a time.
 
 ```{r}
 data_diet %>% 
-  mutate(Treatment_recode = case_when(
+  mutate(Treatment_recoded = case_when(
     Treatment == "Ginger" ~ "Ginger", # keep it the same!
     Treatment %in% c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
     Treatment %in% c("O", "Other") ~ "Other")) %>%
 
-  count(Treatment, Treatment_recode)
+  count(Treatment, Treatment_recoded)
 
 ```
 
