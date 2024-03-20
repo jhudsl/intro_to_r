@@ -59,7 +59,8 @@ vect_data <- tibble(int_vect, rand_vect, TF_vect, TF_vect2)
 
 
 
-6\. Read in the Charm City Circulator data using `read_circulator()` function from `jhur` package using the code supplied in the chunk. or alternatively using the url link.
+6\. Read in the Charm City Circulator data using `read_circulator()` function from `jhur` package using the code supplied in the chunk. Or alternatively using the url link.
+
 
 ```{r}
 circ <- read_circulator()
@@ -71,7 +72,6 @@ circ <- read_csv(file = "http://jhudatascience.org/intro_to_r/data/Charm_City_Ci
 - Use the `str()` function to take a look at the data and learn about the column types.
 
 ```{r 6response}
-
 
 ```
 
