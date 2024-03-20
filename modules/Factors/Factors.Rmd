@@ -281,6 +281,18 @@ dropouts_fct %>%
   theme_bw(base_size = 16)
 ```
 
+## forcats for ordering.. can be used to sort datasets {.smaller}
+
+```{r, fig.height= 3}
+dropouts_fct %>% pull(grade) %>% levels() # By year order
+dropouts_fct <- dropouts_fct %>%
+  mutate(
+    grade = fct_reorder(grade, n_dropouts, mean)
+  )
+dropouts_fct %>% pull(grade) %>% levels() # by increasing max dropouts
+```
+
+
 ## Checking Proportions with `fct_count()`
 
 The `fct_count()` function of the `forcats` package is helpful for checking that the proportions of each level for a factor are similar. Need the `prop = TRUE` argument otherwise just counts are reported.
