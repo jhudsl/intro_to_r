@@ -181,18 +181,13 @@ D\. Copy your code from Question D and change it to a `right_join` with the same
 ```
 
 
-E\. Perform a `setdiff` on "vacc" and "gdp" to determine what Entities are missing from the GDP data and which are missing from the vaccine data. 
-
-  - First, `select()` only the columns you want to compare. Create new objects for each dataset.
-  - Rename the selected column for *one* of the datasets, so that both datasets have the same column name. You can use `rename()`
-  - Then use `setdiff()`
+E\. Perform two `anti_join` operations on "vacc" and "gdp" to determine what Entities are missing from the GDP data and which are missing from the vaccine data.
 
 ```
 # General format
-dplyr::setdiff(DATA_1, DATA_2)
+anti_join(L, R, by = c("name_L" = "name_R")) %>% select(name_L)
 ```
 
 ```{r Eresponse}
 
 ```
-
