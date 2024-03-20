@@ -1,5 +1,5 @@
 ---
-title: "Data Output Lab Key"
+title: "Data Output Lab - Key"
 output: html_document
 editor_options: 
   chunk_output_type: console
@@ -14,49 +14,55 @@ Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-
 1.  Read in SARS-CoV-2 vaccination data from URL 
 http://jhudatascience.org/intro_to_r/data/vaccinations.csv
 and assign it to an object named `vacc`. 
+
 ```
 # General format
 library(readr)
 # OBJECT <- read_csv(FILE)
 ```
-```{r}
+
+```{r 1.1response}
 library(readr)
 vacc <- read_csv(file = "http://jhudatascience.org/intro_to_r/data/vaccinations.csv")
 ```
 
 
 2. Filter the dataset so that the "Location" column is equal to "US" (aka the entire USA). Store the modified dataset as `vacc_filtered`.
+
 ```
 # General format
 NEW_OBJECT <- OBJECT %>% filter(COLUMNNAME == CRITERIA)
 ```
-```{r}
+
+```{r 1.2response}
 vacc_filtered <- vacc %>% filter(Location == "US")
 ```
 
 
 3. Write out the `vacc_filtered` object as a CSV file calling it "vacc_filtered.csv", using `write_csv()`:
-```{r}
+
+```{r 1.3response}
 write_csv(vacc_filtered, file = "vacc_filtered.csv")
 ```
 
 
 **Bonus / Extra practice**: Copy your code from problem 3 and modify it to write to the data directory inside your R Project. *Note: you may need to make a new folder named "data" if it doesn't already exist.*
-```{r eval = FALSE}
+
+```{r eval = FALSE, label = 'P1response'}
 getwd()
 dir.create("data")
 write_csv(vacc_filtered, file = "data/vacc_filtered.csv")
 ```
 
-
 **Bonus / Extra practice**: Write one of the variables in your Environment to your working directory in `rds` format. Call the file `my_variable.rds`.
-```{r}
+
+```{r P2response}
 y <- c(10, 20, 30, 40, 50, 60)
 write_rds(y, file = "my_variable.rds")
 ```
 
-
 **Bonus / Extra practice**: Read the RDS file from your working directory back into your Environment. Call the file `z`.
-```{r}
+
+```{r P3response}
 z <- read_rds(file = "my_variable.rds")
 ```

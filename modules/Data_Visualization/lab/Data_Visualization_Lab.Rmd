@@ -27,8 +27,7 @@ Then, use the provided code to compute a data frame `bike_agg` with aggregate su
 ```{r}
 bike <- read_bike()
 
-bike_agg <-
-  bike %>%
+bike_agg <- bike %>%
   # filter data to keep only these observations for which year is non-0
   filter(dateInstalled != 0) %>%
   group_by(dateInstalled) %>%
@@ -48,19 +47,17 @@ ggplot(???, mapping = aes(x = ???, y = ???)) +
   ???
 ```
 
-```{r}
+```{r 1.1response}
 
 ```
 
 2. "Update" your plot by adding a title and changing the x and y axis titles. 
 
-```{r}
-
-
+```{r 1.2response}
 
 ```
 
-3. Use the `scale_x_continuous()` function to plot the x axis with the following breaks `c(2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013)`.  
+3. Use the `scale_x_continuous()` function to plot the x axis with the following breaks `c(2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013)`. 
 
 ```
 # General format
@@ -68,28 +65,26 @@ my_plot<- my_plot +
   scale_x_continuous(?????)
 ```
 
-```{r}
+```{r 1.3response}
 
 ```
 
 
-4. Observe several different versions of the plot by displaying `my_plot` while adding a different "theme" to it.
+4. Observe several different versions of the plot by displaying `my_plot` while adding a different "theme" to it. 
 
 ```
 # General format
 my_plot + theme_bw()
 ```
 
-```{r}
+```{r 1.4response}
 
 ```
 
 **Bonus / Extra practice**: Create a boxplot (with the `geom_boxplot()` function) using the `Orange` data, where `Tree` is plotted on the x axis and `circumference` is plotted on the y axis. 
 
-```{r}
-Orange %>%
-  ggplot(mapping = aes(x = Tree, y = circumference)) +
-  geom_boxplot()
+```{r P1response}
+
 ```
 
 Notice how the trees are ordered. We will learn more about this soon!
@@ -99,8 +94,7 @@ Notice how the trees are ordered. We will learn more about this soon!
 1. Use the provided code to compute a data frame `bike_agg_2` with aggregate summary of bike lanes: number of lanes (`lane_count`) -- separately for each year (`dateInstalled`) and for each lane type. 
 
 ```{r}
-bike_agg_2 <-
-  bike %>%
+bike_agg_2 <- bike %>%
   filter(dateInstalled != 0) %>%
   group_by(dateInstalled, type) %>%
   summarise(lane_count = n())
@@ -109,30 +103,23 @@ bike_agg_2
 ```
 
 
-2.  Use `ggplot2` package to make a plot showing trajectories of number of lanes (`lane_count`; y-axis) over year (`dateInstalled`; x-axis), where each bike line type has a different line (hint: use `group = type` in mapping) and a different color (hint: use `color = type` in mapping). 
+2.  Use `ggplot2` package to make a plot showing trajectories of number of lanes (`lane_count`; y-axis) over year (`dateInstalled`; x-axis), where each bike line type has a different line (hint: use `group = type` in mapping) and a different color (hint: use `color = type` in mapping).
 
-```{r}
-
-
-
+```{r 2.2response}
 
 ```
 
-3. Redo the above plot by adding a faceting  (`+ facet_wrap(~ type, ncol = 3)`) to have data for each bike line type in a separate plot panel. 
+3. Redo the above plot by adding a faceting  (`+ facet_wrap( ~ type, ncol = 3)`) to have data for each bike line type in a separate plot panel. 
 
 (You may see `geom_path: Each group consists of only one observation. Do you need to adjust the group aesthetic?` warning as some bike lane types will have only 1 point plotted while trying to plot a line).
-
 Assign the new plot as an object called `facet_plot`.
 
-
-```{r}
-
-
+```{r 2.3response}
 
 ```
 
-**Bonus / Extra practice**: Modify `facet_plot` to remove the legend and change the names of the axis titles to be "Number of bike lanes" for the y axis and "Date bike lane was installed" for the x axis.  
+**Bonus / Extra practice**: Modify `facet_plot` to remove the legend (hint use `theme()`) and change the names of the axis titles to be "Number of bike lanes" for the y axis and "Date bike lane was installed" for the x axis. 
 
-```{r}
+```{r P2response}
 
 ```
