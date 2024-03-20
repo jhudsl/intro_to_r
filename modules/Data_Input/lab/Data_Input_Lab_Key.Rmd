@@ -37,7 +37,7 @@ You can learn more about how the data was collected here: https://data.cdc.gov/V
 
 What is the dataset object called? You can find this information in the Console or the Environment. Enter your answer as a comment using `#`.
 
-```{r}
+```{r 1.3response}
 # vaccinations
 ```
 
@@ -45,7 +45,7 @@ What is the dataset object called? You can find this information in the Console 
 
 Preview the data by clicking the table button in the Environment. How many observations and variables are there? Enter your answer as a comment using `#`.
 
-```{r}
+```{r 1.4response}
 # 37272 obs. of 103 variables
 ```
 
@@ -64,7 +64,7 @@ library(readr)
 # OBJECT <- read_csv(FILE)
 ```
 
-```{r}
+```{r 2.1response}
 library(readr)
 vacc <- read_csv(file = "https://jhudatascience.org/intro_to_r/data/vaccinations.csv")
 ```
@@ -75,13 +75,13 @@ Load the `readxl` package with the `library()` command.
 
 If it is not installed, install it via: `RStudio --> Tools --> Install Packages`. You can also try `install.packages("readxl")`.
 
-```{r}
+```{r 2.2response}
 library(readxl)
 ```
 
 ### 2.3
 
-Download the dataset of asthma prevalence in the USA from: http://jhudatascience.org/intro_to_r/data/asthma.xlsx file to `asthma.xlsx` by running the following code chunk. This only downloads the file, it does NOT bring the file into R.
+Download the dataset of asthma prevalence in the USA from: https://jhudatascience.org/intro_to_r/data/asthma.xlsx file to `asthma.xlsx` by running the following code chunk. This only downloads the file, it does NOT bring the file into R.
 
 ```{r}
 download.file(
@@ -98,7 +98,7 @@ Note: the "wb" option makes sure the file can be read correctly on Windows machi
 
 Use the `read_excel()` function in the `readxl` package to read the `asthma.xlsx` file and call the output `asthma`. 
 
-```{r}
+```{r 2.4response}
 asthma <- read_excel(path = "asthma.xlsx")
 ```
 
@@ -112,15 +112,18 @@ Run the following code - is there a problem? How do you know?
 ```{r}
 yts <- read_delim("https://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv", delim = "\t")
 yts
+```
+
+```{r P1response}
 # It should be a red flag to see that there is only one column that looks like: "YEAR,LocationAbbr,LocationDesc,TopicType,TopicDesc,MeasureDesc..."
 # This file is comma delimited not tab delimited!
 ```
 
 ### P.2
 
-By default, R reads the first sheet of an excel file. Copy your code from question 9 and add the following argument: `sheet = 2`. Inspect the data using `head()`.
+By default, R reads the first sheet of an excel file. Copy your code from question 2.4 and add the following argument: `sheet = 2`. Inspect the data using `head()`.
 
-```{r}
+```{r P2response}
 asthma <- read_excel(path = "asthma.xlsx", sheet = 2)
 head(asthma)
 ```
@@ -129,7 +132,7 @@ head(asthma)
 
 Install and load the `haven` package. Look at the help page for `read_dta()` function, and scroll to the very bottom of the page. Try running some of the examples provided.
 
-```{r eval = FALSE}
+```{r eval = FALSE, label = 'P3response'}
 install.packages("haven")
 library(haven)
 ?read_dta
@@ -142,7 +145,7 @@ read_dta(path)
 
 Learn your working directory by running `getwd()`
 
-```{r}
+```{r P4aresponse}
 getwd()
 ```
 
@@ -150,7 +153,11 @@ Create a folder in your R project called data. Move the "asthma.xlsx" file there
 
 Modify the following code so that it finds "asthma.xlsx" in the "data" directory.
 
-```{r eval=FALSE}
+```
+asthma <- read_excel(path = "asthma.xlsx")
+```
+
+```{r eval=FALSE, label = 'P4bresponse'}
 asthma <- read_excel(path = "data/asthma.xlsx")
 ```
 

@@ -28,29 +28,29 @@ library(tidyr)
 (a) Make an object "bday". Assign it your birthday in day-month format (1-Jan). 
 (b) Make another object "name". Assign it your name. Make sure to use quotation marks for anything with text!
 
-```{r}
-#
+```{r 1response}
+
 ```
 
 
 2\. Make an object "me" that is "bday" and "name" combined.
 
-```{r}
-#
+```{r 2response}
+
 ```
 
 
 3\. Determine the data class for "me".
 
-```{r}
-#
+```{r 3response}
+
 ```
 
 
 4\. If I want to do `me / 2` I get the following error: `Error in me/2 : non-numeric argument to binary operator`. Why? Write your answer as a comment inside the R chunk below.
 
-```{r}
-#
+```{r response}
+
 ```
 
 
@@ -60,15 +60,15 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 
 5\. Bring the dataset into R. The dataset is located at: https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv. You can use the link, download it, or use whatever method you like for getting the file. Once you get the file, read the dataset in using `read_csv()` and assign it the name `cars`.
 
-```{r}
-#
+```{r 5response}
+
 ```
 
 
 6\. Import the data "dictionary" from https://jhudatascience.org/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt. Use the `read_tsv()` function and assign it the name "key". 
 
-```{r}
-#
+```{r 6response}
+
 ```
 
 
@@ -77,15 +77,15 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 (a) Preview the data so that you can see the names of the columns. There are several possible functions to do this.
 (b) Determine the class of the first three columns using `str()`. Write your answer as a comment inside the R chunk below.
 
-```{r}
-#
+```{r 7response}
+
 ```
 
 
 8\. How many cars (rows) are in the dataset? How many variables (columns) are recorded for each car? 
 
-```{r}
-#
+```{r 8response}
+
 ```
 
 
@@ -93,8 +93,8 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 
 **Hint:** The `filter()` function also removes missing values.
 
-```{r}
-#
+```{r 9response}
+
 ```
 
 
@@ -102,22 +102,22 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 
 **Hint:** use the `mutate()` function.
 
-```{r}
-#
+```{r 10response}
+
 ```
 
 
 11\. What is the range of the manufacture year ("VehYear") of the vehicles?
 
-```{r}
-#
+```{r 11response}
+
 ```
 
 
 12\. Create a random sample with of mileage (odometer reading) from `cars`. To determine the column that corresponds to mileage (The vehicle's odometer reading), check the "key" corresponding to the data dictionary that you imported above in question 6. Use `sample()` and `pull()`. Remember that by default random samples differ each time you run the code.
 
-```{r}
-#
+```{r 12response}
+
 ```
 
 
@@ -127,8 +127,8 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 - `group_by()` and `summarize()` or
 - `sum()`
 
-```{r}
-#
+```{r 13response}
+
 ```
 
 
@@ -136,15 +136,15 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 
 **Hint:** use `length()` with `unique()` or `table()`. Remember to `pull()` the right column.
 
-```{r}
-#
+```{r 14response}
+
 ```
 
 
 15\. How many different vehicle models ("Model") are there?
 
-```{r}
-#
+```{r 15response}
+
 ```
 
 
@@ -152,15 +152,15 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 
 **Hint:** Use  `group_by()` with `summarize()`. To determine the column that corresponds to "acquisition cost paid for the vehicle at time of purchase", check the "key" corresponding to the data dictionary that you imported above in question 6.
 
-```{r}
-#
+```{r 16response}
+
 ```
 
 
 17\. Extend on the code you wrote for question 16. Use the `arrange()` function to sort the output by mean acquisition cost.
 
-```{r}
-#
+```{r 17response}
+
 ```
 
 
@@ -170,8 +170,8 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 - `filter()` and `tally()` or
 - `sum()`
 
-```{r}
-#
+```{r 18response}
+
 ```
 
 
@@ -181,15 +181,15 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 - `filter()` and `tally()` or
 - `sum()`
 
-```{r}
-#
+```{r 19response}
+
 ```
 
 
 20\. Select all columns in "cars" where the column names starts with "Veh" (using `select()` and `starts_with()`. Then, use `colMeans()` to summarize across these columns.
 
-```{r}
-#
+```{r 20response}
+
 ```
 
 
@@ -200,36 +200,36 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 
 A\. Using "cars", create a new binary (TRUEs and FALSEs) column to indicate if the car has an automatic transmission. Call the new column "is_automatic".
 
-```{r}
-#
+```{r Aresponse}
+
 ```
 
 
 B\. What is the average vehicle odometer reading for cars that are both RED and NISSANs? How does this compare with vehicles that do NOT fit this criteria?
 
-```{r}
-#
+```{r Bresponse}
+
 ```
 
 
 C\. Among red Nissans, what is the distribution of vehicle ages?
 
-```{r}
-#
+```{r Cresponse}
+
 ```
 
 
 D\. How many vehicles (using `filter()` or `sum()` ) are made by Chrysler or Nissan and are white or silver?
 
-```{r}
-#
+```{r Dresponse}
+
 ```
 
 
 E\. Make a boxplot (`boxplot()`) that looks at vehicle age ("VehicleAge") on the x-axis and odometer reading ("VehOdo") on the y-axis.
 
-```{r}
-#
+```{r Eresponse}
+
 ```
 
 
