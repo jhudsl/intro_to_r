@@ -42,7 +42,7 @@ Assign the plot to variable `my_plot`. Type `my_plot` in the console to have it 
 
 ```
 # General format
-ggplot(???, mapping = aes(x = ???, y = ???)) +
+ggplot(???, aes(x = ???, y = ???)) +
   ??? +
   ???
 ```
@@ -50,7 +50,7 @@ ggplot(???, mapping = aes(x = ???, y = ???)) +
 ```{r 1.1response}
 
 my_plot <-
-  ggplot(bike_agg, mapping = aes(x = dateInstalled, y = lane_avg_length)) +
+  ggplot(bike_agg, aes(x = dateInstalled, y = lane_avg_length)) +
   geom_line() +
   geom_point()
 
@@ -107,7 +107,7 @@ my_plot + theme_void()
 
 ```{r P1response}
 Orange %>%
-  ggplot(mapping = aes(x = Tree, y = circumference)) +
+  ggplot(aes(x = Tree, y = circumference)) +
   geom_boxplot()
 ```
 
@@ -127,10 +127,21 @@ bike_agg_2
 ```
 
 
-2.  Use `ggplot2` package to make a plot showing trajectories of number of lanes (`lane_count`; y-axis) over year (`dateInstalled`; x-axis), where each bike line type has a different line (hint: use `group = type` in mapping) and a different color (hint: use `color = type` in mapping).
+2.  Use `ggplot2` package to make a plot showing trajectories of number of lanes (`lane_count`; y-axis) over year (`dateInstalled`; x-axis), where each bike line type has a different color (hint: use `color = type` in mapping).
+
+```
+# General format
+ggplot(???, aes(
+  x = ???,
+  y = ???,
+  color = ???
+)) +
+  geom_line() +
+  geom_point()
+```
 
 ```{r 2.2response}
-ggplot(bike_agg_2, mapping = aes(
+ggplot(bike_agg_2, aes(
   x = dateInstalled,
   y = lane_count,
   color = type
@@ -146,7 +157,7 @@ Assign the new plot as an object called `facet_plot`.
 
 ```{r 2.3response}
 
-facet_plot <- ggplot(bike_agg_2, mapping = aes(
+facet_plot <- ggplot(bike_agg_2, aes(
   x = dateInstalled,
   y = lane_count,
   color = type
@@ -157,6 +168,8 @@ facet_plot <- ggplot(bike_agg_2, mapping = aes(
 
 facet_plot
 ```
+
+4. Observe what happens when you remove either `geom_line()` OR `geom_point()` from one of your plots above.
 
 **Bonus / Extra practice**: Modify `facet_plot` to remove the legend (hint use `theme()` and the `legend.position` argument) and change the names of the axis titles to be "Number of bike lanes" for the y axis and "Date bike lane was installed" for the x axis. 
 
@@ -169,4 +182,13 @@ facet_plot <- facet_plot +
   )
 
 facet_plot
+```
+
+**Bonus / Extra practice**: Modify `facet_plot` one more time with a fun theme! Look into the [ThemePark package](https://github.com/MatthewBJane/ThemePark) It has lots of fun themes! Try one out! Remember you will need to install it using `remotes::install_github("MatthewBJane/ThemePark")`and load in the library. 
+
+```{r P3response}
+# remotes::install_github("MatthewBJane/ThemePark")
+library(ThemePark)
+
+facet_plot + theme_spiderman()
 ```

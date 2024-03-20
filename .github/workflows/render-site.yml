@@ -49,6 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ${{needs.yaml-check.outputs.rendering_docker_image}}
+
     
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -158,6 +159,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ${{needs.yaml-check.outputs.rendering_docker_image}}
+      
     strategy:
       matrix:
         modulenames: ${{fromJson(needs.render-main.outputs.pdffiles)}}
