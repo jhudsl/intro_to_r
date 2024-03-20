@@ -22,6 +22,7 @@ library(lubridate)
 library(jhur)
 library(tidyverse)
 library(broom)
+# install.packages("naniar")
 library(naniar)
 ```
 
@@ -40,6 +41,14 @@ bike <- read_csv(file = "http://jhudatascience.org/intro_to_r/data/Bike_Lanes.cs
 
 Use the `is.na()`  and `any()` functions to check if the bike `dateInstalled` variable has any `NA` values. Use the pipe between each step. 
 Hint: You first need to `pull` out the vector version of this variable to use the `is.na()` function.
+
+```
+# General format
+TIBBLE %>%
+  pull(COLUMN) %>%
+  is.na() %>%
+  any()
+```
 
 ```{r 1.1response}
 bike %>%
@@ -127,13 +136,22 @@ BloodType %>% # another way
 
 Recode the `weight_loss` variable of the `BloodType` data so that it is consistent. Use `case_when()`. Keep "Other" as "Other". Don't forget to use quotes!
 
+```
+# General format
+NEW_TIBBLE <- OLD_TIBBLE %>%
+  mutate(NEW_COLUMN = case_when(
+    OLD_COLUMN %in% c( ... ) ~ ... ,
+    OLD_COLUMN %in% c( ... ) ~ ... ,
+    TRUE ~ OLD_COLUMN
+  ))
+```
+
 ```{r 2.2response}
 
 BloodType <- BloodType %>%
   mutate(weight_loss = case_when(
     weight_loss %in% c("N", "n", "No", "no") ~ "No",
     weight_loss %in% c("Y", "y", "Yes", "yes") ~ "Yes",
-    weight_loss %in% c("Other") ~ "Other",
     TRUE ~ weight_loss # the only other value is an NA so we could include this or we don't need to (it's generally good practice unless we want to create NAs)
   ))
 
