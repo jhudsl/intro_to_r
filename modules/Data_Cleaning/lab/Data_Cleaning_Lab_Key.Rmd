@@ -130,7 +130,6 @@ NEW_TIBBLE <- OLD_TIBBLE %>%
   mutate(NEW_COLUMN = case_when(
     OLD_COLUMN %in% c( ... ) ~ ... ,
     OLD_COLUMN %in% c( ... ) ~ ... ,
-    OLD_COLUMN %in% c( ... ) ~ ... ,
     TRUE ~ OLD_COLUMN
   ))
 ```
@@ -141,7 +140,6 @@ BloodType <- BloodType %>%
   mutate(weight_loss = case_when(
     weight_loss %in% c("N", "n", "No", "no") ~ "No",
     weight_loss %in% c("Y", "y", "Yes", "yes") ~ "Yes",
-    weight_loss %in% c("Other") ~ "Other",
     TRUE ~ weight_loss # the only other value is an NA so we could include this or we don't need to (it's generally good practice unless we want to create NAs)
   ))
 
