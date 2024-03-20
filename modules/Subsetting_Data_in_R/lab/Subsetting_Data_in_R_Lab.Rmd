@@ -82,6 +82,7 @@ Check that it worked by seeing if you have the `county_pop` data.
 
 2. Start with `county_pop` again instead of the dataset you just made. Subset the data to only include the `population` column and the columns that end with "_name". Hint: use  `select()` and `ends_with()`. Assign this subset of the data to be `pop2`. Again take a look at the data and check the dimensions.
 
+
 ```{r 2.2response}
 
 ```
@@ -179,6 +180,7 @@ NEWDATA <- OLD_DATA %>% mutate(NEW_COLUMN = OLD_COLUMN)
 ```{r P.4response}
 
 ```
+
 
 
 **Bonus / Extra practice**: How can you find the value of `population` for Chambers AL without just looking at the data manually and instead use functions we learned today?

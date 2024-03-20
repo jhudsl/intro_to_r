@@ -1,5 +1,5 @@
 ---
-title: ' Introduction to R: Homework 3'
+title: 'Introduction to R: Homework 3'
 output:
   html_document: default
 ---
@@ -29,43 +29,43 @@ library(tidyr)
 -  You can use the link, download it, or use whatever method you like for getting the file. 
 -  Once you get the file, read the dataset in using `read_csv()` and assign it the name "mort".
 
-```{r}
-#
+```{r 1response}
+
 ```
 
 
 2\. Run the `colnames()` function to take a look at the dataset column names. You should see that there was originally no name for the first column and that R replaced it with "...1". Rename the first column of "mort" to "country" using the `rename()` function in `dplyr`.  
 
-```{r}
-#
+```{r 2response}
+
 ```
 
 
 3\. Select only the numeric type columns (`select()`). Then, create the variable "year" from column names by using the `colnames()` function to extract them. 
 
-```{r}
-#
+```{r 3response}
+
 ```
 
 
 4\. What is the `typeof()` for "year"? If it's not an integer, turn it into integer form with `as.integer()`.
 
-```{r}
-#
+```{r 4response}
+
 ```
 
 
 5\. Use the `pct_complete()` function in the `naniar` package to determine the percent missing data in "mort". You might need to load and install `naniar`!
 
-```{r}
-#
+```{r 5response}
+
 ```
 
 
 6\. Are there any countries that have a complete record in "mort" across all years? Just look at the output here, don't reassign it. **Hint:** look for complete records by dropping all NAs from the dataset using `drop_na()`.
 
-```{r}
-#
+```{r 6response}
+
 ```
 
 
@@ -77,8 +77,8 @@ library(tidyr)
 - **Hint:** listing `!COLUMN` or `-COLUMN` means everything except COLUMN. 
 - Assign the reshaped data to "long".
 
-```{r}
-#
+```{r 7response}
+
 ```
 
 
@@ -88,50 +88,50 @@ library(tidyr)
 -  You can use the link, download it, or use whatever method you like for getting the file. 
 -  Once you get the file, read the dataset in using `read_tsv()` and assign it the name "pop".
 
-```{r}
-#
+```{r 8response}
+
 ```
 
 
 9\. Rename the second column in "pop" to "country" and the column "% of world population", to "percent". Use the `rename()` function. Don't forget to reassign the renamed data to "pop".
 
-```{r}
-#
+```{r 9response}
+
 ```
 
 
 10\. Sort the data in "pop" by "Population" from largest to smallest using `arrange()` and `desc()`. After sorting, `select()` "country" to create an one-column tibble of countries ordered by population. Assign this data the name "country_ordered".
 
-```{r}
-#
+```{r 10response}
+
 ```
 
 
 11\. Subset "long"  based on years 2000-2010, including 2000 and 2010 and call this "long_sub" using `&` or the `between()` function. Confirm your filtering worked by looking at the range of "year". If you're getting a strange error, make sure you created the "year" column in problem #7.
 
-```{r}
-#
+```{r 11response}
+
 ```
 
 
 12\. Further subset `long_sub`. You will filter for specific countries using `filter()` and the `%in%` operator. Only include countries in this list: `c("Venezuela", "Bahrain", "Estonia", "Iran", "Thailand", "Canada")`. Make sure to reassign to "long_sub".
 
-```{r}
-#
+```{r 12response}
+
 ```
 
 
 13\. Use `pivot_wider()` to turn the "year" column of "long_sub" into multiple columns, each representing a different year. Fill values (`values_from=`) with "mortality". Assign this pivoted dataset the name "mort_sub".
 
-```{r}
-#
+```{r 13response}
+
 ```
 
 
 14\. Using "country_ordered" and "mort_sub", `right_join()` the two datasets by "country". Use the pipe `%>%` to join this dataset to "pop", keeping only the data on the lefthand side of the join. Call this "joined".
 
-```{r}
-#
+```{r 14response}
+
 ```
 
 
@@ -140,8 +140,10 @@ library(tidyr)
 -  Create a new column called "mort_count" that estimates the total number of child deaths per year based on the total population. You can use (a) any year or (b) an average of all years to make your calculation. Whichever you choose, justify your choice. 
 -  Finally, `select()` only "country", "Population", and "mort_count" and view the data.
 
-```{r}
-# Justification is just for fun. The main point is that decisions in your analysis should depend on your reasoning not how many lines of code it takes :)
+> Justification is just for fun. The main point is that decisions in your analysis should depend on your reasoning not how many lines of code it takes :)
+
+```{r 15response}
+
 ```
 
 
@@ -157,22 +159,22 @@ A\. Bring the following dataset into R.
 -  Once you get the file, read the dataset in using `read_excel()` from the `readxl` package and assign it the name "asthma".
 -  Read in the sheet named "Age Group (Years)".
 
-```{r}
-#
+```{r Aresponse}
+
 ```
 
 
 B\. Rename the column `Weighted Number With Current Asthma` to "asthma_count" using `rename()`. Replace the original "asthma" object by calling the new dataset "asthma".
 
-```{r}
-#
+```{r Bresponse}
+
 ```
 
 
 C\. Separate `Percent (SE)` into two separate columns: "percent" and "SE" using the `separate()` function. Replace the original "asthma" object by calling the new dataset "asthma".
 
-```{r}
-#
+```{r Cresponse}
+
 ```
 
 
@@ -182,21 +184,21 @@ D\. Remove the parentheses around the numbers in the new SE column. You should u
 -  The `pattern =` to find for the ending parenthesis is "[)]"
 -  The `replacement =` for both can be empty quotation marks: ""
 
-```{r}
-#
+```{r Dresponse}
+
 ```
 
 
 E\. Determine the class of "percent" and "SE". Can you take the mean values? Why or why not?
 
-```{r}
-#
+```{r Eresponse}
+
 ```
 
 
 F\. Use `as.numeric()` to convert "percent" and "SE" to numeric class. Calculate the mean for both.
 
-```{r}
-#
+```{r Fresponse}
+
 ```
 

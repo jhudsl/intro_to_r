@@ -1,0 +1,379 @@
+---
+title: 'Introduction to R: Homework 2 - Key'
+output:
+  html_document: default
+---
+
+### **Instructions**
+
+Completed homework should be submitted on CoursePlus as an **Rmd file**. Please see the course website for more information about submitting assignments: https://jhudatascience.org/intro_to_r/syllabus.html#submitting-assignments.
+
+Homework will be graded for correct output, not code style. All assignments are due at the end of the course. Please see the course website for more information about grading: https://jhudatascience.org/intro_to_r/syllabus.html#grading.
+
+
+```{r initiatePackages, message=FALSE}
+## you can add more, or change...these are suggestions
+library(tidyverse)
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+```
+
+
+### **Problem Set**
+
+1\. Create the following two objects.
+
+(a) Make an object "bday". Assign it your birthday in day-month format (1-Jan). 
+(b) Make another object "name". Assign it your name. Make sure to use quotation marks for anything with text!
+
+```{r 1response}
+bday <- "19-Feb"
+name <- "Bruce Wayne"
+```
+
+
+2\. Make an object "me" that is "bday" and "name" combined.
+
+```{r 2response}
+me <- c(bday, name)
+```
+
+
+3\. Determine the data class for "me".
+
+```{r 3response}
+class(me)
+# The class for "me" is "character"
+```
+
+
+4\. If I want to do `me / 2` I get the following error: `Error in me/2 : non-numeric argument to binary operator`. Why? Write your answer as a comment inside the R chunk below.
+
+```{r response}
+# R cannot perform math functions on character data classes (types).
+```
+
+
+**The following questions involve an outside dataset.** 
+
+We will be working with a dataset from the "Kaggle" website, which hosts competitions for prediction and machine learning. More details on this dataset are here: https://www.kaggle.com/c/DontGetKicked/overview/background.
+
+5\. Bring the dataset into R. The dataset is located at: https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv. You can use the link, download it, or use whatever method you like for getting the file. Once you get the file, read the dataset in using `read_csv()` and assign it the name `cars`.
+
+```{r 5response}
+cars <- read_csv(file = "https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv")
+# OR
+cars <- read_csv("https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv")
+# OR
+url <- "https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv"
+cars <- read_csv(file = url)
+# OR
+download.file(
+  url = "https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv",
+  destfile = "cars_data.csv",
+  overwrite = TRUE,
+  mode = "wb"
+)
+cars <- read_csv(file = "cars_data.csv")
+```
+
+
+6\. Import the data "dictionary" from https://jhudatascience.org/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt. Use the `read_tsv()` function and assign it the name "key". 
+
+```{r 6response}
+key <- read_tsv(file = "https://jhudatascience.org/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt")
+# OR
+download.file(
+  url = "https://jhudatascience.org/intro_to_r/data/Carvana_Data_Dictionary_formatted.txt",
+  destfile = "dict.txt",
+  overwrite = TRUE,
+  mode = "wb"
+)
+key <- read_tsv("dict.txt")
+```
+
+
+7\. You should now be ready to work with the "cars" dataset.
+
+(a) Preview the data so that you can see the names of the columns. There are several possible functions to do this.
+(b) Determine the class of the first three columns using `str()`. Write your answer as a comment inside the R chunk below.
+
+```{r 7response}
+str(cars)
+#  $ RefId                            : num [1:72983] 1 2 3 4 5 6 7 8 9 10 ...
+#  $ IsBadBuy                         : num [1:72983] 0 0 0 0 0 0 0 0 0 0 ...
+#  $ PurchDate                        : chr [1:72983] "12/7/2009" "12/7/2009"
+# OR
+# RefId = col_double()
+# IsBadBuy = col_double()
+# PurchDate = col_character()
+```
+
+
+8\. How many cars (rows) are in the dataset? How many variables (columns) are recorded for each car? 
+
+```{r 8response}
+dim(cars)
+nrow(cars)
+# There are 72983 cars in the dataset and 34 variables.
+```
+
+
+9\. Filter out (i.e., remove) any vehicles that cost less than or equal to $5000 ("VehBCost") or that have missing values. Replace the original "cars" object by reassigning the new filtered dataset to "cars". How many vehicles are left after filtering?
+
+**Hint:** The `filter()` function also removes missing values.
+
+```{r 9response}
+cars <- filter(cars, VehBCost > 5000)
+nrow(cars)
+# OR
+cars <- cars %>% filter(VehBCost > 5000)
+nrow(cars)
+
+# There are 59957 cars after filtering by price.
+```
+
+
+10\. From this point on, work with the filtered "cars" dataset from the above question. Given the average car loan today is 70 months, create a new variable (column) called "MonthlyPrice" that shows the monthly cost for each car (Divide "VehBCost" by 70). Check to make sure the new column is there.
+
+**Hint:** use the `mutate()` function.
+
+```{r 10response}
+cars <- cars %>% mutate(MonthlyPrice = VehBCost / 70)
+# OR
+cars <- mutate(cars, MonthlyPrice = VehBCost / 70)
+colnames(cars)
+```
+
+
+11\. What is the range of the manufacture year ("VehYear") of the vehicles?
+
+```{r 11response}
+range(cars %>% pull(VehYear))
+# OR
+car_range <- pull(cars, VehYear)
+range(car_range)
+# OR
+range(cars$VehYear)
+table(cars$VehYear)
+
+# The range is 2001 2010. 
+```
+
+
+12\. Create a random sample with of mileage (odometer reading) from `cars`. To determine the column that corresponds to mileage (The vehicle's odometer reading), check the "key" corresponding to the data dictionary that you imported above in question 6. Use `sample()` and `pull()`. Remember that by default random samples differ each time you run the code.
+
+```{r 12response}
+sample(pull(cars, VehOdo), size = 20)
+```
+
+
+13\. How many cars were from before 2004? What percent/proportion do these represent? Use:
+
+- `filter()` and `nrow()`
+- `group_by()` and `summarize()` or
+- `sum()`
+
+```{r 13response}
+# How many cars were from before 2004?
+nrow(cars %>% filter(VehYear < 2004))
+# OR
+cars %>%
+  group_by(VehYear < 2004) %>%
+  summarize(total = n())
+# OR
+sum(cars$VehYear < 2004)
+# OR
+table(cars$VehYear < 2004)
+# what percent/proportion do these represent?
+nrow(cars %>% filter(VehYear < 2004)) / nrow(cars)
+# OR
+mean(cars$VehYear < 2004)
+
+# The percent of cars were from before 2004 is 10.22733. 
+```
+
+
+14\. How many different vehicle manufacturers/makes ("Make") are there?
+
+**Hint:** use `length()` with `unique()` or `table()`. Remember to `pull()` the right column.
+
+```{r 14response}
+cars %>%
+  pull(Make) %>%
+  unique() %>%
+  length()
+# OR
+length(unique(cars %>% pull(Make)))
+# OR
+length(unique(cars$Make))
+# OR
+length(table(cars$Make))
+
+# 32 unique makes.
+```
+
+
+15\. How many different vehicle models ("Model") are there?
+
+```{r 15response}
+cars %>%
+  pull(Model) %>%
+  unique() %>%
+  length()
+
+# 985 unique models.
+```
+
+
+16\. Which vehicle color group had the highest mean acquisition cost paid for the vehicle at time of purchase, and what was this cost?
+
+**Hint:** Use  `group_by()` with `summarize()`. To determine the column that corresponds to "acquisition cost paid for the vehicle at time of purchase", check the "key" corresponding to the data dictionary that you imported above in question 6.
+
+```{r 16response}
+cars %>%
+  group_by(Color) %>%
+  summarize(mean = mean(VehBCost))
+```
+
+
+17\. Extend on the code you wrote for question 16. Use the `arrange()` function to sort the output by mean acquisition cost.
+
+```{r 17response}
+cars %>%
+  group_by(Color) %>%
+  summarize(mean = mean(VehBCost)) %>%
+  arrange(desc(mean))
+```
+
+
+18\. How many vehicles were red and have fewer than 30,000 miles? To determine the column that corresponds to mileage (The vehicle's odometer reading), check the "key" corresponding to the data dictionary that you imported above in question 6. use:
+
+- `filter()` and `count()`
+- `filter()` and `tally()` or
+- `sum()`
+
+```{r 18response}
+cars %>%
+  filter(Color == "RED" & VehOdo < 30000) %>%
+  tally()
+# OR
+cars %>%
+  filter(Color == "RED" & VehOdo < 30000) %>%
+  count()
+# OR
+sum(cars$Color == "RED" & cars$VehOdo < 30000)
+
+# A total of 24 cars.
+```
+
+
+19\. How many vehicles are blue or red? use:
+
+- `filter()` and `count()`
+- `filter()` and `tally()` or
+- `sum()`
+
+```{r 19response}
+cars %>%
+  filter(Color == "BLUE" | Color == "RED") %>%
+  count()
+# OR
+cars %>%
+  filter(Color %in% c("BLUE", "RED")) %>%
+  count()
+# OR
+sum(cars$Color == "BLUE" | cars$Color == "RED")
+# OR
+sum(cars$Color %in% c("BLUE", "RED"))
+
+# A total of 13777 cars.
+```
+
+
+20\. Select all columns in "cars" where the column names starts with "Veh" (using `select()` and `starts_with()`. Then, use `colMeans()` to summarize across these columns.
+
+```{r 20response}
+cars %>%
+  select(starts_with("Veh")) %>%
+  colMeans()
+```
+
+
+
+> The following questions are not required for full credit, but can make up for any points lost on other questions.
+
+### **Bonus Practice**
+
+A\. Using "cars", create a new binary (TRUEs and FALSEs) column to indicate if the car has an automatic transmission. Call the new column "is_automatic".
+
+```{r Aresponse}
+cars <- cars %>% mutate(is_automatic = (Transmission == "AUTO"))
+```
+
+
+B\. What is the average vehicle odometer reading for cars that are both RED and NISSANs? How does this compare with vehicles that do NOT fit this criteria?
+
+```{r Bresponse}
+mean_red_nissan <- cars %>%
+  filter(Color == "RED" & Make == "NISSAN") %>%
+  summarize(mean = mean(VehOdo)) %>%
+  pull()
+
+mean_not_red_nissan <- cars %>%
+  filter(Color != "RED" | Make != "NISSAN") %>%
+  summarize(mean = mean(VehOdo)) %>%
+  pull()
+
+# Red Nissans have an average odometer of 75117.32 while cars not fitting this criteria are 70324.34.
+```
+
+
+C\. Among red Nissans, what is the distribution of vehicle ages?
+
+```{r Cresponse}
+red_nissan <- cars %>% filter(Color == "RED" & Make == "NISSAN")
+red_nissan %>%
+  group_by(VehicleAge) %>%
+  select(VehicleAge) %>%
+  table()
+# OR
+red_nissan <- cars %>% filter(Color == "RED" & Make == "NISSAN")
+red_nissan %>%
+  group_by(VehicleAge) %>%
+  count()
+# OR
+red_nissan <- cars %>% filter(Color == "RED" & Make == "NISSAN")
+red_nissan %>%
+  group_by(VehicleAge) %>%
+  tally()
+```
+
+
+D\. How many vehicles (using `filter()` or `sum()` ) are made by Chrysler or Nissan and are white or silver?
+
+```{r Dresponse}
+sum((cars$Make == "CHRYSLER" | cars$Make == "NISSAN") & (cars$Color == "WHITE" | cars$Color == "SILVER"))
+# OR
+sum(cars$Make %in% c("CHRYSLER", "NISSAN") & cars$Color %in% c("WHITE", "SILVER"))
+# OR
+cars %>%
+  filter(Make %in% c("CHRYSLER", "NISSAN") & cars$Color %in% c("WHITE", "SILVER")) %>%
+  count()
+
+# A total of 3718 cars. 
+```
+
+
+E\. Make a boxplot (`boxplot()`) that looks at vehicle age ("VehicleAge") on the x-axis and odometer reading ("VehOdo") on the y-axis.
+
+```{r Eresponse}
+boxplot(cars %>% pull(VehOdo) ~ cars %>% pull(VehicleAge))
+```
+
+
+F\. Knit your document into a report.
+
+You use the knit button to do this. Make sure all your code is working first!
