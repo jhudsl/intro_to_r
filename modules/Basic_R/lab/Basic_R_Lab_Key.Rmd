@@ -25,7 +25,7 @@ Create a new object called `my.num` that contains 6 numbers.
 my.num <- c(number1, number2, ...)
 ```
 
-```{r}
+```{r 1.1response}
 my.num <- c(5, 4, 7, 8, 12, 14) # These can be any real numbers
 ```
 
@@ -33,7 +33,7 @@ my.num <- c(5, 4, 7, 8, 12, 14) # These can be any real numbers
 
 Multiply `my.num` by 4.
 
-```{r}
+```{r 1.2response}
 my.num * 4
 ```
 
@@ -46,7 +46,7 @@ Create a second object called `my.char` that contains 5 character strings.
 my.char <- c("character1", "character2", ...)
 ```
 
-```{r}
+```{r 1.3response}
 my.char <- c("banana", "garlic", "pickles", "hot chocolate", "7-Up") # Again,these can be anything
 ```
 
@@ -54,7 +54,7 @@ my.char <- c("banana", "garlic", "pickles", "hot chocolate", "7-Up") # Again,the
 
 Combine the two objects `my.num` and `my.char` into an object called `both`.
 
-```{r}
+```{r 1.4response}
 both <- c(my.num, my.char)
 ```
 
@@ -62,7 +62,7 @@ both <- c(my.num, my.char)
 
 What is the length of `both`? Use the `length()` function.
 
-```{r}
+```{r 1.5response}
 length(both)
 ```
 
@@ -70,7 +70,7 @@ length(both)
 
 What class is `both`?
 
-```{r}
+```{r 1.6response}
 class(both)
 ```
 
@@ -81,7 +81,7 @@ class(both)
 
 Create a vector that contains 4 sets of the numbers 1, 2, 3, and 4.
 
-```{r}
+```{r P.1response}
 vec_1 <- c(1, 2, 3, 4)
 vec_2 <- c(vec_1, vec_1, vec_1, vec_1)
 ```
@@ -93,7 +93,7 @@ vec_2 <- c(vec_1, vec_1, vec_1, vec_1)
 
 Divide `both` by 3, what happens?
 
-```{r, error=TRUE}
+```{r, error=TRUE, label='2.1response'}
 both / 3
 ```
 
@@ -106,7 +106,7 @@ Create a vector with elements 1, 2, 3, 4, 5 and call it `x`.
 x <- c(...)
 ```
  
-```{r}
+```{r 2.2response}
 x <- c(1, 2, 3, 4, 5)
 ```
 
@@ -119,7 +119,7 @@ Create another vector with elements 10, 20, 30, 40, 50 and call it `y`.
 y <- c(...)
 ```
 
-```{r}
+```{r 2.3response}
 y <- c(10, 20, 30, 40, 50)
 ```
 
@@ -127,7 +127,7 @@ y <- c(10, 20, 30, 40, 50)
 
 Determine the length of `x` and `y`. Next, add the vectors x and y together.
 
-```{r}
+```{r 2.4response}
 length(x)
 length(y)
 x + y
@@ -143,7 +143,7 @@ Append the value 60 onto the vector `y` (hint: you can use the `c()` function).
 y <- c(y, ...)
 ```
 
-```{r}
+```{r 2.5response}
 y <- c(y, 60)
 ```
 
@@ -151,7 +151,7 @@ y <- c(y, 60)
 
 Determine the length of `x` and `y`.
 
-```{r}
+```{r 2.6response}
 length(x)
 length(y)
 ```
@@ -160,7 +160,7 @@ length(y)
 
 Add `x` and `y` together. What happens?
 
-```{r}
+```{r 2.7response}
 x + y
 # [1] 11 22 33 44 55 61
 # Warning message:
@@ -179,10 +179,12 @@ Multiply the following `a` and `b` together. How is this similar to the way R pe
 ```{r}
 a <- c(1, 2, 3)
 b <- c(10, 100, 1000)
+```
+
+```{r P.2response}
 a * b
 # R adds together the first element of each vector, then the second, and so on. This order also applies when multiplying!
 ```
-
 
 # Part 3
 
@@ -195,7 +197,7 @@ Create a vector object called `int_vect` that starts at 1 and goes up to 10. Use
 seq(from = NUMBER, to = NUMBER)
 ```
 
-```{r}
+```{r 3.1response}
 int_vect <- seq(from = 1, to = 10)
 int_vect
 ```
@@ -209,7 +211,7 @@ Repeat the `int_vect` object this sequence 3 times using `rep()` and store the n
 rep(x = OBJECT_TO_REPEAT, times = NUM_TIMES_TO_REPEAT, each = NUM_TIMES_TO_REPEAT_EACH_ELEMENT)
 ```
 
-```{r}
+```{r 3.2response}
 int_vect_3 <- rep(int_vect, times = 3)
 int_vect_3
 ```
@@ -218,7 +220,7 @@ int_vect_3
 
 What is the length of `int_vect_3`?
 
-```{r}
+```{r 3.3response}
 length(int_vect_3)
 ```
 
@@ -226,7 +228,7 @@ length(int_vect_3)
 
 Create a vector that takes the sequence "Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree" and repeats each element 10 times.
 
-```{r}
+```{r 3.4response}
 my_seq <- c("Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree")
 rep(my_seq, each = 10)
 
@@ -240,7 +242,7 @@ rep(c("Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"), ea
 
 "Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree" are often responses to surveys. Create a randomly sampled vector of 30 survey responses. (hint use `sample()` and set the replace argument to `TRUE`). Store the output as `my_responses`. Examine the data by typing the name `my_responses` in the Console.
 
-```{r}
+```{r P.3response}
 my_responses <- sample(
   x = c("Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"),
   size = 30,
@@ -253,7 +255,7 @@ my_responses
 
 Let's say you change your survey so participants can rank their response 1-10 (inclusive). Create a randomly sampled vector of 30 survey responses. (hint use `seq()` and `sample()` and set the replace argument to `TRUE`). Store the output as `my_responses_2`. Examine the data by typing the name `my_responses_2` in the Console.
 
-```{r}
+```{r P.4response}
 my_responses_2 <- sample(
   x = seq(from = 1, to = 10),
   size = 30,
