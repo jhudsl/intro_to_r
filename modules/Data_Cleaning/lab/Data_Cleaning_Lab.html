@@ -360,12 +360,22 @@ Transportation’s bike program. The data is from <a href="http://data.baltimore
 <p>You can Download as a CSV in your current working directory. Note its
 also available at: <a href="http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv" class="uri">http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv</a></p>
 <pre class="r"><code>library(readr)
-library(tidyverse)
-library(dplyr)
+library(tidyverse)</code></pre>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.4     ✔ purrr     1.0.2
+## ✔ forcats   1.0.0     ✔ stringr   1.5.1
+## ✔ ggplot2   3.5.0     ✔ tibble    3.2.1
+## ✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<pre class="r"><code>library(dplyr)
 library(lubridate)
 library(jhur)
 library(tidyverse)
 library(broom)
+# install.packages(&quot;naniar&quot;)
 library(naniar)</code></pre>
 </div>
 <div id="part-1" class="section level1">
@@ -379,11 +389,18 @@ Transportation’s bike program. The data is from <a href="http://data.baltimore
 <p>You can Download as a CSV in your current working directory. Note its
 also available at: <a href="http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv" class="uri">http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv</a></p>
 <ol style="list-style-type: decimal">
-<li><p>Use the <code>is.na()</code> and <code>any()</code> functions to
+<li>Use the <code>is.na()</code> and <code>any()</code> functions to
 check if the bike <code>dateInstalled</code> variable has any
 <code>NA</code> values. Use the pipe between each step. Hint: You first
 need to <code>pull</code> out the vector version of this variable to use
-the <code>is.na()</code> function.</p></li>
+the <code>is.na()</code> function.</li>
+</ol>
+<pre><code># General format
+TIBBLE %&gt;%
+  pull(COLUMN) %&gt;%
+  is.na() %&gt;%
+  any()</code></pre>
+<ol start="2" style="list-style-type: decimal">
 <li><p>Clean rows of bike, so that only rows remain that do NOT have
 missing values for the <code>route</code> variable, using
 <code>drop_na</code>. Assign this to the object
@@ -449,6 +466,13 @@ BloodType</code></pre>
 <code>case_when()</code>. Keep “Other” as “Other”. Don’t forget to use
 quotes!</p></li>
 </ol>
+<pre><code># General format
+NEW_TIBBLE &lt;- OLD_TIBBLE %&gt;%
+  mutate(NEW_COLUMN = case_when(
+    OLD_COLUMN %in% c( ... ) ~ ... ,
+    OLD_COLUMN %in% c( ... ) ~ ... ,
+    TRUE ~ OLD_COLUMN
+  ))</code></pre>
 <p>Check to see how many values <code>weight_loss</code> has for each
 category (hint: use <code>count</code>). It’s good practice to regularly
 check your data throughout the data wrangling process.</p>
