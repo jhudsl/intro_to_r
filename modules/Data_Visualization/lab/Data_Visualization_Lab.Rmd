@@ -103,7 +103,18 @@ bike_agg_2
 ```
 
 
-2.  Use `ggplot2` package to make a plot showing trajectories of number of lanes (`lane_count`; y-axis) over year (`dateInstalled`; x-axis), where each bike line type has a different line (hint: use `group = type` in mapping) and a different color (hint: use `color = type` in mapping).
+2.  Use `ggplot2` package to make a plot showing trajectories of number of lanes (`lane_count`; y-axis) over year (`dateInstalled`; x-axis), where each bike line type has a different color (hint: use `color = type` in mapping).
+
+```
+# General format
+ggplot(???, aes(
+  x = ???,
+  y = ???,
+  color = ???
+)) +
+  geom_line() +
+  geom_point()
+```
 
 ```{r 2.2response}
 
@@ -118,6 +129,8 @@ Assign the new plot as an object called `facet_plot`.
 
 ```
 
+4. Observe what happens when you remove either `geom_line()` OR `geom_point()` from one of your plots above.
+
 **Bonus / Extra practice**: Modify `facet_plot` to remove the legend (hint use `theme()` and the `legend.position` argument) and change the names of the axis titles to be "Number of bike lanes" for the y axis and "Date bike lane was installed" for the x axis. 
 
 ```{r P2response}
@@ -127,6 +140,5 @@ Assign the new plot as an object called `facet_plot`.
 **Bonus / Extra practice**: Modify `facet_plot` one more time with a fun theme! Look into the [ThemePark package](https://github.com/MatthewBJane/ThemePark) It has lots of fun themes! Try one out! Remember you will need to install it using `remotes::install_github("MatthewBJane/ThemePark")`and load in the library. 
 
 ```{r P.3response}
-
 
 ```

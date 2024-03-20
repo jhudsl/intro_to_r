@@ -472,7 +472,7 @@ what are the dimensions of this dataset?</li>
 dim(pop_sub)</code></pre>
 <pre><code>## [1] 28265     3</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Start with <code>conty_pop</code> again instead of the dataset you
+<li>Start with <code>county_pop</code> again instead of the dataset you
 just made. Subset the data to only include the <code>population</code>
 column and the columns that end with “_name”. Hint: use
 <code>select()</code> and <code>ends_with()</code>. Assign this subset
@@ -522,9 +522,6 @@ there? Use <code>filter()</code>.</li>
 <pre class="r"><code>county_pop_sub &lt;- filter(county_pop, population &gt; 100000)
 nrow(county_pop_sub)</code></pre>
 <pre><code>## [1] 5159</code></pre>
-<pre class="r"><code># or this:
-filter(county_pop, population &gt; 100000) %&gt;% nrow()</code></pre>
-<pre><code>## [1] 5159</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Subset the rows of <code>county_pop</code> that have a year value
 <strong>less</strong> than 2010 and <strong>more</strong> than 100000
@@ -549,10 +546,6 @@ population - how many are there?</li>
 <pre class="r"><code>nrow(filter(county_pop, year &lt; 2010 &amp; population &gt; 100000))</code></pre>
 <pre><code>## [1] 2260</code></pre>
 <pre class="r"><code>nrow(filter(county_pop, year &lt; 2010, population &gt; 100000))</code></pre>
-<pre><code>## [1] 2260</code></pre>
-<pre class="r"><code>county_pop %&gt;%
-  filter(year &lt; 2010, population &gt; 100000) %&gt;%
-  nrow()</code></pre>
 <pre><code>## [1] 2260</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>Subset the rows of <code>county_pop</code> that have a year value of
@@ -579,16 +572,12 @@ than 100000 population - how many are there?</li>
 <pre><code>## [1] 2834</code></pre>
 <pre class="r"><code>nrow(filter(county_pop, year &lt;= 2010, population &gt; 100000))</code></pre>
 <pre><code>## [1] 2834</code></pre>
-<pre class="r"><code>county_pop %&gt;%
-  filter(year &lt;= 2010, population &gt; 100000) %&gt;%
-  nrow()</code></pre>
-<pre><code>## [1] 2834</code></pre>
 <ol start="7" style="list-style-type: decimal">
 <li>Why do the answers for 5 and 6 differ?</li>
 </ol>
 <pre class="r"><code># They differ because there are rows with values that are exactly 2010.</code></pre>
 <p><strong>Bonus / Extra practice</strong>:</p>
-<p>Subset the rows of <code>country_pop</code> for rows that have
+<p>Subset the rows of <code>county_pop</code> for rows that have
 <code>state_name</code> of <code>NM</code>, <strong>or</strong>
 <strong>less</strong> than 10000 <code>population</code>. How many rows
 have both?</p>
@@ -717,28 +706,29 @@ county_2012</code></pre>
 <li>Create a new variable in <code>county_2012</code> called
 <code>pop1000</code>, which is equal to <code>population</code> divided
 by 1000, using <code>mutate()</code>(don’t forget to reassign
-<code>county_2012</code>). Use pipes <code>%&gt;%</code>:</li>
+<code>county_2012</code>). Use pipes <code>%&gt;%</code>.</li>
 </ol>
+<pre><code># General format
+NEWDATA &lt;- OLD_DATA %&gt;% mutate(NEW_COLUMN = OLD_COLUMN)</code></pre>
 <pre class="r"><code>county_2012 &lt;- county_2012 %&gt;% mutate(pop1000 = population/1000)</code></pre>
 <p><strong>Bonus / Extra practice</strong>: Move the
-<code>pop1000</code> column to be between <code>county_name</code> and
-<code>state_name</code> of the <code>county_2012</code> dataset. Use
-<code>relocate()</code>.</p>
-<pre class="r"><code>county_2012 &lt;- county_2012 %&gt;% relocate(pop1000, .before = state_name)
+<code>state_name</code> column to be before <code>county_name</code> in
+the <code>county_2012</code> dataset. Use <code>relocate()</code>.</p>
+<pre class="r"><code>county_2012 &lt;- county_2012 %&gt;% relocate(state_name, .before = county_name)
 county_2012</code></pre>
 <pre><code>## # A tibble: 3,140 × 4
-##    county_name pop1000 state_name population
-##    &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;           &lt;int&gt;
-##  1 Loving        0.085 TX                 85
-##  2 King          0.227 TX                227
-##  3 McPherson     0.348 NE                348
-##  4 Kenedy        0.451 TX                451
-##  5 Arthur        0.49  NE                490
-##  6 Loup          0.534 NE                534
-##  7 Petroleum     0.566 MT                566
-##  8 Blaine        0.584 NE                584
-##  9 Grant         0.608 NE                608
-## 10 Harding       0.612 NM                612
+##    state_name county_name population pop1000
+##    &lt;chr&gt;      &lt;chr&gt;            &lt;int&gt;   &lt;dbl&gt;
+##  1 TX         Loving              85   0.085
+##  2 TX         King               227   0.227
+##  3 NE         McPherson          348   0.348
+##  4 TX         Kenedy             451   0.451
+##  5 NE         Arthur             490   0.49 
+##  6 NE         Loup               534   0.534
+##  7 MT         Petroleum          566   0.566
+##  8 NE         Blaine             584   0.584
+##  9 NE         Grant              608   0.608
+## 10 NM         Harding            612   0.612
 ## # ℹ 3,130 more rows</code></pre>
 <p><strong>Bonus / Extra practice</strong>: How can you find the value
 of <code>population</code> for Chambers AL without just looking at the

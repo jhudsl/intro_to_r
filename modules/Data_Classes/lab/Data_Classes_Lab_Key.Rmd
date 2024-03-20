@@ -72,8 +72,8 @@ rand_char_vect # Numbers now have quotation marks
 Read in the Charm City Circulator data using `read_circulator()` function from `jhur` package using the code supplied in the chunk. Or alternatively using the url link.
 
 ```{r}
-circ <- read_csv(file = "http://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
 circ <- read_circulator()
+circ <- read_csv(file = "http://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
 ```
 
 Use the `str()` function to take a look at the data and learn about the column types.

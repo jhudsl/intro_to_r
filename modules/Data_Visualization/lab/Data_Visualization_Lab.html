@@ -407,7 +407,7 @@ lanes (<code>lane_avg_length</code>; y-axis) for each year
 <p>Assign the plot to variable <code>my_plot</code>. Type
 <code>my_plot</code> in the console to have it displayed.</p>
 <pre><code># General format
-ggplot(???, mapping = aes(x = ???, y = ???)) +
+ggplot(???, aes(x = ???, y = ???)) +
   ??? +
   ???</code></pre>
 <ol start="2" style="list-style-type: decimal">
@@ -464,26 +464,44 @@ lanes (<code>lane_count</code>) – separately for each year
 ## 10          2009 SHARROW                 10
 ## # ℹ 12 more rows</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li><p>Use <code>ggplot2</code> package to make a plot showing
-trajectories of number of lanes (<code>lane_count</code>; y-axis) over
-year (<code>dateInstalled</code>; x-axis), where each bike line type has
-a different line (hint: use <code>group = type</code> in mapping) and a
-different color (hint: use <code>color = type</code> in
-mapping).</p></li>
-<li><p>Redo the above plot by adding a faceting
+<li>Use <code>ggplot2</code> package to make a plot showing trajectories
+of number of lanes (<code>lane_count</code>; y-axis) over year
+(<code>dateInstalled</code>; x-axis), where each bike line type has a
+different color (hint: use <code>color = type</code> in mapping).</li>
+</ol>
+<pre><code># General format
+ggplot(???, aes(
+  x = ???,
+  y = ???,
+  color = ???
+)) +
+  geom_line() +
+  geom_point()</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Redo the above plot by adding a faceting
 (<code>+ facet_wrap( ~ type, ncol = 3)</code>) to have data for each
-bike line type in a separate plot panel.</p></li>
+bike line type in a separate plot panel.</li>
 </ol>
 <p>(You may see
 <code>geom_path: Each group consists of only one observation. Do you need to adjust the group aesthetic?</code>
 warning as some bike lane types will have only 1 point plotted while
 trying to plot a line). Assign the new plot as an object called
 <code>facet_plot</code>.</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Observe what happens when you remove either <code>geom_line()</code>
+OR <code>geom_point()</code> from one of your plots above.</li>
+</ol>
 <p><strong>Bonus / Extra practice</strong>: Modify
 <code>facet_plot</code> to remove the legend (hint use
-<code>theme()</code>) and change the names of the axis titles to be
-“Number of bike lanes” for the y axis and “Date bike lane was installed”
-for the x axis.</p>
+<code>theme()</code> and the <code>legend.position</code> argument) and
+change the names of the axis titles to be “Number of bike lanes” for the
+y axis and “Date bike lane was installed” for the x axis.</p>
+<p><strong>Bonus / Extra practice</strong>: Modify
+<code>facet_plot</code> one more time with a fun theme! Look into the <a href="https://github.com/MatthewBJane/ThemePark">ThemePark package</a>
+It has lots of fun themes! Try one out! Remember you will need to
+install it using
+<code>remotes::install_github(&quot;MatthewBJane/ThemePark&quot;)</code>and load
+in the library.</p>
 </div>
 
 

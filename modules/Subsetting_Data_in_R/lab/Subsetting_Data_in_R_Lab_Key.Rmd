@@ -72,7 +72,7 @@ dim(county_pop)
 
 **Bonus / Extra practice**: How can you print the first 3 rows and the last 3 rows of `county_pop` (in two lines of code)?
 
-```{r P1response}
+```{r P.1response}
 head(county_pop, 3)
 tail(county_pop, 3)
 ```
@@ -87,7 +87,7 @@ pop_sub <- select(county_pop, county_name, year, population)
 dim(pop_sub)
 ```
 
-2. Start with `conty_pop` again instead of the dataset you just made. Subset the data to only include the `population` column and the columns that end with "_name". Hint: use  `select()` and `ends_with()`. Assign this subset of the data to be `pop2`. Again take a look at the data and check the dimensions.
+2. Start with `county_pop` again instead of the dataset you just made. Subset the data to only include the `population` column and the columns that end with "_name". Hint: use  `select()` and `ends_with()`. Assign this subset of the data to be `pop2`. Again take a look at the data and check the dimensions.
 
 ```{r 2.2response}
 pop2 <- select(county_pop, population, ends_with("_name"))
@@ -107,8 +107,6 @@ head(select(pop2, county_name))
 ```{r 2.4response}
 county_pop_sub <- filter(county_pop, population > 100000)
 nrow(county_pop_sub)
-# or this:
-filter(county_pop, population > 100000) %>% nrow()
 ```
 
 5. Subset the rows of `county_pop` that have a year value **less** than 2010 and **more** than 100000 population - how many are there?
@@ -117,9 +115,6 @@ filter(county_pop, population > 100000) %>% nrow()
 filter(county_pop, year < 2010 & population > 100000) # all of these options work
 nrow(filter(county_pop, year < 2010 & population > 100000))
 nrow(filter(county_pop, year < 2010, population > 100000))
-county_pop %>%
-  filter(year < 2010, population > 100000) %>%
-  nrow()
 ```
 
 
@@ -129,9 +124,6 @@ county_pop %>%
 filter(county_pop, year <= 2010 & population > 100000) # all of these options work
 nrow(filter(county_pop, year <= 2010 & population > 100000))
 nrow(filter(county_pop, year <= 2010, population > 100000))
-county_pop %>%
-  filter(year <= 2010, population > 100000) %>%
-  nrow()
 ```
 
 7. Why do the answers for 5 and 6 differ?
@@ -143,10 +135,10 @@ county_pop %>%
 
 **Bonus / Extra practice**:
 
-Subset the rows of `country_pop` for rows that have `state_name` of `NM`,  **or** **less** than 10000 `population`.
+Subset the rows of `county_pop` for rows that have `state_name` of `NM`,  **or** **less** than 10000 `population`.
 How many rows have both?
 
-```{r P2response}
+```{r P.2response}
 filter(county_pop, state_name == "NM" | population < 10000)
 nrow(filter(county_pop, state_name == "NM" & population < 10000))
 ```
@@ -154,7 +146,7 @@ nrow(filter(county_pop, state_name == "NM" & population < 10000))
 
 **Bonus / Extra practice**: Select the variables that contain the letter "a" from `cars_mt_copy`.
 
-```{r P3response}
+```{r P.3response}
 select(county_pop, contains("a"))
 ```
 
@@ -183,7 +175,7 @@ dim(county_2012)
 
 What happens if you do the steps in a different order? Why does this not work?
 
-```{r 3.2aresponse}
+```{r, error = TRUE, label = '3.2aresponse'}
 #county_2012 <- county_pop %>%
 #  select(county_name, state_name, population) %>%
 #  filter(year == 2012)
@@ -200,24 +192,29 @@ arrange(county_2012, population) %>%
   pull(county_name)
 ```
 
-4. Create a new variable in `county_2012` called `pop1000`, which  is equal to `population` divided by 1000, using `mutate()`(don't forget to reassign `county_2012`). Use pipes `%>%`:
+4. Create a new variable in `county_2012` called `pop1000`, which  is equal to `population` divided by 1000, using `mutate()`(don't forget to reassign `county_2012`). Use pipes `%>%`.
+
+```
+# General format
+NEWDATA <- OLD_DATA %>% mutate(NEW_COLUMN = OLD_COLUMN)
+```
 
 ```{r 3.4response}
 county_2012 <- county_2012 %>% mutate(pop1000 = population/1000)
 ```
 
 
-**Bonus / Extra practice**: Move the `pop1000` column to be between `county_name` and `state_name` of the `county_2012` dataset. Use `relocate()`.
+**Bonus / Extra practice**: Move the `state_name` column to be before `county_name` in the `county_2012` dataset. Use `relocate()`.
 
-```{r P4response}
-county_2012 <- county_2012 %>% relocate(pop1000, .before = state_name)
+```{r P.4response}
+county_2012 <- county_2012 %>% relocate(state_name, .before = county_name)
 county_2012
 ```
 
 
 **Bonus / Extra practice**: How can you find the value of `population` for Chambers AL without just looking at the data manually and instead use functions we learned today?
 
-```{r P5response}
+```{r P.5response}
 county_2012 %>%
   filter(county_name == "Chambers", state_name == "AL") %>%
   select(population)

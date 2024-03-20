@@ -390,8 +390,18 @@ classes? Why or why not?</p>
 <code>rand_vect</code> and <code>rand_char_vect</code> different?</p>
 <p>6. Read in the Charm City Circulator data using
 <code>read_circulator()</code> function from <code>jhur</code> package
-using the code supplied in the chunk.</p>
+using the code supplied in the chunk. Or alternatively using the url
+link.</p>
 <pre class="r"><code>circ &lt;- read_circulator()</code></pre>
+<pre><code>## Rows: 1146 Columns: 15
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr  (2): day, date
+## dbl (13): orangeBoardings, orangeAlightings, orangeAverage, purpleBoardings,...
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>circ &lt;- read_csv(file = &quot;http://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv&quot;)</code></pre>
 <pre><code>## Rows: 1146 Columns: 15
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;

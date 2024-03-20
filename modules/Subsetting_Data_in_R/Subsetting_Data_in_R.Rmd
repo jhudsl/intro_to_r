@@ -126,7 +126,7 @@ knitr::include_graphics("images/path.gif")
 ## Import the data
 `here` function of the `here` package helps R start looking where your .Rproj file is.
 
-```{r, eval = FALSE}
+```{r, echo = FALSE, message=FALSE, comment= FALSE, results='hide'}
 install.packages("here", repos='http://cran.us.r-project.org')
 ```
 
@@ -180,17 +180,6 @@ slice_sample(annualDosage, n = 2)
 
 ```
 
-## `skimr` package
-
-```{r, eval = FALSE}
-install.packages("skimr")
-library(skimr)
-skim(annualDosage)
-```
-
-```{r, fig.alt="dplyr", out.width = "55%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("images/skim2.png")
-```
 
 # Data frames and tibbles
 
@@ -279,7 +268,7 @@ knitr::include_graphics("images/rename.png")
 
 To rename columns in `dplyr`, you can use the `rename` function.
 
-For example, let's rename BUYER_COUNTY to County. Notice the new name is listed **first**!
+For example, let's rename BUYER_COUNTY to County. Notice the new name is listed **first**, similar to how a new object is assigned on the left!
 
 <div class = "codeexample">
 ```{r, eval = FALSE}
@@ -683,16 +672,6 @@ knitr::include_graphics("https://media.giphy.com/media/5b5OU7aUekfdSAER5I/giphy.
 ```
 https://media.giphy.com/media/5b5OU7aUekfdSAER5I/giphy.gif
 
-## `distinct()` function
-
-To filter for distinct values from a variable, multiple variables, or an entire tibble you can use the `distinct()` function from the `dplyr` package.
-
-```{r}
-distinct(AD, year)
-
-distinct(AD, year, BUYER_STATE)
-```
-
 ## Summary
 
 - `pull()` to get values out of a data frame/tibble
@@ -709,7 +688,6 @@ distinct(AD, year, BUYER_STATE)
 - `==` is the same as equivalent to
 - `&` means both conditions must be met to remain after `filter()`
 - `|` means either conditions needs to be met to remain after `filter()`
-- `distinct()` helps you filter for unique values
 
 ## Lab Part 2
 
@@ -830,6 +808,7 @@ knitr::include_graphics("images/mutate.png")
 The `NULL` method is still very common.
 
 The `select` function can remove a column with exclamation mark (`!`) our using the minus sign (`-`):
+
 ```{r, eval = FALSE}
 select(AD, !newcol)
 ```

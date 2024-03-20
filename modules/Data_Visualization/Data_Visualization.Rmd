@@ -222,7 +222,6 @@ ggplot({data_to plot}, aes(x = {var in data to plot},
 :::
 
 ```{r, fig.width=4, fig.height=3, fig.align='center'}
-
 ggplot(Orange, aes(x = circumference, y = age)) +
   geom_point()
 ```
@@ -401,6 +400,20 @@ plot_scale
 ggplot(Orange, aes(x = circumference, y = age)) +
                 geom_point(size = 5, color = "red", alpha = 0.5) +
                 geom_line(size = 0.8, color = "brown", linetype = 2)
+```
+
+## Changing axis: specifying axis limits
+
+`xlim()` and `ylim()` can specify the limits for each axis
+
+```{r, fig.width=5, fig.height=3, fig.align='center'}
+
+ggplot(Orange, mapping = aes(x = circumference, y = age)) +
+  geom_point(size = 5, color = "red", alpha = 0.5) +
+  geom_line(size = 0.8, color = "brown", linetype = 2) +
+  labs(title = "My plot of orange tree circumference vs age") +
+  xlim(100, max(pull(Orange, circumference)))
+
 ```
 
 ## Modifying plot objects
@@ -616,9 +629,8 @@ food
 ## Starting a plot
 
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
-
 ggplot(food, aes(x = observation_time,
-                           y = item_price_change)) +
+                 y = item_price_change)) +
   geom_line()
 ```
 
@@ -652,8 +664,8 @@ ggplot(food, aes(x = observation_time,
 
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
 ggplot(food, aes(x = observation_time,
-                           y = item_price_change,
-                       color = item_categ)) +
+                 y = item_price_change,
+                 color = item_categ)) +
   geom_line()
 ```
 
@@ -661,10 +673,10 @@ ggplot(food, aes(x = observation_time,
 
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
 ggplot(food, aes(x = observation_time,
-                           y = item_price_change,
-                       group = item_ID,
-                       color = item_categ)) +
-                            geom_line()
+                 y = item_price_change,
+                 group = item_ID,
+                 color = item_categ)) +
+  geom_line()
 
 ```
 
@@ -676,8 +688,8 @@ Need to specify how you are faceting with the `~` sign.
 
 ```{r, fig.width=4, fig.height=3, fig.align='center'}
 ggplot(food, aes(x = observation_time,
-                           y = item_price_change,
-                           color = item_ID)) +
+                 y = item_price_change,
+                 color = item_ID)) +
   geom_line() +
   facet_grid( ~ item_categ)
 ```
@@ -707,15 +719,14 @@ Let's talk additional tricks and tips for making ggplots!
 -   `fill` is generally needed for boxes and bars
 
 ```{r, out.width="30%", fig.show='hold'}
-
 ggplot(food, aes(x = item_ID,
-                           y = item_price_change,
-                           color = item_categ)) + #color creates an outline
+                 y = item_price_change,
+                 color = item_categ)) + #color creates an outline
   geom_boxplot()
 
 ggplot(food, aes(x = item_ID,
-                           y = item_price_change,
-                           fill = item_categ)) + # fills the boxplot
+                 y = item_price_change,
+                 fill = item_categ)) + # fills the boxplot
   geom_boxplot()
 ```
 
@@ -725,8 +736,8 @@ Can add `width` argument to make the jitter more narrow.
 
 ```{r, fig.width=5 , fig.height=3, fig.align='center'}
 ggplot(food, aes(x = item_ID,
-                           y = item_price_change,
-                           fill = item_categ)) +
+                 y = item_price_change,
+                 fill = item_categ)) +
   geom_boxplot() +
   geom_jitter(width = .06)
 ```
@@ -737,8 +748,8 @@ ggplot(food, aes(x = item_ID,
 
 ```{r, fig.width=5 , fig.height=3, fig.align='center'}
 ggplot(food, aes(x = item_ID,
-                           y = item_price_change,
-                           fill = item_categ)) +
+                 y = item_price_change,
+                 fill = item_categ)) +
   geom_boxplot() +
   geom_jitter(width = .06) +
   scale_fill_viridis_d()
@@ -751,9 +762,10 @@ ggplot(food, aes(x = item_ID,
 food_bar <-food %>%
   group_by(item_categ) %>%
   summarize("max_price_change" = max(item_price_change)) %>%
-  ggplot(aes(x = item_categ,
-                       y = max_price_change,
-                       fill = item_categ)) +
+
+ggplot(aes(x = item_categ,
+           y = max_price_change,
+           fill = item_categ)) +
   scale_fill_viridis_d()+
   geom_col() +
   theme(legend.position = "none")
@@ -780,8 +792,8 @@ food_bar +
 
 ```{r, fig.width=5 , fig.height=3, fig.align='center'}
 ggplot(food, aes(x = item_ID,
-                           y = item_price_change,
-                           fill = item_categ)) +
+                 y = item_price_change,
+                 fill = item_categ)) +
   geom_col()
 ```
 
@@ -806,9 +818,10 @@ food %>% group_by(item_categ, item_ID) %>%
 ```{r}
 food %>% group_by(item_categ, item_ID) %>%
   summarize(mean_change = mean(item_price_change)) %>%
-    ggplot(aes(x = item_ID,
-                         y = mean_change,
-                         fill = item_categ)) +
+
+ggplot(aes(x = item_ID,
+           y = mean_change,
+           fill = item_categ)) +
   geom_col()
 ```
 
