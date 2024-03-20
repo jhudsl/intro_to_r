@@ -448,7 +448,7 @@ yts %>%
 
 ## Only the last `group_by` is recognized...
 
-The `ungroup` function will allow you to clear the groups from the data. You can also overwrite the first `group_by` with a new one.
+You can overwrite the first `group_by` with a new one.
 
 ```{r}
 yts %>% 
@@ -459,7 +459,7 @@ yts %>%
 
 ## Ungroup the data
 
-The `ungroup` function will allow you to clear the groups from the data. You can also overwrite the first `group_by` with a new one.
+The `ungroup` function will allow you to clear the groups from the data.
 
 ```{r}
 yts <- ungroup(yts)
@@ -512,11 +512,17 @@ These functions require a column as a vector using `pull()`.
 yts <- read_yts()
 yts_loc <- yts %>% pull(LocationDesc) # pull() to make a vector
 yts_loc %>% unique() # similar to distinct()
+```
+
+## Base R functions you might see: `length` and `unique`
+
+These functions require a column as a vector using `pull()`.
+
+```{r, message = FALSE}
 yts_loc %>% unique() %>% length() # similar to n_distinct()
 ```
 
-
-## * New! * Many dplyr functions now have a `.by=` argument {.codesmall}
+## * New! * Many dplyr functions now have a `.by=` argument
 
 Pipe `yts` into `group_by`, then pipe that into `summarize`:
 
@@ -562,7 +568,7 @@ knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 
 Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
 
-# More advanced summarization (not covered)
+# Extra Slides: More advanced summarization
 
 ## Row means
 

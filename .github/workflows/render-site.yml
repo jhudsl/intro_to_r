@@ -202,5 +202,5 @@ jobs:
           git add *.pdf --force
           git commit -m 'Render pdfs' || echo "No changes to commit"
           git status
-          git merge -s recursive --strategy-option=theirs origin/main --allow-unrelated-histories
+          git pull --rebase --set-upstream origin main --allow-unrelated-histories --strategy-option=ours
           git push --force || echo "No changes to commit"

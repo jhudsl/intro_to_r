@@ -11,7 +11,7 @@
 
 
 
-<title>Data Cleaning Lab Key</title>
+<title>Data Cleaning Lab - Key</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -348,11 +348,17 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Data Cleaning Lab Key</h1>
+<h1 class="title toc-ignore">Data Cleaning Lab - Key</h1>
 
 </div>
 
 
+<div id="data-used" class="section level1">
+<h1>Data used</h1>
+<p>Bike Lanes Dataset: BikeBaltimore is the Department of
+Transportation’s bike program. The data is from <a href="http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms" class="uri">http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms</a></p>
+<p>You can Download as a CSV in your current working directory. Note its
+also available at: <a href="http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv" class="uri">http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv</a></p>
 <pre class="r"><code>library(readr)
 library(tidyverse)
 library(dplyr)
@@ -361,6 +367,7 @@ library(jhur)
 library(tidyverse)
 library(broom)
 library(naniar)</code></pre>
+</div>
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
 <ol start="0" style="list-style-type: decimal">
@@ -383,9 +390,9 @@ also available at: <a href="http://jhudatascience.org/intro_to_r/data/Bike_Lanes
 <ol style="list-style-type: decimal">
 <li>Use the <code>is.na()</code> and <code>any()</code> functions to
 check if the bike <code>dateInstalled</code> variable has any
-<code>NA</code> values. Hint: You first need to <code>pull</code> out
-the vector version of this variable to use the <code>is.na()</code>
-function.</li>
+<code>NA</code> values. Use the pipe between each step. Hint: You first
+need to <code>pull</code> out the vector version of this variable to use
+the <code>is.na()</code> function.</li>
 </ol>
 <pre class="r"><code>bike %&gt;%
   pull(dateInstalled) %&gt;%
@@ -414,7 +421,7 @@ missing for each variable of <code>bike</code> (use
 <pre class="r"><code>miss_var_summary(bike) # or this</code></pre>
 <pre><code>## # A tibble: 9 × 3
 ##   variable      n_miss pct_miss
-##   &lt;chr&gt;          &lt;int&gt;    &lt;dbl&gt;
+##   &lt;chr&gt;          &lt;int&gt;    &lt;num&gt;
 ## 1 route           1269   77.8  
 ## 2 block            215   13.2  
 ## 3 project           74    4.54 
@@ -585,13 +592,16 @@ BloodType</code></pre>
 <code>Bloodtype_split</code> that splits the <code>type</code> variable
 into two called <code>blood_type</code> and <code>Rhfactor</code>. Note:
 periods are special characters that generally are interpreted as wild
-cards thus we need “\.” instead of simply “.” to tell R that we want it
-to be interpreted as a period. Make sure you use quotes around “\.” and
-the column names like shown below (don’t want backticks).</li>
+cards thus we need “\.” instead of simply “.” for the <strong>separating
+character</strong> to tell R that we want it to be interpreted as a
+period. Make sure you use quotes around “\.” and the column names like
+shown below (don’t want backticks).</li>
 </ol>
 <pre><code># General format
-NEW_TIBBLE &lt;- OLD_TIBBLE 
-    %&gt;% separate(OLD_COLUMN, into = c(&quot;NEW_COLUMN1&quot;, &quot;NEW_COLUMN2&quot;), sep = &quot;SEPARATING_CHARACTER&quot;)</code></pre>
+NEW_TIBBLE &lt;- OLD_TIBBLE %&gt;%
+  separate(OLD_COLUMN,
+           into = c(&quot;NEW_COLUMN1&quot;, &quot;NEW_COLUMN2&quot;),
+           sep = &quot;SEPARATING_CHARACTER&quot;)</code></pre>
 <pre class="r"><code>BloodType_split &lt;- BloodType %&gt;%
   separate(type, into = c(&quot;blood_type&quot;, &quot;Rhfactor&quot;), sep = &quot;\\.&quot;)</code></pre>
 <p><strong>Bonus / Extra practice</strong>: How many observations are

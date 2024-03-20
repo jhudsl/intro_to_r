@@ -430,7 +430,7 @@ try <code>install.packages(&quot;readxl&quot;)</code>.</p>
 </div>
 <div id="section-6" class="section level3">
 <h3>2.3</h3>
-<p>Download the dataset of asthma prevalence in the USA from: <a href="http://jhudatascience.org/intro_to_r/data/asthma.xlsx" class="uri">http://jhudatascience.org/intro_to_r/data/asthma.xlsx</a>
+<p>Download the dataset of asthma prevalence in the USA from: <a href="https://jhudatascience.org/intro_to_r/data/asthma.xlsx" class="uri">https://jhudatascience.org/intro_to_r/data/asthma.xlsx</a>
 file to <code>asthma.xlsx</code> by running the following code chunk.
 This only downloads the file, it does NOT bring the file into R.</p>
 <pre class="r"><code>download.file(
@@ -486,8 +486,8 @@ package to read the <code>asthma.xlsx</code> file and call the output
 <div id="p.2" class="section level3">
 <h3>P.2</h3>
 <p>By default, R reads the first sheet of an excel file. Copy your code
-from question 9 and add the following argument: <code>sheet = 2</code>.
-Inspect the data using <code>head()</code>.</p>
+from question 2.4 and add the following argument:
+<code>sheet = 2</code>. Inspect the data using <code>head()</code>.</p>
 <pre class="r"><code>asthma &lt;- read_excel(path = &quot;asthma.xlsx&quot;, sheet = 2)
 head(asthma)</code></pre>
 <pre><code>## # A tibble: 6 × 3
@@ -521,6 +521,7 @@ read_dta(path)</code></pre>
 file there.</p>
 <p>Modify the following code so that it finds “asthma.xlsx” in the
 “data” directory.</p>
+<pre><code>asthma &lt;- read_excel(path = &quot;asthma.xlsx&quot;)</code></pre>
 <pre class="r"><code>asthma &lt;- read_excel(path = &quot;data/asthma.xlsx&quot;)</code></pre>
 </div>
 <div id="p.5" class="section level3">
