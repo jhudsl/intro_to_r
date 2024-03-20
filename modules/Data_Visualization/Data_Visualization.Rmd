@@ -1,6 +1,6 @@
 ---
 title: "Data Visualization"
-output: 
+output:
   ioslides_presentation:
     css: ../../docs/styles.css
     widescreen: yes
@@ -8,11 +8,11 @@ output:
 
 ```{r knit-setup, echo=FALSE, include = FALSE}
 library(knitr)
-opts_chunk$set(echo = TRUE, 
-               message = FALSE, 
+opts_chunk$set(echo = TRUE,
+               message = FALSE,
                warning = FALSE,
                fig.height = 4,
-               fig.width = 7, 
+               fig.width = 7,
                comment = "")
 library(jhur)
 library(tidyverse)
@@ -223,8 +223,8 @@ ggplot({data_to plot},  mapping = aes(x = {var in data to plot},
 
 ```{r, fig.width=4, fig.height=3, fig.align='center'}
 
-ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
-  geom_point() 
+ggplot(Orange, mapping = aes(x = circumference, y = age)) +
+  geom_point()
 ```
 
 Read as: *using Orange data, and provided aesthetic mapping, add points to the plot*
@@ -234,8 +234,8 @@ Read as: *using Orange data, and provided aesthetic mapping, add points to the p
 Having the + sign at the beginning of a line will not work!
 
 ```{r, eval = FALSE}
-ggplot(food, mapping = aes(x = item_ID, 
-                           y = item_price_change, 
+ggplot(food, mapping = aes(x = item_ID,
+                           y = item_price_change,
                            fill = item_categ))  
  + geom_boxplot()
 ```
@@ -243,8 +243,8 @@ ggplot(food, mapping = aes(x = item_ID,
 Pipes will also not work in place of `+`!
 
 ```{r,eval = FALSE}
-ggplot(food, mapping = aes(x = item_ID, 
-                           y = item_price_change, 
+ggplot(food, mapping = aes(x = item_ID,
+                           y = item_price_change,
                            fill = item_categ))  %>%
 geom_boxplot()
 ```
@@ -252,7 +252,7 @@ geom_boxplot()
 ## Plots can be assigned as an object {.mall}
 
 ```{r, fig.width=4, fig.height=3, fig.align='center'}
-plt1 <- ggplot(Orange, aes(x = circumference, y = age)) + 
+plt1 <- ggplot(Orange, aes(x = circumference, y = age)) +
           geom_point()
 
 plt1
@@ -261,13 +261,13 @@ plt1
 ## Examples of different geoms
 
 ```{r, fig.show="hold", out.width="40%"}
-plt1 <- ggplot(Orange, aes(x = circumference, y = age)) + 
+plt1 <- ggplot(Orange, aes(x = circumference, y = age)) +
           geom_point()
 
-plt2 <- ggplot(Orange, aes(x = circumference, y = age)) + 
+plt2 <- ggplot(Orange, aes(x = circumference, y = age)) +
           geom_line()
 
-plt1 # fig.show = "hold" makes plots appear 
+plt1 # fig.show = "hold" makes plots appear
 plt2 # next to one another in the chunk settings
 ```
 
@@ -276,16 +276,16 @@ plt2 # next to one another in the chunk settings
 Layer a plot on top of another plot with `+`
 
 ```{r, fig.width=4, fig.height=3, fig.align='center'}
-ggplot(Orange, aes(x = circumference, y = age)) + 
-  geom_point() + 
+ggplot(Orange, aes(x = circumference, y = age)) +
+  geom_point() +
   geom_line()
 ```
 
 ## Adding color - can map color to a variable
 
 ```{r, fig.width=4, fig.height=3, fig.align='center'}
-ggplot(Orange, mapping = aes(x = circumference, y = age, color = Tree)) + 
-  geom_point() + 
+ggplot(Orange, mapping = aes(x = circumference, y = age, color = Tree)) +
+  geom_point() +
   geom_line()
 ```
 
@@ -294,8 +294,8 @@ ggplot(Orange, mapping = aes(x = circumference, y = age, color = Tree)) +
 You can change look of each layer separately.
 
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
-ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
-  geom_point(size = 5, color = "red", alpha = 0.5) + 
+ggplot(Orange, mapping = aes(x = circumference, y = age)) +
+  geom_point(size = 5, color = "red", alpha = 0.5) +
   geom_line(size = 0.8, color = "black", linetype = 2)
 ```
 
@@ -310,9 +310,9 @@ knitr::include_graphics("img/frosting.png")
 You can change the look of whole plot using [`theme_*()` functions](https://ggplot2.tidyverse.org/reference/ggtheme.html).
 
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
-ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
-  geom_point(size = 5, color = "red", alpha = 0.5) + 
-  geom_line(size = 0.8, color = "brown", linetype = 2) + 
+ggplot(Orange, mapping = aes(x = circumference, y = age)) +
+  geom_point(size = 5, color = "red", alpha = 0.5) +
+  geom_line(size = 0.8, color = "brown", linetype = 2) +
   theme_dark()
 ```
 
@@ -321,9 +321,9 @@ ggplot(Orange, mapping = aes(x = circumference, y = age)) +
 You can change the look of whole plot - **specific elements, too** - like changing [font](http://www.cookbook-r.com/Graphs/Fonts/) and font size - or even more [fonts](https://blog.revolutionanalytics.com/2012/09/how-to-use-your-favorite-fonts-in-r-charts.html)
 
 ```{r, fig.width=6, fig.height=3.5, fig.align='center'}
-ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
-  geom_point(size = 5, color = "red", alpha = 0.5) + 
-  geom_line(size = 0.8, color = "brown", linetype = 2) + 
+ggplot(Orange, mapping = aes(x = circumference, y = age)) +
+  geom_point(size = 5, color = "red", alpha = 0.5) +
+  geom_line(size = 0.8, color = "brown", linetype = 2) +
   theme_bw() +
   theme(text=element_text(size=16,  family="Comic Sans MS"))
 ```
@@ -333,9 +333,9 @@ ggplot(Orange, mapping = aes(x = circumference, y = age)) +
 The `labs()` function can help you add or modify titles on your plot. The `title` argument specifies the title. The `x` argument specifies the x axis label. The `y` argument specifies the y axis label.
 
 ```{r, fig.width=4, fig.height=2.5, fig.align='center'}
-ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
-            geom_point(size = 5, color = "red", alpha = 0.5) + 
-            geom_line(size = 0.8, color = "brown", linetype = 2) + 
+ggplot(Orange, mapping = aes(x = circumference, y = age)) +
+            geom_point(size = 5, color = "red", alpha = 0.5) +
+            geom_line(size = 0.8, color = "brown", linetype = 2) +
             labs(title = "My plot of orange tree data",
               x = "Tree Circumference (mm)",
               y = "Tree Age (days since 12/31/1968)")
@@ -346,9 +346,9 @@ ggplot(Orange, mapping = aes(x = circumference, y = age)) +
 Line breaks can be specified using `\n` within the `labs()` function to have a label with multiple lines.
 
 ```{r, fig.width=4, fig.height=2.5, fig.align='center'}
-ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
-            geom_point(size = 5, color = "red", alpha = 0.5) + 
-            geom_line(size = 0.8, color = "brown", linetype = 2) + 
+ggplot(Orange, mapping = aes(x = circumference, y = age)) +
+            geom_point(size = 5, color = "red", alpha = 0.5) +
+            geom_line(size = 0.8, color = "brown", linetype = 2) +
             labs(title = "Plot of orange tree data from 1968: \n trunk circumference vs tree age",
               x = "Tree Circumference (mm)",
               y = "Tree Age (days since 12/31/1968)")
@@ -361,9 +361,9 @@ ggplot(Orange, mapping = aes(x = circumference, y = age)) +
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
 range(pull(Orange, circumference))
 range(pull(Orange, age))
-plot_scale <-ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
-                geom_point(size = 5, color = "red", alpha = 0.5) + 
-                geom_line(size = 0.8, color = "brown", linetype = 2) + 
+plot_scale <-ggplot(Orange, mapping = aes(x = circumference, y = age)) +
+                geom_point(size = 5, color = "red", alpha = 0.5) +
+                geom_line(size = 0.8, color = "brown", linetype = 2) +
                 scale_x_continuous(breaks = seq(from = 20, to = 240, by = 20)) +
                 scale_y_continuous(breaks = seq(from = 100, to = 1600, by = 200))
 ```
@@ -371,12 +371,12 @@ plot_scale <-ggplot(Orange, mapping = aes(x = circumference, y = age)) +
 ## Changing axis: specifying axis scale {.codesmall}
 
 ```{r, fig.width=5, fig.height=1.8, fig.align='center'}
-plot_scale 
+plot_scale
 ```
 
 ```{r, fig.width=5, fig.height=1.8, fig.align='center', echo = TRUE}
-ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
-                geom_point(size = 5, color = "red", alpha = 0.5) + 
+ggplot(Orange, mapping = aes(x = circumference, y = age)) +
+                geom_point(size = 5, color = "red", alpha = 0.5) +
                 geom_line(size = 0.8, color = "brown", linetype = 2)
 ```
 
@@ -386,12 +386,12 @@ ggplot(Orange, mapping = aes(x = circumference, y = age)) +
 
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
 
-ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
-  geom_point(size = 5, color = "red", alpha = 0.5) + 
-  geom_line(size = 0.8, color = "brown", linetype = 2) + 
-  labs(title = "My plot of orange tree circumference vs age") + 
-  xlim(100, max(pull(Orange, circumference))) 
-  
+ggplot(Orange, mapping = aes(x = circumference, y = age)) +
+  geom_point(size = 5, color = "red", alpha = 0.5) +
+  geom_line(size = 0.8, color = "brown", linetype = 2) +
+  labs(title = "My plot of orange tree circumference vs age") +
+  xlim(100, max(pull(Orange, circumference)))
+
 ```
 
 ## Modifying plot objects
@@ -400,11 +400,11 @@ You can add to a plot object to make changes!
 
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
 
-plt1 <- ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
-  geom_point(size = 5, color = "red", alpha = 0.5) + 
-  geom_line(size = 0.8, color = "brown", linetype = 2) + 
-  labs(title = "My plot of orange tree circumference vs age") + 
-  xlim(100, max(pull(Orange, circumference))) 
+plt1 <- ggplot(Orange, mapping = aes(x = circumference, y = age)) +
+  geom_point(size = 5, color = "red", alpha = 0.5) +
+  geom_line(size = 0.8, color = "brown", linetype = 2) +
+  labs(title = "My plot of orange tree circumference vs age") +
+  xlim(100, max(pull(Orange, circumference)))
 
 plt1 + theme_minimal()
 
@@ -416,9 +416,22 @@ It's possible to go in and change specifications with newer layers
 
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
 Orange %>% ggplot(aes(x = circumference,
-                      y = age, 
-                      color = Tree)) + 
+                      y = age,
+                      color = Tree)) +
   geom_line(size = 0.8)
+```
+
+## Removing the legend label
+
+You can use `theme(legend.position = "none")` to remove the legend. 
+
+```{r, fig.width=5, fig.height=3, fig.align='center'}
+
+Orange %>% ggplot(aes(x = circumference,
+                      y = age,
+                      color = Tree)) +
+  geom_line(size = 0.8) + 
+  theme(legend.position = "none")
 ```
 
 ## Overwriting specifications
@@ -427,8 +440,8 @@ It's possible to go in and change specifications with newer layers
 
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
 Orange %>% ggplot(aes(x = circumference,
-                      y = age, 
-                      color = Tree)) + 
+                      y = age,
+                      color = Tree)) +
   geom_line(size = 0.8, color = "black")
 ```
 
@@ -456,10 +469,10 @@ Orange %>% ggplot(aes(x = circumference,
 The `theme()` function can help you modify various elements of your plot. Here we will adjust the font size of the plot title.
 
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
-ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
-  geom_point(size = 5, color = "red", alpha = 0.5) + 
-  geom_line(size = 0.8, color = "brown", linetype = 2) + 
-  labs(title = "Circumference vs age") + 
+ggplot(Orange, mapping = aes(x = circumference, y = age)) +
+  geom_point(size = 5, color = "red", alpha = 0.5) +
+  geom_line(size = 0.8, color = "brown", linetype = 2) +
+  labs(title = "Circumference vs age") +
   theme(plot.title = element_text(size = 20))
 
 ```
@@ -481,10 +494,10 @@ The `theme()` function always takes:
 The `theme()` function can help you modify various elements of your plot. Here we will adjust the horizontal justification (`hjust`) of the plot title.
 
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
-ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
-  geom_point(size = 5, color = "red", alpha = 0.5) + 
-  geom_line(size = 0.8, color = "brown", linetype = 2) + 
-  labs(title = "Circumference vs age") + 
+ggplot(Orange, mapping = aes(x = circumference, y = age)) +
+  geom_point(size = 5, color = "red", alpha = 0.5) +
+  geom_line(size = 0.8, color = "brown", linetype = 2) +
+  labs(title = "Circumference vs age") +
   theme(plot.title = element_text(hjust = 0.5, size = 20))
 
 ```
@@ -492,10 +505,10 @@ ggplot(Orange, mapping = aes(x = circumference, y = age)) +
 ## theme() function: change title and axis format
 
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
-ggplot(Orange, mapping = aes(x = circumference, y = age)) + 
-  geom_point(size = 5, color = "red", alpha = 0.5) + 
-  geom_line(size = 0.8, color = "brown", linetype = 2) + 
-  labs(title = "Circumference vs age") + 
+ggplot(Orange, mapping = aes(x = circumference, y = age)) +
+  geom_point(size = 5, color = "red", alpha = 0.5) +
+  geom_line(size = 0.8, color = "brown", linetype = 2) +
+  labs(title = "Circumference vs age") +
   theme(plot.title = element_text(hjust = 0.5, size = 20),
         axis.title = element_text(size = 16))
 ```
@@ -505,10 +518,10 @@ ggplot(Orange, mapping = aes(x = circumference, y = age)) +
 If specifying position - use: "top", "bottom", "right", "left", "none"
 
 ```{r, fig.show="hold", out.width="40%"}
-ggplot(Orange, mapping = aes(x = circumference, y = age, color = Tree)) + 
+ggplot(Orange, mapping = aes(x = circumference, y = age, color = Tree)) +
   geom_line()
 
-ggplot(Orange, mapping = aes(x = circumference, y = age, color = Tree)) + 
+ggplot(Orange, mapping = aes(x = circumference, y = age, color = Tree)) +
   geom_line() +
   theme(legend.position = "none")
 ```
@@ -595,9 +608,9 @@ food
 
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
 
-ggplot(food, mapping = aes(x = observation_time, 
-                           y = item_price_change)) + 
-  geom_line() 
+ggplot(food, mapping = aes(x = observation_time,
+                           y = item_price_change)) +
+  geom_line()
 ```
 
 ## If it looks confusing to you, try again
@@ -611,38 +624,38 @@ knitr::include_graphics("https://media.giphy.com/media/xT0xeuOy2Fcl9vDGiA/giphy.
 You can use `group` element in a mapping to indicate that each `item_ID` will have a separate price line.
 
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
-ggplot(food, mapping = aes(x = observation_time, 
-                           y = item_price_change, 
-                           group = item_ID)) + 
-  geom_line() 
+ggplot(food, mapping = aes(x = observation_time,
+                           y = item_price_change,
+                           group = item_ID)) +
+  geom_line()
 ```
 
 ## Adding color will automatically group the data
 
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
-ggplot(food, mapping = aes(x = observation_time, 
+ggplot(food, mapping = aes(x = observation_time,
                            y = item_price_change,
-                       color = item_ID)) + 
-  geom_line() 
+                       color = item_ID)) +
+  geom_line()
 ```
 
 ## Adding color will automatically group the data
 
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
-ggplot(food, mapping = aes(x = observation_time, 
+ggplot(food, mapping = aes(x = observation_time,
                            y = item_price_change,
-                       color = item_categ)) + 
-  geom_line() 
+                       color = item_categ)) +
+  geom_line()
 ```
 
 ## Sometimes you need group and color
 
 ```{r, fig.width=5, fig.height=3, fig.align='center'}
-ggplot(food, mapping = aes(x = observation_time, 
+ggplot(food, mapping = aes(x = observation_time,
                            y = item_price_change,
                        group = item_ID,
-                       color = item_categ)) + 
-                            geom_line() 
+                       color = item_categ)) +
+                            geom_line()
 
 ```
 
@@ -653,9 +666,9 @@ Two options: `facet_grid()`- creates a grid shape `facet_wrap()` -more flexible
 Need to specify how you are faceting with the `~` sign.
 
 ```{r, fig.width=4, fig.height=3, fig.align='center'}
-ggplot(food, mapping = aes(x = observation_time, 
+ggplot(food, mapping = aes(x = observation_time,
                            y = item_price_change,
-                           color = item_ID)) + 
+                           color = item_ID)) +
   geom_line() +
   facet_grid( ~ item_categ)
 ```
@@ -666,7 +679,7 @@ ggplot(food, mapping = aes(x = observation_time,
 -   can have different scales for axes using `scales = "free_x"`, `scales = "free_y"`, or `scales = "free"`
 
 ```{r, fig.width=4, fig.height=2.7, fig.align='center'}
-rp_fac_plot <- ggplot(food, mapping = aes(x = observation_time, y = item_price_change,color = item_ID)) + 
+rp_fac_plot <- ggplot(food, mapping = aes(x = observation_time, y = item_price_change,color = item_ID)) +
                   geom_line()  +
                   geom_point() +
                   facet_wrap( ~ item_categ, ncol = 1, scales = "free")
@@ -680,15 +693,15 @@ rp_fac_plot
 
 ```{r, out.width="30%", fig.show='hold'}
 
-ggplot(food, mapping = aes(x = item_ID, 
-                           y = item_price_change, 
+ggplot(food, mapping = aes(x = item_ID,
+                           y = item_price_change,
                            color = item_categ)) + #color creates an outline
-  geom_boxplot() 
+  geom_boxplot()
 
-ggplot(food, mapping = aes(x = item_ID, 
-                           y = item_price_change, 
+ggplot(food, mapping = aes(x = item_ID,
+                           y = item_price_change,
                            fill = item_categ)) + # fills the boxplot
-  geom_boxplot() 
+  geom_boxplot()
 ```
 
 ## Tip - Good idea to add jitter layer to top of box plots
@@ -696,9 +709,9 @@ ggplot(food, mapping = aes(x = item_ID,
 Can add `width` argument to make the jitter more narrow.
 
 ```{r, fig.width=5 , fig.height=3, fig.align='center'}
-ggplot(food, mapping = aes(x = item_ID, 
-                           y = item_price_change, 
-                           fill = item_categ)) + 
+ggplot(food, mapping = aes(x = item_ID,
+                           y = item_price_change,
+                           fill = item_categ)) +
   geom_boxplot() +
   geom_jitter(width = .06)
 ```
@@ -708,9 +721,9 @@ ggplot(food, mapping = aes(x = item_ID,
 `scale_fill_viridis_d()` for discrete /categorical data `scale_fill_viridis_c()` for continuous data
 
 ```{r, fig.width=5 , fig.height=3, fig.align='center'}
-ggplot(food, mapping = aes(x = item_ID, 
-                           y = item_price_change, 
-                           fill = item_categ)) + 
+ggplot(food, mapping = aes(x = item_ID,
+                           y = item_price_change,
+                           fill = item_categ)) +
   geom_boxplot() +
   geom_jitter(width = .06) +
   scale_fill_viridis_d()
@@ -720,12 +733,12 @@ ggplot(food, mapping = aes(x = item_ID,
 
 ```{r, fig.width=5 , fig.height=2.5, fig.align='center'}
 
-food_bar <-food %>% 
+food_bar <-food %>%
   group_by(item_categ) %>%
   summarize("max_price_change" = max(item_price_change)) %>%
-  ggplot(mapping = aes(x = item_categ, 
+  ggplot(mapping = aes(x = item_categ,
                        y = max_price_change,
-                       fill = item_categ)) + 
+                       fill = item_categ)) +
   scale_fill_viridis_d()+
   geom_col() +
   theme(legend.position = "none")
@@ -739,7 +752,7 @@ Can be used to add an outline around column/bar plots.
 
 ```{r, fig.width=5 , fig.height=3, fig.align='center'}
 food_bar +
-   geom_col(color = "black") 
+   geom_col(color = "black")
 ```
 
 ## Tip - col vs bar {.codesmall}
@@ -751,9 +764,9 @@ food_bar +
 `r emo::ji("warning")` May not be plotting what you think you are! `r emo::ji("warning")`
 
 ```{r, fig.width=5 , fig.height=3, fig.align='center'}
-ggplot(food, mapping = aes(x = item_ID, 
-                           y = item_price_change, 
-                           fill = item_categ)) + 
+ggplot(food, mapping = aes(x = item_ID,
+                           y = item_price_change,
+                           fill = item_categ)) +
   geom_col()
 ```
 
@@ -779,8 +792,8 @@ food %>% group_by(item_categ, item_ID) %>%
 food %>% group_by(item_categ, item_ID) %>%
   summarize(mean_change = mean(item_price_change)) %>%
     ggplot(mapping = aes(x = item_ID,
-                         y = mean_change, 
-                         fill = item_categ)) + 
+                         y = mean_change,
+                         fill = item_categ)) +
   geom_col()
 ```
 
@@ -807,7 +820,7 @@ esoph2 <- ggplot(esoph, mapping = aes(y = ncases, x = agegp)) +
 ```
 
 ```{r, fig.show="hold", out.width="40%", echo = FALSE}
-esoph1 # fig.show = "hold" makes plots appear 
+esoph1 # fig.show = "hold" makes plots appear
 esoph2 # next to one another in the chunk settings
 ```
 
@@ -817,19 +830,19 @@ esoph2 # next to one another in the chunk settings
 -   it is categorical you will see it on the graph and will need to filter to remove the NA category
 
 ```{r}
-icecream <-tibble(flavor = 
+icecream <-tibble(flavor =
             rep(c("chocolate", "vanilla", NA,"chocolate", "vanilla"), 8))
 
-icecream1 <- ggplot(icecream, aes(x = flavor)) + geom_bar() + 
+icecream1 <- ggplot(icecream, aes(x = flavor)) + geom_bar() +
               theme(text=element_text(size=24))
 
-icecream2 <- icecream %>% drop_na(flavor)  %>% 
-                ggplot( aes(x = flavor)) + geom_bar() + 
+icecream2 <- icecream %>% drop_na(flavor)  %>%
+                ggplot( aes(x = flavor)) + geom_bar() +
                   theme(text=element_text(size=24))
 ```
 
 ```{r, fig.show="hold", out.width="30%", echo = FALSE}
-icecream1 # fig.show = "hold" makes plots appear 
+icecream1 # fig.show = "hold" makes plots appear
 icecream2 # next to one another in the chunk settings
 ```
 
@@ -899,7 +912,7 @@ A few options:
 
 ```{r, eval = FALSE}
 ggsave(filename = "saved_plot.png",  # will save in working directory
-       plot = rp_fac_plot, 
+       plot = rp_fac_plot,
        width = 6, height = 3.5)               # by default in inches
 ```
 
