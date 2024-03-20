@@ -11,7 +11,7 @@
 
 
 
-<title>Day 3</title>
+<title>Introduction to R: Homework 3 - Key</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -348,93 +348,311 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Day 3</h1>
+<h1 class="title toc-ignore">Introduction to R: Homework 3 - Key</h1>
 
 </div>
 
 
-<div id="objectives" class="section level2">
-<h2>Objectives</h2>
-<p>Upon completion of this session, you will be able to do the
-following:</p>
-<ol style="list-style-type: decimal">
-<li>Verify the integrity of an imported dataset.</li>
-<li>Successfully apply functions from popular R packages to filter a
-dataset of interest.</li>
-<li>Gain familiarity with R syntax and RMarkdown markup language.</li>
-</ol>
+<div id="instructions" class="section level3">
+<h3><strong>Instructions</strong></h3>
+<p>Completed homework should be submitted on CoursePlus as an
+<strong>Rmd file</strong>. Please see the course website for more
+information about submitting assignments: <a href="https://jhudatascience.org/intro_to_r/syllabus.html#submitting-assignments" class="uri">https://jhudatascience.org/intro_to_r/syllabus.html#submitting-assignments</a>.</p>
+<p>Homework will be graded for correct output, not code style. All
+assignments are due at the end of the course. Please see the course
+website for more information about grading: <a href="https://jhudatascience.org/intro_to_r/syllabus.html#grading" class="uri">https://jhudatascience.org/intro_to_r/syllabus.html#grading</a>.</p>
+<pre class="r"><code>## you can add more, or change...these are suggestions
+library(tidyverse)
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(tidyr)</code></pre>
 </div>
-<div id="lectures" class="section level2">
-<h2>Lectures</h2>
-<p>Lecture recording links will be emailed directly to students.</p>
+<div id="problem-set" class="section level3">
+<h3><strong>Problem Set</strong></h3>
+<p>1. Bring the following dataset into R.</p>
+<ul>
+<li>The dataset is located at: <a href="https://jhudatascience.org/intro_to_r/data/mortality.csv" class="uri">https://jhudatascience.org/intro_to_r/data/mortality.csv</a>.</li>
+<li>You can use the link, download it, or use whatever method you like
+for getting the file.</li>
+<li>Once you get the file, read the dataset in using
+<code>read_csv()</code> and assign it the name “mort”.</li>
+</ul>
+<pre class="r"><code>mort &lt;- read_csv(&quot;https://jhudatascience.org/intro_to_r/data/mortality.csv&quot;)</code></pre>
+<pre><code>## New names:
+## Rows: 197 Columns: 255
+## ── Column specification
+## ──────────────────────────────────────────────────────── Delimiter: &quot;,&quot; chr
+## (1): ...1 dbl (254): 1760, 1761, 1762, 1763, 1764, 1765, 1766, 1767, 1768,
+## 1769, 1770,...
+## ℹ Use `spec()` to retrieve the full column specification for this data. ℹ
+## Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## • `` -&gt; `...1`</code></pre>
+<p>2. Run the <code>colnames()</code> function to take a look at the
+dataset column names. You should see that there was originally no name
+for the first column and that R replaced it with “…1”. Rename the first
+column of “mort” to “country” using the <code>rename()</code> function
+in <code>dplyr</code>.</p>
+<pre class="r"><code>colnames(mort)</code></pre>
+<pre><code>##   [1] &quot;...1&quot; &quot;1760&quot; &quot;1761&quot; &quot;1762&quot; &quot;1763&quot; &quot;1764&quot; &quot;1765&quot; &quot;1766&quot; &quot;1767&quot; &quot;1768&quot;
+##  [11] &quot;1769&quot; &quot;1770&quot; &quot;1771&quot; &quot;1772&quot; &quot;1773&quot; &quot;1774&quot; &quot;1775&quot; &quot;1776&quot; &quot;1777&quot; &quot;1778&quot;
+##  [21] &quot;1779&quot; &quot;1780&quot; &quot;1781&quot; &quot;1782&quot; &quot;1783&quot; &quot;1784&quot; &quot;1785&quot; &quot;1786&quot; &quot;1787&quot; &quot;1788&quot;
+##  [31] &quot;1789&quot; &quot;1790&quot; &quot;1791&quot; &quot;1792&quot; &quot;1793&quot; &quot;1794&quot; &quot;1795&quot; &quot;1796&quot; &quot;1797&quot; &quot;1798&quot;
+##  [41] &quot;1799&quot; &quot;1800&quot; &quot;1801&quot; &quot;1802&quot; &quot;1803&quot; &quot;1804&quot; &quot;1805&quot; &quot;1806&quot; &quot;1807&quot; &quot;1808&quot;
+##  [51] &quot;1809&quot; &quot;1810&quot; &quot;1811&quot; &quot;1812&quot; &quot;1813&quot; &quot;1814&quot; &quot;1815&quot; &quot;1816&quot; &quot;1817&quot; &quot;1818&quot;
+##  [61] &quot;1819&quot; &quot;1820&quot; &quot;1821&quot; &quot;1822&quot; &quot;1823&quot; &quot;1824&quot; &quot;1825&quot; &quot;1826&quot; &quot;1827&quot; &quot;1828&quot;
+##  [71] &quot;1829&quot; &quot;1830&quot; &quot;1831&quot; &quot;1832&quot; &quot;1833&quot; &quot;1834&quot; &quot;1835&quot; &quot;1836&quot; &quot;1837&quot; &quot;1838&quot;
+##  [81] &quot;1839&quot; &quot;1840&quot; &quot;1841&quot; &quot;1842&quot; &quot;1843&quot; &quot;1844&quot; &quot;1845&quot; &quot;1846&quot; &quot;1847&quot; &quot;1848&quot;
+##  [91] &quot;1849&quot; &quot;1850&quot; &quot;1851&quot; &quot;1852&quot; &quot;1853&quot; &quot;1854&quot; &quot;1855&quot; &quot;1856&quot; &quot;1857&quot; &quot;1858&quot;
+## [101] &quot;1859&quot; &quot;1860&quot; &quot;1861&quot; &quot;1862&quot; &quot;1863&quot; &quot;1864&quot; &quot;1865&quot; &quot;1866&quot; &quot;1867&quot; &quot;1868&quot;
+## [111] &quot;1869&quot; &quot;1870&quot; &quot;1871&quot; &quot;1872&quot; &quot;1873&quot; &quot;1874&quot; &quot;1875&quot; &quot;1876&quot; &quot;1877&quot; &quot;1878&quot;
+## [121] &quot;1879&quot; &quot;1880&quot; &quot;1881&quot; &quot;1882&quot; &quot;1883&quot; &quot;1884&quot; &quot;1885&quot; &quot;1886&quot; &quot;1887&quot; &quot;1888&quot;
+## [131] &quot;1889&quot; &quot;1890&quot; &quot;1891&quot; &quot;1892&quot; &quot;1893&quot; &quot;1894&quot; &quot;1895&quot; &quot;1896&quot; &quot;1897&quot; &quot;1898&quot;
+## [141] &quot;1899&quot; &quot;1900&quot; &quot;1901&quot; &quot;1902&quot; &quot;1903&quot; &quot;1904&quot; &quot;1905&quot; &quot;1906&quot; &quot;1907&quot; &quot;1908&quot;
+## [151] &quot;1909&quot; &quot;1910&quot; &quot;1911&quot; &quot;1912&quot; &quot;1913&quot; &quot;1914&quot; &quot;1915&quot; &quot;1916&quot; &quot;1917&quot; &quot;1918&quot;
+## [161] &quot;1919&quot; &quot;1920&quot; &quot;1921&quot; &quot;1922&quot; &quot;1923&quot; &quot;1924&quot; &quot;1925&quot; &quot;1926&quot; &quot;1927&quot; &quot;1928&quot;
+## [171] &quot;1929&quot; &quot;1930&quot; &quot;1931&quot; &quot;1932&quot; &quot;1933&quot; &quot;1934&quot; &quot;1935&quot; &quot;1936&quot; &quot;1937&quot; &quot;1938&quot;
+## [181] &quot;1939&quot; &quot;1940&quot; &quot;1941&quot; &quot;1942&quot; &quot;1943&quot; &quot;1944&quot; &quot;1945&quot; &quot;1946&quot; &quot;1947&quot; &quot;1948&quot;
+## [191] &quot;1949&quot; &quot;1950&quot; &quot;1951&quot; &quot;1952&quot; &quot;1953&quot; &quot;1954&quot; &quot;1955&quot; &quot;1956&quot; &quot;1957&quot; &quot;1958&quot;
+## [201] &quot;1959&quot; &quot;1960&quot; &quot;1961&quot; &quot;1962&quot; &quot;1963&quot; &quot;1964&quot; &quot;1965&quot; &quot;1966&quot; &quot;1967&quot; &quot;1968&quot;
+## [211] &quot;1969&quot; &quot;1970&quot; &quot;1971&quot; &quot;1972&quot; &quot;1973&quot; &quot;1974&quot; &quot;1975&quot; &quot;1976&quot; &quot;1977&quot; &quot;1978&quot;
+## [221] &quot;1979&quot; &quot;1980&quot; &quot;1981&quot; &quot;1982&quot; &quot;1983&quot; &quot;1984&quot; &quot;1985&quot; &quot;1986&quot; &quot;1987&quot; &quot;1988&quot;
+## [231] &quot;1989&quot; &quot;1990&quot; &quot;1991&quot; &quot;1992&quot; &quot;1993&quot; &quot;1994&quot; &quot;1995&quot; &quot;1996&quot; &quot;1997&quot; &quot;1998&quot;
+## [241] &quot;1999&quot; &quot;2000&quot; &quot;2001&quot; &quot;2002&quot; &quot;2003&quot; &quot;2004&quot; &quot;2005&quot; &quot;2006&quot; &quot;2007&quot; &quot;2008&quot;
+## [251] &quot;2009&quot; &quot;2010&quot; &quot;2030&quot; &quot;2050&quot; &quot;2099&quot;</code></pre>
+<pre class="r"><code>mort &lt;- mort %&gt;% rename(country = `...1`)</code></pre>
+<p>3. Select only the numeric type columns (<code>select()</code>).
+Then, create the variable “year” from column names by using the
+<code>colnames()</code> function to extract them.</p>
+<pre class="r"><code>year &lt;- mort %&gt;%
+  select(-country) %&gt;%
+  colnames()
+# OR
+year &lt;- mort %&gt;%
+  select(starts_with(c(&quot;1&quot;, &quot;2&quot;))) %&gt;%
+  colnames()
+# OR
+year &lt;- mort %&gt;%
+  select(where(is.numeric)) %&gt;%
+  colnames()</code></pre>
+<p>4. What is the <code>typeof()</code> for “year”? If it’s not an
+integer, turn it into integer form with <code>as.integer()</code>.</p>
+<pre class="r"><code>typeof(year)</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="r"><code>year &lt;- as.integer(year)
+# &quot;year&quot; is of type &quot;character&quot;.</code></pre>
+<p>5. Use the <code>pct_complete()</code> function in the
+<code>naniar</code> package to determine the percent missing data in
+“mort”. You might need to load and install <code>naniar</code>!</p>
+<pre class="r"><code>library(naniar)
+pct_complete(mort)</code></pre>
+<pre><code>## [1] 66.95332</code></pre>
+<pre class="r"><code># &quot;mort&quot; is 66.95332 percent complete.</code></pre>
+<p>6. Are there any countries that have a complete record in “mort”
+across all years? Just look at the output here, don’t reassign it.
+<strong>Hint:</strong> look for complete records by dropping all NAs
+from the dataset using <code>drop_na()</code>.</p>
+<pre class="r"><code>drop_na(mort)</code></pre>
+<pre><code>## # A tibble: 2 × 255
+##   country  `1760` `1761` `1762` `1763` `1764` `1765` `1766` `1767` `1768` `1769`
+##   &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Sweden     2.21   2.30   2.79   2.94   2.44   2.35   2.23   2.34   2.44   2.40
+## 2 United …   2.20   2.35   2.32   2.32   2.37   2.39   2.27   2.29   2.28   2.32
+## # ℹ 244 more variables: `1770` &lt;dbl&gt;, `1771` &lt;dbl&gt;, `1772` &lt;dbl&gt;, `1773` &lt;dbl&gt;,
+## #   `1774` &lt;dbl&gt;, `1775` &lt;dbl&gt;, `1776` &lt;dbl&gt;, `1777` &lt;dbl&gt;, `1778` &lt;dbl&gt;,
+## #   `1779` &lt;dbl&gt;, `1780` &lt;dbl&gt;, `1781` &lt;dbl&gt;, `1782` &lt;dbl&gt;, `1783` &lt;dbl&gt;,
+## #   `1784` &lt;dbl&gt;, `1785` &lt;dbl&gt;, `1786` &lt;dbl&gt;, `1787` &lt;dbl&gt;, `1788` &lt;dbl&gt;,
+## #   `1789` &lt;dbl&gt;, `1790` &lt;dbl&gt;, `1791` &lt;dbl&gt;, `1792` &lt;dbl&gt;, `1793` &lt;dbl&gt;,
+## #   `1794` &lt;dbl&gt;, `1795` &lt;dbl&gt;, `1796` &lt;dbl&gt;, `1797` &lt;dbl&gt;, `1798` &lt;dbl&gt;,
+## #   `1799` &lt;dbl&gt;, `1800` &lt;dbl&gt;, `1801` &lt;dbl&gt;, `1802` &lt;dbl&gt;, `1803` &lt;dbl&gt;, …</code></pre>
+<pre class="r"><code># Yes - but just two!</code></pre>
+<p>7. Reshape the “complete” data to long form.</p>
+<ul>
+<li>There should be a column for country (“country”), a column for year
+(“year”), and a column for the mortality value (“mortality”).</li>
+<li>Use <code>pivot_longer()</code>.</li>
+<li>You should pivot all columns except “country”.</li>
+<li><strong>Hint:</strong> listing <code>!COLUMN</code> or
+<code>-COLUMN</code> means everything except COLUMN.</li>
+<li>Assign the reshaped data to “long”.</li>
+</ul>
+<pre class="r"><code>long &lt;-
+  pivot_longer(mort, -country, names_to = &quot;year&quot;, values_to = &quot;mortality&quot;)
+# OR
+long &lt;-
+  pivot_longer(mort, !country, names_to = &quot;year&quot;, values_to = &quot;mortality&quot;)
+# OR
+long &lt;-
+  pivot_longer(mort, starts_with(c(&quot;1&quot;, &quot;2&quot;)), names_to = &quot;year&quot;, values_to = &quot;mortality&quot;)</code></pre>
+<p>8. Bring an additional dataset into R.</p>
+<ul>
+<li>The dataset is tab-delimited and located at: <a href="https://jhudatascience.org/intro_to_r/data/country_pop.txt" class="uri">https://jhudatascience.org/intro_to_r/data/country_pop.txt</a>.</li>
+<li>You can use the link, download it, or use whatever method you like
+for getting the file.</li>
+<li>Once you get the file, read the dataset in using
+<code>read_tsv()</code> and assign it the name “pop”.</li>
+</ul>
+<pre class="r"><code>pop &lt;- read_tsv(&quot;https://jhudatascience.org/intro_to_r/data/country_pop.txt&quot;)</code></pre>
+<pre><code>## Rows: 242 Columns: 6
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;\t&quot;
+## chr (4): Country (or dependent territory), Date, % of world population, Source
+## dbl (1): Rank
+## num (1): Population
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<p>9. Rename the second column in “pop” to “country” and the column “%
+of world population”, to “percent”. Use the <code>rename()</code>
+function. Don’t forget to reassign the renamed data to “pop”.</p>
+<pre class="r"><code>pop &lt;- pop %&gt;%
+  rename(
+    country = `Country (or dependent territory)`,
+    percent = `% of world population`
+  )</code></pre>
+<p>10. Sort the data in “pop” by “Population” from largest to smallest
+using <code>arrange()</code> and <code>desc()</code>. After sorting,
+<code>select()</code> “country” to create an one-column tibble of
+countries ordered by population. Assign this data the name
+“country_ordered”.</p>
+<pre class="r"><code>country_ordered &lt;- pop %&gt;%
+  arrange(desc(Population)) %&gt;%
+  select(country)</code></pre>
+<p>11. Subset “long” based on years 2000-2010, including 2000 and 2010
+and call this “long_sub” using <code>&amp;</code> or the
+<code>between()</code> function. Confirm your filtering worked by
+looking at the range of “year”. If you’re getting a strange error, make
+sure you created the “year” column in problem #7.</p>
+<pre class="r"><code>long_sub &lt;- long %&gt;% filter(year &gt;= 2000 &amp; year &lt;= 2010)
+long_sub %&gt;%
+  pull(year) %&gt;%
+  range() # confirm it worked</code></pre>
+<pre><code>## [1] &quot;2000&quot; &quot;2010&quot;</code></pre>
+<p>12. Further subset <code>long_sub</code>. You will filter for
+specific countries using <code>filter()</code> and the <code>%in%</code>
+operator. Only include countries in this list:
+<code>c(&quot;Venezuela&quot;, &quot;Bahrain&quot;, &quot;Estonia&quot;, &quot;Iran&quot;, &quot;Thailand&quot;, &quot;Canada&quot;)</code>.
+Make sure to reassign to “long_sub”.</p>
+<pre class="r"><code>long_sub &lt;- long_sub %&gt;%
+  filter(country %in% c(&quot;Venezuela&quot;, &quot;Bahrain&quot;, &quot;Estonia&quot;, &quot;Iran&quot;, &quot;Thailand&quot;, &quot;Canada&quot;))</code></pre>
+<p>13. Use <code>pivot_wider()</code> to turn the “year” column of
+“long_sub” into multiple columns, each representing a different year.
+Fill values (<code>values_from=</code>) with “mortality”. Assign this
+pivoted dataset the name “mort_sub”.</p>
+<pre class="r"><code>mort_sub &lt;- long_sub %&gt;%
+  pivot_wider(id_cols = country, names_from = year, values_from = mortality)</code></pre>
+<p>14. Using “country_ordered” and “mort_sub”, <code>right_join()</code>
+the two datasets by “country”. Use the pipe <code>%&gt;%</code> to join
+this dataset to “pop”, keeping only the data on the lefthand side of the
+join. Call this “joined”.</p>
+<pre class="r"><code>joined &lt;- country_ordered %&gt;%
+  right_join(mort_sub, by = &quot;country&quot;) %&gt;%
+  left_join(pop, by = &quot;country&quot;)</code></pre>
+<p>15. The values in the table are percentages of the total population
+(not proportion).</p>
+<ul>
+<li>Create a new column called “mort_count” that estimates the total
+number of child deaths per year based on the total population. You can
+use (a) any year or (b) an average of all years to make your
+calculation. Whichever you choose, justify your choice.</li>
+<li>Finally, <code>select()</code> only “country”, “Population”, and
+“mort_count” and view the data.</li>
+</ul>
+<blockquote>
+<p>Justification is just for fun. The main point is that decisions in
+your analysis should depend on your reasoning not how many lines of code
+it takes :)</p>
+</blockquote>
+<pre class="r"><code># Use 2010: There appears to be a downward trend in mortality rates, so using 2010 could be the most accurate for future years.
+joined %&gt;%
+  mutate(mort_count = Population * `2010` / 100) %&gt;%
+  select(country, Population, mort_count)</code></pre>
+<pre><code>## # A tibble: 6 × 3
+##   country   Population mort_count
+##   &lt;chr&gt;          &lt;dbl&gt;      &lt;dbl&gt;
+## 1 Iran        77056000     79995.
+## 2 Thailand    65926261     58939.
+## 3 Canada      35002447     17119.
+## 4 Venezuela   28946101     40455.
+## 5 Estonia      1294455      1122.
+## 6 Bahrain      1234571      1609.</code></pre>
+<pre class="r"><code># OR
+
+# Use an average 2000-2010: Using the average is more robust to fluctuations and uncertainty in the coming years.
+avg_mort &lt;- rowMeans(joined %&gt;% select(starts_with(&quot;2&quot;)))
+joined &lt;- joined %&gt;% mutate(avg_pct_2000 = avg_mort)
+joined %&gt;%
+  mutate(mort_count = Population * avg_pct_2000 / 100) %&gt;%
+  select(country, Population, mort_count)</code></pre>
+<pre><code>## # A tibble: 6 × 3
+##   country   Population mort_count
+##   &lt;chr&gt;          &lt;dbl&gt;      &lt;dbl&gt;
+## 1 Iran        77056000    107019.
+## 2 Thailand    65926261     65944.
+## 3 Canada      35002447     16886.
+## 4 Venezuela   28946101     46433.
+## 5 Estonia      1294455      1265.
+## 6 Bahrain      1234571      1772.</code></pre>
+<blockquote>
+<p>The following questions are not required for full credit, but can
+make up for any points lost on other questions.</p>
+</blockquote>
 </div>
-<div id="material" class="section level2">
-<h2>Material</h2>
-<table>
-<colgroup>
-<col width="6%" />
-<col width="3%" />
-<col width="20%" />
-<col width="25%" />
-<col width="35%" />
-<col width="8%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="center"><strong>Day</strong></th>
-<th align="center"><strong>Module</strong></th>
-<th align="center"><strong>Slides</strong></th>
-<th align="center"><strong>Code</strong></th>
-<th align="center"><strong>Resource</strong></th>
-<th align="center"><strong>Cheatsheets/Guides</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center"><a href="../../docs/module_details/day3.html">Day
-3</a></td>
-<td align="center">Subsetting Data in R</td>
-<td align="center"><a href="../../modules/Subsetting_Data_in_R/Subsetting_Data_in_R.html">HTML</a>,
-<a href="../../modules/Subsetting_Data_in_R/Subsetting_Data_in_R.pdf">PDF</a></td>
-<td align="center"><a href="../../modules/Subsetting_Data_in_R/Subsetting_Data_in_R.Rmd">Rmd</a></td>
-<td align="center"><a href="../../modules/Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab.Rmd">Lab</a>,
-<a href="../../modules/Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab_Key.Rmd">Key</a>,
-<a href="../../modules/Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab_Key.html">Key
-HTML</a></td>
-<td align="center"><a href="../../modules/cheatsheets/Day-3.pdf">Day 3
-Cheatsheet</a></td>
-</tr>
-<tr class="even">
-<td align="center"></td>
-<td align="center">Homework 2</td>
-<td align="center"></td>
-<td align="center"><a href="../../modules/HW/homework2.Rmd">Rmd</a>, <a href="../../modules/HW/homework2.html">HTML</a>, <a href="../../modules/HW/homework2_Key.Rmd">Key</a>, <a href="../../modules/HW/homework2_Key.html">Key HTML</a></td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="homework" class="section level2">
-<h2>Homework</h2>
-<p>🚨 <strong>SURVEY</strong>: <a href>Day 3 check-in</a></p>
-<p>📝 <strong>HOMEWORK 1</strong>: <a href="https://app.dataquest.io/login?target-url=%2Fm%2F499%2Fintroduction-to-programming-in-r">Dataquest</a></p>
-<p>📝 <strong>HOMEWORK 2</strong>: <a href="../../modules/HW/homework2.Rmd">Questions (Rmd)</a>, <a href="../../modules/HW/homework2.html">Questions (HTML)</a></p>
-</div>
-<div id="drop-boxes" class="section level2">
-<h2>Drop Boxes</h2>
-<p><a href="https://courseplus.jhu.edu/core/index.cfm/go/db:main/coID/20749/">Assignment
-Drop Boxes</a></p>
-<p><strong>Note</strong>: only people taking the course for credit must
-turn in the assignments. However, we will evaluate all submitted
-assignments in case others would like feedback on their work.</p>
-</div>
-<div id="library" class="section level2">
-<h2>Library</h2>
-<p><a href="https://www.rstudio.com/resources/cheatsheets/">RStudio
-cheatsheets</a></p>
-<p><a href="../../resources/rstudio_IDE_cheatsheet.pdf">RStudio IDE
-cheatsheet (PDF)</a></p>
+<div id="bonus-practice" class="section level3">
+<h3><strong>Bonus Practice</strong></h3>
+<p>A. Bring the following dataset into R.</p>
+<ul>
+<li>The dataset is located at: <a href="https://jhudatascience.org/intro_to_r/data/asthma.xlsx" class="uri">https://jhudatascience.org/intro_to_r/data/asthma.xlsx</a>.</li>
+<li>You should download the associated data.</li>
+<li>Once you get the file, read the dataset in using
+<code>read_excel()</code> from the <code>readxl</code> package and
+assign it the name “asthma”.</li>
+<li>Read in the sheet named “Age Group (Years)”.</li>
+</ul>
+<pre class="r"><code>library(readxl)
+asthma &lt;- read_excel(&quot;asthma.xlsx&quot;, sheet = &quot;Age Group (Years)&quot;)</code></pre>
+<p>B. Rename the column <code>Weighted Number With Current Asthma</code>
+to “asthma_count” using <code>rename()</code>. Replace the original
+“asthma” object by calling the new dataset “asthma”.</p>
+<pre class="r"><code>asthma &lt;- asthma %&gt;% rename(&quot;asthma_count&quot; = `Weighted Number With Current Asthma`)</code></pre>
+<p>C. Separate <code>Percent (SE)</code> into two separate columns:
+“percent” and “SE” using the <code>separate()</code> function. Replace
+the original “asthma” object by calling the new dataset “asthma”.</p>
+<pre class="r"><code>asthma &lt;- asthma %&gt;% separate(`Percent (SE)`, into = c(&quot;percent&quot;, &quot;SE&quot;), sep = &quot; &quot;)</code></pre>
+<p>D. Remove the parentheses around the numbers in the new SE column.
+You should use a combination of <code>str_replace()</code>,
+<code>pull()</code> (because stringr package functions work on vectors
+not dataframes!) and <code>mutate()</code>. Replace the original
+“asthma” object by calling the new dataset “asthma”.</p>
+<ul>
+<li>The <code>pattern =</code> to find the starting parenthesis is
+“[(]”</li>
+<li>The <code>pattern =</code> to find for the ending parenthesis is
+“[)]”</li>
+<li>The <code>replacement =</code> for both can be empty quotation
+marks: “”</li>
+</ul>
+<pre class="r"><code>asthma &lt;- asthma %&gt;% mutate(SE = str_replace(pull(asthma, SE), pattern = &quot;[(]&quot;, replacement = &quot;&quot;))
+asthma &lt;- asthma %&gt;% mutate(SE = str_replace(pull(asthma, SE), pattern = &quot;[)]&quot;, replacement = &quot;&quot;))</code></pre>
+<p>E. Determine the class of “percent” and “SE”. Can you take the mean
+values? Why or why not?</p>
+<pre class="r"><code>class(pull(asthma, percent))</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="r"><code>class(pull(asthma, SE))</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="r"><code># No. Both are character type and math cannot be performed on characters.</code></pre>
+<p>F. Use <code>as.numeric()</code> to convert “percent” and “SE” to
+numeric class. Calculate the mean for both.</p>
+<pre class="r"><code>asthma %&gt;%
+  mutate(percent = as.numeric(percent)) %&gt;%
+  pull(percent) %&gt;%
+  mean()</code></pre>
+<pre><code>## [1] 7.771429</code></pre>
+<pre class="r"><code>asthma %&gt;%
+  mutate(SE = as.numeric(SE)) %&gt;%
+  pull(SE) %&gt;%
+  mean()</code></pre>
+<pre><code>## [1] 0.655</code></pre>
 </div>
 
 

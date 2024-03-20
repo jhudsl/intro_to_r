@@ -1,5 +1,5 @@
 ---
-title: "Manipulating Data in R Lab - Key"
+title: "Manipulating Data in R Lab"
 output: html_document
 editor_options: 
   chunk_output_type: console
@@ -24,14 +24,14 @@ library(tidyr)
 -  Remember to use `read_csv()` from the `readr` package.
 -  Do NOT use `read.csv()`.
 
-```{r}
+```{r 1.1response}
 
 ```
 
 
 2\. Look at the column names using `colnames` - do you notice any patterns?
 
-```{r}
+```{r 1.2response}
 
 ```
 
@@ -43,7 +43,7 @@ library(tidyr)
 new_data <- old_data %>% rename(newname = oldname)
 ```
 
-```{r}
+```{r 1.3response}
 
 ```
 
@@ -55,7 +55,7 @@ new_data <- old_data %>% rename(newname = oldname)
 new_data <- old_data %>% select(colname1, colname2, ...)
 ```
 
-```{r}
+```{r 1.4response}
 
 ```
 
@@ -67,7 +67,7 @@ new_data <- old_data %>% select(colname1, colname2, ...)
 new_data <- old_data %>% pivot_longer(cols = colname(s))
 ```
 
-```{r}
+```{r 1.5response}
 
 ```
 
@@ -79,7 +79,7 @@ new_data <- old_data %>% pivot_longer(cols = colname(s))
 new_data <- old_data %>% filter(colname %in% c(1, 2, 3, ...))
 ```
 
-```{r}
+```{r 1.6response}
 
 ```
 
@@ -91,7 +91,7 @@ new_data <- old_data %>% filter(colname %in% c(1, 2, 3, ...))
 new_data <- old_data %>% pivot_wider(names_from = column1, values_from = column2)
 ```
 
-```{r}
+```{r 1.7response}
 
 ```
 
@@ -100,7 +100,7 @@ new_data <- old_data %>% pivot_wider(names_from = column1, values_from = column2
 
 A\. Take the code from Questions 1 and 3-7. Chain all of this code together using the pipe ` %>% `. Call your data `vacc_compare`.
 
-```{r}
+```{r Aresponse}
 
 ```
 
@@ -111,7 +111,7 @@ B\. Modify the code from Question A:
 -  Select different states/Entities to compare
 -  Call your data `vacc_compare2`
 
-```{r}
+```{r Bresponse}
 
 ```
 
@@ -120,7 +120,7 @@ B\. Modify the code from Question A:
 
 8\. Read in the GDP and Personal Income Data from http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv. You can use the url or download the data. Call it "gdp". 
 
-```{r}
+```{r 2.1response}
 
 ```
 
@@ -132,7 +132,7 @@ B\. Modify the code from Question A:
 new_data <- old_data %>% pivot_wider(names_from = column1, values_from = column2)
 ```
 
-```{r}
+```{r 2.2response}
 
 ```
 
@@ -148,7 +148,7 @@ new_data <- old_data %>% pivot_wider(names_from = column1, values_from = column2
 new_data <- inner_join(x, y, by = c("colname1" = "colname2"))
 ```
 
-```{r}
+```{r 2.3response}
 
 ```
 
@@ -160,7 +160,7 @@ new_data <- inner_join(x, y, by = c("colname1" = "colname2"))
 new_data <- full_join(x, y, by = c("colname1" = "colname2"))
 ```
 
-```{r}
+```{r 2.4response}
 
 ```
 
@@ -169,14 +169,14 @@ new_data <- full_join(x, y, by = c("colname1" = "colname2"))
 
 C\. Do a left join of "vacc" and "gdp". Call the output "left". How many observations are there?
 
-```{r}
+```{r Cresponse}
 
 ```
 
 
 D\. Copy your code from Question D and change it to a `right_join` with the same order of the arguments. Call the output "right". How many observations are there?
 
-```{r}
+```{r Dresponse}
 
 ```
 
@@ -192,7 +192,7 @@ E\. Perform a `setdiff` on "vacc" and "gdp" to determine what Entities are missi
 dplyr::setdiff(DATA_1, DATA_2)
 ```
 
-```{r}
+```{r Eresponse}
 
 ```
 

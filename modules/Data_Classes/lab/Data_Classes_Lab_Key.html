@@ -11,7 +11,7 @@
 
 
 
-<title>Data Class Lab Key</title>
+<title>Data Class Lab - Key</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -348,7 +348,7 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Data Class Lab Key</h1>
+<h1 class="title toc-ignore">Data Class Lab - Key</h1>
 
 </div>
 
@@ -357,8 +357,17 @@ display: none;
 <h1>Part 1</h1>
 <p>Load all the libraries we will use in this lab.</p>
 <pre class="r"><code>library(readr)
-library(tidyverse)
-library(dplyr)
+library(tidyverse)</code></pre>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.4     ✔ purrr     1.0.2
+## ✔ forcats   1.0.0     ✔ stringr   1.5.1
+## ✔ ggplot2   3.5.0     ✔ tibble    3.2.1
+## ✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<pre class="r"><code>library(dplyr)
 library(lubridate)
 library(jhur)</code></pre>
 <p>1. Create some data to work with by running the following code
@@ -396,10 +405,6 @@ rand_char_vect # Numbers now have quotation marks</code></pre>
 <p>6. Read in the Charm City Circulator data using
 <code>read_circulator()</code> function from <code>jhur</code> package
 using the code supplied in the chunk.</p>
-<ul>
-<li>Use the <code>str()</code> function to take a look at the data and
-learn about the column types.</li>
-</ul>
 <pre class="r"><code>circ &lt;- read_circulator()</code></pre>
 <pre><code>## Rows: 1146 Columns: 15
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -409,6 +414,10 @@ learn about the column types.</li>
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<ul>
+<li>Use the <code>str()</code> function to take a look at the data and
+learn about the column types.</li>
+</ul>
 <pre class="r"><code>str(circ)</code></pre>
 <pre><code>## spc_tbl_ [1,146 × 15] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
 ##  $ day             : chr [1:1146] &quot;Monday&quot; &quot;Tuesday&quot; &quot;Wednesday&quot; &quot;Thursday&quot; ...
@@ -457,6 +466,8 @@ NEWDATA &lt;- OLD_DATA %&gt;% mutate(NEW_COLUMN = OLD_COLUMN)</code></pre>
 using the <code>relocate</code> function. Take a look at the data using
 <code>glimpse()</code>. Note the difference between <code>date</code>
 and <code>date_formatted</code> columns.</p>
+<pre><code># General format
+NEWDATA &lt;- OLD_DATA %&gt;% relocate(COLUMN1, .before = COLUMN2)</code></pre>
 <pre class="r"><code>circ &lt;- circ %&gt;% relocate(date_formatted, .before = date)
 glimpse(circ)</code></pre>
 <pre><code>## Rows: 1,146
@@ -486,10 +497,7 @@ values.)</p>
 <pre><code>## [1] &quot;2010-01-11&quot; &quot;2013-03-01&quot;</code></pre>
 <pre class="r"><code>pull(circ, date) %&gt;% range()</code></pre>
 <pre><code>## [1] &quot;01/01/2011&quot; &quot;12/31/2012&quot;</code></pre>
-<blockquote>
-<p>The max of <code>pull(circ, date) %&gt;% range()</code> is numerical
-not based on date.</p>
-</blockquote>
+<pre class="r"><code># The max of `pull(circ, date) %&gt;% range()` is numerical not based on date.</code></pre>
 </div>
 
 

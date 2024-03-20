@@ -25,7 +25,7 @@ Create a new object called `my.num` that contains 6 numbers.
 my.num <- c(number1, number2, ...)
 ```
 
-```{r}
+```{r 1.1response}
 
 ```
 
@@ -33,7 +33,7 @@ my.num <- c(number1, number2, ...)
 
 Multiply `my.num` by 4.
 
-```{r}
+```{r 1.2response}
 
 ```
 
@@ -46,7 +46,7 @@ Create a second object called `my.char` that contains 5 character strings.
 my.char <- c("character1", "character2", ...)
 ```
 
-```{r}
+```{r 1.3response}
 
 ```
 
@@ -54,7 +54,7 @@ my.char <- c("character1", "character2", ...)
 
 Combine the two objects `my.num` and `my.char` into an object called `both`.
 
-```{r}
+```{r 1.4response}
 
 ```
 
@@ -62,7 +62,7 @@ Combine the two objects `my.num` and `my.char` into an object called `both`.
 
 What is the length of `both`? Use the `length()` function.
 
-```{r}
+```{r 1.5response}
 
 ```
 
@@ -70,7 +70,7 @@ What is the length of `both`? Use the `length()` function.
 
 What class is `both`?
 
-```{r}
+```{r 1.6response}
 
 ```
 
@@ -81,7 +81,7 @@ What class is `both`?
 
 Create a vector that contains 4 sets of the numbers 1, 2, 3, and 4.
 
-```{r}
+```{r P.1response}
 
 ```
 
@@ -92,7 +92,7 @@ Create a vector that contains 4 sets of the numbers 1, 2, 3, and 4.
 
 Divide `both` by 3, what happens?
 
-```{r, error=TRUE}
+```{r, error=TRUE, label='2.1response'}
 
 ```
 
@@ -105,7 +105,7 @@ Create a vector with elements 1, 2, 3, 4, 5 and call it `x`.
 x <- c(...)
 ```
  
-```{r}
+```{r 2.2response}
 
 ```
 
@@ -118,7 +118,7 @@ Create another vector with elements 10, 20, 30, 40, 50 and call it `y`.
 y <- c(...)
 ```
 
-```{r}
+```{r 2.3response}
 
 ```
 
@@ -126,7 +126,7 @@ y <- c(...)
 
 Determine the length of `x` and `y`. Next, add the vectors x and y together.
 
-```{r}
+```{r 2.4response}
 
 ```
 
@@ -139,7 +139,7 @@ Append the value 60 onto the vector `y` (hint: you can use the `c()` function).
 y <- c(y, ...)
 ```
 
-```{r}
+```{r 2.5response}
 
 ```
 
@@ -147,7 +147,7 @@ y <- c(y, ...)
 
 Determine the length of `x` and `y`.
 
-```{r}
+```{r 2.6response}
 
 ```
 
@@ -155,7 +155,7 @@ Determine the length of `x` and `y`.
 
 Add `x` and `y` together. What happens?
 
-```{r}
+```{r 2.7response}
 
 ```
 
@@ -169,9 +169,11 @@ Multiply the following `a` and `b` together. How is this similar to the way R pe
 ```{r}
 a <- c(1, 2, 3)
 b <- c(10, 100, 1000)
-
 ```
 
+```{r P.2response}
+
+```
 
 # Part 3
 
@@ -184,7 +186,7 @@ Create a vector object called `int_vect` that starts at 1 and goes up to 10. Use
 seq(from = NUMBER, to = NUMBER)
 ```
 
-```{r}
+```{r 3.1response}
 
 ```
 
@@ -197,7 +199,7 @@ Repeat the `int_vect` object this sequence 3 times using `rep()` and store the n
 rep(x = OBJECT_TO_REPEAT, times = NUM_TIMES_TO_REPEAT, each = NUM_TIMES_TO_REPEAT_EACH_ELEMENT)
 ```
 
-```{r}
+```{r 3.2response}
 
 ```
 
@@ -205,7 +207,7 @@ rep(x = OBJECT_TO_REPEAT, times = NUM_TIMES_TO_REPEAT, each = NUM_TIMES_TO_REPEA
 
 What is the length of `int_vect_3`?
 
-```{r}
+```{r 3.3response}
 
 ```
 
@@ -213,7 +215,7 @@ What is the length of `int_vect_3`?
 
 Create a vector that takes the sequence "Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree" and repeats each element 10 times.
 
-```{r}
+```{r 3.4response}
 
 ```
 
@@ -224,7 +226,7 @@ Create a vector that takes the sequence "Strongly Agree", "Agree", "Neutral", "D
 
 "Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree" are often responses to surveys. Create a randomly sampled vector of 30 survey responses. (hint use `sample()` and set the replace argument to `TRUE`). Store the output as `my_responses`. Examine the data by typing the name `my_responses` in the Console.
 
-```{r}
+```{r P.3response}
 
 ```
 
@@ -232,6 +234,6 @@ Create a vector that takes the sequence "Strongly Agree", "Agree", "Neutral", "D
 
 Let's say you change your survey so participants can rank their response 1-10 (inclusive). Create a randomly sampled vector of 30 survey responses. (hint use `seq()` and `sample()` and set the replace argument to `TRUE`). Store the output as `my_responses_2`. Examine the data by typing the name `my_responses_2` in the Console.
 
-```{r}
+```{r P.4response}
 
 ```
