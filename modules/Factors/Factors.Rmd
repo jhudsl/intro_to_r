@@ -269,13 +269,13 @@ dropouts_fct %>%
   theme_bw(base_size = 16)
 ```
 
-## Remember, `desc()` can also be used! {.smaller}
+## forcats for ordering.. with `.desc = ` argument{.smaller}
 
 ```{r, fig.height= 3}
 library(forcats)
 
 dropouts_fct %>%
-  ggplot(mapping = aes(x = fct_reorder(grade, desc(n_dropouts), mean), y = n_dropouts)) +
+  ggplot(mapping = aes(x = fct_reorder(grade, n_dropouts, .desc = TRUE, mean), y = n_dropouts)) +
   geom_boxplot() +
   labs(x = "Student Grade") +
   theme_bw(base_size = 16)
