@@ -443,12 +443,42 @@ airquality %>%
 
 Similar to across, `purrr` is a package that allows you to apply a function to multiple columns in a data frame or multiple data objects in a list.
 
+## map
 
-## map_df
+By default, the map functions return lists. So in this example we have to follow up `map()` with `bind_cols()` to turn our `list` back into a `data.frame`.  
 
 ```{r}
 library(purrr)
-airquality %>% map_df(replace_na, replace = 0)
+airquality %>% 
+  map(replace_na, replace = 0) %>% 
+  bind_cols()
+```
+Note you could accomplish the same task by doing: `airquality %>% mutate_all(~replace_na(., replace = 0))`
+
+## pmap
+
+`pmap()` is a very handy `purrr` function for running through multiple inputs at once. Let's say we wanted to do something different with each variable. 
+
+```{r}
+metric_list <- airquality %>% 
+  # pmap only wants the variables we end up using so we'll do a select() first 
+  select(Wind, Temp) %>% 
+  # We declare the variables in `function()`
+  pmap(function(Wind, Temp) { 
+    # Then whatever we want to happen with those variables goes here!
+    # Let's say we want to convert these units to metric!
+    metric_df <- data.frame(
+      wind_metric = Wind * 1.609, 
+      temp = (Temp - 32)*(5/9)
+    )
+      return(metric_df)
+    })
+
+# Note there is 153 items in the list -- corresponding to the 153 rows of data in airquality
+str(metric_list)
+
+# In this particular instance we could turn this back into a data.frame again because the lengths of the 153 lists are all identical, but you can see how pmap gives you a lot of power to handle different shapes of data. 
+metric_df <- bind_rows(metric_list)
 ```
 
 
