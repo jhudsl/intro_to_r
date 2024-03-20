@@ -23,14 +23,8 @@ We are constantly making improvements.
 
 ## Recap
 
-- R functions as a calculator
-- Use `c()` to **combine** vectors
-- Use `<-` to save (assign) values to objects
-- if you don't use `<-` to reassign objects that you want to modify, they will stay the same
-- `length()`, `class()`, and `str()` tell you information about an object
-- `head()` and `tail()` can also help you inspect an object
+-  Reproducible science makes everyone's life easier!
 - `readr`has helpful functions like `read_csv()` that can help you import data into R
-
 
 📃[Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-2.pdf)
 
@@ -132,7 +126,7 @@ knitr::include_graphics("images/path.gif")
 ## Import the data
 `here` function of the `here` package helps R start looking where your .Rproj file is.
 
-```{r, eval = FALSE}
+```{r, echo = FALSE, message=FALSE, comment= FALSE, results='hide'}
 install.packages("here", repos='http://cran.us.r-project.org')
 ```
 
@@ -186,17 +180,6 @@ slice_sample(annualDosage, n = 2)
 
 ```
 
-## `skimr` package
-
-```{r, eval = FALSE}
-install.packages("skimr")
-library(skimr)
-skim(annualDosage)
-```
-
-```{r, fig.alt="dplyr", out.width = "55%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("images/skim2.png")
-```
 
 # Data frames and tibbles
 
@@ -285,7 +268,7 @@ knitr::include_graphics("images/rename.png")
 
 To rename columns in `dplyr`, you can use the `rename` function.
 
-For example, let's rename BUYER_COUNTY to County. Notice the new name is listed **first**!
+For example, let's rename BUYER_COUNTY to County. Notice the new name is listed **first**, similar to how a new object is assigned on the left!
 
 <div class = "codeexample">
 ```{r, eval = FALSE}
@@ -305,7 +288,7 @@ head(renamed_annualDosage)
 
 When you can, avoid spaces, special punctuation, or numbers in column names, as these require special treatment to refer to them. 
 
-See https://jhudatascience.org/intro_to_r/quotes_vs_backticks.html for more guidance.
+See https://jhudatascience.org/intro_to_r/resources/quotes_vs_backticks.html for more guidance.
 
 ```{r, eval = FALSE}
  # this will cause an error
@@ -436,7 +419,7 @@ clean_names(test)
 - if your original data has rownames, you need to use `rownames_to_column` before converting to tibble
 - the `rename()` function of `dplyr` can help you rename columns
 - avoid using punctuation (except underscores), spaces, and numbers (to start or alone) in column names
-- if you must do a nonstandard column name - typically use backticks around it. See https://jhudatascience.org/intro_to_r/quotes_vs_backticks.html.
+- if you must do a nonstandard column name - typically use backticks around it. See https://jhudatascience.org/intro_to_r/resources/quotes_vs_backticks.html.
 - avoid copy and pasting code from other sources - quotation marks will change!
 - check out `janitor` if you need to make lots of column name changes
 
@@ -689,16 +672,6 @@ knitr::include_graphics("https://media.giphy.com/media/5b5OU7aUekfdSAER5I/giphy.
 ```
 https://media.giphy.com/media/5b5OU7aUekfdSAER5I/giphy.gif
 
-## `distinct()` function
-
-To filter for distinct values from a variable, multiple variables, or an entire tibble you can use the `distinct()` function from the `dplyr` package.
-
-```{r}
-distinct(AD, year)
-
-distinct(AD, year, BUYER_STATE)
-```
-
 ## Summary
 
 - `pull()` to get values out of a data frame/tibble
@@ -715,7 +688,6 @@ distinct(AD, year, BUYER_STATE)
 - `==` is the same as equivalent to
 - `&` means both conditions must be met to remain after `filter()`
 - `|` means either conditions needs to be met to remain after `filter()`
-- `distinct()` helps you filter for unique values
 
 ## Lab Part 2
 
@@ -835,13 +807,14 @@ knitr::include_graphics("images/mutate.png")
 
 The `NULL` method is still very common.
 
-The `select` function can remove a column with minus (`-`):
+The `select` function can remove a column with exclamation mark (`!`) our using the minus sign (`-`):
+
 ```{r, eval = FALSE}
-select(AD, - newcol)
+select(AD, !newcol)
 ```
 
 ```{r, echo = FALSE}
-head(select(AD, - newcol))
+head(select(AD, !newcol))
 ```
 
 **Or, you can simply select the columns you want to keep, ignoring the ones you want to remove.**
@@ -852,7 +825,7 @@ You can use `c()` to list the columns to remove.
 
 Remove `newcol` and `drat`:
 ```{r}
-select(AD, -c(newcol, year))
+select(AD, !c(newcol, year))
 ```
 
 
@@ -883,11 +856,11 @@ head(select(AD, newcol, everything()), 3)
 Put `year` at the end ("remove, everything, then add back in"):
 
 ```{r, eval = FALSE}
-select(AD, -year, everything(), year)
+select(AD, !year, everything(), year)
 ```
 
 ```{r, echo = FALSE}
-head(select(AD, -year, everything(), year), 3)
+head(select(AD, !year, everything(), year), 3)
 ```
 
 
@@ -955,8 +928,8 @@ arrange(AD, desc(year), count) %>% head(n = 2)
 - `arrange()` can be used to reorder rows
 - can remove rows with `filter()`
 - can remove a column in a few ways:  
-    2. using `select()` with negative sign in front of column name(s)  
-    3. not selecting it (without negative sign)  
+    2. using `select()` with exclamation mark in front of column name(s)  
+    3. not selecting it (without exclamation mark)  
 
 ## Summary cont...
 

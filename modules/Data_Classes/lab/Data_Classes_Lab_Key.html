@@ -11,7 +11,7 @@
 
 
 
-<title>Data Class Lab Key</title>
+<title>Data Class Lab - Key</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -348,7 +348,7 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Data Class Lab Key</h1>
+<h1 class="title toc-ignore">Data Class Lab - Key</h1>
 
 </div>
 
@@ -395,11 +395,8 @@ rand_char_vect # Numbers now have quotation marks</code></pre>
 ## [16] &quot;26&quot; &quot;6&quot;  &quot;15&quot; &quot;14&quot; &quot;20&quot; &quot;14&quot; &quot;30&quot; &quot;24&quot; &quot;30&quot; &quot;4&quot;  &quot;4&quot;  &quot;21&quot; &quot;8&quot;  &quot;20&quot; &quot;24&quot;</code></pre>
 <p>6. Read in the Charm City Circulator data using
 <code>read_circulator()</code> function from <code>jhur</code> package
-using the code supplied in the chunk.</p>
-<ul>
-<li>Use the <code>str()</code> function to take a look at the data and
-learn about the column types.</li>
-</ul>
+using the code supplied in the chunk. Or alternatively using the url
+link.</p>
 <pre class="r"><code>circ &lt;- read_circulator()</code></pre>
 <pre><code>## Rows: 1146 Columns: 15
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -409,6 +406,19 @@ learn about the column types.</li>
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>circ &lt;- read_csv(file = &quot;http://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv&quot;)</code></pre>
+<pre><code>## Rows: 1146 Columns: 15
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr  (2): day, date
+## dbl (13): orangeBoardings, orangeAlightings, orangeAverage, purpleBoardings,...
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<ul>
+<li>Use the <code>str()</code> function to take a look at the data and
+learn about the column types.</li>
+</ul>
 <pre class="r"><code>str(circ)</code></pre>
 <pre><code>## spc_tbl_ [1,146 × 15] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
 ##  $ day             : chr [1:1146] &quot;Monday&quot; &quot;Tuesday&quot; &quot;Wednesday&quot; &quot;Thursday&quot; ...
@@ -457,7 +467,13 @@ NEWDATA &lt;- OLD_DATA %&gt;% mutate(NEW_COLUMN = OLD_COLUMN)</code></pre>
 using the <code>relocate</code> function. Take a look at the data using
 <code>glimpse()</code>. Note the difference between <code>date</code>
 and <code>date_formatted</code> columns.</p>
+<pre><code># General format
+NEWDATA &lt;- OLD_DATA %&gt;% relocate(COLUMN1, .before = COLUMN2)</code></pre>
 <pre class="r"><code>circ &lt;- circ %&gt;% relocate(date_formatted, .before = date)
+
+# alternative
+# circ &lt;- circ %&gt;% select(day, date_formatted, everything()) %&gt;% head() 
+
 glimpse(circ)</code></pre>
 <pre><code>## Rows: 1,146
 ## Columns: 16
@@ -486,10 +502,7 @@ values.)</p>
 <pre><code>## [1] &quot;2010-01-11&quot; &quot;2013-03-01&quot;</code></pre>
 <pre class="r"><code>pull(circ, date) %&gt;% range()</code></pre>
 <pre><code>## [1] &quot;01/01/2011&quot; &quot;12/31/2012&quot;</code></pre>
-<blockquote>
-<p>The max of <code>pull(circ, date) %&gt;% range()</code> is numerical
-not based on date.</p>
-</blockquote>
+<pre class="r"><code># The max of `pull(circ, date) %&gt;% range()` is numerical not based on date.</code></pre>
 </div>
 
 

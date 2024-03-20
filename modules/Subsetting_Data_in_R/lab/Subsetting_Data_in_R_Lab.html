@@ -11,7 +11,7 @@
 
 
 
-<title>Subsetting Data in R - Lab</title>
+<title>Subsetting Data in R</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -348,7 +348,7 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Subsetting Data in R - Lab</h1>
+<h1 class="title toc-ignore">Subsetting Data in R</h1>
 
 </div>
 
@@ -387,22 +387,6 @@ command.</p></li>
 <p><strong>Bonus / Extra practice</strong>: How can you print the first
 3 rows and the last 3 rows of <code>county_pop</code> (in two lines of
 code)?</p>
-<pre class="r"><code>head(county_pop, 3)</code></pre>
-<pre><code>## # A tibble: 3 × 10
-##   BUYER_COUNTY BUYER_STATE countyfips STATE COUNTY county_name NAME     variable
-##   &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;      &lt;int&gt;  &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;   
-## 1 AUTAUGA      AL          01001          1      1 Autauga     Autauga… B01003_…
-## 2 BALDWIN      AL          01003          1      3 Baldwin     Baldwin… B01003_…
-## 3 BARBOUR      AL          01005          1      5 Barbour     Barbour… B01003_…
-## # ℹ 2 more variables: year &lt;int&gt;, population &lt;int&gt;</code></pre>
-<pre class="r"><code>tail(county_pop, 3)</code></pre>
-<pre><code>## # A tibble: 3 × 10
-##   BUYER_COUNTY  BUYER_STATE countyfips STATE COUNTY county_name   NAME  variable
-##   &lt;chr&gt;         &lt;chr&gt;       &lt;chr&gt;      &lt;int&gt;  &lt;int&gt; &lt;chr&gt;         &lt;chr&gt; &lt;chr&gt;   
-## 1 SKAGWAY       AK          02230          2    230 Skagway       Skag… B01003_…
-## 2 HOONAH ANGOON AK          02105          2    105 Hoonah Angoon Hoon… B01003_…
-## 3 PETERSBURG    AK          02195          2    195 Petersburg    Pete… B01003_…
-## # ℹ 2 more variables: year &lt;int&gt;, population &lt;int&gt;</code></pre>
 </div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
@@ -411,7 +395,7 @@ code)?</p>
 the columns: <code>county_name</code>, <code>year</code>, and
 <code>population</code> and assign this object to <code>pop_sub</code> -
 what are the dimensions of this dataset?</p></li>
-<li><p>Start with <code>conty_pop</code> again instead of the dataset
+<li><p>Start with <code>county_pop</code> again instead of the dataset
 you just made. Subset the data to only include the
 <code>population</code> column and the columns that end with “_name”.
 Hint: use <code>select()</code> and <code>ends_with()</code>. Assign
@@ -433,7 +417,7 @@ there?</p></li>
 <li><p>Why do the answers for 5 and 6 differ?</p></li>
 </ol>
 <p><strong>Bonus / Extra practice</strong>:</p>
-<p>Subset the rows of <code>country_pop</code> for rows that have
+<p>Subset the rows of <code>county_pop</code> for rows that have
 <code>state_name</code> of <code>NM</code>, <strong>or</strong>
 <strong>less</strong> than 10000 <code>population</code>. How many rows
 have both?</p>
@@ -443,7 +427,7 @@ contain the letter “a” from <code>cars_mt_copy</code>.</p>
 <div id="part-3" class="section level1">
 <h1>Part 3</h1>
 <ol style="list-style-type: decimal">
-<li><p>Create a subset called <code>county_2012</code>from
+<li><p>Create a subset called <code>county_2012</code> from
 <code>county_pop</code> that only contains the rows for the year 2012
 and only the columns: <code>county_name</code>, <code>state_name</code>,
 <code>population</code>. <code>year</code> should not be included in
@@ -462,12 +446,13 @@ smallest population?</p></li>
 <li><p>Create a new variable in <code>county_2012</code> called
 <code>pop1000</code>, which is equal to <code>population</code> divided
 by 1000, using <code>mutate()</code>(don’t forget to reassign
-<code>county_2012</code>). Use pipes <code>%&gt;%</code>:</p></li>
+<code>county_2012</code>). Use pipes <code>%&gt;%</code>.</p></li>
 </ol>
+<pre><code># General format
+NEWDATA &lt;- OLD_DATA %&gt;% mutate(NEW_COLUMN = OLD_COLUMN)</code></pre>
 <p><strong>Bonus / Extra practice</strong>: Move the
-<code>pop1000</code> column to be between <code>county_name</code> and
-<code>state_name</code> of the <code>county_2012</code> dataset. Use
-<code>relocate()</code>.</p>
+<code>state_name</code> column to be before <code>county_name</code> in
+the <code>county_2012</code> dataset. Use <code>relocate()</code>.</p>
 <p><strong>Bonus / Extra practice</strong>: How can you find the value
 of <code>population</code> for Chambers AL without just looking at the
 data manually and instead use functions we learned today?</p>

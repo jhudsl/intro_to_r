@@ -3,7 +3,7 @@
 
 ## Tips for good scientific coding practices
 
-_by Candace Savonen -- adapted from [AlexsLemonade](https://github.com/AlexsLemonade/training-modules/blob/master/intro-to-R-tidyverse/00c-good-scientific-coding-practices.md)_
+_by Candace Savonen -- adapted from [AlexsLemonade](https://github.com/AlexsLemonade/training-modules/blob/master/intro-to-R-tidyverse/00c-good_scientific_coding_practices.Rmd)_
 
 ### Style guides help people read your code
 

@@ -13,7 +13,7 @@
 
 <title>FAQ / Help</title>
 
-<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.26/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -291,11 +291,9 @@ $(document).ready(function () {
 <li><a href="#common-issues" id="toc-common-issues"><strong>Common
 Issues</strong></a>
 <ul>
-<li><a
-href="#how-do-i-get-output-to-stop-printing-inside-the-rmarkdown-and-only-show-it-in-the-console"
-id="toc-how-do-i-get-output-to-stop-printing-inside-the-rmarkdown-and-only-show-it-in-the-console"><strong>How
-do I get output to stop printing inside the Rmarkdown and only show it
-in the console?</strong></a></li>
+<li><a href="#im-getting-an-error-related-to-something-called-rtools"
+id="toc-im-getting-an-error-related-to-something-called-rtools"><strong>I’m
+getting an error related to something called Rtools</strong></a></li>
 <li><a href="#what-packages-are-part-of-the-tidyverse"
 id="toc-what-packages-are-part-of-the-tidyverse"><strong>What packages
 are part of the Tidyverse</strong>?</a></li>
@@ -348,6 +346,18 @@ id="toc-error-in-.gg-ℹ-did-you-accidentally-put-on-a-new-line"><strong>Error
 in +.gg: <code>ℹ</code> Did you accidentally put ‘+’ on a new
 line?</strong></a></li>
 </ul></li>
+<li><a href="#preference-changes"
+id="toc-preference-changes"><strong>Preference Changes</strong></a>
+<ul>
+<li><a
+href="#how-do-i-get-output-to-stop-printing-inside-the-rmarkdown-and-only-show-it-in-the-console-how-ava-has-her-setup"
+id="toc-how-do-i-get-output-to-stop-printing-inside-the-rmarkdown-and-only-show-it-in-the-console-how-ava-has-her-setup"><strong>How
+do I get output to stop printing inside the Rmarkdown and only show it
+in the console? (How Ava has her setup?)</strong></a></li>
+<li><a href="#how-do-i-change-the-color-theme"
+id="toc-how-do-i-change-the-color-theme">**How do I change the color /
+theme?</a></li>
+</ul></li>
 </ul>
 </div>
 
@@ -366,26 +376,14 @@ code{
 <div id="common-issues" class="section level1">
 <h1><strong>Common Issues</strong></h1>
 <hr />
-<div
-id="how-do-i-get-output-to-stop-printing-inside-the-rmarkdown-and-only-show-it-in-the-console"
+<div id="im-getting-an-error-related-to-something-called-rtools"
 class="section level2">
-<h2><strong>How do I get output to stop printing inside the Rmarkdown
-and only show it in the console?</strong></h2>
-<p><strong>To change this, you will need to adjust the RStudio
-Settings.</strong></p>
-<div class="float">
-<img src="images/console_output1.jpg"
-alt="Click the gear icon beside the knit button to expand the options menu." />
-<div class="figcaption">Click the gear icon beside the knit button to
-expand the options menu.</div>
-</div>
-<div class="float">
-<img src="images/console_output2.jpg"
-alt="You can select Remove Output. You should now see output in the console." />
-<div class="figcaption">You can select Remove Output. You should now see
-output in the console.</div>
-</div>
-<p><br> <br></p>
+<h2><strong>I’m getting an error related to something called
+Rtools</strong></h2>
+<p>You probably need some add-on software for a Windows machine. Note
+that this is <em>not</em> an additional R package to install. Here is a
+quick guide to installing Rtools: <a
+href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/jhudsl/intro_to_r/main/resources/rtools_windows.pdf">link</a>.</p>
 <hr />
 </div>
 <div id="what-packages-are-part-of-the-tidyverse"
@@ -407,16 +405,16 @@ existing object or creating a new object.</p>
 <p>Here we are creating a new object from an existing one:</p>
 <pre class="r"><code>new_rivers &lt;- sample(rivers, 5)
 new_rivers</code></pre>
-<pre><code>## [1]  250  383 1243  340  560</code></pre>
+<pre><code>## [1]  301 1000  215  524  377</code></pre>
 <p>Using just this will only print the result and not actually change
 <code>new_rivers</code>:</p>
 <pre class="r"><code>new_rivers + 1</code></pre>
-<pre><code>## [1]  251  384 1244  341  561</code></pre>
+<pre><code>## [1]  302 1001  216  525  378</code></pre>
 <p>If we want to modify <code>new_rivers</code> and save that modified
 version, then we need to reassign <code>new_rivers</code> like so:</p>
 <pre class="r"><code>new_rivers &lt;- new_rivers + 1
 new_rivers</code></pre>
-<pre><code>## [1]  251  384 1244  341  561</code></pre>
+<pre><code>## [1]  302 1001  216  525  378</code></pre>
 <p>If we forget to reassign this can cause subsequent steps to not work
 as expected because we will not be working with the data that has been
 modified.</p>
@@ -486,7 +484,7 @@ you never created <code>rivers2</code> and try to modify it like so:</p>
 operator:</p>
 <pre class="r"><code>rivers2 &lt;- new_rivers + 1
 rivers2</code></pre>
-<pre><code>## [1]  252  385 1245  342  562</code></pre>
+<pre><code>## [1]  303 1002  217  526  379</code></pre>
 <hr />
 </div>
 <div id="error-unexpected-in-error-unexpected-in-error-unexpected-x-in"
@@ -570,7 +568,7 @@ layers</strong></p>
 <pre class="r"><code>ggplot(data = iris, aes(x = Species, y = Petal.Length)) %&gt;%
   geom_boxplot()</code></pre>
 <pre class="bg-error"><code>## Error in `geom_boxplot()`:
-## ! `mapping` must be created by `aes()`
+## ! `mapping` must be created by `aes()`.
 ## ℹ Did you use `%&gt;%` or `|&gt;` instead of `+`?</code></pre>
 <p>This will work:</p>
 <pre class="r"><code>ggplot(data = iris, aes(x = Species, y = Petal.Length)) +
@@ -587,12 +585,44 @@ on a new line?</strong></h2>
 <p><img src="help_files/figure-html/unnamed-chunk-25-1.png" width="30%" /></p>
 <pre class="r"><code> +  geom_boxplot()</code></pre>
 <pre class="bg-error"><code>## Error:
-## ! Cannot use `+` with a single argument
+## ! Cannot use `+` with a single argument.
 ## ℹ Did you accidentally put `+` on a new line?</code></pre>
 <p>This will work:</p>
 <pre class="r"><code>ggplot(data = iris, aes(x = Species, y = Petal.Length)) +
   geom_boxplot()</code></pre>
 <p><img src="help_files/figure-html/unnamed-chunk-26-1.png" width="30%" /></p>
+</div>
+</div>
+<div id="preference-changes" class="section level1">
+<h1><strong>Preference Changes</strong></h1>
+<hr />
+<div
+id="how-do-i-get-output-to-stop-printing-inside-the-rmarkdown-and-only-show-it-in-the-console-how-ava-has-her-setup"
+class="section level2">
+<h2><strong>How do I get output to stop printing inside the Rmarkdown
+and only show it in the console? (How Ava has her setup?)</strong></h2>
+<p><strong>To change this, you will need to adjust the RStudio
+Settings.</strong></p>
+<div class="float">
+<img src="images/console_output1.jpg"
+alt="Click the gear icon beside the knit button to expand the options menu. Select “Chunk Output in Console”." />
+<div class="figcaption">Click the gear icon beside the knit button to
+expand the options menu. Select “Chunk Output in Console”.</div>
+</div>
+<div class="float">
+<img src="images/console_output2.jpg"
+alt="You can select Remove Output. You should now see output in the console." />
+<div class="figcaption">You can select Remove Output. You should now see
+output in the console.</div>
+</div>
+<p><br> <br></p>
+<hr />
+</div>
+<div id="how-do-i-change-the-color-theme" class="section level2">
+<h2>**How do I change the color / theme?</h2>
+<p>Go to the menu Tools &gt; Global Options &gt; Appearance. Choose a
+theme and apply!</p>
+<p><br> <br></p>
 </div>
 </div>
 

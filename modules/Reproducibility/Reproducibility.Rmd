@@ -23,6 +23,27 @@ install.packages("ottrpal", repos = "https://cloud.r-project.org", quiet = TRUE)
 library(ottrpal)
 ```
 
+## Recap So Far
+
+RStudio
+
+-  The Editor is for static code like scripts or R Markdown documents  
+-  Send code to the Console to run it  
+-  The Console can be used for quickly testing code on the fly  
+-  R code goes within what is called a chunk (the gray box with a green play button)  
+
+📃[RStudio Cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rstudio-ide.pdf)
+
+## Recap So Far
+
+Basic R
+
+- Use `c()` to **combine** vectors  
+- Use `<-` to save (assign) values to objects  
+- if you don't use `<-` to reassign objects that you want to modify, they will stay the same  
+- `length()`, `class()`, and `str()` tell you information about an object  
+- `head()` and `tail()` can also help you inspect an object  
+
 ## What's Reproducibility
 
 ```{r, fig.alt="session info", out.width = "80%", echo = FALSE, fig.align='center'}
@@ -133,6 +154,15 @@ knitr::include_graphics("images/knit.png")
 ## Tell your future self and others what you did!
 
 Provide sufficient detail so that you can understand what you did.
+
+## Need random numbers to stay consistent?
+
+Use `set.seed()` : sets the starting state for the random number generator (RNG) in R.
+
+```{r}
+set.seed(100)
+sample(10)
+```
 
 ## R Markdown syntax
 

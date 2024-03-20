@@ -11,7 +11,7 @@
 
 
 
-<title>Manipulating Data in R Lab - Key</title>
+<title>Manipulating Data in R Lab</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -348,7 +348,7 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Manipulating Data in R Lab - Key</h1>
+<h1 class="title toc-ignore">Manipulating Data in R Lab</h1>
 
 </div>
 
@@ -444,19 +444,11 @@ many observations are there?</p>
 <p>D. Copy your code from Question D and change it to a
 <code>right_join</code> with the same order of the arguments. Call the
 output “right”. How many observations are there?</p>
-<p>E. Perform a <code>setdiff</code> on “vacc” and “gdp” to determine
-what Entities are missing from the GDP data and which are missing from
-the vaccine data.</p>
-<ul>
-<li>First, <code>select()</code> only the columns you want to compare.
-Create new objects for each dataset.</li>
-<li>Rename the selected column for <em>one</em> of the datasets, so that
-both datasets have the same column name. You can use
-<code>rename()</code></li>
-<li>Then use <code>setdiff()</code></li>
-</ul>
+<p>E. Perform two <code>anti_join</code> operations on “vacc” and “gdp”
+to determine what Entities are missing from the GDP data and which are
+missing from the vaccine data.</p>
 <pre><code># General format
-dplyr::setdiff(DATA_1, DATA_2)</code></pre>
+anti_join(L, R, by = c(&quot;name_L&quot; = &quot;name_R&quot;)) %&gt;% select(name_L)</code></pre>
 </div>
 
 
