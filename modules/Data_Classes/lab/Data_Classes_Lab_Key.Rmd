@@ -64,15 +64,20 @@ rand_char_vect # Numbers now have quotation marks
 
 
 
-6\. Read in the Charm City Circulator data using `read_circulator()` function from `jhur` package using the code supplied in the chunk. 
+6\. Read in the Charm City Circulator data using `read_circulator()` function from `jhur` package using the code supplied in the chunk. Or alternatively using the url link.
+
 
 ```{r}
 circ <- read_circulator()
+
+circ <- read_csv(file = "http://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
+
 ```
 
 - Use the `str()` function to take a look at the data and learn about the column types.
 
 ```{r 6response}
+
 str(circ)
 ```
 
@@ -98,7 +103,12 @@ NEWDATA <- OLD_DATA %>% relocate(COLUMN1, .before = COLUMN2)
 
 ```{r b1response}
 circ <- circ %>% relocate(date_formatted, .before = date)
+
+# alternative
+# circ <- circ %>% select(day, date_formatted, everything()) %>% head() 
+
 glimpse(circ)
+
 ```
 
 
