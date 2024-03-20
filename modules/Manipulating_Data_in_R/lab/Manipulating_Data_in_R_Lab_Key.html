@@ -706,22 +706,14 @@ output “right”. How many observations are there?</p>
 <pre class="r"><code>right &lt;- right_join(vacc, gdp, by = c(&quot;Entity&quot; = &quot;GeoName&quot;))
 nrow(right)</code></pre>
 <pre><code>## [1] 60</code></pre>
-<p>E. Perform a <code>setdiff</code> on “vacc” and “gdp” to determine
-what Entities are missing from the GDP data and which are missing from
-the vaccine data.</p>
-<ul>
-<li>First, <code>select()</code> only the columns you want to compare.
-Create new objects for each dataset.</li>
-<li>Rename the selected column for <em>one</em> of the datasets, so that
-both datasets have the same column name. You can use
-<code>rename()</code></li>
-<li>Then use <code>setdiff()</code></li>
-</ul>
+<p>E. Perform two <code>anti_join</code> operations on “vacc” and “gdp”
+to determine what Entities are missing from the GDP data and which are
+missing from the vaccine data.</p>
 <pre><code># General format
-dplyr::setdiff(DATA_1, DATA_2)</code></pre>
-<pre class="r"><code>entity &lt;- vacc %&gt;% select(Entity)
-geoname &lt;- gdp %&gt;% select(GeoName) %&gt;% rename(Entity = GeoName)
-setdiff(entity, geoname) # In vacc &quot;Entity&quot; but not gdp &quot;GeoName&quot;</code></pre>
+anti_join(L, R, by = c(&quot;name_L&quot; = &quot;name_R&quot;)) %&gt;% select(name_L)</code></pre>
+<pre class="r"><code>in_vacc_only &lt;- anti_join(vacc, gdp, by = c(&quot;Entity&quot; = &quot;GeoName&quot;)) %&gt;% select(Entity)
+in_gdp_only &lt;- anti_join(gdp, vacc, by = c(&quot;GeoName&quot; = &quot;Entity&quot;)) %&gt;% select(GeoName)
+in_vacc_only</code></pre>
 <pre><code>## # A tibble: 13 × 1
 ##    Entity                        
 ##    &lt;chr&gt;                         
@@ -738,9 +730,9 @@ setdiff(entity, geoname) # In vacc &quot;Entity&quot; but not gdp &quot;GeoName&
 ## 11 Republic of Palau             
 ## 12 Veterans Health               
 ## 13 Virgin Islands</code></pre>
-<pre class="r"><code>setdiff(geoname, entity) # In gdp &quot;GeoName&quot; but not vacc &quot;Entity&quot;</code></pre>
+<pre class="r"><code>in_gdp_only</code></pre>
 <pre><code>## # A tibble: 9 × 1
-##   Entity        
+##   GeoName       
 ##   &lt;chr&gt;         
 ## 1 New York      
 ## 2 New England   
