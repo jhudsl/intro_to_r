@@ -281,6 +281,39 @@ x + c(1, 2, 3, 4)
 
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Basic_R/lab/Basic_R_Lab.Rmd)
 
+
+# Pause for Day 1
+
+## Recap So Far
+
+RStudio
+
+-  The Editor is for static code like scripts or R Markdown documents  
+-  Send code to the Console to run it  
+-  The Console can be used for quickly testing code on the fly  
+-  R code goes within what is called a chunk (the gray box with a green play button)  
+
+📃[RStudio Cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rstudio-ide.pdf)
+
+## Recap So Far
+
+Basic R
+
+- Use `c()` to **combine** vectors  
+- Use `<-` to save (assign) values to objects  
+- if you don't use `<-` to reassign objects that you want to modify, they will stay the same  
+- `length()` and `class()` tell you information about an object  
+
+## Math + vector objects
+
+You can perform functions to entire vectors of numbers very easily.
+
+```{r assign4}
+x + 2
+x * 3
+x + c(1, 2, 3, 4)
+```
+
 ## Math + vector objects
 
 But things like algebra can only be performed on numbers.
