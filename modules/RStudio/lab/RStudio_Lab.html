@@ -364,27 +364,33 @@ File → R Markdown and then using the default or using a template.</p>
 <p>Now we will install some packages! Note it may take ~5-10 minutes to
 run all these steps. <strong>You need to run these steps in the order
 listed.</strong></p>
-<ol style="list-style-type: decimal">
-<li><p>First copy and paste the following code into the console (the
-lower left panel/pane) - <strong>but do not copy the backticks</strong>:
-<br> <code>install.packages(&quot;remotes&quot;)</code><br> This code will install
-a package from CRAN called “remotes”. <br> You may be asked a question
-in the console when you do this. If so, answer by typing Yes into the
-console.</p></li>
-<li><p>Next copy and paste the following code again into the console
-(the lower left panel/pane), <strong>again do not copy the
+<div id="section" class="section level3">
+<h3>0.1</h3>
+<p>First copy and paste the following code into the console (the lower
+left panel/pane) - <strong>but do not copy the backticks</strong>: <br>
+<code>install.packages(&quot;remotes&quot;)</code><br> This code will install a
+package from CRAN called “remotes”. <br> You may be asked a question in
+the console when you do this. If so, answer by typing Yes into the
+console.</p>
+</div>
+<div id="section-1" class="section level3">
+<h3>0.2</h3>
+<p>Next copy and paste the following code again into the console (the
+lower left panel/pane), <strong>again do not copy the
 backticks</strong>: <br> <code>library(remotes)</code> <br> This code
 loads the remotes package into memory- in other words we can use the
 functions within the package.<br> You may be asked a question in the
 console when you do this. If so, answer by typing Yes into the
-console.</p></li>
-<li><p>Now install a package that the instructors made that is not on
-CRAN but on GitHub, by copy and pasting the code into the console. We
-still don’t want to copy the backticks.<br>
+console.</p>
+</div>
+<div id="section-2" class="section level3">
+<h3>0.3</h3>
+<p>Now install a package that the instructors made that is not on CRAN
+but on GitHub, by copy and pasting the code into the console. We still
+don’t want to copy the backticks.<br>
 <code>install_github(&quot;jhudsl/jhur&quot;)</code><br> You may be asked a
 question in the console when you do this. If so, answer by typing Yes
-into the console.</p></li>
-</ol>
+into the console.</p>
 <p>The gray area below is a code chunk that will set up our packages and
 data (this will not show up in the rendered report when we press knit).
 You can also run the code within the editor area by pressing the green
@@ -413,6 +419,7 @@ it is in the console, it is not saved.</p>
 <p>The console is useful for installing packages like we just did, this
 is because we only need to do it once, so we don’t usually need to save
 the code.</p>
+</div>
 </div>
 <div id="plotting-some-data" class="section level2">
 <h2>Plotting some data</h2>
@@ -457,27 +464,36 @@ in <code>R</code> code and the output it makes. After each change, hit
 the <strong>Knit</strong> button again.</p>
 <p>Here is another code chunk for our exercises.</p>
 <pre class="r"><code>x &lt;- c(1, 2, 3)</code></pre>
-<ol style="list-style-type: decimal">
-<li><p>Go through the code for the plot above and change the colors in
+<div id="section-3" class="section level3">
+<h3>1.1</h3>
+<p>Go through the code for the plot above and change the colors in
 <code>palette</code> to something other than what they originally were.
 See <a href="http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf" class="uri">http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf</a>
 for a large list of colors. For example, you could replace blue with
-red.</p></li>
-<li><p>Add a new R chunk below the bonus instructions.You can use the
-insert chunk button or copy paste an existing code chunk. Include a
-lowercase x inside the chunk as the code. Thus it should look like the
-chunk above but without <code>&lt;- c(1,2,3)</code>. Make sure you press
-the knit button after this to see what the new chunk looks
-like.</p></li>
-</ol>
-<p><strong>Bonus / Extra practice</strong>:</p>
-<ol style="list-style-type: decimal">
-<li>Update the options of the R chunk you just made (with the lowercase
-x in it) so that the output option is <code>show output only</code>. How
-does the chunk look now?</li>
-<li>Create another R Markdown Document from RStudio dropdowns: File →
-New File → R Markdown.</li>
-</ol>
+red.</p>
+</div>
+<div id="section-4" class="section level3">
+<h3>1.2</h3>
+<p>Add a new R chunk below the bonus instructions.You can use the insert
+chunk button or copy paste an existing code chunk. Include a lowercase x
+inside the chunk as the code. Thus it should look like the chunk above
+but without <code>&lt;- c(1,2,3)</code>. Make sure you press the knit
+button after this to see what the new chunk looks like.</p>
+</div>
+</div>
+<div id="practice-on-your-own" class="section level1">
+<h1>Practice on Your Own!</h1>
+<div id="p.1" class="section level3">
+<h3>P.1</h3>
+<p>Update the options of the R chunk you just made (with the lowercase x
+in it) so that the output option is <code>show output only</code>. How
+does the chunk look now?</p>
+</div>
+<div id="p.2" class="section level3">
+<h3>P.2</h3>
+<p>Create another R Markdown Document from RStudio dropdowns: File → New
+File → R Markdown.</p>
+</div>
 </div>
 
 

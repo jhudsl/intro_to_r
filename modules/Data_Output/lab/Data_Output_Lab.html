@@ -359,34 +359,47 @@ be “sent” to the console with Cmd-Enter (OS-X) or Ctrl-Enter
 (Windows/Linux) in an R code chunk.</p>
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
-<ol style="list-style-type: decimal">
-<li>Read in SARS-CoV-2 vaccination data from URL <a href="http://jhudatascience.org/intro_to_r/data/vaccinations.csv" class="uri">http://jhudatascience.org/intro_to_r/data/vaccinations.csv</a>
-and assign it to an object named <code>vacc</code>.</li>
-</ol>
+<div id="section" class="section level3">
+<h3>1.1</h3>
+<p>Read in SARS-CoV-2 vaccination data from URL <a href="http://jhudatascience.org/intro_to_r/data/vaccinations.csv" class="uri">http://jhudatascience.org/intro_to_r/data/vaccinations.csv</a>
+and assign it to an object named <code>vacc</code>.</p>
 <pre><code># General format
 library(readr)
 # OBJECT &lt;- read_csv(FILE)</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Filter the dataset so that the “Location” column is equal to “US”
+</div>
+<div id="section-1" class="section level3">
+<h3>1.2</h3>
+<p>Filter the dataset so that the “Location” column is equal to “US”
 (aka the entire USA). Store the modified dataset as
-<code>vacc_filtered</code>.</li>
-</ol>
+<code>vacc_filtered</code>.</p>
 <pre><code># General format
 NEW_OBJECT &lt;- OBJECT %&gt;% filter(COLUMNNAME == CRITERIA)</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Write out the <code>vacc_filtered</code> object as a CSV file
-calling it “vacc_filtered.csv”, using <code>write_csv()</code>:</li>
-</ol>
-<p><strong>Bonus / Extra practice</strong>: Copy your code from problem
-3 and modify it to write to the data directory inside your R Project.
-<em>Note: you may need to make a new folder named “data” if it doesn’t
-already exist.</em></p>
-<p><strong>Bonus / Extra practice</strong>: Write one of the objects in
-your Environment to your working directory in <code>rds</code> format.
-Call the file <code>my_variable.rds</code>.</p>
-<p><strong>Bonus / Extra practice</strong>: Read the RDS file from your
-working directory back into your Environment. Call the file
-<code>z</code>.</p>
+</div>
+<div id="section-2" class="section level3">
+<h3>1.3</h3>
+<p>Write out the <code>vacc_filtered</code> object as a CSV file calling
+it “vacc_filtered.csv”, using <code>write_csv()</code>:</p>
+</div>
+</div>
+<div id="practice-on-your-own" class="section level1">
+<h1>Practice on Your Own!</h1>
+<div id="p.1" class="section level3">
+<h3>P.1</h3>
+<p>Copy your code from problem 1.3 and modify it to write to the data
+directory inside your R Project. <em>Note: you may need to make a new
+folder named “data” if it doesn’t already exist.</em></p>
+</div>
+<div id="p.2" class="section level3">
+<h3>P.2</h3>
+<p>Write one of the objects in your Environment to your working
+directory in <code>rds</code> format. Call the file
+<code>my_variable.rds</code>.</p>
+</div>
+<div id="p.3" class="section level3">
+<h3>P.3</h3>
+<p>Read the RDS file from your working directory back into your
+Environment. Call the file <code>z</code>.</p>
+</div>
 </div>
 
 

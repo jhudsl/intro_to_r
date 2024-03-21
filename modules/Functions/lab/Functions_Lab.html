@@ -355,18 +355,16 @@ display: none;
 
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
-<ol start="0" style="list-style-type: decimal">
-<li>Load all the libraries we will use in this lab.</li>
-</ol>
+<p>Load all the libraries we will use in this lab.</p>
 <pre class="r"><code>library(readr)
 library(dplyr)
 library(ggplot2)</code></pre>
-<ol style="list-style-type: decimal">
-<li>Create a function that takes one argument, a vector, and returns the
+<div id="section" class="section level3">
+<h3>1.1</h3>
+<p>Create a function that takes one argument, a vector, and returns the
 sum of the vector and squares the result. Call it “sum_squared”. Test
 your function on the vector <code>c(2,7,21,30,90)</code> - you should
-get the answer 22500.</li>
-</ol>
+get the answer 22500.</p>
 <pre><code># General format
 NEW_FUNCTION &lt;- function(x, y) x + y </code></pre>
 <p>or</p>
@@ -375,36 +373,46 @@ NEW_FUNCTION &lt;- function(x, y){
 result &lt;- x + y 
 return(result)
 }</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li><p>Create a function that takes two arguments, (1) a vector and (2)
-a numeric value. This function tests whether the number (2) is contained
+</div>
+<div id="section-1" class="section level3">
+<h3>1.2</h3>
+<p>Create a function that takes two arguments, (1) a vector and (2) a
+numeric value. This function tests whether the number (2) is contained
 within the vector (1). <strong>Hint</strong>: use <code>%in%</code>.
 Call it <code>has_n</code>. Test your function on the vector
 <code>c(2,7,21,30,90)</code> and number <code>21</code> - you should get
-the answer TRUE.</p></li>
-<li><p>Amend the function <code>has_n</code> from #2 so that it takes a
-default value of <code>21</code> for the numeric argument.</p></li>
-<li><p>Create a new number <code>b_num</code> that is not contained with
+the answer TRUE.</p>
+</div>
+<div id="section-2" class="section level3">
+<h3>1.3</h3>
+<p>Amend the function <code>has_n</code> from question 1.2 so that it
+takes a default value of <code>21</code> for the numeric argument.</p>
+</div>
+<div id="section-3" class="section level3">
+<h3>1.4</h3>
+<p>Create a new number <code>b_num</code> that is not contained with
 <code>nums</code>. Use your updated <code>has_n</code> function with the
 default value and add <code>b_num</code> as the <code>n</code> argument
-when calling the function. What is the outcome?</p></li>
-</ol>
+when calling the function. What is the outcome?</p>
+</div>
 </div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
-<ol start="4" style="list-style-type: decimal">
-<li><p>Read in the SARS-CoV-2 Vaccination data from <a href="http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv" class="uri">http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv</a>.
-Assign the data the name “vacc”.</p></li>
-<li><p>We want to get some summary statistics on the Moderna vaccines.
-Use <code>across</code> inside <code>summarize</code> to get the sum
-total number vaccine doses for any variable containing the word
-“Moderna” AND starting with “Total”. <strong>Hint</strong>: use
+<div id="section-4" class="section level3">
+<h3>2.1</h3>
+<p>Read in the SARS-CoV-2 Vaccination data from <a href="http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv" class="uri">http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv</a>.
+Assign the data the name “vacc”.</p>
+</div>
+<div id="section-5" class="section level3">
+<h3>2.2</h3>
+<p>We want to get some summary statistics on the Moderna vaccines. Use
+<code>across</code> inside <code>summarize</code> to get the sum total
+number vaccine doses for any variable containing the word “Moderna” AND
+starting with “Total”. <strong>Hint</strong>: use
 <code>contains()</code> AND <code>starts_with()</code> to select the
 right columns inside <code>across</code>. Keep in mind that this
 includes the United States as a whole and so it is not totally accurate!
-Remember that <code>NA</code> values can influence
-calculations.</p></li>
-</ol>
+Remember that <code>NA</code> values can influence calculations.</p>
 <pre><code># General format
 data %&gt;%
   summarize(across(
@@ -412,23 +420,31 @@ data %&gt;%
     .fns = {some function},
     {additional arguments}
   ))</code></pre>
-<ol start="6" style="list-style-type: decimal">
-<li><p>Use <code>across</code> and <code>mutate</code> to convert all
+</div>
+<div id="section-6" class="section level3">
+<h3>2.3</h3>
+<p>Use <code>across</code> and <code>mutate</code> to convert all
 columns containing the word “Percent” into proportions (i.e., divide
 that value by 100). <strong>Hint</strong>: use <code>contains()</code>
 to select the right columns within <code>across()</code>. Use a
 “function on the fly” to divide by 100. It will also be easier to check
-your work if you <code>select()</code> columns that match
-“Percent”.</p></li>
-<li><p>Use <code>across</code> and <code>mutate</code> to convert all
+your work if you <code>select()</code> columns that match “Percent”.</p>
+</div>
+<div id="section-7" class="section level3">
+<h3>2.4</h3>
+<p>Use <code>across</code> and <code>mutate</code> to convert all
 columns starting with the word “Total” into a binary variable: TRUE if
 the value is greater than 10,000,000 and FALSE if less than or equal to
 10,000,000. <strong>Hint</strong>: use <code>starts_with()</code> to
 select the columns starting with “Total”. Use a “function on the fly” to
-do a logical test if the value is greater than 10,000,000.</p></li>
-</ol>
-<p><strong>Bonus / Extra practice</strong></p>
-<p>Take your code from #7 and assign it to the variable
+do a logical test if the value is greater than 10,000,000.</p>
+</div>
+</div>
+<div id="practice-on-your-own" class="section level1">
+<h1>Practice on Your Own!</h1>
+<div id="p.1" class="section level3">
+<h3>P.1</h3>
+<p>Take your code from question 2.4 and assign it to the variable
 <code>vacc_dat</code>.</p>
 <ul>
 <li>use <code>filter()</code> to drop any rows where “United States”
@@ -440,6 +456,7 @@ x-axis is <code>Total Doses Delivered</code> and (2) the y-axis is
 <li>You change the <code>labs()</code> layer so that the x-axis is
 “Total Doses Delivered: Greater than 10,000,000”</li>
 </ul>
+</div>
 </div>
 
 

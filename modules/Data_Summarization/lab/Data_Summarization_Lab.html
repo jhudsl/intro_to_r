@@ -353,8 +353,9 @@ display: none;
 </div>
 
 
-<div id="data-used" class="section level1">
-<h1>Data used</h1>
+<div id="part-1" class="section level1">
+<h1>Part 1</h1>
+<p>Data used</p>
 <p>Bike Lanes Dataset: BikeBaltimore is the Department of
 Transportation’s bike program. The data is from <a href="http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms" class="uri">http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms</a></p>
 <p>You can Download as a CSV in your current working directory. Note its
@@ -376,29 +377,42 @@ bike &lt;- read_bike()</code></pre>
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-<div id="part-1" class="section level1">
-<h1>Part 1</h1>
-<p>1. How many bike “lanes” are currently in Baltimore? You can assume
-each observation/row is a different bike “lane”. (hint: how do you get
-the number of rows of a data set? You can use <code>dim()</code> or
+<div id="section" class="section level3">
+<h3>1.1</h3>
+<p>How many bike “lanes” are currently in Baltimore? You can assume each
+observation/row is a different bike “lane”. (hint: how do you get the
+number of rows of a data set? You can use <code>dim()</code> or
 <code>nrow()</code> or another function).</p>
-<p>2. How many feet of bike “lanes” are currently in Baltimore, based on
+</div>
+<div id="section-1" class="section level3">
+<h3>1.2</h3>
+<p>How many feet of bike “lanes” are currently in Baltimore, based on
 the <code>length</code> column? (use <code>sum()</code>)</p>
-<p>3. Summarize the data to get the <code>max</code> of
-<code>length</code> using the <code>summarize</code> function.</p>
+</div>
+<div id="section-2" class="section level3">
+<h3>1.3</h3>
+<p>Summarize the data to get the <code>max</code> of <code>length</code>
+using the <code>summarize</code> function.</p>
 <pre><code># General format 
 DATA_TIBBLE %&gt;% 
     summarize(SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN))</code></pre>
-<p>4. Modify your code from #3 to add the <code>min</code> of
+</div>
+<div id="section-3" class="section level3">
+<h3>1.4</h3>
+<p>Modify your code from 1.3 to add the <code>min</code> of
 <code>length</code> using the <code>summarize</code> function.</p>
 <pre><code># General format 
 DATA_TIBBLE %&gt;% 
     summarize(SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN),
               SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN)
     )</code></pre>
-<p><strong>Bonus / Extra practice</strong>:</p>
-<p>A. Summarize the <code>bike</code> data to get the mean of
+</div>
+</div>
+<div id="practice-on-your-own" class="section level1">
+<h1>Practice on Your Own!</h1>
+<div id="p.1" class="section level3">
+<h3>P.1</h3>
+<p>Summarize the <code>bike</code> data to get the mean of
 <code>length</code> and <code>dateInstalled</code>. Make sure to remove
 <code>NA</code>s.</p>
 <pre><code># General format 
@@ -406,34 +420,56 @@ DATA_TIBBLE %&gt;%
     summarize(SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN, na.rm = TRUE),
               SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN, na.rm = TRUE)
     )</code></pre>
-<p>B. You should have gotten a mean date sometime in the 1800s - that
+</div>
+<div id="p.2" class="section level3">
+<h3>P.2</h3>
+<p>You should have gotten a mean date sometime in the 1800s - that
 doesn’t make much sense! Hypothesize why the average date is a date from
 before bike lanes were being built in Baltimore.</p>
-<p>C. Filter any zeros out of <code>bike</code>
-<code>dateInstalled</code>. Use <code>filter()</code>. Assign this
-“cleaned” dataset object the name <code>bike_2</code>.</p>
+</div>
+<div id="p.3" class="section level3">
+<h3>P.3</h3>
+<p>Filter any zeros out of <code>bike</code> <code>dateInstalled</code>.
+Use <code>filter()</code>. Assign this “cleaned” dataset object the name
+<code>bike_2</code>.</p>
 <pre><code># General format 
 DATA_TIBBLE %&gt;% filter(LOGICAL_COMPARISON)</code></pre>
 </div>
+</div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
-<p>5. How many bike lanes are there in each type of lane? Use
+<div id="section-4" class="section level3">
+<h3>2.1</h3>
+<p>How many bike lanes are there in each type of lane? Use
 <code>count()</code> on the column named <code>type</code>. Use
 <code>bike</code> instead of <code>bike_2</code>.</p>
-<p>6. Modify your code from question 5 to break down each lane type by
+</div>
+<div id="section-5" class="section level3">
+<h3>2.2</h3>
+<p>Modify your code from question 2.1 to break down each lane type by
 number of lanes. Use <code>count()</code> on the columns named
 <code>type</code> and <code>numLanes</code>.</p>
-<p>7. How many bike lanes are there in each type of lane? Use
+</div>
+<div id="section-6" class="section level3">
+<h3>2.3</h3>
+<p>How many bike lanes are there in each type of lane? Use
 <code>group_by()</code>, <code>summarize()</code>, and <code>n()</code>
 on the column named <code>type</code>.</p>
 <pre><code># General format 
 DATA_TIBBLE %&gt;% 
     group_by(GROUPING_COLUMN_NAME) %&gt;% 
     summarize(SUMMARY_COLUMN_NAME = n())</code></pre>
-<p>8. Modify your code from #7 to also group by
-<code>numLanes</code>.</p>
-<p><strong>Bonus / Extra practice</strong>:</p>
-<p>D. Modify code from #7 to also summarize by longest average bike lane
+</div>
+<div id="section-7" class="section level3">
+<h3>2.4</h3>
+<p>Modify your code from 2.3 to also group by <code>numLanes</code>.</p>
+</div>
+</div>
+<div id="practice-on-your-own-1" class="section level1">
+<h1>Practice on Your Own!</h1>
+<div id="p.4" class="section level3">
+<h3>P.4</h3>
+<p>Modify code from 2.3 to also summarize by longest average bike lane
 length? In your summarized output, make sure you call the new summarized
 average bike lane length variable (column name) “mean”. In other words,
 the head of your output should look like:</p>
@@ -442,13 +478,16 @@ the head of your output should look like:</p>
   &lt;chr&gt;                    &lt;int&gt; &lt;dbl&gt;
 1 BIKE BOULEVARD              49  197.
 ...</code></pre>
-<p>E. Take your code from the above question <code>D</code> and do the
-following:</p>
+</div>
+<div id="p.5" class="section level3">
+<h3>P.5</h3>
+<p>Take your code from the above question P.4 and do the following:</p>
 <ul>
 <li>Add another pipe (<code>%&gt;%</code>)</li>
 <li>Add the <code>arrange()</code> to sort the output by the summarized
 column “mean”.</li>
 </ul>
+</div>
 </div>
 
 
