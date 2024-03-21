@@ -64,9 +64,7 @@ vect_data <- tibble(int_vect, rand_vect, TF_vect, TF_vect2)
 
 ```{r}
 circ <- read_circulator()
-
 circ <- read_csv(file = "http://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
-
 ```
 
 - Use the `str()` function to take a look at the data and learn about the column types.

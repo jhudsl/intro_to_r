@@ -26,7 +26,6 @@ library(tidyverse)
 library(OCSdata)
 ```
 
-
 Now let's load the opioid related datasets by running this chunk. 
 
 ```{r}
@@ -39,14 +38,17 @@ Check that it worked by seeing if you have the `county_pop` data.
 county_pop
 ```
 
+### 1.1
 
-1. What class is `county_pop`?
+What class is `county_pop`?
 
 ```{r 1.1response}
 class(county_pop)
 ```
 
-2. How many observations (rows) and variables (columns) are in the dataset - try the `dim()` function?
+### 1.2
+
+How many observations (rows) and variables (columns) are in the dataset - try the `dim()` function?
 
 ```{r 1.2response}
 dim(county_pop)
@@ -54,14 +56,18 @@ nrow(county_pop)
 ncol(county_pop)
 ```
 
-3.  Next, rename the column `BUYER_STATE`  to be `State_name` (hint - use `rename()` and watch out for the order of the new and old names!). 
+### 1.3
+
+Next, rename the column `BUYER_STATE`  to be `State_name` (hint - use `rename()` and watch out for the order of the new and old names!). 
 
 ```{r 1.3response}
 county_pop <- rename(county_pop, State_name = BUYER_STATE)
 head(county_pop)
 ```
 
-4. Convert the column names of `county_pop` to be all lower case. Use `rename_with()`, and the `tolower` command.
+### 1.4
+
+Convert the column names of `county_pop` to be all lower case. Use `rename_with()`, and the `tolower` command.
 
 ```{r 1.4response}
 county_pop <- rename_with(county_pop, tolower)
@@ -70,7 +76,11 @@ dim(county_pop)
 ```
 
 
-**Bonus / Extra practice**: How can you print the first 3 rows and the last 3 rows of `county_pop` (in two lines of code)?
+# Practice on Your Own!
+
+### P.1
+
+How can you print the first 3 rows and the last 3 rows of `county_pop` (in two lines of code)?
 
 ```{r P.1response}
 head(county_pop, 3)
@@ -80,14 +90,18 @@ tail(county_pop, 3)
 
 # Part 2
 
-1. Create a subset of the `county_pop` that only contains the columns: `county_name`, `year`, and `population` and assign this object to `pop_sub` - what are the dimensions of this dataset?
+### 2.1
+
+Create a subset of the `county_pop` that only contains the columns: `county_name`, `year`, and `population` and assign this object to `pop_sub` - what are the dimensions of this dataset?
 
 ```{r 2.1response}
 pop_sub <- select(county_pop, county_name, year, population)
 dim(pop_sub)
 ```
 
-2. Start with `county_pop` again instead of the dataset you just made. Subset the data to only include the `population` column and the columns that end with "_name". Hint: use  `select()` and `ends_with()`. Assign this subset of the data to be `pop2`. Again take a look at the data and check the dimensions.
+### 2.2
+
+Start with `county_pop` again instead of the dataset you just made. Subset the data to only include the `population` column and the columns that end with "_name". Hint: use  `select()` and `ends_with()`. Assign this subset of the data to be `pop2`. Again take a look at the data and check the dimensions.
 
 ```{r 2.2response}
 pop2 <- select(county_pop, population, ends_with("_name"))
@@ -95,21 +109,27 @@ pop2
 dim(pop2)
 ```
 
-3. Pull the variable `county_name` from `pop2`. How does this differ form selecting it? Use head() to take a look at both options.
+### 2.3
+
+Pull the variable `county_name` from `pop2`. How does this differ form selecting it? Use head() to take a look at both options.
 
 ```{r 2.3response}
 head(pull(pop2, county_name))
 head(select(pop2, county_name))
 ```
 
-4. Subset the rows of `county_pop` that have **more** than 100000 for population - how many rows are there? Use `filter()`.
+### 2.4
+
+Subset the rows of `county_pop` that have **more** than 100000 for population - how many rows are there? Use `filter()`.
 
 ```{r 2.4response}
 county_pop_sub <- filter(county_pop, population > 100000)
 nrow(county_pop_sub)
 ```
 
-5. Subset the rows of `county_pop` that have a year value **less** than 2010 and **more** than 100000 population - how many are there?
+### 2.5
+
+Subset the rows of `county_pop` that have a year value **less** than 2010 and **more** than 100000 population - how many are there?
 
 ```{r 2.5response}
 filter(county_pop, year < 2010 & population > 100000) # all of these options work
@@ -117,8 +137,9 @@ nrow(filter(county_pop, year < 2010 & population > 100000))
 nrow(filter(county_pop, year < 2010, population > 100000))
 ```
 
+### 2.6
 
-6. Subset the rows of `county_pop` that have a year value of **less than or equal to ** 2010 and **more** than 100000 population - how many are there?
+Subset the rows of `county_pop` that have a year value of **less than or equal to ** 2010 and **more** than 100000 population - how many are there?
 
 ```{r 2.6response}
 filter(county_pop, year <= 2010 & population > 100000) # all of these options work
@@ -126,14 +147,18 @@ nrow(filter(county_pop, year <= 2010 & population > 100000))
 nrow(filter(county_pop, year <= 2010, population > 100000))
 ```
 
-7. Why do the answers for 5 and 6 differ?
+### 2.7
+
+Why do the answers for 2.5 and 2.6 differ?
 
 ```{r 2.7response}
 # They differ because there are rows with values that are exactly 2010.
 ```
 
 
-**Bonus / Extra practice**:
+# Practice on Your Own!
+
+### P.2
 
 Subset the rows of `county_pop` for rows that have `state_name` of `NM`,  **or** **less** than 10000 `population`.
 How many rows have both?
@@ -143,8 +168,9 @@ filter(county_pop, state_name == "NM" | population < 10000)
 nrow(filter(county_pop, state_name == "NM" & population < 10000))
 ```
 
+### P.3
 
-**Bonus / Extra practice**: Select the variables that contain the letter "a" from `cars_mt_copy`.
+Select the variables that contain the letter "a" from `cars_mt_copy`.
 
 ```{r P.3response}
 select(county_pop, contains("a"))
@@ -153,7 +179,9 @@ select(county_pop, contains("a"))
 
 # Part 3
 
-1. Create a subset called `county_2012` from `county_pop` that only contains the rows for the year 2012 and only the columns: `county_name`,	`state_name`, `population`. `year` should not be included in `county_sub`.
+### 3.1
+
+Create a subset called `county_2012` from `county_pop` that only contains the rows for the year 2012 and only the columns: `county_name`,	`state_name`, `population`. `year` should not be included in `county_sub`.
 	What are the dimensions of this dataset? Don't use pipes (`%>%`) and instead do this in two steps creating the `county_2012` object with `filter` and updating it with `select`.
 
 ```{r 3.1response}
@@ -163,7 +191,9 @@ county_2012 # can get dimensions just from viewing the tibble
 dim(county_2012) # alternatively can use dim() function
 ```
 
-2. Try the same thing again with pipes `%>%`.
+### 3.2
+
+Try the same thing again with pipes `%>%`.
 
 ```{r 3.2response}
 county_2012 <- county_pop %>%
@@ -182,7 +212,9 @@ What happens if you do the steps in a different order? Why does this not work?
 # you get an error because there is now year variable to filter from
 ```
 
-3. Re-order the rows of `county_2012` by population in increasing order. Use `arrange()`. What is county with the smallest population?
+### 1.3
+
+Re-order the rows of `county_2012` by population in increasing order. Use `arrange()`. What is county with the smallest population?
 
 ```{r 3.3response}
 county_2012 <- arrange(county_2012, population)
@@ -192,7 +224,9 @@ arrange(county_2012, population) %>%
   pull(county_name)
 ```
 
-4. Create a new variable in `county_2012` called `pop1000`, which  is equal to `population` divided by 1000, using `mutate()`(don't forget to reassign `county_2012`). Use pipes `%>%`.
+### 1.4
+
+Create a new variable in `county_2012` called `pop1000`, which  is equal to `population` divided by 1000, using `mutate()`(don't forget to reassign `county_2012`). Use pipes `%>%`.
 
 ```
 # General format
@@ -204,15 +238,20 @@ county_2012 <- county_2012 %>% mutate(pop1000 = population/1000)
 ```
 
 
-**Bonus / Extra practice**: Move the `state_name` column to be before `county_name` in the `county_2012` dataset. Use `relocate()`.
+# Practice on Your Own!
+
+### P.4
+
+Move the `state_name` column to be before `county_name` in the `county_2012` dataset. Use `relocate()`.
 
 ```{r P.4response}
 county_2012 <- county_2012 %>% relocate(state_name, .before = county_name)
 county_2012
 ```
 
+### P.5
 
-**Bonus / Extra practice**: How can you find the value of `population` for Chambers AL without just looking at the data manually and instead use functions we learned today?
+How can you find the value of `population` for Chambers AL without just looking at the data manually and instead use functions we learned today?
 
 ```{r P.5response}
 county_2012 %>%
