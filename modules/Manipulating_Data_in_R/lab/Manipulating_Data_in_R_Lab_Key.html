@@ -361,7 +361,9 @@ library(dplyr)
 library(tidyr)</code></pre>
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
-<p>1. Read in the SARS-CoV-2 Vaccination data from <a href="http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv" class="uri">http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv</a>.
+<div id="section" class="section level3">
+<h3>1.1</h3>
+<p>Read in the SARS-CoV-2 Vaccination data from <a href="http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv" class="uri">http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv</a>.
 You can use the url or download the data. Assign the data the name
 “vacc”. We will be reviewing new concepts here and incorporating some
 from week 1.</p>
@@ -382,8 +384,11 @@ package.</li>
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre class="r"><code># If downloaded
 # vacc &lt;- read_csv(&quot;USA_covid19_vaccinations.csv&quot;)</code></pre>
-<p>2. Look at the column names using <code>colnames</code> - do you
-notice any patterns?</p>
+</div>
+<div id="section-1" class="section level3">
+<h3>1.2</h3>
+<p>Look at the column names using <code>colnames</code> - do you notice
+any patterns?</p>
 <pre class="r"><code>colnames(vacc)</code></pre>
 <pre><code>##   [1] &quot;State/Territory/Federal Entity&quot;                                    
 ##   [2] &quot;Total Doses Delivered&quot;                                             
@@ -511,26 +516,38 @@ notice any patterns?</p>
 ## [124] &quot;Percent People Primary Other Booster J&amp;J&quot;                          
 ## [125] &quot;Percent People Primary Other Booster Uknown&quot;</code></pre>
 <pre class="r"><code># Looks like many start with &quot;Percent&quot; and some start with &quot;Total&quot; - this indicates there are different units of measure for these different variables!</code></pre>
-<p>3. Let’s rename the column “State/Territory/Federal Entity” in “vacc”
-to “Entity” using <code>rename</code>. Make sure to reassign to
+</div>
+<div id="section-2" class="section level3">
+<h3>1.3</h3>
+<p>Let’s rename the column “State/Territory/Federal Entity” in “vacc” to
+“Entity” using <code>rename</code>. Make sure to reassign to
 <code>vacc</code> here and in subsequent steps.</p>
 <pre><code># General format
 new_data &lt;- old_data %&gt;% rename(newname = oldname)</code></pre>
 <pre class="r"><code>vacc &lt;- vacc %&gt;% rename(Entity = `State/Territory/Federal Entity`)</code></pre>
-<p>4. Select only the columns “Entity”, and those that start with
+</div>
+<div id="section-3" class="section level3">
+<h3>1.4</h3>
+<p>Select only the columns “Entity”, and those that start with
 “Percent”. Use <code>select</code> and
 <code>starts_with(&quot;Percent&quot;)</code>.</p>
 <pre><code># General format
 new_data &lt;- old_data %&gt;% select(colname1, colname2, ...)</code></pre>
 <pre class="r"><code>vacc &lt;- vacc %&gt;% select(Entity, starts_with(&quot;Percent&quot;))</code></pre>
-<p>5. Create a new dataset “vacc_long” that does
+</div>
+<div id="section-4" class="section level3">
+<h3>1.5</h3>
+<p>Create a new dataset “vacc_long” that does
 <code>pivot_longer()</code> on all columns except “Entity”. Remember
 that <code>!Entity</code> means all columns except “Entity”.</p>
 <pre><code># General format
 new_data &lt;- old_data %&gt;% pivot_longer(cols = colname(s))</code></pre>
 <pre class="r"><code>vacc_long &lt;- vacc %&gt;% pivot_longer(cols = !Entity)</code></pre>
-<p>6. Using <code>vacc_long</code>, filter the “Entity” column so it
-only includes values in the following list:
+</div>
+<div id="section-5" class="section level3">
+<h3>1.6</h3>
+<p>Using <code>vacc_long</code>, filter the “Entity” column so it only
+includes values in the following list:
 “Maryland”,“Virginia”,“Florida”,“Massachusetts”, “United States”.
 <strong>Hint</strong>: use <code>filter</code> and
 <code>%in%</code>.</p>
@@ -538,8 +555,11 @@ only includes values in the following list:
 new_data &lt;- old_data %&gt;% filter(colname %in% c(1, 2, 3, ...))</code></pre>
 <pre class="r"><code>vacc_long &lt;- vacc_long %&gt;%
   filter(Entity %in% c(&quot;Maryland&quot;, &quot;Virginia&quot;, &quot;Mississippi&quot;, &quot;Massachusetts&quot;, &quot;United States&quot;))</code></pre>
-<p>7. Use <code>pivot_wider</code> to reshape “vacc_long”. Use “Entity”
-for the <code>names_from</code> argument. Use “value” for the
+</div>
+<div id="section-6" class="section level3">
+<h3>1.7</h3>
+<p>Use <code>pivot_wider</code> to reshape “vacc_long”. Use “Entity” for
+the <code>names_from</code> argument. Use “value” for the
 <code>values_from</code> argument. Call this new data
 <code>vacc_wide</code>. Look at the data. How do these states compare to
 one another.</p>
@@ -565,8 +585,13 @@ vacc_wide</code></pre>
 ##  9 Percent of 65+ P…            95            95       95          89.8     95  
 ## 10 Percent of 65+ P…            88            93       92.6        82.1     90.1
 ## # ℹ 24 more rows</code></pre>
-<p><strong>Bonus / Extra practice</strong>:</p>
-<p>A. Take the code from Questions 1 and 3-7. Chain all of this code
+</div>
+</div>
+<div id="practice-on-your-own" class="section level1">
+<h1>Practice on Your Own!</h1>
+<div id="p.1" class="section level3">
+<h3>P.1</h3>
+<p>Take the code from Questions 1.1 and 1.3-1.7. Chain all of this code
 together using the pipe <code>%&gt;%</code>. Call your data
 <code>vacc_compare</code>.</p>
 <pre class="r"><code>vacc_compare &lt;-
@@ -600,7 +625,10 @@ together using the pipe <code>%&gt;%</code>. Call your data
 ##  9 Percent of 65+ P…            95            95       95          89.8     95  
 ## 10 Percent of 65+ P…            88            93       92.6        82.1     90.1
 ## # ℹ 24 more rows</code></pre>
-<p>B. Modify the code from Question A:</p>
+</div>
+<div id="p.2" class="section level3">
+<h3>P.2</h3>
+<p>Modify the code from Question P.1:</p>
 <ul>
 <li>Look for columns that start with “Total” (instead of “Percent”)
 and</li>
@@ -646,9 +674,12 @@ and</li>
 ## 17 Total Count People w/Booster Boos…         1069038      NA         NA      NA
 ## 18 Total Count People w/Booster Boos…           16852      NA         NA      NA</code></pre>
 </div>
+</div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
-<p>8. Read in the GDP and Personal Income Data from <a href="http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv" class="uri">http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv</a>.
+<div id="section-7" class="section level3">
+<h3>2.1</h3>
+<p>Read in the GDP and Personal Income Data from <a href="http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv" class="uri">http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv</a>.
 You can use the url or download the data. Call it “gdp”.</p>
 <pre class="r"><code>gdp &lt;- read_csv(&quot;http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv&quot;)</code></pre>
 <pre><code>## Rows: 180 Columns: 3
@@ -661,9 +692,12 @@ You can use the url or download the data. Call it “gdp”.</p>
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre class="r"><code># If downloaded
 # gdp &lt;- read_csv(&quot;gdp_personal_income.csv&quot;)</code></pre>
-<p>9. Use <code>pivot_wider</code> to reshape “gdp”. Use “Description”
-for the <code>names_from</code> argument. Use “<code>2020</code>” for
-the <code>values_from</code> argument. Reassign this data to “gdp”.</p>
+</div>
+<div id="section-8" class="section level3">
+<h3>2.2</h3>
+<p>Use <code>pivot_wider</code> to reshape “gdp”. Use “Description” for
+the <code>names_from</code> argument. Use “<code>2020</code>” for the
+<code>values_from</code> argument. Reassign this data to “gdp”.</p>
 <pre><code># General format
 new_data &lt;- old_data %&gt;% pivot_wider(names_from = column1, values_from = column2)</code></pre>
 <pre class="r"><code>gdp &lt;- gdp %&gt;%
@@ -671,7 +705,10 @@ new_data &lt;- old_data %&gt;% pivot_wider(names_from = column1, values_from = c
     names_from = Description,
     values_from = `2020`
   )</code></pre>
-<p>10. Join the data. Keep only data that is found in both “vacc” and
+</div>
+<div id="section-9" class="section level3">
+<h3>2.3</h3>
+<p>Join the data. Keep only data that is found in both “vacc” and
 “gdp”.</p>
 <ul>
 <li>First, try joining without using the <code>by</code> argument - what
@@ -687,27 +724,41 @@ new_data &lt;- inner_join(x, y, by = c(&quot;colname1&quot; = &quot;colname2&quo
 merged &lt;- inner_join(vacc, gdp, by = c(&quot;Entity&quot; = &quot;GeoName&quot;))
 nrow(merged)</code></pre>
 <pre><code>## [1] 51</code></pre>
-<p>11. Change your code from Question 10 to do a <code>full_join.</code>
+</div>
+<div id="section-10" class="section level3">
+<h3>2.4</h3>
+<p>Change your code from Question 10 to do a <code>full_join.</code>
 Call the output “full”. How many observations (rows) are there?</p>
 <pre><code># General format
 new_data &lt;- full_join(x, y, by = c(&quot;colname1&quot; = &quot;colname2&quot;))</code></pre>
 <pre class="r"><code>full &lt;- full_join(vacc, gdp, by = c(&quot;Entity&quot; = &quot;GeoName&quot;))
 nrow(full)</code></pre>
 <pre><code>## [1] 73</code></pre>
-<p><strong>Bonus / Extra practice</strong>:</p>
-<p>C. Do a left join of “vacc” and “gdp”. Call the output “left”. How
-many observations are there?</p>
+</div>
+</div>
+<div id="practice-on-your-own-1" class="section level1">
+<h1>Practice on Your Own!</h1>
+<div id="p.3" class="section level3">
+<h3>P.3</h3>
+<p>Do a left join of “vacc” and “gdp”. Call the output “left”. How many
+observations are there?</p>
 <pre class="r"><code>left &lt;- left_join(vacc, gdp, by = c(&quot;Entity&quot; = &quot;GeoName&quot;))
 nrow(left)</code></pre>
 <pre><code>## [1] 64</code></pre>
-<p>D. Copy your code from Question D and change it to a
+</div>
+<div id="p.4" class="section level3">
+<h3>P.4</h3>
+<p>Copy your code from Question P.3 and change it to a
 <code>right_join</code> with the same order of the arguments. Call the
 output “right”. How many observations are there?</p>
 <pre class="r"><code>right &lt;- right_join(vacc, gdp, by = c(&quot;Entity&quot; = &quot;GeoName&quot;))
 nrow(right)</code></pre>
 <pre><code>## [1] 60</code></pre>
-<p>E. Perform two <code>anti_join</code> operations on “vacc” and “gdp”
-to determine what Entities are missing from the GDP data and which are
+</div>
+<div id="p.5" class="section level3">
+<h3>P.5</h3>
+<p>Perform two <code>anti_join</code> operations on “vacc” and “gdp” to
+determine what Entities are missing from the GDP data and which are
 missing from the vaccine data.</p>
 <pre><code># General format
 anti_join(L, R, by = c(&quot;name_L&quot; = &quot;name_R&quot;)) %&gt;% select(name_L)</code></pre>
@@ -743,6 +794,7 @@ in_vacc_only</code></pre>
 ## 7 Southwest     
 ## 8 Rocky Mountain
 ## 9 Far West</code></pre>
+</div>
 </div>
 
 
