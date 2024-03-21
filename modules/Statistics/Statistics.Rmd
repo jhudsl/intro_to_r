@@ -26,10 +26,10 @@ library(emo)
 ## Summary
 
 - `ggplot()` specifies what data to use and what variables will be mapped to where
-- inside `ggplot()`, `mapping = aes(x = , y = , color = )` specify what variables correspond to what aspects of the plot in general
+- inside `ggplot()`, `aes(x = , y = , color = )` specify what variables correspond to what aspects of the plot in general
 - layers of plots can be combined using the `+` at the **end** of lines
 - use `geom_line()` and `geom_point()` to add lines and points
-- sometimes you need to add a `group` element to `mapping = aes()` if your plot looks strange
+- sometimes you need to add a `group` element to `aes()` if your plot looks strange
 - make sure you are plotting what you think you are by checking the numbers!
 - `facet_grid(~variable)` and `facet_wrap(~variable)` can be helpful to quickly split up your plot
 
