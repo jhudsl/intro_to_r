@@ -29,7 +29,7 @@ pre { /* Code block - slightly smaller in this lecture */
 - `arrange()`: reorder rows
 - `mutate()`: create new columns or modify them
 - `select()` and `filter()` can be combined together
-- remove a column: `select()` with negative sign (`-col_name`)
+- remove a column: `select()` with `!` mark (`!col_name`)
 - you can do sequential steps: especially using pipes `%>%`
 
 📃[Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-3.pdf)
@@ -160,15 +160,7 @@ jhu_cars %>% pull(wt) %>% range() # Correct
 ```
 
 
-## Data Summarization on data frames
-
-* Basic statistical summarization
-    * `rowMeans(x)`: takes the means of each row of x
-    * `colMeans(x)`: takes the means of each column of x
-    * `rowSums(x)`: takes the sum of each row of x
-    * `colSums(x)`: takes the sum of each column of x
-    * `summary(x)`: for data frames, displays the quantile information
-
+# Summarization on tibbles (data frames)
 
 ## TB Incidence 
 
@@ -568,9 +560,19 @@ knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 
 Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
 
+
 # Extra Slides: More advanced summarization
 
-## Row means
+## Data Summarization on data frames
+ 
+* Statistical summarization across the data frame
+    * `rowMeans(x)`: takes the means of each row of x
+    * `colMeans(x)`: takes the means of each column of x
+    * `rowSums(x)`: takes the sum of each row of x
+    * `colSums(x)`: takes the sum of each column of x
+
+
+## `rowMeans()` example
 
 Get means for each row.
 
@@ -589,7 +591,7 @@ tb %>%
 ```
 
 
-## Column means
+## `colMeans()` example
 
 Get means for each column.
 
