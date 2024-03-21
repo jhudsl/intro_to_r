@@ -19,28 +19,29 @@ library(emoji)
 
 ## Recap on summarization
 
--   `summary(x)`: quantile information
--   `summarize`: creates a summary table of columns of interest
--   `count(variable)`: how many of each unique value do you have
--   `group_by()`: changes all subsequent functions
-    -   combine with `summarize()` to get statistics per group
--   `plot()` and `hist()` are great for a **quick snapshot** of the data
+- `summary(x)`: quantile information
+- `count(x)`: what unique values do you have? 
+  - `distinct()`: what are the distinct values?
+  - `n_distinct()` with `pull()`: how many distinct values?
+- `group_by()`: changes all subsequent functions
+  - combine with `summarize()` to get statistics per group
+  - combine with `mutate()` to add column
+- `summarize()` with `n()` gives the count (NAs included) 
 
 📃[Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-4.pdf)
 
 ## Recap on data classes
 
--   tibbles show column classes!
--   `as.CLASS_NAME(x)` can be used to change the class of an object x
--  `class()` can test what class an object is
--   Logic class objects only have `TRUE` or `False` (without quotes)
--   Two kinds of numeric subclasses - integer (whole numbers) and double (fractional values)
--   Character class values need quotes
--   Factors are a special character class that has levels
--   matrix has columns and rows but is all one data class
--   lists can contain multiples of any other class of data including
-    lists!
--   The `lubridate` package is helpful for dates and times\
+- There are two types of number class objects: integer and double
+- Logic class objects only have `TRUE` or `FALSE` (without quotes)
+- `class()` can be used to test the class of an object x
+- `as.CLASS_NAME(x)` can be used to change the class of an object x
+- Factors are a special character class that has levels - more on that soon!
+- tibbles show column classes!
+- two dimensional object classes include: data frames, tibbles, matrices, and lists
+- Dates can be handled with the `lubridate` package
+- Make sure you choose the right function for the way the date is formatted!
+
     📃[Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-4.pdf)
 
 ## Data Cleaning {.emphasized}
