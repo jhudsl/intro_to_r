@@ -443,47 +443,7 @@ airquality %>%
 
 Similar to across, `purrr` is a package that allows you to apply a function to multiple columns in a data frame or multiple data objects in a list.
 
-## map
-
-By default, the map functions return lists. So in this example we have to follow up `map()` with `bind_cols()` to turn our `list` back into a `data.frame`.  
-
-```{r}
-library(purrr)
-airquality %>% 
-  map(replace_na, replace = 0) %>% 
-  bind_cols()
-```
-Note you could accomplish the same task by doing: `airquality %>% mutate_all(~replace_na(., replace = 0))`
-
-## pmap
-
-`pmap()` is a very handy `purrr` function for running through multiple inputs at once. `pmap` is handy if we wanted to do something different with each variable. And it can handle lists or dataframes! But as with a lot of `purrr` functions it will by default spit back a `list`. 
-
-```{r}
-metric_list <- airquality %>% 
-  # pmap only wants the variables we end up using so we'll do a select() first 
-  select(Wind, Temp) %>% 
-  # We declare the variables in `function()`
-  pmap(function(Wind, Temp) { 
-    # Then whatever we want to happen with those variables goes here!
-    # Let's say we want to convert these units to metric!
-    metric_df <- data.frame(
-      wind_metric = Wind * 1.609, 
-      temp = (Temp - 32)*(5/9)
-    )
-      return(metric_df)
-    })
-
-# Note there is 153 items in the list -- corresponding to the 153 rows of data in airquality
-str(metric_list)
-```
-
-In this particular instance we could turn this back into a data.frame again because the lengths of the 153 lists are all identical, but you can see how pmap gives you a lot of power to handle different shapes of data. 
-
-```{r}
-metric_df <- bind_rows(metric_list)
-```
-
+While we won't get into `purrr` too much in this class, its a handy package for you to know about should you get into a situation where you have an irregular list you need to handle!
 
 # Multiple Data Frames
 
@@ -511,7 +471,6 @@ AQ_list %>% sapply(colMeans, na.rm = TRUE)
 - Apply your functions with `sapply(<a vector or list>, some_function)`
 - Use `across()` to apply functions across multiple columns of data 
 - Need to use `across` within `summarize()` or `mutate()`
-- `purrr` is a package that you can use to do more iterative work easily
 - Can use `sapply` or `purrr` to work with multiple data frames within lists simultaneously
 
 
