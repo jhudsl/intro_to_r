@@ -3632,7 +3632,7 @@ dropouts_fct %&gt;%
 <pre class = 'prettyprint lang-r'>library(forcats)
 
 dropouts_fct %&gt;%
-  ggplot(mapping = aes(x = fct_reorder(grade, n_dropouts, .desc = TRUE, mean), y = n_dropouts)) +
+  ggplot(mapping = aes(x = fct_reorder(grade, n_dropouts, mean, .desc = TRUE), y = n_dropouts)) +
   geom_boxplot() +
   labs(x = &quot;Student Grade&quot;) +
   theme_bw(base_size = 16)</pre>
