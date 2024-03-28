@@ -353,8 +353,9 @@ display: none;
 </div>
 
 
-<div id="data-used" class="section level1">
-<h1>Data used</h1>
+<div id="part-1" class="section level1">
+<h1>Part 1</h1>
+<p><strong>Data used</strong></p>
 <p>Bike Lanes Dataset: BikeBaltimore is the Department of
 Transportation’s bike program. The data is from <a href="http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms" class="uri">http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms</a></p>
 <p>You can Download as a CSV in your current working directory. Note its
@@ -366,40 +367,52 @@ library(lubridate)
 library(jhur)
 library(tidyverse)
 library(broom)
+# install.packages(&quot;naniar&quot;)
 library(naniar)</code></pre>
-</div>
-<div id="part-1" class="section level1">
-<h1>Part 1</h1>
-<ol start="0" style="list-style-type: decimal">
-<li>Read in the bike data, you can use the URL or download the
-data.</li>
-</ol>
+<p>Read in the bike data, you can use the URL or download the data.</p>
 <p>Bike Lanes Dataset: BikeBaltimore is the Department of
 Transportation’s bike program. The data is from <a href="http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms" class="uri">http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gyms</a></p>
 <p>You can Download as a CSV in your current working directory. Note its
 also available at: <a href="http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv" class="uri">http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv</a></p>
-<ol style="list-style-type: decimal">
-<li><p>Use the <code>is.na()</code> and <code>any()</code> functions to
+<div id="section" class="section level3">
+<h3>1.1</h3>
+<p>Use the <code>is.na()</code> and <code>any()</code> functions to
 check if the bike <code>dateInstalled</code> variable has any
 <code>NA</code> values. Use the pipe between each step. Hint: You first
 need to <code>pull</code> out the vector version of this variable to use
-the <code>is.na()</code> function.</p></li>
-<li><p>Clean rows of bike, so that only rows remain that do NOT have
-missing values for the <code>route</code> variable, using
-<code>drop_na</code>. Assign this to the object
-<code>have_route.</code></p></li>
-<li><p>Use <code>naniar</code> to make a visual of the amount of data
+the <code>is.na()</code> function.</p>
+<pre><code># General format
+TIBBLE %&gt;%
+  pull(COLUMN) %&gt;%
+  is.na() %&gt;%
+  any()</code></pre>
+</div>
+<div id="section-1" class="section level3">
+<h3>1.2</h3>
+<p>Clean rows of bike, so that only rows remain that do NOT have missing
+values for the <code>route</code> variable, using <code>drop_na</code>.
+Assign this to the object <code>have_route.</code></p>
+</div>
+<div id="section-2" class="section level3">
+<h3>1.3</h3>
+<p>Use <code>naniar</code> to make a visual of the amount of data
 missing for each variable of <code>bike</code> (use
-<code>gg_miss_var()</code>). Check out more about this package here: <a href="https://www.njtierney.com/post/2018/06/12/naniar-on-cran/" class="uri">https://www.njtierney.com/post/2018/06/12/naniar-on-cran/</a></p></li>
-</ol>
-<p><strong>Bonus / Extra practice</strong></p>
+<code>gg_miss_var()</code>). Check out more about this package here: <a href="https://www.njtierney.com/post/2018/06/12/naniar-on-cran/" class="uri">https://www.njtierney.com/post/2018/06/12/naniar-on-cran/</a></p>
+</div>
+</div>
+<div id="practice-on-your-own" class="section level1">
+<h1>Practice on Your Own!</h1>
+<div id="p.1" class="section level3">
+<h3>P.1</h3>
 <p>What percentage of the <code>subType</code> variable is complete of
 <code>bike</code> ? Hint: use another <code>naniar</code> function.</p>
 </div>
+</div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
-<p><strong>New Data set</strong> Now imagine we work in a clinic and we
-are trying to understand more about blood types of patients.</p>
+<p><strong>New Data set</strong></p>
+<p>Now imagine we work in a clinic and we are trying to understand more
+about blood types of patients.</p>
 <p>Let’s say we the data like so:</p>
 <pre class="r"><code>BloodType &lt;- tibble(
   weight_loss =
@@ -440,48 +453,74 @@ BloodType</code></pre>
 ## 14 N           o.+   Yes      
 ## 15 Other       AB.-  NotSure</code></pre>
 <p>There are some issues with this data that we need to figure out!</p>
-<ol style="list-style-type: decimal">
-<li><p>Determine how many <code>NA</code> values there are for
+<div id="section-3" class="section level3">
+<h3>2.1</h3>
+<p>Determine how many <code>NA</code> values there are for
 <code>weight_loss</code> (assume you know that<code>N</code> and
-<code>n</code> is for no).</p></li>
-<li><p>Recode the <code>weight_loss</code> variable of the
+<code>n</code> is for no).</p>
+</div>
+<div id="section-4" class="section level3">
+<h3>2.2</h3>
+<p>Recode the <code>weight_loss</code> variable of the
 <code>BloodType</code> data so that it is consistent. Use
 <code>case_when()</code>. Keep “Other” as “Other”. Don’t forget to use
-quotes!</p></li>
-</ol>
+quotes!</p>
+<pre><code># General format
+NEW_TIBBLE &lt;- OLD_TIBBLE %&gt;%
+  mutate(NEW_COLUMN = case_when(
+    OLD_COLUMN %in% c( ... ) ~ ... ,
+    OLD_COLUMN %in% c( ... ) ~ ... ,
+    TRUE ~ OLD_COLUMN
+  ))</code></pre>
+</div>
+<div id="section-5" class="section level3">
+<h3>2.3</h3>
 <p>Check to see how many values <code>weight_loss</code> has for each
 category (hint: use <code>count</code>). It’s good practice to regularly
 check your data throughout the data wrangling process.</p>
-<ol start="3" style="list-style-type: decimal">
-<li></li>
-<li><p>Recode the <code>type</code> variable of the
-<code>BloodType</code> data to be consistent. Use
-<code>case_when()</code>. Hint: the inconsistency has to do with lower
-case <code>o</code> and capital <code>O</code>. Don’t forget to use
-quotes! <strong>Remember that important extra step that we often do for
-<code>case_when()</code>. Sometimes it matters and sometimes it
-doesn’t.</strong> Why is that?</p></li>
-<li><p>Check to see that <code>type</code> only has these possible
-values: “A.-”,“A.+”, “AB.-”, “AB.+”, “B-”,“B+”, “O.-”, “O.+”</p></li>
-<li><p>Make a new tibble of <code>BloodType</code> called
+</div>
+<div id="section-6" class="section level3">
+<h3>2.4</h3>
+<p>Recode the <code>type</code> variable of the <code>BloodType</code>
+data to be consistent. Use <code>case_when()</code>. Hint: the
+inconsistency has to do with lower case <code>o</code> and capital
+<code>O</code>. Don’t forget to use quotes! <strong>Remember that
+important extra step that we often do for <code>case_when()</code>.
+Sometimes it matters and sometimes it doesn’t.</strong> Why is that?</p>
+</div>
+<div id="section-7" class="section level3">
+<h3>2.5</h3>
+<p>Check to see that <code>type</code> only has these possible values:
+“A.-”,“A.+”, “AB.-”, “AB.+”, “B-”,“B+”, “O.-”, “O.+”</p>
+</div>
+<div id="section-8" class="section level3">
+<h3>2.6</h3>
+<p>Make a new tibble of <code>BloodType</code> called
 <code>Bloodtype_split</code> that splits the <code>type</code> variable
 into two called <code>blood_type</code> and <code>Rhfactor</code>. Note:
 periods are special characters that generally are interpreted as wild
 cards thus we need “\.” instead of simply “.” for the <strong>separating
 character</strong> to tell R that we want it to be interpreted as a
 period. Make sure you use quotes around “\.” and the column names like
-shown below (don’t want backticks).</p></li>
-</ol>
+shown below (don’t want backticks).</p>
 <pre><code># General format
 NEW_TIBBLE &lt;- OLD_TIBBLE %&gt;%
   separate(OLD_COLUMN,
            into = c(&quot;NEW_COLUMN1&quot;, &quot;NEW_COLUMN2&quot;),
            sep = &quot;SEPARATING_CHARACTER&quot;)</code></pre>
-<p><strong>Bonus / Extra practice</strong>: How many observations are
-there for each <code>Rhfactor</code> in the data object you just
-made:</p>
-<p><strong>Bonus / Extra practice</strong>: Filtering for patients with
-type O, how many had the infection?</p>
+</div>
+</div>
+<div id="practice-on-your-own-1" class="section level1">
+<h1>Practice on Your Own!</h1>
+<div id="p.2" class="section level3">
+<h3>P.2</h3>
+<p>How many observations are there for each <code>Rhfactor</code> in the
+data object you just made:</p>
+</div>
+<div id="p.3" class="section level3">
+<h3>P.3</h3>
+<p>Filtering for patients with type O, how many had the infection?</p>
+</div>
 </div>
 
 

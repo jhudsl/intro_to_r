@@ -15,17 +15,23 @@ The way you can create a file like this in RStudio is: File → New File → R M
 
 Now we will install some packages! Note it may take ~5-10 minutes to run all these steps. **You need to run these steps in the order listed.**
 
-1) First copy and paste the following code into the console (the lower left panel/pane) - **but do not copy the backticks**: <br>
+### 0.1
+
+First copy and paste the following code into the console (the lower left panel/pane) - **but do not copy the backticks**: <br>
 `install.packages("remotes")`<br>
 This code will install a package from CRAN called "remotes". <br>
 You may be asked a question in the console when you do this. If so, answer by typing Yes into the console.
 
-2) Next copy and paste the following code again into the console (the lower left panel/pane), **again do not copy the backticks**:  <br>
+### 0.2
+
+Next copy and paste the following code again into the console (the lower left panel/pane), **again do not copy the backticks**:  <br>
 `library(remotes)` <br>
 This code loads the remotes package into memory- in other words we can use the functions within the package.<br>
 You may be asked a question in the console when you do this. If so, answer by typing Yes into the console.
 
-3) Now install a package that the instructors made that is not on CRAN but on GitHub, by copy and pasting the code into the console. We still don't want to copy the backticks.<br>
+### 0.3
+
+Now install a package that the instructors made that is not on CRAN but on GitHub, by copy and pasting the code into the console. We still don't want to copy the backticks.<br>
 `install_github("jhudsl/jhur")`<br>
 You may be asked a question in the console when you do this. If so, answer by typing Yes into the console.
 
@@ -100,16 +106,24 @@ Here is another code chunk for our exercises.
 x <- c(1, 2, 3)
 ```
 
+### 1.1
 
-1.  Go through the code for the plot above and change the colors in `palette` to something other than what they originally were. See http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf for a large list of colors. For example, you could replace blue with red.
+Go through the code for the plot above and change the colors in `palette` to something other than what they originally were. See http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf for a large list of colors. For example, you could replace blue with red.
 
-2. Add a new R chunk below the bonus instructions.You can use the insert chunk button or copy paste an existing code chunk. Include a lowercase x inside the chunk as the code. Thus it should look like the chunk above but without `<- c(1,2,3)`. Make sure you press the knit button after this to see what the new chunk looks like.
+### 1.2
+
+Add a new R chunk below the bonus instructions.You can use the insert chunk button or copy paste an existing code chunk. Include a lowercase x inside the chunk as the code. Thus it should look like the chunk above but without `<- c(1,2,3)`. Make sure you press the knit button after this to see what the new chunk looks like.
 
 
-**Bonus / Extra practice**:
+# Practice on Your Own!
 
-1. Update the options of the R chunk you just made (with the lowercase x in it) so that the output option is `show output only`. How does the chunk look now?
-2. Create another R Markdown Document from RStudio dropdowns: File → New File → R Markdown.
+### P.1
+
+Update the options of the R chunk you just made (with the lowercase x in it) so that the output option is `show output only`. How does the chunk look now?
+
+### P.2
+
+Create another R Markdown Document from RStudio dropdowns: File → New File → R Markdown.
 
 
 

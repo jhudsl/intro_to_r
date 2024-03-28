@@ -3273,7 +3273,7 @@ pre { /* Code block - slightly smaller in this lecture */
 <li><code>arrange()</code>: reorder rows</li>
 <li><code>mutate()</code>: create new columns or modify them</li>
 <li><code>select()</code> and <code>filter()</code> can be combined together</li>
-<li>remove a column: <code>select()</code> with negative sign (<code>-col_name</code>)</li>
+<li>remove a column: <code>select()</code> with <code>!</code> mark (<code>!col_name</code>)</li>
 <li>you can do sequential steps: especially using pipes <code>%&gt;%</code></li>
 </ul>
 
@@ -3437,19 +3437,7 @@ class(cars_wt)</pre>
 
 <pre >[1] 1.513 5.424</pre>
 
-</article></slide><slide class=""><hgroup><h2>Data Summarization on data frames</h2></hgroup><article  id="data-summarization-on-data-frames">
-
-<ul>
-<li>Basic statistical summarization
-
-<ul>
-<li><code>rowMeans(x)</code>: takes the means of each row of x</li>
-<li><code>colMeans(x)</code>: takes the means of each column of x</li>
-<li><code>rowSums(x)</code>: takes the sum of each row of x</li>
-<li><code>colSums(x)</code>: takes the sum of each column of x</li>
-<li><code>summary(x)</code>: for data frames, displays the quantile information</li>
-</ul></li>
-</ul>
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Summarization on tibbles (data frames)</h2></hgroup><article  id="summarization-on-tibbles-data-frames">
 
 </article></slide><slide class=""><hgroup><h2>TB Incidence</h2></hgroup><article  id="tb-incidence">
 
@@ -4131,7 +4119,20 @@ yts_loc %&gt;% unique() # similar to distinct()</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Extra Slides: More advanced summarization</h2></hgroup><article  id="extra-slides-more-advanced-summarization">
 
-</article></slide><slide class=""><hgroup><h2>Row means</h2></hgroup><article  id="row-means">
+</article></slide><slide class=""><hgroup><h2>Data Summarization on data frames</h2></hgroup><article  id="data-summarization-on-data-frames">
+
+<ul>
+<li>Statistical summarization across the data frame
+
+<ul>
+<li><code>rowMeans(x)</code>: takes the means of each row of x</li>
+<li><code>colMeans(x)</code>: takes the means of each column of x</li>
+<li><code>rowSums(x)</code>: takes the sum of each row of x</li>
+<li><code>colSums(x)</code>: takes the sum of each column of x</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2><code>rowMeans()</code> example</h2></hgroup><article  id="rowmeans-example">
 
 <p>Get means for each row.</p>
 
@@ -4158,7 +4159,7 @@ yts_loc %&gt;% unique() # similar to distinct()</pre>
 4 American Samoa   NaN
 5 Andorra          NaN</pre>
 
-</article></slide><slide class=""><hgroup><h2>Column means</h2></hgroup><article  id="column-means">
+</article></slide><slide class=""><hgroup><h2><code>colMeans()</code> example</h2></hgroup><article  id="colmeans-example">
 
 <p>Get means for each column.</p>
 

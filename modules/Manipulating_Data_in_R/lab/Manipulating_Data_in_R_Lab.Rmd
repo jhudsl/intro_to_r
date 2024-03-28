@@ -19,7 +19,9 @@ library(tidyr)
 
 # Part 1
 
-1\. Read in the SARS-CoV-2 Vaccination data from http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv. You can use the url or download the data. Assign the data the name "vacc". We will be reviewing new concepts here and incorporating some from week 1. 
+### 1.1
+
+Read in the SARS-CoV-2 Vaccination data from http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv. You can use the url or download the data. Assign the data the name "vacc". We will be reviewing new concepts here and incorporating some from week 1. 
 
 -  Remember to use `read_csv()` from the `readr` package.
 -  Do NOT use `read.csv()`.
@@ -28,15 +30,17 @@ library(tidyr)
 
 ```
 
+### 1.2
 
-2\. Look at the column names using `colnames` - do you notice any patterns?
+Look at the column names using `colnames` - do you notice any patterns?
 
 ```{r 1.2response}
 
 ```
 
+### 1.3
 
-3\. Let's rename the column "State/Territory/Federal Entity" in "vacc" to "Entity" using `rename`. Make sure to reassign to `vacc` here and in subsequent steps.
+Let's rename the column "State/Territory/Federal Entity" in "vacc" to "Entity" using `rename`. Make sure to reassign to `vacc` here and in subsequent steps.
 
 ```
 # General format
@@ -47,8 +51,9 @@ new_data <- old_data %>% rename(newname = oldname)
 
 ```
 
+### 1.4
 
-4\. Select only the columns "Entity", and those that start with "Percent". Use `select` and `starts_with("Percent")`. 
+Select only the columns "Entity", and those that start with "Percent". Use `select` and `starts_with("Percent")`. 
 
 ```
 # General format
@@ -59,8 +64,9 @@ new_data <- old_data %>% select(colname1, colname2, ...)
 
 ```
 
+### 1.5
 
-5\. Create a new dataset "vacc_long" that does `pivot_longer()` on all columns except "Entity". Remember that `!Entity` means all columns except "Entity".
+Create a new dataset "vacc_long" that does `pivot_longer()` on all columns except "Entity". Remember that `!Entity` means all columns except "Entity".
 
 ```
 # General format
@@ -71,8 +77,9 @@ new_data <- old_data %>% pivot_longer(cols = colname(s))
 
 ```
 
+### 1.6
 
-6\. Using `vacc_long`, filter the "Entity" column so it only includes values in the following list: "Maryland","Virginia","Florida","Massachusetts", "United States". **Hint**: use `filter` and `%in%`.
+Using `vacc_long`, filter the "Entity" column so it only includes values in the following list: "Maryland","Virginia","Florida","Massachusetts", "United States". **Hint**: use `filter` and `%in%`.
 
 ```
 # General format
@@ -83,8 +90,9 @@ new_data <- old_data %>% filter(colname %in% c(1, 2, 3, ...))
 
 ```
 
+### 1.7
 
-7\. Use `pivot_wider` to reshape "vacc_long". Use "Entity" for the `names_from` argument. Use "value" for the `values_from` argument. Call this new data `vacc_wide`. Look at the data. How do these states compare to one another.
+Use `pivot_wider` to reshape "vacc_long". Use "Entity" for the `names_from` argument. Use "value" for the `values_from` argument. Call this new data `vacc_wide`. Look at the data. How do these states compare to one another.
 
 ```
 # General format
@@ -96,36 +104,42 @@ new_data <- old_data %>% pivot_wider(names_from = column1, values_from = column2
 ```
 
 
-**Bonus / Extra practice**:
+# Practice on Your Own!
 
-A\. Take the code from Questions 1 and 3-7. Chain all of this code together using the pipe ` %>% `. Call your data `vacc_compare`.
+### P.1
 
-```{r Aresponse}
+Take the code from Questions 1.1 and 1.3-1.7. Chain all of this code together using the pipe ` %>% `. Call your data `vacc_compare`.
+
+```{r P.1response}
 
 ```
 
+### P.2
 
-B\. Modify the code from Question A:
+Modify the code from Question P.1:
 
 -  Look for columns that start with "Total" (instead of "Percent") and 
 -  Select different states/Entities to compare
 -  Call your data `vacc_compare2`
 
-```{r Bresponse}
+```{r P.2response}
 
 ```
 
 
 # Part 2
 
-8\. Read in the GDP and Personal Income Data from http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv. You can use the url or download the data. Call it "gdp". 
+### 2.1
+
+Read in the GDP and Personal Income Data from http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv. You can use the url or download the data. Call it "gdp". 
 
 ```{r 2.1response}
 
 ```
 
+### 2.2
 
-9\. Use `pivot_wider` to reshape "gdp". Use "Description" for the `names_from` argument. Use "`2020`" for the `values_from` argument. Reassign this data to "gdp".
+Use `pivot_wider` to reshape "gdp". Use "Description" for the `names_from` argument. Use "`2020`" for the `values_from` argument. Reassign this data to "gdp".
 
 ```
 # General format
@@ -136,8 +150,9 @@ new_data <- old_data %>% pivot_wider(names_from = column1, values_from = column2
 
 ```
 
+### 2.3
 
-10\. Join the data. Keep only data that is found in both "vacc" and "gdp". 
+Join the data. Keep only data that is found in both "vacc" and "gdp". 
 
 - First, try joining without using the `by` argument - what happens? 
 - Next, try joining using `by = c("Entity" = "GeoName")`. 
@@ -152,8 +167,9 @@ new_data <- inner_join(x, y, by = c("colname1" = "colname2"))
 
 ```
 
+### 2.4
 
-11\. Change your code from Question 10 to do a `full_join.` Call the output "full". How many observations (rows) are there?
+Change your code from Question 10 to do a `full_join.` Call the output "full". How many observations (rows) are there?
 
 ```
 # General format
@@ -165,29 +181,33 @@ new_data <- full_join(x, y, by = c("colname1" = "colname2"))
 ```
 
 
-**Bonus / Extra practice**:
+# Practice on Your Own!
 
-C\. Do a left join of "vacc" and "gdp". Call the output "left". How many observations are there?
+### P.3
 
-```{r Cresponse}
+Do a left join of "vacc" and "gdp". Call the output "left". How many observations are there?
 
-```
-
-
-D\. Copy your code from Question D and change it to a `right_join` with the same order of the arguments. Call the output "right". How many observations are there?
-
-```{r Dresponse}
+```{r P.3response}
 
 ```
 
+### P.4
 
-E\. Perform two `anti_join` operations on "vacc" and "gdp" to determine what Entities are missing from the GDP data and which are missing from the vaccine data.
+Copy your code from Question P.3 and change it to a `right_join` with the same order of the arguments. Call the output "right". How many observations are there?
+
+```{r P.4response}
+
+```
+
+### P.5
+
+Perform two `anti_join` operations on "vacc" and "gdp" to determine what Entities are missing from the GDP data and which are missing from the vaccine data.
 
 ```
 # General format
 anti_join(L, R, by = c("name_L" = "name_R")) %>% select(name_L)
 ```
 
-```{r Eresponse}
+```{r P.5response}
 
 ```

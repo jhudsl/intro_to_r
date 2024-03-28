@@ -19,28 +19,29 @@ library(emoji)
 
 ## Recap on summarization
 
--   `summary(x)`: quantile information
--   `summarize`: creates a summary table of columns of interest
--   `count(variable)`: how many of each unique value do you have
--   `group_by()`: changes all subsequent functions
-    -   combine with `summarize()` to get statistics per group
--   `plot()` and `hist()` are great for a **quick snapshot** of the data
+- `summary(x)`: quantile information
+- `count(x)`: what unique values do you have? 
+  - `distinct()`: what are the distinct values?
+  - `n_distinct()` with `pull()`: how many distinct values?
+- `group_by()`: changes all subsequent functions
+  - combine with `summarize()` to get statistics per group
+  - combine with `mutate()` to add column
+- `summarize()` with `n()` gives the count (NAs included) 
 
 📃[Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-4.pdf)
 
 ## Recap on data classes
 
--   tibbles show column classes!
--   `as.CLASS_NAME(x)` can be used to change the class of an object x
--  `class()` can test what class an object is
--   Logic class objects only have `TRUE` or `False` (without quotes)
--   Two kinds of numeric subclasses - integer (whole numbers) and double (fractional values)
--   Character class values need quotes
--   Factors are a special character class that has levels
--   matrix has columns and rows but is all one data class
--   lists can contain multiples of any other class of data including
-    lists!
--   The `lubridate` package is helpful for dates and times\
+- There are two types of number class objects: integer and double
+- Logic class objects only have `TRUE` or `FALSE` (without quotes)
+- `class()` can be used to test the class of an object x
+- `as.CLASS_NAME(x)` can be used to change the class of an object x
+- Factors are a special character class that has levels - more on that soon!
+- tibbles show column classes!
+- two dimensional object classes include: data frames, tibbles, matrices, and lists
+- Dates can be handled with the `lubridate` package
+- Make sure you choose the right function for the way the date is formatted!
+
     📃[Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-4.pdf)
 
 ## Data Cleaning {.emphasized}
@@ -350,7 +351,16 @@ Should you be dividing by the total count with `NA` values included?
 It depends on your data and what `NA` might mean.   
 Pay attention to your data and your `NA` values!
 
+## Don't forget about the common issues
 
+- Extra or Missing commas  
+- Extra or Missing parentheses   
+- Case sensitivity  
+- Spelling  
+
+```{r, fig.alt="", out.width = "50%", echo = FALSE, out.extra='style="float:left"'}
+knitr::include_graphics("images/debug.png")
+```
 
 ## Summary
 
@@ -537,7 +547,7 @@ data_diet %>%
 ```
 ## case_when() can also overwrite/update a variable
 
-Just like recode, just need to specify what we want in the first part of `mutate`.
+You need to specify what we want in the first part of `mutate`.
 
 ```{r}
 data_diet %>% 
@@ -551,16 +561,16 @@ data_diet %>%
 
 ## More complicated case_when()
 
-`case_when` can do more complicated statements than `recode` and can match many patterns at a time.
+`case_when` can do complicated statements and can match many patterns at a time.
 
 ```{r}
 data_diet %>% 
-  mutate(Treatment_recode = case_when(
+  mutate(Treatment_recoded = case_when(
     Treatment == "Ginger" ~ "Ginger", # keep it the same!
     Treatment %in% c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
     Treatment %in% c("O", "Other") ~ "Other")) %>%
 
-  count(Treatment, Treatment_recode)
+  count(Treatment, Treatment_recoded)
 
 ```
 

@@ -19,7 +19,9 @@ library(tidyr)
 
 # Part 1
 
-1\. Read in the SARS-CoV-2 Vaccination data from http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv. You can use the url or download the data. Assign the data the name "vacc". We will be reviewing new concepts here and incorporating some from week 1. 
+### 1.1
+
+Read in the SARS-CoV-2 Vaccination data from http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv. You can use the url or download the data. Assign the data the name "vacc". We will be reviewing new concepts here and incorporating some from week 1. 
 
 -  Remember to use `read_csv()` from the `readr` package.
 -  Do NOT use `read.csv()`.
@@ -30,16 +32,18 @@ vacc <- read_csv("http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinat
 # vacc <- read_csv("USA_covid19_vaccinations.csv")
 ```
 
+### 1.2
 
-2\. Look at the column names using `colnames` - do you notice any patterns?
+Look at the column names using `colnames` - do you notice any patterns?
 
 ```{r 1.2response}
 colnames(vacc)
 # Looks like many start with "Percent" and some start with "Total" - this indicates there are different units of measure for these different variables!
 ```
 
+### 1.3
 
-3\. Let's rename the column "State/Territory/Federal Entity" in "vacc" to "Entity" using `rename`. Make sure to reassign to `vacc` here and in subsequent steps.
+Let's rename the column "State/Territory/Federal Entity" in "vacc" to "Entity" using `rename`. Make sure to reassign to `vacc` here and in subsequent steps.
 
 ```
 # General format
@@ -50,8 +54,9 @@ new_data <- old_data %>% rename(newname = oldname)
 vacc <- vacc %>% rename(Entity = `State/Territory/Federal Entity`)
 ```
 
+### 1.4
 
-4\. Select only the columns "Entity", and those that start with "Percent". Use `select` and `starts_with("Percent")`. 
+Select only the columns "Entity", and those that start with "Percent". Use `select` and `starts_with("Percent")`. 
 
 ```
 # General format
@@ -62,8 +67,9 @@ new_data <- old_data %>% select(colname1, colname2, ...)
 vacc <- vacc %>% select(Entity, starts_with("Percent"))
 ```
 
+### 1.5
 
-5\. Create a new dataset "vacc_long" that does `pivot_longer()` on all columns except "Entity". Remember that `!Entity` means all columns except "Entity".
+Create a new dataset "vacc_long" that does `pivot_longer()` on all columns except "Entity". Remember that `!Entity` means all columns except "Entity".
 
 ```
 # General format
@@ -74,8 +80,9 @@ new_data <- old_data %>% pivot_longer(cols = colname(s))
 vacc_long <- vacc %>% pivot_longer(cols = !Entity)
 ```
 
+### 1.6
 
-6\. Using `vacc_long`, filter the "Entity" column so it only includes values in the following list: "Maryland","Virginia","Florida","Massachusetts", "United States". **Hint**: use `filter` and `%in%`.
+Using `vacc_long`, filter the "Entity" column so it only includes values in the following list: "Maryland","Virginia","Florida","Massachusetts", "United States". **Hint**: use `filter` and `%in%`.
 
 ```
 # General format
@@ -87,8 +94,9 @@ vacc_long <- vacc_long %>%
   filter(Entity %in% c("Maryland", "Virginia", "Mississippi", "Massachusetts", "United States"))
 ```
 
+### 1.7
 
-7\. Use `pivot_wider` to reshape "vacc_long". Use "Entity" for the `names_from` argument. Use "value" for the `values_from` argument. Call this new data `vacc_wide`. Look at the data. How do these states compare to one another.
+Use `pivot_wider` to reshape "vacc_long". Use "Entity" for the `names_from` argument. Use "value" for the `values_from` argument. Call this new data `vacc_wide`. Look at the data. How do these states compare to one another.
 
 ```
 # General format
@@ -105,11 +113,13 @@ vacc_wide
 ```
 
 
-**Bonus / Extra practice**:
+# Practice on Your Own!
 
-A\. Take the code from Questions 1 and 3-7. Chain all of this code together using the pipe ` %>% `. Call your data `vacc_compare`.
+### P.1
 
-```{r Aresponse}
+Take the code from Questions 1.1 and 1.3-1.7. Chain all of this code together using the pipe ` %>% `. Call your data `vacc_compare`.
+
+```{r P.1response}
 vacc_compare <-
   read_csv("http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv") %>%
   rename(Entity = `State/Territory/Federal Entity`) %>%
@@ -120,14 +130,15 @@ vacc_compare <-
 vacc_compare
 ```
 
+### P.2
 
-B\. Modify the code from Question A:
+Modify the code from Question P.1:
 
 -  Look for columns that start with "Total" (instead of "Percent") and 
 -  Select different states/Entities to compare
 -  Call your data `vacc_compare2`
 
-```{r Bresponse}
+```{r P.2response}
 vacc_compare2 <-
   read_csv("http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv") %>%
   rename(Entity = `State/Territory/Federal Entity`) %>%
@@ -141,7 +152,9 @@ vacc_compare2
 
 # Part 2
 
-8\. Read in the GDP and Personal Income Data from http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv. You can use the url or download the data. Call it "gdp". 
+### 2.1
+
+Read in the GDP and Personal Income Data from http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv. You can use the url or download the data. Call it "gdp". 
 
 ```{r 2.1response}
 gdp <- read_csv("http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv")
@@ -149,8 +162,9 @@ gdp <- read_csv("http://jhudatascience.org/intro_to_r/data/gdp_personal_income.c
 # gdp <- read_csv("gdp_personal_income.csv")
 ```
 
+### 2.2
 
-9\. Use `pivot_wider` to reshape "gdp". Use "Description" for the `names_from` argument. Use "`2020`" for the `values_from` argument. Reassign this data to "gdp".
+Use `pivot_wider` to reshape "gdp". Use "Description" for the `names_from` argument. Use "`2020`" for the `values_from` argument. Reassign this data to "gdp".
 
 ```
 # General format
@@ -165,8 +179,9 @@ gdp <- gdp %>%
   )
 ```
 
+### 2.3
 
-10\. Join the data. Keep only data that is found in both "vacc" and "gdp". 
+Join the data. Keep only data that is found in both "vacc" and "gdp". 
 
 - First, try joining without using the `by` argument - what happens? 
 - Next, try joining using `by = c("Entity" = "GeoName")`. 
@@ -183,8 +198,9 @@ merged <- inner_join(vacc, gdp, by = c("Entity" = "GeoName"))
 nrow(merged)
 ```
 
+### 2.4
 
-11\. Change your code from Question 10 to do a `full_join.` Call the output "full". How many observations (rows) are there?
+Change your code from Question 10 to do a `full_join.` Call the output "full". How many observations (rows) are there?
 
 ```
 # General format
@@ -197,32 +213,36 @@ nrow(full)
 ```
 
 
-**Bonus / Extra practice**:
+# Practice on Your Own!
 
-C\. Do a left join of "vacc" and "gdp". Call the output "left". How many observations are there?
+### P.3
 
-```{r Cresponse}
+Do a left join of "vacc" and "gdp". Call the output "left". How many observations are there?
+
+```{r P.3response}
 left <- left_join(vacc, gdp, by = c("Entity" = "GeoName"))
 nrow(left)
 ```
 
+### P.4
 
-D\. Copy your code from Question D and change it to a `right_join` with the same order of the arguments. Call the output "right". How many observations are there?
+Copy your code from Question P.3 and change it to a `right_join` with the same order of the arguments. Call the output "right". How many observations are there?
 
-```{r Dresponse}
+```{r P.4response}
 right <- right_join(vacc, gdp, by = c("Entity" = "GeoName"))
 nrow(right)
 ```
 
+### P.5
 
-E\. Perform two `anti_join` operations on "vacc" and "gdp" to determine what Entities are missing from the GDP data and which are missing from the vaccine data.
+Perform two `anti_join` operations on "vacc" and "gdp" to determine what Entities are missing from the GDP data and which are missing from the vaccine data.
 
 ```
 # General format
 anti_join(L, R, by = c("name_L" = "name_R")) %>% select(name_L)
 ```
 
-```{r Eresponse}
+```{r P.5response}
 in_vacc_only <- anti_join(vacc, gdp, by = c("Entity" = "GeoName")) %>% select(Entity)
 in_gdp_only <- anti_join(gdp, vacc, by = c("GeoName" = "Entity")) %>% select(GeoName)
 in_vacc_only

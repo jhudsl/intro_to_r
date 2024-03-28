@@ -389,26 +389,28 @@ library(OCSdata)</code></pre>
 ## 10 CHEROKEE     AL          01019          1     19 Cherokee    Cherok… B01003_…
 ## # ℹ 28,255 more rows
 ## # ℹ 2 more variables: year &lt;int&gt;, population &lt;int&gt;</code></pre>
-<ol style="list-style-type: decimal">
-<li>What class is <code>county_pop</code>?</li>
-</ol>
+<div id="section" class="section level3">
+<h3>1.1</h3>
+<p>What class is <code>county_pop</code>?</p>
 <pre class="r"><code>class(county_pop)</code></pre>
 <pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>How many observations (rows) and variables (columns) are in the
-dataset - try the <code>dim()</code> function?</li>
-</ol>
+</div>
+<div id="section-1" class="section level3">
+<h3>1.2</h3>
+<p>How many observations (rows) and variables (columns) are in the
+dataset - try the <code>dim()</code> function?</p>
 <pre class="r"><code>dim(county_pop)</code></pre>
 <pre><code>## [1] 28265    10</code></pre>
 <pre class="r"><code>nrow(county_pop)</code></pre>
 <pre><code>## [1] 28265</code></pre>
 <pre class="r"><code>ncol(county_pop)</code></pre>
 <pre><code>## [1] 10</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Next, rename the column <code>BUYER_STATE</code> to be
+</div>
+<div id="section-2" class="section level3">
+<h3>1.3</h3>
+<p>Next, rename the column <code>BUYER_STATE</code> to be
 <code>State_name</code> (hint - use <code>rename()</code> and watch out
-for the order of the new and old names!).</li>
-</ol>
+for the order of the new and old names!).</p>
 <pre class="r"><code>county_pop &lt;- rename(county_pop, State_name = BUYER_STATE)
 head(county_pop)</code></pre>
 <pre><code>## # A tibble: 6 × 10
@@ -421,11 +423,12 @@ head(county_pop)</code></pre>
 ## 5 BLOUNT       AL         01009          1      9 Blount      Blount C… B01003_…
 ## 6 BULLOCK      AL         01011          1     11 Bullock     Bullock … B01003_…
 ## # ℹ 2 more variables: year &lt;int&gt;, population &lt;int&gt;</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>Convert the column names of <code>county_pop</code> to be all lower
+</div>
+<div id="section-3" class="section level3">
+<h3>1.4</h3>
+<p>Convert the column names of <code>county_pop</code> to be all lower
 case. Use <code>rename_with()</code>, and the <code>tolower</code>
-command.</li>
-</ol>
+command.</p>
 <pre class="r"><code>county_pop &lt;- rename_with(county_pop, tolower)
 head(county_pop)</code></pre>
 <pre><code>## # A tibble: 6 × 10
@@ -440,9 +443,14 @@ head(county_pop)</code></pre>
 ## # ℹ 2 more variables: year &lt;int&gt;, population &lt;int&gt;</code></pre>
 <pre class="r"><code>dim(county_pop)</code></pre>
 <pre><code>## [1] 28265    10</code></pre>
-<p><strong>Bonus / Extra practice</strong>: How can you print the first
-3 rows and the last 3 rows of <code>county_pop</code> (in two lines of
-code)?</p>
+</div>
+</div>
+<div id="practice-on-your-own" class="section level1">
+<h1>Practice on Your Own!</h1>
+<div id="p.1" class="section level3">
+<h3>P.1</h3>
+<p>How can you print the first 3 rows and the last 3 rows of
+<code>county_pop</code> (in two lines of code)?</p>
 <pre class="r"><code>head(county_pop, 3)</code></pre>
 <pre><code>## # A tibble: 3 × 10
 ##   buyer_county state_name countyfips state county county_name name      variable
@@ -460,25 +468,27 @@ code)?</p>
 ## 3 PETERSBURG    AK         02195          2    195 Petersburg    Peter… B01003_…
 ## # ℹ 2 more variables: year &lt;int&gt;, population &lt;int&gt;</code></pre>
 </div>
+</div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
-<ol style="list-style-type: decimal">
-<li>Create a subset of the <code>county_pop</code> that only contains
-the columns: <code>county_name</code>, <code>year</code>, and
+<div id="section-4" class="section level3">
+<h3>2.1</h3>
+<p>Create a subset of the <code>county_pop</code> that only contains the
+columns: <code>county_name</code>, <code>year</code>, and
 <code>population</code> and assign this object to <code>pop_sub</code> -
-what are the dimensions of this dataset?</li>
-</ol>
+what are the dimensions of this dataset?</p>
 <pre class="r"><code>pop_sub &lt;- select(county_pop, county_name, year, population)
 dim(pop_sub)</code></pre>
 <pre><code>## [1] 28265     3</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Start with <code>county_pop</code> again instead of the dataset you
+</div>
+<div id="section-5" class="section level3">
+<h3>2.2</h3>
+<p>Start with <code>county_pop</code> again instead of the dataset you
 just made. Subset the data to only include the <code>population</code>
 column and the columns that end with “_name”. Hint: use
 <code>select()</code> and <code>ends_with()</code>. Assign this subset
 of the data to be <code>pop2</code>. Again take a look at the data and
-check the dimensions.</li>
-</ol>
+check the dimensions.</p>
 <pre class="r"><code>pop2 &lt;- select(county_pop, population, ends_with(&quot;_name&quot;))
 pop2</code></pre>
 <pre><code>## # A tibble: 28,265 × 3
@@ -497,11 +507,12 @@ pop2</code></pre>
 ## # ℹ 28,255 more rows</code></pre>
 <pre class="r"><code>dim(pop2)</code></pre>
 <pre><code>## [1] 28265     3</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Pull the variable <code>county_name</code> from <code>pop2</code>.
+</div>
+<div id="section-6" class="section level3">
+<h3>2.3</h3>
+<p>Pull the variable <code>county_name</code> from <code>pop2</code>.
 How does this differ form selecting it? Use head() to take a look at
-both options.</li>
-</ol>
+both options.</p>
 <pre class="r"><code>head(pull(pop2, county_name))</code></pre>
 <pre><code>## [1] &quot;Autauga&quot; &quot;Baldwin&quot; &quot;Barbour&quot; &quot;Bibb&quot;    &quot;Blount&quot;  &quot;Bullock&quot;</code></pre>
 <pre class="r"><code>head(select(pop2, county_name))</code></pre>
@@ -514,19 +525,21 @@ both options.</li>
 ## 4 Bibb       
 ## 5 Blount     
 ## 6 Bullock</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>Subset the rows of <code>county_pop</code> that have
+</div>
+<div id="section-7" class="section level3">
+<h3>2.4</h3>
+<p>Subset the rows of <code>county_pop</code> that have
 <strong>more</strong> than 100000 for population - how many rows are
-there? Use <code>filter()</code>.</li>
-</ol>
+there? Use <code>filter()</code>.</p>
 <pre class="r"><code>county_pop_sub &lt;- filter(county_pop, population &gt; 100000)
 nrow(county_pop_sub)</code></pre>
 <pre><code>## [1] 5159</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>Subset the rows of <code>county_pop</code> that have a year value
+</div>
+<div id="section-8" class="section level3">
+<h3>2.5</h3>
+<p>Subset the rows of <code>county_pop</code> that have a year value
 <strong>less</strong> than 2010 and <strong>more</strong> than 100000
-population - how many are there?</li>
-</ol>
+population - how many are there?</p>
 <pre class="r"><code>filter(county_pop, year &lt; 2010 &amp; population &gt; 100000) # all of these options work</code></pre>
 <pre><code>## # A tibble: 2,260 × 10
 ##    buyer_county state_name countyfips state county county_name name     variable
@@ -547,11 +560,12 @@ population - how many are there?</li>
 <pre><code>## [1] 2260</code></pre>
 <pre class="r"><code>nrow(filter(county_pop, year &lt; 2010, population &gt; 100000))</code></pre>
 <pre><code>## [1] 2260</code></pre>
-<ol start="6" style="list-style-type: decimal">
-<li>Subset the rows of <code>county_pop</code> that have a year value of
+</div>
+<div id="section-9" class="section level3">
+<h3>2.6</h3>
+<p>Subset the rows of <code>county_pop</code> that have a year value of
 <strong>less than or equal to </strong> 2010 and <strong>more</strong>
-than 100000 population - how many are there?</li>
-</ol>
+than 100000 population - how many are there?</p>
 <pre class="r"><code>filter(county_pop, year &lt;= 2010 &amp; population &gt; 100000) # all of these options work</code></pre>
 <pre><code>## # A tibble: 2,834 × 10
 ##    buyer_county state_name countyfips state county county_name name     variable
@@ -572,11 +586,17 @@ than 100000 population - how many are there?</li>
 <pre><code>## [1] 2834</code></pre>
 <pre class="r"><code>nrow(filter(county_pop, year &lt;= 2010, population &gt; 100000))</code></pre>
 <pre><code>## [1] 2834</code></pre>
-<ol start="7" style="list-style-type: decimal">
-<li>Why do the answers for 5 and 6 differ?</li>
-</ol>
+</div>
+<div id="section-10" class="section level3">
+<h3>2.7</h3>
+<p>Why do the answers for 2.5 and 2.6 differ?</p>
 <pre class="r"><code># They differ because there are rows with values that are exactly 2010.</code></pre>
-<p><strong>Bonus / Extra practice</strong>:</p>
+</div>
+</div>
+<div id="practice-on-your-own-1" class="section level1">
+<h1>Practice on Your Own!</h1>
+<div id="p.2" class="section level3">
+<h3>P.2</h3>
 <p>Subset the rows of <code>county_pop</code> for rows that have
 <code>state_name</code> of <code>NM</code>, <strong>or</strong>
 <strong>less</strong> than 10000 <code>population</code>. How many rows
@@ -599,8 +619,11 @@ have both?</p>
 ## # ℹ 2 more variables: year &lt;int&gt;, population &lt;int&gt;</code></pre>
 <pre class="r"><code>nrow(filter(county_pop, state_name == &quot;NM&quot; &amp; population &lt; 10000))</code></pre>
 <pre><code>## [1] 72</code></pre>
-<p><strong>Bonus / Extra practice</strong>: Select the variables that
-contain the letter “a” from <code>cars_mt_copy</code>.</p>
+</div>
+<div id="p.3" class="section level3">
+<h3>P.3</h3>
+<p>Select the variables that contain the letter “a” from
+<code>cars_mt_copy</code>.</p>
 <pre class="r"><code>select(county_pop, contains(&quot;a&quot;))</code></pre>
 <pre><code>## # A tibble: 28,265 × 7
 ##    state_name state county_name name                   variable  year population
@@ -617,18 +640,19 @@ contain the letter “a” from <code>cars_mt_copy</code>.</p>
 ## 10 AL             1 Cherokee    Cherokee County, Alab… B01003_…  2006      25466
 ## # ℹ 28,255 more rows</code></pre>
 </div>
+</div>
 <div id="part-3" class="section level1">
 <h1>Part 3</h1>
-<ol style="list-style-type: decimal">
-<li>Create a subset called <code>county_2012</code> from
+<div id="section-11" class="section level3">
+<h3>3.1</h3>
+<p>Create a subset called <code>county_2012</code> from
 <code>county_pop</code> that only contains the rows for the year 2012
 and only the columns: <code>county_name</code>, <code>state_name</code>,
 <code>population</code>. <code>year</code> should not be included in
 <code>county_sub</code>. What are the dimensions of this dataset? Don’t
 use pipes (<code>%&gt;%</code>) and instead do this in two steps
 creating the <code>county_2012</code> object with <code>filter</code>
-and updating it with <code>select</code>.</li>
-</ol>
+and updating it with <code>select</code>.</p>
 <pre class="r"><code>county_2012 &lt;- filter(county_pop, year == 2012)
 county_2012  &lt;- select(county_2012, county_name, state_name, population)
 county_2012 # can get dimensions just from viewing the tibble</code></pre>
@@ -648,9 +672,10 @@ county_2012 # can get dimensions just from viewing the tibble</code></pre>
 ## # ℹ 3,130 more rows</code></pre>
 <pre class="r"><code>dim(county_2012) # alternatively can use dim() function</code></pre>
 <pre><code>## [1] 3140    3</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Try the same thing again with pipes <code>%&gt;%</code>.</li>
-</ol>
+</div>
+<div id="section-12" class="section level3">
+<h3>3.2</h3>
+<p>Try the same thing again with pipes <code>%&gt;%</code>.</p>
 <pre class="r"><code>county_2012 &lt;- county_pop %&gt;%
   filter(year == 2012) %&gt;%
   select(county_name, state_name, population)
@@ -677,11 +702,12 @@ not work?</p>
 #  select(county_name, state_name, population) %&gt;%
 #  filter(year == 2012)
 # you get an error because there is now year variable to filter from</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Re-order the rows of <code>county_2012</code> by population in
+</div>
+<div id="section-13" class="section level3">
+<h3>1.3</h3>
+<p>Re-order the rows of <code>county_2012</code> by population in
 increasing order. Use <code>arrange()</code>. What is county with the
-smallest population?</li>
-</ol>
+smallest population?</p>
 <pre class="r"><code>county_2012 &lt;- arrange(county_2012, population)
 county_2012</code></pre>
 <pre><code>## # A tibble: 3,140 × 3
@@ -702,18 +728,25 @@ county_2012</code></pre>
   head(n = 1) %&gt;%
   pull(county_name)</code></pre>
 <pre><code>## [1] &quot;Loving&quot;</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>Create a new variable in <code>county_2012</code> called
+</div>
+<div id="section-14" class="section level3">
+<h3>1.4</h3>
+<p>Create a new variable in <code>county_2012</code> called
 <code>pop1000</code>, which is equal to <code>population</code> divided
 by 1000, using <code>mutate()</code>(don’t forget to reassign
-<code>county_2012</code>). Use pipes <code>%&gt;%</code>.</li>
-</ol>
+<code>county_2012</code>). Use pipes <code>%&gt;%</code>.</p>
 <pre><code># General format
 NEWDATA &lt;- OLD_DATA %&gt;% mutate(NEW_COLUMN = OLD_COLUMN)</code></pre>
 <pre class="r"><code>county_2012 &lt;- county_2012 %&gt;% mutate(pop1000 = population/1000)</code></pre>
-<p><strong>Bonus / Extra practice</strong>: Move the
-<code>state_name</code> column to be before <code>county_name</code> in
-the <code>county_2012</code> dataset. Use <code>relocate()</code>.</p>
+</div>
+</div>
+<div id="practice-on-your-own-2" class="section level1">
+<h1>Practice on Your Own!</h1>
+<div id="p.4" class="section level3">
+<h3>P.4</h3>
+<p>Move the <code>state_name</code> column to be before
+<code>county_name</code> in the <code>county_2012</code> dataset. Use
+<code>relocate()</code>.</p>
 <pre class="r"><code>county_2012 &lt;- county_2012 %&gt;% relocate(state_name, .before = county_name)
 county_2012</code></pre>
 <pre><code>## # A tibble: 3,140 × 4
@@ -730,9 +763,12 @@ county_2012</code></pre>
 ##  9 NE         Grant              608   0.608
 ## 10 NM         Harding            612   0.612
 ## # ℹ 3,130 more rows</code></pre>
-<p><strong>Bonus / Extra practice</strong>: How can you find the value
-of <code>population</code> for Chambers AL without just looking at the
-data manually and instead use functions we learned today?</p>
+</div>
+<div id="p.5" class="section level3">
+<h3>P.5</h3>
+<p>How can you find the value of <code>population</code> for Chambers AL
+without just looking at the data manually and instead use functions we
+learned today?</p>
 <pre class="r"><code>county_2012 %&gt;%
   filter(county_name == &quot;Chambers&quot;, state_name == &quot;AL&quot;) %&gt;%
   select(population)</code></pre>
@@ -740,6 +776,7 @@ data manually and instead use functions we learned today?</p>
 ##   population
 ##        &lt;int&gt;
 ## 1      34228</code></pre>
+</div>
 </div>
 
 
