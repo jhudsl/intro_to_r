@@ -310,11 +310,10 @@ select(cars, VehYear:VehicleAge) %>%
 Already know how to use functions to modify columns using `mutate()` or calculate summary statistics using `summarize()`.
 
 ```{r}
-mtcars %>%
-  mutate(wt_kg = wt*1000/2.205,
-         power_watts = hp*745.7) %>%
-  summarize(mean_kg = mean(wt_kg),
-            max_watts = max(power_watts))
+cars %>%
+  mutate(VehOdo_round = round(VehOdo, -3)) %>%
+  summarize(max_Odo_round = max(VehOdo_round),
+            max_Odo = max(VehOdo))
 ```
 
 
