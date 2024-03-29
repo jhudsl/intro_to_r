@@ -3060,18 +3060,21 @@ var loadDeck = function(event) {
   });
 };
 
-if (document.readyState !== "loading" &&
-    document.querySelector('slides') === null) { 
-  // if the document is done loading but our element hasn't yet appeared, defer
-  // loading of the deck
-  window.setTimeout(function() {
-    loadDeck(null);
-  }, 0);
-} else {
-  // still loading the DOM, so wait until it's finished
-  document.addEventListener("DOMContentLoaded", loadDeck);
-}
+if (!window.Shiny) {
+  // If Shiny is loaded, the slide deck is initialized in ioslides template
 
+  if (document.readyState !== "loading" &&
+      document.querySelector('slides') === null) {
+    // if the document is done loading but our element hasn't yet appeared, defer
+    // loading of the deck
+    window.setTimeout(function() {
+      loadDeck(null);
+    }, 0);
+  } else {
+    // still loading the DOM, so wait until it's finished
+    document.addEventListener("DOMContentLoaded", loadDeck);
+  }
+}
 
 
 </script>
@@ -3635,14 +3638,15 @@ Volvo 142E            4</pre>
 
 <p>Already know how to use functions to modify columns using <code>mutate()</code> or calculate summary statistics using <code>summarize()</code>.</p>
 
-<pre class = 'prettyprint lang-r'>mtcars %&gt;%
-  mutate(wt_kg = wt*1000/2.205,
-         power_watts = hp*745.7) %&gt;%
-  summarize(mean_kg = mean(wt_kg),
-            max_watts = max(power_watts))</pre>
+<pre class = 'prettyprint lang-r'>cars %&gt;%
+  mutate(VehOdo_round = round(VehOdo, -3)) %&gt;%
+  summarize(max_Odo_round = max(VehOdo_round),
+            max_Odo = max(VehOdo))</pre>
 
-<pre >  mean_kg max_watts
-1 1459.07  249809.5</pre>
+<pre ># A tibble: 1 × 2
+  max_Odo_round max_Odo
+          &lt;dbl&gt;   &lt;dbl&gt;
+1        116000  115717</pre>
 
 </article></slide><slide class=""><hgroup><h2>Applying functions with <code>across</code> from <code>dplyr</code></h2></hgroup><article  id="applying-functions-with-across-from-dplyr">
 
@@ -3754,6 +3758,18 @@ cars_dbl %&gt;%
     digits = -3
   ))</pre>
 
+<pre >Warning: There was 1 warning in `mutate()`.
+ℹ In argument: `across(.cols = starts_with(&quot;Veh&quot;), .fns = round, digits = -3)`.
+Caused by warning:
+! The `...` argument of `across()` is deprecated as of dplyr 1.1.0.
+Supply arguments directly to `.fns` through an anonymous function instead.
+
+  # Previously
+  across(a:b, mean, na.rm = TRUE)
+
+  # Now
+  across(a:b, \(x) mean(x, na.rm = TRUE))</pre>
+
 <pre ># A tibble: 72,983 × 5
    Make       VehYear VehicleAge VehOdo VehBCost
    &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
@@ -3833,25 +3849,7 @@ airquality %&gt;%
 
 <p>Similar to across, <code>purrr</code> is a package that allows you to apply a function to multiple columns in a data frame or multiple data objects in a list.</p>
 
-</article></slide><slide class=""><hgroup><h2>map_df</h2></hgroup><article  id="map_df">
-
-<pre class = 'prettyprint lang-r'>library(purrr)
-airquality %&gt;% map_df(replace_na, replace = 0)</pre>
-
-<pre ># A tibble: 153 × 6
-   Ozone Solar.R  Wind  Temp Month   Day
-   &lt;int&gt;   &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
- 1    41     190   7.4    67     5     1
- 2    36     118   8      72     5     2
- 3    12     149  12.6    74     5     3
- 4    18     313  11.5    62     5     4
- 5     0       0  14.3    56     5     5
- 6    28       0  14.9    66     5     6
- 7    23     299   8.6    65     5     7
- 8    19      99  13.8    59     5     8
- 9     8      19  20.1    61     5     9
-10     0     194   8.6    69     5    10
-# ℹ 143 more rows</pre>
+<p>While we won’t get into <code>purrr</code> too much in this class, its a handy package for you to know about should you get into a situation where you have an irregular list you need to handle!</p>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Multiple Data Frames</h2></hgroup><article  id="multiple-data-frames">
 
@@ -3913,7 +3911,6 @@ Day      15.803922  15.803922  15.803922</pre>
 <li>Apply your functions with <code>sapply(&lt;a vector or list&gt;, some_function)</code></li>
 <li>Use <code>across()</code> to apply functions across multiple columns of data</li>
 <li>Need to use <code>across</code> within <code>summarize()</code> or <code>mutate()</code></li>
-<li><code>purrr</code> is a package that you can use to do more iterative work easily</li>
 <li>Can use <code>sapply</code> or <code>purrr</code> to work with multiple data frames within lists simultaneously</li>
 </ul>
 
@@ -3952,6 +3949,11 @@ Day      15.803922  15.803922  15.803922</pre>
        window.jQuery(document).on('slideenter', function(e) {
          window.jQuery(e.target).trigger('shown');
       });
+    }
+    if (window.Shiny) {
+      // Initialize slides when this script appears on the page, since it
+      // indicates that the <slides> markup has been fully loaded.
+      window.loadDeck();
     }
   })();
 </script>
