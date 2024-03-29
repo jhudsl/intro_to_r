@@ -275,7 +275,7 @@ dropouts_fct %>%
 library(forcats)
 
 dropouts_fct %>%
-  ggplot(mapping = aes(x = fct_reorder(grade, n_dropouts, .desc = TRUE, mean), y = n_dropouts)) +
+  ggplot(mapping = aes(x = fct_reorder(grade, n_dropouts, mean, .desc = TRUE), y = n_dropouts)) +
   geom_boxplot() +
   labs(x = "Student Grade") +
   theme_bw(base_size = 16)

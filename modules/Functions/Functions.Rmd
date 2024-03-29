@@ -310,11 +310,10 @@ select(cars, VehYear:VehicleAge) %>%
 Already know how to use functions to modify columns using `mutate()` or calculate summary statistics using `summarize()`.
 
 ```{r}
-mtcars %>%
-  mutate(wt_kg = wt*1000/2.205,
-         power_watts = hp*745.7) %>%
-  summarize(mean_kg = mean(wt_kg),
-            max_watts = max(power_watts))
+cars %>%
+  mutate(VehOdo_round = round(VehOdo, -3)) %>%
+  summarize(max_Odo_round = max(VehOdo_round),
+            max_Odo = max(VehOdo))
 ```
 
 
@@ -443,14 +442,7 @@ airquality %>%
 
 Similar to across, `purrr` is a package that allows you to apply a function to multiple columns in a data frame or multiple data objects in a list.
 
-
-## map_df
-
-```{r}
-library(purrr)
-airquality %>% map_df(replace_na, replace = 0)
-```
-
+While we won't get into `purrr` too much in this class, its a handy package for you to know about should you get into a situation where you have an irregular list you need to handle!
 
 # Multiple Data Frames
 
@@ -478,7 +470,6 @@ AQ_list %>% sapply(colMeans, na.rm = TRUE)
 - Apply your functions with `sapply(<a vector or list>, some_function)`
 - Use `across()` to apply functions across multiple columns of data 
 - Need to use `across` within `summarize()` or `mutate()`
-- `purrr` is a package that you can use to do more iterative work easily
 - Can use `sapply` or `purrr` to work with multiple data frames within lists simultaneously
 
 
