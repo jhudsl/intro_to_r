@@ -353,55 +353,62 @@ display: none;
 </div>
 
 
+<div id="helpful-tips-before-we-start" class="section level2">
+<h2>Helpful tips before we start</h2>
+<div id="troubleshooting-common-new-user-mistakes-we-have-seen" class="section level3">
+<h3>TROUBLESHOOTING: Common new user mistakes we have seen</h3>
+<ul>
+<li>Check the file path – is the file there?<br />
+</li>
+<li>Typos (R is <strong>case sensitive</strong>, <code>x</code> and
+<code>X</code> are different)<br />
+</li>
+<li>Open ended quotes, parentheses, and brackets<br />
+</li>
+<li>Deleting part of the code chunk<br />
+</li>
+<li>For any function, you can write <code>?FUNCTION_NAME</code>, or
+<code>help(&quot;FUNCTION_NAME&quot;)</code> to look at the help file</li>
+</ul>
+</div>
+<div id="r-projects" class="section level3">
+<h3>R Projects</h3>
+<p>R Projects can help you keep files organized and avoid issues with
+working directories. Check out our resource here: <a href="https://jhudatascience.org/intro_to_r/resources/R_Projects.html" class="uri">https://jhudatascience.org/intro_to_r/resources/R_Projects.html</a></p>
+</div>
+</div>
+<div id="lab" class="section level2">
+<h2>Lab</h2>
 <p>In this lab you can use the interactive console to explore or
 <strong>Knit</strong> the document. Remember anything you type here can
 be “sent” to the console with Cmd-Enter (OS-X) or Ctrl-Enter
 (Windows/Linux) in an R code chunk.</p>
-<pre class="r"><code>library(readr)</code></pre>
-<div id="part-1" class="section level1">
-<h1>Part 1</h1>
+<pre class="r"><code># Load the necessary package
+library(readr)</code></pre>
 <div id="section" class="section level3">
 <h3>1.1</h3>
-<p>Set up your R Project. Once complete, confirm you have created a
-project folder.</p>
-<ul>
-<li>First, save your files.</li>
-<li>Click on the R Project button (blue box with a green plus sign on
-the top left).</li>
-<li>If prompted, don’t save your .Rdata</li>
-<li>Click “New Directory”</li>
-<li>Click “New Project”</li>
-<li>Name the Directory (folder) and select an appropriate location (such
-as Desktop)</li>
-</ul>
-</div>
-<div id="section-1" class="section level3">
-<h3>1.2</h3>
 <p>Use the manual import method (File &gt; Import Dataset &gt; From Text
 (<code>readr</code>)) to Read in SARS-CoV-2 vaccination data from this
 URL:</p>
 <p><a href="https://jhudatascience.org/intro_to_r/data/vaccinations.csv" class="uri">https://jhudatascience.org/intro_to_r/data/vaccinations.csv</a>.</p>
 <p>You can learn more about how the data was collected here: <a href="https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-Jurisdi/unsk-b7fc" class="uri">https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-Jurisdi/unsk-b7fc</a></p>
 </div>
-<div id="section-2" class="section level3">
-<h3>1.3</h3>
+<div id="section-1" class="section level3">
+<h3>1.2</h3>
 <p>What is the dataset object called? You can find this information in
 the Console or the Environment. Enter your answer as a comment using
 <code>#</code>.</p>
 <pre class="r"><code># vaccinations</code></pre>
 </div>
-<div id="section-3" class="section level3">
-<h3>1.4</h3>
+<div id="section-2" class="section level3">
+<h3>1.3</h3>
 <p>Preview the data by clicking the table button in the Environment. How
 many observations and variables are there? Enter your answer as a
 comment using <code>#</code>.</p>
 <pre class="r"><code># 37272 obs. of 103 variables</code></pre>
 </div>
-</div>
-<div id="part-2" class="section level1">
-<h1>Part 2</h1>
-<div id="section-4" class="section level3">
-<h3>2.1</h3>
+<div id="section-3" class="section level3">
+<h3>1.4</h3>
 <p>Read in SARS-CoV-2 vaccination data from URL <a href="https://jhudatascience.org/intro_to_r/data/vaccinations.csv" class="uri">https://jhudatascience.org/intro_to_r/data/vaccinations.csv</a>
 and assign it to an object named <code>vacc</code>. Use the code
 structure below.</p>
@@ -419,8 +426,26 @@ vacc &lt;- read_csv(file = &quot;https://jhudatascience.org/intro_to_r/data/vacc
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
+<div id="section-4" class="section level3">
+<h3>1.5</h3>
+<p>Take a look at the data. Do these data objects
+(<code>vaccinations</code> and <code>vacc</code>) appear to be the same?
+Why or why not?</p>
+<pre class="r"><code># Yes, when we look in the RStudio environment, the two objects have the same dimensions. If we use the View() or str() functions, we can also see in more detail that the data is the same. 
+# If we wanted to get really in the weeds, we could do a logical test like all.equal(vacc, vaccinations)</code></pre>
+</div>
 <div id="section-5" class="section level3">
-<h3>2.2</h3>
+<h3>1.6</h3>
+<p>Learn your working directory by running <code>getwd()</code>. This is
+where R will look for files unless you tell it otherwise.</p>
+<pre class="r"><code>getwd()</code></pre>
+<pre><code>## [1] &quot;/__w/intro_to_r/intro_to_r/modules/Data_Input/lab&quot;</code></pre>
+</div>
+</div>
+<div id="practice-on-your-own" class="section level1">
+<h1>Practice on Your Own!</h1>
+<div id="p.1" class="section level3">
+<h3>P.1</h3>
 <p>Load the <code>readxl</code> package with the <code>library()</code>
 command.</p>
 <p>If it is not installed, install it via:
@@ -428,8 +453,8 @@ command.</p>
 try <code>install.packages(&quot;readxl&quot;)</code>.</p>
 <pre class="r"><code>library(readxl)</code></pre>
 </div>
-<div id="section-6" class="section level3">
-<h3>2.3</h3>
+<div id="p.2" class="section level3">
+<h3>P.2</h3>
 <p>Download the dataset of asthma prevalence in the USA from: <a href="https://jhudatascience.org/intro_to_r/data/asthma.xlsx" class="uri">https://jhudatascience.org/intro_to_r/data/asthma.xlsx</a>
 file to <code>asthma.xlsx</code> by running the following code chunk.
 This only downloads the file, it does NOT bring the file into R.</p>
@@ -440,20 +465,17 @@ This only downloads the file, it does NOT bring the file into R.</p>
   mode = &quot;wb&quot;
 )</code></pre>
 <p>Note: the “wb” option makes sure the file can be read correctly on
-Windows machines.</p>
+Windows and Apple machines.</p>
 </div>
-<div id="section-7" class="section level3">
-<h3>2.4</h3>
+<div id="p.3" class="section level3">
+<h3>P.3</h3>
 <p>Use the <code>read_excel()</code> function in the <code>readxl</code>
 package to read the <code>asthma.xlsx</code> file and call the output
 <code>asthma</code>.</p>
 <pre class="r"><code>asthma &lt;- read_excel(path = &quot;asthma.xlsx&quot;)</code></pre>
 </div>
-</div>
-<div id="practice-on-your-own" class="section level1">
-<h1>Practice on Your Own!</h1>
-<div id="p.1" class="section level3">
-<h3>P.1</h3>
+<div id="p.4" class="section level3">
+<h3>P.4</h3>
 <p>Run the following code - is there a problem? How do you know?</p>
 <pre class="r"><code>yts &lt;- read_delim(&quot;https://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv&quot;, delim = &quot;\t&quot;)</code></pre>
 <pre><code>## Rows: 9794 Columns: 1
@@ -481,12 +503,12 @@ package to read the <code>asthma.xlsx</code> file and call the output
 ## # ℹ abbreviated name:
 ## #   ¹​`YEAR,LocationAbbr,LocationDesc,TopicType,TopicDesc,MeasureDesc,DataSource,Response,Data_Value_Unit,Data_Value_Type,Data_Value,Data_Value_Footnote_Symbol,Data_Value_Footnote,Data_Value_Std_Err,Low_Confidence_Limit,High_Confidence_Limit,Sample_Size,Gender,Race,Age,Education,GeoLocation,TopicTypeId,TopicId,MeasureId,StratificationID1,StratificationID2,StratificationID3,StratificationID4,SubMeasureID,DisplayOrder`</code></pre>
 <pre class="r"><code># It should be a red flag to see that there is only one column that looks like: &quot;YEAR,LocationAbbr,LocationDesc,TopicType,TopicDesc,MeasureDesc...&quot;
-# This file is comma delimited not tab delimited!</code></pre>
+# This file is comma delimited, not tab delimited!</code></pre>
 </div>
-<div id="p.2" class="section level3">
-<h3>P.2</h3>
+<div id="p.5" class="section level3">
+<h3>P.5</h3>
 <p>By default, R reads the first sheet of an excel file. Copy your code
-from question 2.4 and add the following argument:
+from question P.3 and add the following argument:
 <code>sheet = 2</code>. Inspect the data using <code>head()</code>.</p>
 <pre class="r"><code>asthma &lt;- read_excel(path = &quot;asthma.xlsx&quot;, sheet = 2)
 head(asthma)</code></pre>
@@ -500,8 +522,8 @@ head(asthma)</code></pre>
 ## 5 12-14 (Young Teens)                               1057935 8.1 (1.10)    
 ## 6 12–17                                             2191174 8.6 (0.77)</code></pre>
 </div>
-<div id="p.3" class="section level3">
-<h3>P.3</h3>
+<div id="p.6" class="section level3">
+<h3>P.6</h3>
 <p>Install and load the <code>haven</code> package. Look at the help
 page for <code>read_dta()</code> function, and scroll to the very bottom
 of the page. Try running some of the examples provided.</p>
@@ -511,23 +533,6 @@ library(haven)
 
 path &lt;- system.file(&quot;examples&quot;, &quot;iris.dta&quot;, package = &quot;haven&quot;)
 read_dta(path)</code></pre>
-</div>
-<div id="p.4" class="section level3">
-<h3>P.4</h3>
-<p>Learn your working directory by running <code>getwd()</code></p>
-<pre class="r"><code>getwd()</code></pre>
-<pre><code>## [1] &quot;/__w/intro_to_r/intro_to_r/modules/Data_Input/lab&quot;</code></pre>
-<p>Create a folder in your R project called data. Move the “asthma.xlsx”
-file there.</p>
-<p>Modify the following code so that it finds “asthma.xlsx” in the
-“data” directory.</p>
-<pre><code>asthma &lt;- read_excel(path = &quot;asthma.xlsx&quot;)</code></pre>
-<pre class="r"><code>asthma &lt;- read_excel(path = &quot;data/asthma.xlsx&quot;)</code></pre>
-</div>
-<div id="p.5" class="section level3">
-<h3>P.5</h3>
-<p>Practice importing a dataset of your choice, give it an object name,
-and use <code>head()</code> to preview the first few lines.</p>
 </div>
 </div>
 
