@@ -113,48 +113,27 @@ See https://cran.r-project.org/web/packages/OCSdata/vignettes/instructions.html 
 
 See https://www.opencasestudies.org/ocs-bp-opioid-rural-urban/ about this data.
 
-##  EXTRA PRACTICE - Get the data into your project directory
-
-```{r, results='hide', eval = FALSE}
-OCSdata::simpler_import_data("ocs-bp-opioid-rural-urban", 
-                             outpath = tempdir())
-```
-
-Where is the data?
-
-Simulates creating subdirectories to organize your data.
-
-```{r, fig.alt="dplyr", out.width = "55%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("images/path.gif")
-```
 
 ## Import the data
-`here` function of the `here` package helps R start looking where your .Rproj file is.
 
-```{r, echo = FALSE, message=FALSE, comment= FALSE, results='hide'}
-install.packages("here", repos='http://cran.us.r-project.org')
-```
-
-```{r, eval = FALSE}
-#install.packages(here)
-library(here)
-annualDosage <- read_csv(file = 
-   here("OCS_data/data/simpler_import/county_annual.csv"))
-
-```
-
-
-## Or do this!
+Now we will get the data from the `OCSdata` package using the `load_imported_data()` function.
 
 ```{r}
-OCSdata::load_imported_data("ocs-bp-opioid-rural-urban")
+load_imported_data("ocs-bp-opioid-rural-urban")
 ```
 
 You will see a few new objects in your environment called:
 
-- `annualDosage` (number of shipments (count) of either oxycodone or hydrocodone pills (DOSAGE_UNIT))
+- `annualDosage` (number of shipments (count) of either oxycodone or hydrocodone pills (DOSAGE_UNIT)) - *we will work with this one for now*
 - `county_pop` (population per county)
 - `land` (land area per county)
+
+## Import the data - method 2
+
+```{r}
+annualDosage <- read_csv("https://jhudatascience.org/intro_to_r/data/annualDosage.csv")
+
+```
 
 ## Checking the data `dim()`
 
@@ -190,11 +169,11 @@ slice_sample(annualDosage, n = 2)
 
 ## Data frames
 
-An older version of data in tables is called a data frame. The iris dataset is an example of this. 
+An older version of data in tables is called a data frame. The mtcars dataset is an example of this. 
 
 ```{r}
-class(iris)
-head(iris)
+class(mtcars)
+head(mtcars)
 ```
 ## tibble
 
@@ -215,8 +194,8 @@ annualDosage
 If we wanted to create a `tibble` ("fancy" data frame), we can using the  `tibble()` function on a data frame.  
 
 ```{r}
-tbl_iris <- tibble(iris) 
-tbl_iris
+tbl_mtcars <- tibble(mtcars) 
+tbl_mtcars
 ```
 
 Note don't necessarily need to use `head()` with tibbles, as they conveniently print a portion of the data.

@@ -13,6 +13,10 @@ In this lab you can use the interactive console to explore but please record you
 
 # Part 1
 
+Now we will work with the `county_pop` data from the same case study.
+
+
+
 First let's get the OCSdata package if we haven't already. We added an argument here so you don't have to select a mirror. 
 
 ```{r}
@@ -26,8 +30,18 @@ library(tidyverse)
 library(OCSdata)
 ```
 
-Now let's load the opioid related datasets by running this chunk. 
 
+There are two ways to get the data- either one is fine. We give you two options in case you have challenges:
+1) importing the csv 
+2) using the OCSdata package
+
+```{r}
+
+county_pop <- read_csv("https://jhudatascience.org/intro_to_r/data/county_pop.csv")
+
+```
+
+Or we can load the data from this package:
 ```{r}
 OCSdata::load_imported_data("ocs-bp-opioid-rural-urban")
 ```
