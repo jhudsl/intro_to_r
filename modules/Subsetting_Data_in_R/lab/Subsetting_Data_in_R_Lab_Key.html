@@ -360,40 +360,40 @@ only inside the code chunks designated with the <code>{r}</code>
 areas).</p>
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
-<p>First let’s get the OCSdata package if we haven’t already. We added
-an argument here so you don’t have to select a mirror.</p>
-<pre class="r"><code>install.packages(&quot;OCSdata&quot;, repos=&#39;http://cran.us.r-project.org&#39;)</code></pre>
-<pre><code>## Installing package into &#39;/usr/local/lib/R/site-library&#39;
-## (as &#39;lib&#39; is unspecified)</code></pre>
+<p>Now we will work with the <code>county_pop</code> data from the same
+case study.</p>
 <pre class="r"><code># don&#39;t forget to load the packages that you will need!
 library(dplyr)
-library(tidyverse)
-library(OCSdata)</code></pre>
-<p>Now let’s load the opioid related datasets by running this chunk.</p>
-<pre class="r"><code>OCSdata::load_imported_data(&quot;ocs-bp-opioid-rural-urban&quot;)</code></pre>
-<p>Check that it worked by seeing if you have the
+library(tidyverse)</code></pre>
+<p>Import the data from “<a href="https://jhudatascience.org/intro_to_r/data/county_pop.csv" class="uri">https://jhudatascience.org/intro_to_r/data/county_pop.csv</a>”
+using <code>read_csv</code> and assign the data to an object called
+<code>county_pop</code>. Check that it worked by seeing if you have the
 <code>county_pop</code> data.</p>
-<pre class="r"><code>county_pop</code></pre>
-<pre><code>## # A tibble: 28,265 × 10
-##    BUYER_COUNTY BUYER_STATE countyfips STATE COUNTY county_name NAME    variable
-##    &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;      &lt;int&gt;  &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt;   
-##  1 AUTAUGA      AL          01001          1      1 Autauga     Autaug… B01003_…
-##  2 BALDWIN      AL          01003          1      3 Baldwin     Baldwi… B01003_…
-##  3 BARBOUR      AL          01005          1      5 Barbour     Barbou… B01003_…
-##  4 BIBB         AL          01007          1      7 Bibb        Bibb C… B01003_…
-##  5 BLOUNT       AL          01009          1      9 Blount      Blount… B01003_…
-##  6 BULLOCK      AL          01011          1     11 Bullock     Bulloc… B01003_…
-##  7 BUTLER       AL          01013          1     13 Butler      Butler… B01003_…
-##  8 CALHOUN      AL          01015          1     15 Calhoun     Calhou… B01003_…
-##  9 CHAMBERS     AL          01017          1     17 Chambers    Chambe… B01003_…
-## 10 CHEROKEE     AL          01019          1     19 Cherokee    Cherok… B01003_…
-## # ℹ 28,255 more rows
-## # ℹ 2 more variables: year &lt;int&gt;, population &lt;int&gt;</code></pre>
+<pre class="r"><code>county_pop &lt;- read_csv(&quot;https://jhudatascience.org/intro_to_r/data/county_pop.csv&quot;)</code></pre>
+<pre><code>## Rows: 28265 Columns: 10
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (6): BUYER_COUNTY, BUYER_STATE, countyfips, county_name, NAME, variable
+## dbl (4): STATE, COUNTY, year, population
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>head(county_pop)</code></pre>
+<pre><code>## # A tibble: 6 × 10
+##   BUYER_COUNTY BUYER_STATE countyfips STATE COUNTY county_name NAME     variable
+##   &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;   
+## 1 AUTAUGA      AL          01001          1      1 Autauga     Autauga… B01003_…
+## 2 BALDWIN      AL          01003          1      3 Baldwin     Baldwin… B01003_…
+## 3 BARBOUR      AL          01005          1      5 Barbour     Barbour… B01003_…
+## 4 BIBB         AL          01007          1      7 Bibb        Bibb Co… B01003_…
+## 5 BLOUNT       AL          01009          1      9 Blount      Blount … B01003_…
+## 6 BULLOCK      AL          01011          1     11 Bullock     Bullock… B01003_…
+## # ℹ 2 more variables: year &lt;dbl&gt;, population &lt;dbl&gt;</code></pre>
 <div id="section" class="section level3">
 <h3>1.1</h3>
 <p>What class is <code>county_pop</code>?</p>
 <pre class="r"><code>class(county_pop)</code></pre>
-<pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
+<pre><code>## [1] &quot;spec_tbl_df&quot; &quot;tbl_df&quot;      &quot;tbl&quot;         &quot;data.frame&quot;</code></pre>
 </div>
 <div id="section-1" class="section level3">
 <h3>1.2</h3>
@@ -415,14 +415,14 @@ for the order of the new and old names!).</p>
 head(county_pop)</code></pre>
 <pre><code>## # A tibble: 6 × 10
 ##   BUYER_COUNTY State_name countyfips STATE COUNTY county_name NAME      variable
-##   &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;      &lt;int&gt;  &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;   
+##   &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;   
 ## 1 AUTAUGA      AL         01001          1      1 Autauga     Autauga … B01003_…
 ## 2 BALDWIN      AL         01003          1      3 Baldwin     Baldwin … B01003_…
 ## 3 BARBOUR      AL         01005          1      5 Barbour     Barbour … B01003_…
 ## 4 BIBB         AL         01007          1      7 Bibb        Bibb Cou… B01003_…
 ## 5 BLOUNT       AL         01009          1      9 Blount      Blount C… B01003_…
 ## 6 BULLOCK      AL         01011          1     11 Bullock     Bullock … B01003_…
-## # ℹ 2 more variables: year &lt;int&gt;, population &lt;int&gt;</code></pre>
+## # ℹ 2 more variables: year &lt;dbl&gt;, population &lt;dbl&gt;</code></pre>
 </div>
 <div id="section-3" class="section level3">
 <h3>1.4</h3>
@@ -433,14 +433,14 @@ command.</p>
 head(county_pop)</code></pre>
 <pre><code>## # A tibble: 6 × 10
 ##   buyer_county state_name countyfips state county county_name name      variable
-##   &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;      &lt;int&gt;  &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;   
+##   &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;   
 ## 1 AUTAUGA      AL         01001          1      1 Autauga     Autauga … B01003_…
 ## 2 BALDWIN      AL         01003          1      3 Baldwin     Baldwin … B01003_…
 ## 3 BARBOUR      AL         01005          1      5 Barbour     Barbour … B01003_…
 ## 4 BIBB         AL         01007          1      7 Bibb        Bibb Cou… B01003_…
 ## 5 BLOUNT       AL         01009          1      9 Blount      Blount C… B01003_…
 ## 6 BULLOCK      AL         01011          1     11 Bullock     Bullock … B01003_…
-## # ℹ 2 more variables: year &lt;int&gt;, population &lt;int&gt;</code></pre>
+## # ℹ 2 more variables: year &lt;dbl&gt;, population &lt;dbl&gt;</code></pre>
 <pre class="r"><code>dim(county_pop)</code></pre>
 <pre><code>## [1] 28265    10</code></pre>
 </div>
@@ -454,19 +454,19 @@ head(county_pop)</code></pre>
 <pre class="r"><code>head(county_pop, 3)</code></pre>
 <pre><code>## # A tibble: 3 × 10
 ##   buyer_county state_name countyfips state county county_name name      variable
-##   &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;      &lt;int&gt;  &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;   
+##   &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;   
 ## 1 AUTAUGA      AL         01001          1      1 Autauga     Autauga … B01003_…
 ## 2 BALDWIN      AL         01003          1      3 Baldwin     Baldwin … B01003_…
 ## 3 BARBOUR      AL         01005          1      5 Barbour     Barbour … B01003_…
-## # ℹ 2 more variables: year &lt;int&gt;, population &lt;int&gt;</code></pre>
+## # ℹ 2 more variables: year &lt;dbl&gt;, population &lt;dbl&gt;</code></pre>
 <pre class="r"><code>tail(county_pop, 3)</code></pre>
 <pre><code>## # A tibble: 3 × 10
 ##   buyer_county  state_name countyfips state county county_name   name   variable
-##   &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;      &lt;int&gt;  &lt;int&gt; &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;   
+##   &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;   
 ## 1 SKAGWAY       AK         02230          2    230 Skagway       Skagw… B01003_…
 ## 2 HOONAH ANGOON AK         02105          2    105 Hoonah Angoon Hoona… B01003_…
 ## 3 PETERSBURG    AK         02195          2    195 Petersburg    Peter… B01003_…
-## # ℹ 2 more variables: year &lt;int&gt;, population &lt;int&gt;</code></pre>
+## # ℹ 2 more variables: year &lt;dbl&gt;, population &lt;dbl&gt;</code></pre>
 </div>
 </div>
 <div id="part-2" class="section level1">
@@ -493,7 +493,7 @@ check the dimensions.</p>
 pop2</code></pre>
 <pre><code>## # A tibble: 28,265 × 3
 ##    population state_name county_name
-##         &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;      
+##         &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      
 ##  1      51328 AL         Autauga    
 ##  2     168121 AL         Baldwin    
 ##  3      27861 AL         Barbour    
@@ -543,7 +543,7 @@ population - how many are there?</p>
 <pre class="r"><code>filter(county_pop, year &lt; 2010 &amp; population &gt; 100000) # all of these options work</code></pre>
 <pre><code>## # A tibble: 2,260 × 10
 ##    buyer_county state_name countyfips state county county_name name     variable
-##    &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;      &lt;int&gt;  &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;   
+##    &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;   
 ##  1 BALDWIN      AL         01003          1      3 Baldwin     Baldwin… B01003_…
 ##  2 CALHOUN      AL         01015          1     15 Calhoun     Calhoun… B01003_…
 ##  3 ETOWAH       AL         01055          1     55 Etowah      Etowah … B01003_…
@@ -555,7 +555,7 @@ population - how many are there?</p>
 ##  9 MORGAN       AL         01103          1    103 Morgan      Morgan … B01003_…
 ## 10 SHELBY       AL         01117          1    117 Shelby      Shelby … B01003_…
 ## # ℹ 2,250 more rows
-## # ℹ 2 more variables: year &lt;int&gt;, population &lt;int&gt;</code></pre>
+## # ℹ 2 more variables: year &lt;dbl&gt;, population &lt;dbl&gt;</code></pre>
 <pre class="r"><code>nrow(filter(county_pop, year &lt; 2010 &amp; population &gt; 100000))</code></pre>
 <pre><code>## [1] 2260</code></pre>
 <pre class="r"><code>nrow(filter(county_pop, year &lt; 2010, population &gt; 100000))</code></pre>
@@ -569,7 +569,7 @@ than 100000 population - how many are there?</p>
 <pre class="r"><code>filter(county_pop, year &lt;= 2010 &amp; population &gt; 100000) # all of these options work</code></pre>
 <pre><code>## # A tibble: 2,834 × 10
 ##    buyer_county state_name countyfips state county county_name name     variable
-##    &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;      &lt;int&gt;  &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;   
+##    &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;   
 ##  1 BALDWIN      AL         01003          1      3 Baldwin     Baldwin… B01003_…
 ##  2 CALHOUN      AL         01015          1     15 Calhoun     Calhoun… B01003_…
 ##  3 ETOWAH       AL         01055          1     55 Etowah      Etowah … B01003_…
@@ -581,7 +581,7 @@ than 100000 population - how many are there?</p>
 ##  9 MORGAN       AL         01103          1    103 Morgan      Morgan … B01003_…
 ## 10 SHELBY       AL         01117          1    117 Shelby      Shelby … B01003_…
 ## # ℹ 2,824 more rows
-## # ℹ 2 more variables: year &lt;int&gt;, population &lt;int&gt;</code></pre>
+## # ℹ 2 more variables: year &lt;dbl&gt;, population &lt;dbl&gt;</code></pre>
 <pre class="r"><code>nrow(filter(county_pop, year &lt;= 2010 &amp; population &gt; 100000))</code></pre>
 <pre><code>## [1] 2834</code></pre>
 <pre class="r"><code>nrow(filter(county_pop, year &lt;= 2010, population &gt; 100000))</code></pre>
@@ -604,7 +604,7 @@ have both?</p>
 <pre class="r"><code>filter(county_pop, state_name == &quot;NM&quot; | population &lt; 10000)</code></pre>
 <pre><code>## # A tibble: 6,526 × 10
 ##    buyer_county    state_name countyfips state county county_name name  variable
-##    &lt;chr&gt;           &lt;chr&gt;      &lt;chr&gt;      &lt;int&gt;  &lt;int&gt; &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;   
+##    &lt;chr&gt;           &lt;chr&gt;      &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;   
 ##  1 GREENE          AL         01063          1     63 Greene      Gree… B01003_…
 ##  2 ALEUTIANS EAST  AK         02013          2     13 Aleutians … Aleu… B01003_…
 ##  3 ALEUTIANS WEST  AK         02016          2     16 Aleutians … Aleu… B01003_…
@@ -616,7 +616,7 @@ have both?</p>
 ##  9 NOME            AK         02180          2    180 Nome        Nome… B01003_…
 ## 10 NORTH SLOPE     AK         02185          2    185 North Slope Nort… B01003_…
 ## # ℹ 6,516 more rows
-## # ℹ 2 more variables: year &lt;int&gt;, population &lt;int&gt;</code></pre>
+## # ℹ 2 more variables: year &lt;dbl&gt;, population &lt;dbl&gt;</code></pre>
 <pre class="r"><code>nrow(filter(county_pop, state_name == &quot;NM&quot; &amp; population &lt; 10000))</code></pre>
 <pre><code>## [1] 72</code></pre>
 </div>
@@ -627,7 +627,7 @@ have both?</p>
 <pre class="r"><code>select(county_pop, contains(&quot;a&quot;))</code></pre>
 <pre><code>## # A tibble: 28,265 × 7
 ##    state_name state county_name name                   variable  year population
-##    &lt;chr&gt;      &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;                  &lt;chr&gt;    &lt;int&gt;      &lt;int&gt;
+##    &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;                  &lt;chr&gt;    &lt;dbl&gt;      &lt;dbl&gt;
 ##  1 AL             1 Autauga     Autauga County, Alaba… B01003_…  2006      51328
 ##  2 AL             1 Baldwin     Baldwin County, Alaba… B01003_…  2006     168121
 ##  3 AL             1 Barbour     Barbour County, Alaba… B01003_…  2006      27861
@@ -658,7 +658,7 @@ county_2012  &lt;- select(county_2012, county_name, state_name, population)
 county_2012 # can get dimensions just from viewing the tibble</code></pre>
 <pre><code>## # A tibble: 3,140 × 3
 ##    county_name state_name population
-##    &lt;chr&gt;       &lt;chr&gt;           &lt;int&gt;
+##    &lt;chr&gt;       &lt;chr&gt;           &lt;dbl&gt;
 ##  1 Autauga     AL              54590
 ##  2 Baldwin     AL             183226
 ##  3 Barbour     AL              27469
@@ -682,7 +682,7 @@ county_2012 # can get dimensions just from viewing the tibble</code></pre>
 county_2012</code></pre>
 <pre><code>## # A tibble: 3,140 × 3
 ##    county_name state_name population
-##    &lt;chr&gt;       &lt;chr&gt;           &lt;int&gt;
+##    &lt;chr&gt;       &lt;chr&gt;           &lt;dbl&gt;
 ##  1 Autauga     AL              54590
 ##  2 Baldwin     AL             183226
 ##  3 Barbour     AL              27469
@@ -712,7 +712,7 @@ smallest population?</p>
 county_2012</code></pre>
 <pre><code>## # A tibble: 3,140 × 3
 ##    county_name state_name population
-##    &lt;chr&gt;       &lt;chr&gt;           &lt;int&gt;
+##    &lt;chr&gt;       &lt;chr&gt;           &lt;dbl&gt;
 ##  1 Loving      TX                 85
 ##  2 King        TX                227
 ##  3 McPherson   NE                348
@@ -751,7 +751,7 @@ NEWDATA &lt;- OLD_DATA %&gt;% mutate(NEW_COLUMN = OLD_COLUMN)</code></pre>
 county_2012</code></pre>
 <pre><code>## # A tibble: 3,140 × 4
 ##    state_name county_name population pop1000
-##    &lt;chr&gt;      &lt;chr&gt;            &lt;int&gt;   &lt;dbl&gt;
+##    &lt;chr&gt;      &lt;chr&gt;            &lt;dbl&gt;   &lt;dbl&gt;
 ##  1 TX         Loving              85   0.085
 ##  2 TX         King               227   0.227
 ##  3 NE         McPherson          348   0.348
@@ -774,7 +774,7 @@ learned today?</p>
   select(population)</code></pre>
 <pre><code>## # A tibble: 1 × 1
 ##   population
-##        &lt;int&gt;
+##        &lt;dbl&gt;
 ## 1      34228</code></pre>
 </div>
 </div>

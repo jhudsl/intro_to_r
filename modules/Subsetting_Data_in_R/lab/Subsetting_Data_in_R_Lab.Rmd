@@ -13,25 +13,17 @@ In this lab you can use the interactive console to explore but please record you
 
 # Part 1
 
-First let's get the OCSdata package if we haven't already. We added an argument here so you don't have to select a mirror. 
+Now we will work with the `county_pop` data from the same case study.
 
-```{r}
-install.packages("OCSdata", repos='http://cran.us.r-project.org')
-```
 
 ```{r, message = FALSE}
 # don't forget to load the packages that you will need!
 library(dplyr)
 library(tidyverse)
-library(OCSdata)
 ```
 
-Now let's load the opioid related datasets by running this chunk. 
 
-```{r}
-OCSdata::load_imported_data("ocs-bp-opioid-rural-urban")
-```
-
+Import the data from "https://jhudatascience.org/intro_to_r/data/county_pop.csv" using `read_csv` and assign the data to an object called `county_pop`. 
 Check that it worked by seeing if you have the `county_pop` data.
 
 ```{r 0response}
