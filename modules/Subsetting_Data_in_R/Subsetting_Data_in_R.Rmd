@@ -91,70 +91,26 @@ We will use a dataset from a project we worked on called Open Case Studies.
 
 See https://www.opencasestudies.org/. 
 
-First we need to install and load the package.
+We have added the specific data to our website.
 
-```{r, eval = FALSE}
-install.packages("OCSdata")
-```
-
-```{r, echo = FALSE, message=FALSE, comment= FALSE, results='hide'}
-install.packages("OCSdata", repos='http://cran.us.r-project.org')
-```
-
-```{r}
-library(OCSdata)
-```
 
 ## Getting data to work with
 
-Then we will load data from one of the case studies about opioid shipments.
-
-See https://cran.r-project.org/web/packages/OCSdata/vignettes/instructions.html for more info on what data is available. 
+We will load data from one of the case studies about opioid shipments.
 
 See https://www.opencasestudies.org/ocs-bp-opioid-rural-urban/ about this data.
 
-##  EXTRA PRACTICE - Get the data into your project directory
-
-```{r, results='hide', eval = FALSE}
-OCSdata::simpler_import_data("ocs-bp-opioid-rural-urban", 
-                             outpath = tempdir())
-```
-
-Where is the data?
-
-Simulates creating subdirectories to organize your data.
-
-```{r, fig.alt="dplyr", out.width = "55%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("images/path.gif")
-```
 
 ## Import the data
-`here` function of the `here` package helps R start looking where your .Rproj file is.
 
-```{r, echo = FALSE, message=FALSE, comment= FALSE, results='hide'}
-install.packages("here", repos='http://cran.us.r-project.org')
-```
+We will work with data called `annualDosage` (number of shipments (count) of either oxycodone or hydrocodone pills (DOSAGE_UNIT)).
 
-```{r, eval = FALSE}
-#install.packages(here)
-library(here)
-annualDosage <- read_csv(file = 
-   here("OCS_data/data/simpler_import/county_annual.csv"))
-
-```
-
-
-## Or do this!
 
 ```{r}
-OCSdata::load_imported_data("ocs-bp-opioid-rural-urban")
+annualDosage <- read_csv("https://jhudatascience.org/intro_to_r/data/annualDosage.csv")
+
 ```
 
-You will see a few new objects in your environment called:
-
-- `annualDosage` (number of shipments (count) of either oxycodone or hydrocodone pills (DOSAGE_UNIT))
-- `county_pop` (population per county)
-- `land` (land area per county)
 
 ## Checking the data `dim()`
 
@@ -190,11 +146,11 @@ slice_sample(annualDosage, n = 2)
 
 ## Data frames
 
-An older version of data in tables is called a data frame. The iris dataset is an example of this. 
+An older version of data in tables is called a data frame. The mtcars dataset is an example of this. 
 
 ```{r}
-class(iris)
-head(iris)
+class(mtcars)
+head(mtcars)
 ```
 ## tibble
 
@@ -215,8 +171,8 @@ annualDosage
 If we wanted to create a `tibble` ("fancy" data frame), we can using the  `tibble()` function on a data frame.  
 
 ```{r}
-tbl_iris <- tibble(iris) 
-tbl_iris
+tbl_mtcars <- tibble(mtcars) 
+tbl_mtcars
 ```
 
 Note don't necessarily need to use `head()` with tibbles, as they conveniently print a portion of the data.
@@ -440,9 +396,7 @@ clean_names(test)
 This time lets also make it a smaller subset so it is easier for us to see the full dataset as we work through examples. 
 
 ```{r}
-#install.packages(OCSdata)
-#library(OCSdata)
-#OCSdata::load_imported_data("ocs-bp-opioid-rural-urban")
+#read_csv("https://jhudatascience.org/intro_to_r/data/annualDosage.csv")
 set.seed(1234)
 AD <-slice_sample(annualDosage, n = 30)
 ```
@@ -702,9 +656,7 @@ https://media.giphy.com/media/5b5OU7aUekfdSAER5I/giphy.gif
 ## Get the data
 
 ```{r}
-#install.packages(OCSdata)
-#library(OCSdata)
-#OCSdata::load_imported_data("ocs-bp-opioid-rural-urban")
+#read_csv("https://jhudatascience.org/intro_to_r/data/annualDosage.csv")
 set.seed(1234)
 AD <-slice_sample(annualDosage, n = 30)
 ```
