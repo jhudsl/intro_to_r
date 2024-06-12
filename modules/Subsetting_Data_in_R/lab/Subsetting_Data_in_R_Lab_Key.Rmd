@@ -16,40 +16,19 @@ In this lab you can use the interactive console to explore but please record you
 Now we will work with the `county_pop` data from the same case study.
 
 
-
-First let's get the OCSdata package if we haven't already. We added an argument here so you don't have to select a mirror. 
-
-```{r}
-install.packages("OCSdata", repos='http://cran.us.r-project.org')
-```
-
 ```{r, message = FALSE}
 # don't forget to load the packages that you will need!
 library(dplyr)
 library(tidyverse)
-library(OCSdata)
 ```
 
 
-There are two ways to get the data- either one is fine. We give you two options in case you have challenges:
-1) importing the csv 
-2) using the OCSdata package
-
-```{r}
-
-county_pop <- read_csv("https://jhudatascience.org/intro_to_r/data/county_pop.csv")
-
-```
-
-Or we can load the data from this package:
-```{r}
-OCSdata::load_imported_data("ocs-bp-opioid-rural-urban")
-```
-
+Import the data from "https://jhudatascience.org/intro_to_r/data/county_pop.csv" using `read_csv` and assign the data to an object called `county_pop`. 
 Check that it worked by seeing if you have the `county_pop` data.
 
 ```{r 0response}
-county_pop
+county_pop <- read_csv("https://jhudatascience.org/intro_to_r/data/county_pop.csv")
+head(county_pop)
 ```
 
 ### 1.1
