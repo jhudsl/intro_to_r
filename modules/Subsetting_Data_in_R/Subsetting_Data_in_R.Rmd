@@ -91,49 +91,26 @@ We will use a dataset from a project we worked on called Open Case Studies.
 
 See https://www.opencasestudies.org/. 
 
-First we need to install and load the package.
+We have added the specific data to our website.
 
-```{r, eval = FALSE}
-install.packages("OCSdata")
-```
-
-```{r, echo = FALSE, message=FALSE, comment= FALSE, results='hide'}
-install.packages("OCSdata", repos='http://cran.us.r-project.org')
-```
-
-```{r}
-library(OCSdata)
-```
 
 ## Getting data to work with
 
-Then we will load data from one of the case studies about opioid shipments.
-
-See https://cran.r-project.org/web/packages/OCSdata/vignettes/instructions.html for more info on what data is available. 
+We will load data from one of the case studies about opioid shipments.
 
 See https://www.opencasestudies.org/ocs-bp-opioid-rural-urban/ about this data.
 
 
 ## Import the data
 
-Now we will get the data from the `OCSdata` package using the `load_imported_data()` function.
+We will work with data called `annualDosage` (number of shipments (count) of either oxycodone or hydrocodone pills (DOSAGE_UNIT)).
 
-```{r}
-load_imported_data("ocs-bp-opioid-rural-urban")
-```
-
-You will see a few new objects in your environment called:
-
-- `annualDosage` (number of shipments (count) of either oxycodone or hydrocodone pills (DOSAGE_UNIT)) - *we will work with this one for now*
-- `county_pop` (population per county)
-- `land` (land area per county)
-
-## Import the data - method 2
 
 ```{r}
 annualDosage <- read_csv("https://jhudatascience.org/intro_to_r/data/annualDosage.csv")
 
 ```
+
 
 ## Checking the data `dim()`
 
@@ -419,9 +396,7 @@ clean_names(test)
 This time lets also make it a smaller subset so it is easier for us to see the full dataset as we work through examples. 
 
 ```{r}
-#install.packages(OCSdata)
-#library(OCSdata)
-#OCSdata::load_imported_data("ocs-bp-opioid-rural-urban")
+#read_csv("https://jhudatascience.org/intro_to_r/data/annualDosage.csv")
 set.seed(1234)
 AD <-slice_sample(annualDosage, n = 30)
 ```
@@ -681,9 +656,7 @@ https://media.giphy.com/media/5b5OU7aUekfdSAER5I/giphy.gif
 ## Get the data
 
 ```{r}
-#install.packages(OCSdata)
-#library(OCSdata)
-#OCSdata::load_imported_data("ocs-bp-opioid-rural-urban")
+#read_csv("https://jhudatascience.org/intro_to_r/data/annualDosage.csv")
 set.seed(1234)
 AD <-slice_sample(annualDosage, n = 30)
 ```
