@@ -360,18 +360,14 @@ only inside the code chunks designated with the <code>{r}</code>
 areas).</p>
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
-<p>First let’s get the OCSdata package if we haven’t already. We added
-an argument here so you don’t have to select a mirror.</p>
-<pre class="r"><code>install.packages(&quot;OCSdata&quot;, repos=&#39;http://cran.us.r-project.org&#39;)</code></pre>
-<pre><code>## Installing package into &#39;/usr/local/lib/R/site-library&#39;
-## (as &#39;lib&#39; is unspecified)</code></pre>
+<p>Now we will work with the <code>county_pop</code> data from the same
+case study.</p>
 <pre class="r"><code># don&#39;t forget to load the packages that you will need!
 library(dplyr)
-library(tidyverse)
-library(OCSdata)</code></pre>
-<p>Now let’s load the opioid related datasets by running this chunk.</p>
-<pre class="r"><code>OCSdata::load_imported_data(&quot;ocs-bp-opioid-rural-urban&quot;)</code></pre>
-<p>Check that it worked by seeing if you have the
+library(tidyverse)</code></pre>
+<p>Import the data from “<a href="https://jhudatascience.org/intro_to_r/data/county_pop.csv" class="uri">https://jhudatascience.org/intro_to_r/data/county_pop.csv</a>”
+using <code>read_csv</code> and assign the data to an object called
+<code>county_pop</code>. Check that it worked by seeing if you have the
 <code>county_pop</code> data.</p>
 <div id="section" class="section level3">
 <h3>1.1</h3>
