@@ -231,11 +231,12 @@ head(circ)
 
 ## Class conversion in with a dataset
 
-Say we want to change `daily` to be an integer. We would need to use mutate to help us modify that column or create a new column. Let's create a new one so it is easier to see what is happening. 
+Say we want to change `daily` to be an integer. We would need to use `mutate()`. Let's create a new column 'daily_int' so it is easier to see what is happening. 
 
 ```{r}
-circ_updated <- mutate(circ, daily_int= as.integer(daily))
-circ_updated %>% select(daily, daily_int)
+circ %>% 
+  mutate(daily_int= as.integer(daily)) %>% 
+  select(daily, daily_int)
 ```
 
 
@@ -375,18 +376,21 @@ There are functions in case your data have only date, hour and minute (`ymd_hm()
 ## In a dataframe
 
 Note dates are always displayed year month day, even if made with `mdy`!
+
 ```{r}
-circ <- mutate(circ, date_formatted = mdy(date)) %>% 
-  relocate(date_formatted, .before = orangeBoardings) 
-glimpse(circ)
+circ_dates <- circ %>% select(date)
+circ_dates <- 
+  circ_dates %>% mutate(date_formatted = mdy(date))
+glimpse(circ_dates)
 ```
+
+
 ## Once a variable is a date type we can convert to other types
 
-
 ```{r}
-circ %>% mutate(year = year(date_formatted)) %>%
-         mutate(month = month(date_formatted)) %>%
-         relocate(c(year, month), .before = orangeBoardings) %>%
+circ_dates %>% 
+  mutate(year = year(date_formatted)) %>%
+  mutate(month = month(date_formatted)) %>% 
   glimpse()
 ```
 
