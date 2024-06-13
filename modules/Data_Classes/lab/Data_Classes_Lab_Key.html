@@ -357,10 +357,19 @@ display: none;
 <h1>Part 1</h1>
 <div id="section" class="section level3">
 <h3>1.1</h3>
-<p>Load all the libraries we will use in this lab.</p>
+<p>Load all the packages we will use in this lab.</p>
 <pre class="r"><code>library(readr)
-library(tidyverse)
-library(dplyr)
+library(tidyverse)</code></pre>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.4     ✔ purrr     1.0.2
+## ✔ forcats   1.0.0     ✔ stringr   1.5.1
+## ✔ ggplot2   3.5.0     ✔ tibble    3.2.1
+## ✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<pre class="r"><code>library(dplyr)
 library(lubridate)
 library(jhur)</code></pre>
 <p>Create some data to work with by running the following code
@@ -521,8 +530,8 @@ glimpse(circ)</code></pre>
 <h3>P.2</h3>
 <p>Use <code>range()</code> function on <code>date_formatted</code>
 variable to display the range of dates in the data set. How does this
-compare to that of <code>date</code>? Why? (Hint: use the pull function
-first to pull the values.)</p>
+compare to that of <code>date</code>? Why? (Hint: use the
+<code>pull</code> function first to pull the values.)</p>
 <pre class="r"><code>pull(circ, date_formatted) %&gt;% range()</code></pre>
 <pre><code>## [1] &quot;2010-01-11&quot; &quot;2013-03-01&quot;</code></pre>
 <pre class="r"><code>pull(circ, date) %&gt;% range()</code></pre>

@@ -9,7 +9,7 @@ editor_options:
 
 ### 1.1
 
-Load all the libraries we will use in this lab. 
+Load all the packages we will use in this lab. 
 
 ```{r}
 library(readr)
@@ -108,7 +108,7 @@ NEWDATA <- OLD_DATA %>% relocate(COLUMN1, .before = COLUMN2)
 
 ### P.2
 
-Use `range()` function on `date_formatted` variable to display the range of dates in the data set. How does this compare to that of `date`? Why? (Hint: use the pull function first to pull the values.)
+Use `range()` function on `date_formatted` variable to display the range of dates in the data set. How does this compare to that of `date`? Why? (Hint: use the `pull` function first to pull the values.)
 
 ```{r P.2response}
 
