@@ -568,7 +568,8 @@ data_diet %>%
 data_diet %>% 
   mutate(Treatment_recoded = case_when(
     Treatment == "Ginger" ~ "Ginger", # keep it the same!
-    Treatment %in% c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
+    Treatment %in% 
+c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
     Treatment %in% c("O", "Other") ~ "Other")) %>%
 
   count(Treatment, Treatment_recoded)
@@ -969,6 +970,7 @@ Base R:
 ## some data to work with
 
 ```{r readSal, echo = TRUE, eval = TRUE, message=FALSE, warning=FALSE}
+library(jhur)
 Sal = read_salaries() # or
 ```
 
