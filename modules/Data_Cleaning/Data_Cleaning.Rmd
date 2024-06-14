@@ -538,10 +538,11 @@ Perhaps we want values that are O or Other to actually be NA, then `case_when` c
 
 ```{r}
 data_diet %>% 
-  mutate(Treatment_recoded = case_when(Treatment == "Ginger" ~ "Ginger", 
-                               Treatment == "Mint" ~ "Peppermint",
-                               Treatment == "mint" ~ "Peppermint",
-                               Treatment == "peppermint" ~ "Peppermint")) %>%
+  mutate(Treatment_recoded = case_when(
+                        Treatment == "Ginger" ~ "Ginger", 
+                        Treatment == "Mint" ~ "Peppermint",
+                        Treatment == "mint" ~ "Peppermint",
+                        Treatment == "peppermint" ~ "Peppermint")) %>%
   count(Treatment, Treatment_recoded)
 ```
 ## case_when() can also overwrite/update a variable
