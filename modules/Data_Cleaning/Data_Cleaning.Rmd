@@ -106,7 +106,6 @@ Check the values for your variables, are they what you expect?
 `count()` is a great option because it helps you check if rare values make sense.
 
 ```{r, message=FALSE}
-library(jhur)
 bike <- read_csv(file =
     "http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv")
 bike %>% count(subType)
