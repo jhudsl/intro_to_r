@@ -699,7 +699,8 @@ But we still might miss a strange value
 data_diet %>% 
   mutate(Treatment_recoded = case_when(
     Treatment %in% c("G", "g", "Ginger", "ginger") ~ "Ginger",
-    Treatment %in% c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
+    Treatment %in% 
+     c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
     Treatment %in% c("O", "Other") ~ "Other",
     TRUE ~ Treatment))
 ```
