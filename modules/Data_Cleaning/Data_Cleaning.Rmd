@@ -460,10 +460,10 @@ Need quotes for conditions and new values!
 ```{r}
 data_diet %>% 
   mutate(Treatment_recoded = case_when(
-                               Treatment == "O" ~ "Other",
-                               Treatment == "Mint" ~ "Peppermint",
-                               Treatment == "mint" ~ "Peppermint",
-                               Treatment == "peppermint" ~ "Peppermint"))  %>% 
+                          Treatment == "O" ~ "Other",
+                          Treatment == "Mint" ~ "Peppermint",
+                          Treatment == "mint" ~ "Peppermint",
+                          Treatment == "peppermint" ~ "Peppermint"))  %>% 
   count(Treatment, Treatment_recoded)
 
 ```
