@@ -106,7 +106,6 @@ Check the values for your variables, are they what you expect?
 `count()` is a great option because it helps you check if rare values make sense.
 
 ```{r, message=FALSE}
-library(jhur)
 bike <- read_csv(file =
     "http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv")
 bike %>% count(subType)
@@ -461,10 +460,10 @@ Need quotes for conditions and new values!
 ```{r}
 data_diet %>% 
   mutate(Treatment_recoded = case_when(
-                               Treatment == "O" ~ "Other",
-                               Treatment == "Mint" ~ "Peppermint",
-                               Treatment == "mint" ~ "Peppermint",
-                               Treatment == "peppermint" ~ "Peppermint"))  %>% 
+                          Treatment == "O" ~ "Other",
+                          Treatment == "Mint" ~ "Peppermint",
+                          Treatment == "mint" ~ "Peppermint",
+                          Treatment == "peppermint" ~ "Peppermint"))  %>% 
   count(Treatment, Treatment_recoded)
 
 ```
@@ -528,7 +527,7 @@ data_diet %>%
                                Treatment == "Mint" ~ "Peppermint",
                                Treatment == "mint" ~ "Peppermint",
                                Treatment == "peppermint" ~ "Peppermint",
-                                TRUE ~ Treatment)) %>%
+                               TRUE ~ Treatment)) %>%
   count(Treatment, Treatment_recoded)
 ```
 
@@ -539,10 +538,11 @@ Perhaps we want values that are O or Other to actually be NA, then `case_when` c
 
 ```{r}
 data_diet %>% 
-  mutate(Treatment_recoded = case_when(Treatment == "Ginger" ~ "Ginger", 
-                               Treatment == "Mint" ~ "Peppermint",
-                               Treatment == "mint" ~ "Peppermint",
-                               Treatment == "peppermint" ~ "Peppermint")) %>%
+  mutate(Treatment_recoded = case_when(
+                        Treatment == "Ginger" ~ "Ginger", 
+                        Treatment == "Mint" ~ "Peppermint",
+                        Treatment == "mint" ~ "Peppermint",
+                        Treatment == "peppermint" ~ "Peppermint")) %>%
   count(Treatment, Treatment_recoded)
 ```
 ## case_when() can also overwrite/update a variable
@@ -551,10 +551,11 @@ You need to specify what we want in the first part of `mutate`.
 
 ```{r}
 data_diet %>% 
-  mutate(Treatment = case_when(Treatment == "Ginger" ~ "Ginger", 
-                               Treatment == "Mint" ~ "Peppermint",
-                               Treatment == "mint" ~ "Peppermint",
-                               Treatment == "peppermint" ~ "Peppermint")) %>%
+  mutate(Treatment = case_when(
+                          Treatment == "Ginger" ~ "Ginger", 
+                          Treatment == "Mint" ~ "Peppermint",
+                          Treatment == "mint" ~ "Peppermint",
+                          Treatment == "peppermint" ~ "Peppermint")) %>%
   count(Treatment)
 
 ```
@@ -567,7 +568,8 @@ data_diet %>%
 data_diet %>% 
   mutate(Treatment_recoded = case_when(
     Treatment == "Ginger" ~ "Ginger", # keep it the same!
-    Treatment %in% c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
+    Treatment %in% 
+c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
     Treatment %in% c("O", "Other") ~ "Other")) %>%
 
   count(Treatment, Treatment_recoded)
@@ -697,7 +699,8 @@ But we still might miss a strange value
 data_diet %>% 
   mutate(Treatment_recoded = case_when(
     Treatment %in% c("G", "g", "Ginger", "ginger") ~ "Ginger",
-    Treatment %in% c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
+    Treatment %in% 
+     c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
     Treatment %in% c("O", "Other") ~ "Other",
     TRUE ~ Treatment))
 ```
@@ -968,6 +971,7 @@ Base R:
 ## some data to work with
 
 ```{r readSal, echo = TRUE, eval = TRUE, message=FALSE, warning=FALSE}
+library(jhur)
 Sal = read_salaries() # or
 ```
 
