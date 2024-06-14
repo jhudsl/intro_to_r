@@ -551,10 +551,11 @@ You need to specify what we want in the first part of `mutate`.
 
 ```{r}
 data_diet %>% 
-  mutate(Treatment = case_when(Treatment == "Ginger" ~ "Ginger", 
-                               Treatment == "Mint" ~ "Peppermint",
-                               Treatment == "mint" ~ "Peppermint",
-                               Treatment == "peppermint" ~ "Peppermint")) %>%
+  mutate(Treatment = case_when(
+                          Treatment == "Ginger" ~ "Ginger", 
+                          Treatment == "Mint" ~ "Peppermint",
+                          Treatment == "mint" ~ "Peppermint",
+                          Treatment == "peppermint" ~ "Peppermint")) %>%
   count(Treatment)
 
 ```
