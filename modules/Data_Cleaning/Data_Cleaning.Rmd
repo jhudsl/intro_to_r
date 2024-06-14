@@ -527,7 +527,7 @@ data_diet %>%
                                Treatment == "Mint" ~ "Peppermint",
                                Treatment == "mint" ~ "Peppermint",
                                Treatment == "peppermint" ~ "Peppermint",
-                                TRUE ~ Treatment)) %>%
+                               TRUE ~ Treatment)) %>%
   count(Treatment, Treatment_recoded)
 ```
 
