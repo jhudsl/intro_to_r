@@ -387,43 +387,43 @@ knitr::include_graphics("images/debug.png")
 
 ```{r}
 set.seed(124)
-data_diet <- tibble(Diet = rep(c("A", "B", "B"),
+data_ginger_mint <- tibble(Group = rep(c("A", "B", "B"),
                                times = 4), 
-                    Treatment = c("Ginger", 
-                               "Ginger",
-                               "Other",
-                               "peppermint", 
-                               "peppermint",
-                               "Ginger", 
-                               "Mint",
-                               "O", 
-                               "Ginger",
-                               "mint",
-                               "Mint",
-                               "O"), 
-                    Weight_start = sample(100:250, size = 12),
-                    Weight_change = sample(-10:20, size = 12))
+                      Treatment = c("Ginger", 
+                                  "Ginger",
+                                  "Other",
+                                  "peppermint", 
+                                  "peppermint",
+                                  "Ginger", 
+                                  "Mint",
+                                  "O", 
+                                  "Ginger",
+                                  "mint",
+                                  "Mint",
+                                  "O"), 
+                    Measurement_start = sample(70:250, size = 12),
+                    Measurement_change = sample(-20:40, size = 12))
 
 ```
 
 
 ```{r, include = FALSE, echo = FALSE}
-#writexl::write_xlsx(data_diet, here::here("data", "cleaning_diet_data.xlsx"))
+#writexl::write_xlsx(data_ginger_mint, here::here("data", "cleaning_data.xlsx"))
 ```
 ## Reading in the data if it were an excel sheet
 Data is also here: 
 
-http://jhudatascience.org/intro_to_r/data/cleaning_diet_data.xlsx
+http://jhudatascience.org/intro_to_r/data/cleaning_data.xlsx
 
-```{r}
+```{r, eval = FALSE}
 library(readxl)
-data_diet<- read_excel(here::here("data", "cleaning_diet_data.xlsx"))
+data_ginger_mint<- read_excel(here::here("data", "cleaning_data.xlsx"))
 ```
 
-## Say we have some data about samples in a diet study:
+## Say we have some data about samples in a study:
 
 ```{r}
-data_diet
+data_ginger_mint
 ```
 
 ## Oh dear...
@@ -431,7 +431,7 @@ data_diet
 This needs lots of recoding.
 
 ```{r}
-data_diet %>%
+data_ginger_mint %>%
   count(Treatment)
 ```
 
@@ -458,7 +458,7 @@ Need quotes for conditions and new values!
 :::
 
 ```{r}
-data_diet %>% 
+data_ginger_mint %>% 
   mutate(Treatment_recoded = case_when(
                           Treatment == "O" ~ "Other",
                           Treatment == "Mint" ~ "Peppermint",
@@ -475,7 +475,7 @@ We seem to have `NA` values!
 We didn't specify what happens to values that were already `Other` or `Ginger`.
 
 ```{r, eval = FALSE}
-data_diet %>% 
+data_ginger_mint %>% 
   mutate(Treatment = case_when(
                                Treatment == "O" ~ "Other",
                                Treatment == "Mint" ~ "Peppermint",
@@ -506,7 +506,7 @@ or it can be the original values of the column
 ## case_when with TRUE ~ original variable name
 
 ```{r}
-data_diet %>% 
+data_ginger_mint %>% 
   mutate(Treatment_recoded = case_when(
                                Treatment == "O" ~ "Other",
                                Treatment == "Mint" ~ "Peppermint",
@@ -521,7 +521,7 @@ data_diet %>%
 You never know if you might be missing something - and if a value already was an NA it will stay that way. 
 
 ```{r, eval = FALSE}
-data_diet %>% 
+data_ginger_mint %>% 
   mutate(Treatment_recoded = case_when(
                                Treatment == "O" ~ "Other",
                                Treatment == "Mint" ~ "Peppermint",
@@ -537,7 +537,7 @@ data_diet %>%
 Perhaps we want values that are O or Other to actually be NA, then `case_when` can be helpful for this. We simply specify everything else.
 
 ```{r}
-data_diet %>% 
+data_ginger_mint %>% 
   mutate(Treatment_recoded = case_when(
                         Treatment == "Ginger" ~ "Ginger", 
                         Treatment == "Mint" ~ "Peppermint",
@@ -550,7 +550,7 @@ data_diet %>%
 You need to specify what we want in the first part of `mutate`.
 
 ```{r}
-data_diet %>% 
+data_ginger_mint %>% 
   mutate(Treatment = case_when(
                           Treatment == "Ginger" ~ "Ginger", 
                           Treatment == "Mint" ~ "Peppermint",
@@ -565,7 +565,7 @@ data_diet %>%
 `case_when` can do complicated statements and can match many patterns at a time.
 
 ```{r}
-data_diet %>% 
+data_ginger_mint %>% 
   mutate(Treatment_recoded = case_when(
     Treatment == "Ginger" ~ "Ginger", # keep it the same!
     Treatment %in% 
@@ -586,20 +586,20 @@ Here we create a new variable called `Effect`.
 
 ```{r}
 
-data_diet <- data_diet %>% 
-      mutate(Effect = case_when(Weight_change > 0 ~ "Increase",
-                                Weight_change == 0 ~ "Same",
-                                Weight_change < 0 ~ "Decrease"))
+data_ginger_mint <- data_ginger_mint  %>% 
+      mutate(Effect = case_when(Measurement_change > 0 ~ "Increase",
+                                Measurement_change == 0 ~ "Same",
+                                Measurement_change < 0 ~ "Decrease"))
 
-head(data_diet)
+head(data_ginger_mint)
 
 ```
 
 ## Now it is easier to see what is happening
 
 ```{r}
-data_diet %>% 
-  count(Diet, Effect)
+data_ginger_mint %>% 
+  count(Group, Effect)
 ```
 
 # Working with strings
@@ -637,7 +637,7 @@ The `pattern` argument specifies what to check for (case sensitive)
 
 ```{r}
 
-Effect <- pull(data_diet) %>% head(n = 6)
+Effect <- pull(data_ginger_mint) %>% head(n = 6)
 Effect
 str_detect(string = Effect, pattern = "d")
 str_detect(string = Effect, pattern = "D")
@@ -680,15 +680,15 @@ str_sub(string = Effect, start = 1, end = 3)
 ## `filter` and `stringr` functions
 
 ```{r}
-head(data_diet, n = 4)
-data_diet %>% 
+head(data_ginger_mint, n = 4)
+data_ginger_mint %>% 
   filter(str_detect(string = Treatment,
                     pattern = "int"))
 ```
 
 ## OK back to our original problem
 ```{r}
-count(data_diet, Treatment)
+count(data_ginger_mint, Treatment)
 ```
 
 ## `case_when()` made an improvement
@@ -696,7 +696,7 @@ count(data_diet, Treatment)
 But we still might miss a strange value
 
 ```{r, eval = FALSE}
-data_diet %>% 
+data_ginger_mint %>% 
   mutate(Treatment_recoded = case_when(
     Treatment %in% c("G", "g", "Ginger", "ginger") ~ "Ginger",
     Treatment %in% 
@@ -710,7 +710,7 @@ data_diet %>%
 `$` indicates the end
 
 ```{r}
-data_diet %>% 
+data_ginger_mint %>% 
   mutate(Treatment_recoded = case_when(
     str_detect(string = Treatment, pattern = "int") ~ "Peppermint",
     str_detect(string = Treatment, pattern = "^o|^O") ~ "Other",
@@ -736,12 +736,12 @@ The `sep` argument specifies what separator to use when combining -default is "_
 The `remove` argument specifies if you want to drop the old columns
 
 ```{r}
-diet_comb <- data_diet %>% 
-  unite(Diet, Effect, col = "change", remove = TRUE)
+data_comb <- data_ginger_mint %>% 
+  unite(Group, Effect, col = "change", remove = TRUE)
 ```
 
 ```{r}
-diet_comb
+data_comb
 ```
 
 ## Separating columns based on a separator
@@ -752,9 +752,9 @@ The `into` argument specifies names of new columns
 The `sep` argument specifies what to separate by
 
 ```{r}
-diet_comb <- diet_comb %>% 
-  separate(col = change, into = c("Diet", "Change"), sep = "_" )
-diet_comb
+data_comb <- data_comb %>% 
+  separate(col = change, into = c("Group", "Change"), sep = "_" )
+data_comb
 ```
 
 
@@ -820,7 +820,7 @@ Need quotes for new values! Tolerates quotes for old values.
 
 ```{r, eval = FALSE}
 
-data_diet %>% 
+data_ginger_mint %>% 
   mutate(Treatment_recoded = recode(Treatment,  
                                        O = "Other",
                                     Mint = "Peppermint",
@@ -833,7 +833,7 @@ data_diet %>%
 
 ```{r, eval = TRUE}
 
-data_diet %>% 
+data_ginger_mint %>% 
   mutate(Treatment_recoded = recode(Treatment,
                                        O = "Other",
                                     Mint = "Peppermint",
@@ -848,7 +848,7 @@ Just use the same variable name to change the variable within mutate.
 
 ```{r, eval = TRUE}
 
-data_diet %>% 
+data_ginger_mint %>% 
   mutate(Treatment= recode(Treatment,
                                        O = "Other",
                                     Mint = "Peppermint",
