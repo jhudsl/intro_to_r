@@ -1,0 +1,254 @@
+- Class: meta
+  Course: Intro to R Course
+  Lesson: Intro Lesson
+  Type: Standard
+  Organization: Intro to R
+  Version: 2.4.5
+
+- Class: cmd_question
+  Output: |
+    In this lesson, we'll begin with a basic calculation. We will subtract 3 from 125.
+
+    To perform this operation, type 125 - 3 into the code editor here and then click enter. The computer will then carry out the operation and return the result, 122.
+  CorrectAnswer: 125 - 3
+  AnswerTests: omnitest(correctExpr='125 - 3')
+  Hint: Try typing 125 - 3.
+
+- Class: text
+  Output: |
+    Let's continue. Hit enter here in the console.
+  
+- Class: cmd_question
+  Output: |
+    In R programming, it's crucial to comprehend how values and their data types work. A key concept among these is literal values. A literal value is a part of a statement or expression used exactly as it is. For example, the numbers 125 and 3 are literal values because they represent the numbers 125 and 3 literally.
+
+    Each literal value has a type, and in R, there are five basic data types: Logical, Integer, Numeric, Character, and Complex.
+
+    Let's practice with numeric types some more. Try running 3 * 0.50 + 2 * 3.14 + 5 * 0.00009.
+  CorrectAnswer: 3 * 0.50 + 2 * 3.14 + 5 * 0.00009
+  AnswerTests: omnitest(correctExpr='3 * 0.50 + 2 * 3.14 + 5 * 0.00009')
+  Hint: Try typing 3 * 0.50 + 2 * 3.14 + 5 * 0.00009 and pressing enter.
+
+- Class: cmd_question
+  Output: |
+    What was the answer, or the output, from the above question?
+  CorrectAnswer: 7.78045
+  AnswerTests: omnitest(correctExpr='7.78045')
+  Hint: Try typing 7.78045, the answer you saw above.
+
+- Class: text
+  Output: |
+    Let's look at a different type of data. Hit enter to continue.
+
+- Class: cmd_question
+  Output: |
+    We're going to focus on the Logical data type now.
+
+    Logical data type in R comprises two literals: TRUE and FALSE, or in their abbreviated forms, T and F. An important aspect to remember is that R is case-sensitive, which means it differentiates between uppercase and lowercase characters.
+
+    Try typing TRUE into the console.
+  CorrectAnswer: TRUE
+  AnswerTests: omnitest(correctExpr='TRUE')
+  Hint: Try typing TRUE and remember it is case sensitive.
+
+- Class: cmd_question
+  Output: |
+    Now, try typing FALSE.
+  CorrectAnswer: FALSE
+  AnswerTests: omnitest(correctExpr='FALSE')
+  Hint: Try typing FALSE and remember it is case sensitive.
+
+- Class: text
+  Output: | 
+    What about data in text form? Hit enter to continue.
+
+- Class: mult_question
+  Output: |
+    In R, certain symbols, letters, and words such as T, F, L, e, E, TRUE, and FALSE serve specialized functions. However, there are occasions when we wish to treat words and characters purely as textual data. These are referred to as Character literals.
+
+    Character literals are defined by placing them within quotation marks (") or single quotes ('). This encapsulation helps differentiate textual data from other literals in R, such as Integer, Logical, and Numeric.
+
+    Examples include "Hello", "Good Morning", "100", 'e', "false" ... and so on.
+
+    Is 'Howdy!' a character? Choose Yes or No below.
+  AnswerChoices: Yes;No
+  CorrectAnswer: Yes
+  AnswerTests: omnitest(correctVal='Yes')
+  Hint: Check out the quotation marks.
+
+- Class: mult_question
+  Output: |
+    How about "3.14", is this a character? hoose Yes or No below.
+  AnswerChoices: Yes;No
+  CorrectAnswer: Yes
+  AnswerTests: omnitest(correctVal='Yes')
+  Hint: Check out the quotation marks.
+
+- Class: text
+  Output: |
+    Nice work! Let's revisit some basic arithmetic. Hit enter to continue.
+
+- Class: cmd_question
+  Output: |
+    We have the following operators:
+
+    Addition (+)  
+    
+    Subtraction (-)  
+    
+    Multiplication (*)  
+    
+    Division (/)  
+
+    Let's divide the number 5000 by 100.
+  CorrectAnswer: 5000 / 100
+  AnswerTests: omnitest(correctExpr='5000 / 100')
+  Hint: Type in 5000 / 100.
+
+- Class: cmd_question
+  Output: |
+    Does spacing matter when doing arithmetic? Try typing 100*6.
+  CorrectAnswer: 100*6
+  AnswerTests: omnitest(correctExpr='100*6')
+  Hint: Type in 100*6.
+
+- Class: cmd_question
+  Output: |
+    Now try typing 100 * 6.
+  CorrectAnswer: 100 * 6
+  AnswerTests: omnitest(correctExpr='100 * 6')
+  Hint: Type in 100 * 6.
+
+- Class: text
+  Output: |
+    In expressions, spacing doesn't matter! Hit enter to continue.
+
+- Class: cmd_question
+  Output: |
+    While we can continue to type in literal values, a more efficient method would involve storing values to avoid manual repetition. The solution? Variables.
+
+    Variables allow us to:
+
+    1) Define a descriptive name.  
+    
+    2) Associate that name with a specific value or expression using the <- (less-than, dash) assignment operator.  
+
+    Type and enter  
+          
+          apple_purchase_cost <- 2.75 * 10  
+    
+    in the console to store a variable called apple_purchase_cost.
+  CorrectAnswer: apple_purchase_cost <- 2.75 * 10
+  AnswerTests: omnitest(correctExpr="apple_purchase_cost <- 2.75 * 10")
+  Hint: Type in apple_purchase_cost <- 2.75 * 10 and hit enter.
+
+- Class: cmd_question
+  Output: |
+     Notice there is no output above!
+
+     Enter apple_purchase_cost in the console and observe what happens.
+  CorrectAnswer: apple_purchase_cost
+  AnswerTests: omnitest(correctExpr="apple_purchase_cost")
+  Hint: Type in apple_purchase_cost and hit enter.
+
+- Class: text
+  Output: |
+    R assumes we want to print the contents of the variable. Nice! 
+
+- Class: mult_question
+  Output: |
+    Variable names follow a few rules. You should follow the following guidelines:
+
+    1) Names can include letters (capital or lowercase), numbers, a dot (.), or an underscore (_).  
+    
+    2) Start the name with a letter or a dot. If starting with a dot, it shouldn't be followed by a number.  
+    
+    3) Avoid starting with a number.  
+    
+    4) Refrain from using special characters (like spaces, operator symbols, ", parentheses).  
+    
+    5) Keywords already recognized by R shouldn't be used as variable names.  
+
+    Which of the following is an acceptable variable name?
+  AnswerChoices: .2var;numberOfFruit;apple variable;"var";age20+
+  CorrectAnswer: numberOfFruit
+  AnswerTests: omnitest(correctVal='numberOfFruit')
+  Hint: Check the criteria listed above. We want to name variables carefully!
+
+- Class: cmd_question
+  Output: |
+     Let's practice!
+     
+     Assign the character value "R programming" to the variable my_tool.
+  CorrectAnswer: my_tool <- "R programming"
+  AnswerTests: omnitest(correctExpr='my_tool <- "R programming"')
+  Hint: Type in my_tool <- "R programming" and hit enter.
+  
+- Class: cmd_question
+  Output: |
+     Enter my_tool in the console. What happens?
+  CorrectAnswer: my_tool
+  AnswerTests: omnitest(correctExpr="my_tool")
+  Hint: Type in my_tool and hit enter.
+
+- Class: text
+  Output: Let's talk now about something called functions.
+
+- Class: cmd_question
+  Output: |
+    Within R's extensive toolkit for data management and analysis, functions play a pivotal role. These are predefined operations designed to execute specific tasks. Functions are grouped into packages based on their functionality or specific application areas. R's default installation encompasses several essential packages, including the likes of base and stats.
+
+    In this section, our emphasis will be on a basic yet critical function: class(). It serves to determine the data type of a specified variable or literal.
+    
+    Try typing class(apple_purchase_cost) in the console and hit enter.
+  CorrectAnswer: class(apple_purchase_cost)
+  AnswerTests: omnitest(correctExpr="class(apple_purchase_cost)")
+  Hint: Type in class(apple_purchase_cost) and hit enter.
+  
+- Class: cmd_question
+  Output: |
+    Try using code to determine the class of the variable my_tool you created earlier.
+  CorrectAnswer: class(my_tool)
+  AnswerTests: omnitest(correctExpr="class(my_tool)")
+  Hint: Type in class(my_tool) and hit enter.
+
+- Class: text
+  Output: Now let's talk a bit about relational operators.
+
+- Class: cmd_question
+  Output: |
+    Relational operators in R are simple tools used to compare values. They help answer questions like "Is this value greater than that one?" or "Are these two values equal?". When you compare values using these operators, R will tell you whether the statement is TRUE or FALSE.
+    
+    Less Than (<)  
+    
+    Greater Than (>)  
+    
+    Less Than or Equal To (<=)  
+    
+    Greater Than or Equal To (>=)  
+    
+    Equal To (==)  
+    
+    Not Equal To (!=)  
+    
+    Try evaluating 100 > 1.
+  CorrectAnswer: 100 > 1
+  AnswerTests: omnitest(correctExpr="100 > 1")
+  Hint: Type in 100 > 1 and hit enter.
+  
+- Class: cmd_question
+  Output: |
+    Now try 100 == 10*10.
+  CorrectAnswer: 100 == 10*10
+  AnswerTests: omnitest(correctExpr="100 == 10*10")
+  Hint: Type in 100 == 10*10 and hit enter.
+
+- Class: cmd_question
+  Output: |
+    Test if the variable apple_purchase_cost is > 20.
+  CorrectAnswer: apple_purchase_cost > 20
+  AnswerTests: omnitest(correctExpr="apple_purchase_cost > 20")
+  Hint: Type in apple_purchase_cost > 20 and hit enter.
+
+- Class: text
+  Output: Nice work! You are well on your way to learning R.
