@@ -64,11 +64,11 @@
 
 - Class: mult_question
   Output: |
-    In R, certain symbols, letters, and words such as T, F, L, e, E, TRUE, and FALSE serve specialized functions. However, there are occasions when we wish to treat words and characters purely as textual data. These are referred to as Character literals.
+    In R, the letters T, F, and their extended forms, TRUE and FALSE, serve specialized functions. However, there are occasions when we wish to treat words and characters purely as textual data. These are referred to as Character literals.
 
     Character literals are defined by placing them within quotation marks (") or single quotes ('). This encapsulation helps differentiate textual data from other literals in R, such as Integer, Logical, and Numeric.
 
-    Examples include "Hello", "Good Morning", "100", 'e', "false" ... and so on.
+    Examples include "Hello", "Good Morning", "100", "false" ... and so on.
 
     Is 'Howdy!' a character? Choose Yes or No below.
   AnswerChoices: Yes;No
