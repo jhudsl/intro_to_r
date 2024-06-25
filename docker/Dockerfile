@@ -18,15 +18,15 @@ RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/g
 RUN apt update && apt install -y gh;
 
 # Uninstall old version of pandoc
-RUN sudo apt-get purge pandoc pandoc-citeproc pandoc-data \
-  && sudo apt-get autoremove --purge
+# RUN sudo apt-get purge pandoc pandoc-citeproc pandoc-data \
+  # && sudo apt-get autoremove --purge
 
 # Install pandoc
-RUN wget https://github.com/jgm/pandoc/releases/download/2.14.1/pandoc-2.14.1-1-amd64.deb \
-  && sudo apt-get install ./pandoc-2.14.1-1-amd64.deb
+# RUN wget https://github.com/jgm/pandoc/releases/download/2.14.1/pandoc-2.14.1-1-amd64.deb \
+#  && sudo apt-get install ./pandoc-2.14.1-1-amd64.deb
 
 # Create new symlinks
-RUN ln -s /usr/bin/pandoc /usr/lib/rstudio-server/bin/pandoc
+# RUN ln -s /usr/bin/pandoc /usr/lib/rstudio-server/bin/pandoc
 
 # Add curl, bzip2, libbz2-dev, liblzma-dev
 RUN apt-get update -qq && apt-get -y --no-install-recommends install \
@@ -64,6 +64,7 @@ RUN Rscript -e  "install.packages('config')"
 RUN Rscript -e  "install.packages('optparse')"
 RUN Rscript -e  "install.packages('faraway')"
 RUN Rscript -e  "install.packages('epitools')"
+RUN Rscript -e  "install.packages('learnr')"
 
 # Install pdflatex
 RUN apt-get install -y texlive-latex-base texlive-latex-extra
