@@ -160,7 +160,7 @@ jobs:
        # Now we want to render all the html files from the Rmd files
       - name: Run render html for the main website
         id: site
-        run: Rscript -e "rmarkdown::render_site()"
+        run: Rscript -e "install.packages("learnr");rmarkdown::render_site()"
 
        # Render module details for syllabus
       - name: Render module details for syllabus
