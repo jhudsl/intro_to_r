@@ -74,6 +74,13 @@ What class is `both`?
 
 ```
 
+### 1.7
+
+Divide `both` by 3, what happens?
+
+```{r, error=TRUE, label='1.7response'}
+
+```
 
 # Practice on Your Own!
 
@@ -90,14 +97,6 @@ Create a vector that contains 4 sets of the numbers 1, 2, 3, and 4.
 
 ### 2.1
 
-Divide `both` by 3, what happens?
-
-```{r, error=TRUE, label='2.1response'}
-
-```
-
-### 2.2
-
 Create a vector with elements 1, 2, 3, 4, 5 and call it `x`.
 
 ```
@@ -105,11 +104,11 @@ Create a vector with elements 1, 2, 3, 4, 5 and call it `x`.
 x <- c(...)
 ```
  
-```{r 2.2response}
+```{r 2.1response}
 
 ```
 
-### 2.3
+### 2.2
 
 Create another vector with elements 10, 20, 30, 40, 50 and call it `y`.
 
@@ -118,19 +117,19 @@ Create another vector with elements 10, 20, 30, 40, 50 and call it `y`.
 y <- c(...)
 ```
 
+```{r 2.2response}
+
+```
+
+### 2.3
+
+Determine the length of `x` and `y`. Next, add the vectors x and y together.
+
 ```{r 2.3response}
 
 ```
 
 ### 2.4
-
-Determine the length of `x` and `y`. Next, add the vectors x and y together.
-
-```{r 2.4response}
-
-```
-
-### 2.5
 
 Append the value 60 onto the vector `y` (hint: you can use the `c()` function).
 
@@ -139,23 +138,23 @@ Append the value 60 onto the vector `y` (hint: you can use the `c()` function).
 y <- c(y, ...)
 ```
 
+```{r 2.4response}
+
+```
+
+### 2.5
+
+Determine the length of `x` and `y`.
+
 ```{r 2.5response}
 
 ```
 
 ### 2.6
 
-Determine the length of `x` and `y`.
-
-```{r 2.6response}
-
-```
-
-### 2.7
-
 Add `x` and `y` together. What happens?
 
-```{r 2.7response}
+```{r 2.6response}
 
 ```
 
@@ -174,6 +173,7 @@ b <- c(10, 100, 1000)
 ```{r P.2response}
 
 ```
+
 
 # Part 3
 

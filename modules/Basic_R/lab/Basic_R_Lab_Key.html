@@ -400,6 +400,12 @@ into an object called <code>both</code>.</p>
 <pre class="r"><code>class(both)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 </div>
+<div id="section-6" class="section level3">
+<h3>1.7</h3>
+<p>Divide <code>both</code> by 3, what happens?</p>
+<pre class="r"><code>both / 3</code></pre>
+<pre><code>## Error in both/3: non-numeric argument to binary operator</code></pre>
+</div>
 </div>
 <div id="practice-on-your-own" class="section level1">
 <h1>Practice on Your Own!</h1>
@@ -413,14 +419,8 @@ vec_2 &lt;- c(vec_1, vec_1, vec_1, vec_1)</code></pre>
 </div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
-<div id="section-6" class="section level3">
-<h3>2.1</h3>
-<p>Divide <code>both</code> by 3, what happens?</p>
-<pre class="r"><code>both / 3</code></pre>
-<pre><code>## Error in both/3: non-numeric argument to binary operator</code></pre>
-</div>
 <div id="section-7" class="section level3">
-<h3>2.2</h3>
+<h3>2.1</h3>
 <p>Create a vector with elements 1, 2, 3, 4, 5 and call it
 <code>x</code>.</p>
 <pre><code># General format
@@ -428,7 +428,7 @@ x &lt;- c(...)</code></pre>
 <pre class="r"><code>x &lt;- c(1, 2, 3, 4, 5)</code></pre>
 </div>
 <div id="section-8" class="section level3">
-<h3>2.3</h3>
+<h3>2.2</h3>
 <p>Create another vector with elements 10, 20, 30, 40, 50 and call it
 <code>y</code>.</p>
 <pre><code># General format
@@ -436,7 +436,7 @@ y &lt;- c(...)</code></pre>
 <pre class="r"><code>y &lt;- c(10, 20, 30, 40, 50)</code></pre>
 </div>
 <div id="section-9" class="section level3">
-<h3>2.4</h3>
+<h3>2.3</h3>
 <p>Determine the length of <code>x</code> and <code>y</code>. Next, add
 the vectors x and y together.</p>
 <pre class="r"><code>length(x)</code></pre>
@@ -448,7 +448,7 @@ the vectors x and y together.</p>
 <pre class="r"><code># [1] 11 22 33 44 55</code></pre>
 </div>
 <div id="section-10" class="section level3">
-<h3>2.5</h3>
+<h3>2.4</h3>
 <p>Append the value 60 onto the vector <code>y</code> (hint: you can use
 the <code>c()</code> function).</p>
 <pre><code># General format
@@ -456,7 +456,7 @@ y &lt;- c(y, ...)</code></pre>
 <pre class="r"><code>y &lt;- c(y, 60)</code></pre>
 </div>
 <div id="section-11" class="section level3">
-<h3>2.6</h3>
+<h3>2.5</h3>
 <p>Determine the length of <code>x</code> and <code>y</code>.</p>
 <pre class="r"><code>length(x)</code></pre>
 <pre><code>## [1] 5</code></pre>
@@ -464,7 +464,7 @@ y &lt;- c(y, ...)</code></pre>
 <pre><code>## [1] 6</code></pre>
 </div>
 <div id="section-12" class="section level3">
-<h3>2.7</h3>
+<h3>2.6</h3>
 <p>Add <code>x</code> and <code>y</code> together. What happens?</p>
 <pre class="r"><code>x + y</code></pre>
 <pre><code>## Warning in x + y: longer object length is not a multiple of shorter object
@@ -580,16 +580,16 @@ argument to <code>TRUE</code>). Store the output as
   replace = TRUE
 )
 my_responses</code></pre>
-<pre><code>##  [1] &quot;Disagree&quot;          &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;   
-##  [4] &quot;Disagree&quot;          &quot;Disagree&quot;          &quot;Strongly Agree&quot;   
-##  [7] &quot;Neutral&quot;           &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;   
-## [10] &quot;Strongly Agree&quot;    &quot;Strongly Disagree&quot; &quot;Neutral&quot;          
-## [13] &quot;Disagree&quot;          &quot;Strongly Disagree&quot; &quot;Agree&quot;            
-## [16] &quot;Strongly Agree&quot;    &quot;Strongly Agree&quot;    &quot;Neutral&quot;          
-## [19] &quot;Agree&quot;             &quot;Strongly Disagree&quot; &quot;Agree&quot;            
-## [22] &quot;Strongly Agree&quot;    &quot;Strongly Disagree&quot; &quot;Strongly Agree&quot;   
-## [25] &quot;Strongly Disagree&quot; &quot;Disagree&quot;          &quot;Strongly Disagree&quot;
-## [28] &quot;Disagree&quot;          &quot;Neutral&quot;           &quot;Disagree&quot;</code></pre>
+<pre><code>##  [1] &quot;Agree&quot;             &quot;Agree&quot;             &quot;Agree&quot;            
+##  [4] &quot;Strongly Disagree&quot; &quot;Strongly Agree&quot;    &quot;Agree&quot;            
+##  [7] &quot;Strongly Agree&quot;    &quot;Agree&quot;             &quot;Neutral&quot;          
+## [10] &quot;Agree&quot;             &quot;Strongly Agree&quot;    &quot;Agree&quot;            
+## [13] &quot;Agree&quot;             &quot;Strongly Agree&quot;    &quot;Neutral&quot;          
+## [16] &quot;Agree&quot;             &quot;Disagree&quot;          &quot;Agree&quot;            
+## [19] &quot;Disagree&quot;          &quot;Disagree&quot;          &quot;Strongly Agree&quot;   
+## [22] &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot; &quot;Strongly Disagree&quot;
+## [25] &quot;Strongly Disagree&quot; &quot;Agree&quot;             &quot;Disagree&quot;         
+## [28] &quot;Neutral&quot;           &quot;Disagree&quot;          &quot;Strongly Disagree&quot;</code></pre>
 </div>
 <div id="p.4" class="section level3">
 <h3>P.4</h3>
