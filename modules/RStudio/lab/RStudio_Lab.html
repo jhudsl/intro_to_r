@@ -367,30 +367,30 @@ listed.</strong></p>
 <div id="section" class="section level3">
 <h3>0.1</h3>
 <p>First copy and paste the following code into the console (the lower
-left panel/pane) - <strong>but do not copy the backticks</strong>: <br>
-<code>install.packages(&quot;remotes&quot;)</code><br> This code will install a
-package from CRAN called “remotes”. <br> You may be asked a question in
-the console when you do this. If so, answer by typing Yes into the
-console.</p>
+left panel/pane): install.packages(“remotes”)</p>
+<p>This code will install a package from CRAN called “remotes”. <br> You
+may be asked a question in the console when you do this. If so, answer
+by typing Yes into the console.</p>
 </div>
 <div id="section-1" class="section level3">
 <h3>0.2</h3>
 <p>Next copy and paste the following code again into the console (the
-lower left panel/pane), <strong>again do not copy the
-backticks</strong>: <br> <code>library(remotes)</code> <br> This code
-loads the remotes package into memory- in other words we can use the
-functions within the package.<br> You may be asked a question in the
-console when you do this. If so, answer by typing Yes into the
-console.</p>
+lower left panel/pane): library(remotes)</p>
+<p>This code loads the remotes package into memory- in other words we
+can use the functions within the package.<br> You may be asked a
+question in the console when you do this. If so, answer by typing Yes
+into the console.</p>
 </div>
 <div id="section-2" class="section level3">
 <h3>0.3</h3>
 <p>Now install a package that the instructors made that is not on CRAN
-but on GitHub, by copy and pasting the code into the console. We still
-don’t want to copy the backticks.<br>
-<code>install_github(&quot;jhudsl/jhur&quot;)</code><br> You may be asked a
-question in the console when you do this. If so, answer by typing Yes
-into the console.</p>
+but on GitHub, by copy and pasting the code into the console:</p>
+<p>install_github(“jhudsl/jhur”)</p>
+<p>You may be asked a question in the console when you do this. If so,
+answer by typing Yes into the console.</p>
+</div>
+<div id="section-3" class="section level3">
+<h3>0.4</h3>
 <p>The gray area below is a code chunk that will set up our packages and
 data (this will not show up in the rendered report when we press knit).
 You can also run the code within the editor area by pressing the green
@@ -423,13 +423,10 @@ the code.</p>
 </div>
 <div id="plotting-some-data" class="section level2">
 <h2>Plotting some data</h2>
-<p>Here is code that will make a plot of the average daily ridership in
-Baltimore City for the Charm City Circulator: <a href="https://www.charmcitycirculator.com/" class="uri">https://www.charmcitycirculator.com/</a> (again don’t worry
-about the actually code much for now).</p>
-<p>Here we plot a few days. You can embed an R code chunk like this: Try
-pressing the green play button to see what happens. Make sure you have
-run the previous code chunk first by pressing the green play button in
-that chunk.</p>
+<p>Here is code that will make a plot of some data. You can embed an R
+code chunk like this: Try pressing the green play button to see what
+happens. Make sure you have run the previous code chunk first by
+pressing the green play button in that chunk.</p>
 <pre class="r"><code># keep only some days
 avg &lt;- avg %&gt;%
   filter(day %in% c(&quot;Monday&quot;, &quot;Tuesday&quot;, &quot;Friday&quot;, &quot;Saturday&quot;))
@@ -462,9 +459,7 @@ the code.</p>
 <p>Here are a few changes that will show you how to change small things
 in <code>R</code> code and the output it makes. After each change, hit
 the <strong>Knit</strong> button again.</p>
-<p>Here is another code chunk for our exercises.</p>
-<pre class="r"><code>x &lt;- c(1, 2, 3)</code></pre>
-<div id="section-3" class="section level3">
+<div id="section-4" class="section level3">
 <h3>1.1</h3>
 <p>Go through the code for the plot above and change the colors in
 <code>palette</code> to something other than what they originally were.
@@ -472,13 +467,13 @@ See <a href="http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf" class="uri">
 for a large list of colors. For example, you could replace blue with
 red.</p>
 </div>
-<div id="section-4" class="section level3">
+<div id="section-5" class="section level3">
 <h3>1.2</h3>
-<p>Add a new R chunk below the bonus instructions.You can use the insert
+<p>Add a new R chunk below the following chunk. You can use the insert
 chunk button or copy paste an existing code chunk. Include a lowercase x
-inside the chunk as the code. Thus it should look like the chunk above
-but without <code>&lt;- c(1,2,3)</code>. Make sure you press the knit
-button after this to see what the new chunk looks like.</p>
+inside the chunk as the code. Make sure you press the knit button after
+this to see what the new chunk looks like.</p>
+<pre class="r"><code>x &lt;- c(1, 2, 3)</code></pre>
 </div>
 </div>
 <div id="practice-on-your-own" class="section level1">
