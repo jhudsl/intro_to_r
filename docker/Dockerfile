@@ -18,8 +18,8 @@ RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/g
 RUN apt update && apt install -y gh;
 
 # Uninstall old version of pandoc
-RUN sudo apt-get purge pandoc pandoc-citeproc pandoc-data \
-  && sudo apt-get autoremove --purge
+RUN sudo apt-get purge pandoc pandoc-citeproc pandoc-data -y \
+  && sudo apt-get autoremove --purge -y
 
 # Install pandoc
 RUN wget https://github.com/jgm/pandoc/releases/download/2.14.1/pandoc-2.14.1-1-amd64.deb \
