@@ -71,6 +71,7 @@ RUN apt-get install -y texlive-fonts-recommended texlive-latex-recommended
 
 # Copy over git token
 COPY git_token.txt .
-  
+RUN rm git_token.txt
+
 # Set final workdir for commands
 WORKDIR /home/rstudio
