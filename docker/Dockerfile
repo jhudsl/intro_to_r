@@ -68,9 +68,6 @@ RUN Rscript -e  "install.packages('epitools')"
 # Install pdflatex
 RUN apt-get install -y texlive-latex-base texlive-latex-extra
 RUN apt-get install -y texlive-fonts-recommended texlive-latex-recommended
-
-# Copy over git token
-COPY git_token.txt .
   
 # Set final workdir for commands
 WORKDIR /home/rstudio
