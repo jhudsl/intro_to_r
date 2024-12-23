@@ -15,13 +15,8 @@ The data is from http://data.baltimorecity.gov/Transportation/Bike-Lanes/xzfj-gy
 You can Download as a CSV in your current working directory.  Note its also available at: 	http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv 
 
 ```{r}
-library(readr)
 library(tidyverse)
-library(dplyr)
-library(lubridate)
 library(jhur)
-library(tidyverse)
-library(broom)
 # install.packages("naniar")
 library(naniar)
 ```
