@@ -373,9 +373,9 @@ test
 clean_names(test)
 ```
 
-## GUT CHECK: Which of the following would work well with a column called `counties_of_seattle_with_population_over_10,000`?
+## GUT CHECK: Which of the following would work well with a column called `counties_of_US_with_population_over_10,000`?
 
-A. Renaming it using `rename` function to something simpler like `seattle_counties_over_10thous`.
+A. Renaming it using `rename` function to something simpler like `counties_over_10thous`.
 
 B. Keeping it as is and use backticks around the column name when you use it.
 
@@ -395,9 +395,13 @@ C. Keeping it as is and use quotes around the column name when you use it.
 
 ## Lab Part 1
 
-🏠 [Class Website](https://jhudatascience.org/intro_to_r/)    
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/) 
+
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab.Rmd)
 
+📃 [Day 3 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-3.pdf)
+
+📃 [Posit's `dplyr` Cheatsheet](https://rstudio.github.io/cheatsheets/data-transformation.pdf)
 # Subsetting Columns
 
 ## Let's get our data again
@@ -955,7 +959,9 @@ Even though `$` is easier for creating new columns, `mutate` is really powerful,
 
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab.Rmd)
 
+📃 [Day 3 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-3.pdf)
 
+📃 [Posit's `dplyr` Cheatsheet](https://rstudio.github.io/cheatsheets/data-transformation.pdf)
 
 ```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
 knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
