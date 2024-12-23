@@ -207,7 +207,7 @@ What happens if you do the steps in a different order? Why does this not work?
 
 ### 3.3
 
-Re-order the rows of `county_2012` by population in increasing order. Use `arrange()`. What is county with the smallest population?
+Use `arrange()` to order the rows of `county_2012` by `population` in increasing order. What is county with the smallest population?
 
 ```{r 3.3response}
 county_2012 <- arrange(county_2012, population)
