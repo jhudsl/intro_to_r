@@ -5,43 +5,45 @@ editor_options:
   chunk_output_type: console
 ---
 
-## R Markdown
+# R Markdown
 
-Please read through everything and then try the exercises.
+The file you are reading is called an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>. The way you can create a file like this in RStudio is: File → New File → R Markdown and then using the default or using a template.
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+1. Try compiling this document using the “Knit” button. What files are produced?
 
 The way you can create a file like this in RStudio is: File → New File → R Markdown and then using the default or using a template.
 
 Now we will install some packages! Note it may take ~5-10 minutes to run all these steps. **You need to run these steps in the order listed.**
 
-### 0.1
+### install a package
 
-First copy and paste the following code into the console (the lower left panel/pane):
+2. Copy and paste the following code into the console (the lower left panel/pane):
 install.packages("remotes")
 
 This code will install a package from CRAN called "remotes". <br>
 You may be asked a question in the console when you do this. If so, answer by typing Yes into the console.
 
-### 0.2
+### Load a package into memory
 
-Next copy and paste the following code again into the console (the lower left panel/pane):
+3. Next copy and paste the following code again into the console (the lower left panel/pane):
 library(remotes)
 
 This code loads the remotes package into memory- in other words we can use the functions within the package.<br>
 You may be asked a question in the console when you do this. If so, answer by typing Yes into the console.
 
-### 0.3
+### Install another package
 
-Now install a package that the instructors made that is not on CRAN but on GitHub, by copy and pasting the code into the console:
+4. Now install a package that the instructors made that is not on CRAN but on GitHub, by copy and pasting the code into the console:
 
 install_github("jhudsl/jhur")
 
 You may be asked a question in the console when you do this. If so, answer by typing Yes into the console.
 
-### 0.4
+### The code
 
-The gray area below is a code chunk that will set up our packages and data (this will not show up in the rendered report when we press knit). You can also run the code within the editor area by pressing the green play button. Don't worry right now about what the code is doing, we will cover this later. We just want you to get used to RStudio and RMarkdowns.
+The gray area below is a code chunk that will set up our packages and data (this will not show up in the rendered report when we press knit). You can also run the code within the editor area by pressing the green play button. Don't worry right now about what the code is doing, we will cover this later.
+
+5. Press the green play button. What happens (check the environment too!)?
 
 ```{r setup, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -59,7 +61,7 @@ avg <- avg %>%
 ```
 
 When you click the **Knit** button (at the top of RStudio), a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. 
-Next we will show you some code - no worries about understanding it yet, we just want to get you familiar with where code goes. 
+
 
 When code is in an RMarkdown file chunk, it is saved to a file. When it is in the console, it is not saved. 
 
@@ -68,7 +70,10 @@ The console is useful for installing packages like we just did, this is because 
 ## Plotting some data
 
 Here is code that will make a plot of some data.
-You can embed an R code chunk like this: Try pressing the green play button to see what happens. Make sure you have run the previous code chunk first by pressing the green play button in that chunk.
+
+6. Try the "run all chunks above" button that is to the left of the play button on the following chunk. What happens?
+
+7. Then press the play button on this same chunk. What happens?
 
 ```{r plot_circ, out.width = "100%"}
 # keep only some days
@@ -106,29 +111,19 @@ ggplot(aes(x = date, y = number, colour = line), data = avg) +
   scale_colour_manual(values = palette)
 ```
 
-When you click the **Knit** button (at the top of RStudio), a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. 
-Next we will show you some code - no worries about understanding it yet, we just want to get you familiar with where code goes. 
 
-When code is in an RMarkdown file chunk, it is saved to a file. When it is in the console, it is not saved. 
+### Adding new chunks
 
-The console is useful for installing packages like we just did, this is because we only need to do it once, so we don't usually need to save the code.
-
-
-## Exercise 
-
-Here are a few changes that will show you how to change small things in `R` code and the output it makes.  After each change, hit the **Knit** button again.
-
-### 1.1
-
-Go through the code for the plot above and change the colors in `palette` to something other than what they originally were. See http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf for a large list of colors. For example, you could replace blue with red.
-
-### 1.2
-
-Add a new R chunk below the following chunk. You can use the insert chunk button or copy paste an existing code chunk. Include a lowercase x inside the chunk as the code. Make sure you press the knit button after this to see what the new chunk looks like.
-
+8. Add a new R chunk after `<!-- Your code chunk goes here -->`. You can use the insert chunk button or copy paste an existing code chunk. Include a lowercase x inside the chunk as the code. Make sure you press the knit button after this to see what the new chunk looks like. 
 
 ```{r}
 x <- c(1, 2, 3)
+```
+
+<!-- Your code chunk goes here -->
+
+```{r echo=FALSE, label = 'P.2response'}
+x
 ```
 
 
@@ -136,12 +131,16 @@ x <- c(1, 2, 3)
 
 ### P.1
 
-Update the options of the R chunk you just made (with the lowercase x in it) so that the output option is `show output only`. How does the chunk look now?
+Go through the code for the plot above and change the colors in `palette` to something other than what they originally were. See http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf for a large list of colors. For example, you could replace blue with red.
 
 ### P.2
 
 Create another R Markdown Document from RStudio dropdowns: File → New File → R Markdown.
 
-```{r echo=FALSE, label = 'P.2response'}
-x
-```
+
+
+### P.3 
+
+Add a new header with two hash symbols `##` at the start of a line with some text. Knit the report to see how it looks. 
+
+## New Header
