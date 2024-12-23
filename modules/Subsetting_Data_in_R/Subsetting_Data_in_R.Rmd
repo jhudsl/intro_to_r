@@ -487,21 +487,13 @@ knitr::include_graphics("images/tidyselect.png")
 head(AD, 2)
 select(AD, starts_with("B"), year)
 ```
+
 ## Multiple tidyselect functions
 
 Follows OR logic.
 
 ```{r}
 select(AD, starts_with("B"), ends_with("r"))
-
-```
-
-## Multiple patterns with tidyselect
-
-Need to combine the patterns with the `c()` function.
-
-```{r}
-select(AD, starts_with(c("B", "D")))
 
 ```
 
@@ -986,6 +978,38 @@ knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
 
 # Extra Slides
+
+## Multiple patterns with one tidyselect statement
+
+Need to combine the patterns with the `c()` function.
+
+```{r, eval = FALSE}
+# These do the same thing
+select(AD, starts_with(c("B", "D")))
+select(AD, starts_with("B"), starts_with("D"))
+
+```
+
+
+
+## Nuances about `filter()`
+
+```{r}
+test <- tibble(A = c(1,2,3,4), B = c(1,2,3,4))
+test
+# These are technically the same but >= is easier to read
+# Separating can cause issues
+filter(test,  B > 2 | B==2)
+filter(test, B >= 2)
+```
+
+## Order of operations for `filter()`
+
+Order can matter. Think of individual statements separately first.
+```{r}
+filter(test,  A>3 | B==2 & B>2) # A is greater than 3 or B is equal to 2 AND (think but also) B must be greater than 2 , thus 2 is dropped.
+filter(test,  A>3 & B>2 | B==2) # A is greater than 3 AND B is greater than 2 leaving only 4s OR B is equal to 2, (since this comes later, 2 is preserved)
+```
 
 ## `which()` function
 
