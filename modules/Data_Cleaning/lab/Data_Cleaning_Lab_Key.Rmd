@@ -91,7 +91,7 @@ Let's say we the data like so:
 
 ```{r}
 BloodType <- tibble(
-  weight_loss =
+  exposure =
     c(
       "Y", "No", "Yes", "y", "no",
       "n", "No", "N", "yes", "Yes",
@@ -116,20 +116,20 @@ There are some issues with this data that we need to figure out!
 
 ### 2.1
 
-Determine how many `NA` values there are for `weight_loss` (assume you know that`N` and `n` is for no).
+Determine how many `NA` values there are for `exposure` (assume you know that`N` and `n` is for no).
 
 ```{r 2.1response}
-count(BloodType, weight_loss) # the simple way
-sum(is.na(pull(BloodType, weight_loss))) # another way
+count(BloodType, exposure) # the simple way
+sum(is.na(pull(BloodType, exposure))) # another way
 BloodType %>% # another way
-  pull(weight_loss) %>%
+  pull(exposure) %>%
   is.na() %>%
   sum()
 ```
 
 ### 2.2
 
-Recode the `weight_loss` variable of the `BloodType` data so that it is consistent. Use `case_when()`. Keep "Other" as "Other". Don't forget to use quotes!
+Recode the `exposure` variable of the `BloodType` data so that it is consistent. Use `case_when()`. Keep "Other" as "Other". Don't forget to use quotes!
 
 ```
 # General format
@@ -144,21 +144,21 @@ NEW_TIBBLE <- OLD_TIBBLE %>%
 ```{r 2.2response}
 
 BloodType <- BloodType %>%
-  mutate(weight_loss = case_when(
-    weight_loss %in% c("N", "n", "No", "no") ~ "No",
-    weight_loss %in% c("Y", "y", "Yes", "yes") ~ "Yes",
-    TRUE ~ weight_loss # the only other value is an NA so we could include this or we don't need to (it's generally good practice unless we want to create NAs)
+  mutate(exposure = case_when(
+    exposure %in% c("N", "n", "No", "no") ~ "No",
+    exposure %in% c("Y", "y", "Yes", "yes") ~ "Yes",
+    TRUE ~ exposure # the only other value is an NA so we could include this or we don't need to (it's generally good practice unless we want to create NAs)
   ))
 
-count(BloodType, weight_loss)
+count(BloodType, exposure)
 ```
 
 ### 2.3
 
-Check to see how many values `weight_loss` has for each category (hint: use `count`). It's good practice to regularly check your data throughout the data wrangling process.
+Check to see how many values `exposure` has for each category (hint: use `count`). It's good practice to regularly check your data throughout the data wrangling process.
 
 ```{r 2.3response}
-BloodType %>% count(weight_loss)
+BloodType %>% count(exposure)
 ```
 
 ### 2.4
