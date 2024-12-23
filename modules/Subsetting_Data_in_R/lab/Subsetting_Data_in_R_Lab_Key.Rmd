@@ -205,7 +205,7 @@ What happens if you do the steps in a different order? Why does this not work?
 # you get an error because there is now year variable to filter from
 ```
 
-### 1.3
+### 3.3
 
 Re-order the rows of `county_2012` by population in increasing order. Use `arrange()`. What is county with the smallest population?
 
@@ -217,7 +217,7 @@ arrange(county_2012, population) %>%
   pull(county_name)
 ```
 
-### 1.4
+### 3.4
 
 Create a new variable in `county_2012` called `pop1000`, which  is equal to `population` divided by 1000, using `mutate()`(don't forget to reassign `county_2012`). Use pipes `%>%`.
 
