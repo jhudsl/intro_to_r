@@ -17,13 +17,13 @@ Office hours will always be held at the _same Zoom link_.
 
 ## Working with R -- RStudio
 
-RStudio is an Integrated Development Environment (IDE) for R
+RStudio is an Integrated Development Environment (IDE) for R and it helps you:
 
--   Helps you write code - makes suggestions
--   Helps you view the output of your code
--   Helps you find errors
--   Is NOT a dropdown statistical tool (such as Stata)
-    -   See [Rcmdr](https://cran.r-project.org/web/packages/Rcmdr/index.html) or [Radiant](http://vnijs.github.io/radiant/)
+-   write code - makes suggestions
+-   view the output of your code, including plots
+-   find errors
+-   manage files
+-   view documentation
 
 
 ```{r, fig.alt="RStudio logo", out.width = "30%", echo = FALSE, fig.align='center'}
@@ -33,20 +33,6 @@ knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/62bcc8535a0607709
 <sub>[[source](https://www.rstudio.com/)]</sub>
 
 RStudio used to be the name of a company that is now called [Posit](https://posit.co/).
-
-## RStudio
-
-Easier working with R
-
--   Syntax highlighting, code completion, and smart indentation
--   Easily manage multiple working directories and projects
-
-More information
-
--   Workspace browser and data viewer
--   Plot history, zooming, and flexible image and file export
--   Integrated R help and documentation
-
 
 
 ## RStudio
@@ -105,43 +91,21 @@ knitr::include_graphics("images/new_pane.png")
 
 ## Working with R in R Studio - 2 major panes:
 
-1)  The **Source/Editor**: "Analysis" Script + Interactive Exploration
-    -   Static copy of what you did (reproducibility)
+1)  The **Source/Editor**: 
+
     -   Top by default
-2)  The **R Console**: "interprets" whatever you type
-    -   Calculator
-    -   Try things out interactively, then add to your editor
+    -   **saves your code** 
+    
+2)  The **R Console**:
+
     -   Bottom by default
-
-## Source / Editor
-
--   Where files open to
--   Have R code and comments in them
--   Can highlight and press (CMD+Enter (Mac) or Ctrl+Enter (Windows)) to run the code
-
-In a .R file (we call a script), code is saved on your disk
-
-```{r, out.width = "90%", echo = FALSE}
-knitr::include_graphics("images/rstudio_script.png")
-```
-
-<!-- ## Workspace/Environment ![Workspace](images/r-rstudio-1-ggplot-point-2.png) -->
-
-## R Console
-
-<!-- ![Console](images/rstudio_console.png) -->
-
-```{r, out.width = "60%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("images/rstudio_console.png")
-```
-
--   Where code is executed (where things happen)
--   You can type here for things interactively to test code
--   Code is **not saved** on your disk
-
+    -   Calculator
+    -   Place to try things out, then add to your editor
+    -   **doesn't save your code**
+    
 ## RStudio
 
-Super useful "cheat sheet": [LINK](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rstudio-ide.pdf)
+Super useful "cheatsheet": [LINK](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rstudio-ide.pdf)
 
 ```{r, fig.alt="RStudio", out.width = "65%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/rstudio_sheet.png")
