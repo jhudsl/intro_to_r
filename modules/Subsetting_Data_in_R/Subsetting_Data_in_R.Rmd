@@ -592,7 +592,7 @@ filter(AD,  BUYER_STATE == "CO"| BUYER_STATE == "NM"| BUYER_STATE == "GA") #equi
 
 ## Subset rows of a data frame: dplyr {.codesmall}
 
-The `%in%` operator can be used find values from a pre-made list (using `c()`) for a **single column** at a time with different columns.
+The `%in%` operator can be used find values from a pre-made vector (using `c()`) for a **single column** at a time.
 
 ```{r}
 filter(AD, year %in% c(2012,2014), BUYER_STATE %in% c("GA","CO"))
@@ -735,6 +735,16 @@ The pipe `%>%` makes this much more readable.  It reads left side "pipes" into r
 ```{r}
 AD %>% filter(year > 2000 & BUYER_STATE == "CO") %>% select(year, count)
 ```
+
+## Alternative Pipes
+
+There are multiple ways to write a pipe and you might see these (they work the same!):
+
+         |>
+
+         %>%
+         
+Note that `%>%` is not the same as `%in%` (which helps you check for a value in a vector).
 
 
 # Adding/Removing Columns
