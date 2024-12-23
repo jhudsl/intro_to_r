@@ -121,22 +121,22 @@ nrow(county_pop_sub)
 
 ### 2.5
 
-Subset the rows of `county_pop` that have a year value **less** than 2010 and **more** than 100000 population - how many are there?
+Subset the rows of `county_pop` that have a population of **more** than 100000 and have a year value **less** than 2010 - how many are there?
 
 ```{r 2.5response}
-filter(county_pop, year < 2010 & population > 100000) # all of these options work
-nrow(filter(county_pop, year < 2010 & population > 100000))
-nrow(filter(county_pop, year < 2010, population > 100000))
+filter(county_pop,  population > 100000  & year < 2010) # all of these options work
+nrow(filter(county_pop,  population > 100000 & year < 2010 ))
+nrow(filter(county_pop,  population > 100000, year < 2010))
 ```
 
 ### 2.6
 
-Subset the rows of `county_pop` that have a year value of **less than or equal to ** 2010 and **more** than 100000 population - how many are there?
+Subset the rows of `county_pop` that have a population of **more** than 100000 and a year value of **less than or equal to ** 2010 - how many are there?
 
 ```{r 2.6response}
-filter(county_pop, year <= 2010 & population > 100000) # all of these options work
-nrow(filter(county_pop, year <= 2010 & population > 100000))
-nrow(filter(county_pop, year <= 2010, population > 100000))
+filter(county_pop, population > 100000 & year <= 2010) # all of these options work
+nrow(filter(county_pop, population > 100000 & year <= 2010))
+nrow(filter(county_pop, population > 100000, year <= 2010))
 ```
 
 ### 2.7
