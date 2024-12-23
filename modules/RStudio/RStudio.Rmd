@@ -279,20 +279,6 @@ You can run all chunks above a specific chunk using this button:
 knitr::include_graphics("images/previous_chunks.png")
 ```
 
-## Chunk settings
-
-```{r echo=FALSE, fig.align='center', out.width="80%"}
-knitr::include_graphics("images/chunk_settings.png")
-```
-
-## Chunk settings
-
-You can specify if a chunk will be seen in the report or not.
-
-```{r echo=FALSE, fig.align='center', out.width="80%"}
-knitr::include_graphics("images/chunk_settings2.png")
-```
-
 ## Errors
 
 R studio can help you find issues in your code.
@@ -399,6 +385,10 @@ knitr::include_graphics("images/double_question.png")
 
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/RStudio/lab/RStudio_Lab.Rmd)
 
+📃 [Posit Cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rstudio-ide.pdf). 
+
+📃 [Day 1 Cheatsheet](https://jhudatascience.org/intro_to_r//modules/cheatsheets/Day-1.pdf).
+
 ```{r, fig.alt="The End", out.width = "25%", echo = FALSE, fig.align='center'}
 knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 ```
@@ -406,4 +396,34 @@ knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
 
 
+# Extra Slides
 
+## Chunk settings
+
+```{r echo=FALSE, fig.align='center', out.width="80%"}
+knitr::include_graphics("images/chunk_settings.png")
+```
+
+## Chunk settings
+
+You can specify if a chunk will be seen in the report or not.
+
+```{r echo=FALSE, fig.align='center', out.width="80%"}
+knitr::include_graphics("images/chunk_settings2.png")
+```
+
+
+## Rainbow Parentheses
+
+Tools --> Global Options --> Code --> Display --> Use rainbow parentheses
+
+This can help you see your code more easily.
+
+Press enter to save this setting and get out of this menu.
+
+<br>
+<br>
+
+```{r echo=FALSE, fig.align='center', out.width="80%"}
+knitr::include_graphics("https://posit.co/wp-content/themes/Posit/public/markdown-blogs/rstudio-1-4-preview-rainbow-parentheses/colorfulCode.png")
+```
