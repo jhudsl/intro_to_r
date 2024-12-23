@@ -698,7 +698,7 @@ head(AD_CO)
 
 ## Using the `pipe` (comes with `dplyr`):
 
-The pipe `%>%` makes this much more readable.  It reads left side "pipes" into right side.  RStudio `CMD/Ctrl + Shift + M` shortcut. Pipe `tb` into `filter`, then pipe that into `select`:
+The pipe `%>%` makes this much more readable.  It reads left side "pipes" into right side.  RStudio `CMD/Ctrl + Shift + M` shortcut. Pipe `AD` into `filter`, then pipe that into `select`:
 
 
 ```{r}
