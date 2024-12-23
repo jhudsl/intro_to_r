@@ -113,13 +113,13 @@ knitr::include_graphics("images/rstudio_sheet.png")
 
 ## R Markdown files look different form scripts
 
-It will look like this with text in it, unlike a script.
+It will look like this with text in it.
 
 ```{r, fig.alt="RStudio layout", out.width = "100%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/first_markdown.png")
 ```
 
-## Recall that a script was just empty
+## Scripts will just be empty
 
 ```{r, out.width = "90%", echo = FALSE}
 knitr::include_graphics("images/rstudio_script.png")
@@ -151,7 +151,7 @@ knitr::include_graphics("images/rstudio_environment.png")
     Instead use RMarkdown!
 -   Also type the "up" key in the Console to scroll through previous commands
 
-## Other Panes
+## Lower Right Pane
 
 -   **Files** - shows the files on your computer of the directory you are working in
 -   **Viewer** - can view data or R objects
@@ -182,40 +182,15 @@ knitr::include_graphics("images/pane_layout.png")
 
 # Let's take a look at R Studio ourselves!
 
-## Lab: Starting with R and RMarkdown
-
-💻 [RStudio Lab](https://jhudatascience.org/intro_to_r/modules/RStudio/lab/RStudio_Lab.Rmd)
-
-To do this lab we need to:
-
-- Download the file at the link above by clicking on it or go to the [website](https://jhudatascience.org/intro_to_r/materials_schedule.html) schedule page
-- Find the downloaded file on your computer
-- Open the file in RStudio (double clicking the file name typically works)
-
-These videos can help if you aren't sure where your downloads are:
-
-If you have a PC: https://youtu.be/we6vwB7DsNU
-
-If you have a Mac: https://www.youtube.com/watch?v=Ao9e0cDzMrE
-
-You can find these on the resource page of the class website.
 
 ## R Markdown file
 
-R Markdown files (.Rmd) help generate reports that include your code and output. Think of them as fancier scripts.
+R Markdown files (.Rmd) help generate reports that include your code and output.
 
 1.  Helps you describe your code
 2.  Allows you to check the output
 3.  Can create many different file types
 
-## Create an R Markdown file
-
-Go to File → New File → R Markdown or click the green add file button.
-
-
-```{r, out.width = "40%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("images/RMarkdown.png")
-```
 
 ## Code chunks
 
@@ -254,7 +229,7 @@ Tools > Global Options > Appearance
 
 ## Knit file to html
 
-Running all chunks - this will create a report from the R Markdown document!
+Running all chunks - this will create a report from the R Markdown document! Note that it can't use anything not included in the file, it can't use objects in your environment that you were modifying interactively.
 
 ```{r, fig.alt="knit", out.width = "40%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/knit.png")
@@ -328,15 +303,6 @@ knitr::include_graphics("images/errors.png")
 ```
 
 
-## Useful R Studio Shortcuts
-
--   `Ctrl + Enter` on Windows or `Command + Enter` on Mac in your script evaluates that line of code
-    -   It's like copying and pasting the code into the console for it to run.
--   `Ctrl+1` on Windows or `Command + 1` on Mac takes you to the script page 
--   `Ctrl+2` on Windows or `Command + 2` on Mac takes you to the console
--   <http://www.rstudio.com/ide/docs/using/keyboard_shortcuts>
-
-
 ## Recap of where code goes
 
 - you can test code in the console
@@ -351,6 +317,30 @@ knitr::include_graphics("images/where_code_console.png")
 knitr::include_graphics("images/where_code.png")
 ```
 
+## Gut Check
+
+Why are R Markdown files so useful?
+
+A) They let you test your code
+B) They let you view the output of your code
+C) They let you generate cool reports 
+D) All of the above
+
+## Gut Check 
+
+Where does code go typically in an Rmd file?
+
+```{r, fig.alt="help_pane", out.width = "90%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/where_code_gut_check.png")
+```
+
+## Gut Check
+
+Which button do you click to run the code in a current chunk?
+
+```{r, fig.alt="help_pane", out.width = "90%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/chunk_gut_check.png")
+```
 
 ## Getting help from the preview 
 
