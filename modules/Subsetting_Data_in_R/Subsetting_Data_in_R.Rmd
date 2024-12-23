@@ -373,6 +373,14 @@ test
 clean_names(test)
 ```
 
+## GUT CHECK: Which of the following would work well with a column called `counties_of_seattle_with_population_over_10,000`?
+
+A. Renaming it using `rename` function to something simpler like `seattle_counties_over_10thous`.
+
+B. Keeping it as is and use backticks around the column name when you use it.
+
+C. Keeping it as is and use quotes around the column name when you use it.
+
 ## Summary
 
 - data frames are simpler version of a data table
@@ -404,7 +412,8 @@ AD <-slice_sample(annualDosage, n = 30)
 
 ## Subset columns of a data frame - `tidyverse` way: 
 
-To grab (or "pull" out) the `year` column the `tidyverse` way we can use the `pull` function:
+To grab a vector version (or "pull" out) the `year` column the `tidyverse` way we can use the `pull` function:
+
 ```{r}
 pull(AD, year)
 ```
@@ -416,6 +425,12 @@ The `select` command from `dplyr` allows you to subset (still a `tibble`!)
 ```{r}
 select(AD, year)
 ```
+
+## GUT CHECK: What function would be useful for getting a vector version of a column?
+
+A. `pull()`
+
+B. `select()`
 
 ## Select multiple columns
 
@@ -640,7 +655,7 @@ https://media.giphy.com/media/5b5OU7aUekfdSAER5I/giphy.gif
 -  you can `select()` based on patterns in the column names
 -  you can also `select()` based on column class with the `where()` function
 -  you can combine multiple tidyselect functions together like `select(starts_with("C"), ends_with("state"))`
--  you can combine multiple patterns with the `c()` function like `select(starts_with(c("A", "C")))`
+-  you can combine multiple patterns with the `c()` function like `select(starts_with(c("A", "C")))` (see extra slides at the end for more info!)
 - `filter()` can be used to filter out rows based on logical conditions
 -  avoid using quotes when referring to column names with `filter()`
 
@@ -653,7 +668,12 @@ https://media.giphy.com/media/5b5OU7aUekfdSAER5I/giphy.gif
 ## Lab Part 2
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)    
+
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab.Rmd)
+
+📃 [Day 3 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-3.pdf)
+
+📃 [Posit's `dplyr` Cheatsheet](https://rstudio.github.io/cheatsheets/data-transformation.pdf)
 
 ## Get the data
 
