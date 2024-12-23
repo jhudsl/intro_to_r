@@ -11,19 +11,16 @@ library(knitr)
 opts_chunk$set(comment = "")
 ```
 
-## Help! Office hours
-
-Office hours will always be held at the _same Zoom link_.
 
 ## Working with R -- RStudio
 
-RStudio is an Integrated Development Environment (IDE) for R
+RStudio is an Integrated Development Environment (IDE) for R and it helps you:
 
--   Helps you write code - makes suggestions
--   Helps you view the output of your code
--   Helps you find errors
--   Is NOT a dropdown statistical tool (such as Stata)
-    -   See [Rcmdr](https://cran.r-project.org/web/packages/Rcmdr/index.html) or [Radiant](http://vnijs.github.io/radiant/)
+-   write code - makes suggestions
+-   view the output of your code, including plots
+-   find errors
+-   manage files
+-   view documentation
 
 
 ```{r, fig.alt="RStudio logo", out.width = "30%", echo = FALSE, fig.align='center'}
@@ -33,20 +30,6 @@ knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/62bcc8535a0607709
 <sub>[[source](https://www.rstudio.com/)]</sub>
 
 RStudio used to be the name of a company that is now called [Posit](https://posit.co/).
-
-## RStudio
-
-Easier working with R
-
--   Syntax highlighting, code completion, and smart indentation
--   Easily manage multiple working directories and projects
-
-More information
-
--   Workspace browser and data viewer
--   Plot history, zooming, and flexible image and file export
--   Integrated R help and documentation
-
 
 
 ## RStudio
@@ -105,43 +88,21 @@ knitr::include_graphics("images/new_pane.png")
 
 ## Working with R in R Studio - 2 major panes:
 
-1)  The **Source/Editor**: "Analysis" Script + Interactive Exploration
-    -   Static copy of what you did (reproducibility)
+1)  The **Source/Editor**: 
+
     -   Top by default
-2)  The **R Console**: "interprets" whatever you type
-    -   Calculator
-    -   Try things out interactively, then add to your editor
+    -   **saves your code** 
+    
+2)  The **R Console**:
+
     -   Bottom by default
-
-## Source / Editor
-
--   Where files open to
--   Have R code and comments in them
--   Can highlight and press (CMD+Enter (Mac) or Ctrl+Enter (Windows)) to run the code
-
-In a .R file (we call a script), code is saved on your disk
-
-```{r, out.width = "90%", echo = FALSE}
-knitr::include_graphics("images/rstudio_script.png")
-```
-
-<!-- ## Workspace/Environment ![Workspace](images/r-rstudio-1-ggplot-point-2.png) -->
-
-## R Console
-
-<!-- ![Console](images/rstudio_console.png) -->
-
-```{r, out.width = "60%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("images/rstudio_console.png")
-```
-
--   Where code is executed (where things happen)
--   You can type here for things interactively to test code
--   Code is **not saved** on your disk
-
+    -   Calculator
+    -   Place to try things out, then add to your editor
+    -   **doesn't save your code**
+    
 ## RStudio
 
-Super useful "cheat sheet": [LINK](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rstudio-ide.pdf)
+Super useful "cheatsheet": [LINK](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rstudio-ide.pdf)
 
 ```{r, fig.alt="RStudio", out.width = "65%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/rstudio_sheet.png")
@@ -149,13 +110,13 @@ knitr::include_graphics("images/rstudio_sheet.png")
 
 ## R Markdown files look different form scripts
 
-It will look like this with text in it, unlike a script.
+It will look like this with text in it.
 
 ```{r, fig.alt="RStudio layout", out.width = "100%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/first_markdown.png")
 ```
 
-## Recall that a script was just empty
+## Scripts will just be empty
 
 ```{r, out.width = "90%", echo = FALSE}
 knitr::include_graphics("images/rstudio_script.png")
@@ -187,7 +148,7 @@ knitr::include_graphics("images/rstudio_environment.png")
     Instead use RMarkdown!
 -   Also type the "up" key in the Console to scroll through previous commands
 
-## Other Panes
+## Lower Right Pane
 
 -   **Files** - shows the files on your computer of the directory you are working in
 -   **Viewer** - can view data or R objects
@@ -218,40 +179,15 @@ knitr::include_graphics("images/pane_layout.png")
 
 # Let's take a look at R Studio ourselves!
 
-## Lab: Starting with R and RMarkdown
-
-💻 [RStudio Lab](https://jhudatascience.org/intro_to_r/modules/RStudio/lab/RStudio_Lab.Rmd)
-
-To do this lab we need to:
-
-- Download the file at the link above by clicking on it or go to the [website](https://jhudatascience.org/intro_to_r/materials_schedule.html) schedule page
-- Find the downloaded file on your computer
-- Open the file in RStudio (double clicking the file name typically works)
-
-These videos can help if you aren't sure where your downloads are:
-
-If you have a PC: https://youtu.be/we6vwB7DsNU
-
-If you have a Mac: https://www.youtube.com/watch?v=Ao9e0cDzMrE
-
-You can find these on the resource page of the class website.
 
 ## R Markdown file
 
-R Markdown files (.Rmd) help generate reports that include your code and output. Think of them as fancier scripts.
+R Markdown files (.Rmd) help generate reports that include your code and output.
 
 1.  Helps you describe your code
 2.  Allows you to check the output
 3.  Can create many different file types
 
-## Create an R Markdown file
-
-Go to File → New File → R Markdown or click the green add file button.
-
-
-```{r, out.width = "40%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("images/RMarkdown.png")
-```
 
 ## Code chunks
 
@@ -290,7 +226,7 @@ Tools > Global Options > Appearance
 
 ## Knit file to html
 
-Running all chunks - this will create a report from the R Markdown document!
+Running all chunks - this will create a report from the R Markdown document! Note that it can't use anything not included in the file, it can't use objects in your environment that you were modifying interactively.
 
 ```{r, fig.alt="knit", out.width = "40%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/knit.png")
@@ -340,20 +276,6 @@ You can run all chunks above a specific chunk using this button:
 knitr::include_graphics("images/previous_chunks.png")
 ```
 
-## Chunk settings
-
-```{r echo=FALSE, fig.align='center', out.width="80%"}
-knitr::include_graphics("images/chunk_settings.png")
-```
-
-## Chunk settings
-
-You can specify if a chunk will be seen in the report or not.
-
-```{r echo=FALSE, fig.align='center', out.width="80%"}
-knitr::include_graphics("images/chunk_settings2.png")
-```
-
 ## Errors
 
 R studio can help you find issues in your code.
@@ -362,15 +284,6 @@ Note that sometimes the error occurs earlier than RStudio thinks.
 ```{r echo=FALSE, fig.align='center', out.width="80%"}
 knitr::include_graphics("images/errors.png")
 ```
-
-
-## Useful R Studio Shortcuts
-
--   `Ctrl + Enter` on Windows or `Command + Enter` on Mac in your script evaluates that line of code
-    -   It's like copying and pasting the code into the console for it to run.
--   `Ctrl+1` on Windows or `Command + 1` on Mac takes you to the script page 
--   `Ctrl+2` on Windows or `Command + 2` on Mac takes you to the console
--   <http://www.rstudio.com/ide/docs/using/keyboard_shortcuts>
 
 
 ## Recap of where code goes
@@ -387,6 +300,30 @@ knitr::include_graphics("images/where_code_console.png")
 knitr::include_graphics("images/where_code.png")
 ```
 
+## Gut Check
+
+Why are R Markdown files so useful?
+
+A) They let you test your code
+B) They let you view the output of your code
+C) They let you generate cool reports 
+D) All of the above
+
+## Gut Check 
+
+Where does code go typically in an Rmd file?
+
+```{r, fig.alt="help_pane", out.width = "90%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/where_code_gut_check.png")
+```
+
+## Gut Check
+
+Which button do you click to run the code in a current chunk?
+
+```{r, fig.alt="help_pane", out.width = "90%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/chunk_gut_check.png")
+```
 
 ## Getting help from the preview 
 
@@ -445,6 +382,10 @@ knitr::include_graphics("images/double_question.png")
 
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/RStudio/lab/RStudio_Lab.Rmd)
 
+📃 [Posit Cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rstudio-ide.pdf). 
+
+📃 [Day 1 Cheatsheet](https://jhudatascience.org/intro_to_r//modules/cheatsheets/Day-1.pdf).
+
 ```{r, fig.alt="The End", out.width = "25%", echo = FALSE, fig.align='center'}
 knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 ```
@@ -452,4 +393,34 @@ knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
 
 
+# Extra Slides
 
+## Chunk settings
+
+```{r echo=FALSE, fig.align='center', out.width="80%"}
+knitr::include_graphics("images/chunk_settings.png")
+```
+
+## Chunk settings
+
+You can specify if a chunk will be seen in the report or not.
+
+```{r echo=FALSE, fig.align='center', out.width="80%"}
+knitr::include_graphics("images/chunk_settings2.png")
+```
+
+
+## Rainbow Parentheses
+
+Tools --> Global Options --> Code --> Display --> Use rainbow parentheses
+
+This can help you see your code more easily.
+
+Press enter to save this setting and get out of this menu.
+
+<br>
+<br>
+
+```{r echo=FALSE, fig.align='center', out.width="80%"}
+knitr::include_graphics("https://posit.co/wp-content/themes/Posit/public/markdown-blogs/rstudio-1-4-preview-rainbow-parentheses/colorfulCode.png")
+```
