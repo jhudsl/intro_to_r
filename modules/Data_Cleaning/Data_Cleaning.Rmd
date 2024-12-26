@@ -361,6 +361,20 @@ Pay attention to your data and your `NA` values!
 knitr::include_graphics("images/debug.png")
 ```
 
+## GUT CHECK: What function can be used to remove NA values from a full dataframe or for an individual column?
+
+A. `drop_nulls()`
+
+B. `drop_na()`
+
+C. `rem_na()`
+
+## GUT CHECK: How can you keep NA values when using `filter`?
+
+A. include `| is.na()` 
+
+B. include `& is.na()`
+
 ## Summary
 
 -   `is.na()`,`any(is.na())`, `all(is.na())`,`count()`, and functions from `naniar` like `gg_miss_var()` and `miss_var_summary` can help determine if we have `NA` values
