@@ -20,7 +20,10 @@ library(dplyr)
 library(jhur)
 ```
 
-Read Bike Lanes Dataset using `read_bike()` function from `jhur` package. Assign it to `bike` variable. 
+Read in the Bike Lanes Dataset using `read_bike()` function from `jhur` package or using the `read_csv` function with the following link:
+http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv
+
+Assign the data to an object called `bike`. 
 
 Then, use the provided code to compute a data frame `bike_agg` with aggregate summary of bike lanes: average length of lanes (`lane_avg_length`) for each year (`dateInstalled`). 
 
