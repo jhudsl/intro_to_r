@@ -155,10 +155,10 @@ miss_var_summary(bike)
 ## `naniar` plots
 
 The `gg_miss_var()` function creates a nice plot about the number of
-missing values for each variable, (need a data frame).
+missing values for each variable, (need a data frame). Using `show_pct = TRUE` shows the percent missing. 
 
 ```{r, fig.height=4, warning=FALSE, fig.align='center'}
-gg_miss_var(bike)
+gg_miss_var(bike, show_pct = TRUE)
 ```
 
 
