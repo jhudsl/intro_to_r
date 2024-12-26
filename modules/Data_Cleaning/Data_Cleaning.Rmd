@@ -155,10 +155,10 @@ miss_var_summary(bike)
 ## `naniar` plots
 
 The `gg_miss_var()` function creates a nice plot about the number of
-missing values for each variable, (need a data frame).
+missing values for each variable, (need a data frame). Using `show_pct = TRUE` shows the percent missing. 
 
 ```{r, fig.height=4, warning=FALSE, fig.align='center'}
-gg_miss_var(bike)
+gg_miss_var(bike, show_pct = TRUE)
 ```
 
 
@@ -361,6 +361,20 @@ Pay attention to your data and your `NA` values!
 knitr::include_graphics("images/debug.png")
 ```
 
+## GUT CHECK: What function can be used to remove NA values from a full dataframe or for an individual column?
+
+A. `drop_nulls()`
+
+B. `drop_na()`
+
+C. `rem_na()`
+
+## GUT CHECK: How can you keep NA values when using `filter`?
+
+A. include `| is.na()` 
+
+B. include `& is.na()`
+
 ## Summary
 
 -   `is.na()`,`any(is.na())`, `all(is.na())`,`count()`, and functions from `naniar` like `gg_miss_var()` and `miss_var_summary` can help determine if we have `NA` values
@@ -376,9 +390,11 @@ knitr::include_graphics("images/debug.png")
 
 ## Lab Part 1
 
-🏠 [Class Website](https://jhudatascience.org/intro_to_r/)    
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)  
+
 💻[Lab](https://jhudatascience.org/intro_to_r/modules/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd)
 
+📃 [Day 5 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-5.pdf)
 
 
 # Recoding Variables
@@ -602,6 +618,13 @@ data_ginger_mint %>%
   count(Group, Effect)
 ```
 
+## GUT CHECK: If we want all unspecified values to remain the same with `case_when()`, how should we complete the `TRUE ~` statement?
+
+A. With the name of the variable we are modifying or using as source
+
+B. With the word "same"
+
+
 # Working with strings
 
 ## Strings in R
@@ -718,13 +741,22 @@ data_ginger_mint %>%
   count(Treatment, Treatment_recoded)
 ```
 
-This is a more robust solution! It will catch typos as long as first letter is correct or there is part of the word mint.
+This is a more robust solution! It will catch typos as long as the first letter is correct or there is part of the word mint.
 
 ## That's better!
 
 ```{r, echo = FALSE, fig.align='center', out.width= "30%"}
 knitr::include_graphics("https://media1.giphy.com/media/S9ZK4mmi3u3jdc5dek/200w.webp?cid=ecf05e47h7myga959jwvek6s9x1tkog135g7pxu8vvjz2yqb&rid=200w.webp&ct=g")
 ```
+
+
+## GUT CHECK: What `stringr` function helps us find a string pattern?
+
+A. `str_replace()`
+
+B. `str_find()`
+
+C. `str_detect()`
 
 # Separating and uniting data
 
@@ -784,8 +816,13 @@ knitr::include_graphics("images/case_when.png")
 
 ## Lab Part 2
 
-🏠 [Class Website](https://jhudatascience.org/intro_to_r/)    
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)  
+
 💻[Lab](https://jhudatascience.org/intro_to_r/modules/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd)
+
+📃 [Day 5 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-5.pdf)
+
+📃 [Posit's `stringr` Cheatsheet](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf)
 
 ```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
 knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
