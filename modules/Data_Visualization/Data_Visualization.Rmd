@@ -327,17 +327,6 @@ There's not only the built in ggplot2 themes but all kinds of themes from other 
 
 - [hrbr themes](https://github.com/hrbrmstr/hrbrthemes)
 
-## Customize the look of the plot
-
-You can change the look of whole plot - **specific elements, too** - like changing [font](http://www.cookbook-r.com/Graphs/Fonts/) and font size - or even more [fonts](https://blog.revolutionanalytics.com/2012/09/how-to-use-your-favorite-fonts-in-r-charts.html)
-
-```{r, fig.width=6, fig.height=3.5, fig.align='center'}
-ggplot(Orange, aes(x = circumference, y = age)) +
-  geom_point(size = 5, color = "red", alpha = 0.5) +
-  geom_line(size = 0.8, color = "brown", linetype = 2) +
-  theme_bw() +
-  theme(text=element_text(size=16,  family="Comic Sans MS"))
-```
 
 ## Adding labels {.codesmall}
 
@@ -445,18 +434,7 @@ Orange %>% ggplot(aes(x = circumference,
   geom_line(size = 0.8)
 ```
 
-## Removing the legend label
 
-You can use `theme(legend.position = "none")` to remove the legend. 
-
-```{r, fig.width=5, fig.height=3, fig.align='center'}
-
-Orange %>% ggplot(aes(x = circumference,
-                      y = age,
-                      color = Tree)) +
-  geom_line(size = 0.8) + 
-  theme(legend.position = "none")
-```
 
 ## Overwriting specifications
 
@@ -973,3 +951,18 @@ knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 ```
 
 Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
+
+## Extra Slides
+
+## Customize the look of the plot
+
+You can change the look of whole plot - **specific elements, too** - like changing [](http://www.cookbook-r.com/Graphs/Fonts/) and font size - or even more [fonts](https://blog.revolutionanalytics.com/2012/09/how-to-use-your-favorite-fonts-in-r-charts.html)
+
+```{r, fig.width=6, fig.height=3.5, fig.align='center'}
+ggplot(Orange, aes(x = circumference, y = age)) +
+  geom_point(size = 5, color = "red", alpha = 0.5) +
+  geom_line(size = 0.8, color = "brown", linetype = 2) +
+  theme_bw() +
+  theme(text=element_text(size=16,  family="Comic Sans MS"))
+```
+
