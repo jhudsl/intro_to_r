@@ -18,7 +18,6 @@ Now we will work with the `county_pop` data from the same case study.
 
 ```{r, message = FALSE}
 # don't forget to load the packages that you will need!
-library(dplyr)
 library(tidyverse)
 ```
 
@@ -67,7 +66,7 @@ Convert the column names of `county_pop` to be all lower case. Use `rename_with(
 
 ### P.1
 
-How can you print the first 3 rows and the last 3 rows of `county_pop` (in two lines of code)?
+How can you show the first 3 rows and the last 3 rows of `county_pop` (in two lines of code)?
 
 ```{r P.1response}
 
@@ -110,7 +109,7 @@ Subset the rows of `county_pop` that have **more** than 100000 for population - 
 
 ### 2.5
 
-Subset the rows of `county_pop` that have a year value **less** than 2010 and **more** than 100000 population - how many are there?
+Subset the rows of `county_pop` that have a population of **more** than 100000 and have a year value **less** than 2010 - how many are there?
 
 ```{r 2.5response}
 
@@ -118,7 +117,7 @@ Subset the rows of `county_pop` that have a year value **less** than 2010 and **
 
 ### 2.6
 
-Subset the rows of `county_pop` that have a year value of **less than or equal to ** 2010 and **more** than 100000 population - how many are there?
+Subset the rows of `county_pop` that have a population of **more** than 100000 and a year value of **less than or equal to ** 2010 - how many are there?
 
 ```{r 2.6response}
 
@@ -157,7 +156,7 @@ Select the variables that contain the letter "a" from `cars_mt_copy`.
 
 ### 3.1
 
-Create a subset called `county_2012` from `county_pop` that only contains the rows for the year 2012 and only the columns: `county_name`,	`state_name`, `population`. `year` should not be included in `county_sub`.
+Create a subset called `county_2012` from `county_pop` that only contains the rows for the year 2012 and only the columns: `county_name`,	`state_name`, `population`. The column `year` should not be included in `county_2012`.
 	What are the dimensions of this dataset? Don't use pipes (`%>%`) and instead do this in two steps creating the `county_2012` object with `filter` and updating it with `select`.
 
 ```{r 3.1response}
@@ -178,15 +177,15 @@ What happens if you do the steps in a different order? Why does this not work?
 
 ```
 
-### 1.3
+### 3.3
 
-Re-order the rows of `county_2012` by population in increasing order. Use `arrange()`. What is county with the smallest population?
+Use `arrange()` to order the rows of `county_2012` by `population` in increasing order. What is county with the smallest population?
 
 ```{r 3.3response}
 
 ```
 
-### 1.4
+### 3.4
 
 Create a new variable in `county_2012` called `pop1000`, which  is equal to `population` divided by 1000, using `mutate()`(don't forget to reassign `county_2012`). Use pipes `%>%`.
 
