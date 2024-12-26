@@ -82,11 +82,15 @@ miss_var_summary(bike) # or this
 
 ## P.2
 
-Use the `na_if` function to replace values of
+Use the `na_if` function to replace values of 0 values  of the`dateInstalled` variable to be `NA`. Check your work using the `count` function.
 
 ```{r}
-
+bike <- bike %>% 
+  mutate(dateInstalled = na_if(dateInstalled, 0))
+count(bike, dateInstalled)
 ```
+
+
 
 
 # Part 2
