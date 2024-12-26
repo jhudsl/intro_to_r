@@ -292,7 +292,7 @@ ggplot(Orange, aes(x = circumference, y = age, color = Tree)) +
 
 You can change look of each layer separately. Note the arguments like `linetype` and `alpha` that allow us to change the opacity of the points and style of the line respectively. 
 
-```{r, fig.width=5, fig.height=3, fig.align='center'}
+```{r, fig.width=4.5, fig.height=2.5, fig.align='center'}
 ggplot(Orange, aes(x = circumference, y = age)) +
   geom_point(size = 5, color = "red", alpha = 0.5) +
   geom_line(size = 0.8, color = "black", linetype = 2)
@@ -320,8 +320,11 @@ ggplot(Orange, aes(x = circumference, y = age)) +
 ## More themes!
 
 There's not only the built in ggplot2 themes but all kinds of themes from other packages! 
+
 - [ggthemes](https://jrnold.github.io/ggthemes/)
+
 - [ThemePark package](https://github.com/MatthewBJane/ThemePark)
+
 - [hrbr themes](https://github.com/hrbrmstr/hrbrthemes)
 
 ## Customize the look of the plot
