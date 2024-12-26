@@ -332,7 +332,7 @@ There's not only the built in ggplot2 themes but all kinds of themes from other 
 
 The `labs()` function can help you add or modify titles on your plot. The `title` argument specifies the title. The `x` argument specifies the x axis label. The `y` argument specifies the y axis label.
 
-```{r, fig.width=4, fig.height=2.5, fig.align='center'}
+```{r, fig.width=4, fig.height=3, fig.align='center'}
 ggplot(Orange, aes(x = circumference, y = age)) +
             geom_point(size = 5, color = "red", alpha = 0.5) +
             geom_line(size = 0.8, color = "brown", linetype = 2) +
@@ -345,7 +345,7 @@ ggplot(Orange, aes(x = circumference, y = age)) +
 
 Line breaks can be specified using `\n` within the `labs()` function to have a label with multiple lines.
 
-```{r, fig.width=4, fig.height=2.5, fig.align='center'}
+```{r, fig.width=4, fig.height=3, fig.align='center'}
 ggplot(Orange, aes(x = circumference, y = age)) +
             geom_point(size = 5, color = "red", alpha = 0.5) +
             geom_line(size = 0.8, color = "brown", linetype = 2) +
@@ -368,19 +368,7 @@ plot_scale <-ggplot(Orange, aes(x = circumference, y = age)) +
                 scale_y_continuous(breaks = seq(from = 100, to = 1600, by = 200))
 ```
 
-## Changing axis: specifying axis limits
 
-`xlim()` and `ylim()` can specify the limits for each axis
-
-```{r, fig.width=5, fig.height=3, fig.align='center'}
-
-ggplot(Orange, aes(x = circumference, y = age)) +
-  geom_point(size = 5, color = "red", alpha = 0.5) +
-  geom_line(size = 0.8, color = "brown", linetype = 2) +
-  labs(title = "My plot of orange tree circumference vs age") +
-  xlim(100, max(pull(Orange, circumference)))
-
-```
 
 ## Changing axis: specifying axis scale {.codesmall}
 
@@ -407,6 +395,7 @@ ggplot(Orange, mapping = aes(x = circumference, y = age)) +
   xlim(100, max(pull(Orange, circumference)))
 
 ```
+
 
 ## Modifying plot objects
 
