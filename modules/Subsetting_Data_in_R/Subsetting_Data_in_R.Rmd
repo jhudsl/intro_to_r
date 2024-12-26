@@ -373,6 +373,14 @@ test
 clean_names(test)
 ```
 
+## GUT CHECK: Which of the following would work well with a column called `counties_of_US_with_population_over_10,000`?
+
+A. Renaming it using `rename` function to something simpler like `counties_over_10thous`.
+
+B. Keeping it as is and use backticks around the column name when you use it.
+
+C. Keeping it as is and use quotes around the column name when you use it.
+
 ## Summary
 
 - data frames are simpler version of a data table
@@ -387,9 +395,13 @@ clean_names(test)
 
 ## Lab Part 1
 
-🏠 [Class Website](https://jhudatascience.org/intro_to_r/)    
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/) 
+
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab.Rmd)
 
+📃 [Day 3 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-3.pdf)
+
+📃 [Posit's `dplyr` Cheatsheet](https://rstudio.github.io/cheatsheets/data-transformation.pdf)
 # Subsetting Columns
 
 ## Let's get our data again
@@ -404,7 +416,8 @@ AD <-slice_sample(annualDosage, n = 30)
 
 ## Subset columns of a data frame - `tidyverse` way: 
 
-To grab (or "pull" out) the `year` column the `tidyverse` way we can use the `pull` function:
+To grab a vector version (or "pull" out) the `year` column the `tidyverse` way we can use the `pull` function:
+
 ```{r}
 pull(AD, year)
 ```
@@ -416,6 +429,12 @@ The `select` command from `dplyr` allows you to subset (still a `tibble`!)
 ```{r}
 select(AD, year)
 ```
+
+## GUT CHECK: What function would be useful for getting a vector version of a column?
+
+A. `pull()`
+
+B. `select()`
 
 ## Select multiple columns
 
@@ -468,21 +487,13 @@ knitr::include_graphics("images/tidyselect.png")
 head(AD, 2)
 select(AD, starts_with("B"), year)
 ```
+
 ## Multiple tidyselect functions
 
 Follows OR logic.
 
 ```{r}
 select(AD, starts_with("B"), ends_with("r"))
-
-```
-
-## Multiple patterns with tidyselect
-
-Need to combine the patterns with the `c()` function.
-
-```{r}
-select(AD, starts_with(c("B", "D")))
 
 ```
 
@@ -502,13 +513,6 @@ select(AD, where(is.numeric))
 
 # Subsetting Rows
 
-## `filter` function
-
-```{r, fig.alt="dplyr", out.width = "70%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("images/filter.png")
-```
-
-"Artwork by @allison_horst". https://allisonhorst.com/
 
 ## Subset rows of a data frame: dplyr
 
@@ -537,7 +541,15 @@ If you try to filter for a column that does not exist it will not work:
  - misspelled column name 
  - column that was already removed 
 
+Remember that filter works by keeping rows with values that match the conditions specified for particular columns. 
 
+## `filter` function
+
+```{r, fig.alt="dplyr", out.width = "70%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/filter.png")
+```
+
+"Artwork by @allison_horst". https://allisonhorst.com/
 
 ## Subset rows of a data frame: dplyr {.codesmall}
 
@@ -572,7 +584,7 @@ filter(AD,  BUYER_STATE == "CO"| BUYER_STATE == "NM"| BUYER_STATE == "GA") #equi
 
 ## Subset rows of a data frame: dplyr {.codesmall}
 
-The `%in%` operator can be used find values from a pre-made list (using `c()`) for a **single column** at a time with different columns.
+The `%in%` operator can be used find values from a pre-made vector (using `c()`) for a **single column** at a time.
 
 ```{r}
 filter(AD, year %in% c(2012,2014), BUYER_STATE %in% c("GA","CO"))
@@ -632,6 +644,12 @@ knitr::include_graphics("https://media.giphy.com/media/5b5OU7aUekfdSAER5I/giphy.
 ```
 https://media.giphy.com/media/5b5OU7aUekfdSAER5I/giphy.gif
 
+## GUT CHECK: If we want to keep just rows that meet either or two conditions, what code should we use?
+
+A. `filter()` with `|`
+
+B. `filter()` with `&`
+
 ## Summary
 
 - `pull()` to get values out of a data frame/tibble
@@ -639,7 +657,7 @@ https://media.giphy.com/media/5b5OU7aUekfdSAER5I/giphy.gif
 -  you can `select()` based on patterns in the column names
 -  you can also `select()` based on column class with the `where()` function
 -  you can combine multiple tidyselect functions together like `select(starts_with("C"), ends_with("state"))`
--  you can combine multiple patterns with the `c()` function like `select(starts_with(c("A", "C")))`
+-  you can combine multiple patterns with the `c()` function like `select(starts_with(c("A", "C")))` (see extra slides at the end for more info!)
 - `filter()` can be used to filter out rows based on logical conditions
 -  avoid using quotes when referring to column names with `filter()`
 
@@ -652,7 +670,12 @@ https://media.giphy.com/media/5b5OU7aUekfdSAER5I/giphy.gif
 ## Lab Part 2
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)    
+
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab.Rmd)
+
+📃 [Day 3 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-3.pdf)
+
+📃 [Posit's `dplyr` Cheatsheet](https://rstudio.github.io/cheatsheets/data-transformation.pdf)
 
 ## Get the data
 
@@ -698,12 +721,22 @@ head(AD_CO)
 
 ## Using the `pipe` (comes with `dplyr`):
 
-The pipe `%>%` makes this much more readable.  It reads left side "pipes" into right side.  RStudio `CMD/Ctrl + Shift + M` shortcut. Pipe `tb` into `filter`, then pipe that into `select`:
+The pipe `%>%` makes this much more readable.  It reads left side "pipes" into right side.  RStudio `CMD/Ctrl + Shift + M` shortcut. Pipe `AD` into `filter`, then pipe that into `select`:
 
 
 ```{r}
 AD %>% filter(year > 2000 & BUYER_STATE == "CO") %>% select(year, count)
 ```
+
+## Alternative Pipes
+
+There are multiple ways to write a pipe and you might see these (they work the same!):
+
+         |>
+
+         %>%
+         
+Note that `%>%` is not the same as `%in%` (which helps you check for a value in a vector).
 
 
 # Adding/Removing Columns
@@ -934,7 +967,9 @@ Even though `$` is easier for creating new columns, `mutate` is really powerful,
 
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Subsetting_Data_in_R/lab/Subsetting_Data_in_R_Lab.Rmd)
 
+📃 [Day 3 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-3.pdf)
 
+📃 [Posit's `dplyr` Cheatsheet](https://rstudio.github.io/cheatsheets/data-transformation.pdf)
 
 ```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
 knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
@@ -943,6 +978,38 @@ knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
 
 # Extra Slides
+
+## Multiple patterns with one tidyselect statement
+
+Need to combine the patterns with the `c()` function.
+
+```{r, eval = FALSE}
+# These do the same thing
+select(AD, starts_with(c("B", "D")))
+select(AD, starts_with("B"), starts_with("D"))
+
+```
+
+
+
+## Nuances about `filter()`
+
+```{r}
+test <- tibble(A = c(1,2,3,4), B = c(1,2,3,4))
+test
+# These are technically the same but >= is easier to read
+# Separating can cause issues
+filter(test,  B > 2 | B==2)
+filter(test, B >= 2)
+```
+
+## Order of operations for `filter()`
+
+Order can matter. Think of individual statements separately first.
+```{r}
+filter(test,  A>3 | B==2 & B>2) # A is greater than 3 or B is equal to 2 AND (think but also) B must be greater than 2 , thus 2 is dropped.
+filter(test,  A>3 & B>2 | B==2) # A is greater than 3 AND B is greater than 2 leaving only 4s OR B is equal to 2, (since this comes later, 2 is preserved)
+```
 
 ## `which()` function
 
