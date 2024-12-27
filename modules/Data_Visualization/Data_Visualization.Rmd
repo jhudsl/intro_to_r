@@ -292,7 +292,7 @@ ggplot(Orange, aes(x = circumference, y = age, color = Tree)) +
 
 You can change look of each layer separately. Note the arguments like `linetype` and `alpha` that allow us to change the opacity of the points and style of the line respectively. 
 
-```{r, fig.width=5, fig.height=3, fig.align='center'}
+```{r, fig.width=4.5, fig.height=2.5, fig.align='center'}
 ggplot(Orange, aes(x = circumference, y = age)) +
   geom_point(size = 5, color = "red", alpha = 0.5) +
   geom_line(size = 0.8, color = "black", linetype = 2)
@@ -320,27 +320,19 @@ ggplot(Orange, aes(x = circumference, y = age)) +
 ## More themes!
 
 There's not only the built in ggplot2 themes but all kinds of themes from other packages! 
+
 - [ggthemes](https://jrnold.github.io/ggthemes/)
+
 - [ThemePark package](https://github.com/MatthewBJane/ThemePark)
+
 - [hrbr themes](https://github.com/hrbrmstr/hrbrthemes)
 
-## Customize the look of the plot
-
-You can change the look of whole plot - **specific elements, too** - like changing [font](http://www.cookbook-r.com/Graphs/Fonts/) and font size - or even more [fonts](https://blog.revolutionanalytics.com/2012/09/how-to-use-your-favorite-fonts-in-r-charts.html)
-
-```{r, fig.width=6, fig.height=3.5, fig.align='center'}
-ggplot(Orange, aes(x = circumference, y = age)) +
-  geom_point(size = 5, color = "red", alpha = 0.5) +
-  geom_line(size = 0.8, color = "brown", linetype = 2) +
-  theme_bw() +
-  theme(text=element_text(size=16,  family="Comic Sans MS"))
-```
 
 ## Adding labels {.codesmall}
 
 The `labs()` function can help you add or modify titles on your plot. The `title` argument specifies the title. The `x` argument specifies the x axis label. The `y` argument specifies the y axis label.
 
-```{r, fig.width=4, fig.height=2.5, fig.align='center'}
+```{r, fig.width=4, fig.height=3, fig.align='center'}
 ggplot(Orange, aes(x = circumference, y = age)) +
             geom_point(size = 5, color = "red", alpha = 0.5) +
             geom_line(size = 0.8, color = "brown", linetype = 2) +
@@ -353,7 +345,7 @@ ggplot(Orange, aes(x = circumference, y = age)) +
 
 Line breaks can be specified using `\n` within the `labs()` function to have a label with multiple lines.
 
-```{r, fig.width=4, fig.height=2.5, fig.align='center'}
+```{r, fig.width=4, fig.height=3, fig.align='center'}
 ggplot(Orange, aes(x = circumference, y = age)) +
             geom_point(size = 5, color = "red", alpha = 0.5) +
             geom_line(size = 0.8, color = "brown", linetype = 2) +
@@ -376,19 +368,7 @@ plot_scale <-ggplot(Orange, aes(x = circumference, y = age)) +
                 scale_y_continuous(breaks = seq(from = 100, to = 1600, by = 200))
 ```
 
-## Changing axis: specifying axis limits
 
-`xlim()` and `ylim()` can specify the limits for each axis
-
-```{r, fig.width=5, fig.height=3, fig.align='center'}
-
-ggplot(Orange, aes(x = circumference, y = age)) +
-  geom_point(size = 5, color = "red", alpha = 0.5) +
-  geom_line(size = 0.8, color = "brown", linetype = 2) +
-  labs(title = "My plot of orange tree circumference vs age") +
-  xlim(100, max(pull(Orange, circumference)))
-
-```
 
 ## Changing axis: specifying axis scale {.codesmall}
 
@@ -416,6 +396,7 @@ ggplot(Orange, mapping = aes(x = circumference, y = age)) +
 
 ```
 
+
 ## Modifying plot objects
 
 You can add to a plot object to make changes! Note that we can save our plots as an object like `plt1` below. And now if we reference `plt1` again our plot will print out!
@@ -442,18 +423,7 @@ Orange %>% ggplot(aes(x = circumference,
   geom_line(size = 0.8)
 ```
 
-## Removing the legend label
 
-You can use `theme(legend.position = "none")` to remove the legend. 
-
-```{r, fig.width=5, fig.height=3, fig.align='center'}
-
-Orange %>% ggplot(aes(x = circumference,
-                      y = age,
-                      color = Tree)) +
-  geom_line(size = 0.8) + 
-  theme(legend.position = "none")
-```
 
 ## Overwriting specifications
 
@@ -466,7 +436,20 @@ Orange %>% ggplot(aes(x = circumference,
   geom_line(size = 0.8, color = "black")
 ```
 
+## GUT CHECK: If we get an empty plot what might we need to do?
 
+A. Add a `plot_` layer like `plot_point()`
+
+B. Add a `geom_` layer like `geom_point()`
+
+
+## GUT CHECK: How do we add more layers in ggplot2 plots?
+
+A. `%>%`
+
+B. `&`
+
+C. `+
 
 ## Summary
 
@@ -482,8 +465,11 @@ Orange %>% ggplot(aes(x = circumference,
 
 ## Lab 1
 
-🏠 [Class Website](https://jhudatascience.org/intro_to_r/)\
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
+
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules//Data_Visualization/lab/Data_Visualization_Lab.Rmd)
+
+📃[Day 7 Cheatsheet](https://jhudatascience.org/intro_to_r//modules/cheatsheets/Day-7.pdf)
 
 ## theme() function:
 
@@ -944,6 +930,20 @@ ggsave(filename = "saved_plot.png",  # will save in working directory
        width = 6, height = 3.5)               # by default in inches
 ```
 
+
+## GUT CHECK: How to we make sure that the boxplots are filled with color instead of just the outside boarder?
+
+A. Use the `fill` argument in the `aes` specification 
+
+B. Use `color` argument in `geom_boxplot()`
+
+## GUT CHECK: If our plot is too complicated to read, what might be a good option to fix this?
+
+A. add more `theme()` layers
+
+B. Use `facet_grid()` to split the plot up
+
+
 ## Summary
 
 -   The `theme()` function helps you specify aspects about your plot
@@ -963,10 +963,30 @@ Check out this [guide](https://jhudatascience.org/tidyversecourse/dataviz.html#m
 ## Lab 2
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)\
+
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules//Data_Visualization/lab/Data_Visualization_Lab.Rmd)
+
+📃[Day 7 Cheatsheet](https://jhudatascience.org/intro_to_r//modules/cheatsheets/Day-7.pdf)
+
+📃[Posit's theme cheatsheet](https://github.com/claragranell/ggplot2/blob/main/ggplot_theme_system_cheatsheet.pdf)
 
 ```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
 knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 ```
 
 Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
+
+## Extra Slides
+
+## Customize the look of the plot
+
+You can change the look of whole plot - **specific elements, too** - like changing [](http://www.cookbook-r.com/Graphs/Fonts/) and font size - or even more [fonts](https://blog.revolutionanalytics.com/2012/09/how-to-use-your-favorite-fonts-in-r-charts.html)
+
+```{r, fig.width=6, fig.height=3.5, fig.align='center'}
+ggplot(Orange, aes(x = circumference, y = age)) +
+  geom_point(size = 5, color = "red", alpha = 0.5) +
+  geom_line(size = 0.8, color = "brown", linetype = 2) +
+  theme_bw() +
+  theme(text=element_text(size=16,  family="Comic Sans MS"))
+```
+
