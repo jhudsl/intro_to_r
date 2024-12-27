@@ -11,12 +11,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Part 1
 
-Load the libraries
+Load the packages.
 
 ```{r, message=FALSE}
-library(readr)
-library(ggplot2)
-library(dplyr)
+library(tidyverse)
 library(jhur)
 ```
 
@@ -64,7 +62,7 @@ my_plot
 
 ### 1.2
 
-"Update" your plot by adding a title and changing the x and y axis titles. 
+"Update" your plot by adding a title and changing the x and y axis titles. (Hint: use the `labs` function.)
 
 ```{r 1.2response}
 my_plot <- my_plot +
@@ -91,6 +89,13 @@ my_plot<- my_plot +
 my_plot <- my_plot +
   scale_x_continuous(
     breaks = c(2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013)
+  )
+
+my_plot
+
+my_plot <- my_plot +
+  scale_x_continuous(
+    breaks = seq(from = 2006, to = 2013, by = 1)
   )
 
 my_plot
@@ -175,6 +180,8 @@ Redo the above plot by adding a faceting  (`+ facet_wrap( ~ type, ncol = 3)`) to
 
 (You may see `geom_path: Each group consists of only one observation. Do you need to adjust the group aesthetic?` warning as some bike lane types will have only 1 point plotted while trying to plot a line).
 Assign the new plot as an object called `facet_plot`.
+
+Try adjusting the number of columns in the `facet_wrap` to see how this changes the plot.
 
 ```{r 2.3response}
 

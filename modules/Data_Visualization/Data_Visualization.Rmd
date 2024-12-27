@@ -436,7 +436,17 @@ Orange %>% ggplot(aes(x = circumference,
   geom_line(size = 0.8, color = "black")
 ```
 
+## GUT CHECK: If we get an empty plot what might we need to do?
 
+A. Add a `plot_` layer like `plot_point()`
+B. Add a `geom_` layer like `geom_point()`
+
+
+## GUT CHECK: How do we add more layers in ggplot2 plots?
+A. `%>%`
+B. `&`
+
+C. `+
 
 ## Summary
 
@@ -452,8 +462,11 @@ Orange %>% ggplot(aes(x = circumference,
 
 ## Lab 1
 
-🏠 [Class Website](https://jhudatascience.org/intro_to_r/)\
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
+
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules//Data_Visualization/lab/Data_Visualization_Lab.Rmd)
+
+📃[Day 6 Cheatsheet](https://jhudatascience.org/intro_to_r//modules/cheatsheets/Day-6.pdf)
 
 ## theme() function:
 
@@ -933,7 +946,12 @@ Check out this [guide](https://jhudatascience.org/tidyversecourse/dataviz.html#m
 ## Lab 2
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)\
+
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules//Data_Visualization/lab/Data_Visualization_Lab.Rmd)
+
+📃[Day 6 Cheatsheet](https://jhudatascience.org/intro_to_r//modules/cheatsheets/Day-6.pdf)
+
+📃[Posit's theme cheatsheet](https://github.com/claragranell/ggplot2/blob/main/ggplot_theme_system_cheatsheet.pdf)
 
 ```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
 knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
