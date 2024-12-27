@@ -167,10 +167,8 @@ pre code {
 
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
-<p>Load the libraries</p>
-<pre class="r"><code>library(readr)
-library(ggplot2)
-library(dplyr)
+<p>Load the packages.</p>
+<pre class="r"><code>library(tidyverse)
 library(jhur)</code></pre>
 <p>Read in the Bike Lanes Dataset using <code>read_bike()</code> function from <code>jhur</code> package or using the <code>read_csv</code> function with the following link: <a href="http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv" class="uri">http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv</a></p>
 <p>Assign the data to an object called <code>bike</code>.</p>
@@ -204,7 +202,7 @@ bike_agg</code></pre>
 ## 8          2013            290.</code></pre>
 <div id="section" class="section level3">
 <h3>1.1</h3>
-<p>Use <code>ggplot2</code> package make plot of average length of lanes (<code>lane_avg_length</code>; y-axis) for each year (<code>dateInstalled</code>; x-axis). You can use lines layer (<code>+ geom_line()</code>) or points layer (<code>+ geom_point()</code>), or both!</p>
+<p>Use the <code>ggplot2</code> package to make plot of average length of lanes (<code>lane_avg_length</code>; y-axis) for each year (<code>dateInstalled</code>; x-axis). You can use lines layer (<code>+ geom_line()</code>) or points layer (<code>+ geom_point()</code>), or both!</p>
 <p>Assign the plot to variable <code>my_plot</code>. Type <code>my_plot</code> in the console to have it displayed.</p>
 <pre><code># General format
 ggplot(???, aes(x = ???, y = ???)) +
@@ -213,7 +211,7 @@ ggplot(???, aes(x = ???, y = ???)) +
 </div>
 <div id="section-1" class="section level3">
 <h3>1.2</h3>
-<p>“Update” your plot by adding a title and changing the x and y axis titles.</p>
+<p>“Update” your plot by adding a title and changing the x and y axis titles. (Hint: use the <code>labs</code> function.)</p>
 </div>
 <div id="section-2" class="section level3">
 <h3>1.3</h3>
@@ -281,6 +279,7 @@ ggplot(???, aes(
 <h3>2.3</h3>
 <p>Redo the above plot by adding a faceting (<code>+ facet_wrap( ~ type, ncol = 3)</code>) to have data for each bike line type in a separate plot panel.</p>
 <p>(You may see <code>geom_path: Each group consists of only one observation. Do you need to adjust the group aesthetic?</code> warning as some bike lane types will have only 1 point plotted while trying to plot a line). Assign the new plot as an object called <code>facet_plot</code>.</p>
+<p>Try adjusting the number of columns in the <code>facet_wrap</code> to see how this changes the plot.</p>
 </div>
 <div id="section-7" class="section level3">
 <h3>2.4</h3>
