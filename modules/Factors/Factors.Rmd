@@ -58,7 +58,7 @@ knitr::include_graphics("https://github.com/tidyverse/forcats/raw/main/man/figur
 
 Both can change a variable to be of class factor.
 
-- `factor()` will order **alphabetically** unless told otherwise.
+- `factor()` will order **alphanumerically** unless told otherwise.
 - `as_factor()` will  order by **first appearance** unless told otherwise.
 
 If you are assigning your levels manually either function is fine!
@@ -127,7 +127,7 @@ head(dropouts)
 
 Notice that `grade` is a `chr` variable. This indicates that the values are **character** strings. 
 
-R does not realize that there is any order related to the `grade` values. It will assume that it is **alphabetical**. 
+R does not realize that there is any order related to the `grade` values. It will assume that it is **alphanumeric**. 
 
 However, we know that the order is: **freshman**, **sophomore**, **junior**, **senior**.
 
@@ -302,11 +302,24 @@ dropouts_fct %>%
   fct_count(prop = TRUE)
 ```
 
+## GUT CHECK: Why is it useful to have the factor class as an option?
+
+A. It helps us check the factual accuracy of our datasets. 
+
+B. It helps us change the order of variables in case the order has meaning.
+
+## GUT CHECK: What does the `fct_reorder()` function do?
+
+A. It helps us reorder a factor based on the values of another variable.
+
+B. It helps us reorder a factor based on a random change in the order.
+
 ## Summary
+
 - the factor class allows us to have a different order from alphanumeric for categorical data
 - we can change data to be a factor variable using `mutate` and a factor creating function like `factor()` or `as_factor`
 - the `as_factor()` is from the  `forcats` package (first appearance order by default)
-- the `factor()` base R function (alphabetical order by default)
+- the `factor()` base R function (alphanumeric order by default)
 - with `factor()` we can specify the levels with the `levels` argument if we want a specific order
 - the `fct_reorder({variable_to_reorder}, {variable_to_order_by}, {summary function})` helps us reorder a variable by the values of another variable
 - arranging, tabulating, and plotting the data will reflect the new order
@@ -314,7 +327,12 @@ dropouts_fct %>%
 ## Lab
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)    
+
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules//Factors/lab/Factors_Lab.Rmd)
+
+📃[Day 6 Cheatsheet](https://jhudatascience.org/intro_to_r//modules/cheatsheets/Day-7.pdf) 
+
+📃[Posit's forcats cheatsheet](https://rstudio.github.io/cheatsheets/factors.pdf)
 
 ```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
 knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
