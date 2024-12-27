@@ -439,11 +439,14 @@ Orange %>% ggplot(aes(x = circumference,
 ## GUT CHECK: If we get an empty plot what might we need to do?
 
 A. Add a `plot_` layer like `plot_point()`
+
 B. Add a `geom_` layer like `geom_point()`
 
 
 ## GUT CHECK: How do we add more layers in ggplot2 plots?
+
 A. `%>%`
+
 B. `&`
 
 C. `+
@@ -926,6 +929,20 @@ ggsave(filename = "saved_plot.png",  # will save in working directory
        plot = rp_fac_plot,
        width = 6, height = 3.5)               # by default in inches
 ```
+
+
+## GUT CHECK: How to we make sure that the boxplots are filled with color instead of just the outside boarder?
+
+A. Use the `fill` argument in the `aes` specification 
+
+B. Use `color` argument in `geom_boxplot()`
+
+## GUT CHECK: If our plot is too complicated to read, what might be a good option to fix this?
+
+A. add more `theme()` layers
+
+B. Use `facet_grid()` to split the plot up
+
 
 ## Summary
 
