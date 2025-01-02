@@ -101,12 +101,5 @@ Packages are the fundamental units of reproducible `R` code. They are collection
 
 Use the above to install `knitr` package. Execute the `library(...)` command to check if the package loads successfully.
 
-## Exercise: Install other `R` packages we will use in this course {#exercise-install-other-r-packages-we-will-use-in-this-course}
-
-[This file](../../resources/all_the_packages.txt) contains a list of packages we will use for this course. You can install them one by one, or use the following code we prepared:
-
-    if (!requireNamespace("remotes", quietly = TRUE)) {
-      install.packages("remotes")
-    }
-    library(remotes)
-    install_github("jhur/jhur")
+    install.packages("knitr")
+    library(knitr)
