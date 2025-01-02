@@ -60,28 +60,6 @@ You can also visit the `RStudio` website, <https://posit.co/download/rstudio-des
 
 If you are using a computer issued from Hopkins, you may need to work with the IT department in advance to do these installations.
 
-## Installing `jhur` (optional)
-
-The instructor team has created a collection of code, called a "package", that will help get data into your programming environment quickly. Copy and paste the following into the console and hit "return" to run the code.
-
-```{r eval=FALSE}
-install.packages("remotes")
-```
-
-![](../../docs/images/install_remotes_console.png){width=50%}
-
-Next, run the following:
-
-```{r eval=FALSE}
-remotes::install_github("jhudsl/jhur")
-```
-
-If you get the following message, `Enter one or more numbers, or an empty line to skip updates: `, you can hit return to enter an empty line (no updates).
-
-You should see some messages in the console, ending with `* DONE (jhur)` if the process completed successfully.
-
-![](../../docs/images/install_jhur.png){width=50%}
-
 ## Homework 1
 
 **(Due `r config::get("final_due_date")` - but we strongly suggest you complete it before the course starts)**:
