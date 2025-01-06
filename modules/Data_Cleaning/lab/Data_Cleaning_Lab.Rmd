@@ -79,10 +79,8 @@ What percentage of the `subType` variable is complete of `bike` ? Hint: use anot
 
 Use the `na_if` function to replace values of 0 values  of the`dateInstalled` variable to be `NA`. Check your work using the `count` function.
 
-```{r}
-bike <- bike %>% 
-  mutate(dateInstalled = na_if(dateInstalled, 0))
-count(bike, dateInstalled)
+```{r P.2response}
+
 ```
 
 
@@ -191,18 +189,18 @@ NEW_TIBBLE <- OLD_TIBBLE %>%
 
 # Practice on Your Own!
 
-### P.2
+### P.3
 
 How many observations are there for each `Rhfactor` in the data object you just made:
 
-```{r P.2response}
+```{r P.3response}
 
 ```
 
-### P.3
+### P.4
 
 Filtering for patients with type O, how many had the infection?
 
-```{r P.3response}
+```{r P.4response}
 
 ```
