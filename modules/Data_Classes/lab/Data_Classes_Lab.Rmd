@@ -64,10 +64,9 @@ Coerce `rand_vect` to character class using `as.character()`. Save this vector a
 
 ### 1.6
 
-Read in the Charm City Circulator data using `read_circulator()` function from `jhur` package using the code supplied in the chunk. Or alternatively using the url link.
+Read in the Charm City Circulator data.
 
 ```{r}
-circ <- read_circulator()
 circ <- read_csv(file = "http://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
 ```
 
