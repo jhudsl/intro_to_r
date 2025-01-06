@@ -3,7 +3,8 @@ title: "RStudio"
 output:
   ioslides_presentation:
     css: ../../docs/styles.css
-    widescreen: yes
+    widescreen: true
+  beamer_presentation: default
 ---
 
 ```{r, echo = FALSE}
@@ -24,7 +25,7 @@ RStudio is an Integrated Development Environment (IDE) for R and it helps you:
 
 
 ```{r, fig.alt="RStudio logo", out.width = "30%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/62bcc8535a06077094ca3c29c383e37ad7334311/a263f/assets/img/logo.svg")
+knitr::include_graphics("images/rstudio_logo.png")
 ```
 
 <sub>[[source](https://www.rstudio.com/)]</sub>
@@ -419,5 +420,5 @@ Press enter to save this setting and get out of this menu.
 <br>
 
 ```{r echo=FALSE, fig.align='center', out.width="80%"}
-knitr::include_graphics("https://posit.co/wp-content/themes/Posit/public/markdown-blogs/rstudio-1-4-preview-rainbow-parentheses/colorfulCode.png")
+knitr::include_graphics("images/rainbow.png")
 ```
