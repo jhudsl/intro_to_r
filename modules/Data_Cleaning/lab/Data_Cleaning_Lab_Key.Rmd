@@ -214,19 +214,19 @@ BloodType_split <- BloodType %>%
 
 # Practice on Your Own!
 
-### P.2
+### P.3
 
 How many observations are there for each `Rhfactor` in the data object you just made:
 
-```{r P.2response}
+```{r P.3response}
 count(BloodType_split, Rhfactor)
 ```
 
-### P.3
+### P.4
 
 Filtering for patients with type O, how many had the infection?
 
-```{r P.3response}
+```{r P.4response}
 BloodType_split %>%
   filter(blood_type == "O") %>%
   count(infection)
