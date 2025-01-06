@@ -168,12 +168,11 @@ pre code {
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
 <p>Load the packages.</p>
-<pre class="r"><code>library(tidyverse)
-library(jhur)</code></pre>
-<p>Read in the Bike Lanes Dataset using <code>read_bike()</code> function from <code>jhur</code> package or using the <code>read_csv</code> function with the following link: <a href="http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv" class="uri">http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv</a></p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<p>Read in the Bike Lanes Dataset using the <code>read_csv</code> function with the following link: <a href="http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv" class="uri">http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv</a></p>
 <p>Assign the data to an object called <code>bike</code>.</p>
 <p>Then, use the provided code to compute a data frame <code>bike_agg</code> with aggregate summary of bike lanes: average length of lanes (<code>lane_avg_length</code>) for each year (<code>dateInstalled</code>).</p>
-<pre class="r"><code>bike &lt;- read_bike()</code></pre>
+<pre class="r"><code>bike &lt;- read_csv(file = &quot;http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv&quot;)</code></pre>
 <pre><code>## Rows: 1631 Columns: 9
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;

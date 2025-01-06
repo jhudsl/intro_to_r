@@ -670,18 +670,6 @@ cars_dbl %&gt;%
     digits = -3
   ))</pre>
 
-<pre >Warning: There was 1 warning in `mutate()`.
-ℹ In argument: `across(.cols = starts_with(&quot;Veh&quot;), .fns = round, digits = -3)`.
-Caused by warning:
-! The `...` argument of `across()` is deprecated as of dplyr 1.1.0.
-Supply arguments directly to `.fns` through an anonymous function instead.
-
-  # Previously
-  across(a:b, mean, na.rm = TRUE)
-
-  # Now
-  across(a:b, \(x) mean(x, na.rm = TRUE))</pre>
-
 <pre ># A tibble: 72,983 × 5
    Make       VehYear VehicleAge VehOdo VehBCost
    &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
