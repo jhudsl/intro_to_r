@@ -83,7 +83,7 @@ miss_var_summary(bike) # or this
 
 Use the `na_if` function to replace values of 0 values  of the`dateInstalled` variable to be `NA`. Check your work using the `count` function.
 
-```{r}
+```{r P.2response}
 bike <- bike %>% 
   mutate(dateInstalled = na_if(dateInstalled, 0))
 count(bike, dateInstalled)
