@@ -16,6 +16,11 @@ opt_parser <- optparse::OptionParser(option_list = option_list)
 opt <- optparse::parse_args(opt_parser)
 files <- opt$files
 
+if (files == "all"){
+  # If no argument supplied, do all
+  files <- list.files(recursive = T)
+}
+
 # Split files up if multiple
 files <- stringr::str_split(files, " ")
 if (class(files) == "list") 

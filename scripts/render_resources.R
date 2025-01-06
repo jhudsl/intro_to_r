@@ -16,6 +16,11 @@ opt_parser <- optparse::OptionParser(option_list = option_list)
 opt <- optparse::parse_args(opt_parser)
 files <- opt$files
 
+if (files == "all"){
+  # If no argument supplied, do all
+  files <- list.files(recursive = T)
+}
+
 # Split files up if multiple
 files <- stringr::str_split(files, " ")
 if (class(files) == "list") files <- unlist(files)
@@ -46,6 +51,7 @@ if (length(res_files_md) != 0) {
 
 # Excluding the parent file, "resources.Rmd"
 res_files_Rmd <- res_files_Rmd[res_files_Rmd != "resources.Rmd"]
+res_files_Rmd <- res_files_Rmd[res_files_Rmd != "resources/Mapping.Rmd"] # Exclude for now
 
 # Check if any .Rmd files at all
 if (length(res_files_Rmd) != 0)
