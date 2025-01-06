@@ -9,24 +9,21 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
-In this lab you can use the interactive console to explore or **Knit** the document. 
-Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-X) or Ctrl-Enter (Windows/Linux) in an R code chunk.
-
+Instructions: Run any code for the questions below in the console.
 
 # Part 1
 
 ### 1.1 
 
-Create a new object called `my.num` that contains 6 numbers.
+Create a new object called `my.num` that contains any number.
 
 ```
 # General format
-my.num <- c(number1, number2, ...)
+my.num <- ?
 ```
 
 ```{r 1.1response}
-my.num <- c(5, 4, 7, 8, 12, 14) # These can be any real numbers
+my.num <- 2
 ```
 
 ### 1.2
@@ -96,99 +93,28 @@ vec_2 <- c(vec_1, vec_1, vec_1, vec_1)
 
 # Part 2
 
-### 2.1
+### 2.1 
 
-Create a vector with elements 1, 2, 3, 4, 5 and call it `x`.
+Create a vector with elements 1, 10, 100, 1000 and call it `z`.
 
 ```
 # General format
-x <- c(...)
+z <- c(...)
 ```
  
 ```{r 2.1response}
-x <- c(1, 2, 3, 4, 5)
+z <- c(1, 10, 100, 1000)
 ```
 
 ### 2.2
 
-Create another vector with elements 10, 20, 30, 40, 50 and call it `y`.
-
-```
-# General format
-y <- c(...)
-```
-
+Multiply each number in `z` by 5.
+ 
 ```{r 2.2response}
-y <- c(10, 20, 30, 40, 50)
+z * 5
 ```
 
 ### 2.3
-
-Determine the length of `x` and `y`. Next, add the vectors x and y together.
-
-```{r 2.3response}
-length(x)
-length(y)
-x + y
-# [1] 11 22 33 44 55
-```
-
-### 2.4
-
-Append the value 60 onto the vector `y` (hint: you can use the `c()` function).
-
-```
-# General format
-y <- c(y, ...)
-```
-
-```{r 2.4response}
-y <- c(y, 60)
-```
-
-### 2.5
-
-Determine the length of `x` and `y`.
-
-```{r 2.5response}
-length(x)
-length(y)
-```
-
-### 2.6
-
-Add `x` and `y` together. What happens?
-
-```{r 2.6response}
-x + y
-# [1] 11 22 33 44 55 61
-# Warning message:
-# In x + y : longer object length is not a multiple of shorter object length
-# R "auto replicates" the shorter vector when the vectors aren't the same length - this is not what we want!
-# In this case, it reads x as c(1, 2, 3, 4, 5, 1)!
-```
-
-
-# Practice on Your Own!
-
-### P.2
-
-Multiply the following `a` and `b` together. How is this similar to the way R performs addition in question 2.6 ?
-
-```{r}
-a <- c(1, 2, 3)
-b <- c(10, 100, 1000)
-```
-
-```{r P.2response}
-a * b
-# R adds together the first element of each vector, then the second, and so on. This order also applies when multiplying!
-```
-
-
-# Part 3
-
-### 3.1
 
 Create a vector object called `int_vect` that starts at 1 and goes up to 10. Use `seq()`.
 
@@ -197,52 +123,127 @@ Create a vector object called `int_vect` that starts at 1 and goes up to 10. Use
 seq(from = NUMBER, to = NUMBER)
 ```
 
-```{r 3.1response}
+```{r 2.3response}
 int_vect <- seq(from = 1, to = 10)
 int_vect
 ```
 
-### 3.2
+### 2.4
 
-Repeat the `int_vect` object this sequence 3 times using `rep()` and store the new object as `int_vect_3`.
+What is the length of `int_vect`?
 
-```
-# General format - times and each are optional
-rep(x = OBJECT_TO_REPEAT, times = NUM_TIMES_TO_REPEAT, each = NUM_TIMES_TO_REPEAT_EACH_ELEMENT)
-```
-
-```{r 3.2response}
-int_vect_3 <- rep(int_vect, times = 3)
-int_vect_3
+```{r 2.4response}
+length(int_vect)
 ```
 
-### 3.3
+### 2.5
 
-What is the length of `int_vect_3`?
+Install the tidyverse package using `install.packages("tidyverse")`. Load this package using `library(tidyverse)`.
 
-```{r 3.3response}
-length(int_vect_3)
+# Practice on Your Own!
+
+### P.2
+
+Create a vector with elements 1, 2, 3, 4, 5 and call it `x`.
+
+```
+# General format
+x <- c(...)
+```
+ 
+```{r P.2response}
+x <- c(1, 2, 3, 4, 5)
 ```
 
-### 3.4
+### P.3
+
+Create another vector with elements 10, 20, 30, 40, 50 and call it `y`.
+
+```
+# General format
+y <- c(...)
+```
+
+```{r P.3response}
+y <- c(10, 20, 30, 40, 50)
+```
+
+### P.4
+
+Determine the length of `x` and `y`. Next, add the vectors x and y together.
+
+```{r P.4response}
+length(x)
+length(y)
+x + y
+# [1] 11 22 33 44 55
+```
+
+### P.5
+
+Append the value 60 onto the vector `y` (hint: you can use the `c()` function).
+
+```
+# General format
+y <- c(y, ...)
+```
+
+```{r P.5response}
+y <- c(y, 60)
+```
+
+### P.6
+
+Determine the length of `x` and `y`.
+
+```{r P.6response}
+length(x)
+length(y)
+```
+
+### P.7
+
+Add `x` and `y` together. What happens?
+
+```{r P.7response}
+x + y
+# [1] 11 22 33 44 55 61
+# Warning message:
+# In x + y : longer object length is not a multiple of shorter object length
+# R "auto replicates" the shorter vector when the vectors aren't the same length - this is not what we want!
+# In this case, it reads x as c(1, 2, 3, 4, 5, 1)!
+```
+
+### P.8
+
+Multiply the following `a` and `b` together. How is this similar to the way R performs addition in question 2.6 ?
+
+```{r}
+a <- c(1, 2, 3)
+b <- c(10, 100, 1000)
+```
+
+```{r P.8response}
+a * b
+# R adds together the first element of each vector, then the second, and so on. This order also applies when multiplying!
+```
+
+### P.9
 
 Create a vector that takes the sequence "Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree" and repeats each element 10 times.
 
-```{r 3.4response}
+```{r P.9response}
 my_seq <- c("Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree")
 rep(my_seq, each = 10)
 
 rep(c("Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"), each = 10)
 ```
 
-
-# Practice on Your Own!
-
-### P.3
+### P.10
 
 "Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree" are often responses to surveys. Create a randomly sampled vector of 30 survey responses. (hint use `sample()` and set the replace argument to `TRUE`). Store the output as `my_responses`. Examine the data by typing the name `my_responses` in the Console.
 
-```{r P.3response}
+```{r P.10response}
 my_responses <- sample(
   x = c("Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree"),
   size = 30,
@@ -251,11 +252,11 @@ my_responses <- sample(
 my_responses
 ```
 
-### P.4
+### P.11
 
 Let's say you change your survey so participants can rank their response 1-10 (inclusive). Create a randomly sampled vector of 30 survey responses. (hint use `seq()` and `sample()` and set the replace argument to `TRUE`). Store the output as `my_responses_2`. Examine the data by typing the name `my_responses_2` in the Console.
 
-```{r P.4response}
+```{r P.11response}
 my_responses_2 <- sample(
   x = seq(from = 1, to = 10),
   size = 30,
