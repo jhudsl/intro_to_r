@@ -1,0 +1,185 @@
+# This workflow re-renders everything regardless of whether it's changed or not
+
+name: Render everything manually
+
+on:
+  workflow_dispatch
+
+jobs:
+
+  yaml-check:
+    name: Load user automation choices
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_PAT }}
+
+        # Use the yaml-env-action action.
+      - name: Load environment from YAML
+        uses: doughepi/yaml-env-action@v1.0.0
+        with:
+            files: config_automation.yml # Pass a space-separated list of configuration files. Rightmost files take precedence.
+    outputs:
+      toggle_bookdown: "${{ env.RENDER_BOOKDOWN }}"
+      toggle_coursera: "${{ env.RENDER_COURSERA }}"
+      toggle_leanpub: "${{ env.RENDER_LEANPUB }}"
+      make_book_txt: "${{ env.MAKE_BOOK_TXT }}"
+      rendering_docker_image: "${{ env.RENDERING_DOCKER_IMAGE }}"
+      toggle_quiz_check: "${{ env.CHECK_QUIZZES }}"
+      toggle_make_labs: "${{ env.MAKE_LABS }}"
+
+########################## Site ##############################
+
+  render-main:
+    name: Render Main Site and Materials
+    needs: yaml-check
+    runs-on: ubuntu-latest
+    container:
+      image: ${{needs.yaml-check.outputs.rendering_docker_image}}
+
+    
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Give permission to access the repo
+      - name: safelist repository
+        run: |
+          repo_name='${{ github.event.repository.name }}'
+          git config --global --add safe.directory /__w/$repo_name/$repo_name
+    
+      # # Checks-out your repository with the token so your job can access it
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          # get the full repo
+          fetch-depth: 0
+          # use github PAT
+          token: ${{ secrets.GH_PAT }}
+          
+      # We want a fresh run of the renders each time - so first delete old html files
+      - name: Delete old *.html
+        run: Rscript -e "rmarkdown::clean_site(preview = FALSE)"
+        
+       # Now we want to render all the html files from the Rmd files
+      - name: Run render html for the main site
+        id: site
+        run: Rscript -e "rmarkdown::render_site()" 
+        
+       # Render module details for syllabus
+      - name: Render module details for syllabus
+        run: Rscript "scripts/render_module_details_for_syllabus.R"
+        
+      # Create blank labs - runs quickly, so just does it for all of them
+      - name: Run lab converter
+        if: ${{needs.yaml-check.outputs.toggle_make_labs == 'yes'}}
+        shell: bash
+        run: bash scripts/blank_labs_from_keys.sh
+        
+       # Render all module files
+      - name: Render html of modules
+        run: |
+          Rscript --vanilla "scripts/render_modules.R" --files "all"
+          
+       # Render the cheatsheets
+      - name: Render Cheatsheet pdfs
+        run: |
+          Rscript --vanilla "scripts/render_cheatsheets.R" --files "all"
+        
+       # Render resource pdfs
+      - name: Render Resource pdfs
+        run: |
+          Rscript --vanilla "scripts/render_resources.R" --files "all"
+        
+       # Generate list of files that need pdfs
+      - name: Generate list of lectures that need pdfs generated
+        run: |
+          Rscript --vanilla "scripts/render_html_list.R"
+          echo the following need pdfs:
+          echo "$(cat files.txt)"
+        
+      - name: Store list of lectures that need pdfs generated // Delete intermediate files
+        id: getfiles
+        run: |
+          echo "files=$(cat files.txt)" >> $GITHUB_OUTPUT 
+          rm files.txt
+          rm cheatsheet_files.csv
+          rm lab_files.csv
+          rm lecture_files.csv
+
+      # This checks on the steps before it and makes sure that they completed.
+      # If the renders didn't complete we don't want to commit the file changes
+      - name: Check on render steps
+        if: steps.site.outcome != 'success'
+        run: |
+          echo site status ${{steps.site.outcome}}
+          exit 1
+
+      # Commit the rendered site files - html files and site_libs files
+      - name: Commit rendered site files
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add . --force
+          git commit -m 'Render site' || echo "No changes to commit"
+          git pull --rebase --set-upstream origin main --allow-unrelated-histories --strategy-option=ours
+          git push origin main || echo "No changes to push"
+    
+    # Save files for conversion to pdf      
+    outputs:
+      pdffiles: "${{ steps.getfiles.outputs.files }}"
+
+########################## PDFs ##############################
+
+  render-pdf-lectures:
+    name: Render pdf lecture slides
+    needs: render-main
+    runs-on: ubuntu-latest
+    container:
+      image: ${{needs.yaml-check.outputs.rendering_docker_image}}
+      
+    strategy:
+      matrix:
+        modulenames: ${{fromJson(needs.render-main.outputs.pdffiles)}}
+          
+    steps:
+      # Give permission to access the repo
+      - name: safelist repository
+        run: |
+          repo_name='${{ github.event.repository.name }}'
+          git config --global --add safe.directory /__w/$repo_name/$repo_name
+    
+      - name: Checkout files
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_PAT }}
+          
+      # Set up git checkout
+      - name: Set up git checkout
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+          git fetch --all
+          git checkout main
+          git merge -s recursive --strategy-option=theirs origin/main --allow-unrelated-histories
+        shell: bash
+        
+      # Render pdfs of slides
+      - name: Convert HTML to PDF
+        uses: fifsky/html-to-pdf-action@master
+        with:
+          htmlFile: ./modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.html
+          outputFile: ./modules/${{ matrix.modulenames }}/${{ matrix.modulenames }}.pdf
+
+      # Commit the rendered site files - html files and site_libs files
+      - name: Commit pdfs
+        run: |
+          git status
+          git add *.pdf --force
+          git commit -m 'Render pdfs' || echo "No changes to commit"
+          git status
+          git pull --rebase --set-upstream origin main --allow-unrelated-histories --strategy-option=ours
+          git push --force || echo "No changes to commit"
