@@ -18,40 +18,31 @@ Now we will install some packages! Note it may take ~5-10 minutes to run all the
 ### install a package
 
 2. Copy and paste the following code into the console (the lower left panel/pane):
-install.packages("remotes")
+install.packages("tidyverse")
 
-This code will install a package from CRAN called "remotes". <br>
+This code will install a package from CRAN called "tidyverse". <br>
 You may be asked a question in the console when you do this. If so, answer by typing Yes into the console.
 
 ### Load a package into memory
 
 3. Next copy and paste the following code again into the console (the lower left panel/pane):
-library(remotes)
+library(tidyverse)
 
-This code loads the remotes package into memory- in other words we can use the functions within the package.<br>
+This code loads the tidyverse package into memory- in other words we can use the functions within the package.<br>
 You may be asked a question in the console when you do this. If so, answer by typing Yes into the console.
 
-### Install another package
-
-4. Now install a package that the instructors made that is not on CRAN but on GitHub, by copy and pasting the code into the console:
-
-install_github("jhudsl/jhur")
-
-You may be asked a question in the console when you do this. If so, answer by typing Yes into the console.
 
 ### The code
 
 The gray area below is a code chunk that will set up our packages and data (this will not show up in the rendered report when we press knit). You can also run the code within the editor area by pressing the green play button. Don't worry right now about what the code is doing, we will cover this later.
 
-5. Press the green play button. What happens (check the environment too!)?
+4. Press the green play button. What happens (check the environment too!)?
 
 ```{r setup, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(jhur)
-library(ggplot2)
-library(dplyr)
+library(tidyverse)
 
-long <- read_circulator_long()
+long <- read_csv("https://jhudatascience.org/intro_to_r/data/circulator_long.csv")
 ## take just average ridership per day
 avg <- long %>%
   filter(type == "Average")
@@ -71,9 +62,9 @@ The console is useful for installing packages like we just did, this is because 
 
 Here is code that will make a plot of some data.
 
-6. Try the "run all chunks above" button that is to the left of the play button on the following chunk. What happens?
+5. Try the "run all chunks above" button that is to the left of the play button on the following chunk. What happens?
 
-7. Then press the play button on this same chunk. What happens?
+6. Then press the play button on this same chunk. What happens?
 
 ```{r plot_circ, out.width = "100%"}
 # keep only some days
@@ -114,7 +105,7 @@ ggplot(aes(x = date, y = number, colour = line), data = avg) +
 
 ### Adding new chunks
 
-8. Add a new R chunk after `<!-- Your code chunk goes here -->`. You can use the insert chunk button or copy paste an existing code chunk. Include a lowercase x inside the chunk as the code. Make sure you press the knit button after this to see what the new chunk looks like. 
+7. Add a new R chunk after `<!-- Your code chunk goes here -->`. You can use the insert chunk button or copy paste an existing code chunk. Include a lowercase x inside the chunk as the code. Make sure you press the knit button after this to see what the new chunk looks like. 
 
 ```{r}
 x <- c(1, 2, 3)
