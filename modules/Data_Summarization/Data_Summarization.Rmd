@@ -13,7 +13,6 @@ opts_chunk$set(comment = "", message = FALSE)
 suppressWarnings({library(dplyr)})
 library(readr)
 library(tidyverse)
-library(jhur)
 ```
 
 <style type="text/css">
@@ -100,11 +99,10 @@ sum(z)
 
 ## Some examples
 
-We can use the `jhu_cars` to explore different ways of summarizing data.  The `head` command displays the first rows of an object:
+We can use the `mtcars` built-in dataset.  The `head` command displays the first rows of an object:
 
 ```{r}
-library(jhur)
-head(jhu_cars)
+head(mtcars)
 ```
 
 
@@ -134,10 +132,10 @@ me %>%
 ## Statistical summarization the "tidy" way
 
 ```{r}
-jhu_cars %>% pull(hp) %>% mean() # alt: pull(jhu_cars, hp) %>% mean()
-jhu_cars %>% pull(wt) %>% median()
-jhu_cars %>% pull(hp) %>% quantile()
-jhu_cars %>% pull(wt) %>% quantile(probs = 0.6)
+mtcars %>% pull(hp) %>% mean() # alt: pull(mtcars, hp) %>% mean()
+mtcars %>% pull(wt) %>% median()
+mtcars %>% pull(hp) %>% quantile()
+mtcars %>% pull(wt) %>% quantile(probs = 0.6)
 ```
 
 
@@ -146,17 +144,17 @@ jhu_cars %>% pull(wt) %>% quantile(probs = 0.6)
 `pull()` converts a single data column into a vector. This allows you to run summary functions on these data. Once you have "pulled" the data column out, you don't have to name it again in any piped summary functions.
 
 ```{r}
-cars_wt <- jhu_cars %>% pull(wt)
+cars_wt <- mtcars %>% pull(wt)
 class(cars_wt)
 cars_wt
 ```
 
 ```{r, eval=FALSE}
-jhu_cars %>% pull(wt) %>% range(wt) # Incorrect
+mtcars %>% pull(wt) %>% range(wt) # Incorrect
 ```
 
 ```{r}
-jhu_cars %>% pull(wt) %>% range() # Correct
+mtcars %>% pull(wt) %>% range() # Correct
 ```
 
 
@@ -166,21 +164,9 @@ jhu_cars %>% pull(wt) %>% range() # Correct
 
 Let's read in a `tibble` of values from TB incidence.
 
-If you have the `jhur` package installed successfully:
-
 ```{r}
-library(jhur)
-tb <- read_tb()
+tb <- read_csv("https://jhudatascience.org/intro_to_r/data/tb.csv")
 ```
-
-<br>
-If not, download the `xlsx` file from http://jhudatascience.org/intro_to_r/data/tb_incidence.xlsx and read it in:
-
-```{r eval = FALSE}
-library(readxl)
-tb <- read_excel("tb_incidence.xlsx")
-```
-
 
 ## TB Incidence 
 
@@ -321,7 +307,7 @@ Here we will be using the Youth Tobacco Survey data:
 http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv
 
 ```{r}
-yts <- read_yts()
+yts <- read_csv("http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
 head(yts)
 ```
 
@@ -501,7 +487,7 @@ mtcars %>% group_by(cyl) %>% summarize(n()) # n() typically used with summarize
 These functions require a column as a vector using `pull()`.
 
 ```{r, message = FALSE}
-yts <- read_yts()
+yts <- read_csv("http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
 yts_loc <- yts %>% pull(LocationDesc) # pull() to make a vector
 yts_loc %>% unique() # similar to distinct()
 ```
