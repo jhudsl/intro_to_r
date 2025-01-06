@@ -13,18 +13,17 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### 1.1
 
-Load the libraries needed in this lab. Then, read in the following child mortality data using `read_mortality()` function from `jhur` package. Assign it to the "mort" variable. Change its first column name from `...1` into `country`. You can also find the data here: https://jhudatascience.org/intro_to_r/data/mortality.csv
+Load the packages needed in this lab. Then, read in the following child mortality data. Assign it to the "mort" variable. Change its first column name from `...1` into `country`. You can find the data here: https://jhudatascience.org/intro_to_r/data/mortality.csv
 
 Note that the data has lots of `NA` values - don't worry if you see that.
 
 ```{r message = FALSE}
 library(dplyr)
-library(jhur)
 library(broom)
 ```
 
 ```{r 1.1response}
-mort <- read_mortality()
+mort <- read_csv("https://jhudatascience.org/intro_to_r/data/mortality.csv")
 
 mort <- mort %>%
   rename(country = `...1`)
@@ -86,10 +85,10 @@ tidy(t.test(x, y))
 
 ### 2.1
 
-Read in the Kaggle cars auction dataset using `read_kaggle()` from the `jhur` package.  Assign it to the "cars" variable. You can also find the data here:  http://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv.
+Read in the Kaggle cars auction dataset.  Assign it to the "cars" variable. You can find the data here:  http://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv.
 
 ```{r 2.1response}
-cars <- read_kaggle()
+cars <- read_csv("http://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv")
 ```
 
 ### 2.2

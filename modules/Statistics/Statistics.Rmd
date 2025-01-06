@@ -18,8 +18,7 @@ opts_chunk$set(
 )
 library(dplyr)
 options(scipen = 999)
-library(readr)
-library(ggplot2)
+library(tidyverse)
 library(emo)
 ```
 
@@ -113,11 +112,8 @@ cor.test(x, y = NULL, alternative(c("two.sided", "less", "greater")),
 
 ## Correlation {.small}
 
-https://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv
-
 ```{r cor1, comment="", message = FALSE}
-library(jhur)
-circ <- read_circulator()
+circ <- read_csv("https://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
 head(circ)
 ```
 
@@ -541,7 +537,7 @@ summary(fit_3)
 Comparison group is not listed - treated as intercept. All other estimates are relative to the intercept.
 
 ```{r regress8, comment="", fig.height=4,fig.width=8}
-circ <- jhur::read_circulator()
+circ <- read_csv("https://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
 fit_4 <- glm(orangeBoardings ~ factor(day), data = circ)
 summary(fit_4)
 ```
