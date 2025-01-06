@@ -144,9 +144,8 @@ knitr::include_graphics("images/stop.png")
 ## Wide & Long Data Example
 
 ```{r message=FALSE}
-library(jhur)
 library(dplyr)
-wide_circ <- read_circulator()
+wide_circ <- read_csv("https://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
 glimpse(wide_circ)
 ```
 

@@ -13,7 +13,6 @@ install.packages("ggplot2")
 ```{r, comment = FALSE}
 library(esquisse)
 library(ggplot2)
-library(jhur)
 ```
 
 ### 1.1
@@ -64,7 +63,7 @@ Launch Esquisse on any selection of the following datasets we have worked with b
 yts <- read_yts()
 tb <- read_tb()
 bike <- read_bike()
-circ <- read_circulator()
+circ <- read_csv("https://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
 vacc <- read_csv("http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv")
 ```
 
