@@ -1,10 +1,10 @@
 ---
 title: "RStudio"
 output:
-  beamer_presentation: default
   ioslides_presentation:
     css: ../../docs/styles.css
     widescreen: true
+  beamer_presentation: default
 ---
 
 ```{r, echo = FALSE}
@@ -420,5 +420,5 @@ Press enter to save this setting and get out of this menu.
 <br>
 
 ```{r echo=FALSE, fig.align='center', out.width="80%"}
-knitr::include_graphics("https://posit.co/wp-content/themes/Posit/public/markdown-blogs/rstudio-1-4-preview-rainbow-parentheses/colorfulCode.png")
+knitr::include_graphics("images/rainbow.png")
 ```
