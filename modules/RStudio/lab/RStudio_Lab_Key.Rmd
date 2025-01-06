@@ -47,11 +47,10 @@ The gray area below is a code chunk that will set up our packages and data (this
 
 ```{r setup, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(jhur)
 library(ggplot2)
 library(dplyr)
 
-long <- read_circulator_long()
+long <- read_csv("https://jhudatascience.org/intro_to_r/data/circulator_long.csv")
 ## take just average ridership per day
 avg <- long %>%
   filter(type == "Average")
