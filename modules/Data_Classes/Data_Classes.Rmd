@@ -221,8 +221,7 @@ as.numeric(x_fact)
 ## Class conversion in with a dataset
 
 ```{r, results='hide'}
-library(jhur)
-circ <- read_circulator()
+circ <- read_csv("https://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
 ```
 
 ```{r}

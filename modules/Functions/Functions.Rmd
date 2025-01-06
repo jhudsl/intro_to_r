@@ -8,7 +8,6 @@ output:
 
 ```{r, echo = FALSE, message = FALSE}
 library(dplyr)
-library(jhur)
 library(knitr)
 library(stringr)
 library(tidyr)
@@ -189,7 +188,7 @@ We can use `filter(row_number() == n)` to extract a row of a tibble:
 ```{r message=FALSE}
 get_row <- function(dat, row) dat %>% filter(row_number() == row)
 
-cars <- read_kaggle()
+cars <- read_csv("http://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv")
 cars_1_8 <- cars %>% select(1:8)
 ```
 
@@ -403,7 +402,9 @@ or
 
 ```{r warning=FALSE, message=FALSE}
 # Child mortality data
-mort <- read_mortality() %>% rename(country = `...1`)
+mort <- 
+  read_csv("https://jhudatascience.org/intro_to_r/data/mortality.csv") %>% 
+  rename(country = `...1`)
 
 mort %>%
   select(country, starts_with("194")) %>%

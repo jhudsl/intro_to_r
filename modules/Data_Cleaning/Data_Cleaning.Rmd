@@ -1008,8 +1008,7 @@ Base R:
 ## some data to work with
 
 ```{r readSal, echo = TRUE, eval = TRUE, message=FALSE, warning=FALSE}
-library(jhur)
-Sal = read_salaries() # or
+Sal <- read_csv("https://jhudatascience.org/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv") # or
 ```
 
 ## Showing difference in `str_extract`
@@ -1017,7 +1016,7 @@ Sal = read_salaries() # or
 `str_extract` extracts just the matched string
 
 ```{r}
-ss = str_extract(Sal$Name, "Rawling")
+ss <- str_extract(Sal$Name, "Rawling")
 head(ss)
 ss[ !is.na(ss)]
 ```
