@@ -1,5 +1,5 @@
 ---
-title: "Cleaning names"
+title: "Cleaning complicated column names"
 output: 
   html_document:
     css: ../docs/web_styles.css
@@ -10,9 +10,8 @@ output:
 
 Let's say that we already have technically clean names - in that they don't have spaces or punctuation or start with a number. However, let's say that there is a redundant word ("percent") that we want to remove or add to multiple columns.
 
-The `janitor` package can be really helpful for this!
 
-First let's load the packages we will need. We will show some functions from   `janitor` and we need the `tidyverse`:
+First let's load the packages we will need. We will show some functions from   `janitor` and the `tidyverse`:
 
 ```{r}
 # install.packages(janitor)
@@ -32,13 +31,17 @@ data_to_clean
 ```
 
 
+We can use the `rename_with` function of `dplyr` and `str_remove` of `stringr` to remove the pattern "_percent" from each of the column names.
+
+Here we use the `~` and the `.` to indicate that we are using `str_remove` and all the column names. If it finds the pattern it will remove it.
+
 
 ```{r}
 data_to_clean %>% rename_with(~str_remove(., '_percent'))
 
 ```
 
-Nice! That simplified our names very easily! We are using the `str_remove` function on all of our columns to remove the pattern `_percent` where it is found.
+Nice! That simplified our names very easily!
 
 ## What if we have really complicated names with numbers and punctuation?
 
@@ -62,9 +65,9 @@ Now we can remove the numbers and punctuation in a similar way as we did before 
 
 - that we want to remove digits with `[:digits:]` (based on the [regex cheatsheet](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf))
 
-- that we want to remove possibly multiple digits with the `+`
+- that we want to remove possibly one or more digits with the `+` (based on the [regex cheatsheet](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf))
 
-- that we want to remove a period (which needs two `\\` based on the cheatsheet too!) and a space
+- that we want to remove a period (which needs two `\\` based on the (based on the [regex cheatsheet](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf)) too!) and a space
 
 Here we go:
 
@@ -91,7 +94,7 @@ dirt
 ```
 
 
-The function `row_to_names` can be really helpful for this. 
+The function `row_to_names` from the `janitor` package (not part of the `tidyverse` - so make sure you install and load it!) can be really helpful for this. 
 
 We can use the `row_number` argument of `row_to_names` to specify that the column names can be found in the second row.
 
