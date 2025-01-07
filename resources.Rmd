@@ -15,6 +15,7 @@ Here are additional resources to help you on your R journey - either before, dur
 
 <details open><summary> <span style = "color: #5383bb;"> **Help Getting Started**</span></summary><br>
 
+- [Guide to using Slack]( https://slack.com/help/articles/218080037-Getting-started-for-new-Slack-users)
 - [R reference card](http://cran.r-project.org/doc/contrib/Short-refcard.pdf) 
 - [R introductory guide](https://cran.r-project.org/doc/manuals/r-release/R-intro.html) 
 - [R jargon](https://link.springer.com/content/pdf/bbm%3A978-1-4419-1318-0%2F1.pdf) 
@@ -71,6 +72,11 @@ Here are additional resources to help you on your R journey - either before, dur
 - [Video](https://www.youtube.com/watch?v=Ao9e0cDzMrE) for Mac users who want to see how to move files around (especially from downloads)
 - [Extra information about file paths](https://docs.google.com/presentation/d/18u1Vhd3Uq-QprC0btpxS_-Ka-LKVUvncyoqdbGdb-g4/edit?usp=sharing)
 
+**Need extra guidance on wrangling?**
+
+- [Guide on `janitor`](https://hutchdatascience.org/data_snacks/r_snacks/janitor.html)
+- [Guide on cleaning complicated names](https://jhudatascience.org/intro_to_r/resources/cleaning_names.html)
+
 **Need help with joins?**
 
 - [`full-join()` animation](https://github.com/gadenbuie/tidyexplain/blob/master/images/full-join.gif)
@@ -93,10 +99,14 @@ Here are additional resources to help you on your R journey - either before, dur
 - [Modeling 101](https://jhudatascience.org/tidyversecourse/model.html#linear-modeling)
 - [Common statistical tests are linear models](https://lindeloev.github.io/tests-as-linear/) (why understanding linear models will get you far!)
 - [Interpreting GLM output (e.g., deviance)](https://www.statology.org/null-residual-deviance/)
+- [Guide on why `set.seed` can be useful](https://rsample.tidymodels.org/reference/bootstraps.html)
 
+**Want help creating tables?**
 
+- [Guide on making nice tables from stats tests in R](https://www.danieldsjoberg.com/gtsummary/articles/tbl_summary.html)
 </details>
-
+- [Guide on making custom styled tables in R with the `kableExtra` package](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html)
+- [Guide on using DT table to make interactive tables](https://rstudio.github.io/DT/)
 <br>
 
 <details><summary> <span style = "color: #5383bb;"> **Courses & Conferences**</span></summary><br>
@@ -138,6 +148,7 @@ Here are additional resources to help you on your R journey - either before, dur
 (See page 505)
 - [R <-> SAS Cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/sas-r.pdf)
 - [SAS to R Converter](https://www.codeconvert.ai/sas-to-r-converter)  
+- [Guide to learning R as a SAS user](https://hutchdatascience.org/data_snacks/r_snacks/sas2r.html)
 - You might also find large language models like ChatGPT useful for code conversion. Be sure to check the output because AI makes mistakes!  
 
 </details>
@@ -146,7 +157,7 @@ Here are additional resources to help you on your R journey - either before, dur
 
 <details><summary> <span style = "color: #5383bb;"> **Comparison of Python and R**</span></summary><br>
 
-- A helpful [article about the difference between these two languages]((https://www.ibm.com/think/topics/python-vs-r).
+- A helpful [article about the difference between these two languages](https://www.ibm.com/think/topics/python-vs-r).
 
 </details>
 

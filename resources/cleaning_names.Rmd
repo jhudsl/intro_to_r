@@ -1,0 +1,111 @@
+---
+title: "Cleaning complicated column names"
+output: 
+  html_document:
+    css: ../docs/web_styles.css
+    toc: true
+---
+
+
+## Cleaning a common pattern from names
+
+Let's say that we already have technically clean names - in that they don't have spaces or punctuation or start with a number. However, let's say that there is a redundant word ("percent") that we want to remove or add to multiple columns.
+
+
+First let's load the packages we will need. We will show some functions from   `janitor` and the `tidyverse`:
+
+```{r, echo = FALSE}
+install.packages("janitor", repos='http://cran.us.r-project.org')
+```
+
+```{r}
+#install.packages("janitor")
+library(tidyverse)
+library(janitor)
+```
+
+First let's make some data:
+
+```{r}
+data_to_clean <- tibble(State = c("Texas", "Utah", "Maryland", "Ohio"),
+                        tax_percent = c(10, 20, 60, 40),
+                        literacy_percent = c(70, 80, 80, 75),
+                        above_poverty_percent = c(60, 70, 50, 60))
+data_to_clean
+
+```
+
+
+We can use the `rename_with` function of `dplyr` and `str_remove` of `stringr` to remove the pattern "_percent" from each of the column names.
+
+Here we use the `~` and the `.` to indicate that we are using `str_remove` and all the column names. If it finds the pattern it will remove it.
+
+
+```{r}
+data_to_clean %>% rename_with(~str_remove(., '_percent'))
+
+```
+
+Nice! That simplified our names very easily!
+
+## Cleaning names with numbers and punctuation
+
+
+We can use patterns with regex - see this [regex cheatsheet](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf) for help to remove unwanted characters! We adapted some code from this [source](https://stackoverflow.com/questions/71151470/remove-characters-from-column-names).
+
+First we will make some very messy data:
+
+```{r}
+
+d <- tibble("Year" = 1:5,
+       "Info" = 1:5,
+       "1. Products" = 1:5,
+       "2. Rate" = 1:5,
+       "3. Price" = 1:5,
+       "29. Other" = 1:5)
+d
+```
+
+Now we can remove the numbers and punctuation in a similar way as we did before using `rename_with` and `str_remove`, but this time we specify a few things:
+
+- that we want to remove digits with `[:digits:]` (based on the [regex cheatsheet](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf))
+
+- that we want to remove possibly one or more digits with the `+` (based on the [regex cheatsheet](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf))
+
+- that we want to remove a period (which needs two `\\` based on the (based on the [regex cheatsheet](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf)) too!) and a space
+
+Here we go:
+
+```{r}
+d %>% 
+  rename_with(~str_remove(., "[:digit:]+\\. "))
+
+```
+
+Nice, that is better!
+
+## Using values of a specific row for column names
+
+First let's make some messy data that is missing values in the first row and has possible better column names in the second row. We adapted code from this [source](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html#remove_constant-columns).
+
+This can often happen when we read in data.
+
+```{r}
+
+dirt <- data.frame(X_1 = c(NA, "ID", 1:3),
+           X_2 = c(NA, "Value", 4:6))
+
+dirt
+```
+
+
+The function `row_to_names` from the `janitor` package (not part of the `tidyverse` - so make sure you install and load it!) can be really helpful for this. 
+
+We can use the `row_number` argument of `row_to_names` to specify that the column names can be found in the second row.
+
+```{r}
+row_to_names(dirt, row_number = 2) # our column names can be found in row 2!
+
+```
+
+
