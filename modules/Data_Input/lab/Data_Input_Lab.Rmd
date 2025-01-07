@@ -1,0 +1,126 @@
+---
+title: "Data Input Lab"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+# Part 1
+
+## Helpful tips before we start
+
+### TROUBLESHOOTING: Common new user mistakes we have seen
+
+- Check the file path -- is the file there?  
+- Typos (R is **case sensitive**, `x` and `X` are different)  
+- Open ended quotes, parentheses, and brackets     
+- Deleting part of the code chunk  
+- For any function, you can write `?FUNCTION_NAME`, or `help("FUNCTION_NAME")` to look at the help file
+
+### 1.1
+
+Set up your R Project.
+
+> File, New Project or click the new project button
+> New Directory
+> New Project
+> Type a name and choose a location
+> Check that the folder is there!
+
+Check out our resource here: https://daseh.org/resources/R_Projects.html
+
+### 1.2 
+
+Load the package by adding "library(tidyverse)" below and running the code.
+
+```{r 1.2response}
+
+```
+
+### 1.3
+
+Use the manual import method (File > Import Dataset > From Text (`readr`)) to read in the CalEnviroScreen data from this URL:
+
+https://daseh.org/data/CalEnviroScreen_data.csv
+
+These data were collected by California Office of Health Hazard Assessment to track environmental measures (like pollution, water contamination, etc.) that can impact human health. You can read more about the project [here](https://calenviroscreen-oehha.hub.arcgis.com/)
+
+### 1.4
+
+What is the dataset object called? You can find this information in the Console or the Environment. Enter your answer as a comment using `#`.
+
+```{r 1.4response}
+
+```
+
+### 1.5
+
+Preview the data by examining the Environment. How many observations and variables are there? Enter your answer as a comment using `#`.
+
+```{r 1.5response}
+
+```
+
+# Practice on Your Own!
+
+### P.1
+
+Download the data from https://daseh.org/data/CalEnviroScreen_data.csv and move the file to your project folder. Import the data by browsing for the file on your computer.
+
+> *Download the data*
+> *Put data in the project folder*
+> File, Import Dataset, From Text (`readr`)
+> browse for the file
+> click "Update" and "Import"
+
+
+# Part 2
+
+### 2.1
+
+Read in the CalEnviroScreen data from this URL using `read_csv` and this URL: https://daseh.org/data/CalEnviroScreen_data.csv. Assign it to an object named `ces`. Use the code structure below.
+
+```
+# General format
+OBJECT <- read_csv(FILE)
+```
+
+```{r 2.1response}
+
+```
+
+### 2.2
+
+Take a look at the data. Do these data objects (`CalEnviroScreen_data` and `ces`) appear to be the same? Why or why not?
+
+```{r 2.2response}
+
+```
+
+### 2.3
+
+Learn your working directory by running `getwd()`. This is where R will look for files unless you tell it otherwise.
+
+```{r 2.3response}
+
+```
+
+
+# Practice on Your Own!
+
+### P.2
+
+Run the following code - is there a problem? How do you know?
+
+```{r}
+ces2 <- read_delim("https://daseh.org/data/CalEnviroScreen_data.csv", delim = "\t")
+ces2
+```
+
+```{r P.2response}
+
+```
+
+### P.3
+
+Try reading in some data on your computer using any method we discussed!
