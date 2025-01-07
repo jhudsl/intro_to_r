@@ -189,7 +189,7 @@ pre code {
 <blockquote>
 <p>File, New Project or click the new project button New Directory New Project Type a name and choose a location Check that the folder is there!</p>
 </blockquote>
-<p>Check out our resource here: <a href="https://daseh.org/resources/R_Projects.html" class="uri">https://daseh.org/resources/R_Projects.html</a></p>
+<p>Check out our resource here: <a href="https://jhudatascience.org/intro_to_r/resources/R_Projects.html" class="uri">https://jhudatascience.org/intro_to_r/resources/R_Projects.html</a></p>
 </div>
 <div id="section-1" class="section level3">
 <h3>1.2</h3>
@@ -208,19 +208,19 @@ pre code {
 </div>
 <div id="section-2" class="section level3">
 <h3>1.3</h3>
-<p>Use the manual import method (File &gt; Import Dataset &gt; From Text (<code>readr</code>)) to read in the CalEnviroScreen data from this URL:</p>
-<p><a href="https://daseh.org/data/CalEnviroScreen_data.csv" class="uri">https://daseh.org/data/CalEnviroScreen_data.csv</a></p>
-<p>These data were collected by California Office of Health Hazard Assessment to track environmental measures (like pollution, water contamination, etc.) that can impact human health. You can read more about the project <a href="https://calenviroscreen-oehha.hub.arcgis.com/">here</a></p>
+<p>Use the manual import method (File &gt; Import Dataset &gt; From Text (<code>readr</code>)) to Read in SARS-CoV-2 vaccination data from this URL:</p>
+<p><a href="https://jhudatascience.org/intro_to_r/data/vaccinations.csv" class="uri">https://jhudatascience.org/intro_to_r/data/vaccinations.csv</a></p>
+<p>You can learn more about how the data was collected here: <a href="https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-Jurisdi/unsk-b7fc" class="uri">https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-Jurisdi/unsk-b7fc</a></p>
 </div>
 <div id="section-3" class="section level3">
 <h3>1.4</h3>
 <p>What is the dataset object called? You can find this information in the Console or the Environment. Enter your answer as a comment using <code>#</code>.</p>
-<pre class="r"><code># CalEnviroScreen_data</code></pre>
+<pre class="r"><code># vaccinations</code></pre>
 </div>
 <div id="section-4" class="section level3">
 <h3>1.5</h3>
 <p>Preview the data by examining the Environment. How many observations and variables are there? Enter your answer as a comment using <code>#</code>.</p>
-<pre class="r"><code># 8035  obs. of 68 variables</code></pre>
+<pre class="r"><code># 37272 obs. of 103 variables</code></pre>
 </div>
 </div>
 </div>
@@ -228,7 +228,7 @@ pre code {
 <h1>Practice on Your Own!</h1>
 <div id="p.1" class="section level3">
 <h3>P.1</h3>
-<p>Download the data from <a href="https://daseh.org/data/CalEnviroScreen_data.csv" class="uri">https://daseh.org/data/CalEnviroScreen_data.csv</a> and move the file to your project folder. Import the data by browsing for the file on your computer.</p>
+<p>Download the data from <a href="https://jhudatascience.org/intro_to_r/data/vaccinations.csv" class="uri">https://jhudatascience.org/intro_to_r/data/vaccinations.csv</a> and move the file to your project folder. Import the data by browsing for the file on your computer.</p>
 <blockquote>
 <p><em>Download the data</em> <em>Put data in the project folder</em> File, Import Dataset, From Text (<code>readr</code>) browse for the file click “Update” and “Import”</p>
 </blockquote>
@@ -238,22 +238,22 @@ pre code {
 <h1>Part 2</h1>
 <div id="section-5" class="section level3">
 <h3>2.1</h3>
-<p>Read in the CalEnviroScreen data from this URL using <code>read_csv</code> and this URL: <a href="https://daseh.org/data/CalEnviroScreen_data.csv" class="uri">https://daseh.org/data/CalEnviroScreen_data.csv</a>. Assign it to an object named <code>ces</code>. Use the code structure below.</p>
+<p>Read in SARS-CoV-2 vaccination data from URL <a href="https://jhudatascience.org/intro_to_r/data/vaccinations.csv" class="uri">https://jhudatascience.org/intro_to_r/data/vaccinations.csv</a>. Assign it to an object named <code>vacc</code>. Use the code structure below.</p>
 <pre><code># General format
-OBJECT &lt;- read_csv(FILE)</code></pre>
-<pre class="r"><code>ces &lt;- read_csv(file = &quot;https://daseh.org/data/CalEnviroScreen_data.csv&quot;)</code></pre>
-<pre><code>## Rows: 8035 Columns: 67
+# OBJECT &lt;- read_csv(FILE)</code></pre>
+<pre class="r"><code>vacc &lt;- read_csv(file = &quot;https://jhudatascience.org/intro_to_r/data/vaccinations.csv&quot;)</code></pre>
+<pre><code>## Rows: 37272 Columns: 103
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
-## chr  (3): CaliforniaCounty, ApproxLocation, CES4.0PercRange
-## dbl (64): CensusTract, ZIP, Longitude, Latitude, CES4.0Score, CES4.0Percenti...
+## chr   (2): Date, Location
+## dbl (101): MMWR_week, Distributed, Distributed_Janssen, Distributed_Moderna,...
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 <div id="section-6" class="section level3">
 <h3>2.2</h3>
-<p>Take a look at the data. Do these data objects (<code>CalEnviroScreen_data</code> and <code>ces</code>) appear to be the same? Why or why not?</p>
+<p>Take a look at the data. Do these data objects (<code>vaccinations</code> and <code>vacc</code>) appear to be the same? Why or why not?</p>
 <pre class="r"><code># Yes, when we look in the RStudio environment, the two objects have the same dimensions. If we use the View() or str() functions, we can also see in more detail that the data is the same.</code></pre>
 </div>
 <div id="section-7" class="section level3">
@@ -268,32 +268,35 @@ OBJECT &lt;- read_csv(FILE)</code></pre>
 <div id="p.2" class="section level3">
 <h3>P.2</h3>
 <p>Run the following code - is there a problem? How do you know?</p>
-<pre class="r"><code>ces2 &lt;- read_delim(&quot;https://daseh.org/data/CalEnviroScreen_data.csv&quot;, delim = &quot;\t&quot;)</code></pre>
-<pre><code>## Rows: 8035 Columns: 1
+<pre class="r"><code>vacc2 &lt;- read_delim(&quot;https://jhudatascience.org/intro_to_r/data/vaccinations.csv&quot;, delim = &quot;\t&quot;)
+vacc2</code></pre>
+<pre class="r"><code>vacc2 &lt;- read_delim(&quot;https://jhudatascience.org/intro_to_r/data/vaccinations.csv&quot;, delim = &quot;\t&quot;)</code></pre>
+<pre><code>## Rows: 37272 Columns: 1
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;\t&quot;
-## chr (1): CensusTract,CaliforniaCounty,ZIP,Longitude,Latitude,ApproxLocation,...
+## chr (1): Date,MMWR_week,Location,Distributed,Distributed_Janssen,Distributed...
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>ces2</code></pre>
-<pre><code>## # A tibble: 8,035 × 1
-##    CensusTract,CaliforniaCounty,ZIP,Longitude,Latitude,ApproxLocation,CES4.0Sc…¹
+<pre class="r"><code>vacc2</code></pre>
+<pre><code>## # A tibble: 37,272 × 1
+##    Date,MMWR_week,Location,Distributed,Distributed_Janssen,Distributed_Moderna…¹
 ##    &lt;chr&gt;                                                                        
-##  1 &quot;6001400100,\&quot;Alameda \&quot;,94704,-122.2319033,37.8675947,\&quot;Oakland\&quot;,4.85,2.8,…
-##  2 &quot;6001400200,\&quot;Alameda \&quot;,94618,-122.2495763,37.848171,\&quot;Oakland\&quot;,4.88,2.87,…
-##  3 &quot;6001400300,\&quot;Alameda \&quot;,94618,-122.2544365,37.8405983,\&quot;Oakland\&quot;,11.2,15.9…
-##  4 &quot;6001400400,\&quot;Alameda \&quot;,94609,-122.2574628,37.8482107,\&quot;Oakland\&quot;,12.39,18.…
-##  5 &quot;6001400500,\&quot;Alameda \&quot;,94609,-122.2647445,37.8485167,\&quot;Oakland\&quot;,16.73,29.…
-##  6 &quot;6001400600,\&quot;Alameda \&quot;,94609,-122.2648882,37.8419909,\&quot;Oakland\&quot;,20.02,37.…
-##  7 &quot;6001400700,\&quot;Alameda \&quot;,94608,-122.2723135,37.8417578,\&quot;Oakland\&quot;,36.71,70.…
-##  8 &quot;6001400800,\&quot;Alameda \&quot;,94608,-122.2833803,37.8454493,\&quot;Oakland\&quot;,37.1,70.7…
-##  9 &quot;6001400900,\&quot;Alameda \&quot;,94608,-122.2802437,37.8394669,\&quot;Oakland\&quot;,40.71,76.…
-## 10 &quot;6001401000,\&quot;Alameda \&quot;,94608,-122.2719625,37.831217,\&quot;Oakland\&quot;,43.74,80.4…
-## # ℹ 8,025 more rows
+##  1 12/28/22,52,AS,128480,600,25500,102380,0,0,271101,298028,348024,410021,39194…
+##  2 12/28/22,52,PA,40583485,1564300,15149120,23816365,53700,0,317009,335288,3662…
+##  3 12/28/22,52,WA,24157865,776000,8579700,14772865,29300,0,317245,337475,371607…
+##  4 12/28/22,52,CO,16867685,500700,5939340,10405645,22000,0,292906,310837,341724…
+##  5 12/28/22,52,ID,4537400,160000,1746180,2616020,15200,0,253902,271560,303422,3…
+##  6 12/28/22,52,VI,168920,3200,46740,118780,200,0,158924,169558,188896,207246,82…
+##  7 12/28/22,52,IL,36586985,1182100,12515840,22864245,24800,0,288727,306812,3375…
+##  8 12/28/22,52,HI,4448760,124900,1698420,2621840,3600,0,314206,334329,367329,39…
+##  9 12/28/22,52,CA,115820215,3778100,41357180,70555535,129400,0,293125,311944,34…
+## 10 12/28/22,52,ND,1819400,53600,640920,1122680,2200,0,238747,256992,285510,3126…
+## # ℹ 37,262 more rows
 ## # ℹ abbreviated name:
-## #   ¹​`CensusTract,CaliforniaCounty,ZIP,Longitude,Latitude,ApproxLocation,CES4.0Score,CES4.0Percentile,CES4.0PercRange,Ozone,OzonePctl,PM2.5,PM2.5.Pctl,DieselPM,DieselPMPctl,DrinkingWater,DrinkingWaterPctl,Lead,LeadPctl,Pesticides,PesticidesPctl,ToxRelease,ToxReleasePctl,Traffic,TrafficPctl,CleanupSites,CleanupSitesPctl,GroundwaterThreats,GroundwaterThreatsPctl,HazWaste,HazWastePctl,ImpWaterBodies,ImpWaterBodiesPctl,SolidWaste,SolidWastePctl,PollutionBurden,PollutionBurdenScore,PollutionBurdenPctl,Asthma,AsthmaPctl,LowBirthWeight,LowBirthWeightPctl,CardiovascularDisease,CardiovascularDiseasePctl,TotalPop,ChildrenPercLess10,PopPerc10to64,ElderlyMore64,HispanicPerc,WhitePerc,AfAmericanPerc,NativeAmericanPerc,AsianAmericanPerc,OtherMultiplePerc,PopChar,PopCharScore,PopCharPctl,Education,EducationPctl,LinguisticIsol,LinguisticIsolPctl,Poverty,PovertyPctl,Unemployment,UnemploymentPctl,HousingBurden,HousingBurdenPctl`</code></pre>
-<pre class="r"><code># It should be a red flag to see that there is only one column that looks like: ,CensusTract,CaliforniaCounty,ZIP,Longitude,Latitude,ApproxLocation,CES4.0Score,CES4.0Percentile,CES4.0PercRange,Ozone,O
+## #   ¹​`Date,MMWR_week,Location,Distributed,Distributed_Janssen,Distributed_Moderna,Distributed_Pfizer,Distributed_Novavax,Distributed_Unk_Manuf,Dist_Per_100K,Distributed_Per_100k_5Plus,Distributed_Per_100k_12Plus,Distributed_Per_100k_18Plus,Distributed_Per_100k_65Plus,Administered,Administered_5Plus,Administered_12Plus,Administered_18Plus,Administered_65Plus,Administered_Janssen,Administered_Moderna,Administered_Pfizer,Administered_Novavax,Administered_Unk_Manuf,Admin_Per_100K,Admin_Per_100k_5Plus,Admin_Per_100k_12Plus,Admin_Per_100k_18Plus,Admin_Per_100k_65Plus,Recip_Administered,Administered_Dose1_Recip,Administered_Dose1_Pop_Pct,Administered_Dose1_Recip_5Plus,Administered_Dose1_Recip_5PlusPop_Pct,Administered_Dose1_Recip_12Plus,Administered_Dose1_Recip_12PlusPop_Pct,Administered_Dose1_Recip_18Plus,Administered_Dose1_Recip_18PlusPop_Pct,Administered_Dose1_Recip_65Plus,Administered_Dose1_Recip_65PlusPop_Pct,Series_Complete_Yes,Series_Complete_Pop_Pct,Series_Complete_5Plus,Series_Complete_5PlusPop_Pct,Series_Complete_12Plus,Series_Complete_12PlusPop_Pct,Series_Complete_18Plus,Series_Complete_18PlusPop_Pct,Series_Complete_65Plus,Series_Complete_65PlusPop_Pct,Series_Complete_Janssen,Series_Complete_Moderna,Series_Complete_Pfizer,Series_Complete_Novavax,Series_Complete_Unk_Manuf,Series_Complete_Janssen_5Plus,Series_Complete_Moderna_5Plus,Series_Complete_Pfizer_5Plus,Series_Complete_Unk_Manuf_5Plus,Series_Complete_Janssen_12Plus,Series_Complete_Moderna_12Plus,Series_Complete_Pfizer_12Plus,Series_Complete_Unk_Manuf_12Plus,Series_Complete_Janssen_18Plus,Series_Complete_Moderna_18Plus,Series_Complete_Pfizer_18Plus,Series_Complete_Unk_Manuf_18Plus,Series_Complete_Janssen_65Plus,Series_Complete_Moderna_65Plus,Series_Complete_Pfizer_65Plus,Series_Complete_Unk_Manuf_65Plus,Additional_Doses,Additional_Doses_Vax_Pct,Additional_Doses_5Plus,Additional_Doses_5Plus_Vax_Pct,Additional_Doses_12Plus,Additional_Doses_12Plus_Vax_Pct,Additional_Doses_18Plus,Additional_Doses_18Plus_Vax_Pct,Additional_Doses_50Plus,Additional_Doses_50Plus_Vax_Pct,Additional_Doses_65Plus,Additional_Doses_65Plus_Vax_Pct,Additional_Doses_Moderna,Additional_Doses_Pfizer,Additional_Doses_Janssen,Additional_Doses_Unk_Manuf,Second_Booster_50Plus,Second_Booster_50Plus_Vax_Pct,Second_Booster_65Plus,Second_Booster_65Plus_Vax_Pct,Second_Booster_Janssen,Second_Booster_Moderna,Second_Booster_Pfizer,Second_Booster_Unk_Manuf,Bivalent_Booster_5Plus,Bivalent_Booster_5Plus_Pop_Pct,Bivalent_Booster_12Plus,Bivalent_Booster_12Plus_Pop_Pct,Bivalent_Booster_18Plus,Bivalent_Booster_18Plus_Pop_Pct,Bivalent_Booster_65Plus,Bivalent_Booster_65Plus_Pop_Pct`</code></pre>
+<pre class="r"><code># It should be a red flag to see that there is only one column that looks like:  Date,MMWR_week,Location,Distributed,Distributed_Janssen,Distributed_Moderna ..
+# The one column can be seen in the dimensions:  A tibble: 37,272 × 1
 # This file is comma delimited, not tab delimited!</code></pre>
 </div>
 <div id="p.3" class="section level3">
