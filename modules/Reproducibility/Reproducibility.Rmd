@@ -57,7 +57,7 @@ ottrpal::include_slide("https://docs.google.com/presentation/d/1-cauITbscmnDEDt5
 
 ## Reproducibility vs Repeatability vs Replicability
 
-```{r, fig.alt="session info", out.width = "90%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="session info", out.width = "70%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/reproducibility.png")
 ```
 
@@ -135,11 +135,11 @@ knitr::include_graphics("images/clean.png")
 
 Regularly checking if your file knits will help you spot a missing step or error earlier when you have less code to try to identify where your code might have gone wrong.
 
-```{r, fig.alt="session info", out.width = "40%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="session info", out.width = "35%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/knit.png")
 ```
 
-```{r, fig.alt="session info", out.width = "40%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="session info", out.width = "35%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/error_monster.png")
 ```
 
@@ -147,7 +147,7 @@ knitr::include_graphics("images/error_monster.png")
 
 Provide sufficient detail so that you can understand what you did and why.
 
-```{r commenting}
+```{r, echo = TRUE}
 # Taking a random sample of 100 individuals from the population WITHOUT replacement
 samp_pop <- sample(100, replace = FALSE)
 # Then split them into two groups of 50
@@ -163,7 +163,7 @@ knitr::include_graphics("images/R_hearts.gif")
 
 Use `set.seed()` : sets the starting state for the random number generator (RNG) in R.
 
-```{r}
+```{r, echo = TRUE}
 set.seed(123)
 sample(10)
 set.seed(123)
@@ -172,7 +172,7 @@ set.seed(456)
 sample(10)
 ```
 
-Note that these are only psuedo random and the values are created doing calculations based on the given seed. Thus the same "random" values will be reproduced by everyone using the same seed with `set.seed`.
+Note that these are only pseudo random and the values are created doing calculations based on the given seed. Thus the same "random" values will be reproduced by everyone using the same seed with `set.seed`.
 
 ## R Markdown syntax
 
@@ -192,7 +192,7 @@ Go to the RStudio toolbar: Help > Cheat Sheets > R Markdown Cheat Sheet (which w
 
 Or Help > Cheat Sheets > R Markdown Reference Guide
 
-```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="The End", out.width = "35%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/markdown_cheatsheet.png")
 ```
 
@@ -221,21 +221,21 @@ knitr::include_graphics("images/session_info.png")
 
 Why is reproducibility so important?
 
-- A. It helps to ensure that your code is working consistently and it helps others understand what you did 
+A. It helps to ensure that your code is working consistently and it helps others understand what you did 
 
-- B. It ensures that your code is correct 
+B. It ensures that your code is correct 
 
 ## GUT CHECK
 
 What is NOT a practice to improve the reproducibility of our work?
 
-- A. Using R Markdown files to describe what your code is doing 
+A. Using R Markdown files to describe what your code is doing 
 
-- B. Using scripts instead of R Markdown files   
+B. Using scripts instead of R Markdown files   
 
-- C. Testing your code with R Markdown files or the run previous button
+C. Testing your code with R Markdown files or the run previous button
 
-- D. Regularly cleaning the environment 
+D. Regularly cleaning the environment 
 
 ## Lab 1
 
