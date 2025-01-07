@@ -57,7 +57,7 @@ ottrpal::include_slide("https://docs.google.com/presentation/d/1-cauITbscmnDEDt5
 
 ## Reproducibility vs Repeatability vs Replicability
 
-```{r, fig.alt="session info", out.width = "90%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="session info", out.width = "70%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/reproducibility.png")
 ```
 
@@ -67,12 +67,23 @@ knitr::include_graphics("images/reproducibility.png")
 ottrpal::include_slide("https://docs.google.com/presentation/d/1-cauITbscmnDEDt5IqrZOLlCjyhzEOZY5fqwVY7l8tQ/edit#slide=id.gf1accd298e_0_673")
 ```
 
+## We can't get to replicability without reproducibility
+
+```{r, fig.alt="session info", out.width = "80%", echo = FALSE, fig.align='center'}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1nV7x0mIIE4oWVKxpv4qJNvO17y51MajsERGtzR2qClk/edit#slide=id.g3070a1ee60e_0_0")
+```
+
 ## It's worth the wait
 
 ```{r, fig.alt="session info", out.width = "80%", echo = FALSE, fig.align='center'}
 ottrpal::include_slide("https://docs.google.com/presentation/d/1-cauITbscmnDEDt5IqrZOLlCjyhzEOZY5fqwVY7l8tQ/edit#slide=id.gf7bed24491_1_38")
 ```
 
+##
+
+```{r, fig.alt="session info", out.width = "70%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("../../images/lol/reproducibility.jpg")
+```
 
 ## Reproducibility can also be for your future self!
 
@@ -110,8 +121,6 @@ ottrpal::include_slide("https://docs.google.com/presentation/d/1-cauITbscmnDEDt5
 ottrpal::include_slide("https://docs.google.com/presentation/d/1-cauITbscmnDEDt5IqrZOLlCjyhzEOZY5fqwVY7l8tQ/edit#slide=id.gf9440130d0_0_0")
 ```
 
-
-
 ## Clean your environment
 
 Regularly cleaning your environment and trying your code again, can help ensure that your code is running as expected.
@@ -126,22 +135,47 @@ knitr::include_graphics("images/clean.png")
 
 Regularly checking if your file knits will help you spot a missing step or error earlier when you have less code to try to identify where your code might have gone wrong.
 
-```{r, fig.alt="session info", out.width = "40%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="session info", out.width = "35%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/knit.png")
+```
+
+```{r, fig.alt="session info", out.width = "35%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/error_monster.png")
 ```
 
 ## Tell your future self and others what you did!
 
-Provide sufficient detail so that you can understand what you did.
+Provide sufficient detail so that you can understand what you did and why.
+
+```{r, echo = TRUE}
+# Taking a random sample of 100 individuals from the population
+# WITHOUT replacement
+samp_pop <- sample(100, replace = FALSE)
+
+# Then split them into two groups of 50
+# a[x:xx] is the syntax for indexing a vector
+samp_pop1 <- samp_pop[1:50]
+samp_pop2 <- samp_pop[51:100]
+```
+
+```{r, fig.alt="session info", out.width = "25%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/R_hearts.gif")
+```
 
 ## Need random numbers to stay consistent?
 
-Use `set.seed()` : sets the starting state for the random number generator (RNG) in R.
+Use `set.seed()`: sets the starting state for the random number generator.
 
-```{r}
-set.seed(100)
+```{r, echo = TRUE}
+set.seed(123)
+sample(10)
+set.seed(123)
+sample(10)
+set.seed(456)
 sample(10)
 ```
+
+Note that these are only pseudo random and the values are created doing calculations based on the given seed. Thus the same "random" values will be reproduced by everyone using the same seed with `set.seed`.
 
 ## R Markdown syntax
 
@@ -157,16 +191,17 @@ knitr::include_graphics("images/rendered.png")
 
 ## R Markdown syntax
 
-Go to Help > Cheat Sheets > R Markdown Cheat Sheet (which will download it)
+Go to the RStudio toolbar: Help > Cheat Sheets > R Markdown Cheat Sheet (which will download it)
 
-Or checkout Help > Cheat Sheets > R Markdown Reference Guide
+Or Help > Cheat Sheets > R Markdown Reference Guide
 
-Or checkout the 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)!
-
-```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="The End", out.width = "35%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/markdown_cheatsheet.png")
 ```
 
+## Additional references
+
+Or check out the 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)! The [Resources](https://jhudatascience.org/intro_to_r/resources.html) page has links to additional helpful cheat sheets.
 
 ## Versions matter
 
@@ -185,9 +220,30 @@ sessionInfo()
 knitr::include_graphics("images/session_info.png")
 ```
 
+## GUT CHECK
+
+Why is reproducibility so important?
+
+A. It helps to ensure that your code is working consistently and it helps others understand what you did 
+
+B. It ensures that your code is correct 
+
+## GUT CHECK
+
+What is NOT a practice to improve the reproducibility of our work?
+
+A. Using R Markdown files to describe what your code is doing 
+
+B. Using scripts instead of R Markdown files   
+
+C. Testing your code with R Markdown files or the run previous button
+
+D. Regularly cleaning the environment 
+
 ## Lab 1
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)    
+
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Reproducibility/lab/Reproducibility_Lab.Rmd)
 
 ## More resources
