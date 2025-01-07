@@ -3,10 +3,11 @@ title: "Cleaning complicated column names"
 output: 
   html_document:
     css: ../docs/web_styles.css
+    toc: true
 ---
 
 
-## Cleaning names
+## Cleaning a common pattern from names
 
 Let's say that we already have technically clean names - in that they don't have spaces or punctuation or start with a number. However, let's say that there is a redundant word ("percent") that we want to remove or add to multiple columns.
 
@@ -43,7 +44,7 @@ data_to_clean %>% rename_with(~str_remove(., '_percent'))
 
 Nice! That simplified our names very easily!
 
-## What if we have really complicated names with numbers and punctuation?
+## Cleaning names with numbers and punctuation?
 
 
 We can use patterns with regex - see this [regex cheatsheet](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf) for help to remove unwanted characters! We adpated some code from this [source](https://stackoverflow.com/questions/71151470/remove-characters-from-column-names).
@@ -79,7 +80,7 @@ d %>%
 
 Nice, that is better!
 
-## What if we have a row that has names we might want for columns?
+## Using values of a specific row for column names
 
 First let's make some messy data that is missing values in the first row and has possible better column names in the second row. We adapted code from this [source](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html#remove_constant-columns).
 
