@@ -18,16 +18,85 @@ pre { /* Code block - slightly smaller in this lecture */
 }
 </style>
 
+## Quick reminder - Getting files from downloads
+
+This course will involve moving files around on your computer and downloading files.
+
+If you are new to this - check out the videos on the resource page of the website.
+
+# R Projects
 
 ## R Projects
 
-R Projects are a feature of RStudio that can help you stay organized. They are pretty straightforward to set up, but are not required. You can learn more about R Projects here:
+R Projects are a super helpful feature of RStudio. They help you:
 
-https://jhudatascience.org/intro_to_r/resources/R_Projects.html
+- **Stay organized.** R Projects help in organizing your work into self-contained directories (folders), where all related scripts, data, and outputs are stored together. This organization simplifies file management and makes it easier to locate and manage files associated with your analysis or project.
 
+- **Find the right files.** When you open an R Project, RStudio automatically sets the working directory to the project's directory. This is where RStudio "looks" for files. Because it's always the Project folder, it can help avoid common issues with file paths.
+
+- **Be more reproducible.** You can share the entire project directory with others, and they can replicate your environment and analysis without much hassle.
+
+## Why projects?
+
+"The chance of the `setwd()` command having the desired effect – making the file paths work – for anyone besides its author is 0%. It’s also unlikely to work for the author one or two years or computers from now. The project is not self-contained and portable."
+
+- [Jenny Bryan](https://www.tidyverse.org/blog/2017/12/workflow-vs-script/)
+
+**Let's go over how to create and use an R Project!**
+
+## New R Project
+
+Let's make an R Project so we can stay organized in the next steps. Click the new R Project button at the top left of RStudio:
+
+```{r, fig.alt="The New R Project button is highlighted.", out.width = "40%", echo = FALSE, align = "center"}
+knitr::include_graphics("images/Data_Input_Rproject.png")
+```
+
+## New R Project
+
+In the New Project Wizard, click "New Directory":
+
+```{r, fig.alt="In the New Project Wizard, the 'New Directory' option is highlighted.", out.width = "60%", echo = FALSE, align = "center"}
+knitr::include_graphics("images/Data_Input_new_directory.png")
+```
+
+## New R Project
+
+Click "New Project":
+
+```{r, fig.alt="In the New Project Wizard, the 'New Project' option is highlighted.", out.width = "60%", echo = FALSE, align = "center"}
+knitr::include_graphics("images/Data_Input_new_project.png")
+```
+
+## New R Project
+
+Type in a name for your new folder.
+
+Store it somewhere easy to find, such as your Desktop:
+
+```{r, fig.alt="In the New Project Wizard, the new project has been given a name and is going to be stored in the Desktop directory. The 'Create Project' button is highlighted.", out.width = "60%", echo = FALSE, align = "center"}
+knitr::include_graphics("images/Data_Input_new_project_details.png")
+```
+
+## New R Project
+
+You now have a new R Project folder on your Desktop! 
+
+Make sure you add any scripts or data files to this folder as you go through your Intro to R lessons, or work on a new project. This will make sure R is able to "find" your files.
+
+```{r, fig.alt="The image shows an image of an arrow pointing to the newly created R project repository.", out.width = "60%", echo = FALSE, align = "center"}
+knitr::include_graphics("images/Data_Input_new_desktop.png")
+```
+
+## See and change projects
+
+You can see what project you have open in the top right corner.
+
+```{r, fig.alt="The image shows an image of an arrow pointing to the newly created R project in RStudio.", out.width = "80%", echo = FALSE, align = "right"}
+knitr::include_graphics("images/Data_Input_Rproj_file.png")
+```
 
 # Getting data into R (manual/point and click)
-
 
 ## Data Input
 
@@ -36,8 +105,10 @@ https://jhudatascience.org/intro_to_r/resources/R_Projects.html
 * We are going to focus on simple delimited files first
     * comma separated (e.g. '.csv')
     * tab delimited (e.g. '.txt')
-    * Microsoft Excel (e.g. '.xlsx')
     
+<br>
+<br>
+**delimiters** are symbols that separate cells in a simple-text file.
 
 ## Data Input
 
@@ -47,8 +118,7 @@ Youth Tobacco Survey (YTS) dataset:
 
 * Check out the data at: https://catalog.data.gov/dataset/youth-tobacco-survey-yts-data
 
-
-## Import Dataset
+## Import Dataset (URL)
 
 -  `>` File
 -  `>` Import Dataset
@@ -56,6 +126,7 @@ Youth Tobacco Survey (YTS) dataset:
 -  `>` paste the url (http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv)
 -  `>` click "Update" and "Import"
 
+*Saves data in memory, not to hard drive*
 
 ## What Just Happened?
 
@@ -65,15 +136,13 @@ You see a preview of the data on the top left pane.
 knitr::include_graphics("images/Data_Input_data_imported.png")
 ```
 
-
 ## What Just Happened?
 
 You see a new object called `Youth_Tobacco_Survey_YTS_Data` in your environment pane (top right). The table button opens the data for you to view.
 
 ```{r, fig.alt="The image shows the data in preview form. It is organized like a spreadsheet one might see in Excel.", out.width = "80%", echo = FALSE, align = "center"}
-knitr::include_graphics("images/Data_Input_data_imported.png")
+knitr::include_graphics("images/Data_Input_data_environment.png")
 ```
-
 
 ## What Just Happened?
 
@@ -83,20 +152,35 @@ R ran some code in the console (bottom left).
 knitr::include_graphics("images/Data_Input_code_ran.png")
 ```
 
-
-## Browsing for Data on Your Machine
-
-```{r, fig.alt="The image highlights the Browse button that can be used for importing data from your machine.", out.width = "80%", echo = FALSE, align = "center"}
-knitr::include_graphics("images/Data_Input_browse.png")
-```
-
-
 ## Import Dataset
 
 ```{r, fig.alt="Gif showing the process of importing a dataset via readr.", out.width = "100%", echo = FALSE, align = "center"}
 knitr::include_graphics("images/Data_Input_import_dataset.gif")
 ```
 
+## Import Dataset (file)
+
+-  `>` *Download the data*
+-  `>` *Put data in the project folder*
+-  `>` File, Import Dataset, From Text (`readr`)
+-  `>` browse for the file
+-  `>` click "Update" and "Import"
+
+## GUT CHECK!
+
+How can we get data into R?
+
+A. From a URL
+
+B. From a file we downloaded
+
+C. Both of these!
+
+## Lab - Part 1
+
+🏠 [Class Website](https://jhudatascience.org/intro_to_r)
+
+💻 [Data Input Lab](https://jhudatascience.org/intro_to_r/modules/Data_Input/lab/Data_Input_Lab.Rmd)
 
 ## Manual Import: Pros and Cons
 
@@ -104,15 +188,14 @@ Pros: easy!!
 
 Cons: obscures some of what's happening, others will have difficulty running your code
 
-
 # Getting data into R (directly)
 
+## Data Input: Read in Directly
 
-## Data Input: Read in Directly 
+The `tidyverse` contains a package `readr` that is handy for importing data.
 
 ```{r message = FALSE}
-# load library `readr` that contains function `read_csv`
-library(readr)
+library(tidyverse)
 dat <- read_csv(
   file = "http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv"
 )
@@ -120,7 +203,6 @@ dat <- read_csv(
 # `head` displays first few rows of a data frame. `tail()` works the same way.
 head(dat, n = 5)
 ```
-
 
 ## Data Input: Declaring Arguments
 
@@ -134,49 +216,34 @@ dat <- read_csv(
 )
 ```
 
+## Data Input: Read in Directly
 
-## Data Input: Read in Directly 
+`read_csv()` needs an argument `file =` **in quotation marks**.
 
-`read_csv()` needs an argument `file =`.
-
--  `file` is the path to your file, **in quotation marks**
 -  can be path to a file on a website (URL)
--  can be **path** in your local computer -- absolute file path or relative file path 
+-  can be **path** in your local computer -- absolute file path or relative file path
 
 ```{r, eval = FALSE}
-# Examples
+# URL
+dat <- 
+  read_csv("http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
 
-dat <- read_csv(file = "www.someurl.com/table1.csv")
-
-dat <- read_csv(file = "/Users/avahoffman/Downloads/Youth_Tobacco_Survey_YTS_Data.csv")
-
-dat <- read_csv(file = "Youth_Tobacco_Survey_YTS_Data.csv")
+# In project folder
+dat <- 
+  read_csv("Youth_Tobacco_Survey_YTS_Data.csv")
 ```
-
-
-## Data Input: File paths
-
-What is a file path ????
-
-```{r, fig.alt="GIF with text. PC: *autosaves file* Me: Cool, so where did the file save? PC: shows image of Power Rangers shrugging.", out.width = "40%", echo = FALSE, align = "center"}
-knitr::include_graphics("images/Data_Input_where_are_the_files.gif")
-```
-
 
 ## The working directory
 
-When we work in R, we automatically have a **working directory**.
+When we work in an R Project, our project folder is our **working directory**.
 
-Working directory is a folder (directory) that RStudio assumes "you are working in". 
-
-It's where R looks for files.
+Working directory is a folder (directory) that RStudio will use to find files.
 
 ```{r, fig.alt="The files are in the computer text overlaid on still shot of the movie Zoolander.", out.width = "30%", echo = FALSE, align = "center"}
 knitr::include_graphics("images/files.jpg")
 ```
 
-
-## Getting the working directory
+## Checking the working directory
 
 Run the `getwd()` function to determine your working directory.
 
@@ -185,28 +252,16 @@ Run the `getwd()` function to determine your working directory.
 getwd()
 ```
 
-
-## Relative path
-
-Let's say my data is in a folder called "data" in my working directory. 
-
-`data/my_data.csv` would be the **relative path**. It's relative to the working directory.
-
-The whole address, for example `/Users/avahoffman/Downloads/data/my_data.csv` is the **absolute path**.
-
-
 ## Setting the working directory
 
-You can set the working directory manually with the `setwd()` function:
+You can set the working directory manually with the `setwd()` function. But it's easier to set up a project :)
 
 ```{r eval=FALSE}
 # set the working directory
 setwd("/Users/avahoffman/Desktop")
 ```
 
-
 # Now what? Checking data & Other formats
-
 
 ## Data Input: Checking the data
 
@@ -217,90 +272,64 @@ setwd("/Users/avahoffman/Desktop")
 View(dat)
 ```
 
-```{r, fig.alt="Screenshot of the RStudio console. 'View(dat)' has been typed and the data appears in table format.", out.width = "80%", echo = FALSE, align = "center"}
-knitr::include_graphics("images/Data_Input_View_data.png")
+```{r, fig.alt="Stills of a lonely Pablo Escobar meme waiting for R to respond after printing a large dataset.", out.width = "30%", echo = FALSE, align = "center"}
+knitr::include_graphics("../../images/lol/print.jpg")
 ```
 
+## Data Input: Other delimiters
 
-## Data Input: Other delimiters with `read_delim()`
+`read_tsv()` can read tab delimited (separated) files.
 
-`read_csv()` is a special case of `read_delim()` -- a general function to read a delimited file into a data frame  
+`read_delim()` can be used to specify the delimiter.
 
-`read_delim()` needs path to your file and **file's delimiter**, will return a tibble
-
--  `file` is the path to your file, in quotes 
--  `delim` is what separates the fields within a record 
+-  `file` is the path to your file, in quotes
+-  `delim` is what separates the fields within a record
 
 ```{r, eval = FALSE}
 ## Examples
-dat <- read_delim(file = "www.someurl.com/table1.tsv", delim = "\t")
+dat2 <- read_tsv(file = "table1.tsv", delim = "\t")
 
-dat <- read_delim(file = "data.txt", delim = "|")
+dat3 <- read_delim(file = "data.txt", delim = ":")
 ```
-
-
-## Data Input: Excel files
-
-- You **cannot** read in an excel file from a URL.
-- Need to load the `readxl` package with `library()`.
-- The argument is `path` (not `file`).
-
-```{r, eval=FALSE}
-library(readxl)
-
-read_excel(path = "asthma.xlsx")
-```
-
 
 ## Data input: other file types
+
+* `readxl` package can read excel files
 
 * `haven` package has functions to read SAS, SPSS, Stata formats
 
 * There are also resources for REDCap : [`REDCapR`](https://cran.r-project.org/web/packages/REDCapR/vignettes/BasicREDCapROperations.html)
 
-
 ## WARNING! `read.csv` is * base R *
 
-There are also data importing functions provided in base R (rather than the `readr` package), like `read.delim()` and `read.csv()`. 
+There are also data importing functions provided in base R (rather than the `readr` package), like `read.delim()` and `read.csv()`.
 
-These functions have slightly different syntax for reading in data (e.g. `header` argument). 
+These functions have slightly different syntax for reading in data (e.g. `header` argument).
 
-However, while many online resources use the base R tools, the latest version of RStudio switched to use these new `readr` data import tools, so we will use them in the class for slides. They are also up to two times faster for reading in large datasets, and have a progress bar which is nice. 
-
-
-## TROUBLESHOOTING: Setting the working directory
-
-If you are trying to knit your work, it might help to set the knit directory to the "Current Working Directory":
-
-```{r, fig.alt="Screenshot of the Knit menu, with Knit directory open, and Current Working Directory selected.", out.width = "60%", echo = FALSE, align = "center"}
-knitr::include_graphics("images/Data_Input_knit_directory.png")
-```
-
+However, while many online resources use the base R tools, the latest version of RStudio switched to use these new `readr` data import tools, so we will use them in the class for slides. They are also up to two times faster for reading in large datasets, and have a progress bar which is nice.
 
 ## Other Useful Functions
 
-- The `str()` function can tell you about data/objects. 
+- The `str()` function can tell you about data/objects.
 - We will also discuss the `glimpse()` function later, which does something very similar.
 - `head()` shows first few rows
 - `tail()` shows the last few rows
 
-
 ## Summary
 
-**R Projects** can make it easier to find files. Check out [this resource](https://jhudatascience.org/intro_to_r/resources/R_Projects.html).
+**R Projects** can make it easier to find files.
 
 Importing data manually:
 
 -  File `>` Import Dataset `>` From Text (`readr`)
--  Paste the url (http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv)
+-  Paste the url / browse
 -  Click "Update" and "Import"
 -  Review the process: [`https://youtu.be/LEkNfJgpunQ`](https://youtu.be/LEkNfJgpunQ)
 
 Importing data programmatically:
 
-- `read_csv()` function from `readr` package
+- `read_csv()` function from tidyverse (`readr`) package
 - Use `getwd()` to check your working directory, where R looks for your data files
-
 
 ## Summary - Part 2
 
@@ -311,18 +340,20 @@ Look at your data!
 
 Other file types
 
-- `readr` package: `read_delim()` for general delimited files 
-- `readxl` package: `read_excel()` for Excel files
+- `readr` package: `read_delim()` for general delimited files
+-  other packages for more complicated files.
 
 Don't forget to use `<-` to assign your data to an object!
 
-
-## Lab
+## Lab - Part 2
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
 
 💻 [Data Input Lab](https://jhudatascience.org/intro_to_r/modules/Data_Input/lab/Data_Input_Lab.Rmd)
 
+📃 [Posit's Data Import Cheatsheet](https://rstudio.github.io/cheatsheets/data-import.pdf)
+
+📃 [Day 2 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-2.pdf)
 
 ```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
 knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))

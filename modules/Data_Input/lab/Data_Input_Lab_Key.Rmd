@@ -5,6 +5,8 @@ editor_options:
   chunk_output_type: console
 ---
 
+# Part 1
+
 ## Helpful tips before we start
 
 ### TROUBLESHOOTING: Common new user mistakes we have seen
@@ -15,148 +17,111 @@ editor_options:
 - Deleting part of the code chunk  
 - For any function, you can write `?FUNCTION_NAME`, or `help("FUNCTION_NAME")` to look at the help file
 
-### R Projects
-
-R Projects can help you keep files organized and avoid issues with working directories. Check out our resource here: https://jhudatascience.org/intro_to_r/resources/R_Projects.html
-
-
-## Lab
-
-In this lab you can use the interactive console to explore or **Knit** the document. 
-Remember anything you type here can be "sent" to the console with Cmd-Enter (OS-X) or Ctrl-Enter (Windows/Linux) in an R code chunk.
-
-```{r}
-# Load the necessary package
-library(readr)
-```
-
 ### 1.1
 
-Use the manual import method (File > Import Dataset > From Text (`readr`)) to Read in SARS-CoV-2 vaccination data from this URL:
+Set up your R Project.
 
-https://jhudatascience.org/intro_to_r/data/vaccinations.csv. 
+> File, New Project or click the new project button
+> New Directory
+> New Project
+> Type a name and choose a location
+> Check that the folder is there!
 
-You can learn more about how the data was collected here: https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-Jurisdi/unsk-b7fc
+Check out our resource here: https://daseh.org/resources/R_Projects.html
 
-### 1.2
+### 1.2 
 
-What is the dataset object called? You can find this information in the Console or the Environment. Enter your answer as a comment using `#`.
+Load the package by adding "library(tidyverse)" below and running the code.
 
 ```{r 1.2response}
-# vaccinations
+library(tidyverse)
 ```
 
 ### 1.3
 
-Preview the data by clicking the table button in the Environment. How many observations and variables are there? Enter your answer as a comment using `#`.
+Use the manual import method (File > Import Dataset > From Text (`readr`)) to read in the CalEnviroScreen data from this URL:
 
-```{r 1.3response}
-# 37272 obs. of 103 variables
-```
+https://daseh.org/data/CalEnviroScreen_data.csv
+
+These data were collected by California Office of Health Hazard Assessment to track environmental measures (like pollution, water contamination, etc.) that can impact human health. You can read more about the project [here](https://calenviroscreen-oehha.hub.arcgis.com/)
 
 ### 1.4
 
-Read in SARS-CoV-2 vaccination data from URL 
-https://jhudatascience.org/intro_to_r/data/vaccinations.csv
-and assign it to an object named `vacc`. Use the code structure below.
-
-```
-# General format
-library(readr)
-# OBJECT <- read_csv(FILE)
-```
+What is the dataset object called? You can find this information in the Console or the Environment. Enter your answer as a comment using `#`.
 
 ```{r 1.4response}
-library(readr)
-vacc <- read_csv(file = "https://jhudatascience.org/intro_to_r/data/vaccinations.csv")
+# CalEnviroScreen_data
 ```
 
 ### 1.5
 
-Take a look at the data. Do these data objects (`vaccinations` and `vacc`) appear to be the same? Why or why not?
+Preview the data by examining the Environment. How many observations and variables are there? Enter your answer as a comment using `#`.
 
 ```{r 1.5response}
-# Yes, when we look in the RStudio environment, the two objects have the same dimensions. If we use the View() or str() functions, we can also see in more detail that the data is the same. 
-# If we wanted to get really in the weeds, we could do a logical test like all.equal(vacc, vaccinations)
+# 8035  obs. of 68 variables
 ```
 
-### 1.6
+# Practice on Your Own!
+
+### P.1
+
+Download the data from https://daseh.org/data/CalEnviroScreen_data.csv and move the file to your project folder. Import the data by browsing for the file on your computer.
+
+> *Download the data*
+> *Put data in the project folder*
+> File, Import Dataset, From Text (`readr`)
+> browse for the file
+> click "Update" and "Import"
+
+
+# Part 2
+
+### 2.1
+
+Read in the CalEnviroScreen data from this URL using `read_csv` and this URL: https://daseh.org/data/CalEnviroScreen_data.csv. Assign it to an object named `ces`. Use the code structure below.
+
+```
+# General format
+OBJECT <- read_csv(FILE)
+```
+
+```{r 2.1response}
+ces <- read_csv(file = "https://daseh.org/data/CalEnviroScreen_data.csv")
+```
+
+### 2.2
+
+Take a look at the data. Do these data objects (`CalEnviroScreen_data` and `ces`) appear to be the same? Why or why not?
+
+```{r 2.2response}
+# Yes, when we look in the RStudio environment, the two objects have the same dimensions. If we use the View() or str() functions, we can also see in more detail that the data is the same.
+```
+
+### 2.3
 
 Learn your working directory by running `getwd()`. This is where R will look for files unless you tell it otherwise.
 
-```{r 1.6response}
+```{r 2.3response}
 getwd()
 ```
 
 
 # Practice on Your Own!
 
-### P.1
-
-Load the `readxl` package with the `library()` command. 
-
-If it is not installed, install it via: `RStudio --> Tools --> Install Packages`. You can also try `install.packages("readxl")`.
-
-```{r P.1response}
-library(readxl)
-```
-
 ### P.2
-
-Download the dataset of asthma prevalence in the USA from: https://jhudatascience.org/intro_to_r/data/asthma.xlsx file to `asthma.xlsx` by running the following code chunk. This only downloads the file, it does NOT bring the file into R.
-
-```{r}
-download.file(
-  url = "https://jhudatascience.org/intro_to_r/data/asthma.xlsx",
-  destfile = "asthma.xlsx",
-  overwrite = TRUE,
-  mode = "wb"
-)
-```
-
-Note: the "wb" option makes sure the file can be read correctly on Windows and Apple machines.
-
-### P.3
-
-Use the `read_excel()` function in the `readxl` package to read the `asthma.xlsx` file and call the output `asthma`. 
-
-```{r P.3response}
-asthma <- read_excel(path = "asthma.xlsx")
-```
-
-### P.4
 
 Run the following code - is there a problem? How do you know?
 
 ```{r}
-yts <- read_delim("https://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv", delim = "\t")
-yts
+ces2 <- read_delim("https://daseh.org/data/CalEnviroScreen_data.csv", delim = "\t")
+ces2
 ```
 
-```{r P.4response}
-# It should be a red flag to see that there is only one column that looks like: "YEAR,LocationAbbr,LocationDesc,TopicType,TopicDesc,MeasureDesc..."
+```{r P.2response}
+# It should be a red flag to see that there is only one column that looks like: ,CensusTract,CaliforniaCounty,ZIP,Longitude,Latitude,ApproxLocation,CES4.0Score,CES4.0Percentile,CES4.0PercRange,Ozone,O
 # This file is comma delimited, not tab delimited!
 ```
 
-### P.5
+### P.3
 
-By default, R reads the first sheet of an excel file. Copy your code from question P.3 and add the following argument: `sheet = 2`. Inspect the data using `head()`.
-
-```{r P.5response}
-asthma <- read_excel(path = "asthma.xlsx", sheet = 2)
-head(asthma)
-```
-
-### P.6
-
-Install and load the `haven` package. Look at the help page for `read_dta()` function, and scroll to the very bottom of the page. Try running some of the examples provided.
-
-```{r eval = FALSE, label = 'P.6response'}
-install.packages("haven")
-library(haven)
-?read_dta
-
-path <- system.file("examples", "iris.dta", package = "haven")
-read_dta(path)
-```
-
+Try reading in some data on your computer using any method we discussed!
