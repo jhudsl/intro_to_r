@@ -14,8 +14,12 @@ Let's say that we already have technically clean names - in that they don't have
 
 First let's load the packages we will need. We will show some functions from   `janitor` and the `tidyverse`:
 
+```{r, echo = FALSE}
+install.packages("janitor", repos='http://cran.us.r-project.org')
+```
+
 ```{r}
-# install.packages(janitor)
+#install.packages("janitor")
 library(tidyverse)
 library(janitor)
 ```
@@ -44,7 +48,7 @@ data_to_clean %>% rename_with(~str_remove(., '_percent'))
 
 Nice! That simplified our names very easily!
 
-## Cleaning names with numbers and punctuation?
+## Cleaning names with numbers and punctuation
 
 
 We can use patterns with regex - see this [regex cheatsheet](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf) for help to remove unwanted characters! We adapted some code from this [source](https://stackoverflow.com/questions/71151470/remove-characters-from-column-names).
