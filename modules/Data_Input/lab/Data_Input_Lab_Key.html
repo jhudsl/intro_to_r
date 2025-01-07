@@ -165,6 +165,8 @@ pre code {
 </div>
 
 
+<div id="part-1" class="section level1">
+<h1>Part 1</h1>
 <div id="helpful-tips-before-we-start" class="section level2">
 <h2>Helpful tips before we start</h2>
 <div id="troubleshooting-common-new-user-mistakes-we-have-seen" class="section level3">
@@ -181,40 +183,65 @@ pre code {
 <li>For any function, you can write <code>?FUNCTION_NAME</code>, or <code>help(&quot;FUNCTION_NAME&quot;)</code> to look at the help file</li>
 </ul>
 </div>
-<div id="r-projects" class="section level3">
-<h3>R Projects</h3>
-<p>R Projects can help you keep files organized and avoid issues with working directories. Check out our resource here: <a href="https://jhudatascience.org/intro_to_r/resources/R_Projects.html" class="uri">https://jhudatascience.org/intro_to_r/resources/R_Projects.html</a></p>
-</div>
-</div>
-<div id="lab" class="section level2">
-<h2>Lab</h2>
-<p>In this lab you can use the interactive console to explore or <strong>Knit</strong> the document. Remember anything you type here can be “sent” to the console with Cmd-Enter (OS-X) or Ctrl-Enter (Windows/Linux) in an R code chunk.</p>
-<pre class="r"><code># Load the necessary package
-library(readr)</code></pre>
 <div id="section" class="section level3">
 <h3>1.1</h3>
-<p>Use the manual import method (File &gt; Import Dataset &gt; From Text (<code>readr</code>)) to Read in SARS-CoV-2 vaccination data from this URL:</p>
-<p><a href="https://jhudatascience.org/intro_to_r/data/vaccinations.csv" class="uri">https://jhudatascience.org/intro_to_r/data/vaccinations.csv</a>.</p>
-<p>You can learn more about how the data was collected here: <a href="https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-Jurisdi/unsk-b7fc" class="uri">https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-Jurisdi/unsk-b7fc</a></p>
+<p>Set up your R Project.</p>
+<blockquote>
+<p>File, New Project or click the new project button New Directory New Project Type a name and choose a location Check that the folder is there!</p>
+</blockquote>
+<p>Check out our resource here: <a href="https://jhudatascience.org/intro_to_r/resources/R_Projects.html" class="uri">https://jhudatascience.org/intro_to_r/resources/R_Projects.html</a></p>
 </div>
 <div id="section-1" class="section level3">
 <h3>1.2</h3>
-<p>What is the dataset object called? You can find this information in the Console or the Environment. Enter your answer as a comment using <code>#</code>.</p>
-<pre class="r"><code># vaccinations</code></pre>
+<p>Load the package by adding “library(tidyverse)” below and running the code.</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.4     ✔ readr     2.1.5
+## ✔ forcats   1.0.0     ✔ stringr   1.5.1
+## ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+## ✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+## ✔ purrr     1.0.2     
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
 <div id="section-2" class="section level3">
 <h3>1.3</h3>
-<p>Preview the data by clicking the table button in the Environment. How many observations and variables are there? Enter your answer as a comment using <code>#</code>.</p>
-<pre class="r"><code># 37272 obs. of 103 variables</code></pre>
+<p>Use the manual import method (File &gt; Import Dataset &gt; From Text (<code>readr</code>)) to Read in SARS-CoV-2 vaccination data from this URL:</p>
+<p><a href="https://jhudatascience.org/intro_to_r/data/vaccinations.csv" class="uri">https://jhudatascience.org/intro_to_r/data/vaccinations.csv</a></p>
+<p>You can learn more about how the data was collected here: <a href="https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-Jurisdi/unsk-b7fc" class="uri">https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-Jurisdi/unsk-b7fc</a></p>
 </div>
 <div id="section-3" class="section level3">
 <h3>1.4</h3>
-<p>Read in SARS-CoV-2 vaccination data from URL <a href="https://jhudatascience.org/intro_to_r/data/vaccinations.csv" class="uri">https://jhudatascience.org/intro_to_r/data/vaccinations.csv</a> and assign it to an object named <code>vacc</code>. Use the code structure below.</p>
+<p>What is the dataset object called? You can find this information in the Console or the Environment. Enter your answer as a comment using <code>#</code>.</p>
+<pre class="r"><code># vaccinations</code></pre>
+</div>
+<div id="section-4" class="section level3">
+<h3>1.5</h3>
+<p>Preview the data by examining the Environment. How many observations and variables are there? Enter your answer as a comment using <code>#</code>.</p>
+<pre class="r"><code># 37272 obs. of 103 variables</code></pre>
+</div>
+</div>
+</div>
+<div id="practice-on-your-own" class="section level1">
+<h1>Practice on Your Own!</h1>
+<div id="p.1" class="section level3">
+<h3>P.1</h3>
+<p>Download the data from <a href="https://jhudatascience.org/intro_to_r/data/vaccinations.csv" class="uri">https://jhudatascience.org/intro_to_r/data/vaccinations.csv</a> and move the file to your project folder. Import the data by browsing for the file on your computer.</p>
+<blockquote>
+<p><em>Download the data</em> <em>Put data in the project folder</em> File, Import Dataset, From Text (<code>readr</code>) browse for the file click “Update” and “Import”</p>
+</blockquote>
+</div>
+</div>
+<div id="part-2" class="section level1">
+<h1>Part 2</h1>
+<div id="section-5" class="section level3">
+<h3>2.1</h3>
+<p>Read in SARS-CoV-2 vaccination data from URL <a href="https://jhudatascience.org/intro_to_r/data/vaccinations.csv" class="uri">https://jhudatascience.org/intro_to_r/data/vaccinations.csv</a>. Assign it to an object named <code>vacc</code>. Use the code structure below.</p>
 <pre><code># General format
-library(readr)
 # OBJECT &lt;- read_csv(FILE)</code></pre>
-<pre class="r"><code>library(readr)
-vacc &lt;- read_csv(file = &quot;https://jhudatascience.org/intro_to_r/data/vaccinations.csv&quot;)</code></pre>
+<pre class="r"><code>vacc &lt;- read_csv(file = &quot;https://jhudatascience.org/intro_to_r/data/vaccinations.csv&quot;)</code></pre>
 <pre><code>## Rows: 37272 Columns: 103
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
@@ -224,98 +251,57 @@ vacc &lt;- read_csv(file = &quot;https://jhudatascience.org/intro_to_r/data/vacc
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div id="section-4" class="section level3">
-<h3>1.5</h3>
+<div id="section-6" class="section level3">
+<h3>2.2</h3>
 <p>Take a look at the data. Do these data objects (<code>vaccinations</code> and <code>vacc</code>) appear to be the same? Why or why not?</p>
-<pre class="r"><code># Yes, when we look in the RStudio environment, the two objects have the same dimensions. If we use the View() or str() functions, we can also see in more detail that the data is the same. 
-# If we wanted to get really in the weeds, we could do a logical test like all.equal(vacc, vaccinations)</code></pre>
+<pre class="r"><code># Yes, when we look in the RStudio environment, the two objects have the same dimensions. If we use the View() or str() functions, we can also see in more detail that the data is the same.</code></pre>
 </div>
-<div id="section-5" class="section level3">
-<h3>1.6</h3>
+<div id="section-7" class="section level3">
+<h3>2.3</h3>
 <p>Learn your working directory by running <code>getwd()</code>. This is where R will look for files unless you tell it otherwise.</p>
 <pre class="r"><code>getwd()</code></pre>
 <pre><code>## [1] &quot;/__w/intro_to_r/intro_to_r/modules/Data_Input/lab&quot;</code></pre>
 </div>
 </div>
-<div id="practice-on-your-own" class="section level1">
+<div id="practice-on-your-own-1" class="section level1">
 <h1>Practice on Your Own!</h1>
-<div id="p.1" class="section level3">
-<h3>P.1</h3>
-<p>Load the <code>readxl</code> package with the <code>library()</code> command.</p>
-<p>If it is not installed, install it via: <code>RStudio --&gt; Tools --&gt; Install Packages</code>. You can also try <code>install.packages(&quot;readxl&quot;)</code>.</p>
-<pre class="r"><code>library(readxl)</code></pre>
-</div>
 <div id="p.2" class="section level3">
 <h3>P.2</h3>
-<p>Download the dataset of asthma prevalence in the USA from: <a href="https://jhudatascience.org/intro_to_r/data/asthma.xlsx" class="uri">https://jhudatascience.org/intro_to_r/data/asthma.xlsx</a> file to <code>asthma.xlsx</code> by running the following code chunk. This only downloads the file, it does NOT bring the file into R.</p>
-<pre class="r"><code>download.file(
-  url = &quot;https://jhudatascience.org/intro_to_r/data/asthma.xlsx&quot;,
-  destfile = &quot;asthma.xlsx&quot;,
-  overwrite = TRUE,
-  mode = &quot;wb&quot;
-)</code></pre>
-<p>Note: the “wb” option makes sure the file can be read correctly on Windows and Apple machines.</p>
-</div>
-<div id="p.3" class="section level3">
-<h3>P.3</h3>
-<p>Use the <code>read_excel()</code> function in the <code>readxl</code> package to read the <code>asthma.xlsx</code> file and call the output <code>asthma</code>.</p>
-<pre class="r"><code>asthma &lt;- read_excel(path = &quot;asthma.xlsx&quot;)</code></pre>
-</div>
-<div id="p.4" class="section level3">
-<h3>P.4</h3>
 <p>Run the following code - is there a problem? How do you know?</p>
-<pre class="r"><code>yts &lt;- read_delim(&quot;https://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv&quot;, delim = &quot;\t&quot;)</code></pre>
-<pre><code>## Rows: 9794 Columns: 1
+<pre class="r"><code>vacc2 &lt;- read_delim(&quot;https://jhudatascience.org/intro_to_r/data/vaccinations.csv&quot;, delim = &quot;\t&quot;)
+vacc2</code></pre>
+<pre class="r"><code>vacc2 &lt;- read_delim(&quot;https://jhudatascience.org/intro_to_r/data/vaccinations.csv&quot;, delim = &quot;\t&quot;)</code></pre>
+<pre><code>## Rows: 37272 Columns: 1
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;\t&quot;
-## chr (1): YEAR,LocationAbbr,LocationDesc,TopicType,TopicDesc,MeasureDesc,Data...
+## chr (1): Date,MMWR_week,Location,Distributed,Distributed_Janssen,Distributed...
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>yts</code></pre>
-<pre><code>## # A tibble: 9,794 × 1
-##    YEAR,LocationAbbr,LocationDesc,TopicType,TopicDesc,MeasureDesc,DataSource,R…¹
+<pre class="r"><code>vacc2</code></pre>
+<pre><code>## # A tibble: 37,272 × 1
+##    Date,MMWR_week,Location,Distributed,Distributed_Janssen,Distributed_Moderna…¹
 ##    &lt;chr&gt;                                                                        
-##  1 &quot;2015,AZ,Arizona,Tobacco Use – Survey Data,Cessation (Youth),Percent of Curr…
-##  2 &quot;2015,AZ,Arizona,Tobacco Use – Survey Data,Cessation (Youth),Percent of Curr…
-##  3 &quot;2015,AZ,Arizona,Tobacco Use – Survey Data,Cessation (Youth),Percent of Curr…
-##  4 &quot;2015,AZ,Arizona,Tobacco Use – Survey Data,Cessation (Youth),Quit Attempt in…
-##  5 &quot;2015,AZ,Arizona,Tobacco Use – Survey Data,Cessation (Youth),Quit Attempt in…
-##  6 &quot;2015,AZ,Arizona,Tobacco Use – Survey Data,Cessation (Youth),Quit Attempt in…
-##  7 &quot;2015,AZ,Arizona,Tobacco Use – Survey Data,Cigarette Use (Youth),Smoking Sta…
-##  8 &quot;2015,AZ,Arizona,Tobacco Use – Survey Data,Cigarette Use (Youth),Smoking Sta…
-##  9 &quot;2015,AZ,Arizona,Tobacco Use – Survey Data,Cigarette Use (Youth),Smoking Sta…
-## 10 &quot;2015,AZ,Arizona,Tobacco Use – Survey Data,Cigarette Use (Youth),Smoking Sta…
-## # ℹ 9,784 more rows
+##  1 12/28/22,52,AS,128480,600,25500,102380,0,0,271101,298028,348024,410021,39194…
+##  2 12/28/22,52,PA,40583485,1564300,15149120,23816365,53700,0,317009,335288,3662…
+##  3 12/28/22,52,WA,24157865,776000,8579700,14772865,29300,0,317245,337475,371607…
+##  4 12/28/22,52,CO,16867685,500700,5939340,10405645,22000,0,292906,310837,341724…
+##  5 12/28/22,52,ID,4537400,160000,1746180,2616020,15200,0,253902,271560,303422,3…
+##  6 12/28/22,52,VI,168920,3200,46740,118780,200,0,158924,169558,188896,207246,82…
+##  7 12/28/22,52,IL,36586985,1182100,12515840,22864245,24800,0,288727,306812,3375…
+##  8 12/28/22,52,HI,4448760,124900,1698420,2621840,3600,0,314206,334329,367329,39…
+##  9 12/28/22,52,CA,115820215,3778100,41357180,70555535,129400,0,293125,311944,34…
+## 10 12/28/22,52,ND,1819400,53600,640920,1122680,2200,0,238747,256992,285510,3126…
+## # ℹ 37,262 more rows
 ## # ℹ abbreviated name:
-## #   ¹​`YEAR,LocationAbbr,LocationDesc,TopicType,TopicDesc,MeasureDesc,DataSource,Response,Data_Value_Unit,Data_Value_Type,Data_Value,Data_Value_Footnote_Symbol,Data_Value_Footnote,Data_Value_Std_Err,Low_Confidence_Limit,High_Confidence_Limit,Sample_Size,Gender,Race,Age,Education,GeoLocation,TopicTypeId,TopicId,MeasureId,StratificationID1,StratificationID2,StratificationID3,StratificationID4,SubMeasureID,DisplayOrder`</code></pre>
-<pre class="r"><code># It should be a red flag to see that there is only one column that looks like: &quot;YEAR,LocationAbbr,LocationDesc,TopicType,TopicDesc,MeasureDesc...&quot;
+## #   ¹​`Date,MMWR_week,Location,Distributed,Distributed_Janssen,Distributed_Moderna,Distributed_Pfizer,Distributed_Novavax,Distributed_Unk_Manuf,Dist_Per_100K,Distributed_Per_100k_5Plus,Distributed_Per_100k_12Plus,Distributed_Per_100k_18Plus,Distributed_Per_100k_65Plus,Administered,Administered_5Plus,Administered_12Plus,Administered_18Plus,Administered_65Plus,Administered_Janssen,Administered_Moderna,Administered_Pfizer,Administered_Novavax,Administered_Unk_Manuf,Admin_Per_100K,Admin_Per_100k_5Plus,Admin_Per_100k_12Plus,Admin_Per_100k_18Plus,Admin_Per_100k_65Plus,Recip_Administered,Administered_Dose1_Recip,Administered_Dose1_Pop_Pct,Administered_Dose1_Recip_5Plus,Administered_Dose1_Recip_5PlusPop_Pct,Administered_Dose1_Recip_12Plus,Administered_Dose1_Recip_12PlusPop_Pct,Administered_Dose1_Recip_18Plus,Administered_Dose1_Recip_18PlusPop_Pct,Administered_Dose1_Recip_65Plus,Administered_Dose1_Recip_65PlusPop_Pct,Series_Complete_Yes,Series_Complete_Pop_Pct,Series_Complete_5Plus,Series_Complete_5PlusPop_Pct,Series_Complete_12Plus,Series_Complete_12PlusPop_Pct,Series_Complete_18Plus,Series_Complete_18PlusPop_Pct,Series_Complete_65Plus,Series_Complete_65PlusPop_Pct,Series_Complete_Janssen,Series_Complete_Moderna,Series_Complete_Pfizer,Series_Complete_Novavax,Series_Complete_Unk_Manuf,Series_Complete_Janssen_5Plus,Series_Complete_Moderna_5Plus,Series_Complete_Pfizer_5Plus,Series_Complete_Unk_Manuf_5Plus,Series_Complete_Janssen_12Plus,Series_Complete_Moderna_12Plus,Series_Complete_Pfizer_12Plus,Series_Complete_Unk_Manuf_12Plus,Series_Complete_Janssen_18Plus,Series_Complete_Moderna_18Plus,Series_Complete_Pfizer_18Plus,Series_Complete_Unk_Manuf_18Plus,Series_Complete_Janssen_65Plus,Series_Complete_Moderna_65Plus,Series_Complete_Pfizer_65Plus,Series_Complete_Unk_Manuf_65Plus,Additional_Doses,Additional_Doses_Vax_Pct,Additional_Doses_5Plus,Additional_Doses_5Plus_Vax_Pct,Additional_Doses_12Plus,Additional_Doses_12Plus_Vax_Pct,Additional_Doses_18Plus,Additional_Doses_18Plus_Vax_Pct,Additional_Doses_50Plus,Additional_Doses_50Plus_Vax_Pct,Additional_Doses_65Plus,Additional_Doses_65Plus_Vax_Pct,Additional_Doses_Moderna,Additional_Doses_Pfizer,Additional_Doses_Janssen,Additional_Doses_Unk_Manuf,Second_Booster_50Plus,Second_Booster_50Plus_Vax_Pct,Second_Booster_65Plus,Second_Booster_65Plus_Vax_Pct,Second_Booster_Janssen,Second_Booster_Moderna,Second_Booster_Pfizer,Second_Booster_Unk_Manuf,Bivalent_Booster_5Plus,Bivalent_Booster_5Plus_Pop_Pct,Bivalent_Booster_12Plus,Bivalent_Booster_12Plus_Pop_Pct,Bivalent_Booster_18Plus,Bivalent_Booster_18Plus_Pop_Pct,Bivalent_Booster_65Plus,Bivalent_Booster_65Plus_Pop_Pct`</code></pre>
+<pre class="r"><code># It should be a red flag to see that there is only one column that looks like:  Date,MMWR_week,Location,Distributed,Distributed_Janssen,Distributed_Moderna ..
+# The one column can be seen in the dimensions:  A tibble: 37,272 × 1
 # This file is comma delimited, not tab delimited!</code></pre>
 </div>
-<div id="p.5" class="section level3">
-<h3>P.5</h3>
-<p>By default, R reads the first sheet of an excel file. Copy your code from question P.3 and add the following argument: <code>sheet = 2</code>. Inspect the data using <code>head()</code>.</p>
-<pre class="r"><code>asthma &lt;- read_excel(path = &quot;asthma.xlsx&quot;, sheet = 2)
-head(asthma)</code></pre>
-<pre><code>## # A tibble: 6 × 3
-##   Characteristic      `Weighted Number With Current Asthma` `Percent (SE)`
-##   &lt;chr&gt;                                               &lt;dbl&gt; &lt;chr&gt;         
-## 1 0–4                                                394206 2.0 (0.43)    
-## 2 5–11                                              1641279 5.9 (0.58)    
-## 3 5–14                                              2699214 6.6 (0.55)    
-## 4 5-17 (School Age)                                 3832453 7.2 (0.49)    
-## 5 12-14 (Young Teens)                               1057935 8.1 (1.10)    
-## 6 12–17                                             2191174 8.6 (0.77)</code></pre>
-</div>
-<div id="p.6" class="section level3">
-<h3>P.6</h3>
-<p>Install and load the <code>haven</code> package. Look at the help page for <code>read_dta()</code> function, and scroll to the very bottom of the page. Try running some of the examples provided.</p>
-<pre class="r"><code>install.packages(&quot;haven&quot;)
-library(haven)
-?read_dta
-
-path &lt;- system.file(&quot;examples&quot;, &quot;iris.dta&quot;, package = &quot;haven&quot;)
-read_dta(path)</code></pre>
+<div id="p.3" class="section level3">
+<h3>P.3</h3>
+<p>Try reading in some data on your computer using any method we discussed!</p>
 </div>
 </div>
 
