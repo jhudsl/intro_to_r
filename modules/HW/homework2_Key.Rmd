@@ -12,12 +12,8 @@ Homework will be graded for correct output, not code style. All assignments are 
 
 
 ```{r initiatePackages, message=FALSE}
-## you can add more, or change...these are suggestions
+## you can add more, or change...
 library(tidyverse)
-library(readr)
-library(dplyr)
-library(ggplot2)
-library(tidyr)
 ```
 
 
@@ -34,7 +30,7 @@ name <- "Bruce Wayne"
 ```
 
 
-2\. Make an object "me" that is "bday" and "name" combined.
+2\. Make an object "me" that is "bday" and "name" combined as a vector.
 
 ```{r 2response}
 me <- c(bday, name)
@@ -101,6 +97,7 @@ key <- read_tsv("dict.txt")
 (b) Determine the class of the first three columns using `str()`. Write your answer as a comment inside the R chunk below.
 
 ```{r 7response}
+# Use View(), look in the environment, or use another function like glimpse()
 str(cars)
 #  $ RefId                            : num [1:72983] 1 2 3 4 5 6 7 8 9 10 ...
 #  $ IsBadBuy                         : num [1:72983] 0 0 0 0 0 0 0 0 0 0 ...
@@ -115,13 +112,14 @@ str(cars)
 8\. How many cars (rows) are in the dataset? How many variables (columns) are recorded for each car? 
 
 ```{r 8response}
+# Look in the environment or..
 dim(cars)
 nrow(cars)
 # There are 72983 cars in the dataset and 34 variables.
 ```
 
 
-9\. Filter out (i.e., remove) any vehicles that cost less than or equal to $5000 ("VehBCost") or that have missing values. Replace the original "cars" object by reassigning the new filtered dataset to "cars". How many vehicles are left after filtering?
+9\. Filter the dataset to keep only vehicles that cost more than $5000 ("VehBCost"). You should also remove missing values for cost. Replace the original "cars" object by reassigning the new filtered dataset to "cars". How many vehicles are left after filtering?
 
 **Hint:** The `filter()` function also removes missing values.
 
