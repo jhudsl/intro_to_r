@@ -8,11 +8,8 @@ output:
 
 
 ```{r, echo = FALSE, message=FALSE, error = FALSE}
-library(knitr)
-opts_chunk$set(comment = "", message = FALSE)
-suppressWarnings({library(dplyr)})
-library(readr)
-library(tidyverse)
+knitr::opts_chunk$set(comment = "", message = FALSE)
+suppressWarnings(library(tidyverse))
 ```
 
 <style type="text/css">
@@ -193,7 +190,6 @@ Before we go further, let's rename the first column using the `rename()` functio
 In this case, we have to use the backticks (\`) because there are spaces and funky characters in the name. 
 
 ```{r}
-library(dplyr)
 tb <- tb %>%
   rename(country = `TB incidence, all forms (per 100 000 population per year)`)
 ```
@@ -511,6 +507,15 @@ yts_loc %>% unique() %>% length() # similar to n_distinct()
 * `summary()` (base R) gives statistics table on a dataset. 
 * `summarize()` (dplyr) creates a more customized summary tibble/dataframe.
 
+## Functions you might also see
+
+* `rowwise`()`: functions will compute results for each row
+* `sum(!is.na())`: # of non-NAs in the data
+* `first()`: first value in the data
+* `last()`: last value in the data
+* `range()`: minimum and maximum of the data
+* `IQR()`: interquartile range of the data
+
 ## Summary & Lab Part 2
 
 - `count(x)`: what unique values do you have? 
@@ -519,6 +524,7 @@ yts_loc %>% unique() %>% length() # similar to n_distinct()
 - `group_by()`: changes all subsequent functions
   - combine with `summarize()` to get statistics per group
   - combine with `mutate()` to add column
+  - `ungroup()` to remove a grouping
 - `summarize()` with `n()` gives the count (NAs included) 
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
