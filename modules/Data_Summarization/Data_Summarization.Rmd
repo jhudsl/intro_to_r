@@ -298,12 +298,10 @@ summary(tb)
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Data_Summarization/lab/Data_Summarization_Lab.Rmd)
 
 
-## Youth Tobacco Survey{.codesmall}
+## Youth Tobacco Survey
 
 Here we will be using the Youth Tobacco Survey data:
 http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv
-
-"The YTS was developed to provide states with comprehensive data on both middle school and high school students regarding tobacco use, exposure to environmental tobacco smoke, smoking cessation, school curriculum, minors' ability to purchase or otherwise obtain tobacco products, knowledge and attitudes about tobacco, and familiarity with pro-tobacco and anti-tobacco media messages."
 
 * Check out the data at: https://catalog.data.gov/dataset/youth-tobacco-survey-yts-data
 
@@ -482,7 +480,7 @@ yts %>% group_by(YEAR) %>% summarize(n = n()) %>% head(n = 3) # n() typically us
 ```
 
 
-# A few miscellaneous topics .. 
+# A few miscellaneous topics
 
 
 ## Base R functions you might see: `length` and `unique`
@@ -516,22 +514,21 @@ yts_loc %>% unique() %>% length() # similar to n_distinct()
 * `range()`: minimum and maximum of the data
 * `IQR()`: interquartile range of the data
 
-## Summary & Lab Part 2{.codesmall}
+## Summary & Lab Part 2
 
 - `count(x)`: what unique values do you have? 
   - `distinct()`: what are the distinct values?
   - `n_distinct()` with `pull()`: how many distinct values?
-- `group_by()`: changes all subsequent functions
+- `group_by()`: changes subsequent functions (remove with `ungroup()`)
   - combine with `summarize()` to get statistics per group
   - combine with `mutate()` to add column
-  - `ungroup()` to remove a grouping
 - `summarize()` with `n()` gives the count (NAs included) 
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
 
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Data_Summarization/lab/Data_Summarization_Lab.Rmd)
 
-```{r, fig.alt="The End", out.width = "25%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="The End", out.width = "20%", echo = FALSE, fig.align='center'}
 knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 ```
 
