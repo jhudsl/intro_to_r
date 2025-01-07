@@ -26,7 +26,7 @@ bike <- read_csv(file = "http://jhudatascience.org/intro_to_r/data/Bike_Lanes.cs
 
 ### 1.1 
 
-How many bike "lanes" are currently in Baltimore?  You can assume each observation/row is a different bike "lane".  (hint: how do you get the number of rows of a data set? You can use `dim()` or `nrow()` or another function).
+How many streets with designated bike lanes are currently in Baltimore? You can assume each observation/row is a different street with one or more bike lanes. (Hint: how do you get the number of rows of a data set? You can use `dim()` or `nrow()` or another function).
 
 ```{r 1.1response}
 
@@ -47,7 +47,7 @@ Summarize the data to get the `max` of `length` using the `summarize` function.
 ```
 # General format 
 DATA_TIBBLE %>% 
-    summarize(SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN))
+    summarize(SUMMARY_COLUMN_NAME = FUNCTION(SOURCE_COLUMN))
 ```
 
 ```{r 1.3response}
@@ -61,8 +61,8 @@ Modify your code from 1.3 to add the `min` of `length` using the `summarize` fun
 ```
 # General format 
 DATA_TIBBLE %>% 
-    summarize(SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN),
-              SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN)
+    summarize(SUMMARY_COLUMN_NAME = FUNCTION(SOURCE_COLUMN),
+              SUMMARY_COLUMN_NAME = FUNCTION(SOURCE_COLUMN)
     )
 ```
 
@@ -80,8 +80,8 @@ Summarize the `bike` data to get the mean of `length` and `dateInstalled`. Make 
 ```
 # General format 
 DATA_TIBBLE %>% 
-    summarize(SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN, na.rm = TRUE),
-              SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN, na.rm = TRUE)
+    summarize(SUMMARY_COLUMN_NAME = FUNCTION(SOURCE_COLUMN, na.rm = TRUE),
+              SUMMARY_COLUMN_NAME = FUNCTION(SOURCE_COLUMN, na.rm = TRUE)
     )
 ```
 

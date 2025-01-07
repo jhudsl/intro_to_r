@@ -220,8 +220,8 @@ You can also do more elaborate summaries across different groups of data using `
 ```{r, eval = FALSE}
 # General format - Not the code!
 {data to use} %>% 
-   summarize({summary column name} = {operator(source column)},
-             {summary column name} = {operator(source column)}) 
+   summarize({summary column name} = {function(source column)},
+             {summary column name} = {function(source column)}) 
 ```
 </div>
 
@@ -234,7 +234,7 @@ You can also do more elaborate summaries across different groups of data using `
 ```{r, eval = FALSE}
 # General format - Not the code!
 {data to use} %>% 
-   summarize({summary column name} = {operator(source column)}) 
+   summarize({summary column name} = {function(source column)}) 
 ```
 </div>
 
