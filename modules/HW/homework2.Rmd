@@ -12,12 +12,8 @@ Homework will be graded for correct output, not code style. All assignments are 
 
 
 ```{r initiatePackages, message=FALSE}
-## you can add more, or change...these are suggestions
+## you can add more, or change...
 library(tidyverse)
-library(readr)
-library(dplyr)
-library(ggplot2)
-library(tidyr)
 ```
 
 
@@ -33,7 +29,7 @@ library(tidyr)
 ```
 
 
-2\. Make an object "me" that is "bday" and "name" combined.
+2\. Make an object "me" that is "bday" and "name" combined as a vector.
 
 ```{r 2response}
 
@@ -89,7 +85,7 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 ```
 
 
-9\. Filter out (i.e., remove) any vehicles that cost less than or equal to $5000 ("VehBCost") or that have missing values. Replace the original "cars" object by reassigning the new filtered dataset to "cars". How many vehicles are left after filtering?
+9\. Filter the dataset to keep only vehicles that cost more than $5000 ("VehBCost"). You should also remove missing values for cost. Replace the original "cars" object by reassigning the new filtered dataset to "cars". How many vehicles are left after filtering?
 
 **Hint:** The `filter()` function also removes missing values.
 
@@ -148,7 +144,7 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 ```
 
 
-16\. Which vehicle color group had the highest mean acquisition cost paid for the vehicle at time of purchase, and what was this cost?
+16\. Group all cars by color ("Color") and calculate the mean acquisition cost paid for the vehicle at time of purchase?
 
 **Hint:** Use  `group_by()` with `summarize()`. To determine the column that corresponds to "acquisition cost paid for the vehicle at time of purchase", check the "key" corresponding to the data dictionary that you imported above in question 6.
 
@@ -157,7 +153,7 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 ```
 
 
-17\. Extend on the code you wrote for question 16. Use the `arrange()` function to sort the output by mean acquisition cost.
+17\. Extend on the code you wrote for question 16. Use the `arrange()` function to sort the output by mean acquisition cost. What color car has the greatest mean acquisition cost?
 
 ```{r 17response}
 
@@ -166,8 +162,7 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 
 18\. How many vehicles were red and have fewer than 30,000 miles? To determine the column that corresponds to mileage (The vehicle's odometer reading), check the "key" corresponding to the data dictionary that you imported above in question 6. use:
 
-- `filter()` and `count()`
-- `filter()` and `tally()` or
+- `filter()` and `count()` or
 - `sum()`
 
 ```{r 18response}
@@ -177,8 +172,7 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 
 19\. How many vehicles are blue or red? use:
 
-- `filter()` and `count()`
-- `filter()` and `tally()` or
+- `filter()` and `count()` or
 - `sum()`
 
 ```{r 19response}
@@ -186,12 +180,11 @@ We will be working with a dataset from the "Kaggle" website, which hosts competi
 ```
 
 
-20\. Select all columns in "cars" where the column names starts with "Veh" (using `select()` and `starts_with()`. Then, use `colMeans()` to summarize across these columns.
+20\. Select all columns in "cars" where the column names starts with "Veh" (using `select()` and `starts_with()`. How many columns are there?
 
 ```{r 20response}
 
 ```
-
 
 
 > The following questions are not required for full credit, but can make up for any points lost on other questions.
@@ -212,7 +205,7 @@ B\. What is the average vehicle odometer reading for cars that are both RED and 
 ```
 
 
-C\. Among red Nissans, what is the distribution of vehicle ages?
+C\. Among red Nissans, what is the distribution of vehicle ages? Use `count()`.
 
 ```{r Cresponse}
 
@@ -226,7 +219,7 @@ D\. How many vehicles (using `filter()` or `sum()` ) are made by Chrysler or Nis
 ```
 
 
-E\. Make a boxplot (`boxplot()`) that looks at vehicle age ("VehicleAge") on the x-axis and odometer reading ("VehOdo") on the y-axis.
+E\. Select all columns in "cars" where the column names starts with "Veh" or "MMR" (using `select()` and `starts_with()`. How many columns are there?
 
 ```{r Eresponse}
 
