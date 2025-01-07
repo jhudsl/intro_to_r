@@ -99,7 +99,9 @@ sum(z)
 
 ## Some examples
 
-We can use the `mtcars` built-in dataset.  The `head` command displays the first rows of an object:
+We can use the `mtcars` built-in dataset. "The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973-74 models)."
+
+The `head` command displays the first rows of an object:
 
 ```{r}
 head(mtcars)
@@ -112,22 +114,9 @@ A nice and readable way to chain together multiple R functions.
 
 Changes `f(x, y)` to `x %>% f(y)`.
 
-```{r eval=FALSE}
-# Going to work
-get_dressed(me,
-            pack_lunch(
-              check_pockets(
-                wallet = TRUE, phone = TRUE, keys = TRUE),
-              items = c("sandwich", "chips", "apple"), lunchbox = TRUE),
-            pants = TRUE, shirt = TRUE, footwear = "sandals")
-
-# Going to work, the tidy way
-me %>%
-  get_dressed(pants = TRUE, shirt = TRUE, footwear = "sandals") %>%
-  pack_lunch(items = c("sandwich", "chips", "apple"), lunchbox = TRUE) %>%
-  check_pockets(wallet = TRUE, phone = TRUE, keys = TRUE)
+```{r, out.width = "50%", echo = FALSE, align = "center"}
+knitr::include_graphics("../../images/lol/morning_1.png")
 ```
-
 
 ## Statistical summarization the "tidy" way
 
@@ -141,7 +130,7 @@ mtcars %>% pull(wt) %>% quantile(probs = 0.6)
 
 ## Behavior of `pull()` function
 
-`pull()` converts a single data column into a vector. This allows you to run summary functions on these data. Once you have "pulled" the data column out, you don't have to name it again in any piped summary functions.
+`pull()` converts a single data column into a <span style="color:blue">vector</span>. This allows you to run summary functions on these data. Once you have "pulled" the data column out, you don't have to name it again in any piped summary functions.
 
 ```{r}
 cars_wt <- mtcars %>% pull(wt)
@@ -157,18 +146,29 @@ mtcars %>% pull(wt) %>% range(wt) # Incorrect
 mtcars %>% pull(wt) %>% range() # Correct
 ```
 
+## GUT CHECK
+
+What kind of object do we need to run summary operators like `mean()` ?
+
+A. A vector of numbers
+
+B. A vector of characters
+
+C. A dataset
 
 # Summarization on tibbles (data frames)
 
-## TB Incidence 
+## TB incidence
 
 Let's read in a `tibble` of values from TB incidence.
+
+"Tuberculosis incidence, all forms (per 100,000 population per year), for the period 1990-2007 across 208 countries/territories."
 
 ```{r}
 tb <- read_csv("https://jhudatascience.org/intro_to_r/data/tb.csv")
 ```
 
-## TB Incidence 
+## TB incidence 
 
 Check out the data:
 
@@ -177,7 +177,7 @@ head(tb)
 ```
 
 
-## TB Incidence 
+## TB incidence 
 
 Check out the data:
 
@@ -291,10 +291,11 @@ summary(tb)
 
 ## Summary & Lab Part 1
 
-- summary stats (`mean()`) work with `pull()`
+- `pull()` creates a *vector*
 - don't forget the `na.rm = TRUE` argument!
 - `summary(x)`: quantile information
 - `summarize`: creates a summary table of columns of interest
+- summary stats (`mean()`) work with vectors or with `summarize()`
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
 
@@ -305,6 +306,10 @@ summary(tb)
 
 Here we will be using the Youth Tobacco Survey data:
 http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv
+
+"The YTS was developed to provide states with comprehensive data on both middle school and high school students regarding tobacco use, exposure to environmental tobacco smoke, smoking cessation, school curriculum, minors' ability to purchase or otherwise obtain tobacco products, knowledge and attitudes about tobacco, and familiarity with pro-tobacco and anti-tobacco media messages."
+
+* Check out the data at: https://catalog.data.gov/dataset/youth-tobacco-survey-yts-data
 
 ```{r}
 yts <- read_csv("http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
@@ -324,7 +329,7 @@ yts %>%
 
 ## How many `distinct()` values?
 
-`n_distinct()` tells you the number of unique elements. _Must pull the column first!_
+`n_distinct()` tells you the number of unique elements. It needs a vector so you _must pull the column first!_
 
 ```{r}
 yts %>%
@@ -338,7 +343,7 @@ options(max.print = 1000)
 ```
 
 
-## `dplyr`: `count` 
+## Use `count()` to return row count per category.
 
 Use `count` to return a frequency table of unique elements of a data.frame.
 
@@ -347,31 +352,33 @@ yts %>% count(LocationDesc)
 ```
 
 
-## `dplyr`: `count` 
-
-Multiple columns listed further subdivides the count.
+## Multiple columns listed further subdivides the `count()`
 
 ```{r, message = FALSE}
 yts %>% count(LocationDesc, TopicDesc)
 ```
-
-
-## `dplyr`: `count` 
-
-Multiple columns listed further subdivides the count.
-
-```{r, message = FALSE}
-yts %>% count(LocationDesc, TopicDesc)
-```
-
-<br>
 
 **Note:** `count()` includes NAs
 
+## GUT CHECK
+
+The `count()` function can help us tally:
+
+A. Sample size
+
+B. Rows per each category
+
+C. How many categories
 
 # Grouping
 
-## Perform Operations By Groups: dplyr
+## Goal 
+
+We want to find the average frequency that youth use tobacco products in the dataset.
+
+_How do we do this?_
+
+## Perform operations By groups: dplyr
 
 `group_by` allows you group the data set by variables/columns you specify:
 
@@ -381,7 +388,7 @@ yts
 ```
 
 
-## Perform Operations By Groups: dplyr
+## Perform operations by groups: dplyr
 
 `group_by` allows you group the data set by variables/columns you specify:
 
@@ -400,7 +407,7 @@ yts_grouped %>% summarize(avg_percent = mean(Data_Value, na.rm = TRUE))
 ```
 
 
-## Use the `pipe` to string these together!
+## Do it in one step: use `%>%` to string these together!
 
 Pipe `yts` into `group_by`, then pipe that into `summarize`:
 
@@ -474,8 +481,8 @@ yts %>%
 `count()` and `n()` can give very similar information.
 
 ```{r}
-mtcars %>% count(cyl)
-mtcars %>% group_by(cyl) %>% summarize(n()) # n() typically used with summarize
+yts %>% count(YEAR)
+yts %>% group_by(YEAR) %>% summarize(n = n()) # n() typically used with summarize
 ```
 
 
@@ -487,7 +494,6 @@ mtcars %>% group_by(cyl) %>% summarize(n()) # n() typically used with summarize
 These functions require a column as a vector using `pull()`.
 
 ```{r, message = FALSE}
-yts <- read_csv("http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
 yts_loc <- yts %>% pull(LocationDesc) # pull() to make a vector
 yts_loc %>% unique() # similar to distinct()
 ```
@@ -499,27 +505,6 @@ These functions require a column as a vector using `pull()`.
 ```{r, message = FALSE}
 yts_loc %>% unique() %>% length() # similar to n_distinct()
 ```
-
-## * New! * Many dplyr functions now have a `.by=` argument
-
-Pipe `yts` into `group_by`, then pipe that into `summarize`:
-
-```{r eval = FALSE}
-yts %>%
-  group_by(Response) %>%
-  summarize(avg_percent = mean(Data_Value, na.rm = TRUE),
-            max_percent = max(Data_Value, na.rm = TRUE))
-```
-
-is the same as..
-
-```{r eval = FALSE}
-yts %>%
-  summarize(avg_percent = mean(Data_Value, na.rm = TRUE),
-            max_percent = max(Data_Value, na.rm = TRUE),
-            .by = Response)
-```
-
 
 ## `summary()` vs. `summarize()`
 
@@ -591,4 +576,24 @@ tb %>%
 
 tb %>%
   summarize(across(starts_with("year"), ~mean(.x, na.rm = TRUE)))
+```
+
+## * New! * Many dplyr functions now have a `.by=` argument
+
+Pipe `yts` into `group_by`, then pipe that into `summarize`:
+
+```{r eval = FALSE}
+yts %>%
+  group_by(Response) %>%
+  summarize(avg_percent = mean(Data_Value, na.rm = TRUE),
+            max_percent = max(Data_Value, na.rm = TRUE))
+```
+
+is the same as..
+
+```{r eval = FALSE}
+yts %>%
+  summarize(avg_percent = mean(Data_Value, na.rm = TRUE),
+            max_percent = max(Data_Value, na.rm = TRUE),
+            .by = Response)
 ```
