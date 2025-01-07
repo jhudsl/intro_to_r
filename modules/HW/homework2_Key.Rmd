@@ -155,7 +155,7 @@ car_range <- pull(cars, VehYear)
 range(car_range)
 # OR
 range(cars$VehYear)
-table(cars$VehYear)
+count(cars, VehYear)
 
 # The range is 2001 2010. 
 ```
@@ -183,8 +183,7 @@ cars %>%
   summarize(total = n())
 # OR
 sum(cars$VehYear < 2004)
-# OR
-table(cars$VehYear < 2004)
+
 # what percent/proportion do these represent?
 nrow(cars %>% filter(VehYear < 2004)) / nrow(cars)
 # OR
@@ -199,6 +198,8 @@ mean(cars$VehYear < 2004)
 **Hint:** use `length()` with `unique()` or `table()`. Remember to `pull()` the right column.
 
 ```{r 14response}
+cars %>% distinct(Make) %>% nrow()
+# OR
 cars %>%
   pull(Make) %>%
   unique() %>%
@@ -207,8 +208,6 @@ cars %>%
 length(unique(cars %>% pull(Make)))
 # OR
 length(unique(cars$Make))
-# OR
-length(table(cars$Make))
 
 # 32 unique makes.
 ```
@@ -217,6 +216,8 @@ length(table(cars$Make))
 15\. How many different vehicle models ("Model") are there?
 
 ```{r 15response}
+cars %>% distinct(Model) %>% count()
+# OR
 cars %>%
   pull(Model) %>%
   unique() %>%
@@ -226,7 +227,7 @@ cars %>%
 ```
 
 
-16\. Which vehicle color group had the highest mean acquisition cost paid for the vehicle at time of purchase, and what was this cost?
+16\. Group all cars by color ("Color") and calculate the mean acquisition cost paid for the vehicle at time of purchase?
 
 **Hint:** Use  `group_by()` with `summarize()`. To determine the column that corresponds to "acquisition cost paid for the vehicle at time of purchase", check the "key" corresponding to the data dictionary that you imported above in question 6.
 
@@ -237,7 +238,7 @@ cars %>%
 ```
 
 
-17\. Extend on the code you wrote for question 16. Use the `arrange()` function to sort the output by mean acquisition cost.
+17\. Extend on the code you wrote for question 16. Use the `arrange()` function to sort the output by mean acquisition cost. What color car has the greatest mean acquisition cost?
 
 ```{r 17response}
 cars %>%
@@ -249,15 +250,10 @@ cars %>%
 
 18\. How many vehicles were red and have fewer than 30,000 miles? To determine the column that corresponds to mileage (The vehicle's odometer reading), check the "key" corresponding to the data dictionary that you imported above in question 6. use:
 
-- `filter()` and `count()`
-- `filter()` and `tally()` or
+- `filter()` and `count()` or
 - `sum()`
 
 ```{r 18response}
-cars %>%
-  filter(Color == "RED" & VehOdo < 30000) %>%
-  tally()
-# OR
 cars %>%
   filter(Color == "RED" & VehOdo < 30000) %>%
   count()
@@ -270,8 +266,7 @@ sum(cars$Color == "RED" & cars$VehOdo < 30000)
 
 19\. How many vehicles are blue or red? use:
 
-- `filter()` and `count()`
-- `filter()` and `tally()` or
+- `filter()` and `count()` or
 - `sum()`
 
 ```{r 19response}
@@ -283,6 +278,8 @@ cars %>%
   filter(Color %in% c("BLUE", "RED")) %>%
   count()
 # OR
+sum(pull(cars, Color) %in% c("BLUE", "RED"))
+# OR
 sum(cars$Color == "BLUE" | cars$Color == "RED")
 # OR
 sum(cars$Color %in% c("BLUE", "RED"))
@@ -291,14 +288,14 @@ sum(cars$Color %in% c("BLUE", "RED"))
 ```
 
 
-20\. Select all columns in "cars" where the column names starts with "Veh" (using `select()` and `starts_with()`. Then, use `colMeans()` to summarize across these columns.
+20\. Select all columns in "cars" where the column names starts with "Veh" (using `select()` and `starts_with()`. How many columns are there?
 
 ```{r 20response}
 cars %>%
-  select(starts_with("Veh")) %>%
-  colMeans()
-```
+  select(starts_with("Veh"))
 
+# 4 columns.
+```
 
 
 > The following questions are not required for full credit, but can make up for any points lost on other questions.
@@ -329,46 +326,37 @@ mean_not_red_nissan <- cars %>%
 ```
 
 
-C\. Among red Nissans, what is the distribution of vehicle ages?
+C\. Among red Nissans, what is the distribution of vehicle ages? Use `count()`.
 
 ```{r Cresponse}
 red_nissan <- cars %>% filter(Color == "RED" & Make == "NISSAN")
 red_nissan %>%
   group_by(VehicleAge) %>%
-  select(VehicleAge) %>%
-  table()
-# OR
-red_nissan <- cars %>% filter(Color == "RED" & Make == "NISSAN")
-red_nissan %>%
-  group_by(VehicleAge) %>%
   count()
-# OR
-red_nissan <- cars %>% filter(Color == "RED" & Make == "NISSAN")
-red_nissan %>%
-  group_by(VehicleAge) %>%
-  tally()
 ```
 
 
 D\. How many vehicles (using `filter()` or `sum()` ) are made by Chrysler or Nissan and are white or silver?
 
 ```{r Dresponse}
-sum((cars$Make == "CHRYSLER" | cars$Make == "NISSAN") & (cars$Color == "WHITE" | cars$Color == "SILVER"))
-# OR
-sum(cars$Make %in% c("CHRYSLER", "NISSAN") & cars$Color %in% c("WHITE", "SILVER"))
-# OR
 cars %>%
-  filter(Make %in% c("CHRYSLER", "NISSAN") & cars$Color %in% c("WHITE", "SILVER")) %>%
+  filter(Make %in% c("CHRYSLER", "NISSAN") & Color %in% c("WHITE", "SILVER")) %>%
   count()
 
 # A total of 3718 cars. 
 ```
 
 
-E\. Make a boxplot (`boxplot()`) that looks at vehicle age ("VehicleAge") on the x-axis and odometer reading ("VehOdo") on the y-axis.
+E\. Select all columns in "cars" where the column names starts with "Veh" or "MMR" (using `select()` and `starts_with()`. How many columns are there?
 
 ```{r Eresponse}
-boxplot(cars %>% pull(VehOdo) ~ cars %>% pull(VehicleAge))
+cars %>%
+  select(starts_with(c("Veh", "MMR"))) 
+# OR
+cars %>%
+  select(starts_with("Veh") | starts_with("MMR"))
+
+# 12 columns.
 ```
 
 
