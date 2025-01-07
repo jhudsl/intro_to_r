@@ -35,7 +35,7 @@ pre { /* Code block - slightly smaller in this lecture */
 
 https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf
 
-```{r, fig.alt="A preview of the Data transformation cheatsheet produced by RStudio.", out.width = "80%", echo = FALSE, align = "center"}
+```{r, fig.alt="A preview of the Data transformation cheatsheet produced by RStudio.", out.width = "80%", echo = FALSE, fig.align = "center"}
 knitr::include_graphics("images/Manip_cheatsheet.png")
 ```
 
@@ -111,7 +111,7 @@ A nice and readable way to chain together multiple R functions.
 
 Changes `f(x, y)` to `x %>% f(y)`.
 
-```{r, out.width = "50%", echo = FALSE, align = "center"}
+```{r, out.width = "50%", echo = FALSE, fig.align = "center"}
 knitr::include_graphics("../../images/lol/morning_1.png")
 ```
 
@@ -298,7 +298,7 @@ summary(tb)
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Data_Summarization/lab/Data_Summarization_Lab.Rmd)
 
 
-## Youth Tobacco Survey
+## Youth Tobacco Survey{.codesmall}
 
 Here we will be using the Youth Tobacco Survey data:
 http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv
@@ -477,8 +477,8 @@ yts %>%
 `count()` and `n()` can give very similar information.
 
 ```{r}
-yts %>% count(YEAR)
-yts %>% group_by(YEAR) %>% summarize(n = n()) # n() typically used with summarize
+yts %>% count(YEAR) %>% head(n = 3)
+yts %>% group_by(YEAR) %>% summarize(n = n()) %>% head(n = 3) # n() typically used with summarize
 ```
 
 
@@ -516,7 +516,7 @@ yts_loc %>% unique() %>% length() # similar to n_distinct()
 * `range()`: minimum and maximum of the data
 * `IQR()`: interquartile range of the data
 
-## Summary & Lab Part 2
+## Summary & Lab Part 2{.codesmall}
 
 - `count(x)`: what unique values do you have? 
   - `distinct()`: what are the distinct values?
@@ -531,7 +531,7 @@ yts_loc %>% unique() %>% length() # similar to n_distinct()
 
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Data_Summarization/lab/Data_Summarization_Lab.Rmd)
 
-```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="The End", out.width = "25%", echo = FALSE, fig.align='center'}
 knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 ```
 
