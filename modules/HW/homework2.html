@@ -169,12 +169,8 @@ pre code {
 <h3><strong>Instructions</strong></h3>
 <p>Completed homework should be submitted on CoursePlus as an <strong>Rmd file</strong>. Please see the course website for more information about submitting assignments: <a href="https://jhudatascience.org/intro_to_r/syllabus.html#submitting-assignments" class="uri">https://jhudatascience.org/intro_to_r/syllabus.html#submitting-assignments</a>.</p>
 <p>Homework will be graded for correct output, not code style. All assignments are due at the end of the course. Please see the course website for more information about grading: <a href="https://jhudatascience.org/intro_to_r/syllabus.html#grading" class="uri">https://jhudatascience.org/intro_to_r/syllabus.html#grading</a>.</p>
-<pre class="r"><code>## you can add more, or change...these are suggestions
-library(tidyverse)
-library(readr)
-library(dplyr)
-library(ggplot2)
-library(tidyr)</code></pre>
+<pre class="r"><code>## you can add more, or change...
+library(tidyverse)</code></pre>
 </div>
 <div id="problem-set" class="section level3">
 <h3><strong>Problem Set</strong></h3>
@@ -183,7 +179,7 @@ library(tidyr)</code></pre>
 <li>Make an object “bday”. Assign it your birthday in day-month format (1-Jan).</li>
 <li>Make another object “name”. Assign it your name. Make sure to use quotation marks for anything with text!</li>
 </ol>
-<p>2. Make an object “me” that is “bday” and “name” combined.</p>
+<p>2. Make an object “me” that is “bday” and “name” combined as a vector.</p>
 <p>3. Determine the data class for “me”.</p>
 <p>4. If I want to do <code>me / 2</code> I get the following error: <code>Error in me/2 : non-numeric argument to binary operator</code>. Why? Write your answer as a comment inside the R chunk below.</p>
 <p><strong>The following questions involve an outside dataset.</strong></p>
@@ -196,7 +192,7 @@ library(tidyr)</code></pre>
 <li>Determine the class of the first three columns using <code>str()</code>. Write your answer as a comment inside the R chunk below.</li>
 </ol>
 <p>8. How many cars (rows) are in the dataset? How many variables (columns) are recorded for each car?</p>
-<p>9. Filter out (i.e., remove) any vehicles that cost less than or equal to $5000 (“VehBCost”) or that have missing values. Replace the original “cars” object by reassigning the new filtered dataset to “cars”. How many vehicles are left after filtering?</p>
+<p>9. Filter the dataset to keep only vehicles that cost more than $5000 (“VehBCost”). You should also remove missing values for cost. Replace the original “cars” object by reassigning the new filtered dataset to “cars”. How many vehicles are left after filtering?</p>
 <p><strong>Hint:</strong> The <code>filter()</code> function also removes missing values.</p>
 <p>10. From this point on, work with the filtered “cars” dataset from the above question. Given the average car loan today is 70 months, create a new variable (column) called “MonthlyPrice” that shows the monthly cost for each car (Divide “VehBCost” by 70). Check to make sure the new column is there.</p>
 <p><strong>Hint:</strong> use the <code>mutate()</code> function.</p>
@@ -211,22 +207,20 @@ library(tidyr)</code></pre>
 <p>14. How many different vehicle manufacturers/makes (“Make”) are there?</p>
 <p><strong>Hint:</strong> use <code>length()</code> with <code>unique()</code> or <code>table()</code>. Remember to <code>pull()</code> the right column.</p>
 <p>15. How many different vehicle models (“Model”) are there?</p>
-<p>16. Which vehicle color group had the highest mean acquisition cost paid for the vehicle at time of purchase, and what was this cost?</p>
+<p>16. Group all cars by color (“Color”) and calculate the mean acquisition cost paid for the vehicle at time of purchase?</p>
 <p><strong>Hint:</strong> Use <code>group_by()</code> with <code>summarize()</code>. To determine the column that corresponds to “acquisition cost paid for the vehicle at time of purchase”, check the “key” corresponding to the data dictionary that you imported above in question 6.</p>
-<p>17. Extend on the code you wrote for question 16. Use the <code>arrange()</code> function to sort the output by mean acquisition cost.</p>
+<p>17. Extend on the code you wrote for question 16. Use the <code>arrange()</code> function to sort the output by mean acquisition cost. What color car has the greatest mean acquisition cost?</p>
 <p>18. How many vehicles were red and have fewer than 30,000 miles? To determine the column that corresponds to mileage (The vehicle’s odometer reading), check the “key” corresponding to the data dictionary that you imported above in question 6. use:</p>
 <ul>
-<li><code>filter()</code> and <code>count()</code></li>
-<li><code>filter()</code> and <code>tally()</code> or</li>
+<li><code>filter()</code> and <code>count()</code> or</li>
 <li><code>sum()</code></li>
 </ul>
 <p>19. How many vehicles are blue or red? use:</p>
 <ul>
-<li><code>filter()</code> and <code>count()</code></li>
-<li><code>filter()</code> and <code>tally()</code> or</li>
+<li><code>filter()</code> and <code>count()</code> or</li>
 <li><code>sum()</code></li>
 </ul>
-<p>20. Select all columns in “cars” where the column names starts with “Veh” (using <code>select()</code> and <code>starts_with()</code>. Then, use <code>colMeans()</code> to summarize across these columns.</p>
+<p>20. Select all columns in “cars” where the column names starts with “Veh” (using <code>select()</code> and <code>starts_with()</code>. How many columns are there?</p>
 <blockquote>
 <p>The following questions are not required for full credit, but can make up for any points lost on other questions.</p>
 </blockquote>
@@ -235,9 +229,9 @@ library(tidyr)</code></pre>
 <h3><strong>Bonus Practice</strong></h3>
 <p>A. Using “cars”, create a new binary (TRUEs and FALSEs) column to indicate if the car has an automatic transmission. Call the new column “is_automatic”.</p>
 <p>B. What is the average vehicle odometer reading for cars that are both RED and NISSANs? How does this compare with vehicles that do NOT fit this criteria?</p>
-<p>C. Among red Nissans, what is the distribution of vehicle ages?</p>
+<p>C. Among red Nissans, what is the distribution of vehicle ages? Use <code>count()</code>.</p>
 <p>D. How many vehicles (using <code>filter()</code> or <code>sum()</code> ) are made by Chrysler or Nissan and are white or silver?</p>
-<p>E. Make a boxplot (<code>boxplot()</code>) that looks at vehicle age (“VehicleAge”) on the x-axis and odometer reading (“VehOdo”) on the y-axis.</p>
+<p>E. Select all columns in “cars” where the column names starts with “Veh” or “MMR” (using <code>select()</code> and <code>starts_with()</code>. How many columns are there?</p>
 <p>F. Knit your document into a report.</p>
 <p>You use the knit button to do this. Make sure all your code is working first!</p>
 </div>
