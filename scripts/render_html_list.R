@@ -12,6 +12,9 @@ if(nrow(files) > 0) {
   
   # Don't need to render HWs
   files <- files[!grepl("homework", files$files),]
+  
+  # Don't render the "index_withbase" lecture
+  files <- files[!grepl("index_withbase", files$files),]
 } else {
   # Just render the Intro files if no others to render.
   files <- data.frame(
