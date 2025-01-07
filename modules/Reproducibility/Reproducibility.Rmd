@@ -81,7 +81,7 @@ ottrpal::include_slide("https://docs.google.com/presentation/d/1-cauITbscmnDEDt5
 
 ##
 
-```{r, fig.alt="session info", out.width = "90%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="session info", out.width = "70%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("../../images/lol/reproducibility.jpg")
 ```
 
@@ -148,9 +148,12 @@ knitr::include_graphics("images/error_monster.png")
 Provide sufficient detail so that you can understand what you did and why.
 
 ```{r, echo = TRUE}
-# Taking a random sample of 100 individuals from the population WITHOUT replacement
+# Taking a random sample of 100 individuals from the population
+# WITHOUT replacement
 samp_pop <- sample(100, replace = FALSE)
+
 # Then split them into two groups of 50
+# a[x:xx] is the syntax for indexing a vector
 samp_pop1 <- samp_pop[1:50]
 samp_pop2 <- samp_pop[51:100]
 ```
@@ -161,7 +164,7 @@ knitr::include_graphics("images/R_hearts.gif")
 
 ## Need random numbers to stay consistent?
 
-Use `set.seed()` : sets the starting state for the random number generator (RNG) in R.
+Use `set.seed()`: sets the starting state for the random number generator.
 
 ```{r, echo = TRUE}
 set.seed(123)
