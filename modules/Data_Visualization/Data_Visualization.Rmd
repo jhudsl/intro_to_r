@@ -171,7 +171,7 @@ knitr::include_graphics("img/ing_and_base.png")
 
 ::: codeexample
 ```{r, eval = FALSE, class.source = "codeexample"}
-library(ggplot2) # don't forget to load ggplot2
+library(tidyverse) # don't forget to load ggplot2 (part of tidyverse)
 # This is not code but shows the general format
 ggplot({data_to plot}, aes(x = {var in data to plot},
                                       y = {var in data to plot}))
