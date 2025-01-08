@@ -20,7 +20,7 @@ number) by 0.
 |`naniar`| [`pct_complete(x)`](https://www.rdocumentation.org/packages/naniar/versions/0.6.1/topics/pct_complete)|`pct_complete(x)`| Reports the percentage of data that is complete in `x`. |
 |`naniar`| [`gg_miss_var(x)`](https://www.rdocumentation.org/packages/naniar/versions/0.6.1/topics/gg_miss_var)|`gg_miss_var(x)`| Reports as a plot the percentage of data that is complete in `x`. |
 |`tidyr`| [`drop_na(df)`](https://tidyr.tidyverse.org/reference/drop_na.html)|`drop_na(df)`| Drops rows of `NA` from a given data frame/tibble |
-| `dplyr`| [`case_when()`](https://dplyr.tidyverse.org/reference/case_when.html)| `df <- arrange(df, mpg)`|This function allows you to vectorize multiple [`if_else()`](https://dplyr.tidyverse.org/reference/if_else.html) statements.  If no cases match, NA is returned.|
+| `dplyr`| [`case_when()`](https://dplyr.tidyverse.org/reference/case_when.html)| `df <- df %>% mutate(variable_recoded = case_when(variable > 2 ~ "large", TRUE ~ variable) `|This function allows you to recode data based on certain conditions.  If no cases match, NA is returned, unless the TRUE statement specifies otherwise.|
 | `dplyr`| [`mutate()`](https://www.rdocumentation.org/packages/dplyr/versions/0.7.8/topics/mutate)| `df <- mutate(df, newcol = wt/2.2)`| Adds a new column that is a function of existing columns|
 | `dplyr`| [`separate()`](https://tidyr.tidyverse.org/reference/separate.html)| `df %>% separate(x, c("A", "B"))`| Separate a character column into multiple columns with a regular expression or numeric locations|
 | `dplyr`| [`unite()`](https://tidyr.tidyverse.org/reference/unite.html)| `df %>% unite("z", x:y, remove = FALSE)`| Unite multiple columns together into one column|
