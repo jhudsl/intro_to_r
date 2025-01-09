@@ -227,10 +227,13 @@ as.character(x_fact)
 as.numeric(x_fact)
 ```
 
-## Class conversion in with a dataset
+## Class conversion in with a dataset{.codesmall}
 
 ```{r, results='hide'}
-circ <- read_csv("https://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
+circ <- 
+  read_csv(
+"https://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv"
+)
 ```
 
 ```{r}
