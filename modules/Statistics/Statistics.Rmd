@@ -7,8 +7,7 @@ output:
 ---
 
 ```{r knit-setup, include=FALSE}
-library(knitr)
-opts_chunk$set(
+knitr::opts_chunk$set(
   echo = TRUE,
   message = FALSE,
   warning = FALSE,
@@ -16,10 +15,9 @@ opts_chunk$set(
   fig.width = 7,
   comment = ""
 )
-library(dplyr)
-options(scipen = 999)
 library(tidyverse)
 library(emo)
+options(scipen = 999)
 ```
 
 ## Summary
@@ -463,7 +461,6 @@ We will use data about emergency room doctor complaints.
 ```{r}
 # install.packages("faraway")
 library(faraway)
-
 data(esdcomp)
 esdcomp
 ```

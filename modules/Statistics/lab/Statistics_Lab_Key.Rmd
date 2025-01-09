@@ -18,7 +18,7 @@ Load the packages needed in this lab. Then, read in the following child mortalit
 Note that the data has lots of `NA` values - don't worry if you see that.
 
 ```{r message = FALSE}
-library(dplyr)
+library(tidyverse)
 library(broom)
 ```
 
