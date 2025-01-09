@@ -64,6 +64,9 @@ z <- c("TRUE", "FALSE", "TRUE", "FALSE")
 class(z)
 ```
 
+## Why is Class important?
+The class of the data tells R how to process the data.
+For example, it determines whether you can make summary statistics (numbers) or if you can sort alphabetically (characters).
 
 ## General Class Information
 
@@ -101,8 +104,14 @@ When interpretation is ambiguous, R will return `NA` (an R constant representing
 ```{r logical_coercions4}
 as.numeric(c("1", "4", "7a"))
 as.logical(c("TRUE", "FALSE", "UNKNOWN"))
-as.Date(c("2021-06-15", "2021-06-32"))
 ```
+
+## GUT CHECK!
+What is one reason we might want to convert data to numeric?
+A. So we can take the mean
+B. So the data looks better
+C. So our data is correct
+
 
 ## Number Subclasses
 
@@ -319,6 +328,14 @@ class(date("2021-06-15")) # lubridate package
 
 Note for  function `ymd`: **y**ear **m**onth **d**ay  
 
+## The function must match the format
+
+```{r}
+mdy("06/15/2021")
+dmy("15-June-2021")
+ymd("2021-06-15")
+```
+
 ## Dates are useful!
 
 ```{r}
@@ -327,24 +344,6 @@ b <- ymd("2021-06-18")
 a - b
 ```
 
-
-## Creating `Date` class object 
-
-`date()` is picky...
-
-
-```{r, error = TRUE}
-date("06/15/2021") # This doesn't work, needs to be year month day
-```
-
-## But we can use the month day year function `mdy`
-
-```{r, error = TRUE}
-mdy("06/15/2021") # This works
-mdy("06/15/21") # This works
-```
-
-Note for  function `mdy`: **m**onth **d**ay  **y**ear
 
 ## They right lubridate function needs to be used
 
@@ -356,23 +355,20 @@ mdy("06/15/2021") # This works
 ```
 
 
-## Creating `POSIXct` class object  
+##  Can also include hours, minutes, seconds  
 
 ```{r}
 class("2013-01-24 19:39:07")
 ymd_hms("2013-01-24 19:39:07") # lubridate package
-class(ymd_hms("2013-01-24 19:39:07")) # lubridate package
 ```
 
 UTC represents time zone, by default: Coordinated Universal Time
 
 Note for  function `ymd_hms`: year month day hour minute second. 
 
-There are functions in case your data have only date, hour and minute (`ymd_hm()`) or only date and hour (`ymd_h()`). 
 
 
-
-## In a dataframe
+## Class conversion in a dataset
 
 Note dates are always displayed year month day, even if made with `mdy`!
 
@@ -393,21 +389,43 @@ circ_dates %>%
   glimpse()
 ```
 
+# Other data classes
+
+## Two-dimensional data classes
+
+Two-dimensional classes are those we would often use to store data read from a file 
+* a data frame (`data.frame` or `tibble` class)
+* a matrix (`matrix` class)
+    * also composed of rows and columns
+    * unlike `data.frame` or `tibble`, the entire matrix is composed of one R class
+    * for example: all entries are `numeric`, or all entries are `character`
+## Lists
+* One other data type that is the most generic are `lists`.
+* Can hold vectors, strings, matrices, models, list of other list!
+* Lists are used when you need to do something repeatedly across lots of data - for example wrangling several similar files at once
+* Lists are a bit more advanced but you may encounter them when you work with others or look up solutions
+## Making Lists
+* Can be created using `list()`
+```{r makeList}
+mylist <- list(c("A", "b", "c"), c(1, 2, 3))
+mylist
+class(mylist)
+```
+
 ## Summary
 
- - two dimensional object classes include: data frames, tibbles, matrices, and lists
- - matrix has columns and rows but  is all one data class
- - lists can contain multiples of any other class of data including lists!
- - calendar dates can be represented with the `Date` class using `ymd()`, `mdy()` functions from `lubridate` package
-  - Make sure you choose the right function for the way the date is formatted!
-- `POSIXct` class representing a calendar date with hours, minutes, seconds. Can use `ymd_hms()` or `ymd_hm()` or `ymd_h()`functions from the [`lubridate` package](https://lubridate.tidyverse.org/)
-- can then easily subtract `Date` or `POSIXct` class variables or pull out aspects like year
+- coerce between classes using `as.numeric()` or `as.character()`
+- data frames, tibbles, matrices, and lists are all classes of objects
+- lists can contain multiples of any other class of data including lists!
+- calendar dates can be represented with the `Date` class using `ymd()`, `mdy()` functions from [`lubridate` package](https://lubridate.tidyverse.org/)
 
-## Lab Part 1
+## Lab
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/) 
 
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules//Data_Classes/lab/Data_Classes_Lab.Rmd)
+
+See the extra slides for more advanced topics.
 
 ```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
 knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
