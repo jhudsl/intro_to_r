@@ -10,6 +10,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(here)
+library(tidyverse)
 ```
 
 ## Esquisse Package
@@ -30,12 +31,23 @@ It's super **nifty**!
 knitr::include_graphics("https://c.tenor.com/DNUSO9MjrTEAAAAC/bob-ross.gif")
 ```
 
+## First, get some data..
+
+We can use the CO heat-related ER visits dataset. This dataset contains information about the number and rate of visits for heat-related illness to ERs in Colorado from 2011-2022, adjusted for age.
+
+```{r message=FALSE}
+er <-
+  read_csv("https://jhudatascience.org/intro_to_r/data/CO_ER_heat_visits.csv")
+
+head(er)
+```
+
 ## Starting a plot
 
 Using the `esquisser()` function you can start creating a plot for a `data.frame` or `tibble`. That's it!
 
 ```{r, eval = FALSE}
-esquisser(mtcars)
+esquisser(er)
 ```
 
 ```{r, fig.alt="starting a plot", out.width = "90%", echo = FALSE, fig.align='center'}
@@ -45,14 +57,14 @@ knitr::include_graphics("images/start_a_plot.png")
 ## Show the plot in the browser
 
 ```{r, eval = FALSE}
-esquisse::esquisser(iris, viewer = "browser")
+esquisse::esquisser(er, viewer = "browser")
 ```
 
 ## Select Variables
 
 To select variables you can drag and drop variables to the respective axis that you would like the variable to be plotted on.
 
-```{r, fig.alt="select variables", out.width = "100%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="select variables", out.width = "70%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/variables.gif")
 ```
 
@@ -60,7 +72,7 @@ knitr::include_graphics("images/variables.gif")
 
 To select variables you can drag and drop variables to the respective axis that you would like the variable to be plotted on.
 
-```{r, fig.alt="select variables", out.width = "100%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="select variables", out.width = "70%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/get_code.gif")
 ```
 
@@ -68,7 +80,7 @@ knitr::include_graphics("images/get_code.gif")
 
 `esquisse` automatically assumes a plot type, but you might want to change this.
 
-```{r, fig.alt="change plot type", out.width = "100%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="change plot type", out.width = "70%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/change_type_short.gif")
 ```
 
@@ -76,7 +88,7 @@ knitr::include_graphics("images/change_type_short.gif")
 
 Facets create multiple plots based on the different values of a variable.
 
-```{r, fig.alt="add facets", out.width = "100%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="add facets", out.width = "70%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/facet.gif")
 ```
 
@@ -84,7 +96,7 @@ knitr::include_graphics("images/facet.gif")
 
 Sometimes it is useful to change the way points are plotted so that size represents a variable. This can especially be helpful if you need your plot to be black and white.
 
-```{r, fig.alt="add color", out.width = "100%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="add color", out.width = "70%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/size.gif")
 ```
 
@@ -93,32 +105,24 @@ knitr::include_graphics("images/size.gif")
 For plots with points use the color region to change coloring according to a variable.
 (use "fill" for bar plots)
 
-```{r, fig.alt="add color", out.width = "100%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="add color", out.width = "70%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/color.gif")
 ```
 
 ## Appearance
 
-You can change the overall appearance with the appearance tab.
+You can change the overall appearance with "Geometries" and "Theme".
 
-```{r, fig.alt="change overall appearance", out.width = "100%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="change overall appearance", out.width = "70%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/appearance.gif")
-```
-
-## Smooth Lines
-
-Especially when you have a scatter plot, it can be helpful to add a smooth/trend line. 
-
-```{r, fig.alt="add smooth line", out.width = "100%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("images/smooth.gif")
 ```
 
 ## Change titles
 
-To change titles on your plot, use the titles tab.
+To change titles on your plot, use the "Labels & Titles" tab.
 
-```{r, fig.alt="change titles", out.width = "100%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("images/titles.gif")
+```{r, fig.alt="change titles", out.width = "70%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/title.gif")
 ```
 
 ## View data
@@ -137,42 +141,57 @@ Use the stop button or press ctrl+c to stop the Esquisse app.
 
 _If you don't see the stop button, you need to resize your window._
 
-```{r, fig.alt="Click the stop button to interrupt the Esquisse app.", out.width = "100%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="Click the stop button to interrupt the Esquisse app.", out.width = "50%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/stop.png")
 ```
 
-## Wide & Long Data Example
+## Wide & Long Data ? {.codesmall}
+
+Let's look at why we might want long data using Esquisse.
 
 ```{r message=FALSE}
-library(dplyr)
-wide_circ <- read_csv("https://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
-glimpse(wide_circ)
+library(tidyverse)
+er <- read_csv(file =
+    "https://jhudatascience.org/intro_to_r/data/CO_ER_heat_visits.csv")
+long_er <- er %>% 
+  filter(county == c("Denver", "Boulder")) %>% 
+  select(c("county", "year", "visits"))
+glimpse(long_er)
 ```
 
-## Long Data
+## Wide Data
+
+As a comparison, let's also load a wide version of this dataset.
 
 ```{r}
-library(tidyr)
-long_circ <- wide_circ %>%
-  pivot_longer(
-    cols = contains(c("boarding")),
-    names_to = "Route",
-    values_to = "Boardings"
-  )
+
+wide_er <- read_csv(file =
+    "https://jhudatascience.org/intro_to_r/data/CO_heat_er_visits_DenverBoulder_wide.csv")
 ```
 
-## Long Data
+## Wide vs Long Data
 
 ```{r}
-glimpse(long_circ)
+head(long_er)
+head(wide_er)
 ```
 
-## Make a plot of boardings by day for different routes
+## Make a plot of visit rates by year for different counties
 
 ```{r, eval = FALSE}
-esquisser(wide_circ) # days as x...? Tricky!
-esquisser(long_circ) # day as x, Boardings as y, Route as fill
+esquisser(wide_er) # county as x...? Tricky!
+esquisser(long_er) #county as x, visit rate as y, year as fill
 ```
+
+## GUT CHECK!
+
+Why use Esquisse?
+
+A. Explore your data
+
+B. Get a "head start" on your code
+
+C. Both of these!
 
 ## Some Alternatives to `esquisse`
 
@@ -192,6 +211,8 @@ esquisser(long_circ) # day as x, Boardings as y, Route as fill
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
 
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Esquisse_Data_Visualization/lab/Esquisse_Data_Visualization_Lab.Rmd)
+
+📃 [Day 6 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-6.pdf)
 
 ```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
 knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))

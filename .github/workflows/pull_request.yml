@@ -60,8 +60,10 @@ jobs:
     with:
       check_type: spelling
       error_min: 1
-      gh_pat: secrets.GH_PAT
       branch_name: ${GITHUB_HEAD_REF}
+    secrets:
+      gh_pat: ${{ secrets.GH_PAT }}
+      
 
   url-check:
     name: Check URLs
@@ -71,8 +73,9 @@ jobs:
     with:
       check_type: urls
       error_min: 1
-      gh_pat: secrets.GH_PAT
       branch_name: ${GITHUB_HEAD_REF}
+    secrets:
+      gh_pat: ${{ secrets.GH_PAT }}
 
 ########################## Style Code ##############################
  

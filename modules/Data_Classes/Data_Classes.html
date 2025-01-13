@@ -442,9 +442,12 @@ class(x_fact)</pre>
 
 <pre >## [1] 3 2 1 2 1</pre>
 
-</article></slide><slide class=""><hgroup><h2>Class conversion in with a dataset</h2></hgroup><article  id="class-conversion-in-with-a-dataset">
+</article></slide><slide class=""><hgroup><h2>Class conversion in with a dataset</h2></hgroup><article  id="class-conversion-in-with-a-dataset" class="codesmall">
 
-<pre class = 'prettyprint lang-r'>circ &lt;- read_csv(&quot;https://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv&quot;)</pre>
+<pre class = 'prettyprint lang-r'>circ &lt;- 
+  read_csv(
+&quot;https://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv&quot;
+)</pre>
 
 <pre >## Rows: 1146 Columns: 15
 ## ── Column specification ────────────────────────────────────────────────────────
@@ -673,7 +676,18 @@ glimpse(circ_dates)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Two-dimensional data classes</h2></hgroup><article  id="two-dimensional-data-classes">
 
-<p>Two-dimensional classes are those we would often use to store data read from a file * a data frame (<code>data.frame</code> or <code>tibble</code> class) * a matrix (<code>matrix</code> class) * also composed of rows and columns * unlike <code>data.frame</code> or <code>tibble</code>, the entire matrix is composed of one R class * for example: all entries are <code>numeric</code>, or all entries are <code>character</code></p>
+<p>Two-dimensional classes are those we would often use to store data read from a file</p>
+
+<ul>
+<li>a data frame (<code>data.frame</code> or <code>tibble</code> class)</li>
+<li>a matrix (<code>matrix</code> class)
+
+<ul>
+<li>also composed of rows and columns</li>
+<li>unlike <code>data.frame</code> or <code>tibble</code>, the entire matrix is composed of one R class</li>
+<li>for example: all entries are <code>numeric</code>, or all entries are <code>character</code></li>
+</ul></li>
+</ul>
 
 </article></slide><slide class=""><hgroup><h2>Lists</h2></hgroup><article  id="lists">
 
