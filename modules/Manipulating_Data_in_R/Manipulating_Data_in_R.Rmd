@@ -26,7 +26,7 @@ library(tidyverse)
 ## Recap of Data Cleaning
 
 -   `case_when()` can recode **entire values** based on conditions
-    -   remember `case_when()` needs `TRUE ~ varaible` to keep values that aren't specified by conditions, otherwise will be `NA`
+    -   remember `case_when()` needs `TRUE ~ variable` to keep values that aren't specified by conditions, otherwise will be `NA`
 -   `stringr` package has great functions for looking for specific **parts of values** especially `filter()` and `str_detect()` combined
     - also has other useful string manipulation functions like `str_replace()` and more!
     - `separate()` can split columns into additional columns
@@ -55,6 +55,8 @@ knitr::include_graphics("images/pivot.jpg")
 ## What is wide/long data?
 
 Data is stored *differently* in the tibble.
+
+Here's a small dataset looking at vaccination rates over three months in Alabama.
 
 ```{r, echo = FALSE}
 ex_wide <- tibble(State = "Alabama",
@@ -128,7 +130,6 @@ ex_long
 
 - `pivot_longer` - make multiple columns into variables, (wide to long)
 - `pivot_wider` - make a variable into multiple columns, (long to wide)
-- `separate` - string into multiple columns (review)
 
 The `reshape` command exists.  Its arguments are considered more confusing, so we don't recommend it.
 
@@ -136,30 +137,23 @@ You might see old functions `gather` and `spread` when googling. These are older
 
 # `pivot_longer`...
 
-## Reshaping data from **wide to long** {.codesmall} 
-
-`pivot_longer()` - puts column data into rows (`tidyr` package)
-
-- First describe which columns we want to "pivot_longer"
-
-<div class = "codeexample">
-```{r, eval=FALSE}
-{long_data} <- {wide_data} %>% pivot_longer(cols = {columns to pivot})
-```
-</div>
-
 ## Reshaping data from **wide to long**
 
-```{r, message = FALSE}
-wide_vacc <- read_csv(
-  file = "https://jhudatascience.org/intro_to_r/data/wide_vacc.csv")
+```{r}
+ex_wide
+ex_long <- ex_wide %>% pivot_longer(cols = ends_with("rate"))
+ex_long
 ```
 
-```{r}
-wide_vacc
-long_vacc <- wide_vacc %>% pivot_longer(cols = everything())
-long_vacc
-```
+## GUT CHECK!
+
+What does `pivot_longer()` do?
+
+A. Summarize data
+
+B. Import data
+
+C. Reshape data
 
 ## Reshaping wide to long: Better column names {.codesmall} 
 
@@ -177,17 +171,16 @@ long_vacc
 ```
 </div>
 
-## Reshaping data from **wide to long**
+## Reshaping wide to long: Better column names {.codesmall}
+
+Newly created column names ("Month" and "Rate") are enclosed in quotation marks. It helps us be more specific than "name" and "value".
 
 ```{r}
-wide_vacc
-long_vacc <- wide_vacc %>% pivot_longer(cols = everything(),
-                                        names_to = "Month",
-                                        values_to = "Rate")
-long_vacc
+ex_long <- ex_wide %>% pivot_longer(cols = ends_with("rate"),
+                                    names_to = "Month",
+                                    values_to = "Rate")
+ex_long
 ```
-
-Newly created column names are enclosed in quotation marks.
 
 ## Data used: Charm City Circulator
 
@@ -215,47 +208,12 @@ long <- circ %>%
 long
 ```
 
-## Reshaping data from **wide to long**
-
-Un-pivoted columns (`day`, `date`, `daily`) are similar
-
-```{r}
-circ %>% select(day, date, daily) %>% head()
-long %>% select(day, date, daily) %>% head()
-```
-
-## Cleaning up long data
-
-We will use `str_replace` from the `stringr` package to put `_` in the names
-
-```{r}
-long <- long %>% mutate(
-  name = str_replace(string = name, pattern = "B", replacement = "_B"),
-  name = str_replace(string = name, pattern = "A", replacement = "_A")
-)
-long
-```
-
-## Cleaning up long data with `separate()`
-
--  first argument - which column should be split up?
--  "`into =`" gives names to the new columns
--  "`sep =`" to show where the separation should happen.
-
-```{r}
-long <- long %>% 
-  separate(name, into = c("line", "type"), sep = "_")
-long
-```
-
-## Mission: Taking the average boardings by line
+## Just keep "boardings"
 
 Filter by Boardings only..
 
 ```{r}
-long <- long %>% 
-  filter(type == "Boardings")
-long
+long <- long %>% filter(str_detect(name, "Boardings"))
 ```
 
 ## Mission: Taking the average boardings by line
@@ -264,7 +222,7 @@ Now our data is more tidy, and we can take the averages easily!
 
 ```{r}
 long %>% 
-  group_by(line) %>% 
+  group_by(name) %>% 
   summarize("avg_boardings" = mean(value, na.rm = TRUE))
 ```
 
@@ -296,23 +254,26 @@ circ %>%
 
 ## Reshaping data from **long to wide**
 
+We can use `pivot_wider` to convert long data to wide format. Let's try it with the vaccine data from earlier.
+
 ```{r}
-long_vacc
-wide_vacc <- long_vacc %>% pivot_wider(names_from = "Month", 
+ex_long
+```
+
+## Reshaping data from **long to wide**
+
+We can use `pivot_wider` to convert long data to wide format. Let's try it with the vaccine data from earlier.
+
+```{r}
+ex_wide2 <- ex_long %>% pivot_wider(names_from = "Month", 
                                        values_from = "Rate") 
-wide_vacc
+ex_wide2
 ```
 
 ## Reshaping Charm City Circulator
 
 ```{r}
-long
-```
-
-## Reshaping Charm City Circulator
-
-```{r}
-wide <- long %>% pivot_wider(names_from = "line", 
+wide <- long %>% pivot_wider(names_from = "name", 
                              values_from = "value") 
 wide
 ```
@@ -460,7 +421,7 @@ fj
 
 <IMG style="position:absolute;bottom:10.5%;left:85%;width:120px;"SRC="images/full.png">
 
-## Watch out for "`includes duplicates`"
+## "`includes duplicates`"
 
 ```{r message=FALSE}
 data_As <- read_csv(
@@ -474,7 +435,7 @@ data_As
 data_cold
 ```
 
-## Watch out for "`includes duplicates`"
+## "`includes duplicates`"
 
 ```{r}
 lj <- left_join(data_As, data_cold)
@@ -482,7 +443,7 @@ lj <- left_join(data_As, data_cold)
 
 <IMG style="position:absolute;bottom:10.5%;left:85%;width:120px;"SRC="images/left.png">
 
-## Watch out for "`includes duplicates`"
+## "`includes duplicates`"
 
 Data including the joining column ("State") has been duplicated.
 
@@ -496,7 +457,7 @@ Note that "Alaska willow ptarmigan" appears twice.
 
 <IMG style="position:absolute;bottom:10.5%;left:85%;width:120px;"SRC="images/left.png">
 
-## Watch out for "`includes duplicates`"
+## "`includes duplicates`"
 
 https://github.com/gadenbuie/tidyexplain/blob/main/images/left-join-extra.gif
 
@@ -550,6 +511,16 @@ anti_join(data_cold, data_As, by = "State") # order switched
 
 <IMG style="position:absolute;bottom:10.5%;left:85%;width:120px;"SRC="images/anti.png">
 
+## GUT CHECK!
+
+Why use `join` functions?
+
+A. Combine different data sources
+
+B. Connect Rmd to other files
+
+C. Using one data source is too easy and we want our analysis ~ fancy ~
+
 ## Summary
 
 * Merging/joining data sets together - assumes all column names that overlap
@@ -559,13 +530,20 @@ anti_join(data_cold, data_As, by = "State") # order switched
 * `left_join(x, y)` - all rows of `x` are kept even if not merged with `y`
 * `right_join(x, y)` - all rows of `y` are kept even if not merged with `x`
 * Use the `tidylog` package for a detailed summary
-* `antijoin(x, y)` shows what is only in `x` (missing from `y`)
+* `anti_join(x, y)` shows what is only in `x` (missing from `y`)
 
 ## Lab Part 2
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
 
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Manipulating_Data_in_R/lab/Manipulating_Data_in_R_Lab.Rmd)
+
+📃 [Day 6 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-6.pdf)
+
+📃 [Posit's `tidyr` Cheatsheet](https://rstudio.github.io/cheatsheets/tidyr.pdf)
+
+📃 [Posit's `dplyr` Cheatsheet](https://rstudio.github.io/cheatsheets/data-transformation.pdf)
+
 
 ```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
 knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
@@ -614,30 +592,6 @@ In other words, we use `dplyr::` to be specific about the package we want to use
 
 More set operations can be found here:
 https://dplyr.tidyverse.org/reference/setops.html
-
-
-## Inconsistencies in non-pivoted columns?
-
-Notice "daily" column has different values
-
-```{r echo = FALSE}
-long2 <- long
-long2[2,1] <- "MONDAY"
-```
-
-```{r}
-long2
-```
-
-## Inconsistencies in non-pivoted columns?
-
-R won't drop data while pivoting.
-
-```{r}
-wide2 <- long2 %>% pivot_wider(names_from = "type", 
-                             values_from = "value") 
-wide2
-```
 
 ## Fast manipulation using `collapse` package
 
