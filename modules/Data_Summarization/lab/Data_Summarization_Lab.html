@@ -175,7 +175,7 @@ pre code {
 bike &lt;- read_csv(file = &quot;http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv&quot;)</code></pre>
 <div id="section" class="section level3">
 <h3>1.1</h3>
-<p>How many bike “lanes” are currently in Baltimore? You can assume each observation/row is a different bike “lane”. (hint: how do you get the number of rows of a data set? You can use <code>dim()</code> or <code>nrow()</code> or another function).</p>
+<p>How many streets with designated bike lanes are currently in Baltimore? You can assume each observation/row is a different street with one or more bike lanes. (Hint: how do you get the number of rows of a data set? You can use <code>dim()</code> or <code>nrow()</code> or another function).</p>
 </div>
 <div id="section-1" class="section level3">
 <h3>1.2</h3>
@@ -186,15 +186,15 @@ bike &lt;- read_csv(file = &quot;http://jhudatascience.org/intro_to_r/data/Bike_
 <p>Summarize the data to get the <code>max</code> of <code>length</code> using the <code>summarize</code> function.</p>
 <pre><code># General format 
 DATA_TIBBLE %&gt;% 
-    summarize(SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN))</code></pre>
+    summarize(SUMMARY_COLUMN_NAME = FUNCTION(SOURCE_COLUMN))</code></pre>
 </div>
 <div id="section-3" class="section level3">
 <h3>1.4</h3>
 <p>Modify your code from 1.3 to add the <code>min</code> of <code>length</code> using the <code>summarize</code> function.</p>
 <pre><code># General format 
 DATA_TIBBLE %&gt;% 
-    summarize(SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN),
-              SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN)
+    summarize(SUMMARY_COLUMN_NAME = FUNCTION(SOURCE_COLUMN),
+              SUMMARY_COLUMN_NAME = FUNCTION(SOURCE_COLUMN)
     )</code></pre>
 </div>
 </div>
@@ -205,8 +205,8 @@ DATA_TIBBLE %&gt;%
 <p>Summarize the <code>bike</code> data to get the mean of <code>length</code> and <code>dateInstalled</code>. Make sure to remove <code>NA</code>s.</p>
 <pre><code># General format 
 DATA_TIBBLE %&gt;% 
-    summarize(SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN, na.rm = TRUE),
-              SUMMARY_COLUMN_NAME = OPERATOR(SOURCE_COLUMN, na.rm = TRUE)
+    summarize(SUMMARY_COLUMN_NAME = FUNCTION(SOURCE_COLUMN, na.rm = TRUE),
+              SUMMARY_COLUMN_NAME = FUNCTION(SOURCE_COLUMN, na.rm = TRUE)
     )</code></pre>
 </div>
 <div id="p.2" class="section level3">

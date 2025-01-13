@@ -166,6 +166,8 @@ gdp <- read_csv("http://jhudatascience.org/intro_to_r/data/gdp_personal_income.c
 
 Use `pivot_wider` to reshape "gdp". Use "Description" for the `names_from` argument. Use "`2020`" for the `values_from` argument. Reassign this data to "gdp".
 
+You will need tick marks (``) around 2020.
+
 ```
 # General format
 new_data <- old_data %>% pivot_wider(names_from = column1, values_from = column2)

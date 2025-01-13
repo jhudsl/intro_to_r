@@ -227,10 +227,13 @@ as.character(x_fact)
 as.numeric(x_fact)
 ```
 
-## Class conversion in with a dataset
+## Class conversion in with a dataset{.codesmall}
 
 ```{r, results='hide'}
-circ <- read_csv("https://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
+circ <- 
+  read_csv(
+"https://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv"
+)
 ```
 
 ```{r}
@@ -268,39 +271,6 @@ circ %>%
 - tibbles show column classes!
 
 
-# Two-dimensional data classes
-
-## Two-dimensional data classes
-
-Two-dimensional classes are those we would often use to store data read from a file 
-
-* a data frame (`data.frame` or `tibble` class)
-
-* a matrix (`matrix` class)
-
-    * also composed of rows and columns
-    * unlike `data.frame` or `tibble`, the entire matrix is composed of one R class
-    * for example: all entries are `numeric`, or all entries are `character`
-
-
-## Lists
-
-* One other data type that is the most generic are `lists`.
-* Can hold vectors, strings, matrices, models, list of other list!
-* Lists are used when you need to do something repeatedly across lots of data - for example wrangling several similar files at once
-* Lists are a bit more advanced but you may encounter them when you work with others or look up solutions
-
-## Making Lists
-
-* Can be created using `list()`
-```{r makeList}
-mylist <- list(c("A", "b", "c"), c(1, 2, 3))
-mylist
-class(mylist)
-```
-
-
-
 # Special data classes
 
 ## Dates
@@ -336,15 +306,6 @@ dmy("15-June-2021")
 ymd("2021-06-15")
 ```
 
-## Dates are useful!
-
-```{r}
-a <- ymd("2021-06-15")
-b <- ymd("2021-06-18")
-a - b
-```
-
-
 ## They right lubridate function needs to be used
 
 Must match the data format!
@@ -354,12 +315,22 @@ ymd("06/15/2021") # This doesn't work - gives NA
 mdy("06/15/2021") # This works
 ```
 
+## Dates are useful!
+
+```{r}
+a <- ymd("2021-06-15")
+b <- ymd("2021-06-18")
+a - b
+```
+
 
 ##  Can also include hours, minutes, seconds  
 
 ```{r}
 class("2013-01-24 19:39:07")
 ymd_hms("2013-01-24 19:39:07") # lubridate package
+ymd_hms("2013-01-24 19:39:07") %>% class()
+
 ```
 
 UTC represents time zone, by default: Coordinated Universal Time
@@ -394,18 +365,24 @@ circ_dates %>%
 ## Two-dimensional data classes
 
 Two-dimensional classes are those we would often use to store data read from a file 
+
 * a data frame (`data.frame` or `tibble` class)
 * a matrix (`matrix` class)
     * also composed of rows and columns
     * unlike `data.frame` or `tibble`, the entire matrix is composed of one R class
     * for example: all entries are `numeric`, or all entries are `character`
+
 ## Lists
+
 * One other data type that is the most generic are `lists`.
 * Can hold vectors, strings, matrices, models, list of other list!
 * Lists are used when you need to do something repeatedly across lots of data - for example wrangling several similar files at once
 * Lists are a bit more advanced but you may encounter them when you work with others or look up solutions
+
 ## Making Lists
-* Can be created using `list()`
+
+Can be created using `list()`
+
 ```{r makeList}
 mylist <- list(c("A", "b", "c"), c(1, 2, 3))
 mylist
@@ -439,7 +416,7 @@ Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribu
 
 `as.matrix()` creates a matrix from a data frame or tibble (where all values are the same class).
 
-```{r,}
+```{r}
 circ_mat <- select(circ, contains("orange")) %>%
   head(n = 3)
 circ_mat
@@ -459,7 +436,7 @@ matrix(1:6, ncol = 2)
 
 List elements can be named
 
-```{r makeListv}
+```{r}
 mylist_named <- list(
   letters = c("A", "b", "c"),
   numbers = c(1, 2, 3),
