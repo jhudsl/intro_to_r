@@ -32,7 +32,7 @@ knitr::include_graphics("https://c.tenor.com/DNUSO9MjrTEAAAAC/bob-ross.gif")
 
 ## First, get some data..  {.codesmall}
 
-We can use the CO heat-related ER visits dataset. This dataset contains information about the number and rate of visits for heat-related illness to ERs in Colorado from 2011-2022, adjusted for age.
+We can use the CO heat-related ER visits dataset. This dataset contains information about the number and rate of visits for heat-related illness to Emergency rooms in Colorado from 2011-2022, adjusted for age.
 
 ```{r message=FALSE}
 er <-
