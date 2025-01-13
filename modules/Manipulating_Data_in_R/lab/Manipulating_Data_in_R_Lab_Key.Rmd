@@ -12,9 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 Data in this lab comes from the CDC (https://covid.cdc.gov/covid-data-tracker/#vaccinations_vacc-total-admin-rate-total - snapshot from January 12, 2022) and the Bureau of Economic Analysis (https://www.bea.gov/data/income-saving/personal-income-by-state).
 
 ```{r message=FALSE}
-library(readr)
-library(dplyr)
-library(tidyr)
+library(tidyverse)
 ```
 
 # Part 1

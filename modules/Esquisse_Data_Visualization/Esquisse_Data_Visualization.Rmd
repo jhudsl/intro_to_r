@@ -9,7 +9,6 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(here)
 library(tidyverse)
 ```
 
@@ -31,9 +30,9 @@ It's super **nifty**!
 knitr::include_graphics("https://c.tenor.com/DNUSO9MjrTEAAAAC/bob-ross.gif")
 ```
 
-## First, get some data..
+## First, get some data..  {.codesmall}
 
-We can use the CO heat-related ER visits dataset. This dataset contains information about the number and rate of visits for heat-related illness to ERs in Colorado from 2011-2022, adjusted for age.
+We can use the CO heat-related ER visits dataset. This dataset contains information about the number and rate of visits for heat-related illness to Emergency rooms in Colorado from 2011-2022, adjusted for age.
 
 ```{r message=FALSE}
 er <-
@@ -161,7 +160,7 @@ glimpse(long_er)
 
 ## Wide Data
 
-As a comparison, let's also load a wide version of this dataset.
+As a comparison, let's also load a wide version of this dataset.  {.codesmall}
 
 ```{r}
 
@@ -169,7 +168,7 @@ wide_er <- read_csv(file =
     "https://jhudatascience.org/intro_to_r/data/CO_heat_er_visits_DenverBoulder_wide.csv")
 ```
 
-## Wide vs Long Data
+## Wide vs Long Data: Which is better for plotting?
 
 ```{r}
 head(long_er)
@@ -201,7 +200,9 @@ C. Both of these!
 
 ## Summary
 
-* Use the `esquisser()` function on a dataset
+* Use Esquisse:  
+    * `library(esquisse)`  
+    * `esquisser()` function on a dataset  
 * Use the `viewer = "browser"` argument to launch in your browser.
 * Code from Esquisse can copied into code chunks to be generated in the "Plots" pane
 * It's easier if your code is in "long" form!
@@ -214,7 +215,7 @@ C. Both of these!
 
 📃 [Day 6 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-6.pdf)
 
-```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="The End", out.width = "40%", echo = FALSE, fig.align='center'}
 knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 ```
 

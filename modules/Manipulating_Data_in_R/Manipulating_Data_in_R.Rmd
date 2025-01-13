@@ -31,7 +31,7 @@ library(tidyverse)
     - `separate()` can split columns into additional columns
     - `unite()` can combine columns
 
-📃[Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-5.pdf)
+📃[Day 5 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-5.pdf)
 
 ## Manipulating Data 
 
@@ -123,7 +123,7 @@ Long: **Easier for R to make plots & do analysis**
 ex_long
 ```
 
-## Pivoting using `tidyr` package
+## Pivoting using `tidyr` package (part of `tidyverse`)
 
 `tidyr` allows you to "tidy" your data.  We will be talking about:
 
@@ -181,10 +181,11 @@ ex_long <- ex_wide %>% pivot_longer(cols = ends_with("rate"),
 ex_long
 ```
 
-## Data used: Charm City Circulator
+## Data used: Charm City Circulator  {.codesmall}
 
 ```{r, message = FALSE}
-circ <- read_csv("http://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
+circ <- 
+  read_csv("http://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
 head(circ, 5)
 ```
 
@@ -213,6 +214,7 @@ Filter by Boardings only..
 
 ```{r}
 long <- long %>% filter(str_detect(name, "Boardings"))
+long
 ```
 
 ## Mission: Taking the average boardings by line
@@ -279,7 +281,7 @@ wide
 
 ## Summary
 
-- `tidyr` package helps us convert between wide and long data
+- `tidyr` package (part of `tidyverse`) helps us convert between wide and long data
 - `pivot_longer()` goes from wide -> long
      - Specify columns you want to pivot
      - Specify `names_to = ` and `values_to = ` for custom naming
@@ -537,14 +539,18 @@ C. Using one data source is too easy and we want our analysis ~ fancy ~
 
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Manipulating_Data_in_R/lab/Manipulating_Data_in_R_Lab.Rmd)
 
+~
+
 📃 [Day 6 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-6.pdf)
 
 📃 [Posit's `tidyr` Cheatsheet](https://rstudio.github.io/cheatsheets/tidyr.pdf)
 
 📃 [Posit's `dplyr` Cheatsheet](https://rstudio.github.io/cheatsheets/data-transformation.pdf)
 
+🔎️ [Joining Open Case Study](https://www.opencasestudies.org/ocs-bp-diet/)
 
-```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
+
+```{r, fig.alt="The End", out.width = "20%", echo = FALSE, fig.align='center'}
 knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 ```
 
