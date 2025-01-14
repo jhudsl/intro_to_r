@@ -669,7 +669,7 @@ See this [case study](https://www.opencasestudies.org/ocs-bp-vaping-case-study/#
 
 The odds ratio is 21.4. When the predictor is TRUE (aka the individual ate vanilla ice cream), the odds of the response (having acute GI illness) were 21 times great than when it is FALSE (did not eat ice cream).
 
-## Functions you might also see
+## Functions you might also see {.smaller}
 
 - the `stat_cor()` function in the `ggpubr` can add correlation coefficients and p-values as a layer to `ggplot` objects
 - the `graphics::pairs()` or `GGally::ggpairs()` functions are also useful for visualizing correlations across variables in a data frame
@@ -677,13 +677,23 @@ The odds ratio is 21.4. When the predictor is TRUE (aka the individual ate vanil
 - calculate confidence intervals for intercept and slopes from `glm`/lm` objects using `confint()`
 - principal components analysis -- use `prcomp()`
 
+```{r, fig.alt="There's an R package for everything", out.width = "25%", echo = FALSE, fig.show='hold',fig.align='center'}
+knitr::include_graphics("../../images/lol/R_package_for_everything.jpg")
+```
+
 ## Final note 
 
 Some final notes: 
 
-- Researcher's responsibility to **understand the statistical method**  they use -- underlying assumptions, correct interpretation of method results 
+- Researcher's responsibility to **understand the statistical method** they use -- underlying assumptions, correct interpretation of method results 
 
-- Researcher's responsibility to **understand the R software**  they use -- meaning of function's arguments and meaning of  function's output elements
+- Researcher's responsibility to **understand the R software** they use -- meaning of function's arguments and meaning of  function's output elements
+
+```{r, fig.alt="Test your assumptions!", out.width = "25%", echo = FALSE, fig.show='hold',fig.align='center'}
+knitr::include_graphics("images/residual_dragons.jpg")
+```
+
+Image by [Allison Horst](https://allisonhorst.com/data-science-art).
 
 ## Summary
 
