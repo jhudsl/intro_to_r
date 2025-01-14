@@ -8,8 +8,7 @@ editor_options:
 Load all the libraries we will use in this lab. 
 
 ```{r message=FALSE}
-library(dplyr)
-library(ggplot2)
+library(tidyverse)
 ```
 
 ### 1.0
@@ -27,7 +26,7 @@ Create a boxplot showing the difference in "Sample_Size" between Middle School a
 
 ```{r 1.1response}
 yts %>%
-  ggplot(mapping = aes(x = Education, y = Sample_Size)) +
+  ggplot(aes(x = Education, y = Sample_Size)) +
   geom_boxplot()
 ```
 
@@ -57,7 +56,7 @@ Repeat question 1.1 and 1.2 using the "yts_fct" data. You should see different o
 
 ```{r 1.4response}
 yts_fct %>%
-  ggplot(mapping = aes(x = Education, y = Sample_Size)) +
+  ggplot(aes(x = Education, y = Sample_Size)) +
   geom_boxplot()
 
 yts_fct %>%
@@ -109,7 +108,7 @@ library(forcats)
 
 yts_fct_plot <- yts_fct %>%
   drop_na() %>%
-  ggplot(mapping = aes(
+  ggplot(aes(
     x = fct_reorder(
       LocationAbbr, med_sample_size
     ),
