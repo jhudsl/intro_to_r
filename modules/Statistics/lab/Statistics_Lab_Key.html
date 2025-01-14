@@ -169,9 +169,9 @@ pre code {
 <h1>Part 1</h1>
 <div id="section" class="section level3">
 <h3>1.1</h3>
-<p>Load the packages needed in this lab. Then, read in the following child mortality data. Assign it to the “mort” variable. Change its first column name from <code>...1</code> into <code>country</code>. You can find the data here: <a href="https://jhudatascience.org/intro_to_r/data/mortality.csv" class="uri">https://jhudatascience.org/intro_to_r/data/mortality.csv</a></p>
+<p>Load the packages needed in this lab. Then, read in the following child mortality data by country. Assign it to the “mort” variable. Change its first column name from <code>...1</code> into <code>country</code>. You can find the data here: <a href="https://jhudatascience.org/intro_to_r/data/mortality.csv" class="uri">https://jhudatascience.org/intro_to_r/data/mortality.csv</a>.</p>
 <p>Note that the data has lots of <code>NA</code> values - don’t worry if you see that.</p>
-<pre class="r"><code>library(dplyr)
+<pre class="r"><code>library(tidyverse)
 library(broom)</code></pre>
 <pre class="r"><code>mort &lt;- read_csv(&quot;https://jhudatascience.org/intro_to_r/data/mortality.csv&quot;)</code></pre>
 <pre><code>## New names:
@@ -273,7 +273,7 @@ t.test(x, y)</code></pre>
 <h1>Part 2</h1>
 <div id="section-4" class="section level3">
 <h3>2.1</h3>
-<p>Read in the Kaggle cars auction dataset. Assign it to the “cars” variable. You can find the data here: <a href="http://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv" class="uri">http://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv</a>.</p>
+<p>Read in the Kaggle used car auction dataset (<a href="https://www.kaggle.com/datasets/tunguz/used-car-auction-prices" class="uri">https://www.kaggle.com/datasets/tunguz/used-car-auction-prices</a>). Assign it to the “cars” variable. You can find the data here: <a href="http://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv" class="uri">http://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv</a>.</p>
 <pre class="r"><code>cars &lt;- read_csv(&quot;http://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv&quot;)</code></pre>
 <pre><code>## Rows: 72983 Columns: 34
 ## ── Column specification ────────────────────────────────────────────────────────
