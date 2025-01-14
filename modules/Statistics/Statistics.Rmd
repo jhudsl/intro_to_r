@@ -7,8 +7,7 @@ output:
 ---
 
 ```{r knit-setup, include=FALSE}
-library(knitr)
-opts_chunk$set(
+knitr::opts_chunk$set(
   echo = TRUE,
   message = FALSE,
   warning = FALSE,
@@ -16,13 +15,12 @@ opts_chunk$set(
   fig.width = 7,
   comment = ""
 )
-library(dplyr)
-options(scipen = 999)
 library(tidyverse)
 library(emo)
+options(scipen = 999)
 ```
 
-## Summary
+## Summary: Data visualization
 
 - `ggplot()` specifies what data to use and what variables will be mapped to where
 - inside `ggplot()`, `aes(x = , y = , color = )` specify what variables correspond to what aspects of the plot in general
@@ -32,7 +30,7 @@ library(emo)
 - make sure you are plotting what you think you are by checking the numbers!
 - `facet_grid(~variable)` and `facet_wrap(~variable)` can be helpful to quickly split up your plot
 
-## Summary
+## Summary: Factors
 
 - the factor class allows us to have a different order from alphanumeric for categorical data
 - we can change data to be a factor variable using `mutate()`, `as_factor()` (in the `forcats` package), or `factor()` functions and specifying the levels with the `levels` argument
@@ -51,7 +49,7 @@ We will cover how to use R to compute some of basic statistics and fit some basi
 
 ## 
 
-```{r, fig.alt="I was told there would be no math", out.width = "35%", echo = FALSE, fig.show='hold',fig.align='center'}
+```{r, fig.alt="I was told there would be no math", out.width = "70%", echo = FALSE, fig.show='hold',fig.align='center'}
 knitr::include_graphics("https://c.tenor.com/O3x8ywLm380AAAAd/chevy-chase.gif")
 ```
 
@@ -81,7 +79,7 @@ knitr::include_graphics("https://www.mathsisfun.com/data/images/correlation-exam
 
 See this [case study](https://www.opencasestudies.org/ocs-bp-co2-emissions/#Data_Analysis) for more information.
 
-## Correlation 
+## Correlation
 
 Function `cor()` computes correlation in R.
 
@@ -109,19 +107,30 @@ cor.test(x, y = NULL, alternative(c("two.sided", "less", "greater")),
    - greater means true correlation coefficient is > 0 (positive relationship)
    - less means true correlation coefficient is < 0 (negative relationship)
 
+## GUT CHECK!
 
-## Correlation {.small}
+What class of data do you need to calculate a correlation?
+
+A. Character data
+
+B. Factor data
+
+C. Numeric data
+
+## Correlation {.codesmall}
+
+Using the Charm City Circulator data.
 
 ```{r cor1, comment="", message = FALSE}
 circ <- read_csv("https://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
 head(circ)
 ```
 
-## Correlation for two vectors
+## Correlation for two vectors {.smaller}
 
-First, we compute correlation by providing two vectors.
+First, we compute correlation by providing two numeric vectors.
 
-Like other functions, if there are `NA`s, you get `NA` as the result.  But if you specify use only the complete observations, then it will give you correlation using the non-missing data. 
+Like other functions, if there are `NA`s, you get `NA` as the result.  But if you specify to use only the complete observations, then it will give you correlation using the non-missing data. 
 
 ```{r}
 # x and y must be numeric vectors
@@ -153,7 +162,7 @@ cor_result <- tidy(cor.test(x, y))
 glimpse(cor_result)
 ```
 
-## Correlation for two vectors with plot
+## Correlation for two vectors with plot {.smaller}
 
 In plot form... `geom_smooth()` and `annotate()` can help.
 
@@ -167,22 +176,6 @@ circ %>%
   annotate("text", x = 2000, y = 7500, label = cor_label)
 ```
 
-<!-- ## Plotting with `ggpubr` -->
-
-<!-- In plot form... `geom_smooth()` of `ggplot2` can help, as can `stat_cor()` of `ggpubr`. -->
-<!-- ```{r, fig.width=3, fig.height=3} -->
-<!-- install.packages("ggpubr") -->
-
-<!-- library(ggpubr) -->
-<!-- circ %>% -->
-<!--   ggplot(aes(x = orangeAverage, y = purpleAverage)) + -->
-<!--   geom_point(size = 0.3) + -->
-<!--   geom_smooth() + -->
-<!--   stat_cor(p.accuracy = 0.001) -->
-<!-- ``` -->
-
-
-
 ## Correlation for data frame columns
 
 We can compute correlation for all pairs of columns of a data frame / matrix. This is often called, *"computing a correlation matrix"*.
@@ -195,6 +188,7 @@ head(circ_subset_Average)
 ```
 
 ## Correlation for data frame columns
+
 We can compute correlation for all pairs of columns of a data frame / matrix. This is often called, *"computing a correlation matrix"*.
 
 ```{r}
@@ -219,7 +213,6 @@ knitr::include_graphics(here::here("images/lyme_and_fried_chicken.png"))
 ```
 
 [source](http://doi.org/10.1007/s10393-020-01472-1)
-
 
 # T-test
 
@@ -249,7 +242,6 @@ It tests the mean of a variable in one group. By default (i.e., without us expli
 - omits `NA` values in data
 
 ```{r}
-x <- circ %>% pull(orangeAverage)
 sum(is.na(x)) # count NAs in x
 t.test(x)
 ```
@@ -270,8 +262,6 @@ Check out this this [case study](https://www.opencasestudies.org/ocs-bp-rural-an
 ## Running two-sample t-test in R
 
 ```{r}
-x <- circ %>% pull(orangeAverage)
-y <- circ %>% pull(purpleAverage)
 sum(is.na(x))
 sum(is.na(y)) # count NAs in x and y
 t.test(x, y)
@@ -279,7 +269,7 @@ t.test(x, y)
 
 ## T-test: retrieving information from the result with `broom` package 
 
-The `broom` package has a `tidy()` function that can organize results into a data frame so that they are easily manipulated (or nicely printed)
+The `broom` package has a `tidy()` function that can organize results into a data frame so that they are easily manipulated (or nicely printed).
 
 ```{r broom, comment=""}
 result <- t.test(x, y)
@@ -291,7 +281,7 @@ glimpse(result_tidy)
 
 `r emo::ji("rotating_light")` You run an increased risk of Type I errors (a "false positive") when multiple hypotheses are tested simultaneously. `r emo::ji("rotating_light")`
 
-Use the `p.adjust()` function on a vector of p values. Use `method = ` to specify the adjustment method:
+Use the `p.adjust()` function on a vector of p-values. Use `method = ` to specify the adjustment method:
 
 ```{r}
 my_pvalues <- c(0.049, 0.001, 0.31, 0.00001)
@@ -300,12 +290,12 @@ p.adjust(my_pvalues, method = "bonferroni") # multiply by number of tests
 my_pvalues * 4
 ```
 
-See [here](https://www.nature.com/articles/nbt1209-1135) for more about multiple testing correction. Bonferroni also often done as p value threshold divided by number of tests (0.05/test number).
+See [here](https://www.nature.com/articles/nbt1209-1135) for more about multiple testing correction. Bonferroni also often done as p-value threshold divided by number of tests (0.05/test number).
 
 ## Some other statistical tests
 
 - `wilcox.test()` -- Wilcoxon signed rank test, Wilcoxon rank sum test
-- `shapiro.test()` -- Shapiro test
+- `shapiro.test()` -- Shapiro-Wilk test of normality
 - `ks.test()` -- Kolmogorov-Smirnov test
 - `var.test()`-- Fisher’s F-Test
 - `chisq.test()` -- Chi-squared test
@@ -313,12 +303,12 @@ See [here](https://www.nature.com/articles/nbt1209-1135) for more about multiple
 
 ## Summary
 
-- Use `cor()` to calculate correlation between two vectors, `cor.test()` can give more information.
+- use `cor()` to calculate correlation between two vectors, `cor.test()` can give more information
 - `corrplot()` is nice for a quick visualization!
 - `t.test()` one sample test to test the difference in mean of a single vector from zero (one input)
 - `t.test()` two sample test to test the difference in means between two vectors (two inputs)
 - `tidy()` in the `broom` package is useful for organizing and saving statistical test output
-- Remember to adjust p-values with `p.adjust()` when doing multiple tests on data
+- remember to adjust p-values with `p.adjust()` when doing multiple tests on data
 
 ## Lab Part 1
 
@@ -463,7 +453,6 @@ We will use data about emergency room doctor complaints.
 ```{r}
 # install.packages("faraway")
 library(faraway)
-
 data(esdcomp)
 esdcomp
 ```
@@ -479,15 +468,17 @@ fit
 
 ## Linear regression: model summary
 
-The `summary()` function returns a list that shows us some more detail
+The `summary()` function returns a list that shows us some more detail.
 
 ```{r}
 summary(fit)
 ```
 
 ## tidy results
+
 The broom package can help us here too!
-The estimate is the coefficient or slope - for one change in hours worked (1 hour increase), we see 1.58 more visits. The error for this estimate is relatively small at 0.167. This relationship appears to be significant with a small p value <0.001.
+
+The estimate is the coefficient or slope -- for one change in hours worked (1 hour increase), we see 1.58 more visits. The error for this estimate is relatively small at 0.167. This relationship appears to be significant with a small p-value <0.001.
 
 ```{r}
 tidy(fit) %>% glimpse()
@@ -495,7 +486,7 @@ tidy(fit) %>% glimpse()
 
 ## Linear regression: multiple predictors {.smaller}
 
-Let's try adding another explanatory variable to our model, dollars per hour earned by the doctor (`revenue`). The tidy function will not work with this unfortunately. The meaning of coefficients is more complicated here.
+Let's try adding another explanatory variable to our model, dollars per hour earned by the doctor (`revenue`). The meaning of coefficients is more complicated here.
 
 ```{r}
 fit2 <- glm(visits ~ hours + revenue, data = esdcomp)
@@ -507,7 +498,6 @@ summary(fit2)
 Can also use `tidy` and `glimpse` to see the output nicely.
 
 ```{r}
-fit2 <- glm(visits ~ hours + revenue, data = esdcomp)
 fit2 %>%
   tidy() %>%
   glimpse()
@@ -515,7 +505,7 @@ fit2 %>%
 
 ## Linear regression: factors 
 
-Factors get special treatment in regression models - lowest level of the factor is the comparison group, and all other factors are **relative** to its values.
+Factors get special treatment in regression models -- lowest level of the factor is the comparison group, and all other factors are **relative** to its values.
 
 `residency` takes values Y or N to indicate whether the doctor is a resident.
 
@@ -525,7 +515,7 @@ esdcomp %>% count(residency)
 
 ## Linear regression: factors {.smaller}
 
-Yes relative to No - baseline is no
+Yes relative to No -- baseline is no
 
 ```{r regressbaseline, comment="", fig.height=4,fig.width=8}
 fit_3 <- glm(visits ~ residency, data = esdcomp)
@@ -534,7 +524,7 @@ summary(fit_3)
 
 ## Linear regression: factors {.smaller}
 
-Comparison group is not listed - treated as intercept. All other estimates are relative to the intercept.
+Comparison group is not listed -- treated as intercept. All other estimates are relative to the intercept.
 
 ```{r regress8, comment="", fig.height=4,fig.width=8}
 circ <- read_csv("https://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
@@ -560,7 +550,11 @@ summary(fit_5)
 
 ## Linear regression: factors {.smaller}
 
-Can view estimates for the comparison group by removing the intercept in the GLM formula `y ~ x - 1`. Caveat is that the p-values change.
+You can view estimates for the comparison group by removing the intercept in the GLM formula
+
+`y ~ x - 1`
+
+*Caveat* is that the p-values change, and interpretation is often confusing.
 
 ```{r regress9, comment="", fig.height=4, fig.width=8}
 fit_6 <- glm(orangeBoardings ~ factor(day) - 1, data = circ)
@@ -569,7 +563,7 @@ summary(fit_6)
 
 ## Linear regression: interactions {.smaller}
 
-Can also specify interactions between variables in a formula `y ~ x1 + x2 + x1 * x2`. This allows for not only the intercepts between factors to differ, but also the slopes with regard to the interacting variable.
+You can also specify interactions between variables in a formula `y ~ x1 + x2 + x1 * x2`. This allows for not only the intercepts between factors to differ, but also the slopes with regard to the interacting variable.
 
 ```{r fig.height=4, fig.width=8}
 fit_7 <- glm(visits ~ hours + residency + hours * residency, data = esdcomp)
@@ -608,11 +602,11 @@ See `?family` documentation for details of family functions.
 
 We will use data about breast cancer tumors. 
 
-"The purpose of this study was to determine whether a new procedure called fine needle aspiration which draws only a small sample of tissue could be effective in determining tumor status."
+"Data come from a study of breast cancer in Wisconsin. There are 681 cases of potentially cancerous tumors of which 238 are actually malignant. Determining whether a tumor is really malignant is traditionally determined by an invasive surgical procedure. The purpose of this study was to determine whether a new procedure called fine needle aspiration which draws only a small sample of tissue could be effective in determining tumor status."
 
 ```{r}
 data(wbca)
-wbca
+head(wbca)
 ```
 
 ## Logistic regression {.smaller}
@@ -633,7 +627,9 @@ summary(binom_fit)
 
 > An odds ratio (OR) is a measure of association between an exposure and an outcome. The OR represents the odds that an outcome will occur given a particular exposure, compared to the odds of the outcome occurring in the absence of that exposure.
 
-Check out [this paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2938757/). 
+Check out [this paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2938757/).
+
+Use `oddsratio(x, y)` from the `epitools()` package to calculate odds ratios.
 
 ## Odds ratios
 
@@ -661,10 +657,7 @@ ice_cream %>% count(ill, vanilla.ice.cream)
 
 ## Odds ratios {.smaller}
 
-Use `oddsratio(x, y)` from the `epitools()` package to calculate odds ratios.
-
 ```{r}
-library(epitools)
 response <- ice_cream %>% pull(ill)
 predictor <- ice_cream %>% pull(vanilla.ice.cream)
 oddsratio(predictor, response)
@@ -672,13 +665,35 @@ oddsratio(predictor, response)
 
 See this [case study](https://www.opencasestudies.org/ocs-bp-vaping-case-study/#Logistic_regression_%E2%80%9Cby_hand%E2%80%9D_and_by_model) for more information.
 
-## Final note 
+## Odds ratios {.smaller}
+
+The odds ratio is 21.4. When the predictor is TRUE (aka the individual ate vanilla ice cream), the odds of the response (having acute GI illness) were 21 times great than when it is FALSE (did not eat ice cream).
+
+## Functions you might also see {.smaller}
+
+- the `stat_cor()` function in the `ggpubr` can add correlation coefficients and p-values as a layer to `ggplot` objects
+- the `graphics::pairs()` or `GGally::ggpairs()` functions are also useful for visualizing correlations across variables in a data frame
+- `acf()` in the `stats` package can compute autocorrelation and cross-correlation with lags
+- calculate confidence intervals for intercept and slopes from `glm`/lm` objects using `confint()`
+- principal components analysis -- use `prcomp()`
+
+```{r, fig.alt="There's an R package for everything", out.width = "20%", echo = FALSE, fig.show='hold',fig.align='center'}
+knitr::include_graphics("../../images/lol/R_package_for_everything.jpg")
+```
+
+## Final note {.small}
 
 Some final notes: 
 
-- Researcher's responsibility to **understand the statistical method**  they use -- underlying assumptions, correct interpretation of method results 
+- Researcher's responsibility to **understand the statistical method** they use -- underlying assumptions, correct interpretation of method results 
 
-- Researcher's responsibility to **understand the R software**  they use -- meaning of function's arguments and meaning of  function's output elements
+- Researcher's responsibility to **understand the R software** they use -- meaning of function's arguments and meaning of  function's output elements
+
+```{r, fig.alt="Test your assumptions!", out.width = "40%", echo = FALSE, fig.show='hold',fig.align='center'}
+knitr::include_graphics("images/residual_dragons.png")
+```
+
+Image by [Allison Horst](https://allisonhorst.com/data-science-art).
 
 ## Summary
 
