@@ -110,6 +110,8 @@ cor.test(x, y = NULL, alternative(c("two.sided", "less", "greater")),
 
 ## Correlation {.small}
 
+Using the Charm City Circulator data
+
 ```{r cor1, comment="", message = FALSE}
 circ <- read_csv("https://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
 head(circ)
