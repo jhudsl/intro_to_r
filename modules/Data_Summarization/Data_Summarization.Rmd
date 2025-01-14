@@ -515,7 +515,7 @@ yts_loc %>% unique() %>% length() # similar to n_distinct()
 * `range()`: minimum and maximum of the data
 * `IQR()`: interquartile range of the data
 
-## Summary & Lab Part 2
+## Summary & Lab Part 2 {.small}
 
 - `count(x)`: what unique values do you have? 
   - `distinct()`: what are the distinct values?
@@ -530,6 +530,8 @@ yts_loc %>% unique() %>% length() # similar to n_distinct()
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Data_Summarization/lab/Data_Summarization_Lab.Rmd)
 
 📃 [Day 4 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-4.pdf)
+
+📃 [Posit's data transformation Cheatsheet](https://rstudio.github.io/cheatsheets/data-transformation.pdf)
 
 ```{r, fig.alt="The End", out.width = "20%", echo = FALSE, fig.align='center'}
 knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
