@@ -36,42 +36,12 @@ x_fact
 
 Note that levels are, by default, in **alphanumerical** order.
 
-## Factors
+## Factors - get the levels
 
 Extract the levels of a `factor` vector using `levels()`:
 
 ```{r}
 levels(x_fact)
-```
-
-## `forcats` package
-
-A package called `forcats` is really helpful for working with factors.
-
-```{r, fig.alt="Forcats hex sticker", out.width = "30%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("https://github.com/tidyverse/forcats/raw/main/man/figures/logo.png")
-```
-
-## `factor()` vs `as_factor()`
-
-`factor()` is from base R and `as_factor()` is from `forcats`
-
-Both can change a variable to be of class factor.
-
-- `factor()` will order **alphabetically** unless told otherwise.
-- `as_factor()` will  order by **first appearance** unless told otherwise.
-
-If you are assigning your levels manually either function is fine!
-
-## `as_factor()` function
-
-```{r}
-x <- c("yellow", "red", "red", "blue", "yellow", "blue")
-x_fact_2 <- as_factor(x)
-x_fact_2
-
-# Compare to factor() method:
-x_fact
 ```
 
 ## A Factor Example{.smaller}
@@ -89,7 +59,7 @@ dropouts
 
 ## Preparing the data
 
-Aggregate (sum) across ethnicity and gender:
+Group by each school and aggregate (sum):
 
 ```{r}
 dropouts <-
@@ -133,25 +103,22 @@ However, we know that the order is: **freshman**, **sophomore**, **junior**, **s
 
 ## For the next steps, let's take a subset of data.
 
-Use `set.seed()` to take the same random sample each time.
-
 ```{r}
-set.seed(123)
+set.seed(123) # same random sample each time
 dropouts_subset <- slice_sample(dropouts, n = 32)
+dropouts_subset
 ```
 
 ## Plot the data
 
-Let's make a plot first.
+Let's make a plot first. We might not like the ordering on the x-axis, though.
 
 ```{r, fig.height= 3}
 dropouts_subset %>%
-  ggplot(mapping = aes(x = grade, y = n_dropouts)) +
+  ggplot(aes(x = grade, y = n_dropouts)) +
   geom_boxplot() +
   theme_bw(base_size = 16) # make all labels size 16
 ```
-
-OK this is very useful, but it is a bit difficult to read. We expect the values to be plotted by the order that we know, not by alphabetical order. 
 
 ## Change to factor
 
@@ -181,12 +148,12 @@ Now let's make our plot again:
 
 ```{r, fig.height= 3}
 dropouts_fct %>%
-  ggplot(mapping = aes(x = grade, y = n_dropouts)) +
+  ggplot(aes(x = grade, y = n_dropouts)) +
   geom_boxplot() +
   theme_bw(base_size = 16)
 ```
 
-Now that's more like it! Notice how the data is automatically plotted in the order we would like.
+The factor data is automatically plotted in the order we would like.
 
 ## What about if we `arrange()` the data by grade ?{.smaller}
 
@@ -230,6 +197,14 @@ dropouts_fct %>%
   summarize(total_dropouts = sum(n_dropouts))
 ```
 
+## `forcats` package
+
+A package called `forcats` is really helpful for working with factors.
+
+```{r, fig.alt="Forcats hex sticker", out.width = "30%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://github.com/tidyverse/forcats/raw/main/man/figures/logo.png")
+```
+
 ## `forcats` for ordering{.smaller}
 
 What if we wanted to order `grade` by increasing `n_dropouts`? 
@@ -238,7 +213,7 @@ What if we wanted to order `grade` by increasing `n_dropouts`?
 library(forcats)
 
 dropouts_fct %>%
-  ggplot(mapping = aes(x = grade, y = n_dropouts)) +
+  ggplot(aes(x = grade, y = n_dropouts)) +
   geom_boxplot() +
   theme_bw(base_size = 16)
 ```
@@ -263,7 +238,7 @@ We can order a factor by another variable by using the `fct_reorder()` function 
 library(forcats)
 
 dropouts_fct %>%
-  ggplot(mapping = aes(x = fct_reorder(grade, n_dropouts, mean), y = n_dropouts)) +
+  ggplot(aes(x = fct_reorder(grade, n_dropouts, mean), y = n_dropouts)) +
   geom_boxplot() +
   labs(x = "Student Grade") +
   theme_bw(base_size = 16)
@@ -275,21 +250,10 @@ dropouts_fct %>%
 library(forcats)
 
 dropouts_fct %>%
-  ggplot(mapping = aes(x = fct_reorder(grade, n_dropouts, mean, .desc = TRUE), y = n_dropouts)) +
+  ggplot(aes(x = fct_reorder(grade, n_dropouts, mean, .desc = TRUE), y = n_dropouts)) +
   geom_boxplot() +
   labs(x = "Student Grade") +
   theme_bw(base_size = 16)
-```
-
-## forcats for ordering.. can be used to sort datasets
-
-```{r, fig.height= 3}
-dropouts_fct %>% pull(grade) %>% levels() # By year order
-dropouts_fct <- dropouts_fct %>%
-  mutate(
-    grade = fct_reorder(grade, n_dropouts, mean)
-  )
-dropouts_fct %>% pull(grade) %>% levels() # by increasing mean dropouts
 ```
 
 ## Checking Proportions with `fct_count()`
@@ -304,9 +268,7 @@ dropouts_fct %>%
 
 ## Summary
 - the factor class allows us to have a different order from alphanumeric for categorical data
-- we can change data to be a factor variable using `mutate` and a factor creating function like `factor()` or `as_factor`
-- the `as_factor()` is from the  `forcats` package (first appearance order by default)
-- the `factor()` base R function (alphabetical order by default)
+- we can change data to be a factor variable using `mutate` and a factor creating function like `factor()` (alphabetical order by default)
 - with `factor()` we can specify the levels with the `levels` argument if we want a specific order
 - the `fct_reorder({variable_to_reorder}, {variable_to_order_by}, {summary function})` helps us reorder a variable by the values of another variable
 - arranging, tabulating, and plotting the data will reflect the new order
