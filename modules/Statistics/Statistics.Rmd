@@ -49,7 +49,7 @@ We will cover how to use R to compute some of basic statistics and fit some basi
 
 ## 
 
-```{r, fig.alt="I was told there would be no math", out.width = "35%", echo = FALSE, fig.show='hold',fig.align='center'}
+```{r, fig.alt="I was told there would be no math", out.width = "70%", echo = FALSE, fig.show='hold',fig.align='center'}
 knitr::include_graphics("https://c.tenor.com/O3x8ywLm380AAAAd/chevy-chase.gif")
 ```
 
@@ -126,7 +126,7 @@ circ <- read_csv("https://jhudatascience.org/intro_to_r/data/Charm_City_Circulat
 head(circ)
 ```
 
-## Correlation for two vectors
+## Correlation for two vectors {.smaller}
 
 First, we compute correlation by providing two numeric vectors.
 
@@ -162,7 +162,7 @@ cor_result <- tidy(cor.test(x, y))
 glimpse(cor_result)
 ```
 
-## Correlation for two vectors with plot
+## Correlation for two vectors with plot {.smaller}
 
 In plot form... `geom_smooth()` and `annotate()` can help.
 
@@ -677,11 +677,11 @@ The odds ratio is 21.4. When the predictor is TRUE (aka the individual ate vanil
 - calculate confidence intervals for intercept and slopes from `glm`/lm` objects using `confint()`
 - principal components analysis -- use `prcomp()`
 
-```{r, fig.alt="There's an R package for everything", out.width = "25%", echo = FALSE, fig.show='hold',fig.align='center'}
+```{r, fig.alt="There's an R package for everything", out.width = "10%", echo = FALSE, fig.show='hold',fig.align='center'}
 knitr::include_graphics("../../images/lol/R_package_for_everything.jpg")
 ```
 
-## Final note 
+## Final note {.small}
 
 Some final notes: 
 
@@ -689,7 +689,7 @@ Some final notes:
 
 - Researcher's responsibility to **understand the R software** they use -- meaning of function's arguments and meaning of  function's output elements
 
-```{r, fig.alt="Test your assumptions!", out.width = "25%", echo = FALSE, fig.show='hold',fig.align='center'}
+```{r, fig.alt="Test your assumptions!", out.width = "40%", echo = FALSE, fig.show='hold',fig.align='center'}
 knitr::include_graphics("images/residual_dragons.png")
 ```
 
