@@ -197,6 +197,14 @@ dropouts_fct %>%
   summarize(total_dropouts = sum(n_dropouts))
 ```
 
+## GUT CHECK: Why use factors?
+
+A. Meaningful ordering of text data
+
+B. Automatic ordering or numeric data
+
+C. More precise values
+
 ## `forcats` package
 
 A package called `forcats` is really helpful for working with factors.
