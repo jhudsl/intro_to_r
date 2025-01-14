@@ -7,9 +7,8 @@ output:
 ---
 
 ```{r, echo = FALSE}
-library(knitr)
-library(readr)
-opts_chunk$set(comment = "")
+library(tidyverse)
+knitr::opts_chunk$set(comment = "")
 ```
 
 <style type="text/css">
@@ -23,7 +22,7 @@ pre { /* Code block - slightly smaller in this lecture */
 
 While its nice to be able to read in a variety of data formats, it's equally important to be able to output data somewhere.
 
-The `readr` package provides data exporting functions which have the pattern `write_*`: 
+The `readr` package in the tidyverse provides data exporting functions which have the pattern `write_*`: 
 
 - `write_csv()`, 
 - `write_delim()`, others. 
