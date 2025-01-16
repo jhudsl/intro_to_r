@@ -42,22 +42,20 @@ data_insights <- function(x, column1, column2) {
 }
 
 data_insights(x = mtcars, column1 = cyl, column2 = hp)
-data_insights(x = mtcars, column1 = cyl, column2 = disp)
 ```
 
 ## A practical example: plotting {.smaller}
 
 You may have a similar plot that you want to examine across columns of data.
 
-```{r}
+```{r, fig.width = 3, fig.height = 2}
 simple_plots <- function(x, column1, column2) {
     box_plot <- ggplot(data = x, aes(x = {{column1}}, y = {{column2}}, group = {{column1}})) +
-      geom_boxplot() +
+      geom_boxplot()
     return(box_plot)
 }
 
 simple_plots(x = mtcars, column1 = cyl, column2 = hp)
-simple_plots(x = mtcars, column1 = cyl, column2 = disp)
 ```
 
 ## Writing your own functions
@@ -298,9 +296,10 @@ iris %>% sapply(class)
 ```
 
 
-## Using your custom functions: `sapply()`
+## Using your custom functions: `sapply()` {.smaller}
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
+cars <- read_csv("https://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv")
 select(cars, VehYear:VehicleAge) %>% head()
 select(cars, VehYear:VehicleAge) %>%
   sapply(times_2) %>%
