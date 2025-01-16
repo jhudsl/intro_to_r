@@ -7,15 +7,16 @@ output:
 ---
 
 ```{r, echo = FALSE, message = FALSE}
-library(dplyr)
-library(knitr)
-library(stringr)
-library(tidyr)
+knitr::opts_chunk$set(comment = "")
+library(tidyverse)
 library(emo)
-library(readr)
-opts_chunk$set(comment = "")
 ```
 
+## An advanced subject: functions
+
+```{r, fig.alt="session info", out.width = "50%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/squidward-throw-away.gif")
+```
 
 ## Writing your own functions
 
@@ -28,6 +29,36 @@ So far we've seen many functions, like `c()`, `class()`, `filter()`, `dim()` ...
 - Avoid running code unintentionally
 - Use names that make sense to you
 
+## A practical example: summarization {.smaller}
+
+There may be code that you use multiple times. Creating a function can help cut down on repetitive code (and the chance for copy/paste errors).
+
+```{r}
+data_insights <- function(x, column1, column2) {
+    x_insight <- x %>%
+      group_by({{column1}}) %>%
+      summarize(mean = mean({{column2}}, na.rm = TRUE))
+    return(x_insight)
+}
+
+data_insights(x = mtcars, column1 = cyl, column2 = hp)
+data_insights(x = mtcars, column1 = cyl, column2 = disp)
+```
+
+## A practical example: plotting {.smaller}
+
+You may have a similar plot that you want to examine across columns of data.
+
+```{r}
+simple_plots <- function(x, column1, column2) {
+    box_plot <- ggplot(data = x, aes(x = {{column1}}, y = {{column2}}, group = {{column1}})) +
+      geom_boxplot() +
+    return(box_plot)
+}
+
+simple_plots(x = mtcars, column1 = cyl, column2 = hp)
+simple_plots(x = mtcars, column1 = cyl, column2 = disp)
+```
 
 ## Writing your own functions
 
@@ -153,20 +184,7 @@ Let's write a function, `sqdif`, that:
 1. takes two numbers `x` and `y` with default values of 2 and 3.
 2. takes the difference
 3. squares this difference
-4. then returns the final value 
-
-
-## Writing another simple function
-
-```{r comment=""}
-sqdif <- function(x = 2, y = 3) (x - y)^2
-
-sqdif()
-sqdif(x = 10, y = 5)
-sqdif(10, 5)
-sqdif(11, 4)
-```
-
+4. then returns the final value
 
 ## Writing your own functions: characters
 
@@ -180,24 +198,6 @@ loud <- function(word) {
 loud(word = "hooray!")
 ```
 
-
-## Functions for tibbles
-
-We can use `filter(row_number() == n)` to extract a row of a tibble:
-
-```{r message=FALSE}
-get_row <- function(dat, row) dat %>% filter(row_number() == row)
-
-cars <- read_csv("http://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv")
-cars_1_8 <- cars %>% select(1:8)
-```
-
-```{r}
-get_row(dat = cars, row = 10)
-get_row(dat = iris, row = 4)
-```
-
-
 ## Functions for tibbles
 
 `select(n)` will choose column `n`:
@@ -209,7 +209,7 @@ get_index <- function(dat, row, col) {
     select(all_of(col))
 }
 
-get_index(dat = cars, row = 10, col = 8)
+get_index(dat = iris, row = 10, col = 5)
 ```
 
 
@@ -224,22 +224,36 @@ get_top <- function(dat, row = 1, col = 1) {
     select(all_of(col))
 }
 
-get_top(dat = cars)
+get_top(dat = iris)
 ```
 
-## Functions for tibbles
+## Functions for tibbles - curly braces
 
 Can create function with an argument that allows inputting a column name for `select` or other `dplyr` operation:
 
 ```{r}
 clean_dataset <- function(dataset, col_name) {
-  my_data_out <- dataset %>% select({{col_name}}) # Note the curly braces
+  my_data_out <- dataset %>% select({{col_name}}) # Note the curly braces {{}}
   write_csv(my_data_out, "clean_data.csv")
   return(my_data_out)
 }
 
 clean_dataset(dataset = mtcars, col_name = "cyl")
 ```
+
+## Functions for tibbles - curly braces
+
+```{r}
+# Another example: get means and missing for a specific column
+get_summary <- function(dataset, col_name) {
+    dataset %>%  
+    summarise(mean = mean({{col_name}}, na.rm = TRUE),
+              na_count = sum(is.na({{col_name}})))
+}
+
+get_summary(mtcars, hp)
+```
+
 
 ## Summary
 
@@ -248,6 +262,7 @@ clean_dataset(dataset = mtcars, col_name = "cyl")
   - Can specify defaults like `function(x = 1, y = 2){x + y}`
   -`return` will provide a value as output
   - `print` will simply print the value on the screen but not save it
+- Specify a column (from a tibble) inside a function using `{{double curly braces}}`
 
 
 ## Lab Part 1
@@ -261,7 +276,7 @@ clean_dataset(dataset = mtcars, col_name = "cyl")
 
 ## Using your custom functions: `sapply()`- a base R function
 
-Now that you've made a function... You can "apply" functions easily with `sapply()`!
+Now that you've made a function... you can "apply" functions easily with `sapply()`!
 
 These functions take the form:
 
@@ -295,12 +310,21 @@ select(cars, VehYear:VehicleAge) %>%
 
 ## Using your custom functions "on the fly" to iterate
 
+Also called an "anonymous function".
+
 ```{r comment=""}
 select(cars, VehYear:VehicleAge) %>%
   sapply(function(x) x / 1000) %>%
   head()
 ```
 
+## Anonymous functions: alternative syntax
+
+```{r comment=""}
+select(cars, VehYear:VehicleAge) %>%
+  sapply(\(x) x / 1000) %>%
+  head()
+```
 
 # across
 
@@ -315,6 +339,13 @@ cars %>%
             max_Odo = max(VehOdo))
 ```
 
+## The `across()` function
+
+```{r, fig.alt="session info", out.width = "70%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/across.png")
+```
+
+Image by [Allison Horst](https://allisonhorst.com/data-science-art).
 
 ## Applying functions with `across` from `dplyr`
 
@@ -328,7 +359,7 @@ or
 mutate(across(.cols = <columns>, .fns = function))
 ```
 
-- List columns first : `.cols = `
+- List columns first: `.cols = `
 - List function next: `.fns = `
 - If there are arguments to a function (e.g., `na.rm = TRUE`), the function may need to be modified to an anonymous function, e.g., `\(x) mean(x, na.rm = TRUE)`
 
@@ -341,7 +372,7 @@ Combining with `summarize()`
 cars_dbl <- cars %>% select(Make, starts_with("Veh"))
 
 cars_dbl %>%
-  summarize(across(.cols = everything(), .fns = mean))
+  summarize(across(.cols = everything(), .fns = mean)) # no parentheses
 ```
 
 
@@ -352,7 +383,7 @@ Can use with other tidyverse functions like `group_by`!
 ```{r}
 cars_dbl %>%
   group_by(Make) %>%
-  summarize(across(.cols = everything(), .fns = mean))
+  summarize(across(.cols = everything(), .fns = mean)) # no parentheses
 ```
 
 
@@ -439,9 +470,22 @@ airquality %>%
 ```
 
 
-## `purrr` package
+## GUT CHECK! 
+
+Why use `across()`?
+
+A. Efficiency - faster and less repetitive
+
+B. Calculate the cross product
+
+C. Connect across datasets
+
+
+## `purrr` package {.small}
 
 Similar to across, `purrr` is a package that allows you to apply a function to multiple columns in a data frame or multiple data objects in a list.
+
+A *list* in R is a generic class of data consisting of an ordered collection of objects. It can include any number of single numeric objects, vectors, or data frames -- can be all the same class of objects or all different.
 
 While we won't get into `purrr` too much in this class, its a handy package for you to know about should you get into a situation where you have an irregular list you need to handle!
 
@@ -480,8 +524,20 @@ AQ_list %>% sapply(colMeans, na.rm = TRUE)
 
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Functions/lab/Functions_Lab.Rmd)
 
-```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
+📃 [Day 9 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-9.pdf)
+
+📃 [Posit's `purrr` Cheatsheet](https://rstudio.github.io/cheatsheets/purrr.pdf)
+
+```{r, fig.alt="The End", out.width = "35%", echo = FALSE, fig.align='center'}
 knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 ```
 
 Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
+
+## Good luck and happy coding!
+
+```{r, fig.alt="session info", out.width = "50%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/R_rainbow.gif")
+```
+
+Image by [Allison Horst](https://allisonhorst.com/data-science-art).

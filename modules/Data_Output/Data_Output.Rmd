@@ -1,14 +1,6 @@
----
-title: "Data Output"
-output:
-  ioslides_presentation:
-    css: ../../docs/styles.css
-    widescreen: yes
----
-
-```{r, echo = FALSE}
-library(tidyverse)
+```{r, echo = FALSE, message = FALSE, error = FALSE}
 knitr::opts_chunk$set(comment = "")
+library(tidyverse)
 ```
 
 <style type="text/css">

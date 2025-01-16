@@ -5,7 +5,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include = FALSE, error = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -13,10 +13,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Load all the libraries we will use in this lab. 
 
-```{r message=FALSE}
-library(readr)
-library(dplyr)
-library(ggplot2)
+```{r message = FALSE}
+library(tidyverse)
 ```
 
 ### 1.1
@@ -84,6 +82,21 @@ has_n(x = nums, n = b_num)
 ```
 
 
+# Practice on Your Own!
+
+### P.1
+
+Take your function from question 1.1 and have it make a print statement describing what the function is doing.
+
+```{r P.1response}
+sum_squared_explain <- function(x) {
+  out <- sum(x)^2
+  print("Take the sum of x, then square it.")
+  return(out)
+}
+sum_squared_explain(x = c(1, 2, 3, 4, 5))
+```
+
 # Part 2
 
 ### 2.1
@@ -105,8 +118,17 @@ We want to get some summary statistics on the Moderna vaccines. Use `across` ins
 data %>%
   summarize(across(
     .cols = {vector or tidyselect},
-    .fns = {some function},
-    {additional arguments}
+    .fns = {some function})
+  ))
+```
+OR
+
+```
+# General format
+data %>%
+  summarize(across(
+    .cols = {vector or tidyselect},
+    .fns = \(x) {some function}(x, {additional arguments})
   ))
 ```
 
@@ -152,15 +174,15 @@ vacc %>%
 
 # Practice on Your Own!
 
-### P.1
+### P.2
 
-Take your code from question 2.4 and assign it to the variable `vacc_dat`. 
+Take your code from question 2.4 and assign it to the dataset `vacc_dat`. 
 
 - use `filter()` to drop any rows where "United States" appears in `State/Territory/Federal Entity`. Make sure to reassign this to `vacc_dat`.
 - Create a ggplot boxplot (`geom_boxplot()`) where (1) the x-axis is `Total Doses Delivered` and (2) the y-axis is `Percent of fully vaccinated people with booster doses`.
 - You change the `labs()` layer so that the x-axis is "Total Doses Delivered: Greater than 10,000,000"
 
-```{r P.1response}
+```{r P.2response}
 vacc_dat <-
   vacc %>%
   mutate(across(

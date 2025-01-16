@@ -1,11 +1,3 @@
----
-title: "Reproducibility"
-output:
-  ioslides_presentation:
-    css: ../../docs/styles.css
-    widescreen: yes
---- 
-
 ```{r include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, comment=FALSE, warning=FALSE)
 ```
@@ -145,7 +137,7 @@ knitr::include_graphics("images/error_monster.png")
 
 Image by [Allison Horst](https://allisonhorst.com/data-science-art).
 
-## Tell your future self and others what you did!
+## Tell your future self and others what you did! {.small}
 
 Provide sufficient detail so that you can understand what you did and why.
 
@@ -163,6 +155,8 @@ samp_pop2 <- samp_pop[51:100]
 ```{r, fig.alt="session info", out.width = "25%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/R_hearts.gif")
 ```
+
+Image by [Allison Horst](https://allisonhorst.com/data-science-art).
 
 ## Need random numbers to stay consistent?
 
