@@ -96,8 +96,8 @@ cor(x, y = NULL, use = c("everything", "complete.obs"),
 Function `cor.test()` also computes correlation and tests for association.
 
 ```
-cor.test(x, y = NULL, alternative(c("two.sided", "less", "greater")),
-    method = c("pearson", "kendall", "spearman"))
+cor.test(x, y = NULL, alternative = c("two.sided", "less", "greater"),
+    method = c("pearson", "kendall", "spearman"), ...)
 ```
 - provide two numeric vectors of the same length (arguments `x`, `y`), or
 - provide a data.frame / tibble with numeric columns only
@@ -164,7 +164,7 @@ glimpse(cor_result)
 
 ## Correlation for two vectors with plot {.smaller}
 
-In plot form... `geom_smooth()` and `annotate()` can help.
+In plot form, `geom_smooth()` and `annotate()` can help.
 
 ```{r}
 corr_value <- pull(cor_result, estimate) %>% round(digits = 4)
@@ -515,7 +515,7 @@ esdcomp %>% count(residency)
 
 ## Linear regression: factors {.smaller}
 
-Yes relative to No -- baseline is no
+Yes relative to No -- baseline is No
 
 ```{r regressbaseline, comment="", fig.height=4,fig.width=8}
 fit_3 <- glm(visits ~ residency, data = esdcomp)
@@ -672,9 +672,9 @@ The odds ratio is 21.4. When the predictor is TRUE (aka the individual ate vanil
 ## Functions you might also see {.smaller}
 
 - the `stat_cor()` function in the `ggpubr` can add correlation coefficients and p-values as a layer to `ggplot` objects
-- the `graphics::pairs()` or `GGally::ggpairs()` functions are also useful for visualizing correlations across variables in a data frame
+- the `pairs()` (`graphics` package) or `ggpairs()` (`GGally` package) functions are also useful for visualizing correlations across variables in a data frame
 - `acf()` in the `stats` package can compute autocorrelation and cross-correlation with lags
-- calculate confidence intervals for intercept and slopes from `glm`/lm` objects using `confint()`
+- calculate confidence intervals for intercept and slopes from `glm`/`lm` objects using `confint()`
 - principal components analysis -- use `prcomp()`
 
 ```{r, fig.alt="There's an R package for everything", out.width = "20%", echo = FALSE, fig.show='hold',fig.align='center'}
@@ -719,7 +719,7 @@ For classes at JHU School of Public Health:
 - [PH.140.778 - Statistical Computing, Algorithm, and Software Development](https://www.jhsph.edu/courses/course/36737/2022/140.778.01/statistical-computing-algorithm-and-software-devel) - A more advanced course for working with data in R.
 Content for similar topics as this course can also be found on Leanpub.
 
-## Lab Part 2
+## Lab Part 2 {.small}
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)  
 
@@ -727,7 +727,7 @@ Content for similar topics as this course can also be found on Leanpub.
 
 📃 [Day 8 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-8.pdf)
 
-```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="The End", out.width = "35%", echo = FALSE, fig.align='center'}
 knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 ```
 

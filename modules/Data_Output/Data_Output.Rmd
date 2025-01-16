@@ -18,7 +18,7 @@ pre { /* Code block - slightly smaller in this lecture */
 </style>
 
 
-## Data Output
+## Data Output {.smaller}
 
 While its nice to be able to read in a variety of data formats, it's equally important to be able to output data somewhere.
 
@@ -102,7 +102,7 @@ save.image(file = "my_environment.RData")
 ```
 
 
-## Using RStudio for importing/exporting data
+## Using RStudio for importing/exporting data {.smaller}
 
 If there is an `.rds` or `.RData` file that you want to work with, you can open it into your environment using the file icon.
 
@@ -131,11 +131,13 @@ ggsave(filename = "saved_plot.png",  # will save in working directory
        width = 6, height = 3.5)               # by default in inches
 ```
 
-## Summary {.small}
+## Summary
 
 - Use `write_csv()` and `write_delim()` from the `readr` package to write your (modified) data
 - `.rds` files can be handy for saving intermediate work
 - Can save environment (or subset) using `save()` and `save.image()`
+
+## Resources & Lab {.small}
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
 
@@ -145,7 +147,7 @@ ggsave(filename = "saved_plot.png",  # will save in working directory
 
 📃 [Day 2 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-2.pdf)
 
-```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="The End", out.width = "35%", echo = FALSE, fig.align='center'}
 knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 ```
 
