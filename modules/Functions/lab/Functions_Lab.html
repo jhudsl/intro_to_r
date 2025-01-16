@@ -168,9 +168,7 @@ pre code {
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
 <p>Load all the libraries we will use in this lab.</p>
-<pre class="r"><code>library(readr)
-library(dplyr)
-library(ggplot2)</code></pre>
+<pre class="r"><code>library(tidyverse)</code></pre>
 <div id="section" class="section level3">
 <h3>1.1</h3>
 <p>Create a function that takes one argument, a vector, and returns the sum of the vector and squares the result. Call it “sum_squared”. Test your function on the vector <code>c(2,7,21,30,90)</code> - you should get the answer 22500.</p>
@@ -196,6 +194,13 @@ return(result)
 <p>Create a new number <code>b_num</code> that is not contained with <code>nums</code>. Use your updated <code>has_n</code> function with the default value and add <code>b_num</code> as the <code>n</code> argument when calling the function. What is the outcome?</p>
 </div>
 </div>
+<div id="practice-on-your-own" class="section level1">
+<h1>Practice on Your Own!</h1>
+<div id="p.1" class="section level3">
+<h3>P.1</h3>
+<p>Take your function from question 1.1 and have it make a print statement describing what the function is doing.</p>
+</div>
+</div>
 <div id="part-2" class="section level1">
 <h1>Part 2</h1>
 <div id="section-4" class="section level3">
@@ -209,8 +214,14 @@ return(result)
 data %&gt;%
   summarize(across(
     .cols = {vector or tidyselect},
-    .fns = {some function},
-    {additional arguments}
+    .fns = {some function})
+  ))</code></pre>
+<p>OR</p>
+<pre><code># General format
+data %&gt;%
+  summarize(across(
+    .cols = {vector or tidyselect},
+    .fns = \(x) {some function}(x, {additional arguments})
   ))</code></pre>
 </div>
 <div id="section-6" class="section level3">
@@ -222,11 +233,11 @@ data %&gt;%
 <p>Use <code>across</code> and <code>mutate</code> to convert all columns starting with the word “Total” into a binary variable: TRUE if the value is greater than 10,000,000 and FALSE if less than or equal to 10,000,000. <strong>Hint</strong>: use <code>starts_with()</code> to select the columns starting with “Total”. Use a “function on the fly” to do a logical test if the value is greater than 10,000,000.</p>
 </div>
 </div>
-<div id="practice-on-your-own" class="section level1">
+<div id="practice-on-your-own-1" class="section level1">
 <h1>Practice on Your Own!</h1>
-<div id="p.1" class="section level3">
-<h3>P.1</h3>
-<p>Take your code from question 2.4 and assign it to the variable <code>vacc_dat</code>.</p>
+<div id="p.2" class="section level3">
+<h3>P.2</h3>
+<p>Take your code from question 2.4 and assign it to the dataset <code>vacc_dat</code>.</p>
 <ul>
 <li>use <code>filter()</code> to drop any rows where “United States” appears in <code>State/Territory/Federal Entity</code>. Make sure to reassign this to <code>vacc_dat</code>.</li>
 <li>Create a ggplot boxplot (<code>geom_boxplot()</code>) where (1) the x-axis is <code>Total Doses Delivered</code> and (2) the y-axis is <code>Percent of fully vaccinated people with booster doses</code>.</li>
