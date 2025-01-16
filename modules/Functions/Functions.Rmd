@@ -335,6 +335,13 @@ cars %>%
             max_Odo = max(VehOdo))
 ```
 
+## The `across()` function
+
+```{r, fig.alt="session info", out.width = "70%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/across.png")
+```
+
+Image by [Allison Horst](https://allisonhorst.com/data-science-art).
 
 ## Applying functions with `across` from `dplyr`
 
@@ -520,3 +527,11 @@ knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 ```
 
 Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
+
+## Good luck and happy coding!
+
+```{r, fig.alt="session info", out.width = "50%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/R_rainbow.gif")
+```
+
+Image by [Allison Horst](https://allisonhorst.com/data-science-art).
