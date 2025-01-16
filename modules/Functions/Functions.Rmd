@@ -7,13 +7,9 @@ output:
 ---
 
 ```{r, echo = FALSE, message = FALSE}
-library(dplyr)
-library(knitr)
-library(stringr)
-library(tidyr)
+knitr::opts_chunk$set(comment = "")
+library(tidyverse)
 library(emo)
-library(readr)
-opts_chunk$set(comment = "")
 ```
 
 
@@ -227,19 +223,33 @@ get_top <- function(dat, row = 1, col = 1) {
 get_top(dat = cars)
 ```
 
-## Functions for tibbles
+## Functions for tibbles - curly braces
 
 Can create function with an argument that allows inputting a column name for `select` or other `dplyr` operation:
 
 ```{r}
 clean_dataset <- function(dataset, col_name) {
-  my_data_out <- dataset %>% select({{col_name}}) # Note the curly braces
+  my_data_out <- dataset %>% select({{col_name}}) # Note the curly braces {{}}
   write_csv(my_data_out, "clean_data.csv")
   return(my_data_out)
 }
 
 clean_dataset(dataset = mtcars, col_name = "cyl")
 ```
+
+## Functions for tibbles - curly braces
+
+```{r}
+# Another example: get means and missing for a specific column
+get_summary <- function(dataset, col_name) {
+    dataset %>%  
+    summarise(mean = mean({{col_name}}, na.rm = TRUE),
+              na_count = sum(is.na({{col_name}})))
+}
+
+get_summary(mtcars, hp)
+```
+
 
 ## Summary
 
@@ -248,6 +258,7 @@ clean_dataset(dataset = mtcars, col_name = "cyl")
   - Can specify defaults like `function(x = 1, y = 2){x + y}`
   -`return` will provide a value as output
   - `print` will simply print the value on the screen but not save it
+- Specify a column (from a tibble) inside a function using `{{double curly braces}}`
 
 
 ## Lab Part 1
@@ -261,7 +272,7 @@ clean_dataset(dataset = mtcars, col_name = "cyl")
 
 ## Using your custom functions: `sapply()`- a base R function
 
-Now that you've made a function... You can "apply" functions easily with `sapply()`!
+Now that you've made a function... you can "apply" functions easily with `sapply()`!
 
 These functions take the form:
 
@@ -295,12 +306,21 @@ select(cars, VehYear:VehicleAge) %>%
 
 ## Using your custom functions "on the fly" to iterate
 
+Also called an "anonymous function".
+
 ```{r comment=""}
 select(cars, VehYear:VehicleAge) %>%
   sapply(function(x) x / 1000) %>%
   head()
 ```
 
+## Anonymous functions: alternative syntax
+
+```{r comment=""}
+select(cars, VehYear:VehicleAge) %>%
+  sapply(\(x) x / 1000) %>%
+  head()
+```
 
 # across
 
@@ -328,7 +348,7 @@ or
 mutate(across(.cols = <columns>, .fns = function))
 ```
 
-- List columns first : `.cols = `
+- List columns first: `.cols = `
 - List function next: `.fns = `
 - If there are arguments to a function (e.g., `na.rm = TRUE`), the function may need to be modified to an anonymous function, e.g., `\(x) mean(x, na.rm = TRUE)`
 
@@ -341,7 +361,7 @@ Combining with `summarize()`
 cars_dbl <- cars %>% select(Make, starts_with("Veh"))
 
 cars_dbl %>%
-  summarize(across(.cols = everything(), .fns = mean))
+  summarize(across(.cols = everything(), .fns = mean)) # no parentheses
 ```
 
 
@@ -352,7 +372,7 @@ Can use with other tidyverse functions like `group_by`!
 ```{r}
 cars_dbl %>%
   group_by(Make) %>%
-  summarize(across(.cols = everything(), .fns = mean))
+  summarize(across(.cols = everything(), .fns = mean)) # no parentheses
 ```
 
 
@@ -439,6 +459,17 @@ airquality %>%
 ```
 
 
+## GUT CHECK! 
+
+Why use `across()`?
+
+A. Efficiency - faster and less repetitive
+
+B. Calculate the cross product
+
+C. Connect across datasets
+
+
 ## `purrr` package
 
 Similar to across, `purrr` is a package that allows you to apply a function to multiple columns in a data frame or multiple data objects in a list.
@@ -480,7 +511,11 @@ AQ_list %>% sapply(colMeans, na.rm = TRUE)
 
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Functions/lab/Functions_Lab.Rmd)
 
-```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
+📃 [Day 9 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-9.pdf)
+
+📃 [Posit's `purrr` Cheatsheet](https://rstudio.github.io/cheatsheets/purrr.pdf)
+
+```{r, fig.alt="The End", out.width = "35%", echo = FALSE, fig.align='center'}
 knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 ```
 
