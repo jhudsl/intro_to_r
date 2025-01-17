@@ -1,5 +1,9 @@
-```{r, echo = FALSE, message = FALSE, error = FALSE}
-knitr::opts_chunk$set(comment = "")
+```{r knit-setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  comment = "")
 library(tidyverse)
 ```
 
