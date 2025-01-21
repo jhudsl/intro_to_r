@@ -75,7 +75,7 @@ become, respectively:
 
 These are located here: https://github.com/jhudsl/intro_to_r/tree/main/images/lol
 
-## Module detials/ Day info
+## Module details/ Day info
 
 These are located in docs/module_details
 
