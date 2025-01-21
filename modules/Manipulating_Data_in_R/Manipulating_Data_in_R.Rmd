@@ -279,6 +279,14 @@ wide <- long %>% pivot_wider(names_from = "name",
 wide
 ```
 
+## `gather()` and `spread()`
+
+```{r, fig.alt="Gather and spread functions in cartoon form.", out.width = "50%", echo = FALSE, align = "center"}
+knitr::include_graphics("images/gatherspread.jpeg")
+```
+
+"Artwork by @allison_horst". https://allisonhorst.com/
+
 ## Summary
 
 - `tidyr` package (part of `tidyverse`) helps us convert between wide and long data
