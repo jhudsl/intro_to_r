@@ -112,6 +112,12 @@ Slide Credit: Tanya Shapiro
 
 -   [ggplot2 gallery](https://www.r-graph-gallery.com/ggplot2-package.html)
 
+```{r, fig.alt="ggplot with cartoon artists assembling works of art.", out.width = "40%", echo = FALSE, fig.show='hold',fig.align='center'}
+knitr::include_graphics("img/ggplot2_masterpiece.jpeg")
+```
+
+Artwork by @allison_horst. https://allisonhorst.com/
+
 ## Tidy data
 
 To make graphics using `ggplot2`, our data needs to be in a **tidy** format
