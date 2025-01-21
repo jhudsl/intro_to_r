@@ -71,6 +71,14 @@ become, respectively:
 ```
 ````
 
+## Cartoons for Slack
+
+These are located here: https://github.com/jhudsl/intro_to_r/tree/main/images/lol
+
+## Module detials/ Day info
+
+These are located in docs/module_details
+
 
 ## Emojis
 
@@ -163,6 +171,7 @@ To add this to a chunk use this in the Rmd file before and after the chunk:
 <div class = "codeexample">
 ```{r}
 #some code
+
 ```
 </div>
 ````
@@ -182,5 +191,6 @@ To create video gifs first [record your screen](https://www.hellotech.com/guide/
 Next convert the video to a gif using https://ezgif.com/video-to-gif.
 
 Be sure that you select gif as the output.
+
 
 
