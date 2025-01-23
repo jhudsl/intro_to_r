@@ -1,0 +1,127 @@
+---
+title: "Datasets Used in This Course"
+output: html_document
+---
+
+```{r, echo = FALSE}
+library(knitr)
+library(readr)
+opts_chunk$set(comment = "")
+```
+
+The following are datasets used in this course.
+
+## Annual Dosage
+
+Number of shipments (count) of either oxycodone or hydrocodone pills (DOSAGE_UNIT).
+
+* Source: https://www.washingtonpost.com/graphics/2019/investigations/dea-pain-pill-database/
+* URL: https://jhudatascience.org/intro_to_r/data/annualDosage.csv"
+* Modules: Data Subsetting
+
+## Bike Lanes
+
+Existing bike facilities throughout the City of Baltimore, as recognized by the Bike Baltimore program of the Baltimore City Department of Transportation.
+
+* Source: Modified from https://data.baltimorecity.gov/datasets/baltimore::dot-bmc-bike-facilities/about (has been updated at the source compared to our version)
+* URL: http://jhudatascience.org/intro_to_r/data/Bike_Lanes.csv
+* Modules: Data Summarization, Data Cleaning, Data Visualization
+
+## Car Auctions
+
+Kaggle Dataset on Car Auctions.
+
+* Source: https://www.kaggle.com/datasets/tunguz/used-car-auction-prices
+* URL: http://jhudatascience.org/intro_to_r/data/kaggleCarAuction.csv
+* Module: Statistics, Functions
+
+## Charm City Circulator
+
+This dataset describes ridership on the Baltimore Circulator, a free bus system.
+
+* Source: https://data.baltimorecity.gov (no longer available)
+* URL: https://jhudatascience.org/intro_to_r/data/circulator_long.csv
+* Modules: RStudio, Data Classes, Manipulating Data, Statistics
+
+## Child Mortality
+
+* Source: Original source unclear. Possibly https://www.gapminder.org/data/documentation/gd005/
+* URL: https://jhudatascience.org/intro_to_r/data/mortality.csv
+* Module: Statistics, Functions
+
+## Colorado Heat Wave ER Visits
+
+This dataset contains information about the number and rate of visits for heat-related illness to Emergency rooms in Colorado from 2011-2022, adjusted for age.
+
+* Source: https://coepht.colorado.gov/heat-related-illness
+* URL: https://jhudatascience.org/intro_to_r/data/CO_ER_heat_visits.csv
+* Modules: Esquisse Data Visualization
+
+## County Pop
+
+Modified data from US Census population by county.
+
+* Source: https://www.census.gov/library/publications/2011/compendia/usa-counties-2011.html#POP
+* URL: https://jhudatascience.org/intro_to_r/data/county_pop.csv
+* Modules: Data Subsetting
+
+## Dropouts
+
+Data on student dropouts from the State of California during the 2016-2017 school year.
+
+* Source: https://www.cde.ca.gov/ds/ad/filesdropouts.asp
+* URL: http://jhudatascience.org/intro_to_r/data/dropouts.txt
+* Modules: Factors
+
+## Income by State
+
+Personal income, in current dollars, increased in 49 states and the District of Columbia, with the percent change ranging from 5.4 percent at an annual rate in Arkansas to –0.7 percent in North Dakota. Early 2022 release.
+
+* Source: Bureau of Economic Analysis (https://www.bea.gov/data/income-saving/personal-income-by-state)
+* URL: http://jhudatascience.org/intro_to_r/data/gdp_personal_income.csv
+* Modules: Manipulating Data
+
+## mtcars
+
+Classic dataset in R. The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973--74 models)
+
+* Source: https://www.rdocumentation.org/packages/datasets/versions/3.6.2/topics/mtcars
+* URL: none
+* Modules: Data Subsetting, Data Summarization
+
+## Orange
+
+Dataset in R. The Orange data frame has 35 rows and 3 columns of records of the growth of orange trees.
+
+* Source:
+* URL: none
+* Modules: Data Visualization
+
+## Tuberculosis Incidence
+
+* Source: Original source unclear. Likely modified from https://www.who.int/data/gho/data/indicators/indicator-details/GHO/incidence-of-tuberculosis-(per-100-000-population-per-year) (note that data has been updated at the source since this data was downloaded)
+* URL: https://jhudatascience.org/intro_to_r/data/tb.csv  
+* Modules: Data Summarization
+
+## Vaccinations
+
+Overall US COVID-19 Vaccine deliveries and administration data at national and jurisdiction level. Data represents all vaccine partners including jurisdictional partner clinics, retail pharmacies, long-term care facilities, dialysis centers, Federal Emergency Management Agency and Health Resources and Services Administration partner sites, and federal entity facilities. 
+
+* Source: https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-Jurisdi/unsk-b7fc
+* URL: https://jhudatascience.org/intro_to_r/data/vaccinations.csv
+* Modules: Data Input, Data Output
+
+Similar data formatted a bit differently.
+
+* Source: https://covid.cdc.gov/covid-data-tracker/#vaccinations_vacc-total-admin-rate-total - snapshot from January 12, 2022 (since taken down)
+* URL: http://jhudatascience.org/intro_to_r/data/USA_covid19_vaccinations.csv
+* Modules: Manipulating Data, Functions
+
+## Youth Tobacco Survey
+
+YTS was developed to provide states with comprehensive data on both middle school and high school students regarding tobacco use, exposure to environmental tobacco smoke, smoking cessation, school curriculum, minors' ability to purchase or otherwise obtain tobacco products, knowledge and attitudes about tobacco, and familiarity with pro-tobacco and anti-tobacco media messages.
+
+* Source: https://catalog.data.gov/dataset/youth-tobacco-survey-yts-data
+* URL: http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv
+* Modules: Data Input, Data Summarization, Factors, Data Output
+
