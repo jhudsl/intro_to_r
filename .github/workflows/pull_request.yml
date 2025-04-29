@@ -42,39 +42,46 @@ jobs:
 
     outputs:
       toggle_spell_check: "${{ env.SPELL_CHECK }}"
+      spell_error_min: "${{ env.SPELL_ERROR_MIN }}"
       toggle_style_code: "${{ env.STYLE_CODE }}"
       toggle_url_check: "${{ env.URL_CHECKER }}"
+      url_error_min: "${{ env.URL_ERROR_MIN }}"
       toggle_quiz_check: "${{ env.CHECK_QUIZZES }}"
+      quiz_error_min: "${{ env.QUIZ_ERROR_MIN }}"
+      toggle_md_linter: "${{ env.MARKDOWN_LINTER }}"
+      toggle_readability: "${{ env.READABILITY_REPORT }}"
       toggle_render_preview: "${{ env.RENDER_PREVIEW }}"
       toggle_make_labs: "${{ env.MAKE_LABS }}"
+      toggle_dictionary_sort: "${{ env.DICTIONARY_SORT }}"
       rendering_docker_image: "${{ env.RENDERING_DOCKER_IMAGE }}"
       
 ########################## Make the error reports ##############################
 
-  spell-check:
-    name: Check spelling
+  ottr-reports:
+    name: Run Reports
     needs: yaml-check
-    if: ${{needs.yaml-check.outputs.toggle_spell_check == 'yes'}}
-    uses: jhudsl/ottr-reports/.github/workflows/report-maker.yml@main
-    with:
-      check_type: spelling
-      error_min: 1
-      branch_name: ${GITHUB_HEAD_REF}
-    secrets:
-      gh_pat: ${{ secrets.GH_PAT }}
-      
+    if: ${{needs.yaml-check.outputs.toggle_spell_check == 'true' || needs.yaml-check.outputs.toggle_url_check == 'true' || needs.yaml-check.outputs.toggle_quiz_check == 'true'}}
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
 
-  url-check:
-    name: Check URLs
-    needs: yaml-check
-    if: ${{needs.yaml-check.outputs.toggle_url_check == 'yes'}}
-    uses: jhudsl/ottr-reports/.github/workflows/report-maker.yml@main
-    with:
-      check_type: urls
-      error_min: 1
-      branch_name: ${GITHUB_HEAD_REF}
-    secrets:
-      gh_pat: ${{ secrets.GH_PAT }}
+    steps:
+    - name: Checkout Actions Repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Run Reports
+      id: run-reports
+      uses: ottrproject/ottr-reports@main
+      with:
+        check_spelling: ${{needs.yaml-check.outputs.toggle_spell_check}}
+        spelling_error_min: ${{needs.yaml-check.outputs.spell_error_min}}
+        check_urls: ${{needs.yaml-check.outputs.toggle_url_check}}
+        url_error_min: ${{needs.yaml-check.outputs.url_error_min}}
+        check_quiz_form: ${{needs.yaml-check.outputs.toggle_spell_check}}
+        quiz_error_min: ${{needs.yaml-check.outputs.quiz_error_min}}
+        sort_dictionary: ${{needs.yaml-check.outputs.toggle_dictionary_sort}}
 
 ########################## Style Code ##############################
  
@@ -82,28 +89,24 @@ jobs:
     name: Style code
     needs: yaml-check
     runs-on: ubuntu-latest
-    if: ${{needs.yaml-check.outputs.toggle_style_code == 'yes'}}
+    if: ${{needs.yaml-check.outputs.toggle_style_code == 'true'}}
     container:
       image: jhudsl/base_ottr:main
 
     steps:
-      - name: Checkout
+      - name: Checkout files
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.GH_PAT }}
 
       - name: Run styler
-        run: Rscript -e "styler::style_file(list.files(pattern = 'Rmd$', recursive = TRUE, full.names = TRUE));warnings()"
+        run: Rscript -e "styler::style_file(list.files(pattern = '(R|q)md$', recursive = FALSE, full.names = TRUE));warnings()"
 
       - name: Commit styled files
         run: |
           git config --system --add safe.directory "$GITHUB_WORKSPACE"
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          
-          git add \*.Rmd
-          git commit -m 'Style Rmds' || echo "No changes to commit"
+          git add \*md
+          git commit -m 'Style *mds' || echo "No changes to commit"
           git push origin || echo "No changes to commit"
 
 ########################## Preview ##############################
