@@ -6,13 +6,15 @@ on:
   workflow_dispatch:
     inputs:
       directory:
+        description: 'File path on GitHub to Dockerfile? e.g. base_ottr'
         required: true
         type: string
       tag:
+        description: 'Tag e.g. jhudsl/base_ottr:main'
         required: true
         type: string
       dockerhubpush:
-        description: 'Push to Dockerhub?'
+        description: 'Push to Dockerhub? true or false'
         required: false
         default: 'false'
         type: string
@@ -20,13 +22,20 @@ on:
 jobs:
 
   build-it:
-    name: Build docker image on command
-    uses: ./.github/workflows/docker-test.yml
-    with:
-      directory: ${{github.event.inputs.directory}}
-      tag: ${{github.event.inputs.tag}}
-      dockerhubpush: ${{github.event.inputs.dockerhubpush}}
-    secrets:
-      GH_PAT: ${{ secrets.GH_PAT }}
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+    name: Docker Build - ${{ inputs.directory }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Docker build
+        uses: ./.github/workflows/
+        with:
+          directory: ${{ inputs.directory }}
+          tag: ${{ inputs.tag }}
+          dockerhubpush: ${{ inputs.dockerhubpush }}
+          token: ${{ secrets.GH_PAT }}
+          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
