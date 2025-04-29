@@ -16,7 +16,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.GH_PAT }}
 
         # Use the yaml-env-action action.
       - name: Load environment from YAML
@@ -38,7 +37,7 @@ jobs:
           branch_name='preview-${{ github.event.pull_request.number }}'
           echo branch doesnt exist
           git checkout -b $branch_name || echo branch exists
-          git push --set-upstream origin $branch_name || echo echo branch exists remotely
+          git push --set-upstream origin $branch_name || echo branch exists remotely
         shell: bash
 
     outputs:
@@ -130,9 +129,7 @@ jobs:
         with:
           # get the full repo
           fetch-depth: 0
-          # use github PAT
-          token: ${{ secrets.GH_PAT }}
-
+          
       # Set up git checkout
       - name: Set up git checkout
         run: |
@@ -297,7 +294,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.GH_PAT }}
 
       # Set up git checkout
       - name: Set up git checkout
