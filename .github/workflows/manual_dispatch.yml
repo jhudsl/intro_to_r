@@ -31,7 +31,7 @@ jobs:
           fetch-depth: 0
           
       - name: Docker build
-        uses: ./.github/workflows/build-docker.yml
+          uses: ./.github/workflows/build-docker
         with:
           directory: ${{ inputs.directory }}
           tag: ${{ inputs.tag }}
