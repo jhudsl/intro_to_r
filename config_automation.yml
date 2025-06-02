@@ -1,20 +1,30 @@
+
+### Render preview of content with changes (Rmd's and md's are checked)
+render-preview: true
+
 ##### Checks run at pull request #####
 # Check quiz formatting
-check-quizzes: no
+check-quizzes: false
+quiz_error_min: 0
 # Check that urls in the content are not broken
-url-checker: yes
-# Render preview of content with changes (Rmd's and md's are checked)
-render-preview: yes
+url-checker: true
+url_error_min: 2
 # Spell check Rmds and quizzes
-spell-check: yes
-# Style any R code
-style-code: no
-# Test build the docker image if any docker-relevant files have been changed
-docker-test: no
+spell-check: true
+spell_error_min: 1
 
+#### Other options
+# Style any R code
+style-code: false
+# Would you like your markdown files to be checked for formatting
+markdown-linter: true
+# Test build the docker image if any docker-relevant files have been changed
+docker-test: false
+# Should URLs be tested periodically?
+url-check-periodically: true
 
 # Autogenerate Labs from Keys (clear the Rmarkdown chunks)
 make-labs: yes
 
 # What docker image should be used for rendering?
-rendering-docker-image: 'jhudsl/intro_to_r:1.2.0'
+rendering-docker-image: 'jhudsl/intro_to_r:1.2.1'
