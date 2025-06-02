@@ -304,7 +304,7 @@ summary(tb)
 Here we will be using the Youth Tobacco Survey data:
 http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv
 
-* Check out the data at: https://catalog.data.gov/dataset/youth-tobacco-survey-yts-data
+* Check out info about the data at: https://www.cdc.gov/tobacco/about-data/surveys/national-youth-tobacco-survey.html
 
 ```{r}
 yts <- read_csv("http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")

@@ -8,10 +8,10 @@ check-quizzes: false
 quiz_error_min: 0
 # Check that urls in the content are not broken
 url-checker: true
-url_error_min: 0
+url_error_min: 2
 # Spell check Rmds and quizzes
 spell-check: true
-spell_error_min: 0
+spell_error_min: 1
 
 #### Other options
 # Style any R code
@@ -27,4 +27,4 @@ url-check-periodically: true
 make-labs: yes
 
 # What docker image should be used for rendering?
-rendering-docker-image: 'jhudsl/intro_to_r:1.2.0'
+rendering-docker-image: 'jhudsl/intro_to_r:1.2.1'
