@@ -13,7 +13,7 @@
 
 <title>FAQ / Help</title>
 
-<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -347,14 +347,14 @@ code{
 <p>Here we are creating a new object from an existing one:</p>
 <pre class="r"><code>new_rivers &lt;- sample(rivers, 5)
 new_rivers</code></pre>
-<pre><code>## [1] 2315  210  524  600  330</code></pre>
+<pre><code>## [1]  300 1770 1100  350  230</code></pre>
 <p>Using just this will only print the result and not actually change <code>new_rivers</code>:</p>
 <pre class="r"><code>new_rivers + 1</code></pre>
-<pre><code>## [1] 2316  211  525  601  331</code></pre>
+<pre><code>## [1]  301 1771 1101  351  231</code></pre>
 <p>If we want to modify <code>new_rivers</code> and save that modified version, then we need to reassign <code>new_rivers</code> like so:</p>
 <pre class="r"><code>new_rivers &lt;- new_rivers + 1
 new_rivers</code></pre>
-<pre><code>## [1] 2316  211  525  601  331</code></pre>
+<pre><code>## [1]  301 1771 1101  351  231</code></pre>
 <p>If we forget to reassign this can cause subsequent steps to not work as expected because we will not be working with the data that has been modified.</p>
 <hr />
 </div>
@@ -399,11 +399,11 @@ iris %&gt;% pull(Species) %&gt;% str_detec(&quot;setosa&quot;)</code></pre>
 <p><strong>Forgetting to assign an object to start with</strong></p>
 <p>This error is usually caused by forgetting to assign an object to start with, or not running the piece of code that assigns an object. If you never created <code>rivers2</code> and try to modify it like so:</p>
 <pre class="r"><code>rivers2 + 1</code></pre>
-<pre class="bg-error"><code>## Error in eval(expr, envir, enclos): object &#39;rivers2&#39; not found</code></pre>
+<pre class="bg-error"><code>## Error: object &#39;rivers2&#39; not found</code></pre>
 <p>Make sure you run something like this, with the <code>&lt;-</code> operator:</p>
 <pre class="r"><code>rivers2 &lt;- new_rivers + 1
 rivers2</code></pre>
-<pre><code>## [1] 2317  212  526  602  332</code></pre>
+<pre><code>## [1]  302 1772 1102  352  232</code></pre>
 <hr />
 </div>
 <div id="error-unexpected-in-error-unexpected-in-error-unexpected-x-in" class="section level2">
@@ -412,7 +412,7 @@ rivers2</code></pre>
 <p>This error can be caused by missing parentheses. Such as:</p>
 <pre class="r"><code>library(dplyr)
 all.equal((rivers+1, rivers)</code></pre>
-<pre class="bg-error"><code>## Error: &lt;text&gt;:2:20: unexpected &#39;,&#39;
+<pre class="bg-error"><code>## Error in parse(text = input): &lt;text&gt;:2:20: unexpected &#39;,&#39;
 ## 1: library(dplyr)
 ## 2: all.equal((rivers+1,
 ##                       ^</code></pre>
@@ -421,12 +421,12 @@ all.equal((rivers+1, rivers)</code></pre>
 <pre><code>## [1] &quot;Mean relative difference: 0.001688663&quot;</code></pre>
 <p>You will also often get this error if you have the correct number of parentheses but wrong placement:</p>
 <pre class="r"><code>all.equal((rivers+1, rivers))</code></pre>
-<pre class="bg-error"><code>## Error: &lt;text&gt;:1:20: unexpected &#39;,&#39;
+<pre class="bg-error"><code>## Error in parse(text = input): &lt;text&gt;:1:20: unexpected &#39;,&#39;
 ## 1: all.equal((rivers+1,
 ##                        ^</code></pre>
 <p>If you have too many parentheses like this (the last one is extra)… you will get this error:</p>
 <pre class="r"><code>all_equal((rivers+1), rivers))</code></pre>
-<pre class="bg-error"><code>## Error: &lt;text&gt;:1:30: unexpected &#39;)&#39;
+<pre class="bg-error"><code>## Error in parse(text = input): &lt;text&gt;:1:30: unexpected &#39;)&#39;
 ## 1: all_equal((rivers+1), rivers))
 ##                                  ^</code></pre>
 <hr />
@@ -450,7 +450,7 @@ all.equal((rivers+1, rivers)</code></pre>
 <pre class="r"><code>df_quotes %&gt;% pull(`The Values`) # this works</code></pre>
 <pre><code>## [1] 1 2 3</code></pre>
 <pre class="r"><code>df_quotes %&gt;% pull(The Values) # this does not work!</code></pre>
-<pre class="bg-error"><code>## Error: &lt;text&gt;:1:24: unexpected symbol
+<pre class="bg-error"><code>## Error in parse(text = input): &lt;text&gt;:1:24: unexpected symbol
 ## 1: df_quotes %&gt;% pull(The Values
 ##                            ^</code></pre>
 <hr />
@@ -462,7 +462,7 @@ all.equal((rivers+1, rivers)</code></pre>
 <pre class="r"><code>df_quotes %&gt;% pull(&quot;The Values&quot;) # this works</code></pre>
 <pre><code>## [1] 1 2 3</code></pre>
 <pre class="r"><code>df_quotes %&gt;% pull(“The Values”) # this doesn&#39;t work</code></pre>
-<pre class="bg-error"><code>## Error: &lt;text&gt;:1:20: unexpected invalid token
+<pre class="bg-error"><code>## Error in parse(text = input): &lt;text&gt;:1:20: unexpected input
 ## 1: df_quotes %&gt;% pull(“
 ##                        ^</code></pre>
 <hr />
