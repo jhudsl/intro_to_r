@@ -462,11 +462,11 @@ ex_data</code></pre>
 <pre><code>## # A tibble: 5 × 6
 ##   `Number!` `Var with space` `2022` `2021` typical typical2
 ##       &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1         1 A                     4      4       1        1
-## 2         2 B                     5      5       2        2
-## 3         3 C                     2      2       3        3
-## 4         4 D                     1      3       4        4
-## 5         5 E                     3      1       5        5</code></pre>
+## 1         1 A                     2      1       1        1
+## 2         2 B                     1      2       2        2
+## 3         3 C                     4      5       3        3
+## 4         4 D                     3      3       4        4
+## 5         5 E                     5      4       5        5</code></pre>
 <pre class="r"><code># this works
 
 ex_data &lt;- tibble(
@@ -481,11 +481,11 @@ ex_data</code></pre>
 <pre><code>## # A tibble: 5 × 6
 ##   `Number!` `Var with space` `2022` `2021` typical typical2
 ##       &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1         1 A                     5      3       1        1
-## 2         2 B                     4      2       2        2
-## 3         3 C                     2      4       3        3
-## 4         4 D                     3      1       4        4
-## 5         5 E                     1      5       5        5</code></pre>
+## 1         1 A                     3      4       1        1
+## 2         2 B                     4      5       2        2
+## 3         3 C                     2      3       3        3
+## 4         4 D                     5      1       4        4
+## 5         5 E                     1      2       5        5</code></pre>
 </div>
 <div id="rename" class="section level3">
 <h3><code>rename()</code></h3>
@@ -518,32 +518,32 @@ ex_data</code></pre>
 <pre><code>## # A tibble: 5 × 6
 ##   Number `Var with space` `2022` `2021` typical typical2
 ##    &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1      1 A                     5      3       1        1
-## 2      2 B                     4      2       2        2
-## 3      3 C                     2      4       3        3
-## 4      4 D                     3      1       4        4
-## 5      5 E                     1      5       5        5</code></pre>
+## 1      1 A                     3      4       1        1
+## 2      2 B                     4      5       2        2
+## 3      3 C                     2      3       3        3
+## 4      4 D                     5      1       4        4
+## 5      5 E                     1      2       5        5</code></pre>
 <pre class="r"><code>ex_data %&gt;%
   rename(Number = &quot;Number!&quot;)</code></pre>
 <pre><code>## # A tibble: 5 × 6
 ##   Number `Var with space` `2022` `2021` typical typical2
 ##    &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1      1 A                     5      3       1        1
-## 2      2 B                     4      2       2        2
-## 3      3 C                     2      4       3        3
-## 4      4 D                     3      1       4        4
-## 5      5 E                     1      5       5        5</code></pre>
+## 1      1 A                     3      4       1        1
+## 2      2 B                     4      5       2        2
+## 3      3 C                     2      3       3        3
+## 4      4 D                     5      1       4        4
+## 5      5 E                     1      2       5        5</code></pre>
 <pre class="r"><code># not necessary but not problematic to put new typical name in quotation marks
 ex_data %&gt;%
   rename(&quot;Number&quot; = &quot;Number!&quot;)</code></pre>
 <pre><code>## # A tibble: 5 × 6
 ##   Number `Var with space` `2022` `2021` typical typical2
 ##    &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1      1 A                     5      3       1        1
-## 2      2 B                     4      2       2        2
-## 3      3 C                     2      4       3        3
-## 4      4 D                     3      1       4        4
-## 5      5 E                     1      5       5        5</code></pre>
+## 1      1 A                     3      4       1        1
+## 2      2 B                     4      5       2        2
+## 3      3 C                     2      3       3        3
+## 4      4 D                     5      1       4        4
+## 5      5 E                     1      2       5        5</code></pre>
 <p>Here is another example…</p>
 <pre class="r"><code># This works because Sepal.Length already exists as a column name. However `new name!` needs backticks because it doesn&#39;t exist yet and R needs to know what it is (not a not equal to conditional for example), as R could interpret it differently.
 
@@ -621,29 +621,29 @@ ex_data %&gt;%
 <pre><code>## # A tibble: 5 × 6
 ##   `Number!` `Var with space` `2022` `2021` typical typical2
 ##       &lt;dbl&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1         3 A                     5      3       1        1
-## 2         4 B                     4      2       2        2
-## 3         5 C                     2      4       3        3
-## 4         6 D                     3      1       4        4
-## 5         7 E                     1      5       5        5</code></pre>
+## 1         3 A                     3      4       1        1
+## 2         4 B                     4      5       2        2
+## 3         5 C                     2      3       3        3
+## 4         6 D                     5      1       4        4
+## 5         7 E                     1      2       5        5</code></pre>
 <pre class="r"><code>ex_data %&gt;% mutate(&quot;Number!&quot; = `Number!` + 2)</code></pre>
 <pre><code>## # A tibble: 5 × 6
 ##   `Number!` `Var with space` `2022` `2021` typical typical2
 ##       &lt;dbl&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;
-## 1         3 A                     5      3       1        1
-## 2         4 B                     4      2       2        2
-## 3         5 C                     2      4       3        3
-## 4         6 D                     3      1       4        4
-## 5         7 E                     1      5       5        5</code></pre>
+## 1         3 A                     3      4       1        1
+## 2         4 B                     4      5       2        2
+## 3         5 C                     2      3       3        3
+## 4         6 D                     5      1       4        4
+## 5         7 E                     1      2       5        5</code></pre>
 <pre class="r"><code>ex_data %&gt;% mutate(Typical = `Number!` + 2)</code></pre>
 <pre><code>## # A tibble: 5 × 7
 ##   `Number!` `Var with space` `2022` `2021` typical typical2 Typical
 ##       &lt;int&gt; &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;   &lt;int&gt;    &lt;int&gt;   &lt;dbl&gt;
-## 1         1 A                     5      3       1        1       3
-## 2         2 B                     4      2       2        2       4
-## 3         3 C                     2      4       3        3       5
-## 4         4 D                     3      1       4        4       6
-## 5         5 E                     1      5       5        5       7</code></pre>
+## 1         1 A                     3      4       1        1       3
+## 2         2 B                     4      5       2        2       4
+## 3         3 C                     2      3       3        3       5
+## 4         4 D                     5      1       4        4       6
+## 5         5 E                     1      2       5        5       7</code></pre>
 </div>
 <div id="readr-functions" class="section level3">
 <h3><code>readr</code> functions</h3>

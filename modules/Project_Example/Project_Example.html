@@ -470,13 +470,13 @@ t.test(
 <p>There appears to be no significant difference according to the p-value for <code>Social Support</code> or <code>Healthy life expectancy</code>, as they are less than 0.5.</p>
 <p>Disclaimer - this was intended to demonstrate how one might perform such an analysis. We are not claiming that there is a difference or is not a difference in social support or healthy life expectancy between the countries in these two regions.</p>
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>## R version 4.4.1 (2024-06-14)
+<pre><code>## R version 4.5.0 (2025-04-11)
 ## Platform: x86_64-pc-linux-gnu
-## Running under: Ubuntu 22.04.4 LTS
+## Running under: Ubuntu 24.04.2 LTS
 ## 
 ## Matrix products: default
 ## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
-## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
+## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -493,46 +493,45 @@ t.test(
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] here_1.0.1             plotly_4.10.4          directlabels_2024.1.21
-##  [4] patchwork_1.2.0        emo_0.0.0.9000         scales_1.3.0          
-##  [7] emoji_16.0.0           knitr_1.48             broom_1.0.6           
-## [10] esquisse_2.0.0         ThemePark_0.0.1        readxl_1.4.3          
-## [13] naniar_1.1.0           jhur_0.2.1             lubridate_1.9.3       
-## [16] forcats_1.0.0          stringr_1.5.1          dplyr_1.1.4           
-## [19] purrr_1.0.2            tidyr_1.3.1            tibble_3.2.1          
-## [22] ggplot2_3.5.1          tidyverse_2.0.0        readr_2.1.5           
+##  [1] readxl_1.4.5           plotly_4.10.4          directlabels_2024.1.21
+##  [4] patchwork_1.3.0        emo_0.0.0.9000         scales_1.4.0          
+##  [7] emoji_16.0.0           knitr_1.50             broom_1.0.8           
+## [10] esquisse_2.1.0         ThemePark_0.0.1        naniar_1.1.0          
+## [13] lubridate_1.9.4        forcats_1.0.0          stringr_1.5.1         
+## [16] dplyr_1.1.4            purrr_1.0.4            readr_2.1.5           
+## [19] tidyr_1.3.1            tibble_3.2.1           ggplot2_3.5.2         
+## [22] tidyverse_2.0.0       
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] writexl_1.5.0       datamods_1.5.1      rlang_1.1.4        
-##  [4] magrittr_2.0.3      rio_1.1.1           e1071_1.7-14       
-##  [7] compiler_4.4.1      systemfonts_1.1.0   vctrs_0.6.5        
+##  [1] writexl_1.5.4       datamods_1.5.3      rlang_1.1.6        
+##  [4] magrittr_2.0.3      rio_1.2.3           e1071_1.7-16       
+##  [7] compiler_4.5.0      systemfonts_1.2.2   vctrs_0.6.5        
 ## [10] quadprog_1.5-8      sysfonts_0.8.9      pkgconfig_2.0.3    
 ## [13] crayon_1.5.3        fastmap_1.2.0       backports_1.5.0    
-## [16] labeling_0.4.3      utf8_1.2.4          promises_1.3.0     
-## [19] phosphoricons_0.2.1 rmarkdown_2.27      tzdb_0.4.0         
-## [22] visdat_0.6.0        ragg_1.3.2          bit_4.0.5          
-## [25] xfun_0.45           showtext_0.9-7      cachem_1.1.0       
-## [28] jsonlite_1.8.8      highr_0.11          later_1.3.2        
-## [31] parallel_4.4.1      R6_2.5.1            bslib_0.7.0        
-## [34] stringi_1.8.4       shinybusy_0.3.3     jquerylib_0.1.4    
-## [37] cellranger_1.1.0    Rcpp_1.0.12         assertthat_0.2.1   
+## [16] labeling_0.4.3      utf8_1.2.4          promises_1.3.2     
+## [19] phosphoricons_0.2.1 rmarkdown_2.29      tzdb_0.5.0         
+## [22] visdat_0.6.0        ragg_1.4.0          bit_4.6.0          
+## [25] xfun_0.52           showtext_0.9-7      cachem_1.1.0       
+## [28] jsonlite_2.0.0      later_1.4.2         parallel_4.5.0     
+## [31] R6_2.6.1            bslib_0.9.0         stringi_1.8.7      
+## [34] RColorBrewer_1.1-3  shinybusy_0.3.3     jquerylib_0.1.4    
+## [37] cellranger_1.1.0    Rcpp_1.0.14         assertthat_0.2.1   
 ## [40] clisymbols_1.2.0    httpuv_1.6.15       timechange_0.3.0   
-## [43] tidyselect_1.2.1    rstudioapi_0.16.0   yaml_2.3.9         
-## [46] curl_5.2.1          shiny_1.8.1.1       withr_3.0.0        
-## [49] evaluate_0.24.0     proxy_0.4-27        getopt_1.20.4      
-## [52] pillar_1.9.0        KernSmooth_2.23-24  generics_0.1.3     
-## [55] vroom_1.6.5         rprojroot_2.0.4     hms_1.1.3          
-## [58] munsell_0.5.1       xtable_1.8-4        class_7.3-22       
-## [61] glue_1.7.0          toastui_0.3.3       lazyeval_0.2.2     
-## [64] tools_4.4.1         data.table_1.15.4   reactable_0.4.4    
-## [67] grid_4.4.1          optparse_1.7.5      crosstalk_1.2.1    
-## [70] colorspace_2.1-0    showtextdb_3.0      config_0.3.2       
-## [73] cli_3.6.3           textshaping_0.4.0   fansi_1.0.6        
-## [76] viridisLite_0.4.2   gtable_0.3.5        sass_0.4.9         
-## [79] digest_0.6.36       classInt_0.4-10     htmlwidgets_1.6.4  
-## [82] farver_2.1.2        htmltools_0.5.8.1   lifecycle_1.0.4    
-## [85] httr_1.4.7          shinyWidgets_0.8.6  mime_0.12          
-## [88] bit64_4.0.5</code></pre>
+## [43] tidyselect_1.2.1    rstudioapi_0.17.1   yaml_2.3.10        
+## [46] curl_6.2.2          shiny_1.10.0        withr_3.0.2        
+## [49] evaluate_1.0.3      proxy_0.4-27        getopt_1.20.4      
+## [52] zip_2.3.2           pillar_1.10.2       KernSmooth_2.23-26 
+## [55] generics_0.1.3      vroom_1.6.5         rprojroot_2.0.4    
+## [58] hms_1.1.3           xtable_1.8-4        class_7.3-23       
+## [61] glue_1.8.0          toastui_0.4.0       lazyeval_0.2.2     
+## [64] tools_4.5.0         data.table_1.17.0   reactable_0.4.4    
+## [67] grid_4.5.0          optparse_1.7.5      crosstalk_1.2.1    
+## [70] showtextdb_3.0      cli_3.6.5           config_0.3.2       
+## [73] textshaping_1.0.0   viridisLite_0.4.2   gtable_0.3.6       
+## [76] sass_0.4.10         digest_0.6.37       classInt_0.4-11    
+## [79] htmlwidgets_1.6.4   farver_2.1.2        htmltools_0.5.8.1  
+## [82] lifecycle_1.0.4     httr_1.4.7          shinyWidgets_0.9.0 
+## [85] here_1.0.1          mime_0.13           bit64_4.6.0-1</code></pre>
 </div>
 <div id="how-this-might-get-evaluated" class="section level2">
 <h2>How this might get evaluated</h2>

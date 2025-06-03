@@ -291,7 +291,7 @@ y</pre>
 
 <pre class = 'prettyprint lang-r'>X</pre>
 
-<pre >Error in eval(expr, envir, enclos): object &#39;X&#39; not found</pre>
+<pre >Error: object &#39;X&#39; not found</pre>
 
 </article></slide><slide class=""><hgroup><h2>TROUBLESHOOTING: No commas in big numbers</h2></hgroup><article  id="troubleshooting-no-commas-in-big-numbers">
 
@@ -299,7 +299,7 @@ y</pre>
 
 <pre class = 'prettyprint lang-r'>z &lt;- 3,000</pre>
 
-<pre >Error: &lt;text&gt;:1:7: unexpected &#39;,&#39;
+<pre >Error in parse(text = input): &lt;text&gt;:1:7: unexpected &#39;,&#39;
 1: z &lt;- 3,
           ^</pre>
 
@@ -307,7 +307,7 @@ y</pre>
 
 <pre class = 'prettyprint lang-r'>10 /</pre>
 
-<pre >Error: &lt;text&gt;:2:0: unexpected end of input
+<pre >Error in parse(text = input): &lt;text&gt;:2:0: unexpected end of input
 1: 10 /
    ^</pre>
 

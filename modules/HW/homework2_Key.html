@@ -417,8 +417,8 @@ range(cars$VehYear)</code></pre>
 <pre class="r"><code># The range is 2001 2010. </code></pre>
 <p>12. Create a random sample with of mileage (odometer reading) from <code>cars</code>. To determine the column that corresponds to mileage (The vehicle’s odometer reading), check the “key” corresponding to the data dictionary that you imported above in question 6. Use <code>sample()</code> and <code>pull()</code>. Remember that by default random samples differ each time you run the code.</p>
 <pre class="r"><code>sample(pull(cars, VehOdo), size = 20)</code></pre>
-<pre><code>##  [1] 85358 44568 72443 62454 74440 78385 52967 52032 68419 81696 28489 79712
-## [13] 84830 68899 88274 58726 68750 90469 89339 80996</code></pre>
+<pre><code>##  [1] 25436 85341 89787 77938 62059 38703 78217 88665 97317 82339 71142 61827
+## [13] 50666 43227 76228 68272 66072 89124 61837 84918</code></pre>
 <p>13. How many cars were from before 2004? What percent/proportion do these represent? Use:</p>
 <ul>
 <li><code>filter()</code> and <code>nrow()</code></li>

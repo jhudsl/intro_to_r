@@ -269,10 +269,10 @@ cold_states_tibble</code></pre>
 ## 1 Alabama</code></pre>
 <p>However when using <code>setdiff()</code> from base R with the tibble versions of the data, it does not work properly and just gives us the first tibble.</p>
 <pre class="r"><code>base::setdiff(A_states_tibble, cold_states_tibble) </code></pre>
-<pre><code>## $State
+<pre><code>## [[1]]
 ## [1] &quot;Alabama&quot; &quot;Alaska&quot;</code></pre>
 <pre class="r"><code>base::setdiff(cold_states_tibble, A_states_tibble) </code></pre>
-<pre><code>## $State
+<pre><code>## [[1]]
 ## [1] &quot;Maine&quot;  &quot;Alaska&quot; &quot;Alaska&quot;</code></pre>
 <p>We could also use <code>setdiff()</code> from <code>dplyr</code> to tell us what rows were removed when filtering a dataframe or tibble:</p>
 <pre class="r"><code>mt_cars_high_mpg &lt;- mtcars %&gt;% filter(mpg &gt; 20)

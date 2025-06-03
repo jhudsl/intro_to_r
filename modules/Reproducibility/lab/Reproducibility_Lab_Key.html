@@ -184,13 +184,13 @@ x</code></pre>
 <h3>1.3</h3>
 <p>Check your R session info. Which version of R are you running? Which version of the <code>knitr</code> package are you running? Write these details below.</p>
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>## R version 4.4.1 (2024-06-14)
+<pre><code>## R version 4.5.0 (2025-04-11)
 ## Platform: x86_64-pc-linux-gnu
-## Running under: Ubuntu 22.04.4 LTS
+## Running under: Ubuntu 24.04.2 LTS
 ## 
 ## Matrix products: default
 ## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
-## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
+## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -207,39 +207,39 @@ x</code></pre>
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] esquisse_2.0.0  ThemePark_0.0.1 readxl_1.4.3    naniar_1.1.0   
-##  [5] jhur_0.2.1      lubridate_1.9.3 forcats_1.0.0   stringr_1.5.1  
-##  [9] dplyr_1.1.4     purrr_1.0.2     tidyr_1.3.1     tibble_3.2.1   
-## [13] ggplot2_3.5.1   tidyverse_2.0.0 readr_2.1.5    
+##  [1] esquisse_2.1.0  ThemePark_0.0.1 naniar_1.1.0    lubridate_1.9.4
+##  [5] forcats_1.0.0   stringr_1.5.1   dplyr_1.1.4     purrr_1.0.4    
+##  [9] readr_2.1.5     tidyr_1.3.1     tibble_3.2.1    ggplot2_3.5.2  
+## [13] tidyverse_2.0.0
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] writexl_1.5.0       tidyselect_1.2.1    farver_2.1.2       
-##  [4] fastmap_1.2.0       promises_1.3.0      digest_0.6.36      
-##  [7] timechange_0.3.0    toastui_0.3.3       mime_0.12          
-## [10] lifecycle_1.0.4     magrittr_2.0.3      compiler_4.4.1     
-## [13] rlang_1.1.4         sass_0.4.9          tools_4.4.1        
-## [16] utf8_1.2.4          yaml_2.3.9          data.table_1.15.4  
-## [19] knitr_1.48          labeling_0.4.3      htmlwidgets_1.6.4  
-## [22] bit_4.0.5           classInt_0.4-10     curl_5.2.1         
-## [25] shinybusy_0.3.3     showtextdb_3.0      KernSmooth_2.23-24 
-## [28] withr_3.0.0         shinyWidgets_0.8.6  grid_4.4.1         
-## [31] fansi_1.0.6         sysfonts_0.8.9      xtable_1.8-4       
-## [34] e1071_1.7-14        colorspace_2.1-0    scales_1.3.0       
-## [37] optparse_1.7.5      cli_3.6.3           rmarkdown_2.27     
-## [40] crayon_1.5.3        ragg_1.3.2          datamods_1.5.1     
-## [43] generics_0.1.3      rstudioapi_0.16.0   tzdb_0.4.0         
+##  [1] writexl_1.5.4       tidyselect_1.2.1    farver_2.1.2       
+##  [4] fastmap_1.2.0       promises_1.3.2      digest_0.6.37      
+##  [7] timechange_0.3.0    toastui_0.4.0       mime_0.13          
+## [10] lifecycle_1.0.4     magrittr_2.0.3      compiler_4.5.0     
+## [13] rlang_1.1.6         sass_0.4.10         tools_4.5.0        
+## [16] utf8_1.2.4          yaml_2.3.10         data.table_1.17.0  
+## [19] knitr_1.50          labeling_0.4.3      htmlwidgets_1.6.4  
+## [22] bit_4.6.0           classInt_0.4-11     curl_6.2.2         
+## [25] shinybusy_0.3.3     showtextdb_3.0      RColorBrewer_1.1-3 
+## [28] KernSmooth_2.23-26  withr_3.0.2         shinyWidgets_0.9.0 
+## [31] grid_4.5.0          sysfonts_0.8.9      xtable_1.8-4       
+## [34] e1071_1.7-16        scales_1.4.0        optparse_1.7.5     
+## [37] cli_3.6.5           rmarkdown_2.29      crayon_1.5.3       
+## [40] ragg_1.4.0          datamods_1.5.3      generics_0.1.3     
+## [43] rstudioapi_0.17.1   tzdb_0.5.0          readxl_1.4.5       
 ## [46] getopt_1.20.4       cachem_1.1.0        proxy_0.4-27       
-## [49] parallel_4.4.1      cellranger_1.1.0    vctrs_0.6.5        
-## [52] jsonlite_1.8.8      hms_1.1.3           bit64_4.0.5        
-## [55] visdat_0.6.0        systemfonts_1.1.0   jquerylib_0.1.4    
-## [58] rio_1.1.1           glue_1.7.0          stringi_1.8.4      
-## [61] gtable_0.3.5        later_1.3.2         munsell_0.5.1      
-## [64] pillar_1.9.0        htmltools_0.5.8.1   showtext_0.9-7     
-## [67] reactable_0.4.4     R6_2.5.1            textshaping_0.4.0  
-## [70] vroom_1.6.5         evaluate_0.24.0     shiny_1.8.1.1      
-## [73] highr_0.11          httpuv_1.6.15       bslib_0.7.0        
-## [76] phosphoricons_0.2.1 class_7.3-22        Rcpp_1.0.12        
-## [79] xfun_0.45           pkgconfig_2.0.3</code></pre>
+## [49] parallel_4.5.0      cellranger_1.1.0    vctrs_0.6.5        
+## [52] jsonlite_2.0.0      hms_1.1.3           bit64_4.6.0-1      
+## [55] visdat_0.6.0        systemfonts_1.2.2   jquerylib_0.1.4    
+## [58] rio_1.2.3           glue_1.8.0          stringi_1.8.7      
+## [61] gtable_0.3.6        later_1.4.2         pillar_1.10.2      
+## [64] htmltools_0.5.8.1   showtext_0.9-7      reactable_0.4.4    
+## [67] R6_2.6.1            textshaping_1.0.0   vroom_1.6.5        
+## [70] evaluate_1.0.3      shiny_1.10.0        httpuv_1.6.15      
+## [73] bslib_0.9.0         phosphoricons_0.2.1 class_7.3-23       
+## [76] Rcpp_1.0.14         zip_2.3.2           xfun_0.52          
+## [79] pkgconfig_2.0.3</code></pre>
 <ul>
 <li>R version:</li>
 <li><code>knitr</code> version:</li>
