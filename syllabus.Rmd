@@ -39,7 +39,7 @@ By the end of the course, students should be comfortable:
 ### When 
 
 - **Dates:** `r config::get("course_dates")` 
-<!-- (`r config::get("holiday")`) -->
+(`r config::get("holiday")`)
 - **Time:** `r config::get("course_time")`
 - **Assignments due:** <span style="background-color: yellow;">`r config::get("final_due_date")` </span>
 
@@ -58,7 +58,7 @@ By the end of the course, students should be comfortable:
 ### Instruction Team
 
 - **Instructors:** `r config::get("instructors")`
-- **Teaching Assistants:** `r config::get("ta")`
+- **Teaching Assistant(s):** `r config::get("ta")`
 
 <br>
 

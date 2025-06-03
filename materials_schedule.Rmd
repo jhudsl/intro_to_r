@@ -4,7 +4,7 @@ output:
   html_document
 ---
 
-<!-- `r config::get("holiday")` -->
+`r config::get("holiday")`
 
 There is an assignment due before class to [install software](modules/Setup/Setup.html) and we recommend completing HW 1 (uploading a screenshot showing that you finished the Swirl module indicated below) before class, but all other assignments will be due `r config::get("final_due_date")`. You are welcome to turn assignments in earlier if you wish. 
 
@@ -18,7 +18,7 @@ There is an assignment due before class to [install software](modules/Setup/Setu
 | 2:30pm - 2:40pm   | Break     |
 | 2:40pm - 3:40pm   | Session 2 |
 | 3:40pm - 3:50pm   | Break     |
-| 3:50pm - 4:50pm   | Session 3 |
+| `r config::get("last_session_time")`   | Session 3 |
 
 *Note: Timing is approximate*
 
