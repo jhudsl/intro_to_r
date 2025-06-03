@@ -2,6 +2,19 @@
 
 This is a guide for adding content to this course.
 
+## Updating for JHU Sessions
+
+Perform these steps in this order for best efficiency:
+
+* Set up zoom link
+* Send out calendar invites
+* Set up Slack Workspace (use images on Google Drive to make icon)
+* Set up new feedback form (also on Google Drive by copying old one)
+* Ensure new feedback form has the correct date info
+* Edit the config.yml file to replace links, dates, names etc. everywhere else
+* Update CoursePlus (See https://github.com/jhudsl/intro_to_r/issues/256 for steps)
+* Copy paste the resources/email_to_class.html text to CoursePlus (after updating the two spots that are manual) email tool an send to students
+* Update the intro slides for instructors/TAs
 
 
 ## Quick Start
