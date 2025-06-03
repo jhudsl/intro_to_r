@@ -7,11 +7,10 @@ editor_options:
 
 # R Markdown
 
-The file you are reading is called an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>. The way you can create a file like this in RStudio is: File → New File → R Markdown and then using the default or using a template.
+The file you are reading is called an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details, see <http://rmarkdown.rstudio.com>. 
 
 1. Try compiling this document using the “Knit” button. What files are produced?
 
-The way you can create a file like this in RStudio is: File → New File → R Markdown and then using the default or using a template.
 
 Now we will install some packages! Note it may take ~5-10 minutes to run all these steps. **You need to run these steps in the order listed.**
 
@@ -22,6 +21,12 @@ install.packages("tidyverse")
 
 This code will install a package from CRAN called "tidyverse". <br>
 You may be asked a question in the console when you do this. If so, answer by typing Yes into the console.
+
+**Troubleshooting**
+
+- You may get an error that says something about `Rtools`, if so follow these instructions:https://docs.google.com/viewer?url=https://raw.githubusercontent.com/jhudsl/intro_to_r/main/resources/rtools_windows.pdf. 
+
+- If R keeps asking you to restart, you only need to do this once and can say no after that. 
 
 ### Load a package into memory
 
@@ -36,6 +41,10 @@ You may be asked a question in the console when you do this. If so, answer by ty
 The gray area below is a code chunk that will set up our packages and data (this will not show up in the rendered report when we press knit). You can also run the code within the editor area by pressing the green play button. Don't worry right now about what the code is doing, we will cover this later.
 
 4. Press the green play button. What happens (check the environment too!)?
+
+**Troubleshooting**
+
+- If you are on one drive, this can cause issues with loading the data from the url. Try using this file outside of one drive if this happens.
 
 ```{r setup, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -83,24 +92,6 @@ ggplot(aes(x = date, y = number, colour = line), data = avg) +
   scale_colour_manual(values = palette)
 ```
 
-```{r out.width = "100%", label = '0response'}
-# keep only some days
-avg <- avg %>%
-  filter(day %in% c("Monday", "Tuesday", "Friday", "Sunday"))
-
-palette <- c(
-  banner = "red",
-  green = "darkgreen",
-  orange = "orange",
-  purple = "purple"
-)
-
-ggplot(aes(x = date, y = number, colour = line), data = avg) +
-  geom_line() +
-  facet_wrap(~day) +
-  scale_colour_manual(values = palette)
-```
-
 
 ### Adding new chunks
 
@@ -122,6 +113,25 @@ x
 ### P.1
 
 Go through the code for the plot above and change the colors in `palette` to something other than what they originally were. See http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf for a large list of colors. For example, you could replace blue with red.
+
+```{r out.width = "100%", label = '0response'}
+# keep only some days
+avg <- avg %>%
+  filter(day %in% c("Monday", "Tuesday", "Friday", "Sunday"))
+
+palette <- c(
+  banner = "red",
+  green = "darkgreen",
+  orange = "orange",
+  purple = "purple"
+)
+
+ggplot(aes(x = date, y = number, colour = line), data = avg) +
+  geom_line() +
+  facet_wrap(~day) +
+  scale_colour_manual(values = palette)
+```
+
 
 ### P.2
 
