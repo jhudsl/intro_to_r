@@ -83,24 +83,6 @@ ggplot(aes(x = date, y = number, colour = line), data = avg) +
   scale_colour_manual(values = palette)
 ```
 
-```{r out.width = "100%", label = '0response'}
-# keep only some days
-avg <- avg %>%
-  filter(day %in% c("Monday", "Tuesday", "Friday", "Sunday"))
-
-palette <- c(
-  banner = "red",
-  green = "darkgreen",
-  orange = "orange",
-  purple = "purple"
-)
-
-ggplot(aes(x = date, y = number, colour = line), data = avg) +
-  geom_line() +
-  facet_wrap(~day) +
-  scale_colour_manual(values = palette)
-```
-
 
 ### Adding new chunks
 
@@ -122,6 +104,25 @@ x
 ### P.1
 
 Go through the code for the plot above and change the colors in `palette` to something other than what they originally were. See http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf for a large list of colors. For example, you could replace blue with red.
+
+```{r out.width = "100%", label = '0response'}
+# keep only some days
+avg <- avg %>%
+  filter(day %in% c("Monday", "Tuesday", "Friday", "Sunday"))
+
+palette <- c(
+  banner = "red",
+  green = "darkgreen",
+  orange = "orange",
+  purple = "purple"
+)
+
+ggplot(aes(x = date, y = number, colour = line), data = avg) +
+  geom_line() +
+  facet_wrap(~day) +
+  scale_colour_manual(values = palette)
+```
+
 
 ### P.2
 
