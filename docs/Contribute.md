@@ -13,7 +13,7 @@ Perform these steps in this order for best efficiency:
 * Ensure new feedback form has the correct date info
 * Edit the config.yml file to replace links, dates, names etc. everywhere else
 * Update CoursePlus (See https://github.com/jhudsl/intro_to_r/issues/256 for steps)
-* Copy paste the resources/email_to_class.html text to CoursePlus (after updating the two spots that are manual) email tool an send to students
+* Copy paste the resources/email_to_class.html text to CoursePlus (after updating the two spots that are manual) email tool and send to students
 * Update the intro slides for instructors/TAs
 
 
