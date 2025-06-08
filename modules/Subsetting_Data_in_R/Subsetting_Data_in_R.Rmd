@@ -840,38 +840,7 @@ AD %>% select(year, count, BUYER_STATE, BUYER_COUNTY) %>%
 head(2)
 ```
 
-## Ordering the columns of a data frame: dplyr {.codesmall}
 
-The `select` function can reorder columns.  Put `newcol` first, then select the rest of columns:
-```{r, eval = FALSE}
-select(AD, newcol, everything())
-```
-
-```{r, echo = FALSE}
-head(select(AD, newcol, everything()), 3)
-```
-
-## Ordering the columns of a data frame: dplyr {.codesmall}
-
-Put `year` at the end ("remove, everything, then add back in"):
-
-```{r, eval = FALSE}
-select(AD, !year, everything(), year)
-```
-
-```{r, echo = FALSE}
-head(select(AD, !year, everything(), year), 3)
-```
-
-
-## Ordering the column names of a data frame: alphabetically {.codesmall}
-
-Using the base R `order()` function.
-
-```{r}
-order(colnames(AD))
-AD %>% select(order(colnames(AD)))
-```
 
 
 ## Ordering the columns of a data frame: dplyr {.codesmall}
@@ -914,6 +883,27 @@ You can combine increasing and decreasing orderings:
 arrange(AD, count, desc(year)) %>% head(n = 2)
 
 arrange(AD, desc(year), count) %>% head(n = 2)
+```
+
+
+## Functions you might see: {.codesmall}
+
+Using the base R `order()` function ordering columns alphabetically:
+
+```{r, eval = FALSE}
+AD %>% select(order(colnames(AD)))
+```
+
+The `everything()` function to order columns.
+Put newcol first, then everything else:
+```{r, eval = FALSE}
+select(AD, newcol, everything())
+```
+
+Put `year` at the end ("remove, everything, then add back in"):
+
+```{r, eval = FALSE}
+select(AD, !year, everything(), year)
 ```
 
 
