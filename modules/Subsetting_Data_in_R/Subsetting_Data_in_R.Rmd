@@ -461,9 +461,6 @@ Note that if you want the values (not a `tibble`), use `pull` - as it pulls out 
 ```{r}
 pull(AD, year)
 
-# pull with select works too!
-
-pull(select(AD, year))
 ```
 
 ## Select columns of a data frame: dplyr
