@@ -554,13 +554,6 @@ If you try to filter for a column that does not exist it will not work:
 
 Remember that filter works by keeping rows with values that match the conditions specified for particular columns. 
 
-## `filter` function
-
-```{r, fig.alt="dplyr", out.width = "70%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("images/filter.png")
-```
-
-"Artwork by @allison_horst". https://allisonhorst.com/
 
 ## Subset rows of a data frame: dplyr {.codesmall}
 
@@ -660,6 +653,14 @@ https://media.giphy.com/media/5b5OU7aUekfdSAER5I/giphy.gif
 A. `filter()` with `|`
 
 B. `filter()` with `&`
+
+## `filter` function
+
+```{r, fig.alt="dplyr", out.width = "70%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/filter.png")
+```
+
+"Artwork by @allison_horst". https://allisonhorst.com/
 
 ## Summary
 
