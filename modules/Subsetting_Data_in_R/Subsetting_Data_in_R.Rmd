@@ -895,7 +895,7 @@ AD %>% select(order(colnames(AD)))
 ```
 
 The `everything()` function to order columns.
-Put newcol first, then everything else:
+Put `newcol` first, then everything else:
 ```{r, eval = FALSE}
 select(AD, newcol, everything())
 ```
