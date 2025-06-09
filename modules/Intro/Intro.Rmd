@@ -11,23 +11,24 @@ library(knitr)
 opts_chunk$set(comment = "")
 ```
 
+
 ## Welcome to class!
 
 1. Introductions
 2. Class overview
 3. Getting R up and running
 
-
 ```{r, fig.alt="Welcome!", out.width = "60%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/welcome.jpg")
 ```
 
-
 <sub>[Photo by <a href="https://unsplash.com/@bel2000a?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Belinda Fewings</a> on <a href="https://unsplash.com/s/photos/welcome?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>]</sub>
-  
+
+
 ## Before we start ..
 
 Poll: How are you feeling right now?
+
 
 ## About Us
 
@@ -46,21 +47,6 @@ Email: cwrigh60@jhu.edu  Web: https://carriewright11.github.io
 knitr::include_graphics(here::here("modules", "Intro", "images", "carrie.png"))
 ```
 
-## About Us
-
-**Ava Hoffman (she/her)**
-
-Senior Staff Scientist, Fred Hutchinson Cancer Center
-
-Associate, Department of Biostatistics, JHSPH
-
-PhD in Ecology
-
-Email: ava.hoffman@jhu.edu  Web: https://avahoffman.com
-
-```{r, fig.alt="Ava's picture", out.width = "30%", echo = FALSE, fig.align='center'}
-knitr::include_graphics(here::here("modules", "Intro", "images", "ava.png"))
-```
 
 ## About Us
 
@@ -76,19 +62,36 @@ Email: cmckee7@jhu.edu Web: http://clifmckee.github.io
 knitr::include_graphics("https://ca.slack-edge.com/T05B63VRKQU-U05B3L06SQK-a423994b2612-512")
 ```
 
+
+## About Us
+
+**Ahmed Sabit**
+
+Research Associate, Department of Biostatistics, JHSPH
+
+Masters in Statistics
+
+Email: ahmed.sabit@jhu.edu 
+
+```{r, fig.alt="Sabit's picture", out.width = "30%", echo = FALSE, fig.align='center'}
+knitr::include_graphics(here::here("modules", "Intro", "images", "sabit.jpg"))
+```
+
+
 ## About Us - TA
 
-**Lily Koffman**
+**Meish Zhao (she/her)**
 
-4th year PhD candidate in Biostatistics, BSPH
+1st year ScM student in Biostatistics, JHSPH
 
-Research: wearable devices and functional data
+Research: clinical trials
 
-Email: lkoffma2@jh.edu Web: https://www.lilykoff.com/
+Email: mzhao55@jh.edu
 
-```{r, fig.alt="Charlotte's picture", out.width = "35%", echo = FALSE, fig.align='center'}
-knitr::include_graphics(here::here("modules", "Intro", "images", "lily.png"))
+```{r, fig.alt="Meishu's picture", out.width = "35%", echo = FALSE, fig.align='center'}
+knitr::include_graphics(here::here("modules", "Intro", "images", "meishu.png"))
 ```
+
 
 ## About you!
 
@@ -195,6 +198,7 @@ Please refresh/download materials before class.
 knitr::include_graphics("../../docs/images/Intro_to_R.png")
 ```
 
+
 ## Learning Objectives
 
 - Understanding basic programming syntax
@@ -206,6 +210,7 @@ knitr::include_graphics("../../docs/images/Intro_to_R.png")
 - Writing R functions
 - **Building intuition** 
 
+
 ## Course Format
 
  * Lecture with slides, interactive
@@ -213,12 +218,14 @@ knitr::include_graphics("../../docs/images/Intro_to_R.png")
  * Two 10 min breaks each day - timing may vary
  * `r config::get("course_dates")` `r config::get("course_time")` on Zoom
  * Final classes will focus on final project
- 
+
+
 ## CoursePlus
  
 `r config::get("courseplus_web")`
 
 - Upload homework/project
+
 
 ## Surveys
 
@@ -231,6 +238,7 @@ knitr::include_graphics("images/feedback-illustration.jpeg")
 
 <sub>[[source - Banner vector created by pch.vector - www.freepik.com]("https://www.freepik.com/vectors/banner")]</sub>
 
+
 ## Grading
 
  1. Attendance/Participation: 20% - this can be asynchronous - just some sort of interaction with the instructors/TAs (turning in assignments, emailing etc.)
@@ -242,6 +250,7 @@ Homework and Final Project due by **`r config::get("final_due_date")`**.
 If you turn homework in earlier this can allow us to potentially give you feedback earlier.
  
 Note: Only people taking the course for credit must turn in the assignments. However, we will evaluate all submitted assignments in case others would like feedback on their work.
+
 
 ## Your Setup
 
