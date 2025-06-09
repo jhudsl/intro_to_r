@@ -347,14 +347,14 @@ code{
 <p>Here we are creating a new object from an existing one:</p>
 <pre class="r"><code>new_rivers &lt;- sample(rivers, 5)
 new_rivers</code></pre>
-<pre><code>## [1] 310 327 710 720 280</code></pre>
+<pre><code>## [1]  505  217  336  360 1450</code></pre>
 <p>Using just this will only print the result and not actually change <code>new_rivers</code>:</p>
 <pre class="r"><code>new_rivers + 1</code></pre>
-<pre><code>## [1] 311 328 711 721 281</code></pre>
+<pre><code>## [1]  506  218  337  361 1451</code></pre>
 <p>If we want to modify <code>new_rivers</code> and save that modified version, then we need to reassign <code>new_rivers</code> like so:</p>
 <pre class="r"><code>new_rivers &lt;- new_rivers + 1
 new_rivers</code></pre>
-<pre><code>## [1] 311 328 711 721 281</code></pre>
+<pre><code>## [1]  506  218  337  361 1451</code></pre>
 <p>If we forget to reassign this can cause subsequent steps to not work as expected because we will not be working with the data that has been modified.</p>
 <hr />
 </div>
@@ -403,7 +403,7 @@ iris %&gt;% pull(Species) %&gt;% str_detec(&quot;setosa&quot;)</code></pre>
 <p>Make sure you run something like this, with the <code>&lt;-</code> operator:</p>
 <pre class="r"><code>rivers2 &lt;- new_rivers + 1
 rivers2</code></pre>
-<pre><code>## [1] 312 329 712 722 282</code></pre>
+<pre><code>## [1]  507  219  338  362 1452</code></pre>
 <hr />
 </div>
 <div id="error-unexpected-in-error-unexpected-in-error-unexpected-x-in" class="section level2">
