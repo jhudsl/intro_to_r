@@ -68,9 +68,8 @@ Some resources on how to use `dplyr`:
 ```{r, fig.alt="dplyr", out.width = "100%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/dplyr.png")
 ```
-The `dplyr` package is one of the most helpful packages for altering your data to get it into a form that is useful for creating visualizations, summarizing, or more deeply analyzing. 
+The `dplyr` package is one of the most helpful packages for altering your data to get it ready analysis and visualization.
 
-So you can imagine using pliers on your data. 
 
 ```{r, fig.alt="dplyr", out.width = "20%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/621a9c8c5d7b47c4b6d72e8f01f28d14310e8370/193fc/css/images/hex/dplyr.png")
@@ -245,75 +244,6 @@ head(renamed_annualDosage)
 ```
 
 
-## Take Care with Column Names
-
-When you can, avoid spaces, special punctuation, or numbers in column names, as these require special treatment to refer to them. 
-
-See https://jhudatascience.org/intro_to_r/resources/quotes_vs_backticks.html for more guidance.
-
-```{r, eval = FALSE}
- # this will cause an error
-renamed_annualDosage <- rename(annualDosage, County! = BUYER_COUNTY)
-```
-
-```{r}
-# this will work
-renamed_annualDosage <- rename(annualDosage, `County!` = BUYER_COUNTY) 
-head(renamed_annualDosage, 2)
-```
-
-
-## Unusual Column Names
-
-It's best to avoid unusual column names where possible, as things get tricky later.
-
-We just showed the use of \` backticks\` . You may see people use quotes as well.
-
-```{r, fig.alt="dplyr", out.width = "14%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("images/backtick_1.png")
-```
-
-Other atypical column names are those with:
-
-- spaces
-- number without characters
-- number starting the name
-- other punctuation marks (besides "_" or "." and not at the beginning)
-
-
-## A solution!
-
-Rename tricky column names so that you don't have to deal with them later!
-
-```{r, fig.align='center', echo = FALSE}
-include_graphics("https://media.giphy.com/media/6q29hxDKvJvPy/giphy.gif")
-```
-
-## Be careful about copy pasting code!
-
-Curly quotes will not work!
-
-```{r, eval = FALSE}
-# this will cause an error!
-renamed_annualDosage <- rename(annualDosage, ‘County!’ = BUYER_COUNTY) 
-```
-
-```{r, eval = FALSE}
-# this will work!
-renamed_annualDosage <- rename(annualDosage, 'County!' = BUYER_COUNTY) 
-```
-
-Also true for double quotes
-```{r, eval = FALSE}
- # this will cause an error!
-renamed_annualDosage <- rename(annualDosage, “County!” = BUYER_COUNTY)
-```
-
-```{r, eval = FALSE}
-# this will work!
-renamed_annualDosage <- rename(annualDosage, "County!" = BUYER_COUNTY) 
-```
-
 ## Rename multiple columns
 
 A comma can separate different column names to change.
@@ -339,9 +269,85 @@ annualDosage_lower<- rename_with(annualDosage, tolower)
 head(annualDosage_lower, 3)
 ```
 
+
+## Take Care with Column Names
+
+When you can, avoid spaces, special punctuation, or numbers in column names, as these require special treatment to refer to them. 
+
+Sometimes your data will already have these tricky column names.
+
+:(   
+
+
+## Unusual Column Names
+
+Atypical column names:
+
+- spaces (`Last Names`) (can use `Last_Names` instead)
+- number without characters (`1950`)
+- number starting the name (`1950Sales`)
+- punctuation marks besides `_` or `.` (`Dollars$`)
+
+
+## Unusual Column Names Need Backticks
+
+To refer to a tricky column name you will have to use 
+\` backticks\` around the name in other functions.
+
+You may see people use quotes as well.
+
+```{r, fig.alt="dplyr", out.width = "14%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/backtick_1.png")
+```
+
+## Rename using backticks
+
+Tricky column names need  \` backticks\` around them. 
+
+
+```{r, eval = FALSE}
+ # this will cause an error
+renamed_annualDosage <- rename(annualDosage, County = County!)
+```
+
+```{r, eval = FALSE}
+# this will work
+renamed_annualDosage <- rename(annualDosage, County = `County!`)
+```
+
+
+See https://jhudatascience.org/intro_to_r/resources/quotes_vs_backticks.html for more guidance.
+
+## Be careful about copy pasting code!
+
+Again, sometimes you will see people use quotes, but this can be extra tricky.
+
+Curly quotes from pasting will not work!
+
+```{r, eval = FALSE}
+ # this will cause an error!
+renamed_annualDosage <- rename(annualDosage, County = “County!” )
+```
+
+```{r, eval = FALSE}
+# this will work!
+renamed_annualDosage <- rename(annualDosage, County = "County!")
+```
+
+
+
+## A solution!
+
+Rename tricky column names so that you don't have to deal with them later!
+
+```{r, fig.align='center', echo = FALSE}
+include_graphics("https://media.giphy.com/media/6q29hxDKvJvPy/giphy.gif")
+```
+
+
 ## janitor package
 
-If you need to do lots of naming fixes - look into the janitor package!
+Alternatively (especially if you need to do lots of naming fixes) - look into the janitor package!
 
 ```{r, echo = FALSE, message=FALSE, comment= FALSE, warning = FALSE, results='hide'}
 install.packages("janitor", repos='http://cran.us.r-project.org')
@@ -366,9 +372,17 @@ head(clean_AD, 2)
 
 `clean_names` can also get rid of spaces and replace them with `_`.
 
-```{r}
+```{r, echo = FALSE}
 test <- tibble(`col 1` = c(1,2,3), `col 2` = c(2,3,4))
+```
+
+Let's say our data had spaces:
+
+```{r}
 test
+```
+
+```{r}
 clean_names(test)
 ```
 
@@ -378,7 +392,6 @@ A. Renaming it using `rename` function to something simpler like `counties_over_
 
 B. Keeping it as is and use backticks around the column name when you use it.
 
-C. Keeping it as is and use quotes around the column name when you use it.
 
 ## Summary
 
@@ -388,9 +401,7 @@ C. Keeping it as is and use quotes around the column name when you use it.
 - if your original data has rownames, you need to use `rownames_to_column` before converting to tibble
 - the `rename()` function of `dplyr` can help you rename columns
 - avoid using punctuation (except underscores), spaces, and numbers (to start or alone) in column names
-- if you must do a nonstandard column name - typically use backticks around it. See https://jhudatascience.org/intro_to_r/resources/quotes_vs_backticks.html.
-- avoid copy and pasting code from other sources - quotation marks will change!
-- check out `janitor` if you need to make lots of column name changes
+- if you have nonstandard column names rename them! - use backticks to do this or use the `janitor` `clean_names()` function
 
 ## Lab Part 1
 
@@ -401,6 +412,7 @@ C. Keeping it as is and use quotes around the column name when you use it.
 📃 [Day 3 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-3.pdf)
 
 📃 [Posit's `dplyr` Cheatsheet](https://rstudio.github.io/cheatsheets/data-transformation.pdf)
+
 # Subsetting Columns
 
 ## Let's get our data again
@@ -449,9 +461,6 @@ Note that if you want the values (not a `tibble`), use `pull` - as it pulls out 
 ```{r}
 pull(AD, year)
 
-# pull with select works too!
-
-pull(select(AD, year))
 ```
 
 ## Select columns of a data frame: dplyr
@@ -542,13 +551,6 @@ If you try to filter for a column that does not exist it will not work:
 
 Remember that filter works by keeping rows with values that match the conditions specified for particular columns. 
 
-## `filter` function
-
-```{r, fig.alt="dplyr", out.width = "70%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("images/filter.png")
-```
-
-"Artwork by @allison_horst". https://allisonhorst.com/
 
 ## Subset rows of a data frame: dplyr {.codesmall}
 
@@ -648,6 +650,14 @@ https://media.giphy.com/media/5b5OU7aUekfdSAER5I/giphy.gif
 A. `filter()` with `|`
 
 B. `filter()` with `&`
+
+## `filter` function
+
+```{r, fig.alt="dplyr", out.width = "70%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/filter.png")
+```
+
+"Artwork by @allison_horst". https://allisonhorst.com/
 
 ## Summary
 
@@ -830,38 +840,7 @@ AD %>% select(year, count, BUYER_STATE, BUYER_COUNTY) %>%
 head(2)
 ```
 
-## Ordering the columns of a data frame: dplyr {.codesmall}
 
-The `select` function can reorder columns.  Put `newcol` first, then select the rest of columns:
-```{r, eval = FALSE}
-select(AD, newcol, everything())
-```
-
-```{r, echo = FALSE}
-head(select(AD, newcol, everything()), 3)
-```
-
-## Ordering the columns of a data frame: dplyr {.codesmall}
-
-Put `year` at the end ("remove, everything, then add back in"):
-
-```{r, eval = FALSE}
-select(AD, !year, everything(), year)
-```
-
-```{r, echo = FALSE}
-head(select(AD, !year, everything(), year), 3)
-```
-
-
-## Ordering the column names of a data frame: alphabetically {.codesmall}
-
-Using the base R `order()` function.
-
-```{r}
-order(colnames(AD))
-AD %>% select(order(colnames(AD)))
-```
 
 
 ## Ordering the columns of a data frame: dplyr {.codesmall}
@@ -904,6 +883,27 @@ You can combine increasing and decreasing orderings:
 arrange(AD, count, desc(year)) %>% head(n = 2)
 
 arrange(AD, desc(year), count) %>% head(n = 2)
+```
+
+
+## Functions you might see: {.codesmall}
+
+Using the base R `order()` function ordering columns alphabetically:
+
+```{r, eval = FALSE}
+AD %>% select(order(colnames(AD)))
+```
+
+The `everything()` function to order columns.
+Put `newcol` first, then everything else:
+```{r, eval = FALSE}
+select(AD, newcol, everything())
+```
+
+Put `year` at the end ("remove, everything, then add back in"):
+
+```{r, eval = FALSE}
+select(AD, !year, everything(), year)
 ```
 
 

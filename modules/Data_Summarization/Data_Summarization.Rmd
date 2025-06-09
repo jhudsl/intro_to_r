@@ -241,7 +241,15 @@ tb %>%
   summarize(mean_1991 = mean(`1991`, na.rm = TRUE))
 ```
 
+## Cleaning up names
 
+It might be kind of troublesome to keep using backticks around our year column names. Note that you could instead use  `clean_names()`. However, we will keep using backticks for this lecture
+
+```{r}
+library(janitor)
+clean_tb <-clean_names(tb)
+head(clean_tb)
+```
 ## Summarize the data: `dplyr` `summarize()` function
 
 `summarize()` can do multiple operations at once. Just separate by a comma.
