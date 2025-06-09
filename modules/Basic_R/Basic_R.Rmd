@@ -13,11 +13,13 @@ opts_chunk$set(comment = "")
 
 ## Working in R
 
-For now, we will be working in the **Console** (Pane 1 )
+For now, we will be working in the **Console** (Pane 1) in RStudio
 
-```{r, fig.align='center', out.width="70%", echo = FALSE, fig.alt= "When RStudio is first opened you will see 3 panes"}
+```{r, fig.align='center', out.width="50%", echo = FALSE, fig.alt= "When RStudio is first opened you will see 3 panes"}
 knitr::include_graphics("../RStudio/images/three_panes.png")
 ```
+
+You can follow along with the demonstrations, then there will be more time for practice during the lab at the end of lecture
 
 ## R as a calculator
 
@@ -156,7 +158,7 @@ name
 
 ## Combining objects with `c()`
 
-Use `c()` to collect/combine single R objects into a <span style="color:blue">vector</span> of R objects. It is mostly used for creating vectors of numbers and character strings.
+Use `c()` to collect/combine single R objects into a <span style="color:blue">vector</span> of R objects. It is mostly used for creating vectors of multiple items, including numbers and character strings.
 
 ```{r}
 x <- c(1, 4, 6, 8)
@@ -358,11 +360,17 @@ y <- sample(x = seq_hun, size = 5, replace = TRUE)
 y
 ```
 
+## When to replace in `sample()`
+
+Use `replace = FALSE` if you are doing a random sample from a larger population, or if you want to randomize the order of a population.
+
+Use `replace = TRUE` if you are doing bootstrapping or any resampling procedure.
+
 ## Installing packages to do more!
 
 Some functions and data come with R right out of the box ("base R"). We will add more functionality with <span style="color:blue">packages</span>. Think of these like "expansion packs" for R.
 
-Must be done **once** for each installation of R (e.g., version 4.2 \>\> 4.3).
+Must be done **once** for each installation of R (e.g., version 4.4 \>\> 4.5).
 
 An important package we will use is `tidyverse`. It is a mega-package great for data import, wrangling, and visualization.
 
@@ -391,6 +399,7 @@ knitr::include_graphics("../../images/lol/install_packages.jpg")
 ## Summary
 
 -   R functions as a calculator
+-   Use quotes "" for characters
 -   Use `<-` to save (assign) values to objects. Reassigning allows you to make changes "in place".
 -   Use `c()` to **combine** into vectors
 -   `length()`, `class()`, and `str()` tell you information about an object
