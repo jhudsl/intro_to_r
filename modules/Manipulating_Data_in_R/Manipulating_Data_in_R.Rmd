@@ -28,8 +28,8 @@ library(tidyverse)
     -   remember `case_when()` needs `TRUE ~ variable` to keep values that aren't specified by conditions, otherwise will be `NA`
 -   `stringr` package has great functions for looking for specific **parts of values** especially `filter()` and `str_detect()` combined
     - also has other useful string manipulation functions like `str_replace()` and more!
-    - `separate()` can split columns into additional columns
-    - `unite()` can combine columns
+- `separate()` can split columns into additional columns
+- `unite()` can combine columns
 
 📃[Day 5 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-5.pdf)
 
