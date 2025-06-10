@@ -74,16 +74,16 @@ Types of "missing" data:
 ## Finding Missing data {.small}
 
 -   `is.na` - looks for `NAN` and `NA`
--   `is.nan`- looks for `NAN`
 -   `is.infinite` - looks for Inf or -Inf
 
+```{r, echo=FALSE}
+NA_vect<- c(0,NA, -1)
+NA_vect <- NA_vect/0
+```
+
 ```{r}
-test <- c(0,NA, -1)
-test/0
-test <- test/0
-is.na(test)
-is.nan(test)
-is.infinite(test)
+is.na(NA_vect)
+is.infinite(NA_vect)
 ```
 
 
@@ -92,8 +92,8 @@ is.infinite(test)
 `any()` can help you check if there are any `NA` values in a vector
 
 ```{r}
-test
-any(is.na(test))
+NA_vect
+any(is.na(NA_vect))
 ```
 
 
@@ -512,7 +512,7 @@ Note that automatically values not reassigned explicitly by
 {data_input} %>%
   mutate({variable_to_fix} = case_when({Variable_fixing}   
              /some condition/ ~ {value_for_con},
-                         TRUE ~ {value_for_not_meeting_condition})
+                          .default = {value_for_not_meeting_condition})
 
 ```
 :::
@@ -520,7 +520,7 @@ Note that automatically values not reassigned explicitly by
 {value_for_not_meeting_condition} could be something new 
 or it can be the original values of the column
 
-## case_when with TRUE ~ original variable name
+## case_when with .default = original variable name
 
 ```{r}
 data_ginger_mint %>% 
@@ -529,7 +529,7 @@ data_ginger_mint %>%
                                Treatment == "Mint" ~ "Peppermint",
                                Treatment == "mint" ~ "Peppermint",
                                Treatment == "peppermint" ~ "Peppermint",
-                                TRUE ~ Treatment)) %>%
+                                .default = Treatment)) %>%
   count(Treatment, Treatment_recoded)
 ```
 
@@ -544,24 +544,12 @@ data_ginger_mint %>%
                                Treatment == "Mint" ~ "Peppermint",
                                Treatment == "mint" ~ "Peppermint",
                                Treatment == "peppermint" ~ "Peppermint",
-                               TRUE ~ Treatment)) %>%
+                               .default =  Treatment)) %>%
   count(Treatment, Treatment_recoded)
 ```
 
 
-## But maybe we want NA?
 
-Perhaps we want values that are O or Other to actually be NA, then `case_when` can be helpful for this. We simply specify everything else.
-
-```{r}
-data_ginger_mint %>% 
-  mutate(Treatment_recoded = case_when(
-                        Treatment == "Ginger" ~ "Ginger", 
-                        Treatment == "Mint" ~ "Peppermint",
-                        Treatment == "mint" ~ "Peppermint",
-                        Treatment == "peppermint" ~ "Peppermint")) %>%
-  count(Treatment, Treatment_recoded)
-```
 ## case_when() can also overwrite/update a variable
 
 You need to specify what we want in the first part of `mutate`.
@@ -569,10 +557,10 @@ You need to specify what we want in the first part of `mutate`.
 ```{r}
 data_ginger_mint %>% 
   mutate(Treatment = case_when(
-                          Treatment == "Ginger" ~ "Ginger", 
                           Treatment == "Mint" ~ "Peppermint",
                           Treatment == "mint" ~ "Peppermint",
-                          Treatment == "peppermint" ~ "Peppermint")) %>%
+                          Treatment == "peppermint" ~ "Peppermint",
+                          .default = Treatment)) %>%
   count(Treatment)
 
 ```
@@ -584,16 +572,29 @@ data_ginger_mint %>%
 ```{r}
 data_ginger_mint %>% 
   mutate(Treatment_recoded = case_when(
-    Treatment == "Ginger" ~ "Ginger", # keep it the same!
     Treatment %in% 
 c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
-    Treatment %in% c("O", "Other") ~ "Other")) %>%
+    Treatment %in% c("O", "Other") ~ "Other",
+   .default = Treatment)) %>%
 
   count(Treatment, Treatment_recoded)
 
 ```
 
+## But maybe we want NA?
 
+Perhaps we want values that are O or Other to actually be NA, then `case_when` can be helpful for this. We could specify everything else and drop `.default = Treatment` or we could specify NA directly with `NA_character_`
+
+```{r}
+data_ginger_mint %>% 
+  mutate(Treatment_recoded = case_when(
+    Treatment %in% 
+c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
+    Treatment %in% c("O", "Other") ~ NA_character_,
+ .default = Treatment)) %>%
+
+  count(Treatment, Treatment_recoded)
+```
 
 ## Another reason for `case_when()`
 
@@ -619,7 +620,7 @@ data_ginger_mint %>%
   count(Group, Effect)
 ```
 
-## GUT CHECK: If we want all unspecified values to remain the same with `case_when()`, how should we complete the `TRUE ~` statement?
+## GUT CHECK: If we want all unspecified values to remain the same with `case_when()`, how should we complete the `.default =` statement?
 
 A. With the name of the variable we are modifying or using as source
 
@@ -726,7 +727,7 @@ data_ginger_mint %>%
     Treatment %in% 
      c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
     Treatment %in% c("O", "Other") ~ "Other",
-    TRUE ~ Treatment))
+    .default = Treatment))
 ```
 
 ## `case_when()` improved with `stringr`
@@ -738,7 +739,7 @@ data_ginger_mint %>%
   mutate(Treatment_recoded = case_when(
     str_detect(string = Treatment, pattern = "int") ~ "Peppermint",
     str_detect(string = Treatment, pattern = "^o|^O") ~ "Other",
-    TRUE ~ Treatment)) %>%
+    .default = Treatment)) %>%
   count(Treatment, Treatment_recoded)
 ```
 
@@ -777,71 +778,7 @@ data_comb <- data_ginger_mint %>%
 data_comb
 ```
 
-## Separating columns based on a separator
 
-The `separate()` function from `tidyr` can split a column into multiple columns.   
-The `col` argument specifies what column to work with      
-The `into` argument specifies names of new columns   
-The `sep` argument specifies what to separate by
-
-```{r}
-data_comb <- data_comb %>% 
-  separate(col = change, into = c("Group", "Change"), sep = "_" )
-data_comb
-```
-
-
-## Summary
- -  `case_when()` requires `mutate()` when working with dataframes/tibbles
--   `case_when()` can recode **entire values** based on **conditions** (need quotes for conditions and new values)
-    -   remember `case_when()` needs `TRUE ~ varaible` to keep values that aren't specified by conditions, otherwise will be `NA`
-    
-**Note:** you might see the `recode()` function, it only does some of what `case_when()` can do, so we skipped it, but it is in the extra slides at the end.
-
-## Summary continued
-
-```{r, fig.alt="dplyr", out.width = "70%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("images/case_when.png")
-```
-"Artwork by @allison_horst". https://allisonhorst.com/
-
-
-## Summary Continued
-
--   `stringr` package has great functions for looking for specific **parts of values** especially `filter()` and `str_detect()` combined
-- `stringr`  also has other useful string functions like `str_detect()` (finding patterns in a column or vector), `str_subset()` (parsing text), `str_replace()` (replacing the first instance in values), `str_replace_all()` (replacing all instances in each value) and **more**!
-- `separate()` can split columns into additional columns
-- `unite()` can combine columns
-- `:` can indicate when you want to start and end with columns next to one another
-
-
-## Lab Part 2
-
-🏠 [Class Website](https://jhudatascience.org/intro_to_r/)  
-
-💻[Lab](https://jhudatascience.org/intro_to_r/modules/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd)
-
-📃 [Day 5 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-5.pdf)
-
-📃 [Posit's `stringr` Cheatsheet](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf)
-
-```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
-knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
-```
-
-Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
-
-# Extra Slides
-
-## `recode()` function
-
-This is similar to `case_when()` but it can't do as much.
-
-::: {style="color: red;"}
-(need `mutate` for data frames/tibbles!)
-:::
-::: codeexample
-```{r, eval = FALSE}
 # General Format - this is not code!
 {data_input} %>%
   mutate({variable_to_fix_or_new} = recode({Variable_fixing}, {old_value} = {new_value},
