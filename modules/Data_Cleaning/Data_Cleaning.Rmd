@@ -772,6 +772,17 @@ B. `str_find()`
 
 C. `str_detect()`
 
+## A bit on Regular Expressions
+
+-   <http://www.regular-expressions.info/reference.html>
+-   They can use to match a large number of strings in one statement
+-   `.` matches any single character
+-   `*` means repeat as many (even if 0) more times the last character
+-   `?` makes the last thing optional
+-   `^` matches start of vector `^a` - starts with "a"
+-   `$` matches end of vector `b$` - ends with "b"
+
+
 ## Things you might see
 
 `^` indicates the beginning of a character string (placed before)
@@ -810,20 +821,62 @@ data_comb <- data_ginger_mint %>%
 data_comb
 ```
 
+## Separating columns based on a separator
 
-# General Format - this is not code!
-{data_input} %>%
-  mutate({variable_to_fix_or_new} = recode({Variable_fixing}, {old_value} = {new_value},
-                                       {another_old_value} = {new_value}))
+The `separate()` function from `tidyr` can split a column into multiple columns.   
+The `col` argument specifies what column to work with      
+The `into` argument specifies names of new columns   
+The `sep` argument specifies what to separate by
 
+```{r}
+data_comb <- data_comb %>% 
+  separate(col = change, into = c("Group", "Change"), sep = "_" )
+data_comb
 ```
-:::
 
-## recode() function
+## Summary
+ -  `case_when()` requires `mutate()` when working with dataframes/tibbles
+-   `case_when()` can recode **entire values** based on **conditions** (need quotes for conditions and new values)
+    -   remember `case_when()` needs `.default = varaible` to keep values that aren't specified by conditions, otherwise will be `NA`
+    
+**Note:** you might see the `recode()` function, it only does some of what `case_when()` can do, so we skipped it, but it is in the extra slides at the end.
 
-::: {style="color: red;"}
-Need quotes for new values! Tolerates quotes for old values.
-:::
+## Summary continued
+
+```{r, fig.alt="dplyr", out.width = "70%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/case_when.png")
+```
+"Artwork by @allison_horst". https://allisonhorst.com/
+
+
+## Summary Continued
+
+-   `stringr` package has great functions for looking for specific **parts of values** especially `filter()` and `str_detect()` combined
+- `stringr`  also has other useful string functions like `str_detect()` (finding patterns in a column or vector), `str_subset()` (parsing text), `str_replace()` (replacing the first instance in values), `str_replace_all()` (replacing all instances in each value) and **more**!
+- `separate()` can split columns into additional columns
+- `unite()` can combine columns
+- `:` can indicate when you want to start and end with columns next to one another
+
+
+## Lab Part 2
+
+🏠 [Class Website](https://jhudatascience.org/intro_to_r/)  
+
+💻[Lab](https://jhudatascience.org/intro_to_r/modules/Data_Cleaning/lab/Data_Cleaning_Lab.Rmd)
+
+📃 [Day 5 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-5.pdf)
+
+📃 [Posit's `stringr` Cheatsheet](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf)
+📃 [Posit's `dplyr` Cheatsheet](https://rstudio.github.io/cheatsheets/data-transformation.pdf)
+
+
+```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
+knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
+```
+
+## Things you might see
+
+`recode` function - not as powerful as `case_when`
 
 ```{r, eval = FALSE}
 
@@ -878,15 +931,6 @@ y
 length(y)
 ```
 
-## A bit on Regular Expressions
-
--   <http://www.regular-expressions.info/reference.html>
--   They can use to match a large number of strings in one statement
--   `.` matches any single character
--   `*` means repeat as many (even if 0) more times the last character
--   `?` makes the last thing optional
--   `^` matches start of vector `^a` - starts with "a"
--   `$` matches end of vector `b$` - ends with "b"
 
 ## Let's look at modifiers for `stringr`
 
