@@ -631,6 +631,15 @@ B. With the word "same"
 
 `.default = ` used to be `TRUE ~`
 
+```{r}
+data_ginger_mint %>% 
+  mutate(Treatment_recoded = case_when(
+    Treatment %in% 
+     c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
+    Treatment %in% c("O", "Other") ~ NA_character_,
+ TRUE ~ Treatment)) %>%
+```
+
 # Working with strings
 
 ## Strings in R
