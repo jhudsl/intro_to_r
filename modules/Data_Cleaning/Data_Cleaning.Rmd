@@ -744,14 +744,13 @@ data_ginger_mint %>%
 ```
 
 ## `case_when()` improved with `stringr`
-`^` indicates the beginning of a character string
-`$` indicates the end
+
 
 ```{r}
 data_ginger_mint %>% 
   mutate(Treatment_recoded = case_when(
     str_detect(string = Treatment, pattern = "int") ~ "Peppermint",
-    str_detect(string = Treatment, pattern = "^o|^O") ~ "Other",
+    str_detect(string = Treatment, pattern = "o|O") ~ "Other",
     .default = Treatment)) %>%
   count(Treatment, Treatment_recoded)
 ```
@@ -772,6 +771,26 @@ A. `str_replace()`
 B. `str_find()`
 
 C. `str_detect()`
+
+## Things you might see
+
+`^` indicates the beginning of a character string (placed before)
+`$` indicates the end (placed after)
+
+```{r}
+data_ginger_mint %>% 
+  mutate(Treatment_recoded = case_when(
+    str_detect(string = Treatment, pattern = "t$") ~ "Peppermint",
+    .default = Treatment)) %>%
+  count(Treatment, Treatment_recoded)
+
+data_ginger_mint %>% 
+  mutate(Treatment_recoded = case_when(
+ str_detect(string = Treatment, pattern = "^m") ~ "Mint Tea",
+    .default = Treatment)) %>%
+  count(Treatment, Treatment_recoded)
+
+```
 
 # Separating and uniting data
 
