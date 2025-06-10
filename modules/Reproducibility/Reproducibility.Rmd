@@ -1,3 +1,11 @@
+---
+title: "Reproducibility"
+output:
+  ioslides_presentation:
+    css: ../../docs/styles.css
+    widescreen: yes
+--- 
+
 ```{r include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, comment=FALSE, warning=FALSE)
 ```
@@ -13,6 +21,7 @@ library(devtools)
 library(remotes)
 install.packages("ottrpal", repos = "https://cloud.r-project.org", quiet = TRUE)
 library(ottrpal)
+library(patchwork)
 ```
 
 ## What's Reproducibility
@@ -172,6 +181,28 @@ sample(10)
 ```
 
 Note that these are only pseudo random and the values are created doing calculations based on the given seed. Thus the same "random" values will be reproduced by everyone using the same seed with `set.seed`.
+
+## `set.seed()` visualization {.smaller}
+
+```{r, echo = TRUE, fig.height=3}
+Aset <- data.frame(x = rnorm(100)) # no seed
+Bset <- data.frame(x = rnorm(100)) # no seed
+set.seed(111); Cset <- data.frame(x = rnorm(100)) # set seed = 111
+set.seed(111); Dset <- data.frame(x = rnorm(100)) # set seed = 111
+randomA <- ggplot(Aset) + geom_histogram(aes(x = x)) + ggtitle("no seed")
+randomB <- ggplot(Bset) + geom_histogram(aes(x = x)) + ggtitle("no seed")
+randomC <- ggplot(Cset) + geom_histogram(aes(x = x)) + ggtitle("seed = 111")
+randomD <- ggplot(Dset) + geom_histogram(aes(x = x)) + ggtitle("seed = 111")
+randomA + randomB + randomC + randomD + plot_layout(ncol = 4) # combine plots with patchwork
+```
+
+## Very helpful for bootstrapping
+
+```{r, fig.alt="Rsample", out.width = "10%", echo = FALSE, fig.align='center'}
+knitr::include_graphics("images/Rsample.png")
+```
+
+https://rsample.tidymodels.org/reference/bootstraps.html
 
 ## R Markdown syntax
 
