@@ -378,7 +378,7 @@ B. include `& is.na()`
 
 ## Summary
 
--   `is.na()`,`any(is.na())`, `all(is.na())`,`count()`, and functions from `naniar` like `gg_miss_var()` and `miss_var_summary` can help determine if we have `NA` values
+-   `is.na()`,`any(is.na())`, `count()`, and functions from `naniar` like `gg_miss_var()` and `miss_var_summary` can help determine if we have `NA` values
 -   `miss_var_which()` can help you drop columns that have any missing values.
 -   `filter()` automatically removes `NA` values - can't confirm or deny
     if condition is met (need `| is.na()` to keep them)
@@ -387,7 +387,7 @@ B. include `& is.na()`
 -   `NA` values can change your calculation results
 -   think about what `NA` values represent - don't drop them if you shouldn't
 -   `na_if()` will make `NA` values for a particular value
--   `replace_na()` will replace `NA values with a particular value
+-   `replace_na()` will replace `NA` values with a particular value
 
 ## Lab Part 1
 
