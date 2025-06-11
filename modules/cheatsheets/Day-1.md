@@ -1,3 +1,8 @@
+---
+classoption: landscape
+output: pdf_document
+---
+
 # Day 1 Cheatsheet
 
 ## Intro
