@@ -46,9 +46,6 @@ class(c("1", "4", "7"))
 ```
 
 
-
-
-
 ## Logical
 
 `logical` is a type that only has two possible elements: `TRUE` and `FALSE`
@@ -64,11 +61,13 @@ z <- c("TRUE", "FALSE", "TRUE", "FALSE")
 class(z)
 ```
 
-## Why is Class important?
+
+## Why is class important?
+
 The class of the data tells R how to process the data.
 For example, it determines whether you can make summary statistics (numbers) or if you can sort alphabetically (characters).
 
-## General Class Information
+## General class information
 
 There is one useful functions associated with practically all R classes: 
 
@@ -85,7 +84,6 @@ Examples:
 - `as.factor()` (More on this one later!)
 
 
-
 ## Coercing: seamless transition
 
 Sometimes coercing works great!
@@ -97,6 +95,7 @@ as.logical(c("TRUE", "FALSE", "FALSE"))
 as.logical(0)
 ```
 
+
 ## Coercing: not-so-seamless
 
 When interpretation is ambiguous, R will return `NA` (an R constant representing "**N**ot **A**vailable" i.e. missing value)
@@ -106,18 +105,24 @@ as.numeric(c("1", "4", "7a"))
 as.logical(c("TRUE", "FALSE", "UNKNOWN"))
 ```
 
+
 ## GUT CHECK!
+
 What is one reason we might want to convert data to numeric?
+
 A. So we can take the mean
+
 B. So the data looks better
+
 C. So our data is correct
 
 
-## Number Subclasses
+## Number subclasses
 
-There are two major number subclasses or types
+There are two major number subclasses or types:
 
 1) Double (1.003)
+
 2) Integer (1)
 
 ## Double
@@ -138,7 +143,6 @@ typeof(y)
 The `num` function of the `tibble` package can be used to change format. See here for more: https://tibble.tidyverse.org/articles/numbers.html 
 
 
-
 ## Integer
 
 `Integer` is a special number that contains only <span style="color: red;">whole numbers</span>.
@@ -151,6 +155,7 @@ class(y_int)
 typeof(y_int)
 ```
 
+
 ## Integer
 
 Can use `as.integer()` function to create integers (unless they are read in as integers or created as such with `seq` and `sample`). Otherwise, will be double by default.
@@ -161,6 +166,7 @@ class(x)
 typeof(x)
 ```
 
+
 ## Checking double vs integer
 
 A `tibble` will show the difference (as does `glimpse()`).
@@ -170,6 +176,7 @@ my_data <- tibble(double_var = y, int_var = y_int)
 my_data
 glimpse(my_data)
 ```
+
 
 ## Factors
 
@@ -182,6 +189,7 @@ Examples:
 - baby, toddler, child, teen, adult
 - Strongly Agree, Agree, Neutral, Disagree, Strongly Disagree
 - beginner, novice, intermediate, expert
+
 
 ## Factors
 
@@ -205,6 +213,7 @@ Note that levels are, by default, in **alphanumerical** order!
 
 **A:** You can coerce with `as.factor()`. But you can't specify levels! More on this soon. 
 
+
 ## Factors
 
 You can learn what are the unique levels of a `factor` vector
@@ -227,7 +236,8 @@ as.character(x_fact)
 as.numeric(x_fact)
 ```
 
-## Class conversion in with a dataset{.codesmall}
+
+## Class conversion with a dataset{.codesmall}
 
 ```{r, results='hide'}
 circ <- 
@@ -240,7 +250,8 @@ circ <-
 head(circ)
 ```
 
-## Class conversion in with a dataset
+
+## Class conversion with a dataset
 
 Say we want to change `daily` to be an integer. We would need to use `mutate()`. Let's create a new column 'daily_int' so it is easier to see what is happening. 
 
@@ -260,6 +271,7 @@ circ %>%
 | "FALSE", "Ball" 	| Character 	| Character 	| Need quotes 	|
 | FALSE, TRUE 	| logical 	| logical 	| No quotes 	|
 | "Small", "Large" 	| Factor 	| Factor 	| Need to coerce to factor with factor() 	|
+
 
 ## Summary
 
@@ -284,6 +296,7 @@ We convert data from character to `Date`/`POSIXct` to use functions to manipulat
 
 `lubridate` is a powerful, widely used R package from "tidyverse" family to work with `Date` / `POSIXct` class objects 
 
+
 ## Creating `Date` class object  
 
 ```{r, message = FALSE}
@@ -298,6 +311,7 @@ class(date("2021-06-15")) # lubridate package
 
 Note for  function `ymd`: **y**ear **m**onth **d**ay  
 
+
 ## The function must match the format
 
 ```{r}
@@ -305,6 +319,7 @@ mdy("06/15/2021")
 dmy("15-June-2021")
 ymd("2021-06-15")
 ```
+
 
 ## They right lubridate function needs to be used
 
@@ -314,6 +329,7 @@ Must match the data format!
 ymd("06/15/2021") # This doesn't work - gives NA
 mdy("06/15/2021") # This works
 ```
+
 
 ## Dates are useful!
 
@@ -338,7 +354,6 @@ UTC represents time zone, by default: Coordinated Universal Time
 Note for  function `ymd_hms`: year month day hour minute second. 
 
 
-
 ## Class conversion in a dataset
 
 Note dates are always displayed year month day, even if made with `mdy`!
@@ -360,6 +375,7 @@ circ_dates %>%
   glimpse()
 ```
 
+
 # Other data classes
 
 ## Two-dimensional data classes
@@ -372,12 +388,14 @@ Two-dimensional classes are those we would often use to store data read from a f
     * unlike `data.frame` or `tibble`, the entire matrix is composed of one R class
     * for example: all entries are `numeric`, or all entries are `character`
 
+
 ## Lists
 
 * One other data type that is the most generic are `lists`.
 * Can hold vectors, strings, matrices, models, list of other list!
 * Lists are used when you need to do something repeatedly across lots of data - for example wrangling several similar files at once
 * Lists are a bit more advanced but you may encounter them when you work with others or look up solutions
+
 
 ## Making Lists
 
@@ -389,12 +407,14 @@ mylist
 class(mylist)
 ```
 
+
 ## Summary
 
 - coerce between classes using `as.numeric()` or `as.character()`
 - data frames, tibbles, matrices, and lists are all classes of objects
 - lists can contain multiples of any other class of data including lists!
 - calendar dates can be represented with the `Date` class using `ymd()`, `mdy()` functions from [`lubridate` package](https://lubridate.tidyverse.org/)
+
 
 ## Lab
 
@@ -411,7 +431,7 @@ knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 
 Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
 
-# Extra Slides
+# Extra slides
 
 ## Matrices
 
@@ -424,6 +444,7 @@ circ_mat
 as.matrix(circ_mat)
 ```
 
+
 ## Matrices
 
 `matrix()` creates a matrix from scratch.
@@ -433,7 +454,7 @@ matrix(1:6, ncol = 2)
 ```
 
 
-## More about Lists
+## More about lists
 
 List elements can be named
 
@@ -458,6 +479,7 @@ x + months(1) + days(10)
 wday(x, label = TRUE)
 ```
 
+
 ## Some useful functions from `lubridate` to manipulate `POSIXct` objects
 
 ```{r}
@@ -467,6 +489,7 @@ date(x)
 x + hours(3)
 floor_date(x, "1 hour") # see also: ceiling_date()
 ```
+
 
 ## Differences in dates 
 
@@ -480,6 +503,7 @@ as.numeric(difftime(x2, x1, units = "weeks"))
 
 Similar can be done with time (e.g. difference in hours). 
 
+
 # Data Selection
 
 ## Matrices
@@ -490,6 +514,7 @@ n
 mat <- matrix(n, nrow = 3)
 mat
 ```
+
 
 ## Vectors: data selection
 
@@ -504,7 +529,6 @@ x
 x[2]
 x[c(1, 2, 100)]
 ```
-
 
 
 ## Matrices: data selection
