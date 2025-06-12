@@ -223,11 +223,11 @@ class(z)</pre>
 
 <pre >## [1] &quot;character&quot;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Why is Class important?</h2></hgroup><article  id="why-is-class-important">
+</article></slide><slide class=""><hgroup><h2>Why is class important?</h2></hgroup><article  id="why-is-class-important">
 
 <p>The class of the data tells R how to process the data. For example, it determines whether you can make summary statistics (numbers) or if you can sort alphabetically (characters).</p>
 
-</article></slide><slide class=""><hgroup><h2>General Class Information</h2></hgroup><article  id="general-class-information">
+</article></slide><slide class=""><hgroup><h2>General class information</h2></hgroup><article  id="general-class-information">
 
 <p>There is one useful functions associated with practically all R classes:</p>
 
@@ -281,15 +281,21 @@ class(z)</pre>
 
 </article></slide><slide class=""><hgroup><h2>GUT CHECK!</h2></hgroup><article  id="gut-check">
 
-<p>What is one reason we might want to convert data to numeric? A. So we can take the mean B. So the data looks better C. So our data is correct</p>
+<p>What is one reason we might want to convert data to numeric?</p>
 
-</article></slide><slide class=""><hgroup><h2>Number Subclasses</h2></hgroup><article  id="number-subclasses">
+<p>A. So we can take the mean</p>
 
-<p>There are two major number subclasses or types</p>
+<p>B. So the data looks better</p>
+
+<p>C. So our data is correct</p>
+
+</article></slide><slide class=""><hgroup><h2>Number subclasses</h2></hgroup><article  id="number-subclasses">
+
+<p>There are two major number subclasses or types:</p>
 
 <ol>
-<li>Double (1.003)</li>
-<li>Integer (1)</li>
+<li><p>Double (1.003)</p></li>
+<li><p>Integer (1)</p></li>
 </ol>
 
 </article></slide><slide class=""><hgroup><h2>Double</h2></hgroup><article  id="double">
@@ -442,7 +448,7 @@ class(x_fact)</pre>
 
 <pre >## [1] 3 2 1 2 1</pre>
 
-</article></slide><slide class=""><hgroup><h2>Class conversion in with a dataset</h2></hgroup><article  class="codesmall" id="class-conversion-in-with-a-dataset">
+</article></slide><slide class=""><hgroup><h2>Class conversion with a dataset</h2></hgroup><article  id="class-conversion-with-a-dataset" class="codesmall">
 
 <pre class = 'prettyprint lang-r'>circ &lt;- 
   read_csv(
@@ -474,7 +480,7 @@ class(x_fact)</pre>
 ## #   bannerBoardings &lt;dbl&gt;, bannerAlightings &lt;dbl&gt;, bannerAverage &lt;dbl&gt;,
 ## #   daily &lt;dbl&gt;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Class conversion in with a dataset</h2></hgroup><article  id="class-conversion-in-with-a-dataset-1">
+</article></slide><slide class=""><hgroup><h2>Class conversion with a dataset</h2></hgroup><article  id="class-conversion-with-a-dataset-1">
 
 <p>Say we want to change <code>daily</code> to be an integer. We would need to use <code>mutate()</code>. Let’s create a new column &lsquo;daily_int&rsquo; so it is easier to see what is happening.</p>
 
@@ -736,7 +742,7 @@ mylist</pre>
 
 <p>Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a></p>
 
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Extra Slides</h2></hgroup><article  id="extra-slides">
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Extra slides</h2></hgroup><article  id="extra-slides">
 
 </article></slide><slide class=""><hgroup><h2>Matrices</h2></hgroup><article  id="matrices">
 
@@ -771,7 +777,7 @@ circ_mat</pre>
 ## [2,]    2    5
 ## [3,]    3    6</pre>
 
-</article></slide><slide class=""><hgroup><h2>More about Lists</h2></hgroup><article  id="more-about-lists">
+</article></slide><slide class=""><hgroup><h2>More about lists</h2></hgroup><article  id="more-about-lists">
 
 <p>List elements can be named</p>
 
