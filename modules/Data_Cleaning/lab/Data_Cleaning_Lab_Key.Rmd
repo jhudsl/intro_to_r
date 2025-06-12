@@ -148,7 +148,7 @@ NEW_TIBBLE <- OLD_TIBBLE %>%
   mutate(NEW_COLUMN = case_when(
     OLD_COLUMN %in% c( ... ) ~ ... ,
     OLD_COLUMN %in% c( ... ) ~ ... ,
-    TRUE ~ OLD_COLUMN
+    .default = OLD_COLUMN
   ))
 ```
 
@@ -158,7 +158,7 @@ BloodType <- BloodType %>%
   mutate(exposure = case_when(
     exposure %in% c("N", "n", "No", "no") ~ "No",
     exposure %in% c("Y", "y", "Yes", "yes") ~ "Yes",
-    TRUE ~ exposure # the only other value is an NA so we could include this or we don't need to (it's generally good practice unless we want to create NAs)
+    .default = exposure # the only other value is an NA so we could include this or we don't need to (it's generally good practice unless we want to create NAs)
   ))
 
 count(BloodType, exposure)
@@ -181,7 +181,7 @@ BloodType <- BloodType %>%
   mutate(type = case_when(
     type == "o.-" ~ "O.-",
     type == "o.+" ~ "O.+",
-    TRUE ~ type))
+    .default = type))
 BloodType
 ```
 
