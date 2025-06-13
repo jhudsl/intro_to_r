@@ -637,7 +637,7 @@ data_ginger_mint %>%
     Treatment %in% 
      c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
     Treatment %in% c("O", "Other") ~ NA_character_,
- TRUE ~ Treatment)) %>%
+ TRUE ~ Treatment))
 ```
 
 # Working with strings
