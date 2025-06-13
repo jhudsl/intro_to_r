@@ -137,7 +137,7 @@ NEW_TIBBLE <- OLD_TIBBLE %>%
   mutate(NEW_COLUMN = case_when(
     OLD_COLUMN %in% c( ... ) ~ ... ,
     OLD_COLUMN %in% c( ... ) ~ ... ,
-    TRUE ~ OLD_COLUMN
+    .default = OLD_COLUMN
   ))
 ```
 
