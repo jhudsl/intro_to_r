@@ -16,7 +16,6 @@ opts_chunk$set(echo = TRUE,
                comment = "")
 library(tidyverse)
 library(tidyr)
-library(emo)
 ```
 
 ## Recap
@@ -454,7 +453,7 @@ A. `%>%`
 
 B. `&`
 
-C. `+
+C. `+`
 
 ## Summary
 
@@ -474,7 +473,9 @@ C. `+
 
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules//Data_Visualization/lab/Data_Visualization_Lab.Rmd)
 
-📃[Day 7 Cheatsheet](https://jhudatascience.org/intro_to_r//modules/cheatsheets/Day-7.pdf)
+📃 [Day 7 Cheatsheet](https://jhudatascience.org/intro_to_r//modules/cheatsheets/Day-7.pdf)
+
+📃 [Posit's `ggplot2` Cheatsheet](https://rstudio.github.io/cheatsheets/data-visualization.pdf)
 
 ## theme() function:
 
@@ -779,7 +780,7 @@ food_bar +
 
 ## Tip - Check what you plot {.codesmall}
 
-`r emo::ji("warning")` May not be plotting what you think you are! `r emo::ji("warning")`
+:warning: May not be plotting what you think you are! :warning:
 
 ```{r, fig.width=5 , fig.height=3, fig.align='center'}
 ggplot(food, aes(x = item_ID,
@@ -961,6 +962,7 @@ B. Use `facet_grid()` to split the plot up
     -   `facet_wrap()` allows for a `scales = "free"` argument so that you can have a different axis scale for different plots
 -   use `fill` to fill in boxplots
 
+
 ## Good practices for plots
 
 Check out this [guide](https://jhudatascience.org/tidyversecourse/dataviz.html#making-good-plots) for more information!
@@ -971,9 +973,11 @@ Check out this [guide](https://jhudatascience.org/tidyversecourse/dataviz.html#m
 
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules//Data_Visualization/lab/Data_Visualization_Lab.Rmd)
 
-📃[Day 7 Cheatsheet](https://jhudatascience.org/intro_to_r//modules/cheatsheets/Day-7.pdf)
+📃 [Day 7 Cheatsheet](https://jhudatascience.org/intro_to_r//modules/cheatsheets/Day-7.pdf)
 
-📃[Posit's theme cheatsheet](https://github.com/claragranell/ggplot2/blob/main/ggplot_theme_system_cheatsheet.pdf)
+📃 [Posit's theme cheatsheet](https://github.com/claragranell/ggplot2/blob/main/ggplot_theme_system_cheatsheet.pdf)
+
+📃 [Posit's `ggplot2` Cheatsheet](https://rstudio.github.io/cheatsheets/data-visualization.pdf)
 
 ```{r, fig.alt="The End", out.width = "50%", echo = FALSE, fig.align='center'}
 knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
