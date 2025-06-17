@@ -38,7 +38,7 @@ bike_agg
 
 ### 1.1
 
-Use the `ggplot2` package to make plot of average length of lanes (`lane_avg_length`; y-axis) for each year (`dateInstalled`; x-axis). You can use lines layer (`+ geom_line()`) or points layer (`+ geom_point()`), or both!
+Use the object you just created (`bike_agg`) and the `ggplot2` package to make plot of average length of lanes (`lane_avg_length`; y-axis) for each year (`dateInstalled`; x-axis). You can use lines layer (`+ geom_line()`) or points layer (`+ geom_point()`), or both!
 
 Assign the plot to variable `my_plot`. Type `my_plot` in the console to have it displayed.
 
@@ -68,7 +68,7 @@ Use the `scale_x_continuous()` function to plot the x axis with the following br
 ```
 # General format
 my_plot<- my_plot +
-  scale_x_continuous(?????)
+  scale_x_continuous(breaks = ?????)
 ```
 
 ```{r 1.3response}

@@ -201,7 +201,7 @@ bike_agg</code></pre>
 ## 8          2013            290.</code></pre>
 <div id="section" class="section level3">
 <h3>1.1</h3>
-<p>Use the <code>ggplot2</code> package to make plot of average length of lanes (<code>lane_avg_length</code>; y-axis) for each year (<code>dateInstalled</code>; x-axis). You can use lines layer (<code>+ geom_line()</code>) or points layer (<code>+ geom_point()</code>), or both!</p>
+<p>Use the object you just created (<code>bike_agg</code>) and the <code>ggplot2</code> package to make plot of average length of lanes (<code>lane_avg_length</code>; y-axis) for each year (<code>dateInstalled</code>; x-axis). You can use lines layer (<code>+ geom_line()</code>) or points layer (<code>+ geom_point()</code>), or both!</p>
 <p>Assign the plot to variable <code>my_plot</code>. Type <code>my_plot</code> in the console to have it displayed.</p>
 <pre><code># General format
 ggplot(???, aes(x = ???, y = ???)) +
@@ -233,7 +233,7 @@ my_plot</code></pre>
 <p>Use the <code>scale_x_continuous()</code> function to plot the x axis with the following breaks <code>c(2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013)</code>.</p>
 <pre><code># General format
 my_plot&lt;- my_plot +
-  scale_x_continuous(?????)</code></pre>
+  scale_x_continuous(breaks = ?????)</code></pre>
 <pre class="r"><code>my_plot &lt;- my_plot +
   scale_x_continuous(
     breaks = c(2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013)
