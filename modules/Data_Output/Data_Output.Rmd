@@ -1,3 +1,11 @@
+---
+title: "Data Output"
+output:
+  ioslides_presentation:
+    css: ../../docs/styles.css
+    widescreen: yes
+---
+
 ```{r knit-setup, include=FALSE}
 knitr::opts_chunk$set(
   echo = TRUE,
