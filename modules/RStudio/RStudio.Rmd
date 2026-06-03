@@ -61,6 +61,7 @@ knitr::include_graphics("images/three_panes.png")
 <!-- knitr::include_graphics("images/pane3.png") -->
 <!-- ``` -->
 
+
 ## Hidden Pane
 
 To save a copy of your code. You must open a file first - this will open a 4th pane. These files include Scripts or what are called R Markdown files.
@@ -69,6 +70,7 @@ To save a copy of your code. You must open a file first - this will open a 4th p
 knitr::include_graphics("images/start_R_markdown.png")
 ```
 
+
 ## Hidden Pane
 
 You will see a popup that you can just say "OK" to for now.
@@ -76,6 +78,7 @@ You will see a popup that you can just say "OK" to for now.
 ```{r, out.width = "90%", echo = FALSE}
 knitr::include_graphics("images/rmarkdown_popup.png")
 ```
+
 
 ## Hidden Pane
 
@@ -97,9 +100,11 @@ knitr::include_graphics("images/new_pane.png")
 
     -   Bottom by default
     -   Calculator
+    -   Installing packages `install.packages("package_name")`
     -   Place to try things out, then add to your editor
     -   **doesn't save your code**
-    
+
+
 ## RStudio
 
 Super useful "cheatsheet": [LINK](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rstudio-ide.pdf)
@@ -107,6 +112,7 @@ Super useful "cheatsheet": [LINK](https://raw.githubusercontent.com/rstudio/chea
 ```{r, fig.alt="RStudio", out.width = "65%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/rstudio_sheet.png")
 ```
+
 
 ## R Markdown files look different form scripts
 
@@ -116,11 +122,13 @@ It will look like this with text in it.
 knitr::include_graphics("images/first_markdown.png")
 ```
 
+
 ## Scripts will just be empty
 
 ```{r, out.width = "90%", echo = FALSE}
 knitr::include_graphics("images/rstudio_script.png")
 ```
+
 
 ## Scripts and R Markdown
 
@@ -137,6 +145,7 @@ For data analyses, R Markdown files are generally superior because they allow yo
 knitr::include_graphics("images/rstudio_environment.png")
 ```
 
+
 ## Workspace/Environment
 
 -   Tells you what **objects** are in R
@@ -148,6 +157,7 @@ knitr::include_graphics("images/rstudio_environment.png")
     Instead use RMarkdown!
 -   Also type the "up" key in the Console to scroll through previous commands
 
+
 ## Lower Right Pane
 
 -   **Files** - shows the files on your computer of the directory you are working in
@@ -155,7 +165,6 @@ knitr::include_graphics("images/rstudio_environment.png")
 -   **Help** - shows help of R commands
 -   **Plots** - pictures and figures
 -   **Packages** - list of R packages that are loaded in memory
-
 
 
 ## RStudio Layout
@@ -178,7 +187,6 @@ knitr::include_graphics("images/pane_layout.png")
 ```
 
 
-
 ## R Markdown file
 
 R Markdown files (.Rmd) help generate reports that include your code and output.
@@ -198,6 +206,7 @@ This is where you can type R code and run it!
 knitr::include_graphics("images/chunk.png")
 ```
 
+
 ## Run code in a chunk
 
 Clicking the run (play) button runs the code in the chunk.
@@ -208,6 +217,7 @@ knitr::include_graphics("images/chunk.png")
 
 `Ctrl + Enter` on Windows or `Command + Enter` on Mac in your script evaluates that line of code
 
+
 ## Running a chunk executes the code
 
 - generally see a preview of the output of the code just below the chunk
@@ -217,11 +227,13 @@ knitr::include_graphics("images/chunk.png")
 knitr::include_graphics("images/output.png")
 ```
 
+
 ## If you get annoyed by code previews in Markdown files...
 
 See the [Help page](https://jhudatascience.org/intro_to_r/help.html) of the website. You can adjust this and change your RStudio settings:
 
 Tools > Global Options > Appearance
+
 
 ## Knit file to html
 
@@ -230,7 +242,6 @@ Running all chunks - this will create a report from the R Markdown document! Not
 ```{r, fig.alt="knit", out.width = "40%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/knit.png")
 ```
-
 
 
 ## Nice report!
@@ -258,6 +269,7 @@ knitr::include_graphics("images/insert_chunk.png")
 knitr::include_graphics("images/select_R.png")
 ```
 
+
 ## Create Chunks
 
  If you like keyboard shortcuts: 
@@ -266,7 +278,8 @@ knitr::include_graphics("images/select_R.png")
  - Mac use Command+Option+I
 
 I is for insert.
- 
+
+
 ## Run previous chunks button
 
 You can run all chunks above a specific chunk using this button:
@@ -274,6 +287,7 @@ You can run all chunks above a specific chunk using this button:
 ```{r echo=FALSE, fig.align='center', out.width="80%"}
 knitr::include_graphics("images/previous_chunks.png")
 ```
+
 
 ## Errors
 
@@ -299,6 +313,7 @@ knitr::include_graphics("images/where_code_console.png")
 knitr::include_graphics("images/where_code.png")
 ```
 
+
 ## Gut Check
 
 Why are R Markdown files so useful?
@@ -308,6 +323,7 @@ B) They let you view the output of your code
 C) They let you generate cool reports 
 D) All of the above
 
+
 ## Gut Check 
 
 Where does code go typically in an Rmd file?
@@ -316,6 +332,7 @@ Where does code go typically in an Rmd file?
 knitr::include_graphics("images/where_code_gut_check.png")
 ```
 
+
 ## Gut Check
 
 Which button do you click to run the code in a current chunk?
@@ -323,6 +340,7 @@ Which button do you click to run the code in a current chunk?
 ```{r, fig.alt="help_pane", out.width = "90%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/chunk_gut_check.png")
 ```
+
 
 ## Getting help from the preview 
 
@@ -342,6 +360,7 @@ knitr::include_graphics("images/preview2.png")
 ```{r, fig.alt="help_pane", out.width = "90%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/help_pane.png")
 ```
+
 
 ## Getting Help with `?`
 
@@ -367,7 +386,6 @@ knitr::include_graphics("images/double_question.png")
 ```
 
 
-
 ## Summary
 
 -  RStudio makes working in R easier
@@ -375,7 +393,6 @@ knitr::include_graphics("images/double_question.png")
 -  The console is for testing code (bottom) - best to save your code though!
 -  R markdown documents are really helpful for lots of reasons!
 -  R code goes within what is called a chunk (the gray box with a green play button)
-
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/RStudio/lab/RStudio_Lab.Rmd)
@@ -391,11 +408,13 @@ Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribu
 
 # Extra Slides
 
+
 ## Chunk settings
 
 ```{r echo=FALSE, fig.align='center', out.width="80%"}
 knitr::include_graphics("images/chunk_settings.png")
 ```
+
 
 ## Chunk settings
 
