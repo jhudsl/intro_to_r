@@ -66,7 +66,7 @@ knitr::include_graphics("images/three_panes.png")
 
 To save a copy of your code. You must open a file first - this will open a 4th pane. These files include Scripts or what are called R Markdown files.
 
-```{r, out.width = "90%", echo = FALSE}
+```{r, out.width = "75%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/start_R_markdown.png")
 ```
 
@@ -75,7 +75,7 @@ knitr::include_graphics("images/start_R_markdown.png")
 
 You will see a popup that you can just say "OK" to for now.
 
-```{r, out.width = "90%", echo = FALSE}
+```{r, out.width = "75%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/rmarkdown_popup.png")
 ```
 
@@ -84,7 +84,7 @@ knitr::include_graphics("images/rmarkdown_popup.png")
 
 Nice! now we have a place to save code! This is where we will mostly be working.
 
-```{r, out.width = "90%", echo = FALSE}
+```{r, out.width = "75%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/new_pane.png")
 ```
 
@@ -118,14 +118,14 @@ knitr::include_graphics("images/rstudio_sheet.png")
 
 It will look like this with text in it.
 
-```{r, fig.alt="RStudio layout", out.width = "100%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="RStudio layout", out.width = "70%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/first_markdown.png")
 ```
 
 
 ## Scripts will just be empty
 
-```{r, out.width = "90%", echo = FALSE}
+```{r, out.width = "90%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/rstudio_script.png")
 ```
 
@@ -141,7 +141,7 @@ For data analyses, R Markdown files are generally superior because they allow yo
 
 <!-- ![Workspace](images/rstudio_environment.png) -->
 
-```{r, out.width = "90%", echo = FALSE}
+```{r, out.width = "90%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/rstudio_environment.png")
 ```
 
@@ -182,7 +182,7 @@ knitr::include_graphics("images/pane_button.png")
 
 ## Default Layout
 
-```{r, fig.align='center', out.width="60%", echo = FALSE, fig.alt= "The Pane Layout menu allows you to modify the layout of RStudio. This shows the default settings with Source on the top left, Console on the bottom left, Environment, History, Connections, and Build on the top right, and Files, Plots, Packages, Help, VCS (version control) on the bottom right."}
+```{r, fig.align='center', out.width="50%", echo = FALSE, fig.alt= "The Pane Layout menu allows you to modify the layout of RStudio. This shows the default settings with Source on the top left, Console on the bottom left, Environment, History, Connections, and Build on the top right, and Files, Plots, Packages, Help, VCS (version control) on the bottom right."}
 knitr::include_graphics("images/pane_layout.png")
 ```
 
@@ -211,7 +211,7 @@ knitr::include_graphics("images/chunk.png")
 
 Clicking the run (play) button runs the code in the chunk.
 
-```{r, out.width = "80%", echo = FALSE, fig.align='center'}
+```{r, out.width = "70%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/chunk.png")
 ```
 
@@ -248,7 +248,7 @@ knitr::include_graphics("images/knit.png")
 
 This generates a nice report that you can share with others who can open in any browser.
 
-```{r, fig.alt="knit", out.width = "100%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="knit", out.width = "70%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/report.png")
 ```
 
@@ -346,18 +346,18 @@ knitr::include_graphics("images/chunk_gut_check.png")
 
 When you type in a function name, a pop up will preview documentation to help you. It also helps you remember the name of the function if you don't remember all of it!
 
-```{r, fig.alt="preview a function", out.width = "80%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="preview a function", out.width = "70%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/preview1.png")
 ```
 
-```{r, fig.alt="preview a function", out.width = "80%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="preview a function", out.width = "70%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/preview2.png")
 ```
 
 
 ## Get help with the help pane
 
-```{r, fig.alt="help_pane", out.width = "90%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="help_pane", out.width = "80%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/help_pane.png")
 ```
 
@@ -370,7 +370,7 @@ Type `?package_name` or `?function_name` in the console to get information about
 
 For example: `?readr` or `?read_csv`.
 
-```{r, fig.alt="getting help", out.width = "90%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="getting help", out.width = "80%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/gettinghelp.png")
 ```
 
@@ -420,7 +420,7 @@ knitr::include_graphics("images/chunk_settings.png")
 
 You can specify if a chunk will be seen in the report or not.
 
-```{r echo=FALSE, fig.align='center', out.width="80%"}
+```{r echo=FALSE, fig.align='center', out.width="70%"}
 knitr::include_graphics("images/chunk_settings2.png")
 ```
 
@@ -433,9 +433,6 @@ This can help you see your code more easily.
 
 Press enter to save this setting and get out of this menu.
 
-<br>
-<br>
-
-```{r echo=FALSE, fig.align='center', out.width="80%"}
+```{r echo=FALSE, fig.align='center', out.width="70%"}
 knitr::include_graphics("images/colorfulHeader.png")
 ```
