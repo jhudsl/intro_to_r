@@ -29,6 +29,12 @@ knitr::include_graphics("images/welcome.jpg")
 
 Poll: How are you feeling right now?
 
+<!-- 1. I don't know anything and I'm very nervous. -->
+
+<!-- 2. I'm very excited about the course and to learn everything I can about R. -->
+
+<!-- 3. I already know some R, but I want to learn more. -->
+
 
 <!-- ## About Us -->
 
@@ -248,7 +254,7 @@ Note: Only people taking the course for credit must turn in the assignments. How
 
 ## Your Setup
 
-If you can, we suggest working virtually with a **large monitor or two screens**. This setup allows you to follow along on Zoom while also doing the hands-on coding.
+If you can, we suggest working virtually with a **large monitor or two screens** for your computer. This setup allows you to follow along on Zoom while also doing the hands-on coding. You will also be able to share your screen during lab sessions to help with debugging.
 
 ```{r, fig.alt="Surveys count", out.width = "40%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/monitors.jpg")
@@ -279,6 +285,13 @@ Error messages can be scary!
 ```{r, fig.alt="Muppets hugging it out", out.width = "25%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/forrest-gump-running.gif")
 ```
+
+
+## Using AI {.smaller}
+
+Large language models (LLMs) like ChatGPT, Claude, and Gemini have become very useful for generating programming code from simple prompts. Learning to code isn't just about memorizing R functions, so these tools can serve as a great reference. You may also find these tools helpful in writing code for unfamiliar analyses, or even in debugging some existing code. However, we encourage you to take extra care to test that code from these AI tools is producing the correct output you want. In addition, you should take time to inspect the code to understand what each line is doing so that you can modify it as needed.
+
+*Coding with AI is like eating a meal at a restaurant versus learning how to cook yourself. You don't get skilled at cooking by just eating!"*
 
 
 ## Installing R
