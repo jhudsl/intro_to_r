@@ -11,6 +11,7 @@ library(knitr)
 opts_chunk$set(comment = "")
 ```
 
+
 ## Working in R
 
 For now, we will be working in the **Console** (Pane 1) in RStudio
@@ -21,6 +22,7 @@ knitr::include_graphics("../RStudio/images/three_panes.png")
 
 You can follow along with the demonstrations, then there will be more time for practice during the lab at the end of lecture
 
+
 ## R as a calculator
 
 -   The R console is a full calculator
@@ -29,6 +31,7 @@ You can follow along with the demonstrations, then there will be more time for p
     -   \^ or \*\* is power
     -   parentheses -- ( and ) -- work with order of operations
     -   %% finds the remainder
+
 
 ## R as a calculator
 
@@ -42,6 +45,7 @@ Try evaluating the following. Type these in the Console and press *return* to ev
 knitr::include_graphics("images/Basic_R_calculator.jpg")
 ```
 
+
 ## Basic terms: "object"
 
 **Object** - an object is something that can be worked with or on in R - can be lots of different things! 
@@ -53,6 +57,7 @@ You can think of objects as **nouns** in R.
 -   a plot
 
 ... many more
+
 
 ## Assigning values to objects
 
@@ -66,6 +71,7 @@ x * 4
 x + 2
 ```
 
+
 ## GUT CHECK: What is an "object"?
 
 A. Something I can touch 
@@ -73,6 +79,7 @@ A. Something I can touch
 B. Something that can be worked with in R 
 
 C. A software version
+
 
 ## Objects with text
 
@@ -82,6 +89,7 @@ Create objects with text using quotation marks:
 y <- "hello world!"
 y
 ```
+
 
 ## numeric vs. character classes?
 
@@ -105,11 +113,13 @@ We will talk in-depth about classes. For now:
 "hello!"
 ```
 
+
 # Common issues
 
 ```{r, fig.alt="", out.width = "60%", echo = FALSE, out.extra='style="float:left"'}
 knitr::include_graphics("images/debug.png")
 ```
+
 
 ## TROUBLESHOOTING: R is case sensitive
 
@@ -123,6 +133,7 @@ x
 X
 ```
 
+
 ## TROUBLESHOOTING: No commas in big numbers
 
 Commas separate objects in R, so they shouldn't be used when entering big numbers.
@@ -130,6 +141,7 @@ Commas separate objects in R, so they shouldn't be used when entering big number
 ```{r error = TRUE}
 z <- 3,000
 ```
+
 
 ## TROUBLESHOOTING: Complete the statement
 
@@ -143,6 +155,7 @@ z <- 3,000
 knitr::include_graphics("images/incomplete_statement.png")
 ```
 
+
 ## Simple object practice
 
 Try assigning your full name to an R object called `name`
@@ -152,9 +165,10 @@ Try assigning your full name to an R object called `name`
 Try assigning your full name to an R object called `name`
 
 ```{r}
-name <- "Ava Hoffman"
+name <- "Clif McKee"
 name
 ```
+
 
 ## Combining objects with `c()`
 
@@ -165,9 +179,11 @@ x <- c(1, 4, 6, 8)
 x
 ```
 
+
 ## Combining objects with `c()`
 
 Try assigning your first and last name as 2 separate character strings into a vector called `name2`
+
 
 ## Combining objects with `c()`
 
@@ -178,6 +194,7 @@ name2 <- c("Ava", "Hoffman")
 name2
 ```
 
+
 ## Basic terms: "function"
 
 **Function** - a function is a piece of code that allows you to do something in R. You can write your own, use functions that come directly from installing R, or use functions from additional packages.
@@ -185,6 +202,7 @@ name2
 You can think of a function as **verb** in R.
 
 A function might help you add numbers together, create a plot, or organize your data.
+
 
 ## Using functions on our vector
 
@@ -198,6 +216,7 @@ x
 length(x)
 ```
 
+
 ## GUT CHECK: What is a "function"?
 
 A. a number or text 
@@ -205,6 +224,7 @@ A. a number or text
 B. a button inside RStudio 
 
 C. code that does something
+
 
 ## Combining vectors
 
@@ -216,11 +236,13 @@ vect
 class(vect)
 ```
 
+
 ## Practicing functions
 
 What do you expect for the length of the `name2` object?
 
 What is the class?
+
 
 ## Practicing functions
 
@@ -233,6 +255,7 @@ length(name2)
 class(name2)
 ```
 
+
 ## Commenting in code
 
 `#` creates a comment in R code
@@ -242,6 +265,7 @@ class(name2)
 
 1 + 2 # <- this does
 ```
+
 
 ## Lab Part 1
 
@@ -265,6 +289,7 @@ x * 3
 x + c(1, 2, 3, 4)
 ```
 
+
 ## Math + vector objects
 
 But math can only be performed on numbers.
@@ -272,6 +297,7 @@ But math can only be performed on numbers.
 ```{r, error=TRUE}
 name2 + 4
 ```
+
 
 ## Reassigning to a new object
 
@@ -284,9 +310,10 @@ y
 
 Note that the R object `y` is no longer "hello world!" - It has been overwritten by assigning new data to the same name.
 
+
 ## Reassigning to a new object
 
-Reassigning allows you to make changes "in place"
+Reassigning allows you to make changes "in place". We assigned `x` already, but we can update it to a new value.
 
 ```{r eval = FALSE}
 # results not stored:
@@ -299,6 +326,7 @@ y <- x + c(1, 2, 3, 4)
 x <- x + c(1, 2, 3, 4)
 ```
 
+
 ## R objects
 
 You can get more attributes than just class. The function `str()` gives you the structure of the object.
@@ -310,6 +338,7 @@ str(y)
 
 This tells you that `x` is a numeric vector and tells you the length.
 
+
 ## Basic terms: "argument"
 
 **Argument** - what you pass to a function
@@ -320,7 +349,8 @@ This tells you that `x` is a numeric vector and tells you the length.
 
 Like an **adverb**.
 
-## Create vectors with `seq()`
+
+## Create vectors with `seq()` {.smaller}
 
 For numeric: `seq()`
 
@@ -328,12 +358,15 @@ For numeric: `seq()`
 -   The `to` <span style="color:blue">argument</span> says what number to not go above.\
 -   The `by` <span style="color:blue">argument</span> says how much to increment by.\
 -   The `length.out` <span style="color:blue">argument</span> says how long the vector should be overall.
+-   Can use `:` as shorthand to iterate in increments of 1.
 
 ```{r}
 seq(from = 0, to = 1, by = 0.2)
 seq(from = 0, to = 10, by = 1)
 seq(from = -5, to = 5, length.out = 10)
+1:10
 ```
+
 
 ## Useful functions to create vectors `rep()`
 
@@ -349,9 +382,10 @@ rep(c("black", "white"), times = 3)
 rep(c("black", "white"), each = 2, times = 2)
 ```
 
+
 ## Creating numeric vectors `sample()`
 
-You can use the `sample()` function to make a random sequence. The `x` argument specifies what you are sampling from. The `size` argument specifies how many values there should be. The `replace` argument specifies if values should be replaced or not.
+You can use the `sample()` function to make a random sequence. The `x` argument specifies what you are sampling from. The `size` argument specifies how many values there should be. The `replace` argument specifies if values should be replaced or not. The default is `replace = FALSE`.
 
 ```{r}
 seq_hun <- seq(from = 0, to = 100, by = 1)
@@ -360,11 +394,17 @@ y <- sample(x = seq_hun, size = 5, replace = TRUE)
 y
 ```
 
+
 ## When to replace in `sample()`
 
 Use `replace = FALSE` if you are doing a random sample from a larger population, or if you want to randomize the order of a population.
 
 Use `replace = TRUE` if you are doing bootstrapping or any resampling procedure.
+
+```{r, fig.align='center', out.width="40%", echo = FALSE, fig.alt= "Sampling with and without replacement"}
+knitr::include_graphics("images/sampling.png")
+```
+
 
 ## Installing packages to do more!
 
@@ -378,6 +418,7 @@ An important package we will use is `tidyverse`. It is a mega-package great for 
 install.packages("tidyverse")
 ```
 
+
 ## Loading packages
 
 After installing packages, you will need to "load" them into memory so that you can use them.
@@ -390,13 +431,15 @@ We use a function called `library` to load packages.
 library(tidyverse)
 ```
 
+
 ## Installing + Loading packages
 
 ```{r, fig.alt="Installing must be done once via 'install.packages() while loading must be done every R session via 'library()'.", out.width = "80%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("../../images/lol/install_packages.jpg")
 ```
 
-## Summary
+
+## Summary {.smaller}
 
 -   R functions as a calculator
 -   Use quotes "" for characters
@@ -407,6 +450,8 @@ knitr::include_graphics("../../images/lol/install_packages.jpg")
 -   The repeat `rep()` function helps you create vectors with the `each` and `times` arguments
 -   `sample()` makes random vectors
 -   `install.packages()` and `library()` install and load packages, respectively.
+-   Some functions have default values for some arguments, so you don't always need to specify all arguments.
+
 
 ## Summary
 
