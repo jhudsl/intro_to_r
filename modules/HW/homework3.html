@@ -167,7 +167,7 @@ pre code {
 
 <div id="instructions" class="section level3">
 <h3><strong>Instructions</strong></h3>
-<p>Completed homework should be submitted on CoursePlus as an <strong>Rmd file</strong>. Please see the course website for more information about submitting assignments: <a href="https://jhudatascience.org/intro_to_r/syllabus.html#submitting-assignments" class="uri">https://jhudatascience.org/intro_to_r/syllabus.html#submitting-assignments</a>.</p>
+<p>Completed homework should be submitted on CoursePlus as an <strong>.Rmd file</strong>. Please see the course website for more information about submitting assignments: <a href="https://jhudatascience.org/intro_to_r/syllabus.html#submitting-assignments" class="uri">https://jhudatascience.org/intro_to_r/syllabus.html#submitting-assignments</a>.</p>
 <p>Homework will be graded for correct output, not code style. All assignments are due at the end of the course. Please see the course website for more information about grading: <a href="https://jhudatascience.org/intro_to_r/syllabus.html#grading" class="uri">https://jhudatascience.org/intro_to_r/syllabus.html#grading</a>.</p>
 <pre class="r"><code>## you can add more, or change...these are suggestions
 library(tidyverse)
@@ -208,7 +208,7 @@ library(tidyr)</code></pre>
 <p>11. Subset “long” based on years 2000-2010, including 2000 and 2010 and call this “long_sub” using <code>&amp;</code> or the <code>between()</code> function. Confirm your filtering worked by looking at the range of “year”. If you’re getting a strange error, make sure you created the “year” column in problem #7.</p>
 <p>12. Further subset <code>long_sub</code>. You will filter for specific countries using <code>filter()</code> and the <code>%in%</code> operator. Only include countries in this list: <code>c(&quot;Venezuela&quot;, &quot;Bahrain&quot;, &quot;Estonia&quot;, &quot;Iran&quot;, &quot;Thailand&quot;, &quot;Canada&quot;)</code>. Make sure to reassign to “long_sub”.</p>
 <p>13. Use <code>pivot_wider()</code> to turn the “year” column of “long_sub” into multiple columns, each representing a different year. Fill values (<code>values_from=</code>) with “mortality”. Assign this pivoted dataset the name “mort_sub”.</p>
-<p>14. Using “country_ordered” and “mort_sub”, <code>right_join()</code> the two datasets by “country”. Use the pipe <code>%&gt;%</code> to join this dataset to “pop”, keeping only the data on the lefthand side of the join. Call this “joined”.</p>
+<p>14. Use <code>right_join()</code> to merge <code>country_ordered</code> and <code>mort_sub</code> by “country”. Then, use the pipe <code>%&gt;%</code> to join this merged dataset to <code>pop</code>, keeping only the data on the left-hand side of the join. <em>Hint: use <code>left_join()</code></em>. Call this final merged dataset <code>joined</code>.</p>
 <p>15. The values in the table are percentages of the total population (not proportion).</p>
 <ul>
 <li>Create a new column called “mort_count” that estimates the total number of child deaths per year based on the total population. You can use (a) any year or (b) an average of all years to make your calculation. Whichever you choose, justify your choice.</li>

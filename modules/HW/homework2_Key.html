@@ -167,7 +167,7 @@ pre code {
 
 <div id="instructions" class="section level3">
 <h3><strong>Instructions</strong></h3>
-<p>Completed homework should be submitted on CoursePlus as an <strong>Rmd file</strong>. Please see the course website for more information about submitting assignments: <a href="https://jhudatascience.org/intro_to_r/syllabus.html#submitting-assignments" class="uri">https://jhudatascience.org/intro_to_r/syllabus.html#submitting-assignments</a>.</p>
+<p>Completed homework should be submitted on CoursePlus as an <strong>.Rmd file</strong>. Please see the course website for more information about submitting assignments: <a href="https://jhudatascience.org/intro_to_r/syllabus.html#submitting-assignments" class="uri">https://jhudatascience.org/intro_to_r/syllabus.html#submitting-assignments</a>.</p>
 <p>Homework will be graded for correct output, not code style. All assignments are due at the end of the course. Please see the course website for more information about grading: <a href="https://jhudatascience.org/intro_to_r/syllabus.html#grading" class="uri">https://jhudatascience.org/intro_to_r/syllabus.html#grading</a>.</p>
 <pre class="r"><code>## you can add more, or change...
 library(tidyverse)</code></pre>
@@ -417,8 +417,8 @@ range(cars$VehYear)</code></pre>
 <pre class="r"><code># The range is 2001 2010. </code></pre>
 <p>12. Create a random sample with of mileage (odometer reading) from <code>cars</code>. To determine the column that corresponds to mileage (The vehicle’s odometer reading), check the “key” corresponding to the data dictionary that you imported above in question 6. Use <code>sample()</code> and <code>pull()</code>. Remember that by default random samples differ each time you run the code.</p>
 <pre class="r"><code>sample(pull(cars, VehOdo), size = 20)</code></pre>
-<pre><code>##  [1] 25436 85341 89787 77938 62059 38703 78217 88665 97317 82339 71142 61827
-## [13] 50666 43227 76228 68272 66072 89124 61837 84918</code></pre>
+<pre><code>##  [1] 83540 67786 88945 83306 72846 81833 39610 41868 65158 74967 68196 75523
+## [13] 71439 68382 65394 75007 32973 75835 67534 61266</code></pre>
 <p>13. How many cars were from before 2004? What percent/proportion do these represent? Use:</p>
 <ul>
 <li><code>filter()</code> and <code>nrow()</code></li>
