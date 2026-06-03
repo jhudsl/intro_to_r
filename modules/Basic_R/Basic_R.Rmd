@@ -41,7 +41,7 @@ Try evaluating the following. Type these in the Console and press *return* to ev
 -   `2 * 3 / 4`
 -   `2^4 - 1`
 
-```{r, fig.alt="Problem gives answer of 1 or 9 depending on calculator.", out.width = "30%", echo = FALSE, out.extra='style="float:left"'}
+```{r, fig.alt="Problem gives answer of 1 or 9 depending on calculator.", out.width = "25%", echo = FALSE, out.extra='style="float:left"'}
 knitr::include_graphics("images/Basic_R_calculator.jpg")
 ```
 
@@ -190,7 +190,7 @@ Try assigning your first and last name as 2 separate character strings into a ve
 Try assigning your first and last name as 2 separate character strings into a vector called `name2`
 
 ```{r}
-name2 <- c("Ava", "Hoffman")
+name2 <- c("Clif", "McKee")
 name2
 ```
 
@@ -362,7 +362,6 @@ For numeric: `seq()`
 
 ```{r}
 seq(from = 0, to = 1, by = 0.2)
-seq(from = 0, to = 10, by = 1)
 seq(from = -5, to = 5, length.out = 10)
 1:10
 ```
@@ -401,7 +400,7 @@ Use `replace = FALSE` if you are doing a random sample from a larger population,
 
 Use `replace = TRUE` if you are doing bootstrapping or any resampling procedure.
 
-```{r, fig.align='center', out.width="40%", echo = FALSE, fig.alt= "Sampling with and without replacement"}
+```{r, fig.align='center', out.width="50%", echo = FALSE, fig.alt= "Sampling with and without replacement"}
 knitr::include_graphics("images/sampling.png")
 ```
 
@@ -450,7 +449,7 @@ knitr::include_graphics("../../images/lol/install_packages.jpg")
 -   The repeat `rep()` function helps you create vectors with the `each` and `times` arguments
 -   `sample()` makes random vectors
 -   `install.packages()` and `library()` install and load packages, respectively.
--   Some functions have default values for some arguments, so you don't always need to specify all arguments.
+-   Some functions have default values for some arguments, so you don't always need to specify all arguments
 
 
 ## Summary
