@@ -252,7 +252,9 @@ tb %>%
 It might be kind of troublesome to keep using backticks around our year column names. Note that you could instead use  `clean_names()` from the `janitor` package. However, we will keep using backticks for this lecture
 
 ```{r}
-clean_tb <- janitor::clean_names(tb)
+install.packages("janitor", dependencies=TRUE)
+library(janitor)
+clean_tb <- clean_names(tb)
 head(clean_tb)
 ```
 
