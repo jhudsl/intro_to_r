@@ -254,7 +254,7 @@ mean(x)</pre>
 <pre >  0%  25%  50%  75% 100% 
  1.0  2.5  4.5  6.5  8.0 </pre>
 
-</article></slide><slide class=""><hgroup><h2>Statistical summarization</h2></hgroup><article  id="statistical-summarization-2" class="codesmall">
+</article></slide><slide class=""><hgroup><h2>Statistical summarization</h2></hgroup><article  class="codesmall" id="statistical-summarization-2">
 
 <p>We will talk more about data types later, but you can only do summarization on numeric or logical types. Not characters.</p>
 
@@ -587,105 +587,99 @@ class(cars_wt)</pre>
 
 <p>📃 <a href='https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-4.pdf' title=''>Day 4 Cheatsheet</a></p>
 
-</article></slide><slide class=""><hgroup><h2>Youth Tobacco Survey</h2></hgroup><article  id="youth-tobacco-survey">
+</article></slide><slide class=""><hgroup><h2>Colorado heat-related ER visits</h2></hgroup><article  id="colorado-heat-related-er-visits">
 
-<p>Here we will be using the Youth Tobacco Survey data: <a href='http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv' title=''>http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv</a></p>
+<p>Here we will be using data on the annual rates of medical visits associated with heat-related illness in Colorado: <a href='http://jhudatascience.org/intro_to_r/data/CO_ER_heat_visits_2011_2024.csv' title=''>http://jhudatascience.org/intro_to_r/data/CO_ER_heat_visits_2011_2024.csv</a></p>
 
 <ul>
-<li>Check out info about the data at: <a href='https://www.cdc.gov/tobacco/about-data/surveys/national-youth-tobacco-survey.html' title=''>https://www.cdc.gov/tobacco/about-data/surveys/national-youth-tobacco-survey.html</a></li>
+<li>Check out info about the data at: <a href='https://coepht.colorado.gov/heat-data' title=''>https://coepht.colorado.gov/heat-data</a></li>
 </ul>
 
-<pre class = 'prettyprint lang-r'>yts &lt;- read_csv(&quot;http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv&quot;)
-head(yts)</pre>
+<pre class = 'prettyprint lang-r'>CO_heat &lt;- read_csv(&quot;http://jhudatascience.org/intro_to_r/data/CO_ER_heat_visits_2011_2024.csv&quot;)
+head(CO_heat)</pre>
 
-<pre ># A tibble: 6 × 31
-   YEAR LocationAbbr LocationDesc TopicType     TopicDesc MeasureDesc DataSource
-  &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;         &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;     
-1  2015 AZ           Arizona      Tobacco Use … Cessatio… Percent of… YTS       
-2  2015 AZ           Arizona      Tobacco Use … Cessatio… Percent of… YTS       
-3  2015 AZ           Arizona      Tobacco Use … Cessatio… Percent of… YTS       
-4  2015 AZ           Arizona      Tobacco Use … Cessatio… Quit Attem… YTS       
-5  2015 AZ           Arizona      Tobacco Use … Cessatio… Quit Attem… YTS       
-6  2015 AZ           Arizona      Tobacco Use … Cessatio… Quit Attem… YTS       
-# ℹ 24 more variables: Response &lt;chr&gt;, Data_Value_Unit &lt;chr&gt;,
-#   Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;, Data_Value_Footnote_Symbol &lt;chr&gt;,
-#   Data_Value_Footnote &lt;chr&gt;, Data_Value_Std_Err &lt;dbl&gt;,
-#   Low_Confidence_Limit &lt;dbl&gt;, High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;dbl&gt;,
-#   Gender &lt;chr&gt;, Race &lt;chr&gt;, Age &lt;chr&gt;, Education &lt;chr&gt;, GeoLocation &lt;chr&gt;,
-#   TopicTypeId &lt;chr&gt;, TopicId &lt;chr&gt;, MeasureId &lt;chr&gt;, StratificationID1 &lt;chr&gt;,
-#   StratificationID2 &lt;chr&gt;, StratificationID3 &lt;chr&gt;, …</pre>
+<pre ># A tibble: 6 × 11
+  COUNTY     RATE L95CL U95CL VISITS  FLAG  YEAR GENDER  MEASURE HEALTHOUTCOMEID
+  &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;          
+1 Statewide  5.65  4.70  6.60    140     2  2011 Female  Age ad… Heat-related   
+2 Statewide  7.39  6.30  8.48    183     2  2011 Male    Age ad… Heat-related   
+3 Statewide  6.52  5.80  7.24    323     2  2011 Both g… Age ad… Heat-related   
+4 Statewide  5.65  4.72  6.58    146     2  2012 Female  Age ad… Heat-related   
+5 Statewide  7.57  6.48  8.65    193     2  2012 Male    Age ad… Heat-related   
+6 Statewide  6.59  5.88  7.30    339     2  2012 Both g… Age ad… Heat-related   
+# ℹ 1 more variable: cofips &lt;chr&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2><code>distinct()</code> values</h2></hgroup><article  id="distinct-values">
 
 <p><code>distinct(x)</code> will return the unique elements of column <code>x</code>.</p>
 
-<pre class = 'prettyprint lang-r'>yts %&gt;%
-  distinct(LocationDesc)</pre>
+<pre class = 'prettyprint lang-r'>CO_heat %&gt;%
+  distinct(COUNTY)</pre>
 
-<pre ># A tibble: 50 × 1
-   LocationDesc            
-   &lt;chr&gt;                   
- 1 Arizona                 
- 2 Connecticut             
- 3 Georgia                 
- 4 Hawaii                  
- 5 Illinois                
- 6 Louisiana               
- 7 Mississippi             
- 8 Utah                    
- 9 Missouri                
-10 National (States and DC)
-# ℹ 40 more rows</pre>
+<pre ># A tibble: 65 × 1
+   COUNTY    
+   &lt;chr&gt;     
+ 1 Statewide 
+ 2 Adams     
+ 3 Alamosa   
+ 4 Arapahoe  
+ 5 Archuleta 
+ 6 Baca      
+ 7 Bent      
+ 8 Boulder   
+ 9 Broomfield
+10 Chaffee   
+# ℹ 55 more rows</pre>
 
 </article></slide><slide class=""><hgroup><h2>How many <code>distinct()</code> values?</h2></hgroup><article  id="how-many-distinct-values">
 
 <p><code>n_distinct()</code> tells you the number of unique elements. It needs a vector so you <em>must pull the column first!</em></p>
 
-<pre class = 'prettyprint lang-r'>yts %&gt;%
-  pull(LocationDesc) %&gt;% 
+<pre class = 'prettyprint lang-r'>CO_heat %&gt;%
+  pull(COUNTY) %&gt;% 
   n_distinct()</pre>
 
-<pre >[1] 50</pre>
+<pre >[1] 65</pre>
 
 </article></slide><slide class=""><hgroup><h2>Use <code>count()</code> to return row count per category.</h2></hgroup><article  id="use-count-to-return-row-count-per-category.">
 
 <p>Use <code>count</code> to return a frequency table of unique elements of a data.frame.</p>
 
-<pre class = 'prettyprint lang-r'>yts %&gt;% count(LocationDesc)</pre>
+<pre class = 'prettyprint lang-r'>CO_heat %&gt;% count(COUNTY)</pre>
 
-<pre ># A tibble: 50 × 2
-   LocationDesc             n
-   &lt;chr&gt;                &lt;int&gt;
- 1 Alabama                378
- 2 Arizona                240
- 3 Arkansas               210
- 4 California              96
- 5 Colorado                48
- 6 Connecticut            384
- 7 Delaware               312
- 8 District of Columbia    48
- 9 Florida                 96
-10 Georgia                282
-# ℹ 40 more rows</pre>
+<pre ># A tibble: 65 × 2
+   COUNTY         n
+   &lt;chr&gt;      &lt;int&gt;
+ 1 Adams         42
+ 2 Alamosa       42
+ 3 Arapahoe      42
+ 4 Archuleta     42
+ 5 Baca          42
+ 6 Bent          42
+ 7 Boulder       42
+ 8 Broomfield    42
+ 9 Chaffee       42
+10 Cheyenne      42
+# ℹ 55 more rows</pre>
 
 </article></slide><slide class=""><hgroup><h2>Multiple columns listed further subdivides the <code>count()</code></h2></hgroup><article  id="multiple-columns-listed-further-subdivides-the-count">
 
-<pre class = 'prettyprint lang-r'>yts %&gt;% count(LocationDesc, TopicDesc)</pre>
+<pre class = 'prettyprint lang-r'>CO_heat %&gt;% count(COUNTY, GENDER)</pre>
 
-<pre ># A tibble: 146 × 3
-   LocationDesc TopicDesc                         n
-   &lt;chr&gt;        &lt;chr&gt;                         &lt;int&gt;
- 1 Alabama      Cessation (Youth)                90
- 2 Alabama      Cigarette Use (Youth)           144
- 3 Alabama      Smokeless Tobacco Use (Youth)   144
- 4 Arizona      Cessation (Youth)                60
- 5 Arizona      Cigarette Use (Youth)            99
- 6 Arizona      Smokeless Tobacco Use (Youth)    81
- 7 Arkansas     Cessation (Youth)                42
- 8 Arkansas     Cigarette Use (Youth)            78
- 9 Arkansas     Smokeless Tobacco Use (Youth)    90
-10 California   Cessation (Youth)                24
-# ℹ 136 more rows</pre>
+<pre ># A tibble: 195 × 3
+   COUNTY    GENDER           n
+   &lt;chr&gt;     &lt;chr&gt;        &lt;int&gt;
+ 1 Adams     Both genders    14
+ 2 Adams     Female          14
+ 3 Adams     Male            14
+ 4 Alamosa   Both genders    14
+ 5 Alamosa   Female          14
+ 6 Alamosa   Male            14
+ 7 Arapahoe  Both genders    14
+ 8 Arapahoe  Female          14
+ 9 Arapahoe  Male            14
+10 Archuleta Both genders    14
+# ℹ 185 more rows</pre>
 
 <p><strong>Note:</strong> <code>count()</code> includes NAs</p>
 
@@ -703,7 +697,7 @@ head(yts)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Goal</h2></hgroup><article  id="goal">
 
-<p>We want to find the average frequency that youth use tobacco products in the dataset.</p>
+<p>We want to find the average rate for ER visits for heat-related illness in the dataset.</p>
 
 <p><em>How do we do this?</em></p>
 
@@ -712,245 +706,265 @@ head(yts)</pre>
 <p><code>group_by</code> allows you group the data set by variables/columns you specify:</p>
 
 <pre class = 'prettyprint lang-r'># Regular data
-yts</pre>
+CO_heat</pre>
 
-<pre ># A tibble: 9,794 × 31
-    YEAR LocationAbbr LocationDesc TopicType    TopicDesc MeasureDesc DataSource
-   &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;     
- 1  2015 AZ           Arizona      Tobacco Use… Cessatio… Percent of… YTS       
- 2  2015 AZ           Arizona      Tobacco Use… Cessatio… Percent of… YTS       
- 3  2015 AZ           Arizona      Tobacco Use… Cessatio… Percent of… YTS       
- 4  2015 AZ           Arizona      Tobacco Use… Cessatio… Quit Attem… YTS       
- 5  2015 AZ           Arizona      Tobacco Use… Cessatio… Quit Attem… YTS       
- 6  2015 AZ           Arizona      Tobacco Use… Cessatio… Quit Attem… YTS       
- 7  2015 AZ           Arizona      Tobacco Use… Cigarett… Smoking St… YTS       
- 8  2015 AZ           Arizona      Tobacco Use… Cigarett… Smoking St… YTS       
- 9  2015 AZ           Arizona      Tobacco Use… Cigarett… Smoking St… YTS       
-10  2015 AZ           Arizona      Tobacco Use… Cigarett… Smoking St… YTS       
-# ℹ 9,784 more rows
-# ℹ 24 more variables: Response &lt;chr&gt;, Data_Value_Unit &lt;chr&gt;,
-#   Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;, Data_Value_Footnote_Symbol &lt;chr&gt;,
-#   Data_Value_Footnote &lt;chr&gt;, Data_Value_Std_Err &lt;dbl&gt;,
-#   Low_Confidence_Limit &lt;dbl&gt;, High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;dbl&gt;,
-#   Gender &lt;chr&gt;, Race &lt;chr&gt;, Age &lt;chr&gt;, Education &lt;chr&gt;, GeoLocation &lt;chr&gt;,
-#   TopicTypeId &lt;chr&gt;, TopicId &lt;chr&gt;, MeasureId &lt;chr&gt;, …</pre>
+<pre ># A tibble: 2,730 × 11
+   COUNTY     RATE L95CL U95CL VISITS  FLAG  YEAR GENDER MEASURE HEALTHOUTCOMEID
+   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;          
+ 1 Statewide  5.65  4.70  6.60    140     2  2011 Female Age ad… Heat-related   
+ 2 Statewide  7.39  6.30  8.48    183     2  2011 Male   Age ad… Heat-related   
+ 3 Statewide  6.52  5.80  7.24    323     2  2011 Both … Age ad… Heat-related   
+ 4 Statewide  5.65  4.72  6.58    146     2  2012 Female Age ad… Heat-related   
+ 5 Statewide  7.57  6.48  8.65    193     2  2012 Male   Age ad… Heat-related   
+ 6 Statewide  6.59  5.88  7.30    339     2  2012 Both … Age ad… Heat-related   
+ 7 Statewide  4.96  4.08  5.84    124     2  2013 Female Age ad… Heat-related   
+ 8 Statewide  6.70  5.70  7.70    178     2  2013 Male   Age ad… Heat-related   
+ 9 Statewide  5.83  5.16  6.49    302     2  2013 Both … Age ad… Heat-related   
+10 Statewide  3.54  2.81  4.27     92     2  2014 Female Age ad… Heat-related   
+# ℹ 2,720 more rows
+# ℹ 1 more variable: cofips &lt;chr&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Perform operations by groups: dplyr</h2></hgroup><article  id="perform-operations-by-groups-dplyr-1">
 
 <p><code>group_by</code> allows you group the data set by variables/columns you specify:</p>
 
-<pre class = 'prettyprint lang-r'>yts_grouped &lt;- yts %&gt;% group_by(Response)
-yts_grouped</pre>
+<pre class = 'prettyprint lang-r'>CO_heat_grouped &lt;- CO_heat %&gt;% group_by(COUNTY)
+CO_heat_grouped</pre>
 
-<pre ># A tibble: 9,794 × 31
-# Groups:   Response [4]
-    YEAR LocationAbbr LocationDesc TopicType    TopicDesc MeasureDesc DataSource
-   &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;     
- 1  2015 AZ           Arizona      Tobacco Use… Cessatio… Percent of… YTS       
- 2  2015 AZ           Arizona      Tobacco Use… Cessatio… Percent of… YTS       
- 3  2015 AZ           Arizona      Tobacco Use… Cessatio… Percent of… YTS       
- 4  2015 AZ           Arizona      Tobacco Use… Cessatio… Quit Attem… YTS       
- 5  2015 AZ           Arizona      Tobacco Use… Cessatio… Quit Attem… YTS       
- 6  2015 AZ           Arizona      Tobacco Use… Cessatio… Quit Attem… YTS       
- 7  2015 AZ           Arizona      Tobacco Use… Cigarett… Smoking St… YTS       
- 8  2015 AZ           Arizona      Tobacco Use… Cigarett… Smoking St… YTS       
- 9  2015 AZ           Arizona      Tobacco Use… Cigarett… Smoking St… YTS       
-10  2015 AZ           Arizona      Tobacco Use… Cigarett… Smoking St… YTS       
-# ℹ 9,784 more rows
-# ℹ 24 more variables: Response &lt;chr&gt;, Data_Value_Unit &lt;chr&gt;,
-#   Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;, Data_Value_Footnote_Symbol &lt;chr&gt;,
-#   Data_Value_Footnote &lt;chr&gt;, Data_Value_Std_Err &lt;dbl&gt;,
-#   Low_Confidence_Limit &lt;dbl&gt;, High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;dbl&gt;,
-#   Gender &lt;chr&gt;, Race &lt;chr&gt;, Age &lt;chr&gt;, Education &lt;chr&gt;, GeoLocation &lt;chr&gt;,
-#   TopicTypeId &lt;chr&gt;, TopicId &lt;chr&gt;, MeasureId &lt;chr&gt;, …</pre>
+<pre ># A tibble: 2,730 × 11
+# Groups:   COUNTY [65]
+   COUNTY     RATE L95CL U95CL VISITS  FLAG  YEAR GENDER MEASURE HEALTHOUTCOMEID
+   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;          
+ 1 Statewide  5.65  4.70  6.60    140     2  2011 Female Age ad… Heat-related   
+ 2 Statewide  7.39  6.30  8.48    183     2  2011 Male   Age ad… Heat-related   
+ 3 Statewide  6.52  5.80  7.24    323     2  2011 Both … Age ad… Heat-related   
+ 4 Statewide  5.65  4.72  6.58    146     2  2012 Female Age ad… Heat-related   
+ 5 Statewide  7.57  6.48  8.65    193     2  2012 Male   Age ad… Heat-related   
+ 6 Statewide  6.59  5.88  7.30    339     2  2012 Both … Age ad… Heat-related   
+ 7 Statewide  4.96  4.08  5.84    124     2  2013 Female Age ad… Heat-related   
+ 8 Statewide  6.70  5.70  7.70    178     2  2013 Male   Age ad… Heat-related   
+ 9 Statewide  5.83  5.16  6.49    302     2  2013 Both … Age ad… Heat-related   
+10 Statewide  3.54  2.81  4.27     92     2  2014 Female Age ad… Heat-related   
+# ℹ 2,720 more rows
+# ℹ 1 more variable: cofips &lt;chr&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Summarize the grouped data</h2></hgroup><article  id="summarize-the-grouped-data">
 
-<p>It’s grouped! Grouping doesn’t change the data in any way, but how <strong>functions operate on it</strong>. Now we can summarize <code>Data_Value</code> (percent of respondents) by group:</p>
+<p>It’s grouped! Grouping doesn’t change the data in any way, but how <strong>functions operate on it</strong>. Now we can summarize <code>RATE</code> (age-adjusted heat-related ER visits per 100,000 people) by group:</p>
 
-<pre class = 'prettyprint lang-r'>yts_grouped %&gt;% summarize(avg_percent = mean(Data_Value, na.rm = TRUE))</pre>
+<pre class = 'prettyprint lang-r'>CO_heat_grouped %&gt;% summarize(avg_rate = mean(RATE, na.rm = TRUE))</pre>
 
-<pre ># A tibble: 4 × 2
-  Response avg_percent
-  &lt;chr&gt;          &lt;dbl&gt;
-1 Current         9.68
-2 Ever           26.1 
-3 Frequent        3.48
-4 &lt;NA&gt;           53.5 </pre>
+<pre ># A tibble: 65 × 2
+   COUNTY     avg_rate
+   &lt;chr&gt;         &lt;dbl&gt;
+ 1 Adams          6.85
+ 2 Alamosa        0   
+ 3 Arapahoe       5.20
+ 4 Archuleta      0   
+ 5 Baca           0   
+ 6 Bent           0   
+ 7 Boulder        5.46
+ 8 Broomfield     0   
+ 9 Chaffee        0   
+10 Cheyenne       0   
+# ℹ 55 more rows</pre>
 
 </article></slide><slide class=""><hgroup><h2>Do it in one step: use <code>%&gt;%</code> to string these together!</h2></hgroup><article  id="do-it-in-one-step-use-to-string-these-together">
 
-<p>Pipe <code>yts</code> into <code>group_by</code>, then pipe that into <code>summarize</code>:</p>
+<p>Pipe <code>CO_heat</code> into <code>group_by</code>, then pipe that into <code>summarize</code>:</p>
 
-<pre class = 'prettyprint lang-r'>yts %&gt;%
-  group_by(Response) %&gt;%
-  summarize(avg_percent = mean(Data_Value, na.rm = TRUE),
-            max_percent = max(Data_Value, na.rm = TRUE))</pre>
+<pre class = 'prettyprint lang-r'>CO_heat %&gt;%
+  group_by(COUNTY) %&gt;%
+  summarize(avg_rate = mean(RATE, na.rm = TRUE),
+            max_rate = max(RATE, na.rm = TRUE))</pre>
 
-<pre ># A tibble: 4 × 3
-  Response avg_percent max_percent
-  &lt;chr&gt;          &lt;dbl&gt;       &lt;dbl&gt;
-1 Current         9.68        40.6
-2 Ever           26.1         98  
-3 Frequent        3.48        23.9
-4 &lt;NA&gt;           53.5         81.9</pre>
+<pre ># A tibble: 65 × 3
+   COUNTY     avg_rate max_rate
+   &lt;chr&gt;         &lt;dbl&gt;    &lt;dbl&gt;
+ 1 Adams          6.85    11.7 
+ 2 Alamosa        0        0   
+ 3 Arapahoe       5.20     8.44
+ 4 Archuleta      0        0   
+ 5 Baca           0        0   
+ 6 Bent           0        0   
+ 7 Boulder        5.46     8.96
+ 8 Broomfield     0        0   
+ 9 Chaffee        0        0   
+10 Cheyenne       0        0   
+# ℹ 55 more rows</pre>
 
 </article></slide><slide class=""><hgroup><h2>Group by as many variables as you want</h2></hgroup><article  id="group-by-as-many-variables-as-you-want">
 
-<p><code>group_by</code> Response and Education:</p>
+<p><code>group_by</code> COUNTY and GENDER:</p>
 
-<pre class = 'prettyprint lang-r'>yts %&gt;%
-  group_by(Response, Education) %&gt;%
-  summarize(avg_percent = mean(Data_Value, na.rm = TRUE),
-            max_percent = max(Data_Value, na.rm = TRUE))</pre>
+<pre class = 'prettyprint lang-r'>CO_heat %&gt;%
+  group_by(COUNTY, GENDER) %&gt;%
+  summarize(avg_rate = mean(RATE, na.rm = TRUE),
+            max_rate = max(RATE, na.rm = TRUE))</pre>
 
-<pre ># A tibble: 8 × 4
-# Groups:   Response [4]
-  Response Education     avg_percent max_percent
-  &lt;chr&gt;    &lt;chr&gt;               &lt;dbl&gt;       &lt;dbl&gt;
-1 Current  High School         14.1         40.6
-2 Current  Middle School        5.73        26.1
-3 Ever     High School         34.7         96.2
-4 Ever     Middle School       18.6         98  
-5 Frequent High School          5.91        23.9
-6 Frequent Middle School        1.33         8  
-7 &lt;NA&gt;     High School         53.8         78.9
-8 &lt;NA&gt;     Middle School       53.2         81.9</pre>
+<pre >Warning: There were 4 warnings in `summarize()`.
+The first warning was:
+ℹ In argument: `max_rate = max(RATE, na.rm = TRUE)`.
+ℹ In group 20: `COUNTY = &quot;Boulder&quot;` `GENDER = &quot;Female&quot;`.
+Caused by warning in `max()`:
+! no non-missing arguments to max; returning -Inf
+ℹ Run `dplyr::last_dplyr_warnings()` to see the 3 remaining warnings.</pre>
+
+<pre ># A tibble: 195 × 4
+# Groups:   COUNTY [65]
+   COUNTY    GENDER       avg_rate max_rate
+   &lt;chr&gt;     &lt;chr&gt;           &lt;dbl&gt;    &lt;dbl&gt;
+ 1 Adams     Both genders     6.35     8.96
+ 2 Adams     Female           6.37     7.59
+ 3 Adams     Male             7.83    11.7 
+ 4 Alamosa   Both genders     0        0   
+ 5 Alamosa   Female           0        0   
+ 6 Alamosa   Male             0        0   
+ 7 Arapahoe  Both genders     4.93     7.16
+ 8 Arapahoe  Female           4.77     5.86
+ 9 Arapahoe  Male             5.94     8.44
+10 Archuleta Both genders     0        0   
+# ℹ 185 more rows</pre>
 
 </article></slide><slide class=""><hgroup><h2>Only the last <code>group_by</code> is recognized…</h2></hgroup><article  id="only-the-last-group_by-is-recognized">
 
 <p>You can overwrite the first <code>group_by</code> with a new one.</p>
 
-<pre class = 'prettyprint lang-r'>yts %&gt;% 
-  group_by(Response, Education)  %&gt;% 
-  group_by(Education) </pre>
+<pre class = 'prettyprint lang-r'>CO_heat %&gt;% 
+  group_by(COUNTY, GENDER)  %&gt;% 
+  group_by(GENDER) </pre>
 
-<pre ># A tibble: 9,794 × 31
-# Groups:   Education [2]
-    YEAR LocationAbbr LocationDesc TopicType    TopicDesc MeasureDesc DataSource
-   &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;     
- 1  2015 AZ           Arizona      Tobacco Use… Cessatio… Percent of… YTS       
- 2  2015 AZ           Arizona      Tobacco Use… Cessatio… Percent of… YTS       
- 3  2015 AZ           Arizona      Tobacco Use… Cessatio… Percent of… YTS       
- 4  2015 AZ           Arizona      Tobacco Use… Cessatio… Quit Attem… YTS       
- 5  2015 AZ           Arizona      Tobacco Use… Cessatio… Quit Attem… YTS       
- 6  2015 AZ           Arizona      Tobacco Use… Cessatio… Quit Attem… YTS       
- 7  2015 AZ           Arizona      Tobacco Use… Cigarett… Smoking St… YTS       
- 8  2015 AZ           Arizona      Tobacco Use… Cigarett… Smoking St… YTS       
- 9  2015 AZ           Arizona      Tobacco Use… Cigarett… Smoking St… YTS       
-10  2015 AZ           Arizona      Tobacco Use… Cigarett… Smoking St… YTS       
-# ℹ 9,784 more rows
-# ℹ 24 more variables: Response &lt;chr&gt;, Data_Value_Unit &lt;chr&gt;,
-#   Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;, Data_Value_Footnote_Symbol &lt;chr&gt;,
-#   Data_Value_Footnote &lt;chr&gt;, Data_Value_Std_Err &lt;dbl&gt;,
-#   Low_Confidence_Limit &lt;dbl&gt;, High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;dbl&gt;,
-#   Gender &lt;chr&gt;, Race &lt;chr&gt;, Age &lt;chr&gt;, Education &lt;chr&gt;, GeoLocation &lt;chr&gt;,
-#   TopicTypeId &lt;chr&gt;, TopicId &lt;chr&gt;, MeasureId &lt;chr&gt;, …</pre>
+<pre ># A tibble: 2,730 × 11
+# Groups:   GENDER [3]
+   COUNTY     RATE L95CL U95CL VISITS  FLAG  YEAR GENDER MEASURE HEALTHOUTCOMEID
+   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;          
+ 1 Statewide  5.65  4.70  6.60    140     2  2011 Female Age ad… Heat-related   
+ 2 Statewide  7.39  6.30  8.48    183     2  2011 Male   Age ad… Heat-related   
+ 3 Statewide  6.52  5.80  7.24    323     2  2011 Both … Age ad… Heat-related   
+ 4 Statewide  5.65  4.72  6.58    146     2  2012 Female Age ad… Heat-related   
+ 5 Statewide  7.57  6.48  8.65    193     2  2012 Male   Age ad… Heat-related   
+ 6 Statewide  6.59  5.88  7.30    339     2  2012 Both … Age ad… Heat-related   
+ 7 Statewide  4.96  4.08  5.84    124     2  2013 Female Age ad… Heat-related   
+ 8 Statewide  6.70  5.70  7.70    178     2  2013 Male   Age ad… Heat-related   
+ 9 Statewide  5.83  5.16  6.49    302     2  2013 Both … Age ad… Heat-related   
+10 Statewide  3.54  2.81  4.27     92     2  2014 Female Age ad… Heat-related   
+# ℹ 2,720 more rows
+# ℹ 1 more variable: cofips &lt;chr&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Ungroup the data</h2></hgroup><article  id="ungroup-the-data">
 
 <p>The <code>ungroup</code> function will allow you to clear the groups from the data.</p>
 
-<pre class = 'prettyprint lang-r'>yts &lt;- ungroup(yts)
-yts</pre>
+<pre class = 'prettyprint lang-r'>CO_heat_grouped</pre>
 
-<pre ># A tibble: 9,794 × 31
-    YEAR LocationAbbr LocationDesc TopicType    TopicDesc MeasureDesc DataSource
-   &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;     
- 1  2015 AZ           Arizona      Tobacco Use… Cessatio… Percent of… YTS       
- 2  2015 AZ           Arizona      Tobacco Use… Cessatio… Percent of… YTS       
- 3  2015 AZ           Arizona      Tobacco Use… Cessatio… Percent of… YTS       
- 4  2015 AZ           Arizona      Tobacco Use… Cessatio… Quit Attem… YTS       
- 5  2015 AZ           Arizona      Tobacco Use… Cessatio… Quit Attem… YTS       
- 6  2015 AZ           Arizona      Tobacco Use… Cessatio… Quit Attem… YTS       
- 7  2015 AZ           Arizona      Tobacco Use… Cigarett… Smoking St… YTS       
- 8  2015 AZ           Arizona      Tobacco Use… Cigarett… Smoking St… YTS       
- 9  2015 AZ           Arizona      Tobacco Use… Cigarett… Smoking St… YTS       
-10  2015 AZ           Arizona      Tobacco Use… Cigarett… Smoking St… YTS       
-# ℹ 9,784 more rows
-# ℹ 24 more variables: Response &lt;chr&gt;, Data_Value_Unit &lt;chr&gt;,
-#   Data_Value_Type &lt;chr&gt;, Data_Value &lt;dbl&gt;, Data_Value_Footnote_Symbol &lt;chr&gt;,
-#   Data_Value_Footnote &lt;chr&gt;, Data_Value_Std_Err &lt;dbl&gt;,
-#   Low_Confidence_Limit &lt;dbl&gt;, High_Confidence_Limit &lt;dbl&gt;, Sample_Size &lt;dbl&gt;,
-#   Gender &lt;chr&gt;, Race &lt;chr&gt;, Age &lt;chr&gt;, Education &lt;chr&gt;, GeoLocation &lt;chr&gt;,
-#   TopicTypeId &lt;chr&gt;, TopicId &lt;chr&gt;, MeasureId &lt;chr&gt;, …</pre>
+<pre ># A tibble: 2,730 × 11
+# Groups:   COUNTY [65]
+   COUNTY     RATE L95CL U95CL VISITS  FLAG  YEAR GENDER MEASURE HEALTHOUTCOMEID
+   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;          
+ 1 Statewide  5.65  4.70  6.60    140     2  2011 Female Age ad… Heat-related   
+ 2 Statewide  7.39  6.30  8.48    183     2  2011 Male   Age ad… Heat-related   
+ 3 Statewide  6.52  5.80  7.24    323     2  2011 Both … Age ad… Heat-related   
+ 4 Statewide  5.65  4.72  6.58    146     2  2012 Female Age ad… Heat-related   
+ 5 Statewide  7.57  6.48  8.65    193     2  2012 Male   Age ad… Heat-related   
+ 6 Statewide  6.59  5.88  7.30    339     2  2012 Both … Age ad… Heat-related   
+ 7 Statewide  4.96  4.08  5.84    124     2  2013 Female Age ad… Heat-related   
+ 8 Statewide  6.70  5.70  7.70    178     2  2013 Male   Age ad… Heat-related   
+ 9 Statewide  5.83  5.16  6.49    302     2  2013 Both … Age ad… Heat-related   
+10 Statewide  3.54  2.81  4.27     92     2  2014 Female Age ad… Heat-related   
+# ℹ 2,720 more rows
+# ℹ 1 more variable: cofips &lt;chr&gt;</pre>
+
+<pre class = 'prettyprint lang-r'>ungroup(CO_heat_grouped)</pre>
+
+<pre ># A tibble: 2,730 × 11
+   COUNTY     RATE L95CL U95CL VISITS  FLAG  YEAR GENDER MEASURE HEALTHOUTCOMEID
+   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;          
+ 1 Statewide  5.65  4.70  6.60    140     2  2011 Female Age ad… Heat-related   
+ 2 Statewide  7.39  6.30  8.48    183     2  2011 Male   Age ad… Heat-related   
+ 3 Statewide  6.52  5.80  7.24    323     2  2011 Both … Age ad… Heat-related   
+ 4 Statewide  5.65  4.72  6.58    146     2  2012 Female Age ad… Heat-related   
+ 5 Statewide  7.57  6.48  8.65    193     2  2012 Male   Age ad… Heat-related   
+ 6 Statewide  6.59  5.88  7.30    339     2  2012 Both … Age ad… Heat-related   
+ 7 Statewide  4.96  4.08  5.84    124     2  2013 Female Age ad… Heat-related   
+ 8 Statewide  6.70  5.70  7.70    178     2  2013 Male   Age ad… Heat-related   
+ 9 Statewide  5.83  5.16  6.49    302     2  2013 Both … Age ad… Heat-related   
+10 Statewide  3.54  2.81  4.27     92     2  2014 Female Age ad… Heat-related   
+# ℹ 2,720 more rows
+# ℹ 1 more variable: cofips &lt;chr&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2><code>group_by</code> with <code>mutate</code> - just add data</h2></hgroup><article  id="group_by-with-mutate---just-add-data">
 
 <p>We can also use <code>mutate</code> to calculate the mean value for each year and add it as a column:</p>
 
-<pre class = 'prettyprint lang-r'>yts %&gt;%
-  group_by(YEAR) %&gt;%
-  mutate(year_avg = mean(Data_Value, na.rm = TRUE)) %&gt;%
-  select(LocationDesc, Data_Value, year_avg)</pre>
+<pre class = 'prettyprint lang-r'>CO_heat %&gt;%
+  group_by(YEAR, GENDER) %&gt;%
+  mutate(year_avg = mean(RATE, na.rm = TRUE)) %&gt;%
+  select(COUNTY, RATE, year_avg)</pre>
 
-<pre ># A tibble: 9,794 × 4
-# Groups:   YEAR [17]
-    YEAR LocationDesc Data_Value year_avg
-   &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt;    &lt;dbl&gt;
- 1  2015 Arizona            NA       15.2
- 2  2015 Arizona            NA       15.2
- 3  2015 Arizona            NA       15.2
- 4  2015 Arizona            NA       15.2
- 5  2015 Arizona            NA       15.2
- 6  2015 Arizona            NA       15.2
- 7  2015 Arizona             3.2     15.2
- 8  2015 Arizona             3.2     15.2
- 9  2015 Arizona             3.1     15.2
-10  2015 Arizona            12.5     15.2
-# ℹ 9,784 more rows</pre>
+<pre ># A tibble: 2,730 × 5
+# Groups:   YEAR, GENDER [42]
+    YEAR GENDER       COUNTY     RATE year_avg
+   &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+ 1  2011 Female       Statewide  5.65    0.950
+ 2  2011 Male         Statewide  7.39    1.38 
+ 3  2011 Both genders Statewide  6.52    1.59 
+ 4  2012 Female       Statewide  5.65    0.891
+ 5  2012 Male         Statewide  7.57    1.71 
+ 6  2012 Both genders Statewide  6.59    1.86 
+ 7  2013 Female       Statewide  4.96    0.795
+ 8  2013 Male         Statewide  6.70    1.65 
+ 9  2013 Both genders Statewide  5.83    1.92 
+10  2014 Female       Statewide  3.54    0.508
+# ℹ 2,720 more rows</pre>
 
 </article></slide><slide class=""><hgroup><h2>Counting</h2></hgroup><article  id="counting">
 
 <p>There are other functions, such as <code>n()</code> count the number of observations (NAs included).</p>
 
-<pre class = 'prettyprint lang-r'>yts %&gt;%
+<pre class = 'prettyprint lang-r'>CO_heat %&gt;%
   group_by(YEAR) %&gt;%
   summarize(n = n(),
-            mean = mean(Data_Value, na.rm = TRUE))</pre>
+            mean = mean(RATE, na.rm = TRUE))</pre>
 
-<pre ># A tibble: 17 × 3
+<pre ># A tibble: 14 × 3
     YEAR     n  mean
    &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;
- 1  1999   372  26.1
- 2  2000  1224  26.7
- 3  2001   426  23.4
- 4  2002  1016  25.2
- 5  2003   498  21.3
- 6  2004   611  20.7
- 7  2005   636  21.8
- 8  2006   518  21.8
- 9  2007   516  20.0
-10  2008   483  18.2
-11  2009   686  18.3
-12  2010   447  17.8
-13  2011   521  17.8
-14  2012   244  15.5
-15  2013   685  16.7
-16  2014   334  15.7
-17  2015   577  15.2</pre>
+ 1  2011   195 1.29 
+ 2  2012   195 1.50 
+ 3  2013   195 1.45 
+ 4  2014   195 0.967
+ 5  2015   195 1.54 
+ 6  2016   195 3.19 
+ 7  2017   195 1.55 
+ 8  2018   195 2.84 
+ 9  2019   195 3.34 
+10  2020   195 1.26 
+11  2021   195 1.68 
+12  2022   195 2.45 
+13  2023   195 2.60 
+14  2024   195 2.62 </pre>
 
-</article></slide><slide class=""><hgroup><h2>Counting</h2></hgroup><article  id="counting-1" class="codesmall">
+</article></slide><slide class=""><hgroup><h2>Counting</h2></hgroup><article  class="codesmall" id="counting-1">
 
 <p><code>count()</code> and <code>n()</code> can give very similar information.</p>
 
-<pre class = 'prettyprint lang-r'>yts %&gt;% count(YEAR) %&gt;% head(n = 3)</pre>
+<pre class = 'prettyprint lang-r'>CO_heat %&gt;% count(YEAR) %&gt;% head(n = 3)</pre>
 
 <pre ># A tibble: 3 × 2
    YEAR     n
   &lt;dbl&gt; &lt;int&gt;
-1  1999   372
-2  2000  1224
-3  2001   426</pre>
+1  2011   195
+2  2012   195
+3  2013   195</pre>
 
-<pre class = 'prettyprint lang-r'>yts %&gt;% group_by(YEAR) %&gt;% summarize(n = n()) %&gt;% head(n = 3) # n() typically used with summarize</pre>
+<pre class = 'prettyprint lang-r'>CO_heat %&gt;% group_by(YEAR) %&gt;% summarize(n = n()) %&gt;% head(n = 3) # n() typically used with summarize</pre>
 
 <pre ># A tibble: 3 × 2
    YEAR     n
   &lt;dbl&gt; &lt;int&gt;
-1  1999   372
-2  2000  1224
-3  2001   426</pre>
+1  2011   195
+2  2012   195
+3  2013   195</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>A few miscellaneous topics</h2></hgroup><article  id="a-few-miscellaneous-topics">
 
@@ -958,42 +972,30 @@ yts</pre>
 
 <p>These functions require a column as a vector using <code>pull()</code>.</p>
 
-<pre class = 'prettyprint lang-r'>yts_loc &lt;- yts %&gt;% pull(LocationDesc) # pull() to make a vector
-yts_loc %&gt;% unique() # similar to distinct()</pre>
+<pre class = 'prettyprint lang-r'>CO_heat_loc &lt;- CO_heat %&gt;% pull(COUNTY) # pull() to make a vector
+CO_heat_loc %&gt;% unique() # similar to distinct()</pre>
 
-<pre > [1] &quot;Arizona&quot;                  &quot;Connecticut&quot;             
- [3] &quot;Georgia&quot;                  &quot;Hawaii&quot;                  
- [5] &quot;Illinois&quot;                 &quot;Louisiana&quot;               
- [7] &quot;Mississippi&quot;              &quot;Utah&quot;                    
- [9] &quot;Missouri&quot;                 &quot;National (States and DC)&quot;
-[11] &quot;Nebraska&quot;                 &quot;New Jersey&quot;              
-[13] &quot;North Carolina&quot;           &quot;North Dakota&quot;            
-[15] &quot;Pennsylvania&quot;             &quot;South Carolina&quot;          
-[17] &quot;West Virginia&quot;            &quot;Alabama&quot;                 
-[19] &quot;Delaware&quot;                 &quot;Minnesota&quot;               
-[21] &quot;Guam&quot;                     &quot;Ohio&quot;                    
-[23] &quot;Indiana&quot;                  &quot;Kansas&quot;                  
-[25] &quot;Oklahoma&quot;                 &quot;Wisconsin&quot;               
-[27] &quot;Michigan&quot;                 &quot;New Hampshire&quot;           
-[29] &quot;Arkansas&quot;                 &quot;Kentucky&quot;                
-[31] &quot;Iowa&quot;                     &quot;South Dakota&quot;            
-[33] &quot;Virginia&quot;                 &quot;Puerto Rico&quot;             
-[35] &quot;Rhode Island&quot;             &quot;New Mexico&quot;              
-[37] &quot;Tennessee&quot;                &quot;Vermont&quot;                 
-[39] &quot;Virgin Islands&quot;           &quot;California&quot;              
-[41] &quot;Idaho&quot;                    &quot;Florida&quot;                 
-[43] &quot;Maryland&quot;                 &quot;Massachusetts&quot;           
-[45] &quot;New York&quot;                 &quot;Maine&quot;                   
-[47] &quot;Colorado&quot;                 &quot;District of Columbia&quot;    
-[49] &quot;Texas&quot;                    &quot;Wyoming&quot;                 </pre>
+<pre > [1] &quot;Statewide&quot;   &quot;Adams&quot;       &quot;Alamosa&quot;     &quot;Arapahoe&quot;    &quot;Archuleta&quot;  
+ [6] &quot;Baca&quot;        &quot;Bent&quot;        &quot;Boulder&quot;     &quot;Broomfield&quot;  &quot;Chaffee&quot;    
+[11] &quot;Cheyenne&quot;    &quot;Clear Creek&quot; &quot;Conejos&quot;     &quot;Costilla&quot;    &quot;Crowley&quot;    
+[16] &quot;Custer&quot;      &quot;Delta&quot;       &quot;Denver&quot;      &quot;Dolores&quot;     &quot;Douglas&quot;    
+[21] &quot;Eagle&quot;       &quot;Elbert&quot;      &quot;El Paso&quot;     &quot;Fremont&quot;     &quot;Garfield&quot;   
+[26] &quot;Gilpin&quot;      &quot;Grand&quot;       &quot;Gunnison&quot;    &quot;Hinsdale&quot;    &quot;Huerfano&quot;   
+[31] &quot;Jackson&quot;     &quot;Jefferson&quot;   &quot;Kiowa&quot;       &quot;Kit Carson&quot;  &quot;Lake&quot;       
+[36] &quot;La Plata&quot;    &quot;Larimer&quot;     &quot;Las Animas&quot;  &quot;Lincoln&quot;     &quot;Logan&quot;      
+[41] &quot;Mesa&quot;        &quot;Mineral&quot;     &quot;Moffat&quot;      &quot;Montezuma&quot;   &quot;Montrose&quot;   
+[46] &quot;Morgan&quot;      &quot;Otero&quot;       &quot;Ouray&quot;       &quot;Park&quot;        &quot;Phillips&quot;   
+[51] &quot;Pitkin&quot;      &quot;Prowers&quot;     &quot;Pueblo&quot;      &quot;Rio Blanco&quot;  &quot;Rio Grande&quot; 
+[56] &quot;Routt&quot;       &quot;Saguache&quot;    &quot;San Juan&quot;    &quot;San Miguel&quot;  &quot;Sedgwick&quot;   
+[61] &quot;Summit&quot;      &quot;Teller&quot;      &quot;Washington&quot;  &quot;Weld&quot;        &quot;Yuma&quot;       </pre>
 
 </article></slide><slide class=""><hgroup><h2>Base R functions you might see: <code>length</code> and <code>unique</code></h2></hgroup><article  id="base-r-functions-you-might-see-length-and-unique-1">
 
 <p>These functions require a column as a vector using <code>pull()</code>.</p>
 
-<pre class = 'prettyprint lang-r'>yts_loc %&gt;% unique() %&gt;% length() # similar to n_distinct()</pre>
+<pre class = 'prettyprint lang-r'>CO_heat_loc %&gt;% unique() %&gt;% length() # similar to n_distinct()</pre>
 
-<pre >[1] 50</pre>
+<pre >[1] 65</pre>
 
 </article></slide><slide class=""><hgroup><h2><code>summary()</code> vs. <code>summarize()</code></h2></hgroup><article  id="summary-vs.-summarize">
 
@@ -1005,7 +1007,6 @@ yts_loc %&gt;% unique() # similar to distinct()</pre>
 </article></slide><slide class=""><hgroup><h2>Functions you might also see</h2></hgroup><article  id="functions-you-might-also-see">
 
 <ul>
-<li><code>rowwise</code>()`: functions will compute results for each row</li>
 <li><code>sum(!is.na())</code>: # of non-NAs in the data</li>
 <li><code>first()</code>: first value in the data</li>
 <li><code>last()</code>: last value in the data</li>
@@ -1031,7 +1032,7 @@ yts_loc %&gt;% unique() # similar to distinct()</pre>
 <li><code>summarize()</code> with <code>n()</code> gives the count (NAs included)</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Resources &amp; Lab Part 2</h2></hgroup><article  id="resources-lab-part-2" class="small">
+</article></slide><slide class=""><hgroup><h2>Resources &amp; Lab Part 2</h2></hgroup><article  class="small" id="resources-lab-part-2">
 
 <p>🏠 <a href='https://jhudatascience.org/intro_to_r/' title=''>Class Website</a></p>
 
@@ -1107,19 +1108,19 @@ yts_loc %&gt;% unique() # similar to distinct()</pre>
 
 </article></slide><slide class=""><hgroup><h2>* New! * Many dplyr functions now have a <code>.by=</code> argument</h2></hgroup><article  id="new-many-dplyr-functions-now-have-a-.by-argument">
 
-<p>Pipe <code>yts</code> into <code>group_by</code>, then pipe that into <code>summarize</code>:</p>
+<p>Pipe <code>CO_heat</code> into <code>group_by</code>, then pipe that into <code>summarize</code>:</p>
 
-<pre class = 'prettyprint lang-r'>yts %&gt;%
-  group_by(Response) %&gt;%
-  summarize(avg_percent = mean(Data_Value, na.rm = TRUE),
-            max_percent = max(Data_Value, na.rm = TRUE))</pre>
+<pre class = 'prettyprint lang-r'>CO_heat %&gt;%
+  group_by(COUNTY) %&gt;%
+  summarize(avg_rate = mean(RATE, na.rm = TRUE),
+            max_rate = max(RATE, na.rm = TRUE))</pre>
 
 <p>is the same as..</p>
 
-<pre class = 'prettyprint lang-r'>yts %&gt;%
-  summarize(avg_percent = mean(Data_Value, na.rm = TRUE),
-            max_percent = max(Data_Value, na.rm = TRUE),
-            .by = Response)</pre></article></slide>
+<pre class = 'prettyprint lang-r'>CO_heat %&gt;%
+  summarize(avg_rate = mean(RATE, na.rm = TRUE),
+            max_rate = max(RATE, na.rm = TRUE),
+            .by = COUNTY)</pre></article></slide>
 
 
   <slide class="backdrop"></slide>
