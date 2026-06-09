@@ -15,10 +15,12 @@ suppressPackageStartupMessages(library(dplyr))
 library(dplyr)
 ```
 
+
 ## Reminder
 
 Refresh the website and get the latest version of the labs and slides!
 We are constantly making improvements. 
+
 
 ## Recap
 
@@ -68,8 +70,8 @@ Some resources on how to use `dplyr`:
 ```{r, fig.alt="dplyr", out.width = "100%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/dplyr.png")
 ```
-The `dplyr` package is one of the most helpful packages for altering your data to get it ready analysis and visualization.
 
+The `dplyr` package is one of the most helpful packages for altering your data to get it ready analysis and visualization.
 
 ```{r, fig.alt="dplyr", out.width = "20%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/621a9c8c5d7b47c4b6d72e8f01f28d14310e8370/193fc/css/images/hex/dplyr.png")
@@ -79,9 +81,11 @@ knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/621a9c8c5d7b47c4b
 ## Loading in dplyr and tidyverse
 
 See this website for a list of the packages included in the `tidyverse`: https://www.tidyverse.org/packages/
+
 ```{r}
 library(tidyverse) # loads dplyr and other packages!
 ```
+
 
 ## Getting data to work with
 
@@ -107,7 +111,6 @@ We will work with data called `annualDosage` (number of shipments (count) of eit
 ```{r}
 annualDosage <- 
   read_csv("https://jhudatascience.org/intro_to_r/data/annualDosage.csv")
-
 ```
 
 
@@ -120,6 +123,7 @@ dim(annualDosage) # rows, columns
 nrow(annualDosage) # number of rows
 ncol(annualDosage) # number of columns
 ```
+
 
 ## Checking the data: `glimpse()`
 
@@ -137,7 +141,6 @@ What if you want to see the middle of your data? You can use the `slice_sample()
 ```{r}
 slice_sample(annualDosage, n = 2)
 slice_sample(annualDosage, n = 2)
-
 ```
 
 
@@ -151,6 +154,8 @@ An older version of data in tables is called a data frame. The mtcars dataset is
 class(mtcars)
 head(mtcars)
 ```
+
+
 ## tibble
 
 Tibbles are a **fancier** version of data frames:
@@ -161,7 +166,6 @@ Tibbles are a **fancier** version of data frames:
 
 ```{r}
 annualDosage
-
 ```
 
 
@@ -185,6 +189,7 @@ Most functions work for both so you don't need to worry about it much!
 
 It can be helpful to convert data frames to tibbles though just to see more about the data more easily. The `tibble()` function helps us do that.
 
+
 ## Data frames vs tibbles - watch out for rownames
  
 Note that this conversion can remove row names - which some data frames have.  For example, `mtcars`  (part of R) has row names. In this case we would want to make the rownames a new column first before making into a tibble.
@@ -194,6 +199,7 @@ head(mtcars, n = 2)
 head(tibble(mtcars), n = 2)
 ```
 
+
 ## rownames_to_column function{.codesmall}
 
 There is a function that specifically helps you do that.
@@ -201,7 +207,6 @@ There is a function that specifically helps you do that.
 ```{r}
 head(rownames_to_column(mtcars), n = 2)
 head(tibble(rownames_to_column(mtcars)), n = 2)
-
 ```
 
 
@@ -221,6 +226,7 @@ head(annualDosage)
 ```{r, fig.alt="dplyr", out.width = "70%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/rename.png")
 ```
+
 "Artwork by @allison_horst". https://allisonhorst.com/
 
 
@@ -254,6 +260,7 @@ renamed_annualDosage <- rename(annualDosage,
                                State = BUYER_STATE)
 head(renamed_annualDosage, 3)
 ```
+
 
 ## Renaming all columns of a data frame: dplyr {.codesmall}
 
@@ -300,6 +307,7 @@ You may see people use quotes as well.
 knitr::include_graphics("images/backtick_1.png")
 ```
 
+
 ## Rename using backticks
 
 Tricky column names need  \` backticks\` around them. 
@@ -318,6 +326,7 @@ renamed_annualDosage <- rename(annualDosage, County = `County!`)
 
 See https://jhudatascience.org/intro_to_r/resources/quotes_vs_backticks.html for more guidance.
 
+
 ## Be careful about copy pasting code!
 
 Again, sometimes you will see people use quotes, but this can be extra tricky.
@@ -333,7 +342,6 @@ renamed_annualDosage <- rename(annualDosage, County = “County!” )
 # this will work!
 renamed_annualDosage <- rename(annualDosage, County = "County!")
 ```
-
 
 
 ## A solution!
@@ -358,6 +366,7 @@ install.packages("janitor", repos='http://cran.us.r-project.org')
 library(janitor)
 ```
 
+
 ## janitor `clean_names`
 
 The `clean_names` function can intuit what fixes you might need. Here it makes everything consistent.
@@ -367,6 +376,7 @@ head(annualDosage, 2)
 clean_AD <- clean_names(annualDosage)
 head(clean_AD, 2)
 ```
+
 
 ## more of clean_names
 
@@ -386,6 +396,7 @@ test
 clean_names(test)
 ```
 
+
 ## GUT CHECK: Which of the following would work well with a column called `counties_of_US_with_population_over_10,000`?
 
 A. Renaming it using `rename` function to something simpler like `counties_over_10thous`.
@@ -403,6 +414,7 @@ B. Keeping it as is and use backticks around the column name when you use it.
 - avoid using punctuation (except underscores), spaces, and numbers (to start or alone) in column names
 - if you have nonstandard column names rename them! - use backticks to do this or use the `janitor` `clean_names()` function
 
+
 ## Lab Part 1
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/) 
@@ -412,6 +424,7 @@ B. Keeping it as is and use backticks around the column name when you use it.
 📃 [Day 3 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-3.pdf)
 
 📃 [Posit's `dplyr` Cheatsheet](https://rstudio.github.io/cheatsheets/data-transformation.pdf)
+
 
 # Subsetting Columns
 
@@ -425,6 +438,7 @@ set.seed(1234)
 AD <-slice_sample(annualDosage, n = 30)
 ```
 
+
 ## Subset columns of a data frame - `tidyverse` way: 
 
 To grab a vector version (or "pull" out) the `year` column the `tidyverse` way we can use the `pull` function:
@@ -437,15 +451,18 @@ pull(AD, year)
 ## Subset columns of a data frame: dplyr
 
 The `select` command from `dplyr` allows you to subset (still a `tibble`!)
+
 ```{r}
 select(AD, year)
 ```
+
 
 ## GUT CHECK: What function would be useful for getting a vector version of a column?
 
 A. `pull()`
 
 B. `select()`
+
 
 ## Select multiple columns
 
@@ -455,6 +472,17 @@ We can use `select` to select for multiple columns.
 select(AD, year, BUYER_COUNTY)
 ```
 
+
+## Select multiple adjacent columns with `:`
+
+We can use `select` and a colon `:` to select a set of column names that are next to each other.
+
+```{r}
+# year, count, and DOSAGE_UNIT are next to each other
+select(AD, year:DOSAGE_UNIT)
+```
+
+
 ## Subset columns of a data frame: dplyr
 
 Note that if you want the values (not a `tibble`), use `pull` - as it pulls out the data:
@@ -462,6 +490,7 @@ Note that if you want the values (not a `tibble`), use `pull` - as it pulls out 
 pull(AD, year)
 
 ```
+
 
 ## Select columns of a data frame: dplyr
 
@@ -471,6 +500,7 @@ The `select` command from `dplyr` allows you to subset columns matching patterns
 head(AD, 2)
 select(AD, starts_with("B"))
 ```
+
 
 ## See the Select "helpers"
 
@@ -489,6 +519,7 @@ Type `tidyselect::` in the **console** and see what RStudio suggests:
 knitr::include_graphics("images/tidyselect.png")
 ```
 
+
 ## Combining tidyselect helpers with regular selection
 
 ```{r}
@@ -496,13 +527,13 @@ head(AD, 2)
 select(AD, starts_with("B"), year)
 ```
 
+
 ## Multiple tidyselect functions
 
 Follows OR logic.
 
 ```{r}
 select(AD, starts_with("B"), ends_with("r"))
-
 ```
 
 
@@ -513,14 +544,10 @@ select(AD, starts_with("B"), ends_with("r"))
 ```{r}
 head(AD, 2)
 select(AD, where(is.numeric))
-
 ```
 
 
-
-
 # Subsetting Rows
-
 
 ## Subset rows of a data frame: dplyr
 
@@ -541,6 +568,7 @@ You can have multiple logical conditions using the following:
 * `>=` or `<=`: greater than or equal to / less than or equal to
 * `&` : AND
 * `|` : OR
+
 
 ## Common error for filter
 
@@ -564,6 +592,7 @@ filter(AD, count > 10000, year == 2012)
 filter(AD, count > 10000 & year == 2012) # same result
 ```
 
+
 ## Subset rows of a data frame: dplyr
 
 If you want OR statements (meaning the data can meet either condition does not need to meet both), you need to use `|` between conditions:
@@ -572,6 +601,7 @@ If you want OR statements (meaning the data can meet either condition does not n
 filter(AD, count > 10000 | year == 2012)
 
 ```
+
 
 ## Subset rows of a data frame: dplyr {.codesmall}
 
@@ -583,6 +613,7 @@ filter(AD,  BUYER_STATE %in% c("CO","NM","GA"))
 filter(AD,  BUYER_STATE == "CO"| BUYER_STATE == "NM"| BUYER_STATE == "GA") #equivalent
 ```
 
+
 ## Subset rows of a data frame: dplyr {.codesmall}
 
 The `%in%` operator can be used find values from a pre-made vector (using `c()`) for a **single column** at a time.
@@ -592,6 +623,7 @@ filter(AD, year %in% c(2012,2014), BUYER_STATE %in% c("GA","CO"))
 
 ```
 
+
 ## Be careful with column names and `filter`
 
 This will not work the way you might expect! Best to stick with nothing but the column name if it is a typical name. 
@@ -599,6 +631,7 @@ This will not work the way you might expect! Best to stick with nothing but the 
 ```{r}
 filter(AD, "year" > 2014)
 ```
+
 
 ## Don't use quotes for atypical names
 
@@ -609,6 +642,7 @@ AD_rename <- rename(AD, `year!` = year)
 
 filter(AD_rename, "year!" > 2013) # will not work correctly
 ```
+
 
 ## Be careful with column names and `filter`
 
@@ -625,11 +659,13 @@ filter(AD_rename, `year!` > 2013)
 filter(AD, "BUYER_STATE" == "CO") # this will not work
 ```
 
+
 ## Be careful with column names and `filter`
 
 ```{r}
 filter(AD, BUYER_STATE == "CO")# this works!
 ```
+
 
 ## `filter()` is tricky
 
@@ -645,11 +681,13 @@ knitr::include_graphics("https://media.giphy.com/media/5b5OU7aUekfdSAER5I/giphy.
 ```
 https://media.giphy.com/media/5b5OU7aUekfdSAER5I/giphy.gif
 
+
 ## GUT CHECK: If we want to keep just rows that meet either or two conditions, what code should we use?
 
 A. `filter()` with `|`
 
 B. `filter()` with `&`
+
 
 ## `filter` function
 
@@ -658,6 +696,7 @@ knitr::include_graphics("images/filter.png")
 ```
 
 "Artwork by @allison_horst". https://allisonhorst.com/
+
 
 ## Summary
 
@@ -670,11 +709,13 @@ knitr::include_graphics("images/filter.png")
 - `filter()` can be used to filter out rows based on logical conditions
 -  avoid using quotes when referring to column names with `filter()`
 
+
 ## Summary Continued
 
 - `==` is the same as equivalent to
 - `&` means both conditions must be met to remain after `filter()`
 - `|` means either conditions needs to be met to remain after `filter()`
+
 
 ## Lab Part 2
 
@@ -686,6 +727,7 @@ knitr::include_graphics("images/filter.png")
 
 📃 [Posit's `dplyr` Cheatsheet](https://rstudio.github.io/cheatsheets/data-transformation.pdf)
 
+
 ## Get the data
 
 ```{r}
@@ -693,6 +735,7 @@ knitr::include_graphics("images/filter.png")
 set.seed(1234)
 AD <-slice_sample(annualDosage, n = 30)
 ```
+
 
 ## Combining `filter` and `select`
 
@@ -711,11 +754,13 @@ In `R`, the common way to perform multiple operations is to wrap functions aroun
 head(select(AD, year, BUYER_STATE), 2)
 ```
 
+
 ## Nesting can get confusing looking
 
 ```{r}
 select(filter(AD, year > 2000 & BUYER_STATE == "CO"), year, count)
 ```
+
 
 ## Assigning Temporary Objects
 
@@ -728,6 +773,7 @@ AD_CO <- select(AD_CO, year, count)
 head(AD_CO)
 ```
 
+
 ## Using the `pipe` (comes with `dplyr`):
 
 The pipe `%>%` makes this much more readable.  It reads left side "pipes" into right side.  RStudio `CMD/Ctrl + Shift + M` shortcut. Pipe `AD` into `filter`, then pipe that into `select`:
@@ -736,6 +782,7 @@ The pipe `%>%` makes this much more readable.  It reads left side "pipes" into r
 ```{r}
 AD %>% filter(year > 2000 & BUYER_STATE == "CO") %>% select(year, count)
 ```
+
 
 ## Alternative Pipes
 
@@ -749,7 +796,6 @@ Note that `%>%` is not the same as `%in%` (which helps you check for a value in 
 
 
 # Adding/Removing Columns
-
 
 ## Adding columns to a data frame: dplyr (`tidyverse` way){.codesmall}
 
@@ -795,11 +841,13 @@ AD <- AD %>% mutate(newcol = newcol / 2)
 head(AD,4)
 ```
 
+
 ## `mutate` function
 
 ```{r, fig.alt="dplyr", out.width = "80%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/mutate.png")
 ```
+
 "Artwork by @allison_horst". https://allisonhorst.com/
 
 
@@ -818,6 +866,7 @@ head(select(AD, !newcol))
 ```
 
 **Or, you can simply select the columns you want to keep, ignoring the ones you want to remove.**
+
 
 ## Removing columns in a data frame: dplyr {.codesmall}
 
@@ -841,8 +890,6 @@ head(2)
 ```
 
 
-
-
 ## Ordering the columns of a data frame: dplyr {.codesmall}
 
 In addition to `select` we can also use the `relocate()` function of dplyr to rearrange the columns for more complicated moves.
@@ -859,7 +906,6 @@ head(tb_carb, 1)
 ```
 
 
-
 # Ordering rows
 
 ## Ordering the rows of a data frame: dplyr
@@ -869,12 +915,14 @@ The `arrange` function can reorder rows  By default, `arrange` orders in increas
 arrange(AD, year)
 ```
 
+
 ## Ordering the rows of a data frame: dplyr
 
 Use the `desc` to arrange the rows in descending order:
 ```{r}
 arrange(AD, desc(year))
 ```
+
 
 ## Ordering the rows of a data frame: dplyr
 
@@ -895,7 +943,9 @@ AD %>% select(order(colnames(AD)))
 ```
 
 The `everything()` function to order columns.
+
 Put `newcol` first, then everything else:
+
 ```{r, eval = FALSE}
 select(AD, newcol, everything())
 ```
@@ -921,6 +971,7 @@ select(AD, !year, everything(), year)
     2. using `select()` with exclamation mark in front of column name(s)  
     3. not selecting it (without exclamation mark)  
 
+
 ## Summary cont...
 
 - `mutate()` can be used to create new variables or modify them
@@ -937,6 +988,7 @@ select(AD, !year, everything(), year)
 AD <- mutate(AD, newcol = count/2.2)
 ```
 
+
 ## A note about base R: 
 
 The `$` operator is similar to `pull()`. This is the base R way to do this:
@@ -946,6 +998,7 @@ AD$year
 ```
 
 Although it is easier (for this one task), mixing and matching the `$` operator with tidyverse functions usually doesn't work. Therefore, we want to let you know about it in case you see it, but we suggest that you try working with the tidyverse way.
+
 
 ## Adding new columns to a data frame: base R
 
@@ -959,6 +1012,7 @@ head(AD,3)
 ```
 
 Even though `$` is easier for creating new columns, `mutate` is really powerful, so it's worth getting used to.
+
 
 ## Lab Part 3
 
@@ -976,6 +1030,7 @@ knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 
 Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
 
+
 # Extra Slides
 
 ## Multiple patterns with one tidyselect statement
@@ -990,7 +1045,6 @@ select(AD, starts_with("B"), starts_with("D"))
 ```
 
 
-
 ## Nuances about `filter()`
 
 ```{r}
@@ -1002,6 +1056,7 @@ filter(test,  B > 2 | B==2)
 filter(test, B >= 2)
 ```
 
+
 ## Order of operations for `filter()`
 
 Order can matter. Think of individual statements separately first.
@@ -1009,6 +1064,7 @@ Order can matter. Think of individual statements separately first.
 filter(test,  A>3 | B==2 & B>2) # A is greater than 3 or B is equal to 2 AND (think but also) B must be greater than 2 , thus 2 is dropped.
 filter(test,  A>3 & B>2 | B==2) # A is greater than 3 AND B is greater than 2 leaving only 4s OR B is equal to 2, (since this comes later, 2 is preserved)
 ```
+
 
 ## `which()` function
 
@@ -1019,11 +1075,13 @@ which(select(AD, year) == 2014)
 select(AD, year) == 2014 %>% head(10)
 ```
 
+
 ## Remove a column in base R
 
 ```{r, eval = FALSE}
 AD$year <- NULL
 ```
+
 
 ## Renaming Columns of a data frame: base R
 
@@ -1035,6 +1093,7 @@ colnames(AD)[1:3] <- c("County", "State", "Year") # reassigns
 head(AD)
 ```
 
+
 ## Subset rows of a data frame with indices: 
 
 Let's select **rows** 1 and 3 from `df` using brackets:
@@ -1042,6 +1101,7 @@ Let's select **rows** 1 and 3 from `df` using brackets:
 ```{r}
 AD[ c(1, 3), ]
 ```
+
 
 ## Subset columns of a data frame: 
 
@@ -1054,6 +1114,7 @@ AD[, 3]
 AD[, "count"]
 ```
 
+
 ## Subset columns of a data frame: 
 
 We can select multiple columns using multiple column names:
@@ -1062,7 +1123,4 @@ We can select multiple columns using multiple column names:
 AD[, c("State", "count")]
 
 ```
-
-
-
 

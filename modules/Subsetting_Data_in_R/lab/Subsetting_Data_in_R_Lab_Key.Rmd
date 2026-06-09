@@ -50,7 +50,7 @@ ncol(county_pop)
 
 ### 1.3
 
-Next, rename the column `BUYER_STATE`  to be `State_name` (hint - use `rename()` and watch out for the order of the new and old names!). 
+Next, rename the column `BUYER_STATE`  to be `State_name` (hint - use `rename()` and watch out for the order of the new and old names!). Reassign this object as `county_pop`.
 
 ```{r 1.3response}
 county_pop <- rename(county_pop, State_name = BUYER_STATE)
@@ -162,7 +162,7 @@ nrow(filter(county_pop, state_name == "NM" & population < 10000))
 
 ### P.3
 
-Select the variables that contain the letter "a" from `cars_mt_copy`.
+Select the variables that contain the letter "a" from `county_pop`.
 
 ```{r P.3response}
 select(county_pop, contains("a"))
