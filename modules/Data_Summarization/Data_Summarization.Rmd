@@ -18,6 +18,7 @@ pre { /* Code block - slightly smaller in this lecture */
 }
 </style>
 
+
 ## Recap
 
 - `select()`: subset and/or reorder columns
@@ -115,6 +116,7 @@ Changes `f(x, y)` to `x %>% f(y)`.
 knitr::include_graphics("../../images/lol/morning_1.png")
 ```
 
+
 ## Statistical summarization the "tidy" way
 
 ```{r}
@@ -143,6 +145,7 @@ mtcars %>% pull(wt) %>% range(wt) # Incorrect
 mtcars %>% pull(wt) %>% range() # Correct
 ```
 
+
 ## GUT CHECK
 
 What kind of object do we need to run summary operators like `mean()` ?
@@ -152,6 +155,7 @@ A. A vector of numbers
 B. A vector of characters
 
 C. A dataset
+
 
 # Summarization on tibbles (data frames)
 
@@ -164,6 +168,7 @@ Let's read in a `tibble` of values from TB incidence.
 ```{r}
 tb <- read_csv("https://jhudatascience.org/intro_to_r/data/tb.csv")
 ```
+
 
 ## TB incidence 
 
@@ -241,6 +246,7 @@ tb %>%
   summarize(mean_1991 = mean(`1991`, na.rm = TRUE))
 ```
 
+
 ## Cleaning up names
 
 It might be kind of troublesome to keep using backticks around our year column names. Note that you could instead use  `clean_names()`. However, we will keep using backticks for this lecture
@@ -250,6 +256,8 @@ library(janitor)
 clean_tb <-clean_names(tb)
 head(clean_tb)
 ```
+
+
 ## Summarize the data: `dplyr` `summarize()` function
 
 `summarize()` can do multiple operations at once. Just separate by a comma.
@@ -307,16 +315,17 @@ summary(tb)
 
 📃 [Day 4 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-4.pdf)
 
-## Youth Tobacco Survey
 
-Here we will be using the Youth Tobacco Survey data:
-http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv
+## Colorado heat-related ER visits
 
-* Check out info about the data at: https://www.cdc.gov/tobacco/about-data/surveys/national-youth-tobacco-survey.html
+Here we will be using data on the annual rates of medical visits associated with heat-related illness in Colorado:
+http://jhudatascience.org/intro_to_r/data/CO_ER_heat_visits_2011_2024.csv
+
+* Check out info about the data at: https://coepht.colorado.gov/heat-data
 
 ```{r}
-yts <- read_csv("http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
-head(yts)
+CO_heat <- read_csv("http://jhudatascience.org/intro_to_r/data/CO_ER_heat_visits_2011_2024.csv")
+head(CO_heat)
 ```
 
 
@@ -325,8 +334,8 @@ head(yts)
 `distinct(x)` will return the unique elements of column `x`.
 
 ```{r, message = FALSE}
-yts %>%
-  distinct(LocationDesc)
+CO_heat %>%
+  distinct(COUNTY)
 ```
 
 
@@ -335,14 +344,9 @@ yts %>%
 `n_distinct()` tells you the number of unique elements. It needs a vector so you _must pull the column first!_
 
 ```{r}
-yts %>%
-  pull(LocationDesc) %>% 
+CO_heat %>%
+  pull(COUNTY) %>% 
   n_distinct()
-```
-
-
-```{r echo=FALSE}
-options(max.print = 1000)
 ```
 
 
@@ -351,17 +355,18 @@ options(max.print = 1000)
 Use `count` to return a frequency table of unique elements of a data.frame.
 
 ```{r, message = FALSE}
-yts %>% count(LocationDesc)
+CO_heat %>% count(COUNTY)
 ```
 
 
 ## Multiple columns listed further subdivides the `count()`
 
 ```{r, message = FALSE}
-yts %>% count(LocationDesc, TopicDesc)
+CO_heat %>% count(COUNTY, GENDER)
 ```
 
 **Note:** `count()` includes NAs
+
 
 ## GUT CHECK
 
@@ -373,13 +378,15 @@ B. Rows per each category
 
 C. How many categories
 
+
 # Grouping
 
 ## Goal 
 
-We want to find the average frequency that youth use tobacco products in the dataset.
+We want to find the average rate for ER visits for heat-related illness in the dataset.
 
 _How do we do this?_
+
 
 ## Perform operations By groups: dplyr
 
@@ -387,7 +394,7 @@ _How do we do this?_
 
 ```{r}
 # Regular data
-yts
+CO_heat
 ```
 
 
@@ -396,41 +403,41 @@ yts
 `group_by` allows you group the data set by variables/columns you specify:
 
 ```{r}
-yts_grouped <- yts %>% group_by(Response)
-yts_grouped
+CO_heat_grouped <- CO_heat %>% group_by(COUNTY)
+CO_heat_grouped
 ```
 
 
 ## Summarize the grouped data
 
-It's grouped! Grouping doesn't change the data in any way, but how **functions operate on it**. Now we can summarize `Data_Value` (percent of respondents) by group:
+It's grouped! Grouping doesn't change the data in any way, but how **functions operate on it**. Now we can summarize `RATE` (age-adjusted heat-related ER visits per 100,000 people) by group:
 
 ```{r}
-yts_grouped %>% summarize(avg_percent = mean(Data_Value, na.rm = TRUE))
+CO_heat_grouped %>% summarize(avg_rate = mean(RATE, na.rm = TRUE))
 ```
 
 
 ## Do it in one step: use `%>%` to string these together!
 
-Pipe `yts` into `group_by`, then pipe that into `summarize`:
+Pipe `CO_heat` into `group_by`, then pipe that into `summarize`:
 
 ```{r}
-yts %>%
-  group_by(Response) %>%
-  summarize(avg_percent = mean(Data_Value, na.rm = TRUE),
-            max_percent = max(Data_Value, na.rm = TRUE))
+CO_heat %>%
+  group_by(COUNTY) %>%
+  summarize(avg_rate = mean(RATE, na.rm = TRUE),
+            max_rate = max(RATE, na.rm = TRUE))
 ```
 
 
 ## Group by as many variables as you want
 
-`group_by` Response and Education:
+`group_by` COUNTY and GENDER:
 
 ```{r}
-yts %>%
-  group_by(Response, Education) %>%
-  summarize(avg_percent = mean(Data_Value, na.rm = TRUE),
-            max_percent = max(Data_Value, na.rm = TRUE))
+CO_heat %>%
+  group_by(COUNTY, GENDER) %>%
+  summarize(avg_rate = mean(RATE, na.rm = TRUE),
+            max_rate = max(RATE, na.rm = TRUE))
 ```
 
 
@@ -439,9 +446,9 @@ yts %>%
 You can overwrite the first `group_by` with a new one.
 
 ```{r}
-yts %>% 
-  group_by(Response, Education)  %>% 
-  group_by(Education) 
+CO_heat %>% 
+  group_by(COUNTY, GENDER)  %>% 
+  group_by(GENDER) 
 ```
 
 
@@ -450,8 +457,8 @@ yts %>%
 The `ungroup` function will allow you to clear the groups from the data.
 
 ```{r}
-yts <- ungroup(yts)
-yts
+CO_heat_grouped
+ungroup(CO_heat_grouped)
 ```
 
 
@@ -460,10 +467,10 @@ yts
 We can also use `mutate` to calculate the mean value for each year and add it as a column:
 
 ```{r}
-yts %>%
-  group_by(YEAR) %>%
-  mutate(year_avg = mean(Data_Value, na.rm = TRUE)) %>%
-  select(LocationDesc, Data_Value, year_avg)
+CO_heat %>%
+  group_by(YEAR, GENDER) %>%
+  mutate(year_avg = mean(RATE, na.rm = TRUE)) %>%
+  select(COUNTY, RATE, year_avg)
 ```
 
 
@@ -472,10 +479,10 @@ yts %>%
 There are other functions, such as `n()` count the number of observations (NAs included).
 
 ```{r}
-yts %>%
+CO_heat %>%
   group_by(YEAR) %>%
   summarize(n = n(),
-            mean = mean(Data_Value, na.rm = TRUE))
+            mean = mean(RATE, na.rm = TRUE))
 ```
 
 
@@ -484,44 +491,46 @@ yts %>%
 `count()` and `n()` can give very similar information.
 
 ```{r}
-yts %>% count(YEAR) %>% head(n = 3)
-yts %>% group_by(YEAR) %>% summarize(n = n()) %>% head(n = 3) # n() typically used with summarize
+CO_heat %>% count(YEAR) %>% head(n = 3)
+CO_heat %>% group_by(YEAR) %>% summarize(n = n()) %>% head(n = 3) # n() typically used with summarize
 ```
 
 
 # A few miscellaneous topics
 
+## Base R functions you might see: `length` and `unique`
+
+These functions require a column as a vector using `pull()`.
+
+```{r, message = FALSE}
+CO_heat_loc <- CO_heat %>% pull(COUNTY) # pull() to make a vector
+CO_heat_loc %>% unique() # similar to distinct()
+```
+
 
 ## Base R functions you might see: `length` and `unique`
 
 These functions require a column as a vector using `pull()`.
 
 ```{r, message = FALSE}
-yts_loc <- yts %>% pull(LocationDesc) # pull() to make a vector
-yts_loc %>% unique() # similar to distinct()
+CO_heat_loc %>% unique() %>% length() # similar to n_distinct()
 ```
 
-## Base R functions you might see: `length` and `unique`
-
-These functions require a column as a vector using `pull()`.
-
-```{r, message = FALSE}
-yts_loc %>% unique() %>% length() # similar to n_distinct()
-```
 
 ## `summary()` vs. `summarize()`
 
 * `summary()` (base R) gives statistics table on a dataset. 
 * `summarize()` (dplyr) creates a more customized summary tibble/dataframe.
 
+
 ## Functions you might also see
 
-* `rowwise`()`: functions will compute results for each row
 * `sum(!is.na())`: # of non-NAs in the data
 * `first()`: first value in the data
 * `last()`: last value in the data
 * `range()`: minimum and maximum of the data
 * `IQR()`: interquartile range of the data
+
 
 ## Summary
 
@@ -532,6 +541,7 @@ yts_loc %>% unique() %>% length() # similar to n_distinct()
   - combine with `summarize()` to get statistics per group
   - combine with `mutate()` to add column
 - `summarize()` with `n()` gives the count (NAs included)
+
 
 ## Resources & Lab Part 2 {.small}
 
@@ -596,22 +606,23 @@ tb %>%
   summarize(across(starts_with("year"), ~mean(.x, na.rm = TRUE)))
 ```
 
+
 ## * New! * Many dplyr functions now have a `.by=` argument
 
-Pipe `yts` into `group_by`, then pipe that into `summarize`:
+Pipe `CO_heat` into `group_by`, then pipe that into `summarize`:
 
 ```{r eval = FALSE}
-yts %>%
-  group_by(Response) %>%
-  summarize(avg_percent = mean(Data_Value, na.rm = TRUE),
-            max_percent = max(Data_Value, na.rm = TRUE))
+CO_heat %>%
+  group_by(COUNTY) %>%
+  summarize(avg_rate = mean(RATE, na.rm = TRUE),
+            max_rate = max(RATE, na.rm = TRUE))
 ```
 
 is the same as..
 
 ```{r eval = FALSE}
-yts %>%
-  summarize(avg_percent = mean(Data_Value, na.rm = TRUE),
-            max_percent = max(Data_Value, na.rm = TRUE),
-            .by = Response)
+CO_heat %>%
+  summarize(avg_rate = mean(RATE, na.rm = TRUE),
+            max_rate = max(RATE, na.rm = TRUE),
+            .by = COUNTY)
 ```
