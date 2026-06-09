@@ -210,7 +210,7 @@ library(tidyverse)</code></pre>
 </div>
 <div id="section-2" class="section level3">
 <h3>1.3</h3>
-<p>Next, rename the column <code>BUYER_STATE</code> to be <code>State_name</code> (hint - use <code>rename()</code> and watch out for the order of the new and old names!).</p>
+<p>Next, rename the column <code>BUYER_STATE</code> to be <code>State_name</code> (hint - use <code>rename()</code> and watch out for the order of the new and old names!). Reassign this object as <code>county_pop</code>.</p>
 <pre class="r"><code>county_pop &lt;- rename(county_pop, State_name = BUYER_STATE)
 head(county_pop)</code></pre>
 <pre><code>## # A tibble: 6 × 10
@@ -400,7 +400,7 @@ nrow(county_pop_sub)</code></pre>
 </div>
 <div id="p.3" class="section level3">
 <h3>P.3</h3>
-<p>Select the variables that contain the letter “a” from <code>cars_mt_copy</code>.</p>
+<p>Select the variables that contain the letter “a” from <code>county_pop</code>.</p>
 <pre class="r"><code>select(county_pop, contains(&quot;a&quot;))</code></pre>
 <pre><code>## # A tibble: 28,265 × 7
 ##    state_name state county_name name                   variable  year population
@@ -528,7 +528,7 @@ county_2012</code></pre>
 </div>
 <div id="p.5" class="section level3">
 <h3>P.5</h3>
-<p>How can you find the value of <code>population</code> for Chambers AL without just looking at the data manually and instead use functions we learned today?</p>
+<p>How can you find the value of <code>population</code> for Chambers, AL without just looking at the data manually and instead use functions we learned today?</p>
 <pre class="r"><code>county_2012 %&gt;%
   filter(county_name == &quot;Chambers&quot;, state_name == &quot;AL&quot;) %&gt;%
   select(population)</code></pre>
