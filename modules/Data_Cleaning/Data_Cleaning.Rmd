@@ -30,7 +30,8 @@ library(emoji)
 
 📃[Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-4.pdf)
 
-## Recap on data classes
+
+## Recap on data classes {.small}
 
 - There are two types of number class objects: integer and double
 - Logic class objects only have `TRUE` or `FALSE` (without quotes)
@@ -44,6 +45,7 @@ library(emoji)
 
     📃[Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-4.pdf)
 
+
 ## Data Cleaning {.emphasized}
 
 In general, data cleaning is a process of investigating your data for
@@ -54,7 +56,6 @@ inaccuracies, or recoding it in a way that makes it more manageable.
 `r emoji("warning")` MOST IMPORTANT RULE - LOOK `r emoji("eyes")` AT YOUR DATA! `r emoji("warning")`
 
 :::
-
 
 
 # Dealing with Missing Data
@@ -71,7 +72,8 @@ Types of "missing" data:
 -   `Inf` and `-Inf` - Infinity, happens when you divide a positive
     number (or negative number) by 0.
 
-## Finding Missing data {.small}
+
+## Finding Missing Data {.small}
 
 -   `is.na` - looks for `NAN` and `NA`
 -   `is.infinite` - looks for Inf or -Inf
@@ -97,7 +99,7 @@ any(is.na(NA_vect))
 ```
 
 
-## Finding `NA` values with `count()`{.codesmall}
+## Finding `NA` values with `count()` {.codesmall}
 
 ::: {style="color: red;"}
 Check the values for your variables, are they what you expect?
@@ -113,7 +115,6 @@ bike %>% count(subType)
 ```
 
 
-
 ## `naniar`
 
 Sometimes you need to look at lots of data though... the [`naniar`
@@ -127,6 +128,7 @@ library(naniar)
 ```{r, fig.alt="dplyr", out.width = "60%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/naniar.png")
 ```
+
 "Artwork by @allison_horst". https://allisonhorst.com/
 
 
@@ -145,6 +147,7 @@ bike%>% select(route) %>%
 pct_complete()
 ```
 
+
 ## naniar:`miss_var_summary()`
 
 To get the percent missing (and counts) for each variable as a table, use this function.
@@ -152,6 +155,7 @@ To get the percent missing (and counts) for each variable as a table, use this f
 ```{r}
 miss_var_summary(bike)
 ```
+
 
 ## `naniar` plots
 
@@ -161,7 +165,6 @@ missing values for each variable, (need a data frame). Using `show_pct = TRUE` s
 ```{r, fig.height=4, warning=FALSE, fig.align='center'}
 gg_miss_var(bike, show_pct = TRUE)
 ```
-
 
 
 ## Missing Data Issues
@@ -187,7 +190,6 @@ sum(x, na.rm = TRUE)
 ```
 
 
-
 ## filter() and missing data
 
 Be **careful** with missing data using subsetting!
@@ -209,6 +211,7 @@ Filter will drop them from the data.
 bike %>% filter(subType == "STCLN")
 ```
 
+
 ## filter() and missing data 
 
 `is.na()` can help us keep them.
@@ -216,6 +219,7 @@ bike %>% filter(subType == "STCLN")
 ```{r}
 bike %>% filter(subType == "STCLN" | is.na(subType))
 ```
+
 
 ## To remove **rows** with `NA` values for a **variable** use `drop_na()`
 
@@ -229,6 +233,7 @@ bike_drop <- bike %>% drop_na(route)
 dim(bike_drop)
 ```
 
+
 ## Let's take a look
 
 Can still have NAs for other columns
@@ -236,7 +241,6 @@ Can still have NAs for other columns
 ```{r}
 bike_drop 
 ```
-
 
 
 ## To remove rows with `NA` values for a **data frame** use `drop_na()`
@@ -248,6 +252,7 @@ bike_drop <- bike %>% drop_na()
 bike_drop
 ```
 
+
 ## Drop **columns** with any missing values
 
 Use the `miss_var_which()` function from `naniar`
@@ -255,6 +260,7 @@ Use the `miss_var_which()` function from `naniar`
 ```{r}
 miss_var_which(bike)# which columns have missing values
 ```
+
 
 ## Drop **columns** with any missing values {.codesmall}
 
@@ -266,7 +272,6 @@ bike_drop
 ```
 
 
-
 ## Change a value to be `NA`{.codesmall}
 
 Let's say we think that all 0 values should be `NA`.
@@ -274,6 +279,7 @@ Let's say we think that all 0 values should be `NA`.
 ```{r}
 count(bike, dateInstalled)
 ```
+
 
 ## Change a value to be `NA`{.codesmall}
 
@@ -303,7 +309,6 @@ bike %>%
  THINK ABOUT YOUR DATA FIRST! 
 ::: 
 
-
 `r emoji("warning")` Sometimes removing `NA` values leads to distorted math - be careful!
 
 `r emoji("warning")` Think about what your `NA` means for your data (are you sure ?).
@@ -311,6 +316,7 @@ bike %>%
 - Is an `NA` for values so low they could not be reported? 
 
 - Or is it if it was too low and also if there was a different issue (like no one reported)?
+
 
 ## Think about `NA`
 
@@ -321,12 +327,10 @@ Example: - survey reports `NA` if student has never tried cigarettes -
 survey reports 0 if student has tried cigarettes but did not smoke that
 week
 
-
 `r emoji("warning")` You might want to keep the `NA` values so that you know the original sample size. 
 
 
 ## Word of caution {.codesmall}
-
 
 `r emoji("warning")` Calculating percentages will give you a different result depending on your choice to include NA values.!
 
@@ -335,10 +339,10 @@ This is because the denominator changes.
 
 ## Word of caution - Percentages with `NA`
 
-
 ```{r}
 count(bike, dateInstalled) %>% mutate(percent = (n/(sum(n)) *100))
 ```
+
 
 ## Word of caution - Percentages with `NA`
 
@@ -351,6 +355,7 @@ Should you be dividing by the total count with `NA` values included?
 It depends on your data and what `NA` might mean.   
 Pay attention to your data and your `NA` values!
 
+
 ## Don't forget about the common issues
 
 - Extra or Missing commas  
@@ -362,6 +367,7 @@ Pay attention to your data and your `NA` values!
 knitr::include_graphics("images/debug.png")
 ```
 
+
 ## GUT CHECK: What function can be used to remove NA values from a full dataframe or for an individual column?
 
 A. `drop_nulls()`
@@ -370,11 +376,13 @@ B. `drop_na()`
 
 C. `rem_na()`
 
+
 ## GUT CHECK: How can you keep NA values when using `filter`?
 
 A. include `| is.na()` 
 
 B. include `& is.na()`
+
 
 ## Summary
 
@@ -388,6 +396,7 @@ B. include `& is.na()`
 -   think about what `NA` values represent - don't drop them if you shouldn't
 -   `na_if()` will make `NA` values for a particular value
 -   `replace_na()` will replace `NA` values with a particular value
+
 
 ## Lab Part 1
 
@@ -423,10 +432,11 @@ data_ginger_mint <- tibble(Group = rep(c("A", "B", "B"),
 
 ```
 
-
 ```{r, include = FALSE, echo = FALSE}
 #writexl::write_xlsx(data_ginger_mint, here::here("data", "cleaning_data.xlsx"))
 ```
+
+
 ## Reading in the data if it were an excel sheet
 Data is also here: 
 
@@ -437,11 +447,13 @@ library(readxl)
 data_ginger_mint<- read_excel(here::here("data", "cleaning_data.xlsx"))
 ```
 
+
 ## Say we have some data about samples in a study:
 
 ```{r}
 data_ginger_mint
 ```
+
 
 ## Oh dear...
 
@@ -452,7 +464,8 @@ data_ginger_mint %>%
   count(Treatment)
 ```
 
-## `dplyr` can help!{.codesmall}
+
+## `dplyr` can help! {.codesmall}
 
 Using Excel to find all of the different ways `Treatment` has been coded,
 could be hectic! In `dplyr` you can use the `case_when` function.
@@ -468,7 +481,8 @@ It is more flexible and powerful.
 (need `mutate` here too!)
 :::
 
-## Or you can use `case_when()`{.codesmall}
+
+## Or you can use `case_when()` {.codesmall}
 
 ::: {style="color: red;"}
 Need quotes for conditions and new values!
@@ -482,10 +496,10 @@ data_ginger_mint %>%
                           Treatment == "mint" ~ "Peppermint",
                           Treatment == "peppermint" ~ "Peppermint"))  %>% 
   count(Treatment, Treatment_recoded)
-
 ```
 
-## What happened?{.codesmall}
+
+## What happened? {.codesmall}
 
 We seem to have `NA` values!
 
@@ -513,12 +527,12 @@ Note that automatically values not reassigned explicitly by
   mutate({variable_to_fix} = case_when({Variable_fixing}   
              /some condition/ ~ {value_for_con},
                           .default = {value_for_not_meeting_condition})
-
 ```
 :::
 
 {value_for_not_meeting_condition} could be something new 
 or it can be the original values of the column
+
 
 ## case_when with .default = original variable name
 
@@ -533,7 +547,8 @@ data_ginger_mint %>%
   count(Treatment, Treatment_recoded)
 ```
 
-## Typically it is good practice to include the TRUE statement
+
+## Typically it is good practice to include the `.default` statement
 
 You never know if you might be missing something - and if a value already was an NA it will stay that way. 
 
@@ -547,7 +562,6 @@ data_ginger_mint %>%
                                .default =  Treatment)) %>%
   count(Treatment, Treatment_recoded)
 ```
-
 
 
 ## case_when() can also overwrite/update a variable
@@ -565,6 +579,7 @@ data_ginger_mint %>%
 
 ```
 
+
 ## More complicated case_when()
 
 `case_when` can do complicated statements and can match many patterns at a time.
@@ -572,14 +587,12 @@ data_ginger_mint %>%
 ```{r}
 data_ginger_mint %>% 
   mutate(Treatment_recoded = case_when(
-    Treatment %in% 
-c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
+    Treatment %in% c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
     Treatment %in% c("O", "Other") ~ "Other",
    .default = Treatment)) %>%
-
   count(Treatment, Treatment_recoded)
-
 ```
+
 
 ## But maybe we want NA?
 
@@ -588,13 +601,12 @@ Perhaps we want values that are O or Other to actually be NA, then `case_when` c
 ```{r}
 data_ginger_mint %>% 
   mutate(Treatment_recoded = case_when(
-    Treatment %in% 
-c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
-    Treatment %in% c("O", "Other") ~ NA_character_,
- .default = Treatment)) %>%
-
+    Treatment %in% c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
+    Treatment %in% c("O", "Other") ~ NA,
+    .default = Treatment)) %>%
   count(Treatment, Treatment_recoded)
 ```
+
 
 ## Another reason for `case_when()`
 
@@ -603,15 +615,13 @@ c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
 Here we create a new variable called `Effect`.
 
 ```{r}
-
 data_ginger_mint <- data_ginger_mint  %>% 
       mutate(Effect = case_when(Measurement_change > 0 ~ "Increase",
                                 Measurement_change == 0 ~ "Same",
                                 Measurement_change < 0 ~ "Decrease"))
-
 head(data_ginger_mint)
-
 ```
+
 
 ## Now it is easier to see what is happening
 
@@ -619,6 +629,7 @@ head(data_ginger_mint)
 data_ginger_mint %>% 
   count(Group, Effect)
 ```
+
 
 ## GUT CHECK: If we want all unspecified values to remain the same with `case_when()`, how should we complete the `.default =` statement?
 
@@ -634,11 +645,11 @@ B. With the word "same"
 ```{r}
 data_ginger_mint %>% 
   mutate(Treatment_recoded = case_when(
-    Treatment %in% 
-     c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
-    Treatment %in% c("O", "Other") ~ NA_character_,
- TRUE ~ Treatment))
+    Treatment %in% c("Mint", "mint", "Peppermint", "peppermint") ~ "Peppermint",
+    Treatment %in% c("O", "Other") ~ NA,
+    TRUE ~ Treatment))
 ```
+
 
 # Working with strings
 
@@ -650,6 +661,7 @@ data_ginger_mint %>%
 include_graphics("https://swag.rstudio.com/uploads/1/3/1/3/131335021/s815253891256106552_p45_i1_w935.png")
 ```
 
+
 ## The `stringr` package
 
 The `stringr` package:
@@ -658,6 +670,7 @@ The `stringr` package:
 -   We will not cover `grep` or `gsub` - base R functions
     -   are used on forums for answers
 -   Almost all functions start with `str_*`
+
 
 ## `stringr`
 
@@ -668,18 +681,18 @@ within each element of a **character vector** (not data frame or tibble!).
 -   `str_replace` - replaces `pattern` with `replacement`
 
 
-## `str_detect()`
+## `str_detect()` {.smaller}
 
 The `string` argument specifies what to check    
 The `pattern` argument specifies what to check for (case sensitive)  
 
 ```{r}
-
-Effect <- pull(data_ginger_mint) %>% head(n = 6)
+Effect <- pull(data_ginger_mint)
 Effect
 str_detect(string = Effect, pattern = "d")
 str_detect(string = Effect, pattern = "D")
 ```
+
 
 ## `str_replace()`
 
@@ -689,6 +702,7 @@ The `replacement` argument specifies what to replace the pattern with
 ```{r}
 str_replace(string = Effect, pattern = "D", replacement = "d")
 ```
+
 
 ## `st_replace()` only replaces the first instance of the pattern in each value 
 
@@ -715,6 +729,7 @@ The `end` argument specifies position of where to end
 str_sub(string = Effect, start = 1, end = 3)
 ```
 
+
 ## `filter` and `stringr` functions
 
 ```{r}
@@ -724,10 +739,13 @@ data_ginger_mint %>%
                     pattern = "int"))
 ```
 
+
 ## OK back to our original problem
+
 ```{r}
 count(data_ginger_mint, Treatment)
 ```
+
 
 ## `case_when()` made an improvement
 
@@ -743,8 +761,8 @@ data_ginger_mint %>%
     .default = Treatment))
 ```
 
-## `case_when()` improved with `stringr`
 
+## `case_when()` improved with `stringr`
 
 ```{r}
 data_ginger_mint %>% 
@@ -756,6 +774,7 @@ data_ginger_mint %>%
 ```
 
 This is a more robust solution! It will catch typos as long as the first letter is correct or there is part of the word mint.
+
 
 ## That's better!
 
@@ -772,6 +791,7 @@ B. `str_find()`
 
 C. `str_detect()`
 
+
 ## A bit on Regular Expressions
 
 -   <http://www.regular-expressions.info/reference.html>
@@ -783,7 +803,7 @@ C. `str_detect()`
 -   `$` matches end of vector `b$` - ends with "b"
 
 
-## Things you might see
+## Things you might see {.smaller}
 
 `^` indicates the beginning of a character string (placed before)
 `$` indicates the end (placed after)
@@ -800,8 +820,8 @@ data_ginger_mint %>%
  str_detect(string = Treatment, pattern = "^m") ~ "Mint Tea",
     .default = Treatment)) %>%
   count(Treatment, Treatment_recoded)
-
 ```
+
 
 # Separating and uniting data
 
@@ -815,11 +835,9 @@ The `remove` argument specifies if you want to drop the old columns
 ```{r}
 data_comb <- data_ginger_mint %>% 
   unite(Group, Effect, col = "change", remove = TRUE)
-```
-
-```{r}
 data_comb
 ```
+
 
 ## Separating columns based on a separator
 
@@ -834,19 +852,13 @@ data_comb <- data_comb %>%
 data_comb
 ```
 
+
 ## Summary
- -  `case_when()` requires `mutate()` when working with dataframes/tibbles
--   `case_when()` can recode **entire values** based on **conditions** (need quotes for conditions and new values)
-    -   remember `case_when()` needs `.default = varaible` to keep values that aren't specified by conditions, otherwise will be `NA`
+- `case_when()` requires `mutate()` when working with dataframes/tibbles
+- `case_when()` can recode **entire values** based on **conditions** (need quotes for conditions and new values)
+- remember `case_when()` needs `.default = varaible` to keep values that aren't specified by conditions, otherwise will be `NA`
     
 **Note:** you might see the `recode()` function, it only does some of what `case_when()` can do, so we skipped it, but it is in the extra slides at the end.
-
-## Summary continued
-
-```{r, fig.alt="dplyr", out.width = "70%", echo = FALSE, fig.align='center'}
-knitr::include_graphics("images/case_when.png")
-```
-"Artwork by @allison_horst". https://allisonhorst.com/
 
 
 ## Summary Continued
@@ -875,6 +887,7 @@ knitr::include_graphics("images/case_when.png")
 knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 ```
 
+
 ## Things you might see
 
 `recode` function - not as powerful as `case_when`
@@ -890,6 +903,7 @@ data_ginger_mint %>%
   count(Treatment, Treatment_recoded)
 ```
 
+
 ## `recode()`
 
 ```{r, eval = TRUE}
@@ -902,6 +916,7 @@ data_ginger_mint %>%
                               peppermint = "Peppermint")) %>%
   count(Treatment, Treatment_recoded)
 ```
+
 
 ## Can update or overwrite variables with recode too!
 
@@ -917,7 +932,6 @@ data_ginger_mint %>%
                               peppermint = "Peppermint")) %>%
   count(Treatment)
 ```
-
 
 
 ## String Splitting
@@ -937,9 +951,10 @@ length(y)
 
 `?modifiers`
 
--   `fixed` - match everything exactly
-    <!-- * `regex` - default - uses **reg**ular **exp**ressions -->
--   `ignore_case` is an option to not have to use `tolower`
+- `fixed`: match everything exactly
+<!-- * `regex` - default - uses **reg**ular **exp**ressions -->
+- `ignore_case` is an option to not have to use `tolower`
+
 
 ## Using a fixed expression
 
@@ -954,7 +969,6 @@ str_split("I.like.strings", "\\.")
 ```
 
 
-
 ## Pasting strings with `paste` and `paste0`
 
 Paste can be very useful for joining vectors together:
@@ -965,9 +979,6 @@ paste("Visit", 1:5, sep = "_", collapse = "_")
 # and paste0 can be even simpler see ?paste0 
 paste0("Visit",1:5) # no space!
 ```
-
-
-
 
 
 # Comparison of `stringr` to base R - not covered
@@ -981,6 +992,7 @@ paste0("Visit",1:5) # no space!
 <!-- * `str_sub(x, start, end)` - substrings from position start to position end -->
 
 -   `str_split(string, pattern)` - splits strings up - returns list!
+
 
 ## Splitting String:
 
@@ -1006,6 +1018,7 @@ Base R does not use these functions. Here is a "translator" of the
 -   `str_replace` - similar to `sub` - replace one time
 -   `str_replace_all` - similar to `gsub` - replace many times
 
+
 ## Important Comparisons
 
 Base R:
@@ -1025,6 +1038,7 @@ Base R:
 Sal <- read_csv("https://jhudatascience.org/intro_to_r/data/Baltimore_City_Employee_Salaries_FY2015.csv") # or
 ```
 
+
 ## Showing difference in `str_extract`
 
 `str_extract` extracts just the matched string
@@ -1035,6 +1049,7 @@ head(ss)
 ss[ !is.na(ss)]
 ```
 
+
 ## Showing difference in `str_extract` and `str_extract_all`
 
 `str_extract_all` extracts all the matched strings
@@ -1043,6 +1058,7 @@ ss[ !is.na(ss)]
 head(str_extract(Sal$AgencyID, "\\d"))
 head(str_extract_all(Sal$AgencyID, "\\d"), 2)
 ```
+
 
 ## Using Regular Expressions
 
@@ -1060,6 +1076,7 @@ head(grep("Leonard.?S", x = Sal$name, value = TRUE))
 head(grep("Spence.*C.*", x = Sal$name, value = TRUE))
 ```
 
+
 ## Using Regular Expressions: `stringr`
 
 ```{r}
@@ -1070,6 +1087,7 @@ head(str_subset( Sal$name, "^Payne.*"), 3)
 head(str_subset( Sal$name, "Leonard.?S"))
 head(str_subset( Sal$name, "Spence.*C.*"))
 ```
+
 
 ## Replace
 
@@ -1084,6 +1102,7 @@ sort(c("1", "2", "10")) #  not sort correctly (order simply ranks the data)
 order(c("1", "2", "10"))
 ```
 
+
 ## Replace
 
 So we must change the annual pay into a numeric:
@@ -1097,6 +1116,7 @@ R didn't like the `$` so it thought turned them all to `NA`.
 
 `sub()` and `gsub()` can do the replacing part in base R.
 
+
 ## Replacing and subbing
 
 Now we can replace the `$` with nothing (used `fixed=TRUE` because `$`
@@ -1108,6 +1128,7 @@ Sal$AnnualSalary <- as.numeric(gsub(pattern = "$", replacement="",
 Sal <- Sal[order(Sal$AnnualSalary, decreasing=TRUE), ] 
 Sal[1:5, c("name", "AnnualSalary", "JobTitle")]
 ```
+
 
 ## Replacing and subbing: `stringr`
 
@@ -1140,6 +1161,7 @@ tab <- table(c(0, 1, 2, 3, 2, 3, 3, 2,2, 3),
 tab
 ```
 
+
 ## Creating Two-way Tables
 
 ```{r}
@@ -1148,6 +1170,7 @@ tab_df = tibble(x = c(0, 1, 2, 3, 2, 3, 3, 2,2, 3),
 tab_df %>% count(x, y)
 ```
 
+
 ## Creating Two-way Tables
 
 ```{r}
@@ -1155,6 +1178,7 @@ tab_df %>%
   count(x, y) %>% 
   group_by(x) %>% mutate(pct_x = n / sum(n))
 ```
+
 
 ## Creating Two-way Tables
 
@@ -1166,8 +1190,7 @@ tab_df %>%
 ```
 
 
-
-## Removing columns with threshold of percent missing values{.codesmall}
+## Removing columns with threshold of percent missing values {.codesmall}
 
 ```{r}
 is.na(df) %>% head(n = 3)
@@ -1175,5 +1198,4 @@ colMeans(is.na(df))#TRUE and FALSE treated like 0 and 1
 which(colMeans(is.na(df)) < 0.2) #the location of the columns <.2
 df %>% select(which(colMeans(is.na(df)) < 0.2))# remove if over 20% missing
 ```
-
 
