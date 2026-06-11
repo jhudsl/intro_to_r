@@ -81,7 +81,7 @@ quantile(x, na.rm = TRUE)
 ```
 
 
-## Statistical summarization{.codesmall}
+## Statistical summarization {.codesmaller}
 
 We will talk more about data types later, but you can only do summarization on numeric or logical types. Not characters.
 
@@ -305,7 +305,7 @@ summary(tb)
 📃 [Day 4 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-4.pdf)
 
 
-## Colorado heat-related ER visits
+## Colorado heat-related ER visits {.codesmaller}
 
 Here we will be using data on the annual rates of medical visits associated with heat-related illness in Colorado:
 http://jhudatascience.org/intro_to_r/data/CO_ER_heat_visits_2011_2024.csv
@@ -475,7 +475,7 @@ CO_heat %>%
 ```
 
 
-## Counting{.codesmall}
+## Counting {.codesmaller}
 
 `count()` and `n()` can give very similar information.
 
