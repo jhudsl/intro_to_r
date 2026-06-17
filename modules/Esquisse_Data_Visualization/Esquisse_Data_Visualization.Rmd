@@ -12,12 +12,14 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 ```
 
+
 ## Esquisse Package
 
 ```{r esquisse}
 # install.packages("esquisse")
 library(esquisse)
 ```
+
 
 ## Esquisse Package
 
@@ -26,11 +28,13 @@ The [`esquisse` package](https://cran.r-project.org/web/packages/esquisse/vignet
 It is an interactive tool to help you in RStudio.
 
 It's super **nifty**!
+
 ```{r, fig.alt="starting a plot", out.width = "50%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("https://c.tenor.com/DNUSO9MjrTEAAAAC/bob-ross.gif")
 ```
 
-## First, get some data..  {.codesmall}
+
+## First, get some data. {.codesmall}
 
 We can use the CO heat-related ER visits dataset. This dataset contains information about the number and rate of visits for heat-related illness to Emergency rooms in Colorado from 2011-2022, adjusted for age.
 
@@ -40,6 +44,7 @@ er <-
 
 head(er)
 ```
+
 
 ## Starting a plot
 
@@ -53,11 +58,13 @@ esquisser(er)
 knitr::include_graphics("images/start_a_plot.png")
 ```
 
+
 ## Show the plot in the browser
 
 ```{r, eval = FALSE}
 esquisse::esquisser(er, viewer = "browser")
 ```
+
 
 ## Select Variables
 
@@ -67,6 +74,7 @@ To select variables you can drag and drop variables to the respective axis that 
 knitr::include_graphics("images/variables.gif")
 ```
 
+
 ## Find code
 
 To select variables you can drag and drop variables to the respective axis that you would like the variable to be plotted on.
@@ -74,6 +82,7 @@ To select variables you can drag and drop variables to the respective axis that 
 ```{r, fig.alt="select variables", out.width = "70%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/get_code.gif")
 ```
+
 
 ## Change plot type
 
@@ -83,6 +92,7 @@ knitr::include_graphics("images/get_code.gif")
 knitr::include_graphics("images/change_type_short.gif")
 ```
 
+
 ## Add Facets
 
 Facets create multiple plots based on the different values of a variable.
@@ -91,6 +101,7 @@ Facets create multiple plots based on the different values of a variable.
 knitr::include_graphics("images/facet.gif")
 ```
 
+
 ## Add size
 
 Sometimes it is useful to change the way points are plotted so that size represents a variable. This can especially be helpful if you need your plot to be black and white.
@@ -98,6 +109,7 @@ Sometimes it is useful to change the way points are plotted so that size represe
 ```{r, fig.alt="add color", out.width = "70%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/size.gif")
 ```
+
 
 ## Add color
 
@@ -108,6 +120,7 @@ For plots with points use the color region to change coloring according to a var
 knitr::include_graphics("images/color.gif")
 ```
 
+
 ## Appearance
 
 You can change the overall appearance with "Geometries" and "Theme".
@@ -115,6 +128,7 @@ You can change the overall appearance with "Geometries" and "Theme".
 ```{r, fig.alt="change overall appearance", out.width = "70%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/appearance.gif")
 ```
+
 
 ## Change titles
 
@@ -124,6 +138,7 @@ To change titles on your plot, use the "Labels & Titles" tab.
 knitr::include_graphics("images/title.gif")
 ```
 
+
 ## View data
 
 You can also easily view data
@@ -131,6 +146,7 @@ You can also easily view data
 ```{r, fig.alt="Click on the table button to view a table of your data.", out.width = "100%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/view_data.png")
 ```
+
 
 ## Interrupting Esquisse
 
@@ -144,7 +160,8 @@ _If you don't see the stop button, you need to resize your window._
 knitr::include_graphics("images/stop.png")
 ```
 
-## Wide & Long Data ? {.codesmall}
+
+## Wide & Long Data? {.codesmall}
 
 Let's look at why we might want long data using Esquisse.
 
@@ -158,15 +175,16 @@ long_er <- er %>%
 glimpse(long_er)
 ```
 
-## Wide Data
 
-As a comparison, let's also load a wide version of this dataset.  {.codesmall}
+## Wide Data {.codesmall}
+
+As a comparison, let's also load a wide version of this dataset.
 
 ```{r}
-
 wide_er <- read_csv(file =
     "https://jhudatascience.org/intro_to_r/data/CO_heat_er_visits_DenverBoulder_wide.csv")
 ```
+
 
 ## Wide vs Long Data: Which is better for plotting?
 
@@ -175,12 +193,14 @@ head(long_er)
 head(wide_er)
 ```
 
+
 ## Make a plot of visit rates by year for different counties
 
 ```{r, eval = FALSE}
 esquisser(wide_er) # county as x...? Tricky!
 esquisser(long_er) #county as x, visit rate as y, year as fill
 ```
+
 
 ## GUT CHECK!
 
@@ -192,11 +212,13 @@ B. Get a "head start" on your code
 
 C. Both of these!
 
+
 ## Some Alternatives to `esquisse`
 
 * `ggquickeda`: https://smouksassi.github.io/ggquickeda/
 * `ggraptR`: https://github.com/cargomoose/ggraptR/
 * `autoplot` can be helpful for some packages (see [this blog post](http://www.sthda.com/english/wiki/ggfortify-extension-to-ggplot2-to-handle-some-popular-packages-r-software-and-data-visualization))
+
 
 ## Summary
 
@@ -206,6 +228,7 @@ C. Both of these!
 * Use the `viewer = "browser"` argument to launch in your browser.
 * Code from Esquisse can copied into code chunks to be generated in the "Plots" pane
 * It's easier if your code is in "long" form!
+
 
 ## Lab
 
@@ -220,8 +243,4 @@ knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 ```
 
 Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
-
-
-
-
 

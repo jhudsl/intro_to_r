@@ -7,7 +7,6 @@ First, make sure you install and load the `esquisse` package using `install.pack
 
 ```{r, eval = FALSE}
 install.packages("esquisse")
-install.packages("ggplot2")
 ```
 
 ```{r, comment = FALSE}
@@ -15,10 +14,12 @@ library(esquisse)
 library(tidyverse)
 ```
 
+
 ### 1.1
 
 Try creating a plot using the `Orange` data that automatically comes with R using the `esquisse` package.
 
+-   First take a look at the data in RStudio using `View()`.
 -   Drag and drop the `age` variable to be plotted on the x-axis.
 -   Drag and drop the `circumference` variable to be plotted on the y-axis.
 -   What happens when you drag `tree` to the facet region of the esquisse GUI?
@@ -40,9 +41,10 @@ ggplot(Orange) +
   theme_minimal()
 ```
 
+
 ### 1.2
 
-Click where it says "point" (may say "auto" depending on how you did the last question) on the far left side and change the plot to a different type of plot. Copy and paste the code into the chunk below. Close Esquisse and run the chunk below to generate a ggplot.
+Go back to your Esquisse window and click where it says "point" (may say "auto" depending on how you did the last question) on the far left side and change the plot to a different type of plot. Copy and paste the code into the chunk below. Close Esquisse and run the chunk below to generate a ggplot.
 
 ```{r 1.2response}
 ggplot(Orange) +
@@ -57,7 +59,7 @@ ggplot(Orange) +
 
 ### P.1
 
-Launch Esquisse on any selection of the following datasets we have worked with before and explore!
+Launch Esquisse again on any selection of the following datasets we have worked with before and explore!
 
 ```{r}
 yts <- read_csv("http://jhudatascience.org/intro_to_r/data/Youth_Tobacco_Survey_YTS_Data.csv")
