@@ -57,7 +57,7 @@ Amend the function `has_n` from question 1.2 so that it takes a default value of
 
 ### 1.4
 
-Create a new number `b_num` that is not contained with `nums`. Use your updated `has_n` function with the default value and add `b_num` as the `n` argument when calling the function. What is the outcome?
+Create a new number `b_num` that is not contained within the vector `nums`. Use your updated `has_n` function from 1.3 with the default value and add `b_num` as the value for the `n` argument when calling the function. What is the outcome?
 
 ```{r 1.4response}
 
@@ -103,7 +103,7 @@ OR
 data %>%
   summarize(across(
     .cols = {vector or tidyselect},
-    .fns = \(x) {some function}(x, {additional arguments})
+    .fns = function(x) {some function}(x, {additional arguments})
   ))
 ```
 

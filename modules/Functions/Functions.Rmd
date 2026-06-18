@@ -12,11 +12,13 @@ library(tidyverse)
 library(emo)
 ```
 
+
 ## An advanced subject: functions
 
 ```{r, fig.alt="session info", out.width = "50%", echo = FALSE, fig.align='center'}
 knitr::include_graphics("images/squidward-throw-away.gif")
 ```
+
 
 ## Writing your own functions
 
@@ -28,6 +30,7 @@ So far we've seen many functions, like `c()`, `class()`, `filter()`, `dim()` ...
 - Organize code into manageable chunks
 - Avoid running code unintentionally
 - Use names that make sense to you
+
 
 ## A practical example: summarization {.smaller}
 
@@ -44,6 +47,7 @@ data_insights <- function(x, column1, column2) {
 data_insights(x = mtcars, column1 = cyl, column2 = hp)
 ```
 
+
 ## A practical example: plotting {.smaller}
 
 You may have a similar plot that you want to examine across columns of data.
@@ -57,6 +61,7 @@ simple_plots <- function(x, column1, column2) {
 
 simple_plots(x = mtcars, column1 = cyl, column2 = hp)
 ```
+
 
 ## Writing your own functions
 
@@ -115,6 +120,7 @@ times_2_plus_4 <- function(x) {
 times_2_plus_4(x = 10)
 ```
 
+
 ## Writing your own functions: print intermediate steps
 
  - printed results do not stay around but can show what a function is doing
@@ -122,6 +128,7 @@ times_2_plus_4(x = 10)
  - can only return one result but can print many
  - if `return` not called, last evaluated expression is returned
  - `return` should be the last step (steps after may be skipped)
+
 
 ## Adding print
 
@@ -184,6 +191,7 @@ Let's write a function, `sqdif`, that:
 3. squares this difference
 4. then returns the final value
 
+
 ## Writing your own functions: characters
 
 Functions can have any kind of input. Here is a function with characters:
@@ -195,6 +203,7 @@ loud <- function(word) {
 }
 loud(word = "hooray!")
 ```
+
 
 ## Functions for tibbles
 
@@ -225,6 +234,7 @@ get_top <- function(dat, row = 1, col = 1) {
 get_top(dat = iris)
 ```
 
+
 ## Functions for tibbles - curly braces
 
 Can create function with an argument that allows inputting a column name for `select` or other `dplyr` operation:
@@ -238,6 +248,7 @@ clean_dataset <- function(dataset, col_name) {
 
 clean_dataset(dataset = mtcars, col_name = "cyl")
 ```
+
 
 ## Functions for tibbles - curly braces
 
@@ -317,6 +328,7 @@ select(cars, VehYear:VehicleAge) %>%
   head()
 ```
 
+
 ## Anonymous functions: alternative syntax
 
 ```{r comment=""}
@@ -324,6 +336,7 @@ select(cars, VehYear:VehicleAge) %>%
   sapply(\(x) x / 1000) %>%
   head()
 ```
+
 
 # across
 
@@ -338,6 +351,7 @@ cars %>%
             max_Odo = max(VehOdo))
 ```
 
+
 ## The `across()` function
 
 ```{r, fig.alt="session info", out.width = "70%", echo = FALSE, fig.align='center'}
@@ -346,16 +360,19 @@ knitr::include_graphics("images/across.png")
 
 Image by [Allison Horst](https://allisonhorst.com/data-science-art).
 
-## Applying functions with `across` from `dplyr`
+
+## Applying functions with `across` from `dplyr` {.smaller}
 
 `across()` makes it easy to apply the same transformation to multiple columns. Usually used with `summarize()` or `mutate()`.
 
 ```
-summarize(across( .cols = <columns>, .fns = function)) 
+summarize(across(.cols = <columns>, .fns = function))
+summarize(across(.cols = <columns>, .fns = function(x) {some function}(x, {additional arguments})))
 ```
 or
 ```
 mutate(across(.cols = <columns>, .fns = function))
+mutate(across(.cols = <columns>, .fns = function(x) {some function}(x, {additional arguments})))
 ```
 
 - List columns first: `.cols = `
@@ -410,14 +427,13 @@ cars_dbl %>%
 
 ## Applying functions with `across` from `dplyr`
 
-Combining with `mutate()`: rounding to the nearest power of 10 (with negative digits value)
+Combining with `mutate()`: rounding to the nearest power of 10 (with negative digits value). Remember that when you need to add additional arguments to a function (e.g., `na.rm`, `digits`, etc.), you must specify an anonymous function with `function(x)` or `\(x)`.
 
 ```{r}
 cars_dbl %>%
   mutate(across(
     .cols = starts_with("Veh"),
-    .fns = round,
-    digits = -3
+    .fns = function(x) round(x, digits = -3)
   ))
 ```
 
@@ -440,8 +456,7 @@ mort %>%
   select(country, starts_with("194")) %>%
   mutate(across(
     .cols = c(`1943`, `1944`, `1945`),
-    .fns = replace_na,
-    replace = 0
+    .fns = function(x) replace_na(x, replace = 0)
   ))
 ```
 
@@ -488,6 +503,7 @@ A *list* in R is a generic class of data consisting of an ordered collection of 
 
 While we won't get into `purrr` too much in this class, its a handy package for you to know about should you get into a situation where you have an irregular list you need to handle!
 
+
 # Multiple Data Frames
 
 ## Multiple data frames {.smaller}
@@ -527,11 +543,12 @@ AQ_list %>% sapply(colMeans, na.rm = TRUE)
 
 📃 [Posit's `purrr` Cheatsheet](https://rstudio.github.io/cheatsheets/purrr.pdf)
 
-```{r, fig.alt="The End", out.width = "35%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="The End", out.width = "25%", echo = FALSE, fig.align='center'}
 knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 ```
 
 Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
+
 
 ## Good luck and happy coding!
 
