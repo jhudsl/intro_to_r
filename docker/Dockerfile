@@ -64,7 +64,6 @@ RUN Rscript -e  "install.packages('config')"
 RUN Rscript -e  "install.packages('optparse')"
 RUN Rscript -e  "install.packages('faraway')"
 RUN Rscript -e  "install.packages('epitools')"
-RUN Rscript -e  "install.packages('janitor')"
 
 # Install pdflatex
 RUN apt-get install -y texlive-latex-base texlive-latex-extra
