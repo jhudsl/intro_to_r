@@ -166,7 +166,9 @@ pre code {
 
 
 <p>Data in this lab comes from the CDC (<a href="https://covid.cdc.gov/covid-data-tracker/#vaccinations_vacc-total-admin-rate-total" class="uri">https://covid.cdc.gov/covid-data-tracker/#vaccinations_vacc-total-admin-rate-total</a> - snapshot from January 12, 2022) and the Bureau of Economic Analysis (<a href="https://www.bea.gov/data/income-saving/personal-income-by-state" class="uri">https://www.bea.gov/data/income-saving/personal-income-by-state</a>).</p>
-<pre class="r"><code>library(tidyverse)</code></pre>
+<pre class="r"><code>install.packages(&quot;janitor&quot;, repos=&#39;http://cran.us.r-project.org&#39;)
+library(tidyverse)
+library(janitor)</code></pre>
 <div id="part-1" class="section level1">
 <h1>Part 1</h1>
 <div id="section" class="section level3">
@@ -179,35 +181,35 @@ pre code {
 </div>
 <div id="section-1" class="section level3">
 <h3>1.2</h3>
-<p>Look at the column names using <code>colnames</code> - do you notice any patterns?</p>
+<p>First, clean up the column names with the <code>clean_names()</code> function in the <code>janitor</code> package. Then, look at the column names using <code>colnames</code> - do you notice any patterns?</p>
 </div>
 <div id="section-2" class="section level3">
 <h3>1.3</h3>
-<p>Let’s rename the column “State/Territory/Federal Entity” in “vacc” to “Entity” using <code>rename</code>. Make sure to reassign to <code>vacc</code> here and in subsequent steps.</p>
+<p>Let’s rename the column “state_territory_federal_entity” in “vacc” to “entity” using <code>rename</code>. Make sure to reassign to <code>vacc</code> here and in subsequent steps.</p>
 <pre><code># General format
 new_data &lt;- old_data %&gt;% rename(newname = oldname)</code></pre>
 </div>
 <div id="section-3" class="section level3">
 <h3>1.4</h3>
-<p>Select only the columns “Entity”, and those that start with “Percent”. Use <code>select</code> and <code>starts_with(&quot;Percent&quot;)</code>.</p>
+<p>Select only the columns “entity”, and those that start with “Percent”. Use <code>select</code> and <code>starts_with(&quot;percent&quot;)</code>.</p>
 <pre><code># General format
 new_data &lt;- old_data %&gt;% select(colname1, colname2, ...)</code></pre>
 </div>
 <div id="section-4" class="section level3">
 <h3>1.5</h3>
-<p>Create a new dataset “vacc_long” that does <code>pivot_longer()</code> on all columns except “Entity”. Remember that <code>!Entity</code> means all columns except “Entity”.</p>
+<p>Using the data from 1.4, create a new dataset “vacc_long” that does <code>pivot_longer()</code> on all columns except “entity”. Remember that <code>!entity</code> means all columns except “entity”.</p>
 <pre><code># General format
 new_data &lt;- old_data %&gt;% pivot_longer(cols = colname(s))</code></pre>
 </div>
 <div id="section-5" class="section level3">
 <h3>1.6</h3>
-<p>Using <code>vacc_long</code>, filter the “Entity” column so it only includes values in the following list: “Maryland”,“Virginia”,“Florida”,“Massachusetts”, “United States”. <strong>Hint</strong>: use <code>filter</code> and <code>%in%</code>.</p>
+<p>Using <code>vacc_long</code>, filter the “entity” column so it only includes values in the following list: “Maryland”, “Virginia”, “Florida”, “Massachusetts”, “United States”. <strong>Hint</strong>: use <code>filter</code> and <code>%in%</code>.</p>
 <pre><code># General format
 new_data &lt;- old_data %&gt;% filter(colname %in% c(1, 2, 3, ...))</code></pre>
 </div>
 <div id="section-6" class="section level3">
 <h3>1.7</h3>
-<p>Use <code>pivot_wider</code> to reshape “vacc_long”. Use “Entity” for the <code>names_from</code> argument. Use “value” for the <code>values_from</code> argument. Call this new data <code>vacc_wide</code>. Look at the data. How do these states compare to one another.</p>
+<p>Use <code>pivot_wider</code> to reshape “vacc_long”. Use “entity” for the <code>names_from</code> argument. Use “value” for the <code>values_from</code> argument. Call this new data <code>vacc_wide</code>. Look at the data. How do these states compare to one another.</p>
 <pre><code># General format
 new_data &lt;- old_data %&gt;% pivot_wider(names_from = column1, values_from = column2)</code></pre>
 </div>
@@ -216,7 +218,7 @@ new_data &lt;- old_data %&gt;% pivot_wider(names_from = column1, values_from = c
 <h1>Practice on Your Own!</h1>
 <div id="p.1" class="section level3">
 <h3>P.1</h3>
-<p>Take the code from Questions 1.1 and 1.3-1.7. Chain all of this code together using the pipe <code>%&gt;%</code>. Call your data <code>vacc_compare</code>.</p>
+<p>Take the code from Questions 1.1-1.7. Chain all of this code together using the pipe <code>%&gt;%</code>. Call your data <code>vacc_compare</code>.</p>
 </div>
 <div id="p.2" class="section level3">
 <h3>P.2</h3>
@@ -236,8 +238,8 @@ new_data &lt;- old_data %&gt;% pivot_wider(names_from = column1, values_from = c
 </div>
 <div id="section-8" class="section level3">
 <h3>2.2</h3>
-<p>Use <code>pivot_wider</code> to reshape “gdp”. Use “Description” for the <code>names_from</code> argument. Use “<code>2020</code>” for the <code>values_from</code> argument. Reassign this data to “gdp”.</p>
-<p>You will need tick marks (``) around 2020.</p>
+<p>First, clean up the column names with the <code>clean_names()</code> function in the <code>janitor</code> package. Then, use <code>pivot_wider</code> to reshape “gdp”. Use <code>description</code> for the <code>names_from</code> argument. Use <code>x2020</code> for the <code>values_from</code> argument. Reassign this data to “gdp”.</p>
+<p><em>Note that clean_names() has added an “x” before the original column name <code>2020</code>.</em></p>
 <pre><code># General format
 new_data &lt;- old_data %&gt;% pivot_wider(names_from = column1, values_from = column2)</code></pre>
 </div>
@@ -246,7 +248,7 @@ new_data &lt;- old_data %&gt;% pivot_wider(names_from = column1, values_from = c
 <p>Join the data. Keep only data that is found in both “vacc” and “gdp”.</p>
 <ul>
 <li>First, try joining without using the <code>by</code> argument - what happens?</li>
-<li>Next, try joining using <code>by = c(&quot;Entity&quot; = &quot;GeoName&quot;)</code>.</li>
+<li>Next, try joining using <code>by = c(&quot;entity&quot; = &quot;geo_name&quot;)</code>.</li>
 <li>Call the output “merged”. How many observations (rows) are there?</li>
 </ul>
 <pre><code># General format
@@ -254,7 +256,7 @@ new_data &lt;- inner_join(x, y, by = c(&quot;colname1&quot; = &quot;colname2&quo
 </div>
 <div id="section-10" class="section level3">
 <h3>2.4</h3>
-<p>Change your code from Question 10 to do a <code>full_join.</code> Call the output “full”. How many observations (rows) are there?</p>
+<p>Change your code from 2.3 to do a <code>full_join.</code> Call the output “full”. How many observations (rows) are there?</p>
 <pre><code># General format
 new_data &lt;- full_join(x, y, by = c(&quot;colname1&quot; = &quot;colname2&quot;))</code></pre>
 </div>
