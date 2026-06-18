@@ -73,7 +73,7 @@ write_rds(y, file = "my_variable.rds")
 
 ### P.3
 
-Read the RDS file from your working directory back into your Environment. Call the file `z`.
+Read the RDS file from your working directory back into your Environment. Call the object `z`.
 
 ```{r P.3response}
 z <- read_rds(file = "my_variable.rds")
