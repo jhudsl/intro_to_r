@@ -20,6 +20,7 @@ library(emo)
 options(scipen = 999)
 ```
 
+
 ## Summary: Data visualization
 
 - `ggplot()` specifies what data to use and what variables will be mapped to where
@@ -30,12 +31,14 @@ options(scipen = 999)
 - make sure you are plotting what you think you are by checking the numbers!
 - `facet_grid(~variable)` and `facet_wrap(~variable)` can be helpful to quickly split up your plot
 
+
 ## Summary: Factors
 
 - the factor class allows us to have a different order from alphanumeric for categorical data
 - we can change data to be a factor variable using `mutate()`, `as_factor()` (in the `forcats` package), or `factor()` functions and specifying the levels with the `levels` argument
 - `fct_reorder({variable_to_reorder}, {variable_to_order_by})` helps us reorder a variable by the values of another variable
 - arranging, tabulating, and plotting the data will reflect the new order
+
 
 ## Overview
 
@@ -47,11 +50,13 @@ We will cover how to use R to compute some of basic statistics and fit some basi
 
 <br>
 
+
 ## 
 
 ```{r, fig.alt="I was told there would be no math", out.width = "70%", echo = FALSE, fig.show='hold',fig.align='center'}
 knitr::include_graphics("https://c.tenor.com/O3x8ywLm380AAAAd/chevy-chase.gif")
 ```
+
 
 ## Overview
 
@@ -62,6 +67,7 @@ knitr::include_graphics("https://c.tenor.com/O3x8ywLm380AAAAd/chevy-chase.gif")
 There are plenty of resources online for learning more about these methods, as well as dedicated Biostatistics series (at different advancement levels) at the JHU School of Public Health.
 
 Check out [www.opencasestudies.org](https://www.opencasestudies.org/) for deeper dives on some of the concepts covered here and the [resource page](https://jhudatascience.org/intro_to_r/resources.html) for more resources.
+
 
 # Correlation
 
@@ -79,6 +85,7 @@ knitr::include_graphics("https://www.mathsisfun.com/data/images/correlation-exam
 
 See this [case study](https://www.opencasestudies.org/ocs-bp-co2-emissions/#Data_Analysis) for more information.
 
+
 ## Correlation
 
 Function `cor()` computes correlation in R.
@@ -90,6 +97,7 @@ cor(x, y = NULL, use = c("everything", "complete.obs"),
 - provide two numeric vectors of the same length (arguments `x`, `y`), or
 - provide a data.frame / tibble with numeric columns only
 - by default, Pearson correlation coefficient is computed
+
 
 ## Correlation test
 
@@ -107,6 +115,7 @@ cor.test(x, y = NULL, alternative = c("two.sided", "less", "greater"),
    - greater means true correlation coefficient is > 0 (positive relationship)
    - less means true correlation coefficient is < 0 (negative relationship)
 
+
 ## GUT CHECK!
 
 What class of data do you need to calculate a correlation?
@@ -117,6 +126,7 @@ B. Factor data
 
 C. Numeric data
 
+
 ## Correlation {.codesmall}
 
 Using the Charm City Circulator data.
@@ -125,6 +135,7 @@ Using the Charm City Circulator data.
 circ <- read_csv("https://jhudatascience.org/intro_to_r/data/Charm_City_Circulator_Ridership.csv")
 head(circ)
 ```
+
 
 ## Correlation for two vectors {.smaller}
 
@@ -144,6 +155,7 @@ y <- circ %>% pull(purpleAverage)
 plot(x, y)
 ```
 
+
 ## Correlation coefficient calculation and test
 
 ```{r}
@@ -153,6 +165,7 @@ cor(x, y, use = "complete.obs")
 cor.test(x, y)
 ```
 
+
 ## Broom package
 
 The `broom` package helps make stats results look tidy
@@ -161,6 +174,7 @@ The `broom` package helps make stats results look tidy
 cor_result <- tidy(cor.test(x, y))
 glimpse(cor_result)
 ```
+
 
 ## Correlation for two vectors with plot {.smaller}
 
@@ -176,6 +190,7 @@ circ %>%
   annotate("text", x = 2000, y = 7500, label = cor_label)
 ```
 
+
 ## Correlation for data frame columns
 
 We can compute correlation for all pairs of columns of a data frame / matrix. This is often called, *"computing a correlation matrix"*.
@@ -187,6 +202,7 @@ circ_subset_Average <- circ %>% select(ends_with("Average"))
 head(circ_subset_Average)
 ```
 
+
 ## Correlation for data frame columns
 
 We can compute correlation for all pairs of columns of a data frame / matrix. This is often called, *"computing a correlation matrix"*.
@@ -195,6 +211,7 @@ We can compute correlation for all pairs of columns of a data frame / matrix. Th
 cor_mat <- cor(circ_subset_Average, use = "complete.obs")
 cor_mat
 ```
+
 
 ## Correlation for data frame columns with plot
 
@@ -205,6 +222,7 @@ library(corrplot)
 corrplot(cor_mat)
 ```
 
+
 ## Correlation does not imply causation
 
 ```{r, fig.alt="Simpson's paradox!", out.width = "75%", echo = FALSE, fig.align='center'}
@@ -213,6 +231,7 @@ knitr::include_graphics(here::here("images/lyme_and_fried_chicken.png"))
 ```
 
 [source](http://doi.org/10.1007/s10393-020-01472-1)
+
 
 # T-test
 
@@ -232,6 +251,7 @@ t.test(x, y = NULL,
        conf.level = 0.95, ...)
 ```
 
+
 ## Running one-sample t-test {.smaller}
 
 It tests the mean of a variable in one group. By default (i.e., without us explicitly specifying values of other arguments): 
@@ -246,7 +266,8 @@ sum(is.na(x)) # count NAs in x
 t.test(x)
 ```
 
-## Running two-sample t-test {.small}
+
+## Running two-sample t-test {.smaller}
 
 It tests the difference in means of a variable between two groups. By default:
 
@@ -259,6 +280,7 @@ It tests the difference in means of a variable between two groups. By default:
 
 Check out this this [case study](https://www.opencasestudies.org/ocs-bp-rural-and-urban-obesity/#Data_Analysis) and this [case study](https://www.opencasestudies.org/ocs-bp-diet/#Data_Analysis) for more information.
 
+
 ## Running two-sample t-test in R
 
 ```{r}
@@ -267,7 +289,8 @@ sum(is.na(y)) # count NAs in x and y
 t.test(x, y)
 ```
 
-## T-test: retrieving information from the result with `broom` package 
+
+## T-test: retrieving information from the result with `broom` package {.codesmall}
 
 The `broom` package has a `tidy()` function that can organize results into a data frame so that they are easily manipulated (or nicely printed).
 
@@ -276,6 +299,7 @@ result <- t.test(x, y)
 result_tidy <- tidy(result)
 glimpse(result_tidy)
 ```
+
 
 ## P-value adjustment {.smaller}
 
@@ -292,6 +316,7 @@ my_pvalues * 4
 
 See [here](https://www.nature.com/articles/nbt1209-1135) for more about multiple testing correction. Bonferroni also often done as p-value threshold divided by number of tests (0.05/test number).
 
+
 ## Some other statistical tests
 
 - `wilcox.test()` -- Wilcoxon signed rank test, Wilcoxon rank sum test
@@ -300,6 +325,7 @@ See [here](https://www.nature.com/articles/nbt1209-1135) for more about multiple
 - `var.test()`-- Fisher’s F-Test
 - `chisq.test()` -- Chi-squared test
 - `aov()` -- Analysis of Variance (ANOVA)
+
 
 ## Summary
 
@@ -310,11 +336,13 @@ See [here](https://www.nature.com/articles/nbt1209-1135) for more about multiple
 - `tidy()` in the `broom` package is useful for organizing and saving statistical test output
 - remember to adjust p-values with `p.adjust()` when doing multiple tests on data
 
+
 ## Lab Part 1
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)  
 
 💻 [Lab](https://jhudatascience.org/intro_to_r/modules/Statistics/lab/Statistics_Lab.Rmd)
+
 
 # Regression
 
@@ -323,6 +351,7 @@ See [here](https://www.nature.com/articles/nbt1209-1135) for more about multiple
 Linear regression is a method to model the relationship between a response and one or more explanatory variables. 
 
 Most commonly used statistical tests are actually specialized regressions, including the two sample t-test, [see here for more](https://www.opencasestudies.org/ocs-bp-diet/#(t)-test_and_linear_regression).
+
 
 ## Linear regression notation
 
@@ -338,6 +367,7 @@ where:
 * $\beta$ is the slope (also called a coefficient) - the mean change in y that we would expect for one unit change in x ("rise over run")
 * $x_i$ is the predictor for person i
 * $\varepsilon_i$ is the residual variation for person i
+
 
 ## Linear regression
 
@@ -362,6 +392,7 @@ print(ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width)) +
   theme(legend.position = "none", text = element_text(size = 20)))
 ```
 
+
 ## Linear regression {.smaller}
 
 Linear regression is a method to model the relationship between a response and one or more explanatory variables. 
@@ -375,11 +406,12 @@ where:
 
 * $y_i$ is the outcome for person i
 * $\alpha$ is the intercept
-* $\beta_1$, $\beta_2$, $\beta_2$ are the slopes/coefficients for variables $x_{i1}$, $x_{i2}$, $x_{i3}$ - average difference in y for a unit change (or each value) in x while accounting for other variables
+* $\beta_1$, $\beta_2$, $\beta_2$ are the slopes/coefficients for variables $x_{i1}$, $x_{i2}$, $x_{i3}$ - average difference in y for a unit change (or each value) in x while the other variables are held constant
 * $x_{i1}$, $x_{i2}$, $x_{i3}$ are the predictors for person i
 * $\varepsilon_i$ is the residual variation for person i
 
 See this [case study](https://www.opencasestudies.org/ocs-bp-diet/#Data_Analysis) for more details.
+
 
 ## Linear regression fit in R 
 
@@ -392,6 +424,7 @@ We typically provide two arguments:
 - `formula` -- model formula written using names of columns in our data 
 - `data` -- our data frame 
 
+
 ## Linear regression fit in R: model formula 
 
 Model formula 
@@ -403,6 +436,7 @@ In R translates to
 <p style="text-align: center;">
 `y ~ x`
 </p>
+
 
 ## Linear regression fit in R: model formula 
 
@@ -424,6 +458,7 @@ For example, if we want to fit a regression model where outcome is `income` and 
 `income ~ years_of_education`
 </p>
 
+
 ## Linear regression fit in R: model formula 
 
 Model formula 
@@ -444,6 +479,7 @@ For example, if we want to fit a regression model where outcome is `income` and 
 `income ~ years_of_education + age + location`
 </p>
 
+
 ## Linear regression 
 
 We will use data about emergency room doctor complaints. 
@@ -457,6 +493,7 @@ data(esdcomp)
 esdcomp
 ```
 
+
 ## Linear regression: model fitting 
 
 We fit linear regression model with the number of patient visits (`visits`) as an outcome and total number of hours worked (`hours`) as a predictor. In other words, we are evaluation if the number of hours worked is predictive of the number of visits a doctor had.
@@ -466,6 +503,7 @@ fit <- glm(visits ~ hours, data = esdcomp)
 fit
 ```
 
+
 ## Linear regression: model summary
 
 The `summary()` function returns a list that shows us some more detail.
@@ -473,6 +511,7 @@ The `summary()` function returns a list that shows us some more detail.
 ```{r}
 summary(fit)
 ```
+
 
 ## tidy results
 
@@ -484,6 +523,7 @@ The estimate is the coefficient or slope -- for one change in hours worked (1 ho
 tidy(fit) %>% glimpse()
 ```
 
+
 ## Linear regression: multiple predictors {.smaller}
 
 Let's try adding another explanatory variable to our model, dollars per hour earned by the doctor (`revenue`). The meaning of coefficients is more complicated here.
@@ -492,6 +532,7 @@ Let's try adding another explanatory variable to our model, dollars per hour ear
 fit2 <- glm(visits ~ hours + revenue, data = esdcomp)
 summary(fit2)
 ```
+
 
 ## Linear regression: multiple predictors
 
@@ -503,6 +544,7 @@ fit2 %>%
   glimpse()
 ```
 
+
 ## Linear regression: factors 
 
 Factors get special treatment in regression models -- lowest level of the factor is the comparison group, and all other factors are **relative** to its values.
@@ -513,6 +555,7 @@ Factors get special treatment in regression models -- lowest level of the factor
 esdcomp %>% count(residency)
 ```
 
+
 ## Linear regression: factors {.smaller}
 
 Yes relative to No -- baseline is No
@@ -521,6 +564,7 @@ Yes relative to No -- baseline is No
 fit_3 <- glm(visits ~ residency, data = esdcomp)
 summary(fit_3)
 ```
+
 
 ## Linear regression: factors {.smaller}
 
@@ -531,6 +575,7 @@ circ <- read_csv("https://jhudatascience.org/intro_to_r/data/Charm_City_Circulat
 fit_4 <- glm(orangeBoardings ~ factor(day), data = circ)
 summary(fit_4)
 ```
+
 
 ## Linear regression: factors {.smaller}
 
@@ -548,18 +593,6 @@ fit_5 <- glm(orangeBoardings ~ day, data = circ)
 summary(fit_5)
 ```
 
-## Linear regression: factors {.smaller}
-
-You can view estimates for the comparison group by removing the intercept in the GLM formula
-
-`y ~ x - 1`
-
-*Caveat* is that the p-values change, and interpretation is often confusing.
-
-```{r regress9, comment="", fig.height=4, fig.width=8}
-fit_6 <- glm(orangeBoardings ~ factor(day) - 1, data = circ)
-summary(fit_6)
-```
 
 ## Linear regression: interactions {.smaller}
 
@@ -569,6 +602,7 @@ You can also specify interactions between variables in a formula `y ~ x1 + x2 + 
 fit_7 <- glm(visits ~ hours + residency + hours * residency, data = esdcomp)
 tidy(fit_7)
 ```
+
 
 ## Linear regression: interactions {.smaller}
 
@@ -581,6 +615,7 @@ ggplot(esdcomp, aes(x = hours, y = visits, color = residency)) +
   scale_color_manual(values = c("black", "grey50")) +
   theme_classic()
 ```
+
 
 ## Generalized linear models (GLMs)
 
@@ -598,6 +633,7 @@ See this [case study](https://www.opencasestudies.org/ocs-bp-vaping-case-study/#
 
 See `?family` documentation for details of family functions. 
 
+
 ## Logistic regression {.smaller}
 
 We will use data about breast cancer tumors. 
@@ -608,6 +644,7 @@ We will use data about breast cancer tumors.
 data(wbca)
 head(wbca)
 ```
+
 
 ## Logistic regression {.smaller}
 
@@ -623,6 +660,7 @@ binom_fit <- glm(Class ~ UShap + USize, data = wbca, family = binomial(link = "l
 summary(binom_fit)
 ```
 
+
 ## Odds ratios
 
 > An odds ratio (OR) is a measure of association between an exposure and an outcome. The OR represents the odds that an outcome will occur given a particular exposure, compared to the odds of the outcome occurring in the absence of that exposure.
@@ -630,6 +668,7 @@ summary(binom_fit)
 Check out [this paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2938757/).
 
 Use `oddsratio(x, y)` from the `epitools()` package to calculate odds ratios.
+
 
 ## Odds ratios
 
@@ -643,10 +682,13 @@ ice_cream <-
   oswego %>%
   select(ill, vanilla.ice.cream) %>%
   mutate(
-    ill = recode(ill, "Y" = 1, "N" = 0),
-    vanilla.ice.cream = recode(vanilla.ice.cream, "Y" = 1, "N" = 0)
+    ill = case_when(ill == "Y" ~ 1,
+                    ill == "N" ~ 0),
+    vanilla.ice.cream = case_when(vanilla.ice.cream == "Y" ~ 1,
+                                  vanilla.ice.cream == "N" ~ 0)
   )
 ```
+
 
 ## Odds ratios
 
@@ -654,6 +696,7 @@ ice_cream <-
 head(ice_cream)
 ice_cream %>% count(ill, vanilla.ice.cream)
 ```
+
 
 ## Odds ratios {.smaller}
 
@@ -665,9 +708,11 @@ oddsratio(predictor, response)
 
 See this [case study](https://www.opencasestudies.org/ocs-bp-vaping-case-study/#Logistic_regression_%E2%80%9Cby_hand%E2%80%9D_and_by_model) for more information.
 
+
 ## Odds ratios {.smaller}
 
 The odds ratio is 21.4. When the predictor is TRUE (aka the individual ate vanilla ice cream), the odds of the response (having acute GI illness) were 21 times great than when it is FALSE (did not eat ice cream).
+
 
 ## Functions you might also see {.smaller}
 
@@ -681,7 +726,8 @@ The odds ratio is 21.4. When the predictor is TRUE (aka the individual ate vanil
 knitr::include_graphics("../../images/lol/R_package_for_everything.jpg")
 ```
 
-## Final note {.small}
+
+## Final note {.smaller}
 
 Some final notes: 
 
@@ -695,6 +741,7 @@ knitr::include_graphics("images/residual_dragons.png")
 
 Image by [Allison Horst](https://allisonhorst.com/data-science-art).
 
+
 ## Summary
 
 - `glm()` fits regression models:
@@ -704,6 +751,7 @@ Image by [Allison Horst](https://allisonhorst.com/data-science-art).
      - `summary()` gives useful statistics
 - `oddsratio()` from the `epitools` package can calculate odds ratios (outside of logistic regression - which allows more than one explanatory variable)
 - this is just the tip of the iceberg!
+
 
 ## Resources (also on the [website](https://jhudatascience.org/intro_to_r/resources.html)!)
 
@@ -719,7 +767,8 @@ For classes at JHU School of Public Health:
 - [PH.140.778 - Statistical Computing, Algorithm, and Software Development](https://www.jhsph.edu/courses/course/36737/2022/140.778.01/statistical-computing-algorithm-and-software-devel) - A more advanced course for working with data in R.
 Content for similar topics as this course can also be found on Leanpub.
 
-## Lab Part 2 {.small}
+
+## Lab Part 2 {.smaller}
 
 🏠 [Class Website](https://jhudatascience.org/intro_to_r/)  
 
@@ -727,12 +776,24 @@ Content for similar topics as this course can also be found on Leanpub.
 
 📃 [Day 8 Cheatsheet](https://jhudatascience.org/intro_to_r/modules/cheatsheets/Day-8.pdf)
 
-```{r, fig.alt="The End", out.width = "35%", echo = FALSE, fig.align='center'}
+```{r, fig.alt="The End", out.width = "25%", echo = FALSE, fig.align='center'}
 knitr::include_graphics(here::here("images/the-end-g23b994289_1280.jpg"))
 ```
 
 Image by <a href="https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Gerd Altmann</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=812226">Pixabay</a>
 
+# Additional Slides
 
+## Linear regression: factors {.smaller}
 
+You can view estimates for the comparison group by removing the intercept in the GLM formula
+
+`y ~ x - 1`
+
+*Caveat* is that the p-values change, and interpretation is often confusing.
+
+```{r regress9, comment="", fig.height=4, fig.width=8}
+fit_6 <- glm(orangeBoardings ~ factor(day) - 1, data = circ)
+summary(fit_6)
+```
 
