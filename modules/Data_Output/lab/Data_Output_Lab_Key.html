@@ -174,8 +174,18 @@ pre code {
 <pre><code># General format
 library(tidyverse)
 # OBJECT &lt;- read_csv(FILE)</code></pre>
-<pre class="r"><code>library(tidyverse)
-vacc &lt;- read_csv(file = &quot;http://jhudatascience.org/intro_to_r/data/vaccinations.csv&quot;)</code></pre>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.4     ✔ readr     2.1.5
+## ✔ forcats   1.0.0     ✔ stringr   1.5.1
+## ✔ ggplot2   3.5.2     ✔ tibble    3.2.1
+## ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+## ✔ purrr     1.0.4     
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<pre class="r"><code>vacc &lt;- read_csv(file = &quot;http://jhudatascience.org/intro_to_r/data/vaccinations.csv&quot;)</code></pre>
 <pre><code>## Rows: 37272 Columns: 103
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
@@ -215,7 +225,7 @@ write_rds(y, file = &quot;my_variable.rds&quot;)</code></pre>
 </div>
 <div id="p.3" class="section level3">
 <h3>P.3</h3>
-<p>Read the RDS file from your working directory back into your Environment. Call the file <code>z</code>.</p>
+<p>Read the RDS file from your working directory back into your Environment. Call the object <code>z</code>.</p>
 <pre class="r"><code>z &lt;- read_rds(file = &quot;my_variable.rds&quot;)</code></pre>
 </div>
 </div>
