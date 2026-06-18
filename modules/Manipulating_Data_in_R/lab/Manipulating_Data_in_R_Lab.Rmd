@@ -155,8 +155,8 @@ new_data <- old_data %>% pivot_wider(names_from = column1, values_from = column2
 
 Join the data. Keep only data that is found in both "vacc" and "gdp". 
 
-- First, try joining without using the `by` argument - what happens? 
-- Next, try joining using `by = c("Entity" = "GeoName")`. 
+- First, try joining without using the `by` argument - what happens?
+- Next, try joining using `by = c("entity" = "geo_name")`. 
 - Call the output "merged". How many observations (rows) are there?
 
 ```

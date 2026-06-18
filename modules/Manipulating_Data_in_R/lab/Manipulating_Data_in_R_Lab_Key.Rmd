@@ -189,7 +189,7 @@ gdp <- gdp %>%
 Join the data. Keep only data that is found in both "vacc" and "gdp". 
 
 - First, try joining without using the `by` argument - what happens?
-- Next, try joining using `by = c("Entity" = "GeoName")`. 
+- Next, try joining using `by = c("entity" = "geo_name")`. 
 - Call the output "merged". How many observations (rows) are there?
 
 ```
@@ -199,7 +199,7 @@ new_data <- inner_join(x, y, by = c("colname1" = "colname2"))
 
 ```{r 2.3response}
 # merged <- inner_join(vacc, gdp) does not work!
-merged <- inner_join(vacc, gdp, by = c("Entity" = "GeoName"))
+merged <- inner_join(vacc, gdp, by = c("entity" = "geo_name"))
 nrow(merged)
 ```
 
@@ -213,7 +213,7 @@ new_data <- full_join(x, y, by = c("colname1" = "colname2"))
 ```
 
 ```{r 2.4response}
-full <- full_join(vacc, gdp, by = c("Entity" = "GeoName"))
+full <- full_join(vacc, gdp, by = c("entity" = "geo_name"))
 nrow(full)
 ```
 
@@ -225,7 +225,7 @@ nrow(full)
 Do a left join of "vacc" and "gdp". Call the output "left". How many observations are there?
 
 ```{r P.3response}
-left <- left_join(vacc, gdp, by = c("Entity" = "GeoName"))
+left <- left_join(vacc, gdp, by = c("entity" = "geo_name"))
 nrow(left)
 ```
 
@@ -234,7 +234,7 @@ nrow(left)
 Copy your code from Question P.3 and change it to a `right_join` with the same order of the arguments. Call the output "right". How many observations are there?
 
 ```{r P.4response}
-right <- right_join(vacc, gdp, by = c("Entity" = "GeoName"))
+right <- right_join(vacc, gdp, by = c("entity" = "geo_name"))
 nrow(right)
 ```
 
@@ -248,8 +248,8 @@ anti_join(L, R, by = c("name_L" = "name_R")) %>% select(name_L)
 ```
 
 ```{r P.5response}
-in_vacc_only <- anti_join(vacc, gdp, by = c("Entity" = "GeoName")) %>% select(Entity)
-in_gdp_only <- anti_join(gdp, vacc, by = c("GeoName" = "Entity")) %>% select(GeoName)
+in_vacc_only <- anti_join(vacc, gdp, by = c("entity" = "geo_name")) %>% select(entity)
+in_gdp_only <- anti_join(gdp, vacc, by = c("geo_name" = "entity")) %>% select(geo_name)
 in_vacc_only
 in_gdp_only
 ```
